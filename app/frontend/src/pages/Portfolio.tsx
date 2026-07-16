@@ -36,9 +36,13 @@ const STATIC_PROJECTS: Project[] = [
   { id: 'm2', title: 'WorkApp Mobile', description: 'Mobile workforce management application', category: 'Mobil Uygulama', project_url: 'https://workapp.llc' },
   { id: 'm3', title: 'Watermaker Mobile', description: 'Mobile shopping app for water products', category: 'Mobil Uygulama', project_url: 'https://watermaker.market' },
   { id: 'm4', title: 'FSM Watermakers Mobile', description: 'Mobile app for FSM Watermakers services', category: 'Mobil Uygulama', project_url: 'https://fsmwatermaker.com' },
+  // Reklam
+  { id: 'r1', title: 'Google Ads Kampanyaları', description: 'Multi-channel Google Ads campaign management for e-commerce clients', category: 'Reklam', featured: true },
+  { id: 'r2', title: 'Meta Ads & Social Media', description: 'Facebook & Instagram advertising campaigns with high ROAS', category: 'Reklam' },
+  { id: 'r3', title: 'SEO & Content Marketing', description: 'Organic growth strategy and content marketing for SaaS products', category: 'Reklam' },
 ];
 
-const CATEGORIES_KEYS = ['all', 'SaaS', 'E-Ticaret', 'Website', 'Mobil Uygulama'];
+const CATEGORIES_KEYS = ['all', 'Website', 'E-Ticaret', 'SaaS', 'Mobil Uygulama', 'Reklam'];
 
 export default function Portfolio() {
   const { t } = useTranslation();

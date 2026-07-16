@@ -18,12 +18,15 @@ interface BlogPost {
   created_at?: string;
 }
 
+const BLOG_CATEGORIES = ['all', 'Website', 'E-Ticaret', 'SaaS', 'Mobil', 'Reklam'];
+
 export default function Blog() {
   const { t } = useTranslation();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [selected, setSelected] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [activeCat, setActiveCat] = useState('all');
 
   useEffect(() => {
     let cancelled = false;
@@ -104,6 +107,28 @@ export default function Blog() {
         </div>
       </section>
 
+      {/* Category filter */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+        <div className="flex flex-wrap gap-2">
+          {BLOG_CATEGORIES.map((cat) => {
+            const active = cat === activeCat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCat(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  active
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
+                    : 'glass text-muted-foreground hover:text-foreground hover:border-purple-500/30'
+                }`}
+              >
+                {cat === 'all' ? t('portfolio.all') : cat}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <section className="pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
@@ -117,7 +142,7 @@ export default function Blog() {
             <div className="py-24 text-center text-muted-foreground">{t('blog.empty')}</div>
           ) : (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
+              {posts.filter((p) => activeCat === 'all' || p.category === activeCat).map((post) => (
                 <article
                   key={post.id}
                   onClick={() => setSelected(post)}

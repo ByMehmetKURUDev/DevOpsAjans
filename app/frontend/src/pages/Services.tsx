@@ -8,14 +8,14 @@ import {
   ShoppingCart,
   Check,
   ArrowRight,
+  Github,
+  Linkedin,
+  Twitter,
   Zap,
   Rocket,
   Shield,
   Crown,
   Server,
-  Github,
-  Linkedin,
-  Twitter,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
@@ -28,6 +28,7 @@ export default function Services() {
     { title: t('about.v2Title'), desc: t('about.v2Desc') },
     { title: t('about.v3Title'), desc: t('about.v3Desc') },
     { title: t('about.v4Title'), desc: t('about.v4Desc') },
+    { title: t('about.v5Title'), desc: t('about.v5Desc') },
   ];
 
   const TIMELINE = [
@@ -35,6 +36,8 @@ export default function Services() {
     { year: t('about.t2Year'), title: t('about.t2Title'), desc: t('about.t2Desc') },
     { year: t('about.t3Year'), title: t('about.t3Title'), desc: t('about.t3Desc') },
     { year: t('about.t4Year'), title: t('about.t4Title'), desc: t('about.t4Desc') },
+    { year: t('about.t5Year'), title: t('about.t5Title'), desc: t('about.t5Desc') },
+    { year: t('about.t6Year'), title: t('about.t6Title'), desc: t('about.t6Desc') },
   ];
 
   const CORE_SERVICES = [
@@ -89,51 +92,17 @@ export default function Services() {
   ];
 
   const PLANS = [
-    {
-      icon: Zap,
-      name: t('packages.option1'),
-      price: t('packages.option1Price'),
-      desc: t('packages.option1Desc'),
-      gradient: 'from-purple-600 to-pink-600',
-      highlight: false,
-      isQuote: false,
-    },
-    {
-      icon: Rocket,
-      name: t('packages.option2'),
-      price: t('packages.option2Price'),
-      desc: t('packages.option2Desc'),
-      gradient: 'from-pink-600 to-orange-500',
-      highlight: false,
-      isQuote: false,
-    },
-    {
-      icon: Shield,
-      name: t('packages.option3'),
-      price: t('packages.option3Price'),
-      desc: t('packages.option3Desc'),
-      gradient: 'from-cyan-500 to-purple-600',
-      highlight: true,
-      isQuote: false,
-    },
-    {
-      icon: Crown,
-      name: t('packages.option4'),
-      price: t('packages.option4Price'),
-      desc: t('packages.option4Desc'),
-      gradient: 'from-emerald-500 to-cyan-500',
-      highlight: false,
-      isQuote: false,
-    },
-    {
-      icon: Server,
-      name: t('packages.option5'),
-      price: t('packages.option5Price'),
-      desc: t('packages.option5Desc'),
-      gradient: 'from-purple-500 to-pink-500',
-      highlight: false,
-      isQuote: true,
-    },
+    { icon: Zap, name: t('packages.option1'), price: t('packages.option1Price'), desc: t('packages.option1Desc'), gradient: 'from-purple-600 to-pink-600', highlight: false, isQuote: false },
+    { icon: Rocket, name: t('packages.option2'), price: t('packages.option2Price'), desc: t('packages.option2Desc'), gradient: 'from-pink-600 to-orange-500', highlight: false, isQuote: false },
+    { icon: Shield, name: t('packages.option3'), price: t('packages.option3Price'), desc: t('packages.option3Desc'), gradient: 'from-cyan-500 to-purple-600', highlight: true, isQuote: false },
+    { icon: Crown, name: t('packages.option4'), price: t('packages.option4Price'), desc: t('packages.option4Desc'), gradient: 'from-emerald-500 to-cyan-500', highlight: false, isQuote: false },
+    { icon: Server, name: t('packages.option5'), price: t('packages.option5Price'), desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true },
+  ];
+
+  const SOCIALS = [
+    { icon: Github, label: 'GitHub', url: '#' },
+    { icon: Linkedin, label: 'LinkedIn', url: '#' },
+    { icon: Twitter, label: 'Twitter / X', url: '#' },
   ];
 
   return (
@@ -154,14 +123,10 @@ export default function Services() {
               {t('about.desc')}
             </p>
             <div className="flex flex-wrap gap-3">
-              {[
-                { icon: Github, label: 'GitHub' },
-                { icon: Linkedin, label: 'LinkedIn' },
-                { icon: Twitter, label: 'Twitter / X' },
-              ].map((s) => (
+              {SOCIALS.map((s) => (
                 <a
                   key={s.label}
-                  href="#"
+                  href={s.url}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm hover:border-purple-500/40 transition-colors"
                 >
                   <s.icon className="h-4 w-4" />
@@ -175,7 +140,7 @@ export default function Services() {
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden glass p-2 animate-float">
               <div className="absolute -inset-4 bg-gradient-to-br from-purple-500/30 via-pink-500/20 to-cyan-500/20 blur-2xl -z-10" />
               <img
-                src="https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/ss7bwqaaaiza/founder-photo_variant_1.png"
+                src="/assets/founder-photo.jpg"
                 alt="Mehmet KURU"
                 className="w-full h-full object-cover rounded-2xl"
                 onError={(e) => {
@@ -202,7 +167,7 @@ export default function Services() {
             </p>
             <h2 className="text-4xl md:text-5xl font-bold">{t('about.valuesTitle')}</h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
             {VALUES.map((v, i) => (
               <div key={v.title} className="p-6 rounded-2xl glass hover:border-purple-500/40 transition-colors">
                 <div className="text-5xl font-bold gradient-text mb-4">0{i + 1}</div>

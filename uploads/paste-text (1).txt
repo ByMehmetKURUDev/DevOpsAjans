@@ -1,0 +1,21 @@
+ANASAYFA:
+1. Logo ekteki ile degistir
+2. By Mehmet KURU Dev tarafından kurulan butik bir geliştirme ve dijital ajans. Sıradan görünmeyi reddeden ekipler için özel web, mobil ve pazarlama cozumleri. (slider duzenlenecek eksik yazı ekle)
+3. Teslim edilen proje 41+,  13+, yillik deneyim, 33+, mutlu müşteri, 7+, hizmet verilen ülke
+4. Ne yapıyoruz bolumu :danismanlik, urun tasarimi, ozel yazilim, dijital pazarlama, olaraak sirala 5 asama olsun sonu yayin sureci olsun alttaki süreç kısmı kalsın
+5. Nasil yapiyoruz bolumun ve surec in altina  nasil calisirdan paketleri getir ekle ve duzenle ( 1. Asama danismanlik analiz urun demosu 1 saatlik calışma 100 dolar, 2. asama demo urun revizyonlar ile geliştirilerek yayına alınır, 3. Asama profesyonel  seo, ads ve diğer uygulamalar entegre edilir, 4. Asama tüm sistemler alt yapı ucretleri danismanlik sistem yonetimi, 5.asama ozel proje yonetimi devops altyapisi ve ci/cd Pipelinelari ve surec yonetimi guvenlik 
+6. Kullandigimiz araclara daha cok devops aracinin ve altyapi logolarini ekle
+7. Instagram kayan menüyü bir alt bölüme taşı ve genişlet api sini instagramdan cek ve tüm sayfaların alt kısmına ekle
+8. Sayfanın en alt bölümüne Facebook, Instagram, twitter, linkedin, YouTube, GitHub, ikonları ile birlikte ekle ayni bölümdeki iletişim kısmındaki adresin altında WhatsApp mazisini ve linkini kaldır, © 2026 By@MehmetKURU.Dev olsun
+9. 
+Nasıl Calisir:
+1. Ben Mehmet KURU — full-stack mühendis, tasarımcı ve stratejist. Son sekiz yılda solo kurucular, VC destekli startuplar ve Kucuk ölçekli şirketler için yazılım gelistirdim. mehmetkuru.dev her projede tek kıdemli lider, sıkı bir işbirlikçi ağı ve slaytlar yerine teslimata odaklanma. (Bu bolumu biraz daha geliştir) diger sosyal medya butonlarinida ekle
+2. Inandiklarimiz bolumu: 5. Bolumu ekle Teslimat icerik ekle
+3. Yolculuk bolumu: 2013 ten 2026 ya kadar cesitlendir ve tarihi buna Gore duzenle
+4. Paketler bolumu:
+Portföy kategori bolumu: website, ticaret, saas, mobil, reklam, ( bu siralama da duzenle)
+Blog bölümüne kategori ekle: website, ticaret, saas, mobil, reklam, ( bu siralama da duzenle)
+Iletişim: iletişim formunun alt kısmına harita uzerinde göster ofis i alta tasma yapmasın diger platformlar kısmına daha önceki sayfalardaki gibi sosyal hesapları ekle hepsi ayni ikon seti olarak gorunsun
+  
+
+Buradaki tüm ayarlar ve düzenlemeler user ve admin panel kısmından istendiğinde degisebilsin yada yenisi eklenebilsin girişimi yap butonun oldu kısma sosyal hesaplar ile giriş yapilabilsin.  google hiz optimiszyonu, sayfa icerik optimizasyonu, görsel optimizasyonu, yap site hızlı olsun.
