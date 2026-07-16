@@ -37,4 +37,5 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-07-16 | Added Packages page (5 pricing cards: $100/$300/$500/$700/DevOps) with Buy Now buttons; updated contact info (by@mehmetkuru.dev, 0541 296 58 78, Sultan Selim Mah address) across Contact page and footer
 - 2026-07-16 | Merged About into "Nasıl Çalışır" page; removed Hakkımızda nav/route; added flags to language switcher (🇹🇷🇬🇧🇩🇪); default lang=TR; added Instagram carousel above footer on homepage; updated Portfolio with SaaS/E-Ticaret/Website/Mobil Uygulama categories and projects
 - 2026-07-16 | Major update: new logo, hero stats (41+/13+/33+/7+), 5 capabilities (Consulting→Launch), 5 pricing packages on homepage+services, expanded timeline (2013-2026), 5 values including Teslimat, social icons in footer (FB/IG/Twitter/LinkedIn/YouTube/GitHub), map on contact page, blog categories, portfolio Reklam category, DevOps tools in marquee, copyright updated to "By@MehmetKURU.Dev"
+- 2026-07-16 | Performance: lazy-loaded all route pages (code splitting), Instagram carousel moved to shared Layout (all pages), new logo (4).jpg applied, build passes with smaller chunks
 
