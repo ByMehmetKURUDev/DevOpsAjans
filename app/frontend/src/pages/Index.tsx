@@ -1,41 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Code2, Rocket, Target, Zap, Award, Users, Globe } from 'lucide-react';
+import { ArrowRight, Sparkles, Code2, Rocket, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Hero3D from '@/components/Hero3D';
-
-const STATS = [
-  { value: '150+', label: 'Projects Delivered' },
-  { value: '8+', label: 'Years of Craft' },
-  { value: '40+', label: 'Happy Clients' },
-  { value: '12', label: 'Countries Served' },
-];
-
-const CAPABILITIES = [
-  {
-    icon: Code2,
-    title: 'Custom Software',
-    desc: 'Full-stack web & mobile apps engineered for performance and scale.',
-    gradient: 'from-purple-500 to-pink-500',
-  },
-  {
-    icon: Rocket,
-    title: 'Digital Marketing',
-    desc: 'SEO, paid ads, and content strategy that ships measurable ROI.',
-    gradient: 'from-pink-500 to-orange-400',
-  },
-  {
-    icon: Sparkles,
-    title: 'Product Design',
-    desc: 'Interfaces that feel inevitable. Motion. Systems. Brand identity.',
-    gradient: 'from-cyan-400 to-purple-500',
-  },
-  {
-    icon: Target,
-    title: 'Consulting',
-    desc: 'Roadmaps, architecture reviews, and hands-on team enablement.',
-    gradient: 'from-emerald-400 to-cyan-400',
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const TECH = [
   'React', 'Next.js', 'TypeScript', 'Node.js', 'Python',
@@ -44,6 +11,49 @@ const TECH = [
 ];
 
 export default function Index() {
+  const { t } = useTranslation();
+
+  const STATS = [
+    { value: '150+', label: t('stats.projects') },
+    { value: '8+', label: t('stats.years') },
+    { value: '40+', label: t('stats.clients') },
+    { value: '12', label: t('stats.countries') },
+  ];
+
+  const CAPABILITIES = [
+    {
+      icon: Code2,
+      title: t('capabilities.software'),
+      desc: t('capabilities.softwareDesc'),
+      gradient: 'from-purple-500 to-pink-500',
+    },
+    {
+      icon: Rocket,
+      title: t('capabilities.marketing'),
+      desc: t('capabilities.marketingDesc'),
+      gradient: 'from-pink-500 to-orange-400',
+    },
+    {
+      icon: Sparkles,
+      title: t('capabilities.design'),
+      desc: t('capabilities.designDesc'),
+      gradient: 'from-cyan-400 to-purple-500',
+    },
+    {
+      icon: Target,
+      title: t('capabilities.consulting'),
+      desc: t('capabilities.consultingDesc'),
+      gradient: 'from-emerald-400 to-cyan-400',
+    },
+  ];
+
+  const STEPS = [
+    { n: '01', title: t('process.step1Title'), desc: t('process.step1Desc') },
+    { n: '02', title: t('process.step2Title'), desc: t('process.step2Desc') },
+    { n: '03', title: t('process.step3Title'), desc: t('process.step3Desc') },
+    { n: '04', title: t('process.step4Title'), desc: t('process.step4Desc') },
+  ];
+
   return (
     <div>
       {/* HERO */}
@@ -61,22 +71,20 @@ export default function Index() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
               </span>
               <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
-                Available for projects · Q3 2026
+                {t('hero.badge')}
               </span>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.02] mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-              We build the{' '}
-              <span className="gradient-text">software</span>
+              {t('hero.title1')}{' '}
+              <span className="gradient-text">{t('hero.titleHighlight')}</span>
               <br />
-              behind ambitious{' '}
-              <span className="italic font-light text-muted-foreground">brands.</span>
+              {t('hero.title2')}{' '}
+              <span className="italic font-light text-muted-foreground">{t('hero.titleItalic')}</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
-              A boutique dev &amp; digital agency by <span className="text-foreground font-medium">Mehmet KURU</span>.
-              Custom web, mobile, and marketing systems crafted for teams that
-              refuse to look like everyone else.
+              {t('hero.desc')}
             </p>
 
             <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
@@ -85,7 +93,7 @@ export default function Index() {
                   size="lg"
                   className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 glow-primary h-12 px-6 gap-2"
                 >
-                  Start a project <ArrowRight className="h-4 w-4" />
+                  {t('hero.cta')} <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/portfolio">
@@ -94,7 +102,7 @@ export default function Index() {
                   variant="outline"
                   className="h-12 px-6 !bg-transparent !hover:bg-transparent border-white/20 hover:border-white/40 gap-2"
                 >
-                  See our work
+                  {t('hero.ctaSecondary')}
                 </Button>
               </Link>
             </div>
@@ -121,11 +129,11 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-16">
             <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">
-              What we do
+              {t('capabilities.sectionTag')}
             </p>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
-              Full-stack craft, from{' '}
-              <span className="gradient-text">idea to launch</span>.
+              {t('capabilities.title')}{' '}
+              <span className="gradient-text">{t('capabilities.titleHighlight')}</span>.
             </h2>
           </div>
 
@@ -148,7 +156,7 @@ export default function Index() {
                     to="/services"
                     className="text-xs uppercase tracking-wider text-purple-400 hover:text-purple-300 flex items-center gap-1"
                   >
-                    Learn more <ArrowRight className="h-3 w-3" />
+                    {t('capabilities.learnMore')} <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>
               </div>
@@ -161,25 +169,19 @@ export default function Index() {
       <section className="relative py-32 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:grid-cols-2">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">Process</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">{t('process.sectionTag')}</p>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
-              Fewer meetings.
+              {t('process.title1')}
               <br />
-              <span className="gradient-text">Sharper deliverables.</span>
+              <span className="gradient-text">{t('process.titleHighlight')}</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-lg">
-              We keep engagements deliberately lean. One tight team, one
-              senior lead, one shared repo — from kickoff to launch.
+              {t('process.desc')}
             </p>
           </div>
 
           <div className="space-y-6">
-            {[
-              { n: '01', title: 'Discover', desc: 'Deep-dive workshops, technical audits, and a written scope you actually understand.' },
-              { n: '02', title: 'Design', desc: 'Low-fi → hi-fi in Figma with a real design system, not a mood board.' },
-              { n: '03', title: 'Build', desc: 'Weekly production releases. You watch it come alive in staging every Friday.' },
-              { n: '04', title: 'Grow', desc: 'Post-launch: performance, SEO, paid, analytics, and iterative product bets.' },
-            ].map((step) => (
+            {STEPS.map((step) => (
               <div key={step.n} className="flex gap-6 p-5 rounded-xl hover:bg-white/[0.02] transition-colors">
                 <div className="text-4xl font-bold gradient-text opacity-60 w-16 shrink-0">
                   {step.n}
@@ -197,17 +199,17 @@ export default function Index() {
       {/* TECH MARQUEE */}
       <section className="py-16 border-y border-white/5 bg-gradient-to-r from-purple-950/20 via-pink-950/10 to-cyan-950/20 overflow-hidden">
         <p className="text-center text-xs uppercase tracking-[0.4em] text-muted-foreground mb-8">
-          Tools of the trade
+          {t('techMarquee')}
         </p>
         <div className="relative">
           <div className="flex marquee gap-8 whitespace-nowrap">
-            {[...TECH, ...TECH].map((t, i) => (
+            {[...TECH, ...TECH].map((tech, i) => (
               <span
-                key={`${t}-${i}`}
+                key={`${tech}-${i}`}
                 className="text-2xl md:text-3xl font-bold tracking-tight text-muted-foreground/60 hover:text-foreground transition-colors"
               >
-                {t}
-                <span className="mx-8 text-purple-500/40">◆</span>
+                {tech}
+                <span className="mx-8 text-purple-500/40">&#9670;</span>
               </span>
             ))}
           </div>
@@ -223,12 +225,11 @@ export default function Index() {
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              Have an idea?{' '}
-              <span className="gradient-text italic">Let&apos;s make it real.</span>
+              {t('cta.title')}{' '}
+              <span className="gradient-text italic">{t('cta.titleHighlight')}</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-8">
-              Book a discovery call. We&apos;ll tell you honestly whether the
-              project makes sense — and how we&apos;d ship it.
+              {t('cta.desc')}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/contact">
@@ -236,7 +237,7 @@ export default function Index() {
                   size="lg"
                   className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 h-12 px-8"
                 >
-                  Get in touch
+                  {t('cta.btn')}
                 </Button>
               </Link>
               <Link to="/services">
@@ -245,7 +246,7 @@ export default function Index() {
                   variant="outline"
                   className="h-12 px-8 !bg-transparent border-white/20 hover:border-white/40"
                 >
-                  View services
+                  {t('cta.btnSecondary')}
                 </Button>
               </Link>
             </div>

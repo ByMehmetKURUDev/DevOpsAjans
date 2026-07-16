@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
   Code2,
-  Rocket,
   Paintbrush,
   Search,
   BarChart3,
@@ -12,97 +11,99 @@ import {
   Check,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const CORE_SERVICES = [
-  {
-    icon: Code2,
-    title: 'Custom Web Development',
-    tag: 'Engineering',
-    desc: 'Full-stack applications built on React, Next.js, TypeScript, and modern backends. Fast, accessible, and boringly reliable.',
-    bullets: ['Web apps & SaaS platforms', 'Marketing sites & CMS', 'API & backend systems'],
-    gradient: 'from-purple-600 to-pink-600',
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobile Applications',
-    tag: 'Engineering',
-    desc: 'Native-quality iOS and Android apps with React Native + Expo. Shared codebase, platform-native feel.',
-    bullets: ['iOS & Android from one codebase', 'App Store & Play Store delivery', 'Offline-first architecture'],
-    gradient: 'from-pink-600 to-orange-500',
-  },
-  {
-    icon: ShoppingCart,
-    title: 'E-Commerce Platforms',
-    tag: 'Engineering',
-    desc: 'From Shopify custom themes to fully bespoke multi-vendor marketplaces. Conversion-focused, payment-ready.',
-    bullets: ['Custom checkout flows', 'Multi-currency & multi-region', 'Stripe / PayPal integrations'],
-    gradient: 'from-cyan-500 to-purple-600',
-  },
-  {
-    icon: Paintbrush,
-    title: 'Product & Brand Design',
-    tag: 'Design',
-    desc: 'Design systems, UI kits, and full brand identities in Figma. Delivered production-ready, not just pretty screens.',
-    bullets: ['Design systems in Figma', 'Landing pages & brand sites', 'Motion & interaction design'],
-    gradient: 'from-emerald-500 to-cyan-500',
-  },
-  {
-    icon: Search,
-    title: 'SEO & Content Strategy',
-    tag: 'Growth',
-    desc: 'Technical SEO audits, content clusters, and site architecture that actually rank — including for AI answer engines.',
-    bullets: ['Technical & on-page SEO', 'Content planning & briefs', 'Answer-engine optimization'],
-    gradient: 'from-purple-500 to-cyan-500',
-  },
-  {
-    icon: BarChart3,
-    title: 'Paid Ads & Growth',
-    tag: 'Growth',
-    desc: 'Google, Meta, LinkedIn, TikTok. Creative, campaigns, tracking, and honest reporting you can act on.',
-    bullets: ['Full-funnel paid strategy', 'Creative production', 'GA4 + server-side tracking'],
-    gradient: 'from-pink-500 to-purple-600',
-  },
-];
-
-const PACKAGES = [
-  {
-    name: 'Sprint',
-    price: 'From $8k',
-    duration: '2–3 weeks',
-    desc: 'A single, tightly-scoped deliverable. Landing page, MVP feature, or brand refresh.',
-    features: ['Kickoff workshop', 'Design + build', 'One senior lead', 'Weekly demos', 'Launch handoff'],
-    highlight: false,
-  },
-  {
-    name: 'Studio',
-    price: 'From $28k',
-    duration: '6–10 weeks',
-    desc: 'Full product engagement. New app, redesign, or major release. Design + engineering.',
-    features: ['Everything in Sprint', 'Design system', 'Multi-page or multi-screen product', 'Analytics + SEO setup', 'Post-launch support'],
-    highlight: true,
-  },
-  {
-    name: 'Retainer',
-    price: 'From $6k/mo',
-    duration: 'Ongoing',
-    desc: 'Continuous product + marketing partnership. For teams shipping every week.',
-    features: ['Dedicated senior time', 'Weekly production releases', 'Growth experiments', 'Priority support', 'Quarterly strategy'],
-    highlight: false,
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function Services() {
+  const { t } = useTranslation();
+
+  const CORE_SERVICES = [
+    {
+      icon: Code2,
+      title: t('services.webDev'),
+      tag: t('services.tagEngineering'),
+      desc: t('services.webDevDesc'),
+      bullets: [t('services.webDevB1'), t('services.webDevB2'), t('services.webDevB3')],
+      gradient: 'from-purple-600 to-pink-600',
+    },
+    {
+      icon: Smartphone,
+      title: t('services.mobile'),
+      tag: t('services.tagEngineering'),
+      desc: t('services.mobileDesc'),
+      bullets: [t('services.mobileB1'), t('services.mobileB2'), t('services.mobileB3')],
+      gradient: 'from-pink-600 to-orange-500',
+    },
+    {
+      icon: ShoppingCart,
+      title: t('services.ecommerce'),
+      tag: t('services.tagEngineering'),
+      desc: t('services.ecommerceDesc'),
+      bullets: [t('services.ecommerceB1'), t('services.ecommerceB2'), t('services.ecommerceB3')],
+      gradient: 'from-cyan-500 to-purple-600',
+    },
+    {
+      icon: Paintbrush,
+      title: t('services.brandDesign'),
+      tag: t('services.tagDesign'),
+      desc: t('services.brandDesignDesc'),
+      bullets: [t('services.brandDesignB1'), t('services.brandDesignB2'), t('services.brandDesignB3')],
+      gradient: 'from-emerald-500 to-cyan-500',
+    },
+    {
+      icon: Search,
+      title: t('services.seo'),
+      tag: t('services.tagGrowth'),
+      desc: t('services.seoDesc'),
+      bullets: [t('services.seoB1'), t('services.seoB2'), t('services.seoB3')],
+      gradient: 'from-purple-500 to-cyan-500',
+    },
+    {
+      icon: BarChart3,
+      title: t('services.ads'),
+      tag: t('services.tagGrowth'),
+      desc: t('services.adsDesc'),
+      bullets: [t('services.adsB1'), t('services.adsB2'), t('services.adsB3')],
+      gradient: 'from-pink-500 to-purple-600',
+    },
+  ];
+
+  const PACKAGES = [
+    {
+      name: t('services.sprint'),
+      price: t('services.sprintPrice'),
+      duration: t('services.sprintDuration'),
+      desc: t('services.sprintDesc'),
+      features: ['Kickoff workshop', 'Design + build', 'One senior lead', 'Weekly demos', 'Launch handoff'],
+      highlight: false,
+    },
+    {
+      name: t('services.studio'),
+      price: t('services.studioPrice'),
+      duration: t('services.studioDuration'),
+      desc: t('services.studioDesc'),
+      features: ['Everything in Sprint', 'Design system', 'Multi-page or multi-screen product', 'Analytics + SEO setup', 'Post-launch support'],
+      highlight: true,
+    },
+    {
+      name: t('services.retainer'),
+      price: t('services.retainerPrice'),
+      duration: t('services.retainerDuration'),
+      desc: t('services.retainerDesc'),
+      features: ['Dedicated senior time', 'Weekly production releases', 'Growth experiments', 'Priority support', 'Quarterly strategy'],
+      highlight: false,
+    },
+  ];
+
   return (
     <div>
       {/* Header */}
       <section className="py-24 md:py-32 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">Services</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">{t('services.sectionTag')}</p>
         <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] mb-6">
-          Everything you need to <span className="gradient-text">ship &amp; grow</span>.
+          {t('services.title')} <span className="gradient-text">{t('services.titleHighlight')}</span>.
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Six deeply-integrated services under one senior lead. Pick one — or
-          combine them into a single accountable engagement.
+          {t('services.desc')}
         </p>
       </section>
 
@@ -141,11 +142,10 @@ export default function Services() {
       <section className="py-24 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">How we work</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Three ways to engage.</h2>
+            <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">{t('services.packagesTag')}</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('services.packagesTitle')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Every engagement is scoped in writing before we start. No surprises,
-              no scope creep, no “more slides please.”
+              {t('services.packagesDesc')}
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export default function Services() {
               >
                 {p.highlight && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[10px] uppercase tracking-widest font-semibold">
-                    Most popular
+                    {t('services.mostPopular')}
                   </div>
                 )}
                 <div className="flex items-baseline justify-between mb-2">
@@ -187,7 +187,7 @@ export default function Services() {
                     }`}
                     variant={p.highlight ? 'default' : 'outline'}
                   >
-                    Start conversation <ArrowRight className="h-4 w-4" />
+                    {t('services.startConversation')} <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
               </div>
@@ -201,15 +201,14 @@ export default function Services() {
         <div className="max-w-3xl mx-auto px-4 text-center">
           <Sparkles className="h-10 w-10 gradient-text mx-auto mb-4" />
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Not sure which fits?
+            {t('services.notSure')}
           </h2>
           <p className="text-muted-foreground mb-8">
-            Send a paragraph about the problem. We&apos;ll reply with an honest
-            first-take within 24 hours.
+            {t('services.notSureDesc')}
           </p>
           <Link to="/contact">
             <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 text-white h-12 px-8">
-              Tell us about your project
+              {t('services.tellUs')}
             </Button>
           </Link>
         </div>

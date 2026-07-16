@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@metagptx/web-sdk';
+import { useTranslation } from 'react-i18next';
 
 const client = createClient();
 
@@ -19,6 +20,7 @@ const SOCIALS = [
 ];
 
 export default function Contact() {
+  const { t } = useTranslation();
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -36,7 +38,7 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      toast.error('Please fill in name, email, and message.');
+      toast.error(t('contact.errorRequired'));
       return;
     }
     setSubmitting(true);
@@ -53,7 +55,7 @@ export default function Contact() {
       });
       setSuccess(true);
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
-      toast.success('Thanks! We will reply within 24 hours.');
+      toast.success(t('contact.success'));
     } catch (err) {
       const anyErr = err as { data?: { detail?: string }; message?: string };
       toast.error(anyErr?.data?.detail || anyErr?.message || 'Failed to send message. Please try again.');
@@ -68,13 +70,12 @@ export default function Contact() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-2">
           {/* Left column */}
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">Contact</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">{t('contact.sectionTag')}</p>
             <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] mb-6">
-              Let&apos;s talk about <span className="gradient-text">your idea</span>.
+              {t('contact.title')} <span className="gradient-text">{t('contact.titleHighlight')}</span>.
             </h1>
             <p className="text-lg text-muted-foreground max-w-lg mb-10">
-              Tell us about the problem. We&apos;ll reply within 24 hours with
-              honest thoughts — even if we&apos;re not the right fit.
+              {t('contact.desc')}
             </p>
 
             <div className="space-y-4 mb-10">
@@ -83,7 +84,7 @@ export default function Contact() {
                   <Mail className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground">Email</p>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">{t('contact.email')}</p>
                   <p className="font-medium group-hover:gradient-text transition-all">hello@mehmetkuru.dev</p>
                 </div>
               </a>
@@ -98,8 +99,8 @@ export default function Contact() {
                   <MessageCircle className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground">WhatsApp</p>
-                  <p className="font-medium group-hover:text-green-400 transition-colors">Message us on WhatsApp</p>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">{t('contact.whatsapp')}</p>
+                  <p className="font-medium group-hover:text-green-400 transition-colors">{t('contact.whatsappLabel')}</p>
                 </div>
               </a>
 
@@ -108,14 +109,14 @@ export default function Contact() {
                   <MapPin className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-widest text-muted-foreground">Based in</p>
-                  <p className="font-medium">Istanbul · Remote worldwide</p>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">{t('contact.basedIn')}</p>
+                  <p className="font-medium">{t('contact.location')}</p>
                 </div>
               </div>
             </div>
 
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">Elsewhere</p>
+              <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">{t('contact.elsewhere')}</p>
               <div className="flex flex-wrap gap-2">
                 {SOCIALS.map((s) => (
                   <a
@@ -136,34 +137,34 @@ export default function Contact() {
               <div className="absolute -inset-4 bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-cyan-600/10 blur-2xl -z-10 rounded-3xl" />
               {success && (
                 <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-sm text-green-300">
-                  Message received — we&apos;ll be in touch within 24 hours.
+                  {t('contact.success')}
                 </div>
               )}
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <Label htmlFor="name" className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Name *
+                      {t('contact.formName')} *
                     </Label>
                     <Input
                       id="name"
                       value={form.name}
                       onChange={handleChange('name')}
-                      placeholder="Your name"
+                      placeholder={t('contact.formNamePlaceholder')}
                       required
                       className="bg-white/5 border-white/10 focus:border-purple-500"
                     />
                   </div>
                   <div>
                     <Label htmlFor="email" className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Email *
+                      {t('contact.formEmail')} *
                     </Label>
                     <Input
                       id="email"
                       type="email"
                       value={form.email}
                       onChange={handleChange('email')}
-                      placeholder="you@company.com"
+                      placeholder={t('contact.formEmailPlaceholder')}
                       required
                       className="bg-white/5 border-white/10 focus:border-purple-500"
                     />
@@ -172,38 +173,38 @@ export default function Contact() {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <Label htmlFor="phone" className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Phone
+                      {t('contact.formPhone')}
                     </Label>
                     <Input
                       id="phone"
                       value={form.phone}
                       onChange={handleChange('phone')}
-                      placeholder="Optional"
+                      placeholder={t('contact.formPhonePlaceholder')}
                       className="bg-white/5 border-white/10 focus:border-purple-500"
                     />
                   </div>
                   <div>
                     <Label htmlFor="subject" className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Subject
+                      {t('contact.formSubject')}
                     </Label>
                     <Input
                       id="subject"
                       value={form.subject}
                       onChange={handleChange('subject')}
-                      placeholder="What is this about?"
+                      placeholder={t('contact.formSubjectPlaceholder')}
                       className="bg-white/5 border-white/10 focus:border-purple-500"
                     />
                   </div>
                 </div>
                 <div>
                   <Label htmlFor="message" className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Message *
+                    {t('contact.formMessage')} *
                   </Label>
                   <Textarea
                     id="message"
                     value={form.message}
                     onChange={handleChange('message')}
-                    placeholder="Tell us about your project, goals, timeline, and budget..."
+                    placeholder={t('contact.formMessagePlaceholder')}
                     rows={6}
                     required
                     className="bg-white/5 border-white/10 focus:border-purple-500 resize-none"
@@ -216,11 +217,11 @@ export default function Contact() {
                 >
                   {submitting ? (
                     <>
-                      <Loader2 className="h-4 w-4 animate-spin" /> Sending...
+                      <Loader2 className="h-4 w-4 animate-spin" /> {t('contact.sending')}
                     </>
                   ) : (
                     <>
-                      Send message <Send className="h-4 w-4" />
+                      {t('contact.send')} <Send className="h-4 w-4" />
                     </>
                   )}
                 </Button>

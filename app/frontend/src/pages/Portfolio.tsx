@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ExternalLink, Loader2 } from 'lucide-react';
 import { createClient } from '@metagptx/web-sdk';
+import { useTranslation } from 'react-i18next';
 
 const client = createClient();
 
@@ -17,13 +18,14 @@ interface Project {
   featured?: boolean;
 }
 
-const CATEGORIES = ['All', 'Web Application', 'Mobile Application', 'SaaS', 'Web Design', 'Digital Marketing', 'Blockchain'];
+const CATEGORIES_KEYS = ['all', 'Web Application', 'Mobile Application', 'SaaS', 'Web Design', 'Digital Marketing', 'Blockchain'];
 
 export default function Portfolio() {
+  const { t } = useTranslation();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [activeCat, setActiveCat] = useState('All');
+  const [activeCat, setActiveCat] = useState('all');
 
   useEffect(() => {
     let cancelled = false;
@@ -48,23 +50,27 @@ export default function Portfolio() {
   }, []);
 
   const filtered = useMemo(() => {
-    if (activeCat === 'All') return projects;
+    if (activeCat === 'all') return projects;
     return projects.filter((p) => p.category === activeCat);
   }, [projects, activeCat]);
+
+  const getCatLabel = (cat: string) => {
+    if (cat === 'all') return t('portfolio.all');
+    return cat;
+  };
 
   return (
     <div>
       {/* Header */}
       <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">Portfolio</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">{t('portfolio.sectionTag')}</p>
           <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] mb-6 max-w-4xl">
-            Work that shipped.<br />
-            <span className="gradient-text">And kept shipping.</span>
+            {t('portfolio.title1')}<br />
+            <span className="gradient-text">{t('portfolio.titleHighlight')}</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            A selection of recent engagements across web, mobile, product design,
-            marketing, and blockchain. Every one of these is live in production.
+            {t('portfolio.desc')}
           </p>
         </div>
       </section>
@@ -72,7 +78,7 @@ export default function Portfolio() {
       {/* Filter tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <div className="flex flex-wrap gap-2">
-          {CATEGORIES.map((cat) => {
+          {CATEGORIES_KEYS.map((cat) => {
             const active = cat === activeCat;
             return (
               <button
@@ -84,7 +90,7 @@ export default function Portfolio() {
                     : 'glass text-muted-foreground hover:text-foreground hover:border-purple-500/30'
                 }`}
               >
-                {cat}
+                {getCatLabel(cat)}
               </button>
             );
           })}
@@ -97,13 +103,13 @@ export default function Portfolio() {
           {loading ? (
             <div className="py-24 flex items-center justify-center text-muted-foreground">
               <Loader2 className="h-6 w-6 animate-spin mr-3" />
-              Loading projects...
+              {t('portfolio.loading')}
             </div>
           ) : error ? (
             <div className="py-24 text-center text-destructive">{error}</div>
           ) : filtered.length === 0 ? (
             <div className="py-24 text-center text-muted-foreground">
-              No projects in this category yet.
+              {t('portfolio.empty')}
             </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -132,12 +138,12 @@ export default function Portfolio() {
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                     {p.featured && (
                       <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-purple-500/90 text-white text-[10px] uppercase tracking-widest font-semibold">
-                        Featured
+                        {t('portfolio.featured')}
                       </div>
                     )}
                     {p.status === 'in_progress' && (
                       <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-cyan-500/90 text-white text-[10px] uppercase tracking-widest font-semibold">
-                        In progress
+                        {t('portfolio.inProgress')}
                       </div>
                     )}
                   </div>
@@ -157,12 +163,12 @@ export default function Portfolio() {
                         {p.tech_stack
                           .split(',')
                           .slice(0, 4)
-                          .map((t) => (
+                          .map((tech) => (
                             <span
-                              key={t}
+                              key={tech}
                               className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-full bg-white/5 text-muted-foreground"
                             >
-                              {t.trim()}
+                              {tech.trim()}
                             </span>
                           ))}
                       </div>

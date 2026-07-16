@@ -1,20 +1,23 @@
-import { Award, Coffee, Github, Linkedin, Twitter, Zap } from 'lucide-react';
-
-const VALUES = [
-  { title: 'Craft', desc: 'We write code the way a cabinetmaker joins wood — cleanly, honestly, and to last.' },
-  { title: 'Candor', desc: 'You will always hear what we actually think. Scope, budgets, tradeoffs — no theatre.' },
-  { title: 'Speed', desc: 'A working Friday build every week. Feedback compounds when it lands early.' },
-  { title: 'Ownership', desc: 'We ship. Then we watch it in production and iterate. Handoffs are not launches.' },
-];
-
-const TIMELINE = [
-  { year: '2018', title: 'Started as a solo freelance developer', desc: 'First clients in Istanbul; web apps, dashboards, e-commerce.' },
-  { year: '2020', title: 'Focused on product design + development', desc: 'Redesigned my process around lean design systems and weekly releases.' },
-  { year: '2023', title: 'Expanded into digital marketing', desc: 'Added SEO, paid, and content — because software without an audience is furniture.' },
-  { year: '2026', title: 'Boutique agency, global clients', desc: '150+ shipped projects across 12 countries. Still senior-led. Still tight teams.' },
-];
+import { Github, Linkedin, Twitter } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function About() {
+  const { t } = useTranslation();
+
+  const VALUES = [
+    { title: t('about.v1Title'), desc: t('about.v1Desc') },
+    { title: t('about.v2Title'), desc: t('about.v2Desc') },
+    { title: t('about.v3Title'), desc: t('about.v3Desc') },
+    { title: t('about.v4Title'), desc: t('about.v4Desc') },
+  ];
+
+  const TIMELINE = [
+    { year: t('about.t1Year'), title: t('about.t1Title'), desc: t('about.t1Desc') },
+    { year: t('about.t2Year'), title: t('about.t2Title'), desc: t('about.t2Desc') },
+    { year: t('about.t3Year'), title: t('about.t3Title'), desc: t('about.t3Desc') },
+    { year: t('about.t4Year'), title: t('about.t4Title'), desc: t('about.t4Desc') },
+  ];
+
   return (
     <div>
       {/* Header */}
@@ -22,20 +25,15 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:grid-cols-12 items-center">
           <div className="lg:col-span-7">
             <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">
-              About the studio
+              {t('about.sectionTag')}
             </p>
             <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] mb-6">
-              A one-lead studio.
+              {t('about.title1')}
               <br />
-              <span className="gradient-text">Built for hard problems.</span>
+              <span className="gradient-text">{t('about.titleHighlight')}</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed mb-8">
-              I&apos;m Mehmet KURU — a full-stack engineer, designer, and
-              strategist. Over the last eight years I&apos;ve shipped software
-              for solo founders, VC-backed startups, and Fortune 500s. The
-              studio behind mehmetkuru.dev keeps things intentionally small:
-              one senior lead on every engagement, a tight collaborator
-              network, and a bias for shipping over slide decks.
+              {t('about.desc')}
             </p>
             <div className="flex flex-wrap gap-3">
               {[
@@ -68,9 +66,9 @@ export default function About() {
                 }}
               />
               <div className="absolute bottom-6 left-6 right-6 glass rounded-xl p-4">
-                <p className="text-xs uppercase tracking-widest text-muted-foreground">Founder</p>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground">{t('about.founder')}</p>
                 <p className="font-semibold">Mehmet KURU</p>
-                <p className="text-xs text-muted-foreground mt-1">Engineer · Designer · Strategist</p>
+                <p className="text-xs text-muted-foreground mt-1">{t('about.role')}</p>
               </div>
             </div>
           </div>
@@ -82,9 +80,9 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-14">
             <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">
-              What we believe
+              {t('about.valuesTag')}
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold">Four rules we don&apos;t break.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold">{t('about.valuesTitle')}</h2>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((v, i) => (
@@ -102,16 +100,16 @@ export default function About() {
       <section className="py-24 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-14 text-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-cyan-400 mb-4">Journey</p>
-            <h2 className="text-4xl md:text-5xl font-bold">Eight years of craft.</h2>
+            <p className="text-xs uppercase tracking-[0.3em] text-cyan-400 mb-4">{t('about.journeyTag')}</p>
+            <h2 className="text-4xl md:text-5xl font-bold">{t('about.journeyTitle')}</h2>
           </div>
           <div className="relative pl-8 border-l border-purple-500/30">
-            {TIMELINE.map((t) => (
-              <div key={t.year} className="relative mb-10 last:mb-0">
+            {TIMELINE.map((item) => (
+              <div key={item.year} className="relative mb-10 last:mb-0">
                 <div className="absolute -left-[38px] top-1 h-4 w-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 ring-4 ring-background" />
-                <div className="text-sm font-mono text-purple-400 mb-1">{t.year}</div>
-                <h4 className="text-xl font-semibold mb-2">{t.title}</h4>
-                <p className="text-muted-foreground">{t.desc}</p>
+                <div className="text-sm font-mono text-purple-400 mb-1">{item.year}</div>
+                <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
+                <p className="text-muted-foreground">{item.desc}</p>
               </div>
             ))}
           </div>

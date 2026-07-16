@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Loader2, LogIn, ExternalLink, Briefcase, CheckCircle2, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@metagptx/web-sdk';
+import { useTranslation } from 'react-i18next';
 
 const client = createClient();
 
@@ -26,6 +27,7 @@ interface Project {
 }
 
 export default function ClientPanel() {
+  const { t } = useTranslation();
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -67,15 +69,15 @@ export default function ClientPanel() {
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <div className="max-w-md text-center p-10 rounded-2xl glass">
           <LogIn className="h-10 w-10 mx-auto text-purple-400 mb-4" />
-          <h1 className="text-3xl font-bold mb-3">Client Panel</h1>
+          <h1 className="text-3xl font-bold mb-3">{t('clientPanel.loginTitle')}</h1>
           <p className="text-muted-foreground mb-6">
-            Sign in to view your projects, timelines, and deliverables.
+            {t('clientPanel.loginDesc')}
           </p>
           <Button
             onClick={() => client.auth.toLogin()}
             className="w-full h-11 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
           >
-            Sign in
+            {t('nav.signIn')}
           </Button>
         </div>
       </div>
@@ -91,20 +93,20 @@ export default function ClientPanel() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="mb-10">
-        <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-2">Client Panel</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-2">{t('clientPanel.sectionTag')}</p>
         <h1 className="text-4xl md:text-5xl font-bold">
-          Welcome back<span className="gradient-text">.</span>
+          {t('clientPanel.title')}<span className="gradient-text">.</span>
         </h1>
         <p className="text-muted-foreground mt-2">
-          Signed in as <span className="text-foreground">{user.email || user.name || 'you'}</span>
+          {t('clientPanel.signedAs')} <span className="text-foreground">{user.email || user.name || 'you'}</span>
         </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3 mb-10">
         {[
-          { label: 'Total projects', value: stats.total, icon: Briefcase, color: 'from-purple-600 to-pink-600' },
-          { label: 'In progress', value: stats.active, icon: Clock, color: 'from-cyan-500 to-purple-600' },
-          { label: 'Completed', value: stats.done, icon: CheckCircle2, color: 'from-emerald-500 to-cyan-500' },
+          { label: t('clientPanel.totalProjects'), value: stats.total, icon: Briefcase, color: 'from-purple-600 to-pink-600' },
+          { label: t('clientPanel.inProgress'), value: stats.active, icon: Clock, color: 'from-cyan-500 to-purple-600' },
+          { label: t('clientPanel.completed'), value: stats.done, icon: CheckCircle2, color: 'from-emerald-500 to-cyan-500' },
         ].map((s) => (
           <div key={s.label} className="p-6 rounded-2xl glass flex items-center gap-4">
             <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center`}>
@@ -118,10 +120,10 @@ export default function ClientPanel() {
         ))}
       </div>
 
-      <h2 className="text-2xl font-bold mb-6">Your projects</h2>
+      <h2 className="text-2xl font-bold mb-6">{t('clientPanel.yourProjects')}</h2>
       {projectsLoading ? (
         <div className="py-16 flex items-center justify-center text-muted-foreground">
-          <Loader2 className="h-5 w-5 animate-spin mr-2" /> Loading...
+          <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('clientPanel.loading')}
         </div>
       ) : error ? (
         <div className="p-6 rounded-xl bg-destructive/10 border border-destructive/30 text-destructive text-sm">
@@ -130,13 +132,13 @@ export default function ClientPanel() {
       ) : projects.length === 0 ? (
         <div className="p-10 rounded-2xl glass text-center">
           <p className="text-muted-foreground mb-4">
-            You don&apos;t have any projects yet. When you kick off a new engagement, it will appear here.
+            {t('clientPanel.empty')}
           </p>
           <Button
             onClick={() => (window.location.href = '/contact')}
             className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
           >
-            Start a project
+            {t('clientPanel.startProject')}
           </Button>
         </div>
       ) : (
@@ -171,9 +173,9 @@ export default function ClientPanel() {
                 <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{p.description}</p>
                 {p.tech_stack && (
                   <div className="flex flex-wrap gap-1.5 mb-3">
-                    {p.tech_stack.split(',').slice(0, 5).map((t) => (
-                      <span key={t} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-full bg-white/5 text-muted-foreground">
-                        {t.trim()}
+                    {p.tech_stack.split(',').slice(0, 5).map((tech) => (
+                      <span key={tech} className="text-[10px] uppercase tracking-wider px-2 py-1 rounded-full bg-white/5 text-muted-foreground">
+                        {tech.trim()}
                       </span>
                     ))}
                   </div>
@@ -185,7 +187,7 @@ export default function ClientPanel() {
                     rel="noreferrer"
                     className="inline-flex items-center gap-1.5 text-sm text-purple-400 hover:text-pink-400 transition-colors"
                   >
-                    View live project <ExternalLink className="h-3.5 w-3.5" />
+                    {t('clientPanel.viewLive')} <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 )}
               </div>

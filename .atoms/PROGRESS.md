@@ -33,4 +33,5 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-07-16 | Hero images and portfolio/blog imagery generated (10 assets)
 - 2026-07-16 | Frontend built: Layout, Hero3D (three.js), Home, About, Services, Portfolio, Blog, Contact, ClientPanel, AdminPanel
 - 2026-07-16 | Lint + build passed; CheckUI grade 4
+- 2026-07-16 | Added i18n (EN/TR/DE) with react-i18next; language switcher in nav; all pages translated; lint+build pass
 

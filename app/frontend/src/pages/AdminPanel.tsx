@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { createClient } from '@metagptx/web-sdk';
+import { useTranslation } from 'react-i18next';
 
 const client = createClient();
 
@@ -79,6 +80,7 @@ const emptyPost: Partial<BlogPost> = {
 };
 
 export default function AdminPanel() {
+  const { t } = useTranslation();
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [tab, setTab] = useState<Tab>('projects');
@@ -240,44 +242,50 @@ export default function AdminPanel() {
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <div className="max-w-md text-center p-10 rounded-2xl glass">
           <LogIn className="h-10 w-10 mx-auto text-purple-400 mb-4" />
-          <h1 className="text-3xl font-bold mb-3">Admin Panel</h1>
-          <p className="text-muted-foreground mb-6">Sign in with an admin account to continue.</p>
+          <h1 className="text-3xl font-bold mb-3">{t('adminPanel.loginTitle')}</h1>
+          <p className="text-muted-foreground mb-6">{t('adminPanel.loginDesc')}</p>
           <Button
             onClick={() => client.auth.toLogin()}
             className="w-full h-11 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
           >
-            Sign in
+            {t('nav.signIn')}
           </Button>
         </div>
       </div>
     );
   }
 
+  const TAB_LABELS: Record<Tab, string> = {
+    projects: t('adminPanel.projects'),
+    blog: t('adminPanel.blog'),
+    inquiries: t('adminPanel.inquiries'),
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-2">Admin</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-2">{t('adminPanel.sectionTag')}</p>
           <h1 className="text-4xl md:text-5xl font-bold">
-            Studio <span className="gradient-text">control room</span>
+            {t('adminPanel.title')} <span className="gradient-text">{t('adminPanel.titleHighlight')}</span>
           </h1>
         </div>
         <div className="text-sm text-muted-foreground">
-          Signed in as <span className="text-foreground">{user.email || user.name}</span>
+          {t('adminPanel.signedAs')} <span className="text-foreground">{user.email || user.name}</span>
         </div>
       </div>
 
       {/* Tabs */}
       <div className="flex gap-2 mb-8 border-b border-white/10 overflow-x-auto">
-        {(['projects', 'blog', 'inquiries'] as Tab[]).map((t) => (
+        {(['projects', 'blog', 'inquiries'] as Tab[]).map((tabKey) => (
           <button
-            key={t}
-            onClick={() => setTab(t)}
+            key={tabKey}
+            onClick={() => setTab(tabKey)}
             className={`px-5 py-3 text-sm font-medium capitalize transition-colors relative ${
-              tab === t ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+              tab === tabKey ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            {t} {tab === t && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500" />}
+            {TAB_LABELS[tabKey]} {tab === tabKey && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500" />}
           </button>
         ))}
       </div>
@@ -291,12 +299,12 @@ export default function AdminPanel() {
           {tab === 'projects' && (
             <div>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">Projects ({projects.length})</h2>
+                <h2 className="text-xl font-semibold">{t('adminPanel.projects')} ({projects.length})</h2>
                 <Button
                   onClick={() => setEditProject({ ...emptyProject })}
                   className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                 >
-                  <Plus className="h-4 w-4" /> New project
+                  <Plus className="h-4 w-4" /> {t('adminPanel.newProject')}
                 </Button>
               </div>
               <div className="grid gap-3">
@@ -308,7 +316,7 @@ export default function AdminPanel() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
                         <p className="text-[10px] uppercase tracking-widest text-purple-400">{p.category}</p>
-                        {p.featured && <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300">Featured</span>}
+                        {p.featured && <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300">{t('portfolio.featured')}</span>}
                       </div>
                       <h3 className="font-semibold truncate">{p.title}</h3>
                       <p className="text-xs text-muted-foreground truncate">{p.description}</p>
@@ -324,7 +332,7 @@ export default function AdminPanel() {
                   </div>
                 ))}
                 {projects.length === 0 && (
-                  <div className="p-10 rounded-xl glass text-center text-muted-foreground">No projects yet.</div>
+                  <div className="p-10 rounded-xl glass text-center text-muted-foreground">{t('adminPanel.noProjects')}</div>
                 )}
               </div>
             </div>
@@ -333,12 +341,12 @@ export default function AdminPanel() {
           {tab === 'blog' && (
             <div>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">Blog posts ({posts.length})</h2>
+                <h2 className="text-xl font-semibold">{t('adminPanel.blog')} ({posts.length})</h2>
                 <Button
                   onClick={() => setEditPost({ ...emptyPost })}
                   className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                 >
-                  <Plus className="h-4 w-4" /> New post
+                  <Plus className="h-4 w-4" /> {t('adminPanel.newPost')}
                 </Button>
               </div>
               <div className="grid gap-3">
@@ -351,7 +359,7 @@ export default function AdminPanel() {
                       <div className="flex items-center gap-2 mb-1">
                         <p className="text-[10px] uppercase tracking-widest text-purple-400">{p.category}</p>
                         {p.published ? (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">Published</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">{t('adminPanel.published')}</span>
                         ) : (
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-muted-foreground">Draft</span>
                         )}
@@ -370,7 +378,7 @@ export default function AdminPanel() {
                   </div>
                 ))}
                 {posts.length === 0 && (
-                  <div className="p-10 rounded-xl glass text-center text-muted-foreground">No posts yet.</div>
+                  <div className="p-10 rounded-xl glass text-center text-muted-foreground">{t('adminPanel.noPosts')}</div>
                 )}
               </div>
             </div>
@@ -378,7 +386,7 @@ export default function AdminPanel() {
 
           {tab === 'inquiries' && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">Inbox ({inquiries.length})</h2>
+              <h2 className="text-xl font-semibold mb-6">{t('adminPanel.inbox')} ({inquiries.length})</h2>
               <div className="grid gap-3">
                 {inquiries.map((inq) => (
                   <div key={inq.id} className="p-5 rounded-xl glass">
@@ -406,7 +414,7 @@ export default function AdminPanel() {
                       </div>
                       {inq.status !== 'resolved' && (
                         <Button size="sm" variant="ghost" onClick={() => markInquiryResolved(inq)} className="gap-1 text-emerald-300">
-                          <CheckCircle2 className="h-4 w-4" /> Resolve
+                          <CheckCircle2 className="h-4 w-4" /> {t('adminPanel.resolve')}
                         </Button>
                       )}
                     </div>
@@ -415,7 +423,7 @@ export default function AdminPanel() {
                   </div>
                 ))}
                 {inquiries.length === 0 && (
-                  <div className="p-10 rounded-xl glass text-center text-muted-foreground">No inquiries yet.</div>
+                  <div className="p-10 rounded-xl glass text-center text-muted-foreground">{t('adminPanel.noInquiries')}</div>
                 )}
               </div>
             </div>
@@ -430,63 +438,63 @@ export default function AdminPanel() {
             <button className="absolute top-4 right-4 p-2 hover:bg-white/5 rounded-lg" onClick={() => setEditProject(null)}>
               <X className="h-4 w-4" />
             </button>
-            <h3 className="text-2xl font-bold mb-6">{editProject.id ? 'Edit project' : 'New project'}</h3>
+            <h3 className="text-2xl font-bold mb-6">{editProject.id ? t('adminPanel.editProject') : t('adminPanel.newProject')}</h3>
             <div className="space-y-4">
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Title *</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.title_field')} *</Label>
                 <Input value={editProject.title || ''} onChange={(e) => setEditProject({ ...editProject, title: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Description *</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.description_field')} *</Label>
                 <Textarea rows={3} value={editProject.description || ''} onChange={(e) => setEditProject({ ...editProject, description: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Category *</Label>
+                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.category_field')} *</Label>
                   <Input value={editProject.category || ''} onChange={(e) => setEditProject({ ...editProject, category: e.target.value })} className="bg-white/5 border-white/10" />
                 </div>
                 <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Status</Label>
+                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.status_field')}</Label>
                   <select
                     value={editProject.status || 'in_progress'}
                     onChange={(e) => setEditProject({ ...editProject, status: e.target.value })}
                     className="w-full h-10 rounded-md bg-white/5 border border-white/10 px-3 text-sm"
                   >
-                    <option value="planning">Planning</option>
-                    <option value="in_progress">In progress</option>
-                    <option value="completed">Completed</option>
+                    <option value="planning">{t('adminPanel.planning')}</option>
+                    <option value="in_progress">{t('adminPanel.in_progress')}</option>
+                    <option value="completed">{t('adminPanel.completed_status')}</option>
                   </select>
                 </div>
               </div>
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Image URL</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.imageUrl')}</Label>
                 <Input value={editProject.image_url || ''} onChange={(e) => setEditProject({ ...editProject, image_url: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Project URL</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.projectUrl')}</Label>
                 <Input value={editProject.project_url || ''} onChange={(e) => setEditProject({ ...editProject, project_url: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Client name</Label>
+                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.clientName')}</Label>
                   <Input value={editProject.client_name || ''} onChange={(e) => setEditProject({ ...editProject, client_name: e.target.value })} className="bg-white/5 border-white/10" />
                 </div>
                 <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Tech stack</Label>
+                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.techStack')}</Label>
                   <Input value={editProject.tech_stack || ''} onChange={(e) => setEditProject({ ...editProject, tech_stack: e.target.value })} className="bg-white/5 border-white/10" />
                 </div>
               </div>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
                 <input type="checkbox" checked={!!editProject.featured} onChange={(e) => setEditProject({ ...editProject, featured: e.target.checked })} className="rounded" />
-                Featured project
+                {t('adminPanel.featuredProject')}
               </label>
             </div>
             <div className="flex gap-3 mt-8">
               <Button onClick={saveProject} className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11">
-                {editProject.id ? 'Save changes' : 'Create project'}
+                {editProject.id ? t('adminPanel.saveChanges') : t('adminPanel.createProject')}
               </Button>
               <Button onClick={() => setEditProject(null)} variant="outline" className="!bg-transparent border-white/20 h-11">
-                Cancel
+                {t('adminPanel.cancel')}
               </Button>
             </div>
           </div>
@@ -500,49 +508,49 @@ export default function AdminPanel() {
             <button className="absolute top-4 right-4 p-2 hover:bg-white/5 rounded-lg" onClick={() => setEditPost(null)}>
               <X className="h-4 w-4" />
             </button>
-            <h3 className="text-2xl font-bold mb-6">{editPost.id ? 'Edit post' : 'New post'}</h3>
+            <h3 className="text-2xl font-bold mb-6">{editPost.id ? t('adminPanel.editPost') : t('adminPanel.newPost')}</h3>
             <div className="space-y-4">
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Title *</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.title_field')} *</Label>
                 <Input value={editPost.title || ''} onChange={(e) => setEditPost({ ...editPost, title: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Slug *</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.slug')} *</Label>
                 <Input value={editPost.slug || ''} onChange={(e) => setEditPost({ ...editPost, slug: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Excerpt</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.excerpt')}</Label>
                 <Textarea rows={2} value={editPost.excerpt || ''} onChange={(e) => setEditPost({ ...editPost, excerpt: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Content *</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.content')} *</Label>
                 <Textarea rows={8} value={editPost.content || ''} onChange={(e) => setEditPost({ ...editPost, content: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Author</Label>
+                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.author')}</Label>
                   <Input value={editPost.author || ''} onChange={(e) => setEditPost({ ...editPost, author: e.target.value })} className="bg-white/5 border-white/10" />
                 </div>
                 <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Category</Label>
+                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.category_field')}</Label>
                   <Input value={editPost.category || ''} onChange={(e) => setEditPost({ ...editPost, category: e.target.value })} className="bg-white/5 border-white/10" />
                 </div>
               </div>
               <div>
-                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">Cover image URL</Label>
+                <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">{t('adminPanel.coverImage')}</Label>
                 <Input value={editPost.cover_image || ''} onChange={(e) => setEditPost({ ...editPost, cover_image: e.target.value })} className="bg-white/5 border-white/10" />
               </div>
               <label className="flex items-center gap-2 text-sm cursor-pointer">
                 <input type="checkbox" checked={editPost.published !== false} onChange={(e) => setEditPost({ ...editPost, published: e.target.checked })} className="rounded" />
-                Published
+                {t('adminPanel.published')}
               </label>
             </div>
             <div className="flex gap-3 mt-8">
               <Button onClick={savePost} className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11">
-                {editPost.id ? 'Save changes' : 'Create post'}
+                {editPost.id ? t('adminPanel.saveChanges') : t('adminPanel.createPost')}
               </Button>
               <Button onClick={() => setEditPost(null)} variant="outline" className="!bg-transparent border-white/20 h-11">
-                Cancel
+                {t('adminPanel.cancel')}
               </Button>
             </div>
           </div>

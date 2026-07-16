@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Calendar, ArrowRight, Loader2 } from 'lucide-react';
 import { createClient } from '@metagptx/web-sdk';
+import { useTranslation } from 'react-i18next';
 
 const client = createClient();
 
@@ -18,6 +19,7 @@ interface BlogPost {
 }
 
 export default function Blog() {
+  const { t } = useTranslation();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [selected, setSelected] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
@@ -48,7 +50,7 @@ export default function Blog() {
           onClick={() => setSelected(null)}
           className="text-sm text-purple-400 hover:text-purple-300 mb-8 inline-flex items-center gap-2"
         >
-          ← Back to all articles
+          &larr; {t('blog.backToAll')}
         </button>
         {selected.cover_image && (
           <div className="rounded-2xl overflow-hidden mb-8 aspect-[16/9]">
@@ -92,13 +94,12 @@ export default function Blog() {
     <div>
       <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">Journal</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">{t('blog.sectionTag')}</p>
           <h1 className="text-5xl md:text-7xl font-bold leading-[1.05] mb-6 max-w-3xl">
-            Notes from the <span className="gradient-text">studio.</span>
+            {t('blog.title')} <span className="gradient-text">{t('blog.titleHighlight')}</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Practical writing on software craft, product design, and modern
-            digital marketing — for people who ship.
+            {t('blog.desc')}
           </p>
         </div>
       </section>
@@ -108,12 +109,12 @@ export default function Blog() {
           {loading ? (
             <div className="py-24 flex items-center justify-center text-muted-foreground">
               <Loader2 className="h-6 w-6 animate-spin mr-3" />
-              Loading articles...
+              {t('blog.loading')}
             </div>
           ) : error ? (
             <div className="py-24 text-center text-destructive">{error}</div>
           ) : posts.length === 0 ? (
-            <div className="py-24 text-center text-muted-foreground">No articles yet.</div>
+            <div className="py-24 text-center text-muted-foreground">{t('blog.empty')}</div>
           ) : (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
@@ -148,7 +149,7 @@ export default function Blog() {
                     <div className="flex items-center justify-between text-xs text-muted-foreground">
                       <span>{post.author}</span>
                       <span className="inline-flex items-center gap-1 text-purple-400 group-hover:text-pink-400 transition-colors">
-                        Read <ArrowRight className="h-3 w-3" />
+                        {t('blog.read')} <ArrowRight className="h-3 w-3" />
                       </span>
                     </div>
                   </div>

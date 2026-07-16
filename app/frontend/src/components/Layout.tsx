@@ -1,21 +1,19 @@
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Menu, X, MessageCircle, User, LogIn, LogOut } from 'lucide-react';
+import { Menu, X, MessageCircle, User, LogIn, LogOut, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@metagptx/web-sdk';
+import { useTranslation } from 'react-i18next';
 
 const client = createClient();
 
-const NAV_LINKS = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/services', label: 'Services' },
-  { to: '/portfolio', label: 'Portfolio' },
-  { to: '/blog', label: 'Blog' },
-  { to: '/contact', label: 'Contact' },
-];
-
 const WHATSAPP_NUMBER = '905555555555';
+
+const LANGUAGES = [
+  { code: 'en', label: 'EN', full: 'English' },
+  { code: 'tr', label: 'TR', full: 'Türkçe' },
+  { code: 'de', label: 'DE', full: 'Deutsch' },
+];
 
 interface AuthUser {
   id?: string;
@@ -26,11 +24,22 @@ interface AuthUser {
 }
 
 export default function Layout() {
+  const { t, i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const location = useLocation();
+
+  const NAV_LINKS = [
+    { to: '/', label: t('nav.home') },
+    { to: '/about', label: t('nav.about') },
+    { to: '/services', label: t('nav.services') },
+    { to: '/portfolio', label: t('nav.portfolio') },
+    { to: '/blog', label: t('nav.blog') },
+    { to: '/contact', label: t('nav.contact') },
+  ];
 
   useEffect(() => {
     client.auth
@@ -50,6 +59,7 @@ export default function Layout() {
 
   useEffect(() => {
     setOpen(false);
+    setLangOpen(false);
   }, [location.pathname]);
 
   const handleLogin = () => client.auth.toLogin();
@@ -61,6 +71,13 @@ export default function Layout() {
       window.location.href = '/';
     }
   };
+
+  const switchLang = (code: string) => {
+    i18n.changeLanguage(code);
+    setLangOpen(false);
+  };
+
+  const currentLang = LANGUAGES.find((l) => l.code === i18n.language) || LANGUAGES[0];
 
   const isAdmin =
     user?.email?.toLowerCase().includes('admin') ||
@@ -128,6 +145,35 @@ export default function Layout() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-2">
+            {/* Language switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen((s) => !s)}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
+              >
+                <Globe className="h-4 w-4" />
+                {currentLang.label}
+              </button>
+              {langOpen && (
+                <div className="absolute top-full right-0 mt-2 w-36 rounded-xl glass p-1.5 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                  {LANGUAGES.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => switchLang(lang.code)}
+                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+                        lang.code === i18n.language
+                          ? 'bg-purple-500/15 text-foreground'
+                          : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
+                      }`}
+                    >
+                      <span className="font-medium">{lang.label}</span>
+                      <span className="ml-2 text-xs text-muted-foreground">{lang.full}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {!authLoading && user ? (
               <>
                 <Link to={isAdmin ? '/admin' : '/client'}>
@@ -137,7 +183,7 @@ export default function Layout() {
                     className="gap-2 hover:bg-purple-500/10 hover:text-purple-300"
                   >
                     <User className="h-4 w-4" />
-                    {isAdmin ? 'Admin' : 'My Panel'}
+                    {isAdmin ? t('nav.admin') : t('nav.myPanel')}
                   </Button>
                 </Link>
                 <Button
@@ -157,7 +203,7 @@ export default function Layout() {
                   className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 glow-primary"
                 >
                   <LogIn className="h-4 w-4" />
-                  Sign in
+                  {t('nav.signIn')}
                 </Button>
               )
             )}
@@ -191,16 +237,35 @@ export default function Layout() {
                 {link.label}
               </NavLink>
             ))}
+            {/* Mobile language switcher */}
+            <div className="pt-3 border-t border-white/10">
+              <p className="px-4 py-1 text-xs uppercase tracking-widest text-muted-foreground">Language</p>
+              <div className="flex gap-2 px-4 py-2">
+                {LANGUAGES.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => switchLang(lang.code)}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                      lang.code === i18n.language
+                        ? 'bg-purple-500/20 text-foreground'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {lang.label}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
               {user ? (
                 <>
                   <Link to={isAdmin ? '/admin' : '/client'}>
                     <Button variant="secondary" className="w-full gap-2">
-                      <User className="h-4 w-4" /> {isAdmin ? 'Admin Panel' : 'My Panel'}
+                      <User className="h-4 w-4" /> {isAdmin ? t('nav.admin') : t('nav.myPanel')}
                     </Button>
                   </Link>
                   <Button variant="ghost" onClick={handleLogout} className="w-full gap-2">
-                    <LogOut className="h-4 w-4" /> Sign out
+                    <LogOut className="h-4 w-4" /> {t('nav.signOut')}
                   </Button>
                 </>
               ) : (
@@ -208,7 +273,7 @@ export default function Layout() {
                   onClick={handleLogin}
                   className="w-full gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                 >
-                  <LogIn className="h-4 w-4" /> Sign in
+                  <LogIn className="h-4 w-4" /> {t('nav.signIn')}
                 </Button>
               )}
             </div>
@@ -239,9 +304,7 @@ export default function Layout() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-md">
-              A boutique dev &amp; digital agency crafting bold, high-performance
-              software and unforgettable brands. Custom development, digital
-              marketing, and product design.
+              {t('footer.desc')}
             </p>
             <div className="flex gap-3 pt-2">
               {['Twitter', 'GitHub', 'LinkedIn', 'Instagram'].map((s) => (
@@ -256,7 +319,7 @@ export default function Layout() {
             </div>
           </div>
           <div>
-            <h4 className="text-sm font-semibold mb-4 tracking-wide">Navigate</h4>
+            <h4 className="text-sm font-semibold mb-4 tracking-wide">{t('footer.navigate')}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               {NAV_LINKS.map((l) => (
                 <li key={l.to}>
@@ -268,10 +331,10 @@ export default function Layout() {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-semibold mb-4 tracking-wide">Contact</h4>
+            <h4 className="text-sm font-semibold mb-4 tracking-wide">{t('footer.contact')}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>hello@mehmetkuru.dev</li>
-              <li>Istanbul · Remote worldwide</li>
+              <li>{t('contact.location')}</li>
               <li>
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}`}
@@ -286,7 +349,7 @@ export default function Layout() {
           </div>
         </div>
         <div className="border-t border-white/5 py-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} By Mehmet KURU Dev. Crafted with obsession.
+          &copy; {new Date().getFullYear()} {t('footer.copyright')}
         </div>
       </footer>
 
