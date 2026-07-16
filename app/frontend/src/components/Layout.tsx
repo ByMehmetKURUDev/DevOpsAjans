@@ -37,7 +37,6 @@ export default function Layout() {
     { to: '/about', label: t('nav.about') },
     { to: '/services', label: t('nav.services') },
     { to: '/portfolio', label: t('nav.portfolio') },
-    { to: '/packages', label: t('nav.packages') },
     { to: '/blog', label: t('nav.blog') },
     { to: '/contact', label: t('nav.contact') },
   ];
