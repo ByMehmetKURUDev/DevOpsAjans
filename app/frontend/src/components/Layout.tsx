@@ -1,6 +1,6 @@
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Menu, X, MessageCircle, User, LogIn, LogOut, Globe } from 'lucide-react';
+import { Menu, X, MessageCircle, User, LogIn, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@metagptx/web-sdk';
 import { useTranslation } from 'react-i18next';
@@ -10,9 +10,9 @@ const client = createClient();
 const WHATSAPP_NUMBER = '905555555555';
 
 const LANGUAGES = [
-  { code: 'en', label: 'EN', full: 'English' },
-  { code: 'tr', label: 'TR', full: 'Türkçe' },
-  { code: 'de', label: 'DE', full: 'Deutsch' },
+  { code: 'en', label: 'EN', full: 'English', flag: '🇬🇧' },
+  { code: 'tr', label: 'TR', full: 'Türkçe', flag: '🇹🇷' },
+  { code: 'de', label: 'DE', full: 'Deutsch', flag: '🇩🇪' },
 ];
 
 interface AuthUser {
@@ -34,7 +34,6 @@ export default function Layout() {
 
   const NAV_LINKS = [
     { to: '/', label: t('nav.home') },
-    { to: '/about', label: t('nav.about') },
     { to: '/services', label: t('nav.services') },
     { to: '/portfolio', label: t('nav.portfolio') },
     { to: '/blog', label: t('nav.blog') },
@@ -151,7 +150,7 @@ export default function Layout() {
                 onClick={() => setLangOpen((s) => !s)}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
               >
-                <Globe className="h-4 w-4" />
+                <span className="text-base">{currentLang.flag}</span>
                 {currentLang.label}
               </button>
               {langOpen && (
@@ -160,14 +159,15 @@ export default function Layout() {
                     <button
                       key={lang.code}
                       onClick={() => switchLang(lang.code)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors flex items-center gap-2 ${
                         lang.code === i18n.language
                           ? 'bg-purple-500/15 text-foreground'
                           : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
                       }`}
                     >
+                      <span className="text-base">{lang.flag}</span>
                       <span className="font-medium">{lang.label}</span>
-                      <span className="ml-2 text-xs text-muted-foreground">{lang.full}</span>
+                      <span className="ml-auto text-xs text-muted-foreground">{lang.full}</span>
                     </button>
                   ))}
                 </div>
@@ -245,12 +245,13 @@ export default function Layout() {
                   <button
                     key={lang.code}
                     onClick={() => switchLang(lang.code)}
-                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
                       lang.code === i18n.language
                         ? 'bg-purple-500/20 text-foreground'
                         : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
+                    <span>{lang.flag}</span>
                     {lang.label}
                   </button>
                 ))}

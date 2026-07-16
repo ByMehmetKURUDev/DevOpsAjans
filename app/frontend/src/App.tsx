@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Index from './pages/Index';
 import AuthCallback from './pages/AuthCallback';
 import AuthError from './pages/AuthError';
-import About from './pages/About';
 import Services from './pages/Services';
 import Portfolio from './pages/Portfolio';
 import Blog from './pages/Blog';
@@ -20,7 +19,6 @@ const AppRoutes = () => (
   <Routes>
     <Route element={<Layout />}>
       <Route path="/" element={<Index />} />
-      <Route path="/about" element={<About />} />
       <Route path="/services" element={<Services />} />
       <Route path="/portfolio" element={<Portfolio />} />
       <Route path="/blog" element={<Blog />} />

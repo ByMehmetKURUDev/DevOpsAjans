@@ -18,13 +18,32 @@ interface Project {
   featured?: boolean;
 }
 
-const CATEGORIES_KEYS = ['all', 'Web Application', 'Mobile Application', 'SaaS', 'Web Design', 'Digital Marketing', 'Blockchain'];
+const STATIC_PROJECTS: Project[] = [
+  // SaaS
+  { id: 's1', title: 'Airtag Cards', description: 'Digital business card SaaS platform', category: 'SaaS', project_url: 'https://airtag.cards', featured: true },
+  { id: 's2', title: 'StartHub', description: 'Startup management and collaboration platform', category: 'SaaS', project_url: 'https://starthub.llc' },
+  { id: 's3', title: 'WorkApp', description: 'Workforce management and productivity SaaS', category: 'SaaS', project_url: 'https://workapp.llc' },
+  { id: 's4', title: 'Mentalist', description: 'AI-powered mentoring and coaching platform', category: 'SaaS', project_url: 'https://mentalist.llc' },
+  { id: 's5', title: 'Roadrunner Delivery', description: 'Logistics and delivery management system', category: 'SaaS', project_url: 'https://roadrunner.delivery' },
+  { id: 's6', title: 'Mastermind', description: 'Business mastermind group management platform', category: 'SaaS', project_url: 'https://mastermind.llc' },
+  // E-Ticaret
+  { id: 'e1', title: 'Watermaker Market', description: 'E-commerce platform for water purification products', category: 'E-Ticaret', project_url: 'https://watermaker.market', featured: true },
+  // Website
+  { id: 'w1', title: 'FSM Watermakers', description: 'Corporate website for water purification company', category: 'Website', project_url: 'https://fsmwatermakers.com' },
+  { id: 'w2', title: 'Acemi Tesisatçı', description: 'Plumbing services and information website', category: 'Website', project_url: 'https://acemitesisatci.com' },
+  // Mobil Uygulama
+  { id: 'm1', title: 'Airtag Cards Mobile', description: 'Mobile app for digital business cards', category: 'Mobil Uygulama', project_url: 'https://airtag.cards' },
+  { id: 'm2', title: 'WorkApp Mobile', description: 'Mobile workforce management application', category: 'Mobil Uygulama', project_url: 'https://workapp.llc' },
+  { id: 'm3', title: 'Watermaker Mobile', description: 'Mobile shopping app for water products', category: 'Mobil Uygulama', project_url: 'https://watermaker.market' },
+  { id: 'm4', title: 'FSM Watermakers Mobile', description: 'Mobile app for FSM Watermakers services', category: 'Mobil Uygulama', project_url: 'https://fsmwatermaker.com' },
+];
+
+const CATEGORIES_KEYS = ['all', 'SaaS', 'E-Ticaret', 'Website', 'Mobil Uygulama'];
 
 export default function Portfolio() {
   const { t } = useTranslation();
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [dbProjects, setDbProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [activeCat, setActiveCat] = useState('all');
 
   useEffect(() => {
@@ -35,12 +54,9 @@ export default function Portfolio() {
       .then((res) => {
         if (cancelled) return;
         const items = (res?.data?.items ?? []) as Project[];
-        setProjects(items);
+        setDbProjects(items);
       })
-      .catch((e) => {
-        if (cancelled) return;
-        setError(e?.message || 'Failed to load portfolio');
-      })
+      .catch(() => {})
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
@@ -49,10 +65,14 @@ export default function Portfolio() {
     };
   }, []);
 
+  const allProjects = useMemo(() => {
+    return [...STATIC_PROJECTS, ...dbProjects];
+  }, [dbProjects]);
+
   const filtered = useMemo(() => {
-    if (activeCat === 'all') return projects;
-    return projects.filter((p) => p.category === activeCat);
-  }, [projects, activeCat]);
+    if (activeCat === 'all') return allProjects;
+    return allProjects.filter((p) => p.category === activeCat);
+  }, [allProjects, activeCat]);
 
   const getCatLabel = (cat: string) => {
     if (cat === 'all') return t('portfolio.all');
@@ -105,8 +125,6 @@ export default function Portfolio() {
               <Loader2 className="h-6 w-6 animate-spin mr-3" />
               {t('portfolio.loading')}
             </div>
-          ) : error ? (
-            <div className="py-24 text-center text-destructive">{error}</div>
           ) : filtered.length === 0 ? (
             <div className="py-24 text-center text-muted-foreground">
               {t('portfolio.empty')}

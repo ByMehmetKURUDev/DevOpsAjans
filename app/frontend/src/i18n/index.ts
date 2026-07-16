@@ -4,7 +4,7 @@ import en from './en.json';
 import tr from './tr.json';
 import de from './de.json';
 
-const savedLang = localStorage.getItem('lang') || 'en';
+const savedLang = localStorage.getItem('lang') || 'tr';
 
 i18n.use(initReactI18next).init({
   resources: {

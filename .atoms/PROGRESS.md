@@ -35,4 +35,5 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-07-16 | Lint + build passed; CheckUI grade 4
 - 2026-07-16 | Added i18n (EN/TR/DE) with react-i18next; language switcher in nav; all pages translated; lint+build pass
 - 2026-07-16 | Added Packages page (5 pricing cards: $100/$300/$500/$700/DevOps) with Buy Now buttons; updated contact info (by@mehmetkuru.dev, 0541 296 58 78, Sultan Selim Mah address) across Contact page and footer
+- 2026-07-16 | Merged About into "Nasıl Çalışır" page; removed Hakkımızda nav/route; added flags to language switcher (🇹🇷🇬🇧🇩🇪); default lang=TR; added Instagram carousel above footer on homepage; updated Portfolio with SaaS/E-Ticaret/Website/Mobil Uygulama categories and projects
 
