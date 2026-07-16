@@ -37,6 +37,7 @@ export default function Layout() {
     { to: '/about', label: t('nav.about') },
     { to: '/services', label: t('nav.services') },
     { to: '/portfolio', label: t('nav.portfolio') },
+    { to: '/packages', label: t('nav.packages') },
     { to: '/blog', label: t('nav.blog') },
     { to: '/contact', label: t('nav.contact') },
   ];
@@ -333,7 +334,8 @@ export default function Layout() {
           <div>
             <h4 className="text-sm font-semibold mb-4 tracking-wide">{t('footer.contact')}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>hello@mehmetkuru.dev</li>
+              <li><a href="mailto:by@mehmetkuru.dev" className="hover:text-foreground">by@mehmetkuru.dev</a></li>
+              <li><a href="tel:+905412965878" className="hover:text-foreground">0541 296 58 78</a></li>
               <li>{t('contact.location')}</li>
               <li>
                 <a

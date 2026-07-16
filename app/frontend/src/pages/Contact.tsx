@@ -79,13 +79,23 @@ export default function Contact() {
             </p>
 
             <div className="space-y-4 mb-10">
-              <a href="mailto:hello@mehmetkuru.dev" className="flex items-center gap-4 p-4 rounded-xl glass hover:border-purple-500/40 transition-colors group">
+              <a href="mailto:by@mehmetkuru.dev" className="flex items-center gap-4 p-4 rounded-xl glass hover:border-purple-500/40 transition-colors group">
                 <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
                   <Mail className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest text-muted-foreground">{t('contact.email')}</p>
-                  <p className="font-medium group-hover:gradient-text transition-all">hello@mehmetkuru.dev</p>
+                  <p className="font-medium group-hover:gradient-text transition-all">by@mehmetkuru.dev</p>
+                </div>
+              </a>
+
+              <a href="tel:+905412965878" className="flex items-center gap-4 p-4 rounded-xl glass hover:border-purple-500/40 transition-colors group">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-orange-500 to-pink-600 flex items-center justify-center">
+                  <Mail className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground">{t('contact.phone')}</p>
+                  <p className="font-medium group-hover:gradient-text transition-all">{t('contact.phoneNumber')}</p>
                 </div>
               </a>
 

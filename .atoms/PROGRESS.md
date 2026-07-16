@@ -34,4 +34,5 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-07-16 | Frontend built: Layout, Hero3D (three.js), Home, About, Services, Portfolio, Blog, Contact, ClientPanel, AdminPanel
 - 2026-07-16 | Lint + build passed; CheckUI grade 4
 - 2026-07-16 | Added i18n (EN/TR/DE) with react-i18next; language switcher in nav; all pages translated; lint+build pass
+- 2026-07-16 | Added Packages page (5 pricing cards: $100/$300/$500/$700/DevOps) with Buy Now buttons; updated contact info (by@mehmetkuru.dev, 0541 296 58 78, Sultan Selim Mah address) across Contact page and footer
 
