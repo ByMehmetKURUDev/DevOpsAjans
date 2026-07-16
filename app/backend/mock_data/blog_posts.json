@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Web Development Trends Shaping 2026",
+        "slug": "web-dev-trends-2026",
+        "excerpt": "From AI-powered coding assistants to edge computing and WebGPU, discover the technologies redefining how we build for the web.",
+        "content": "The web development landscape in 2026 has been reshaped by several transformative technologies. AI coding assistants have moved beyond autocomplete to full agentic development. Edge computing with platforms like Cloudflare Workers and Vercel Edge Functions have made sub-50ms response times globally the standard. WebGPU has finally unlocked native-grade 3D graphics and machine learning in the browser. Server components in React and equivalents in other frameworks have collapsed the frontend/backend divide. This article explores each of these trends and how forward-thinking teams are leveraging them today.",
+        "cover_image": "/images/WebTrends.jpg",
+        "author": "Mehmet KURU",
+        "category": "Development",
+        "published": true
+    },
+    {
+        "title": "How AI is Transforming Software Development",
+        "slug": "ai-transforming-software-dev",
+        "excerpt": "AI is no longer a novelty in dev tooling — it is the new baseline. Here is how modern teams integrate AI into every phase of the SDLC.",
+        "content": "From requirements gathering through deployment, AI now touches every phase of software delivery. Requirements can be refined by conversational agents that generate user stories and acceptance criteria. Design tools convert sketches to production-ready components. Coding agents implement full features from natural language prompts. QA is augmented by AI-generated test suites and visual regression detection. Even operations benefit from AIOps platforms that predict incidents before they happen. This shift demands new skills — prompt engineering, agent orchestration, and AI evaluation — from every engineer.",
+        "cover_image": "/images/AIDevelopment.jpg",
+        "author": "Mehmet KURU",
+        "category": "AI & Tech",
+        "published": true
+    },
+    {
+        "title": "The Modern Digital Marketing Playbook",
+        "slug": "modern-digital-marketing-playbook",
+        "excerpt": "SEO, paid, content, community — the disciplines are the same, but the execution has completely changed. Here is what actually works in 2026.",
+        "content": "The digital marketing playbook has been rewritten. Traditional SEO now competes with LLM-answer optimization. Paid ads are increasingly automated by AI bidding, so creative and audience strategy matter more than manual keyword tuning. Content marketing has bifurcated into short-form personality-driven video and deep authoritative long-form content — the middle has collapsed. Community and owned channels (newsletters, Discord, private communities) are the highest-leverage assets a brand can build. This playbook walks through practical frameworks for each channel with real client examples.",
+        "cover_image": "/images/MarketingStrategy.jpg",
+        "author": "Mehmet KURU",
+        "category": "Marketing",
+        "published": true
+    }
+]

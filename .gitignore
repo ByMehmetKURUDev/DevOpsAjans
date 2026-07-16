@@ -1,53 +1,74 @@
-.atoms/
-node_modules/
-.next/
-dist/
-build/
-out/
-bin/
-obj/
-*.o
-*.exe
+# Frontend
+# Logs
+logs
 *.log
-logs/
-.env
-.env.local
-.env.production
-.env.development
-env/
-venv/
-ENV/
-.DS_Store
-.idea/
-*.iml
-.vscode/
-.vscode/extensions.json
-.temp/
-*.tmp
-coverage/
-CMakeFiles/
-CMakeCache.txt
-yarn-error.log
-npm-debug.log
-*~
-*.bak
-*.swp
-Thumbs.db
-ehthumbs.db
-Desktop.ini
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
 *.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.sass-cache/
-.vite_opt_cache/
-test-results/
-*.coverage
-*.lcov
-*.user
-*.code-workspace
-pnpm-lock.yaml
-*.pyc
+vite.config.ts.timestamp-*
+
+
+# Backend
+# Byte-compiled / optimized / DLL files
 __pycache__
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+
+# Unit test / coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+coverage.xml
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Logs & databases
+*.log
+logs
+*.db
+database.db
+
+# idea / vscode / macos
+.idea
+.DS_Store
+.vscode

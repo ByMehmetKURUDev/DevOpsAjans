@@ -1,0 +1,68 @@
+[
+    {
+        "title": "Nova E-Commerce Platform",
+        "description": "A high-performance multi-vendor e-commerce platform with advanced analytics, AI product recommendations, and integrated payment processing. Handles 100k+ daily transactions.",
+        "category": "Web Application",
+        "image_url": "/images/ecommerce.jpg",
+        "project_url": "https://nova-ecommerce.example.com",
+        "client_name": "Nova Retail Group",
+        "status": "completed",
+        "tech_stack": "React, Next.js, Node.js, PostgreSQL, Stripe, AWS",
+        "featured": true
+    },
+    {
+        "title": "PulseFit Mobile App",
+        "description": "A comprehensive fitness tracking mobile application with AI-powered workout plans, nutrition tracking, and social features. iOS and Android native performance.",
+        "category": "Mobile Application",
+        "image_url": "/images/FitnessApp.jpg",
+        "project_url": "https://pulsefit.example.com",
+        "client_name": "PulseFit Inc.",
+        "status": "completed",
+        "tech_stack": "React Native, TypeScript, Firebase, TensorFlow Lite",
+        "featured": true
+    },
+    {
+        "title": "InsightHub Analytics Dashboard",
+        "description": "Enterprise-grade SaaS analytics dashboard with real-time data streaming, custom KPI builders, and predictive AI insights for Fortune 500 companies.",
+        "category": "SaaS",
+        "image_url": "/images/SaaSAnalyticsDashboard.jpg",
+        "project_url": "https://insighthub.example.com",
+        "client_name": "DataCorp Enterprise",
+        "status": "completed",
+        "tech_stack": "Vue.js, Python, FastAPI, ClickHouse, Kubernetes",
+        "featured": true
+    },
+    {
+        "title": "Terra Restaurant Website",
+        "description": "Award-winning restaurant website with online reservations, immersive food photography, and integrated ordering. Featured on Awwwards.",
+        "category": "Web Design",
+        "image_url": "/images/Restaurant.jpg",
+        "project_url": "https://terra-restaurant.example.com",
+        "client_name": "Terra Fine Dining",
+        "status": "completed",
+        "tech_stack": "Next.js, Framer Motion, Sanity CMS, Stripe",
+        "featured": false
+    },
+    {
+        "title": "Growth Marketing Campaign",
+        "description": "Full-scale digital marketing transformation with SEO, paid ads, content strategy, and marketing automation. Increased client ROI by 340%.",
+        "category": "Digital Marketing",
+        "image_url": "/images/DigitalMarketing.jpg",
+        "project_url": "https://example.com/case-study",
+        "client_name": "Zenith Brands",
+        "status": "completed",
+        "tech_stack": "Google Ads, Meta Ads, HubSpot, GA4, SEO",
+        "featured": false
+    },
+    {
+        "title": "CryptoVault Wallet",
+        "description": "Non-custodial crypto wallet with multi-chain support, DeFi integration, NFT gallery, and hardware wallet compatibility. Security-audited.",
+        "category": "Blockchain",
+        "image_url": "/images/CryptoWallet.jpg",
+        "project_url": "https://cryptovault.example.com",
+        "client_name": "CryptoVault Labs",
+        "status": "in_progress",
+        "tech_stack": "React, Solidity, Web3.js, Rust, Ethereum, Solana",
+        "featured": true
+    }
+]

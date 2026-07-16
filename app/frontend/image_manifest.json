@@ -1,0 +1,79 @@
+{
+  "status": "success",
+  "results": [
+    {
+      "status": "success",
+      "filename": "hero-bg-abstract.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvljycaiya/hero-bg-abstract.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvljycaiya/hero-bg-abstract.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvljycaiya/hero-bg-abstract.png"
+    },
+    {
+      "status": "success",
+      "filename": "portfolio-ecommerce.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvmdicaizq/portfolio-ecommerce.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvmdicaizq/portfolio-ecommerce.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvmdicaizq/portfolio-ecommerce.png"
+    },
+    {
+      "status": "success",
+      "filename": "portfolio-mobile-app.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvmqacai2q/portfolio-mobile-app.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvmqacai2q/portfolio-mobile-app.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvmqacai2q/portfolio-mobile-app.png"
+    },
+    {
+      "status": "success",
+      "filename": "portfolio-dashboard.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvm4ycai2a/portfolio-dashboard.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvm4ycai2a/portfolio-dashboard.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvm4ycai2a/portfolio-dashboard.png"
+    },
+    {
+      "status": "success",
+      "filename": "portfolio-restaurant.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvnjqcaiyq/portfolio-restaurant.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvnjqcaiyq/portfolio-restaurant.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvnjqcaiyq/portfolio-restaurant.png"
+    },
+    {
+      "status": "success",
+      "filename": "portfolio-marketing.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvnyicai2a/portfolio-marketing.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvnyicai2a/portfolio-marketing.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvnyicai2a/portfolio-marketing.png"
+    },
+    {
+      "status": "success",
+      "filename": "portfolio-crypto.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvofacaizq/portfolio-crypto.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvofacaizq/portfolio-crypto.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvofacaizq/portfolio-crypto.png"
+    },
+    {
+      "status": "success",
+      "filename": "blog-web-trends.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvorycaiza/blog-web-trends.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvorycaiza/blog-web-trends.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvorycaiza/blog-web-trends.png"
+    },
+    {
+      "status": "success",
+      "filename": "blog-ai-development.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvpaqcaiya/blog-ai-development.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvpaqcaiya/blog-ai-development.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvpaqcaiya/blog-ai-development.png"
+    },
+    {
+      "status": "success",
+      "filename": "blog-marketing-strategy.jpg",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvpnicaizq/blog-marketing-strategy.png",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvpnicaizq/blog-marketing-strategy.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/848876/2026-07-16/sszvpnicaizq/blog-marketing-strategy.png"
+    }
+  ],
+  "success_count": 10,
+  "failed_count": 0,
+  "running_count": 0,
+  "message": "Generated 10/10 images total"
+}

@@ -1,0 +1,41 @@
+{
+    "title": "projects",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "title": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "category": {
+            "type": "string"
+        },
+        "image_url": {
+            "type": "string"
+        },
+        "project_url": {
+            "type": "string"
+        },
+        "client_name": {
+            "type": "string"
+        },
+        "status": {
+            "type": "string"
+        },
+        "tech_stack": {
+            "type": "string"
+        },
+        "featured": {
+            "type": "boolean"
+        }
+    },
+    "required": [
+        "title",
+        "description",
+        "category"
+    ]
+}

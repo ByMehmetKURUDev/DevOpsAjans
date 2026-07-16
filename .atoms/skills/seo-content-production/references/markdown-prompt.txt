@@ -1,0 +1,151 @@
+Generate a comprehensive SEO-optimized markdown article that can realistically compete on page 1 of search engines while being genuinely useful for readers.
+
+## Project Context
+{project_context}
+
+## Internal Link Candidates
+Use 3-5 of these links naturally in your article (format: [Title](url_path)):
+{internal_links}
+
+## Current Page Specification
+- Title: {page_title}
+- URL Path: {page_url_path}
+- Keywords: {page_keywords}
+- Content Outline:
+{page_outline}
+- Hero Image: {hero_image_url}
+- Social Share Image: {og_image_url}
+- Language: {lang}
+
+Important image URL rule:
+- The `Hero Image` and `Social Share Image` values above are placeholder strings managed by the system.
+- You must copy them exactly into the YAML frontmatter and markdown body where requested.
+- Do NOT replace them with guessed CDN URLs, local `/assets/...` paths, or any other value.
+- The system will replace these placeholders with the final CDN URLs after image generation.
+
+## Date
+If using year/date in titles and content, don't use outdated years.
+Current Date: {current_date}
+
+---
+
+### 1. SEO Planning (Internal Only)
+
+Before writing, internally plan around:
+- User Intent: What the searcher really wants when they type the primary keywords
+- Competitors: Assume top 5 ranking pages are well-structured guides. Aim to be more complete, more clear, and more actionable.
+- E-E-A-T: Make the article demonstrate Experience, Expertise, Authoritativeness, and Trustworthiness
+
+Do not output this planning section. Use it only to guide the article.
+
+---
+
+### 2. Output Requirements
+
+#### 2.1 YAML Frontmatter
+Start directly with valid YAML frontmatter (do NOT wrap in code blocks):
+---
+title: "{page_title}"
+description: "Meta description including primary keywords, with clear benefit. 150-160 characters for English; 70-80 characters for CJK languages (zh, ja, ko)."
+keywords: "{page_keywords}"
+lang: "{lang}"
+hero_image: "{hero_image_url}"
+og_url: "https://atoms.template.com/blog/{page_url_path}"
+og_image: "{og_image_url}"
+og_image_alt: "{page_title}"
+twitter_card: "summary_large_image"
+twitter_site: "https://atoms.template.com/"
+twitter_creator: "@atoms_dev"
+twitter_title: "{page_title}"
+twitter_description: "Same as description"
+twitter_image: "{og_image_url}"
+twitter_image_alt: "{page_title}"
+---
+
+Social metadata notes:
+- During generation, keep the placeholder values exactly as provided for `hero_image`, `og_image`, and `twitter_image`.
+- Do not invent or normalize image URLs yourself.
+- The system will replace those placeholders with the final CDN URLs after image generation.
+- Do NOT output `og_title`, `og_description`, or `og_type`.
+- Always output `og_url` and ensure it matches the canonical blog URL for the page.
+- `twitter_description` must be identical to `description`. Do not generate a separate version.
+- Use `summary_large_image` for article pages with a strong preview image.
+- Default `twitter_site` to `https://atoms.template.com/` and default `twitter_creator` to `@atoms_dev`.
+- Override those defaults only when the project context provides a more reliable official site/account.
+
+#### 2.2 Article Structure
+
+1. H1 Title
+   - Include the primary keyword
+   - Keep it compelling and within 60 characters for English; for CJK languages (zh, ja, ko), keep within 25-30 characters
+
+2. Hero Image
+   - Format: ![{page_title}]({hero_image_url})
+   - Use the provided placeholder exactly as-is; the system will replace it with the final CDN URL later
+
+3. Introduction
+   - 200-300 words
+   - 2-3 short paragraphs
+   - Hook the reader with a pain point or clear promise
+   - Use the primary keyword naturally in the first 1-2 sentences
+   - State what the article covers
+
+4. Body Sections
+   - 4-6 sections, each 250-400 words
+   - Follow the provided outline
+   - Use descriptive H2s that include primary or secondary keywords when natural
+   - Include 2-3 H3 subsections per H2 where useful
+   - Explain concepts clearly, provide step-by-step advice when relevant, and use concrete examples
+   - Use bullet lists, numbered lists, comparison blocks, or tables when they improve clarity
+
+5. FAQ Section
+   - Optional but recommended
+   - Add 3-5 FAQ entries when relevant
+   - Use real-search style questions with concise answers
+
+6. Conclusion
+   - 150-200 words
+   - 2-3 short paragraphs
+   - Summarize takeaways, reinforce the benefit, and end with a clear CTA
+
+#### 2.3 On-Page SEO Checklist
+
+Ensure the primary keyword appears in:
+- H1 title
+- Meta description
+- First 100 words of the introduction
+- At least one H2 heading
+- Conclusion
+
+Use secondary keywords naturally throughout the body. Avoid keyword stuffing.
+
+#### 2.4 Internal Linking
+
+- Include 3-5 internal links from the candidate list
+- Place links naturally within relevant paragraphs
+- Use descriptive anchor text based on the linked page title
+- Format: [Page Title](/blog/url-path)
+
+#### 2.5 CTA Integration
+
+If `project_context.routes` contains CTA routes such as `/signup`, `/pricing`, `/demo`, or `/download`:
+- Add 1-2 CTA links naturally in the middle sections and/or conclusion
+- Use action-oriented anchor text appropriate for {lang}
+- Format: [CTA Text](route_path)
+
+If no CTA routes exist, skip CTA links.
+
+---
+
+### 3. Style and Formatting Rules
+
+- Aim for an 8th-10th grade reading level with simple, direct language (for non-English languages, adapt to an equivalent plain-language standard appropriate for the target language)
+- Prefer active voice (for languages where passive is more natural in formal writing, follow local conventions)
+- Keep paragraphs short (2-4 sentences each)
+- Remove fluff; every paragraph should add value
+- Use smooth transitions between sections
+- Write like an expert helping a smart but non-expert reader
+- Total length should be 1500-2500 words
+- Do NOT explain what you are doing
+- Do NOT wrap the output in code blocks
+- Output the complete publication-ready markdown article directly

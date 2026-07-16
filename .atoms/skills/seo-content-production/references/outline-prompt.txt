@@ -1,0 +1,33 @@
+Generate a complete SEO content matrix ({num_pages} pages) for the following topic.
+
+Current Date: {current_date}
+Topic: {topic}
+Core Keywords: {keywords}
+Page Categories: {categories}
+
+Requirements:
+0. If using year/date in titles, don't use outdated years.
+1. For each page, generate:
+   - Page title (attractive, click-worthy)
+   - URL path (kebab-case format, e.g., how-to-use-product)
+   - Core keywords (3-5 keywords, comma-separated)
+   - Content outline (3-4 main H2 section titles only)
+2. Cover all specified page categories.
+3. Ensure differentiation between pages and avoid duplication.
+4. Keywords should match user search intent.
+5. URL paths should be concise and semantic.
+
+Return in JSON format:
+{{
+  "topic": "{topic}",
+  "total_pages": {num_pages},
+  "pages": [
+    {{
+      "title": "Page Title",
+      "url_path": "url-path",
+      "keywords": ["keyword1", "keyword2", "keyword3"],
+      "category": "Core Features",
+      "outline": ["Section 1 Title", "Section 2 Title", "Section 3 Title"]
+    }}
+  ]
+}}
