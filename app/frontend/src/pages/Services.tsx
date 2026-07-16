@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import {
   Code2,
   Paintbrush,
@@ -6,11 +5,8 @@ import {
   BarChart3,
   Smartphone,
   ShoppingCart,
-  Sparkles,
-  ArrowRight,
   Check,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 
 export default function Services() {
@@ -67,33 +63,6 @@ export default function Services() {
     },
   ];
 
-  const PACKAGES = [
-    {
-      name: t('services.sprint'),
-      price: t('services.sprintPrice'),
-      duration: t('services.sprintDuration'),
-      desc: t('services.sprintDesc'),
-      features: ['Kickoff workshop', 'Design + build', 'One senior lead', 'Weekly demos', 'Launch handoff'],
-      highlight: false,
-    },
-    {
-      name: t('services.studio'),
-      price: t('services.studioPrice'),
-      duration: t('services.studioDuration'),
-      desc: t('services.studioDesc'),
-      features: ['Everything in Sprint', 'Design system', 'Multi-page or multi-screen product', 'Analytics + SEO setup', 'Post-launch support'],
-      highlight: true,
-    },
-    {
-      name: t('services.retainer'),
-      price: t('services.retainerPrice'),
-      duration: t('services.retainerDuration'),
-      desc: t('services.retainerDesc'),
-      features: ['Dedicated senior time', 'Weekly production releases', 'Growth experiments', 'Priority support', 'Quarterly strategy'],
-      highlight: false,
-    },
-  ];
-
   return (
     <div>
       {/* Header */}
@@ -135,82 +104,6 @@ export default function Services() {
               </ul>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Packages */}
-      <section className="py-24 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">{t('services.packagesTag')}</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">{t('services.packagesTitle')}</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              {t('services.packagesDesc')}
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {PACKAGES.map((p) => (
-              <div
-                key={p.name}
-                className={`relative p-8 rounded-2xl transition-all ${
-                  p.highlight
-                    ? 'glass border-purple-500/50 ring-1 ring-purple-500/40 md:-translate-y-3'
-                    : 'glass hover:border-white/20'
-                }`}
-              >
-                {p.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[10px] uppercase tracking-widest font-semibold">
-                    {t('services.mostPopular')}
-                  </div>
-                )}
-                <div className="flex items-baseline justify-between mb-2">
-                  <h3 className="text-2xl font-bold">{p.name}</h3>
-                  <span className="text-xs text-muted-foreground">{p.duration}</span>
-                </div>
-                <p className="text-3xl font-bold gradient-text mb-4">{p.price}</p>
-                <p className="text-sm text-muted-foreground mb-6">{p.desc}</p>
-                <ul className="space-y-3 mb-8">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm">
-                      <Check className="h-4 w-4 text-purple-400 mt-0.5 shrink-0" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link to="/contact">
-                  <Button
-                    className={`w-full h-11 gap-2 ${
-                      p.highlight
-                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0'
-                        : '!bg-transparent border border-white/20 hover:border-white/40'
-                    }`}
-                    variant={p.highlight ? 'default' : 'outline'}
-                  >
-                    {t('services.startConversation')} <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <Sparkles className="h-10 w-10 gradient-text mx-auto mb-4" />
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            {t('services.notSure')}
-          </h2>
-          <p className="text-muted-foreground mb-8">
-            {t('services.notSureDesc')}
-          </p>
-          <Link to="/contact">
-            <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 text-white h-12 px-8">
-              {t('services.tellUs')}
-            </Button>
-          </Link>
         </div>
       </section>
     </div>
