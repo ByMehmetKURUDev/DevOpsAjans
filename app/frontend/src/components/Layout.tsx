@@ -9,7 +9,7 @@ const InstagramCarousel = lazy(() => import('@/components/InstagramCarousel'));
 
 const client = createClient();
 
-const WHATSAPP_NUMBER = '905555555555';
+const WHATSAPP_NUMBER = '905412965878';
 
 const LANGUAGES = [
   { code: 'en', label: 'EN', full: 'English', flag: '🇬🇧' },
