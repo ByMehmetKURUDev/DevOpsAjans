@@ -111,10 +111,7 @@ export default function Layout() {
             </div>
             <div className="flex flex-col leading-tight">
               <span className="font-bold text-sm tracking-wide">
-                Mehmet <span className="gradient-text">KURU</span>
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-                Dev · Agency
+                <span className="text-[#1a0b2e]">By</span> Mehmet <span className="gradient-text">KURU</span> <span className="text-[#1a0b2e]">Dev</span>
               </span>
             </div>
           </Link>
@@ -308,7 +305,7 @@ export default function Layout() {
                 }}
               />
               <span className="font-bold">
-                By Mehmet <span className="gradient-text">KURU</span> Dev
+                <span className="text-[#1a0b2e]">By</span> Mehmet <span className="gradient-text">KURU</span> <span className="text-[#1a0b2e]">Dev</span>
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-md">

@@ -18,7 +18,7 @@ interface BlogPost {
   created_at?: string;
 }
 
-const BLOG_CATEGORIES = ['all', 'Website', 'E-Ticaret', 'SaaS', 'Mobil', 'Reklam'];
+const BLOG_CATEGORIES = ['all', 'Website', 'E-Ticaret', 'SaaS', 'Mobil Uygulama', 'Reklam'];
 
 export default function Blog() {
   const { t } = useTranslation();

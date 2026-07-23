@@ -40,4 +40,5 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-07-16 | Performance: lazy-loaded all route pages (code splitting), Instagram carousel moved to shared Layout (all pages), new logo (4).jpg applied, build passes with smaller chunks
 - 2026-07-16 | Integrated Google Analytics 4 (G-QC4XHQ2F4J): gtag.js added to index.html head, site.config.json created with measurement ID
 - 2026-07-23 | Hero banner değiştirildi (yeni cyberpunk workspace görseli), site renk paleti banner'a uygun güncellendi (#05010a/#8b3dff/#d4a5ff/#1a0b2e/#5c27a3), WhatsApp numarası düzeltildi (905412965878), performans: hero eager loading + fetchPriority high, CheckUI grade 5
+- 2026-07-23 | Logo: "By" ve "Dev" koyu renk (#1a0b2e), "ajent" yazısı kaldırıldı. Instagram slider → portföy kategorilerine yönlendirme (Website/E-Ticaret/SaaS/Mobil/Reklam). Portföy: URL param ile kategori filtresi, tarihe göre sıralama, zaman çizelgesi eklendi. Blog: aynı kategori yapısı (Mobil Uygulama). Ana sayfa: Portföy Kategorileri bölümü + Google Business Yorumları (6 mock review) eklendi. CheckUI grade 4
 
