@@ -99,7 +99,7 @@ export default function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-400 blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#8b3dff] via-[#5c27a3] to-[#d4a5ff] blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
               <img
                 src="/assets/logo-new.jpg"
                 alt="Mehmet KURU Dev"

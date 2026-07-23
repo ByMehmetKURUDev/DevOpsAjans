@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Code2, Rocket, Target, Paintbrush, Globe, Zap, Shield, Crown, Server } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Hero3D from '@/components/Hero3D';
 import { useTranslation } from 'react-i18next';
 
 const TECH = [
@@ -74,9 +73,15 @@ export default function Index() {
       {/* HERO */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
-          <Hero3D />
+          <img
+            src="/assets/hero-banner.png"
+            alt="Hero Banner"
+            className="w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+          />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#05010a]/60 via-[#1a0b2e]/40 to-background pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-24">
           <div className="max-w-3xl">
@@ -106,7 +111,7 @@ export default function Index() {
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 glow-primary h-12 px-6 gap-2"
+                  className="bg-gradient-to-r from-[#8b3dff] to-[#5c27a3] hover:from-[#9b5dff] hover:to-[#7b3dc3] text-white border-0 glow-primary h-12 px-6 gap-2"
                 >
                   {t('hero.cta')} <ArrowRight className="h-4 w-4" />
                 </Button>

@@ -39,4 +39,5 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-07-16 | Major update: new logo, hero stats (41+/13+/33+/7+), 5 capabilities (Consulting→Launch), 5 pricing packages on homepage+services, expanded timeline (2013-2026), 5 values including Teslimat, social icons in footer (FB/IG/Twitter/LinkedIn/YouTube/GitHub), map on contact page, blog categories, portfolio Reklam category, DevOps tools in marquee, copyright updated to "By@MehmetKURU.Dev"
 - 2026-07-16 | Performance: lazy-loaded all route pages (code splitting), Instagram carousel moved to shared Layout (all pages), new logo (4).jpg applied, build passes with smaller chunks
 - 2026-07-16 | Integrated Google Analytics 4 (G-QC4XHQ2F4J): gtag.js added to index.html head, site.config.json created with measurement ID
+- 2026-07-23 | Hero banner değiştirildi (yeni cyberpunk workspace görseli), site renk paleti banner'a uygun güncellendi (#05010a/#8b3dff/#d4a5ff/#1a0b2e/#5c27a3), WhatsApp numarası düzeltildi (905412965878), performans: hero eager loading + fetchPriority high, CheckUI grade 5
 

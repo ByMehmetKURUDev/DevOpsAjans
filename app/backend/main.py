@@ -51,6 +51,8 @@ def setup_logging():
     logging.getLogger("uvicorn").setLevel(logging.DEBUG)
     logging.getLogger("fastapi").setLevel(logging.DEBUG)
 
+    logging.getLogger("watchfiles").setLevel(logging.WARNING)
+
     # Log configuration details
     logger = logging.getLogger(__name__)
     logger.info("=== Logging system initialized ===")
