@@ -14,33 +14,21 @@ const defaultConfig = {
 // Function to load runtime configuration
 export async function loadRuntimeConfig(): Promise<void> {
   try {
-    console.log('🔧 DEBUG: Starting to load runtime config...');
-    // Try to load configuration from a config endpoint
-    const response = await fetch('/api/config');
+    // Try to load configuration from a config endpoint with a short timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
+    const response = await fetch('/api/config', { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (response.ok) {
       const contentType = response.headers.get('content-type');
-      // Only parse as JSON if the response is actually JSON
       if (contentType && contentType.includes('application/json')) {
         runtimeConfig = await response.json();
-        console.log('Runtime config loaded successfully');
-      } else {
-        console.log(
-          'Config endpoint returned non-JSON response, skipping runtime config'
-        );
       }
-    } else {
-      console.log(
-        '🔧 DEBUG: Config fetch failed with status:',
-        response.status
-      );
     }
-  } catch (error) {
-    console.log('Failed to load runtime config, using defaults:', error);
+  } catch {
+    // Silently fall back to defaults
   } finally {
     configLoading = false;
-    console.log(
-      '🔧 DEBUG: Config loading finished, configLoading set to false'
-    );
   }
 }
 
