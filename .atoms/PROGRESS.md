@@ -48,5 +48,6 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-09-05 | Analitik panosu eklendi (trafik, SEO, Google Ads, sosyal medya) - analytics_snapshots verisi + 60s otomatik yenileme
 - 2026-09-05 | 3 SEO makalesi Blog'a entegre edildi; /blog ve /blog/:slug prerender + metadata çalışıyor (5 sayfa prerender)
 - 2026-09-05 | Örnek fatura ve destek talebi verileri eklendi; lint + build başarılı, CheckUI grade 4
+- 2026-09-05 | Alt kısımdaki "Portföy Kategorileri / Projelerimizi keşfedin" bölümü ve kayan kart slider'ı tamamen kaldırıldı; InstagramCarousel bileşeni silindi, Layout'taki lazy/Suspense import'ları temizlendi; lint + build başarılı
 - 2026-08-05 | SEO içerik paketi oluşturuldu (Sarah): 3 uzun-form makale + frontmatter metadata → /workspace/app/frontend/seo/content/ dizinine yazıldı. Makaleler: (1) İstanbul Web Geliştirme Ajansı, (2) Özel Yazılım Geliştirme, (3) Dijital Pazarlama Ajansı Türkiye. Alex'e embed handoff bekliyor.
 

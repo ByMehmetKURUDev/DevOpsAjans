@@ -1,12 +1,10 @@
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@metagptx/web-sdk';
 import { useTranslation } from 'react-i18next';
 import { useSiteSettings, isAdminUser } from '@/lib/siteSettings';
-
-const InstagramCarousel = lazy(() => import('@/components/InstagramCarousel'));
 
 const client = createClient();
 
@@ -346,11 +344,6 @@ export default function Layout() {
       <main className="flex-1 pt-24">
         <Outlet />
       </main>
-
-      {/* Instagram Carousel - All pages */}
-      <Suspense fallback={null}>
-        <InstagramCarousel />
-      </Suspense>
 
       {/* Footer */}
       <footer className="border-t border-white/5 bg-background/60 backdrop-blur">
