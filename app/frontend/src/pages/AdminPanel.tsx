@@ -17,6 +17,7 @@ import {
   Newspaper,
   Save,
   ShieldAlert,
+  Languages,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -31,8 +32,20 @@ import {
   saveSiteSetting,
   useSiteSettings,
   isAdminUser,
+  localizedSettingKey,
   type SettingRow,
 } from '@/lib/siteSettings';
+import { SUPPORTED_LANGUAGES } from '@/i18n';
+
+/** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
+const SETTING_LANG_OPTIONS = [
+  { code: 'base', label: 'Varsayılan', flag: '🌐' },
+  ...SUPPORTED_LANGUAGES.map((l) => ({
+    code: l.code,
+    label: l.full,
+    flag: l.flag,
+  })),
+];
 
 const client = createClient();
 
@@ -158,7 +171,14 @@ const emptyInvoice: Partial<Invoice> = {
 };
 
 export default function AdminPanel() {
-  const { settings, reload: reloadSettings } = useSiteSettings();
+  const { settings, rawSettings, reload: reloadSettings } = useSiteSettings();
+  const [settingLang, setSettingLang] = useState<string>('base');
+
+  /** Seçili dile göre kaydedilecek/okunacak ayar anahtarını verir. */
+  const effectiveSettingKey = (field: { key: string; translatable?: boolean }) =>
+    field.translatable && settingLang !== 'base'
+      ? localizedSettingKey(field.key, settingLang)
+      : field.key;
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [tab, setTab] = useState<Tab>('analytics');
@@ -226,7 +246,14 @@ export default function AdminPanel() {
       SETTING_GROUPS.forEach((g) =>
         g.fields.forEach((f) => {
           const row = rows.find((r) => r.setting_key === f.key);
-          draft[f.key] = row?.setting_value ?? settings[f.key] ?? '';
+          draft[f.key] = row?.setting_value ?? rawSettings[f.key] ?? '';
+          if (f.translatable) {
+            SUPPORTED_LANGUAGES.forEach((lng) => {
+              const lk = localizedSettingKey(f.key, lng.code);
+              const lrow = rows.find((r) => r.setting_key === lk);
+              draft[lk] = lrow?.setting_value ?? rawSettings[lk] ?? '';
+            });
+          }
         })
       );
       setSettingDraft(draft);
@@ -234,7 +261,7 @@ export default function AdminPanel() {
       const err = e as { message?: string };
       toast.error(err?.message || 'Ayarlar yüklenemedi');
     }
-  }, [settings]);
+  }, [rawSettings]);
 
   useEffect(() => {
     if (user && isAdmin) {
@@ -250,15 +277,18 @@ export default function AdminPanel() {
     setSavingSettings(true);
     try {
       for (const field of group.fields) {
-        const value = settingDraft[field.key] ?? '';
-        const current = settingRows.find((r) => r.setting_key === field.key);
+        const key = effectiveSettingKey(field);
+        const value = settingDraft[key] ?? '';
+        const current = settingRows.find((r) => r.setting_key === key);
         if ((current?.setting_value ?? '') !== value) {
           await saveSiteSetting(
             settingRows,
-            field.key,
+            key,
             value,
             group.group,
-            field.label
+            key === field.key
+              ? field.label
+              : `${field.label} (${settingLang.toUpperCase()})`
           );
         }
       }
@@ -587,60 +617,102 @@ export default function AdminPanel() {
       )}
 
       {tab === 'settings' && (
-        <div className="grid gap-6 lg:grid-cols-2">
-          {SETTING_GROUPS.map((group) => (
-            <div key={group.group} className="p-6 rounded-2xl glass">
-              <h3 className="text-lg font-semibold mb-1">{group.title}</h3>
-              <p className="text-xs text-muted-foreground mb-5">
-                {group.description}
-              </p>
-              <div className="space-y-4">
-                {group.fields.map((field) => (
-                  <div key={field.key}>
-                    <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      {field.label}
-                    </Label>
-                    {field.multiline ? (
-                      <Textarea
-                        rows={3}
-                        value={settingDraft[field.key] ?? ''}
-                        onChange={(e) =>
-                          setSettingDraft({
-                            ...settingDraft,
-                            [field.key]: e.target.value,
-                          })
-                        }
-                        className="bg-white/5 border-white/10"
-                      />
-                    ) : (
-                      <Input
-                        value={settingDraft[field.key] ?? ''}
-                        onChange={(e) =>
-                          setSettingDraft({
-                            ...settingDraft,
-                            [field.key]: e.target.value,
-                          })
-                        }
-                        className="bg-white/5 border-white/10"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-              <Button
-                onClick={() => saveSettingsGroup(group.group)}
-                disabled={savingSettings}
-                className="mt-6 h-10 gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
-              >
-                {savingSettings ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Save className="h-4 w-4" />
-                )}
-                Kaydet
-              </Button>
+        <div className="space-y-6">
+          <div className="p-5 rounded-2xl glass">
+            <div className="flex items-center gap-2 mb-1">
+              <Languages className="h-4 w-4 text-purple-300" />
+              <h3 className="text-sm font-semibold">İçerik Dili</h3>
             </div>
-          ))}
+            <p className="text-xs text-muted-foreground mb-4">
+              Çevrilebilir alanlar (hero metinleri, adres, SEO başlık ve açıklama) seçili
+              dil için ayrı kaydedilir. “Varsayılan” sekmesindeki değer, karşılığı
+              girilmeyen dillerde gösterilir.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {SETTING_LANG_OPTIONS.map((opt) => (
+                <button
+                  key={opt.code}
+                  onClick={() => setSettingLang(opt.code)}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1.5 border ${
+                    settingLang === opt.code
+                      ? 'bg-purple-500/20 border-purple-400/50 text-foreground'
+                      : 'border-white/10 text-muted-foreground hover:text-foreground hover:bg-white/5'
+                  }`}
+                >
+                  <span>{opt.flag}</span>
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {SETTING_GROUPS.map((group) => (
+              <div key={group.group} className="p-6 rounded-2xl glass">
+                <h3 className="text-lg font-semibold mb-1">{group.title}</h3>
+                <p className="text-xs text-muted-foreground mb-5">
+                  {group.description}
+                </p>
+                <div className="space-y-4">
+                  {group.fields.map((field) => {
+                    const fieldKey = effectiveSettingKey(field);
+                    const isLocalized = fieldKey !== field.key;
+                    const fallback = settingDraft[field.key] ?? '';
+                    return (
+                      <div key={fieldKey}>
+                        <Label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
+                          {field.label}
+                          {field.translatable && (
+                            <span className="normal-case tracking-normal text-[10px] px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-200">
+                              {isLocalized ? settingLang.toUpperCase() : 'Varsayılan'}
+                            </span>
+                          )}
+                        </Label>
+                        {field.multiline ? (
+                          <Textarea
+                            rows={3}
+                            value={settingDraft[fieldKey] ?? ''}
+                            placeholder={isLocalized ? fallback : undefined}
+                            onChange={(e) =>
+                              setSettingDraft({
+                                ...settingDraft,
+                                [fieldKey]: e.target.value,
+                              })
+                            }
+                            className="bg-white/5 border-white/10"
+                          />
+                        ) : (
+                          <Input
+                            value={settingDraft[fieldKey] ?? ''}
+                            placeholder={isLocalized ? fallback : undefined}
+                            onChange={(e) =>
+                              setSettingDraft({
+                                ...settingDraft,
+                                [fieldKey]: e.target.value,
+                              })
+                            }
+                            className="bg-white/5 border-white/10"
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                <Button
+                  onClick={() => saveSettingsGroup(group.group)}
+                  disabled={savingSettings}
+                  className="mt-6 h-10 gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
+                >
+                  {savingSettings ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Save className="h-4 w-4" />
+                  )}
+                  Kaydet
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

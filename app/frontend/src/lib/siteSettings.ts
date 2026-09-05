@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createClient } from '@metagptx/web-sdk';
+import { useTranslation } from 'react-i18next';
+import { LANGUAGE_CODES } from '@/i18n';
 
 const client = createClient();
 
@@ -41,12 +43,55 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   admin_emails: 'by@mehmetkuru.dev',
 };
 
+/**
+ * Dil bazlı saklanan ayar anahtarları.
+ * Örnek: `hero_title` temel (varsayılan) değer, `hero_title__ar` Arapça karşılığı.
+ */
+export const TRANSLATABLE_KEYS = [
+  'hero_title',
+  'hero_subtitle',
+  'hero_cta',
+  'contact_address',
+  'seo_meta_title',
+  'seo_meta_description',
+] as const;
+
+export type TranslatableKey = (typeof TRANSLATABLE_KEYS)[number];
+
+export function isTranslatableKey(key: string): boolean {
+  return (TRANSLATABLE_KEYS as readonly string[]).includes(key);
+}
+
+/** Dil bazlı ayar anahtarını üretir. */
+export function localizedSettingKey(key: string, lang: string): string {
+  return `${key}__${lang}`;
+}
+
+/** Aktif dile göre ayar değerini çözer; dil karşılığı boşsa temel değere düşer. */
+export function resolveSetting(settings: SettingsMap, key: string, lang?: string): string {
+  if (lang && isTranslatableKey(key)) {
+    const localized = settings[localizedSettingKey(key, lang)];
+    if (localized && localized.trim()) return localized;
+  }
+  return settings[key] ?? '';
+}
+
+/** Tüm çevrilebilir anahtarları aktif dile göre çözülmüş bir haritaya uygular. */
+export function localizeSettings(settings: SettingsMap, lang?: string): SettingsMap {
+  if (!lang) return settings;
+  const resolved: SettingsMap = { ...settings };
+  TRANSLATABLE_KEYS.forEach((key) => {
+    resolved[key] = resolveSetting(settings, key, lang);
+  });
+  return resolved;
+}
+
 /** Admin panelindeki "Site Ayarları" sekmesinin form düzeni. */
 export const SETTING_GROUPS: {
   group: string;
   title: string;
   description: string;
-  fields: { key: string; label: string; multiline?: boolean }[];
+  fields: { key: string; label: string; multiline?: boolean; translatable?: boolean }[];
 }[] = [
   {
     group: 'brand',
@@ -57,11 +102,12 @@ export const SETTING_GROUPS: {
   {
     group: 'hero',
     title: 'Ana Sayfa Hero',
-    description: 'Ana sayfadaki başlık, alt metin ve buton yazısı.',
+    description:
+      'Ana sayfadaki başlık, alt metin ve buton yazısı. Bu alanlar her dil için ayrı ayrı düzenlenebilir.',
     fields: [
-      { key: 'hero_title', label: 'Hero Başlık', multiline: true },
-      { key: 'hero_subtitle', label: 'Hero Alt Metin', multiline: true },
-      { key: 'hero_cta', label: 'Hero Buton Metni' },
+      { key: 'hero_title', label: 'Hero Başlık', multiline: true, translatable: true },
+      { key: 'hero_subtitle', label: 'Hero Alt Metin', multiline: true, translatable: true },
+      { key: 'hero_cta', label: 'Hero Buton Metni', translatable: true },
     ],
   },
   {
@@ -71,7 +117,7 @@ export const SETTING_GROUPS: {
     fields: [
       { key: 'contact_email', label: 'E-posta' },
       { key: 'contact_phone', label: 'Telefon' },
-      { key: 'contact_address', label: 'Adres' },
+      { key: 'contact_address', label: 'Adres', translatable: true },
       { key: 'whatsapp_number', label: 'WhatsApp Numarası (905xxxxxxxxx)' },
     ],
   },
@@ -103,11 +149,17 @@ export const SETTING_GROUPS: {
   {
     group: 'analytics',
     title: 'SEO & Analitik',
-    description: 'Arama motoru meta bilgileri ve ölçüm kimlikleri.',
+    description:
+      'Arama motoru meta bilgileri ve ölçüm kimlikleri. Meta başlık/açıklama her dil için ayrı girilebilir.',
     fields: [
       { key: 'ga4_measurement_id', label: 'GA4 Ölçüm Kimliği' },
-      { key: 'seo_meta_title', label: 'SEO Başlık' },
-      { key: 'seo_meta_description', label: 'SEO Açıklama', multiline: true },
+      { key: 'seo_meta_title', label: 'SEO Başlık', translatable: true },
+      {
+        key: 'seo_meta_description',
+        label: 'SEO Açıklama',
+        multiline: true,
+        translatable: true,
+      },
     ],
   },
   {
@@ -119,7 +171,7 @@ export const SETTING_GROUPS: {
   },
 ];
 
-const CACHE_KEY = 'mk_site_settings_v1';
+const CACHE_KEY = 'mk_site_settings_v2';
 
 let memoryCache: SettingsMap | null = null;
 let inFlight: Promise<SettingsMap> | null = null;
@@ -156,7 +208,7 @@ export async function fetchSiteSettings(force = false): Promise<SettingsMap> {
 
   const request = (async () => {
     try {
-      const res = await client.entities.site_settings.query({ limit: 200 });
+      const res = await client.entities.site_settings.query({ limit: 500 });
       const items = (res?.data?.items ?? []) as SettingRow[];
       const map: SettingsMap = { ...DEFAULT_SETTINGS };
       items.forEach((row) => {
@@ -177,7 +229,7 @@ export async function fetchSiteSettings(force = false): Promise<SettingsMap> {
 
 /** Ham satırları döndürür — admin panelinde güncelleme için id gerekir. */
 export async function fetchSettingRows(): Promise<SettingRow[]> {
-  const res = await client.entities.site_settings.query({ limit: 200 });
+  const res = await client.entities.site_settings.query({ limit: 500 });
   return (res?.data?.items ?? []) as SettingRow[];
 }
 
@@ -218,9 +270,14 @@ export function clearSettingsCache() {
   }
 }
 
-/** Bileşenlerde site ayarlarını okumak için hook. */
+/**
+ * Bileşenlerde site ayarlarını okumak için hook.
+ * `settings` aktif dile göre çözülmüş değerleri içerir; `rawSettings` ham haritadır.
+ */
 export function useSiteSettings() {
-  const [settings, setSettings] = useState<SettingsMap>(
+  const { i18n } = useTranslation();
+  const lang = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : 'tr';
+  const [rawSettings, setRawSettings] = useState<SettingsMap>(
     () => readCache() ?? { ...DEFAULT_SETTINGS }
   );
   const [loading, setLoading] = useState(true);
@@ -228,7 +285,7 @@ export function useSiteSettings() {
   const load = useCallback(async (force = false) => {
     setLoading(true);
     const map = await fetchSiteSettings(force);
-    setSettings(map);
+    setRawSettings(map);
     setLoading(false);
   }, []);
 
@@ -236,7 +293,9 @@ export function useSiteSettings() {
     load();
   }, [load]);
 
-  return { settings, loading, reload: () => load(true) };
+  const settings = useMemo(() => localizeSettings(rawSettings, lang), [rawSettings, lang]);
+
+  return { settings, rawSettings, lang, loading, reload: () => load(true) };
 }
 
 /** Kullanıcının yönetici olup olmadığını ayarlara göre belirler. */

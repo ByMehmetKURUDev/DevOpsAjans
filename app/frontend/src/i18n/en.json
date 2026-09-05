@@ -10,7 +10,11 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "admin": "Admin",
-    "myPanel": "My Panel"
+    "myPanel": "My Panel",
+    "signUp": "Sign up",
+    "language": "Language",
+    "adminPanel": "Admin Panel",
+    "clientPanel": "Client Panel"
   },
   "hero": {
     "badge": "Available for projects · Q3 2026",

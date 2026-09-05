@@ -10,7 +10,11 @@
     "signIn": "Giriş yap",
     "signOut": "Çıkış yap",
     "admin": "Yönetici",
-    "myPanel": "Panelim"
+    "myPanel": "Panelim",
+    "signUp": "Kayıt Ol",
+    "language": "Dil",
+    "adminPanel": "Yönetim Paneli",
+    "clientPanel": "Müşteri Panelim"
   },
   "hero": {
     "badge": "Projeler için müsait · Q3 2026",

@@ -10,7 +10,11 @@
     "signIn": "Anmelden",
     "signOut": "Abmelden",
     "admin": "Admin",
-    "myPanel": "Mein Panel"
+    "myPanel": "Mein Panel",
+    "signUp": "Registrieren",
+    "language": "Sprache",
+    "adminPanel": "Admin-Panel",
+    "clientPanel": "Kundenpanel"
   },
   "hero": {
     "badge": "Verfügbar für Projekte · Q3 2026",

@@ -5,14 +5,9 @@ import { Button } from '@/components/ui/button';
 import { createClient } from '@metagptx/web-sdk';
 import { useTranslation } from 'react-i18next';
 import { useSiteSettings, isAdminUser } from '@/lib/siteSettings';
+import { SUPPORTED_LANGUAGES as LANGUAGES, getLanguageMeta } from '@/i18n';
 
 const client = createClient();
-
-const LANGUAGES = [
-  { code: 'en', label: 'EN', full: 'English', flag: '🇬🇧' },
-  { code: 'tr', label: 'TR', full: 'Türkçe', flag: '🇹🇷' },
-  { code: 'de', label: 'DE', full: 'Deutsch', flag: '🇩🇪' },
-];
 
 const SOCIAL_ICONS: { key: string; label: string; path: string }[] = [
   {
@@ -110,8 +105,64 @@ export default function Layout() {
     setLangOpen(false);
   };
 
-  const currentLang =
-    LANGUAGES.find((l) => l.code === i18n.language) || LANGUAGES[0];
+  const currentLang = getLanguageMeta(i18n.language);
+  const isRtl = currentLang.dir === 'rtl';
+
+  /** Dil bazlı meta title/description ve hreflang etiketlerini uygular. */
+  useEffect(() => {
+    const title = settings.seo_meta_title || 'Mehmet KURU Dev';
+    const description = settings.seo_meta_description || '';
+    document.title = title;
+
+    const upsertMeta = (selector: string, attrs: Record<string, string>) => {
+      let el = document.head.querySelector<HTMLMetaElement>(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        document.head.appendChild(el);
+      }
+      Object.entries(attrs).forEach(([k, v]) => el!.setAttribute(k, v));
+    };
+
+    upsertMeta('meta[name="description"]', { name: 'description', content: description });
+    upsertMeta('meta[property="og:title"]', { property: 'og:title', content: title });
+    upsertMeta('meta[property="og:description"]', {
+      property: 'og:description',
+      content: description,
+    });
+    upsertMeta('meta[property="og:locale"]', {
+      property: 'og:locale',
+      content: currentLang.htmlLang,
+    });
+    upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: title });
+    upsertMeta('meta[name="twitter:description"]', {
+      name: 'twitter:description',
+      content: description,
+    });
+
+    // hreflang: her dil için ?lang=<code> varyantı
+    document.head
+      .querySelectorAll('link[data-i18n-hreflang="true"]')
+      .forEach((el) => el.remove());
+    const origin = window.location.origin;
+    const path = window.location.pathname;
+    [...LANGUAGES.map((l) => l.htmlLang), 'x-default'].forEach((code, idx) => {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', code);
+      link.setAttribute('data-i18n-hreflang', 'true');
+      const langCode = idx < LANGUAGES.length ? LANGUAGES[idx].code : 'tr';
+      link.setAttribute('href', `${origin}${path}?lang=${langCode}`);
+      document.head.appendChild(link);
+    });
+  }, [settings.seo_meta_title, settings.seo_meta_description, currentLang.htmlLang]);
+
+  /** URL'de ?lang=xx varsa o dile geçer (hreflang varyantları için). */
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('lang');
+    if (param && LANGUAGES.some((l) => l.code === param) && param !== i18n.language) {
+      i18n.changeLanguage(param);
+    }
+  }, [i18n]);
 
   const isAdmin = isAdminUser(user, settings);
   const logoSrc = settings.brand_logo || '/assets/logo-new.jpg';
@@ -182,12 +233,16 @@ export default function Layout() {
                 {currentLang.label}
               </button>
               {langOpen && (
-                <div className="absolute top-full right-0 mt-2 w-36 rounded-xl glass p-1.5 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                <div
+                  className={`absolute top-full mt-2 w-44 max-h-[70vh] overflow-y-auto rounded-xl glass p-1.5 animate-in fade-in slide-in-from-top-2 duration-200 z-50 ${
+                    isRtl ? 'left-0' : 'right-0'
+                  }`}
+                >
                   {LANGUAGES.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => switchLang(lang.code)}
-                      className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors flex items-center gap-2 ${
+                      className={`w-full text-start px-3 py-2 rounded-lg text-sm transition-colors flex items-center gap-2 ${
                         lang.code === i18n.language
                           ? 'bg-purple-500/15 text-foreground'
                           : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
@@ -195,7 +250,7 @@ export default function Layout() {
                     >
                       <span className="text-base">{lang.flag}</span>
                       <span className="font-medium">{lang.label}</span>
-                      <span className="ml-auto text-xs text-muted-foreground">
+                      <span className="ms-auto text-xs text-muted-foreground">
                         {lang.full}
                       </span>
                     </button>
@@ -213,7 +268,7 @@ export default function Layout() {
                     className="gap-2 hover:bg-purple-500/10 hover:text-purple-300"
                   >
                     <User className="h-4 w-4" />
-                    {isAdmin ? 'Yönetim Paneli' : 'Müşteri Panelim'}
+                    {isAdmin ? t('nav.adminPanel') : t('nav.clientPanel')}
                   </Button>
                 </Link>
                 <Button
@@ -221,7 +276,7 @@ export default function Layout() {
                   size="sm"
                   onClick={handleLogout}
                   className="gap-2 text-muted-foreground hover:text-foreground"
-                  aria-label="Çıkış yap"
+                  aria-label={t('nav.signOut')}
                 >
                   <LogOut className="h-4 w-4" />
                 </Button>
@@ -236,7 +291,7 @@ export default function Layout() {
                     className="gap-2 !bg-transparent !hover:bg-transparent border-white/20 hover:border-purple-400/60 text-foreground"
                   >
                     <LogIn className="h-4 w-4" />
-                    Giriş Yap
+                    {t('nav.signIn')}
                   </Button>
                   <Button
                     size="sm"
@@ -244,7 +299,7 @@ export default function Layout() {
                     className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 glow-primary"
                   >
                     <UserPlus className="h-4 w-4" />
-                    Kayıt Ol
+                    {t('nav.signUp')}
                   </Button>
                 </>
               )
@@ -282,9 +337,9 @@ export default function Layout() {
             {/* Mobile language switcher */}
             <div className="pt-3 border-t border-white/10">
               <p className="px-4 py-1 text-xs uppercase tracking-widest text-muted-foreground">
-                Dil
+                {t('nav.language')}
               </p>
-              <div className="flex gap-2 px-4 py-2">
+              <div className="flex flex-wrap gap-2 px-4 py-2">
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
@@ -307,7 +362,7 @@ export default function Layout() {
                   <Link to={isAdmin ? '/admin' : '/client'}>
                     <Button variant="secondary" className="w-full gap-2">
                       <User className="h-4 w-4" />{' '}
-                      {isAdmin ? 'Yönetim Paneli' : 'Müşteri Panelim'}
+                      {isAdmin ? t('nav.adminPanel') : t('nav.clientPanel')}
                     </Button>
                   </Link>
                   <Button
@@ -315,7 +370,7 @@ export default function Layout() {
                     onClick={handleLogout}
                     className="w-full gap-2"
                   >
-                    <LogOut className="h-4 w-4" /> Çıkış Yap
+                    <LogOut className="h-4 w-4" /> {t('nav.signOut')}
                   </Button>
                 </>
               ) : (
@@ -325,13 +380,13 @@ export default function Layout() {
                     onClick={handleLogin}
                     className="w-full gap-2 !bg-transparent !hover:bg-transparent border-white/20 text-foreground"
                   >
-                    <LogIn className="h-4 w-4" /> Giriş Yap
+                    <LogIn className="h-4 w-4" /> {t('nav.signIn')}
                   </Button>
                   <Button
                     onClick={handleRegister}
                     className="w-full gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                   >
-                    <UserPlus className="h-4 w-4" /> Kayıt Ol
+                    <UserPlus className="h-4 w-4" /> {t('nav.signUp')}
                   </Button>
                 </>
               )}
@@ -437,8 +492,8 @@ export default function Layout() {
         href={`https://wa.me/${whatsappNumber}`}
         target="_blank"
         rel="noreferrer"
-        className="fixed bottom-6 right-6 z-40 group"
-        aria-label="WhatsApp ile yazın"
+        className={`fixed bottom-6 z-40 group ${isRtl ? 'left-6' : 'right-6'}`}
+        aria-label={t('contact.whatsappLabel')}
       >
         <div className="absolute inset-0 rounded-full bg-green-500 blur-lg opacity-60 group-hover:opacity-90 transition-opacity" />
         <div className="relative flex items-center justify-center h-14 w-14 rounded-full bg-[#25D366] text-white shadow-xl shadow-green-500/30 group-hover:scale-110 transition-transform">

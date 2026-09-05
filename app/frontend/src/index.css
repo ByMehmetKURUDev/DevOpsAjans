@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -84,6 +84,58 @@
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+/* ---------- RTL (Arapça) desteği ---------- */
+[dir='rtl'] body {
+  font-family: 'Noto Naskh Arabic', 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+[dir='rtl'] h1,
+[dir='rtl'] h2,
+[dir='rtl'] h3,
+[dir='rtl'] h4 {
+  font-family: 'Noto Naskh Arabic', 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: 0;
+}
+/* Metin hizalamalarını ayna çevir */
+[dir='rtl'] .text-left { text-align: right; }
+[dir='rtl'] .text-right { text-align: left; }
+/* Kenar boşluklarını mantıksal hale getir */
+[dir='rtl'] .ml-auto { margin-left: 0; margin-right: auto; }
+[dir='rtl'] .mr-auto { margin-right: 0; margin-left: auto; }
+[dir='rtl'] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+[dir='rtl'] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+[dir='rtl'] .pl-4 { padding-left: 0; padding-right: 1rem; }
+[dir='rtl'] .pr-4 { padding-right: 0; padding-left: 1rem; }
+/* Sol kenarlıklı timeline / alıntı blokları */
+[dir='rtl'] .border-l,
+[dir='rtl'] .border-l-2,
+[dir='rtl'] .border-l-4 {
+  border-left-width: 0;
+  border-right-width: 2px;
+  border-right-style: solid;
+  border-right-color: inherit;
+}
+/* Yön belirten ikonları çevir (ok, chevron vb.) */
+[dir='rtl'] .rtl-flip,
+[dir='rtl'] .lucide-arrow-right,
+[dir='rtl'] .lucide-arrow-left,
+[dir='rtl'] .lucide-chevron-right,
+[dir='rtl'] .lucide-chevron-left {
+  transform: scaleX(-1);
+}
+/* Marquee yönünü çevir */
+[dir='rtl'] .marquee {
+  animation-direction: reverse;
+}
+
+/* Hintçe için Devanagari desteği */
+[data-lang='hi'] body,
+[data-lang='hi'] h1,
+[data-lang='hi'] h2,
+[data-lang='hi'] h3,
+[data-lang='hi'] h4 {
+  font-family: 'Noto Sans Devanagari', 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
 @keyframes float-slow {

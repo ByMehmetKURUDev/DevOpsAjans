@@ -49,5 +49,6 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-09-05 | 3 SEO makalesi Blog'a entegre edildi; /blog ve /blog/:slug prerender + metadata çalışıyor (5 sayfa prerender)
 - 2026-09-05 | Örnek fatura ve destek talebi verileri eklendi; lint + build başarılı, CheckUI grade 4
 - 2026-09-05 | Alt kısımdaki "Portföy Kategorileri / Projelerimizi keşfedin" bölümü ve kayan kart slider'ı tamamen kaldırıldı; InstagramCarousel bileşeni silindi, Layout'taki lazy/Suspense import'ları temizlendi; lint + build başarılı
+- 2026-09-05 | 4 yeni dil eklendi (Arapça/Rusça/Çince/Hintçe) → toplam 7 dil; tüm sayfa içerikleri çevrildi, Arapça için dir="rtl" + RTL CSS düzeltmeleri, dropdown dil değiştirici (bayraklı), hreflang + dil bazlı meta title/description, admin panelinde dil sekmeli çevrilebilir içerik yönetimi (site_settings üzerinde `key__lang` şeması); lint + build başarılı
 - 2026-08-05 | SEO içerik paketi oluşturuldu (Sarah): 3 uzun-form makale + frontmatter metadata → /workspace/app/frontend/seo/content/ dizinine yazıldı. Makaleler: (1) İstanbul Web Geliştirme Ajansı, (2) Özel Yazılım Geliştirme, (3) Dijital Pazarlama Ajansı Türkiye. Alex'e embed handoff bekliyor.
 
