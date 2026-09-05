@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+/*
+ * Kritik yolda yalnızca Latin arayüz fontları var. Arapça (Noto Naskh Arabic)
+ * ve Hintçe (Noto Sans Devanagari) fontları, ilgili dil seçildiğinde
+ * src/i18n/index.ts tarafından çalışma zamanında enjekte edilir.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -143,3 +148,35 @@
   50% { transform: translateY(-16px); }
 }
 .animate-float { animation: float-slow 6s ease-in-out infinite; }
+
+/* Görsellerde varsayılan olarak taşma yok — CLS'i azaltır */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------- Erişilebilirlik: hareket azaltma tercihi ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marquee,
+  .animate-float {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Klavye odak görünürlüğü */
+:focus-visible {
+  outline: 2px solid hsl(268 100% 62%);
+  outline-offset: 2px;
+}

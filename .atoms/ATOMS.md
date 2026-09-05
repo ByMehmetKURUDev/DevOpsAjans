@@ -15,6 +15,10 @@ mehmetkuru.dev — a professional portfolio and agency website for "By Mehmet KU
 | 2026-07-16 | Use Atoms Cloud as backend | Alex | Provides built-in auth, DB, storage for client/admin panels |
 | 2026-07-16 | Use three.js (native WebGL) for 3D hero | Alex | Instruction #17 mandates native three.js for 3D scenes |
 | 2026-07-16 | Reference uploaded logo.avif and photo for brand identity | Alex | User-provided brand assets |
+| 2026-09-05 | 3D hero (three.js) tamamen kaldırıldı | Alex | Bileşen artık kullanılmıyordu; ~370 kB JS ve mobil TBT yükü getiriyordu |
+| 2026-09-05 | Görseller WebP + responsive srcset, PNG kaynakları silindi | Alex | LCP'yi düşürmek ve transfer boyutunu 20x azaltmak için |
+| 2026-09-05 | i18n çeviri paketleri ve recharts lazy-load | Alex | Başlangıç JS yükünü küçültmek (TBT/FCP) |
+| 2026-09-05 | GA4 yalnızca ilk etkileşim veya idle sonrası yüklenir | Alex | Render-blocking 3rd-party script'i kritik yoldan çıkarmak |
 
 ## Constraints
 - 3D hero must use three.js directly (no react-three-fiber/drei).

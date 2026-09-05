@@ -4,8 +4,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Layout from './components/Layout';
+// Ana sayfa LCP kritik yolda olduğu için ayrı chunk isteği yapmadan doğrudan yüklenir.
+import Index from './pages/Index';
 
-const Index = lazy(() => import('./pages/Index'));
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthError = lazy(() => import('./pages/AuthError'));
 const Services = lazy(() => import('./pages/Services'));

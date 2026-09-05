@@ -76,10 +76,15 @@ export default function Index() {
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="/assets/hero-banner.png"
-            alt="Hero Banner"
+            src="/assets/hero-banner-1600.webp"
+            srcSet="/assets/hero-banner-640.webp 640w, /assets/hero-banner-1024.webp 1024w, /assets/hero-banner-1600.webp 1600w"
+            sizes="100vw"
+            alt="Cyberpunk temalı yazılım geliştirme çalışma alanı"
+            width={1536}
+            height={1024}
             className="w-full h-full object-cover"
             loading="eager"
+            decoding="async"
             fetchPriority="high"
           />
         </div>

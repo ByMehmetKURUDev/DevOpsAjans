@@ -51,7 +51,7 @@ export default defineConfig(({ command }) => {
       atoms(),
       ensureBuildOutDir(),
       Sitemap({
-        hostname: 'https://atoms.template.com',
+        hostname: 'https://mehmetkuru.dev',
         lastmod: getSitemapLastmod(),
         readable: true,
         generateRobotsTxt: true,
@@ -126,10 +126,19 @@ export default defineConfig(({ command }) => {
               'lucide-react',
             ],
             'query-vendor': ['@tanstack/react-query'],
+            // Grafik kütüphanesi yalnızca admin analitik panosunda kullanılıyor;
+            // ayrı chunk olarak tutulup talep üzerine indirilir.
+            'chart-vendor': ['recharts'],
+            'markdown-vendor': ['markdown-to-jsx'],
+            'sdk-vendor': ['@metagptx/web-sdk'],
           },
         },
       },
-      chunkSizeWarningLimit: 1000,
+      target: 'es2020',
+      cssCodeSplit: true,
+      sourcemap: false,
+      reportCompressedSize: false,
+      chunkSizeWarningLimit: 800,
     },
   };
 });

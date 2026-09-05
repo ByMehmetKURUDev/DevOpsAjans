@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import {
   Loader2,
   LogIn,
@@ -25,7 +25,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { createClient } from '@metagptx/web-sdk';
-import AnalyticsDashboard from '@/components/AnalyticsDashboard';
 import {
   SETTING_GROUPS,
   fetchSettingRows,
@@ -36,6 +35,9 @@ import {
   type SettingRow,
 } from '@/lib/siteSettings';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
+
+// Analitik panosu recharts'a bağlı olduğu için yalnızca sekme açıldığında indirilir.
+const AnalyticsDashboard = lazy(() => import('@/components/AnalyticsDashboard'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -613,7 +615,15 @@ export default function AdminPanel() {
       </div>
 
       {tab === 'analytics' && (
-        <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} />
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} />
+        </Suspense>
       )}
 
       {tab === 'settings' && (

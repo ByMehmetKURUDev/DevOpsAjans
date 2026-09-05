@@ -1,30 +1,105 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="UTF-8" />
     <link data-mgx-overview="icon" rel="icon" href="https://mgx-backend-cdn.metadl.com/mgx-backend-1300249583/chats/logo/5ea07782987c4a9e92fe9fe4d3f76d09.png" />
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-297VMX9Z6X"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-297VMX9Z6X');
-    </script>
+    <meta name="theme-color" content="#05010a" />
+
+    <!-- Font kaynaklarına erken bağlantı: yazı tipi gecikmesini azaltır -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Kritik hero görseli: LCP'yi hızlandırmak için önceden yüklenir -->
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/hero-banner-1600.webp"
+      imagesrcset="/assets/hero-banner-640.webp 640w, /assets/hero-banner-1024.webp 1024w, /assets/hero-banner-1600.webp 1600w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+
     <title data-mgx-overview="title">By Mehmet KURU Dev | Web Gelistirici ve Dijital Pazarlama</title>
     <meta data-mgx-overview="description" name="description" content="Web Gelistirici ve Dijital Pazarlama Uzmanı MehmetKURU ile web sayfalarınızın Online Pazarlama kanallarında büyümesini sağlayabilirsiniz. Hemen ilk adımı at." />
-    <meta name="author" content="Atoms" />
+    <meta name="author" content="Mehmet KURU" />
+    <link rel="canonical" href="https://mehmetkuru.dev/" />
 
     <meta data-mgx-overview="og:title" property="og:title" content="By Mehmet KURU Dev | Web Gelistirici ve Dijital Pazarlama" />
     <meta data-mgx-overview="og:description" property="og:description" content="Web Gelistirici ve Dijital Pazarlama Uzmanı MehmetKURU ile web sayfalarınızın Online Pazarlama kanallarında büyümesini sağlayabilirsiniz. Hemen ilk adımı at." />
     <meta data-mgx-overview="og:image" property="og:image" content="https://mgx-backend-cdn.metadl.com/mgx-backend-1300249583/chats/logo/5ea07782987c4a9e92fe9fe4d3f76d09.png" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mehmetkuru.dev/" />
+    <meta property="og:locale" content="tr_TR" />
 
     <meta data-mgx-overview="twitter:title" name="twitter:title" content="By Mehmet KURU Dev | Web Gelistirici ve Dijital Pazarlama" />
     <meta data-mgx-overview="twitter:description" name="twitter:description" content="Web Gelistirici ve Dijital Pazarlama Uzmanı MehmetKURU ile web sayfalarınızın Online Pazarlama kanallarında büyümesini sağlayabilirsiniz. Hemen ilk adımı at." />
     <meta data-mgx-overview="twitter:image" name="twitter:image" content="https://mgx-backend-cdn.metadl.com/mgx-backend-1300249583/chats/logo/5ea07782987c4a9e92fe9fe4d3f76d09.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Yapısal veri: Organization + LocalBusiness -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "By Mehmet KURU Dev",
+        "url": "https://mehmetkuru.dev/",
+        "image": "https://mehmetkuru.dev/assets/logo-new.jpg",
+        "description": "Web geliştirme, özel yazılım ve dijital pazarlama hizmetleri.",
+        "email": "by@mehmetkuru.dev",
+        "telephone": "+90 541 296 58 78",
+        "priceRange": "$$",
+        "areaServed": "TR",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "TR",
+          "addressLocality": "İstanbul"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "Mehmet KURU",
+          "jobTitle": "Full-stack Developer & Digital Marketing Specialist"
+        }
+      }
+    </script>
+
+    <!-- Google Analytics 4 — render-blocking olmaması için ilk etkileşim/idle sonrası yüklenir -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      (function () {
+        var GA_ID = 'G-297VMX9Z6X';
+        var loaded = false;
+        function loadGa() {
+          if (loaded) return;
+          loaded = true;
+          cleanup();
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(s);
+          gtag('js', new Date());
+          gtag('config', GA_ID, { send_page_view: true });
+        }
+        var events = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+        function cleanup() {
+          events.forEach(function (e) {
+            window.removeEventListener(e, loadGa, { passive: true });
+          });
+        }
+        events.forEach(function (e) {
+          window.addEventListener(e, loadGa, { passive: true, once: true });
+        });
+        window.addEventListener('load', function () {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(loadGa, { timeout: 6000 });
+          } else {
+            setTimeout(loadGa, 4000);
+          }
+        });
+      })();
+    </script>
   </head>
 
   <body>

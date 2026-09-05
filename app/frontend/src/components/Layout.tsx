@@ -5,7 +5,11 @@ import { Button } from '@/components/ui/button';
 import { createClient } from '@metagptx/web-sdk';
 import { useTranslation } from 'react-i18next';
 import { useSiteSettings, isAdminUser } from '@/lib/siteSettings';
-import { SUPPORTED_LANGUAGES as LANGUAGES, getLanguageMeta } from '@/i18n';
+import {
+  SUPPORTED_LANGUAGES as LANGUAGES,
+  getLanguageMeta,
+  changeAppLanguage,
+} from '@/i18n';
 
 const client = createClient();
 
@@ -101,7 +105,7 @@ export default function Layout() {
   };
 
   const switchLang = (code: string) => {
-    i18n.changeLanguage(code);
+    void changeAppLanguage(code);
     setLangOpen(false);
   };
 
@@ -160,7 +164,7 @@ export default function Layout() {
   useEffect(() => {
     const param = new URLSearchParams(window.location.search).get('lang');
     if (param && LANGUAGES.some((l) => l.code === param) && param !== i18n.language) {
-      i18n.changeLanguage(param);
+      void changeAppLanguage(param);
     }
   }, [i18n]);
 
@@ -187,7 +191,10 @@ export default function Layout() {
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#8b3dff] via-[#5c27a3] to-[#d4a5ff] blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
               <img
                 src={logoSrc}
-                alt="Logo"
+                alt="Mehmet KURU Dev logo"
+                width={40}
+                height={40}
+                decoding="async"
                 className="relative h-10 w-10 rounded-lg object-cover ring-1 ring-white/10"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).style.display = 'none';
@@ -407,7 +414,11 @@ export default function Layout() {
             <div className="flex items-center gap-3">
               <img
                 src={logoSrc}
-                alt="Logo"
+                alt="Mehmet KURU Dev logo"
+                width={40}
+                height={40}
+                loading="lazy"
+                decoding="async"
                 className="h-10 w-10 rounded-lg object-cover"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).style.display = 'none';

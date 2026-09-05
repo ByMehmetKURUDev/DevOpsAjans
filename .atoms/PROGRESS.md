@@ -26,6 +26,7 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 | T6 | Wire Atoms Cloud backend entities (projects, blog posts) | Alex | Done | T1 |
 | T8 | Site ayarları + analitik panoları + SEO makale entegrasyonu | Alex | Done | T5 |
 | T7 | Lint + build + CheckUI validation | Alex | Done | T2-T6 |
+| T9 | PageSpeed performans optimizasyonu (LCP/TBT/CLS/SEO/a11y) | Alex | Done | T8 |
 
 ## Progress Log
 - 2026-07-16 | Initial repo commit ("original")
@@ -50,5 +51,6 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-09-05 | Örnek fatura ve destek talebi verileri eklendi; lint + build başarılı, CheckUI grade 4
 - 2026-09-05 | Alt kısımdaki "Portföy Kategorileri / Projelerimizi keşfedin" bölümü ve kayan kart slider'ı tamamen kaldırıldı; InstagramCarousel bileşeni silindi, Layout'taki lazy/Suspense import'ları temizlendi; lint + build başarılı
 - 2026-09-05 | 4 yeni dil eklendi (Arapça/Rusça/Çince/Hintçe) → toplam 7 dil; tüm sayfa içerikleri çevrildi, Arapça için dir="rtl" + RTL CSS düzeltmeleri, dropdown dil değiştirici (bayraklı), hreflang + dil bazlı meta title/description, admin panelinde dil sekmeli çevrilebilir içerik yönetimi (site_settings üzerinde `key__lang` şeması); lint + build başarılı
+- 2026-09-05 | PageSpeed optimizasyonu: hero 2.3MB PNG → responsive WebP (105/57/28 kB, srcset+sizes+preload); kullanılmayan three.js/Hero3D kaldırıldı (paket bağımlılığı da silindi); i18n 7 dil lazy-load (yalnızca TR bundle'da); recharts admin analitik sekmesine lazy alındı (371 kB ayrı chunk); GA4 script'i etkileşim/idle sonrasına ertelendi; Arapça+Devanagari fontları dile göre runtime enjekte; runtime config artık render'ı bloke etmiyor; tüm görsellere width/height + lazy/decoding (CLS); prefers-reduced-motion + :focus-visible; canonical, og:url, ProfessionalService JSON-LD, sitemap hostname mehmetkuru.dev; ana chunk 659.88 → 513.77 kB, kullanılmayan görseller silindi (public/assets 5.0MB → 201 kB); lint + build başarılı, CheckUI grade 4
 - 2026-08-05 | SEO içerik paketi oluşturuldu (Sarah): 3 uzun-form makale + frontmatter metadata → /workspace/app/frontend/seo/content/ dizinine yazıldı. Makaleler: (1) İstanbul Web Geliştirme Ajansı, (2) Özel Yazılım Geliştirme, (3) Dijital Pazarlama Ajansı Türkiye. Alex'e embed handoff bekliyor.
 
