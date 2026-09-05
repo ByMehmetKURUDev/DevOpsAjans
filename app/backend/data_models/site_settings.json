@@ -1,0 +1,26 @@
+{
+    "title": "site_settings",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "setting_key": {
+            "type": "string"
+        },
+        "setting_value": {
+            "type": "string"
+        },
+        "group_name": {
+            "type": "string"
+        },
+        "label": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "setting_key",
+        "setting_value"
+    ]
+}

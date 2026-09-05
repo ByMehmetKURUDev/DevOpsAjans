@@ -1,0 +1,35 @@
+{
+    "title": "support_tickets",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "client_name": {
+            "type": "string"
+        },
+        "client_email": {
+            "type": "string"
+        },
+        "subject": {
+            "type": "string"
+        },
+        "message": {
+            "type": "string"
+        },
+        "reply": {
+            "type": "string"
+        },
+        "status": {
+            "type": "string"
+        },
+        "priority": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "subject",
+        "message"
+    ]
+}

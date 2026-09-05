@@ -19,8 +19,10 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import { useSiteSettings } from '@/lib/siteSettings';
 
 export default function Services() {
+  const { settings } = useSiteSettings();
   const { t } = useTranslation();
 
   const VALUES = [
@@ -92,11 +94,11 @@ export default function Services() {
   ];
 
   const PLANS = [
-    { icon: Zap, name: t('packages.option1'), price: t('packages.option1Price'), desc: t('packages.option1Desc'), gradient: 'from-purple-600 to-pink-600', highlight: false, isQuote: false },
-    { icon: Rocket, name: t('packages.option2'), price: t('packages.option2Price'), desc: t('packages.option2Desc'), gradient: 'from-pink-600 to-orange-500', highlight: false, isQuote: false },
-    { icon: Shield, name: t('packages.option3'), price: t('packages.option3Price'), desc: t('packages.option3Desc'), gradient: 'from-cyan-500 to-purple-600', highlight: true, isQuote: false },
-    { icon: Crown, name: t('packages.option4'), price: t('packages.option4Price'), desc: t('packages.option4Desc'), gradient: 'from-emerald-500 to-cyan-500', highlight: false, isQuote: false },
-    { icon: Server, name: t('packages.option5'), price: t('packages.option5Price'), desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true },
+    { icon: Zap, name: t('packages.option1'), price: `$${settings.price_starter}`, desc: t('packages.option1Desc'), gradient: 'from-purple-600 to-pink-600', highlight: false, isQuote: false },
+    { icon: Rocket, name: t('packages.option2'), price: `$${settings.price_business}`, desc: t('packages.option2Desc'), gradient: 'from-pink-600 to-orange-500', highlight: false, isQuote: false },
+    { icon: Shield, name: t('packages.option3'), price: `$${settings.price_ecommerce}`, desc: t('packages.option3Desc'), gradient: 'from-cyan-500 to-purple-600', highlight: true, isQuote: false },
+    { icon: Crown, name: t('packages.option4'), price: `$${settings.price_saas}`, desc: t('packages.option4Desc'), gradient: 'from-emerald-500 to-cyan-500', highlight: false, isQuote: false },
+    { icon: Server, name: t('packages.option5'), price: `$${settings.price_devops}`, desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true },
   ];
 
   const SOCIALS = [

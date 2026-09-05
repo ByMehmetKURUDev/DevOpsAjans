@@ -1,23 +1,11 @@
 {
-    "title": "projects",
+    "title": "invoices",
     "type": "object",
     "properties": {
         "id": {
             "type": "integer"
         },
-        "title": {
-            "type": "string"
-        },
-        "description": {
-            "type": "string"
-        },
-        "category": {
-            "type": "string"
-        },
-        "image_url": {
-            "type": "string"
-        },
-        "project_url": {
+        "invoice_no": {
             "type": "string"
         },
         "client_name": {
@@ -26,26 +14,28 @@
         "client_email": {
             "type": "string"
         },
+        "description": {
+            "type": "string"
+        },
+        "amount": {
+            "type": "number"
+        },
+        "currency": {
+            "type": "string"
+        },
         "status": {
             "type": "string"
         },
-        "stage": {
+        "issue_date": {
             "type": "string"
         },
-        "progress": {
-            "type": "integer"
-        },
-        "tech_stack": {
+        "due_date": {
             "type": "string"
-        },
-        "featured": {
-            "type": "boolean"
         }
     },
     "required": [
         "id",
-        "title",
-        "description",
-        "category"
+        "invoice_no",
+        "amount"
     ]
 }

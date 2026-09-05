@@ -9,14 +9,14 @@ from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.types import Boolean, Date, DateTime, Float, Integer, Numeric
 
-from models.projects import Projects
+from models.site_settings import Site_settings
 
 logger = logging.getLogger(__name__)
 
 
 # ------------------ Service Layer ------------------
-class ProjectsService:
-    """Service layer for Projects operations"""
+class Site_settingsService:
+    """Service layer for Site_settings operations"""
 
     def __init__(self, db: AsyncSession):
         self.db = db
@@ -157,28 +157,28 @@ class ProjectsService:
         coerced_value = cls._coerce_field_value(column, raw_value, field_name)
         return [column == coerced_value]
 
-    async def create(self, data: Dict[str, Any]) -> Optional[Projects]:
-        """Create a new projects"""
+    async def create(self, data: Dict[str, Any]) -> Optional[Site_settings]:
+        """Create a new site_settings"""
         try:
-            obj = Projects(**data)
+            obj = Site_settings(**data)
             self.db.add(obj)
             await self.db.commit()
             await self.db.refresh(obj)
-            logger.info(f"Created projects with id: {obj.id}")
+            logger.info(f"Created site_settings with id: {obj.id}")
             return obj
         except Exception as e:
             await self.db.rollback()
-            logger.error(f"Error creating projects: {str(e)}")
+            logger.error(f"Error creating site_settings: {str(e)}")
             raise
 
-    async def get_by_id(self, obj_id: int) -> Optional[Projects]:
-        """Get projects by ID"""
+    async def get_by_id(self, obj_id: int) -> Optional[Site_settings]:
+        """Get site_settings by ID"""
         try:
-            query = select(Projects).where(Projects.id == obj_id)
+            query = select(Site_settings).where(Site_settings.id == obj_id)
             result = await self.db.execute(query)
             return result.scalar_one_or_none()
         except Exception as e:
-            logger.error(f"Error fetching projects {obj_id}: {str(e)}")
+            logger.error(f"Error fetching site_settings {obj_id}: {str(e)}")
             raise
 
     async def get_list(
@@ -188,7 +188,7 @@ class ProjectsService:
         query_dict: Optional[Dict[str, Any]] = None,
         sort: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """Get paginated list of projectss"""
+        """Get paginated list of site_settingss"""
         try:
             # Collect filter conditions once and reuse them for both the windowed
             # page query and the empty-page fallback count, so a list call costs a
@@ -196,28 +196,28 @@ class ProjectsService:
             conditions = []
             if query_dict:
                 for field, value in query_dict.items():
-                    if hasattr(Projects, field):
-                        column = getattr(Projects, field)
+                    if hasattr(Site_settings, field):
+                        column = getattr(Site_settings, field)
                         for condition in self._build_query_conditions(column, value, field):
                             conditions.append(condition)
 
             # func.count().over() returns the full filtered total alongside each
             # row. SQL evaluates window functions before LIMIT/OFFSET, so the
             # total reflects all matching rows, not just the current page.
-            stmt = select(Projects, func.count().over().label("total_count"))
+            stmt = select(Site_settings, func.count().over().label("total_count"))
             for condition in conditions:
                 stmt = stmt.where(condition)
 
             if sort:
                 if sort.startswith('-'):
                     field_name = sort[1:]
-                    if hasattr(Projects, field_name):
-                        stmt = stmt.order_by(getattr(Projects, field_name).desc())
+                    if hasattr(Site_settings, field_name):
+                        stmt = stmt.order_by(getattr(Site_settings, field_name).desc())
                 else:
-                    if hasattr(Projects, sort):
-                        stmt = stmt.order_by(getattr(Projects, sort))
+                    if hasattr(Site_settings, sort):
+                        stmt = stmt.order_by(getattr(Site_settings, sort))
             else:
-                stmt = stmt.order_by(Projects.id.desc())
+                stmt = stmt.order_by(Site_settings.id.desc())
 
             result = await self.db.execute(stmt.offset(skip).limit(limit))
             rows = result.all()
@@ -229,7 +229,7 @@ class ProjectsService:
                 # Empty page (e.g. skip beyond the end): the window query returns
                 # no rows, so fall back to a dedicated count with the same filters.
                 items = []
-                count_stmt = select(func.count()).select_from(Projects)
+                count_stmt = select(func.count()).select_from(Site_settings)
                 for condition in conditions:
                     count_stmt = count_stmt.where(condition)
                 total = (await self.db.execute(count_stmt)).scalar() or 0
@@ -241,15 +241,15 @@ class ProjectsService:
                 "limit": limit,
             }
         except Exception as e:
-            logger.error(f"Error fetching projects list: {str(e)}")
+            logger.error(f"Error fetching site_settings list: {str(e)}")
             raise
 
-    async def update(self, obj_id: int, update_data: Dict[str, Any]) -> Optional[Projects]:
-        """Update projects"""
+    async def update(self, obj_id: int, update_data: Dict[str, Any]) -> Optional[Site_settings]:
+        """Update site_settings"""
         try:
             obj = await self.get_by_id(obj_id)
             if not obj:
-                logger.warning(f"Projects {obj_id} not found for update")
+                logger.warning(f"Site_settings {obj_id} not found for update")
                 return None
             for key, value in update_data.items():
                 if hasattr(obj, key):
@@ -257,61 +257,61 @@ class ProjectsService:
 
             await self.db.commit()
             await self.db.refresh(obj)
-            logger.info(f"Updated projects {obj_id}")
+            logger.info(f"Updated site_settings {obj_id}")
             return obj
         except Exception as e:
             await self.db.rollback()
-            logger.error(f"Error updating projects {obj_id}: {str(e)}")
+            logger.error(f"Error updating site_settings {obj_id}: {str(e)}")
             raise
 
     async def delete(self, obj_id: int) -> bool:
-        """Delete projects"""
+        """Delete site_settings"""
         try:
             obj = await self.get_by_id(obj_id)
             if not obj:
-                logger.warning(f"Projects {obj_id} not found for deletion")
+                logger.warning(f"Site_settings {obj_id} not found for deletion")
                 return False
             await self.db.delete(obj)
             await self.db.commit()
-            logger.info(f"Deleted projects {obj_id}")
+            logger.info(f"Deleted site_settings {obj_id}")
             return True
         except Exception as e:
             await self.db.rollback()
-            logger.error(f"Error deleting projects {obj_id}: {str(e)}")
+            logger.error(f"Error deleting site_settings {obj_id}: {str(e)}")
             raise
 
-    async def get_by_field(self, field_name: str, field_value: Any) -> Optional[Projects]:
-        """Get projects by any field"""
+    async def get_by_field(self, field_name: str, field_value: Any) -> Optional[Site_settings]:
+        """Get site_settings by any field"""
         try:
-            if not hasattr(Projects, field_name):
-                raise ValueError(f"Field {field_name} does not exist on Projects")
-            column = getattr(Projects, field_name)
+            if not hasattr(Site_settings, field_name):
+                raise ValueError(f"Field {field_name} does not exist on Site_settings")
+            column = getattr(Site_settings, field_name)
             field_value = self._coerce_field_value(column, field_value, field_name)
             result = await self.db.execute(
-                select(Projects).where(column == field_value)
+                select(Site_settings).where(column == field_value)
             )
             return result.scalar_one_or_none()
         except Exception as e:
-            logger.error(f"Error fetching projects by {field_name}: {str(e)}")
+            logger.error(f"Error fetching site_settings by {field_name}: {str(e)}")
             raise
 
     async def list_by_field(
         self, field_name: str, field_value: Any, skip: int = 0, limit: int = 20
-    ) -> List[Projects]:
-        """Get list of projectss filtered by field"""
+    ) -> List[Site_settings]:
+        """Get list of site_settingss filtered by field"""
         try:
-            if not hasattr(Projects, field_name):
-                raise ValueError(f"Field {field_name} does not exist on Projects")
-            column = getattr(Projects, field_name)
+            if not hasattr(Site_settings, field_name):
+                raise ValueError(f"Field {field_name} does not exist on Site_settings")
+            column = getattr(Site_settings, field_name)
             field_value = self._coerce_field_value(column, field_value, field_name)
             result = await self.db.execute(
-                select(Projects)
+                select(Site_settings)
                 .where(column == field_value)
                 .offset(skip)
                 .limit(limit)
-                .order_by(Projects.id.desc())
+                .order_by(Site_settings.id.desc())
             )
             return result.scalars().all()
         except Exception as e:
-            logger.error(f"Error fetching projectss by {field_name}: {str(e)}")
+            logger.error(f"Error fetching site_settingss by {field_name}: {str(e)}")
             raise

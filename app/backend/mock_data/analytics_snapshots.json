@@ -1,0 +1,146 @@
+[
+    {
+        "channel": "traffic",
+        "metric_key": "sessions",
+        "metric_label": "Oturum",
+        "metric_value": 18432,
+        "change_pct": 12.4,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "traffic",
+        "metric_key": "users",
+        "metric_label": "Kullanıcı",
+        "metric_value": 13205,
+        "change_pct": 9.1,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "traffic",
+        "metric_key": "pageviews",
+        "metric_label": "Sayfa Görüntüleme",
+        "metric_value": 46810,
+        "change_pct": 15.6,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "traffic",
+        "metric_key": "bounce_rate",
+        "metric_label": "Hemen Çıkma Oranı",
+        "metric_value": 38.7,
+        "change_pct": -4.2,
+        "unit": "%",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "seo",
+        "metric_key": "organic_clicks",
+        "metric_label": "Organik Tıklama",
+        "metric_value": 7842,
+        "change_pct": 21.3,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "seo",
+        "metric_key": "impressions",
+        "metric_label": "Gösterim",
+        "metric_value": 214300,
+        "change_pct": 18.9,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "seo",
+        "metric_key": "avg_position",
+        "metric_label": "Ortalama Sıra",
+        "metric_value": 8.4,
+        "change_pct": -2.1,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "seo",
+        "metric_key": "indexed_pages",
+        "metric_label": "İndekslenen Sayfa",
+        "metric_value": 128,
+        "change_pct": 6.7,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "ads",
+        "metric_key": "spend",
+        "metric_label": "Reklam Harcaması",
+        "metric_value": 4250,
+        "change_pct": 7.8,
+        "unit": "$",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "ads",
+        "metric_key": "clicks",
+        "metric_label": "Tıklama",
+        "metric_value": 9120,
+        "change_pct": 11.2,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "ads",
+        "metric_key": "ctr",
+        "metric_label": "TO (CTR)",
+        "metric_value": 4.6,
+        "change_pct": 3.4,
+        "unit": "%",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "ads",
+        "metric_key": "conversions",
+        "metric_label": "Dönüşüm",
+        "metric_value": 312,
+        "change_pct": 14.5,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "social",
+        "metric_key": "followers",
+        "metric_label": "Takipçi",
+        "metric_value": 24800,
+        "change_pct": 5.9,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "social",
+        "metric_key": "engagement",
+        "metric_label": "Etkileşim Oranı",
+        "metric_value": 6.3,
+        "change_pct": 1.8,
+        "unit": "%",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "social",
+        "metric_key": "reach",
+        "metric_label": "Erişim",
+        "metric_value": 187400,
+        "change_pct": 23.1,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    },
+    {
+        "channel": "social",
+        "metric_key": "new_leads",
+        "metric_label": "Yeni Potansiyel Müşteri",
+        "metric_value": 96,
+        "change_pct": 10.4,
+        "unit": "",
+        "snapshot_date": "2026-09-01"
+    }
+]

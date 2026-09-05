@@ -1,0 +1,35 @@
+[
+    {
+        "invoice_no": "INV-2026-001",
+        "client_name": "Aslan Ticaret",
+        "client_email": "musteri@ornek.com",
+        "description": "E-ticaret sitesi ilk faz ödemesi",
+        "amount": 500,
+        "currency": "USD",
+        "status": "paid",
+        "issue_date": "2026-07-01",
+        "due_date": "2026-07-15"
+    },
+    {
+        "invoice_no": "INV-2026-002",
+        "client_name": "Aslan Ticaret",
+        "client_email": "musteri@ornek.com",
+        "description": "Aylık bakım ve SEO desteği",
+        "amount": 150,
+        "currency": "USD",
+        "status": "unpaid",
+        "issue_date": "2026-08-01",
+        "due_date": "2026-08-15"
+    },
+    {
+        "invoice_no": "INV-2026-003",
+        "client_name": "Nova SaaS",
+        "client_email": "nova@ornek.com",
+        "description": "SaaS panel geliştirme 2. faz",
+        "amount": 700,
+        "currency": "USD",
+        "status": "unpaid",
+        "issue_date": "2026-08-10",
+        "due_date": "2026-08-25"
+    }
+]

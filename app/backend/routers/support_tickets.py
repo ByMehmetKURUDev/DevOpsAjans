@@ -9,62 +9,47 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
-from services.projects import ProjectsService
+from services.support_tickets import Support_ticketsService
 
 # Set up logging
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/v1/entities/projects", tags=["projects"])
+router = APIRouter(prefix="/api/v1/entities/support_tickets", tags=["support_tickets"])
 
 
 # ---------- Pydantic Schemas ----------
-class ProjectsData(BaseModel):
+class Support_ticketsData(BaseModel):
     """Entity data schema (for create/update)"""
-    title: str
-    description: str
-    category: str
-    image_url: str = None
-    project_url: str = None
     client_name: str = None
     client_email: str = None
+    subject: str
+    message: str
+    reply: str = None
     status: str = None
-    stage: str = None
-    progress: int = None
-    tech_stack: str = None
-    featured: bool = None
+    priority: str = None
 
 
-class ProjectsUpdateData(BaseModel):
+class Support_ticketsUpdateData(BaseModel):
     """Update entity data (partial updates allowed)"""
-    title: Optional[str] = None
-    description: Optional[str] = None
-    category: Optional[str] = None
-    image_url: Optional[str] = None
-    project_url: Optional[str] = None
     client_name: Optional[str] = None
     client_email: Optional[str] = None
+    subject: Optional[str] = None
+    message: Optional[str] = None
+    reply: Optional[str] = None
     status: Optional[str] = None
-    stage: Optional[str] = None
-    progress: Optional[int] = None
-    tech_stack: Optional[str] = None
-    featured: Optional[bool] = None
+    priority: Optional[str] = None
 
 
-class ProjectsResponse(BaseModel):
+class Support_ticketsResponse(BaseModel):
     """Entity response schema"""
     id: int
-    title: str
-    description: str
-    category: str
-    image_url: Optional[str] = None
-    project_url: Optional[str] = None
     client_name: Optional[str] = None
     client_email: Optional[str] = None
+    subject: str
+    message: str
+    reply: Optional[str] = None
     status: Optional[str] = None
-    stage: Optional[str] = None
-    progress: Optional[int] = None
-    tech_stack: Optional[str] = None
-    featured: Optional[bool] = None
+    priority: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -72,38 +57,38 @@ class ProjectsResponse(BaseModel):
         from_attributes = True
 
 
-class ProjectsListResponse(BaseModel):
+class Support_ticketsListResponse(BaseModel):
     """List response schema"""
-    items: List[ProjectsResponse]
+    items: List[Support_ticketsResponse]
     total: int
     skip: int
     limit: int
 
 
-class ProjectsBatchCreateRequest(BaseModel):
+class Support_ticketsBatchCreateRequest(BaseModel):
     """Batch create request"""
-    items: List[ProjectsData]
+    items: List[Support_ticketsData]
 
 
-class ProjectsBatchUpdateItem(BaseModel):
+class Support_ticketsBatchUpdateItem(BaseModel):
     """Batch update item"""
     id: int
-    updates: ProjectsUpdateData
+    updates: Support_ticketsUpdateData
 
 
-class ProjectsBatchUpdateRequest(BaseModel):
+class Support_ticketsBatchUpdateRequest(BaseModel):
     """Batch update request"""
-    items: List[ProjectsBatchUpdateItem]
+    items: List[Support_ticketsBatchUpdateItem]
 
 
-class ProjectsBatchDeleteRequest(BaseModel):
+class Support_ticketsBatchDeleteRequest(BaseModel):
     """Batch delete request"""
     ids: List[int]
 
 
 # ---------- Routes ----------
-@router.get("", response_model=ProjectsListResponse)
-async def query_projectss(
+@router.get("", response_model=Support_ticketsListResponse)
+async def query_support_ticketss(
     query: str = Query(None, description='Query conditions as JSON, e.g. {"id":2} or {"id":{"$gte":2}}'),
     sort: str = Query(None, description="Sort field (prefix with '-' for descending)"),
     skip: int = Query(0, ge=0, description="Number of records to skip"),
@@ -111,10 +96,10 @@ async def query_projectss(
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
 ):
-    """Query projectss with filtering, sorting, and pagination"""
-    logger.debug(f"Querying projectss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
+    """Query support_ticketss with filtering, sorting, and pagination"""
+    logger.debug(f"Querying support_ticketss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
     
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     try:
         # Parse query JSON if provided
         query_dict = None
@@ -130,20 +115,20 @@ async def query_projectss(
             query_dict=query_dict,
             sort=sort,
         )
-        logger.debug(f"Found {result['total']} projectss")
+        logger.debug(f"Found {result['total']} support_ticketss")
         return result
     except HTTPException:
         raise
     except ValueError as e:
-        logger.warning(f"Invalid projects query: {str(e)}")
+        logger.warning(f"Invalid support_tickets query: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Error querying projectss: {str(e)}", exc_info=True)
+        logger.error(f"Error querying support_ticketss: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.get("/all", response_model=ProjectsListResponse)
-async def query_projectss_all(
+@router.get("/all", response_model=Support_ticketsListResponse)
+async def query_support_ticketss_all(
     query: str = Query(None, description='Query conditions as JSON, e.g. {"id":2} or {"id":{"$gte":2}}'),
     sort: str = Query(None, description="Sort field (prefix with '-' for descending)"),
     skip: int = Query(0, ge=0, description="Number of records to skip"),
@@ -151,10 +136,10 @@ async def query_projectss_all(
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
 ):
-    # Query projectss with filtering, sorting, and pagination without user limitation
-    logger.debug(f"Querying projectss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
+    # Query support_ticketss with filtering, sorting, and pagination without user limitation
+    logger.debug(f"Querying support_ticketss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
 
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     try:
         # Parse query JSON if provided
         query_dict = None
@@ -170,75 +155,75 @@ async def query_projectss_all(
             query_dict=query_dict,
             sort=sort
         )
-        logger.debug(f"Found {result['total']} projectss")
+        logger.debug(f"Found {result['total']} support_ticketss")
         return result
     except HTTPException:
         raise
     except ValueError as e:
-        logger.warning(f"Invalid projects query: {str(e)}")
+        logger.warning(f"Invalid support_tickets query: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Error querying projectss: {str(e)}", exc_info=True)
+        logger.error(f"Error querying support_ticketss: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.get("/{id}", response_model=ProjectsResponse)
-async def get_projects(
+@router.get("/{id}", response_model=Support_ticketsResponse)
+async def get_support_tickets(
     id: int,
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
 ):
-    """Get a single projects by ID"""
-    logger.debug(f"Fetching projects with id: {id}, fields={fields}")
+    """Get a single support_tickets by ID"""
+    logger.debug(f"Fetching support_tickets with id: {id}, fields={fields}")
     
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     try:
         result = await service.get_by_id(id)
         if not result:
-            logger.warning(f"Projects with id {id} not found")
-            raise HTTPException(status_code=404, detail="Projects not found")
+            logger.warning(f"Support_tickets with id {id} not found")
+            raise HTTPException(status_code=404, detail="Support_tickets not found")
         
         return result
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error fetching projects {id}: {str(e)}", exc_info=True)
+        logger.error(f"Error fetching support_tickets {id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.post("", response_model=ProjectsResponse, status_code=201)
-async def create_projects(
-    data: ProjectsData,
+@router.post("", response_model=Support_ticketsResponse, status_code=201)
+async def create_support_tickets(
+    data: Support_ticketsData,
     db: AsyncSession = Depends(get_db),
 ):
-    """Create a new projects"""
-    logger.debug(f"Creating new projects with data: {data}")
+    """Create a new support_tickets"""
+    logger.debug(f"Creating new support_tickets with data: {data}")
     
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     try:
         result = await service.create(data.model_dump())
         if not result:
-            raise HTTPException(status_code=400, detail="Failed to create projects")
+            raise HTTPException(status_code=400, detail="Failed to create support_tickets")
         
-        logger.info(f"Projects created successfully with id: {result.id}")
+        logger.info(f"Support_tickets created successfully with id: {result.id}")
         return result
     except ValueError as e:
-        logger.error(f"Validation error creating projects: {str(e)}")
+        logger.error(f"Validation error creating support_tickets: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Error creating projects: {str(e)}", exc_info=True)
+        logger.error(f"Error creating support_tickets: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.post("/batch", response_model=List[ProjectsResponse], status_code=201)
-async def create_projectss_batch(
-    request: ProjectsBatchCreateRequest,
+@router.post("/batch", response_model=List[Support_ticketsResponse], status_code=201)
+async def create_support_ticketss_batch(
+    request: Support_ticketsBatchCreateRequest,
     db: AsyncSession = Depends(get_db),
 ):
-    """Create multiple projectss in a single request"""
-    logger.debug(f"Batch creating {len(request.items)} projectss")
+    """Create multiple support_ticketss in a single request"""
+    logger.debug(f"Batch creating {len(request.items)} support_ticketss")
     
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     results = []
     
     try:
@@ -247,7 +232,7 @@ async def create_projectss_batch(
             if result:
                 results.append(result)
         
-        logger.info(f"Batch created {len(results)} projectss successfully")
+        logger.info(f"Batch created {len(results)} support_ticketss successfully")
         return results
     except Exception as e:
         await db.rollback()
@@ -255,15 +240,15 @@ async def create_projectss_batch(
         raise HTTPException(status_code=500, detail=f"Batch create failed: {str(e)}")
 
 
-@router.put("/batch", response_model=List[ProjectsResponse])
-async def update_projectss_batch(
-    request: ProjectsBatchUpdateRequest,
+@router.put("/batch", response_model=List[Support_ticketsResponse])
+async def update_support_ticketss_batch(
+    request: Support_ticketsBatchUpdateRequest,
     db: AsyncSession = Depends(get_db),
 ):
-    """Update multiple projectss in a single request"""
-    logger.debug(f"Batch updating {len(request.items)} projectss")
+    """Update multiple support_ticketss in a single request"""
+    logger.debug(f"Batch updating {len(request.items)} support_ticketss")
     
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     results = []
     
     try:
@@ -274,7 +259,7 @@ async def update_projectss_batch(
             if result:
                 results.append(result)
         
-        logger.info(f"Batch updated {len(results)} projectss successfully")
+        logger.info(f"Batch updated {len(results)} support_ticketss successfully")
         return results
     except Exception as e:
         await db.rollback()
@@ -282,45 +267,45 @@ async def update_projectss_batch(
         raise HTTPException(status_code=500, detail=f"Batch update failed: {str(e)}")
 
 
-@router.put("/{id}", response_model=ProjectsResponse)
-async def update_projects(
+@router.put("/{id}", response_model=Support_ticketsResponse)
+async def update_support_tickets(
     id: int,
-    data: ProjectsUpdateData,
+    data: Support_ticketsUpdateData,
     db: AsyncSession = Depends(get_db),
 ):
-    """Update an existing projects"""
-    logger.debug(f"Updating projects {id} with data: {data}")
+    """Update an existing support_tickets"""
+    logger.debug(f"Updating support_tickets {id} with data: {data}")
 
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     try:
         # Only include non-None values for partial updates
         update_dict = {k: v for k, v in data.model_dump().items() if v is not None}
         result = await service.update(id, update_dict)
         if not result:
-            logger.warning(f"Projects with id {id} not found for update")
-            raise HTTPException(status_code=404, detail="Projects not found")
+            logger.warning(f"Support_tickets with id {id} not found for update")
+            raise HTTPException(status_code=404, detail="Support_tickets not found")
         
-        logger.info(f"Projects {id} updated successfully")
+        logger.info(f"Support_tickets {id} updated successfully")
         return result
     except HTTPException:
         raise
     except ValueError as e:
-        logger.error(f"Validation error updating projects {id}: {str(e)}")
+        logger.error(f"Validation error updating support_tickets {id}: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Error updating projects {id}: {str(e)}", exc_info=True)
+        logger.error(f"Error updating support_tickets {id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
 @router.delete("/batch")
-async def delete_projectss_batch(
-    request: ProjectsBatchDeleteRequest,
+async def delete_support_ticketss_batch(
+    request: Support_ticketsBatchDeleteRequest,
     db: AsyncSession = Depends(get_db),
 ):
-    """Delete multiple projectss by their IDs"""
-    logger.debug(f"Batch deleting {len(request.ids)} projectss")
+    """Delete multiple support_ticketss by their IDs"""
+    logger.debug(f"Batch deleting {len(request.ids)} support_ticketss")
     
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     deleted_count = 0
     
     try:
@@ -329,8 +314,8 @@ async def delete_projectss_batch(
             if success:
                 deleted_count += 1
         
-        logger.info(f"Batch deleted {deleted_count} projectss successfully")
-        return {"message": f"Successfully deleted {deleted_count} projectss", "deleted_count": deleted_count}
+        logger.info(f"Batch deleted {deleted_count} support_ticketss successfully")
+        return {"message": f"Successfully deleted {deleted_count} support_ticketss", "deleted_count": deleted_count}
     except Exception as e:
         await db.rollback()
         logger.error(f"Error in batch delete: {str(e)}", exc_info=True)
@@ -338,24 +323,24 @@ async def delete_projectss_batch(
 
 
 @router.delete("/{id}")
-async def delete_projects(
+async def delete_support_tickets(
     id: int,
     db: AsyncSession = Depends(get_db),
 ):
-    """Delete a single projects by ID"""
-    logger.debug(f"Deleting projects with id: {id}")
+    """Delete a single support_tickets by ID"""
+    logger.debug(f"Deleting support_tickets with id: {id}")
     
-    service = ProjectsService(db)
+    service = Support_ticketsService(db)
     try:
         success = await service.delete(id)
         if not success:
-            logger.warning(f"Projects with id {id} not found for deletion")
-            raise HTTPException(status_code=404, detail="Projects not found")
+            logger.warning(f"Support_tickets with id {id} not found for deletion")
+            raise HTTPException(status_code=404, detail="Support_tickets not found")
         
-        logger.info(f"Projects {id} deleted successfully")
-        return {"message": "Projects deleted successfully", "id": id}
+        logger.info(f"Support_tickets {id} deleted successfully")
+        return {"message": "Support_tickets deleted successfully", "id": id}
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error deleting projects {id}: {str(e)}", exc_info=True)
+        logger.error(f"Error deleting support_tickets {id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")

@@ -1,0 +1,36 @@
+{
+    "title": "analytics_snapshots",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "channel": {
+            "type": "string"
+        },
+        "metric_key": {
+            "type": "string"
+        },
+        "metric_label": {
+            "type": "string"
+        },
+        "metric_value": {
+            "type": "number"
+        },
+        "change_pct": {
+            "type": "number"
+        },
+        "unit": {
+            "type": "string"
+        },
+        "snapshot_date": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "channel",
+        "metric_key",
+        "metric_value"
+    ]
+}

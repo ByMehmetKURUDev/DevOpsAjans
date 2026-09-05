@@ -1,0 +1,20 @@
+[
+    {
+        "client_name": "Aslan Ticaret",
+        "client_email": "musteri@ornek.com",
+        "subject": "Ürün sayfası yavaş açılıyor",
+        "message": "Mobilde ürün detay sayfası yaklaşık 5 saniyede açılıyor. İnceleyebilir misiniz?",
+        "reply": "Görsel optimizasyonu ve önbellek ayarları yapıldı, süre 1.2 saniyeye düştü.",
+        "status": "answered",
+        "priority": "high"
+    },
+    {
+        "client_name": "Nova SaaS",
+        "client_email": "nova@ornek.com",
+        "subject": "Yeni kullanıcı rolü ekleme",
+        "message": "Panelde 'editör' rolü ekleyebilir miyiz? Sadece içerik düzenleyebilsin.",
+        "reply": "",
+        "status": "open",
+        "priority": "normal"
+    }
+]

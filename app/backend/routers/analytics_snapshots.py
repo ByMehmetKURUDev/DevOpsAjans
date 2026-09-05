@@ -9,62 +9,47 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
-from services.projects import ProjectsService
+from services.analytics_snapshots import Analytics_snapshotsService
 
 # Set up logging
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/v1/entities/projects", tags=["projects"])
+router = APIRouter(prefix="/api/v1/entities/analytics_snapshots", tags=["analytics_snapshots"])
 
 
 # ---------- Pydantic Schemas ----------
-class ProjectsData(BaseModel):
+class Analytics_snapshotsData(BaseModel):
     """Entity data schema (for create/update)"""
-    title: str
-    description: str
-    category: str
-    image_url: str = None
-    project_url: str = None
-    client_name: str = None
-    client_email: str = None
-    status: str = None
-    stage: str = None
-    progress: int = None
-    tech_stack: str = None
-    featured: bool = None
+    channel: str
+    metric_key: str
+    metric_label: str = None
+    metric_value: float
+    change_pct: float = None
+    unit: str = None
+    snapshot_date: str = None
 
 
-class ProjectsUpdateData(BaseModel):
+class Analytics_snapshotsUpdateData(BaseModel):
     """Update entity data (partial updates allowed)"""
-    title: Optional[str] = None
-    description: Optional[str] = None
-    category: Optional[str] = None
-    image_url: Optional[str] = None
-    project_url: Optional[str] = None
-    client_name: Optional[str] = None
-    client_email: Optional[str] = None
-    status: Optional[str] = None
-    stage: Optional[str] = None
-    progress: Optional[int] = None
-    tech_stack: Optional[str] = None
-    featured: Optional[bool] = None
+    channel: Optional[str] = None
+    metric_key: Optional[str] = None
+    metric_label: Optional[str] = None
+    metric_value: Optional[float] = None
+    change_pct: Optional[float] = None
+    unit: Optional[str] = None
+    snapshot_date: Optional[str] = None
 
 
-class ProjectsResponse(BaseModel):
+class Analytics_snapshotsResponse(BaseModel):
     """Entity response schema"""
     id: int
-    title: str
-    description: str
-    category: str
-    image_url: Optional[str] = None
-    project_url: Optional[str] = None
-    client_name: Optional[str] = None
-    client_email: Optional[str] = None
-    status: Optional[str] = None
-    stage: Optional[str] = None
-    progress: Optional[int] = None
-    tech_stack: Optional[str] = None
-    featured: Optional[bool] = None
+    channel: str
+    metric_key: str
+    metric_label: Optional[str] = None
+    metric_value: float
+    change_pct: Optional[float] = None
+    unit: Optional[str] = None
+    snapshot_date: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -72,38 +57,38 @@ class ProjectsResponse(BaseModel):
         from_attributes = True
 
 
-class ProjectsListResponse(BaseModel):
+class Analytics_snapshotsListResponse(BaseModel):
     """List response schema"""
-    items: List[ProjectsResponse]
+    items: List[Analytics_snapshotsResponse]
     total: int
     skip: int
     limit: int
 
 
-class ProjectsBatchCreateRequest(BaseModel):
+class Analytics_snapshotsBatchCreateRequest(BaseModel):
     """Batch create request"""
-    items: List[ProjectsData]
+    items: List[Analytics_snapshotsData]
 
 
-class ProjectsBatchUpdateItem(BaseModel):
+class Analytics_snapshotsBatchUpdateItem(BaseModel):
     """Batch update item"""
     id: int
-    updates: ProjectsUpdateData
+    updates: Analytics_snapshotsUpdateData
 
 
-class ProjectsBatchUpdateRequest(BaseModel):
+class Analytics_snapshotsBatchUpdateRequest(BaseModel):
     """Batch update request"""
-    items: List[ProjectsBatchUpdateItem]
+    items: List[Analytics_snapshotsBatchUpdateItem]
 
 
-class ProjectsBatchDeleteRequest(BaseModel):
+class Analytics_snapshotsBatchDeleteRequest(BaseModel):
     """Batch delete request"""
     ids: List[int]
 
 
 # ---------- Routes ----------
-@router.get("", response_model=ProjectsListResponse)
-async def query_projectss(
+@router.get("", response_model=Analytics_snapshotsListResponse)
+async def query_analytics_snapshotss(
     query: str = Query(None, description='Query conditions as JSON, e.g. {"id":2} or {"id":{"$gte":2}}'),
     sort: str = Query(None, description="Sort field (prefix with '-' for descending)"),
     skip: int = Query(0, ge=0, description="Number of records to skip"),
@@ -111,10 +96,10 @@ async def query_projectss(
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
 ):
-    """Query projectss with filtering, sorting, and pagination"""
-    logger.debug(f"Querying projectss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
+    """Query analytics_snapshotss with filtering, sorting, and pagination"""
+    logger.debug(f"Querying analytics_snapshotss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
     
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     try:
         # Parse query JSON if provided
         query_dict = None
@@ -130,20 +115,20 @@ async def query_projectss(
             query_dict=query_dict,
             sort=sort,
         )
-        logger.debug(f"Found {result['total']} projectss")
+        logger.debug(f"Found {result['total']} analytics_snapshotss")
         return result
     except HTTPException:
         raise
     except ValueError as e:
-        logger.warning(f"Invalid projects query: {str(e)}")
+        logger.warning(f"Invalid analytics_snapshots query: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Error querying projectss: {str(e)}", exc_info=True)
+        logger.error(f"Error querying analytics_snapshotss: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.get("/all", response_model=ProjectsListResponse)
-async def query_projectss_all(
+@router.get("/all", response_model=Analytics_snapshotsListResponse)
+async def query_analytics_snapshotss_all(
     query: str = Query(None, description='Query conditions as JSON, e.g. {"id":2} or {"id":{"$gte":2}}'),
     sort: str = Query(None, description="Sort field (prefix with '-' for descending)"),
     skip: int = Query(0, ge=0, description="Number of records to skip"),
@@ -151,10 +136,10 @@ async def query_projectss_all(
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
 ):
-    # Query projectss with filtering, sorting, and pagination without user limitation
-    logger.debug(f"Querying projectss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
+    # Query analytics_snapshotss with filtering, sorting, and pagination without user limitation
+    logger.debug(f"Querying analytics_snapshotss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
 
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     try:
         # Parse query JSON if provided
         query_dict = None
@@ -170,75 +155,75 @@ async def query_projectss_all(
             query_dict=query_dict,
             sort=sort
         )
-        logger.debug(f"Found {result['total']} projectss")
+        logger.debug(f"Found {result['total']} analytics_snapshotss")
         return result
     except HTTPException:
         raise
     except ValueError as e:
-        logger.warning(f"Invalid projects query: {str(e)}")
+        logger.warning(f"Invalid analytics_snapshots query: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Error querying projectss: {str(e)}", exc_info=True)
+        logger.error(f"Error querying analytics_snapshotss: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.get("/{id}", response_model=ProjectsResponse)
-async def get_projects(
+@router.get("/{id}", response_model=Analytics_snapshotsResponse)
+async def get_analytics_snapshots(
     id: int,
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
 ):
-    """Get a single projects by ID"""
-    logger.debug(f"Fetching projects with id: {id}, fields={fields}")
+    """Get a single analytics_snapshots by ID"""
+    logger.debug(f"Fetching analytics_snapshots with id: {id}, fields={fields}")
     
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     try:
         result = await service.get_by_id(id)
         if not result:
-            logger.warning(f"Projects with id {id} not found")
-            raise HTTPException(status_code=404, detail="Projects not found")
+            logger.warning(f"Analytics_snapshots with id {id} not found")
+            raise HTTPException(status_code=404, detail="Analytics_snapshots not found")
         
         return result
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error fetching projects {id}: {str(e)}", exc_info=True)
+        logger.error(f"Error fetching analytics_snapshots {id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.post("", response_model=ProjectsResponse, status_code=201)
-async def create_projects(
-    data: ProjectsData,
+@router.post("", response_model=Analytics_snapshotsResponse, status_code=201)
+async def create_analytics_snapshots(
+    data: Analytics_snapshotsData,
     db: AsyncSession = Depends(get_db),
 ):
-    """Create a new projects"""
-    logger.debug(f"Creating new projects with data: {data}")
+    """Create a new analytics_snapshots"""
+    logger.debug(f"Creating new analytics_snapshots with data: {data}")
     
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     try:
         result = await service.create(data.model_dump())
         if not result:
-            raise HTTPException(status_code=400, detail="Failed to create projects")
+            raise HTTPException(status_code=400, detail="Failed to create analytics_snapshots")
         
-        logger.info(f"Projects created successfully with id: {result.id}")
+        logger.info(f"Analytics_snapshots created successfully with id: {result.id}")
         return result
     except ValueError as e:
-        logger.error(f"Validation error creating projects: {str(e)}")
+        logger.error(f"Validation error creating analytics_snapshots: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Error creating projects: {str(e)}", exc_info=True)
+        logger.error(f"Error creating analytics_snapshots: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
-@router.post("/batch", response_model=List[ProjectsResponse], status_code=201)
-async def create_projectss_batch(
-    request: ProjectsBatchCreateRequest,
+@router.post("/batch", response_model=List[Analytics_snapshotsResponse], status_code=201)
+async def create_analytics_snapshotss_batch(
+    request: Analytics_snapshotsBatchCreateRequest,
     db: AsyncSession = Depends(get_db),
 ):
-    """Create multiple projectss in a single request"""
-    logger.debug(f"Batch creating {len(request.items)} projectss")
+    """Create multiple analytics_snapshotss in a single request"""
+    logger.debug(f"Batch creating {len(request.items)} analytics_snapshotss")
     
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     results = []
     
     try:
@@ -247,7 +232,7 @@ async def create_projectss_batch(
             if result:
                 results.append(result)
         
-        logger.info(f"Batch created {len(results)} projectss successfully")
+        logger.info(f"Batch created {len(results)} analytics_snapshotss successfully")
         return results
     except Exception as e:
         await db.rollback()
@@ -255,15 +240,15 @@ async def create_projectss_batch(
         raise HTTPException(status_code=500, detail=f"Batch create failed: {str(e)}")
 
 
-@router.put("/batch", response_model=List[ProjectsResponse])
-async def update_projectss_batch(
-    request: ProjectsBatchUpdateRequest,
+@router.put("/batch", response_model=List[Analytics_snapshotsResponse])
+async def update_analytics_snapshotss_batch(
+    request: Analytics_snapshotsBatchUpdateRequest,
     db: AsyncSession = Depends(get_db),
 ):
-    """Update multiple projectss in a single request"""
-    logger.debug(f"Batch updating {len(request.items)} projectss")
+    """Update multiple analytics_snapshotss in a single request"""
+    logger.debug(f"Batch updating {len(request.items)} analytics_snapshotss")
     
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     results = []
     
     try:
@@ -274,7 +259,7 @@ async def update_projectss_batch(
             if result:
                 results.append(result)
         
-        logger.info(f"Batch updated {len(results)} projectss successfully")
+        logger.info(f"Batch updated {len(results)} analytics_snapshotss successfully")
         return results
     except Exception as e:
         await db.rollback()
@@ -282,45 +267,45 @@ async def update_projectss_batch(
         raise HTTPException(status_code=500, detail=f"Batch update failed: {str(e)}")
 
 
-@router.put("/{id}", response_model=ProjectsResponse)
-async def update_projects(
+@router.put("/{id}", response_model=Analytics_snapshotsResponse)
+async def update_analytics_snapshots(
     id: int,
-    data: ProjectsUpdateData,
+    data: Analytics_snapshotsUpdateData,
     db: AsyncSession = Depends(get_db),
 ):
-    """Update an existing projects"""
-    logger.debug(f"Updating projects {id} with data: {data}")
+    """Update an existing analytics_snapshots"""
+    logger.debug(f"Updating analytics_snapshots {id} with data: {data}")
 
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     try:
         # Only include non-None values for partial updates
         update_dict = {k: v for k, v in data.model_dump().items() if v is not None}
         result = await service.update(id, update_dict)
         if not result:
-            logger.warning(f"Projects with id {id} not found for update")
-            raise HTTPException(status_code=404, detail="Projects not found")
+            logger.warning(f"Analytics_snapshots with id {id} not found for update")
+            raise HTTPException(status_code=404, detail="Analytics_snapshots not found")
         
-        logger.info(f"Projects {id} updated successfully")
+        logger.info(f"Analytics_snapshots {id} updated successfully")
         return result
     except HTTPException:
         raise
     except ValueError as e:
-        logger.error(f"Validation error updating projects {id}: {str(e)}")
+        logger.error(f"Validation error updating analytics_snapshots {id}: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        logger.error(f"Error updating projects {id}: {str(e)}", exc_info=True)
+        logger.error(f"Error updating analytics_snapshots {id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
 @router.delete("/batch")
-async def delete_projectss_batch(
-    request: ProjectsBatchDeleteRequest,
+async def delete_analytics_snapshotss_batch(
+    request: Analytics_snapshotsBatchDeleteRequest,
     db: AsyncSession = Depends(get_db),
 ):
-    """Delete multiple projectss by their IDs"""
-    logger.debug(f"Batch deleting {len(request.ids)} projectss")
+    """Delete multiple analytics_snapshotss by their IDs"""
+    logger.debug(f"Batch deleting {len(request.ids)} analytics_snapshotss")
     
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     deleted_count = 0
     
     try:
@@ -329,8 +314,8 @@ async def delete_projectss_batch(
             if success:
                 deleted_count += 1
         
-        logger.info(f"Batch deleted {deleted_count} projectss successfully")
-        return {"message": f"Successfully deleted {deleted_count} projectss", "deleted_count": deleted_count}
+        logger.info(f"Batch deleted {deleted_count} analytics_snapshotss successfully")
+        return {"message": f"Successfully deleted {deleted_count} analytics_snapshotss", "deleted_count": deleted_count}
     except Exception as e:
         await db.rollback()
         logger.error(f"Error in batch delete: {str(e)}", exc_info=True)
@@ -338,24 +323,24 @@ async def delete_projectss_batch(
 
 
 @router.delete("/{id}")
-async def delete_projects(
+async def delete_analytics_snapshots(
     id: int,
     db: AsyncSession = Depends(get_db),
 ):
-    """Delete a single projects by ID"""
-    logger.debug(f"Deleting projects with id: {id}")
+    """Delete a single analytics_snapshots by ID"""
+    logger.debug(f"Deleting analytics_snapshots with id: {id}")
     
-    service = ProjectsService(db)
+    service = Analytics_snapshotsService(db)
     try:
         success = await service.delete(id)
         if not success:
-            logger.warning(f"Projects with id {id} not found for deletion")
-            raise HTTPException(status_code=404, detail="Projects not found")
+            logger.warning(f"Analytics_snapshots with id {id} not found for deletion")
+            raise HTTPException(status_code=404, detail="Analytics_snapshots not found")
         
-        logger.info(f"Projects {id} deleted successfully")
-        return {"message": "Projects deleted successfully", "id": id}
+        logger.info(f"Analytics_snapshots {id} deleted successfully")
+        return {"message": "Analytics_snapshots deleted successfully", "id": id}
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Error deleting projects {id}: {str(e)}", exc_info=True)
+        logger.error(f"Error deleting analytics_snapshots {id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")

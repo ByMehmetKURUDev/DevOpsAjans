@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Code2, Rocket, Target, Paintbrush, Globe, Zap, Shield, Crown, Server } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import { useSiteSettings } from '@/lib/siteSettings';
 
 const TECH = [
   'React', 'Next.js', 'TypeScript', 'Node.js', 'Python',
@@ -12,6 +13,7 @@ const TECH = [
 
 export default function Index() {
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
 
   const STATS = [
     { value: '41+', label: t('stats.projects') },
@@ -61,11 +63,11 @@ export default function Index() {
   ];
 
   const PLANS = [
-    { icon: Zap, name: t('packages.option1'), price: t('packages.option1Price'), desc: t('packages.option1Desc'), gradient: 'from-purple-600 to-pink-600', highlight: false, isQuote: false },
-    { icon: Rocket, name: t('packages.option2'), price: t('packages.option2Price'), desc: t('packages.option2Desc'), gradient: 'from-pink-600 to-orange-500', highlight: false, isQuote: false },
-    { icon: Shield, name: t('packages.option3'), price: t('packages.option3Price'), desc: t('packages.option3Desc'), gradient: 'from-cyan-500 to-purple-600', highlight: true, isQuote: false },
-    { icon: Crown, name: t('packages.option4'), price: t('packages.option4Price'), desc: t('packages.option4Desc'), gradient: 'from-emerald-500 to-cyan-500', highlight: false, isQuote: false },
-    { icon: Server, name: t('packages.option5'), price: t('packages.option5Price'), desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true },
+    { icon: Zap, name: t('packages.option1'), price: `$${settings.price_starter}`, desc: t('packages.option1Desc'), gradient: 'from-purple-600 to-pink-600', highlight: false, isQuote: false },
+    { icon: Rocket, name: t('packages.option2'), price: `$${settings.price_business}`, desc: t('packages.option2Desc'), gradient: 'from-pink-600 to-orange-500', highlight: false, isQuote: false },
+    { icon: Shield, name: t('packages.option3'), price: `$${settings.price_ecommerce}`, desc: t('packages.option3Desc'), gradient: 'from-cyan-500 to-purple-600', highlight: true, isQuote: false },
+    { icon: Crown, name: t('packages.option4'), price: `$${settings.price_saas}`, desc: t('packages.option4Desc'), gradient: 'from-emerald-500 to-cyan-500', highlight: false, isQuote: false },
+    { icon: Server, name: t('packages.option5'), price: `$${settings.price_devops}`, desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true },
   ];
 
   return (
@@ -96,15 +98,11 @@ export default function Index() {
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.02] mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-              {t('hero.title1')}{' '}
-              <span className="gradient-text">{t('hero.titleHighlight')}</span>
-              <br />
-              {t('hero.title2')}{' '}
-              <span className="italic font-light text-muted-foreground">{t('hero.titleItalic')}</span>
+              <span className="gradient-text">{settings.hero_title}</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
-              {t('hero.desc')}
+              {settings.hero_subtitle}
             </p>
 
             <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
@@ -113,7 +111,7 @@ export default function Index() {
                   size="lg"
                   className="bg-gradient-to-r from-[#8b3dff] to-[#5c27a3] hover:from-[#9b5dff] hover:to-[#7b3dc3] text-white border-0 glow-primary h-12 px-6 gap-2"
                 >
-                  {t('hero.cta')} <ArrowRight className="h-4 w-4" />
+                  {settings.hero_cta} <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/portfolio">

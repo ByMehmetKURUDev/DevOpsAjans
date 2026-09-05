@@ -18,12 +18,13 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 ## Task Breakdown
 | ID | Task | Assignee | Status | Deps |
 |----|------|----------|--------|------|
-| T1 | Initialize backend template (frontend + Atoms Cloud) | Alex | Pending | — |
-| T2 | Design and build homepage with 3D hero | Alex | Pending | T1 |
-| T3 | Build About / Services / Portfolio / Blog / Contact pages | Alex | Pending | T1 |
-| T4 | Implement client login + panel | Alex | Pending | T1 |
-| T5 | Implement admin login + panel | Alex | Pending | T1 |
-| T6 | Wire Atoms Cloud backend entities (projects, blog posts) | Alex | Pending | T1 |
+| T1 | Initialize backend template (frontend + Atoms Cloud) | Alex | Done | — |
+| T2 | Design and build homepage with 3D hero | Alex | Done | T1 |
+| T3 | Build About / Services / Portfolio / Blog / Contact pages | Alex | Done | T1 |
+| T4 | Implement client login + panel | Alex | Done | T1 |
+| T5 | Implement admin login + panel | Alex | Done | T1 |
+| T6 | Wire Atoms Cloud backend entities (projects, blog posts) | Alex | Done | T1 |
+| T8 | Site ayarları + analitik panoları + SEO makale entegrasyonu | Alex | Done | T5 |
 | T7 | Lint + build + CheckUI validation | Alex | Done | T2-T6 |
 
 ## Progress Log
@@ -42,5 +43,10 @@ Build mehmetkuru.dev — a professional portfolio + agency website with 3D anima
 - 2026-07-23 | Hero banner değiştirildi (yeni cyberpunk workspace görseli), site renk paleti banner'a uygun güncellendi (#05010a/#8b3dff/#d4a5ff/#1a0b2e/#5c27a3), WhatsApp numarası düzeltildi (905412965878), performans: hero eager loading + fetchPriority high, CheckUI grade 5
 - 2026-07-23 | Logo: "By" ve "Dev" koyu renk (#1a0b2e), "ajent" yazısı kaldırıldı. Instagram slider → portföy kategorilerine yönlendirme (Website/E-Ticaret/SaaS/Mobil/Reklam). Portföy: URL param ile kategori filtresi, tarihe göre sıralama, zaman çizelgesi eklendi. Blog: aynı kategori yapısı (Mobil Uygulama). Ana sayfa: Portföy Kategorileri bölümü + Google Business Yorumları (6 mock review) eklendi. CheckUI grade 4
 - 2026-08-02 | "By Mehmet KURU Dev" branding metinleri header ve footer'dan tamamen kaldırıldı, sadece logo görseli bırakıldı. WhatsApp FAB: MessageCircle ikonu yerine orijinal WhatsApp SVG ikonu + resmi yeşil (#25D366) uygulandı. Config timeout düzeltmesi (2s abort). Lint+build pass, CheckUI grade 4
+- 2026-09-05 | Kayıt/giriş akışı (Atoms Auth), müşteri paneli (projeler/faturalar/destek/profil) ve admin paneli (site ayarları, portföy+blog CRUD, faturalar, destek, mesajlar, müşteriler) tamamlandı
+- 2026-09-05 | site_settings tablosu üzerinden logo, iletişim, sosyal medya, WhatsApp, hero metinleri, paket fiyatları, SEO ve GA4 yönetilebilir hale getirildi; Ana sayfa, Hizmetler ve İletişim sayfaları bu ayarlara bağlandı
+- 2026-09-05 | Analitik panosu eklendi (trafik, SEO, Google Ads, sosyal medya) - analytics_snapshots verisi + 60s otomatik yenileme
+- 2026-09-05 | 3 SEO makalesi Blog'a entegre edildi; /blog ve /blog/:slug prerender + metadata çalışıyor (5 sayfa prerender)
+- 2026-09-05 | Örnek fatura ve destek talebi verileri eklendi; lint + build başarılı, CheckUI grade 4
 - 2026-08-05 | SEO içerik paketi oluşturuldu (Sarah): 3 uzun-form makale + frontmatter metadata → /workspace/app/frontend/seo/content/ dizinine yazıldı. Makaleler: (1) İstanbul Web Geliştirme Ajansı, (2) Özel Yazılım Geliştirme, (3) Dijital Pazarlama Ajansı Türkiye. Alex'e embed handoff bekliyor.
 

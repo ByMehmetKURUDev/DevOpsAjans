@@ -1,0 +1,20 @@
+[
+    {
+        "setting_key": "admin_emails",
+        "setting_value": "by@mehmetkuru.dev",
+        "group_name": "access",
+        "label": "Yönetici E-postaları (virgülle ayır)"
+    },
+    {
+        "setting_key": "seo_meta_title",
+        "setting_value": "Mehmet KURU Dev — Web, E-Ticaret, SaaS ve Mobil Uygulama Ajansı",
+        "group_name": "analytics",
+        "label": "SEO Başlık"
+    },
+    {
+        "setting_key": "seo_meta_description",
+        "setting_value": "İstanbul merkezli yazılım ajansı: website, e-ticaret, SaaS, mobil uygulama geliştirme ve dijital pazarlama.",
+        "group_name": "analytics",
+        "label": "SEO Açıklama"
+    }
+]
