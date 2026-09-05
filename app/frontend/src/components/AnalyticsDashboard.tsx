@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Loader2,
   TrendingUp,
@@ -35,43 +36,45 @@ interface Snapshot {
   snapshot_date?: string;
 }
 
+/** Kanal tanımları — başlıklar i18n anahtarı üzerinden çözülür. */
 const CHANNELS: {
   key: string;
-  title: string;
+  titleKey: string;
   icon: typeof Activity;
   gradient: string;
 }[] = [
   {
     key: 'traffic',
-    title: 'Site Trafiği',
+    titleKey: 'admin.trafficTitle',
     icon: Activity,
     gradient: 'from-purple-600 to-pink-600',
   },
   {
     key: 'seo',
-    title: 'SEO Performansı',
+    titleKey: 'admin.seoTitle',
     icon: Search,
     gradient: 'from-cyan-500 to-purple-600',
   },
   {
     key: 'ads',
-    title: 'Google Ads',
+    titleKey: 'admin.adsTitle',
     icon: Megaphone,
     gradient: 'from-orange-500 to-pink-600',
   },
   {
     key: 'social',
-    title: 'Sosyal Medya',
+    titleKey: 'admin.socialTitle',
     icon: Share2,
     gradient: 'from-emerald-500 to-cyan-500',
   },
 ];
 
-function formatValue(v: number, unit?: string) {
+/** Sayısal metrik değerini aktif dilin biçimine göre formatlar. */
+function formatValue(v: number, locale: string, unit?: string) {
   const formatted =
     Math.abs(v) >= 1000
-      ? v.toLocaleString('tr-TR', { maximumFractionDigits: 0 })
-      : v.toLocaleString('tr-TR', { maximumFractionDigits: 1 });
+      ? v.toLocaleString(locale, { maximumFractionDigits: 0 })
+      : v.toLocaleString(locale, { maximumFractionDigits: 1 });
   if (unit === '$') return `$${formatted}`;
   if (unit === '%') return `${formatted}%`;
   return formatted;
@@ -84,6 +87,8 @@ interface AnalyticsDashboardProps {
 export default function AnalyticsDashboard({
   ga4Id,
 }: AnalyticsDashboardProps) {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language || 'tr';
   const [snapshots, setSnapshots] = useState<Snapshot[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -101,7 +106,7 @@ export default function AnalyticsDashboard({
       setLastUpdated(new Date());
     } catch (e) {
       const err = e as { message?: string };
-      setError(err?.message || 'Analitik veriler yüklenemedi');
+      setError(err?.message || t('admin.analyticsLoadError'));
     } finally {
       setLoading(false);
     }
@@ -112,6 +117,7 @@ export default function AnalyticsDashboard({
     // 60 saniyede bir otomatik yenileme — anlık takip için
     const timer = window.setInterval(load, 60000);
     return () => window.clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const byChannel = useMemo(() => {
@@ -136,17 +142,17 @@ export default function AnalyticsDashboard({
           )
         ) ?? items[0];
       return {
-        name: c.title,
+        name: t(c.titleKey),
         deger: primary ? primary.metric_value : 0,
       };
     });
-  }, [byChannel]);
+  }, [byChannel, t]);
 
   if (loading && snapshots.length === 0) {
     return (
       <div className="py-16 flex items-center justify-center text-muted-foreground">
-        <Loader2 className="h-5 w-5 animate-spin mr-2" /> Analitik veriler
-        yükleniyor...
+        <Loader2 className="h-5 w-5 animate-spin mr-2" />{' '}
+        {t('admin.analyticsLoading')}
       </div>
     );
   }
@@ -155,11 +161,13 @@ export default function AnalyticsDashboard({
     <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold">Anlık Analitik Görünüm</h2>
+          <h2 className="text-xl font-semibold">{t('admin.liveView')}</h2>
           <p className="text-sm text-muted-foreground mt-1">
             {lastUpdated
-              ? `Son güncelleme: ${lastUpdated.toLocaleTimeString('tr-TR')} • 60 sn'de bir otomatik yenilenir`
-              : 'Veriler hazırlanıyor'}
+              ? `${t('admin.lastUpdate')}: ${lastUpdated.toLocaleTimeString(
+                  locale
+                )} • ${t('admin.autoRefresh')}`
+              : t('admin.dataPreparing')}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -180,7 +188,7 @@ export default function AnalyticsDashboard({
             className="gap-2 !bg-transparent border-white/20"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
-            Yenile
+            {t('admin.refresh')}
           </Button>
         </div>
       </div>
@@ -201,11 +209,11 @@ export default function AnalyticsDashboard({
               >
                 <channel.icon className="h-4 w-4 text-white" />
               </div>
-              <h3 className="text-lg font-semibold">{channel.title}</h3>
+              <h3 className="text-lg font-semibold">{t(channel.titleKey)}</h3>
             </div>
             {items.length === 0 ? (
               <div className="p-6 rounded-xl glass text-sm text-muted-foreground">
-                Bu kanal için henüz veri yok.
+                {t('admin.noChannelData')}
               </div>
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -217,7 +225,7 @@ export default function AnalyticsDashboard({
                         {m.metric_label || m.metric_key}
                       </p>
                       <p className="text-2xl font-bold">
-                        {formatValue(m.metric_value, m.unit)}
+                        {formatValue(m.metric_value, locale, m.unit)}
                       </p>
                       {typeof m.change_pct === 'number' && (
                         <div
@@ -244,7 +252,9 @@ export default function AnalyticsDashboard({
       })}
 
       <div className="p-6 rounded-2xl glass">
-        <h3 className="text-lg font-semibold mb-6">Kanal Karşılaştırması</h3>
+        <h3 className="text-lg font-semibold mb-6">
+          {t('admin.channelComparison')}
+        </h3>
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>

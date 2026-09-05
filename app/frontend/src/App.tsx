@@ -6,6 +6,9 @@ import { lazy, Suspense } from 'react';
 import Layout from './components/Layout';
 // Ana sayfa LCP kritik yolda olduğu için ayrı chunk isteği yapmadan doğrudan yüklenir.
 import Index from './pages/Index';
+// Hafif 404 sayfası: platform eklentisinin ~366 kB'lık varsayılan 404 modülünü
+// ana bundle'a enjekte etmesini engeller.
+import NotFoundPage from './pages/NotFoundPage';
 
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthError = lazy(() => import('./pages/AuthError'));
@@ -37,6 +40,7 @@ const AppRoutes = () => (
         <Route path="/contact" element={<Contact />} />
         <Route path="/client" element={<ClientPanel />} />
         <Route path="/admin" element={<AdminPanel />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />

@@ -108,9 +108,18 @@ export default function Portfolio() {
     return Object.entries(yearMap).sort(([a], [b]) => b.localeCompare(a));
   }, [filtered]);
 
+  /** Kategori etiketlerini aktif dile göre çevirir. */
   const getCatLabel = (cat: string) => {
-    if (cat === 'all') return t('portfolio.all');
-    return cat;
+    const map: Record<string, string> = {
+      all: 'portfolio.all',
+      Website: 'ui.catWebsite',
+      'E-Ticaret': 'ui.catEcommerce',
+      SaaS: 'ui.catSaas',
+      'Mobil Uygulama': 'ui.catMobile',
+      Reklam: 'ui.catAds',
+      SEO: 'ui.catSeo',
+    };
+    return map[cat] ? t(map[cat]) : cat;
   };
 
   return (
@@ -238,7 +247,7 @@ export default function Portfolio() {
         <section className="pb-24 border-t border-white/5 pt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 className="text-2xl font-bold mb-10">
-              Zaman Çizelgesi
+              {t('ui.timeline')}
             </h3>
             <div className="relative">
               {/* Vertical line */}
@@ -253,7 +262,9 @@ export default function Portfolio() {
                     </div>
                     <div className="ml-16 md:ml-0 md:pl-[calc(50%+2rem)]">
                       <span className="text-lg font-semibold gradient-text">{year}</span>
-                      <span className="text-sm text-muted-foreground ml-2">({projects.length} proje)</span>
+                      <span className="text-sm text-muted-foreground ms-2">
+                        ({projects.length} {t('ui.projectsCount')})
+                      </span>
                     </div>
                   </div>
 

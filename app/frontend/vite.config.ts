@@ -24,6 +24,38 @@ process.env.VITE_APP_TITLE = escapeHtmlAttr(process.env.VITE_APP_TITLE);
 process.env.VITE_APP_DESCRIPTION = escapeHtmlAttr(process.env.VITE_APP_DESCRIPTION);
 process.env.VITE_APP_LOGO_URL ??= process.env.OVERVIEW_LOGO_URL ?? 'https://public-frontend-cos.metadl.com/mgx/img/favicon_atoms.ico';
 
+/**
+ * Teşhis eklentisi: her chunk içindeki modülleri gerçek (minified) boyutlarına
+ * göre `bundle-stats.txt` dosyasına yazar. Yalnızca STATS=1 ile çalışır,
+ * üretim build'ini etkilemez.
+ */
+function bundleStats() {
+  return {
+    name: 'bundle-stats',
+    generateBundle(_options: unknown, bundle: Record<string, unknown>) {
+      const lines: string[] = [];
+      for (const [file, chunk] of Object.entries(bundle)) {
+        const c = chunk as { type?: string; modules?: Record<string, { renderedLength: number }> };
+        if (c.type !== 'chunk' || !c.modules) continue;
+        const mods = Object.entries(c.modules)
+          .map(([id, m]) => [id, m.renderedLength] as [string, number])
+          .sort((a, b) => b[1] - a[1]);
+        const total = mods.reduce((s, m) => s + m[1], 0);
+        lines.push(`\n### ${file} — ${(total / 1024).toFixed(1)} kB`);
+        mods.slice(0, 20).forEach(([id, len]) => {
+          const short = id.replace(/^.*node_modules\//, 'nm/').replace(/^.*\/src\//, 'src/');
+          lines.push(`${(len / 1024).toFixed(1).padStart(9)} kB  ${short}`);
+        });
+      }
+      // Rapor doğrudan konsola yazılır: prerender eklentisinin ikinci build
+      // geçişi bir dosyayı ezmesin ve kodlama sorunu yaşanmasın.
+      if (lines.length > 0) {
+        console.log(`\n===== BUNDLE STATS BEGIN =====${lines.join('\n')}\n===== BUNDLE STATS END =====`);
+      }
+    },
+  };
+}
+
 function ensureBuildOutDir() {
   let outDir = path.resolve(__dirname, 'dist');
 
@@ -50,6 +82,7 @@ export default defineConfig(({ command }) => {
       react(),
       atoms(),
       ensureBuildOutDir(),
+      ...(process.env.STATS === '1' ? [bundleStats()] : []),
       Sitemap({
         hostname: 'https://mehmetkuru.dev',
         lastmod: getSitemapLastmod(),
@@ -83,60 +116,63 @@ export default defineConfig(({ command }) => {
     build: {
       rollupOptions: {
         output: {
-          manualChunks: {
-            // Vendor chunks
-            'react-vendor': ['react', 'react-dom'],
-            'router-vendor': ['react-router-dom'],
-            'ui-vendor': [
-              '@radix-ui/react-accordion',
-              '@radix-ui/react-alert-dialog',
-              '@radix-ui/react-aspect-ratio',
-              '@radix-ui/react-avatar',
-              '@radix-ui/react-checkbox',
-              '@radix-ui/react-collapsible',
-              '@radix-ui/react-context-menu',
-              '@radix-ui/react-dialog',
-              '@radix-ui/react-dropdown-menu',
-              '@radix-ui/react-hover-card',
-              '@radix-ui/react-label',
-              '@radix-ui/react-menubar',
-              '@radix-ui/react-navigation-menu',
-              '@radix-ui/react-popover',
-              '@radix-ui/react-progress',
-              '@radix-ui/react-radio-group',
-              '@radix-ui/react-scroll-area',
-              '@radix-ui/react-select',
-              '@radix-ui/react-separator',
-              '@radix-ui/react-slider',
-              '@radix-ui/react-slot',
-              '@radix-ui/react-switch',
-              '@radix-ui/react-tabs',
-              '@radix-ui/react-toast',
-              '@radix-ui/react-toggle',
-              '@radix-ui/react-toggle-group',
-              '@radix-ui/react-tooltip',
-            ],
-            'form-vendor': ['react-hook-form', '@hookform/resolvers', 'zod'],
-            'utils-vendor': [
-              'axios',
-              'clsx',
-              'tailwind-merge',
-              'class-variance-authority',
-              'date-fns',
-              'lucide-react',
-            ],
-            'query-vendor': ['@tanstack/react-query'],
-            // Grafik kütüphanesi yalnızca admin analitik panosunda kullanılıyor;
-            // ayrı chunk olarak tutulup talep üzerine indirilir.
-            'chart-vendor': ['recharts'],
-            'markdown-vendor': ['markdown-to-jsx'],
-            'sdk-vendor': ['@metagptx/web-sdk'],
+          /**
+           * Chunk stratejisi id tabanlı fonksiyon ile kurulur.
+           *
+           * Nesne biçimi (paket adı listesi) kodda hiç import edilmeyen paketleri de
+           * zorla bundle grafiğine soktuğu için ölü kod üretiyordu. Fonksiyon biçimi
+           * yalnızca gerçekten kullanılan modülleri gruplar; listelenmeyen paketler
+           * Rollup'ın kullanım grafiğine bırakılır, böylece bir chunk yalnızca ona
+           * ihtiyaç duyan route tarafından indirilir.
+           */
+          manualChunks(id: string) {
+            if (!id.includes('node_modules')) return undefined;
+
+            // Teşhis modu: her bağımlılığı kendi chunk'ına ayırarak gerçek
+            // minified boyutlarını ölçmemizi sağlar. Üretim build'inde kapalıdır.
+            if (process.env.ANALYZE === '1') {
+              const after = id.split('node_modules/').pop() || '';
+              const parts = after.split('/');
+              const pkg = parts[0].startsWith('@') ? `${parts[0]}_${parts[1]}` : parts[0];
+              return `dep-${pkg.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+            }
+
+            // Grafik kütüphanesi yalnızca admin analitik sekmesinde kullanılıyor.
+            if (
+              id.includes('recharts') ||
+              id.includes('victory-vendor') ||
+              /node_modules\/d3-/.test(id)
+            ) {
+              return 'chart-vendor';
+            }
+            if (id.includes('markdown-to-jsx')) return 'markdown-vendor';
+            if (id.includes('@metagptx')) return 'sdk-vendor';
+            if (id.includes('react-router') || id.includes('@remix-run')) return 'router-vendor';
+            if (id.includes('@tanstack')) return 'query-vendor';
+            if (id.includes('i18next')) return 'i18n-vendor';
+            if (
+              id.includes('@radix-ui') ||
+              id.includes('node_modules/sonner') ||
+              id.includes('next-themes')
+            ) {
+              return 'ui-vendor';
+            }
+            if (
+              /node_modules\/(react|react-dom|scheduler)\//.test(id) ||
+              id.includes('node_modules/use-sync-external-store')
+            ) {
+              return 'react-vendor';
+            }
+
+            // Kalan paketler bilinçli olarak Rollup'a bırakılır: böylece yalnızca
+            // ilgili route'un yüklediği chunk'a girerler.
+            return undefined;
           },
         },
       },
       target: 'es2020',
       cssCodeSplit: true,
-      sourcemap: false,
+      sourcemap: process.env.ANALYZE === '1',
       reportCompressedSize: false,
       chunkSizeWarningLimit: 800,
     },

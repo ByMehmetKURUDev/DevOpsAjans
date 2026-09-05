@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { blogPosts, getBlogRoute } from '@/lib/blog';
 
-const BlogIndexPage = () => (
+const BlogIndexPage = () => {
+  const { t } = useTranslation();
+
+  return (
   <main className="min-h-screen bg-[#05010a] text-[#ece6ff]">
     <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_20%_0%,rgba(139,61,255,0.25),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(212,165,255,0.14),transparent_40%)]" />
     <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
@@ -10,17 +14,16 @@ const BlogIndexPage = () => (
           Blog
         </p>
         <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl">
-          Web, e-ticaret ve dijital büyüme üzerine rehber yazılar
+          {t('ui.blogIndexTitle')}
         </h1>
         <p className="text-lg leading-8 text-[#b9a9d6]">
-          Website geliştirme, özel yazılım, SEO ve dijital pazarlama konularında
-          hazırladığımız uzun-form içerikler.
+          {t('ui.blogIndexDesc')}
         </p>
         <Link
           to="/"
           className="inline-flex text-sm font-semibold text-purple-300 underline underline-offset-4 hover:text-pink-300"
         >
-          &larr; Ana sayfaya dön
+          &larr; {t('ui.backHome')}
         </Link>
       </div>
 
@@ -59,23 +62,24 @@ const BlogIndexPage = () => (
                 to={getBlogRoute(post.slug)}
                 className="mt-5 inline-flex text-sm font-semibold text-purple-300 underline underline-offset-4 hover:text-pink-300"
               >
-                Yazıyı oku
+                {t('ui.readArticle')}
               </Link>
             </article>
           ))
         ) : (
           <section className="rounded-[2rem] border border-dashed border-purple-500/30 bg-white/[0.02] p-8">
             <h2 className="text-2xl font-semibold text-white">
-              Henüz yazı yok
+              {t('ui.noPostsTitle')}
             </h2>
             <p className="mt-3 max-w-2xl text-base leading-7 text-[#b9a9d6]">
-              Yeni içerikler yayınlandığında bu sayfada listelenecek.
+              {t('ui.noPostsDesc')}
             </p>
           </section>
         )}
       </div>
     </section>
   </main>
-);
+  );
+};
 
 export default BlogIndexPage;

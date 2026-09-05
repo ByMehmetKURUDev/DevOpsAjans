@@ -24,6 +24,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 import { createClient } from '@metagptx/web-sdk';
 import {
   SETTING_GROUPS,
@@ -173,6 +174,7 @@ const emptyInvoice: Partial<Invoice> = {
 };
 
 export default function AdminPanel() {
+  const { t } = useTranslation();
   const { settings, rawSettings, reload: reloadSettings } = useSiteSettings();
   const [settingLang, setSettingLang] = useState<string>('base');
 
@@ -234,7 +236,7 @@ export default function AdminPanel() {
       setTickets((tRes?.data?.items ?? []) as Ticket[]);
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Yönetim verileri yüklenemedi');
+      toast.error(err?.message || t('admin.loadError'));
     } finally {
       setLoading(false);
     }
@@ -261,7 +263,7 @@ export default function AdminPanel() {
       setSettingDraft(draft);
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Ayarlar yüklenemedi');
+      toast.error(err?.message || t('admin.settingsLoadError'));
     }
   }, [rawSettings]);
 
@@ -289,17 +291,17 @@ export default function AdminPanel() {
             value,
             group.group,
             key === field.key
-              ? field.label
-              : `${field.label} (${settingLang.toUpperCase()})`
+              ? t(field.label)
+              : `${t(field.label)} (${settingLang.toUpperCase()})`
           );
         }
       }
-      toast.success(`${group.title} ayarları kaydedildi.`);
+      toast.success(t('admin.settingsSaved', { group: t(group.title) }));
       await loadSettings();
       await reloadSettings();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Ayarlar kaydedilemedi');
+      toast.error(err?.message || t('admin.settingsSaveError'));
     } finally {
       setSavingSettings(false);
     }
@@ -313,7 +315,7 @@ export default function AdminPanel() {
       !editProject.description ||
       !editProject.category
     ) {
-      toast.error('Başlık, açıklama ve kategori zorunludur.');
+      toast.error(t('admin.projectRequired'));
       return;
     }
     try {
@@ -336,28 +338,28 @@ export default function AdminPanel() {
           id: String(editProject.id),
           data: payload,
         });
-        toast.success('Proje güncellendi');
+        toast.success(t('admin.projectUpdated'));
       } else {
         await client.entities.projects.create({ data: payload });
-        toast.success('Proje oluşturuldu');
+        toast.success(t('admin.projectCreated'));
       }
       setEditProject(null);
       loadAll();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Proje kaydedilemedi');
+      toast.error(err?.message || t('admin.projectSaveError'));
     }
   };
 
   const deleteProject = async (id: number | string) => {
-    if (!confirm('Bu projeyi silmek istiyor musunuz?')) return;
+    if (!confirm(t('admin.confirmDeleteProject'))) return;
     try {
       await client.entities.projects.delete({ id: String(id) });
-      toast.success('Proje silindi');
+      toast.success(t('admin.projectDeleted'));
       loadAll();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Silme başarısız');
+      toast.error(err?.message || t('admin.deleteFailed'));
     }
   };
 
@@ -365,7 +367,7 @@ export default function AdminPanel() {
   const savePost = async () => {
     if (!editPost) return;
     if (!editPost.title || !editPost.slug || !editPost.content) {
-      toast.error('Başlık, slug ve içerik zorunludur.');
+      toast.error(t('admin.postRequired'));
       return;
     }
     try {
@@ -384,28 +386,28 @@ export default function AdminPanel() {
           id: String(editPost.id),
           data: payload,
         });
-        toast.success('Yazı güncellendi');
+        toast.success(t('admin.postUpdated'));
       } else {
         await client.entities.blog_posts.create({ data: payload });
-        toast.success('Yazı oluşturuldu');
+        toast.success(t('admin.postCreated'));
       }
       setEditPost(null);
       loadAll();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Yazı kaydedilemedi');
+      toast.error(err?.message || t('admin.postSaveError'));
     }
   };
 
   const deletePost = async (id: number | string) => {
-    if (!confirm('Bu blog yazısını silmek istiyor musunuz?')) return;
+    if (!confirm(t('admin.confirmDeletePost'))) return;
     try {
       await client.entities.blog_posts.delete({ id: String(id) });
-      toast.success('Yazı silindi');
+      toast.success(t('admin.postDeleted'));
       loadAll();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Silme başarısız');
+      toast.error(err?.message || t('admin.deleteFailed'));
     }
   };
 
@@ -413,7 +415,7 @@ export default function AdminPanel() {
   const saveInvoice = async () => {
     if (!editInvoice) return;
     if (!editInvoice.invoice_no || !editInvoice.amount) {
-      toast.error('Fatura numarası ve tutar zorunludur.');
+      toast.error(t('admin.invoiceRequired'));
       return;
     }
     try {
@@ -433,28 +435,28 @@ export default function AdminPanel() {
           id: String(editInvoice.id),
           data: payload,
         });
-        toast.success('Fatura güncellendi');
+        toast.success(t('admin.invoiceUpdated'));
       } else {
         await client.entities.invoices.create({ data: payload });
-        toast.success('Fatura oluşturuldu');
+        toast.success(t('admin.invoiceCreated'));
       }
       setEditInvoice(null);
       loadAll();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Fatura kaydedilemedi');
+      toast.error(err?.message || t('admin.invoiceSaveError'));
     }
   };
 
   const deleteInvoice = async (id: number | string) => {
-    if (!confirm('Bu faturayı silmek istiyor musunuz?')) return;
+    if (!confirm(t('admin.confirmDeleteInvoice'))) return;
     try {
       await client.entities.invoices.delete({ id: String(id) });
-      toast.success('Fatura silindi');
+      toast.success(t('admin.invoiceDeleted'));
       loadAll();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Silme başarısız');
+      toast.error(err?.message || t('admin.deleteFailed'));
     }
   };
 
@@ -462,7 +464,7 @@ export default function AdminPanel() {
   const sendReply = async () => {
     if (!replyTicket) return;
     if (!replyText.trim()) {
-      toast.error('Yanıt metni boş olamaz.');
+      toast.error(t('admin.replyEmpty'));
       return;
     }
     try {
@@ -470,13 +472,13 @@ export default function AdminPanel() {
         id: String(replyTicket.id),
         data: { reply: replyText.trim(), status: 'answered' },
       });
-      toast.success('Yanıt gönderildi');
+      toast.success(t('admin.replySent'));
       setReplyTicket(null);
       setReplyText('');
       loadAll();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Yanıt gönderilemedi');
+      toast.error(err?.message || t('admin.replySendError'));
     }
   };
 
@@ -486,11 +488,11 @@ export default function AdminPanel() {
         id: String(inq.id),
         data: { status: 'resolved' },
       });
-      toast.success('Çözüldü olarak işaretlendi');
+      toast.success(t('admin.markedResolved'));
       loadAll();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Güncelleme başarısız');
+      toast.error(err?.message || t('admin.updateFailed'));
     }
   };
 
@@ -508,15 +510,15 @@ export default function AdminPanel() {
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <div className="max-w-md text-center p-10 rounded-2xl glass">
           <LogIn className="h-10 w-10 mx-auto text-purple-400 mb-4" />
-          <h1 className="text-3xl font-bold mb-3">Yönetim Paneli</h1>
+          <h1 className="text-3xl font-bold mb-3">{t('ui.adminPanelTitle')}</h1>
           <p className="text-muted-foreground mb-6">
-            Devam etmek için yönetici hesabınızla giriş yapın.
+            {t('adminPanel.loginDesc')}
           </p>
           <Button
             onClick={() => client.auth.toLogin()}
             className="w-full h-11 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
           >
-            Giriş Yap
+            {t('nav.signIn')}
           </Button>
         </div>
       </div>
@@ -528,16 +530,15 @@ export default function AdminPanel() {
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <div className="max-w-md text-center p-10 rounded-2xl glass">
           <ShieldAlert className="h-10 w-10 mx-auto text-pink-400 mb-4" />
-          <h1 className="text-2xl font-bold mb-3">Yetkiniz Yok</h1>
+          <h1 className="text-2xl font-bold mb-3">{t('ui.noAccess')}</h1>
           <p className="text-muted-foreground mb-6">
-            Bu alan yalnızca yöneticilere açıktır. Müşteri panelinize
-            geçebilirsiniz.
+            {t('clientPanel.loginDesc')}
           </p>
           <Button
             onClick={() => (window.location.href = '/client')}
             className="w-full h-11 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
           >
-            Müşteri Paneline Git
+            {t('ui.goToClientPanel')}
           </Button>
         </div>
       </div>
@@ -566,14 +567,14 @@ export default function AdminPanel() {
   );
 
   const TABS: { key: Tab; label: string; icon: typeof BarChart3 }[] = [
-    { key: 'analytics', label: 'Analitik', icon: BarChart3 },
-    { key: 'settings', label: 'Site Ayarları', icon: Settings2 },
-    { key: 'projects', label: 'Portföy', icon: FolderKanban },
-    { key: 'blog', label: 'Blog', icon: Newspaper },
-    { key: 'clients', label: 'Müşteriler', icon: Users },
-    { key: 'invoices', label: 'Faturalar', icon: Receipt },
-    { key: 'tickets', label: 'Destek', icon: MessageSquare },
-    { key: 'inquiries', label: 'Mesajlar', icon: Mail },
+    { key: 'analytics', label: t('ui.tabAnalytics'), icon: BarChart3 },
+    { key: 'settings', label: t('ui.tabSettings'), icon: Settings2 },
+    { key: 'projects', label: t('ui.tabPortfolio'), icon: FolderKanban },
+    { key: 'blog', label: t('ui.blog'), icon: Newspaper },
+    { key: 'clients', label: t('ui.tabClients'), icon: Users },
+    { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
+    { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
+    { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
   ];
 
   return (
@@ -581,14 +582,14 @@ export default function AdminPanel() {
       <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-2">
-            YÖNETİM
+            {t('ui.management')}
           </p>
           <h1 className="text-4xl md:text-5xl font-bold">
-            Kontrol <span className="gradient-text">Merkezi</span>
+            {t('ui.controlCenter')} <span className="gradient-text">{t('ui.controlCenterHighlight')}</span>
           </h1>
         </div>
         <div className="text-sm text-muted-foreground">
-          Oturum:{' '}
+          {t('ui.session')}:{' '}
           <span className="text-foreground">{user.email || user.name}</span>
         </div>
       </div>
@@ -631,12 +632,10 @@ export default function AdminPanel() {
           <div className="p-5 rounded-2xl glass">
             <div className="flex items-center gap-2 mb-1">
               <Languages className="h-4 w-4 text-purple-300" />
-              <h3 className="text-sm font-semibold">İçerik Dili</h3>
+              <h3 className="text-sm font-semibold">{t('ui.contentLanguage')}</h3>
             </div>
             <p className="text-xs text-muted-foreground mb-4">
-              Çevrilebilir alanlar (hero metinleri, adres, SEO başlık ve açıklama) seçili
-              dil için ayrı kaydedilir. “Varsayılan” sekmesindeki değer, karşılığı
-              girilmeyen dillerde gösterilir.
+              {t('admin.langHint')}
             </p>
             <div className="flex flex-wrap gap-2">
               {SETTING_LANG_OPTIONS.map((opt) => (
@@ -650,7 +649,7 @@ export default function AdminPanel() {
                   }`}
                 >
                   <span>{opt.flag}</span>
-                  {opt.label}
+                  {opt.code === 'base' ? t('admin.default') : opt.label}
                 </button>
               ))}
             </div>
@@ -659,9 +658,9 @@ export default function AdminPanel() {
           <div className="grid gap-6 lg:grid-cols-2">
             {SETTING_GROUPS.map((group) => (
               <div key={group.group} className="p-6 rounded-2xl glass">
-                <h3 className="text-lg font-semibold mb-1">{group.title}</h3>
+                <h3 className="text-lg font-semibold mb-1">{t(group.title)}</h3>
                 <p className="text-xs text-muted-foreground mb-5">
-                  {group.description}
+                  {t(group.description)}
                 </p>
                 <div className="space-y-4">
                   {group.fields.map((field) => {
@@ -671,10 +670,10 @@ export default function AdminPanel() {
                     return (
                       <div key={fieldKey}>
                         <Label className="mb-2 flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
-                          {field.label}
+                          {t(field.label)}
                           {field.translatable && (
                             <span className="normal-case tracking-normal text-[10px] px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-200">
-                              {isLocalized ? settingLang.toUpperCase() : 'Varsayılan'}
+                              {isLocalized ? settingLang.toUpperCase() : t('admin.default')}
                             </span>
                           )}
                         </Label>
@@ -718,7 +717,7 @@ export default function AdminPanel() {
                   ) : (
                     <Save className="h-4 w-4" />
                   )}
-                  Kaydet
+                  {t('admin.saveBtn')}
                 </Button>
               </div>
             ))}
@@ -728,7 +727,7 @@ export default function AdminPanel() {
 
       {loading && tab !== 'analytics' && tab !== 'settings' ? (
         <div className="py-16 flex items-center justify-center text-muted-foreground">
-          <Loader2 className="h-5 w-5 animate-spin mr-2" /> Yükleniyor...
+          <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('ui.loading')}
         </div>
       ) : (
         <>
@@ -736,13 +735,13 @@ export default function AdminPanel() {
             <div>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold">
-                  Portföy ({projects.length})
+                  {t('ui.tabPortfolio')} ({projects.length})
                 </h2>
                 <Button
                   onClick={() => setEditProject({ ...emptyProject })}
                   className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                 >
-                  <Plus className="h-4 w-4" /> Yeni Proje
+                  <Plus className="h-4 w-4" /> {t('admin.newProjectBtn')}
                 </Button>
               </div>
               <div className="grid gap-3">
@@ -767,7 +766,7 @@ export default function AdminPanel() {
                         </p>
                         {p.featured && (
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300">
-                            Öne çıkan
+                            {t('admin.featured')}
                           </span>
                         )}
                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-muted-foreground">
@@ -776,8 +775,8 @@ export default function AdminPanel() {
                       </div>
                       <h3 className="font-semibold truncate">{p.title}</h3>
                       <p className="text-xs text-muted-foreground truncate">
-                        {p.client_email || 'müşteri atanmadı'} •{' '}
-                        {p.stage || 'aşama yok'}
+                        {p.client_email || t('admin.noClientAssigned')} •{' '}
+                        {p.stage || t('admin.noStage')}
                       </p>
                     </div>
                     <div className="flex gap-1">
@@ -801,7 +800,7 @@ export default function AdminPanel() {
                 ))}
                 {projects.length === 0 && (
                   <div className="p-10 rounded-xl glass text-center text-muted-foreground">
-                    Henüz proje eklenmedi.
+                    {t('admin.noProjects')}
                   </div>
                 )}
               </div>
@@ -818,7 +817,7 @@ export default function AdminPanel() {
                   onClick={() => setEditPost({ ...emptyPost })}
                   className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                 >
-                  <Plus className="h-4 w-4" /> Yeni Yazı
+                  <Plus className="h-4 w-4" /> {t('admin.newPost')}
                 </Button>
               </div>
               <div className="grid gap-3">
@@ -843,11 +842,11 @@ export default function AdminPanel() {
                         </p>
                         {p.published ? (
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">
-                            Yayında
+                            {t('admin.published')}
                           </span>
                         ) : (
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-muted-foreground">
-                            Taslak
+                            {t('admin.draft')}
                           </span>
                         )}
                       </div>
@@ -877,7 +876,7 @@ export default function AdminPanel() {
                 ))}
                 {posts.length === 0 && (
                   <div className="p-10 rounded-xl glass text-center text-muted-foreground">
-                    Henüz blog yazısı yok.
+                    {t('admin.noPosts')}
                   </div>
                 )}
               </div>
@@ -887,7 +886,7 @@ export default function AdminPanel() {
           {tab === 'clients' && (
             <div>
               <h2 className="text-xl font-semibold mb-6">
-                Müşteriler ({clientList.length})
+                {t('ui.tabClients')} ({clientList.length})
               </h2>
               <div className="grid gap-3">
                 {clientList.map((c) => {
@@ -903,7 +902,7 @@ export default function AdminPanel() {
                       <div className="flex flex-wrap items-center justify-between gap-3">
                         <div>
                           <h3 className="font-semibold">
-                            {c.name || 'İsimsiz müşteri'}
+                            {c.name || t('admin.unnamedClient')}
                           </h3>
                           <a
                             href={`mailto:${c.email}`}
@@ -915,7 +914,7 @@ export default function AdminPanel() {
                         <div className="flex gap-6 text-xs">
                           <div>
                             <p className="text-muted-foreground uppercase tracking-widest">
-                              Proje
+                              {t('admin.projectCount')}
                             </p>
                             <p className="text-lg font-bold">
                               {cProjects.length}
@@ -923,7 +922,7 @@ export default function AdminPanel() {
                           </div>
                           <div>
                             <p className="text-muted-foreground uppercase tracking-widest">
-                              Fatura
+                              {t('admin.invoiceCount')}
                             </p>
                             <p className="text-lg font-bold">
                               {cInvoices.length}
@@ -931,7 +930,7 @@ export default function AdminPanel() {
                           </div>
                           <div>
                             <p className="text-muted-foreground uppercase tracking-widest">
-                              Ödenmemiş
+                              {t('admin.unpaid')}
                             </p>
                             <p className="text-lg font-bold text-orange-300">
                               {unpaid.length}
@@ -944,8 +943,7 @@ export default function AdminPanel() {
                 })}
                 {clientList.length === 0 && (
                   <div className="p-10 rounded-xl glass text-center text-muted-foreground">
-                    Müşteri kaydı yok. Portföy veya fatura oluştururken müşteri
-                    e-postası girin.
+                    {t('admin.noClients')}
                   </div>
                 )}
               </div>
@@ -956,7 +954,7 @@ export default function AdminPanel() {
             <div>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold">
-                  Faturalar ({invoices.length})
+                  {t('admin.tabInvoices')} ({invoices.length})
                 </h2>
                 <Button
                   onClick={() =>
@@ -968,7 +966,7 @@ export default function AdminPanel() {
                   }
                   className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                 >
-                  <Plus className="h-4 w-4" /> Yeni Fatura
+                  <Plus className="h-4 w-4" /> {t('admin.newInvoiceBtn')}
                 </Button>
               </div>
               <div className="grid gap-3">
@@ -987,7 +985,7 @@ export default function AdminPanel() {
                               : 'bg-orange-500/15 text-orange-300'
                           }`}
                         >
-                          {inv.status === 'paid' ? 'Ödendi' : 'Ödenmedi'}
+                          {inv.status === 'paid' ? t('ui.status.paid') : t('ui.status.unpaid')}
                         </span>
                       </div>
                       <p className="text-xs text-muted-foreground">
@@ -1018,7 +1016,7 @@ export default function AdminPanel() {
                 ))}
                 {invoices.length === 0 && (
                   <div className="p-10 rounded-xl glass text-center text-muted-foreground">
-                    Henüz fatura oluşturulmadı.
+                    {t('admin.noInvoices')}
                   </div>
                 )}
               </div>
@@ -1028,7 +1026,7 @@ export default function AdminPanel() {
           {tab === 'tickets' && (
             <div>
               <h2 className="text-xl font-semibold mb-6">
-                Destek Talepleri ({tickets.length})
+                {t('admin.tabTickets')} ({tickets.length})
               </h2>
               <div className="grid gap-3">
                 {tickets.map((tk) => (
@@ -1044,7 +1042,7 @@ export default function AdminPanel() {
                                 : 'bg-pink-500/15 text-pink-300'
                             }`}
                           >
-                            {tk.status === 'answered' ? 'Yanıtlandı' : 'Açık'}
+                            {tk.status === 'answered' ? t('ui.status.answered') : t('ui.status.open')}
                           </span>
                         </div>
                         <p className="text-xs text-muted-foreground">
@@ -1060,7 +1058,7 @@ export default function AdminPanel() {
                         }}
                         className="gap-1 text-purple-300"
                       >
-                        <MessageSquare className="h-4 w-4" /> Yanıtla
+                        <MessageSquare className="h-4 w-4" /> {t('admin.replyBtn')}
                       </Button>
                     </div>
                     <p className="text-sm text-muted-foreground whitespace-pre-wrap">
@@ -1069,7 +1067,7 @@ export default function AdminPanel() {
                     {tk.reply && (
                       <div className="mt-3 pt-3 border-t border-white/10">
                         <p className="text-xs uppercase tracking-widest text-purple-400 mb-1">
-                          Yanıtınız
+                          {t('admin.yourReply')}
                         </p>
                         <p className="text-sm whitespace-pre-wrap">
                           {tk.reply}
@@ -1080,7 +1078,7 @@ export default function AdminPanel() {
                 ))}
                 {tickets.length === 0 && (
                   <div className="p-10 rounded-xl glass text-center text-muted-foreground">
-                    Destek talebi bulunmuyor.
+                    {t('admin.noTickets')}
                   </div>
                 )}
               </div>
@@ -1090,7 +1088,7 @@ export default function AdminPanel() {
           {tab === 'inquiries' && (
             <div>
               <h2 className="text-xl font-semibold mb-6">
-                Gelen Mesajlar ({inquiries.length})
+                {t('admin.tabInquiries')} ({inquiries.length})
               </h2>
               <div className="grid gap-3">
                 {inquiries.map((inq) => (
@@ -1106,7 +1104,7 @@ export default function AdminPanel() {
                                 : 'bg-pink-500/15 text-pink-300'
                             }`}
                           >
-                            {inq.status === 'resolved' ? 'Çözüldü' : 'Yeni'}
+                            {inq.status === 'resolved' ? t('admin.resolved') : t('admin.newLabel')}
                           </span>
                         </div>
                         <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
@@ -1133,7 +1131,7 @@ export default function AdminPanel() {
                           onClick={() => markInquiryResolved(inq)}
                           className="gap-1 text-emerald-300"
                         >
-                          <CheckCircle2 className="h-4 w-4" /> Çözüldü
+                          <CheckCircle2 className="h-4 w-4" /> {t('admin.resolved')}
                         </Button>
                       )}
                     </div>
@@ -1147,7 +1145,7 @@ export default function AdminPanel() {
                 ))}
                 {inquiries.length === 0 && (
                   <div className="p-10 rounded-xl glass text-center text-muted-foreground">
-                    Mesaj bulunmuyor.
+                    {t('admin.noInquiries')}
                   </div>
                 )}
               </div>
@@ -1167,12 +1165,12 @@ export default function AdminPanel() {
               <X className="h-4 w-4" />
             </button>
             <h3 className="text-2xl font-bold mb-6">
-              {editProject.id ? 'Projeyi Düzenle' : 'Yeni Proje'}
+              {editProject.id ? t('admin.editProject') : t('admin.newProject')}
             </h3>
             <div className="space-y-4">
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Başlık *
+                  {t('admin.titleLabel')} *
                 </Label>
                 <Input
                   value={editProject.title || ''}
@@ -1184,7 +1182,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Açıklama *
+                  {t('admin.descLabel')} *
                 </Label>
                 <Textarea
                   rows={3}
@@ -1201,7 +1199,7 @@ export default function AdminPanel() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Kategori *
+                    {t('admin.categoryLabel')} *
                   </Label>
                   <select
                     value={editProject.category || 'Website'}
@@ -1224,7 +1222,7 @@ export default function AdminPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Durum
+                    {t('admin.statusLabel')}
                   </Label>
                   <select
                     value={editProject.status || 'in_progress'}
@@ -1234,13 +1232,13 @@ export default function AdminPanel() {
                     className="w-full h-10 rounded-md bg-white/5 border border-white/10 px-3 text-sm"
                   >
                     <option value="planning" className="bg-[#150a2b]">
-                      Planlama
+                      {t('ui.status.planning')}
                     </option>
                     <option value="in_progress" className="bg-[#150a2b]">
-                      Devam Ediyor
+                      {t('ui.status.in_progress')}
                     </option>
                     <option value="completed" className="bg-[#150a2b]">
-                      Tamamlandı
+                      {t('ui.status.completed')}
                     </option>
                   </select>
                 </div>
@@ -1248,11 +1246,11 @@ export default function AdminPanel() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Aşama
+                    {t('admin.stageLabel')}
                   </Label>
                   <Input
                     value={editProject.stage || ''}
-                    placeholder="Örn. Tasarım / Geliştirme / Test"
+                    placeholder={t('admin.stagePlaceholder')}
                     onChange={(e) =>
                       setEditProject({ ...editProject, stage: e.target.value })
                     }
@@ -1261,7 +1259,7 @@ export default function AdminPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    İlerleme (%)
+                    {t('admin.progressLabel')}
                   </Label>
                   <Input
                     type="number"
@@ -1280,7 +1278,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Görsel URL
+                  {t('admin.imageUrl')}
                 </Label>
                 <Input
                   value={editProject.image_url || ''}
@@ -1295,7 +1293,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Proje URL
+                  {t('admin.projectUrl')}
                 </Label>
                 <Input
                   value={editProject.project_url || ''}
@@ -1311,7 +1309,7 @@ export default function AdminPanel() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Müşteri Adı
+                    {t('admin.clientNameLabel')}
                   </Label>
                   <Input
                     value={editProject.client_name || ''}
@@ -1326,7 +1324,7 @@ export default function AdminPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Müşteri E-postası
+                    {t('admin.clientEmailLabel')}
                   </Label>
                   <Input
                     value={editProject.client_email || ''}
@@ -1343,7 +1341,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Teknoloji (virgülle ayır)
+                  {t('admin.techLabel')}
                 </Label>
                 <Input
                   value={editProject.tech_stack || ''}
@@ -1368,7 +1366,7 @@ export default function AdminPanel() {
                   }
                   className="rounded"
                 />
-                Öne çıkan proje
+                {t('admin.featuredProject')}
               </label>
             </div>
             <div className="flex gap-3 mt-8">
@@ -1376,14 +1374,14 @@ export default function AdminPanel() {
                 onClick={saveProject}
                 className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
               >
-                {editProject.id ? 'Değişiklikleri Kaydet' : 'Proje Oluştur'}
+                {editProject.id ? t('admin.saveChanges') : t('admin.createProject')}
               </Button>
               <Button
                 onClick={() => setEditProject(null)}
                 variant="outline"
                 className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
               >
-                İptal
+                {t('admin.cancel')}
               </Button>
             </div>
           </div>
@@ -1401,12 +1399,12 @@ export default function AdminPanel() {
               <X className="h-4 w-4" />
             </button>
             <h3 className="text-2xl font-bold mb-6">
-              {editPost.id ? 'Yazıyı Düzenle' : 'Yeni Yazı'}
+              {editPost.id ? t('admin.editPost') : t('admin.newPost')}
             </h3>
             <div className="space-y-4">
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Başlık *
+                  {t('admin.titleLabel')} *
                 </Label>
                 <Input
                   value={editPost.title || ''}
@@ -1418,7 +1416,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Slug *
+                  {t('admin.slugLabel')} *
                 </Label>
                 <Input
                   value={editPost.slug || ''}
@@ -1430,7 +1428,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Özet
+                  {t('admin.excerpt')}
                 </Label>
                 <Textarea
                   rows={2}
@@ -1443,7 +1441,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  İçerik *
+                  {t('admin.content')} *
                 </Label>
                 <Textarea
                   rows={8}
@@ -1457,7 +1455,7 @@ export default function AdminPanel() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Yazar
+                    {t('admin.authorLabel')}
                   </Label>
                   <Input
                     value={editPost.author || ''}
@@ -1469,7 +1467,7 @@ export default function AdminPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Kategori
+                    {t('admin.categoryLabel')}
                   </Label>
                   <select
                     value={editPost.category || 'Website'}
@@ -1495,7 +1493,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Kapak Görseli
+                  {t('admin.coverImage')}
                 </Label>
                 <Input
                   value={editPost.cover_image || ''}
@@ -1514,7 +1512,7 @@ export default function AdminPanel() {
                   }
                   className="rounded"
                 />
-                Yayında
+                {t('admin.published')}
               </label>
             </div>
             <div className="flex gap-3 mt-8">
@@ -1522,14 +1520,14 @@ export default function AdminPanel() {
                 onClick={savePost}
                 className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
               >
-                {editPost.id ? 'Değişiklikleri Kaydet' : 'Yazı Oluştur'}
+                {editPost.id ? t('admin.saveChanges') : t('admin.createPost')}
               </Button>
               <Button
                 onClick={() => setEditPost(null)}
                 variant="outline"
                 className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
               >
-                İptal
+                {t('admin.cancel')}
               </Button>
             </div>
           </div>
@@ -1547,13 +1545,13 @@ export default function AdminPanel() {
               <X className="h-4 w-4" />
             </button>
             <h3 className="text-2xl font-bold mb-6">
-              {editInvoice.id ? 'Faturayı Düzenle' : 'Yeni Fatura'}
+              {editInvoice.id ? t('admin.editInvoice') : t('admin.newInvoice')}
             </h3>
             <div className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Fatura No *
+                    {t('admin.invoiceNo')} *
                   </Label>
                   <Input
                     value={editInvoice.invoice_no || ''}
@@ -1568,7 +1566,7 @@ export default function AdminPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Tutar *
+                    {t('admin.amountLabel')} *
                   </Label>
                   <Input
                     type="number"
@@ -1586,7 +1584,7 @@ export default function AdminPanel() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Müşteri Adı
+                    {t('admin.clientNameLabel')}
                   </Label>
                   <Input
                     value={editInvoice.client_name || ''}
@@ -1601,7 +1599,7 @@ export default function AdminPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Müşteri E-postası
+                    {t('admin.clientEmailLabel')}
                   </Label>
                   <Input
                     value={editInvoice.client_email || ''}
@@ -1617,7 +1615,7 @@ export default function AdminPanel() {
               </div>
               <div>
                 <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                  Açıklama
+                  {t('admin.descLabel')}
                 </Label>
                 <Textarea
                   rows={2}
@@ -1634,7 +1632,7 @@ export default function AdminPanel() {
               <div className="grid gap-4 sm:grid-cols-3">
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Para Birimi
+                    {t('admin.currencyLabel')}
                   </Label>
                   <Input
                     value={editInvoice.currency || 'USD'}
@@ -1649,7 +1647,7 @@ export default function AdminPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Durum
+                    {t('admin.statusLabel')}
                   </Label>
                   <select
                     value={editInvoice.status || 'unpaid'}
@@ -1659,19 +1657,19 @@ export default function AdminPanel() {
                     className="w-full h-10 rounded-md bg-white/5 border border-white/10 px-3 text-sm"
                   >
                     <option value="unpaid" className="bg-[#150a2b]">
-                      Ödenmedi
+                      {t('ui.status.unpaid')}
                     </option>
                     <option value="paid" className="bg-[#150a2b]">
-                      Ödendi
+                      {t('ui.status.paid')}
                     </option>
                     <option value="overdue" className="bg-[#150a2b]">
-                      Gecikmiş
+                      {t('ui.status.overdue')}
                     </option>
                   </select>
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Vade
+                    {t('ui.due')}
                   </Label>
                   <Input
                     type="date"
@@ -1692,14 +1690,14 @@ export default function AdminPanel() {
                 onClick={saveInvoice}
                 className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
               >
-                Kaydet
+                {t('admin.saveBtn')}
               </Button>
               <Button
                 onClick={() => setEditInvoice(null)}
                 variant="outline"
                 className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
               >
-                İptal
+                {t('admin.cancel')}
               </Button>
             </div>
           </div>
@@ -1724,7 +1722,7 @@ export default function AdminPanel() {
               {replyTicket.message}
             </p>
             <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-              Yanıtınız
+              {t('admin.yourReply')}
             </Label>
             <Textarea
               rows={5}
@@ -1737,14 +1735,14 @@ export default function AdminPanel() {
                 onClick={sendReply}
                 className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
               >
-                Yanıtı Gönder
+                {t('admin.sendReply')}
               </Button>
               <Button
                 onClick={() => setReplyTicket(null)}
                 variant="outline"
                 className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
               >
-                İptal
+                {t('admin.cancel')}
               </Button>
             </div>
           </div>

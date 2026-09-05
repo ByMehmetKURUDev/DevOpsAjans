@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 import { createClient } from '@metagptx/web-sdk';
 import { useSiteSettings } from '@/lib/siteSettings';
 
@@ -71,20 +72,14 @@ interface Ticket {
 
 type Tab = 'projects' | 'invoices' | 'tickets' | 'profile';
 
-const STATUS_LABEL: Record<string, string> = {
-  planning: 'Planlama',
-  in_progress: 'Devam Ediyor',
-  completed: 'Tamamlandı',
-  paid: 'Ödendi',
-  unpaid: 'Ödenmedi',
-  overdue: 'Gecikmiş',
-  open: 'Açık',
-  answered: 'Yanıtlandı',
-  closed: 'Kapandı',
-};
 
 export default function ClientPanel() {
+  const { t } = useTranslation();
   const { settings } = useSiteSettings();
+
+  /** Durum kodunu seçili dile çevirir; karşılığı yoksa ham kodu gösterir. */
+  const statusLabel = (status?: string, fallbackKey = 'planning') =>
+    t(`ui.status.${status || fallbackKey}`, { defaultValue: status || '' });
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [tab, setTab] = useState<Tab>('projects');
@@ -160,7 +155,7 @@ export default function ClientPanel() {
       );
     } catch (e) {
       const err = e as { message?: string };
-      setError(err?.message || 'Veriler yüklenemedi');
+      setError(err?.message || t('ui.dataLoadError'));
     } finally {
       setDataLoading(false);
     }
@@ -172,7 +167,7 @@ export default function ClientPanel() {
 
   const submitTicket = async () => {
     if (!ticketForm.subject.trim() || !ticketForm.message.trim()) {
-      toast.error('Konu ve mesaj alanları zorunludur.');
+      toast.error(t('ui.ticketRequired'));
       return;
     }
     setSending(true);
@@ -187,12 +182,12 @@ export default function ClientPanel() {
           priority: 'normal',
         },
       });
-      toast.success('Destek talebiniz iletildi.');
+      toast.success(t('ui.ticketSent'));
       setTicketForm({ subject: '', message: '' });
       loadData();
     } catch (e) {
       const err = e as { message?: string };
-      toast.error(err?.message || 'Talep gönderilemedi');
+      toast.error(err?.message || t('ui.ticketSendError'));
     } finally {
       setSending(false);
     }
@@ -204,9 +199,9 @@ export default function ClientPanel() {
         `mk_profile_${email}`,
         JSON.stringify(profile)
       );
-      toast.success('Profil bilgileriniz kaydedildi.');
+      toast.success(t('ui.profileSaved'));
     } catch {
-      toast.error('Profil kaydedilemedi.');
+      toast.error(t('ui.profileSaveError'));
     }
   };
 
@@ -233,24 +228,23 @@ export default function ClientPanel() {
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <div className="max-w-md text-center p-10 rounded-2xl glass">
           <LogIn className="h-10 w-10 mx-auto text-purple-400 mb-4" />
-          <h1 className="text-3xl font-bold mb-3">Müşteri Paneli</h1>
+          <h1 className="text-3xl font-bold mb-3">{t('ui.clientPanelTitle')}</h1>
           <p className="text-muted-foreground mb-6">
-            Projelerinizi, faturalarınızı ve destek taleplerinizi görmek için
-            giriş yapın veya ücretsiz hesap oluşturun.
+            {t('clientPanel.loginDesc')}
           </p>
           <div className="space-y-3">
             <Button
               onClick={() => client.auth.toLogin()}
               className="w-full h-11 gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
             >
-              <LogIn className="h-4 w-4" /> Giriş Yap
+              <LogIn className="h-4 w-4" /> {t('nav.signIn')}
             </Button>
             <Button
               onClick={() => client.auth.toLogin()}
               variant="outline"
               className="w-full h-11 gap-2 !bg-transparent !hover:bg-transparent border-white/20 text-foreground"
             >
-              <UserPlus className="h-4 w-4" /> Kayıt Ol
+              <UserPlus className="h-4 w-4" /> {t('nav.signUp')}
             </Button>
           </div>
         </div>
@@ -259,25 +253,25 @@ export default function ClientPanel() {
   }
 
   const TABS: { key: Tab; label: string; icon: typeof Briefcase }[] = [
-    { key: 'projects', label: 'Projelerim', icon: Briefcase },
-    { key: 'invoices', label: 'Faturalar', icon: Receipt },
-    { key: 'tickets', label: 'Destek', icon: MessageSquare },
-    { key: 'profile', label: 'Profil', icon: UserCog },
+    { key: 'projects', label: t('ui.tabMyProjects'), icon: Briefcase },
+    { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
+    { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
+    { key: 'profile', label: t('ui.tabProfile'), icon: UserCog },
   ];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div className="mb-10">
         <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-2">
-          MÜŞTERİ PANELİ
+          {t('ui.clientPanelTitle')}
         </p>
         <h1 className="text-4xl md:text-5xl font-bold">
-          Kontrol Panelim<span className="gradient-text">.</span>
+          {t('ui.controlCenter')} <span className="gradient-text">{t('ui.controlCenterHighlight')}</span>
         </h1>
         <p className="text-muted-foreground mt-2">
-          Oturum:{' '}
+          {t('ui.session')}:{' '}
           <span className="text-foreground">
-            {user.email || user.name || 'siz'}
+            {user.email || user.name}
           </span>
         </p>
       </div>
@@ -285,25 +279,25 @@ export default function ClientPanel() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-10">
         {[
           {
-            label: 'Toplam Proje',
+            label: t('ui.statTotalProjects'),
             value: stats.total,
             icon: Briefcase,
             color: 'from-purple-600 to-pink-600',
           },
           {
-            label: 'Devam Eden',
+            label: t('ui.statInProgress'),
             value: stats.active,
             icon: Clock,
             color: 'from-cyan-500 to-purple-600',
           },
           {
-            label: 'Tamamlanan',
+            label: t('ui.statCompleted'),
             value: stats.done,
             icon: CheckCircle2,
             color: 'from-emerald-500 to-cyan-500',
           },
           {
-            label: 'Ödenmemiş Fatura',
+            label: t('ui.statUnpaidInvoices'),
             value: stats.openInvoices,
             icon: Receipt,
             color: 'from-orange-500 to-pink-500',
@@ -351,7 +345,7 @@ export default function ClientPanel() {
 
       {dataLoading ? (
         <div className="py-16 flex items-center justify-center text-muted-foreground">
-          <Loader2 className="h-5 w-5 animate-spin mr-2" /> Yükleniyor...
+          <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('ui.loading')}
         </div>
       ) : error ? (
         <div className="p-6 rounded-xl bg-destructive/10 border border-destructive/30 text-destructive text-sm">
@@ -362,7 +356,7 @@ export default function ClientPanel() {
             size="sm"
             className="ml-4 !bg-transparent border-white/20"
           >
-            Tekrar dene
+            {t('ui.retry')}
           </Button>
         </div>
       ) : (
@@ -372,14 +366,13 @@ export default function ClientPanel() {
               {projects.length === 0 ? (
                 <div className="p-10 rounded-2xl glass text-center">
                   <p className="text-muted-foreground mb-4">
-                    Henüz size atanmış bir proje yok. Yeni bir proje başlatmak
-                    için bizimle iletişime geçin.
+                    {t('ui.noProjectsDesc')}
                   </p>
                   <Button
                     onClick={() => (window.location.href = '/contact')}
                     className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                   >
-                    Proje Başlat
+                    {t('ui.startProject')}
                   </Button>
                 </div>
               ) : (
@@ -415,7 +408,7 @@ export default function ClientPanel() {
                                 : 'bg-white/10 text-muted-foreground'
                           }`}
                         >
-                          {STATUS_LABEL[p.status || 'planning'] || p.status}
+                          {statusLabel(p.status, 'planning')}
                         </span>
                       </div>
                       <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
@@ -427,7 +420,7 @@ export default function ClientPanel() {
                       <div className="mb-3">
                         <div className="flex items-center justify-between text-xs mb-1.5">
                           <span className="text-muted-foreground">
-                            Aşama: {p.stage || 'Belirlenmedi'}
+                            {t('ui.stage')}: {p.stage || t('ui.notSet')}
                           </span>
                           <span className="text-purple-300 font-medium">
                             {typeof p.progress === 'number' ? p.progress : 0}%
@@ -465,7 +458,7 @@ export default function ClientPanel() {
                           rel="noreferrer"
                           className="inline-flex items-center gap-1.5 text-sm text-purple-400 hover:text-pink-400 transition-colors"
                         >
-                          Canlı görüntüle{' '}
+                          {t('ui.viewLive')}{' '}
                           <ExternalLink className="h-3.5 w-3.5" />
                         </a>
                       )}
@@ -480,7 +473,7 @@ export default function ClientPanel() {
             <div className="grid gap-3">
               {invoices.length === 0 ? (
                 <div className="p-10 rounded-2xl glass text-center text-muted-foreground">
-                  Henüz faturanız bulunmuyor.
+                  {t('ui.noInvoices')}
                 </div>
               ) : (
                 invoices.map((inv) => (
@@ -500,14 +493,14 @@ export default function ClientPanel() {
                                 : 'bg-orange-500/15 text-orange-300'
                           }`}
                         >
-                          {STATUS_LABEL[inv.status || 'unpaid'] || inv.status}
+                          {statusLabel(inv.status, 'unpaid')}
                         </span>
                       </div>
                       <p className="text-sm text-muted-foreground">
                         {inv.description}
                       </p>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Düzenlenme: {inv.issue_date || '—'} • Vade:{' '}
+                        {t('ui.issued')}: {inv.issue_date || '—'} • {t('ui.due')}:{' '}
                         {inv.due_date || '—'}
                       </p>
                     </div>
@@ -526,12 +519,12 @@ export default function ClientPanel() {
             <div className="grid gap-8 lg:grid-cols-2">
               <div className="p-6 rounded-2xl glass h-fit">
                 <h3 className="text-lg font-semibold mb-4">
-                  Yeni Destek Talebi
+                  {t('ui.newTicket')}
                 </h3>
                 <div className="space-y-4">
                   <div>
                     <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Konu *
+                      {t('ui.subject')} *
                     </Label>
                     <Input
                       value={ticketForm.subject}
@@ -541,13 +534,13 @@ export default function ClientPanel() {
                           subject: e.target.value,
                         })
                       }
-                      placeholder="Örn. Site hızı hakkında"
+                      placeholder={t('ui.ticketSubjectPlaceholder')}
                       className="bg-white/5 border-white/10"
                     />
                   </div>
                   <div>
                     <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Mesaj *
+                      {t('ui.message')} *
                     </Label>
                     <Textarea
                       rows={5}
@@ -558,7 +551,7 @@ export default function ClientPanel() {
                           message: e.target.value,
                         })
                       }
-                      placeholder="Talebinizi detaylandırın..."
+                      placeholder={t('ui.ticketMessagePlaceholder')}
                       className="bg-white/5 border-white/10"
                     />
                   </div>
@@ -572,18 +565,18 @@ export default function ClientPanel() {
                     ) : (
                       <Send className="h-4 w-4" />
                     )}
-                    Gönder
+                    {t('ui.send')}
                   </Button>
                 </div>
               </div>
 
               <div className="grid gap-3">
                 <h3 className="text-lg font-semibold">
-                  Taleplerim ({tickets.length})
+                  {t('ui.myTickets')} ({tickets.length})
                 </h3>
                 {tickets.length === 0 ? (
                   <div className="p-8 rounded-2xl glass text-center text-muted-foreground text-sm">
-                    Henüz destek talebi oluşturmadınız.
+                    {t('ui.noTickets')}
                   </div>
                 ) : (
                   tickets.map((tk) => (
@@ -599,7 +592,7 @@ export default function ClientPanel() {
                                 : 'bg-pink-500/15 text-pink-300'
                           }`}
                         >
-                          {STATUS_LABEL[tk.status || 'open'] || tk.status}
+                          {statusLabel(tk.status, 'open')}
                         </span>
                       </div>
                       <p className="text-sm text-muted-foreground whitespace-pre-wrap">
@@ -608,7 +601,7 @@ export default function ClientPanel() {
                       {tk.reply && (
                         <div className="mt-3 pt-3 border-t border-white/10">
                           <p className="text-xs uppercase tracking-widest text-purple-400 mb-1">
-                            Yanıt
+                            {t('ui.reply')}
                           </p>
                           <p className="text-sm text-foreground whitespace-pre-wrap">
                             {tk.reply}
@@ -624,11 +617,11 @@ export default function ClientPanel() {
 
           {tab === 'profile' && (
             <div className="max-w-xl p-6 rounded-2xl glass">
-              <h3 className="text-lg font-semibold mb-4">Profil Ayarları</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('ui.profileSettings')}</h3>
               <div className="space-y-4">
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    E-posta (değiştirilemez)
+                    {t('ui.emailReadonly')}
                   </Label>
                   <Input
                     value={user.email || ''}
@@ -638,7 +631,7 @@ export default function ClientPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Ad Soyad
+                    {t('ui.fullName')}
                   </Label>
                   <Input
                     value={profile.name}
@@ -650,7 +643,7 @@ export default function ClientPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Telefon
+                    {t('ui.phone')}
                   </Label>
                   <Input
                     value={profile.phone}
@@ -662,7 +655,7 @@ export default function ClientPanel() {
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Şirket
+                    {t('ui.company')}
                   </Label>
                   <Input
                     value={profile.company}
@@ -676,10 +669,10 @@ export default function ClientPanel() {
                   onClick={saveProfile}
                   className="h-11 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                 >
-                  Kaydet
+                  {t('ui.save')}
                 </Button>
                 <p className="text-xs text-muted-foreground pt-2 border-t border-white/10">
-                  Sorularınız için:{' '}
+                  {t('ui.forQuestions')}:{' '}
                   <a
                     href={`mailto:${settings.contact_email}`}
                     className="text-purple-400 hover:text-pink-400"

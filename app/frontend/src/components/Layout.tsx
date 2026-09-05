@@ -316,7 +316,7 @@ export default function Layout() {
           <button
             className="lg:hidden p-2 rounded-md hover:bg-white/5"
             onClick={() => setOpen((s) => !s)}
-            aria-label="Menüyü aç/kapat"
+            aria-label={t('ui.toggleMenu')}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>

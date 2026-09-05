@@ -70,51 +70,54 @@ export default function Index() {
     { icon: Server, name: t('packages.option5'), price: `$${settings.price_devops}`, desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true },
   ];
 
+  const CATEGORY_CARDS = [
+    { slug: 'Website', label: t('ui.catWebsite'), emoji: '💻', gradient: 'from-purple-600 to-pink-600' },
+    { slug: 'E-Ticaret', label: t('ui.catEcommerce'), emoji: '🛒', gradient: 'from-pink-600 to-orange-500' },
+    { slug: 'SaaS', label: t('ui.catSaas'), emoji: '🚀', gradient: 'from-cyan-500 to-purple-600' },
+    { slug: 'Mobil Uygulama', label: t('ui.catMobile'), emoji: '📱', gradient: 'from-emerald-500 to-cyan-500' },
+    { slug: 'Reklam', label: t('ui.catAds'), emoji: '📣', gradient: 'from-purple-500 to-pink-500' },
+  ];
+
+  const REVIEWS = [
+    { name: 'Ahmet Y.', rating: 5, text: t('ui.review1'), date: t('ui.ago2m'), avatar: 'A' },
+    { name: 'Sarah M.', rating: 5, text: t('ui.review2'), date: t('ui.ago3m'), avatar: 'S' },
+    { name: 'Mehmet K.', rating: 5, text: t('ui.review3'), date: t('ui.ago1m'), avatar: 'M' },
+    { name: 'Thomas B.', rating: 5, text: t('ui.review4'), date: t('ui.ago4m'), avatar: 'T' },
+    { name: 'Elif D.', rating: 5, text: t('ui.review5'), date: t('ui.ago2w'), avatar: 'E' },
+    { name: 'James R.', rating: 4, text: t('ui.review6'), date: t('ui.ago5m'), avatar: 'J' },
+  ];
+
   return (
     <div>
-      {/* HERO */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="/assets/hero-banner-1600.webp"
-            srcSet="/assets/hero-banner-640.webp 640w, /assets/hero-banner-1024.webp 1024w, /assets/hero-banner-1600.webp 1600w"
-            sizes="100vw"
-            alt="Cyberpunk temalı yazılım geliştirme çalışma alanı"
-            width={1536}
-            height={1024}
-            className="w-full h-full object-cover"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#05010a]/60 via-[#1a0b2e]/40 to-background pointer-events-none" />
+      {/* HERO — görsel yok: LCP metin tabanlı, arka plan tamamen CSS ile üretilir */}
+      <section className="relative flex items-center overflow-hidden hero-surface">
+        <div className="hero-glow hero-glow-a" aria-hidden="true" />
+        <div className="hero-glow hero-glow-b" aria-hidden="true" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-24">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-40 md:pt-36 md:pb-44">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-6 animate-in fade-in slide-in-from-bottom-2 duration-700">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-6">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-400" />
               </span>
-              <span className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              <span className="text-xs font-medium tracking-wide text-purple-200 uppercase">
                 {t('hero.badge')}
               </span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.02] mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.06] mb-8">
               <span className="gradient-text">{settings.hero_title}</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-10">
               {settings.hero_subtitle}
             </p>
 
-            <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+            <div className="flex flex-wrap gap-4">
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-[#8b3dff] to-[#5c27a3] hover:from-[#9b5dff] hover:to-[#7b3dc3] text-white border-0 glow-primary h-12 px-6 gap-2"
+                  className="bg-gradient-to-r from-[#8b3dff] to-[#5c27a3] hover:from-[#9b5dff] hover:to-[#7b3dc3] text-white border-0 h-12 px-6 gap-2"
                 >
                   {settings.hero_cta} <ArrowRight className="h-4 w-4" />
                 </Button>
@@ -123,7 +126,7 @@ export default function Index() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-12 px-6 !bg-transparent !hover:bg-transparent border-white/20 hover:border-white/40 gap-2"
+                  className="h-12 px-6 !bg-transparent !hover:bg-transparent border-white/25 hover:border-white/50 gap-2"
                 >
                   {t('hero.ctaSecondary')}
                 </Button>
@@ -133,10 +136,10 @@ export default function Index() {
         </div>
 
         {/* Bottom stats strip */}
-        <div className="absolute bottom-0 left-0 right-0 border-t border-white/5 backdrop-blur-md bg-background/40">
+        <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-background/70">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4">
             {STATS.map((s) => (
-              <div key={s.label} className="py-6 px-4 border-r border-white/5 last:border-r-0">
+              <div key={s.label} className="py-6 px-4 border-r border-white/10 last:border-r-0">
                 <div className="text-2xl md:text-3xl font-bold gradient-text">{s.value}</div>
                 <div className="text-xs uppercase tracking-widest text-muted-foreground mt-1">
                   {s.label}
@@ -148,10 +151,10 @@ export default function Index() {
       </section>
 
       {/* CAPABILITIES */}
-      <section className="relative py-32">
+      <section className="relative py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-purple-300 mb-4">
               {t('capabilities.sectionTag')}
             </p>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
@@ -161,25 +164,24 @@ export default function Index() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-            {CAPABILITIES.map((c, i) => (
+            {CAPABILITIES.map((c) => (
               <div
                 key={c.title}
-                className="group relative p-6 rounded-2xl glass hover:border-purple-500/40 transition-all duration-500 hover:-translate-y-1"
-                style={{ animationDelay: `${i * 80}ms` }}
+                className="group relative p-6 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300"
               >
                 <div
-                  className={`w-11 h-11 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}
+                  className={`w-11 h-11 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center mb-5`}
                 >
-                  <c.icon className="h-5 w-5 text-white" />
+                  <c.icon className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{c.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{c.desc}</p>
-                <div className="mt-5 pt-4 border-t border-white/5">
+                <div className="mt-5 pt-4 border-t border-white/10">
                   <Link
                     to="/services"
-                    className="text-xs uppercase tracking-wider text-purple-400 hover:text-purple-300 flex items-center gap-1"
+                    className="text-xs uppercase tracking-wider text-purple-300 hover:text-purple-200 inline-flex items-center gap-1 py-1"
                   >
-                    {t('capabilities.learnMore')} <ArrowRight className="h-3 w-3" />
+                    {t('capabilities.learnMore')} <ArrowRight className="h-3 w-3" aria-hidden="true" />
                   </Link>
                 </div>
               </div>
@@ -189,10 +191,10 @@ export default function Index() {
       </section>
 
       {/* PROCESS */}
-      <section className="relative py-32 border-t border-white/5">
+      <section className="relative py-24 md:py-32 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:grid-cols-2">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">{t('process.sectionTag')}</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-pink-300 mb-4">{t('process.sectionTag')}</p>
             <h2 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
               {t('process.title1')}
               <br />
@@ -205,8 +207,8 @@ export default function Index() {
 
           <div className="space-y-6">
             {STEPS.map((step) => (
-              <div key={step.n} className="flex gap-6 p-5 rounded-xl hover:bg-white/[0.02] transition-colors">
-                <div className="text-4xl font-bold gradient-text opacity-60 w-16 shrink-0">
+              <div key={step.n} className="flex gap-6 p-5 rounded-xl hover:bg-white/[0.03] transition-colors">
+                <div className="text-4xl font-bold gradient-text opacity-70 w-16 shrink-0">
                   {step.n}
                 </div>
                 <div>
@@ -220,10 +222,10 @@ export default function Index() {
       </section>
 
       {/* PACKAGES */}
-      <section className="py-24 border-t border-white/5">
+      <section className="py-24 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">{t('packages.sectionTag')}</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-pink-300 mb-4">{t('packages.sectionTag')}</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               {t('packages.title')} <span className="gradient-text">{t('packages.titleHighlight')}</span>.
             </h2>
@@ -236,7 +238,7 @@ export default function Index() {
             {PLANS.map((plan) => (
               <div
                 key={plan.name}
-                className={`relative p-8 rounded-2xl transition-all duration-500 hover:-translate-y-1 ${
+                className={`relative p-8 rounded-2xl transition-colors duration-300 ${
                   plan.highlight
                     ? 'glass border-purple-500/50 ring-1 ring-purple-500/40'
                     : 'glass hover:border-purple-500/30'
@@ -244,11 +246,11 @@ export default function Index() {
               >
                 {plan.highlight && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[10px] uppercase tracking-widest font-semibold whitespace-nowrap">
-                    Popular
+                    {t('ui.popular')}
                   </div>
                 )}
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center mb-6`}>
-                  <plan.icon className="h-5 w-5 text-white" />
+                  <plan.icon className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
                 <p className="text-3xl font-bold gradient-text mb-4">{plan.price}</p>
@@ -258,11 +260,12 @@ export default function Index() {
                     className={`w-full h-11 gap-2 ${
                       plan.highlight
                         ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0'
-                        : '!bg-transparent border border-white/20 hover:border-white/40'
+                        : '!bg-transparent border border-white/25 hover:border-white/50'
                     }`}
                     variant={plan.highlight ? 'default' : 'outline'}
                   >
-                    {plan.isQuote ? t('packages.getQuote') : t('packages.buyNow')} <ArrowRight className="h-4 w-4" />
+                    {plan.isQuote ? t('packages.getQuote') : t('packages.buyNow')}{' '}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Button>
                 </Link>
               </div>
@@ -272,7 +275,7 @@ export default function Index() {
       </section>
 
       {/* TECH MARQUEE */}
-      <section className="py-16 border-y border-white/5 bg-gradient-to-r from-purple-950/20 via-pink-950/10 to-cyan-950/20 overflow-hidden">
+      <section className="py-16 border-y border-white/10 overflow-hidden">
         <p className="text-center text-xs uppercase tracking-[0.4em] text-muted-foreground mb-8">
           {t('techMarquee')}
         </p>
@@ -281,75 +284,62 @@ export default function Index() {
             {[...TECH, ...TECH].map((tech, i) => (
               <span
                 key={`${tech}-${i}`}
-                className="text-2xl md:text-3xl font-bold tracking-tight text-muted-foreground/60 hover:text-foreground transition-colors"
+                className="text-2xl md:text-3xl font-bold tracking-tight text-muted-foreground/70"
               >
                 {tech}
-                <span className="mx-8 text-purple-500/40">&#9670;</span>
+                <span className="mx-8 text-purple-400/50">&#9670;</span>
               </span>
             ))}
           </div>
         </div>
       </section>
 
-
-
       {/* PORTFOLIO CATEGORIES */}
-      <section className="py-24 border-t border-white/5">
+      <section className="py-24 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">{t('portfolio.sectionTag')}</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-purple-300 mb-4">{t('portfolio.sectionTag')}</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               {t('portfolio.title1')} <span className="gradient-text">{t('portfolio.titleHighlight')}</span>
             </h2>
           </div>
           <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-5">
-            {[
-              { slug: 'Website', label: 'Website', emoji: '💻', gradient: 'from-purple-600 to-pink-600' },
-              { slug: 'E-Ticaret', label: 'E-Ticaret', emoji: '🛒', gradient: 'from-pink-600 to-orange-500' },
-              { slug: 'SaaS', label: 'SaaS', emoji: '🚀', gradient: 'from-cyan-500 to-purple-600' },
-              { slug: 'Mobil Uygulama', label: 'Mobil Uygulama', emoji: '📱', gradient: 'from-emerald-500 to-cyan-500' },
-              { slug: 'Reklam', label: 'Reklam', emoji: '📣', gradient: 'from-purple-500 to-pink-500' },
-            ].map((cat) => (
+            {CATEGORY_CARDS.map((cat) => (
               <Link
                 key={cat.slug}
                 to={`/portfolio?category=${encodeURIComponent(cat.slug)}`}
-                className="group relative p-8 rounded-2xl glass hover:border-purple-500/40 transition-all duration-500 hover:-translate-y-1 text-center"
+                className="group relative p-8 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300 text-center"
               >
-                <div className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <span className="text-2xl">{cat.emoji}</span>
+                <div className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center mb-4`}>
+                  <span className="text-2xl" aria-hidden="true">{cat.emoji}</span>
                 </div>
                 <h3 className="text-lg font-semibold">{cat.label}</h3>
-                <p className="text-xs text-muted-foreground mt-2 uppercase tracking-wider">Keşfet →</p>
+                <p className="text-xs text-muted-foreground mt-2 uppercase tracking-wider">
+                  {t('ui.explore')} →
+                </p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* GOOGLE BUSINESS REVIEWS / TESTIMONIALS */}
-      <section className="py-24 border-t border-white/5">
+      {/* REVIEWS */}
+      <section className="py-24 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-[0.3em] text-emerald-400 mb-4">MÜŞTERİ YORUMLARI</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-emerald-300 mb-4">{t('ui.reviewsTag')}</p>
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Google Business <span className="gradient-text">Yorumları</span>
+              {t('ui.reviewsTitle')} <span className="gradient-text">{t('ui.reviewsTitleHighlight')}</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Müşterilerimizin deneyimlerini ve geri bildirimlerini okuyun.
+              {t('ui.reviewsDesc')}
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              { name: 'Ahmet Y.', rating: 5, text: 'Profesyonel ve hızlı çalışma. E-ticaret sitemizi kısa sürede teslim ettiler. Kesinlikle tavsiye ederim.', date: '2 ay önce', avatar: 'A' },
-              { name: 'Sarah M.', rating: 5, text: 'Excellent communication and top-notch development skills. Our SaaS platform was delivered on time with all features working perfectly.', date: '3 ay önce', avatar: 'S' },
-              { name: 'Mehmet K.', rating: 5, text: 'Google Ads kampanyalarımızı yönettiler, ROAS oranımız %300 arttı. Çok memnunuz.', date: '1 ay önce', avatar: 'M' },
-              { name: 'Thomas B.', rating: 5, text: 'Sehr professionelle Arbeit. Die mobile App wurde genau nach unseren Vorstellungen entwickelt. Klare Empfehlung!', date: '4 ay önce', avatar: 'T' },
-              { name: 'Elif D.', rating: 5, text: 'Kurumsal web sitemiz için harika bir iş çıkardılar. SEO optimizasyonu da dahil edildi, organik trafiğimiz %150 arttı.', date: '2 hafta önce', avatar: 'E' },
-              { name: 'James R.', rating: 4, text: 'Great team to work with. They understood our requirements quickly and delivered a solid product. Would work with them again.', date: '5 ay önce', avatar: 'J' },
-            ].map((review, i) => (
+            {REVIEWS.map((review) => (
               <div
-                key={i}
-                className="p-6 rounded-2xl glass hover:border-purple-500/30 transition-all duration-300"
+                key={review.name}
+                className="p-6 rounded-2xl glass hover:border-purple-500/30 transition-colors duration-300"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
@@ -357,31 +347,26 @@ export default function Index() {
                   </div>
                   <div>
                     <p className="font-semibold text-sm">{review.name}</p>
-                    <div className="flex items-center gap-1">
+                    <div
+                      className="flex items-center gap-1"
+                      role="img"
+                      aria-label={`${review.rating} / 5`}
+                    >
                       {Array.from({ length: review.rating }).map((_, si) => (
-                        <svg key={si} className="w-3.5 h-3.5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                        <svg key={`f${si}`} className="w-3.5 h-3.5 text-yellow-400 fill-current" viewBox="0 0 20 20" aria-hidden="true">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
                       {Array.from({ length: 5 - review.rating }).map((_, si) => (
-                        <svg key={si} className="w-3.5 h-3.5 text-white/20 fill-current" viewBox="0 0 20 20">
+                        <svg key={`e${si}`} className="w-3.5 h-3.5 text-white/25 fill-current" viewBox="0 0 20 20" aria-hidden="true">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                       ))}
                     </div>
                   </div>
-                  <span className="ml-auto text-[10px] text-muted-foreground">{review.date}</span>
+                  <span className="ms-auto text-[10px] text-muted-foreground">{review.date}</span>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">"{review.text}"</p>
-                <div className="mt-4 flex items-center gap-2 text-[10px] text-muted-foreground">
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                  </svg>
-                  Google Business
-                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">{review.text}</p>
               </div>
             ))}
           </div>
@@ -389,12 +374,10 @@ export default function Index() {
       </section>
 
       {/* CTA */}
-      <section className="relative py-32">
+      <section className="relative py-24 md:py-32">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center glass border border-purple-500/30">
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-purple-600/20 via-pink-600/10 to-cyan-600/20" />
-            <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
               {t('cta.title')}{' '}
@@ -416,7 +399,7 @@ export default function Index() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="h-12 px-8 !bg-transparent border-white/20 hover:border-white/40"
+                  className="h-12 px-8 !bg-transparent border-white/25 hover:border-white/50"
                 >
                   {t('cta.btnSecondary')}
                 </Button>

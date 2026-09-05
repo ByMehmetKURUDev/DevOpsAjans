@@ -23,7 +23,7 @@
     --secondary: 270 35% 12%;
     --secondary-foreground: 270 15% 90%;
     --muted: 270 30% 10%;
-    --muted-foreground: 270 15% 60%;
+    --muted-foreground: 270 18% 72%;
     --accent: 272 60% 40%;
     --accent-foreground: 270 20% 98%;
     --destructive: 0 72% 55%;
@@ -83,6 +83,41 @@
   }
   .marquee {
     animation: marquee 30s linear infinite;
+    will-change: transform;
+  }
+  /*
+   * Hero arka planı tamamen CSS ile üretilir — ek ağ isteği yok.
+   * Böylece LCP öğesi metin olur ve görsel indirme beklenmez.
+   */
+  .hero-surface {
+    min-height: 78vh;
+    background-color: #05010a;
+    background-image:
+      linear-gradient(180deg, rgba(26, 11, 46, 0.9) 0%, rgba(5, 1, 10, 0.98) 70%, hsl(270 60% 2%) 100%),
+      linear-gradient(rgba(139, 61, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 61, 255, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 64px 64px, 64px 64px;
+  }
+  .hero-glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-glow-a {
+    inset-inline-start: -8rem;
+    top: -6rem;
+    width: 28rem;
+    height: 28rem;
+    background: rgba(139, 61, 255, 0.28);
+  }
+  .hero-glow-b {
+    inset-inline-end: -10rem;
+    bottom: 2rem;
+    width: 24rem;
+    height: 24rem;
+    background: rgba(212, 111, 255, 0.18);
   }
 }
 

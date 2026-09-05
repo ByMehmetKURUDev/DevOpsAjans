@@ -143,7 +143,7 @@ export default function Services() {
               <div className="absolute -inset-4 bg-gradient-to-br from-purple-500/30 via-pink-500/20 to-cyan-500/20 blur-2xl -z-10" />
               <img
                 src="/assets/founder-photo.webp"
-                alt="Mehmet KURU — kurucu, full-stack mühendis"
+                alt={t('ui.founderAlt')}
                 width={560}
                 height={700}
                 loading="lazy"
@@ -156,7 +156,7 @@ export default function Services() {
               />
               <div className="absolute bottom-6 left-6 right-6 glass rounded-xl p-4">
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">{t('about.founder')}</p>
-                <p className="font-semibold">Mehmet KURU</p>
+                <p className="font-semibold">{t('ui.founderName')}</p>
                 <p className="text-xs text-muted-foreground mt-1">{t('about.role')}</p>
               </div>
             </div>
@@ -272,7 +272,7 @@ export default function Services() {
               >
                 {plan.highlight && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 text-white text-[10px] uppercase tracking-widest font-semibold whitespace-nowrap">
-                    Popular
+                    {t('ui.popular')}
                   </div>
                 )}
 

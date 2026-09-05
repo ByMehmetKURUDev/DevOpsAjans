@@ -20,6 +20,16 @@ interface DbBlogPost {
   created_at?: string;
 }
 
+/** Kategori adlarını i18n anahtarlarına eşler. */
+const BLOG_CATEGORY_KEYS: Record<string, string> = {
+  Website: 'ui.catWebsite',
+  'E-Ticaret': 'ui.catEcommerce',
+  SaaS: 'ui.catSaas',
+  'Mobil Uygulama': 'ui.catMobile',
+  Reklam: 'ui.catAds',
+  SEO: 'ui.catSeo',
+};
+
 const BLOG_CATEGORIES = [
   'all',
   'Website',
@@ -48,7 +58,7 @@ export default function Blog() {
       })
       .catch((e) => {
         if (cancelled) return;
-        setError(e?.message || 'Yazılar yüklenemedi');
+        setError(e?.message || t('ui.loadError'));
       })
       .finally(() => !cancelled && setLoading(false));
     return () => {
@@ -148,7 +158,7 @@ export default function Blog() {
                     : 'glass text-muted-foreground hover:text-foreground hover:border-purple-500/30'
                 }`}
               >
-                {cat === 'all' ? t('portfolio.all') : cat}
+                {cat === 'all' ? t('portfolio.all') : t(BLOG_CATEGORY_KEYS[cat] ?? '', { defaultValue: cat })}
               </button>
             );
           })}
@@ -161,7 +171,7 @@ export default function Blog() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-3 mb-6">
               <FileText className="h-5 w-5 text-purple-400" />
-              <h2 className="text-2xl font-bold">Rehber Yazılar</h2>
+              <h2 className="text-2xl font-bold">{t('ui.guideArticles')}</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {seoArticles.map((article) => (
@@ -172,7 +182,7 @@ export default function Blog() {
                 >
                   <div className="flex flex-wrap items-center gap-2 mb-3">
                     <span className="text-[10px] uppercase tracking-widest text-purple-400">
-                      Rehber
+                      {t('ui.guide')}
                     </span>
                     {article.frontmatter.date && (
                       <span className="text-[10px] text-muted-foreground">
@@ -187,7 +197,7 @@ export default function Blog() {
                     {article.description}
                   </p>
                   <span className="inline-flex items-center gap-1 text-sm text-purple-400 group-hover:text-pink-400 transition-colors">
-                    Yazıyı oku <ArrowRight className="h-3.5 w-3.5" />
+                    {t('ui.readArticle')} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </span>
                 </Link>
               ))}
@@ -213,7 +223,7 @@ export default function Blog() {
             )
           ) : (
             <>
-              <h2 className="text-2xl font-bold mb-6">Güncel Yazılar</h2>
+              <h2 className="text-2xl font-bold mb-6">{t('ui.recentArticles')}</h2>
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {filteredPosts.map((post) => (
                   <article

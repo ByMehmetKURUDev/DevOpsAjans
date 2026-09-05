@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type BlogArticleLayoutProps = {
   title: string;
@@ -10,7 +11,10 @@ const BlogArticleLayout = ({
   title,
   description,
   children,
-}: BlogArticleLayoutProps) => (
+}: BlogArticleLayoutProps) => {
+  const { t } = useTranslation();
+
+  return (
   <main className="min-h-screen bg-[#05010a] text-[#ece6ff]">
     <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_20%_0%,rgba(139,61,255,0.25),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(212,165,255,0.14),transparent_40%)]" />
     <div className="mx-auto max-w-4xl px-6 pt-10">
@@ -18,13 +22,13 @@ const BlogArticleLayout = ({
         to="/blog"
         className="text-sm text-purple-300 underline-offset-4 transition-colors hover:text-pink-300 hover:underline"
       >
-        &larr; Blog'a dön
+        &larr; {t('ui.backToBlog')}
       </Link>
     </div>
     <article className="mx-auto max-w-3xl px-6 py-12">
       <header className="border-b border-white/10 pb-10">
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-purple-400">
-          Blog Yazısı
+          {t('ui.blogPost')}
         </p>
         <h1 className="mt-4 text-4xl font-bold leading-tight text-white sm:text-5xl">
           {title}
@@ -39,6 +43,7 @@ const BlogArticleLayout = ({
       <div className="mt-10">{children}</div>
     </article>
   </main>
-);
+  );
+};
 
 export default BlogArticleLayout;
