@@ -1,0 +1,13 @@
+{
+  "site": "mehmetkuru.dev",
+  "generated": "2026-09-08",
+  "status": "partial_archive",
+  "note": "Katalog, kategori ve bilinen içerik kimlikleri hazırlanmıştır. Dosya olarak erişilebilir olmayan geçmiş makale gövdeleri yeniden uydurulmamıştır.",
+  "categories": {
+    "01-SEO": 19,
+    "02-Google-Ads-GA4-Measurement": 13,
+    "03-Customer-360-Data-Governance": 22,
+    "04-Web-Gelistirme-Web-Tasarim": 6
+  },
+  "next_action": "Eksik makale gövdelerini mevcut Word/Markdown/HTML/ZIP kaynaklarından eklemek."
+}

@@ -14,6 +14,7 @@ type BlogPost = {
   markdown: string;
   title: string;
   description: string;
+  category?: string;
   frontmatter: BlogFrontmatter;
 };
 
@@ -166,16 +167,27 @@ const blogPosts: BlogPost[] = Object.entries(markdownModules)
     const frontmatter = data;
     const title = frontmatter.title || titleFromSlug(slug.split('/').pop() || slug);
     const description = frontmatter.description || descriptionFromMarkdown(content);
+    const category =
+      frontmatterString(frontmatter, 'category') ?? frontmatter.tags?.[0];
 
     return {
       slug,
       markdown: content,
       title,
       description,
+      category,
       frontmatter,
     };
   })
   .sort(compareBlogPosts);
+
+const blogCategories: string[] = Array.from(
+  new Set(
+    blogPosts
+      .map((post) => post.category)
+      .filter((category): category is string => Boolean(category)),
+  ),
+).sort((a, b) => a.localeCompare(b, 'tr'));
 
 function getBlogPost(slug: string) {
   return blogPosts.find((post) => post.slug === slug);
@@ -321,6 +333,7 @@ function getPostSeoMeta(post?: BlogPost | null): SeoMeta {
 }
 
 export {
+  blogCategories,
   blogPosts,
   getBlogPost,
   getBlogRoute,

@@ -1,0 +1,546 @@
+{
+  "full": [
+    {
+      "file": "03-Customer-360-Data-Governance/data-classification-pii-management.md",
+      "category": "Veri ve Analitik",
+      "title": "Data Classification ve PII Management Nedir? Customer 360 ve Marketing Verilerini Sınıflandırma Rehberi",
+      "content_id": "",
+      "legacy_url": "",
+      "body_chars": 7455,
+      "headings": 28
+    }
+  ],
+  "stub": [
+    {
+      "file": "01-SEO/ai-destekli-seo.md",
+      "category": "SEO",
+      "title": "AI Destekli SEO İçerik Operasyonu Nasıl Kurulur?",
+      "content_id": "81735",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/buyuk-olcekli-e-ticaret-seo.md",
+      "category": "SEO",
+      "title": "Büyük Ölçekli E-Ticaret SEO'su",
+      "content_id": "74126",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/content-pruning.md",
+      "category": "SEO",
+      "title": "Content Pruning Nedir?",
+      "content_id": "72043",
+      "legacy_url": "/blog/content-pruning",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/crawling-indexing.md",
+      "category": "SEO",
+      "title": "Crawling ve Indexing Nedir?",
+      "content_id": "27594",
+      "legacy_url": "/blog/crawling-indexing",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/entity-seo.md",
+      "category": "SEO",
+      "title": "Entity SEO Nedir?",
+      "content_id": "65109",
+      "legacy_url": "/blog/entity-seo",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/otomatik-seo-qa.md",
+      "category": "SEO",
+      "title": "Otomatik SEO QA Nasıl Kurulur?",
+      "content_id": "31684",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/programmatic-seo.md",
+      "category": "SEO",
+      "title": "Programmatic SEO Nedir?",
+      "content_id": "52941",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/semantic-seo.md",
+      "category": "SEO",
+      "title": "Semantic SEO Nedir?",
+      "content_id": "38426",
+      "legacy_url": "/blog/semantic-seo",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-anomaly-detection.md",
+      "category": "SEO",
+      "title": "SEO Anomaly Detection Nedir?",
+      "content_id": "46218",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-api.md",
+      "category": "SEO",
+      "title": "SEO API'leri Nedir?",
+      "content_id": "58317",
+      "legacy_url": "/blog/seo-api",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-data-warehouse.md",
+      "category": "SEO",
+      "title": "SEO Data Warehouse Nedir?",
+      "content_id": "27463",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-engineering.md",
+      "category": "SEO",
+      "title": "SEO Engineering Nedir?",
+      "content_id": "41837",
+      "legacy_url": "/blog/seo-engineering",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-forecasting.md",
+      "category": "SEO",
+      "title": "SEO Forecasting Nedir?",
+      "content_id": "90517",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-log-analizi.md",
+      "category": "SEO",
+      "title": "SEO Log Analizi Nedir?",
+      "content_id": "96352",
+      "legacy_url": "/blog/seo-log-analizi",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-nedir.md",
+      "category": "SEO",
+      "title": "SEO Nedir? Google'da Üst Sıralara Çıkmak İçin Kapsamlı SEO Rehberi",
+      "content_id": "62847",
+      "legacy_url": "/blog/seo-nedir",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-opportunity-scoring.md",
+      "category": "SEO",
+      "title": "SEO Opportunity Scoring Nedir?",
+      "content_id": "64182",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-otomasyonu.md",
+      "category": "SEO",
+      "title": "SEO Otomasyonu Nedir?",
+      "content_id": "19583",
+      "legacy_url": "/blog/seo-otomasyonu",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-veri-analitigi.md",
+      "category": "SEO",
+      "title": "SEO Veri Analitiği Nedir?",
+      "content_id": "36172",
+      "legacy_url": "/blog/seo-veri-analitigi",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "01-SEO/seo-workflow.md",
+      "category": "SEO",
+      "title": "SEO İş Akışı Nasıl Kurulur?",
+      "content_id": "61429",
+      "legacy_url": "/blog/seo-workflow",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/crm-google-ads-offline-conversion.md",
+      "category": "Reklam",
+      "title": "CRM + Google Ads Offline Conversion ve Enhanced Conversions",
+      "content_id": "63427",
+      "legacy_url": "/blog/crm-google-ads-offline-conversion",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/data-layer.md",
+      "category": "Reklam",
+      "title": "Data Layer Nedir?",
+      "content_id": "61384",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/ga4-nedir.md",
+      "category": "Reklam",
+      "title": "GA4 Nedir?",
+      "content_id": "34752",
+      "legacy_url": "/blog/ga4-nedir",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/google-ads-conversion-tracking-ga4.md",
+      "category": "Reklam",
+      "title": "Google Ads Conversion Tracking ve GA4",
+      "content_id": "19467",
+      "legacy_url": "/blog/google-ads-conversion-tracking-ga4",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/google-ads-kampanyasi.md",
+      "category": "Reklam",
+      "title": "Google Ads Kampanyası Nasıl Kurulur?",
+      "content_id": "31746",
+      "legacy_url": "/blog/google-ads-kampanyasi-nasil-kurulur",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/google-ads-keyword-research.md",
+      "category": "Reklam",
+      "title": "Google Ads Keyword Research Nasıl Yapılır?",
+      "content_id": "42671",
+      "legacy_url": "/blog/google-ads-keyword-research",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/google-ads-nedir.md",
+      "category": "Reklam",
+      "title": "Google Ads Nedir?",
+      "content_id": "58304",
+      "legacy_url": "/blog/google-ads-nedir",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/google-ads-negative-keywords.md",
+      "category": "Reklam",
+      "title": "Google Ads Negative Keywords ve Search Terms",
+      "content_id": "73528",
+      "legacy_url": "/blog/google-ads-negative-keywords-search-terms",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/google-ads-quality-score.md",
+      "category": "Reklam",
+      "title": "Google Ads Quality Score ve Ad Rank",
+      "content_id": "85241",
+      "legacy_url": "/blog/google-ads-quality-score-ad-rank",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/gtm-ga4-data-layer.md",
+      "category": "Reklam",
+      "title": "Google Tag Manager ile GA4 Event Tracking ve Data Layer",
+      "content_id": "72614",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/marketing-analytics-dashboard.md",
+      "category": "Reklam",
+      "title": "Marketing Analytics Dashboard Nasıl Kurulur?",
+      "content_id": "61743",
+      "legacy_url": "/blog/marketing-analytics-dashboard",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/marketing-metric-layer.md",
+      "category": "Reklam",
+      "title": "Marketing Metric Layer ve Semantic Layer Nedir?",
+      "content_id": "30871",
+      "legacy_url": "/blog/marketing-metric-layer",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "02-Google-Ads-GA4-Measurement/roas-poas-cac-ltv.md",
+      "category": "Reklam",
+      "title": "ROAS, POAS, CAC ve LTV Nedir?",
+      "content_id": "75391",
+      "legacy_url": "/blog/roas-poas-cac-ltv",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/audience-activation.md",
+      "category": "Veri ve Analitik",
+      "title": "Audience Activation Nedir?",
+      "content_id": "58342",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/cdp-vs-crm-vs-data-warehouse.md",
+      "category": "Veri ve Analitik",
+      "title": "CDP vs CRM vs Data Warehouse vs Customer 360",
+      "content_id": "53724",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/customer-360-identity-resolution.md",
+      "category": "Veri ve Analitik",
+      "title": "Customer 360 ve Marketing Identity Resolution",
+      "content_id": "91364",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/customer-data-governance.md",
+      "category": "Veri ve Analitik",
+      "title": "Customer Data Governance Nedir?",
+      "content_id": "58247",
+      "legacy_url": "/blog/customer-data-governance",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/customer-data-lifecycle-retention.md",
+      "category": "Veri ve Analitik",
+      "title": "Customer Data Lifecycle ve Retention Architecture",
+      "content_id": "31582",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/customer-journey-analytics.md",
+      "category": "Veri ve Analitik",
+      "title": "Customer Journey Analytics Nedir?",
+      "content_id": "46291",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/customer-lifetime-value.md",
+      "category": "Veri ve Analitik",
+      "title": "Customer Lifetime Value (CLV) Nasıl Hesaplanır?",
+      "content_id": "48136",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/data-lineage-impact-analysis.md",
+      "category": "Veri ve Analitik",
+      "title": "Data Lineage ve Impact Analysis Nedir?",
+      "content_id": "71483",
+      "legacy_url": "/blog/data-lineage-impact-analysis",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/first-party-data-architecture.md",
+      "category": "Veri ve Analitik",
+      "title": "First-Party Data Architecture Nedir?",
+      "content_id": "59241",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/identity-resolution-pipeline.md",
+      "category": "Veri ve Analitik",
+      "title": "Identity Graph ve Identity Resolution Pipeline Nasıl Kurulur?",
+      "content_id": "74625",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/incrementality-testing.md",
+      "category": "Veri ve Analitik",
+      "title": "Incrementality Testing Nedir?",
+      "content_id": "68215",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/marketing-attribution-modeling.md",
+      "category": "Veri ve Analitik",
+      "title": "Marketing Attribution Modeling Nedir?",
+      "content_id": "82416",
+      "legacy_url": "/blog/marketing-attribution-modeling",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/marketing-data-access-control.md",
+      "category": "Veri ve Analitik",
+      "title": "Marketing Data Access Control Nedir?",
+      "content_id": "46381",
+      "legacy_url": "/blog/marketing-data-access-control",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/marketing-data-contracts.md",
+      "category": "Veri ve Analitik",
+      "title": "Marketing Data Contracts Nedir?",
+      "content_id": "37416",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/marketing-data-quality-observability.md",
+      "category": "Veri ve Analitik",
+      "title": "Marketing Data Quality & Observability",
+      "content_id": "84527",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/marketing-experimentation.md",
+      "category": "Veri ve Analitik",
+      "title": "Marketing Experimentation Nedir?",
+      "content_id": "41726",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/media-mix-modeling.md",
+      "category": "Veri ve Analitik",
+      "title": "Media Mix Modeling (MMM) Nedir?",
+      "content_id": "73164",
+      "legacy_url": "/blog/media-mix-modeling",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/predictive-marketing.md",
+      "category": "Veri ve Analitik",
+      "title": "Predictive Marketing Nedir?",
+      "content_id": "72415",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/privacy-safe-measurement.md",
+      "category": "Veri ve Analitik",
+      "title": "Privacy-Safe Measurement Nedir?",
+      "content_id": "46732",
+      "legacy_url": "/blog/privacy-safe-measurement",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/reverse-etl.md",
+      "category": "Veri ve Analitik",
+      "title": "Reverse ETL Nedir?",
+      "content_id": "68135",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "03-Customer-360-Data-Governance/unified-marketing-measurement.md",
+      "category": "Veri ve Analitik",
+      "title": "Unified Marketing Measurement Nedir?",
+      "content_id": "56328",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "04-Web-Gelistirme-Web-Tasarim/mobil-uyumlu-web-tasarim.md",
+      "category": "Website",
+      "title": "Mobil Uyumlu Web Tasarım Nedir?",
+      "content_id": "36294",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "04-Web-Gelistirme-Web-Tasarim/seo-uyumlu-web-sitesi.md",
+      "category": "Website",
+      "title": "SEO Uyumlu Web Sitesi Nasıl Yapılır?",
+      "content_id": "84157",
+      "legacy_url": "/blog/seo-uyumlu-web-sitesi",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "04-Web-Gelistirme-Web-Tasarim/web-sitesi-hizi.md",
+      "category": "Website",
+      "title": "Web Sitesi Hızı Nasıl Artırılır?",
+      "content_id": "58321",
+      "legacy_url": "/blog/web-sitesi-hizi-nasil-artirilir",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "04-Web-Gelistirme-Web-Tasarim/web-sitesi-maliyeti.md",
+      "category": "Website",
+      "title": "Web Sitesi Yaptırmanın Maliyeti Ne Kadar?",
+      "content_id": "45082",
+      "legacy_url": "",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "04-Web-Gelistirme-Web-Tasarim/web-sitesi-yaptirirken.md",
+      "category": "Website",
+      "title": "Web Sitesi Yaptırırken Nelere Dikkat Edilmeli?",
+      "content_id": "74163",
+      "legacy_url": "/blog/web-sitesi-yaptirirken-nelere-dikkat-edilmeli",
+      "body_chars": 0,
+      "headings": 0
+    },
+    {
+      "file": "04-Web-Gelistirme-Web-Tasarim/web-tasarim-web-gelistirme-farki.md",
+      "category": "Website",
+      "title": "Web Tasarım ve Web Geliştirme Arasındaki Fark Nedir?",
+      "content_id": "29543",
+      "legacy_url": "/blog/web-tasarim-ve-web-gelistirme-farki",
+      "body_chars": 0,
+      "headings": 0
+    }
+  ]
+}

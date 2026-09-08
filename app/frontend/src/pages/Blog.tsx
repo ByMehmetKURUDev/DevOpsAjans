@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Calendar, ArrowRight, Loader2, FileText } from 'lucide-react';
 import { createClient } from '@metagptx/web-sdk';
 import { useTranslation } from 'react-i18next';
@@ -28,16 +28,20 @@ const BLOG_CATEGORY_KEYS: Record<string, string> = {
   'Mobil Uygulama': 'ui.catMobile',
   Reklam: 'ui.catAds',
   SEO: 'ui.catSeo',
+  'Veri ve Analitik': 'ui.catData',
+  'Web Geliştirme': 'ui.catWebDev',
 };
 
 const BLOG_CATEGORIES = [
   'all',
   'Website',
+  'Web Geliştirme',
   'E-Ticaret',
   'SaaS',
   'Mobil Uygulama',
   'Reklam',
   'SEO',
+  'Veri ve Analitik',
 ];
 
 export default function Blog() {
@@ -46,7 +50,19 @@ export default function Blog() {
   const [selected, setSelected] = useState<DbBlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [activeCat, setActiveCat] = useState('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const catParam = searchParams.get('category') ?? 'all';
+  const activeCat = BLOG_CATEGORIES.includes(catParam) ? catParam : 'all';
+
+  /** Kategori seçimini URL'e yazar; böylece filtre paylaşılabilir ve geri alınabilir. */
+  const selectCategory = (cat: string) => {
+    const next = new URLSearchParams(searchParams);
+    if (cat === 'all') next.delete('category');
+    else next.set('category', cat);
+    setSearchParams(next, { replace: true });
+    setSelected(null);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -71,7 +87,15 @@ export default function Blog() {
     [posts, activeCat]
   );
 
-  const showSeoArticles = activeCat === 'all' || activeCat === 'SEO';
+  const visibleSeoArticles = useMemo(
+    () =>
+      seoArticles.filter(
+        (article) => activeCat === 'all' || article.category === activeCat,
+      ),
+    [activeCat],
+  );
+
+  const showSeoArticles = visibleSeoArticles.length > 0;
 
   if (selected) {
     return (
@@ -151,7 +175,8 @@ export default function Blog() {
             return (
               <button
                 key={cat}
-                onClick={() => setActiveCat(cat)}
+                onClick={() => selectCategory(cat)}
+                aria-pressed={active}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   active
                     ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
@@ -166,7 +191,7 @@ export default function Blog() {
       </div>
 
       {/* SEO uzun-form makaleler */}
-      {showSeoArticles && seoArticles.length > 0 && (
+      {showSeoArticles && visibleSeoArticles.length > 0 && (
         <section className="pb-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-3 mb-6">
@@ -174,7 +199,7 @@ export default function Blog() {
               <h2 className="text-2xl font-bold">{t('ui.guideArticles')}</h2>
             </div>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {seoArticles.map((article) => (
+              {visibleSeoArticles.map((article) => (
                 <Link
                   key={article.slug}
                   to={getBlogRoute(article.slug)}
@@ -184,6 +209,13 @@ export default function Blog() {
                     <span className="text-[10px] uppercase tracking-widest text-purple-400">
                       {t('ui.guide')}
                     </span>
+                    {article.category && (
+                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-200">
+                        {t(BLOG_CATEGORY_KEYS[article.category] ?? '', {
+                          defaultValue: article.category,
+                        })}
+                      </span>
+                    )}
                     {article.frontmatter.date && (
                       <span className="text-[10px] text-muted-foreground">
                         {article.frontmatter.date}

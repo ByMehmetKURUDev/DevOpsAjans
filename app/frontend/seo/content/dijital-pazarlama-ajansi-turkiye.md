@@ -2,6 +2,9 @@
 title: "Dijital Pazarlama Ajansı Türkiye: SEO ve Google Ads ile Büyüyün"
 description: "Türkiye'nin önde gelen dijital pazarlama ajansı Mehmetkuru.dev ile SEO hizmetleri ve Google Ads danışmanlığıyla online görünürlüğünüzü artırın, işinizi büyütün."
 keywords: "dijital pazarlama ajansı Türkiye, SEO hizmetleri, Google Ads danışmanlığı, online görünürlük"
+category: "Reklam"
+tags:
+  - "Reklam"
 lang: "tr"
 hero_image: ""
 og_url: "https://atoms.template.com/blog/dijital-pazarlama-ajansi-turkiye"

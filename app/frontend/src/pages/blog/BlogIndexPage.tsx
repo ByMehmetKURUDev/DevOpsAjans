@@ -1,9 +1,21 @@
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { blogPosts, getBlogRoute } from '@/lib/blog';
+import { blogCategories, blogPosts, getBlogRoute } from '@/lib/blog';
+
+const ALL_CATEGORIES = '__all__';
 
 const BlogIndexPage = () => {
   const { t } = useTranslation();
+  const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES);
+
+  const visiblePosts = useMemo(() => {
+    if (activeCategory === ALL_CATEGORIES) {
+      return blogPosts;
+    }
+
+    return blogPosts.filter((post) => post.category === activeCategory);
+  }, [activeCategory]);
 
   return (
   <main className="min-h-screen bg-[#05010a] text-[#ece6ff]">
@@ -27,9 +39,41 @@ const BlogIndexPage = () => {
         </Link>
       </div>
 
+      {blogCategories.length > 0 ? (
+        <div className="mt-10 flex flex-wrap gap-3" role="group" aria-label={t('portfolio.all')}>
+          <button
+            type="button"
+            onClick={() => setActiveCategory(ALL_CATEGORIES)}
+            aria-pressed={activeCategory === ALL_CATEGORIES}
+            className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+              activeCategory === ALL_CATEGORIES
+                ? 'border-purple-400 bg-purple-500/20 text-white'
+                : 'border-white/10 bg-white/[0.03] text-[#b9a9d6] hover:border-purple-500/40 hover:text-white'
+            }`}
+          >
+            {t('portfolio.all')}
+          </button>
+          {blogCategories.map((category) => (
+            <button
+              key={category}
+              type="button"
+              onClick={() => setActiveCategory(category)}
+              aria-pressed={activeCategory === category}
+              className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
+                activeCategory === category
+                  ? 'border-purple-400 bg-purple-500/20 text-white'
+                  : 'border-white/10 bg-white/[0.03] text-[#b9a9d6] hover:border-purple-500/40 hover:text-white'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      ) : null}
+
       <div className="mt-12 grid gap-6">
-        {blogPosts.length > 0 ? (
-          blogPosts.map((post) => (
+        {visiblePosts.length > 0 ? (
+          visiblePosts.map((post) => (
             <article
               key={post.slug}
               className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/40"
