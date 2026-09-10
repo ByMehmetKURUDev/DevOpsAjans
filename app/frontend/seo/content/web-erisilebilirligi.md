@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Web Erişilebilirliği (a11y) Rehberi"
 twitter_description: "WCAG ilkeleri ve uygulanabilir erişilebilirlik pratikleri."
+og_image: "https://mehmetkuru.dev/blog-covers/web-erisilebilirligi.webp"
+og_image_alt: "Web Erişilebilirliği (a11y) Rehberi"
 ---
 Erişilebilirlik, bir web arayüzünün farklı yeteneklere, cihazlara ve kullanım koşullarına sahip herkes tarafından kullanılabilmesidir. Kapsamı yalnızca kalıcı engelleri olan kullanıcılar değildir: geçici bir yaralanma, parlak güneş altında ekran okuma, gürültülü ortamda video izleme veya yavaş bağlantı da erişilebilirlik problemi üretir. Bu nedenle erişilebilirlik çalışmaları genel kullanılabilirliği de yükseltir.
 

@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Pazarlama Metrik Katmanı"
 twitter_description: "Semantik katman ve merkezi metrik yönetimi."
+og_image: "https://mehmetkuru.dev/blog-covers/marketing-metric-layer.webp"
+og_image_alt: "Pazarlama Metrik Katmanı (Metric Layer) Nedir?"
 ---
 Aynı şirkette üç farklı rapor, aynı ay için üç farklı "dönüşüm sayısı" gösteriyorsa sorun veri kalitesi değil, metrik tanımının merkezi olmayışıdır. Metrik katmanı, bu tanımları tek bir yerde tutan ve tüm raporlama araçlarının aynı hesaplamayı kullanmasını sağlayan mimari katmandır.
 

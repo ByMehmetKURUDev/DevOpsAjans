@@ -4,7 +4,11 @@ import { Menu, X, User, LogIn, LogOut, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
-import { DEFAULT_SETTINGS, useSiteSettings, isAdminUser } from '@/lib/siteSettings';
+import {
+  useSiteSettings,
+  isAdminUser,
+  type SettingsMap,
+} from '@/lib/siteSettings';
 import {
   SUPPORTED_LANGUAGES as LANGUAGES,
   getLanguageMeta,
@@ -17,6 +21,7 @@ import {
   DEFAULT_LANGUAGE,
   LANGUAGE_CODES,
   PAGE_SEO,
+  PAGE_SEO_KEYS,
   SITE_NAME,
   SITE_URL,
   canonicalPathFor as normalizeRoutePath,
@@ -30,13 +35,30 @@ function isBlogPostPath(path: string): boolean {
   return path.startsWith('/blog/') && path.length > '/blog/'.length;
 }
 
-/** Yola karşılık gelen başlık/açıklama kaydı. */
-function getRouteMeta(path: string) {
+/**
+ * Yola karşılık gelen başlık/açıklama.
+ *
+ * Öncelik: panelde o dil için girilen değer → panelin dilsiz değeri →
+ * koddaki varsayılan. Aynı sıra `prerender/settings.js` içinde de
+ * uygulanıyor, böylece Google'ın gördüğü metin ile ziyaretçinin gördüğü
+ * metin ayrışmıyor.
+ */
+function getRouteMeta(path: string, settings: SettingsMap) {
+  const pick = (settingKey: string, lang: string, fallback: string) => {
+    const localized = settings[`${settingKey}__${lang}`]?.trim();
+    if (localized) return localized;
+    const base = settings[settingKey]?.trim();
+    if (base) return base;
+    return fallback;
+  };
+
   if (path === BLOG_INDEX_ROUTE.routePath) {
     return {
       pageKey: null as string | null,
-      title: BLOG_INDEX_ROUTE.title,
-      description: BLOG_INDEX_ROUTE.description,
+      title: pick(PAGE_SEO_KEYS.blog.title, DEFAULT_LANGUAGE, BLOG_INDEX_ROUTE.title),
+      description: pick(
+        PAGE_SEO_KEYS.blog.description, DEFAULT_LANGUAGE, BLOG_INDEX_ROUTE.description,
+      ),
     };
   }
 
@@ -44,9 +66,14 @@ function getRouteMeta(path: string) {
   if (!pageKey) return undefined;
 
   const seo = PAGE_SEO[lang]?.[pageKey];
-  return seo
-    ? { pageKey: pageKey as string | null, title: seo.title, description: seo.description }
-    : undefined;
+  const keys = PAGE_SEO_KEYS[pageKey];
+  if (!seo || !keys) return undefined;
+
+  return {
+    pageKey: pageKey as string | null,
+    title: pick(keys.title, lang, seo.title),
+    description: pick(keys.description, lang, seo.description),
+  };
 }
 
 const SOCIAL_ICONS: { key: string; label: string; path: string }[] = [
@@ -181,29 +208,9 @@ export default function Layout() {
     // Tekil blog yazısı kendi başlığını BlogPostPage içinde yönetiyor.
     if (isBlogPostPath(currentPath)) return;
 
-    const routeMeta = getRouteMeta(currentPath);
-
-    // Kod tek doğruluk kaynağı — prerender'ın ürettiği, yani Google'ın
-    // gördüğü metin `prerender/site.js`ten geliyor. Paneldeki SEO alanları
-    // doldurulduğunda yalnızca ziyaretçi tarafında ve yalnızca Türkçe ana
-    // sayfada bunu geçersiz kılar. Arama motorunun gördüğü metni değiştirmek
-    // için site.js düzenlenip yeniden yayınlanmalı.
-    // Yalnızca panelde gerçekten değiştirilmiş bir değer geçersiz kılabilir.
-    // DEFAULT_SETTINGS ile aynı olan değer "panelden gelmiş" sayılmaz; aksi
-    // hâlde yedek başlık ("Mehmet KURU Dev") her seferinde kazanıyor ve
-    // prerender'ın ürettiği doğru başlığı hidrasyonda eziyordu.
-    const isTurkishHome = currentPath === '/';
-    const panelOverride = (key: 'seo_meta_title' | 'seo_meta_description') => {
-      if (!isTurkishHome) return '';
-      const value = settings[key]?.trim() ?? '';
-      return value && value !== DEFAULT_SETTINGS[key] ? value : '';
-    };
-
-    const panelTitle = panelOverride('seo_meta_title');
-    const panelDescription = panelOverride('seo_meta_description');
-
-    const title = panelTitle || routeMeta?.title || SITE_NAME;
-    const description = panelDescription || routeMeta?.description || '';
+    const routeMeta = getRouteMeta(currentPath, settings);
+    const title = routeMeta?.title || SITE_NAME;
+    const description = routeMeta?.description || '';
     document.title = title;
 
     const upsertMeta = (selector: string, attrs: Record<string, string>) => {
@@ -275,12 +282,7 @@ export default function Layout() {
         document.head.appendChild(link);
       }
     }
-  }, [
-    settings.seo_meta_title,
-    settings.seo_meta_description,
-    currentLang.htmlLang,
-    location.pathname,
-  ]);
+  }, [settings, currentLang.htmlLang, location.pathname]);
 
   /** URL'de ?lang=xx varsa o dile geçer (hreflang varyantları için). */
   useEffect(() => {

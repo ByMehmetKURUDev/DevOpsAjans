@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Web Sitesi Yaptırırken Nelere Dikkat Edilmeli?"
 twitter_description: "Web sitesi projesine başlamadan önce netleştirilmesi gereken teknik, ticari ve hukuki maddeler."
+og_image: "https://mehmetkuru.dev/blog-covers/web-sitesi-yaptirirken-nelere-dikkat-edilmeli.webp"
+og_image_alt: "Web Sitesi Yaptırırken Nelere Dikkat Edilmeli?"
 ---
 Web sitesi projelerinde yaşanan sorunların büyük bölümü kodla değil, projeye başlamadan önce netleştirilmemiş beklentilerle ilgilidir. Aşağıdaki başlıklar, teklif aşamasında sorulduğunda projenin sonraki aşamalarında ortaya çıkan sürprizleri belirgin biçimde azaltır.
 

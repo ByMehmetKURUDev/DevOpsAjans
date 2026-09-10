@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Google Ads Kampanyası Nasıl Kurulur?"
 twitter_description: "Adım adım arama ağı kampanyası kurulumu."
+og_image: "https://mehmetkuru.dev/blog-covers/google-ads-kampanyasi.webp"
+og_image_alt: "Google Ads Kampanyası Nasıl Kurulur? Adım Adım Rehber"
 ---
 Kampanya kurulumu, arayüzdeki adımları tamamlamaktan farklı bir iştir. Sonucu belirleyen kararların çoğu, ilk reklam yayına girmeden önce alınır. Bu rehber, arama ağı kampanyası örneğiyle sırayı ele alıyor.
 

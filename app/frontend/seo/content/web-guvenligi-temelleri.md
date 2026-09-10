@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Web Güvenliği Temelleri"
 twitter_description: "Frontend ve API katmanında uygulanabilir güvenlik önlemleri."
+og_image: "https://mehmetkuru.dev/blog-covers/web-guvenligi-temelleri.webp"
+og_image_alt: "Web Güvenliği Temelleri: Frontend ve API Katmanında Güvenlik"
 ---
 Web güvenliği, tek bir araçla çözülen bir konu değil; her katmanda alınan kararların toplamıdır. Bu yazı, bir web uygulamasında en sık karşılaşılan saldırı yüzeylerini ve bunlara karşı uygulanabilir önlemleri ele alır. Temel ilke şudur: istemciden gelen hiçbir veri güvenilir değildir ve güvenlik kontrolleri her zaman sunucu tarafında yapılmalıdır.
 

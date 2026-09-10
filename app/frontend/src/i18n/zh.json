@@ -546,6 +546,18 @@
     "fSeoDesc": "SEO 描述",
     "accessTitle": "权限管理",
     "accessDesc": "可访问管理后台的邮箱地址。多个地址用逗号分隔。",
-    "fAdminEmails": "管理员邮箱"
+    "fAdminEmails": "管理员邮箱",
+    "pageSeoTitle": "页面 SEO 文案",
+    "pageSeoDesc": "每个页面在搜索结果中显示的标题和描述。留空时使用代码中的默认值。用语言选择器可为每种语言分别填写。",
+    "fSeoHomeTitle": "首页 — 标题",
+    "fSeoHomeDesc": "首页 — 描述",
+    "fSeoServicesTitle": "服务 — 标题",
+    "fSeoServicesDesc": "服务 — 描述",
+    "fSeoPortfolioTitle": "作品集 — 标题",
+    "fSeoPortfolioDesc": "作品集 — 描述",
+    "fSeoContactTitle": "联系方式 — 标题",
+    "fSeoContactDesc": "联系方式 — 描述",
+    "fSeoBlogTitle": "博客 — 标题",
+    "fSeoBlogDesc": "博客 — 描述"
   }
 }

@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Anahtar Kelime Araştırması"
 twitter_description: "Reklam kampanyaları için niyet odaklı kelime seçimi."
+og_image: "https://mehmetkuru.dev/blog-covers/google-ads-keyword-research.webp"
+og_image_alt: "Google Ads Anahtar Kelime Araştırması Nasıl Yapılır?"
 ---
 Anahtar kelime araştırması, arama hacmi listesi çıkarmak değildir. Amaç, satın almaya yakın niyeti bulmak ve bütçeyi bu niyete yöneltmektir. Yüksek hacimli ama niyeti zayıf kelimelerle kurulmuş bir hesap, çok tıklama alır ama az sonuç üretir.
 

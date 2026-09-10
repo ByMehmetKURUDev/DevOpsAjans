@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Müşteri Yolculuğu Analitiği"
 twitter_description: "Huni, kohort ve kanal geçişi analizleri."
+og_image: "https://mehmetkuru.dev/blog-covers/customer-journey-analytics.webp"
+og_image_alt: "Müşteri Yolculuğu Analitiği (Customer Journey Analytics)"
 ---
 Tek tek sayfa metriklerine bakmak, kullanıcının neden satın almadığını açıklamaz. Müşteri yolculuğu analitiği, temas noktalarını sıralı bir bütün olarak inceleyerek sürtünmenin nerede oluştuğunu ve hangi müdahalenin gerçekten fark yaratacağını gösterir.
 

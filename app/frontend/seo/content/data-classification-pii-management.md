@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Data Classification ve PII Management Rehberi"
 twitter_description: "Customer 360 ve pazarlama verilerini sınıflandırma, PII tespiti, maskeleme, erişim kontrolü ve aktivasyon guardrail'leri için pratik bir mimari rehberi."
+og_image: "https://mehmetkuru.dev/blog-covers/data-classification-pii-management.webp"
+og_image_alt: "Data Classification ve PII Management Nedir? Customer 360 Verilerini Sınıflandırma Rehberi"
 ---
 ## 1. Data Classification Nedir?
 

@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Customer 360 ve Kimlik Çözümleme"
 twitter_description: "Kimlik grafiği ve müşteri birleştirme yöntemleri."
+og_image: "https://mehmetkuru.dev/blog-covers/customer-360-identity-resolution.webp"
+og_image_alt: "Customer 360 ve Kimlik Çözümleme (Identity Resolution)"
 ---
 Aynı kişi, sitede misafir olarak sipariş verir, mobil uygulamada üye girişi yapar, çağrı merkezini arar ve e-posta kampanyasına tıklar. Bu dört temas, veri sisteminde dört farklı kayıt olarak durur. Customer 360, bu parçaları tek bir müşteri görünümünde birleştirme çalışmasıdır; kimlik çözümleme ise bu birleştirmenin teknik yöntemidir.
 

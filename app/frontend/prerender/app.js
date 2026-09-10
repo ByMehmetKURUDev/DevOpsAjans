@@ -21,11 +21,13 @@ import Contact from '../src/pages/Contact';
 import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
 import { extractFaq, getBlogPost, getPostSeoMeta } from '../src/lib/blog';
+import { loadPanelSettings, resolvePanelValue } from './settings.js';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
   ORGANIZATION_JSONLD,
   PAGE_SEO,
+  PAGE_SEO_KEYS,
   SITE_NAME,
   SITE_OG_IMAGE,
   SITE_URL,
@@ -180,7 +182,7 @@ function buildHead({
   return { title, lang: language.htmlLang, elements: new Set(elements) };
 }
 
-function getHead(url) {
+function getHead(url, panelSettings = {}) {
   const slug = getBlogSlug(url);
 
   // Tekil blog yazısı — meta verisi markdown frontmatter'ından geliyor.
@@ -276,8 +278,12 @@ function getHead(url) {
   // Blog dizini — yalnızca Türkçe.
   if (path === BLOG_INDEX_ROUTE.routePath) {
     return buildHead({
-      title: BLOG_INDEX_ROUTE.title,
-      description: BLOG_INDEX_ROUTE.description,
+      title: resolvePanelValue(
+        panelSettings, PAGE_SEO_KEYS.blog.title, DEFAULT_LANGUAGE, BLOG_INDEX_ROUTE.title,
+      ),
+      description: resolvePanelValue(
+        panelSettings, PAGE_SEO_KEYS.blog.description, DEFAULT_LANGUAGE, BLOG_INDEX_ROUTE.description,
+      ),
       canonicalPath: BLOG_INDEX_ROUTE.routePath,
       ogType: 'website',
       lang: DEFAULT_LANGUAGE,
@@ -306,9 +312,13 @@ function getHead(url) {
   // Çok dilli statik sayfalar.
   if (pageKey) {
     const seo = PAGE_SEO[lang][pageKey];
+    const keys = PAGE_SEO_KEYS[pageKey];
     return buildHead({
-      title: seo.title,
-      description: seo.description,
+      // Panelde o dil için girilmiş bir değer varsa o kazanır; yoksa koddaki
+      // varsayılan kullanılır. İkisi de aynı yerden okunduğu için Google'ın
+      // gördüğü metinle ziyaretçinin gördüğü metin ayrışmıyor.
+      title: resolvePanelValue(panelSettings, keys.title, lang, seo.title),
+      description: resolvePanelValue(panelSettings, keys.description, lang, seo.description),
       canonicalPath: localizedPath(lang, pageKey),
       ogType: 'website',
       lang,
@@ -332,6 +342,7 @@ function getHead(url) {
 }
 
 export async function prerender({ url }) {
+  const panelSettings = await loadPanelSettings();
   const { lang } = resolveRoute(url);
   const slug = getBlogSlug(url);
   const isBlog = canonicalPathFor(url).startsWith('/blog');
@@ -344,7 +355,7 @@ export async function prerender({ url }) {
 
   return {
     html,
-    head: getHead(url),
+    head: getHead(url, panelSettings),
     ...(is404 ? { statusCode: 404 } : {}),
   };
 }

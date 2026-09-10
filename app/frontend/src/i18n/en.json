@@ -546,6 +546,18 @@
     "fSeoDesc": "SEO Description",
     "accessTitle": "Access Control",
     "accessDesc": "Email addresses allowed into the admin panel. Separate multiple entries with commas.",
-    "fAdminEmails": "Admin Emails"
+    "fAdminEmails": "Admin Emails",
+    "pageSeoTitle": "Page SEO Text",
+    "pageSeoDesc": "The title and description each page shows in search results. Empty fields fall back to the built-in default. Use the language picker to fill each language separately.",
+    "fSeoHomeTitle": "Home — title",
+    "fSeoHomeDesc": "Home — description",
+    "fSeoServicesTitle": "Services — title",
+    "fSeoServicesDesc": "Services — description",
+    "fSeoPortfolioTitle": "Portfolio — title",
+    "fSeoPortfolioDesc": "Portfolio — description",
+    "fSeoContactTitle": "Contact — title",
+    "fSeoContactDesc": "Contact — description",
+    "fSeoBlogTitle": "Blog — title",
+    "fSeoBlogDesc": "Blog — description"
   }
 }

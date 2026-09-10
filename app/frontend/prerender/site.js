@@ -229,6 +229,18 @@ export const PAGE_SEO = {
   },
 };
 
+/**
+ * Sayfa SEO alanlarının panel ayar anahtarları.
+ * Panelde her biri yedi dilde ayrı ayrı doldurulabiliyor.
+ */
+export const PAGE_SEO_KEYS = {
+  home: { title: 'seo_title_home', description: 'seo_desc_home' },
+  services: { title: 'seo_title_services', description: 'seo_desc_services' },
+  portfolio: { title: 'seo_title_portfolio', description: 'seo_desc_portfolio' },
+  contact: { title: 'seo_title_contact', description: 'seo_desc_contact' },
+  blog: { title: 'seo_title_blog', description: 'seo_desc_blog' },
+};
+
 /** Blog yalnızca Türkçe yayımlanıyor. */
 export const BLOG_INDEX_ROUTE = {
   routePath: '/blog',

@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Gizlilik Odaklı Ölçüm"
 twitter_description: "Rıza, minimizasyon ve toplu ölçüm yöntemleri."
+og_image: "https://mehmetkuru.dev/blog-covers/privacy-safe-measurement.webp"
+og_image_alt: "Gizlilik Odaklı Ölçüm (Privacy-Safe Measurement)"
 ---
 Kullanıcı düzeyinde takibin kısıtlandığı bir dönemde ölçümün hedefi değişti: artık amaç her kullanıcıyı izlemek değil, doğru kararı verecek kadar güvenilir sinyal üretmek. Bu, ölçümün zayıflaması anlamına gelmez; farklı bir mimari gerektirir.
 

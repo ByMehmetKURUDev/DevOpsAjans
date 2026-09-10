@@ -4,12 +4,17 @@ import { useTranslation } from 'react-i18next';
 type BlogArticleLayoutProps = {
   title: string;
   description?: string;
+  /** Kapak görseli — WebP, 1200x630. */
+  coverImage?: string;
+  coverAlt?: string;
   children: React.ReactNode;
 };
 
 const BlogArticleLayout = ({
   title,
   description,
+  coverImage,
+  coverAlt,
   children,
 }: BlogArticleLayoutProps) => {
   const { t } = useTranslation();
@@ -37,6 +42,24 @@ const BlogArticleLayout = ({
           <p className="mt-5 max-w-2xl text-lg leading-8 text-[#b9a9d6]">
             {description}
           </p>
+        ) : null}
+
+        {coverImage ? (
+          /*
+           * Kapak görseli. width/height verilmesi düzen kaymasını (CLS)
+           * önlüyor; yazının ilk ekranında yer aldığı için lazy değil,
+           * yüksek öncelikli yükleniyor.
+           */
+          <img
+            src={coverImage}
+            alt={coverAlt ?? ''}
+            width={1200}
+            height={630}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+            className="mt-8 aspect-[1200/630] w-full max-w-full rounded-2xl border border-white/10 object-cover"
+          />
         ) : null}
       </header>
 

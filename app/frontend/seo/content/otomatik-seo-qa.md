@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Otomatik SEO QA"
 twitter_description: "SEO regresyonlarını canlıya çıkmadan yakalayan test katmanı."
+og_image: "https://mehmetkuru.dev/blog-covers/otomatik-seo-qa.webp"
+og_image_alt: "Otomatik SEO QA: Yayın Öncesi SEO Kalite Kontrolü"
 ---
 SEO sorunlarının önemli bir kısmı yeni bir sorun değil, daha önce çözülmüş bir sorunun tekrar ortaya çıkmasıdır. Bir şablon değişikliğinde canonical kaybolur, bir bileşen eklemesinde ikinci bir `h1` oluşur, bir yeniden yapılandırmada iç bağlantılar kırılır. Otomatik SEO QA, bu regresyonları canlıya çıkmadan yakalayan test katmanıdır.
 

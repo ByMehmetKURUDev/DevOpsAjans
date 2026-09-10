@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Çevrimdışı Dönüşüm Entegrasyonu"
 twitter_description: "CRM satış verisiyle Google Ads optimizasyonu."
+og_image: "https://mehmetkuru.dev/blog-covers/crm-google-ads-offline-conversion.webp"
+og_image_alt: "CRM ve Google Ads Çevrimdışı Dönüşüm Entegrasyonu"
 ---
 Satışın telefonla, saha görüşmesiyle veya uzun bir teklif süreciyle tamamlandığı işlerde, web üzerindeki form gönderimi gerçek sonucu temsil etmez. Reklam algoritması "form dolduran" profili öğrenir; oysa iş hedefi "sözleşme imzalayan" profildir. Çevrimdışı dönüşüm entegrasyonu bu boşluğu kapatır.
 

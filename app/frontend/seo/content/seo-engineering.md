@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "SEO Engineering Nedir?"
 twitter_description: "Otomatik testler ve CI/CD kontrolleriyle SEO regresyonlarını önleme."
+og_image: "https://mehmetkuru.dev/blog-covers/seo-engineering.webp"
+og_image_alt: "SEO Engineering Nedir? Mühendislik Disipliniyle SEO Uygulaması"
 ---
 SEO engineering, SEO gereksinimlerinin bir pazarlama isteği olarak değil, yazılım geliştirme sürecinin doğal bir parçası olarak ele alınmasıdır. Klasik modelde SEO ekibi yayın sonrası bir denetim yapar, sorunları listeler ve geliştirme ekibinden düzeltme ister. Bu döngü yavaştır ve aynı hatalar her yayında tekrar eder. SEO engineering, kontrolleri sürecin başına ve otomasyona taşır.
 

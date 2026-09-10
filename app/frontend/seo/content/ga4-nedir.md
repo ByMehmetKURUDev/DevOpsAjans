@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "GA4 Nedir?"
 twitter_description: "Google Analytics 4'ün veri modeli ve kurulum mantığı."
+og_image: "https://mehmetkuru.dev/blog-covers/ga4-nedir.webp"
+og_image_alt: "GA4 Nedir? Google Analytics 4'e Geçiş ve Olay Tabanlı Ölçüm"
 ---
 Google Analytics 4, Google'ın mevcut analitik ürünüdür ve önceki sürümden yalnızca arayüz olarak değil, veri modeli olarak farklıdır. Bu farkı anlamadan yapılan kurulumlar, veri toplayan ama karar üretmeyen bir yapıyla sonuçlanır.
 

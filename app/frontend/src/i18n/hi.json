@@ -546,6 +546,18 @@
     "fSeoDesc": "SEO विवरण",
     "accessTitle": "एक्सेस नियंत्रण",
     "accessDesc": "एडमिन पैनल तक पहुँच वाले ईमेल पते। एक से अधिक पते कॉमा से अलग करें।",
-    "fAdminEmails": "एडमिन ईमेल"
+    "fAdminEmails": "एडमिन ईमेल",
+    "pageSeoTitle": "पेज SEO टेक्स्ट",
+    "pageSeoDesc": "हर पेज सर्च रिज़ल्ट में जिस टाइटल और डिस्क्रिप्शन के साथ दिखता है। खाली छोड़ने पर कोड का डिफ़ॉल्ट इस्तेमाल होता है। भाषा चयनकर्ता से हर भाषा अलग भरी जा सकती है।",
+    "fSeoHomeTitle": "होम — टाइटल",
+    "fSeoHomeDesc": "होम — डिस्क्रिप्शन",
+    "fSeoServicesTitle": "सेवाएँ — टाइटल",
+    "fSeoServicesDesc": "सेवाएँ — डिस्क्रिप्शन",
+    "fSeoPortfolioTitle": "पोर्टफ़ोलियो — टाइटल",
+    "fSeoPortfolioDesc": "पोर्टफ़ोलियो — डिस्क्रिप्शन",
+    "fSeoContactTitle": "संपर्क — टाइटल",
+    "fSeoContactDesc": "संपर्क — डिस्क्रिप्शन",
+    "fSeoBlogTitle": "ब्लॉग — टाइटल",
+    "fSeoBlogDesc": "ब्लॉग — डिस्क्रिप्शन"
   }
 }

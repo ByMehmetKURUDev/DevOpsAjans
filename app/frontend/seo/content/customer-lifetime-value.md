@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Müşteri Yaşam Boyu Değeri"
 twitter_description: "Kohort tabanlı ve marj odaklı LTV hesaplaması."
+og_image: "https://mehmetkuru.dev/blog-covers/customer-lifetime-value.webp"
+og_image_alt: "Müşteri Yaşam Boyu Değeri (LTV) Nasıl Hesaplanır?"
 ---
 LTV, bir müşterinin ilişki süresi boyunca ürettiği net değeri ifade eder. Doğru hesaplandığında müşteri edinme bütçesinin üst sınırını, segment önceliklerini ve ürün yatırım kararlarını belirler. Yanlış hesaplandığında sürdürülemez pazarlama harcamasını meşrulaştıran bir rakama dönüşür.
 

@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Entity SEO Nedir?"
 twitter_description: "Bilgi grafiği, varlık netliği ve yapılandırılmış veri ile SEO."
+og_image: "https://mehmetkuru.dev/blog-covers/entity-seo.webp"
+og_image_alt: "Entity SEO Nedir? Varlık Tabanlı Arama Optimizasyonu Rehberi"
 ---
 Entity SEO, arama motorlarının kelimeler yerine varlıklar (entity) üzerinden çalıştığı gerçeğine dayanan bir optimizasyon yaklaşımıdır. Varlık; bir kişi, kurum, ürün, yer, teknoloji veya kavram gibi tanımlanabilir ve diğer varlıklarla ilişkilendirilebilir bir birimdir. Arama motoru bir sayfayı okurken "bu metinde hangi kelimeler var" sorusundan çok "bu metin hangi varlıklardan bahsediyor ve bu varlıklar arasında hangi ilişkiler kuruluyor" sorusunu yanıtlamaya çalışır.
 

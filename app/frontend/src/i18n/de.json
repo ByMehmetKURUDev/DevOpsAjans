@@ -546,6 +546,18 @@
     "fSeoDesc": "SEO-Beschreibung",
     "accessTitle": "Zugriffsrechte",
     "accessDesc": "E-Mail-Adressen mit Zugang zum Adminbereich. Mehrere Einträge mit Komma trennen.",
-    "fAdminEmails": "Admin-E-Mails"
+    "fAdminEmails": "Admin-E-Mails",
+    "pageSeoTitle": "Seiten-SEO-Texte",
+    "pageSeoDesc": "Titel und Beschreibung jeder Seite in den Suchergebnissen. Leere Felder greifen auf den Standard im Code zurück. Über die Sprachauswahl je Sprache getrennt ausfüllbar.",
+    "fSeoHomeTitle": "Startseite — Titel",
+    "fSeoHomeDesc": "Startseite — Beschreibung",
+    "fSeoServicesTitle": "Leistungen — Titel",
+    "fSeoServicesDesc": "Leistungen — Beschreibung",
+    "fSeoPortfolioTitle": "Portfolio — Titel",
+    "fSeoPortfolioDesc": "Portfolio — Beschreibung",
+    "fSeoContactTitle": "Kontakt — Titel",
+    "fSeoContactDesc": "Kontakt — Beschreibung",
+    "fSeoBlogTitle": "Blog — Titel",
+    "fSeoBlogDesc": "Blog — Beschreibung"
   }
 }

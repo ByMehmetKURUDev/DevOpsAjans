@@ -546,6 +546,18 @@
     "fSeoDesc": "وصف SEO",
     "accessTitle": "الصلاحيات",
     "accessDesc": "عناوين البريد الإلكتروني المسموح لها بالوصول إلى لوحة الإدارة. افصل بينها بفواصل.",
-    "fAdminEmails": "بريد المسؤولين"
+    "fAdminEmails": "بريد المسؤولين",
+    "pageSeoTitle": "نصوص SEO للصفحات",
+    "pageSeoDesc": "العنوان والوصف اللذان تظهر بهما كل صفحة في نتائج البحث. الحقول الفارغة تعود إلى القيمة الافتراضية في الكود. استخدم محدّد اللغة لتعبئة كل لغة على حدة.",
+    "fSeoHomeTitle": "الرئيسية — العنوان",
+    "fSeoHomeDesc": "الرئيسية — الوصف",
+    "fSeoServicesTitle": "الخدمات — العنوان",
+    "fSeoServicesDesc": "الخدمات — الوصف",
+    "fSeoPortfolioTitle": "أعمالنا — العنوان",
+    "fSeoPortfolioDesc": "أعمالنا — الوصف",
+    "fSeoContactTitle": "اتصل بنا — العنوان",
+    "fSeoContactDesc": "اتصل بنا — الوصف",
+    "fSeoBlogTitle": "المدونة — العنوان",
+    "fSeoBlogDesc": "المدونة — الوصف"
   }
 }

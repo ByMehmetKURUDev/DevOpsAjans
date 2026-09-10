@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Google Ads Dönüşüm İzleme"
 twitter_description: "Dönüşüm izleme kurulumu, değer sinyali ve doğrulama."
+og_image: "https://mehmetkuru.dev/blog-covers/google-ads-conversion-tracking-ga4.webp"
+og_image_alt: "Google Ads Dönüşüm İzleme: GA4 ile Doğru Kurulum"
 ---
 Dönüşüm izleme, reklam hesabının en kritik altyapısıdır. Yanlış kurulmuş bir dönüşüm yapısı, yalnızca raporları bozmakla kalmaz; otomatik teklif stratejilerini yanlış hedefe yönlendirdiği için doğrudan bütçe kaybına yol açar. Bu nedenle kampanya açmadan önce yapılması gereken iş budur.
 

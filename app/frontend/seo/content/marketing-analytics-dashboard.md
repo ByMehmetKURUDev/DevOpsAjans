@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Pazarlama Analitiği Panosu"
 twitter_description: "Katmanlı raporlama ve doğru metrik seçimi."
+og_image: "https://mehmetkuru.dev/blog-covers/marketing-analytics-dashboard.webp"
+og_image_alt: "Pazarlama Analitiği Panosu Nasıl Kurulur?"
 ---
 Çoğu pazarlama panosu bakılmayı bırakır. Nedeni veri eksikliği değil, panonun bir karar sorusuna bağlanmamış olmasıdır. Ekranda otuz metrik varsa hiçbiri önemli değildir. İyi bir pano, "şimdi ne yapmalıyım" sorusunu yanıtlar.
 

@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Büyük Ölçekli E-Ticaret SEO"
 twitter_description: "Ölçekli e-ticaret sitelerinde teknik SEO ve içerik mimarisi."
+og_image: "https://mehmetkuru.dev/blog-covers/buyuk-olcekli-eticaret-seo.webp"
+og_image_alt: "Büyük Ölçekli E-Ticaret SEO: Binlerce Ürünlü Sitelerde Arama Optimizasyonu"
 ---
 Binlerce ürünlü bir e-ticaret sitesinde SEO, küçük bir sitedeki çalışmanın büyütülmüş hâli değildir. Ölçek yeni problem sınıfları üretir: filtre kombinasyonlarından doğan sonsuz URL uzayı, tarama bütçesinin değersiz sayfalarda tükenmesi, birbirine çok benzeyen ürün sayfaları, sürekli değişen stok durumu ve şablon düzeyinde yapılan bir hatanın on binlerce sayfayı aynı anda etkilemesi.
 

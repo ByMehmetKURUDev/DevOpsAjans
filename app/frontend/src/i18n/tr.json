@@ -546,6 +546,18 @@
     "fSeoDesc": "SEO Açıklama",
     "accessTitle": "Yetkilendirme",
     "accessDesc": "Yönetici paneline erişebilecek e-posta adresleri. Virgülle ayırarak birden fazla yazabilirsiniz.",
-    "fAdminEmails": "Yönetici E-postaları"
+    "fAdminEmails": "Yönetici E-postaları",
+    "pageSeoTitle": "Sayfa SEO Metinleri",
+    "pageSeoDesc": "Her sayfanın arama sonuçlarında görünen başlığı ve açıklaması. Boş bırakılan alanlarda koddaki varsayılan kullanılır. Sağ üstteki dil seçiciyle her dil için ayrı doldurabilirsiniz.",
+    "fSeoHomeTitle": "Ana sayfa — başlık",
+    "fSeoHomeDesc": "Ana sayfa — açıklama",
+    "fSeoServicesTitle": "Hizmetler — başlık",
+    "fSeoServicesDesc": "Hizmetler — açıklama",
+    "fSeoPortfolioTitle": "Portföy — başlık",
+    "fSeoPortfolioDesc": "Portföy — açıklama",
+    "fSeoContactTitle": "İletişim — başlık",
+    "fSeoContactDesc": "İletişim — açıklama",
+    "fSeoBlogTitle": "Blog — başlık",
+    "fSeoBlogDesc": "Blog — açıklama"
   }
 }

@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "SEO Opportunity Scoring"
 twitter_description: "Veriye dayalı SEO önceliklendirme modeli kurmak."
+og_image: "https://mehmetkuru.dev/blog-covers/seo-opportunity-scoring.webp"
+og_image_alt: "SEO Opportunity Scoring: Fırsat Puanlama ile Önceliklendirme"
 ---
 Her SEO çalışmasında yapılabilecek iş, mevcut kapasiteden fazladır. Bu durumda kritik soru "ne yapabiliriz" değil "hangi sırayla yapmalıyız" sorusudur. Fırsat puanlaması, bu sıralamayı sezgi yerine veriye ve açık varsayımlara dayandırır.
 

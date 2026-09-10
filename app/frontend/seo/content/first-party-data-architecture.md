@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Birinci Taraf Veri Mimarisi"
 twitter_description: "Veri toplama, rıza ve aktivasyon katmanları."
+og_image: "https://mehmetkuru.dev/blog-covers/first-party-data-architecture.webp"
+og_image_alt: "Birinci Taraf Veri (First-Party Data) Mimarisi"
 ---
 Üçüncü taraf tanımlayıcıların kısıtlandığı bir ortamda, pazarlama etkinliğinin temeli kendi topladığınız veriye kaydı. Birinci taraf veri, kullanıcıyla doğrudan ilişkiniz üzerinden, açık bir izinle ve tanımlı bir amaç için topladığınız veridir. Bu mimariyi kurmak teknik olduğu kadar ürün ve etik bir tasarım işidir.
 

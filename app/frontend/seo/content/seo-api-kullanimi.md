@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "SEO API Kullanımı"
 twitter_description: "Kimlik doğrulama, kota, veri modeli ve hata yönetimi pratikleri."
+og_image: "https://mehmetkuru.dev/blog-covers/seo-api-kullanimi.webp"
+og_image_alt: "SEO API Kullanımı: Veri Kaynaklarını Programatik Olarak Bağlamak"
 ---
 SEO çalışmasının veri ihtiyacı tek bir arayüzden karşılanamaz. Arama performansı, site davranışı, tarama verisi, sıralama takibi ve iş sonuçları farklı sistemlerde durur. Bu verileri elle indirip birleştirmek hem yavaş hem hataya açıktır. API entegrasyonu, veriyi düzenli ve tekrarlanabilir biçimde tek yerde toplamayı sağlar.
 

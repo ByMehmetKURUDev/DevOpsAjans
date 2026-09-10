@@ -53,6 +53,19 @@ export const TRANSLATABLE_KEYS = [
   'contact_address',
   'seo_meta_title',
   'seo_meta_description',
+  // Sayfa bazlı SEO metinleri: her sayfa yedi dilde ayrı doldurulabilir.
+  // Bu değerler derleme sırasında da okunuyor (prerender/settings.js),
+  // yani panelden yapılan değişiklik Google'ın gördüğü metne de yansıyor.
+  'seo_title_home',
+  'seo_desc_home',
+  'seo_title_services',
+  'seo_desc_services',
+  'seo_title_portfolio',
+  'seo_desc_portfolio',
+  'seo_title_contact',
+  'seo_desc_contact',
+  'seo_title_blog',
+  'seo_desc_blog',
 ] as const;
 
 export type TranslatableKey = (typeof TRANSLATABLE_KEYS)[number];
@@ -167,6 +180,23 @@ export const SETTING_GROUPS: {
         multiline: true,
         translatable: true,
       },
+    ],
+  },
+  {
+    group: 'pageSeo',
+    title: 'settingsForm.pageSeoTitle',
+    description: 'settingsForm.pageSeoDesc',
+    fields: [
+      { key: 'seo_title_home', label: 'settingsForm.fSeoHomeTitle', translatable: true },
+      { key: 'seo_desc_home', label: 'settingsForm.fSeoHomeDesc', multiline: true, translatable: true },
+      { key: 'seo_title_services', label: 'settingsForm.fSeoServicesTitle', translatable: true },
+      { key: 'seo_desc_services', label: 'settingsForm.fSeoServicesDesc', multiline: true, translatable: true },
+      { key: 'seo_title_portfolio', label: 'settingsForm.fSeoPortfolioTitle', translatable: true },
+      { key: 'seo_desc_portfolio', label: 'settingsForm.fSeoPortfolioDesc', multiline: true, translatable: true },
+      { key: 'seo_title_contact', label: 'settingsForm.fSeoContactTitle', translatable: true },
+      { key: 'seo_desc_contact', label: 'settingsForm.fSeoContactDesc', multiline: true, translatable: true },
+      { key: 'seo_title_blog', label: 'settingsForm.fSeoBlogTitle', translatable: true },
+      { key: 'seo_desc_blog', label: 'settingsForm.fSeoBlogDesc', multiline: true, translatable: true },
     ],
   },
   {

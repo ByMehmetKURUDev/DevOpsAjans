@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "SEO Uyumlu Web Sitesi Nasıl Yapılır?"
 twitter_description: "İndekslenebilirlik, bilgi mimarisi, yapılandırılmış veri ve performans."
+og_image: "https://mehmetkuru.dev/blog-covers/seo-uyumlu-web-sitesi.webp"
+og_image_alt: "SEO Uyumlu Web Sitesi Nasıl Yapılır?"
 ---
 SEO uyumluluk, siteye sonradan eklenen bir modül değildir. Bilgi mimarisi, URL yapısı, render biçimi ve performans kararları geliştirme aşamasında verilir ve sonradan değiştirilmesi pahalıdır. Aşağıdaki başlıklar bir sitenin arama motorları tarafından doğru anlaşılması için gereken teknik temeli tanımlar.
 

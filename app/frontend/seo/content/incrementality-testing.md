@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Artımsallık Testi"
 twitter_description: "Coğrafi ve kitle bölme testleriyle gerçek katkı ölçümü."
+og_image: "https://mehmetkuru.dev/blog-covers/incrementality-testing.webp"
+og_image_alt: "Artımsallık Testi (Incrementality Testing) Nasıl Yapılır?"
 ---
 İlişkilendirme raporları bir kanalın kaç dönüşümde göründüğünü söyler. Ancak iş kararının gerçek sorusu şudur: bu harcamayı kesersem bu satışların kaçını kaybederim? Artımsallık testi, bu soruya deneyle yanıt veren tek yöntemdir.
 

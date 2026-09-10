@@ -219,7 +219,12 @@ const BlogPostPage = () => {
   }
 
   return (
-    <BlogArticleLayout title={post.title} description={post.description}>
+    <BlogArticleLayout
+      title={post.title}
+      description={post.description}
+      coverImage={`/blog-covers/${post.slug}.webp`}
+      coverAlt={post.title}
+    >
       <TableOfContents entries={getHeadings(post.markdown)} />
       <MarkdownArticle markdown={post.markdown} />
       <PostNavigation {...getAdjacentEntries(post.slug)} />

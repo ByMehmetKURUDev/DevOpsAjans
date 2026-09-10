@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Programmatic SEO Nedir?"
 twitter_description: "Ölçekli içerik üretiminin veri modeli, şablon ve indeksleme disiplini."
+og_image: "https://mehmetkuru.dev/blog-covers/programmatic-seo.webp"
+og_image_alt: "Programmatic SEO Nedir? Şablon Tabanlı Ölçekli İçerik Üretimi"
 ---
 Programmatic SEO, benzer yapıda çok sayıda arama sorgusunu tek tek elle yazmadan, bir veri kaynağı ve sayfa şablonu üzerinden üretilen sayfalarla karşılama yöntemidir. "X şehrinde Y hizmeti", "A ile B karşılaştırması", "Z için fiyat aralığı" gibi kalıplaşmış sorgu grupları bu yaklaşıma uygundur.
 

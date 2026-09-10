@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "Web Tasarım ve Web Geliştirme Arasındaki Fark"
 twitter_description: "Tasarım ve geliştirme sorumluluklarının net ayrımı ve teslim çıktıları."
+og_image: "https://mehmetkuru.dev/blog-covers/web-tasarim-ve-web-gelistirme-farki.webp"
+og_image_alt: "Web Tasarım ve Web Geliştirme Arasındaki Fark Nedir?"
 ---
 Web tasarım ve web geliştirme sıkça birbirinin yerine kullanılır. Oysa iki disiplin farklı sorular yanıtlar: tasarım "ne görünecek ve kullanıcı nasıl ilerleyecek" sorusunu, geliştirme "bu deneyim hangi teknik yapıyla güvenli, hızlı ve sürdürülebilir biçimde çalışacak" sorusunu çözer.
 

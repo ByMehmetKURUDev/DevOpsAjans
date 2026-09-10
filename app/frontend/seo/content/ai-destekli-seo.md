@@ -15,6 +15,8 @@ og_type: "article"
 twitter_card: "summary"
 twitter_title: "AI Destekli SEO"
 twitter_description: "AI'nin güçlü olduğu ve olmadığı SEO görevleri, kalite kontrol modeli."
+og_image: "https://mehmetkuru.dev/blog-covers/ai-destekli-seo.webp"
+og_image_alt: "AI Destekli SEO: Yapay Zekayı SEO Süreçlerinde Doğru Kullanmak"
 ---
 Yapay zeka SEO çalışmasında iki farklı biçimde tartışılır: bir üretim aracı olarak ve arama davranışını değiştiren bir etken olarak. Bu yazı ilkine odaklanır — AI'nin SEO operasyonunda nerede gerçek verimlilik ürettiği, nerede risk yarattığı ve hangi kontrol mekanizmalarının zorunlu olduğu.
 

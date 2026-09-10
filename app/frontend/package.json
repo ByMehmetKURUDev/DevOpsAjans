@@ -7,7 +7,8 @@
     "check:routes": "node scripts/check-routes.mjs",
     "lint": "eslint --quiet ./src",
     "preview": "vite preview",
-    "postinstall": "echo 'Dependencies installed successfully'"
+    "postinstall": "echo 'Dependencies installed successfully'",
+    "covers": "node scripts/generate-covers.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -87,6 +88,7 @@
     "lovable-tagger": "^1.1.7",
     "playwright": "^1.55.0",
     "postcss": "^8.4.47",
+    "sharp": "^0.35.4",
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
