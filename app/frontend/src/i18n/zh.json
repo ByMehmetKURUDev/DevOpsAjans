@@ -395,7 +395,8 @@
       "answered": "已回复",
       "closed": "已关闭"
     },
-    "blog": "博客"
+    "blog": "博客",
+    "logoAlt": "By Mehmet KURU Dev — 网站开发与数字营销工作室标识"
   },
   "admin": {
     "loadError": "管理数据加载失败",

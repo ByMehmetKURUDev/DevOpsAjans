@@ -316,7 +316,7 @@ export default function Layout() {
               <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#8b3dff] via-[#5c27a3] to-[#d4a5ff] blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
               <img
                 src={logoSrc}
-                alt="Mehmet KURU Dev logo"
+                alt={t('ui.logoAlt')}
                 width={40}
                 height={40}
                 decoding="async"
@@ -539,7 +539,7 @@ export default function Layout() {
             <div className="flex items-center gap-3">
               <img
                 src={logoSrc}
-                alt="Mehmet KURU Dev logo"
+                alt={t('ui.logoAlt')}
                 width={40}
                 height={40}
                 loading="lazy"

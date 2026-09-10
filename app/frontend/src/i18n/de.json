@@ -395,7 +395,8 @@
       "answered": "Beantwortet",
       "closed": "Geschlossen"
     },
-    "blog": "Blog"
+    "blog": "Blog",
+    "logoAlt": "By Mehmet KURU Dev — Logo für Webentwicklung und digitales Marketing"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

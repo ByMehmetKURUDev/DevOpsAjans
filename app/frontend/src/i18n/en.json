@@ -395,7 +395,8 @@
       "answered": "Answered",
       "closed": "Closed"
     },
-    "blog": "Blog"
+    "blog": "Blog",
+    "logoAlt": "By Mehmet KURU Dev — web development and digital marketing studio logo"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

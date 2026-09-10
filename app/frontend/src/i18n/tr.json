@@ -395,7 +395,8 @@
       "answered": "Yanıtlandı",
       "closed": "Kapandı"
     },
-    "blog": "Blog"
+    "blog": "Blog",
+    "logoAlt": "By Mehmet KURU Dev — web geliştirme ve dijital pazarlama ajansı logosu"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
