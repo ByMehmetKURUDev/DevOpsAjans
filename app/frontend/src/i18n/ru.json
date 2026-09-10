@@ -3,7 +3,7 @@
     "home": "Главная",
     "about": "О нас",
     "services": "Как мы работаем",
-    "portfolio": "Портфолио",
+    "portfolio": "Кейсы",
     "packages": "Пакеты",
     "blog": "Блог",
     "contact": "Контакты",
@@ -173,7 +173,7 @@
     "tellUs": "Расскажите о проекте"
   },
   "portfolio": {
-    "sectionTag": "Портфолио",
+    "sectionTag": "Кейсы",
     "title1": "Сданные работы.",
     "titleHighlight": "И те, что продолжают работать.",
     "desc": "Подборка последних работ в веб, мобайл, продуктовом дизайне, маркетинге и блокчейне. Каждая из них работает в production.",
@@ -339,7 +339,7 @@
     "tabAnalytics": "Аналитика",
     "tabClients": "Клиенты",
     "tabInquiries": "Сообщения",
-    "tabPortfolio": "Портфолио",
+    "tabPortfolio": "Кейсы",
     "statTotalProjects": "Всего проектов",
     "statInProgress": "В работе",
     "statCompleted": "Завершено",
@@ -553,11 +553,13 @@
     "fSeoHomeDesc": "Главная — описание",
     "fSeoServicesTitle": "Услуги — заголовок",
     "fSeoServicesDesc": "Услуги — описание",
-    "fSeoPortfolioTitle": "Портфолио — заголовок",
-    "fSeoPortfolioDesc": "Портфолио — описание",
+    "fSeoPortfolioTitle": "Кейсы — заголовок",
+    "fSeoPortfolioDesc": "Кейсы — описание",
     "fSeoContactTitle": "Контакты — заголовок",
     "fSeoContactDesc": "Контакты — описание",
     "fSeoBlogTitle": "Блог — заголовок",
-    "fSeoBlogDesc": "Блог — описание"
+    "fSeoBlogDesc": "Блог — описание",
+    "fAppStore": "Ссылка на App Store",
+    "fGooglePlay": "Ссылка на Google Play"
   }
 }

@@ -3,7 +3,7 @@
     "home": "Ana Sayfa",
     "about": "Hakkımızda",
     "services": "Nasıl Çalışır",
-    "portfolio": "Portföy",
+    "portfolio": "Vaka Çalışmaları",
     "packages": "Paketler",
     "blog": "Blog",
     "contact": "İletişim",
@@ -173,7 +173,7 @@
     "tellUs": "Projenizi anlatın"
   },
   "portfolio": {
-    "sectionTag": "Portföy",
+    "sectionTag": "Vaka Çalışmaları",
     "title1": "Teslim edilen işler.",
     "titleHighlight": "Ve teslim etmeye devam eden.",
     "desc": "Web, mobil, ürün tasarımı, pazarlama ve blockchain alanlarında son çalışmalardan bir seçki. Bunların her biri üretimde canlı.",
@@ -339,7 +339,7 @@
     "tabAnalytics": "Analitik",
     "tabClients": "Müşteriler",
     "tabInquiries": "Mesajlar",
-    "tabPortfolio": "Portföy",
+    "tabPortfolio": "Vaka Çalışmaları",
     "statTotalProjects": "Toplam Proje",
     "statInProgress": "Devam Eden",
     "statCompleted": "Tamamlanan",
@@ -553,11 +553,13 @@
     "fSeoHomeDesc": "Ana sayfa — açıklama",
     "fSeoServicesTitle": "Hizmetler — başlık",
     "fSeoServicesDesc": "Hizmetler — açıklama",
-    "fSeoPortfolioTitle": "Portföy — başlık",
-    "fSeoPortfolioDesc": "Portföy — açıklama",
+    "fSeoPortfolioTitle": "Vaka çalışmaları — başlık",
+    "fSeoPortfolioDesc": "Vaka çalışmaları — açıklama",
     "fSeoContactTitle": "İletişim — başlık",
     "fSeoContactDesc": "İletişim — açıklama",
     "fSeoBlogTitle": "Blog — başlık",
-    "fSeoBlogDesc": "Blog — açıklama"
+    "fSeoBlogDesc": "Blog — açıklama",
+    "fAppStore": "App Store bağlantısı",
+    "fGooglePlay": "Google Play bağlantısı"
   }
 }

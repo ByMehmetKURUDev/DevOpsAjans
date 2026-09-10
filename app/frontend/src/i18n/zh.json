@@ -3,7 +3,7 @@
     "home": "首页",
     "about": "关于我们",
     "services": "服务流程",
-    "portfolio": "作品集",
+    "portfolio": "案例研究",
     "packages": "套餐",
     "blog": "博客",
     "contact": "联系我们",
@@ -173,7 +173,7 @@
     "tellUs": "介绍你的项目"
   },
   "portfolio": {
-    "sectionTag": "作品集",
+    "sectionTag": "案例研究",
     "title1": "已交付的作品。",
     "titleHighlight": "并且仍在运行。",
     "desc": "精选近期在 Web、移动、产品设计、营销与区块链领域的作品。每一个都在生产环境中稳定运行。",
@@ -339,7 +339,7 @@
     "tabAnalytics": "数据分析",
     "tabClients": "客户",
     "tabInquiries": "消息",
-    "tabPortfolio": "作品集",
+    "tabPortfolio": "案例研究",
     "statTotalProjects": "项目总数",
     "statInProgress": "进行中",
     "statCompleted": "已完成",
@@ -553,11 +553,13 @@
     "fSeoHomeDesc": "首页 — 描述",
     "fSeoServicesTitle": "服务 — 标题",
     "fSeoServicesDesc": "服务 — 描述",
-    "fSeoPortfolioTitle": "作品集 — 标题",
-    "fSeoPortfolioDesc": "作品集 — 描述",
+    "fSeoPortfolioTitle": "案例研究 — 标题",
+    "fSeoPortfolioDesc": "案例研究 — 描述",
     "fSeoContactTitle": "联系方式 — 标题",
     "fSeoContactDesc": "联系方式 — 描述",
     "fSeoBlogTitle": "博客 — 标题",
-    "fSeoBlogDesc": "博客 — 描述"
+    "fSeoBlogDesc": "博客 — 描述",
+    "fAppStore": "App Store 链接",
+    "fGooglePlay": "Google Play 链接"
   }
 }

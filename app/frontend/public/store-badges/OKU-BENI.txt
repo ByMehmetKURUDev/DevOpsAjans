@@ -1,0 +1,24 @@
+Uygulama mağazası rozetleri
+===========================
+
+Bu klasöre Apple ve Google'ın RESMÎ rozet dosyalarını koyun:
+
+    app-store.svg      Apple — "Download on the App Store"
+    google-play.svg    Google — "Google Play'den alın"
+
+Nereden indirilir:
+  Apple   : Apple Marketing Resources / App Store rozetleri sayfası
+  Google  : Google Play Badge Generator (dil seçilebilir, Türkçe rozet üretir)
+
+Neden hazır gelmiyor: Bu rozetler Apple ve Google'ın tescilli markalarıdır.
+Yalnızca kendi yayımladıkları dosyalar, kendi kullanım kılavuzlarındaki
+oran ve boşluk kurallarına uyularak kullanılabilir; yeniden çizilmeleri
+marka ihlalidir.
+
+Dosyalar eklenene kadar site, marka işareti içermeyen sade metin
+düğmeleri gösterir — bağlantılar ilk günden çalışır. Dosyaları koyduğunuz
+anda rozetler kendiliğinden görünür, kodda değişiklik gerekmez.
+
+Bağlantı adresleri yönetim panelinden girilir:
+  Site Ayarları → İletişim → App Store bağlantısı / Google Play bağlantısı
+Adres girilmemişse bölüm hiç görünmez.

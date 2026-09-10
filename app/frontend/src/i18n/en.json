@@ -3,7 +3,7 @@
     "home": "Home",
     "about": "About",
     "services": "How It Works",
-    "portfolio": "Portfolio",
+    "portfolio": "Case Studies",
     "packages": "Packages",
     "blog": "Blog",
     "contact": "Contact",
@@ -173,7 +173,7 @@
     "tellUs": "Tell us about your project"
   },
   "portfolio": {
-    "sectionTag": "Portfolio",
+    "sectionTag": "Case Studies",
     "title1": "Work that shipped.",
     "titleHighlight": "And kept shipping.",
     "desc": "A selection of recent engagements across web, mobile, product design, marketing, and blockchain. Every one of these is live in production.",
@@ -339,7 +339,7 @@
     "tabAnalytics": "Analytics",
     "tabClients": "Clients",
     "tabInquiries": "Messages",
-    "tabPortfolio": "Portfolio",
+    "tabPortfolio": "Case Studies",
     "statTotalProjects": "Total Projects",
     "statInProgress": "In Progress",
     "statCompleted": "Completed",
@@ -553,11 +553,13 @@
     "fSeoHomeDesc": "Home — description",
     "fSeoServicesTitle": "Services — title",
     "fSeoServicesDesc": "Services — description",
-    "fSeoPortfolioTitle": "Portfolio — title",
-    "fSeoPortfolioDesc": "Portfolio — description",
+    "fSeoPortfolioTitle": "Case studies — title",
+    "fSeoPortfolioDesc": "Case studies — description",
     "fSeoContactTitle": "Contact — title",
     "fSeoContactDesc": "Contact — description",
     "fSeoBlogTitle": "Blog — title",
-    "fSeoBlogDesc": "Blog — description"
+    "fSeoBlogDesc": "Blog — description",
+    "fAppStore": "App Store link",
+    "fGooglePlay": "Google Play link"
   }
 }

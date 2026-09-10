@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import StoreBadges from '@/components/StoreBadges';
 import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
 import {
@@ -615,6 +616,11 @@ export default function Layout() {
               </li>
               <li>{settings.contact_address}</li>
             </ul>
+            {/* Uygulama mağazası bağlantıları — panelde adres girilmişse görünür. */}
+            <StoreBadges
+              appStoreUrl={settings.app_store_url}
+              googlePlayUrl={settings.google_play_url}
+            />
           </div>
         </div>
         <div className="border-t border-white/5 py-6 text-center text-xs text-muted-foreground">

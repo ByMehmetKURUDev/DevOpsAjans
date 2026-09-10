@@ -3,7 +3,7 @@
     "home": "الرئيسية",
     "about": "من نحن",
     "services": "كيف نعمل",
-    "portfolio": "أعمالنا",
+    "portfolio": "دراسات الحالة",
     "packages": "الباقات",
     "blog": "المدونة",
     "contact": "اتصل بنا",
@@ -173,7 +173,7 @@
     "tellUs": "أخبرنا عن مشروعك"
   },
   "portfolio": {
-    "sectionTag": "أعمالنا",
+    "sectionTag": "دراسات الحالة",
     "title1": "أعمال تم تسليمها.",
     "titleHighlight": "وما زالت تعمل.",
     "desc": "مجموعة من أحدث أعمالنا في الويب والموبايل وتصميم المنتج والتسويق والبلوكتشين. كل واحد منها يعمل في الإنتاج.",
@@ -339,7 +339,7 @@
     "tabAnalytics": "التحليلات",
     "tabClients": "العملاء",
     "tabInquiries": "الرسائل",
-    "tabPortfolio": "الأعمال",
+    "tabPortfolio": "دراسات الحالة",
     "statTotalProjects": "إجمالي المشاريع",
     "statInProgress": "قيد التنفيذ",
     "statCompleted": "مكتملة",
@@ -553,11 +553,13 @@
     "fSeoHomeDesc": "الرئيسية — الوصف",
     "fSeoServicesTitle": "الخدمات — العنوان",
     "fSeoServicesDesc": "الخدمات — الوصف",
-    "fSeoPortfolioTitle": "أعمالنا — العنوان",
-    "fSeoPortfolioDesc": "أعمالنا — الوصف",
+    "fSeoPortfolioTitle": "دراسات الحالة — العنوان",
+    "fSeoPortfolioDesc": "دراسات الحالة — الوصف",
     "fSeoContactTitle": "اتصل بنا — العنوان",
     "fSeoContactDesc": "اتصل بنا — الوصف",
     "fSeoBlogTitle": "المدونة — العنوان",
-    "fSeoBlogDesc": "المدونة — الوصف"
+    "fSeoBlogDesc": "المدونة — الوصف",
+    "fAppStore": "رابط App Store",
+    "fGooglePlay": "رابط Google Play"
   }
 }

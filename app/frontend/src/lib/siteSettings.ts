@@ -25,6 +25,8 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   contact_phone: '0541 296 58 78',
   contact_address: 'Sultan Selim Mah. Kağıthane / İstanbul',
   whatsapp_number: '905412965878',
+  app_store_url: '',
+  google_play_url: '',
   social_facebook: '',
   social_instagram: '',
   social_twitter: '',
@@ -140,6 +142,8 @@ export const SETTING_GROUPS: {
       { key: 'contact_phone', label: 'settingsForm.fPhone' },
       { key: 'contact_address', label: 'settingsForm.fAddress', translatable: true },
       { key: 'whatsapp_number', label: 'settingsForm.fWhatsapp' },
+      { key: 'app_store_url', label: 'settingsForm.fAppStore' },
+      { key: 'google_play_url', label: 'settingsForm.fGooglePlay' },
     ],
   },
   {

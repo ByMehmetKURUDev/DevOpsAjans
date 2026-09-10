@@ -3,7 +3,7 @@
     "home": "Startseite",
     "about": "Über uns",
     "services": "Wie es funktioniert",
-    "portfolio": "Portfolio",
+    "portfolio": "Fallstudien",
     "packages": "Pakete",
     "blog": "Blog",
     "contact": "Kontakt",
@@ -173,7 +173,7 @@
     "tellUs": "Erzählen Sie uns von Ihrem Projekt"
   },
   "portfolio": {
-    "sectionTag": "Portfolio",
+    "sectionTag": "Fallstudien",
     "title1": "Arbeit, die geliefert wurde.",
     "titleHighlight": "Und weiter liefert.",
     "desc": "Eine Auswahl aktueller Engagements in Web, Mobile, Produktdesign, Marketing und Blockchain. Jedes davon ist live in Produktion.",
@@ -339,7 +339,7 @@
     "tabAnalytics": "Analytics",
     "tabClients": "Kunden",
     "tabInquiries": "Nachrichten",
-    "tabPortfolio": "Portfolio",
+    "tabPortfolio": "Fallstudien",
     "statTotalProjects": "Projekte insgesamt",
     "statInProgress": "In Arbeit",
     "statCompleted": "Abgeschlossen",
@@ -553,11 +553,13 @@
     "fSeoHomeDesc": "Startseite — Beschreibung",
     "fSeoServicesTitle": "Leistungen — Titel",
     "fSeoServicesDesc": "Leistungen — Beschreibung",
-    "fSeoPortfolioTitle": "Portfolio — Titel",
-    "fSeoPortfolioDesc": "Portfolio — Beschreibung",
+    "fSeoPortfolioTitle": "Fallstudien — Titel",
+    "fSeoPortfolioDesc": "Fallstudien — Beschreibung",
     "fSeoContactTitle": "Kontakt — Titel",
     "fSeoContactDesc": "Kontakt — Beschreibung",
     "fSeoBlogTitle": "Blog — Titel",
-    "fSeoBlogDesc": "Blog — Beschreibung"
+    "fSeoBlogDesc": "Blog — Beschreibung",
+    "fAppStore": "App-Store-Link",
+    "fGooglePlay": "Google-Play-Link"
   }
 }

@@ -3,7 +3,7 @@
     "home": "होम",
     "about": "हमारे बारे में",
     "services": "हम कैसे काम करते हैं",
-    "portfolio": "पोर्टफोलियो",
+    "portfolio": "केस स्टडी",
     "packages": "पैकेज",
     "blog": "ब्लॉग",
     "contact": "संपर्क",
@@ -173,7 +173,7 @@
     "tellUs": "अपने प्रोजेक्ट के बारे में बताएं"
   },
   "portfolio": {
-    "sectionTag": "पोर्टफोलियो",
+    "sectionTag": "केस स्टडी",
     "title1": "डिलीवर किए गए काम।",
     "titleHighlight": "और जो अब भी चल रहे हैं।",
     "desc": "वेब, मोबाइल, प्रोडक्ट डिज़ाइन, मार्केटिंग और ब्लॉकचेन में हाल के कार्यों का चयन। इनमें से हर एक प्रोडक्शन में लाइव है।",
@@ -339,7 +339,7 @@
     "tabAnalytics": "एनालिटिक्स",
     "tabClients": "ग्राहक",
     "tabInquiries": "संदेश",
-    "tabPortfolio": "पोर्टफ़ोलियो",
+    "tabPortfolio": "केस स्टडी",
     "statTotalProjects": "कुल परियोजनाएँ",
     "statInProgress": "प्रगति पर",
     "statCompleted": "पूर्ण",
@@ -553,11 +553,13 @@
     "fSeoHomeDesc": "होम — डिस्क्रिप्शन",
     "fSeoServicesTitle": "सेवाएँ — टाइटल",
     "fSeoServicesDesc": "सेवाएँ — डिस्क्रिप्शन",
-    "fSeoPortfolioTitle": "पोर्टफ़ोलियो — टाइटल",
-    "fSeoPortfolioDesc": "पोर्टफ़ोलियो — डिस्क्रिप्शन",
+    "fSeoPortfolioTitle": "केस स्टडी — टाइटल",
+    "fSeoPortfolioDesc": "केस स्टडी — डिस्क्रिप्शन",
     "fSeoContactTitle": "संपर्क — टाइटल",
     "fSeoContactDesc": "संपर्क — डिस्क्रिप्शन",
     "fSeoBlogTitle": "ब्लॉग — टाइटल",
-    "fSeoBlogDesc": "ब्लॉग — डिस्क्रिप्शन"
+    "fSeoBlogDesc": "ब्लॉग — डिस्क्रिप्शन",
+    "fAppStore": "App Store लिंक",
+    "fGooglePlay": "Google Play लिंक"
   }
 }

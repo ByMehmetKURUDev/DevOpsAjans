@@ -1,0 +1,54 @@
+mehmetkuru.dev — yayına hazır site (önizleme)
+=============================================
+
+99 sayfa önceden HTML olarak üretilmiştir:
+  - 7 dilde 4 statik sayfa (28)
+  - Türkçe blog dizini + 70 yazı (71)
+
+NASIL AÇILIR
+------------
+Bu klasörde bir terminal açıp:
+
+    python3 onizleme-sunucu.py
+
+Tarayıcıdan: http://localhost:4173
+
+index.html'e çift tıklamayın — sayfalar "/assets/..." kök yollarıyla
+bağlı olduğu için dosya olarak açıldığında boş görünür.
+
+Düz `python3 -m http.server` de kullanmayın: /admin, /client ve tanımsız
+adreslerde sunucunun kendi 404'ünü gösterir. Verdiğim betik SPA fallback
+ile çalışır — yayında da açılması gereken ayar tam olarak budur.
+
+GEZİLECEK ADRESLER
+------------------
+    /                          ana sayfa
+    /services /portfolio /contact
+    /blog                      70 yazılık liste
+    /blog/seo-nedir            kapak + içindekiler + SSS + önceki/sonraki
+    /en /de /ar /ru /zh /hi    dil sürümleri  (örn. /de/services)
+    /ar                        sağdan sola yazım
+    /admin /client             paneller (giriş ve backend gerektirir)
+
+YAYINA ALIRKEN — İKİ AYAR
+-------------------------
+1) SPA fallback: dosyası bulunmayan yollar /index.html'e yönlendirilmeli.
+   99 sayfa gerçek dosya olduğu için doğrudan servis edilir; gerisini
+   uygulama yönetir.
+
+2) Panel metinlerinin arama sonuçlarına yansıması için:
+
+       SITE_API_BASE_URL=https://<backend-adresiniz>  npm run build
+
+   Tanımlı değilse site yine sorunsuz derlenir, sayfa başlık ve
+   açıklamaları koddaki varsayılanlardan gelir.
+
+BU ÖNİZLEMEDE GÖRÜNMEYENLER
+---------------------------
+- Logolar: depoda Git LFS ile saklanıyor, bu ortamda indirilemedi.
+  Sizin makinenizde `git lfs pull` sonrası görünürler.
+- Portföy listesi, iletişim formu, panel içerikleri: backend çalışmıyor.
+- Google Fonts ve Analytics: dış ağ kapalı.
+- App Store / Google Play rozetleri: resmî dosyalar
+  public/store-badges/ altına eklenene kadar sade metin düğmesi görünür
+  (ayrıntı: public/store-badges/OKU-BENI.txt).

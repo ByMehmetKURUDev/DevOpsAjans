@@ -86,9 +86,9 @@ export const PAGE_SEO = {
         'Özel web geliştirme, e-ticaret ve SaaS kurulumu, teknik SEO, Google Ads ve ölçümleme. Tek kıdemli lider altında uçtan uca yürütülen hizmetler.',
     },
     portfolio: {
-      title: 'Portföy: Web, E-Ticaret ve SaaS Projeleri | Mehmet KURU',
+      title: 'Vaka Çalışmaları: Web, E-Ticaret ve SaaS Projeleri | Mehmet KURU',
       description:
-        'Teslim edilen web uygulamaları, e-ticaret altyapıları, SaaS platformları ve pazarlama siteleri. Her projede kullanılan yaklaşım ve elde edilen sonuçlar.',
+        'Teslim edilen web uygulamaları, e-ticaret altyapıları, SaaS platformları ve pazarlama siteleri. Her vaka çalışmasında kullanılan yaklaşım ve elde edilen sonuçlar.',
     },
     contact: {
       title: 'İletişim | By Mehmet KURU Dev',
@@ -108,9 +108,9 @@ export const PAGE_SEO = {
         'Custom web development, e-commerce and SaaS builds, technical SEO, Google Ads and measurement — delivered end to end under one senior lead.',
     },
     portfolio: {
-      title: 'Portfolio: Web, E-Commerce and SaaS Projects | Mehmet KURU',
+      title: 'Case Studies: Web, E-Commerce and SaaS Projects | Mehmet KURU',
       description:
-        'Delivered web applications, e-commerce platforms, SaaS products and marketing sites, with the approach taken and the results reached on each.',
+        'Delivered web applications, e-commerce platforms, SaaS products and marketing sites, with the approach taken and the results reached in each case study.',
     },
     contact: {
       title: 'Contact | By Mehmet KURU Dev',
@@ -130,9 +130,9 @@ export const PAGE_SEO = {
         'Individuelle Webentwicklung, E-Commerce- und SaaS-Aufbau, technisches SEO, Google Ads und Messung — durchgängig von einer erfahrenen Leitung betreut.',
     },
     portfolio: {
-      title: 'Portfolio: Web-, E-Commerce- und SaaS-Projekte | Mehmet KURU',
+      title: 'Fallstudien: Web-, E-Commerce- und SaaS-Projekte | Mehmet KURU',
       description:
-        'Umgesetzte Webanwendungen, E-Commerce-Plattformen, SaaS-Produkte und Marketing-Websites — mit Vorgehen und Ergebnissen je Projekt.',
+        'Umgesetzte Webanwendungen, E-Commerce-Plattformen, SaaS-Produkte und Marketing-Websites — mit Vorgehen und Ergebnissen je Fallstudie.',
     },
     contact: {
       title: 'Kontakt | By Mehmet KURU Dev',
@@ -152,9 +152,9 @@ export const PAGE_SEO = {
         'تطوير مواقع مخصص، وبناء متاجر إلكترونية ومنصات SaaS، وتحسين تقني لمحركات البحث، وإعلانات Google والقياس — بإشراف مباشر من مسؤول واحد.',
     },
     portfolio: {
-      title: 'أعمالنا: مشاريع الويب والتجارة الإلكترونية وSaaS | Mehmet KURU',
+      title: 'دراسات الحالة: مشاريع الويب والتجارة الإلكترونية وSaaS | Mehmet KURU',
       description:
-        'تطبيقات ويب ومتاجر إلكترونية ومنتجات SaaS ومواقع تسويقية منجزة، مع شرح المنهج والنتائج في كل مشروع.',
+        'تطبيقات ويب ومتاجر إلكترونية ومنتجات SaaS ومواقع تسويقية منجزة، مع شرح المنهج والنتائج في كل دراسة حالة.',
     },
     contact: {
       title: 'اتصل بنا | By Mehmet KURU Dev',
@@ -174,9 +174,9 @@ export const PAGE_SEO = {
         'Индивидуальная веб-разработка, запуск интернет-магазинов и SaaS, техническое SEO, Google Ads и аналитика — под руководством одного специалиста.',
     },
     portfolio: {
-      title: 'Портфолио: веб, электронная коммерция и SaaS | Mehmet KURU',
+      title: 'Кейсы: веб, электронная коммерция и SaaS | Mehmet KURU',
       description:
-        'Реализованные веб-приложения, интернет-магазины, SaaS-продукты и маркетинговые сайты с описанием подхода и результатов.',
+        'Реализованные веб-приложения, интернет-магазины, SaaS-продукты и маркетинговые сайты с описанием подхода и результатов в каждом кейсе.',
     },
     contact: {
       title: 'Контакты | By Mehmet KURU Dev',
@@ -196,9 +196,9 @@ export const PAGE_SEO = {
         '定制网站开发、电商与 SaaS 搭建、技术 SEO、Google Ads 与数据衡量，由一位资深负责人端到端交付。',
     },
     portfolio: {
-      title: '作品集：网站、电商与 SaaS 项目 | Mehmet KURU',
+      title: '案例研究：网站、电商与 SaaS 项目 | Mehmet KURU',
       description:
-        '已交付的网页应用、电商平台、SaaS 产品与营销网站，并说明每个项目的做法与成果。',
+        '已交付的网页应用、电商平台、SaaS 产品与营销网站，并说明每个案例的做法与成果。',
     },
     contact: {
       title: '联系方式 | By Mehmet KURU Dev',
@@ -217,9 +217,9 @@ export const PAGE_SEO = {
         'कस्टम वेब डेवलपमेंट, ई-कॉमर्स और SaaS सेटअप, तकनीकी SEO, Google Ads और मेज़रमेंट — एक ही वरिष्ठ लीड के तहत आद्योपांत।',
     },
     portfolio: {
-      title: 'पोर्टफ़ोलियो: वेब, ई-कॉमर्स और SaaS प्रोजेक्ट | Mehmet KURU',
+      title: 'केस स्टडी: वेब, ई-कॉमर्स और SaaS प्रोजेक्ट | Mehmet KURU',
       description:
-        'पूरे किए गए वेब ऐप्लिकेशन, ई-कॉमर्स प्लेटफ़ॉर्म, SaaS उत्पाद और मार्केटिंग साइटें, हर प्रोजेक्ट के तरीक़े और नतीजों के साथ।',
+        'पूरे किए गए वेब ऐप्लिकेशन, ई-कॉमर्स प्लेटफ़ॉर्म, SaaS उत्पाद और मार्केटिंग साइटें, हर केस स्टडी के तरीक़े और नतीजों के साथ।',
     },
     contact: {
       title: 'संपर्क | By Mehmet KURU Dev',
