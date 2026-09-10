@@ -16,7 +16,7 @@ export interface SettingRow {
 
 /** Yedek değerler — backend erişilemezse site yine tutarlı görünür. */
 export const DEFAULT_SETTINGS: SettingsMap = {
-  brand_logo: '/assets/logo-new.jpg',
+  brand_logo: '/assets/logo-mark.webp',
   hero_title: 'Dijital Fikirlerinizi Ölçeklenebilir Ürünlere Dönüştürüyoruz',
   hero_subtitle:
     'Website, e-ticaret, SaaS ve mobil uygulama geliştirme; uçtan uca tasarım, kod ve büyüme desteği.',

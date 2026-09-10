@@ -142,13 +142,13 @@ export default function Services() {
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden glass p-2 animate-float">
               <div className="absolute -inset-4 bg-gradient-to-br from-purple-500/30 via-pink-500/20 to-cyan-500/20 blur-2xl -z-10" />
               <img
-                src="/assets/founder-photo.webp"
-                alt={t('ui.founderAlt')}
-                width={560}
-                height={700}
+                src="/assets/logo.webp"
+                alt={t('ui.logoAlt')}
+                width={1024}
+                height={1024}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover rounded-2xl"
+                className="w-full h-full object-contain rounded-2xl bg-[#05010a]"
                 onError={(e) => {
                   const el = e.currentTarget as HTMLImageElement;
                   el.style.display = 'none';

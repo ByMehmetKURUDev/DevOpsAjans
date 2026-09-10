@@ -8,7 +8,8 @@
     "lint": "eslint --quiet ./src",
     "preview": "vite preview",
     "postinstall": "echo 'Dependencies installed successfully'",
-    "covers": "node scripts/generate-covers.mjs"
+    "covers": "node scripts/generate-covers.mjs",
+    "logo": "node scripts/generate-logo-assets.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

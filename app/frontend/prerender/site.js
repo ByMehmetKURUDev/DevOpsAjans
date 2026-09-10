@@ -14,7 +14,7 @@ export const SITE_URL = 'https://mehmetkuru.dev';
 export const SITE_NAME = 'By Mehmet KURU Dev';
 
 /** Varsayılan paylaşım görseli — site kendi domaininden servis eder. */
-export const SITE_OG_IMAGE = `${SITE_URL}/logo.jpeg`;
+export const SITE_OG_IMAGE = `${SITE_URL}/assets/og-cover.webp`;
 
 /**
  * İçerik dilleri.
@@ -259,7 +259,7 @@ export const ORGANIZATION_JSONLD = {
   '@type': 'ProfessionalService',
   name: SITE_NAME,
   url: `${SITE_URL}/`,
-  image: SITE_OG_IMAGE,
+  image: `${SITE_URL}/assets/logo.webp`,
   description: 'Web geliştirme, özel yazılım ve dijital pazarlama hizmetleri.',
   email: 'by@mehmetkuru.dev',
   telephone: '+90 541 296 58 78',
