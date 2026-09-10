@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Data Classification ve PII Management Rehberi"
 twitter_description: "Customer 360 ve pazarlama verilerini sınıflandırma, PII tespiti, maskeleme, erişim kontrolü ve aktivasyon guardrail'leri için pratik bir mimari rehberi."
 ---
-
-# Data Classification ve PII Management Nedir? Customer 360 ve Marketing Verilerini Sınıflandırma Rehberi
-
 ## 1. Data Classification Nedir?
 
 Data Classification, verilerin içerik, hassasiyet, kullanım amacı ve erişim riskine göre belirli sınıflara ayrılmasıdır. Amaç yalnızca etiket koymak değil; erişim, saklama, maskeleme, paylaşım, aktivasyon ve imha politikalarını verinin niteliğine göre yönetmektir.

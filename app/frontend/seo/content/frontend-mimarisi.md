@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Frontend Mimarisi Nasıl Kurulur?"
 twitter_description: "Sürdürülebilir frontend mimarisinin temel kararları."
 ---
-
-# Frontend Mimarisi Nasıl Kurulur?
-
 Frontend mimarisi, kod büyüdükçe hız kaybetmeyen bir yapı kurmakla ilgilidir. Küçük bir projede her yaklaşım işe yarar; sorunlar ekip ve kod tabanı büyüdüğünde çıkar: bir değişikliğin nereyi etkileyeceği kestirilemez hâle gelir, aynı iş birden fazla yerde farklı biçimde yapılır ve yeni bir geliştiricinin uyum süresi uzar.
 
 ## 1. Klasör Yapısı: Özellik Odaklı Organizasyon

@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "React Performans Optimizasyonu"
 twitter_description: "React uygulamalarında ölçüme dayalı performans iyileştirme."
 ---
-
-# React Performans Optimizasyonu
-
 React uygulamalarında performans problemleri iki ana kaynaktan gelir: tarayıcıya gönderilen JavaScript miktarı ve çalışma zamanında yapılan gereksiz iş. İlk grup ilk yükleme süresini, ikinci grup etkileşim akıcılığını etkiler. Optimizasyona başlamadan önce hangi grupta sorun olduğunu ölçmek gerekir; aksi halde etkisiz mikro iyileştirmelerle zaman harcanır.
 
 ## 1. Önce Ölçün

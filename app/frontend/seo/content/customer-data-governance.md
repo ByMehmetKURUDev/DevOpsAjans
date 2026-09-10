@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Müşteri Veri Yönetişimi"
 twitter_description: "Uygulanabilir bir veri yönetişimi çerçevesi."
 ---
-
-# Müşteri Veri Yönetişimi (Data Governance) Nasıl Kurulur?
-
 Veri yönetişimi, çoğu kurumda kimsenin okumadığı bir politika dokümanı olarak kalır. İşe yarayan yönetişim ise günlük çalışmanın içine gömülüdür: kimin hangi veriye erişeceği, bir alanın ne anlama geldiği, verinin ne kadar saklanacağı ve bir sorun çıktığında kimin karar verdiği net olur.
 
 ## 1. Yönetişimin Amacı

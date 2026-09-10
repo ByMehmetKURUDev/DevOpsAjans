@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "İlişkilendirme Modelleme"
 twitter_description: "Kanal katkısını doğru okumanın yöntemleri."
 ---
-
-# Pazarlama İlişkilendirme Modelleme (Attribution Modeling)
-
 Bir müşteri satın almadan önce ortalama olarak birden fazla temas noktasından geçer: bir sosyal medya gönderisi görür, bir arama sonucuna tıklar, e-posta alır, günler sonra marka adıyla arayıp satın alır. İlişkilendirme, bu satıştaki katkının kanallar arasında nasıl paylaştırılacağı sorusudur.
 
 ## 1. Sorunun Doğası

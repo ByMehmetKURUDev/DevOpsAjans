@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Google Ads Nedir?"
 twitter_description: "Açık artırma, kalite puanı ve kampanya türleriyle Google Ads temelleri."
 ---
-
-# Google Ads Nedir? Temel Kavramlar ve Kampanya Türleri
-
 Google Ads, Google'ın arama sonuçları, YouTube, Gmail, Google Play ve iş ortağı sitelerinden oluşan geniş ağında reklam yayınlamayı sağlayan platformdur. Temel mantığı basittir: kullanıcı bir ihtiyacı ifade eder, reklamveren bu ifadeye karşılık gelen bir mesajla görünür. Ancak bu basit mantığın altında, sonuçları belirleyen bir dizi teknik kavram vardır.
 
 ## 1. Açık Artırma: Reklam Sıralaması Nasıl Belirlenir?

@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SEO Otomasyonu Nedir?"
 twitter_description: "Tekrarlayan SEO işlerini otomatikleştirmenin yöntemi ve sınırları."
 ---
-
-# SEO Otomasyonu Nedir?
-
 SEO otomasyonu, tekrarlayan, kural tabanlı ve hacimli SEO işlerinin insan müdahalesi olmadan yürütülmesidir. Amaç uzmanı devre dışı bırakmak değil; zamanın veri toplamak ve tablo hazırlamak yerine karar vermeye ve strateji üretmeye ayrılmasını sağlamaktır.
 
 Doğru soru "her şeyi otomatikleştirebilir miyim" değil, "hangi işler kuralla tanımlanabilir" sorusudur.

@@ -24,7 +24,10 @@
     "titleItalic": "软件产品。",
     "desc": "由 By Mehmet KURU Dev 创立的精品开发与数字代理机构。为拒绝平庸的团队提供定制网站、移动应用与营销解决方案。",
     "cta": "启动项目",
-    "ctaSecondary": "查看作品"
+    "ctaSecondary": "查看作品",
+    "mainTitle": "把您的数字创意变成可扩展的产品",
+    "mainSubtitle": "网站、电商、SaaS 与移动应用开发——从设计到代码再到增长支持，端到端交付。",
+    "mainCta": "免费需求沟通"
   },
   "stats": {
     "projects": "已交付项目",

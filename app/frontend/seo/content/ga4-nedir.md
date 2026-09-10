@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "GA4 Nedir?"
 twitter_description: "Google Analytics 4'ün veri modeli ve kurulum mantığı."
 ---
-
-# GA4 Nedir? Google Analytics 4'e Geçiş ve Olay Tabanlı Ölçüm
-
 Google Analytics 4, Google'ın mevcut analitik ürünüdür ve önceki sürümden yalnızca arayüz olarak değil, veri modeli olarak farklıdır. Bu farkı anlamadan yapılan kurulumlar, veri toplayan ama karar üretmeyen bir yapıyla sonuçlanır.
 
 ## 1. Temel Fark: Olay Tabanlı Model

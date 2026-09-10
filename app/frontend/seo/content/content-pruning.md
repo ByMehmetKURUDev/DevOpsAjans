@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Content Pruning Nedir?"
 twitter_description: "Düşük performanslı içerikleri iyileştirme, birleştirme veya kaldırma yöntemi."
 ---
-
-# Content Pruning Nedir?
-
 Content pruning (içerik budama), sitedeki düşük performanslı ve değer üretmeyen içeriklerin sistematik biçimde iyileştirilmesi, birleştirilmesi veya kaldırılmasıdır. Amaç sayfa sayısını azaltmak değil, sitenin ortalama içerik kalitesini yükseltmek, tarama bütçesini verimli kullanmak ve aynı konuyu hedefleyen sayfaların birbirini zayıflatmasını önlemektir.
 
 ## 1. Neden Gereklidir?

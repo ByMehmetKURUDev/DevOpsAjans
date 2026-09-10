@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SSR, SSG ve CSR Karşılaştırması"
 twitter_description: "Sayfa türüne göre doğru render stratejisini seçme rehberi."
 ---
-
-# SSR, SSG ve CSR Karşılaştırması
-
 Render stratejisi, HTML'in nerede ve ne zaman üretildiğine dair bir karardır. Bu karar ilk görüntüleme hızını, arama motoru görünürlüğünü, altyapı maliyetini ve geliştirme karmaşıklığını doğrudan etkiler. Tek doğru cevap yoktur; doğru yaklaşım sayfa türüne göre farklılaşır.
 
 ## 1. CSR — Client Side Rendering

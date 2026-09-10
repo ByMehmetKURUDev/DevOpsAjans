@@ -10,10 +10,12 @@ import { getAllPrerenderRoutes } from './prerender/blog-routes.js';
 import { getSitemapLastmod } from './prerender/blog-sitemap.js';
 import {
   BLOG_INDEX_ROUTE,
+  DEFAULT_LANGUAGE,
   NOINDEX_ROUTES,
+  PAGE_SEO,
   SITE_NAME,
   SITE_URL,
-  STATIC_ROUTES,
+  getLocalizedRoutes,
 } from './prerender/site.js';
 
 function escapeHtmlAttr(str: string): string {
@@ -32,7 +34,8 @@ function escapeHtmlAttr(str: string): string {
  * üretilemiyordu. Varsayılanlar artık sitenin gerçek değerleri.
  */
 process.env.VITE_APP_TITLE ??= process.env.OVERVIEW_TITLE ?? SITE_NAME;
-process.env.VITE_APP_DESCRIPTION ??= process.env.OVERVIEW_DESCRIPTION ?? STATIC_ROUTES[0].description;
+process.env.VITE_APP_DESCRIPTION ??=
+  process.env.OVERVIEW_DESCRIPTION ?? PAGE_SEO[DEFAULT_LANGUAGE].home.description;
 process.env.VITE_SITE_URL ??= SITE_URL;
 process.env.VITE_APP_TITLE = escapeHtmlAttr(process.env.VITE_APP_TITLE);
 process.env.VITE_APP_DESCRIPTION = escapeHtmlAttr(process.env.VITE_APP_DESCRIPTION);
@@ -77,6 +80,11 @@ function ensureBuildOutDir() {
     name: 'ensure-build-out-dir',
     configResolved(config) {
       outDir = path.resolve(config.root, config.build.outDir);
+      // Klasör burada oluşturulmalı: sitemap eklentisi robots.txt'yi
+      // closeBundle aşamasında yazıyor ve prerender'ın ilk geçişinde
+      // writeBundle hiç çalışmadığı için temiz bir klonda ilk build
+      // "ENOENT: dist/robots.txt" ile düşüyordu.
+      fs.mkdirSync(outDir, { recursive: true });
     },
     writeBundle() {
       fs.mkdirSync(outDir, { recursive: true });
@@ -88,13 +96,15 @@ function ensureBuildOutDir() {
 export default defineConfig(({ command }) => {
   const prerenderRoutes = command === 'build' ? getAllPrerenderRoutes() : [];
   // Sitemap eklentisi yolları üretilen HTML'lerden eğik çizgisiz topluyor;
-  // priority anahtarları da o biçimde olmalı.
-  const sitemapPriority: Record<string, number> = Object.fromEntries(
-    [...STATIC_ROUTES, BLOG_INDEX_ROUTE].map((route) => [
-      route.routePath,
-      route.priority,
+  // priority anahtarları da o biçimde olmalı. Türkçe sayfalar tam ağırlıkta,
+  // dil varyantları bir kademe düşük.
+  const sitemapPriority: Record<string, number> = Object.fromEntries([
+    ...getLocalizedRoutes().map((route) => [
+      route.path,
+      route.lang === DEFAULT_LANGUAGE ? route.priority : route.priority - 0.2,
     ]),
-  );
+    [BLOG_INDEX_ROUTE.routePath, BLOG_INDEX_ROUTE.priority],
+  ]);
 
   return {
     plugins: [

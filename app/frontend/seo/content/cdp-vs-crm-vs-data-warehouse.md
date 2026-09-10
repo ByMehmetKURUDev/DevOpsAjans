@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "CDP, CRM ve Veri Ambarı"
 twitter_description: "Hangi ihtiyaçta hangi sistem kullanılmalı?"
 ---
-
-# CDP, CRM ve Veri Ambarı Arasındaki Fark Nedir?
-
 Bu üç sistem sık sık birbirinin alternatifi olarak sunulur; oysa farklı sorunları çözerler. Yanlış eşleştirme, hem gereksiz maliyet hem de çözülmemiş ihtiyaç üretir. Ayrımı netleştirmenin en pratik yolu, her birinin hangi soruyu yanıtladığına bakmaktır.
 
 ## 1. Üç Sistem, Üç Soru

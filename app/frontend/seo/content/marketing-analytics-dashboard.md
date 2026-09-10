@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Pazarlama Analitiği Panosu"
 twitter_description: "Katmanlı raporlama ve doğru metrik seçimi."
 ---
-
-# Pazarlama Analitiği Panosu Nasıl Kurulur?
-
 Çoğu pazarlama panosu bakılmayı bırakır. Nedeni veri eksikliği değil, panonun bir karar sorusuna bağlanmamış olmasıdır. Ekranda otuz metrik varsa hiçbiri önemli değildir. İyi bir pano, "şimdi ne yapmalıyım" sorusunu yanıtlar.
 
 ## 1. Tasarımın Başlangıcı: Karar Sorusu

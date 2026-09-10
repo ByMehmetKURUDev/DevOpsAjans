@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Tasarım Sistemi Nasıl Kurulur?"
 twitter_description: "Tutarlı ve ölçeklenebilir arayüzler için tasarım sistemi kurmak."
 ---
-
-# Tasarım Sistemi Nasıl Kurulur?
-
 Tasarım sistemi, bir ürünün arayüzünü oluşturan kararların tek bir kaynakta toplanmasıdır: renkler, boşluklar, tipografi, bileşenler, davranış kalıpları ve erişilebilirlik standartları. Amaç estetik bir kütüphane üretmek değil; her yeni ekranın tutarlı, hızlı ve doğru biçimde inşa edilmesini sağlamaktır.
 
 Sistem kurulmadığında ortaya çıkan tablo tanıdıktır: on farklı buton stili, birbirine benzemeyen form alanları, her ekranda farklı boşluk değerleri ve her yeni özellikte baştan verilen kararlar.

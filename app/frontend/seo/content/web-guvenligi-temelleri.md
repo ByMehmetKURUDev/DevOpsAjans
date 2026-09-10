@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Web Güvenliği Temelleri"
 twitter_description: "Frontend ve API katmanında uygulanabilir güvenlik önlemleri."
 ---
-
-# Web Güvenliği Temelleri
-
 Web güvenliği, tek bir araçla çözülen bir konu değil; her katmanda alınan kararların toplamıdır. Bu yazı, bir web uygulamasında en sık karşılaşılan saldırı yüzeylerini ve bunlara karşı uygulanabilir önlemleri ele alır. Temel ilke şudur: istemciden gelen hiçbir veri güvenilir değildir ve güvenlik kontrolleri her zaman sunucu tarafında yapılmalıdır.
 
 ## 1. XSS — Cross Site Scripting

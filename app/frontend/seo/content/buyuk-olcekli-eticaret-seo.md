@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Büyük Ölçekli E-Ticaret SEO"
 twitter_description: "Ölçekli e-ticaret sitelerinde teknik SEO ve içerik mimarisi."
 ---
-
-# Büyük Ölçekli E-Ticaret SEO
-
 Binlerce ürünlü bir e-ticaret sitesinde SEO, küçük bir sitedeki çalışmanın büyütülmüş hâli değildir. Ölçek yeni problem sınıfları üretir: filtre kombinasyonlarından doğan sonsuz URL uzayı, tarama bütçesinin değersiz sayfalarda tükenmesi, birbirine çok benzeyen ürün sayfaları, sürekli değişen stok durumu ve şablon düzeyinde yapılan bir hatanın on binlerce sayfayı aynı anda etkilemesi.
 
 ## 1. Kategori Mimarisi

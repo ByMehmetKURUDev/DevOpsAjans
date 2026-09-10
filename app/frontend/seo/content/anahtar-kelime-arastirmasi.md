@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Anahtar Kelime Araştırması Nasıl Yapılır?"
 twitter_description: "Arama amacı, hacim, rekabet ve ticari değer üzerinden önceliklendirme."
 ---
-
-# Anahtar Kelime Araştırması Nasıl Yapılır?
-
 Anahtar kelime araştırması, kullanıcıların hangi ifadelerle hangi ihtiyaçları aradığını belirleyip bunları içerik planına dönüştürme çalışmasıdır. Çıktı bir kelime listesi değildir; hangi sayfanın hangi sorgu kümesini hedeflediğini gösteren bir eşleştirme haritasıdır.
 
 ## 1. Sorgu Havuzunu Oluşturmak

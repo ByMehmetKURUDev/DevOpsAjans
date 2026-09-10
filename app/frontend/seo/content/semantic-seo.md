@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Semantic SEO Nedir?"
 twitter_description: "Kelime eşleşmesinden anlam kapsamına geçiş ve uygulama yöntemi."
 ---
-
-# Semantic SEO Nedir?
-
 Semantic SEO, içeriği tek tek anahtar kelimelere göre değil, konuların ve varlıkların anlamsal ilişkilerine göre planlama yaklaşımıdır. Arama motorları artık yalnızca kelime eşleşmesine bakmaz; sorgunun ne anlama geldiğini, hangi varlıklardan bahsedildiğini ve bir sayfanın konuyu ne kadar bütünlüklü ele aldığını değerlendirir.
 
 ## 1. Kelime Eşleşmesinden Anlam Kapsamına

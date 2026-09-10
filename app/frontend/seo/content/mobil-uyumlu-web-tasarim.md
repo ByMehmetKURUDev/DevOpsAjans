@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Mobil Uyumlu Web Tasarım Nedir?"
 twitter_description: "Responsive tasarımın teknik ve ergonomik gereklilikleri."
 ---
-
-# Mobil Uyumlu Web Tasarım Nedir?
-
 Mobil uyumlu tasarım, sayfanın küçük ekranda küçülerek sığması değildir. İçeriğin, gezinmenin ve etkileşim öğelerinin mobil kullanım koşullarına göre yeniden düzenlenmesidir. Bu koşullar masaüstünden üç açıdan farklıdır: ekran alanı sınırlıdır, giriş yöntemi parmaktır ve bağlantı ile işlem gücü genellikle daha zayıftır.
 
 ## 1. Responsive ve Adaptive Yaklaşım

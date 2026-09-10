@@ -26,6 +26,22 @@
     <title>By Mehmet KURU Dev</title>
     <meta name="author" content="Mehmet KURU" />
 
+    <!--
+      Yazı yönü ilk boyamadan önce ayarlanır. Prerender `<html lang>` değerini
+      yazıyor ama `dir` niteliğini yazamıyor; bu betik olmadan /ar sayfaları
+      React yüklenene kadar soldan sağa görünüp sonra yerine oturuyordu.
+    -->
+    <script>
+      (function () {
+        var rtl = { ar: 1, fa: 1, he: 1, ur: 1 };
+        var seg = location.pathname.split('/')[1];
+        if (rtl[seg]) {
+          document.documentElement.dir = 'rtl';
+          document.documentElement.lang = seg;
+        }
+      })();
+    </script>
+
     <!-- Google Analytics 4 — render-blocking olmaması için ilk etkileşim/idle sonrası yüklenir -->
     <script>
       window.dataLayer = window.dataLayer || [];

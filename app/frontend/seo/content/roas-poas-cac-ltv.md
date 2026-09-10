@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "ROAS, POAS, CAC ve LTV"
 twitter_description: "Pazarlama metriklerini karar odaklı biçimde kullanmak."
 ---
-
-# ROAS, POAS, CAC ve LTV: Pazarlama Metriklerini Doğru Okumak
-
 Pazarlama bütçesi kararları metriklerle alınır; ancak yanlış metriğe bakmak, hiç ölçmemekten daha maliyetli olabilir. Yüksek ROAS gösteren bir kampanya şirketi zarara sürükleyebilir, düşük ROAS'lı bir kampanya en kârlı kanal olabilir. Bu yazı, dört temel metriğin ne söylediğini ve nerede yanılttığını ele alıyor.
 
 ## 1. ROAS — Reklam Harcaması Getirisi

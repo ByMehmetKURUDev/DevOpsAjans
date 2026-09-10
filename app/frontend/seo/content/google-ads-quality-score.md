@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Kalite Puanı Nasıl Yükseltilir?"
 twitter_description: "Reklam alaka düzeyi, tıklama oranı ve açılış sayfası iyileştirmesi."
 ---
-
-# Google Ads Kalite Puanı Nasıl Yükseltilir?
-
 Kalite puanı, aynı bütçeyle daha fazla sonuç almanın en doğrudan yoludur. Yüksek kalite puanı, daha düşük tıklama maliyetiyle daha üst konumda görünmeyi sağlar. Düşük puan ise her tıklamada gereksiz prim ödemek anlamına gelir.
 
 ## 1. Kalite Puanı Nedir, Ne Değildir?

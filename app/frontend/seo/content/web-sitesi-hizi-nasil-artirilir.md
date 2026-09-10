@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Web Sitesi Hızı Nasıl Artırılır?"
 twitter_description: "Görsel, JavaScript, font ve önbellek katmanlarında pratik hız optimizasyonu."
 ---
-
-# Web Sitesi Hızı Nasıl Artırılır?
-
 Site hızı tek bir sayı değildir. Kullanıcı deneyimini belirleyen üç ayrı davranış vardır: ana içeriğin ne zaman göründüğü, düzenin oturma sırasında kayıp kaymadığı ve etkileşimlere ne kadar hızlı yanıt verildiği. Bu üçü Core Web Vitals metrikleriyle ölçülür ve her biri farklı yöntemlerle iyileştirilir.
 
 ## 1. Ölçmeden Optimize Etmeyin

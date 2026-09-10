@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SEO Log Analizi Nedir?"
 twitter_description: "Log verisiyle tarama bütçesi ve teknik hata teşhisi."
 ---
-
-# SEO Log Analizi Nedir?
-
 SEO log analizi, web sunucusunun tuttuğu erişim kayıtlarını inceleyerek arama motoru botlarının siteyle gerçekte nasıl etkileşim kurduğunu anlama çalışmasıdır. Tarama araçları sitenin nasıl taranabileceğini simüle eder; log verisi ise gerçekte ne olduğunu gösterir. Bu nedenle log analizi teknik SEO'da doğrulayıcı kaynaktır.
 
 ## 1. Log Verisi Ne İçerir?

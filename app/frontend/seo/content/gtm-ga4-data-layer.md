@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Data Layer Tasarımı"
 twitter_description: "GTM ve GA4 için sürdürülebilir veri katmanı şeması."
 ---
-
-# GTM ve GA4 için Data Layer Tasarımı
-
 Data layer, web sitesi ile ölçüm araçları arasındaki sözleşmedir. Doğru tasarlandığında ölçüm araçları site kodundan bağımsız hâle gelir; yanlış tasarlandığında her yeni ölçüm ihtiyacı geliştirici müdahalesi gerektirir ve veri tutarsızlaşır.
 
 ## 1. Data Layer Nedir?

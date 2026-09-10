@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Code2, Rocket, Target, Paintbrush, Globe, Zap, Shield, Crown, Server } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import { useSiteSettings } from '@/lib/siteSettings';
+import { DEFAULT_SETTINGS, useSiteSettings } from '@/lib/siteSettings';
 
 const TECH = [
   'React', 'Next.js', 'TypeScript', 'Node.js', 'Python',
@@ -12,8 +12,28 @@ const TECH = [
 ];
 
 export default function Index() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { settings } = useSiteSettings();
+
+  /**
+   * Hero metni.
+   *
+   * Başlık, alt başlık ve buton yazısı yalnızca `settings`ten geliyordu; o
+   * alanlar tek dilli olduğu için site yedi dilde açılsa da hero Türkçe
+   * kalıyordu — sayfanın en görünür parçası hiç çevrilmiyordu. Artık
+   * varsayılan çeviriden geliyor; panelde Türkçe için değiştirilmiş bir
+   * değer varsa yalnızca Türkçede onu kullanıyoruz.
+   */
+  const isDefaultLanguage = i18n.language === 'tr';
+  const panelHero = (key: 'hero_title' | 'hero_subtitle' | 'hero_cta') => {
+    if (!isDefaultLanguage) return '';
+    const value = settings[key]?.trim() ?? '';
+    return value && value !== DEFAULT_SETTINGS[key] ? value : '';
+  };
+
+  const heroTitle = panelHero('hero_title') || t('hero.mainTitle');
+  const heroSubtitle = panelHero('hero_subtitle') || t('hero.mainSubtitle');
+  const heroCta = panelHero('hero_cta') || t('hero.mainCta');
 
   const STATS = [
     { value: '41+', label: t('stats.projects') },
@@ -94,7 +114,7 @@ export default function Index() {
         <div className="hero-glow hero-glow-a" aria-hidden="true" />
         <div className="hero-glow hero-glow-b" aria-hidden="true" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-40 md:pt-36 md:pb-44">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-60 md:pt-36 md:pb-44">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-6">
               <span className="relative flex h-2 w-2">
@@ -106,11 +126,11 @@ export default function Index() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.06] mb-8">
-              <span className="gradient-text">{settings.hero_title}</span>
+              <span className="gradient-text">{heroTitle}</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-10">
-              {settings.hero_subtitle}
+              {heroSubtitle}
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -119,7 +139,7 @@ export default function Index() {
                   size="lg"
                   className="bg-gradient-to-r from-[#8b3dff] to-[#5c27a3] hover:from-[#9b5dff] hover:to-[#7b3dc3] text-white border-0 h-12 px-6 gap-2"
                 >
-                  {settings.hero_cta} <ArrowRight className="h-4 w-4" />
+                  {heroCta} <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/portfolio">
@@ -135,7 +155,15 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Bottom stats strip */}
+        {/*
+          İstatistik şeridi hero'nun altına sabitlenir.
+
+          Mobilde iki satıra düşüyor ve hero'nun eski alt boşluğuna (pb-40)
+          sığmadığı için çağrı butonlarının üzerine biniyordu. Şerit mutlak
+          konumunu koruyor; yer açan şey hero'nun mobil alt boşluğu.
+          Not: hero `flex` olduğundan şeridi akışa almak onu yan sütuna
+          çevirir — çözüm boşluk, akış değil.
+        */}
         <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-background/70">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4">
             {STATS.map((s) => (

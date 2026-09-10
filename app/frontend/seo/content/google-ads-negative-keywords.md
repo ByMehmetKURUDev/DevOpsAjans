@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Negatif Anahtar Kelime Yönetimi"
 twitter_description: "Arama terimi analizi ve negatif liste stratejisi."
 ---
-
-# Google Ads Negatif Anahtar Kelime Yönetimi
-
 Reklam hesaplarında bütçe kaybının en yaygın nedeni yüksek tıklama maliyeti değil, alakasız aramalara para harcamaktır. Negatif anahtar kelime yönetimi, en az çabayla en yüksek getiriyi sağlayan optimizasyon işidir ve çoğu hesapta ihmal edilir.
 
 ## 1. Negatif Anahtar Kelime Nedir?

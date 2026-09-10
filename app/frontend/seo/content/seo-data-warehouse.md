@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SEO Data Warehouse Nedir?"
 twitter_description: "Katmanlı veri modeli, boyut tabloları ve maliyet yönetimi."
 ---
-
-# SEO Data Warehouse Nedir?
-
 SEO data warehouse, arama performansı, site davranışı, teknik tarama, log ve iş verisinin tek bir analitik depoda birleştirilmesidir. Ayrı arayüzlerde duran veriler ancak birleştirildiğinde anlamlı sorulara cevap verir: hangi konu kümesi gerçekten gelir üretiyor, teknik düzeltmeler hangi sayfa grubunda etki yaptı, tarama bütçesi değerli sayfalara mı gidiyor.
 
 ## 1. Neden Ayrı Bir Ambar Gerekir?

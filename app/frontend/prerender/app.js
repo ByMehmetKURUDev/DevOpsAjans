@@ -5,7 +5,15 @@ import { StaticRouter } from 'react-router-dom/server';
 import { I18nextProvider } from 'react-i18next';
 
 import i18n from '../src/i18n';
+import en from '../src/i18n/en.json';
+import de from '../src/i18n/de.json';
+import ar from '../src/i18n/ar.json';
+import ru from '../src/i18n/ru.json';
+import zh from '../src/i18n/zh.json';
+import hi from '../src/i18n/hi.json';
+
 import Layout from '../src/components/Layout';
+import LanguageGate from '../src/components/LanguageGate';
 import Index from '../src/pages/Index';
 import Services from '../src/pages/Services';
 import Portfolio from '../src/pages/Portfolio';
@@ -15,19 +23,33 @@ import BlogPostPage from '../src/pages/blog/BlogPostPage';
 import { getBlogPost, getPostSeoMeta } from '../src/lib/blog';
 import {
   BLOG_INDEX_ROUTE,
+  DEFAULT_LANGUAGE,
   ORGANIZATION_JSONLD,
-  SITE_LANG,
-  SITE_LOCALE,
+  PAGE_SEO,
   SITE_NAME,
   SITE_OG_IMAGE,
-  STATIC_ROUTES,
   absoluteUrl,
+  canonicalPathFor,
+  getLanguage,
+  localizedPath,
+  resolveRoute,
 } from './site.js';
 
 const h = React.createElement;
 
 /**
- * Statik sayfalar burada lazy() olmadan kuruluyor: renderToString Suspense'i
+ * Diğer dillerin paketleri istemcide talep üzerine iniyor; prerender
+ * senkron çalıştığı için hepsi burada baştan yükleniyor.
+ */
+const BUNDLES = { en, de, ar, ru, zh, hi };
+for (const [code, resources] of Object.entries(BUNDLES)) {
+  if (!i18n.hasResourceBundle(code, 'translation')) {
+    i18n.addResourceBundle(code, 'translation', resources, true, true);
+  }
+}
+
+/**
+ * Sayfalar burada lazy() olmadan kuruluyor: renderToString Suspense'i
  * bekleyemediği için lazy bileşenler sunucuda yalnızca yükleme animasyonunu
  * basardı. İstemci tarafı (App.tsx) lazy yüklemeyi korumaya devam ediyor.
  *
@@ -55,21 +77,22 @@ function renderApp(url) {
             h(Route, { path: '/blog', element: h(BlogIndexPage, null) }),
             h(Route, { path: '/blog/:slug', element: h(BlogPostPage, null) }),
           ),
+          h(
+            Route,
+            { path: '/:lang', element: h(LanguageGate, null) },
+            h(Route, { index: true, element: h(Index, null) }),
+            h(Route, { path: 'services', element: h(Services, null) }),
+            h(Route, { path: 'portfolio', element: h(Portfolio, null) }),
+            h(Route, { path: 'contact', element: h(Contact, null) }),
+          ),
         ),
       ),
     ),
   );
 }
 
-/** URL'i sondaki eğik çizgiden bağımsız normalize eder. */
-function normalizePath(url) {
-  const path = url.split('?')[0].split('#')[0];
-  const trimmed = path.replace(/\/+$/, '');
-  return trimmed === '' ? '/' : trimmed;
-}
-
 function getBlogSlug(url) {
-  const path = normalizePath(url);
+  const path = canonicalPathFor(url.split('?')[0].split('#')[0]);
   if (!path.startsWith('/blog')) return null;
   const slug = path.slice('/blog'.length).replace(/^\/+/, '');
   return slug || null;
@@ -80,17 +103,60 @@ function meta(attribute, key, value) {
   return { type: 'meta', props: { [attribute]: key, content: value } };
 }
 
+function jsonLd(data) {
+  return {
+    type: 'script',
+    props: { type: 'application/ld+json', children: JSON.stringify(data) },
+  };
+}
+
 /**
- * Her sayfa için eksiksiz bir `<head>` üretir.
+ * hreflang bağlantıları.
  *
- * Bu etiketlerin hiçbiri artık `index.html` içinde durmuyor: prerender
- * eklentisi head'e ekleme yapıyor, var olanı değiştirmiyor. Sabit etiketler
- * orada kalsaydı her sayfada ana sayfanın canonical'ı ve og etiketleri
- * ikinci bir kopya olarak kalırdı — canlıdaki hatanın kaynağı buydu.
+ * Yalnızca gerçekten var olan çeviriler için üretiliyor. Önceki hâlinde
+ * Layout her sayfaya yedi dil için `?lang=xx` alternatifi basıyordu; o
+ * adreslerin hepsi aynı HTML'i döndürdüğü için Google'a 63 sayfanın yedi
+ * kopyası bildiriliyordu. Blog Türkçe olduğundan blog sayfalarına yalnızca
+ * kendine gönderen tek bir tr alternatifi konuyor.
  */
-function buildHead({ title, description, canonicalPath, ogType, image, extra = [], noindex = false }) {
+function hreflangElements(pageKey) {
+  if (!pageKey) return [];
+
+  const links = [];
+  for (const code of Object.keys(PAGE_SEO)) {
+    links.push({
+      type: 'link',
+      props: {
+        rel: 'alternate',
+        hreflang: getLanguage(code).htmlLang,
+        href: absoluteUrl(localizedPath(code, pageKey)),
+      },
+    });
+  }
+  links.push({
+    type: 'link',
+    props: {
+      rel: 'alternate',
+      hreflang: 'x-default',
+      href: absoluteUrl(localizedPath(DEFAULT_LANGUAGE, pageKey)),
+    },
+  });
+  return links;
+}
+
+function buildHead({
+  title,
+  description,
+  canonicalPath,
+  ogType,
+  lang,
+  image,
+  extra = [],
+  noindex = false,
+}) {
   const canonical = absoluteUrl(canonicalPath);
   const ogImage = image || SITE_OG_IMAGE;
+  const language = getLanguage(lang);
 
   const elements = [
     { type: 'link', props: { rel: 'canonical', href: canonical } },
@@ -101,7 +167,7 @@ function buildHead({ title, description, canonicalPath, ogType, image, extra = [
     meta('property', 'og:url', canonical),
     meta('property', 'og:type', ogType),
     meta('property', 'og:site_name', SITE_NAME),
-    meta('property', 'og:locale', SITE_LOCALE),
+    meta('property', 'og:locale', language.locale),
     meta('property', 'og:image', ogImage),
     meta('name', 'twitter:card', 'summary_large_image'),
     meta('name', 'twitter:title', title),
@@ -110,18 +176,10 @@ function buildHead({ title, description, canonicalPath, ogType, image, extra = [
     ...extra,
   ].filter(Boolean);
 
-  return { title, lang: SITE_LANG, elements: new Set(elements) };
-}
-
-function jsonLd(data) {
-  return {
-    type: 'script',
-    props: { type: 'application/ld+json', children: JSON.stringify(data) },
-  };
+  return { title, lang: language.htmlLang, elements: new Set(elements) };
 }
 
 function getHead(url) {
-  const path = normalizePath(url);
   const slug = getBlogSlug(url);
 
   // Tekil blog yazısı — meta verisi markdown frontmatter'ından geliyor.
@@ -131,65 +189,79 @@ function getHead(url) {
       return buildHead({
         title: `Sayfa bulunamadı | ${SITE_NAME}`,
         description: 'Aradığınız yazı bulunamadı.',
-        canonicalPath: '/blog/',
+        canonicalPath: '/blog',
         ogType: 'website',
+        lang: DEFAULT_LANGUAGE,
         noindex: true,
       });
     }
 
     const seo = getPostSeoMeta(post);
-    const extra = [
-      meta('name', 'keywords', seo.keywords),
-      meta('property', 'article:published_time', seo.publishedTime),
-      ...(seo.tags ?? []).map((tag) => meta('property', 'article:tag', tag)),
-    ].filter(Boolean);
-
     return buildHead({
       title: seo.title,
       description: seo.description,
-      canonicalPath: `/blog/${post.slug}/`,
+      canonicalPath: `/blog/${post.slug}`,
       ogType: 'article',
+      lang: DEFAULT_LANGUAGE,
       image: seo.ogImage,
-      extra,
+      extra: [
+        meta('name', 'keywords', seo.keywords),
+        meta('property', 'article:published_time', seo.publishedTime),
+        ...(seo.tags ?? []).map((tag) => meta('property', 'article:tag', tag)),
+      ].filter(Boolean),
     });
   }
 
-  // Blog dizini.
-  if (path === '/blog') {
+  const { lang, pageKey, path } = resolveRoute(url);
+
+  // Blog dizini — yalnızca Türkçe.
+  if (path === BLOG_INDEX_ROUTE.routePath) {
     return buildHead({
       title: BLOG_INDEX_ROUTE.title,
       description: BLOG_INDEX_ROUTE.description,
-      canonicalPath: BLOG_INDEX_ROUTE.path,
+      canonicalPath: BLOG_INDEX_ROUTE.routePath,
       ogType: 'website',
+      lang: DEFAULT_LANGUAGE,
     });
   }
 
-  // Statik sayfalar.
-  const route = STATIC_ROUTES.find((entry) => entry.routePath === path);
-  if (route) {
+  // Çok dilli statik sayfalar.
+  if (pageKey) {
+    const seo = PAGE_SEO[lang][pageKey];
     return buildHead({
-      title: route.title,
-      description: route.description,
-      canonicalPath: route.path,
+      title: seo.title,
+      description: seo.description,
+      canonicalPath: localizedPath(lang, pageKey),
       ogType: 'website',
-      // Yapısal veri yalnızca ana sayfada; aksi hâlde her yazı kendini
-      // "profesyonel hizmet" sayfası ilan ediyordu.
-      extra: route.routePath === '/' ? [jsonLd(ORGANIZATION_JSONLD)] : [],
+      lang,
+      extra: [
+        ...hreflangElements(pageKey),
+        // Yapısal veri yalnızca Türkçe ana sayfada; aksi hâlde her sayfa
+        // kendini ayrı bir "profesyonel hizmet" kaydı olarak bildiriyordu.
+        ...(pageKey === 'home' && lang === DEFAULT_LANGUAGE ? [jsonLd(ORGANIZATION_JSONLD)] : []),
+      ],
     });
   }
 
   return buildHead({
-    title: `${SITE_NAME}`,
-    description: STATIC_ROUTES[0].description,
-    canonicalPath: path === '/' ? '/' : `${path}/`,
+    title: SITE_NAME,
+    description: PAGE_SEO[DEFAULT_LANGUAGE].home.description,
+    canonicalPath: path,
     ogType: 'website',
+    lang: DEFAULT_LANGUAGE,
     noindex: true,
   });
 }
 
 export async function prerender({ url }) {
-  const html = renderApp(url);
+  const { lang } = resolveRoute(url);
   const slug = getBlogSlug(url);
+  const isBlog = canonicalPathFor(url).startsWith('/blog');
+
+  // Blog Türkçe; statik sayfalar kendi dilinde render edilir.
+  await i18n.changeLanguage(isBlog ? DEFAULT_LANGUAGE : lang);
+
+  const html = renderApp(url);
   const is404 = Boolean(slug) && !getBlogPost(slug);
 
   return {

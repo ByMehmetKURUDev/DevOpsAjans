@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SEO İş Akışı Nasıl Kurulur?"
 twitter_description: "Roller, önceliklendirme ve kalite kapılarıyla SEO süreç tasarımı."
 ---
-
-# SEO İş Akışı Nasıl Kurulur?
-
 SEO'da başarısızlığın en yaygın nedeni bilgi eksikliği değil, süreç eksikliğidir. Yapılacaklar listesi uzar, öncelik belirsizleşir, üretilen içerik yayına geç çıkar, teknik istekler geliştirme kuyruğunda bekler ve sonuç ölçülmediği için hangi çalışmanın işe yaradığı bilinmez. Kurumsal bir SEO operasyonu, altı aşamalı tekrarlanabilir bir döngü üzerine kurulur.
 
 ## 1. Keşif

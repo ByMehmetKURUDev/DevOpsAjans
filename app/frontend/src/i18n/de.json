@@ -24,7 +24,10 @@
     "titleItalic": "Marken.",
     "desc": "Eine Boutique-Entwicklungs- und Digitalagentur von Mehmet KURU. Maßgeschneiderte Web-, Mobil- und Marketingsysteme für Teams, die sich weigern, wie alle anderen auszusehen.",
     "cta": "Projekt starten",
-    "ctaSecondary": "Unsere Arbeit"
+    "ctaSecondary": "Unsere Arbeit",
+    "mainTitle": "Wir machen aus Ihren digitalen Ideen skalierbare Produkte",
+    "mainSubtitle": "Website-, E-Commerce-, SaaS- und App-Entwicklung — Design, Code und Wachstum aus einer Hand.",
+    "mainCta": "Kostenloses Erstgespräch"
   },
   "stats": {
     "projects": "Gelieferte Projekte",

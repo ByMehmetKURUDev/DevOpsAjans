@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Görsel Optimizasyonu"
 twitter_description: "Web görsellerini doğru format, boyut ve yükleme stratejisiyle sunmak."
 ---
-
-# Görsel Optimizasyonu: Web Performansı İçin Görsel Stratejisi
-
 Tipik bir web sayfasında transfer edilen verinin en büyük kalemi görsellerdir. Bu nedenle görsel optimizasyonu, performans çalışmasında en yüksek getirili müdahale alanıdır. Doğru yapıldığında sayfa boyutu birkaç kat küçülür, LCP metriği belirgin biçimde iyileşir ve düzen kaymaları ortadan kalkar.
 
 ## 1. Format Seçimi

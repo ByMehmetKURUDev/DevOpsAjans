@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Google Ads Dönüşüm İzleme"
 twitter_description: "Dönüşüm izleme kurulumu, değer sinyali ve doğrulama."
 ---
-
-# Google Ads Dönüşüm İzleme: GA4 ile Doğru Kurulum
-
 Dönüşüm izleme, reklam hesabının en kritik altyapısıdır. Yanlış kurulmuş bir dönüşüm yapısı, yalnızca raporları bozmakla kalmaz; otomatik teklif stratejilerini yanlış hedefe yönlendirdiği için doğrudan bütçe kaybına yol açar. Bu nedenle kampanya açmadan önce yapılması gereken iş budur.
 
 ## 1. İki Kurulum Yolu

@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Crawling ve Indexing Nedir?"
 twitter_description: "Tarama bütçesi, indeksleme kontrolü ve teşhis yöntemleri."
 ---
-
-# Crawling ve Indexing Nedir?
-
 Arama görünürlüğünün ilk iki koşulu taranmak ve indekslenmektir. Bir sayfa taranmazsa içeriği bilinmez; indekslenmezse sorgu sonuçlarında yer alamaz. Bu nedenle içerik ve bağlantı çalışmalarından önce bu iki katmanın sağlıklı olduğundan emin olunmalıdır.
 
 ## 1. Crawling (Tarama)

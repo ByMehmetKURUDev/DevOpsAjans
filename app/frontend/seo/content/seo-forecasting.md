@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SEO Forecasting Nedir?"
 twitter_description: "Temel çizgi, potansiyel ve senaryo modeliyle SEO tahminleme."
 ---
-
-# SEO Forecasting Nedir?
-
 SEO forecasting, planlanan SEO çalışmalarının organik trafik, dönüşüm ve gelir üzerindeki olası etkisini sayısal olarak modelleme çalışmasıdır. Amaç kesin bir gelecek bildirmek değil; bütçe kararlarını, kaynak dağılımını ve öncelik sırasını gerekçelendirilebilir hale getirmektir. İyi bir tahmin tek bir sayı değil, varsayımları açık bir senaryo aralığıdır.
 
 ## 1. Temel Çizgi (Baseline) Belirleme

@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Core Web Vitals Nedir?"
 twitter_description: "Üç temel performans metriğini ölçme ve iyileştirme rehberi."
 ---
-
-# Core Web Vitals Nedir?
-
 Core Web Vitals, bir sayfanın kullanıcı deneyimini üç ölçülebilir davranış üzerinden değerlendiren metrik kümesidir: ana içerik ne zaman göründü, düzen yüklenirken kayıp kaydı ve etkileşimlere ne kadar hızlı yanıt verildi. Bu üç metrik farklı kök nedenlere sahiptir; bu nedenle her biri ayrı yöntemlerle iyileştirilir.
 
 ## 1. LCP — Largest Contentful Paint

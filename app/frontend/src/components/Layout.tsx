@@ -1,10 +1,10 @@
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
-import { useSiteSettings, isAdminUser } from '@/lib/siteSettings';
+import { DEFAULT_SETTINGS, useSiteSettings, isAdminUser } from '@/lib/siteSettings';
 import {
   SUPPORTED_LANGUAGES as LANGUAGES,
   getLanguageMeta,
@@ -12,24 +12,41 @@ import {
 } from '@/i18n';
 // Sayfa meta verilerinin tek kaynağı. Bu dosya bağımlılığı olmayan düz JS
 // olduğu için hem vite.config (Node) hem prerender hem de istemci okuyabiliyor.
-import { BLOG_INDEX_ROUTE, SITE_NAME, SITE_URL, STATIC_ROUTES } from '../../prerender/site.js';
-
-
-const ROUTE_META = [...STATIC_ROUTES, BLOG_INDEX_ROUTE];
-
-/** Sondaki eğik çizgiyi atarak route yolunu normalize eder. */
-function normalizeRoutePath(pathname: string): string {
-  const trimmed = pathname.replace(/\/+$/, '');
-  return trimmed === '' ? '/' : trimmed;
-}
+import {
+  BLOG_INDEX_ROUTE,
+  DEFAULT_LANGUAGE,
+  LANGUAGE_CODES,
+  PAGE_SEO,
+  SITE_NAME,
+  SITE_URL,
+  canonicalPathFor as normalizeRoutePath,
+  getLanguage as getSiteLanguage,
+  localizedPath,
+  resolveRoute,
+} from '../../prerender/site.js';
 
 /** `/blog/<slug>` biçimindeki tekil yazı yolu mu? */
 function isBlogPostPath(path: string): boolean {
   return path.startsWith('/blog/') && path.length > '/blog/'.length;
 }
 
+/** Yola karşılık gelen başlık/açıklama kaydı. */
 function getRouteMeta(path: string) {
-  return ROUTE_META.find((route) => route.routePath === path);
+  if (path === BLOG_INDEX_ROUTE.routePath) {
+    return {
+      pageKey: null as string | null,
+      title: BLOG_INDEX_ROUTE.title,
+      description: BLOG_INDEX_ROUTE.description,
+    };
+  }
+
+  const { lang, pageKey } = resolveRoute(path);
+  if (!pageKey) return undefined;
+
+  const seo = PAGE_SEO[lang]?.[pageKey];
+  return seo
+    ? { pageKey: pageKey as string | null, title: seo.title, description: seo.description }
+    : undefined;
 }
 
 const SOCIAL_ICONS: { key: string; label: string; path: string }[] = [
@@ -82,13 +99,16 @@ export default function Layout() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
 
+  // Gezinme bağlantıları aktif dilin ön ekini taşır; blog yalnızca Türkçe.
+  const activeLang = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : DEFAULT_LANGUAGE;
   const NAV_LINKS = [
-    { to: '/', label: t('nav.home') },
-    { to: '/services', label: t('nav.services') },
-    { to: '/portfolio', label: t('nav.portfolio') },
-    { to: '/blog', label: t('nav.blog') },
-    { to: '/contact', label: t('nav.contact') },
+    { to: localizedPath(activeLang, 'home'), label: t('nav.home') },
+    { to: localizedPath(activeLang, 'services'), label: t('nav.services') },
+    { to: localizedPath(activeLang, 'portfolio'), label: t('nav.portfolio') },
+    { to: BLOG_INDEX_ROUTE.routePath, label: t('nav.blog') },
+    { to: localizedPath(activeLang, 'contact'), label: t('nav.contact') },
   ];
 
   useEffect(() => {
@@ -123,9 +143,24 @@ export default function Layout() {
     }
   };
 
+  /**
+   * Dil değişimi artık URL'i de değiştiriyor.
+   *
+   * Çevirisi olan bir sayfadaysak o dilin gerçek adresine gidilir
+   * (`/services` → `/de/services`); böylece seçilen dil paylaşılabilir ve
+   * arama motorunun indekslediği adresle aynı olur. Blog Türkçe olduğu için
+   * orada yalnızca arayüz dili değişir, adres olduğu gibi kalır.
+   */
   const switchLang = (code: string) => {
-    void changeAppLanguage(code);
     setLangOpen(false);
+    const { pageKey } = resolveRoute(location.pathname);
+
+    if (pageKey) {
+      navigate(localizedPath(code, pageKey));
+      return;
+    }
+
+    void changeAppLanguage(code);
   };
 
   const currentLang = getLanguageMeta(i18n.language);
@@ -147,8 +182,28 @@ export default function Layout() {
     if (isBlogPostPath(currentPath)) return;
 
     const routeMeta = getRouteMeta(currentPath);
-    const title = routeMeta?.title || settings.seo_meta_title || SITE_NAME;
-    const description = routeMeta?.description || settings.seo_meta_description || '';
+
+    // Kod tek doğruluk kaynağı — prerender'ın ürettiği, yani Google'ın
+    // gördüğü metin `prerender/site.js`ten geliyor. Paneldeki SEO alanları
+    // doldurulduğunda yalnızca ziyaretçi tarafında ve yalnızca Türkçe ana
+    // sayfada bunu geçersiz kılar. Arama motorunun gördüğü metni değiştirmek
+    // için site.js düzenlenip yeniden yayınlanmalı.
+    // Yalnızca panelde gerçekten değiştirilmiş bir değer geçersiz kılabilir.
+    // DEFAULT_SETTINGS ile aynı olan değer "panelden gelmiş" sayılmaz; aksi
+    // hâlde yedek başlık ("Mehmet KURU Dev") her seferinde kazanıyor ve
+    // prerender'ın ürettiği doğru başlığı hidrasyonda eziyordu.
+    const isTurkishHome = currentPath === '/';
+    const panelOverride = (key: 'seo_meta_title' | 'seo_meta_description') => {
+      if (!isTurkishHome) return '';
+      const value = settings[key]?.trim() ?? '';
+      return value && value !== DEFAULT_SETTINGS[key] ? value : '';
+    };
+
+    const panelTitle = panelOverride('seo_meta_title');
+    const panelDescription = panelOverride('seo_meta_description');
+
+    const title = panelTitle || routeMeta?.title || SITE_NAME;
+    const description = panelDescription || routeMeta?.description || '';
     document.title = title;
 
     const upsertMeta = (selector: string, attrs: Record<string, string>) => {
@@ -161,8 +216,7 @@ export default function Layout() {
     };
 
     // Canonical: SPA gezinmesinde de doğru adresi göstermesi gerekiyor.
-    const canonicalPath =
-      routeMeta?.path ?? (currentPath === '/' ? '/' : `${currentPath}/`);
+    const canonicalPath = currentPath;
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!canonical) {
       canonical = document.createElement('link');
@@ -187,21 +241,40 @@ export default function Layout() {
       content: description,
     });
 
-    // hreflang: her dil için ?lang=<code> varyantı
+    /*
+     * hreflang.
+     *
+     * Önceki hâli her sayfaya yedi dil için `?lang=xx` alternatifi
+     * basıyordu; o adreslerin hepsi aynı HTML'i döndürdüğü için Google'a
+     * her sayfanın yedi kopyası bildiriliyordu. Artık alternatifler
+     * yalnızca gerçekten çevirisi olan sayfalar için, gerçek `/en/...`
+     * adresleriyle üretiliyor. Blog Türkçe olduğundan orada hiç yok.
+     */
     document.head
       .querySelectorAll('link[data-i18n-hreflang="true"]')
       .forEach((el) => el.remove());
-    const origin = window.location.origin;
-    const path = window.location.pathname;
-    [...LANGUAGES.map((l) => l.htmlLang), 'x-default'].forEach((code, idx) => {
-      const link = document.createElement('link');
-      link.setAttribute('rel', 'alternate');
-      link.setAttribute('hreflang', code);
-      link.setAttribute('data-i18n-hreflang', 'true');
-      const langCode = idx < LANGUAGES.length ? LANGUAGES[idx].code : 'tr';
-      link.setAttribute('href', `${origin}${path}?lang=${langCode}`);
-      document.head.appendChild(link);
-    });
+
+    if (routeMeta?.pageKey) {
+      const alternates = [
+        ...LANGUAGE_CODES.map((code) => ({
+          hreflang: getSiteLanguage(code).htmlLang,
+          href: `${SITE_URL}${localizedPath(code, routeMeta.pageKey)}`,
+        })),
+        {
+          hreflang: 'x-default',
+          href: `${SITE_URL}${localizedPath(DEFAULT_LANGUAGE, routeMeta.pageKey)}`,
+        },
+      ];
+
+      for (const alternate of alternates) {
+        const link = document.createElement('link');
+        link.setAttribute('rel', 'alternate');
+        link.setAttribute('hreflang', alternate.hreflang);
+        link.setAttribute('data-i18n-hreflang', 'true');
+        link.setAttribute('href', alternate.href);
+        document.head.appendChild(link);
+      }
+    }
   }, [
     settings.seo_meta_title,
     settings.seo_meta_description,

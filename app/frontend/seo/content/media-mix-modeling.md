@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Medya Karması Modelleme"
 twitter_description: "MMM'nin girdileri, sınırları ve kullanım alanı."
 ---
-
-# Medya Karması Modelleme (MMM) Nedir?
-
 Medya karması modelleme, toplam satışı açıklamak için pazarlama harcamalarını ve dış faktörleri istatistiksel olarak modelleyen yöntemdir. Kullanıcı düzeyinde takip gerektirmez; toplu (agrega) veriyle çalışır. Bu özelliği, gizlilik kısıtlarının arttığı dönemde yeniden önem kazanmasının nedenidir.
 
 ## 1. Hangi Soruyu Yanıtlar?

@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Müşteri Yolculuğu Analitiği"
 twitter_description: "Huni, kohort ve kanal geçişi analizleri."
 ---
-
-# Müşteri Yolculuğu Analitiği (Customer Journey Analytics)
-
 Tek tek sayfa metriklerine bakmak, kullanıcının neden satın almadığını açıklamaz. Müşteri yolculuğu analitiği, temas noktalarını sıralı bir bütün olarak inceleyerek sürtünmenin nerede oluştuğunu ve hangi müdahalenin gerçekten fark yaratacağını gösterir.
 
 ## 1. Neyi Farklı Yapar?

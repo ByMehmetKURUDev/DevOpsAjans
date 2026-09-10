@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SEO Veri Analitiği"
 twitter_description: "Karar üreten SEO raporlaması nasıl kurulur?"
 ---
-
-# SEO Veri Analitiği: Organik Performansı Doğru Okumak
-
 SEO raporlarının çoğu veri gösterir ama karar üretmez. Toplam organik oturum grafiği yukarı gidiyorsa iyi, aşağı gidiyorsa kötü kabul edilir; oysa toplam sayı içindeki hareketler birbirini gizler. Marka trafiği artarken hizmet sayfaları düşebilir, mobil düşerken masaüstü büyüyebilir. Analitik çalışmasının işi bu hareketleri ayrıştırıp neden sorusuna cevap üretmektir.
 
 ## 1. Toplam Sayı Yerine Segment

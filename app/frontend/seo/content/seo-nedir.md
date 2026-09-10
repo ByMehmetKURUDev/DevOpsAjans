@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SEO Nedir? Kapsamlı SEO Rehberi"
 twitter_description: "SEO'nun çalışma mantığı ve uygulanabilir bir yol haritası."
 ---
-
-# SEO Nedir? Google'da Üst Sıralara Çıkmak İçin Kapsamlı SEO Rehberi
-
 SEO (Search Engine Optimization / Arama Motoru Optimizasyonu), bir web sitesinin arama motorlarında ilgili sorgular için görünürlüğünü artırma çalışmasıdır. Amaç yalnızca sıralama değildir; doğru kullanıcıyı doğru sayfaya getirip iş sonucu üretmektir. Sıralamayı hedefleyip dönüşümü ölçmeyen bir SEO çalışması eksiktir.
 
 ## 1. Arama Motoru Nasıl Çalışır?

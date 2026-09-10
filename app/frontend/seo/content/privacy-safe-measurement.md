@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Gizlilik Odaklı Ölçüm"
 twitter_description: "Rıza, minimizasyon ve toplu ölçüm yöntemleri."
 ---
-
-# Gizlilik Odaklı Ölçüm (Privacy-Safe Measurement)
-
 Kullanıcı düzeyinde takibin kısıtlandığı bir dönemde ölçümün hedefi değişti: artık amaç her kullanıcıyı izlemek değil, doğru kararı verecek kadar güvenilir sinyal üretmek. Bu, ölçümün zayıflaması anlamına gelmez; farklı bir mimari gerektirir.
 
 ## 1. Değişen Koşullar

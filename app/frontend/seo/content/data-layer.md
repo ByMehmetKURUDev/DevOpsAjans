@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Data Layer Nedir?"
 twitter_description: "Veri katmanı mimarisi ve olay sözleşmesi."
 ---
-
-# Data Layer Nedir? Web Ölçümünün Temel Katmanı
-
 Ölçüm sorunlarının büyük bölümü araç seçiminden değil, veri katmanının olmayışından kaynaklanır. Data layer, sitenin ne olduğunu ölçüm araçlarına anlatan ortak dildir. Bu katman yoksa her ölçüm ihtiyacı ayrı bir el işi, her arayüz değişikliği potansiyel bir veri kaybıdır.
 
 ## 1. Sorunun Kaynağı

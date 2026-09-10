@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Anahtar Kelime Araştırması"
 twitter_description: "Reklam kampanyaları için niyet odaklı kelime seçimi."
 ---
-
-# Google Ads Anahtar Kelime Araştırması Nasıl Yapılır?
-
 Anahtar kelime araştırması, arama hacmi listesi çıkarmak değildir. Amaç, satın almaya yakın niyeti bulmak ve bütçeyi bu niyete yöneltmektir. Yüksek hacimli ama niyeti zayıf kelimelerle kurulmuş bir hesap, çok tıklama alır ama az sonuç üretir.
 
 ## 1. Başlangıç: İş Gerçeğinden Çıkmak

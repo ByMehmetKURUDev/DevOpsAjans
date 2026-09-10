@@ -9,6 +9,7 @@ import Index from './pages/Index';
 // Hafif 404 sayfası: platform eklentisinin ~366 kB'lık varsayılan 404 modülünü
 // ana bundle'a enjekte etmesini engeller.
 import NotFoundPage from './pages/NotFoundPage';
+import LanguageGate from './components/LanguageGate';
 
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthError = lazy(() => import('./pages/AuthError'));
@@ -31,6 +32,7 @@ const PageLoader = () => (
 const AppRoutes = () => (
   <Suspense fallback={<PageLoader />}>
     <Routes>
+      {/* Türkçe kökte, ön eksiz. Blog yalnızca Türkçe yayımlanıyor. */}
       <Route element={<Layout />}>
         <Route path="/" element={<Index />} />
         <Route path="/services" element={<Services />} />
@@ -42,6 +44,21 @@ const AppRoutes = () => (
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
+
+      {/*
+        Diğer altı dil `/en`, `/de`, `/ar`, `/ru`, `/zh`, `/hi` ön ekiyle.
+        Dil artık URL'de: her varyantın kendi canonical'ı ve hreflang'i var,
+        önceki `?lang=xx` sorgu parametreleri gibi aynı HTML'i yedi ayrı
+        adreste sunmuyor. LanguageGate desteklenmeyen kodlarda 404 döner.
+      */}
+      <Route path="/:lang" element={<LanguageGate />}>
+        <Route index element={<Index />} />
+        <Route path="services" element={<Services />} />
+        <Route path="portfolio" element={<Portfolio />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

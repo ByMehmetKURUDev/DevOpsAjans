@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout';
 import MarkdownArticle from '@/components/blog/MarkdownArticle';
 import { getBlogPost, getPostSeoMeta } from '@/lib/blog';
@@ -145,18 +145,24 @@ const BlogPostPage = () => {
   }
 
   if (!post) {
+    // Türkçe bir sitede İngilizce 404 duruyordu; sayfa artık blogun
+    // görsel diliyle aynı ve okuyucuyu yazı listesine geri gönderiyor.
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50 p-6 text-center">
-        <div className="space-y-6 max-w-md">
-          <div className="space-y-4">
-            <h1 className="text-7xl font-bold text-gray-300">404</h1>
-            <h2 className="text-2xl font-bold text-gray-800">Page Not Found</h2>
-            <p className="text-base text-muted-foreground">
-              Sorry, the blog post you are looking for does not exist or has been removed.
-            </p>
-          </div>
+      <main className="min-h-screen bg-[#05010a] text-[#ece6ff] flex items-center justify-center px-6 py-24">
+        <div className="max-w-lg space-y-5 text-center">
+          <p className="text-7xl font-bold text-purple-500/40">404</p>
+          <h1 className="text-3xl font-bold text-white">Yazı bulunamadı</h1>
+          <p className="text-lg leading-8 text-[#b9a9d6]">
+            Aradığınız yazı kaldırılmış ya da adresi değişmiş olabilir.
+          </p>
+          <Link
+            to="/blog"
+            className="inline-flex text-sm font-semibold text-purple-300 underline underline-offset-4 hover:text-pink-300"
+          >
+            &larr; Tüm yazılara dön
+          </Link>
         </div>
-      </div>
+      </main>
     );
   }
 

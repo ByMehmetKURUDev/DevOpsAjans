@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "Web Sitesi Yaptırmanın Maliyeti Ne Kadar?"
 twitter_description: "Kapsam, geliştirme yöntemi ve işletme giderleri üzerinden maliyet analizi."
 ---
-
-# Web Sitesi Yaptırmanın Maliyeti Ne Kadar?
-
 Web sitesi maliyeti tek bir fiyat aralığıyla açıklanamaz, çünkü fiyatı belirleyen şey "site" değil kapsamdır. Beş sayfalık bir tanıtım sitesi ile çok dilli, ödeme ve CRM entegrasyonu olan bir e-ticaret platformu aynı ürün değildir. Doğru yaklaşım, maliyeti kalemlere ayırıp her kalemin projede var olup olmadığını belirlemektir.
 
 ## 1. Maliyeti Belirleyen Ana Kalemler

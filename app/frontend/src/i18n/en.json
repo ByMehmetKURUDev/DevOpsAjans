@@ -24,7 +24,10 @@
     "titleItalic": "brands.",
     "desc": "A boutique dev & digital agency by Mehmet KURU Dev. Custom web, mobile, and marketing solutions crafted for teams that refuse to look like everyone else.",
     "cta": "Start a project",
-    "ctaSecondary": "See our work"
+    "ctaSecondary": "See our work",
+    "mainTitle": "We Turn Your Digital Ideas Into Scalable Products",
+    "mainSubtitle": "Website, e-commerce, SaaS and mobile app development — end-to-end design, code and growth support.",
+    "mainCta": "Free Discovery Call"
   },
   "stats": {
     "projects": "Projects Delivered",

@@ -16,9 +16,6 @@ twitter_card: "summary"
 twitter_title: "SEO Anomaly Detection"
 twitter_description: "Temel çizgi, mevsimsellik ve segment bazlı anomali uyarıları."
 ---
-
-# SEO Anomaly Detection: Organik Performansta Anomali Tespiti
-
 SEO'da en pahalı hata, bir sorunun geç fark edilmesidir. Yanlışlıkla eklenen bir `noindex`, bozulan bir şablon, kaybolan iç bağlantılar veya sunucu tarafında oluşan hatalar haftalarca sessizce trafik kaybettirebilir. Anomali tespiti, bu tür sapmaları insan gözü fark etmeden yakalamayı hedefler.
 
 ## 1. Anomali Nedir, Ne Değildir?
