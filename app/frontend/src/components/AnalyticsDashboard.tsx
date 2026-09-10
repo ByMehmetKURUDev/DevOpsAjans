@@ -12,7 +12,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { createClient } from '@metagptx/web-sdk';
+import { client } from '@/lib/sdkClient';
 import {
   ResponsiveContainer,
   BarChart,
@@ -23,7 +23,6 @@ import {
   CartesianGrid,
 } from 'recharts';
 
-const client = createClient();
 
 interface Snapshot {
   id: number | string;

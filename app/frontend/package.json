@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/check-routes.mjs && vite build",
+    "check:routes": "node scripts/check-routes.mjs",
     "lint": "eslint --quiet ./src",
     "preview": "vite preview",
     "postinstall": "echo 'Dependencies installed successfully'"

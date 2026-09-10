@@ -25,7 +25,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
-import { createClient } from '@metagptx/web-sdk';
+import { client } from '@/lib/sdkClient';
 import {
   SETTING_GROUPS,
   fetchSettingRows,
@@ -50,7 +50,6 @@ const SETTING_LANG_OPTIONS = [
   })),
 ];
 
-const client = createClient();
 
 interface AuthUser {
   id?: string;

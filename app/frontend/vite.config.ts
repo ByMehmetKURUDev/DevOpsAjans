@@ -6,8 +6,15 @@ import { viteSourceLocator } from '@metagptx/vite-plugin-source-locator';
 import { atoms } from '@metagptx/web-sdk/plugins';
 import { vitePrerenderPlugin } from 'vite-prerender-plugin';
 import Sitemap from 'vite-plugin-sitemap';
-import { getBlogRoutes } from './prerender/blog-routes.js';
+import { getAllPrerenderRoutes } from './prerender/blog-routes.js';
 import { getSitemapLastmod } from './prerender/blog-sitemap.js';
+import {
+  BLOG_INDEX_ROUTE,
+  NOINDEX_ROUTES,
+  SITE_NAME,
+  SITE_URL,
+  STATIC_ROUTES,
+} from './prerender/site.js';
 
 function escapeHtmlAttr(str: string): string {
   return str
@@ -18,11 +25,18 @@ function escapeHtmlAttr(str: string): string {
     .replace(/'/g, '&#39;');
 }
 
-process.env.VITE_APP_TITLE ??= process.env.OVERVIEW_TITLE ?? 'shadcnui';
-process.env.VITE_APP_DESCRIPTION ??= process.env.OVERVIEW_DESCRIPTION ?? 'Atoms Generated Project';
+/**
+ * Şablon varsayılanları ("shadcnui", "Atoms Generated Project") üretim
+ * çıktısına sızıyordu: blog dizininin başlığı Google'a `Blog | shadcnui`
+ * olarak gidiyor, `VITE_SITE_URL` tanımsız olduğu için og:url hiç
+ * üretilemiyordu. Varsayılanlar artık sitenin gerçek değerleri.
+ */
+process.env.VITE_APP_TITLE ??= process.env.OVERVIEW_TITLE ?? SITE_NAME;
+process.env.VITE_APP_DESCRIPTION ??= process.env.OVERVIEW_DESCRIPTION ?? STATIC_ROUTES[0].description;
+process.env.VITE_SITE_URL ??= SITE_URL;
 process.env.VITE_APP_TITLE = escapeHtmlAttr(process.env.VITE_APP_TITLE);
 process.env.VITE_APP_DESCRIPTION = escapeHtmlAttr(process.env.VITE_APP_DESCRIPTION);
-process.env.VITE_APP_LOGO_URL ??= process.env.OVERVIEW_LOGO_URL ?? 'https://public-frontend-cos.metadl.com/mgx/img/favicon_atoms.ico';
+process.env.VITE_APP_LOGO_URL ??= process.env.OVERVIEW_LOGO_URL ?? `${SITE_URL}/logo192.png`;
 
 /**
  * Teşhis eklentisi: her chunk içindeki modülleri gerçek (minified) boyutlarına
@@ -72,7 +86,15 @@ function ensureBuildOutDir() {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
-  const blogPrerenderRoutes = command === 'build' ? getBlogRoutes() : [];
+  const prerenderRoutes = command === 'build' ? getAllPrerenderRoutes() : [];
+  // Sitemap eklentisi yolları üretilen HTML'lerden eğik çizgisiz topluyor;
+  // priority anahtarları da o biçimde olmalı.
+  const sitemapPriority: Record<string, number> = Object.fromEntries(
+    [...STATIC_ROUTES, BLOG_INDEX_ROUTE].map((route) => [
+      route.routePath,
+      route.priority,
+    ]),
+  );
 
   return {
     plugins: [
@@ -84,16 +106,23 @@ export default defineConfig(({ command }) => {
       ensureBuildOutDir(),
       ...(process.env.STATS === '1' ? [bundleStats()] : []),
       Sitemap({
-        hostname: 'https://mehmetkuru.dev',
+        hostname: SITE_URL,
+        // `dynamicRoutes` VERİLMİYOR: eklenti prerender edilen HTML
+        // dosyalarından yolları kendisi topluyor. İkisi birlikte verildiğinde
+        // her URL sitemap'e iki kez giriyordu (biri eğik çizgili, biri değil).
+        exclude: NOINDEX_ROUTES,
         lastmod: getSitemapLastmod(),
+        // Blog yazıları ana sayfayla eşit ağırlıkta değil; her URL'in
+        // priority 1.0 olması sıralamaya bilgi taşımıyordu.
+        priority: { ...sitemapPriority, '*': 0.6 } as unknown as number,
         readable: true,
         generateRobotsTxt: true,
       }),
-      ...(blogPrerenderRoutes.length > 0
+      ...(prerenderRoutes.length > 0
         ? vitePrerenderPlugin({
             renderTarget: '#root',
-            prerenderScript: path.resolve(__dirname, 'prerender/blog.js'),
-            additionalPrerenderRoutes: blogPrerenderRoutes,
+            prerenderScript: path.resolve(__dirname, 'prerender/app.js'),
+            additionalPrerenderRoutes: prerenderRoutes,
           })
         : []),
     ],

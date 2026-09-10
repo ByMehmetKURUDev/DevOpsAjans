@@ -11,48 +11,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <title data-mgx-overview="title">By Mehmet KURU Dev | Web Gelistirici ve Dijital Pazarlama</title>
-    <meta data-mgx-overview="description" name="description" content="Web Gelistirici ve Dijital Pazarlama Uzmanı MehmetKURU ile web sayfalarınızın Online Pazarlama kanallarında büyümesini sağlayabilirsiniz. Hemen ilk adımı at." />
+    <!--
+      DİKKAT: Sayfa bazlı SEO etiketleri (canonical, description, og:*,
+      twitter:*, yapısal veri) bilinçli olarak buradan çıkarıldı.
+
+      Prerender eklentisi `<head>`e ekleme yapıyor, var olanı değiştirmiyor.
+      Bu etiketler burada sabit dururken her blog yazısı ana sayfanın
+      canonical'ını ve og etiketlerini de taşıyordu — 61 makale Google'a
+      "ben ana sayfanın kopyasıyım" diyordu. Artık her yol için
+      `prerender/app.js` üretiyor, tek kaynak `prerender/site.js`.
+
+      Buraya sayfaya özel etiket eklemeyin.
+    -->
+    <title>By Mehmet KURU Dev</title>
     <meta name="author" content="Mehmet KURU" />
-    <link rel="canonical" href="https://mehmetkuru.dev/" />
-
-    <meta data-mgx-overview="og:title" property="og:title" content="By Mehmet KURU Dev | Web Gelistirici ve Dijital Pazarlama" />
-    <meta data-mgx-overview="og:description" property="og:description" content="Web Gelistirici ve Dijital Pazarlama Uzmanı MehmetKURU ile web sayfalarınızın Online Pazarlama kanallarında büyümesini sağlayabilirsiniz. Hemen ilk adımı at." />
-    <meta data-mgx-overview="og:image" property="og:image" content="https://atoms.dev/api/v1/public-files/cover?path=/cover/849042/2026-09-09/ff2ea7a5d5854422a0a8c07beffe3a6a_cropped-image.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mehmetkuru.dev/" />
-    <meta property="og:locale" content="tr_TR" />
-
-    <meta data-mgx-overview="twitter:title" name="twitter:title" content="By Mehmet KURU Dev | Web Gelistirici ve Dijital Pazarlama" />
-    <meta data-mgx-overview="twitter:description" name="twitter:description" content="Web Gelistirici ve Dijital Pazarlama Uzmanı MehmetKURU ile web sayfalarınızın Online Pazarlama kanallarında büyümesini sağlayabilirsiniz. Hemen ilk adımı at." />
-    <meta data-mgx-overview="twitter:image" name="twitter:image" content="https://atoms.dev/api/v1/public-files/cover?path=/cover/849042/2026-09-09/ff2ea7a5d5854422a0a8c07beffe3a6a_cropped-image.png" />
-    <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- Yapısal veri: Organization + LocalBusiness -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "By Mehmet KURU Dev",
-        "url": "https://mehmetkuru.dev/",
-        "image": "https://mehmetkuru.dev/assets/logo-new.jpg",
-        "description": "Web geliştirme, özel yazılım ve dijital pazarlama hizmetleri.",
-        "email": "by@mehmetkuru.dev",
-        "telephone": "+90 541 296 58 78",
-        "priceRange": "$$",
-        "areaServed": "TR",
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "TR",
-          "addressLocality": "İstanbul"
-        },
-        "founder": {
-          "@type": "Person",
-          "name": "Mehmet KURU",
-          "jobTitle": "Full-stack Developer & Digital Marketing Specialist"
-        }
-      }
-    </script>
 
     <!-- Google Analytics 4 — render-blocking olmaması için ilk etkileşim/idle sonrası yüklenir -->
     <script>

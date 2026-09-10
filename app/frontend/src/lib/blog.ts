@@ -203,11 +203,15 @@ function getSiteDomainUrl() {
 }
 
 function getSiteName() {
-  return import.meta.env.VITE_APP_TITLE?.trim() || 'Atoms';
+  return import.meta.env.VITE_APP_TITLE?.trim() || 'By Mehmet KURU Dev';
 }
 
+/**
+ * Twitter hesabı bilinmiyorsa etiket hiç üretilmiyor. Önceki şablon
+ * varsayılanı olan `@atoms` yanlış bir hesaba atıf yapıyordu.
+ */
 function getTwitterSiteHandle() {
-  return import.meta.env.VITE_TWITTER_SITE?.trim() || '@atoms';
+  return import.meta.env.VITE_TWITTER_SITE?.trim() || undefined;
 }
 
 function getTwitterCreatorHandle() {
@@ -260,9 +264,9 @@ function getPostSeoMeta(post?: BlogPost | null): SeoMeta {
   const siteName = getSiteName();
   const twitterSiteHandle = getTwitterSiteHandle();
   const twitterCreatorHandle = getTwitterCreatorHandle();
-  const fallbackTitle = `Blog | ${siteName}`;
+  const fallbackTitle = 'Blog: SEO, Reklam Ölçümleme ve Web Geliştirme Rehberleri';
   const fallbackDescription =
-    'This is a flexible blog starter that can be filled with Markdown content and prerendered into indexable pages.';
+    'Teknik SEO, Google Ads ve GA4 ölçümleme, Customer 360 veri yönetimi ve web geliştirme üzerine uygulamaya dönük rehberler.';
 
   if (!post) {
     const fallbackUrl = getAbsoluteUrl('/blog/');

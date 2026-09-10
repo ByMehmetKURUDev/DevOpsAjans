@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ExternalLink, Loader2 } from 'lucide-react';
-import { createClient } from '@metagptx/web-sdk';
+import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
 
-const client = createClient();
 
 interface Project {
   id: number | string;

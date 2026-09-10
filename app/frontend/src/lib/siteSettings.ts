@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { createClient } from '@metagptx/web-sdk';
+import { client } from './sdkClient';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGE_CODES } from '@/i18n';
 
-const client = createClient();
 
 export type SettingsMap = Record<string, string>;
 

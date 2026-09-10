@@ -2,7 +2,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { createClient } from '@metagptx/web-sdk';
+import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
 import { useSiteSettings, isAdminUser } from '@/lib/siteSettings';
 import {
@@ -10,8 +10,27 @@ import {
   getLanguageMeta,
   changeAppLanguage,
 } from '@/i18n';
+// Sayfa meta verilerinin tek kaynağı. Bu dosya bağımlılığı olmayan düz JS
+// olduğu için hem vite.config (Node) hem prerender hem de istemci okuyabiliyor.
+import { BLOG_INDEX_ROUTE, SITE_NAME, SITE_URL, STATIC_ROUTES } from '../../prerender/site.js';
 
-const client = createClient();
+
+const ROUTE_META = [...STATIC_ROUTES, BLOG_INDEX_ROUTE];
+
+/** Sondaki eğik çizgiyi atarak route yolunu normalize eder. */
+function normalizeRoutePath(pathname: string): string {
+  const trimmed = pathname.replace(/\/+$/, '');
+  return trimmed === '' ? '/' : trimmed;
+}
+
+/** `/blog/<slug>` biçimindeki tekil yazı yolu mu? */
+function isBlogPostPath(path: string): boolean {
+  return path.startsWith('/blog/') && path.length > '/blog/'.length;
+}
+
+function getRouteMeta(path: string) {
+  return ROUTE_META.find((route) => route.routePath === path);
+}
 
 const SOCIAL_ICONS: { key: string; label: string; path: string }[] = [
   {
@@ -112,10 +131,24 @@ export default function Layout() {
   const currentLang = getLanguageMeta(i18n.language);
   const isRtl = currentLang.dir === 'rtl';
 
-  /** Dil bazlı meta title/description ve hreflang etiketlerini uygular. */
+  /**
+   * Sayfa bazlı meta title/description, canonical ve hreflang etiketleri.
+   *
+   * Önceki hâlinde bu efekt her route'ta `settings.seo_meta_title` değerini
+   * basıyordu: prerender'ın ürettiği doğru başlık ve açıklama, sayfa
+   * hidrate olur olmaz jenerik site başlığıyla eziliyordu — blog yazıları
+   * dâhil. Artık başlık route'un kendi tablosundan geliyor ve kendi
+   * meta'sını yöneten sayfalarda (tekil blog yazısı) efekt hiç çalışmıyor.
+   */
   useEffect(() => {
-    const title = settings.seo_meta_title || 'Mehmet KURU Dev';
-    const description = settings.seo_meta_description || '';
+    const currentPath = normalizeRoutePath(location.pathname);
+
+    // Tekil blog yazısı kendi başlığını BlogPostPage içinde yönetiyor.
+    if (isBlogPostPath(currentPath)) return;
+
+    const routeMeta = getRouteMeta(currentPath);
+    const title = routeMeta?.title || settings.seo_meta_title || SITE_NAME;
+    const description = routeMeta?.description || settings.seo_meta_description || '';
     document.title = title;
 
     const upsertMeta = (selector: string, attrs: Record<string, string>) => {
@@ -126,6 +159,17 @@ export default function Layout() {
       }
       Object.entries(attrs).forEach(([k, v]) => el!.setAttribute(k, v));
     };
+
+    // Canonical: SPA gezinmesinde de doğru adresi göstermesi gerekiyor.
+    const canonicalPath =
+      routeMeta?.path ?? (currentPath === '/' ? '/' : `${currentPath}/`);
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', `${SITE_URL}${canonicalPath}`);
 
     upsertMeta('meta[name="description"]', { name: 'description', content: description });
     upsertMeta('meta[property="og:title"]', { property: 'og:title', content: title });
@@ -158,7 +202,12 @@ export default function Layout() {
       link.setAttribute('href', `${origin}${path}?lang=${langCode}`);
       document.head.appendChild(link);
     });
-  }, [settings.seo_meta_title, settings.seo_meta_description, currentLang.htmlLang]);
+  }, [
+    settings.seo_meta_title,
+    settings.seo_meta_description,
+    currentLang.htmlLang,
+    location.pathname,
+  ]);
 
   /** URL'de ?lang=xx varsa o dile geçer (hreflang varyantları için). */
   useEffect(() => {

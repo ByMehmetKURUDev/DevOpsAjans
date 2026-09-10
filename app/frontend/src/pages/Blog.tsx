@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Calendar, ArrowRight, Loader2, FileText } from 'lucide-react';
-import { createClient } from '@metagptx/web-sdk';
+import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
 import { blogPosts as seoArticles, getBlogRoute } from '@/lib/blog';
 
-const client = createClient();
 
 interface DbBlogPost {
   id: number | string;
