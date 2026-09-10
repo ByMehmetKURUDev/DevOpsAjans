@@ -8,6 +8,7 @@ import { vitePrerenderPlugin } from 'vite-prerender-plugin';
 import Sitemap from 'vite-plugin-sitemap';
 import { getAllPrerenderRoutes } from './prerender/blog-routes.js';
 import { getSitemapLastmod } from './prerender/blog-sitemap.js';
+import { blogIndexPlugin } from './prerender/blog-index-plugin.js';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
@@ -114,6 +115,7 @@ export default defineConfig(({ command }) => {
       react(),
       atoms(),
       ensureBuildOutDir(),
+      blogIndexPlugin(),
       ...(process.env.STATS === '1' ? [bundleStats()] : []),
       Sitemap({
         hostname: SITE_URL,
@@ -176,14 +178,15 @@ export default defineConfig(({ command }) => {
               return `dep-${pkg.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
             }
 
-            // Grafik kütüphanesi yalnızca admin analitik sekmesinde kullanılıyor.
-            if (
-              id.includes('recharts') ||
-              id.includes('victory-vendor') ||
-              /node_modules\/d3-/.test(id)
-            ) {
-              return 'chart-vendor';
-            }
+            /*
+             * Grafik kütüphanesi (recharts) yalnızca admin analitik
+             * sekmesinde kullanılıyor ve orası zaten lazy yükleniyor.
+             * Buna rağmen `chart-vendor` adıyla zorla ayrı bir chunk'a
+             * alınması onu giriş grafiğine statik bağlıyordu: her sayfa,
+             * ana sayfa dâhil, 363 kB grafik kodunu indiriyordu.
+             * Kural kaldırıldı — Rollup artık recharts'ı yalnızca onu
+             * dinamik olarak isteyen admin chunk'ına koyuyor.
+             */
             if (id.includes('markdown-to-jsx')) return 'markdown-vendor';
             if (id.includes('@metagptx')) return 'sdk-vendor';
             if (id.includes('react-router') || id.includes('@remix-run')) return 'router-vendor';

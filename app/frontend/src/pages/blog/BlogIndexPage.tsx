@@ -1,21 +1,78 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { blogCategories, blogPosts, getBlogRoute } from '@/lib/blog';
+import { getBlogRoute } from '@/lib/blogRoute';
+import { blogIndexCategories, blogIndexEntries } from '@/lib/blogIndex';
+import { usePanelPosts } from '@/lib/panelPosts';
 
 const ALL_CATEGORIES = '__all__';
+
+/** Listede gösterilen ortak yazı biçimi. */
+interface ListedPost {
+  slug: string;
+  title: string;
+  description: string;
+  category?: string;
+  date?: string;
+  tags?: string[];
+}
 
 const BlogIndexPage = () => {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES);
+  const { panelPosts } = usePanelPosts();
+
+  /**
+   * Markdown yazıları ile panelden yayımlananlar tek listede.
+   *
+   * Daha önce iki ayrı blog listesi vardı: prerender bu bileşeni basıyor,
+   * istemci ise API'den çeken başka bir bileşeni hidrate ediyordu. Google'ın
+   * gördüğü sayfa ile ziyaretçinin gördüğü sayfa farklıydı. Artık ikisi de
+   * burası; markdown yazıları statik HTML'de gelir, panel yazıları sayfa
+   * yüklendikten sonra eklenir. Aynı slug iki kaynakta varsa markdown kazanır
+   * (prerender edilen sürüm o).
+   */
+  const allPosts = useMemo<ListedPost[]>(() => {
+    const markdown: ListedPost[] = blogIndexEntries.map((post) => ({
+      slug: post.slug,
+      title: post.title,
+      description: post.description,
+      category: post.category,
+      date: post.date,
+      tags: post.tags,
+    }));
+
+    const seen = new Set(markdown.map((p) => p.slug));
+    const fromPanel: ListedPost[] = panelPosts
+      .filter((post) => !seen.has(post.slug))
+      .map((post) => ({
+        slug: post.slug,
+        title: post.title,
+        description: post.excerpt ?? '',
+        category: post.category,
+        date: post.created_at?.slice(0, 10),
+      }));
+
+    return [...markdown, ...fromPanel].sort((a, b) => {
+      const at = a.date ? Date.parse(a.date) : NaN;
+      const bt = b.date ? Date.parse(b.date) : NaN;
+      if (!Number.isNaN(at) && !Number.isNaN(bt) && at !== bt) return bt - at;
+      if (!Number.isNaN(at) && Number.isNaN(bt)) return -1;
+      if (Number.isNaN(at) && !Number.isNaN(bt)) return 1;
+      return a.slug.localeCompare(b.slug);
+    });
+  }, [panelPosts]);
+
+  const categories = useMemo(() => {
+    const all = new Set<string>(blogIndexCategories);
+    panelPosts.forEach((post) => post.category && all.add(post.category));
+    return Array.from(all).sort((a, b) => a.localeCompare(b, 'tr'));
+  }, [panelPosts]);
 
   const visiblePosts = useMemo(() => {
-    if (activeCategory === ALL_CATEGORIES) {
-      return blogPosts;
-    }
-
-    return blogPosts.filter((post) => post.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === ALL_CATEGORIES) return allPosts;
+    return allPosts.filter((post) => post.category === activeCategory);
+  }, [activeCategory, allPosts]);
 
   return (
   <main className="min-h-screen bg-[#05010a] text-[#ece6ff]">
@@ -39,7 +96,7 @@ const BlogIndexPage = () => {
         </Link>
       </div>
 
-      {blogCategories.length > 0 ? (
+      {categories.length > 0 ? (
         <div className="mt-10 flex flex-wrap gap-3" role="group" aria-label={t('portfolio.all')}>
           <button
             type="button"
@@ -53,7 +110,7 @@ const BlogIndexPage = () => {
           >
             {t('portfolio.all')}
           </button>
-          {blogCategories.map((category) => (
+          {categories.map((category) => (
             <button
               key={category}
               type="button"
@@ -79,10 +136,8 @@ const BlogIndexPage = () => {
               className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/40"
             >
               <div className="flex flex-wrap items-center gap-3 text-sm text-[#9d8cbf]">
-                {post.frontmatter.date ? (
-                  <span>{post.frontmatter.date}</span>
-                ) : null}
-                {post.frontmatter.tags?.map((tag) => (
+                {post.date ? <span>{post.date}</span> : null}
+                {post.tags?.map((tag) => (
                   <span
                     key={tag}
                     className="rounded-full bg-purple-500/15 px-3 py-1 text-purple-200"

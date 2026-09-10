@@ -336,12 +336,77 @@ function getPostSeoMeta(post?: BlogPost | null): SeoMeta {
   };
 }
 
+
+/** Yazının gövdesindeki "Sık Sorulan Sorular" bölümünü ayrıştırır. */
+type FaqEntry = { question: string; answer: string };
+
+function extractFaq(markdown: string): FaqEntry[] {
+  // Bölüm sınırları satır satır bulunur. Tek bir regex ile denendiğinde `m`
+  // bayrağı `$`i satır sonuna bağlıyor ve bölüm ilk satırda kesiliyordu —
+  // her yazıdan yalnızca ilk soru çıkıyordu.
+  const lines = markdown.split('\n');
+  const start = lines.findIndex((line) =>
+    /^##\s*(?:Sık Sorulan Sorular|SSS)\s*$/.test(line.trim()),
+  );
+  if (start === -1) return [];
+
+  let end = lines.length;
+  for (let i = start + 1; i < lines.length; i += 1) {
+    if (/^##\s/.test(lines[i])) {
+      end = i;
+      break;
+    }
+  }
+
+  const section = lines.slice(start + 1, end).join('\n');
+  const entries: FaqEntry[] = [];
+  // Biçim: **Soru?** Cevap
+  const pattern = /\*\*(.+?)\*\*\s*([\s\S]*?)(?=\n\s*\*\*|$)/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = pattern.exec(section)) !== null) {
+    const question = match[1].trim();
+    const answer = match[2].replace(/\s+/g, ' ').trim();
+    if (question && answer) entries.push({ question, answer });
+  }
+
+  return entries;
+}
+
+/**
+ * İlgili yazılar.
+ *
+ * Önce aynı kategoriden, sonra ortak etiketi olanlardan seçilir. 61 yazı
+ * birbirine hiç link vermiyordu; konu kümesi içindeki bağlantılar hem
+ * okuyucuyu hem tarayıcıyı yazılar arasında dolaştırır.
+ */
+function getRelatedPosts(post: BlogPost, limit = 3): BlogPost[] {
+  const tags = new Set(post.frontmatter.tags ?? []);
+
+  const scored = blogPosts
+    .filter((candidate) => candidate.slug !== post.slug)
+    .map((candidate) => {
+      let score = 0;
+      if (candidate.category && candidate.category === post.category) score += 3;
+      for (const tag of candidate.frontmatter.tags ?? []) {
+        if (tags.has(tag)) score += 1;
+      }
+      return { candidate, score };
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((a, b) => b.score - a.score || a.candidate.slug.localeCompare(b.candidate.slug));
+
+  return scored.slice(0, limit).map((entry) => entry.candidate);
+}
+
 export {
   blogCategories,
   blogPosts,
+  extractFaq,
   getBlogPost,
   getBlogRoute,
   getPostSeoMeta,
+  getRelatedPosts,
   hasBlogPosts,
 };
-export type { BlogFrontmatter, BlogPost, SeoMeta };
+export type { BlogFrontmatter, BlogPost, FaqEntry, SeoMeta };

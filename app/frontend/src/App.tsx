@@ -15,7 +15,7 @@ const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthError = lazy(() => import('./pages/AuthError'));
 const Services = lazy(() => import('./pages/Services'));
 const Portfolio = lazy(() => import('./pages/Portfolio'));
-const Blog = lazy(() => import('./pages/Blog'));
+const BlogIndexPage = lazy(() => import('./pages/blog/BlogIndexPage'));
 const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
 const Contact = lazy(() => import('./pages/Contact'));
 const ClientPanel = lazy(() => import('./pages/ClientPanel'));
@@ -37,7 +37,7 @@ const AppRoutes = () => (
         <Route path="/" element={<Index />} />
         <Route path="/services" element={<Services />} />
         <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/client" element={<ClientPanel />} />

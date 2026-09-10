@@ -20,7 +20,7 @@ import Portfolio from '../src/pages/Portfolio';
 import Contact from '../src/pages/Contact';
 import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
-import { getBlogPost, getPostSeoMeta } from '../src/lib/blog';
+import { extractFaq, getBlogPost, getPostSeoMeta } from '../src/lib/blog';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
@@ -28,6 +28,7 @@ import {
   PAGE_SEO,
   SITE_NAME,
   SITE_OG_IMAGE,
+  SITE_URL,
   absoluteUrl,
   canonicalPathFor,
   getLanguage,
@@ -197,6 +198,63 @@ function getHead(url) {
     }
 
     const seo = getPostSeoMeta(post);
+    const postUrl = absoluteUrl(`/blog/${post.slug}`);
+    const faq = extractFaq(post.markdown);
+
+    /*
+     * Yapısal veri.
+     *
+     * Daha önce her sayfa ana sayfanın `ProfessionalService` bloğunu
+     * taşıyordu: 61 makale kendini "profesyonel hizmet" sayfası ilan
+     * ediyordu. Artık yazılar kendi türlerini bildiriyor. FAQ bölümü olan
+     * 57 yazıda `FAQPage` da üretiliyor — metin zaten sayfada, işaretleme
+     * yoktu.
+     */
+    const structured = [
+      jsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: post.title,
+        description: post.description,
+        url: postUrl,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+        inLanguage: DEFAULT_LANGUAGE,
+        ...(seo.publishedTime ? { datePublished: seo.publishedTime } : {}),
+        ...(seo.ogImage ? { image: seo.ogImage } : {}),
+        ...(post.frontmatter.tags?.length ? { keywords: post.frontmatter.tags.join(', ') } : {}),
+        ...(post.category ? { articleSection: post.category } : {}),
+        author: { '@type': 'Person', name: 'Mehmet KURU', url: `${SITE_URL}/` },
+        publisher: {
+          '@type': 'Organization',
+          name: SITE_NAME,
+          url: `${SITE_URL}/`,
+          logo: { '@type': 'ImageObject', url: SITE_OG_IMAGE },
+        },
+      }),
+      jsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Ana Sayfa', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: absoluteUrl('/blog') },
+          { '@type': 'ListItem', position: 3, name: post.title, item: postUrl },
+        ],
+      }),
+      ...(faq.length > 0
+        ? [
+            jsonLd({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faq.map((entry) => ({
+                '@type': 'Question',
+                name: entry.question,
+                acceptedAnswer: { '@type': 'Answer', text: entry.answer },
+              })),
+            }),
+          ]
+        : []),
+    ];
+
     return buildHead({
       title: seo.title,
       description: seo.description,
@@ -208,6 +266,7 @@ function getHead(url) {
         meta('name', 'keywords', seo.keywords),
         meta('property', 'article:published_time', seo.publishedTime),
         ...(seo.tags ?? []).map((tag) => meta('property', 'article:tag', tag)),
+        ...structured,
       ].filter(Boolean),
     });
   }
@@ -222,6 +281,25 @@ function getHead(url) {
       canonicalPath: BLOG_INDEX_ROUTE.routePath,
       ogType: 'website',
       lang: DEFAULT_LANGUAGE,
+      extra: [
+        jsonLd({
+          '@context': 'https://schema.org',
+          '@type': 'Blog',
+          name: BLOG_INDEX_ROUTE.title,
+          description: BLOG_INDEX_ROUTE.description,
+          url: absoluteUrl(BLOG_INDEX_ROUTE.routePath),
+          inLanguage: DEFAULT_LANGUAGE,
+          publisher: { '@type': 'Organization', name: SITE_NAME, url: `${SITE_URL}/` },
+        }),
+        jsonLd({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Ana Sayfa', item: `${SITE_URL}/` },
+            { '@type': 'ListItem', position: 2, name: 'Blog', item: absoluteUrl('/blog') },
+          ],
+        }),
+      ],
     });
   }
 

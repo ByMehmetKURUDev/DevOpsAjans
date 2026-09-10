@@ -1,8 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import BlogArticleLayout from '@/components/blog/BlogArticleLayout';
-import MarkdownArticle from '@/components/blog/MarkdownArticle';
+import MarkdownArticle, { getHeadings } from '@/components/blog/MarkdownArticle';
+import PostNavigation from '@/components/blog/PostNavigation';
+import RelatedPosts from '@/components/blog/RelatedPosts';
+import TableOfContents from '@/components/blog/TableOfContents';
 import { getBlogPost, getPostSeoMeta } from '@/lib/blog';
+import { getAdjacentEntries, getRelatedEntries } from '@/lib/blogIndex';
+import { fetchPanelPost, type PanelPost } from '@/lib/panelPosts';
 
 function getSlugFromPathname(pathname: string) {
   return pathname
@@ -40,6 +45,36 @@ const BlogPostPage = () => {
   const location = useLocation();
   const slug = getSlugFromPathname(location.pathname);
   const post = slug === '*' ? null : getBlogPost(slug);
+
+  /**
+   * Panelden yayımlanan yazılar için geri düşüş.
+   *
+   * Bu yazılar build sırasında erişilemediği için prerender edilemiyor;
+   * markdown'da bulunmayan bir slug geldiğinde API'ye sorulur. Daha önce
+   * panel yazılarının kendi adresi hiç yoktu — liste sayfasında bir kutu
+   * olarak açılıyorlardı, yani paylaşılamıyor ve indekslenemiyorlardı.
+   */
+  const [panelPost, setPanelPost] = useState<PanelPost | null>(null);
+  const [panelChecked, setPanelChecked] = useState(false);
+
+  useEffect(() => {
+    if (post || !slug || slug === '*') {
+      setPanelChecked(true);
+      return;
+    }
+
+    let cancelled = false;
+    setPanelChecked(false);
+    void fetchPanelPost(slug).then((found) => {
+      if (cancelled) return;
+      setPanelPost(found);
+      setPanelChecked(true);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [post, slug]);
 
   useEffect(() => {
     if (!post) {
@@ -144,6 +179,23 @@ const BlogPostPage = () => {
     return <Navigate to="/blog/" replace />;
   }
 
+  if (!post && !panelChecked) {
+    return (
+      <main className="min-h-screen bg-[#05010a] flex items-center justify-center">
+        <div className="h-8 w-8 rounded-full border-2 border-purple-500 border-t-transparent animate-spin" />
+      </main>
+    );
+  }
+
+  if (!post && panelPost) {
+    return (
+      <BlogArticleLayout title={panelPost.title} description={panelPost.excerpt}>
+        <MarkdownArticle markdown={panelPost.content ?? ''} />
+        <RelatedPosts posts={[]} />
+      </BlogArticleLayout>
+    );
+  }
+
   if (!post) {
     // Türkçe bir sitede İngilizce 404 duruyordu; sayfa artık blogun
     // görsel diliyle aynı ve okuyucuyu yazı listesine geri gönderiyor.
@@ -168,7 +220,10 @@ const BlogPostPage = () => {
 
   return (
     <BlogArticleLayout title={post.title} description={post.description}>
+      <TableOfContents entries={getHeadings(post.markdown)} />
       <MarkdownArticle markdown={post.markdown} />
+      <PostNavigation {...getAdjacentEntries(post.slug)} />
+      <RelatedPosts posts={getRelatedEntries(post.slug)} />
     </BlogArticleLayout>
   );
 };

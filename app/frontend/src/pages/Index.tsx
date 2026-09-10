@@ -98,14 +98,6 @@ export default function Index() {
     { slug: 'Reklam', label: t('ui.catAds'), emoji: '📣', gradient: 'from-purple-500 to-pink-500' },
   ];
 
-  const REVIEWS = [
-    { name: 'Ahmet Y.', rating: 5, text: t('ui.review1'), date: t('ui.ago2m'), avatar: 'A' },
-    { name: 'Sarah M.', rating: 5, text: t('ui.review2'), date: t('ui.ago3m'), avatar: 'S' },
-    { name: 'Mehmet K.', rating: 5, text: t('ui.review3'), date: t('ui.ago1m'), avatar: 'M' },
-    { name: 'Thomas B.', rating: 5, text: t('ui.review4'), date: t('ui.ago4m'), avatar: 'T' },
-    { name: 'Elif D.', rating: 5, text: t('ui.review5'), date: t('ui.ago2w'), avatar: 'E' },
-    { name: 'James R.', rating: 4, text: t('ui.review6'), date: t('ui.ago5m'), avatar: 'J' },
-  ];
 
   return (
     <div>
@@ -351,55 +343,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section className="py-24 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-[0.3em] text-emerald-300 mb-4">{t('ui.reviewsTag')}</p>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              {t('ui.reviewsTitle')} <span className="gradient-text">{t('ui.reviewsTitleHighlight')}</span>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              {t('ui.reviewsDesc')}
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {REVIEWS.map((review) => (
-              <div
-                key={review.name}
-                className="p-6 rounded-2xl glass hover:border-purple-500/30 transition-colors duration-300"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
-                    {review.avatar}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm">{review.name}</p>
-                    <div
-                      className="flex items-center gap-1"
-                      role="img"
-                      aria-label={`${review.rating} / 5`}
-                    >
-                      {Array.from({ length: review.rating }).map((_, si) => (
-                        <svg key={`f${si}`} className="w-3.5 h-3.5 text-yellow-400 fill-current" viewBox="0 0 20 20" aria-hidden="true">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                      {Array.from({ length: 5 - review.rating }).map((_, si) => (
-                        <svg key={`e${si}`} className="w-3.5 h-3.5 text-white/25 fill-current" viewBox="0 0 20 20" aria-hidden="true">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                      ))}
-                    </div>
-                  </div>
-                  <span className="ms-auto text-[10px] text-muted-foreground">{review.date}</span>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{review.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="relative py-24 md:py-32">
