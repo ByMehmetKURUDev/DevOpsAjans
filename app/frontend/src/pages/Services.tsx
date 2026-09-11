@@ -148,7 +148,7 @@ export default function Services() {
                 height={1024}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-contain rounded-2xl bg-[#05010a]"
+                className="w-full h-full object-contain rounded-2xl bg-[#171a1e]"
                 onError={(e) => {
                   const el = e.currentTarget as HTMLImageElement;
                   el.style.display = 'none';

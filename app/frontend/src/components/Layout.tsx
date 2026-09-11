@@ -317,10 +317,11 @@ export default function Layout() {
               <img
                 src={logoSrc}
                 alt={t('ui.logoAlt')}
-                width={40}
-                height={40}
+                width={44}
+                height={44}
                 decoding="async"
-                className="relative h-10 w-10 rounded-lg object-cover ring-1 ring-white/10"
+                /* object-contain: künye kırpılmadan çerçevenin içine sığar. */
+                className="relative h-11 w-11 rounded-lg object-contain bg-[#171a1e] ring-1 ring-white/10"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).style.display = 'none';
                 }}
@@ -540,11 +541,11 @@ export default function Layout() {
               <img
                 src={logoSrc}
                 alt={t('ui.logoAlt')}
-                width={40}
-                height={40}
+                width={44}
+                height={44}
                 loading="lazy"
                 decoding="async"
-                className="h-10 w-10 rounded-lg object-cover"
+                className="h-11 w-11 rounded-lg object-contain bg-[#171a1e]"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).style.display = 'none';
                 }}
