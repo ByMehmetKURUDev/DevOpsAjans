@@ -7,8 +7,27 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      viewport-fit=cover: iPhone'da çentik ve ana ekran çubuğunun altındaki
+      alanı da kullanabilmek için. Kenar boşlukları CSS'te `env(safe-area-*)`
+      ile korunuyor, içerik çentiğin altına girmiyor.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#05010a" />
+
+    <!-- Uygulama olarak kurulum (Android, masaüstü Chrome/Edge) -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!--
+      iOS'ta manifest okunmuyor; ana ekrana eklenen site bu etiketlerle
+      tarayıcı çubuğu olmadan, uygulama gibi açılıyor.
+    -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="MehmetKURU" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="By Mehmet KURU Dev" />
+    <meta name="format-detection" content="telephone=no" />
 
     <!-- Font kaynaklarına erken bağlantı: yazı tipi gecikmesini azaltır -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

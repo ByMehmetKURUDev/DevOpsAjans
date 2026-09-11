@@ -23,4 +23,24 @@ function initializeApp() {
   createRoot(document.getElementById('root')!).render(<App />);
 }
 
+/**
+ * Servis çalışanını kaydeder.
+ *
+ * Yalnızca üretimde ve yalnızca sayfa yüklendikten sonra: geliştirme
+ * sunucusunda önbellek sıcak yeniden yüklemeyi bozuyor, `load` olayından
+ * önce kaydetmek ise ilk boyamayla yarışıyor.
+ *
+ * Hata yutuluyor — servis çalışanı kaydedilemezse (eski tarayıcı, gizli
+ * pencere, izin yok) site normal çalışmaya devam etmeli.
+ */
+function registerServiceWorker() {
+  if (!import.meta.env.PROD) return;
+  if (!('serviceWorker' in navigator)) return;
+
+  window.addEventListener('load', () => {
+    void navigator.serviceWorker.register('/sw.js').catch(() => undefined);
+  });
+}
+
 initializeApp();
+registerServiceWorker();

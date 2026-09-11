@@ -82,6 +82,21 @@ async function main() {
 
   // İşletim sistemi ikonları — opak olmak zorunda.
   await add(opaque(180).png(), 'apple-touch-icon.png');
+
+  /*
+   * Maskeli ikon (Android uyarlanabilir ikon): işletim sistemi ikonu
+   * daireye, kareye ya da damla biçimine kırpabiliyor. Güvenli alan
+   * merkezdeki %80 dairedir; künye bu yüzden daha küçük yerleştirilip
+   * çevresi zemin rengiyle dolduruluyor — aksi hâlde köşeleri kesiliyor.
+   */
+  await add(
+    sharp(source)
+      .resize(300, 300, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .extend({ top: 106, bottom: 106, left: 106, right: 106, background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .flatten({ background: BACKDROP })
+      .png(),
+    'logo-maskable-512.png',
+  );
   await add(opaque(192).png(), 'logo192.png');
   await add(opaque(512).png(), 'logo512.png');
   await add(opaque(32).png(), 'favicon-32.png');

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#05010a" />
+    <title>Bağlantı yok — By Mehmet KURU Dev</title>
+    <style>
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: #05010a;
+        color: #ece6ff;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        text-align: center;
+      }
+      .kutu { max-width: 30rem; display: grid; gap: 16px; justify-items: center; }
+      img { width: 72px; height: 72px; }
+      h1 { margin: 0; font-size: clamp(22px, 5vw, 28px); }
+      p { margin: 0; color: #b9a9d6; }
+      button {
+        margin-top: 8px;
+        border: 0;
+        border-radius: 12px;
+        padding: 12px 24px;
+        font: inherit;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(90deg, #8b3dff, #ec4899);
+        cursor: pointer;
+      }
+      button:focus-visible { outline: 2px solid #d4a5ff; outline-offset: 2px; }
+    </style>
+  </head>
+  <body>
+    <div class="kutu">
+      <img src="/logo192.png" alt="By Mehmet KURU Dev" width="72" height="72" />
+      <h1>Bağlantı yok</h1>
+      <p>
+        Bu sayfa daha önce açılmadığı için çevrimdışı gösterilemiyor.
+        İnternet geri geldiğinde kaldığınız yerden devam edebilirsiniz.
+      </p>
+      <button type="button" onclick="location.reload()">Yeniden dene</button>
+    </div>
+  </body>
+</html>

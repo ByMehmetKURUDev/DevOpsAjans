@@ -540,9 +540,14 @@ export default function Layout() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               {NAV_LINKS.map((l) => (
                 <li key={l.to}>
+                  {/*
+                    `inline-block` + dikey dolgu: bağlantı metni 16 piksel
+                    yüksekliğindeydi ve telefonda ıskalanıyordu. Dolgu
+                    dokunma alanını 40 piksele çıkarıyor, görünüm değişmiyor.
+                  */}
                   <Link
                     to={l.to}
-                    className="hover:text-foreground transition-colors"
+                    className="inline-block py-2 hover:text-foreground transition-colors"
                   >
                     {l.label}
                   </Link>
