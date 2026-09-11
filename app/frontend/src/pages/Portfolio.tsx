@@ -3,6 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { ExternalLink, Loader2 } from 'lucide-react';
 import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
+import Testimonials from '@/components/Testimonials';
+import ToolsUsed from '@/components/ToolsUsed';
 
 
 interface Project {
@@ -241,55 +243,65 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Timeline */}
+      {/* Timeline — yatay şerit */}
       {!loading && filtered.length > 0 && (
         <section className="pb-24 border-t border-white/5 pt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 className="text-2xl font-bold mb-10">
-              {t('ui.timeline')}
-            </h3>
-            <div className="relative">
-              {/* Vertical line */}
-              <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 via-pink-500 to-transparent" />
+            <h2 className="text-2xl font-bold mb-3">{t('ui.timeline')}</h2>
+            <p className="text-sm text-muted-foreground mb-8">{t('ui.timelineHint')}</p>
+          </div>
 
-              {timeline.map(([year, projects], yi) => (
-                <div key={year} className="mb-12 last:mb-0">
-                  {/* Year marker */}
-                  <div className="relative flex items-center mb-6">
-                    <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center z-10">
-                      <span className="text-[10px] font-bold text-white">{year}</span>
-                    </div>
-                    <div className="ml-16 md:ml-0 md:pl-[calc(50%+2rem)]">
-                      <span className="text-lg font-semibold gradient-text">{year}</span>
-                      <span className="text-sm text-muted-foreground ms-2">
-                        ({projects.length} {t('ui.projectsCount')})
-                      </span>
-                    </div>
-                  </div>
+          {/*
+            Dikey çizelge mobilde çok uzuyor ve yılları karşılaştırmayı
+            zorlaştırıyordu. Yatay şeritte her yıl bir sütun: kaydırarak
+            geziliyor, yıllar yan yana okunuyor.
 
-                  {/* Projects for this year */}
-                  <div className="space-y-4 ml-16 md:ml-0 md:pl-[calc(50%+2rem)]">
-                    {projects.map((p) => (
-                      <div
-                        key={p.id}
-                        className="relative pl-6 border-l border-white/10 hover:border-purple-500/40 transition-colors"
-                      >
-                        <div className="absolute left-0 top-2 -translate-x-1/2 w-2 h-2 rounded-full bg-purple-400" />
-                        <div className="flex items-center gap-3">
-                          <span className="text-xs text-muted-foreground">{p.date}</span>
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-purple-300">{p.category}</span>
-                        </div>
-                        <h4 className="font-medium mt-1">{p.title}</h4>
-                        <p className="text-sm text-muted-foreground">{p.description}</p>
-                      </div>
-                    ))}
-                  </div>
+            `snap-x` kaydırmayı sütun başlarına oturtuyor; kenarlardaki
+            `px` değerleri ilk ve son sütunun ekran kenarına yapışmasını
+            engelliyor.
+          */}
+          <div
+            className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-6 sm:px-6 lg:px-8"
+            role="region"
+            aria-label={t('ui.timeline')}
+            tabIndex={0}
+          >
+            {timeline.map(([year, projects]) => (
+              <div
+                key={year}
+                className="w-[280px] flex-none snap-start rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:w-[320px]"
+              >
+                <div className="flex items-baseline justify-between border-b border-white/5 pb-3">
+                  <span className="text-2xl font-bold gradient-text">{year}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {projects.length} {t('ui.projectsCount')}
+                  </span>
                 </div>
-              ))}
-            </div>
+
+                <ul className="mt-4 space-y-4">
+                  {projects.map((p) => (
+                    <li key={p.id} className="border-s border-white/10 ps-4">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-[11px] text-muted-foreground">{p.date}</span>
+                        <span className="rounded-full bg-white/5 px-2 py-0.5 text-[11px] text-purple-300">
+                          {p.category}
+                        </span>
+                      </div>
+                      <h3 className="mt-1 text-sm font-semibold">{p.title}</h3>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                        {p.description}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </section>
       )}
+
+      <Testimonials />
+      <ToolsUsed />
     </div>
   );
 }

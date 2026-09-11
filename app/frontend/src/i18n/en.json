@@ -63,7 +63,11 @@
     "step3Title": "Build",
     "step3Desc": "Weekly production releases. You watch it come alive in staging every Friday.",
     "step4Title": "Grow",
-    "step4Desc": "Post-launch: performance, SEO, paid, analytics, and iterative product bets."
+    "step4Desc": "Post-launch: performance, SEO, paid, analytics, and iterative product bets.",
+    "desc2": "The person who decides is always in the room. No approval chain, no account manager in between — you talk directly to the person writing the code.",
+    "desc3": "Progress is measured by a link you can open, not by a slide. When the project ends the repo, infrastructure, domain and documentation stay with you; nothing locks you in.",
+    "flowAlt": "Four-stage process flow: Discover, Design, Build, Grow. Each stage feeds the next, with a weekly release loop back from Build.",
+    "flowLoop": "weekly release"
   },
   "techMarquee": "Tools of the trade",
   "cta": {
@@ -299,7 +303,13 @@
     "option5Price": "Get a Quote",
     "option5Desc": "Custom project management, DevOps infrastructure, CI/CD pipelines, process management and security.",
     "buyNow": "Buy Now",
-    "getQuote": "Get a Quote"
+    "getQuote": "Get a Quote",
+    "billingLabel": "Billing period",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "perMonth": "per month",
+    "perYear": "per year, upfront",
+    "customPrice": "Let's talk"
   },
   "ui": {
     "popular": "Popular",
@@ -405,7 +415,15 @@
     "prevPage": "Previous",
     "nextPage": "Next",
     "goToPage": "Go to page {{page}}",
-    "postCount": "{{total}} posts · page {{page}} of {{pages}}"
+    "postCount": "{{total}} posts · page {{page}} of {{pages}}",
+    "scrollTop": "Back to top",
+    "socialLinks": "Social media profiles",
+    "shareTitle": "Share",
+    "shareOn": "Share on {{network}}",
+    "copyLink": "Copy link",
+    "linkCopied": "Copied",
+    "shareOther": "More",
+    "timelineHint": "Scroll the strip sideways to compare years."
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -570,6 +588,23 @@
     "fSeoBlogTitle": "Blog — title",
     "fSeoBlogDesc": "Blog — description",
     "fAppStore": "App Store link",
-    "fGooglePlay": "Google Play link"
+    "fGooglePlay": "Google Play link",
+    "fEnvato": "Envato profile URL",
+    "fYearlyDiscount": "Yearly billing discount (%)",
+    "contentTitle": "Page Content",
+    "contentDesc": "Manage the testimonials and tools sections here.",
+    "fTestimonials": "Testimonials (JSON)",
+    "fTools": "Tools used (comma separated)"
+  },
+  "tools": {
+    "sectionTag": "Tools We Use",
+    "title": "The stack behind every project",
+    "desc": "Chosen for what the work needs, not for what is fashionable. Every tool below is in active production use."
+  },
+  "testimonials": {
+    "sectionTag": "Testimonials",
+    "title": "What the people we work with say",
+    "rating": "{{rating}} out of 5",
+    "source": "View source"
   }
 }

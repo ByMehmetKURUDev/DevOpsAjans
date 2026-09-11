@@ -63,7 +63,11 @@
     "step3Title": "开发",
     "step3Desc": "每周生产级发布。每个周五都能在测试环境看到项目变活。",
     "step4Title": "增长",
-    "step4Desc": "上线之后：性能、SEO、付费广告、数据分析与持续迭代。"
+    "step4Desc": "上线之后：性能、SEO、付费广告、数据分析与持续迭代。",
+    "desc2": "做决定的人始终在场。没有审批链，没有中间的客户经理——你直接与写代码的人沟通。",
+    "desc3": "进度用可以打开的链接衡量，而不是幻灯片。项目结束时，代码仓库、基础设施、域名和文档都归你所有，不存在任何绑定。",
+    "flowAlt": "四阶段流程：探索、设计、构建、增长。每个阶段衔接下一个，构建阶段每周发布形成回路。",
+    "flowLoop": "每周发布"
   },
   "techMarquee": "我们使用的技术栈",
   "cta": {
@@ -299,7 +303,13 @@
     "option5Price": "获取报价",
     "option5Desc": "定制项目管理、DevOps 基础设施、CI/CD 流水线、流程管理与安全。",
     "buyNow": "立即购买",
-    "getQuote": "获取报价"
+    "getQuote": "获取报价",
+    "billingLabel": "计费周期",
+    "monthly": "按月",
+    "yearly": "按年",
+    "perMonth": "每月",
+    "perYear": "每年，预付",
+    "customPrice": "面议"
   },
   "ui": {
     "popular": "热门",
@@ -405,7 +415,15 @@
     "prevPage": "上一页",
     "nextPage": "下一页",
     "goToPage": "前往第 {{page}} 页",
-    "postCount": "共 {{total}} 篇 · 第 {{page}}/{{pages}} 页"
+    "postCount": "共 {{total}} 篇 · 第 {{page}}/{{pages}} 页",
+    "scrollTop": "回到顶部",
+    "socialLinks": "社交媒体账号",
+    "shareTitle": "分享",
+    "shareOn": "分享到 {{network}}",
+    "copyLink": "复制链接",
+    "linkCopied": "已复制",
+    "shareOther": "更多",
+    "timelineHint": "横向滚动以并排查看各年份。"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -570,6 +588,23 @@
     "fSeoBlogTitle": "博客 — 标题",
     "fSeoBlogDesc": "博客 — 描述",
     "fAppStore": "App Store 链接",
-    "fGooglePlay": "Google Play 链接"
+    "fGooglePlay": "Google Play 链接",
+    "fEnvato": "Envato 主页链接",
+    "fYearlyDiscount": "年付折扣 (%)",
+    "contentTitle": "页面内容",
+    "contentDesc": "在此管理客户评价与使用的工具。",
+    "fTestimonials": "客户评价 (JSON)",
+    "fTools": "使用的工具（逗号分隔）"
+  },
+  "tools": {
+    "sectionTag": "使用的工具",
+    "title": "每个项目背后的技术栈",
+    "desc": "依据项目需要而非流行趋势来选择。下列工具均在生产环境中实际使用。"
+  },
+  "testimonials": {
+    "sectionTag": "客户评价",
+    "title": "合作伙伴怎么说",
+    "rating": "5 分中的 {{rating}} 分",
+    "source": "查看来源"
   }
 }

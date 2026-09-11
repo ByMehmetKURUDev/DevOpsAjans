@@ -33,6 +33,15 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   social_linkedin: '',
   social_youtube: '',
   social_github: '',
+  social_envato: '',
+  // Yorumlar JSON dizisi olarak saklanıyor; boşken bölüm hiç basılmıyor.
+  // Biçim: [{"name":"...","role":"...","quote":"...","rating":5}]
+  testimonials_json: '',
+  // Kullanılan Araçlar: virgülle ayrılmış simple-icons slug listesi.
+  // Boşsa koddaki varsayılan sıra kullanılır.
+  tools_list: '',
+  // Yıllık ödemede uygulanan indirim yüzdesi.
+  yearly_discount: '20',
   price_starter: '100',
   price_business: '300',
   price_ecommerce: '500',
@@ -157,6 +166,7 @@ export const SETTING_GROUPS: {
       { key: 'social_linkedin', label: 'settingsForm.fLinkedin' },
       { key: 'social_youtube', label: 'settingsForm.fYoutube' },
       { key: 'social_github', label: 'settingsForm.fGithub' },
+      { key: 'social_envato', label: 'settingsForm.fEnvato' },
     ],
   },
   {
@@ -168,7 +178,19 @@ export const SETTING_GROUPS: {
       { key: 'price_business', label: 'settingsForm.fBusiness' },
       { key: 'price_ecommerce', label: 'settingsForm.fEcommerce' },
       { key: 'price_saas', label: 'settingsForm.fSaas' },
+      // DevOps paketinde fiyat gösterilmiyor; bu alan yalnızca teklif
+      // hazırlarken referans olsun diye duruyor.
       { key: 'price_devops', label: 'settingsForm.fDevops' },
+      { key: 'yearly_discount', label: 'settingsForm.fYearlyDiscount' },
+    ],
+  },
+  {
+    group: 'content',
+    title: 'settingsForm.contentTitle',
+    description: 'settingsForm.contentDesc',
+    fields: [
+      { key: 'testimonials_json', label: 'settingsForm.fTestimonials', multiline: true },
+      { key: 'tools_list', label: 'settingsForm.fTools', multiline: true },
     ],
   },
   {

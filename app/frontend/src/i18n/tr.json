@@ -63,7 +63,11 @@
     "step3Title": "İnşa Et",
     "step3Desc": "Haftalık üretim sürümleri. Her cuma staging'de canlanan projeyi izleyin.",
     "step4Title": "Büyüt",
-    "step4Desc": "Lansman sonrası: performans, SEO, ücretli reklamlar, analitik ve iteratif ürün hamleleri."
+    "step4Desc": "Lansman sonrası: performans, SEO, ücretli reklamlar, analitik ve iteratif ürün hamleleri.",
+    "desc2": "Karar verecek kişi her zaman masada. Onay zinciri yok, araya giren hesap yöneticisi yok — kodu yazan kişiyle doğrudan konuşuyorsunuz.",
+    "desc3": "İlerleme slaytla değil, açıp deneyebileceğiniz bir bağlantıyla ölçülüyor. Proje bittiğinde repo, altyapı, alan adı ve dokümantasyon sizde kalır; hiçbir yere kilitlenmezsiniz.",
+    "flowAlt": "Dört aşamalı süreç akışı: Keşfet, Tasarla, İnşa Et, Büyüt. Her aşama bir sonrakine bağlanıyor ve İnşa Et aşamasından haftalık sürümlerle geri dönüş oluyor.",
+    "flowLoop": "haftalık sürüm"
   },
   "techMarquee": "Kullandığımız araçlar",
   "cta": {
@@ -299,7 +303,13 @@
     "option5Price": "Fiyat Alınız",
     "option5Desc": "Özel proje yönetimi, DevOps altyapısı, CI/CD pipeline'ları, süreç yönetimi ve güvenlik.",
     "buyNow": "Satın Al",
-    "getQuote": "Fiyat Alınız"
+    "getQuote": "Fiyat Alınız",
+    "billingLabel": "Ödeme dönemi",
+    "monthly": "Aylık",
+    "yearly": "Yıllık",
+    "perMonth": "ay başına",
+    "perYear": "yıllık, peşin",
+    "customPrice": "Görüşelim"
   },
   "ui": {
     "popular": "Popüler",
@@ -405,7 +415,15 @@
     "prevPage": "Önceki",
     "nextPage": "Sonraki",
     "goToPage": "{{page}}. sayfaya git",
-    "postCount": "{{total}} yazı · {{page}}/{{pages}}. sayfa"
+    "postCount": "{{total}} yazı · {{page}}/{{pages}}. sayfa",
+    "scrollTop": "Sayfa başına dön",
+    "socialLinks": "Sosyal medya hesapları",
+    "shareTitle": "Paylaş",
+    "shareOn": "{{network}} üzerinde paylaş",
+    "copyLink": "Bağlantıyı kopyala",
+    "linkCopied": "Kopyalandı",
+    "shareOther": "Diğer",
+    "timelineHint": "Yılları yan yana görmek için şeridi yatay kaydırın."
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -570,6 +588,23 @@
     "fSeoBlogTitle": "Blog — başlık",
     "fSeoBlogDesc": "Blog — açıklama",
     "fAppStore": "App Store bağlantısı",
-    "fGooglePlay": "Google Play bağlantısı"
+    "fGooglePlay": "Google Play bağlantısı",
+    "fEnvato": "Envato profil adresi",
+    "fYearlyDiscount": "Yıllık ödeme indirimi (%)",
+    "contentTitle": "Sayfa İçeriği",
+    "contentDesc": "Yorumlar ve kullanılan araçlar bölümlerini buradan yönetin.",
+    "fTestimonials": "Müşteri yorumları (JSON)",
+    "fTools": "Kullanılan araçlar (virgülle ayrılmış)"
+  },
+  "tools": {
+    "sectionTag": "Kullanılan Araçlar",
+    "title": "Her projede kullandığım yığın",
+    "desc": "Seçimler modaya göre değil, işin gerektirdiğine göre yapılıyor. Aşağıdaki araçlar üretimde aktif olarak kullanılıyor."
+  },
+  "testimonials": {
+    "sectionTag": "Yorumlar",
+    "title": "Birlikte çalıştıklarımız ne diyor",
+    "rating": "5 üzerinden {{rating}}",
+    "source": "Kaynağı gör"
   }
 }

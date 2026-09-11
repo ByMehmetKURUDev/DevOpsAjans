@@ -63,7 +63,11 @@
     "step3Title": "Bauen",
     "step3Desc": "Wöchentliche Produktions-Releases. Sie sehen es jeden Freitag im Staging lebendig werden.",
     "step4Title": "Wachsen",
-    "step4Desc": "Nach dem Launch: Performance, SEO, bezahlte Anzeigen, Analytics und iterative Produktwetten."
+    "step4Desc": "Nach dem Launch: Performance, SEO, bezahlte Anzeigen, Analytics und iterative Produktwetten.",
+    "desc2": "Wer entscheidet, sitzt immer mit am Tisch. Keine Freigabekette, kein Account-Manager dazwischen — Sie sprechen direkt mit der Person, die den Code schreibt.",
+    "desc3": "Fortschritt misst sich an einem Link, den Sie öffnen können, nicht an einer Folie. Am Projektende bleiben Repo, Infrastruktur, Domain und Dokumentation bei Ihnen; nichts bindet Sie.",
+    "flowAlt": "Vierstufiger Prozessablauf: Entdecken, Gestalten, Bauen, Wachsen. Jede Stufe führt zur nächsten, mit einer wöchentlichen Release-Schleife ab Bauen.",
+    "flowLoop": "wöchentliches Release"
   },
   "techMarquee": "Unsere Werkzeuge",
   "cta": {
@@ -299,7 +303,13 @@
     "option5Price": "Angebot anfordern",
     "option5Desc": "Individuelle DevOps-Infrastruktur und CI/CD-Pipelines.",
     "buyNow": "Jetzt kaufen",
-    "getQuote": "Angebot anfordern"
+    "getQuote": "Angebot anfordern",
+    "billingLabel": "Abrechnungszeitraum",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "perMonth": "pro Monat",
+    "perYear": "pro Jahr, im Voraus",
+    "customPrice": "Sprechen wir"
   },
   "ui": {
     "popular": "Beliebt",
@@ -405,7 +415,15 @@
     "prevPage": "Zurück",
     "nextPage": "Weiter",
     "goToPage": "Zu Seite {{page}}",
-    "postCount": "{{total}} Beiträge · Seite {{page}} von {{pages}}"
+    "postCount": "{{total}} Beiträge · Seite {{page}} von {{pages}}",
+    "scrollTop": "Nach oben",
+    "socialLinks": "Social-Media-Profile",
+    "shareTitle": "Teilen",
+    "shareOn": "Auf {{network}} teilen",
+    "copyLink": "Link kopieren",
+    "linkCopied": "Kopiert",
+    "shareOther": "Mehr",
+    "timelineHint": "Streifen seitlich scrollen, um Jahre zu vergleichen."
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -570,6 +588,23 @@
     "fSeoBlogTitle": "Blog — Titel",
     "fSeoBlogDesc": "Blog — Beschreibung",
     "fAppStore": "App-Store-Link",
-    "fGooglePlay": "Google-Play-Link"
+    "fGooglePlay": "Google-Play-Link",
+    "fEnvato": "Envato-Profil-URL",
+    "fYearlyDiscount": "Rabatt bei Jahreszahlung (%)",
+    "contentTitle": "Seiteninhalt",
+    "contentDesc": "Referenzen und eingesetzte Werkzeuge hier verwalten.",
+    "fTestimonials": "Referenzen (JSON)",
+    "fTools": "Werkzeuge (kommagetrennt)"
+  },
+  "tools": {
+    "sectionTag": "Eingesetzte Werkzeuge",
+    "title": "Der Stack hinter jedem Projekt",
+    "desc": "Ausgewählt nach den Anforderungen des Projekts, nicht nach Trends. Alle Werkzeuge sind aktiv im Einsatz."
+  },
+  "testimonials": {
+    "sectionTag": "Referenzen",
+    "title": "Was unsere Kunden sagen",
+    "rating": "{{rating}} von 5",
+    "source": "Quelle ansehen"
   }
 }

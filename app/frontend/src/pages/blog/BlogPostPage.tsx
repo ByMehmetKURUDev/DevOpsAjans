@@ -4,10 +4,12 @@ import BlogArticleLayout from '@/components/blog/BlogArticleLayout';
 import MarkdownArticle, { getHeadings } from '@/components/blog/MarkdownArticle';
 import PostNavigation from '@/components/blog/PostNavigation';
 import RelatedPosts from '@/components/blog/RelatedPosts';
+import ShareButtons from '@/components/ShareButtons';
 import TableOfContents from '@/components/blog/TableOfContents';
 import { getBlogPost, getPostSeoMeta } from '@/lib/blog';
 import { getAdjacentEntries, getRelatedEntries } from '@/lib/blogIndex';
 import { fetchPanelPost, type PanelPost } from '@/lib/panelPosts';
+import { SITE_URL } from '../../../prerender/site.js';
 
 function getSlugFromPathname(pathname: string) {
   return pathname
@@ -227,6 +229,16 @@ const BlogPostPage = () => {
     >
       <TableOfContents entries={getHeadings(post.markdown)} />
       <MarkdownArticle markdown={post.markdown} />
+      {/*
+        Paylaşım adresini `location.href` yerine kanonik adresten kuruyoruz:
+        sunucuda basılırken `window` yok, ayrıca sorgu parametreli bir
+        adres paylaşıldığında kırık bağlantı çıkıyordu.
+      */}
+      <ShareButtons
+        url={`${SITE_URL}/blog/${post.slug}/`}
+        title={post.title}
+        className="mt-12 border-t border-white/5 pt-8"
+      />
       <PostNavigation {...getAdjacentEntries(post.slug)} />
       <RelatedPosts posts={getRelatedEntries(post.slug)} />
     </BlogArticleLayout>
