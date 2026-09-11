@@ -396,7 +396,16 @@
       "closed": "बंद"
     },
     "blog": "ब्लॉग",
-    "logoAlt": "By Mehmet KURU Dev — वेब डेवलपमेंट और डिजिटल मार्केटिंग स्टूडियो लोगो"
+    "logoAlt": "By Mehmet KURU Dev — वेब डेवलपमेंट और डिजिटल मार्केटिंग स्टूडियो लोगो",
+    "sortLabel": "क्रम",
+    "sortNewest": "नवीनतम",
+    "sortOldest": "सबसे पुराना",
+    "sortTitleAsc": "शीर्षक (A-Z)",
+    "pagination": "पृष्ठ",
+    "prevPage": "पिछला",
+    "nextPage": "अगला",
+    "goToPage": "पृष्ठ {{page}} पर जाएँ",
+    "postCount": "{{total}} लेख · पृष्ठ {{page}}/{{pages}}"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

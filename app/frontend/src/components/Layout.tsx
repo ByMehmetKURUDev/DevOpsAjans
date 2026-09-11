@@ -312,16 +312,19 @@ export default function Layout() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
+            {/*
+              Logo saydam zeminli: kutu, çerçeve ve arkasındaki mor parıltı
+              kaldırıldı — saydam görselin arkasında mor bir leke olarak
+              görünüyorlardı. Künye doğrudan site zemininin üstünde duruyor.
+            */}
             <div className="relative">
-              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#8b3dff] via-[#5c27a3] to-[#d4a5ff] blur-md opacity-60 group-hover:opacity-100 transition-opacity" />
               <img
                 src={logoSrc}
                 alt={t('ui.logoAlt')}
-                width={44}
-                height={44}
+                width={48}
+                height={48}
                 decoding="async"
-                /* object-contain: künye kırpılmadan çerçevenin içine sığar. */
-                className="relative h-11 w-11 rounded-lg object-contain bg-[#171a1e] ring-1 ring-white/10"
+                className="relative h-12 w-12 object-contain transition-transform group-hover:scale-105"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).style.display = 'none';
                 }}
@@ -541,11 +544,11 @@ export default function Layout() {
               <img
                 src={logoSrc}
                 alt={t('ui.logoAlt')}
-                width={44}
-                height={44}
+                width={48}
+                height={48}
                 loading="lazy"
                 decoding="async"
-                className="h-11 w-11 rounded-lg object-contain bg-[#171a1e]"
+                className="h-12 w-12 object-contain"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).style.display = 'none';
                 }}

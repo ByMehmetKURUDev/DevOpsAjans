@@ -396,7 +396,16 @@
       "closed": "已关闭"
     },
     "blog": "博客",
-    "logoAlt": "By Mehmet KURU Dev — 网站开发与数字营销工作室标识"
+    "logoAlt": "By Mehmet KURU Dev — 网站开发与数字营销工作室标识",
+    "sortLabel": "排序",
+    "sortNewest": "最新",
+    "sortOldest": "最早",
+    "sortTitleAsc": "标题 (A-Z)",
+    "pagination": "页码",
+    "prevPage": "上一页",
+    "nextPage": "下一页",
+    "goToPage": "前往第 {{page}} 页",
+    "postCount": "共 {{total}} 篇 · 第 {{page}}/{{pages}} 页"
   },
   "admin": {
     "loadError": "管理数据加载失败",

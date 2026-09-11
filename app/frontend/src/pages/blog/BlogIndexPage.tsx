@@ -1,11 +1,42 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getBlogRoute } from '@/lib/blogRoute';
 import { blogIndexCategories, blogIndexEntries } from '@/lib/blogIndex';
 import { usePanelPosts } from '@/lib/panelPosts';
+import Pagination from '@/components/blog/Pagination';
 
 const ALL_CATEGORIES = '__all__';
+
+/** Sayfa başına yazı sayısı. */
+const PER_PAGE = 10;
+
+/** Sıralama seçenekleri. Anahtarlar adres çubuğunda görünür. */
+const SORT_OPTIONS = [
+  { value: 'yeni', labelKey: 'ui.sortNewest' },
+  { value: 'eski', labelKey: 'ui.sortOldest' },
+  { value: 'baslik', labelKey: 'ui.sortTitleAsc' },
+] as const;
+
+type SortValue = (typeof SORT_OPTIONS)[number]['value'];
+
+const DEFAULT_SORT: SortValue = 'yeni';
+
+function parseDate(value?: string): number {
+  if (!value) return Number.NaN;
+  return Date.parse(value);
+}
+
+/** Tarihi olmayan yazılar her zaman sona düşer; sıralama yönü onları taşımaz. */
+function byDate(a: { date?: string; slug: string }, b: { date?: string; slug: string }, newestFirst: boolean) {
+  const at = parseDate(a.date);
+  const bt = parseDate(b.date);
+  if (Number.isNaN(at) && Number.isNaN(bt)) return a.slug.localeCompare(b.slug);
+  if (Number.isNaN(at)) return 1;
+  if (Number.isNaN(bt)) return -1;
+  if (at === bt) return a.slug.localeCompare(b.slug);
+  return newestFirst ? bt - at : at - bt;
+}
 
 /** Listede gösterilen ortak yazı biçimi. */
 interface ListedPost {
@@ -19,8 +50,30 @@ interface ListedPost {
 
 const BlogIndexPage = () => {
   const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState<string>(ALL_CATEGORIES);
   const { panelPosts } = usePanelPosts();
+
+  /**
+   * Kategori, sıralama ve sayfa adres çubuğunda tutulur.
+   *
+   * Bileşen state'i yerine sorgu parametresi kullanılıyor: böylece üçüncü
+   * sayfanın bağlantısı paylaşılabiliyor, tarayıcının geri tuşu çalışıyor
+   * ve sayfa numaraları gerçek `href` taşıyan bağlantılar olabiliyor.
+   */
+  const [params, setParams] = useSearchParams();
+  const activeCategory = params.get('kategori') || ALL_CATEGORIES;
+  const sort = (SORT_OPTIONS.find((o) => o.value === params.get('sirala'))?.value ??
+    DEFAULT_SORT) as SortValue;
+  const requestedPage = Math.max(1, Number.parseInt(params.get('sayfa') ?? '1', 10) || 1);
+
+  /** Parametreyi günceller; varsayılan değerleri adrese yazmaz. */
+  const updateParams = (changes: Record<string, string | null>) => {
+    const next = new URLSearchParams(params);
+    Object.entries(changes).forEach(([key, value]) => {
+      if (value === null) next.delete(key);
+      else next.set(key, value);
+    });
+    setParams(next, { replace: false });
+  };
 
   /**
    * Markdown yazıları ile panelden yayımlananlar tek listede.
@@ -53,14 +106,7 @@ const BlogIndexPage = () => {
         date: post.created_at?.slice(0, 10),
       }));
 
-    return [...markdown, ...fromPanel].sort((a, b) => {
-      const at = a.date ? Date.parse(a.date) : NaN;
-      const bt = b.date ? Date.parse(b.date) : NaN;
-      if (!Number.isNaN(at) && !Number.isNaN(bt) && at !== bt) return bt - at;
-      if (!Number.isNaN(at) && Number.isNaN(bt)) return -1;
-      if (Number.isNaN(at) && !Number.isNaN(bt)) return 1;
-      return a.slug.localeCompare(b.slug);
-    });
+    return [...markdown, ...fromPanel];
   }, [panelPosts]);
 
   const categories = useMemo(() => {
@@ -69,10 +115,54 @@ const BlogIndexPage = () => {
     return Array.from(all).sort((a, b) => a.localeCompare(b, 'tr'));
   }, [panelPosts]);
 
-  const visiblePosts = useMemo(() => {
-    if (activeCategory === ALL_CATEGORIES) return allPosts;
-    return allPosts.filter((post) => post.category === activeCategory);
-  }, [activeCategory, allPosts]);
+  /** Kategori süzgeci + seçilen sıralama. */
+  const filteredPosts = useMemo(() => {
+    const list =
+      activeCategory === ALL_CATEGORIES
+        ? [...allPosts]
+        : allPosts.filter((post) => post.category === activeCategory);
+
+    if (sort === 'baslik') {
+      return list.sort((a, b) => a.title.localeCompare(b.title, 'tr'));
+    }
+    return list.sort((a, b) => byDate(a, b, sort === 'yeni'));
+  }, [activeCategory, allPosts, sort]);
+
+  const pageCount = Math.max(1, Math.ceil(filteredPosts.length / PER_PAGE));
+  const page = Math.min(requestedPage, pageCount);
+  const visiblePosts = filteredPosts.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+  /**
+   * Panel yazıları sonradan yüklendiğinde toplam sayfa sayısı düşebiliyor;
+   * o durumda adres çubuğundaki sayfa numarası da geçerli aralığa çekilir.
+   */
+  useEffect(() => {
+    if (requestedPage > pageCount) {
+      updateParams({ sayfa: pageCount === 1 ? null : String(pageCount) });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageCount, requestedPage]);
+
+  const hrefFor = (target: number) => {
+    const next = new URLSearchParams(params);
+    if (target <= 1) next.delete('sayfa');
+    else next.set('sayfa', String(target));
+    const query = next.toString();
+    return query ? `/blog?${query}` : '/blog';
+  };
+
+  const goToPage = (target: number) => {
+    updateParams({ sayfa: target <= 1 ? null : String(target) });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const selectCategory = (category: string) => {
+    // Kategori değişince eski sayfa numarası anlamsız kalıyor, sıfırlanır.
+    updateParams({
+      kategori: category === ALL_CATEGORIES ? null : category,
+      sayfa: null,
+    });
+  };
 
   return (
   <main className="min-h-screen bg-[#05010a] text-[#ece6ff]">
@@ -100,7 +190,7 @@ const BlogIndexPage = () => {
         <div className="mt-10 flex flex-wrap gap-3" role="group" aria-label={t('portfolio.all')}>
           <button
             type="button"
-            onClick={() => setActiveCategory(ALL_CATEGORIES)}
+            onClick={() => selectCategory(ALL_CATEGORIES)}
             aria-pressed={activeCategory === ALL_CATEGORIES}
             className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
               activeCategory === ALL_CATEGORIES
@@ -114,7 +204,7 @@ const BlogIndexPage = () => {
             <button
               key={category}
               type="button"
-              onClick={() => setActiveCategory(category)}
+              onClick={() => selectCategory(category)}
               aria-pressed={activeCategory === category}
               className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
                 activeCategory === category
@@ -128,7 +218,35 @@ const BlogIndexPage = () => {
         </div>
       ) : null}
 
-      <div className="mt-12 grid gap-6">
+      {/* Sıralama ve sayaç: liste ile süzgeçler arasında tek satır. */}
+      {filteredPosts.length > 0 ? (
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-4">
+          <p className="text-sm text-[#9d8cbf]">
+            {t('ui.postCount', { total: filteredPosts.length, page, pages: pageCount })}
+          </p>
+          <label className="flex items-center gap-2 text-sm text-[#9d8cbf]">
+            <span>{t('ui.sortLabel')}</span>
+            <select
+              value={sort}
+              onChange={(event) =>
+                updateParams({
+                  sirala: event.target.value === DEFAULT_SORT ? null : event.target.value,
+                  sayfa: null,
+                })
+              }
+              className="rounded-xl border border-white/10 bg-[#120b1f] px-3 py-2 text-sm font-semibold text-white outline-none transition-colors hover:border-purple-500/40 focus:border-purple-400"
+            >
+              {SORT_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {t(option.labelKey)}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      ) : null}
+
+      <div className="mt-8 grid gap-6">
         {visiblePosts.length > 0 ? (
           visiblePosts.map((post) => (
             <article
@@ -176,6 +294,37 @@ const BlogIndexPage = () => {
           </section>
         )}
       </div>
+
+      <Pagination page={page} pageCount={pageCount} hrefFor={hrefFor} onNavigate={goToPage} />
+
+      {/*
+        Sayfalama okuması kolaylaştırıyor ama bir yan etkisi var: dizinin
+        HTML'inde artık 70 değil 10 yazı bağlantısı kalıyor, kalan yazılar
+        dizinden iç link almıyor. Aşağıdaki katlanmış arşiv bunu telafi
+        ediyor — kapalı `details` de HTML'de duruyor, tarayıcı da arama motoru
+        da bütün yazıları buradan görüyor.
+      */}
+      {filteredPosts.length > PER_PAGE ? (
+        <details className="mt-12 rounded-3xl border border-white/10 bg-white/[0.02] p-6">
+          <summary className="cursor-pointer text-sm font-semibold text-purple-300 hover:text-pink-300">
+            {t('ui.postCount', { total: filteredPosts.length, page, pages: pageCount })}
+            {' — '}
+            {t('portfolio.all')}
+          </summary>
+          <ul className="mt-5 grid gap-2 sm:grid-cols-2">
+            {filteredPosts.map((post) => (
+              <li key={`arsiv-${post.slug}`}>
+                <Link
+                  to={getBlogRoute(post.slug)}
+                  className="text-sm leading-6 text-[#b9a9d6] underline-offset-4 hover:text-white hover:underline"
+                >
+                  {post.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
     </section>
   </main>
   );

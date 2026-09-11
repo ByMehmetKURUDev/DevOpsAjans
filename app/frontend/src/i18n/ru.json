@@ -396,7 +396,16 @@
       "closed": "Закрыт"
     },
     "blog": "Блог",
-    "logoAlt": "By Mehmet KURU Dev — логотип студии веб-разработки и цифрового маркетинга"
+    "logoAlt": "By Mehmet KURU Dev — логотип студии веб-разработки и цифрового маркетинга",
+    "sortLabel": "Сортировка",
+    "sortNewest": "Сначала новые",
+    "sortOldest": "Сначала старые",
+    "sortTitleAsc": "Заголовок (А-Я)",
+    "pagination": "Страницы",
+    "prevPage": "Назад",
+    "nextPage": "Вперёд",
+    "goToPage": "Перейти на страницу {{page}}",
+    "postCount": "{{total}} статей · страница {{page}} из {{pages}}"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

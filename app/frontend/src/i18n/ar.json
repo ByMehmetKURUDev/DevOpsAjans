@@ -396,7 +396,16 @@
       "closed": "مغلق"
     },
     "blog": "المدونة",
-    "logoAlt": "By Mehmet KURU Dev — شعار استوديو تطوير المواقع والتسويق الرقمي"
+    "logoAlt": "By Mehmet KURU Dev — شعار استوديو تطوير المواقع والتسويق الرقمي",
+    "sortLabel": "الترتيب",
+    "sortNewest": "الأحدث",
+    "sortOldest": "الأقدم",
+    "sortTitleAsc": "العنوان (أ-ي)",
+    "pagination": "الصفحات",
+    "prevPage": "السابق",
+    "nextPage": "التالي",
+    "goToPage": "الانتقال إلى الصفحة {{page}}",
+    "postCount": "{{total}} مقالة · صفحة {{page}} من {{pages}}"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

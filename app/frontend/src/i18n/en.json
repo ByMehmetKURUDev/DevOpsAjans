@@ -396,7 +396,16 @@
       "closed": "Closed"
     },
     "blog": "Blog",
-    "logoAlt": "By Mehmet KURU Dev — web development and digital marketing studio logo"
+    "logoAlt": "By Mehmet KURU Dev — web development and digital marketing studio logo",
+    "sortLabel": "Sort",
+    "sortNewest": "Newest",
+    "sortOldest": "Oldest",
+    "sortTitleAsc": "Title (A-Z)",
+    "pagination": "Pages",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "goToPage": "Go to page {{page}}",
+    "postCount": "{{total}} posts · page {{page}} of {{pages}}"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

@@ -1,54 +1,60 @@
-mehmetkuru.dev — yayına hazır site (önizleme)
-=============================================
+mehmetkuru.dev — SİTENİN YEREL ÖNİZLEMESİ
+==========================================
 
-99 sayfa önceden HTML olarak üretilmiştir:
-  - 7 dilde 4 statik sayfa (28)
-  - Türkçe blog dizini + 70 yazı (71)
+ÖNCE ŞUNU BİLİN
+---------------
+index.html dosyasına çift tıklayınca site açılmaz; boş ya da bozuk görünür.
+Sebebi hata değil: sayfalar birbirine "/assets/..." gibi kök adreslerle
+bağlı. Bilgisayarınızda dosyayı doğrudan açtığınızda tarayıcı bu adresleri
+sabit diskin en üstünde arar ve bulamaz. Çözüm, klasörü küçük bir sunucu
+üzerinden açmak. Bunu sizin için hazırladım.
+
 
 NASIL AÇILIR
 ------------
-Bu klasörde bir terminal açıp:
+Windows : BASLAT.bat dosyasına çift tıklayın.
+Mac     : BASLAT.command dosyasına çift tıklayın.
+          (İlk seferde "izin verilmedi" derse Terminal'i açıp
+           şunu yazın:  chmod +x "BASLAT.command" )
 
-    python3 onizleme-sunucu.py
+Siyah bir pencere açılır ve tarayıcı kendiliğinden
+http://localhost:4173 adresini açar. Pencereyi kapatmayın; onu
+kapatınca site de kapanır.
 
-Tarayıcıdan: http://localhost:4173
+Bilgisayarınızda Python yoksa pencere size ne yapacağınızı söyler.
+python.org/downloads adresinden kurarken "Add python.exe to PATH"
+kutusunu işaretlemeyi unutmayın.
 
-index.html'e çift tıklamayın — sayfalar "/assets/..." kök yollarıyla
-bağlı olduğu için dosya olarak açıldığında boş görünür.
 
-Düz `python3 -m http.server` de kullanmayın: /admin, /client ve tanımsız
-adreslerde sunucunun kendi 404'ünü gösterir. Verdiğim betik SPA fallback
-ile çalışır — yayında da açılması gereken ayar tam olarak budur.
+NEREYE BAKMALI
+--------------
+Türkçe sayfalar
+  /                      Ana sayfa
+  /services              Nasıl Çalışır
+  /portfolio             Vaka Çalışmaları
+  /blog                  Blog dizini (10'arlı sayfalama + sıralama)
+  /contact               İletişim
 
-GEZİLECEK ADRESLER
+Diğer diller: adresin başına dil kodunu ekleyin
+  /en/  /de/  /ar/  /ru/  /zh/  /hi/
+  örnek: http://localhost:4173/en/services
+
+Paneller
+  /admin                 Yönetim paneli
+  /client                Müşteri paneli
+
+Panellerde giriş ekranı görünür ve içeri girilmez — bu normal.
+Paneller veriyi arka uçtan (API) çeker; bu klasörde yalnızca sitenin
+statik hâli var, arka uç yok. Panellerin dolu hâli ancak site yayında
+olduğunda görülür.
+
+
+BU KLASÖRDE NE VAR
 ------------------
-    /                          ana sayfa
-    /services /portfolio /contact
-    /blog                      70 yazılık liste
-    /blog/seo-nedir            kapak + içindekiler + SSS + önceki/sonraki
-    /en /de /ar /ru /zh /hi    dil sürümleri  (örn. /de/services)
-    /ar                        sağdan sola yazım
-    /admin /client             paneller (giriş ve backend gerektirir)
+99 sayfa gerçek HTML dosyası olarak duruyor: 28 çok dilli sayfa,
+blog dizini ve 70 yazı. Yani Google'a giden metin tam olarak burada
+gördüğünüz metin.
 
-YAYINA ALIRKEN — İKİ AYAR
--------------------------
-1) SPA fallback: dosyası bulunmayan yollar /index.html'e yönlendirilmeli.
-   99 sayfa gerçek dosya olduğu için doğrudan servis edilir; gerisini
-   uygulama yönetir.
-
-2) Panel metinlerinin arama sonuçlarına yansıması için:
-
-       SITE_API_BASE_URL=https://<backend-adresiniz>  npm run build
-
-   Tanımlı değilse site yine sorunsuz derlenir, sayfa başlık ve
-   açıklamaları koddaki varsayılanlardan gelir.
-
-BU ÖNİZLEMEDE GÖRÜNMEYENLER
----------------------------
-- Logolar: depoda Git LFS ile saklanıyor, bu ortamda indirilemedi.
-  Sizin makinenizde `git lfs pull` sonrası görünürler.
-- Portföy listesi, iletişim formu, panel içerikleri: backend çalışmıyor.
-- Google Fonts ve Analytics: dış ağ kapalı.
-- App Store / Google Play rozetleri: resmî dosyalar
-  public/store-badges/ altına eklenene kadar sade metin düğmesi görünür
-  (ayrıntı: public/store-badges/OKU-BENI.txt).
+  sitemap.xml    arama motorlarına verilecek sayfa listesi
+  robots.txt     tarayıcı kuralları
+  assets/        görseller, betikler, stiller

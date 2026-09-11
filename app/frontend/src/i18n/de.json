@@ -396,7 +396,16 @@
       "closed": "Geschlossen"
     },
     "blog": "Blog",
-    "logoAlt": "By Mehmet KURU Dev — Logo für Webentwicklung und digitales Marketing"
+    "logoAlt": "By Mehmet KURU Dev — Logo für Webentwicklung und digitales Marketing",
+    "sortLabel": "Sortierung",
+    "sortNewest": "Neueste",
+    "sortOldest": "Älteste",
+    "sortTitleAsc": "Titel (A-Z)",
+    "pagination": "Seiten",
+    "prevPage": "Zurück",
+    "nextPage": "Weiter",
+    "goToPage": "Zu Seite {{page}}",
+    "postCount": "{{total}} Beiträge · Seite {{page}} von {{pages}}"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

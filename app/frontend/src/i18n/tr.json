@@ -396,7 +396,16 @@
       "closed": "Kapandı"
     },
     "blog": "Blog",
-    "logoAlt": "By Mehmet KURU Dev — web geliştirme ve dijital pazarlama ajansı logosu"
+    "logoAlt": "By Mehmet KURU Dev — web geliştirme ve dijital pazarlama ajansı logosu",
+    "sortLabel": "Sıralama",
+    "sortNewest": "En yeni",
+    "sortOldest": "En eski",
+    "sortTitleAsc": "Başlık (A-Z)",
+    "pagination": "Sayfalar",
+    "prevPage": "Önceki",
+    "nextPage": "Sonraki",
+    "goToPage": "{{page}}. sayfaya git",
+    "postCount": "{{total}} yazı · {{page}}/{{pages}}. sayfa"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
