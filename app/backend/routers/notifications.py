@@ -13,6 +13,7 @@ from core.database import get_db
 from fastapi import APIRouter, Depends, HTTPException, Query
 from models.notifications import Notifications
 from pydantic import BaseModel
+from services.notify import send_test
 from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -47,6 +48,34 @@ class NotificationListResponse(BaseModel):
     unread: int
     skip: int
     limit: int
+
+
+class TestRequest(BaseModel):
+    """Panelden tek bir kanalı denemek için."""
+
+    channel: str  # email | sms | whatsapp | inapp
+    target: str  # e-posta adresi ya da telefon numarası
+
+
+class DeliveryLogItem(BaseModel):
+    id: int
+    created_at: Optional[datetime] = None
+    event_type: str
+    title: str
+    recipient_email: str
+    channel: str
+    delivery_status: Optional[str] = None
+    delivery_detail: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+class DeliveryLogResponse(BaseModel):
+    items: List[DeliveryLogItem]
+    total: int
+    # Kanal başına özet: hangi kanaldan kaç gönderim başarılı/başarısız/atlandı.
+    summary: dict
 
 
 class MarkReadRequest(BaseModel):
@@ -136,3 +165,66 @@ async def mark_read(
     await db.execute(update(Notifications).where(*kosullar).values(read_at=datetime.now()))
     await db.commit()
     return {"success": True}
+
+
+@router.get("/log", response_model=DeliveryLogResponse)
+async def delivery_log(
+    limit: int = Query(100, ge=1, le=500),
+    status: Optional[str] = Query(None, description="sent | failed | skipped"),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Gönderim kayıtları.
+
+    Panel içi (`inapp`) kayıtlar dışarıda: onlar hep başarılı ve listeyi
+    doldurup asıl soruyu — dış kanallar çalışıyor mu — gizliyorlar.
+    """
+    kosullar = [Notifications.channel != "inapp"]
+    if status:
+        kosullar.append(Notifications.delivery_status == status)
+
+    toplam = await db.scalar(select(func.count()).select_from(Notifications).where(*kosullar))
+
+    sonuc = await db.execute(
+        select(Notifications)
+        .where(*kosullar)
+        .order_by(Notifications.created_at.desc(), Notifications.id.desc())
+        .limit(limit)
+    )
+
+    ozet_sonuc = await db.execute(
+        select(
+            Notifications.channel,
+            Notifications.delivery_status,
+            func.count().label("adet"),
+        )
+        .where(Notifications.channel != "inapp")
+        .group_by(Notifications.channel, Notifications.delivery_status)
+    )
+
+    ozet: dict = {}
+    for kanal, durum, adet in ozet_sonuc.all():
+        ozet.setdefault(kanal, {})[durum or "bilinmiyor"] = int(adet)
+
+    return DeliveryLogResponse(
+        items=[DeliveryLogItem.model_validate(r) for r in sonuc.scalars().all()],
+        total=int(toplam or 0),
+        summary=ozet,
+    )
+
+
+@router.post("/test")
+async def test_channel(payload: TestRequest, db: AsyncSession = Depends(get_db)):
+    """
+    Bir kanalı dener.
+
+    Gerçek bir olay beklemeden kanalın çalışıp çalışmadığını gösterir;
+    sonuç gönderim kayıtlarına da yazılır.
+    """
+    hedef = payload.target.strip()
+    if not hedef:
+        raise HTTPException(status_code=400, detail="Hedef adres ya da numara boş olamaz")
+    if payload.channel not in {"email", "sms", "whatsapp", "inapp"}:
+        raise HTTPException(status_code=400, detail="Geçersiz kanal")
+
+    return await send_test(db, payload.channel, hedef)

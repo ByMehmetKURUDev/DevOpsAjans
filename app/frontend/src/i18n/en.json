@@ -424,7 +424,8 @@
     "linkCopied": "Copied",
     "shareOther": "More",
     "timelineHint": "Scroll the strip sideways to compare years.",
-    "tabPages": "Site Pages"
+    "tabPages": "Site Pages",
+    "tabNotify": "Notifications"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -697,5 +698,40 @@
     "noteSavedInternal": "Internal note added. Not shown to the client.",
     "saveError": "Could not save.",
     "history": "Project history"
+  },
+  "notifyAdmin": {
+    "testTitle": "Channel test",
+    "testDesc": "Check whether a channel works without waiting for a real event. The result is written to the delivery log below.",
+    "on": "on",
+    "off": "off",
+    "targetEmail": "Test email address",
+    "targetPhone": "Test phone number",
+    "sendTest": "Send test",
+    "targetMissing": "Enter a target address or number first.",
+    "testSent": "Test sent over {{channel}}.",
+    "testError": "Could not complete.",
+    "templateTitle": "Notification templates",
+    "templateDesc": "Change the title and text of notifications here. Left empty, the server default is used.",
+    "evInquiry": "Contact message",
+    "evTicket": "Support ticket",
+    "evStage": "Project stage",
+    "tplTitle": "Title",
+    "tplBody": "Text",
+    "tplPlaceholder": "Left empty, the default is used",
+    "tokensHint": "Placeholders available for this event — type them as-is:",
+    "saveTemplate": "Save template",
+    "templateSaved": "Template saved.",
+    "logTitle": "Delivery log",
+    "logDesc": "External channels only. The note on a \"skipped\" row says why that channel could not send.",
+    "logEmpty": "No delivery records yet.",
+    "loading": "Loading…",
+    "filter": "Filter by status",
+    "allStatuses": "All statuses",
+    "refresh": "Refresh",
+    "colTime": "Time",
+    "colChannel": "Channel",
+    "colStatus": "Status",
+    "colTo": "Recipient",
+    "colDetail": "Detail"
   }
 }

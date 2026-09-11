@@ -16,7 +16,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from models.project_events import Project_events
 from models.projects import Projects
 from pydantic import BaseModel, Field
-from services.notify import admin_recipients, dispatch
+from services.notify import admin_recipients, dispatch, render
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -207,11 +207,25 @@ async def set_stage(payload: StageRequest, db: AsyncSession = Depends(get_db)):
     await db.commit()
     await db.refresh(kayit)
 
+    baslik, govde = await render(
+        db,
+        "project_stage",
+        f"{proje.title}: {etiket} aşamasında",
+        payload.note or f"Proje {onceki_etiket} aşamasından {etiket} aşamasına geçti.",
+        {
+            "proje": proje.title,
+            "asama": etiket,
+            "oncekiAsama": onceki_etiket,
+            "not": payload.note or "",
+            "musteri": proje.client_name or "",
+        },
+    )
+
     await dispatch(
         db,
         event_type="project_stage",
-        title=f"{proje.title}: {etiket} aşamasında",
-        body=payload.note or f"Proje {onceki_etiket} aşamasından {etiket} aşamasına geçti.",
+        title=baslik,
+        body=govde,
         recipients=_alicilar(proje) + await admin_recipients(db),
         link="/client",
         ref_type="project",

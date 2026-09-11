@@ -424,7 +424,8 @@
     "linkCopied": "已复制",
     "shareOther": "更多",
     "timelineHint": "横向滚动以并排查看各年份。",
-    "tabPages": "网站页面"
+    "tabPages": "网站页面",
+    "tabNotify": "通知"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -697,5 +698,40 @@
     "noteSavedInternal": "已添加内部备注。",
     "saveError": "保存失败。",
     "history": "项目历史"
+  },
+  "notifyAdmin": {
+    "testTitle": "渠道测试",
+    "testDesc": "无需等待真实事件即可检查渠道是否可用。结果会写入下方发送记录。",
+    "on": "开",
+    "off": "关",
+    "targetEmail": "测试邮箱",
+    "targetPhone": "测试手机号",
+    "sendTest": "发送测试",
+    "targetMissing": "请先填写地址或号码。",
+    "testSent": "已通过 {{channel}} 发送测试。",
+    "testError": "操作未完成。",
+    "templateTitle": "通知模板",
+    "templateDesc": "在此修改通知的标题与正文。留空则使用服务器默认值。",
+    "evInquiry": "联系表单消息",
+    "evTicket": "支持工单",
+    "evStage": "项目阶段",
+    "tplTitle": "标题",
+    "tplBody": "正文",
+    "tplPlaceholder": "留空使用默认值",
+    "tokensHint": "此事件可用的占位符 — 原样写入：",
+    "saveTemplate": "保存模板",
+    "templateSaved": "模板已保存。",
+    "logTitle": "发送记录",
+    "logDesc": "仅列出外部渠道。“skipped”行的说明会指出该渠道未发送的原因。",
+    "logEmpty": "暂无发送记录。",
+    "loading": "加载中…",
+    "filter": "按状态筛选",
+    "allStatuses": "全部状态",
+    "refresh": "刷新",
+    "colTime": "时间",
+    "colChannel": "渠道",
+    "colStatus": "状态",
+    "colTo": "收件人",
+    "colDetail": "说明"
   }
 }

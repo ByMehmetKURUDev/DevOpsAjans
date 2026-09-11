@@ -70,6 +70,46 @@ def _acik(deger: str) -> bool:
     return str(deger).strip().lower() in {"1", "true", "evet", "on", "yes"}
 
 
+def _sablonu_uygula(sablon: str, degerler: Dict[str, Any]) -> str:
+    """
+    {{anahtar}} yer tutucularını doldurur.
+
+    Bilerek basit: Jinja gibi bir motor bu iş için fazla. Panelde
+    kullanıcının yazdığı metin bir şablon motoruna verilirse orası
+    kod çalıştırma yüzeyi hâline gelir — burada yalnızca düz metin
+    değiştirme var.
+
+    Tanınmayan yer tutucu olduğu gibi bırakılıyor: panelde yapılan
+    yazım hatası bildirimi boşaltmasın, gözle görünsün.
+    """
+    sonuc = sablon
+    for anahtar, deger in degerler.items():
+        sonuc = sonuc.replace("{{" + anahtar + "}}", str(deger if deger is not None else ""))
+    return sonuc
+
+
+async def render(
+    db: AsyncSession,
+    event_type: str,
+    varsayilan_baslik: str,
+    varsayilan_govde: str,
+    degerler: Optional[Dict[str, Any]] = None,
+) -> tuple[str, str]:
+    """
+    Olay için başlık ve gövdeyi üretir.
+
+    Panelde `notify_tpl_<olay>_title` / `_body` doluysa onlar, değilse
+    çağıranın verdiği varsayılan kullanılıyor.
+    """
+    degerler = degerler or {}
+    baslik_sablon = await _ayar(db, f"notify_tpl_{event_type}_title", "")
+    govde_sablon = await _ayar(db, f"notify_tpl_{event_type}_body", "")
+
+    baslik = _sablonu_uygula(baslik_sablon, degerler) if baslik_sablon.strip() else varsayilan_baslik
+    govde = _sablonu_uygula(govde_sablon, degerler) if govde_sablon.strip() else varsayilan_govde
+    return baslik, govde
+
+
 # --------------------------------------------------------------------------
 # Kanal gönderimleri
 # --------------------------------------------------------------------------
@@ -381,4 +421,51 @@ async def admin_recipients(db: AsyncSession) -> List[Dict[str, Any]]:
     return [{"email": e, "role": "admin", "phone": telefon} for e in adresler]
 
 
-__all__ = ["dispatch", "admin_recipients"]
+__all__ = ["dispatch", "admin_recipients", "render", "send_test"]
+
+
+async def send_test(db: AsyncSession, channel: str, target: str) -> Dict[str, Any]:
+    """
+    Tek bir kanalı dener ve sonucu döndürür.
+
+    Panelden "test gönder" için: gerçek bir olay beklemeden kanalın
+    çalışıp çalışmadığı görülüyor. Sonuç veritabanına da yazılıyor ki
+    gönderim kayıtlarında görünsün.
+    """
+    baslik = "Test bildirimi — mehmetkuru.dev"
+    govde = (
+        "Bu bir test bildirimidir. Bu mesajı aldıysanız kanal doğru "
+        "yapılandırılmış demektir."
+    )
+
+    if channel == "email":
+        durum, ayrinti = await _eposta_gonder(target, baslik, govde)
+    elif channel == "sms":
+        durum, ayrinti = await _sms_gonder(target, f"{baslik} — {govde}"[:300])
+    elif channel == "whatsapp":
+        sablon = await _ayar(db, "whatsapp_template", _env("WHATSAPP_TEMPLATE") or "")
+        durum, ayrinti = await _whatsapp_gonder(target, sablon, [baslik, govde])
+    elif channel == "inapp":
+        durum, ayrinti = "sent", "panel içi"
+    else:
+        return {"channel": channel, "status": "failed", "detail": "bilinmeyen kanal"}
+
+    kayit = Notifications(
+        recipient_email=target if "@" in target else (_env("NOTIFY_ADMIN_EMAIL") or target),
+        recipient_role="admin",
+        event_type="test",
+        title=baslik,
+        body=govde,
+        channel=channel,
+        delivery_status=durum,
+        delivery_detail=ayrinti,
+        created_at=datetime.now(),
+    )
+    try:
+        db.add(kayit)
+        await db.commit()
+    except Exception as hata:
+        logger.error("Test kaydı yazılamadı: %s", hata)
+        await db.rollback()
+
+    return {"channel": channel, "status": durum, "detail": ayrinti}

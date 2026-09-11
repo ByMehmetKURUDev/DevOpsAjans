@@ -424,7 +424,8 @@
     "linkCopied": "Kopyalandı",
     "shareOther": "Diğer",
     "timelineHint": "Yılları yan yana görmek için şeridi yatay kaydırın.",
-    "tabPages": "Site Sayfaları"
+    "tabPages": "Site Sayfaları",
+    "tabNotify": "Bildirimler"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -697,5 +698,40 @@
     "noteSavedInternal": "İç not eklendi. Müşteriye gösterilmiyor.",
     "saveError": "Kaydedilemedi.",
     "history": "Proje geçmişi"
+  },
+  "notifyAdmin": {
+    "testTitle": "Kanal testi",
+    "testDesc": "Gerçek bir olay beklemeden kanalın çalışıp çalışmadığını görün. Sonuç aşağıdaki gönderim kayıtlarına da yazılır.",
+    "on": "açık",
+    "off": "kapalı",
+    "targetEmail": "Test e-posta adresi",
+    "targetPhone": "Test telefon numarası",
+    "sendTest": "Test gönder",
+    "targetMissing": "Önce hedef adresi ya da numarayı yazın.",
+    "testSent": "{{channel}} kanalından test gönderildi.",
+    "testError": "İşlem tamamlanamadı.",
+    "templateTitle": "Bildirim şablonları",
+    "templateDesc": "Bildirimlerin başlığını ve metnini buradan değiştirin. Boş bırakırsanız sunucudaki varsayılan kullanılır.",
+    "evInquiry": "İletişim mesajı",
+    "evTicket": "Destek talebi",
+    "evStage": "Proje aşaması",
+    "tplTitle": "Başlık",
+    "tplBody": "Metin",
+    "tplPlaceholder": "Boş bırakırsanız varsayılan kullanılır",
+    "tokensHint": "Bu olayda kullanabileceğiniz yer tutucular — metne olduğu gibi yazın:",
+    "saveTemplate": "Şablonu kaydet",
+    "templateSaved": "Şablon kaydedildi.",
+    "logTitle": "Gönderim kayıtları",
+    "logDesc": "Yalnızca dış kanallar listeleniyor. \"skipped\" satırındaki açıklama, o kanalın neden gönderilemediğini söyler.",
+    "logEmpty": "Henüz gönderim kaydı yok.",
+    "loading": "Yükleniyor…",
+    "filter": "Duruma göre süz",
+    "allStatuses": "Tüm durumlar",
+    "refresh": "Yenile",
+    "colTime": "Zaman",
+    "colChannel": "Kanal",
+    "colStatus": "Durum",
+    "colTo": "Alıcı",
+    "colDetail": "Açıklama"
   }
 }

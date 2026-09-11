@@ -20,6 +20,7 @@ import {
   Languages,
   LayoutList,
   GitBranch,
+  BellRing,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,6 +28,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
+import NotificationCenter from '@/components/admin/NotificationCenter';
 import ProjectStageManager from '@/components/admin/ProjectStageManager';
 import { useStageLabels } from '@/lib/projectEvents';
 import { useTranslation } from 'react-i18next';
@@ -133,6 +135,7 @@ type Tab =
   | 'analytics'
   | 'settings'
   | 'pages'
+  | 'notify'
   | 'projects'
   | 'blog'
   | 'clients'
@@ -578,6 +581,7 @@ export default function AdminPanel() {
     { key: 'analytics', label: t('ui.tabAnalytics'), icon: BarChart3 },
     { key: 'settings', label: t('ui.tabSettings'), icon: Settings2 },
     { key: 'pages', label: t('ui.tabPages'), icon: LayoutList },
+    { key: 'notify', label: t('ui.tabNotify'), icon: BellRing },
     { key: 'projects', label: t('ui.tabPortfolio'), icon: FolderKanban },
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
@@ -634,6 +638,19 @@ export default function AdminPanel() {
         >
           <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} />
         </Suspense>
+      )}
+
+      {tab === 'notify' && (
+        <NotificationCenter
+          settings={rawSettings}
+          settingRows={settingRows}
+          adminEmail={user.email}
+          adminPhone={rawSettings.notify_admin_phone || rawSettings.contact_phone}
+          onSaved={async () => {
+            await loadSettings();
+            await reloadSettings();
+          }}
+        />
       )}
 
       {tab === 'pages' && (

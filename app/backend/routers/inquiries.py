@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from services.inquiries import InquiriesService
-from services.notify import admin_recipients, dispatch
+from services.notify import admin_recipients, dispatch, render
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -209,17 +209,32 @@ async def create_inquiries(
         # yanıtı etkilememeli: dispatch kendi hatalarını yutuyor, yine de
         # buradaki try bloğu son bir güvence.
         try:
-            await dispatch(
+            # Başlık ve gövde panelde düzenlenebilir; boşsa buradaki
+            # varsayılan kullanılıyor.
+            baslik, govde = await render(
                 db,
-                event_type="inquiry",
-                title=f"Yeni iletişim mesajı: {data.name}",
-                body=(
+                "inquiry",
+                f"Yeni iletişim mesajı: {data.name}",
+                (
                     f"Ad: {data.name}\n"
                     f"E-posta: {data.email}\n"
                     f"Telefon: {data.phone or '—'}\n"
                     f"Konu: {data.subject or '—'}\n\n"
                     f"{data.message}"
                 ),
+                {
+                    "ad": data.name,
+                    "eposta": data.email,
+                    "telefon": data.phone or "—",
+                    "konu": data.subject or "—",
+                    "mesaj": data.message,
+                },
+            )
+            await dispatch(
+                db,
+                event_type="inquiry",
+                title=baslik,
+                body=govde,
                 recipients=await admin_recipients(db),
                 link="/admin",
                 ref_type="inquiry",

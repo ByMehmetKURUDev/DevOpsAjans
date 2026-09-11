@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
-from services.notify import admin_recipients, dispatch
+from services.notify import admin_recipients, dispatch, render
 from services.support_tickets import Support_ticketsService
 
 # Set up logging
@@ -209,15 +209,28 @@ async def create_support_tickets(
         logger.info(f"Support_tickets created successfully with id: {result.id}")
 
         try:
-            await dispatch(
+            baslik, govde = await render(
                 db,
-                event_type="ticket",
-                title=f"Yeni destek talebi: {data.subject}",
-                body=(
+                "ticket",
+                f"Yeni destek talebi: {data.subject}",
+                (
                     f"Müşteri: {data.client_name or data.client_email or '—'}\n"
                     f"Öncelik: {data.priority or 'normal'}\n\n"
                     f"{data.message}"
                 ),
+                {
+                    "musteri": data.client_name or data.client_email or "—",
+                    "eposta": data.client_email or "—",
+                    "konu": data.subject,
+                    "oncelik": data.priority or "normal",
+                    "mesaj": data.message,
+                },
+            )
+            await dispatch(
+                db,
+                event_type="ticket",
+                title=baslik,
+                body=govde,
                 recipients=await admin_recipients(db),
                 link="/admin",
                 ref_type="ticket",

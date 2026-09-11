@@ -424,7 +424,8 @@
     "linkCopied": "Kopiert",
     "shareOther": "Mehr",
     "timelineHint": "Streifen seitlich scrollen, um Jahre zu vergleichen.",
-    "tabPages": "Website-Seiten"
+    "tabPages": "Website-Seiten",
+    "tabNotify": "Benachrichtigungen"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -697,5 +698,40 @@
     "noteSavedInternal": "Interne Notiz hinzugefügt.",
     "saveError": "Speichern fehlgeschlagen.",
     "history": "Projektverlauf"
+  },
+  "notifyAdmin": {
+    "testTitle": "Kanaltest",
+    "testDesc": "Prüfen Sie einen Kanal, ohne auf ein echtes Ereignis zu warten. Das Ergebnis landet im Protokoll unten.",
+    "on": "an",
+    "off": "aus",
+    "targetEmail": "Test-E-Mail",
+    "targetPhone": "Test-Telefonnummer",
+    "sendTest": "Test senden",
+    "targetMissing": "Zuerst Adresse oder Nummer eingeben.",
+    "testSent": "Test über {{channel}} gesendet.",
+    "testError": "Nicht abgeschlossen.",
+    "templateTitle": "Benachrichtigungsvorlagen",
+    "templateDesc": "Titel und Text hier anpassen. Leer bedeutet Serverstandard.",
+    "evInquiry": "Kontaktnachricht",
+    "evTicket": "Supportanfrage",
+    "evStage": "Projektphase",
+    "tplTitle": "Titel",
+    "tplBody": "Text",
+    "tplPlaceholder": "Leer = Standard",
+    "tokensHint": "Verfügbare Platzhalter für dieses Ereignis — genau so schreiben:",
+    "saveTemplate": "Vorlage speichern",
+    "templateSaved": "Vorlage gespeichert.",
+    "logTitle": "Zustellprotokoll",
+    "logDesc": "Nur externe Kanäle. Der Hinweis bei „skipped“ nennt den Grund.",
+    "logEmpty": "Noch keine Einträge.",
+    "loading": "Wird geladen…",
+    "filter": "Nach Status filtern",
+    "allStatuses": "Alle Status",
+    "refresh": "Aktualisieren",
+    "colTime": "Zeit",
+    "colChannel": "Kanal",
+    "colStatus": "Status",
+    "colTo": "Empfänger",
+    "colDetail": "Detail"
   }
 }
