@@ -18,12 +18,14 @@ import {
   Save,
   ShieldAlert,
   Languages,
+  LayoutList,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
+import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import { useTranslation } from 'react-i18next';
 import { client } from '@/lib/sdkClient';
 import {
@@ -127,6 +129,7 @@ interface Ticket {
 type Tab =
   | 'analytics'
   | 'settings'
+  | 'pages'
   | 'projects'
   | 'blog'
   | 'clients'
@@ -568,6 +571,7 @@ export default function AdminPanel() {
   const TABS: { key: Tab; label: string; icon: typeof BarChart3 }[] = [
     { key: 'analytics', label: t('ui.tabAnalytics'), icon: BarChart3 },
     { key: 'settings', label: t('ui.tabSettings'), icon: Settings2 },
+    { key: 'pages', label: t('ui.tabPages'), icon: LayoutList },
     { key: 'projects', label: t('ui.tabPortfolio'), icon: FolderKanban },
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
@@ -624,6 +628,17 @@ export default function AdminPanel() {
         >
           <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} />
         </Suspense>
+      )}
+
+      {tab === 'pages' && (
+        <PageSectionsPanel
+          settings={rawSettings}
+          settingRows={settingRows}
+          onSaved={async () => {
+            await loadSettings();
+            await reloadSettings();
+          }}
+        />
       )}
 
       {tab === 'settings' && (

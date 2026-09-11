@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Code2, Rocket, Target, Paintbrush, Globe, Zap, Shield, Crown, Server } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,7 @@ import PricingPlans from '@/components/PricingPlans';
 import ProcessFlow from '@/components/ProcessFlow';
 import Testimonials from '@/components/Testimonials';
 import { DEFAULT_SETTINGS, useSiteSettings } from '@/lib/siteSettings';
+import { visibleSectionKeys } from '@/lib/pageSections';
 
 const TECH = [
   'React', 'Next.js', 'TypeScript', 'Node.js', 'Python',
@@ -95,8 +97,16 @@ export default function Index() {
   ];
 
 
-  return (
-    <div>
+  /**
+   * Bölüm sırası ve görünürlüğü panelden geliyor.
+   *
+   * Her bölüm burada bir anahtara bağlı; panelde kapatılan bölüm hiç
+   * basılmıyor, sırası değiştirilen bölüm o sırayla çıkıyor. Kilitli
+   * bölümler (hero) panelde kapatılamıyor.
+   */
+  const BOLUMLER: Record<string, JSX.Element> = {
+    hero: (
+      <>
       {/* HERO — görsel yok: LCP metin tabanlı, arka plan tamamen CSS ile üretilir */}
       <section className="relative flex items-center overflow-hidden hero-surface">
         <div className="hero-glow hero-glow-a" aria-hidden="true" />
@@ -166,6 +176,10 @@ export default function Index() {
         </div>
       </section>
 
+      </>
+    ),
+    capabilities: (
+      <>
       {/* CAPABILITIES */}
       <section className="relative py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -206,6 +220,10 @@ export default function Index() {
         </div>
       </section>
 
+      </>
+    ),
+    process: (
+      <>
       {/* PROCESS */}
       <section className="relative py-24 md:py-32 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:grid-cols-2">
@@ -242,8 +260,16 @@ export default function Index() {
         </div>
       </section>
 
+      </>
+    ),
+    packages: (
+      <>
       <PricingPlans />
 
+      </>
+    ),
+    tech: (
+      <>
       {/* TECH MARQUEE */}
       <section className="py-16 border-y border-white/10 overflow-hidden">
         <p className="text-center text-xs uppercase tracking-[0.4em] text-muted-foreground mb-8">
@@ -264,6 +290,10 @@ export default function Index() {
         </div>
       </section>
 
+      </>
+    ),
+    caseCategories: (
+      <>
       {/* PORTFOLIO CATEGORIES */}
       <section className="py-24 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -294,8 +324,16 @@ export default function Index() {
       </section>
 
 
+      </>
+    ),
+    testimonials: (
+      <>
       <Testimonials />
 
+      </>
+    ),
+    cta: (
+      <>
       {/* CTA */}
       <section className="relative py-24 md:py-32">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -331,6 +369,15 @@ export default function Index() {
           </div>
         </div>
       </section>
+      </>
+    )
+  };
+
+  return (
+    <div>
+      {visibleSectionKeys('home', settings).map((key) =>
+        BOLUMLER[key] ? <Fragment key={key}>{BOLUMLER[key]}</Fragment> : null,
+      )}
     </div>
   );
 }

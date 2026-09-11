@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ExternalLink, Loader2 } from 'lucide-react';
 import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
 import Testimonials from '@/components/Testimonials';
 import ToolsUsed from '@/components/ToolsUsed';
+import { visibleSectionKeys } from '@/lib/pageSections';
+import { useSiteSettings } from '@/lib/siteSettings';
 
 
 interface Project {
@@ -50,6 +52,7 @@ const CATEGORIES_KEYS = ['all', 'Website', 'E-Ticaret', 'SaaS', 'Mobil Uygulama'
 
 export default function Portfolio() {
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
   const [searchParams, setSearchParams] = useSearchParams();
   const [dbProjects, setDbProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -123,8 +126,10 @@ export default function Portfolio() {
     return map[cat] ? t(map[cat]) : cat;
   };
 
-  return (
-    <div>
+  /** Bölüm sırası ve görünürlüğü panelden; bkz. lib/pageSections.ts */
+  const BOLUMLER: Record<string, JSX.Element> = {
+    header: (
+      <>
       {/* Header */}
       <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,6 +144,10 @@ export default function Portfolio() {
         </div>
       </section>
 
+      </>
+    ),
+    filters: (
+      <>
       {/* Filter tabs */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <div className="flex flex-wrap gap-2">
@@ -161,6 +170,10 @@ export default function Portfolio() {
         </div>
       </div>
 
+      </>
+    ),
+    grid: (
+      <>
       {/* Grid */}
       <section className="pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -243,6 +256,10 @@ export default function Portfolio() {
         </div>
       </section>
 
+      </>
+    ),
+    timeline: (
+      <>
       {/* Timeline — yatay şerit */}
       {!loading && filtered.length > 0 && (
         <section className="pb-24 border-t border-white/5 pt-16">
@@ -300,8 +317,25 @@ export default function Portfolio() {
         </section>
       )}
 
+      </>
+    ),
+    testimonials: (
+      <>
       <Testimonials />
+      </>
+    ),
+    tools: (
+      <>
       <ToolsUsed />
+      </>
+    )
+  };
+
+  return (
+    <div>
+      {visibleSectionKeys('portfolio', settings).map((key) =>
+        BOLUMLER[key] ? <Fragment key={key}>{BOLUMLER[key]}</Fragment> : null,
+      )}
     </div>
   );
 }

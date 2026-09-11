@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import {
   Code2,
   Paintbrush,
@@ -8,6 +9,8 @@ import {
   Check,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { visibleSectionKeys } from '@/lib/pageSections';
+import { useSiteSettings } from '@/lib/siteSettings';
 import PricingPlans from '@/components/PricingPlans';
 import SocialLinks from '@/components/SocialLinks';
 import Testimonials from '@/components/Testimonials';
@@ -15,6 +18,7 @@ import ToolsUsed from '@/components/ToolsUsed';
 
 export default function Services() {
   const { t } = useTranslation();
+  const { settings } = useSiteSettings();
 
   const VALUES = [
     { title: t('about.v1Title'), desc: t('about.v1Desc') },
@@ -84,8 +88,10 @@ export default function Services() {
     },
   ];
 
-  return (
-    <div>
+  /** Bölüm sırası ve görünürlüğü panelden; bkz. lib/pageSections.ts */
+  const BOLUMLER: Record<string, JSX.Element> = {
+    about: (
+      <>
       {/* About / Header */}
       <section className="relative py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:grid-cols-12 items-center">
@@ -140,6 +146,10 @@ export default function Services() {
         </div>
       </section>
 
+      </>
+    ),
+    values: (
+      <>
       {/* Values */}
       <section className="py-24 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -161,6 +171,10 @@ export default function Services() {
         </div>
       </section>
 
+      </>
+    ),
+    services: (
+      <>
       {/* Services header */}
       <section className="py-24 border-t border-white/5 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">{t('services.sectionTag')}</p>
@@ -203,6 +217,10 @@ export default function Services() {
         </div>
       </section>
 
+      </>
+    ),
+    timeline: (
+      <>
       {/* Timeline */}
       <section className="py-24 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -223,9 +241,30 @@ export default function Services() {
         </div>
       </section>
 
+      </>
+    ),
+    packages: (
+      <>
       <PricingPlans />
+      </>
+    ),
+    testimonials: (
+      <>
       <Testimonials />
+      </>
+    ),
+    tools: (
+      <>
       <ToolsUsed />
+      </>
+    )
+  };
+
+  return (
+    <div>
+      {visibleSectionKeys('services', settings).map((key) =>
+        BOLUMLER[key] ? <Fragment key={key}>{BOLUMLER[key]}</Fragment> : null,
+      )}
     </div>
   );
 }
