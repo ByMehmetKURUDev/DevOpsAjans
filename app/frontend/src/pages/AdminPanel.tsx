@@ -19,6 +19,7 @@ import {
   ShieldAlert,
   Languages,
   LayoutList,
+  GitBranch,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +27,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
+import ProjectStageManager from '@/components/admin/ProjectStageManager';
+import { useStageLabels } from '@/lib/projectEvents';
 import { useTranslation } from 'react-i18next';
 import { client } from '@/lib/sdkClient';
 import {
@@ -197,6 +200,9 @@ export default function AdminPanel() {
   const [loading, setLoading] = useState(false);
 
   const [editProject, setEditProject] = useState<Partial<Project> | null>(null);
+  // Aşaması yönetilen proje; liste altında açılan panel.
+  const [stageProject, setStageProject] = useState<Project | null>(null);
+  const stageLabel = useStageLabels();
   const [editPost, setEditPost] = useState<Partial<BlogPost> | null>(null);
   const [editInvoice, setEditInvoice] = useState<Partial<Invoice> | null>(null);
   const [replyTicket, setReplyTicket] = useState<Ticket | null>(null);
@@ -790,10 +796,20 @@ export default function AdminPanel() {
                       <h3 className="font-semibold truncate">{p.title}</h3>
                       <p className="text-xs text-muted-foreground truncate">
                         {p.client_email || t('admin.noClientAssigned')} •{' '}
-                        {p.stage || t('admin.noStage')}
+                        {stageLabel(p.stage) || t('admin.noStage')}
                       </p>
                     </div>
                     <div className="flex gap-1">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => setStageProject(stageProject?.id === p.id ? null : p)}
+                        aria-label={t('projectStages.stageTitle')}
+                        title={t('projectStages.stageTitle')}
+                        className={stageProject?.id === p.id ? 'text-purple-300' : ''}
+                      >
+                        <GitBranch className="h-4 w-4" />
+                      </Button>
                       <Button
                         size="sm"
                         variant="ghost"
@@ -812,6 +828,25 @@ export default function AdminPanel() {
                     </div>
                   </div>
                 ))}
+
+                {/*
+                  Aşama yöneticisi listenin altında açılıyor: kart içinde
+                  açılınca satır çok uzuyor ve liste okunmaz hâle geliyordu.
+                */}
+                {stageProject && (
+                  <div className="mt-4 scroll-mt-24 rounded-2xl border border-purple-500/30 bg-white/[0.02] p-6">
+                    <ProjectStageManager
+                      projectId={Number(stageProject.id)}
+                      projectTitle={stageProject.title}
+                      clientEmail={stageProject.client_email}
+                      currentStage={stageProject.stage}
+                      adminName={user.name}
+                      adminEmail={user.email}
+                      onChanged={loadAll}
+                    />
+                  </div>
+                )}
+
                 {projects.length === 0 && (
                   <div className="p-10 rounded-xl glass text-center text-muted-foreground">
                     {t('admin.noProjects')}

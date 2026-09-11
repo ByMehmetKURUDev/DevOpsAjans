@@ -575,7 +575,7 @@
     "fSeoDesc": "SEO Description",
     "accessTitle": "Access Control",
     "accessDesc": "Email addresses allowed into the admin panel. Separate multiple entries with commas.",
-    "fAdminEmails": "Admin Emails",
+    "fAdminEmails": "Admin emails (comma separated)",
     "pageSeoTitle": "Page SEO Text",
     "pageSeoDesc": "The title and description each page shows in search results. Empty fields fall back to the built-in default. Use the language picker to fill each language separately.",
     "fSeoHomeTitle": "Home — title",
@@ -595,7 +595,14 @@
     "contentTitle": "Page Content",
     "contentDesc": "Manage the testimonials and tools sections here.",
     "fTestimonials": "Testimonials (JSON)",
-    "fTools": "Tools used (comma separated)"
+    "fTools": "Tools used (comma separated)",
+    "notifyTitle": "Notifications",
+    "notifyDesc": "Turn notification channels on or off. 1 = on, 0 = off. API keys live in server environment variables, not here.",
+    "fNotifyEmail": "Email notifications (1/0)",
+    "fNotifySms": "SMS notifications (1/0)",
+    "fNotifyWhatsapp": "WhatsApp notifications (1/0)",
+    "fNotifyPhone": "Admin phone (for SMS/WhatsApp)",
+    "fWhatsappTemplate": "WhatsApp template name (Meta-approved)"
   },
   "tools": {
     "sectionTag": "Tools We Use",
@@ -648,5 +655,47 @@
     "pickLang": "Pick a language",
     "save": "Save page",
     "saved": "{{page}} page saved."
+  },
+  "notify": {
+    "bell": "Notifications",
+    "bellWithCount": "Notifications, {{count}} unread",
+    "title": "Notifications",
+    "empty": "No notifications yet.",
+    "justNow": "just now",
+    "minutesAgo": "{{count}} min ago",
+    "hoursAgo": "{{count}} h ago",
+    "daysAgo": "{{count}} d ago"
+  },
+  "projectTimeline": {
+    "loading": "Loading history…",
+    "error": "Could not load history.",
+    "empty": "No entries yet.",
+    "internal": "Internal",
+    "attachment": "Open attachment"
+  },
+  "projectStages": {
+    "stagesError": "Could not load stages.",
+    "clientBound": "Client: {{email}}",
+    "noClient": "No client email on this project — notifications cannot be sent.",
+    "stageTitle": "Stage",
+    "stageLabel": "New stage",
+    "pickStage": "Pick a stage",
+    "stageNote": "Note to client (optional)",
+    "stageNotePlaceholder": "e.g. Waiting on design approval",
+    "stageHint": "Saving the stage updates the project, writes a history entry and notifies the client.",
+    "saveStage": "Save stage and notify",
+    "stageSavedNotified": "Stage saved, {{email}} notified.",
+    "stageSavedNoClient": "Stage saved. No client email, so no notification was sent.",
+    "noteTitle": "Note and file",
+    "noteHeading": "Title",
+    "noteHeadingPlaceholder": "e.g. First design draft ready",
+    "noteBody": "Details",
+    "noteFile": "File link",
+    "internalOnly": "Internal only — hide from client, send no notification",
+    "addNote": "Add note",
+    "noteSaved": "Note added and client notified.",
+    "noteSavedInternal": "Internal note added. Not shown to the client.",
+    "saveError": "Could not save.",
+    "history": "Project history"
   }
 }

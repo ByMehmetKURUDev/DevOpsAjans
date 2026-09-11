@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
 import SocialLinks from '@/components/SocialLinks';
 import StoreBadges from '@/components/StoreBadges';
@@ -366,6 +367,8 @@ export default function Layout() {
 
             {!authLoading && user ? (
               <>
+                {/* Bildirim çanı yalnızca giriş yapmış kullanıcıya. */}
+                <NotificationBell email={user.email} />
                 <Link to={isAdmin ? '/admin' : '/client'}>
                   <Button
                     variant="ghost"

@@ -18,6 +18,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
+import ProjectTimeline from '@/components/ProjectTimeline';
+import { useStageLabels } from '@/lib/projectEvents';
 import { client } from '@/lib/sdkClient';
 import { useSiteSettings } from '@/lib/siteSettings';
 
@@ -74,6 +76,7 @@ type Tab = 'projects' | 'invoices' | 'tickets' | 'profile';
 
 export default function ClientPanel() {
   const { t } = useTranslation();
+  const stageLabel = useStageLabels();
   const { settings } = useSiteSettings();
 
   /** Durum kodunu seçili dile çevirir; karşılığı yoksa ham kodu gösterir. */
@@ -419,7 +422,7 @@ export default function ClientPanel() {
                       <div className="mb-3">
                         <div className="flex items-center justify-between text-xs mb-1.5">
                           <span className="text-muted-foreground">
-                            {t('ui.stage')}: {p.stage || t('ui.notSet')}
+                            {t('ui.stage')}: {stageLabel(p.stage) || t('ui.notSet')}
                           </span>
                           <span className="text-purple-300 font-medium">
                             {typeof p.progress === 'number' ? p.progress : 0}%
@@ -434,6 +437,20 @@ export default function ClientPanel() {
                           />
                         </div>
                       </div>
+
+                      {/*
+                        Proje geçmişi katlanmış geliyor: müşteri birden çok
+                        projeye sahipse liste açıkken okunmaz oluyordu.
+                        `details` içeriği HTML'de duruyor, tıklayınca açılıyor.
+                      */}
+                      <details className="mb-3 rounded-xl border border-white/10 bg-white/[0.02] p-3">
+                        <summary className="cursor-pointer text-sm font-semibold text-purple-300 hover:text-pink-300">
+                          {t('projectStages.history')}
+                        </summary>
+                        <div className="mt-4">
+                          <ProjectTimeline projectId={Number(p.id)} clientView />
+                        </div>
+                      </details>
 
                       {p.tech_stack && (
                         <div className="flex flex-wrap gap-1.5 mb-3">

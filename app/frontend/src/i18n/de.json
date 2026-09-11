@@ -575,7 +575,7 @@
     "fSeoDesc": "SEO-Beschreibung",
     "accessTitle": "Zugriffsrechte",
     "accessDesc": "E-Mail-Adressen mit Zugang zum Adminbereich. Mehrere Einträge mit Komma trennen.",
-    "fAdminEmails": "Admin-E-Mails",
+    "fAdminEmails": "Admin-E-Mails (kommagetrennt)",
     "pageSeoTitle": "Seiten-SEO-Texte",
     "pageSeoDesc": "Titel und Beschreibung jeder Seite in den Suchergebnissen. Leere Felder greifen auf den Standard im Code zurück. Über die Sprachauswahl je Sprache getrennt ausfüllbar.",
     "fSeoHomeTitle": "Startseite — Titel",
@@ -595,7 +595,14 @@
     "contentTitle": "Seiteninhalt",
     "contentDesc": "Referenzen und eingesetzte Werkzeuge hier verwalten.",
     "fTestimonials": "Referenzen (JSON)",
-    "fTools": "Werkzeuge (kommagetrennt)"
+    "fTools": "Werkzeuge (kommagetrennt)",
+    "notifyTitle": "Benachrichtigungen",
+    "notifyDesc": "Kanäle hier ein- und ausschalten. 1 = an, 0 = aus. API-Schlüssel liegen in Server-Umgebungsvariablen, nicht hier.",
+    "fNotifyEmail": "E-Mail (1/0)",
+    "fNotifySms": "SMS (1/0)",
+    "fNotifyWhatsapp": "WhatsApp (1/0)",
+    "fNotifyPhone": "Admin-Telefon (SMS/WhatsApp)",
+    "fWhatsappTemplate": "WhatsApp-Vorlage (von Meta freigegeben)"
   },
   "tools": {
     "sectionTag": "Eingesetzte Werkzeuge",
@@ -648,5 +655,47 @@
     "pickLang": "Sprache wählen",
     "save": "Seite speichern",
     "saved": "Seite {{page}} gespeichert."
+  },
+  "notify": {
+    "bell": "Benachrichtigungen",
+    "bellWithCount": "Benachrichtigungen, {{count}} ungelesen",
+    "title": "Benachrichtigungen",
+    "empty": "Noch keine Benachrichtigungen.",
+    "justNow": "gerade eben",
+    "minutesAgo": "vor {{count}} Min.",
+    "hoursAgo": "vor {{count}} Std.",
+    "daysAgo": "vor {{count}} T."
+  },
+  "projectTimeline": {
+    "loading": "Verlauf wird geladen…",
+    "error": "Verlauf konnte nicht geladen werden.",
+    "empty": "Noch keine Einträge.",
+    "internal": "Intern",
+    "attachment": "Anhang öffnen"
+  },
+  "projectStages": {
+    "stagesError": "Phasen konnten nicht geladen werden.",
+    "clientBound": "Kunde: {{email}}",
+    "noClient": "Keine Kunden-E-Mail hinterlegt — Benachrichtigungen nicht möglich.",
+    "stageTitle": "Phase",
+    "stageLabel": "Neue Phase",
+    "pickStage": "Phase wählen",
+    "stageNote": "Notiz an den Kunden (optional)",
+    "stageNotePlaceholder": "z. B. Warten auf Designfreigabe",
+    "stageHint": "Beim Speichern werden Projekt, Verlauf und Kundenbenachrichtigung aktualisiert.",
+    "saveStage": "Phase speichern und benachrichtigen",
+    "stageSavedNotified": "Phase gespeichert, {{email}} benachrichtigt.",
+    "stageSavedNoClient": "Phase gespeichert. Ohne Kunden-E-Mail keine Benachrichtigung.",
+    "noteTitle": "Notiz und Datei",
+    "noteHeading": "Titel",
+    "noteHeadingPlaceholder": "z. B. Erster Entwurf fertig",
+    "noteBody": "Details",
+    "noteFile": "Datei-Link",
+    "internalOnly": "Nur intern — für den Kunden unsichtbar, keine Benachrichtigung",
+    "addNote": "Notiz hinzufügen",
+    "noteSaved": "Notiz hinzugefügt, Kunde benachrichtigt.",
+    "noteSavedInternal": "Interne Notiz hinzugefügt.",
+    "saveError": "Speichern fehlgeschlagen.",
+    "history": "Projektverlauf"
   }
 }

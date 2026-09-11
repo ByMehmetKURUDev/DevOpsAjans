@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from services.inquiries import InquiriesService
+from services.notify import admin_recipients, dispatch
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -203,6 +204,30 @@ async def create_inquiries(
             raise HTTPException(status_code=400, detail="Failed to create inquiries")
         
         logger.info(f"Inquiries created successfully with id: {result.id}")
+
+        # Yöneticiye haber ver. Bildirim gönderimi ziyaretçinin gördüğü
+        # yanıtı etkilememeli: dispatch kendi hatalarını yutuyor, yine de
+        # buradaki try bloğu son bir güvence.
+        try:
+            await dispatch(
+                db,
+                event_type="inquiry",
+                title=f"Yeni iletişim mesajı: {data.name}",
+                body=(
+                    f"Ad: {data.name}\n"
+                    f"E-posta: {data.email}\n"
+                    f"Telefon: {data.phone or '—'}\n"
+                    f"Konu: {data.subject or '—'}\n\n"
+                    f"{data.message}"
+                ),
+                recipients=await admin_recipients(db),
+                link="/admin",
+                ref_type="inquiry",
+                ref_id=result.id,
+            )
+        except Exception as bildirim_hatasi:
+            logger.error("İletişim bildirimi gönderilemedi: %s", bildirim_hatasi)
+
         return result
     except ValueError as e:
         logger.error(f"Validation error creating inquiries: {str(e)}")

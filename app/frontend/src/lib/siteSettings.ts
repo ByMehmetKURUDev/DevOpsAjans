@@ -42,6 +42,13 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   tools_list: '',
   // Yıllık ödemede uygulanan indirim yüzdesi.
   yearly_discount: '20',
+  // Bildirim kanalları. Panelden açılıp kapanıyor; kimlik bilgileri
+  // (API anahtarı, SMS parolası) ortam değişkeninde duruyor, burada değil.
+  notify_email: '1',
+  notify_sms: '0',
+  notify_whatsapp: '0',
+  notify_admin_phone: '',
+  whatsapp_template: '',
   price_starter: '100',
   price_business: '300',
   price_ecommerce: '500',
@@ -182,6 +189,19 @@ export const SETTING_GROUPS: {
       // hazırlarken referans olsun diye duruyor.
       { key: 'price_devops', label: 'settingsForm.fDevops' },
       { key: 'yearly_discount', label: 'settingsForm.fYearlyDiscount' },
+    ],
+  },
+  {
+    group: 'notify',
+    title: 'settingsForm.notifyTitle',
+    description: 'settingsForm.notifyDesc',
+    fields: [
+      { key: 'notify_email', label: 'settingsForm.fNotifyEmail' },
+      { key: 'notify_sms', label: 'settingsForm.fNotifySms' },
+      { key: 'notify_whatsapp', label: 'settingsForm.fNotifyWhatsapp' },
+      { key: 'notify_admin_phone', label: 'settingsForm.fNotifyPhone' },
+      { key: 'whatsapp_template', label: 'settingsForm.fWhatsappTemplate' },
+      { key: 'admin_emails', label: 'settingsForm.fAdminEmails' },
     ],
   },
   {

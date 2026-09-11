@@ -575,7 +575,7 @@
     "fSeoDesc": "SEO Açıklama",
     "accessTitle": "Yetkilendirme",
     "accessDesc": "Yönetici paneline erişebilecek e-posta adresleri. Virgülle ayırarak birden fazla yazabilirsiniz.",
-    "fAdminEmails": "Yönetici E-postaları",
+    "fAdminEmails": "Yönetici e-postaları (virgülle)",
     "pageSeoTitle": "Sayfa SEO Metinleri",
     "pageSeoDesc": "Her sayfanın arama sonuçlarında görünen başlığı ve açıklaması. Boş bırakılan alanlarda koddaki varsayılan kullanılır. Sağ üstteki dil seçiciyle her dil için ayrı doldurabilirsiniz.",
     "fSeoHomeTitle": "Ana sayfa — başlık",
@@ -595,7 +595,14 @@
     "contentTitle": "Sayfa İçeriği",
     "contentDesc": "Yorumlar ve kullanılan araçlar bölümlerini buradan yönetin.",
     "fTestimonials": "Müşteri yorumları (JSON)",
-    "fTools": "Kullanılan araçlar (virgülle ayrılmış)"
+    "fTools": "Kullanılan araçlar (virgülle ayrılmış)",
+    "notifyTitle": "Bildirimler",
+    "notifyDesc": "Hangi kanallardan bildirim gideceğini buradan açıp kapatın. 1 = açık, 0 = kapalı. API anahtarları sunucu ortam değişkenlerinde tutulur, buraya yazılmaz.",
+    "fNotifyEmail": "E-posta bildirimi (1/0)",
+    "fNotifySms": "SMS bildirimi (1/0)",
+    "fNotifyWhatsapp": "WhatsApp bildirimi (1/0)",
+    "fNotifyPhone": "Yönetici telefonu (SMS/WhatsApp için)",
+    "fWhatsappTemplate": "WhatsApp şablon adı (Meta onaylı)"
   },
   "tools": {
     "sectionTag": "Kullanılan Araçlar",
@@ -648,5 +655,47 @@
     "pickLang": "Dil seçin",
     "save": "Sayfayı kaydet",
     "saved": "{{page}} sayfası kaydedildi."
+  },
+  "notify": {
+    "bell": "Bildirimler",
+    "bellWithCount": "Bildirimler, {{count}} okunmamış",
+    "title": "Bildirimler",
+    "empty": "Henüz bildirim yok.",
+    "justNow": "az önce",
+    "minutesAgo": "{{count}} dakika önce",
+    "hoursAgo": "{{count}} saat önce",
+    "daysAgo": "{{count}} gün önce"
+  },
+  "projectTimeline": {
+    "loading": "Geçmiş yükleniyor…",
+    "error": "Geçmiş alınamadı.",
+    "empty": "Henüz kayıt yok.",
+    "internal": "İç not",
+    "attachment": "Eki aç"
+  },
+  "projectStages": {
+    "stagesError": "Aşama listesi alınamadı.",
+    "clientBound": "Müşteri: {{email}}",
+    "noClient": "Bu projeye müşteri e-postası bağlı değil — bildirim gönderilemez.",
+    "stageTitle": "Aşama",
+    "stageLabel": "Yeni aşama",
+    "pickStage": "Aşama seçin",
+    "stageNote": "Müşteriye not (isteğe bağlı)",
+    "stageNotePlaceholder": "Örn. Tasarım onayı bekleniyor",
+    "stageHint": "Aşamayı kaydettiğinizde proje durumu güncellenir, geçmişe kayıt düşer ve müşteriye bildirim gider.",
+    "saveStage": "Aşamayı kaydet ve bildir",
+    "stageSavedNotified": "Aşama kaydedildi, {{email}} adresine bildirim gitti.",
+    "stageSavedNoClient": "Aşama kaydedildi. Müşteri e-postası bağlı olmadığı için bildirim gönderilmedi.",
+    "noteTitle": "Not ve dosya",
+    "noteHeading": "Başlık",
+    "noteHeadingPlaceholder": "Örn. İlk tasarım taslağı hazır",
+    "noteBody": "Açıklama",
+    "noteFile": "Dosya bağlantısı",
+    "internalOnly": "Yalnızca iç not — müşteri görmesin, bildirim gitmesin",
+    "addNote": "Notu ekle",
+    "noteSaved": "Not eklendi ve müşteriye bildirildi.",
+    "noteSavedInternal": "İç not eklendi. Müşteriye gösterilmiyor.",
+    "saveError": "Kaydedilemedi.",
+    "history": "Proje geçmişi"
   }
 }

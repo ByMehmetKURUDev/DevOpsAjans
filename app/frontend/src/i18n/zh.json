@@ -575,7 +575,7 @@
     "fSeoDesc": "SEO 描述",
     "accessTitle": "权限管理",
     "accessDesc": "可访问管理后台的邮箱地址。多个地址用逗号分隔。",
-    "fAdminEmails": "管理员邮箱",
+    "fAdminEmails": "管理员邮箱（逗号分隔）",
     "pageSeoTitle": "页面 SEO 文案",
     "pageSeoDesc": "每个页面在搜索结果中显示的标题和描述。留空时使用代码中的默认值。用语言选择器可为每种语言分别填写。",
     "fSeoHomeTitle": "首页 — 标题",
@@ -595,7 +595,14 @@
     "contentTitle": "页面内容",
     "contentDesc": "在此管理客户评价与使用的工具。",
     "fTestimonials": "客户评价 (JSON)",
-    "fTools": "使用的工具（逗号分隔）"
+    "fTools": "使用的工具（逗号分隔）",
+    "notifyTitle": "通知",
+    "notifyDesc": "在此开启或关闭通知渠道。1 = 开，0 = 关。API 密钥保存在服务器环境变量中，不在此处。",
+    "fNotifyEmail": "邮件通知 (1/0)",
+    "fNotifySms": "短信通知 (1/0)",
+    "fNotifyWhatsapp": "WhatsApp 通知 (1/0)",
+    "fNotifyPhone": "管理员手机（短信/WhatsApp）",
+    "fWhatsappTemplate": "WhatsApp 模板名（Meta 审核通过）"
   },
   "tools": {
     "sectionTag": "使用的工具",
@@ -648,5 +655,47 @@
     "pickLang": "选择语言",
     "save": "保存页面",
     "saved": "已保存 {{page}} 页面。"
+  },
+  "notify": {
+    "bell": "通知",
+    "bellWithCount": "通知，{{count}} 条未读",
+    "title": "通知",
+    "empty": "暂无通知。",
+    "justNow": "刚刚",
+    "minutesAgo": "{{count}} 分钟前",
+    "hoursAgo": "{{count}} 小时前",
+    "daysAgo": "{{count}} 天前"
+  },
+  "projectTimeline": {
+    "loading": "正在加载历史…",
+    "error": "无法加载历史。",
+    "empty": "暂无记录。",
+    "internal": "内部",
+    "attachment": "打开附件"
+  },
+  "projectStages": {
+    "stagesError": "无法加载阶段列表。",
+    "clientBound": "客户：{{email}}",
+    "noClient": "该项目未绑定客户邮箱，无法发送通知。",
+    "stageTitle": "阶段",
+    "stageLabel": "新阶段",
+    "pickStage": "选择阶段",
+    "stageNote": "给客户的备注（可选）",
+    "stageNotePlaceholder": "例如：等待设计确认",
+    "stageHint": "保存阶段会更新项目、写入历史并通知客户。",
+    "saveStage": "保存并通知",
+    "stageSavedNotified": "已保存，已通知 {{email}}。",
+    "stageSavedNoClient": "已保存。未绑定客户邮箱，未发送通知。",
+    "noteTitle": "备注与文件",
+    "noteHeading": "标题",
+    "noteHeadingPlaceholder": "例如：初版设计稿已完成",
+    "noteBody": "详情",
+    "noteFile": "文件链接",
+    "internalOnly": "仅内部 — 客户不可见，不发送通知",
+    "addNote": "添加备注",
+    "noteSaved": "已添加并通知客户。",
+    "noteSavedInternal": "已添加内部备注。",
+    "saveError": "保存失败。",
+    "history": "项目历史"
   }
 }

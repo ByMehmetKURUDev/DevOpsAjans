@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
+from services.notify import admin_recipients, dispatch
 from services.support_tickets import Support_ticketsService
 
 # Set up logging
@@ -206,6 +207,25 @@ async def create_support_tickets(
             raise HTTPException(status_code=400, detail="Failed to create support_tickets")
         
         logger.info(f"Support_tickets created successfully with id: {result.id}")
+
+        try:
+            await dispatch(
+                db,
+                event_type="ticket",
+                title=f"Yeni destek talebi: {data.subject}",
+                body=(
+                    f"Müşteri: {data.client_name or data.client_email or '—'}\n"
+                    f"Öncelik: {data.priority or 'normal'}\n\n"
+                    f"{data.message}"
+                ),
+                recipients=await admin_recipients(db),
+                link="/admin",
+                ref_type="ticket",
+                ref_id=result.id,
+            )
+        except Exception as bildirim_hatasi:
+            logger.error("Destek bildirimi gönderilemedi: %s", bildirim_hatasi)
+
         return result
     except ValueError as e:
         logger.error(f"Validation error creating support_tickets: {str(e)}")
