@@ -1,0 +1,58 @@
+# Render Blueprint — FastAPI arka ucu.
+#
+# Bu dosya depoda durduğu sürece Render "Blueprint" olarak okur:
+# GitHub'a push → otomatik derleme → otomatik yayın. Elle tuşa basmaya
+# gerek kalmaz.
+#
+# Kurulum: render.com → New → Blueprint → depoyu seç.
+# Ardından aşağıda `sync: false` işaretli değişkenleri panelden doldurun
+# (gizli değerler bilerek depoya yazılmıyor).
+services:
+  - type: web
+    name: mehmetkuru-api
+    runtime: python
+    region: frankfurt
+    plan: starter
+    rootDir: app/backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: IS_LAMBDA
+        value: "false"
+      # Neon / Render Postgres bağlantı dizesi
+      - key: DATABASE_URL
+        sync: false
+      # Oturum imzalama anahtarı — Render "Generate" ile üretir
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRE_MINUTES
+        value: "10080"
+      # Kimlik sağlayıcı (Atoms'tan ayrılınca kendi OIDC sağlayıcınız)
+      - key: OIDC_ISSUER_URL
+        sync: false
+      - key: OIDC_CLIENT_ID
+        sync: false
+      - key: OIDC_CLIENT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        value: https://mehmetkuru.dev
+      - key: PYTHON_BACKEND_URL
+        sync: false
+      # AI uçları — OpenAI uyumlu herhangi bir sağlayıcı
+      - key: APP_AI_BASE_URL
+        sync: false
+      - key: APP_AI_KEY
+        sync: false
+      # S3 uyumlu depolama (Cloudflare R2 önerilir)
+      - key: S3_ENDPOINT_URL
+        sync: false
+      - key: S3_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECRET_ACCESS_KEY
+        sync: false
