@@ -1,0 +1,7 @@
+# Cloudflare Pages — SPA yedeği.
+#
+# Dosyası olmayan yollar (/admin, /client) uygulamaya düşsün diye.
+# Cloudflare önce gerçek dosyaya baktığı için prerender edilen 99 statik
+# sayfa bu kuraldan etkilenmiyor; /api/* ise Pages Function tarafından
+# daha önce karşılanıyor.
+/*    /index.html   200

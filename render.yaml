@@ -12,9 +12,16 @@ services:
     name: mehmetkuru-api
     runtime: python
     region: frankfurt
-    plan: starter
+    # Ücretsiz plan: 15 dk hareketsizlikte uykuya geçer, uyanması ~1 dk sürer.
+    # Aylık 750 saatlik kota 7/24 çalışan tek servise yetiyor; /health adresine
+    # 10 dakikada bir ping atan ücretsiz bir cron servisi uyumasını engelliyor.
+    # Trafiği kaldırmadığında `starter`a yükselt — kod değişikliği gerekmiyor.
+    plan: free
     rootDir: app/backend
-    buildCommand: pip install -r requirements.txt
+    # Alembic göçleri burada çalışıyor: ücretsiz planda kabuk erişimi yok,
+    # yani tabloları elle oluşturma imkânı da yok. Göç çalışmazsa uygulama
+    # açılır ama her istek "tablo yok" hatası verir.
+    buildCommand: pip install -r requirements.txt && alembic upgrade head
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     autoDeploy: true
@@ -40,8 +47,9 @@ services:
         sync: false
       - key: OIDC_CLIENT_SECRET
         sync: false
+      # Geçiş bitene kadar geçici Pages adresi; 9. fazda mehmetkuru.dev yapılacak.
       - key: FRONTEND_URL
-        value: https://mehmetkuru.dev
+        sync: false
       - key: PYTHON_BACKEND_URL
         sync: false
       # AI uçları — OpenAI uyumlu herhangi bir sağlayıcı
