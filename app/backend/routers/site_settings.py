@@ -9,12 +9,14 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
+from dependencies.entity_guard import entity_guard
+from fastapi import Depends as _Depends
 from services.site_settings import Site_settingsService
 
 # Set up logging
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/v1/entities/site_settings", tags=["site_settings"])
+router = APIRouter(prefix="/api/v1/entities/site_settings", tags=["site_settings"], dependencies=[_Depends(entity_guard)])
 
 
 # ---------- Pydantic Schemas ----------

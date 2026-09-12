@@ -9,12 +9,14 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
+from dependencies.entity_guard import entity_guard
+from fastapi import Depends as _Depends
 from services.invoices import InvoicesService
 
 # Set up logging
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/v1/entities/invoices", tags=["invoices"])
+router = APIRouter(prefix="/api/v1/entities/invoices", tags=["invoices"], dependencies=[_Depends(entity_guard)])
 
 
 # ---------- Pydantic Schemas ----------

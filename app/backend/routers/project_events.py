@@ -12,6 +12,8 @@ from datetime import datetime
 from typing import List, Optional
 
 from core.database import get_db
+from dependencies.entity_guard import entity_guard
+from fastapi import Depends as _Depends
 from fastapi import APIRouter, Depends, HTTPException, Query
 from models.project_events import Project_events
 from models.projects import Projects
@@ -22,7 +24,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/v1/entities/project_events", tags=["project_events"])
+router = APIRouter(prefix="/api/v1/entities/project_events", tags=["project_events"], dependencies=[_Depends(entity_guard)])
 
 # Projenin geçtiği aşamalar. Sıra ilerlemeyi de veriyor.
 STAGES = ["discovery", "design", "build", "review", "launch", "aftercare"]

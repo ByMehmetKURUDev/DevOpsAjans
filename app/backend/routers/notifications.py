@@ -10,6 +10,8 @@ from datetime import datetime
 from typing import List, Optional
 
 from core.database import get_db
+from dependencies.entity_guard import entity_guard
+from fastapi import Depends as _Depends
 from fastapi import APIRouter, Depends, HTTPException, Query
 from models.notifications import Notifications
 from pydantic import BaseModel
@@ -19,7 +21,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/v1/entities/notifications", tags=["notifications"])
+router = APIRouter(prefix="/api/v1/entities/notifications", tags=["notifications"], dependencies=[_Depends(entity_guard)])
 
 
 class NotificationResponse(BaseModel):
