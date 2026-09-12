@@ -26,31 +26,24 @@ export async function onRequest({ request, env }) {
   const url = new URL(request.url);
   const hedef = origin.replace(/\/$/, '') + url.pathname + url.search;
 
-  // Basliklari kopyalayip ustune yaziyoruz. `new Request(hedef, request)`
-  // ile gelen baslik listesi degistirilemiyor, o yuzden yeni bir Headers.
-  const basliklar = new Headers(request.headers);
-  // Host, gelen istekten kopyalanirsa hedefle uyusmuyor ve istek asili kaliyor.
-  basliklar.delete('host');
+  // Istegi hedefe tasiyoruz. Yonlendirme davranisi ve govde boylece aynen korunuyor:
+  // giris akisindaki 302 tarayiciya ulasmali, koprude takip edilmemeli.
+  const istek = new Request(hedef, request);
+
+  // Bu Request'in baslik listesi degistirilemez, o yuzden kopyasini cikarip
+  // fetch'e ayrica veriyoruz.
+  const basliklar = new Headers(istek.headers);
 
   // Arka uc, giris akisindaki donus adresini istegin gordugu alan adindan
-  // uretiyor. Araya girdigimiz icin o adres bizim adresimiz olmali, yoksa
-  // Google'a arka ucun adresi bildiriliyor ve donusu kullanici goremiyor.
+  // uretiyor. Araya girdigimiz icin bunu acikca bildirmemiz gerekiyor; yoksa
+  // Google'a arka ucun adresi gidiyor ve redirect_uri_mismatch aliniyor.
   // Uygulamanin oncelik sirasi: mgx-external-domain > x-forwarded-host > host.
   basliklar.set('mgx-external-domain', url.host);
   basliklar.set('X-Forwarded-Host', url.host);
   basliklar.set('X-Forwarded-Proto', url.protocol.replace(':', ''));
 
-  const govdesiz = request.method === 'GET' || request.method === 'HEAD';
-  const istek = new Request(hedef, {
-    method: request.method,
-    headers: basliklar,
-    body: govdesiz ? undefined : request.body,
-    // Arka ucun 302'si tarayiciya ulassin; koprude takip edilirse giris akisi kirilir.
-    redirect: 'manual',
-  });
-
   try {
-    return await fetch(istek);
+    return await fetch(istek, { headers: basliklar });
   } catch (e) {
     // Ucretsiz planda arka uc uykudaysa ilk istek zaman asimina dusebilir.
     return new Response(
