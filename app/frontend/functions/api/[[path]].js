@@ -45,6 +45,8 @@ export async function onRequest({ request, env }) {
     method: request.method,
     headers: basliklar,
     body: govdesiz ? undefined : request.body,
+    // Arka ucun 302'si tarayiciya ulassin; koprude takip edilirse giris akisi kirilir.
+    redirect: 'manual',
   });
 
   try {
