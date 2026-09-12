@@ -147,7 +147,7 @@ def decode_access_token(token: str) -> Dict[str, Any]:
         raise AccessTokenError("Invalid authentication token") from exc
 
 
-async def validate_id_token(id_token: str) -> Optional[Dict[str, Any]]:
+async def validate_id_token(id_token: str, access_token: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """Validate ID token with proper JWT signature verification using JWKS."""
     try:
         # Get the header to find the key ID
@@ -212,12 +212,15 @@ async def validate_id_token(id_token: str) -> Optional[Dict[str, Any]]:
 
         # Verify and decode the JWT
         try:
+            # Google'in kimlik jetonunda at_hash var; erisim jetonu verilmezse
+            # kutuphane bu talebi dogrulayamiyor ve jetonu tumden reddediyor.
             payload = jwt.decode(
                 id_token,
                 pem_key,
                 algorithms=["RS256"],
                 issuer=settings.oidc_issuer_url,
                 audience=settings.oidc_client_id,
+                access_token=access_token,
             )
             # Log user hash instead of actual user ID to avoid exposing sensitive information
             user_id = payload.get("sub", "unknown")
