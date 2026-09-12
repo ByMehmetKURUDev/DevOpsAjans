@@ -43,7 +43,9 @@ export async function onRequest({ request, env }) {
   basliklar.set('X-Forwarded-Proto', url.protocol.replace(':', ''));
 
   try {
-    return await fetch(istek, { headers: basliklar });
+    // redirect: manual olmazsa 302'yi kopru kendi takip ediyor ve giris
+    // akisi tarayiciya ulasmiyor.
+    return await fetch(istek, { headers: basliklar, redirect: 'manual' });
   } catch (e) {
     // Ucretsiz planda arka uc uykudaysa ilk istek zaman asimina dusebilir.
     return new Response(
