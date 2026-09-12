@@ -1,14 +1,14 @@
 /**
- * Cloudflare Pages Function - `/api/*` isteklerini arka uca tasir.
+ * Cloudflare Pages Function — `/api/*` isteklerini arka uca taşır.
  *
- * SDK butun cagrilarini kendi origin'ine goreli atiyor (`/api/v1/...`).
- * Vercel'de bu isi `vercel.json` icindeki rewrite kurali yapiyor;
- * Cloudflare Pages'te karsiligi bu dosya. Ikisi de depoda duruyor,
- * hangisinde yayindaysak o calisiyor.
+ * SDK bütün çağrılarını kendi origin'ine göreli atıyor (`/api/v1/...`).
+ * Vercel'de bu işi `vercel.json` içindeki rewrite kuralı yapıyor;
+ * Cloudflare Pages'te karşılığı bu dosya. İkisi de depoda duruyor,
+ * hangisinde yayındaysak o çalışıyor.
  *
- * Arka uc adresi koda gomulmuyor: Pages panelinden `API_ORIGIN` ortam
- * degiskeni olarak veriliyor. Boylece gecici adresten gercek adrese
- * gecerken tek bir yer degisiyor.
+ * Arka uç adresi koda gömülmüyor: Pages panelinden `API_ORIGIN` ortam
+ * değişkeni olarak veriliyor. Böylece geçici adresten gerçek adrese
+ * geçerken tek bir yer değişiyor.
  */
 export async function onRequest({ request, env }) {
   const origin = env.API_ORIGIN;
@@ -17,7 +17,7 @@ export async function onRequest({ request, env }) {
     return new Response(
       JSON.stringify({
         detail:
-          'API_ORIGIN ortam degiskeni tanimli degil. Pages -> Settings -> Environment variables.',
+          'API_ORIGIN ortam değişkeni tanımlı değil. Pages → Settings → Environment variables.',
       }),
       { status: 503, headers: { 'content-type': 'application/json; charset=utf-8' } }
     );
@@ -26,30 +26,17 @@ export async function onRequest({ request, env }) {
   const url = new URL(request.url);
   const hedef = origin.replace(/\/$/, '') + url.pathname + url.search;
 
-  // Istegi hedefe tasiyoruz. Yonlendirme davranisi ve govde boylece aynen korunuyor:
-  // giris akisindaki 302 tarayiciya ulasmali, koprude takip edilmemeli.
+  // Gövde ve başlıklar olduğu gibi taşınıyor; oturum çerezi de öyle.
   const istek = new Request(hedef, request);
-
-  // Bu Request'in baslik listesi degistirilemez, o yuzden kopyasini cikarip
-  // fetch'e ayrica veriyoruz.
-  const basliklar = new Headers(istek.headers);
-
-  // Arka uc, giris akisindaki donus adresini istegin gordugu alan adindan
-  // uretiyor. Araya girdigimiz icin bunu acikca bildirmemiz gerekiyor; yoksa
-  // Google'a arka ucun adresi gidiyor ve redirect_uri_mismatch aliniyor.
-  // Uygulamanin oncelik sirasi: mgx-external-domain > x-forwarded-host > host.
-  basliklar.set('mgx-external-domain', url.host);
-  basliklar.set('X-Forwarded-Host', url.host);
-  basliklar.set('X-Forwarded-Proto', url.protocol.replace(':', ''));
+  istek.headers.set('X-Forwarded-Host', url.host);
+  istek.headers.set('X-Forwarded-Proto', url.protocol.replace(':', ''));
 
   try {
-    // redirect: manual olmazsa 302'yi kopru kendi takip ediyor ve giris
-    // akisi tarayiciya ulasmiyor.
-    return await fetch(istek, { headers: basliklar, redirect: 'manual' });
+    return await fetch(istek);
   } catch (e) {
-    // Ucretsiz planda arka uc uykudaysa ilk istek zaman asimina dusebilir.
+    // Ücretsiz planda arka uç uykudaysa ilk istek zaman aşımına düşebilir.
     return new Response(
-      JSON.stringify({ detail: 'Arka uca ulasilamadi: ' + String(e) }),
+      JSON.stringify({ detail: 'Arka uca ulaşılamadı: ' + String(e) }),
       { status: 502, headers: { 'content-type': 'application/json; charset=utf-8' } }
     );
   }
