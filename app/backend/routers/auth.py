@@ -12,6 +12,7 @@ from core.auth import (
     generate_code_verifier,
     generate_nonce,
     generate_state,
+    oidc_endpoint,
     validate_id_token,
 )
 from core.config import settings
@@ -149,7 +150,7 @@ async def callback(
         if code_verifier:
             token_data["code_verifier"] = code_verifier
 
-        token_url = f"{settings.oidc_issuer_url}/token"
+        token_url = oidc_endpoint("oidc_token_endpoint", "/token")
         try:
             async with httpx.AsyncClient() as client:
                 token_response = await client.post(
