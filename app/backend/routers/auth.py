@@ -70,6 +70,20 @@ def get_dynamic_backend_url(request: Request) -> str:
     return dynamic_url
 
 
+def get_site_url(request: Request) -> str:
+    """Sitenin kullaniciya gorunen adresi.
+
+    Arka uc bir vekil sunucunun arkasindaysa (Cloudflare Pages -> Render)
+    istegin gordugu alan adi arka ucundur, sitenin degil. Giris bittiginde
+    kullaniciyi arka ucun adresine gondermek olmaz; orada on yuz yok.
+    FRONTEND_URL verilmisse dogru cevap odur.
+    """
+    frontend_url = getattr(settings, "frontend_url", "")
+    if frontend_url:
+        return str(frontend_url).rstrip("/")
+    return get_dynamic_backend_url(request)
+
+
 def derive_name_from_email(email: str) -> str:
     return email.split("@", 1)[0] if email else ""
 
@@ -108,12 +122,15 @@ async def callback(
     db: AsyncSession = Depends(get_db),
 ):
     """Handle OIDC callback."""
+    # redirect_uri arka ucun kendi adresi olmali - Google buraya donuyor.
     backend_url = get_dynamic_backend_url(request)
+    # Kullaniciyi sonunda gonderecegimiz yer ise sitenin adresi.
+    site_url = get_site_url(request)
 
     def redirect_with_error(message: str) -> RedirectResponse:
         fragment = urlencode({"msg": message})
         return RedirectResponse(
-            url=f"{backend_url}/auth/error?{fragment}",
+            url=f"{site_url}/auth/error?{fragment}",
             status_code=status.HTTP_302_FOUND,
         )
 
@@ -205,7 +222,7 @@ async def callback(
             }
         )
 
-        redirect_url = f"{backend_url}/auth/callback?{fragment}"
+        redirect_url = f"{site_url}/auth/callback?{fragment}"
         logger.info("[callback] OIDC callback successful, redirecting to %s", redirect_url)
         redirect_response = RedirectResponse(
             url=redirect_url,
