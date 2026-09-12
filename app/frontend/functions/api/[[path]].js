@@ -29,6 +29,8 @@ export async function onRequest({ request, env }) {
   // Basliklari kopyalayip ustune yaziyoruz. `new Request(hedef, request)`
   // ile gelen baslik listesi degistirilemiyor, o yuzden yeni bir Headers.
   const basliklar = new Headers(request.headers);
+  // Host, gelen istekten kopyalanirsa hedefle uyusmuyor ve istek asili kaliyor.
+  basliklar.delete('host');
 
   // Arka uc, giris akisindaki donus adresini istegin gordugu alan adindan
   // uretiyor. Araya girdigimiz icin o adres bizim adresimiz olmali, yoksa
@@ -43,8 +45,6 @@ export async function onRequest({ request, env }) {
     method: request.method,
     headers: basliklar,
     body: govdesiz ? undefined : request.body,
-    // Arka ucun 302'si tarayiciya ulassin; burada takip edersek giris akisi kirilir.
-    redirect: 'manual',
   });
 
   try {
