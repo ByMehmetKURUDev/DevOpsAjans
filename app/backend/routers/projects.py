@@ -4,12 +4,18 @@ from typing import List, Optional
 
 from datetime import datetime, date
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
+from dependencies.kayit_sahipligi import (
+    gorunur_proje_kosulu,
+    kendi_kaydi_mi,
+    proje_gorunur_mu,
+)
+from models.projects import Projects
 from fastapi import Depends as _Depends
 from services.projects import ProjectsService
 
@@ -104,6 +110,24 @@ class ProjectsBatchUpdateRequest(BaseModel):
 class ProjectsBatchDeleteRequest(BaseModel):
     """Batch delete request"""
     ids: List[int]
+
+
+def musteri_kimligini_gizle(kayitlar, request: Request):
+    """Başkasının projesinde müşteri adını ve e-postasını dışarı vermez.
+
+    Yayına alınan bir vaka çalışması herkese açık; ama o işi kimin yaptırdığı
+    kamuya açık bilgi değil. Yönetici her şeyi görüyor, müşteri kendi
+    kaydında kendi bilgisini görüyor (müşteri paneli süzgeci buna dayanıyor),
+    geri kalan herkese bu iki alan boş dönüyor.
+    """
+    gizlenmis = []
+    for kayit in kayitlar:
+        veri = ProjectsResponse.model_validate(kayit)
+        if not kendi_kaydi_mi(kayit, request, "client_email"):
+            veri.client_email = None
+            veri.client_name = None
+        gizlenmis.append(veri)
+    return gizlenmis
 
 
 # ---------- Routes ----------
