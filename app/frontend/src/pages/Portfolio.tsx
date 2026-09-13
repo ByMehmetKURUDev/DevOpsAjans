@@ -20,6 +20,7 @@ interface Project {
   status?: string;
   tech_stack?: string;
   featured?: boolean;
+  published?: boolean;
   date?: string;
   created_at?: string;
 }
@@ -75,7 +76,10 @@ export default function Portfolio() {
       .then((res) => {
         if (cancelled) return;
         const items = (res?.data?.items ?? []) as Project[];
-        setDbProjects(items);
+        // Bu sayfa herkese açık. Veritabanındaki projeler aynı zamanda
+        // müşteri panelinin kayıtları: devam eden bir müşteri işi burada
+        // görünmemeli. Yalnızca yönetici tarafından yayına alınanlar geçer.
+        setDbProjects(items.filter((p) => p.published === true));
       })
       .catch(() => {})
       .finally(() => {
