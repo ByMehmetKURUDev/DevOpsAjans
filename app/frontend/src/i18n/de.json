@@ -280,7 +280,11 @@
     "completed_status": "Abgeschlossen",
     "noProjects": "Noch keine Projekte.",
     "noPosts": "Noch keine Beiträge.",
-    "noInquiries": "Noch keine Anfragen."
+    "noInquiries": "Noch keine Anfragen.",
+    "publishedProject": "In Fallstudien veröffentlichen",
+    "publishedBadge": "Veröffentlicht",
+    "draftBadge": "Entwurf",
+    "publishHint": "Solange deaktiviert, ist das Projekt nur im Kundenbereich sichtbar, nicht auf der öffentlichen Fallstudien-Seite."
   },
   "packages": {
     "sectionTag": "Pakete",
@@ -531,7 +535,11 @@
     "autoRefresh": "wird alle 60 s automatisch aktualisiert",
     "dataPreparing": "Daten werden vorbereitet",
     "noChannelData": "Für diesen Kanal liegen noch keine Daten vor.",
-    "channelComparison": "Kanalvergleich"
+    "channelComparison": "Kanalvergleich",
+    "publishedProject": "In Fallstudien veröffentlichen",
+    "publishedBadge": "Veröffentlicht",
+    "draftBadge": "Entwurf",
+    "publishHint": "Solange deaktiviert, ist das Projekt nur im Kundenbereich sichtbar, nicht auf der öffentlichen Fallstudien-Seite."
   },
   "footer": {
     "desc": "Eine Boutique-Entwicklungs- und Digitalagentur, die mutige, leistungsstarke Software und unvergessliche Marken erschafft. Individuelle Entwicklung, digitales Marketing und Produktdesign.",
