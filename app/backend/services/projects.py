@@ -187,8 +187,16 @@ class ProjectsService:
         limit: int = 20, 
         query_dict: Optional[Dict[str, Any]] = None,
         sort: Optional[str] = None,
+        ek_kosullar: Optional[List[Any]] = None,
     ) -> Dict[str, Any]:
-        """Get paginated list of projectss"""
+        """Get paginated list of projectss.
+
+        ``ek_kosullar`` çağıranın ekleyebildiği hazır SQLAlchemy koşulları.
+        ``query_dict`` yalnızca "alan = değer" biçimini ve VE bağlacını
+        anlatabiliyor; görünürlük kuralı ise VEYA gerektiriyor ("yayında olan
+        ya da kendi kaydım"). Bu koşullar sayfalamadan önce sorguya giriyor,
+        böylece ``total`` da kısıtlı kümeyi sayıyor.
+        """
         try:
             # Collect filter conditions once and reuse them for both the windowed
             # page query and the empty-page fallback count, so a list call costs a
@@ -200,6 +208,8 @@ class ProjectsService:
                         column = getattr(Projects, field)
                         for condition in self._build_query_conditions(column, value, field):
                             conditions.append(condition)
+            if ek_kosullar:
+                conditions.extend(ek_kosullar)
 
             # func.count().over() returns the full filtered total alongside each
             # row. SQL evaluates window functions before LIMIT/OFFSET, so the
