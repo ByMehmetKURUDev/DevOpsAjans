@@ -20,5 +20,9 @@ class Projects(Base):
     progress = Column(Integer, nullable=True)
     tech_stack = Column(String, nullable=True)
     featured = Column(Boolean, nullable=True)
+    # Halka acik "Vaka Calismalari" sayfasinda gorunsun mu?
+    # Musteri paneli bundan bagimsiz: musteri kendi projesini her halukarda gorur.
+    # Yeni projeler taslak baslar; is bitince yonetici yayina alir.
+    published = Column(Boolean, nullable=True, default=False)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)
