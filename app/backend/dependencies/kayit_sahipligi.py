@@ -24,6 +24,7 @@ from typing import Any, Dict, Optional
 
 from dependencies.entity_guard import _istekteki_kullanici as istekteki_kullanici
 from fastapi import HTTPException, Request, status
+from sqlalchemy import or_
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,13 @@ def _yonetici_mi(request: Request):
     """(kullanıcı, yönetici_mi) ikilisini döndürür."""
     kullanici = istekteki_kullanici(request)
     return kullanici, bool(kullanici and kullanici.role == "admin")
+
+
+def _alan_degeri(kayit: Any, alan: str) -> Any:
+    """Kayıt sözlük de olabilir ORM nesnesi de; alanı ikisinden de okur."""
+    if isinstance(kayit, dict):
+        return kayit.get(alan)
+    return getattr(kayit, alan, None)
 
 
 def sahibine_daralt(
@@ -70,11 +78,51 @@ def sahiplik_dogrula(kayit: Any, request: Request, alan: str) -> None:
         return
 
     kullanici = istekteki_kullanici(request)
-    sahip = None
-    if isinstance(kayit, dict):
-        sahip = kayit.get(alan)
-    else:
-        sahip = getattr(kayit, alan, None)
+    sahip = _alan_degeri(kayit, alan)
 
     if not kullanici or not kullanici.email or sahip != kullanici.email:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Kayıt bulunamadı")
+
+
+def kendi_kaydi_mi(kayit: Any, request: Request, alan: str) -> bool:
+    """Kayıt isteği yapana mı ait? Yönetici için her zaman doğru sayılıyor."""
+    kullanici, yonetici = _yonetici_mi(request)
+    if yonetici:
+        return True
+    if kullanici is None or not kullanici.email:
+        return False
+    return _alan_degeri(kayit, alan) == kullanici.email
+
+
+def gorunur_proje_kosulu(request: Request, model: Any):
+    """Projeler için görünürlük koşulu; kısıt gerekmiyorsa None.
+
+    Projeler tablosu iki işi birden görüyor: sitedeki halka açık vaka
+    çalışmaları ve müşteri panelindeki devam eden işler. Bu yüzden uç
+    girişsiz okunabilir olmak zorunda — ama devam eden bir müşteri işinin
+    başlığı, aşaması ve müşteri e-postası herkese açık olmamalı.
+
+    Kural: yayında olan her kayıt herkese görünür; yayında olmayan kayıt
+    yalnızca sahibine ve yöneticiye görünür.
+    """
+    _, yonetici = _yonetici_mi(request)
+    if yonetici:
+        return None
+
+    kullanici = istekteki_kullanici(request)
+    eposta = kullanici.email if kullanici and kullanici.email else None
+    if eposta:
+        return or_(model.published.is_(True), model.client_email == eposta)
+    return model.published.is_(True)
+
+
+def proje_gorunur_mu(kayit: Any, request: Request) -> None:
+    """Tekil proje ucu için: görünmemesi gereken kayıt "bulunamadı" sayılıyor."""
+    _, yonetici = _yonetici_mi(request)
+    if yonetici:
+        return
+    if _alan_degeri(kayit, "published") is True:
+        return
+    if kendi_kaydi_mi(kayit, request, "client_email"):
+        return
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Kayıt bulunamadı")
