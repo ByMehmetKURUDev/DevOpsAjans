@@ -280,7 +280,11 @@
     "completed_status": "Tamamlandı",
     "noProjects": "Henüz proje yok.",
     "noPosts": "Henüz yazı yok.",
-    "noInquiries": "Henüz soru yok."
+    "noInquiries": "Henüz soru yok.",
+    "publishedProject": "Vaka çalışmalarında yayınla",
+    "publishedBadge": "Yayında",
+    "draftBadge": "Taslak",
+    "publishHint": "Kapalıyken proje yalnızca müşteri panelinde görünür; sitedeki Vaka Çalışmaları sayfasında görünmez."
   },
   "packages": {
     "sectionTag": "Paketler",
@@ -531,7 +535,11 @@
     "autoRefresh": "60 sn'de bir otomatik yenilenir",
     "dataPreparing": "Veriler hazırlanıyor",
     "noChannelData": "Bu kanal için henüz veri yok.",
-    "channelComparison": "Kanal Karşılaştırması"
+    "channelComparison": "Kanal Karşılaştırması",
+    "publishedProject": "Vaka çalışmalarında yayınla",
+    "publishedBadge": "Yayında",
+    "draftBadge": "Taslak",
+    "publishHint": "Kapalıyken proje yalnızca müşteri panelinde görünür; sitedeki Vaka Çalışmaları sayfasında görünmez."
   },
   "footer": {
     "desc": "Cesur, yüksek performanslı yazılım ve unutulmaz markalar üreten butik bir geliştirme ve dijital ajans. Özel geliştirme, dijital pazarlama ve ürün tasarımı.",
