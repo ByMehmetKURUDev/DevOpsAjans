@@ -280,7 +280,11 @@
     "completed_status": "Completed",
     "noProjects": "No projects yet.",
     "noPosts": "No posts yet.",
-    "noInquiries": "No inquiries yet."
+    "noInquiries": "No inquiries yet.",
+    "publishedProject": "Publish in case studies",
+    "publishedBadge": "Published",
+    "draftBadge": "Draft",
+    "publishHint": "While off, the project is visible only in the client panel, not on the public case studies page."
   },
   "packages": {
     "sectionTag": "Packages",
@@ -531,7 +535,11 @@
     "autoRefresh": "auto-refreshes every 60s",
     "dataPreparing": "Preparing data",
     "noChannelData": "No data for this channel yet.",
-    "channelComparison": "Channel Comparison"
+    "channelComparison": "Channel Comparison",
+    "publishedProject": "Publish in case studies",
+    "publishedBadge": "Published",
+    "draftBadge": "Draft",
+    "publishHint": "While off, the project is visible only in the client panel, not on the public case studies page."
   },
   "footer": {
     "desc": "A boutique dev & digital agency crafting bold, high-performance software and unforgettable brands. Custom development, digital marketing, and product design.",
