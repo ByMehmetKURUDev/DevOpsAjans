@@ -138,6 +138,7 @@ async def query_projectss(
     skip: int = Query(0, ge=0, description="Number of records to skip"),
     limit: int = Query(20, ge=1, le=2000, description="Max number of records to return"),
     fields: str = Query(None, description="Comma-separated list of fields to return"),
+    request: Request = None,
     db: AsyncSession = Depends(get_db),
 ):
     """Query projectss with filtering, sorting, and pagination"""
@@ -153,12 +154,17 @@ async def query_projectss(
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
         
+        # Yayında olmayan proje yalnızca sahibine ve yöneticiye görünür.
+        kosul = gorunur_proje_kosulu(request, Projects)
+
         result = await service.get_list(
             skip=skip, 
             limit=limit,
             query_dict=query_dict,
             sort=sort,
+            ek_kosullar=[kosul] if kosul is not None else None,
         )
+        result["items"] = musteri_kimligini_gizle(result["items"], request)
         logger.debug(f"Found {result['total']} projectss")
         return result
     except HTTPException:
@@ -178,6 +184,7 @@ async def query_projectss_all(
     skip: int = Query(0, ge=0, description="Number of records to skip"),
     limit: int = Query(20, ge=1, le=2000, description="Max number of records to return"),
     fields: str = Query(None, description="Comma-separated list of fields to return"),
+    request: Request = None,
     db: AsyncSession = Depends(get_db),
 ):
     # Query projectss with filtering, sorting, and pagination without user limitation
@@ -193,12 +200,17 @@ async def query_projectss_all(
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
 
+        # Yayında olmayan proje yalnızca sahibine ve yöneticiye görünür.
+        kosul = gorunur_proje_kosulu(request, Projects)
+
         result = await service.get_list(
             skip=skip,
             limit=limit,
             query_dict=query_dict,
-            sort=sort
+            sort=sort,
+            ek_kosullar=[kosul] if kosul is not None else None,
         )
+        result["items"] = musteri_kimligini_gizle(result["items"], request)
         logger.debug(f"Found {result['total']} projectss")
         return result
     except HTTPException:
@@ -215,6 +227,7 @@ async def query_projectss_all(
 async def get_projects(
     id: int,
     fields: str = Query(None, description="Comma-separated list of fields to return"),
+    request: Request = None,
     db: AsyncSession = Depends(get_db),
 ):
     """Get a single projects by ID"""
@@ -226,8 +239,10 @@ async def get_projects(
         if not result:
             logger.warning(f"Projects with id {id} not found")
             raise HTTPException(status_code=404, detail="Projects not found")
-        
-        return result
+
+        proje_gorunur_mu(result, request)
+
+        return musteri_kimligini_gizle([result], request)[0]
     except HTTPException:
         raise
     except Exception as e:
