@@ -4,12 +4,13 @@ from typing import List, Optional
 
 from datetime import datetime, date
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
+from dependencies.kayit_sahipligi import sahibine_daralt, sahiplik_dogrula
 from fastapi import Depends as _Depends
 from services.inquiries import InquiriesService
 from services.notify import admin_recipients, dispatch, render
@@ -95,6 +96,7 @@ async def query_inquiriess(
     limit: int = Query(20, ge=1, le=2000, description="Max number of records to return"),
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
     """Query inquiriess with filtering, sorting, and pagination"""
     logger.debug(f"Querying inquiriess: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
@@ -108,6 +110,9 @@ async def query_inquiriess(
                 query_dict = json.loads(query)
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
+
+        # Yonetici degilse yalnizca kendi kayitlari
+        query_dict = sahibine_daralt(query_dict, request, "email")
         
         result = await service.get_list(
             skip=skip, 
@@ -135,6 +140,7 @@ async def query_inquiriess_all(
     limit: int = Query(20, ge=1, le=2000, description="Max number of records to return"),
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
     # Query inquiriess with filtering, sorting, and pagination without user limitation
     logger.debug(f"Querying inquiriess: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
@@ -148,6 +154,9 @@ async def query_inquiriess_all(
                 query_dict = json.loads(query)
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
+
+        # Yonetici degilse yalnizca kendi kayitlari
+        query_dict = sahibine_daralt(query_dict, request, "email")
 
         result = await service.get_list(
             skip=skip,
@@ -172,6 +181,7 @@ async def get_inquiries(
     id: int,
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
     """Get a single inquiries by ID"""
     logger.debug(f"Fetching inquiries with id: {id}, fields={fields}")
@@ -183,6 +193,8 @@ async def get_inquiries(
             logger.warning(f"Inquiries with id {id} not found")
             raise HTTPException(status_code=404, detail="Inquiries not found")
         
+        sahiplik_dogrula(result, request, "email")
+
         return result
     except HTTPException:
         raise
