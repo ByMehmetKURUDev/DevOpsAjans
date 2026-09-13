@@ -280,7 +280,11 @@
     "completed_status": "已完成",
     "noProjects": "暂无项目。",
     "noPosts": "暂无文章。",
-    "noInquiries": "暂无咨询。"
+    "noInquiries": "暂无咨询。",
+    "publishedProject": "发布到案例研究",
+    "publishedBadge": "已发布",
+    "draftBadge": "草稿",
+    "publishHint": "关闭时，项目仅在客户面板可见，不会出现在公开的案例研究页面。"
   },
   "packages": {
     "sectionTag": "套餐",
@@ -531,7 +535,11 @@
     "autoRefresh": "每 60 秒自动刷新",
     "dataPreparing": "数据准备中",
     "noChannelData": "该渠道暂无数据。",
-    "channelComparison": "渠道对比"
+    "channelComparison": "渠道对比",
+    "publishedProject": "发布到案例研究",
+    "publishedBadge": "已发布",
+    "draftBadge": "草稿",
+    "publishHint": "关闭时，项目仅在客户面板可见，不会出现在公开的案例研究页面。"
   },
   "footer": {
     "desc": "一家精品开发与数字代理机构，打造大胆、高性能的软件与令人难忘的品牌。定制开发、数字营销与产品设计。",
