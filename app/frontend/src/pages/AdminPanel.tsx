@@ -80,6 +80,7 @@ interface Project {
   progress?: number;
   tech_stack?: string;
   featured?: boolean;
+  published?: boolean;
   created_at?: string;
 }
 
@@ -156,6 +157,8 @@ const emptyProject: Partial<Project> = {
   progress: 0,
   tech_stack: '',
   featured: false,
+  // Yeni proje taslak baslar: musteri panelinde gorunur, sitede gorunmez.
+  published: false,
 };
 
 const emptyPost: Partial<BlogPost> = {
@@ -343,6 +346,7 @@ export default function AdminPanel() {
         progress: Number(editProject.progress) || 0,
         tech_stack: editProject.tech_stack || '',
         featured: !!editProject.featured,
+        published: !!editProject.published,
       };
       if (editProject.id) {
         await client.entities.projects.update({
@@ -806,6 +810,16 @@ export default function AdminPanel() {
                             {t('admin.featured')}
                           </span>
                         )}
+                        <span
+                          className={
+                            'text-[10px] px-2 py-0.5 rounded-full ' +
+                            (p.published
+                              ? 'bg-emerald-500/20 text-emerald-300'
+                              : 'bg-amber-500/20 text-amber-300')
+                          }
+                        >
+                          {p.published ? t('admin.publishedBadge') : t('admin.draftBadge')}
+                        </span>
                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-muted-foreground">
                           {p.progress ?? 0}%
                         </span>
@@ -1434,6 +1448,25 @@ export default function AdminPanel() {
                 />
                 {t('admin.featuredProject')}
               </label>
+              <div>
+                <label className="flex items-center gap-2 text-sm cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={!!editProject.published}
+                    onChange={(e) =>
+                      setEditProject({
+                        ...editProject,
+                        published: e.target.checked,
+                      })
+                    }
+                    className="rounded"
+                  />
+                  {t('admin.publishedProject')}
+                </label>
+                <p className="mt-1 ml-6 text-xs text-muted-foreground">
+                  {t('admin.publishHint')}
+                </p>
+              </div>
             </div>
             <div className="flex gap-3 mt-8">
               <Button
