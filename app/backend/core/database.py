@@ -180,6 +180,74 @@ class DatabaseManager:
             self.async_session_maker = None
             self._initialized = False  # Reset initialization flag
 
+
+    # Sonradan eklenen sütunlar.
+    #
+    # ``create_all`` yalnızca olmayan tabloyu yaratır; var olan bir tabloya
+    # yeni sütun eklemez. Alembic de yayın akışından çıkarıldığı için, modele
+    # sonradan eklenen alanlar aksi hâlde canlıda hiç oluşmuyor ve o tabloya
+    # yapılan her sorgu "column does not exist" ile düşüyor.
+    #
+    # Buradaki liste bu boşluğu kapatıyor: her açılışta sütun var mı diye
+    # bakılıyor, yoksa ekleniyor. Sütun zaten varsa hiçbir şey yapılmıyor,
+    # yani tekrar tekrar çalışması sorun değil.
+    #
+    # ``dolgu`` yalnızca sütun YENİ eklendiğinde çalışıyor: eski satırların
+    # o alan için ne olması gerektiğini söylüyor. Örneğin ``published``
+    # eklenmeden önce bütün projeler sitede görünüyordu; sütun eklenince
+    # hepsi ``TRUE`` işaretleniyor ki yayındaki hiçbir vaka çalışması
+    # bir anda kaybolmasın. Bundan sonra açılan projeler taslak başlar.
+    SONRADAN_EKLENEN_SUTUNLAR = (
+        {
+            "tablo": "projects",
+            "sutun": "published",
+            "tur_pg": "BOOLEAN",
+            "tur_sqlite": "BOOLEAN",
+            "dolgu": "TRUE",
+        },
+    )
+
+    async def _eksik_sutunlari_tamamla(self):
+        """Modele sonradan eklenen sütunları canlı tabloya ekler."""
+        sqlite_mi = self.engine.dialect.name == "sqlite"
+
+        for alan in self.SONRADAN_EKLENEN_SUTUNLAR:
+            tablo = alan["tablo"]
+            sutun = alan["sutun"]
+            tur = alan["tur_sqlite"] if sqlite_mi else alan["tur_pg"]
+            try:
+                # Her sütun kendi işleminde: biri patlarsa diğerleri etkilenmesin.
+                async with self.engine.begin() as conn:
+                    if sqlite_mi:
+                        satirlar = await conn.exec_driver_sql(f"PRAGMA table_info({tablo})")
+                        mevcut = {r[1] for r in satirlar.fetchall()}
+                        if not mevcut:
+                            continue  # tablo yok; create_all yaratmış olmalı
+                        var_mi = sutun in mevcut
+                    else:
+                        sonuc = await conn.execute(
+                            text(
+                                "SELECT 1 FROM information_schema.columns "
+                                "WHERE table_name = :t AND column_name = :c"
+                            ),
+                            {"t": tablo, "c": sutun},
+                        )
+                        var_mi = sonuc.first() is not None
+
+                    if var_mi:
+                        continue
+
+                    await conn.exec_driver_sql(f"ALTER TABLE {tablo} ADD COLUMN {sutun} {tur}")
+                    dolgu = alan.get("dolgu")
+                    if dolgu:
+                        await conn.exec_driver_sql(
+                            f"UPDATE {tablo} SET {sutun} = {dolgu} WHERE {sutun} IS NULL"
+                        )
+                    logger.info("Eksik sütun eklendi: %s.%s", tablo, sutun)
+            except Exception as e:
+                # Sütun tamamlama uygulamanın açılmasını engellememeli.
+                logger.warning("Sütun tamamlanamadı (%s.%s): %s", tablo, sutun, e)
+
     async def create_tables(self):
         """Create all tables with thread safety"""
         start_time = time.time()
@@ -202,9 +270,15 @@ class DatabaseManager:
                 logger.info("🔧 Starting table creation...")
                 async with self.engine.begin() as conn:
                     await conn.run_sync(Base.metadata.create_all)
-                    self._initialized = True
-                    logger.info("Tables initialized successfully")
-                    logger.debug(f"[DB_OP] Create tables completed in {time.time() - start_time:.4f}s")
+
+                # Sütun tamamlama kendi işleminde çalışıyor: Postgres'te
+                # başarısız bir DDL bulunduğu işlemi iptal ettiriyor, tablo
+                # yaratmayı da beraberinde götürmesin.
+                await self._eksik_sutunlari_tamamla()
+
+                self._initialized = True
+                logger.info("Tables initialized successfully")
+                logger.debug(f"[DB_OP] Create tables completed in {time.time() - start_time:.4f}s")
             except (UniqueViolationError, DuplicateTableError) as e:
                 self._initialized = True
                 logger.info(f"Duplicate table creation: {e}, ignored.")
