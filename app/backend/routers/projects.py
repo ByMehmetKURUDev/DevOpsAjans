@@ -34,6 +34,7 @@ class ProjectsData(BaseModel):
     progress: int = None
     tech_stack: str = None
     featured: bool = None
+    published: bool = None
 
 
 class ProjectsUpdateData(BaseModel):
@@ -50,6 +51,7 @@ class ProjectsUpdateData(BaseModel):
     progress: Optional[int] = None
     tech_stack: Optional[str] = None
     featured: Optional[bool] = None
+    published: Optional[bool] = None
 
 
 class ProjectsResponse(BaseModel):
@@ -67,6 +69,7 @@ class ProjectsResponse(BaseModel):
     progress: Optional[int] = None
     tech_stack: Optional[str] = None
     featured: Optional[bool] = None
+    published: Optional[bool] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
