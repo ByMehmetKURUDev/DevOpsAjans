@@ -18,10 +18,11 @@ services:
     # Trafiği kaldırmadığında `starter`a yükselt — kod değişikliği gerekmiyor.
     plan: free
     rootDir: app/backend
-    # Alembic göçleri burada çalışıyor: ücretsiz planda kabuk erişimi yok,
-    # yani tabloları elle oluşturma imkânı da yok. Göç çalışmazsa uygulama
-    # açılır ama her istek "tablo yok" hatası verir.
-    buildCommand: pip install -r requirements.txt && alembic upgrade head
+    # Alembic bu depoda yapılandırılmamış (alembic.ini içindeki bağlantı
+    # dizesi boş), o yüzden burada çağrılmıyor — çağrılırsa derleme
+    # "Could not parse SQLAlchemy URL" ile düşüyor. Tabloları uygulamanın
+    # kendisi açılışta oluşturuyor (core/database.py, create_tables).
+    buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
     autoDeploy: true
@@ -63,4 +64,22 @@ services:
       - key: S3_ACCESS_KEY_ID
         sync: false
       - key: S3_SECRET_ACCESS_KEY
+        sync: false
+      # Google OIDC uç adresleri. Uygulama bunları verilmezse kökten
+      # türetiyor ({issuer}/authorize gibi); Google bu düzene uymadığı için
+      # tek tek veriliyor. Değerler panelde duruyor.
+      - key: OIDC_SCOPE
+        sync: false
+      - key: OIDC_AUTHORIZATION_ENDPOINT
+        sync: false
+      - key: OIDC_TOKEN_ENDPOINT
+        sync: false
+      - key: OIDC_JWKS_URI
+        sync: false
+      - key: OIDC_END_SESSION_ENDPOINT
+        sync: false
+      # Yönetici hesabı: kimliği ilk girişte oluşan kullanıcının id'si.
+      - key: ADMIN_USER_ID
+        sync: false
+      - key: ADMIN_USER_EMAIL
         sync: false
