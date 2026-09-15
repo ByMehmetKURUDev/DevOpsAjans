@@ -41,7 +41,7 @@ services:
         value: HS256
       - key: JWT_EXPIRE_MINUTES
         value: "10080"
-      # Kimlik sağlayıcı (Atoms'tan ayrılınca kendi OIDC sağlayıcınız)
+      # Kimlik sağlayıcı — Google OIDC
       - key: OIDC_ISSUER_URL
         sync: false
       - key: OIDC_CLIENT_ID

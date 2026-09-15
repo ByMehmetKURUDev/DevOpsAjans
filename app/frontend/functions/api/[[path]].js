@@ -2,9 +2,7 @@
  * Cloudflare Pages Function — `/api/*` isteklerini arka uca taşır.
  *
  * SDK bütün çağrılarını kendi origin'ine göreli atıyor (`/api/v1/...`).
- * Vercel'de bu işi `vercel.json` içindeki rewrite kuralı yapıyor;
- * Cloudflare Pages'te karşılığı bu dosya. İkisi de depoda duruyor,
- * hangisinde yayındaysak o çalışıyor.
+ * Site Cloudflare Pages'te yayında; `/api/*` yönlendirmesini bu dosya yapıyor.
  *
  * Arka uç adresi koda gömülmüyor: Pages panelinden `API_ORIGIN` ortam
  * değişkeni olarak veriliyor. Böylece geçici adresten gerçek adrese

@@ -6,7 +6,7 @@ Frontend authorization and data model access via metagptx/web-sdk. Covers Auth f
 ## Guide
 
 ## Critical Rules
-- In Atoms Cloud frontend code, use web-sdk by default instead of direct HTTP calls.
+- In frontend code, use web-sdk by default instead of direct HTTP calls.
 - Use this mapping:
   - Auth: `client.auth.*`
   - Entities / CRUD: `client.entities.*`

@@ -251,7 +251,14 @@ export const BLOG_INDEX_ROUTE = {
 };
 
 /** Arama motorlarına açılmaması gereken uygulama içi route'lar. */
-export const NOINDEX_ROUTES = ['/client', '/admin', '/auth/callback', '/auth/error'];
+export const NOINDEX_ROUTES = [
+  '/client',
+  '/admin',
+  '/auth/callback',
+  '/auth/error',
+  // Servis calisaninin cevrimdisi yedegi; arama sonuclarinda isi yok.
+  '/cevrimdisi',
+];
 
 /** Ana sayfada yayınlanan yapısal veri. */
 export const ORGANIZATION_JSONLD = {
