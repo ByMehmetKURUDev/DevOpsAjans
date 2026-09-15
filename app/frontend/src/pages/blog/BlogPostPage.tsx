@@ -9,7 +9,7 @@ import TableOfContents from '@/components/blog/TableOfContents';
 import { getBlogPost, getPostSeoMeta } from '@/lib/blog';
 import { getAdjacentEntries, getRelatedEntries } from '@/lib/blogIndex';
 import { fetchPanelPost, type PanelPost } from '@/lib/panelPosts';
-import { SITE_URL } from '../../../prerender/site.js';
+import { absoluteUrl } from '../../../prerender/site.js';
 
 function getSlugFromPathname(pathname: string) {
   return pathname
@@ -235,7 +235,7 @@ const BlogPostPage = () => {
         adres paylaşıldığında kırık bağlantı çıkıyordu.
       */}
       <ShareButtons
-        url={`${SITE_URL}/blog/${post.slug}/`}
+        url={absoluteUrl(`/blog/${post.slug}`)}
         title={post.title}
         className="mt-12 border-t border-white/5 pt-8"
       />

@@ -27,7 +27,7 @@ import {
   PAGE_SEO,
   PAGE_SEO_KEYS,
   SITE_NAME,
-  SITE_URL,
+  absoluteUrl,
   canonicalPathFor as normalizeRoutePath,
   getLanguage as getSiteLanguage,
   localizedPath,
@@ -202,7 +202,7 @@ export default function Layout() {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', `${SITE_URL}${canonicalPath}`);
+    canonical.setAttribute('href', absoluteUrl(canonicalPath));
 
     upsertMeta('meta[name="description"]', { name: 'description', content: description });
     upsertMeta('meta[property="og:title"]', { property: 'og:title', content: title });
@@ -237,11 +237,11 @@ export default function Layout() {
       const alternates = [
         ...LANGUAGE_CODES.map((code) => ({
           hreflang: getSiteLanguage(code).htmlLang,
-          href: `${SITE_URL}${localizedPath(code, routeMeta.pageKey)}`,
+          href: absoluteUrl(localizedPath(code, routeMeta.pageKey)),
         })),
         {
           hreflang: 'x-default',
-          href: `${SITE_URL}${localizedPath(DEFAULT_LANGUAGE, routeMeta.pageKey)}`,
+          href: absoluteUrl(localizedPath(DEFAULT_LANGUAGE, routeMeta.pageKey)),
         },
       ];
 

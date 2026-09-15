@@ -292,21 +292,33 @@ export function localizedPath(lang, pageKey) {
 }
 
 /**
- * Canonical adres biçimi: kök dışında sondaki eğik çizgi yok.
+ * İç karşılaştırma biçimi: kök dışında sondaki eğik çizgi yok.
  *
- * `/services` ve `/services/` Google için iki ayrı URL. Sitemap eklentisi
- * yolları üretilen HTML'lerden eğik çizgisiz topluyor; canonical'ın da aynı
- * biçimde olması ikisinin ayrışmasını önlüyor.
+ * Route eşleştirmesi bu biçimle yapılıyor, böylece `/services` ile
+ * `/services/` aynı sayfaya çözülüyor. Dışarıya yazılan adresler için
+ * `canonicalUrlPathFor` kullanılır.
  */
 export function canonicalPathFor(pathname) {
   const trimmed = pathname.replace(/\/+$/, '');
   return trimmed === '' ? '/' : trimmed;
 }
 
+/**
+ * Yayındaki adres biçimi: kök dışında sonda eğik çizgi var.
+ *
+ * Cloudflare Pages `/blog` isteğini 308 ile `/blog/` adresine yolladığı için
+ * canonical, og:url, hreflang ve site haritası doğrudan 200 dönen adresi
+ * göstersin diye eğik çizgili biçim burada üretiliyor.
+ */
+export function canonicalUrlPathFor(pathname) {
+  const path = canonicalPathFor(pathname);
+  return path === '/' ? '/' : `${path}/`;
+}
+
 /** Verilen yola göre canonical biçiminde mutlak URL üretir. */
 export function absoluteUrl(pathname) {
   const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
-  return `${SITE_URL}${canonicalPathFor(normalized)}`;
+  return `${SITE_URL}${canonicalUrlPathFor(normalized)}`;
 }
 
 /** Bir yolun hangi dile ve hangi sayfaya karşılık geldiğini çözer. */
