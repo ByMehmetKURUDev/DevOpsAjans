@@ -1,8 +1,18 @@
 import { useState } from 'react';
 
+import { cn } from '@/lib/utils';
+
 interface StoreBadgesProps {
   appStoreUrl?: string;
   googlePlayUrl?: string;
+  /**
+   * Kapsayıcıya eklenecek sınıflar.
+   *
+   * İki yerde kullanılıyor ve üst boşluğu her ikisinde aynı olmuyor;
+   * `cn` (tailwind-merge) sayesinde dışarıdan verilen `mt-*` aşağıdaki
+   * varsayılanı düzgün biçimde geçersiz kılıyor.
+   */
+  className?: string;
 }
 
 interface Store {
@@ -32,7 +42,11 @@ interface Store {
  *   public/store-badges/app-store.svg
  *   public/store-badges/google-play.svg
  */
-export default function StoreBadges({ appStoreUrl, googlePlayUrl }: StoreBadgesProps) {
+export default function StoreBadges({
+  appStoreUrl,
+  googlePlayUrl,
+  className,
+}: StoreBadgesProps) {
   const [failed, setFailed] = useState<Record<string, boolean>>({});
 
   const stores: Store[] = [
@@ -61,7 +75,7 @@ export default function StoreBadges({ appStoreUrl, googlePlayUrl }: StoreBadgesP
   if (stores.length === 0) return null;
 
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-3">
+    <div className={cn('mt-4 flex flex-wrap items-center gap-3', className)}>
       {stores.map((store) => (
         <a
           key={store.key}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import type { TFunction } from 'i18next';
 import { Link } from 'react-router-dom';
 import { Bell, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +10,7 @@ interface NotificationBellProps {
 }
 
 /** "3 dakika önce" gibi göreli zaman; sunucudan gelen ISO damgasından. */
-function goreliZaman(iso: string | undefined, t: (k: string, o?: object) => string): string {
+function goreliZaman(iso: string | undefined, t: TFunction): string {
   if (!iso) return '';
   const fark = Date.now() - Date.parse(iso);
   if (Number.isNaN(fark)) return '';
