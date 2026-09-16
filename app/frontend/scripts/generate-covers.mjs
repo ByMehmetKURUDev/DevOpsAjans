@@ -182,15 +182,24 @@ async function main() {
     await sharp(Buffer.from(svg)).webp({ quality: 82 }).toFile(target);
     written += 1;
 
-    // Frontmatter'a og_image / og_image_alt yaz (yoksa).
-    if (post.frontmatter && !/^og_image:/m.test(post.frontmatter)) {
+    // Frontmatter'a og_image / og_image_alt yaz.
+    //
+    // Alanın var olması yetmiyor: Atoms'tan gelen yazılarda `og_image: ""`
+    // şeklinde boş duruyordu, o yüzden boş değer de eksik sayılıyor.
+    if (post.frontmatter) {
       const url = `https://mehmetkuru.dev/blog-covers/${post.slug}.webp`;
-      const updated = post.frontmatter.replace(
-        /\n---\n?$/,
-        `\nog_image: "${url}"\nog_image_alt: "${post.title.replace(/"/g, "'")}"\n---\n`,
-      );
-      fs.writeFileSync(post.file, post.raw.replace(post.frontmatter, updated), 'utf8');
-      stamped += 1;
+      const mevcut = post.frontmatter.match(/^og_image:[ \t]*(.*)$/m);
+      const bos = !mevcut || mevcut[1].trim().replace(/^["']|["']$/g, '') === '';
+      if (bos) {
+        const updated = mevcut
+          ? post.frontmatter.replace(/^og_image:[ \t]*.*$/m, `og_image: "${url}"`)
+          : post.frontmatter.replace(
+              /\n---\n?$/,
+              `\nog_image: "${url}"\nog_image_alt: "${post.title.replace(/"/g, "'")}"\n---\n`,
+            );
+        fs.writeFileSync(post.file, post.raw.replace(post.frontmatter, updated), 'utf8');
+        stamped += 1;
+      }
     }
   }
 

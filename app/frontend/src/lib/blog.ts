@@ -232,12 +232,22 @@ function hasBlogPosts() {
   return blogPosts.length > 0;
 }
 
+/**
+ * Frontmatter'dan metin alan okur.
+ *
+ * Boş değer (`og_image: ""`) yok sayılır. Aksi halde boş bir alan, arkasındaki
+ * yedeği sessizce gölgeliyordu: Atoms'tan gelen üç yazıda `og_image: ""`
+ * durduğu için kendi kapak görselleri yerine sitenin genel görseli
+ * paylaşılıyordu.
+ */
 function frontmatterString(
   frontmatter: BlogFrontmatter,
   key: string,
 ): string | undefined {
   const value = frontmatter[key];
-  return typeof value === 'string' ? value : undefined;
+  if (typeof value !== 'string') return undefined;
+  const trimmed = value.trim();
+  return trimmed === '' ? undefined : value;
 }
 
 function frontmatterStringList(

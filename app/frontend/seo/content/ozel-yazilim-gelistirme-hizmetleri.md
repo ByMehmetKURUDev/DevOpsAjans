@@ -6,13 +6,11 @@ category: "SaaS"
 tags:
   - "SaaS"
 lang: "tr"
-hero_image: ""
-og_image: ""
+og_image: "https://mehmetkuru.dev/blog-covers/ozel-yazilim-gelistirme-hizmetleri.webp"
 og_image_alt: "Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın"
 twitter_card: "summary_large_image"
 twitter_title: "Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın"
 twitter_description: "İşletmenize özel yazılım geliştirme hizmetleriyle rekabet avantajı sağlayın. Mehmetkuru.dev'in kurumsal yazılım çözümleri ve uzmanlığıyla dijital dönüşümünüzü hızlandırın."
-twitter_image: ""
 twitter_image_alt: "Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın"
 ---
 ![Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın]()

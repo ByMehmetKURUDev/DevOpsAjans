@@ -6,13 +6,11 @@ category: "Reklam"
 tags:
   - "Reklam"
 lang: "tr"
-hero_image: ""
-og_image: ""
+og_image: "https://mehmetkuru.dev/blog-covers/dijital-pazarlama-ajansi-turkiye.webp"
 og_image_alt: "Dijital Pazarlama Ajansı Türkiye: SEO ve Google Ads ile Büyüyün"
 twitter_card: "summary_large_image"
 twitter_title: "Dijital Pazarlama Ajansı Türkiye: SEO ve Google Ads ile Büyüyün"
 twitter_description: "Türkiye'nin önde gelen dijital pazarlama ajansı Mehmetkuru.dev ile SEO hizmetleri ve Google Ads danışmanlığıyla online görünürlüğünüzü artırın, işinizi büyütün."
-twitter_image: ""
 twitter_image_alt: "Dijital Pazarlama Ajansı Türkiye: SEO ve Google Ads ile Büyüyün"
 ---
 ![Dijital Pazarlama Ajansı Türkiye: SEO ve Google Ads ile Büyüyün]()
