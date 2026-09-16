@@ -234,7 +234,7 @@ export default function Contact() {
       </section>
 
       {/* Map Section */}
-      <section className="pb-24">
+      <section className="alt-bolum pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl overflow-hidden glass border border-white/10">
             <iframe

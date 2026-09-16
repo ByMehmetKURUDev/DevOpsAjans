@@ -181,7 +181,7 @@ export default function Index() {
     capabilities: (
       <>
       {/* CAPABILITIES */}
-      <section className="relative py-24 md:py-32">
+      <section className="alt-bolum relative py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-16">
             <p className="text-xs uppercase tracking-[0.3em] text-purple-300 mb-4">
@@ -225,7 +225,7 @@ export default function Index() {
     process: (
       <>
       {/* PROCESS */}
-      <section className="relative py-24 md:py-32 border-t border-white/10">
+      <section className="alt-bolum relative py-24 md:py-32 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:grid-cols-2">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-pink-300 mb-4">{t('process.sectionTag')}</p>
@@ -271,7 +271,7 @@ export default function Index() {
     tech: (
       <>
       {/* TECH MARQUEE */}
-      <section className="py-16 border-y border-white/10 overflow-hidden">
+      <section className="alt-bolum py-16 border-y border-white/10 overflow-hidden">
         <p className="text-center text-xs uppercase tracking-[0.4em] text-muted-foreground mb-8">
           {t('techMarquee')}
         </p>
@@ -295,7 +295,7 @@ export default function Index() {
     caseCategories: (
       <>
       {/* PORTFOLIO CATEGORIES */}
-      <section className="py-24 border-t border-white/10">
+      <section className="alt-bolum py-24 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-xs uppercase tracking-[0.3em] text-purple-300 mb-4">{t('portfolio.sectionTag')}</p>
@@ -335,7 +335,7 @@ export default function Index() {
     cta: (
       <>
       {/* CTA */}
-      <section className="relative py-24 md:py-32">
+      <section className="alt-bolum relative py-24 md:py-32">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center glass border border-purple-500/30">
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-purple-600/20 via-pink-600/10 to-cyan-600/20" />

@@ -137,6 +137,25 @@
       linear-gradient(90deg, rgba(139, 61, 255, 0.06) 1px, transparent 1px);
     background-size: 60px 60px;
   }
+  /*
+   * Ekranın altında kalan bölümler.
+   *
+   * Tarayıcı normalde sayfanın tamamının stilini ve yerleşimini ilk
+   * boyamadan önce hesaplıyor. Mobilde ölçtüğümüz gecikmenin büyük
+   * kısmı buradan geliyordu — kritik ağ yolu 353 ms iken ilk boyama
+   * 3,2 saniyeydi, yani darboğaz ağ değil işlemciydi.
+   *
+   * `content-visibility: auto` bölüm görünür alana girene kadar o işi
+   * erteliyor. `contain-intrinsic-size`daki `auto`, bölüm bir kez
+   * çizildikten sonra gerçek yüksekliğini hatırlatıyor; olmazsa geri
+   * kaydırırken çubuk zıplıyor.
+   *
+   * Sayfada Ctrl+F ve bağlantı çapaları çalışmaya devam ediyor.
+   */
+  .alt-bolum {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
   .marquee {
     animation: marquee 30s linear infinite;
     will-change: transform;

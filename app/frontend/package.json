@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/check-routes.mjs && vite build && node scripts/sitemap-egik-cizgi.mjs && node scripts/css-gomule.mjs",
+    "build": "node scripts/check-routes.mjs && vite build && node scripts/sitemap-egik-cizgi.mjs && node scripts/llms-txt-uret.mjs && node scripts/css-gomule.mjs",
     "check:routes": "node scripts/check-routes.mjs",
     "lint": "eslint --quiet ./src",
     "preview": "vite preview",
@@ -82,6 +82,7 @@
     "@typescript-eslint/parser": "^8.42.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
+    "beasties": "^0.5.4",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",

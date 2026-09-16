@@ -1,26 +1,27 @@
 /**
- * Stil dosyasını üretilen HTML'lerin içine gömer.
+ * Kritik stili HTML'in içine gömer, geri kalanını arkadan yükletir.
  *
  * Derlemeden sonra her sayfanın `<head>`inde şu satır duruyordu:
  *
  *     <link rel="stylesheet" href="/assets/index-xxxx.css">
  *
- * Bu istek oluşturmayı engelliyor: tarayıcı HTML'i alıyor, sonra CSS için
- * ikinci bir gidiş-dönüş yapıyor ve o gelene kadar hiçbir şey çizmiyor.
- * Yavaş mobil bağlantıda PageSpeed bunun ~1800 ms'e mal olduğunu ölçtü.
+ * Bu istek oluşturmayı engelliyordu: tarayıcı HTML'i alıyor, sonra CSS
+ * için ikinci bir gidiş-dönüş yapıyor ve o gelene kadar hiçbir şey
+ * çizmiyordu. PageSpeed bunu mobilde ~1800 ms'e mal ediyor diye ölçtü.
  *
- * Dosya gzip'lendiğinde ~14 kB; ikinci bir gidiş-dönüşten ucuz. Bu yüzden
- * link kaldırılıp içerik doğrudan `<style>` olarak gömülüyor. Site tek
- * sayfa uygulaması olduğu için ziyaretçi ilk sayfadan sonra zaten yeni
- * HTML indirmiyor, önbellek kaybı pratikte oluşmuyor.
+ * İlk denemede stil dosyasının TAMAMINI gömmüştüm; engelleme kalktı ama
+ * bu sefer 83 kB'ın tamamı her sayfada ayrıştırılıyordu, yani ağdan
+ * kazanılan işlemciye geri veriliyordu. Şimdi `beasties` yalnızca o
+ * sayfada gerçekten kullanılan kuralları gömüyor, kalan stil dosyası
+ * `preload` ile arkadan geliyor ve çizimi bekletmiyor.
  *
- * CSS dosyası `dist/assets` altında duruyor: servis çalışanı ve doğrudan
- * bağlantı verenler için erişilebilir kalıyor, sadece artık kimse
- * beklemiyor.
+ * Stil dosyası `dist/assets` altında olduğu gibi duruyor — servis
+ * çalışanı ve doğrudan bağlantı verenler için erişilebilir.
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import Beasties from 'beasties';
 
 const kok = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(kok, 'dist');
@@ -36,38 +37,53 @@ function htmlDosyalari(dizin) {
   return sonuc;
 }
 
-const desen = /<link rel="stylesheet"[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/g;
-const onbellek = new Map();
-let gomulen = 0;
+const beasties = new Beasties({
+  path: dist,
+  publicPath: '/',
+  // Kaynak CSS dosyasına dokunma: 99 sayfa aynı dosyayı paylaşıyor,
+  // budanırsa bir sonraki sayfa eksik stille kalır.
+  pruneSource: false,
+  // Kalan stil `preload` ile gelsin, çizimi bekletmesin.
+  preload: 'swap',
+  // Fontlar zaten kendi sunucumuzdan ve ayrı @font-face dosyalarında.
+  inlineFonts: false,
+  preloadFonts: false,
+  compress: true,
+  logLevel: 'silent',
+});
+
+const dosyalar = htmlDosyalari(dist);
+let islenen = 0;
 let atlanan = 0;
+let gomuluToplam = 0;
 
-for (const dosya of htmlDosyalari(dist)) {
+for (const dosya of dosyalar) {
   const html = fs.readFileSync(dosya, 'utf8');
-  let eslesmeVar = false;
-
-  const yeni = html.replace(desen, (tam, href) => {
-    const cssYolu = path.join(dist, href);
-    if (!fs.existsSync(cssYolu)) {
-      console.warn('✗ CSS bulunamadı, link bırakıldı:', href);
-      return tam;
-    }
-    if (!onbellek.has(href)) onbellek.set(href, fs.readFileSync(cssYolu, 'utf8'));
-    eslesmeVar = true;
-    // `</style>` içeren bir CSS `<style>` bloğunu erken kapatabilir.
-    const govde = onbellek.get(href).replace(/<\/style>/gi, '<\\/style>');
-    return `<style>${govde}</style>`;
-  });
-
-  if (eslesmeVar) {
-    fs.writeFileSync(dosya, yeni);
-    gomulen += 1;
-  } else {
+  if (!/<link[^>]+rel="stylesheet"/.test(html)) {
     atlanan += 1;
+    continue;
   }
+  let cikti;
+  try {
+    cikti = await beasties.process(html);
+  } catch (hata) {
+    console.warn(
+      '✗ işlenemedi, stylesheet linki bırakıldı:',
+      path.relative(dist, dosya),
+      hata.message,
+    );
+    atlanan += 1;
+    continue;
+  }
+  const gomulu = [...cikti.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)]
+    .reduce((t, m) => t + Buffer.byteLength(m[1]), 0);
+  gomuluToplam += gomulu;
+  fs.writeFileSync(dosya, cikti);
+  islenen += 1;
 }
 
-const boyut = [...onbellek.values()].reduce((t, s) => t + Buffer.byteLength(s), 0);
+const ort = islenen ? gomuluToplam / islenen / 1024 : 0;
 console.log(
-  `✓ CSS gömüldü: ${gomulen} sayfa (${(boyut / 1024).toFixed(1)} kB stil), ` +
-    `${atlanan} sayfada stylesheet linki yoktu.`,
+  `✓ Kritik CSS gömüldü: ${islenen} sayfa (sayfa başına ort. ${ort.toFixed(1)} kB), ` +
+    `${atlanan} sayfa atlandı.`,
 );
