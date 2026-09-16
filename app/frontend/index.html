@@ -29,9 +29,11 @@
     <meta name="application-name" content="By Mehmet KURU Dev" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Font kaynaklarına erken bağlantı: yazı tipi gecikmesini azaltır -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Arayüz fontları artık /public/fonts altından, kendi sunucumuzdan
+      geliyor; Google Fonts'a preconnect gerekmiyor. Arapça ve Hintçe
+      fontları yalnızca o diller seçilince, çalışma zamanında yükleniyor.
+    -->
 
     <!--
       DİKKAT: Sayfa bazlı SEO etiketleri (canonical, description, og:*,
@@ -91,12 +93,23 @@
         events.forEach(function (e) {
           window.addEventListener(e, loadGa, { passive: true, once: true });
         });
+        /*
+         * Etkileşim olmazsa devreye giren yedek.
+         *
+         * Eskiden `load` olayından hemen sonra boşta çalışıyordu; sayfa
+         * daha yeni oturmuşken 187 kB'lik gtag betigi ana is parçacığını
+         * ~1,4 saniye kilitliyordu. Artık sayfa tamamen yerleştikten
+         * epey sonra yükleniyor: gerçek ziyaretçi yine sayılıyor, ama
+         * içeriğin önüne geçmiyor.
+         */
         window.addEventListener('load', function () {
-          if ('requestIdleCallback' in window) {
-            window.requestIdleCallback(loadGa, { timeout: 6000 });
-          } else {
-            setTimeout(loadGa, 4000);
-          }
+          setTimeout(function () {
+            if ('requestIdleCallback' in window) {
+              window.requestIdleCallback(loadGa, { timeout: 5000 });
+            } else {
+              loadGa();
+            }
+          }, 10000);
         });
       })();
     </script>

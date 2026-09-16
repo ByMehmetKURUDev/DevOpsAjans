@@ -3,7 +3,7 @@
  * ve Hintçe (Noto Sans Devanagari) fontları, ilgili dil seçildiğinde
  * src/i18n/index.ts tarafından çalışma zamanında enjekte edilir.
  */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
+@import './fonts.css';
 
 @tailwind base;
 @tailwind components;

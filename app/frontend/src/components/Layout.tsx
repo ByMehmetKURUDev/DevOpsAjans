@@ -265,7 +265,7 @@ export default function Layout() {
   }, [i18n]);
 
   const isAdmin = isAdminUser(user, settings);
-  const logoSrc = settings.brand_logo || '/assets/logo-mark.webp';
+  const logoSrc = settings.brand_logo || '/assets/logo-mark-144.webp';
   const whatsappNumber = (settings.whatsapp_number || '905412965878').replace(/\D/g, '');
 
   return (
