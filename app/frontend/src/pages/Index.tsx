@@ -144,7 +144,7 @@ export default function Index() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.06] mb-8">
-              <span className="gradient-text">{heroTitle}</span>
+              <span className="hero-baslik">{heroTitle}</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-10">

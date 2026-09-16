@@ -110,6 +110,18 @@
 }
 
 @layer utilities {
+  /*
+   * Hero basligi.
+   *
+   * `gradient-text` gibi degrade degil duz renk: o sinif metni
+   * `color: transparent` yapip yalnizca arkasindaki degradenin
+   * kirpilmasiyla gosteriyor. Hero basligi sayfanin LCP ogesi oldugu
+   * icin bunun olcume etkisi deneniyor. Ton, degradenin orta duragindan
+   * alindi ki gorunum mumkun oldugunca ayni kalsin.
+   */
+  .hero-baslik {
+    color: #d4a5ff;
+  }
   .gradient-text {
     background: linear-gradient(135deg, #8b3dff 0%, #d4a5ff 50%, #5c27a3 100%);
     -webkit-background-clip: text;
