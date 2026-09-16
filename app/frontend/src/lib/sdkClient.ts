@@ -68,3 +68,25 @@ export function oturumIziVarMi(): boolean {
     return false;
   }
 }
+
+/**
+ * Gecersiz oturum izini siler.
+ *
+ * Suresi dolmus bir token localStorage'da kalinca her sayfa acilisinda
+ * `me()` cagriliyor, 401 donuyor ve o sure boyunca header bos kaliyordu.
+ * 401 gordugumuz anda izi siliyoruz ki bir dahaki acilista beklenmesin.
+ */
+export function oturumIziniTemizle(): void {
+  try {
+    localStorage.removeItem('token');
+  } catch {
+    /* ozel sekme / depolama kapali: yapacak bir sey yok */
+  }
+}
+
+/** Hata 401 mi? Gecici ag hatasinda token silmemek icin ayirt ediyoruz. */
+export function yetkisizHataMi(hata: unknown): boolean {
+  const h = hata as { status?: number; response?: { status?: number }; message?: string };
+  if (h?.status === 401 || h?.response?.status === 401) return true;
+  return /\b401\b|unauthorized/i.test(String(h?.message ?? ''));
+}

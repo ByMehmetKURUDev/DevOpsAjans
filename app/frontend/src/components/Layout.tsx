@@ -6,7 +6,7 @@ import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
 import SocialLinks from '@/components/SocialLinks';
 import StoreBadges from '@/components/StoreBadges';
-import { client, oturumIziVarMi } from '@/lib/sdkClient';
+import { client, oturumIziVarMi, oturumIziniTemizle, yetkisizHataMi } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
 import {
   useSiteSettings,
@@ -116,13 +116,33 @@ export default function Layout() {
       setAuthLoading(false);
       return;
     }
+    // Render ucretsiz plani uykudan kalkarken `me()` yarim dakika askida
+    // kalabiliyor. Eskiden bu sure boyunca header'da ne profil ne de
+    // Giris/Kayit goruluyordu -- kullanici butonlar yok saniyordu.
+    // Artik 3 saniyede vazgecip butonlari aciyoruz; yanit sonra gelirse
+    // profil yerine oturuyor.
+    let cevapGeldi = false;
+    const zamanAsimi = window.setTimeout(() => {
+      if (!cevapGeldi) setAuthLoading(false);
+    }, 3000);
+
     client.auth
       .me()
       .then((res) => {
         if (res?.data) setUser(res.data as AuthUser);
+        else oturumIziniTemizle();
       })
-      .catch(() => {})
-      .finally(() => setAuthLoading(false));
+      .catch((hata) => {
+        // Sadece 401'de siliyoruz: gecici ag hatasi oturumu dusurmesin.
+        if (yetkisizHataMi(hata)) oturumIziniTemizle();
+      })
+      .finally(() => {
+        cevapGeldi = true;
+        window.clearTimeout(zamanAsimi);
+        setAuthLoading(false);
+      });
+
+    return () => window.clearTimeout(zamanAsimi);
   }, []);
 
   useEffect(() => {
