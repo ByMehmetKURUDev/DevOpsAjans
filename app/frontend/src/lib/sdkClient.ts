@@ -38,3 +38,33 @@ export const client = new Proxy({} as SdkClient, {
     return property in (getSdkClient() as unknown as object);
   },
 });
+
+/**
+ * Tarayicida bir oturum izi var mi?
+ *
+ * SDK oturum jetonunu `localStorage`'da `token` anahtarinda tutuyor;
+ * arka uc cerez kullanmiyor, jeton giris donusunde adresten okunup oraya
+ * yaziliyor. Iz yokken `auth.me()` cagirmak kesin 401 donuyor: bos bir ag
+ * istegi ve tarayici konsolunda bir hata satiri. Herkese acik sayfalarda
+ * ziyaretcilerin cogu giris yapmamis oluyor, yani bu her yuklemede
+ * tekrarlaniyordu.
+ *
+ * Iz bulunmadiginda cagri hic yapilmiyor; sonuc ayni -- eskiden de 401
+ * yakalanip kullanici bos birakiliyordu.
+ *
+ * Gizli sekmede ya da depolama kapaliyken erisim hata atabildigi icin
+ * her iki okuma da korumali.
+ */
+export function oturumIziVarMi(): boolean {
+  try {
+    if (localStorage.getItem('token')) return true;
+  } catch {
+    /* depolamaya erisilemiyor */
+  }
+  try {
+    // SDK, platform devri icin bir cerezi de okuyabiliyor.
+    return document.cookie.includes('atoms_token=');
+  } catch {
+    return false;
+  }
+}

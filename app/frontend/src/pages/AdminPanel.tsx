@@ -32,7 +32,7 @@ import NotificationCenter from '@/components/admin/NotificationCenter';
 import ProjectStageManager from '@/components/admin/ProjectStageManager';
 import { useStageLabels } from '@/lib/projectEvents';
 import { useTranslation } from 'react-i18next';
-import { client } from '@/lib/sdkClient';
+import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import {
   SETTING_GROUPS,
   fetchSettingRows,
@@ -219,6 +219,11 @@ export default function AdminPanel() {
   const [savingSettings, setSavingSettings] = useState(false);
 
   useEffect(() => {
+    // Oturum izi yoksa cagri kesin 401 doner; bos yere istek atmiyoruz.
+    if (!oturumIziVarMi()) {
+      setAuthLoading(false);
+      return;
+    }
     client.auth
       .me()
       .then((res) => {

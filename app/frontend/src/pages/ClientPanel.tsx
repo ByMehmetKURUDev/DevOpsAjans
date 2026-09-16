@@ -20,7 +20,7 @@ import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import ProjectTimeline from '@/components/ProjectTimeline';
 import { useStageLabels } from '@/lib/projectEvents';
-import { client } from '@/lib/sdkClient';
+import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import { useSiteSettings } from '@/lib/siteSettings';
 
 
@@ -98,6 +98,11 @@ export default function ClientPanel() {
   const [profile, setProfile] = useState({ name: '', phone: '', company: '' });
 
   useEffect(() => {
+    // Oturum izi yoksa cagri kesin 401 doner; bos yere istek atmiyoruz.
+    if (!oturumIziVarMi()) {
+      setAuthLoading(false);
+      return;
+    }
     client.auth
       .me()
       .then((res) => {

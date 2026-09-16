@@ -6,7 +6,7 @@ import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
 import SocialLinks from '@/components/SocialLinks';
 import StoreBadges from '@/components/StoreBadges';
-import { client } from '@/lib/sdkClient';
+import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
 import {
   useSiteSettings,
@@ -111,6 +111,11 @@ export default function Layout() {
   ];
 
   useEffect(() => {
+    // Oturum izi yoksa cagri kesin 401 doner; bos yere istek atmiyoruz.
+    if (!oturumIziVarMi()) {
+      setAuthLoading(false);
+      return;
+    }
     client.auth
       .me()
       .then((res) => {
