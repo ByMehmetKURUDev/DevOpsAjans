@@ -313,6 +313,7 @@
     "yearly": "Yearly",
     "perMonth": "per month",
     "perYear": "per year, upfront",
+    "perHourFixed": "fixed hourly rate",
     "customPrice": "Let's talk"
   },
   "ui": {

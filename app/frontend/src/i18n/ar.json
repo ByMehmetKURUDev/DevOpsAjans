@@ -313,6 +313,7 @@
     "yearly": "سنوي",
     "perMonth": "شهريًا",
     "perYear": "سنويًا، مقدمًا",
+    "perHourFixed": "سعر ثابت بالساعة",
     "customPrice": "لنتحدث"
   },
   "ui": {

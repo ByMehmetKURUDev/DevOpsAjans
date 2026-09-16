@@ -313,6 +313,7 @@
     "yearly": "按年",
     "perMonth": "每月",
     "perYear": "每年，预付",
+    "perHourFixed": "每小时固定价",
     "customPrice": "面议"
   },
   "ui": {

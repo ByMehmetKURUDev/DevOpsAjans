@@ -313,6 +313,7 @@
     "yearly": "Yıllık",
     "perMonth": "ay başına",
     "perYear": "yıllık, peşin",
+    "perHourFixed": "saatlik sabit",
     "customPrice": "Görüşelim"
   },
   "ui": {

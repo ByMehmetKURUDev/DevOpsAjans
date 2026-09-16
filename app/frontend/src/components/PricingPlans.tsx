@@ -29,21 +29,23 @@ export default function PricingPlans({ className = '' }: { className?: string })
 
   const discount = Number.parseInt(settings.yearly_discount ?? '', 10) || DEFAULT_YEARLY_DISCOUNT;
 
-  const priceFor = (monthly: string) => {
+  const priceFor = (monthly: string, fixed = false) => {
     const value = Number.parseInt(monthly, 10);
     if (!Number.isFinite(value)) return `$${monthly}`;
-    if (billing === 'monthly') return `$${value}`;
+    // Saatlik sabit ucret: odeme donemi anahtarindan etkilenmez.
+    if (fixed || billing === 'monthly') return `$${value}`;
     const yearly = Math.round(value * 12 * (1 - discount / 100));
     return `$${yearly.toLocaleString('en-US')}`;
   };
 
   const PLANS = [
-    { icon: Zap, name: t('packages.option1'), monthly: settings.price_starter, desc: t('packages.option1Desc'), gradient: 'from-purple-600 to-pink-600', highlight: false, isQuote: false },
-    { icon: Rocket, name: t('packages.option2'), monthly: settings.price_business, desc: t('packages.option2Desc'), gradient: 'from-pink-600 to-orange-500', highlight: false, isQuote: false },
-    { icon: Shield, name: t('packages.option3'), monthly: settings.price_ecommerce, desc: t('packages.option3Desc'), gradient: 'from-cyan-500 to-purple-600', highlight: true, isQuote: false },
-    { icon: Crown, name: t('packages.option4'), monthly: settings.price_saas, desc: t('packages.option4Desc'), gradient: 'from-emerald-500 to-cyan-500', highlight: false, isQuote: false },
+    // Danismanlik & Analiz: 1 saatlik is, aylik/yillik degil saatlik sabit ucret.
+    { icon: Zap, name: t('packages.option1'), monthly: settings.price_starter, desc: t('packages.option1Desc'), gradient: 'from-purple-600 to-pink-600', highlight: false, isQuote: false, fixedHourly: true },
+    { icon: Rocket, name: t('packages.option2'), monthly: settings.price_business, desc: t('packages.option2Desc'), gradient: 'from-pink-600 to-orange-500', highlight: false, isQuote: false, fixedHourly: false },
+    { icon: Shield, name: t('packages.option3'), monthly: settings.price_ecommerce, desc: t('packages.option3Desc'), gradient: 'from-cyan-500 to-purple-600', highlight: true, isQuote: false, fixedHourly: false },
+    { icon: Crown, name: t('packages.option4'), monthly: settings.price_saas, desc: t('packages.option4Desc'), gradient: 'from-emerald-500 to-cyan-500', highlight: false, isQuote: false, fixedHourly: false },
     // DevOps sürekli hizmet: kapsam projeden projeye değiştiği için fiyat yazılmıyor.
-    { icon: Server, name: t('packages.option5'), monthly: null, desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true },
+    { icon: Server, name: t('packages.option5'), monthly: null, desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true, fixedHourly: false },
   ];
 
   const tab =
@@ -128,9 +130,15 @@ export default function PricingPlans({ className = '' }: { className?: string })
               <div className="mb-4 min-h-[3.25rem]">
                 {plan.monthly ? (
                   <>
-                    <p className="text-3xl font-bold gradient-text">{priceFor(plan.monthly)}</p>
+                    <p className="text-3xl font-bold gradient-text">
+                      {priceFor(plan.monthly, plan.fixedHourly)}
+                    </p>
                     <p className="text-xs text-muted-foreground">
-                      {billing === 'monthly' ? t('packages.perMonth') : t('packages.perYear')}
+                      {plan.fixedHourly
+                        ? t('packages.perHourFixed')
+                        : billing === 'monthly'
+                          ? t('packages.perMonth')
+                          : t('packages.perYear')}
                     </p>
                   </>
                 ) : (

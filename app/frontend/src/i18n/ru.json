@@ -313,6 +313,7 @@
     "yearly": "Ежегодно",
     "perMonth": "в месяц",
     "perYear": "в год, авансом",
+    "perHourFixed": "фиксированно за час",
     "customPrice": "Обсудим"
   },
   "ui": {

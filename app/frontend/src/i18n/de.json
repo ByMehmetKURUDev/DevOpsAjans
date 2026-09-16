@@ -291,9 +291,9 @@
     "title": "Wählen Sie Ihr",
     "titleHighlight": "Paket",
     "desc": "Wählen Sie das Paket, das am besten zu Ihren Bedürfnissen passt. Jede Option ist darauf ausgelegt, maximalen Wert zu liefern.",
-    "option1": "Starter",
+    "option1": "Beratung & Analyse",
     "option1Price": "$100",
-    "option1Desc": "Perfekt für kleine Aufgaben und schnelle Korrekturen.",
+    "option1Desc": "1 Stunde Beratung, Produktanalyse und Demo-Arbeit.",
     "option2": "Wachstum",
     "option2Price": "$300",
     "option2Desc": "Ideal für wachsende Unternehmen mit mehr Funktionsbedarf.",
@@ -313,6 +313,7 @@
     "yearly": "Jährlich",
     "perMonth": "pro Monat",
     "perYear": "pro Jahr, im Voraus",
+    "perHourFixed": "Festpreis pro Stunde",
     "customPrice": "Sprechen wir"
   },
   "ui": {
