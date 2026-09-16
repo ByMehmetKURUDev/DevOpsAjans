@@ -233,7 +233,7 @@ export default function Services() {
               <div key={item.year} className="relative mb-10 last:mb-0">
                 <div className="absolute -left-[38px] top-1 h-4 w-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 ring-4 ring-background" />
                 <div className="text-sm font-mono text-purple-400 mb-1">{item.year}</div>
-                <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                 <p className="text-muted-foreground">{item.desc}</p>
               </div>
             ))}

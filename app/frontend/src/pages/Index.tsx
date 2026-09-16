@@ -251,7 +251,7 @@ export default function Index() {
                   {step.n}
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold mb-1">{step.title}</h4>
+                  <h3 className="text-lg font-semibold mb-1">{step.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>
               </div>

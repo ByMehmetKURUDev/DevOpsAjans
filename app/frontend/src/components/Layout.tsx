@@ -537,9 +537,9 @@ export default function Layout() {
             <SocialLinks className="pt-2" />
           </div>
           <div>
-            <h4 className="text-sm font-semibold mb-4 tracking-wide">
+            <h3 className="text-sm font-semibold mb-4 tracking-wide">
               {t('footer.navigate')}
-            </h4>
+            </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               {NAV_LINKS.map((l) => (
                 <li key={l.to}>
@@ -559,9 +559,9 @@ export default function Layout() {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-semibold mb-4 tracking-wide">
+            <h3 className="text-sm font-semibold mb-4 tracking-wide">
               {t('footer.contact')}
-            </h4>
+            </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a
