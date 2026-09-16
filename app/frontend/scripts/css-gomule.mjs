@@ -45,9 +45,16 @@ const beasties = new Beasties({
   pruneSource: false,
   // Kalan stil `preload` ile gelsin, çizimi bekletmesin.
   preload: 'swap',
-  // Fontlar zaten kendi sunucumuzdan ve ayrı @font-face dosyalarında.
-  inlineFonts: false,
-  preloadFonts: false,
+  /*
+   * @font-face kuralları gömülü CSS'e dahil edilsin.
+   *
+   * `false` bırakıldığında beasties bu kuralları kritik CSS'in dışında
+   * tutuyordu: 16 `@font-face` tanımının tamamı yalnızca arkadan yüklenen
+   * stil dosyasında kalıyor, tarayıcı ilk çizim sırasında fontların
+   * varlığından ve `font-display: swap` değerinden haberdar olmuyordu.
+   */
+  inlineFonts: true,
+  preloadFonts: true,
   compress: true,
   logLevel: 'silent',
 });
