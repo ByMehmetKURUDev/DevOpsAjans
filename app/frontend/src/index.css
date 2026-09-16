@@ -173,10 +173,17 @@
       linear-gradient(90deg, rgba(139, 61, 255, 0.05) 1px, transparent 1px);
     background-size: 100% 100%, 64px 64px, 64px 64px;
   }
+  /*
+   * Hero'daki mor parilti.
+   *
+   * Onceden dolu bir daire + `filter: blur(90px)` idi. ~450 piksellik bir
+   * alani 90 piksel bulanıklastirmak tarayici icin pahali bir raster isi;
+   * JavaScript'te gorunmuyor (uzun gorev yok, TBT 0) ama ekrana cizimi
+   * geciktiriyordu. Ayni gorunum, kenarlari yumusak bir radial-gradient
+   * ile elde ediliyor ve raster maliyeti neredeyse sifir.
+   */
   .hero-glow {
     position: absolute;
-    border-radius: 9999px;
-    filter: blur(90px);
     pointer-events: none;
     z-index: 0;
   }
@@ -185,14 +192,26 @@
     top: -6rem;
     width: 28rem;
     height: 28rem;
-    background: rgba(139, 61, 255, 0.28);
+    background: radial-gradient(
+      closest-side,
+      rgba(139, 61, 255, 0.3) 0%,
+      rgba(139, 61, 255, 0.22) 38%,
+      rgba(139, 61, 255, 0.09) 66%,
+      rgba(139, 61, 255, 0) 100%
+    );
   }
   .hero-glow-b {
     inset-inline-end: -10rem;
     bottom: 2rem;
     width: 24rem;
     height: 24rem;
-    background: rgba(212, 111, 255, 0.18);
+    background: radial-gradient(
+      closest-side,
+      rgba(212, 111, 255, 0.2) 0%,
+      rgba(212, 111, 255, 0.14) 40%,
+      rgba(212, 111, 255, 0.06) 68%,
+      rgba(212, 111, 255, 0) 100%
+    );
   }
 }
 

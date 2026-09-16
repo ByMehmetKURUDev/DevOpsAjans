@@ -49,12 +49,8 @@ const AnalyticsDashboard = lazy(() => import('@/components/AnalyticsDashboard'))
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
-  { code: 'base', label: 'Varsayılan', flag: '🌐' },
-  ...SUPPORTED_LANGUAGES.map((l) => ({
-    code: l.code,
-    label: l.full,
-    flag: l.flag,
-  })),
+  { code: 'base', label: 'Varsayılan' },
+  ...SUPPORTED_LANGUAGES.map((l) => ({ code: l.code, label: l.full })),
 ];
 
 
@@ -694,7 +690,6 @@ export default function AdminPanel() {
                       : 'border-white/10 text-muted-foreground hover:text-foreground hover:bg-white/5'
                   }`}
                 >
-                  <span>{opt.flag}</span>
                   {opt.code === 'base' ? t('admin.default') : opt.label}
                 </button>
               ))}

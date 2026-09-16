@@ -1,6 +1,21 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Code2, Rocket, Target, Paintbrush, Globe, Zap, Shield, Crown, Server } from 'lucide-react';
+import {
+  ArrowRight,
+  Code2,
+  Rocket,
+  Target,
+  Paintbrush,
+  Globe,
+  Zap,
+  Shield,
+  Crown,
+  Server,
+  Monitor,
+  ShoppingCart,
+  Smartphone,
+  Megaphone,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import PricingPlans from '@/components/PricingPlans';
@@ -88,12 +103,17 @@ export default function Index() {
   ];
 
 
+  /*
+   * Kategori kartları artık emoji yerine çizgi ikonu kullanıyor: emoji her
+   * işletim sisteminde farklı çiziliyor ve sitenin çizgi ikonlarıyla aynı
+   * dili konuşmuyordu.
+   */
   const CATEGORY_CARDS = [
-    { slug: 'Website', label: t('ui.catWebsite'), emoji: '💻', gradient: 'from-purple-600 to-pink-600' },
-    { slug: 'E-Ticaret', label: t('ui.catEcommerce'), emoji: '🛒', gradient: 'from-pink-600 to-orange-500' },
-    { slug: 'SaaS', label: t('ui.catSaas'), emoji: '🚀', gradient: 'from-cyan-500 to-purple-600' },
-    { slug: 'Mobil Uygulama', label: t('ui.catMobile'), emoji: '📱', gradient: 'from-emerald-500 to-cyan-500' },
-    { slug: 'Reklam', label: t('ui.catAds'), emoji: '📣', gradient: 'from-purple-500 to-pink-500' },
+    { slug: 'Website', label: t('ui.catWebsite'), Icon: Monitor, gradient: 'from-purple-600 to-pink-600' },
+    { slug: 'E-Ticaret', label: t('ui.catEcommerce'), Icon: ShoppingCart, gradient: 'from-pink-600 to-orange-500' },
+    { slug: 'SaaS', label: t('ui.catSaas'), Icon: Rocket, gradient: 'from-cyan-500 to-purple-600' },
+    { slug: 'Mobil Uygulama', label: t('ui.catMobile'), Icon: Smartphone, gradient: 'from-emerald-500 to-cyan-500' },
+    { slug: 'Reklam', label: t('ui.catAds'), Icon: Megaphone, gradient: 'from-purple-500 to-pink-500' },
   ];
 
 
@@ -311,7 +331,7 @@ export default function Index() {
                 className="group relative p-8 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300 text-center"
               >
                 <div className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center mb-4`}>
-                  <span className="text-2xl" aria-hidden="true">{cat.emoji}</span>
+                  <cat.Icon className="h-7 w-7 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-semibold">{cat.label}</h3>
                 <p className="text-xs text-muted-foreground mt-2 uppercase tracking-wider">

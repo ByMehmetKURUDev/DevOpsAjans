@@ -1,6 +1,6 @@
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Menu, X, User, LogIn, LogOut, UserPlus } from 'lucide-react';
+import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -340,7 +340,7 @@ export default function Layout() {
                 onClick={() => setLangOpen((s) => !s)}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
               >
-                <span className="text-base">{currentLang.flag}</span>
+                <Languages className="h-4 w-4" aria-hidden="true" />
                 {currentLang.label}
               </button>
               {langOpen && (
@@ -359,7 +359,6 @@ export default function Layout() {
                           : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
                       }`}
                     >
-                      <span className="text-base">{lang.flag}</span>
                       <span className="font-medium">{lang.label}</span>
                       <span className="ms-auto text-xs text-muted-foreground">
                         {lang.full}
@@ -463,7 +462,6 @@ export default function Layout() {
                         : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    <span>{lang.flag}</span>
                     {lang.label}
                   </button>
                 ))}
