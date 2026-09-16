@@ -1,7 +1,6 @@
 import asyncio
 import json
 import logging
-import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable
@@ -18,9 +17,6 @@ MAX_CONCURRENT_LOADS = 5
 
 async def initialize_mock_data():
     """Populate tables with mock JSON data when they are empty."""
-    if "MGX_IGNORE_INIT_DATA" in os.environ:
-        logger.info("Ignore initialize data")
-        return
     if not db_manager.engine:
         logger.warning("Database engine is not ready; skipping mock data initialization")
         return

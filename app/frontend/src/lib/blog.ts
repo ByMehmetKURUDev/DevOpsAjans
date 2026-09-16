@@ -208,7 +208,7 @@ function getSiteName() {
 
 /**
  * Twitter hesabı bilinmiyorsa etiket hiç üretilmiyor. Önceki şablon
- * varsayılanı olan `@atoms` yanlış bir hesaba atıf yapıyordu.
+ * şablondan gelen varsayılan değer yanlış bir hesaba atıf yapıyordu.
  */
 function getTwitterSiteHandle() {
   return import.meta.env.VITE_TWITTER_SITE?.trim() || undefined;
@@ -236,7 +236,7 @@ function hasBlogPosts() {
  * Frontmatter'dan metin alan okur.
  *
  * Boş değer (`og_image: ""`) yok sayılır. Aksi halde boş bir alan, arkasındaki
- * yedeği sessizce gölgeliyordu: Atoms'tan gelen üç yazıda `og_image: ""`
+ * yedeği sessizce gölgeliyordu: taşınan üç yazıda `og_image: ""`
  * durduğu için kendi kapak görselleri yerine sitenin genel görseli
  * paylaşılıyordu.
  */

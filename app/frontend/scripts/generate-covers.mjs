@@ -184,7 +184,7 @@ async function main() {
 
     // Frontmatter'a og_image / og_image_alt yaz.
     //
-    // Alanın var olması yetmiyor: Atoms'tan gelen yazılarda `og_image: ""`
+    // Alanın var olması yetmiyor: taşınan yazılarda `og_image: ""`
     // şeklinde boş duruyordu, o yüzden boş değer de eksik sayılıyor.
     if (post.frontmatter) {
       const url = `https://mehmetkuru.dev/blog-covers/${post.slug}.webp`;

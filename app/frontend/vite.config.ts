@@ -29,7 +29,7 @@ function escapeHtmlAttr(str: string): string {
 }
 
 /**
- * Şablon varsayılanları ("shadcnui", "Atoms Generated Project") üretim
+ * Şablon varsayılanları ("shadcnui", "Generated Project") üretim
  * çıktısına sızıyordu: blog dizininin başlığı Google'a `Blog | shadcnui`
  * olarak gidiyor, `VITE_SITE_URL` tanımsız olduğu için og:url hiç
  * üretilemiyordu. Varsayılanlar artık sitenin gerçek değerleri.

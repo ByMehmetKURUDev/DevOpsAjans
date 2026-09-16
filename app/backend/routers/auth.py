@@ -46,22 +46,23 @@ def _local_patch(url: str) -> str:
 def get_dynamic_backend_url(request: Request) -> str:
     """Get backend URL dynamically from request headers.
 
-    Priority: mgx-external-domain > x-forwarded-host > host > settings.backend_url
+    Priority: x-forwarded-host > host > settings.backend_url
+
+    The Cloudflare Pages Function in front of this service sets
+    X-Forwarded-Host to the public hostname.
     """
-    mgx_external_domain = request.headers.get("mgx-external-domain")
     x_forwarded_host = request.headers.get("x-forwarded-host")
     host = request.headers.get("host")
     scheme = request.headers.get("x-forwarded-proto", "https")
 
-    effective_host = mgx_external_domain or x_forwarded_host or host
+    effective_host = x_forwarded_host or host
     if not effective_host:
         logger.warning("[get_dynamic_backend_url] No host found, fallback to %s", settings.backend_url)
         return settings.backend_url
 
     dynamic_url = _local_patch(f"{scheme}://{effective_host}")
     logger.debug(
-        "[get_dynamic_backend_url] mgx-external-domain=%s, x-forwarded-host=%s, host=%s, scheme=%s, dynamic_url=%s",
-        mgx_external_domain,
+        "[get_dynamic_backend_url] x-forwarded-host=%s, host=%s, scheme=%s, dynamic_url=%s",
         x_forwarded_host,
         host,
         scheme,

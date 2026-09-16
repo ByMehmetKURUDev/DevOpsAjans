@@ -42,7 +42,6 @@ All shadcn/ui components have been downloaded under `@/components/ui`.
 ## Note
 
 - The `@/` path alias points to the `src/` directory
-- Do NOT modify the title, description, and logo in `index.html` — they are managed by the overview system via `data-mgx-overview` markers.
 
 # Commands
 

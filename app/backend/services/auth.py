@@ -1,5 +1,4 @@
 import logging
-import os
 import time
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, Optional, Tuple
@@ -106,10 +105,6 @@ class AuthService:
 
 async def initialize_admin_user():
     """Initialize admin user if not exists"""
-    if "MGX_IGNORE_INIT_ADMIN" in os.environ:
-        logger.info("Ignore initialize admin")
-        return
-
     from services.database import initialize_database
 
     # Ensure database is initialized first
