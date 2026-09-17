@@ -430,7 +430,9 @@
     "shareOther": "更多",
     "timelineHint": "横向滚动以并排查看各年份。",
     "tabPages": "网站页面",
-    "tabNotify": "通知"
+    "tabNotify": "通知",
+    "brandName": "By Mehmet KURU Dev",
+    "brandTagline": "精品开发与数字代理"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -664,7 +666,8 @@
     "pickPage": "选择页面",
     "pickLang": "选择语言",
     "save": "保存页面",
-    "saved": "已保存 {{page}} 页面。"
+    "saved": "已保存 {{page}} 页面。",
+    "kesif": "项目探索助手"
   },
   "notify": {
     "bell": "通知",
@@ -742,5 +745,62 @@
     "colStatus": "状态",
     "colTo": "收件人",
     "colDetail": "说明"
+  },
+  "kesif": {
+    "sectionTag": "项目探索助手",
+    "title": "说出你的需求，",
+    "titleHighlight": "范围我们一起理清。",
+    "desc": "不需要technical术语。五个简短问题厘清需求，然后我们推荐合适的方案和下一步。",
+    "fayda1": "五个步骤，约两分钟。",
+    "fayda2": "不会保存任何内容；只有你选择发送时才会提交。",
+    "fayda3": "最后你会得到一份现成的项目摘要和方案建议。",
+    "kartBaslik": "项目探索助手",
+    "adimEtiket": "{{adim}} / {{toplam}} · 明确你的需求",
+    "sonAdimEtiket": "摘要与建议",
+    "s1Baslik": "项目的主要目标",
+    "s1Ornek": "例如：我想要一个展示服务并收集询价的现代网站。",
+    "hizliSecim": "快速选择",
+    "s2Baslik": "需要的功能",
+    "s2Yardim": "可多选；不确定就留空。",
+    "s3Baslik": "时间安排",
+    "s4Baslik": "预算范围",
+    "s4Yardim": "大致范围即可，不具约束力。",
+    "ozetEtiket": "你提供的信息",
+    "belirtilmedi": "未填写",
+    "onerilen": "推荐方案",
+    "oneriNotu": "该建议根据你的回答计算；具体范围与价格在沟通中确定。",
+    "ozetBaslik": "项目探索摘要",
+    "aciklama": "说明",
+    "geri": "返回",
+    "devam": "继续",
+    "bastanBasla": "重新开始",
+    "teklifIste": "索取报价",
+    "amac": {
+      "website": "新网站",
+      "eticaret": "电子商务",
+      "saas": "定制软件 / SaaS",
+      "mobil": "移动应用",
+      "mevcut": "改进现有系统"
+    },
+    "kapsam": {
+      "girisUyelik": "用户账号与登录",
+      "odeme": "在线支付",
+      "cokDil": "多语言内容",
+      "yonetimPaneli": "管理后台",
+      "entegrasyon": "与其他系统集成",
+      "seoReklam": "SEO 与广告管理"
+    },
+    "zaman": {
+      "acil": "一个月内",
+      "ceyrek": "一到三个月",
+      "yarim": "三到六个月",
+      "esnek": "灵活，不着急"
+    },
+    "butce": {
+      "baslangic": "起步预算",
+      "orta": "中等规模",
+      "genis": "全面覆盖",
+      "belirsiz": "尚未确定"
+    }
   }
 }

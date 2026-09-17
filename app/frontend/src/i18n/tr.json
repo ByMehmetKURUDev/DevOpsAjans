@@ -430,7 +430,9 @@
     "shareOther": "Diğer",
     "timelineHint": "Yılları yan yana görmek için şeridi yatay kaydırın.",
     "tabPages": "Site Sayfaları",
-    "tabNotify": "Bildirimler"
+    "tabNotify": "Bildirimler",
+    "brandName": "By Mehmet KURU Dev",
+    "brandTagline": "Butik Geliştirme & Dijital Ajans"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -664,7 +666,8 @@
     "pickPage": "Sayfa seçin",
     "pickLang": "Dil seçin",
     "save": "Sayfayı kaydet",
-    "saved": "{{page}} sayfası kaydedildi."
+    "saved": "{{page}} sayfası kaydedildi.",
+    "kesif": "Keşif Asistanı"
   },
   "notify": {
     "bell": "Bildirimler",
@@ -742,5 +745,62 @@
     "colStatus": "Durum",
     "colTo": "Alıcı",
     "colDetail": "Açıklama"
+  },
+  "kesif": {
+    "sectionTag": "PROJE KEŞİF ASİSTANI",
+    "title": "Ne istediğinizi anlatın,",
+    "titleHighlight": "kapsamını birlikte çıkaralım.",
+    "desc": "Teknik terim bilmenize gerek yok. Beş kısa soruyla ihtiyacınızı netleştiriyoruz; size uygun paketi ve sonraki adımı öneriyoruz.",
+    "fayda1": "Beş adım, yaklaşık iki dakika.",
+    "fayda2": "Hiçbir kayıt oluşturulmaz; bilgileri yalnızca siz isterseniz gönderirsiniz.",
+    "fayda3": "Sonunda hazır bir proje özeti ve paket önerisi alırsınız.",
+    "kartBaslik": "Proje Keşif Asistanı",
+    "adimEtiket": "{{adim}} / {{toplam}} · İhtiyacınızı belirleyelim",
+    "sonAdimEtiket": "Özet ve öneri",
+    "s1Baslik": "Projenizin temel amacı",
+    "s1Ornek": "Örn. Hizmetlerimizi tanıtan ve teklif talepleri toplayan modern bir web sitesi istiyorum.",
+    "hizliSecim": "Hızlı seçim",
+    "s2Baslik": "Gereken özellikler",
+    "s2Yardim": "Birden fazla seçebilirsiniz; emin değilseniz boş bırakın.",
+    "s3Baslik": "Zaman çizelgesi",
+    "s4Baslik": "Bütçe aralığı",
+    "s4Yardim": "Yaklaşık bir aralık yeterli, bağlayıcı değil.",
+    "ozetEtiket": "Verdiğiniz bilgiler",
+    "belirtilmedi": "Belirtilmedi",
+    "onerilen": "Önerilen paket",
+    "oneriNotu": "Bu öneri verdiğiniz cevaplara göre hesaplandı; kesin kapsam ve fiyat görüşmede netleşir.",
+    "ozetBaslik": "Proje keşif özeti",
+    "aciklama": "Açıklama",
+    "geri": "Geri",
+    "devam": "Devam et",
+    "bastanBasla": "Baştan başla",
+    "teklifIste": "Teklif iste",
+    "amac": {
+      "website": "Yeni bir web sitesi",
+      "eticaret": "E-ticaret",
+      "saas": "Özel yazılım / SaaS",
+      "mobil": "Mobil uygulama",
+      "mevcut": "Mevcut sistemi geliştirme"
+    },
+    "kapsam": {
+      "girisUyelik": "Kullanıcı girişi ve üyelik",
+      "odeme": "Online ödeme",
+      "cokDil": "Çok dilli içerik",
+      "yonetimPaneli": "Yönetim paneli",
+      "entegrasyon": "Başka sistemlerle entegrasyon",
+      "seoReklam": "SEO ve reklam yönetimi"
+    },
+    "zaman": {
+      "acil": "Bir ay içinde",
+      "ceyrek": "Bir ile üç ay arası",
+      "yarim": "Üç ile altı ay arası",
+      "esnek": "Esnek, acelem yok"
+    },
+    "butce": {
+      "baslangic": "Başlangıç bütçesi",
+      "orta": "Orta ölçekli",
+      "genis": "Geniş kapsamlı",
+      "belirsiz": "Henüz belirlemedim"
+    }
   }
 }

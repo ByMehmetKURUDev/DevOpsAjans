@@ -31,6 +31,9 @@
     --border: 270 30% 15%;
     --input: 270 30% 12%;
     --ring: 268 100% 62%;
+    /* Marka isaretinin orta dugumu. Tema disinda ayri tutuluyor ki
+       renk denemelerinde tek satirdan degistirilebilsin. */
+    --marka-ikinci: 330 81% 60%;
     --radius: 0.75rem;
   }
 }

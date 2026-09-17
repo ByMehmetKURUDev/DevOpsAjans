@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import KesifAsistani from '@/components/KesifAsistani';
 import PricingPlans from '@/components/PricingPlans';
 import ProcessFlow from '@/components/ProcessFlow';
 import Testimonials from '@/components/Testimonials';
@@ -198,6 +199,8 @@ export default function Index() {
 
       </>
     ),
+    kesif: <KesifAsistani />,
+
     capabilities: (
       <>
       {/* CAPABILITIES */}
