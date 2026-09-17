@@ -165,7 +165,7 @@ const BlogIndexPage = () => {
   };
 
   return (
-  <main className="min-h-screen bg-[#05010a] text-[#ece6ff]">
+  <main className="min-h-screen bg-[#030805] text-[#e6fff0]">
     <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_20%_0%,rgba(139,61,255,0.25),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(212,165,255,0.14),transparent_40%)]" />
     <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
       <div className="max-w-3xl space-y-5">
@@ -175,7 +175,7 @@ const BlogIndexPage = () => {
         <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl">
           {t('ui.blogIndexTitle')}
         </h1>
-        <p className="text-lg leading-8 text-[#b9a9d6]">
+        <p className="text-lg leading-8 text-[#a9d6c0]">
           {t('ui.blogIndexDesc')}
         </p>
         <Link
@@ -195,7 +195,7 @@ const BlogIndexPage = () => {
             className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
               activeCategory === ALL_CATEGORIES
                 ? 'border-purple-400 bg-purple-500/20 text-white'
-                : 'border-white/10 bg-white/[0.03] text-[#b9a9d6] hover:border-purple-500/40 hover:text-white'
+                : 'border-white/10 bg-white/[0.03] text-[#a9d6c0] hover:border-purple-500/40 hover:text-white'
             }`}
           >
             {t('portfolio.all')}
@@ -209,7 +209,7 @@ const BlogIndexPage = () => {
               className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
                 activeCategory === category
                   ? 'border-purple-400 bg-purple-500/20 text-white'
-                  : 'border-white/10 bg-white/[0.03] text-[#b9a9d6] hover:border-purple-500/40 hover:text-white'
+                  : 'border-white/10 bg-white/[0.03] text-[#a9d6c0] hover:border-purple-500/40 hover:text-white'
               }`}
             >
               {category}
@@ -221,10 +221,10 @@ const BlogIndexPage = () => {
       {/* Sıralama ve sayaç: liste ile süzgeçler arasında tek satır. */}
       {filteredPosts.length > 0 ? (
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-b border-white/5 pb-4">
-          <p className="text-sm text-[#9d8cbf]">
+          <p className="text-sm text-[#8cbfa4]">
             {t('ui.postCount', { total: filteredPosts.length, page, pages: pageCount })}
           </p>
-          <label className="flex items-center gap-2 text-sm text-[#9d8cbf]">
+          <label className="flex items-center gap-2 text-sm text-[#8cbfa4]">
             <span>{t('ui.sortLabel')}</span>
             <select
               value={sort}
@@ -234,7 +234,7 @@ const BlogIndexPage = () => {
                   sayfa: null,
                 })
               }
-              className="rounded-xl border border-white/10 bg-[#120b1f] px-3 py-2 text-sm font-semibold text-white outline-none transition-colors hover:border-purple-500/40 focus:border-purple-400"
+              className="rounded-xl border border-white/10 bg-[#0b1f14] px-3 py-2 text-sm font-semibold text-white outline-none transition-colors hover:border-purple-500/40 focus:border-purple-400"
             >
               {SORT_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -253,7 +253,7 @@ const BlogIndexPage = () => {
               key={post.slug}
               className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/40"
             >
-              <div className="flex flex-wrap items-center gap-3 text-sm text-[#9d8cbf]">
+              <div className="flex flex-wrap items-center gap-3 text-sm text-[#8cbfa4]">
                 {post.date ? <span>{post.date}</span> : null}
                 {post.tags?.map((tag) => (
                   <span
@@ -272,7 +272,7 @@ const BlogIndexPage = () => {
                   {post.title}
                 </Link>
               </h2>
-              <p className="mt-3 text-base leading-7 text-[#b9a9d6]">
+              <p className="mt-3 text-base leading-7 text-[#a9d6c0]">
                 {post.description}
               </p>
               <Link
@@ -288,7 +288,7 @@ const BlogIndexPage = () => {
             <h2 className="text-2xl font-semibold text-white">
               {t('ui.noPostsTitle')}
             </h2>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-[#b9a9d6]">
+            <p className="mt-3 max-w-2xl text-base leading-7 text-[#a9d6c0]">
               {t('ui.noPostsDesc')}
             </p>
           </section>
@@ -316,7 +316,7 @@ const BlogIndexPage = () => {
               <li key={`arsiv-${post.slug}`}>
                 <Link
                   to={getBlogRoute(post.slug)}
-                  className="text-sm leading-6 text-[#b9a9d6] underline-offset-4 hover:text-white hover:underline"
+                  className="text-sm leading-6 text-[#a9d6c0] underline-offset-4 hover:text-white hover:underline"
                 >
                   {post.title}
                 </Link>

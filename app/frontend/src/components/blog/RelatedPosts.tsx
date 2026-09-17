@@ -31,7 +31,7 @@ export default function RelatedPosts({ posts }: { posts: BlogIndexEntry[] }) {
                     {post.title}
                   </Link>
                 </h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#b9a9d6]">
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-[#a9d6c0]">
                   {post.description}
                 </p>
               </li>
@@ -44,7 +44,7 @@ export default function RelatedPosts({ posts }: { posts: BlogIndexEntry[] }) {
         <h2 className="text-xl font-semibold text-white">
           Bu konuyu kendi siteniz için konuşalım
         </h2>
-        <p className="mt-3 max-w-2xl text-base leading-7 text-[#b9a9d6]">
+        <p className="mt-3 max-w-2xl text-base leading-7 text-[#a9d6c0]">
           Yazıdakileri kendi sitenize uygulamak için nereden başlayacağınızı
           birlikte çıkaralım. Projenizi anlatın, 24 saat içinde dürüst bir
           değerlendirmeyle dönüş yapayım.
@@ -58,7 +58,7 @@ export default function RelatedPosts({ posts }: { posts: BlogIndexEntry[] }) {
           </Link>
           <Link
             to="/services"
-            className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-[#d7cbee] transition-colors hover:border-purple-500/40 hover:text-white"
+            className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-[#cbeedd] transition-colors hover:border-purple-500/40 hover:text-white"
           >
             Hizmetleri gör
           </Link>

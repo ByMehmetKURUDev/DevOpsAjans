@@ -1293,7 +1293,7 @@ export default function AdminPanel() {
                   >
                     {['Website', 'E-Ticaret', 'SaaS', 'Mobil Uygulama', 'Reklam'].map(
                       (c) => (
-                        <option key={c} value={c} className="bg-[#150a2b]">
+                        <option key={c} value={c} className="bg-[#0a2b18]">
                           {c}
                         </option>
                       )
@@ -1311,13 +1311,13 @@ export default function AdminPanel() {
                     }
                     className="w-full h-10 rounded-md bg-white/5 border border-white/10 px-3 text-sm"
                   >
-                    <option value="planning" className="bg-[#150a2b]">
+                    <option value="planning" className="bg-[#0a2b18]">
                       {t('ui.status.planning')}
                     </option>
-                    <option value="in_progress" className="bg-[#150a2b]">
+                    <option value="in_progress" className="bg-[#0a2b18]">
                       {t('ui.status.in_progress')}
                     </option>
-                    <option value="completed" className="bg-[#150a2b]">
+                    <option value="completed" className="bg-[#0a2b18]">
                       {t('ui.status.completed')}
                     </option>
                   </select>
@@ -1583,7 +1583,7 @@ export default function AdminPanel() {
                       'Reklam',
                       'SEO',
                     ].map((c) => (
-                      <option key={c} value={c} className="bg-[#150a2b]">
+                      <option key={c} value={c} className="bg-[#0a2b18]">
                         {c}
                       </option>
                     ))}
@@ -1755,13 +1755,13 @@ export default function AdminPanel() {
                     }
                     className="w-full h-10 rounded-md bg-white/5 border border-white/10 px-3 text-sm"
                   >
-                    <option value="unpaid" className="bg-[#150a2b]">
+                    <option value="unpaid" className="bg-[#0a2b18]">
                       {t('ui.status.unpaid')}
                     </option>
-                    <option value="paid" className="bg-[#150a2b]">
+                    <option value="paid" className="bg-[#0a2b18]">
                       {t('ui.status.paid')}
                     </option>
-                    <option value="overdue" className="bg-[#150a2b]">
+                    <option value="overdue" className="bg-[#0a2b18]">
                       {t('ui.status.overdue')}
                     </option>
                   </select>

@@ -263,20 +263,20 @@ export default function AnalyticsDashboard({
               />
               <XAxis
                 dataKey="name"
-                stroke="#b9a9d6"
+                stroke="#a9d6c0"
                 fontSize={12}
                 tickLine={false}
               />
-              <YAxis stroke="#b9a9d6" fontSize={12} tickLine={false} />
+              <YAxis stroke="#a9d6c0" fontSize={12} tickLine={false} />
               <Tooltip
                 contentStyle={{
-                  background: '#150a2b',
+                  background: '#0a2b18',
                   border: '1px solid rgba(139,61,255,0.4)',
                   borderRadius: 12,
-                  color: '#ece6ff',
+                  color: '#e6fff0',
                 }}
               />
-              <Bar dataKey="deger" fill="#8b3dff" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="deger" fill="#1a8f4f" radius={[8, 8, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

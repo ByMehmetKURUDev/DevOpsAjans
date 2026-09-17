@@ -49,7 +49,7 @@ export default function ToolsUsed({ className = '' }: { className?: string }) {
                 >
                   <svg
                     viewBox="0 0 24 24"
-                    className="h-7 w-7 text-[#b9a9d6] transition-colors group-hover:text-white"
+                    className="h-7 w-7 text-[#a9d6c0] transition-colors group-hover:text-white"
                     fill="currentColor"
                     role="img"
                     aria-label={icon.title}

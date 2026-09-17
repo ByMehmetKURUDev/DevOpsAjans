@@ -20,7 +20,7 @@ const BlogArticleLayout = ({
   const { t } = useTranslation();
 
   return (
-  <main className="min-h-screen bg-[#05010a] text-[#ece6ff]">
+  <main className="min-h-screen bg-[#030805] text-[#e6fff0]">
     <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_20%_0%,rgba(139,61,255,0.25),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(212,165,255,0.14),transparent_40%)]" />
     <div className="mx-auto max-w-4xl px-6 pt-10">
       <Link
@@ -39,7 +39,7 @@ const BlogArticleLayout = ({
           {title}
         </h1>
         {description ? (
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#b9a9d6]">
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#a9d6c0]">
             {description}
           </p>
         ) : null}

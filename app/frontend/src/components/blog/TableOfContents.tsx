@@ -25,11 +25,11 @@ export default function TableOfContents({ entries }: { entries: TocEntry[] }) {
       <ol className="mt-4 space-y-2">
         {entries.map((entry, index) => (
           <li key={entry.id} className="flex gap-3 text-[0.95rem] leading-7">
-            <span className="tabular-nums text-[#7d6ea3]">
+            <span className="tabular-nums text-[#6ea389]">
               {String(index + 1).padStart(2, '0')}
             </span>
             <a
-              className="text-[#c4b6de] underline-offset-4 transition-colors hover:text-purple-300 hover:underline"
+              className="text-[#b6deca] underline-offset-4 transition-colors hover:text-purple-300 hover:underline"
               href={`#${entry.id}`}
             >
               {entry.text}

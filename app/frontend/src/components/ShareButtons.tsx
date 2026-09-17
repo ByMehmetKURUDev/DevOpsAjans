@@ -70,11 +70,11 @@ export default function ShareButtons({ url, title, className = '' }: ShareButton
   };
 
   const chip =
-    'inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 text-sm text-[#b9a9d6] transition-colors hover:border-purple-500/40 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-400';
+    'inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 text-sm text-[#a9d6c0] transition-colors hover:border-purple-500/40 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-400';
 
   return (
     <div className={`flex flex-wrap items-center gap-2 ${className}`}>
-      <span className="me-1 inline-flex items-center gap-2 text-sm font-semibold text-[#9d8cbf]">
+      <span className="me-1 inline-flex items-center gap-2 text-sm font-semibold text-[#8cbfa4]">
         <Share2 className="h-4 w-4" aria-hidden="true" />
         {t('ui.shareTitle')}
       </span>

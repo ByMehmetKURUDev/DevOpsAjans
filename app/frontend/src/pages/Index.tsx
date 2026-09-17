@@ -155,7 +155,7 @@ export default function Index() {
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-[#8b3dff] to-[#5c27a3] hover:from-[#9b5dff] hover:to-[#7b3dc3] text-white border-0 h-12 px-6 gap-2"
+                  className="bg-gradient-to-r from-[#1a8f4f] to-[#0b4f28] hover:from-[#22c55e] hover:to-[#15713f] text-white border-0 h-12 px-6 gap-2"
                 >
                   {heroCta} <ArrowRight className="h-4 w-4" />
                 </Button>

@@ -31,7 +31,7 @@ export default function ScrollToTop() {
       onClick={toTop}
       aria-label={t('ui.scrollTop')}
       title={t('ui.scrollTop')}
-      className={`fixed bottom-24 end-6 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#12091f]/90 text-white shadow-lg backdrop-blur transition-all duration-300 hover:border-purple-400/60 hover:bg-[#1b0e2e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-400 ${
+      className={`fixed bottom-24 end-6 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#091f14]/90 text-white shadow-lg backdrop-blur transition-all duration-300 hover:border-purple-400/60 hover:bg-[#0e2e1c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-400 ${
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
       }`}
     >

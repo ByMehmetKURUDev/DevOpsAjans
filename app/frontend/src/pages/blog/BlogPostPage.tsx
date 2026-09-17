@@ -183,7 +183,7 @@ const BlogPostPage = () => {
 
   if (!post && !panelChecked) {
     return (
-      <main className="min-h-screen bg-[#05010a] flex items-center justify-center">
+      <main className="min-h-screen bg-[#030805] flex items-center justify-center">
         <div className="h-8 w-8 rounded-full border-2 border-purple-500 border-t-transparent animate-spin" />
       </main>
     );
@@ -202,11 +202,11 @@ const BlogPostPage = () => {
     // Türkçe bir sitede İngilizce 404 duruyordu; sayfa artık blogun
     // görsel diliyle aynı ve okuyucuyu yazı listesine geri gönderiyor.
     return (
-      <main className="min-h-screen bg-[#05010a] text-[#ece6ff] flex items-center justify-center px-6 py-24">
+      <main className="min-h-screen bg-[#030805] text-[#e6fff0] flex items-center justify-center px-6 py-24">
         <div className="max-w-lg space-y-5 text-center">
           <p className="text-7xl font-bold text-purple-500/40">404</p>
           <h1 className="text-3xl font-bold text-white">Yazı bulunamadı</h1>
-          <p className="text-lg leading-8 text-[#b9a9d6]">
+          <p className="text-lg leading-8 text-[#a9d6c0]">
             Aradığınız yazı kaldırılmış ya da adresi değişmiş olabilir.
           </p>
           <Link
