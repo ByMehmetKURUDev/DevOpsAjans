@@ -50,7 +50,7 @@ export default function Testimonials({ className = '' }: { className?: string })
                 </div>
               ) : null}
 
-              <blockquote className="mt-4 flex-1 text-sm leading-7 text-[#a9d6c0]">
+              <blockquote className="mt-4 flex-1 text-sm leading-7 text-[#b9a9d6]">
                 {item.quote}
               </blockquote>
 

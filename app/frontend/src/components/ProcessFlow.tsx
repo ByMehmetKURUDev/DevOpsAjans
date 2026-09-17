@@ -33,8 +33,8 @@ export default function ProcessFlow({ className = '' }: { className?: string }) 
     >
       <defs>
         <linearGradient id="akis" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#1a8f4f" />
-          <stop offset="100%" stopColor="#14a37c" />
+          <stop offset="0%" stopColor="#8b3dff" />
+          <stop offset="100%" stopColor="#ec4899" />
         </linearGradient>
         <marker id="ok" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
           <path d="M0 0 L8 4 L0 8 z" fill="url(#akis)" />
@@ -56,7 +56,7 @@ export default function ProcessFlow({ className = '' }: { className?: string }) 
             x={x(index) + boxWidth / 2}
             y="47"
             textAnchor="middle"
-            fill="#8cbfa4"
+            fill="#9d8cbf"
             fontSize="10"
             fontFamily="ui-monospace, monospace"
             letterSpacing="1.4"
@@ -67,7 +67,7 @@ export default function ProcessFlow({ className = '' }: { className?: string }) 
             x={x(index) + boxWidth / 2}
             y="64"
             textAnchor="middle"
-            fill="#e6fff0"
+            fill="#ece6ff"
             fontSize="14"
             fontWeight="600"
           >
@@ -102,7 +102,7 @@ export default function ProcessFlow({ className = '' }: { className?: string }) 
         x={(x(1) + x(2) + boxWidth) / 2}
         y="122"
         textAnchor="middle"
-        fill="#8cbfa4"
+        fill="#9d8cbf"
         fontSize="11"
         fontFamily="ui-monospace, monospace"
       >

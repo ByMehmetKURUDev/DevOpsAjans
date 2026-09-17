@@ -28,7 +28,7 @@ export default function PostNavigation({ older, newer }: PostNavigationProps) {
           rel="prev"
           className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-colors hover:border-purple-500/40"
         >
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8cbfa4]">
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9d8cbf]">
             &larr; Önceki yazı
           </span>
           <span className="mt-2 block text-base font-semibold leading-snug text-white group-hover:text-purple-300">
@@ -45,7 +45,7 @@ export default function PostNavigation({ older, newer }: PostNavigationProps) {
           rel="next"
           className="group rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-right transition-colors hover:border-purple-500/40 sm:text-right"
         >
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8cbfa4]">
+          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9d8cbf]">
             Sonraki yazı &rarr;
           </span>
           <span className="mt-2 block text-base font-semibold leading-snug text-white group-hover:text-purple-300">

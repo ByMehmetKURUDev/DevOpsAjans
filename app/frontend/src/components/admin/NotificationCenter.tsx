@@ -276,7 +276,7 @@ export default function NotificationCenter({
               value={suzgec}
               onChange={(e) => setSuzgec(e.target.value)}
               aria-label={t('notifyAdmin.filter')}
-              className="h-9 rounded-lg border border-white/10 bg-[#0b1f14] px-3 text-sm text-white outline-none hover:border-purple-500/40"
+              className="h-9 rounded-lg border border-white/10 bg-[#120b1f] px-3 text-sm text-white outline-none hover:border-purple-500/40"
             >
               <option value="">{t('notifyAdmin.allStatuses')}</option>
               <option value="sent">sent</option>

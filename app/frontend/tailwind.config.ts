@@ -23,40 +23,40 @@ export default {
     extend: {
       colors: {
         /*
-         * YESIL DENEME DALI.
+         * YESIL DENEME DALI — prototipin paleti.
          *
-         * Sitede 296 yerde sabit `purple-*` / `pink-*` sinifi var. Hepsini tek
-         * tek degistirmek yerine Tailwind'in bu iki paletini yesile yeniden
-         * tanimliyoruz: tek dosya degisiyor, 296 kullanim da yesile doner.
-         * Mor dalda bu blok hic yok, dolayisiyla o dal etkilenmez.
-         *
-         * Secim kesinlesirse isimler `marka-*` olarak duzeltilecek.
+         * Prototip mor-siyah zemin uzerinde TEK parlak yesil vurgu
+         * (#00DC82) kullaniyor; ikinci aksan gok mavisi (#38bdf8), ucuncusu
+         * mor. Sitede 296 yerde sabit `purple-*`/`pink-*` sinifi oldugu icin
+         * bu iki paleti yeniden tanimliyoruz: purple -> yesil ekseni,
+         * pink -> gok mavisi ekseni. Zemin, kenarlik ve notr metinler mor
+         * dalla ayni kaliyor -- "her sey yesil" goruntusu boyle onleniyor.
          */
         purple: {
-          50: '#ecfdf3',
-          100: '#d1fadf',
-          200: '#a6f4c5',
-          300: '#6ee7a8',
-          400: '#34d375',
-          500: '#22c55e',
-          600: '#1a8f4f',
-          700: '#15713f',
-          800: '#0b4f28',
-          900: '#052e16',
-          950: '#02170b',
+          50: '#e6fff5',
+          100: '#b8ffe2',
+          200: '#7cf5cb',
+          300: '#4ce9b4',
+          400: '#1fe29a',
+          500: '#00DC82',
+          600: '#00c975',
+          700: '#00a660',
+          800: '#00804a',
+          900: '#005c36',
+          950: '#00341e',
         },
         pink: {
-          50: '#effefa',
-          100: '#c9fdee',
-          200: '#94f9dd',
-          300: '#9af1be',
-          400: '#5eead4',
-          500: '#2dd4a7',
-          600: '#14a37c',
-          700: '#0f7a5e',
-          800: '#115e4a',
-          900: '#124c3e',
-          950: '#032c23',
+          50: '#eaf7ff',
+          100: '#c8ebff',
+          200: '#9adcff',
+          300: '#6ccdfb',
+          400: '#38bdf8',
+          500: '#18a8ec',
+          600: '#0e8bc9',
+          700: '#0b6d9e',
+          800: '#0c5678',
+          900: '#0e4761',
+          950: '#082c3f',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

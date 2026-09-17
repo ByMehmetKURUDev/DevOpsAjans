@@ -63,8 +63,8 @@ const Pagination = ({ page, pageCount, hrefFor, onNavigate }: PaginationProps) =
         aria-disabled={page === 1}
         className={`${baseButton} ${
           page === 1
-            ? 'pointer-events-none border-white/5 text-[#5f8570]'
-            : 'border-white/10 bg-white/[0.03] text-[#a9d6c0] hover:border-purple-500/40 hover:text-white'
+            ? 'pointer-events-none border-white/5 text-[#6b5f85]'
+            : 'border-white/10 bg-white/[0.03] text-[#b9a9d6] hover:border-purple-500/40 hover:text-white'
         }`}
       >
         &larr; {t('ui.prevPage')}
@@ -72,7 +72,7 @@ const Pagination = ({ page, pageCount, hrefFor, onNavigate }: PaginationProps) =
 
       {items.map((value, index) =>
         value === null ? (
-          <span key={`bosluk-${index}`} className="px-2 text-[#5f8570]" aria-hidden="true">
+          <span key={`bosluk-${index}`} className="px-2 text-[#6b5f85]" aria-hidden="true">
             &hellip;
           </span>
         ) : (
@@ -85,7 +85,7 @@ const Pagination = ({ page, pageCount, hrefFor, onNavigate }: PaginationProps) =
             className={`${baseButton} ${
               value === page
                 ? 'border-purple-400 bg-purple-500/20 text-white'
-                : 'border-white/10 bg-white/[0.03] text-[#a9d6c0] hover:border-purple-500/40 hover:text-white'
+                : 'border-white/10 bg-white/[0.03] text-[#b9a9d6] hover:border-purple-500/40 hover:text-white'
             }`}
           >
             {value}
@@ -99,8 +99,8 @@ const Pagination = ({ page, pageCount, hrefFor, onNavigate }: PaginationProps) =
         aria-disabled={page === pageCount}
         className={`${baseButton} ${
           page === pageCount
-            ? 'pointer-events-none border-white/5 text-[#5f8570]'
-            : 'border-white/10 bg-white/[0.03] text-[#a9d6c0] hover:border-purple-500/40 hover:text-white'
+            ? 'pointer-events-none border-white/5 text-[#6b5f85]'
+            : 'border-white/10 bg-white/[0.03] text-[#b9a9d6] hover:border-purple-500/40 hover:text-white'
         }`}
       >
         {t('ui.nextPage')} &rarr;

@@ -133,7 +133,7 @@ export default function ProjectStageManager({
               id={`asama-${projectId}`}
               value={stage}
               onChange={(e) => setStage(e.target.value)}
-              className="h-11 rounded-xl border border-white/10 bg-[#0b1f14] px-3 text-sm text-white outline-none hover:border-purple-500/40 focus:border-purple-400"
+              className="h-11 rounded-xl border border-white/10 bg-[#120b1f] px-3 text-sm text-white outline-none hover:border-purple-500/40 focus:border-purple-400"
             >
               <option value="">{t('projectStages.pickStage')}</option>
               {stages.map((s) => (

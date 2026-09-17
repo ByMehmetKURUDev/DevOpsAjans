@@ -79,7 +79,7 @@ export default function ProjectTimeline({
         const gizli = olay.visible_to_client === '0';
         return (
           <li key={olay.id} className="relative">
-            <span className="absolute -start-[31px] top-1 flex h-5 w-5 items-center justify-center rounded-full border border-white/10 bg-[#0c2416]">
+            <span className="absolute -start-[31px] top-1 flex h-5 w-5 items-center justify-center rounded-full border border-white/10 bg-[#150c24]">
               <Ikon className="h-3 w-3 text-purple-300" aria-hidden="true" />
             </span>
 
