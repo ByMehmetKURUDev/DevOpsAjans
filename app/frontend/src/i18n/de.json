@@ -671,7 +671,8 @@
     "saved": "Seite {{page}} gespeichert.",
     "kesif": "Discovery-Assistent",
     "yatirim": "Kapitalrendite",
-    "mimari": "Systemarchitektur"
+    "mimari": "Systemarchitektur",
+    "sss": "Häufige Fragen"
   },
   "notify": {
     "bell": "Benachrichtigungen",
@@ -872,6 +873,39 @@
       "m2": "Versionierte Schemaänderungen",
       "m3": "Häufig gelesene Daten im Cache",
       "m4": "Regelmäßige Backups samt Wiederherstellungstest"
+    }
+  },
+  "sss": {
+    "sectionTag": "HÄUFIGE FRAGEN",
+    "title": "Was vor dem Start",
+    "titleHighlight": "gefragt wird.",
+    "desc": "Die häufigsten Fragen zu Code-Eigentum, Fortschritt und Support. Die Antworten sind kurz; Details klären wir im Gespräch.",
+    "kalanSoru": "Ihre Antwort nicht dabei?",
+    "kalanSoruDesc": "Schreiben Sie Ihre Frage — Antwort noch am selben Tag.",
+    "cta": "Frage stellen",
+    "s1": {
+      "soru": "Wem gehört der Quellcode nach Projektende?",
+      "cevap": "Vollständig Ihnen. Git-Repository, Datenbankzugänge, Serverrechte und Dokumentation werden übergeben. Nichts bleibt an mich gebunden; Sie können jederzeit mit einem anderen Team weiterarbeiten."
+    },
+    "s2": {
+      "soru": "Wie verfolge ich den Entwicklungsstand?",
+      "cevap": "Für Ihr Projekt wird ein Kundenbereich eingerichtet. Phasen, Erledigtes und der nächste Schritt sind dort sichtbar, bei wichtigen Fortschritten kommt eine Benachrichtigung. Über eine eigene Testadresse sehen Sie die laufende Version selbst."
+    },
+    "s3": {
+      "soru": "Können Sie unsere bestehende Website oder Software übernehmen?",
+      "cevap": "Ja. Zuerst prüfe ich Code und Infrastruktur und halte den tatsächlichen Zustand schriftlich fest — was reparierbar ist und was sich günstiger neu schreiben lässt. Danach entscheiden wir gemeinsam."
+    },
+    "s4": {
+      "soru": "Wie laufen Wartung und Support nach dem Launch?",
+      "cevap": "Das hängt vom Paket ab. Im Infrastruktur- und Systempaket liegen Server, Updates und Monitoring bei mir; bei kleineren Paketen wird Support nach Übergabe stundenweise abgerechnet. Den passenden Umfang klären wir im Erstgespräch."
+    },
+    "s5": {
+      "soru": "Wie lange dauert ein Projekt?",
+      "cevap": "Das hängt vom Umfang ab, deshalb nenne ich vor dem Gespräch kein Datum. Nach dem Discovery-Schritt bekommen Sie einen schriftlichen Plan in Phasen, dort wird die Dauer konkret. Ändert sich der Plan, erfahren Sie den Grund."
+    },
+    "s6": {
+      "soru": "Wie läuft die Bezahlung?",
+      "cevap": "Wir arbeiten in Phasen und stellen jede gelieferte Phase in Rechnung. Rechnungen erscheinen im Kundenbereich. Zahlungsweise und Zeitplan stehen im Vertrag, es taucht kein unerwarteter Posten auf."
     }
   }
 }

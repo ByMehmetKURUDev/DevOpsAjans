@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import KesifAsistani from '@/components/KesifAsistani';
 import MimariKatmanlari from '@/components/MimariKatmanlari';
 import PricingPlans from '@/components/PricingPlans';
+import SikSorulanlar from '@/components/SikSorulanlar';
 import YatirimHesaplayici from '@/components/YatirimHesaplayici';
 import ProcessFlow from '@/components/ProcessFlow';
 import Testimonials from '@/components/Testimonials';
@@ -364,6 +365,8 @@ export default function Index() {
 
       </>
     ),
+    sss: <SikSorulanlar />,
+
     cta: (
       <>
       {/* CTA */}

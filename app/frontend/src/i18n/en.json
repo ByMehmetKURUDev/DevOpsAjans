@@ -671,7 +671,8 @@
     "saved": "{{page}} page saved.",
     "kesif": "Discovery Assistant",
     "yatirim": "Return on Investment",
-    "mimari": "System Architecture"
+    "mimari": "System Architecture",
+    "sss": "FAQ"
   },
   "notify": {
     "bell": "Notifications",
@@ -872,6 +873,39 @@
       "m2": "Versioned schema changes",
       "m3": "Frequently read data kept in cache",
       "m4": "Regular backups with restore drills"
+    }
+  },
+  "sss": {
+    "sectionTag": "FREQUENTLY ASKED",
+    "title": "What people ask",
+    "titleHighlight": "before we start.",
+    "desc": "The questions that come up most often about code ownership, tracking progress and support. Answers are short; anything that needs detail we settle in a call.",
+    "kalanSoru": "Didn't find your answer?",
+    "kalanSoruDesc": "Write your question and I'll reply the same day.",
+    "cta": "Ask a question",
+    "s1": {
+      "soru": "Who owns the source code once the project ends?",
+      "cevap": "You do, entirely. The Git repository, database access, server credentials and documentation are handed over. Nothing stays tied to me; you can continue with another team if you want to."
+    },
+    "s2": {
+      "soru": "How do I follow the development process?",
+      "cevap": "A client panel is opened for your project. Stages, finished work and what comes next are visible there, and you get a notification on significant progress. A separate test address lets you see the running version yourself."
+    },
+    "s3": {
+      "soru": "Can you take over our existing site or software?",
+      "cevap": "Yes. I first review the code and infrastructure and write up its actual state — what can be repaired and what would be cheaper to rewrite. We decide together after that."
+    },
+    "s4": {
+      "soru": "How does maintenance and support work after launch?",
+      "cevap": "It depends on the package. On the infrastructure and system management package, servers, updates and monitoring are on me; on smaller packages, post-handover support is billed hourly. We settle the right scope in the discovery call."
+    },
+    "s5": {
+      "soru": "How long does a project take?",
+      "cevap": "It depends on scope, so I don't give a date before we talk. After the discovery step you get a written plan broken into stages, and the timeline becomes concrete there. If the plan changes, you hear it with the reason."
+    },
+    "s6": {
+      "soru": "How does payment work?",
+      "cevap": "We work in stages and invoice as each stage is delivered. Invoices appear in the client panel. The payment method and schedule are written into the contract, so no line item appears out of nowhere."
     }
   }
 }
