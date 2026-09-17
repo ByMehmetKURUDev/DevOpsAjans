@@ -84,6 +84,21 @@
           document.documentElement.dir = 'rtl';
           document.documentElement.lang = seg;
         }
+
+        /*
+         * Renk teması de ilk boyamadan önce uygulanıyor.
+         *
+         * React yüklendikten sonra uygulasaydık, yeşil seçmiş bir ziyaretçi
+         * her açılışta önce moru görüp sonra sıçramayı izlerdi. Mor
+         * varsayılan olduğu için yalnızca yeşilde nitelik yazılıyor.
+         */
+        try {
+          if (localStorage.getItem('mk_tema') === 'yesil') {
+            document.documentElement.setAttribute('data-tema', 'yesil');
+          }
+        } catch (e) {
+          /* Gizli sekmede localStorage kapalı olabilir; varsayılan tema kalır. */
+        }
       })();
     </script>
 

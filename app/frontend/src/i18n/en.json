@@ -989,5 +989,10 @@
         "k3": "Maintenance handover done"
       }
     }
+  },
+  "tema": {
+    "baslik": "Color theme",
+    "mor": "Purple",
+    "yesil": "Green"
   }
 }

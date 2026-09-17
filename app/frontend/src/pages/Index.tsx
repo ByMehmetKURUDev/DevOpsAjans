@@ -160,7 +160,7 @@ export default function Index() {
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-[#8b3dff] to-[#5c27a3] hover:from-[#9b5dff] hover:to-[#7b3dc3] text-white border-0 h-12 px-6 gap-2"
+                  className="bg-gradient-to-r from-[rgb(var(--hero-a))] to-[rgb(var(--hero-b))] hover:from-[rgb(var(--hero-a-parlak))] hover:to-[rgb(var(--hero-b-parlak))] text-white border-0 h-12 px-6 gap-2"
                 >
                   {heroCta} <ArrowRight className="h-4 w-4" />
                 </Button>

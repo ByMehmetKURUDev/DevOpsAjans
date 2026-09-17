@@ -166,7 +166,7 @@ const BlogIndexPage = () => {
 
   return (
   <main className="min-h-screen bg-[#05010a] text-[#ece6ff]">
-    <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_20%_0%,rgba(139,61,255,0.25),transparent_45%),radial-gradient(circle_at_80%_10%,rgba(212,165,255,0.14),transparent_40%)]" />
+    <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_20%_0%,rgb(var(--hero-a)/0.25),transparent_45%),radial-gradient(circle_at_80%_10%,rgb(var(--vurgu-300)/0.14),transparent_40%)]" />
     <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
       <div className="max-w-3xl space-y-5">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-purple-400">

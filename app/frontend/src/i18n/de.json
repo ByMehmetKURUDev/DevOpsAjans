@@ -989,5 +989,10 @@
         "k3": "Wartungsübergabe erfolgt"
       }
     }
+  },
+  "tema": {
+    "baslik": "Farbthema",
+    "mor": "Violett",
+    "yesil": "Grün"
   }
 }

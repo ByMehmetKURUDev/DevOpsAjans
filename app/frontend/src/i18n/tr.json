@@ -989,5 +989,10 @@
         "k3": "Bakım teslimi yapıldı"
       }
     }
+  },
+  "tema": {
+    "baslik": "Renk teması",
+    "mor": "Mor",
+    "yesil": "Yeşil"
   }
 }
