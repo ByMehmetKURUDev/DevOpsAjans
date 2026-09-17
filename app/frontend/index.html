@@ -84,6 +84,23 @@
           document.documentElement.dir = 'rtl';
           document.documentElement.lang = seg;
         }
+
+        /*
+         * GEÇİCİ: eski tema seçicisinin bıraktığı kayıt siliniyor.
+         *
+         * Site bir süre iki temalıydı (mor/yeşil) ve seçimi `mk_tema`
+         * anahtarında tutuyordu. Seçici kaldırıldı, kaydı okuyan kod da
+         * gitti; ama o dönemde siteyi açmış ziyaretçilerin tarayıcısında
+         * kayıt duruyor. Hiçbir işe yaramıyor, o yüzden siliniyor.
+         *
+         * Bu satır da kalıcı değil: birkaç ay sonra, eski ziyaretçilerin
+         * çoğu siteyi yeniden açtıktan sonra kaldırılabilir.
+         */
+        try {
+          localStorage.removeItem('mk_tema');
+        } catch (e) {
+          /* Gizli sekmede localStorage erişimi hata verebiliyor. */
+        }
       })();
     </script>
 
