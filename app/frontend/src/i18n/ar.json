@@ -431,8 +431,10 @@
     "timelineHint": "مرّر الشريط أفقيًا لمقارنة السنوات.",
     "tabPages": "صفحات الموقع",
     "tabNotify": "الإشعارات",
-    "brandName": "By Mehmet KURU Dev",
-    "brandTagline": "تطوير بوتيك ووكالة رقمية"
+    "brandTagline": "Full-stack & AI Systems",
+    "brandPrefix": "By Mehmet",
+    "brandHighlight": "KURU",
+    "brandSuffix": "Dev"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

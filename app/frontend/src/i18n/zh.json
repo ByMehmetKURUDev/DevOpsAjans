@@ -431,8 +431,10 @@
     "timelineHint": "横向滚动以并排查看各年份。",
     "tabPages": "网站页面",
     "tabNotify": "通知",
-    "brandName": "By Mehmet KURU Dev",
-    "brandTagline": "精品开发与数字代理"
+    "brandTagline": "Full-stack & AI Systems",
+    "brandPrefix": "By Mehmet",
+    "brandHighlight": "KURU",
+    "brandSuffix": "Dev"
   },
   "admin": {
     "loadError": "管理数据加载失败",

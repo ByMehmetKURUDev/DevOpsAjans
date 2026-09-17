@@ -431,8 +431,10 @@
     "timelineHint": "वर्षों की तुलना के लिए पट्टी को क्षैतिज रूप से स्क्रॉल करें।",
     "tabPages": "साइट पृष्ठ",
     "tabNotify": "सूचनाएँ",
-    "brandName": "By Mehmet KURU Dev",
-    "brandTagline": "बुटीक डेवलपमेंट और डिजिटल एजेंसी"
+    "brandTagline": "Full-stack & AI Systems",
+    "brandPrefix": "By Mehmet",
+    "brandHighlight": "KURU",
+    "brandSuffix": "Dev"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

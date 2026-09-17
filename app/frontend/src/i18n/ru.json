@@ -431,8 +431,10 @@
     "timelineHint": "Прокрутите ленту вбок, чтобы сравнить годы.",
     "tabPages": "Страницы сайта",
     "tabNotify": "Уведомления",
-    "brandName": "By Mehmet KURU Dev",
-    "brandTagline": "Бутиковая разработка и digital-агентство"
+    "brandTagline": "Full-stack & AI Systems",
+    "brandPrefix": "By Mehmet",
+    "brandHighlight": "KURU",
+    "brandSuffix": "Dev"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",
