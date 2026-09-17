@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "services": "How It Works",
+    "services": "Solutions",
     "portfolio": "Case Studies",
     "packages": "Packages",
     "blog": "Blog",
@@ -804,7 +804,10 @@
       "orta": "Mid-sized",
       "genis": "Comprehensive",
       "belirsiz": "Not decided yet"
-    }
+    },
+    "analizEdiliyor": "Reviewing your answers…",
+    "aiOzeti": "Assessment",
+    "oneriNotuAi": "This assessment was produced from your answers; exact scope and price are settled in the call."
   },
   "yatirim": {
     "sectionTag": "RETURN ON INVESTMENT",

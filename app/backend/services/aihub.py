@@ -90,7 +90,10 @@ class AIHubService:
 
     def __init__(self):
         self.client: Optional[AsyncOpenAI] = None
-        if settings.app_ai_base_url and settings.app_ai_key:
+        # settings.__getattr__ tanimsiz anahtarda AttributeError atiyor; AI
+        # yapilandirilmamisken bu 500'e donusuyordu. Eksik ayar bir hata degil,
+        # yalnizca "AI kapali" demek -- asagidaki mesaj bunu net soyluyor.
+        if getattr(settings, "app_ai_base_url", None) and getattr(settings, "app_ai_key", None):
             self.client = AsyncOpenAI(
                 api_key=settings.app_ai_key,
                 base_url=settings.app_ai_base_url.rstrip("/"),

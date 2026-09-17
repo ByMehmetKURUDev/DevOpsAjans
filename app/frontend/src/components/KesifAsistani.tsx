@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight, Check, Compass, RotateCcw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Compass, Loader2, RotateCcw, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { kesifAnaliziIste, type KesifAnalizi } from '@/lib/kesifAi';
 
 /**
  * Proje Keşif Asistanı.
@@ -11,9 +12,13 @@ import { Button } from '@/components/ui/button';
  * verdiği cevaplara göre bir paket öneriyor ve iletişim sayfasına hazır bir
  * özetle gönderiyor.
  *
- * Öneri KURAL TABANLI, dil modeli çağırmıyor: cevaplar puanlanıyor, en yüksek
- * puanlı paket öneriliyor. Gerçek bir model bağlanacaksa `paketOner` işlevinin
- * yerine sunucu çağrısı konur; bileşenin geri kalanı değişmez.
+ * Son adımda cevaplar backend üzerinden bir dil modeline gönderiliyor; model
+ * ihtiyacı özetliyor, listedeki paketlerden birini seçiyor ve sonraki adımları
+ * yazıyor. Anahtar sunucuda durur, tarayıcıya inmez.
+ *
+ * Model erişilemezse (AI yapılandırılmamış, ağ hatası, bozuk yanıt) asistan
+ * sessizce KURAL TABANLI öneriye düşüyor: `paketOner` cevapları puanlıyor.
+ * Yani AI olmadan da çalışır, sadece metin üretmez.
  *
  * Adımlar arası durum bileşende tutuluyor; sayfa yenilenirse sıfırlanır.
  * Sunucuya hiçbir şey yazılmıyor — ziyaretçi son adımda kendi isteğiyle
@@ -97,12 +102,38 @@ function paketOner(c: Cevaplar): PaketNo {
 }
 
 export default function KesifAsistani() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [adim, setAdim] = useState(1);
   const [cevaplar, setCevaplar] = useState<Cevaplar>(BOS);
+  const [analiz, setAnaliz] = useState<KesifAnalizi | null>(null);
+  const [analizYukleniyor, setAnalizYukleniyor] = useState(false);
 
-  const onerilenPaket = useMemo(() => paketOner(cevaplar), [cevaplar]);
+  const kuralPaketi = useMemo(() => paketOner(cevaplar), [cevaplar]);
+  /* AI bir paket sectiyse onu, yoksa kural tabanli secimi gosteriyoruz. */
+  const onerilenPaket: PaketNo = analiz
+    ? ((analiz.paketIndeksi + 1) as PaketNo)
+    : kuralPaketi;
+
+  /** Son adima gecerken modeli cagirir; basarisiz olursa sessizce kurala duser. */
+  const analizIste = () => {
+    setAnaliz(null);
+    setAnalizYukleniyor(true);
+    kesifAnaliziIste({
+      amac: cevaplar.amac ? t(`kesif.amac.${cevaplar.amac}`) : '',
+      serbest: cevaplar.serbest.trim(),
+      kapsam: cevaplar.kapsam.map((k) => t(`kesif.kapsam.${k}`)),
+      zaman: cevaplar.zaman ? t(`kesif.zaman.${cevaplar.zaman}`) : '',
+      butce: cevaplar.butce ? t(`kesif.butce.${cevaplar.butce}`) : '',
+      paketler: ([1, 2, 3, 4, 5] as PaketNo[]).map((n) => t(`packages.option${n}`)),
+      dil: i18n.language,
+    })
+      .then(setAnaliz)
+      .catch(() => {
+        /* AI kapali ya da yanit bozuk: kural tabanli oneri zaten hazir. */
+      })
+      .finally(() => setAnalizYukleniyor(false));
+  };
 
   /** Her adımın ilerlemek için doldurulması gereken alanı. */
   const ilerleyebilir =
@@ -129,6 +160,7 @@ export default function KesifAsistani() {
       );
     if (cevaplar.zaman) satir.push(`${t('kesif.s3Baslik')}: ${t(`kesif.zaman.${cevaplar.zaman}`)}`);
     if (cevaplar.butce) satir.push(`${t('kesif.s4Baslik')}: ${t(`kesif.butce.${cevaplar.butce}`)}`);
+    if (analiz?.ozet) satir.push('', `${t('kesif.aiOzeti')}: ${analiz.ozet}`);
     satir.push('', `${t('kesif.onerilen')}: ${t(`packages.option${onerilenPaket}`)}`);
     return satir.join('\n');
   };
@@ -339,17 +371,51 @@ export default function KesifAsistani() {
                   </div>
                 </div>
 
+                {analizYukleniyor && (
+                  <div className="mt-4 flex items-center gap-3 rounded-xl border border-white/10 px-4 py-4 text-sm text-muted-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin text-primary" aria-hidden="true" />
+                    {t('kesif.analizEdiliyor')}
+                  </div>
+                )}
+
+                {analiz && !analizYukleniyor && (
+                  <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-4">
+                    <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-purple-200">
+                      <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                      {t('kesif.aiOzeti')}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {analiz.ozet}
+                    </p>
+                    {analiz.adimlar.length > 0 && (
+                      <ul className="mt-3 space-y-1.5">
+                        {analiz.adimlar.map((madde) => (
+                          <li
+                            key={madde}
+                            className="flex items-start gap-2 text-sm text-muted-foreground"
+                          >
+                            <span className="mt-2 h-1 w-1 flex-none rounded-full bg-primary" />
+                            {madde}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+
                 <div className="mt-4 rounded-xl border border-primary/40 bg-primary/10 px-4 py-4">
                   <p className="text-xs font-semibold uppercase tracking-wider text-purple-200">
                     {t('kesif.onerilen')}
                   </p>
                   <p className="mt-1 text-lg font-bold">{t(`packages.option${onerilenPaket}`)}</p>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {t(`packages.option${onerilenPaket}Desc`)}
+                    {analiz?.gerekce || t(`packages.option${onerilenPaket}Desc`)}
                   </p>
                 </div>
 
-                <p className="mt-3 text-xs text-muted-foreground">{t('kesif.oneriNotu')}</p>
+                <p className="mt-3 text-xs text-muted-foreground">
+                  {analiz ? t('kesif.oneriNotuAi') : t('kesif.oneriNotu')}
+                </p>
               </div>
             )}
 
@@ -373,7 +439,10 @@ export default function KesifAsistani() {
                 <Button
                   size="sm"
                   disabled={!ilerleyebilir}
-                  onClick={() => setAdim((a) => a + 1)}
+                  onClick={() => {
+                    if (adim === TOPLAM_ADIM - 1) analizIste();
+                    setAdim((a) => a + 1);
+                  }}
                   className="h-11 gap-2 border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500 disabled:opacity-40"
                 >
                   {t('kesif.devam')}
@@ -386,6 +455,7 @@ export default function KesifAsistani() {
                     size="sm"
                     onClick={() => {
                       setCevaplar(BOS);
+                      setAnaliz(null);
                       setAdim(1);
                     }}
                     className="gap-2 text-muted-foreground hover:text-foreground"
