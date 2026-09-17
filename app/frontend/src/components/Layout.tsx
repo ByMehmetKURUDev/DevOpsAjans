@@ -104,6 +104,17 @@ export default function Layout() {
 
   // Gezinme bağlantıları aktif dilin ön ekini taşır; blog yalnızca Türkçe.
   const activeLang = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : DEFAULT_LANGUAGE;
+  /*
+   * Capali baglanti ("/#nasil-calisir") NavLink icin sadece "/" gorunuyor,
+   * bu yuzden Ana Sayfa ile ayni anda aktif isaretleniyordu. Aktifligi
+   * capaya gore kendimiz belirliyoruz.
+   */
+  const navAktifMi = (linkTo: string, routerAktif: boolean) => {
+    const capaBasi = linkTo.indexOf('#');
+    if (capaBasi !== -1) return location.hash === linkTo.slice(capaBasi);
+    return routerAktif && !location.hash;
+  };
+
   const NAV_LINKS = [
     { to: localizedPath(activeLang, 'home'), label: t('nav.home') },
     { to: localizedPath(activeLang, 'services'), label: t('nav.services') },
@@ -327,7 +338,7 @@ export default function Layout() {
                 end={link.to === '/'}
                 className={({ isActive }) =>
                   `relative px-4 py-2 text-sm font-medium transition-colors rounded-md ${
-                    isActive
+                    navAktifMi(link.to, isActive)
                       ? 'text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
                   }`
@@ -336,7 +347,7 @@ export default function Layout() {
                 {({ isActive }) => (
                   <>
                     {link.label}
-                    {isActive && (
+                    {navAktifMi(link.to, isActive) && (
                       <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
                     )}
                   </>
@@ -449,7 +460,7 @@ export default function Layout() {
                 end={link.to === '/'}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
+                    navAktifMi(link.to, isActive)
                       ? 'bg-purple-500/15 text-foreground'
                       : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
                   }`
