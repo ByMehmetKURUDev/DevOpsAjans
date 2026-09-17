@@ -990,11 +990,6 @@
       }
     }
   },
-  "tema": {
-    "baslik": "Color theme",
-    "mor": "Purple",
-    "yesil": "Green"
-  },
   "asistan": {
     "ac": "Talk to the AI Assistant",
     "kapat": "Close",

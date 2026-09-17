@@ -11,83 +11,39 @@
 
 @layer base {
   :root {
-    /* Cyberpunk purple palette — from hero banner analysis */
+    /* Mor-siyah zemin + tek parlak yeşil vurgu (prototipin paleti). */
     --background: 270 60% 2%;
     --foreground: 270 20% 95%;
     --card: 270 40% 5%;
     --card-foreground: 270 20% 95%;
     --popover: 270 50% 4%;
     --popover-foreground: 270 20% 95%;
-    --primary: 268 100% 62%;
+    --primary: 156 100% 43%;
     --primary-foreground: 270 20% 98%;
     --secondary: 270 35% 12%;
     --secondary-foreground: 270 15% 90%;
     --muted: 270 30% 10%;
     --muted-foreground: 270 18% 72%;
-    --accent: 272 60% 40%;
+    --accent: 158 90% 26%;
     --accent-foreground: 270 20% 98%;
     --destructive: 0 72% 55%;
     --destructive-foreground: 270 20% 98%;
     --border: 270 30% 15%;
     --input: 270 30% 12%;
-    --ring: 268 100% 62%;
+    --ring: 156 100% 43%;
     /* Marka isaretinin orta dugumu. Tema disinda ayri tutuluyor ki
        renk denemelerinde tek satirdan degistirilebilsin. */
-    --marka-ikinci: 330 81% 60%;
+    --marka-ikinci: 199 93% 60%;
     --radius: 0.75rem;
 
     /*
      * Vurgu paleti — Tailwind'in `purple-*` sınıfları buraya bakıyor.
-     * Mor tema: Tailwind'in kendi purple ölçeği.
+     *
+     * Sınıf adları `purple`/`pink` kaldı ama renkler yeşil ve gök mavisi:
+     * sitede 296 yerde geçtikleri için hepsini yeniden adlandırmak, tek
+     * bir yeri atlayınca fark edilmeyecek bir hata bırakırdı. Renk burada
+     * tanımlı; sınıf adı yalnızca bir kanal.
      */
-    --vurgu-50: 250 245 255;
-    --vurgu-100: 243 232 255;
-    --vurgu-200: 233 213 255;
-    --vurgu-300: 216 180 254;
-    --vurgu-400: 192 132 252;
-    --vurgu-500: 168 85 247;
-    --vurgu-600: 147 51 234;
-    --vurgu-700: 126 34 206;
-    --vurgu-800: 107 33 168;
-    --vurgu-900: 88 28 135;
-    --vurgu-950: 59 7 100;
-
-    /* Yan palet — `pink-*` sınıfları. Mor temada Tailwind pink. */
-    --yan-50: 253 242 248;
-    --yan-100: 252 231 243;
-    --yan-200: 251 207 232;
-    --yan-300: 249 168 212;
-    --yan-400: 244 114 182;
-    --yan-500: 236 72 153;
-    --yan-600: 219 39 119;
-    --yan-700: 190 24 93;
-    --yan-800: 157 23 77;
-    --yan-900: 131 24 67;
-    --yan-950: 80 7 36;
-
-    /* Başlık degradesi ve hero butonu — temaya göre değişen sabit renkler. */
-    --degrade-metin: linear-gradient(135deg, #8b3dff 0%, #d4a5ff 50%, #5c27a3 100%);
-    --hero-a: 139 61 255;
-    --hero-b: 92 39 163;
-    --hero-a-parlak: 155 93 255;
-    --hero-b-parlak: 123 61 195;
-  }
-
-  /*
-   * YEŞİL TEMA.
-   *
-   * Zemin, kenarlık ve nötr metinler bilerek değişmiyor — yalnızca vurgu
-   * renkleri. Her şeyi yeşile boyamak, önceki denemede görüntüyü
-   * "patlatan" şeydi; prototip de mor-siyah zemin üzerinde tek parlak
-   * yeşil vurgu kullanıyor.
-   */
-  :root[data-tema='yesil'] {
-    --primary: 156 100% 43%;
-    --accent: 158 90% 26%;
-    --ring: 156 100% 43%;
-    --marka-ikinci: 199 93% 60%;
-
-    /* Vurgu: yeşil ekseni (#00DC82 merkezli) */
     --vurgu-50: 230 255 245;
     --vurgu-100: 184 255 226;
     --vurgu-200: 124 245 203;
@@ -100,7 +56,7 @@
     --vurgu-900: 0 92 54;
     --vurgu-950: 0 52 30;
 
-    /* Yan: gök mavisi ekseni (#38bdf8 merkezli) */
+    /* Yan palet — `pink-*` sınıfları; gök mavisi ekseni. */
     --yan-50: 234 247 255;
     --yan-100: 200 235 255;
     --yan-200: 154 220 255;
@@ -113,12 +69,14 @@
     --yan-900: 14 71 97;
     --yan-950: 8 44 63;
 
+    /* Başlık degradesi ve hero butonu. */
     --degrade-metin: linear-gradient(135deg, #00dc82 0%, #38bdf8 50%, #a855f7 100%);
     --hero-a: 0 220 130;
     --hero-b: 0 128 74;
     --hero-a-parlak: 31 226 154;
     --hero-b-parlak: 0 166 96;
   }
+
 }
 
 @layer base {

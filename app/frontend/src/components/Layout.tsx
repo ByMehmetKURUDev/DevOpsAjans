@@ -1,7 +1,6 @@
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
-import TemaSecici from '@/components/TemaSecici';
 import AsistanSohbeti from '@/components/AsistanSohbeti';
 import { Button } from '@/components/ui/button';
 import NotificationBell from '@/components/NotificationBell';
@@ -357,9 +356,6 @@ export default function Layout() {
           </nav>
 
           <div className="hidden lg:flex items-center gap-2">
-            {/* Renk teması: ziyaretçi mor ya da yeşil seçiyor. */}
-            <TemaSecici />
-
             {/* Language switcher */}
             <div className="relative">
               <button
@@ -472,16 +468,6 @@ export default function Layout() {
                 {link.label}
               </NavLink>
             ))}
-            {/* Mobilde renk teması */}
-            <div className="pt-3 border-t border-white/10">
-              <p className="px-4 py-1 text-xs uppercase tracking-widest text-muted-foreground">
-                {t('tema.baslik')}
-              </p>
-              <div className="px-4 py-2">
-                <TemaSecici buyuk />
-              </div>
-            </div>
-
             {/* Mobile language switcher */}
             <div className="pt-3 border-t border-white/10">
               <p className="px-4 py-1 text-xs uppercase tracking-widest text-muted-foreground">
