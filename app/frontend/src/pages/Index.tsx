@@ -19,6 +19,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import KesifAsistani from '@/components/KesifAsistani';
+import MimariKatmanlari from '@/components/MimariKatmanlari';
 import PricingPlans from '@/components/PricingPlans';
 import YatirimHesaplayici from '@/components/YatirimHesaplayici';
 import ProcessFlow from '@/components/ProcessFlow';
@@ -289,6 +290,8 @@ export default function Index() {
 
       </>
     ),
+    mimari: <MimariKatmanlari />,
+
     packages: (
       <>
       <PricingPlans />

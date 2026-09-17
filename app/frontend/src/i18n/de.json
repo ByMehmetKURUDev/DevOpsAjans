@@ -670,7 +670,8 @@
     "save": "Seite speichern",
     "saved": "Seite {{page}} gespeichert.",
     "kesif": "Discovery-Assistent",
-    "yatirim": "Kapitalrendite"
+    "yatirim": "Kapitalrendite",
+    "mimari": "Systemarchitektur"
   },
   "notify": {
     "bell": "Benachrichtigungen",
@@ -830,5 +831,47 @@
     "ay": "{{sayi}} Monate",
     "geriOdemeNotu": "Die Amortisation bezieht sich auf das SEO-&-Ads-Paket zu {{ucret}} im Monat. Die Zahlen folgen aus Ihren Annahmen und sind keine Zusage.",
     "cta": "Über dieses Wachstum sprechen"
+  },
+  "mimari": {
+    "sectionTag": "SYSTEMARCHITEKTUR",
+    "title": "Aus welchen Schichten besteht",
+    "titleHighlight": "Ihr Produkt?",
+    "desc": "Wir bauen jedes Projekt in vier Schichten. Klicken Sie auf eine Schicht und sehen Sie, was wir dort tun und welche Werkzeuge wir nutzen.",
+    "detayEtiket": "Schichtdetail",
+    "pratikler": "Was wir in dieser Schicht umsetzen",
+    "yigin": "Eingesetzte Werkzeuge",
+    "cta": "Darüber für Ihr Projekt sprechen",
+    "arayuz": {
+      "ad": "Oberflächenschicht",
+      "aciklama": "Alles, was Nutzer sehen und bedienen. Komponentenbasiert aufgebaut: dasselbe Element wird auf mehreren Seiten wiederverwendet, Änderungen passieren an einer Stelle.",
+      "m1": "Typsicherheit: Fehler fallen beim Build auf, nicht im Browser",
+      "m2": "Mehrsprachige Inhalte samt Rechts-nach-links-Schrift",
+      "m3": "Bedienbarkeit per Tastatur und Screenreader",
+      "m4": "Vorgerenderte Seiten für Suchmaschinen"
+    },
+    "kenar": {
+      "ad": "Auslieferungs- und Edge-Schicht",
+      "aciklama": "Der Weg der Seiten zum Besucher. Inhalte kommen von weltweit verteilten Servern, und Releases laufen aus dem Code statt von Hand.",
+      "m1": "Auslieferung über ein globales Netzwerk",
+      "m2": "Automatische SSL-Zertifikate und Erneuerung",
+      "m3": "Eigene Vorschau-Adresse für jede Änderung",
+      "m4": "Releases ohne Ausfall, Rückrollen mit einem Befehl"
+    },
+    "servis": {
+      "ad": "Anwendungsdienste",
+      "aciklama": "Hier laufen die Geschäftsregeln. Bereitet die Daten für die Oberfläche auf, regelt die Anmeldung und spricht mit externen Diensten.",
+      "m1": "Dokumentierte REST-Schnittstelle",
+      "m2": "Sitzungs- und Rechteverwaltung",
+      "m3": "Langlaufende Aufgaben im Hintergrund",
+      "m4": "Fehlerprotokolle und Health-Check-Endpunkte"
+    },
+    "veri": {
+      "ad": "Daten- und Cache-Schicht",
+      "aciklama": "Wo die dauerhaften Daten liegen. Das Schema wird von Anfang an entworfen; jedes später ergänzte Feld läuft über Versionsverwaltung.",
+      "m1": "Relationales Schema mit Konsistenzregeln",
+      "m2": "Versionierte Schemaänderungen",
+      "m3": "Häufig gelesene Daten im Cache",
+      "m4": "Regelmäßige Backups samt Wiederherstellungstest"
+    }
   }
 }

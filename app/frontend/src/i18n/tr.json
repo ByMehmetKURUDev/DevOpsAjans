@@ -670,7 +670,8 @@
     "save": "Sayfayı kaydet",
     "saved": "{{page}} sayfası kaydedildi.",
     "kesif": "Keşif Asistanı",
-    "yatirim": "Yatırım Getirisi"
+    "yatirim": "Yatırım Getirisi",
+    "mimari": "Sistem Mimarisi"
   },
   "notify": {
     "bell": "Bildirimler",
@@ -830,5 +831,47 @@
     "ay": "{{sayi}} ay",
     "geriOdemeNotu": "Geri ödeme süresi, SEO & Ads paketinin aylık {{ucret}} ücretine göre hesaplandı. Rakamlar girdiğiniz varsayımların sonucudur, bir taahhüt değildir.",
     "cta": "Bu büyümeyi konuşalım"
+  },
+  "mimari": {
+    "sectionTag": "SİSTEM MİMARİSİ",
+    "title": "Ürününüz hangi katmanlardan",
+    "titleHighlight": "oluşuyor?",
+    "desc": "Her projeyi dört katmanda kuruyoruz. Katmana tıklayın; o katmanda ne yaptığımızı ve hangi araçları kullandığımızı görün.",
+    "detayEtiket": "Katman ayrıntısı",
+    "pratikler": "Bu katmanda uyguladıklarımız",
+    "yigin": "Kullanılan araçlar",
+    "cta": "Mimariyi projenizde konuşalım",
+    "arayuz": {
+      "ad": "Arayüz Katmanı",
+      "aciklama": "Kullanıcının gördüğü ve dokunduğu her şey. Bileşen tabanlı kuruluyor; aynı parça birden çok sayfada tekrar kullanılıyor, böylece değişiklik tek yerden yapılıyor.",
+      "m1": "Tip güvenliği: hatalar tarayıcıda değil derlemede yakalanıyor",
+      "m2": "Çok dilli içerik ve sağdan sola yazım desteği",
+      "m3": "Klavye ve ekran okuyucu erişilebilirliği",
+      "m4": "Arama motorları için sayfaların önceden üretilmesi"
+    },
+    "kenar": {
+      "ad": "Dağıtım ve Kenar Katmanı",
+      "aciklama": "Sayfaların ziyaretçiye ulaştığı yol. İçerik dünyaya dağılmış sunuculardan servis ediliyor; yayın süreci elle değil, koda bağlı çalışıyor.",
+      "m1": "Global dağıtım ağı üzerinden servis",
+      "m2": "Otomatik SSL sertifikası ve yenileme",
+      "m3": "Her değişiklik için ayrı önizleme adresi",
+      "m4": "Kesintisiz yayın ve tek komutla geri alma"
+    },
+    "servis": {
+      "ad": "Uygulama Servisleri",
+      "aciklama": "İş kurallarının çalıştığı katman. Arayüzün ihtiyaç duyduğu veriyi hazırlıyor, kimlik doğrulamayı yönetiyor ve dış servislerle konuşuyor.",
+      "m1": "Belgelenmiş REST arayüzü",
+      "m2": "Oturum ve yetki yönetimi",
+      "m3": "Uzun süren işlerin arka plana alınması",
+      "m4": "Hata kayıtları ve sağlık kontrolü uçları"
+    },
+    "veri": {
+      "ad": "Veri ve Önbellek Katmanı",
+      "aciklama": "Kalıcı verinin durduğu yer. Şema tasarımı baştan kuruluyor; sonradan eklenen her alan sürüm takibiyle uygulanıyor.",
+      "m1": "İlişkisel şema ve tutarlılık kuralları",
+      "m2": "Şema değişikliklerinin sürümlenmesi",
+      "m3": "Sık okunan verinin önbelleğe alınması",
+      "m4": "Düzenli yedekleme ve geri yükleme provası"
+    }
   }
 }

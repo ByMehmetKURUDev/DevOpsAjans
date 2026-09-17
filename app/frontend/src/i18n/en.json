@@ -670,7 +670,8 @@
     "save": "Save page",
     "saved": "{{page}} page saved.",
     "kesif": "Discovery Assistant",
-    "yatirim": "Return on Investment"
+    "yatirim": "Return on Investment",
+    "mimari": "System Architecture"
   },
   "notify": {
     "bell": "Notifications",
@@ -830,5 +831,47 @@
     "ay": "{{sayi}} months",
     "geriOdemeNotu": "Payback is calculated against the SEO & Ads package at {{ucret}} per month. These figures follow from the assumptions you entered; they are not a commitment.",
     "cta": "Let's talk about this growth"
+  },
+  "mimari": {
+    "sectionTag": "SYSTEM ARCHITECTURE",
+    "title": "Which layers make up",
+    "titleHighlight": "your product?",
+    "desc": "We build every project in four layers. Click a layer to see what we do there and which tools we use.",
+    "detayEtiket": "Layer detail",
+    "pratikler": "What we apply in this layer",
+    "yigin": "Tools used",
+    "cta": "Let's discuss this for your project",
+    "arayuz": {
+      "ad": "Interface Layer",
+      "aciklama": "Everything the user sees and touches. Built from components, so the same piece is reused across pages and a change is made in one place.",
+      "m1": "Type safety: errors caught at build time, not in the browser",
+      "m2": "Multilingual content with right-to-left support",
+      "m3": "Keyboard and screen-reader accessibility",
+      "m4": "Pages pre-rendered for search engines"
+    },
+    "kenar": {
+      "ad": "Delivery and Edge Layer",
+      "aciklama": "How pages reach the visitor. Content is served from servers spread around the world, and releases run from code rather than by hand.",
+      "m1": "Served over a global delivery network",
+      "m2": "Automatic SSL certificates and renewal",
+      "m3": "A separate preview address for every change",
+      "m4": "Zero-downtime releases and one-command rollback"
+    },
+    "servis": {
+      "ad": "Application Services",
+      "aciklama": "Where the business rules run. Prepares the data the interface needs, handles authentication and talks to outside services.",
+      "m1": "A documented REST interface",
+      "m2": "Session and permission handling",
+      "m3": "Long-running work moved to the background",
+      "m4": "Error logs and health-check endpoints"
+    },
+    "veri": {
+      "ad": "Data and Cache Layer",
+      "aciklama": "Where persistent data lives. The schema is designed up front, and every field added later is applied through version tracking.",
+      "m1": "Relational schema with consistency rules",
+      "m2": "Versioned schema changes",
+      "m3": "Frequently read data kept in cache",
+      "m4": "Regular backups with restore drills"
+    }
   }
 }
