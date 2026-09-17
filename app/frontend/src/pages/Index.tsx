@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import KesifAsistani from '@/components/KesifAsistani';
 import PricingPlans from '@/components/PricingPlans';
+import YatirimHesaplayici from '@/components/YatirimHesaplayici';
 import ProcessFlow from '@/components/ProcessFlow';
 import Testimonials from '@/components/Testimonials';
 import { DEFAULT_SETTINGS, useSiteSettings } from '@/lib/siteSettings';
@@ -291,6 +292,8 @@ export default function Index() {
 
       </>
     ),
+    yatirim: <YatirimHesaplayici />,
+
     tech: (
       <>
       {/* TECH MARQUEE */}

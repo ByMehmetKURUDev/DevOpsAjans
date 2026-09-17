@@ -667,7 +667,8 @@
     "pickLang": "Sprache wählen",
     "save": "Seite speichern",
     "saved": "Seite {{page}} gespeichert.",
-    "kesif": "Discovery-Assistent"
+    "kesif": "Discovery-Assistent",
+    "yatirim": "Kapitalrendite"
   },
   "notify": {
     "bell": "Benachrichtigungen",
@@ -802,5 +803,27 @@
       "genis": "Umfassend",
       "belirsiz": "Noch offen"
     }
+  },
+  "yatirim": {
+    "sectionTag": "KAPITALRENDITE",
+    "title": "Was bringt Ihnen das?",
+    "titleHighlight": "Mit Ihren eigenen Zahlen.",
+    "desc": "Tragen Sie Traffic und Konversionsrate ein und wählen Sie die erwartete Verbesserung. Das Ergebnis aktualisiert sich sofort.",
+    "ziyaretci": "Besucher pro Monat",
+    "kisi": "{{sayi}} Personen",
+    "donusum": "Aktuelle Konversionsrate",
+    "sepet": "Durchschnittlicher Bestell-/Kundenwert",
+    "artis": "Erwartete Steigerung der Konversion",
+    "artisNotu": "Diesen Wert legen Sie fest. Die Wirkung von Tempo- und UX-Arbeit ist in jedem Geschäft anders; wir versprechen keine Quote, die wir nicht halten können.",
+    "sonucEtiket": "Geschätzter Zugewinn",
+    "aylikEk": "zusätzlicher Umsatz pro Monat",
+    "mevcutCiro": "Aktueller Monatsumsatz",
+    "yeniCiro": "Geschätzter neuer Umsatz",
+    "yillikEk": "Zusätzlicher Umsatz pro Jahr",
+    "geriOdeme": "Amortisationsdauer",
+    "ilkAy": "Erster Monat",
+    "ay": "{{sayi}} Monate",
+    "geriOdemeNotu": "Die Amortisation bezieht sich auf das SEO-&-Ads-Paket zu {{ucret}} im Monat. Die Zahlen folgen aus Ihren Annahmen und sind keine Zusage.",
+    "cta": "Über dieses Wachstum sprechen"
   }
 }

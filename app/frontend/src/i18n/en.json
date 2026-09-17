@@ -667,7 +667,8 @@
     "pickLang": "Pick a language",
     "save": "Save page",
     "saved": "{{page}} page saved.",
-    "kesif": "Discovery Assistant"
+    "kesif": "Discovery Assistant",
+    "yatirim": "Return on Investment"
   },
   "notify": {
     "bell": "Notifications",
@@ -802,5 +803,27 @@
       "genis": "Comprehensive",
       "belirsiz": "Not decided yet"
     }
+  },
+  "yatirim": {
+    "sectionTag": "RETURN ON INVESTMENT",
+    "title": "What would this earn you?",
+    "titleHighlight": "See it with your own numbers.",
+    "desc": "Enter your traffic and conversion rate, then pick the improvement you expect. The result updates instantly.",
+    "ziyaretci": "Monthly visitors",
+    "kisi": "{{sayi}} people",
+    "donusum": "Current conversion rate",
+    "sepet": "Average order / customer value",
+    "artis": "Conversion lift you expect",
+    "artisNotu": "You set this figure. The effect of speed and UX work differs in every business; we are not promising a rate we cannot hold to.",
+    "sonucEtiket": "Estimated gain",
+    "aylikEk": "extra revenue per month",
+    "mevcutCiro": "Current monthly revenue",
+    "yeniCiro": "Estimated new revenue",
+    "yillikEk": "Extra revenue per year",
+    "geriOdeme": "Payback period",
+    "ilkAy": "First month",
+    "ay": "{{sayi}} months",
+    "geriOdemeNotu": "Payback is calculated against the SEO & Ads package at {{ucret}} per month. These figures follow from the assumptions you entered; they are not a commitment.",
+    "cta": "Let's talk about this growth"
   }
 }

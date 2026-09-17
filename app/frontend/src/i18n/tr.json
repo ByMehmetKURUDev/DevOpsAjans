@@ -667,7 +667,8 @@
     "pickLang": "Dil seçin",
     "save": "Sayfayı kaydet",
     "saved": "{{page}} sayfası kaydedildi.",
-    "kesif": "Keşif Asistanı"
+    "kesif": "Keşif Asistanı",
+    "yatirim": "Yatırım Getirisi"
   },
   "notify": {
     "bell": "Bildirimler",
@@ -802,5 +803,27 @@
       "genis": "Geniş kapsamlı",
       "belirsiz": "Henüz belirlemedim"
     }
+  },
+  "yatirim": {
+    "sectionTag": "YATIRIM GETİRİSİ",
+    "title": "Bu iş size ne kazandırır?",
+    "titleHighlight": "Kendi sayılarınızla görün.",
+    "desc": "Kendi trafiğinizi ve dönüşüm oranınızı girin, beklediğiniz iyileşmeyi seçin. Hesap anında güncellenir.",
+    "ziyaretci": "Aylık ziyaretçi",
+    "kisi": "{{sayi}} kişi",
+    "donusum": "Mevcut dönüşüm oranı",
+    "sepet": "Ortalama sipariş / müşteri değeri",
+    "artis": "Beklediğiniz dönüşüm artışı",
+    "artisNotu": "Bu değeri siz belirliyorsunuz. Hız ve kullanıcı deneyimi iyileştirmelerinin etkisi her işte farklıdır; size tutamayacağımız bir oran vaat etmiyoruz.",
+    "sonucEtiket": "Tahmini kazanç",
+    "aylikEk": "aylık ek ciro",
+    "mevcutCiro": "Şu anki aylık ciro",
+    "yeniCiro": "Tahmini yeni ciro",
+    "yillikEk": "Yıllık ek ciro",
+    "geriOdeme": "Geri ödeme süresi",
+    "ilkAy": "İlk ay",
+    "ay": "{{sayi}} ay",
+    "geriOdemeNotu": "Geri ödeme süresi, SEO & Ads paketinin aylık {{ucret}} ücretine göre hesaplandı. Rakamlar girdiğiniz varsayımların sonucudur, bir taahhüt değildir.",
+    "cta": "Bu büyümeyi konuşalım"
   }
 }
