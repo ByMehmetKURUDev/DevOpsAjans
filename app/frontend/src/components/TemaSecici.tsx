@@ -1,23 +1,29 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Check } from 'lucide-react';
 import { temaOku, temaYaz, type Tema } from '@/lib/tema';
 
 /**
  * Renk teması tuşu — dil seçicinin yanında.
  *
- * İki yuvarlak nokta: mor ve yeşil. Seçilen nokta çerçeveleniyor.
- * Renk örnekleri temanın kendi değişkeninden değil SABİT değerlerden
- * çiziliyor; yoksa yeşil temadayken yeşil nokta da yeşil olur ve iki
- * seçenek birbirinden ayırt edilemez.
+ * Kaydırmalı bir anahtar: arkadaki yuvarlak seçili renge kayıyor, seçili
+ * örneğin üstünde onay işareti çıkıyor. Böylece "hangisi seçili" rengi
+ * ayırt edemeyen biri için de belli oluyor; yalnızca renkle anlatmak
+ * erişilebilir değil.
  *
- * `radiogroup` olarak işaretli: ekran okuyucu "mor seçili, 1/2" diye
- * okuyor, ok tuşlarıyla geçiş beklentisini karşılıyor.
+ * Renk örnekleri temanın kendi değişkeninden değil SABİT değerlerden
+ * çiziliyor. Değişkenden alsaydık yeşil temadayken yeşil örnek de yeşile
+ * döner, iki seçenek birbirinin aynısı görünürdü.
+ *
+ * `radiogroup` olarak işaretli: ekran okuyucu "Yeşil, seçili, 2/2" diye
+ * okuyor. Ok tuşlarıyla da geçilebiliyor — klavye kullanan biri tek tek
+ * sekme tuşuna basmak zorunda kalmıyor.
  */
 
-const ORNEK: Record<Tema, string> = {
-  mor: 'linear-gradient(135deg,#8b3dff,#d4a5ff)',
-  yesil: 'linear-gradient(135deg,#00dc82,#38bdf8)',
-};
+const SECENEKLER: { anahtar: Tema; ornek: string; golge: string }[] = [
+  { anahtar: 'mor', ornek: 'linear-gradient(140deg,#a855f7,#8b3dff 55%,#5c27a3)', golge: '139,61,255' },
+  { anahtar: 'yesil', ornek: 'linear-gradient(140deg,#4ce9b4,#00dc82 55%,#38bdf8)', golge: '0,220,130' },
+];
 
 interface TemaSeciciProps {
   /** Mobil menüde tuşlar biraz daha büyük. */
@@ -37,32 +43,77 @@ export default function TemaSecici({ buyuk = false }: TemaSeciciProps) {
     setTema(yeni);
   };
 
-  const boyut = buyuk ? 'h-8 w-8' : 'h-6 w-6';
+  /** Ok tuşları seçenekler arasında dolaşsın. */
+  const klavye = (olay: React.KeyboardEvent) => {
+    if (!['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'].includes(olay.key)) return;
+    olay.preventDefault();
+    const simdiki = SECENEKLER.findIndex((s) => s.anahtar === tema);
+    const yon = olay.key === 'ArrowRight' || olay.key === 'ArrowDown' ? 1 : -1;
+    sec(SECENEKLER[(simdiki + yon + SECENEKLER.length) % SECENEKLER.length].anahtar);
+  };
+
+  // Kutu ölçüleri tek yerden: kayan yuvarlağın konumu bunlardan hesaplanıyor.
+  const kutu = buyuk ? 34 : 26;
+  const bosluk = buyuk ? 6 : 4;
+  const ic = buyuk ? 4 : 3;
+  const seciliSira = SECENEKLER.findIndex((s) => s.anahtar === tema);
 
   return (
     <div
       role="radiogroup"
       aria-label={t('tema.baslik')}
-      className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-1.5 py-1"
+      onKeyDown={klavye}
+      className="relative inline-flex items-center rounded-full border border-white/12 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+      style={{ padding: ic, gap: bosluk }}
     >
-      {(['mor', 'yesil'] as Tema[]).map((secenek) => {
-        const aktif = tema === secenek;
+      {/* Kayan yuvarlak — seçili örneğin arkasında duruyor. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute rounded-full bg-white/10 ring-1 ring-white/25 transition-transform duration-300 ease-out motion-reduce:transition-none"
+        style={{
+          width: kutu,
+          height: kutu,
+          insetInlineStart: ic,
+          top: ic,
+          transform: `translateX(${seciliSira * (kutu + bosluk)}px)`,
+        }}
+      />
+
+      {SECENEKLER.map(({ anahtar, ornek, golge }) => {
+        const aktif = tema === anahtar;
         return (
           <button
-            key={secenek}
+            key={anahtar}
             type="button"
             role="radio"
             aria-checked={aktif}
-            title={t(`tema.${secenek}`)}
-            onClick={() => sec(secenek)}
-            className={`${boyut} rounded-full transition-all ${
-              aktif
-                ? 'ring-2 ring-white/70 ring-offset-2 ring-offset-background'
-                : 'opacity-55 hover:opacity-100'
-            }`}
-            style={{ backgroundImage: ORNEK[secenek] }}
+            tabIndex={aktif ? 0 : -1}
+            title={t(`tema.${anahtar}`)}
+            onClick={() => sec(anahtar)}
+            className="relative grid place-items-center rounded-full outline-none"
+            style={{ width: kutu, height: kutu }}
           >
-            <span className="sr-only">{t(`tema.${secenek}`)}</span>
+            <span
+              className={`grid place-items-center rounded-full transition-all duration-300 ease-out motion-reduce:transition-none ${
+                aktif ? 'scale-100' : 'scale-[0.78] opacity-50 hover:scale-90 hover:opacity-90'
+              }`}
+              style={{
+                width: kutu - (buyuk ? 10 : 8),
+                height: kutu - (buyuk ? 10 : 8),
+                backgroundImage: ornek,
+                boxShadow: aktif ? `0 0 0 1px rgba(255,255,255,.35), 0 0 12px rgba(${golge},.55)` : 'none',
+              }}
+            >
+              <Check
+                className={`text-white drop-shadow transition-opacity duration-200 motion-reduce:transition-none ${
+                  aktif ? 'opacity-100' : 'opacity-0'
+                }`}
+                style={{ width: buyuk ? 14 : 11, height: buyuk ? 14 : 11 }}
+                strokeWidth={3.5}
+                aria-hidden="true"
+              />
+            </span>
+            <span className="sr-only">{t(`tema.${anahtar}`)}</span>
           </button>
         );
       })}
