@@ -672,7 +672,8 @@
     "kesif": "Keşif Asistanı",
     "yatirim": "Yatırım Getirisi",
     "mimari": "Sistem Mimarisi",
-    "sss": "Sıkça Sorulanlar"
+    "sss": "Sıkça Sorulanlar",
+    "panel": "Müşteri paneli önizlemesi"
   },
   "notify": {
     "bell": "Bildirimler",
@@ -906,6 +907,87 @@
     "s6": {
       "soru": "Ödeme nasıl ilerliyor?",
       "cevap": "Aşamalara bölerek ilerliyoruz; her aşamanın çıktısı teslim edildikçe fatura kesiliyor. Faturalar müşteri panelinde görünüyor. Ödeme yöntemi ve takvim sözleşmede yazılı oluyor, sürpriz kalem çıkmıyor."
+    }
+  },
+  "panel": {
+    "sectionTag": "Müşteri paneli",
+    "title": "İşin nerede olduğunu",
+    "titleHighlight": "sormanıza gerek kalmıyor",
+    "desc": "Proje boyunca kendi panelinize giriyorsunuz. Aşama değiştiğinde, dosya yüklendiğinde ya da bir teslim yapıldığında kayıt panele düşüyor ve size e-posta gidiyor. Aşağıdaki altı aşama, sistemde tanımlı olanların aynısı.",
+    "rayEtiket": "Proje aşamaları",
+    "ornekRozet": "Örnek görünüm",
+    "gecmisEtiket": "Proje geçmişi",
+    "girisNotu": "Zaten müşteriyseniz panelinize doğrudan girebilirsiniz.",
+    "cta": "Projeyi konuşalım",
+    "ctaGiris": "Panele giriş",
+    "sekme": {
+      "projeler": "Projeler",
+      "faturalar": "Faturalar",
+      "destek": "Destek"
+    },
+    "kayitTipi": {
+      "stage_change": "Aşama değişikliği",
+      "note": "Not",
+      "file": "Dosya",
+      "delivery": "Teslim"
+    },
+    "ozellik": {
+      "bildirim": {
+        "ad": "Her kayıtta e-posta",
+        "aciklama": "Aşama ilerledi ya da not eklendi; paneli açmayı beklemeden haberiniz oluyor."
+      },
+      "icNot": {
+        "ad": "İç notlar size görünmez",
+        "aciklama": "Ekip için düşülen notlar ayrı işaretleniyor ve müşteri görünümüne hiç girmiyor."
+      },
+      "fatura": {
+        "ad": "Fatura ve destek aynı yerde",
+        "aciklama": "Faturaların durumu ve açtığınız destek kayıtları da bu panelde; ayrı bir sisteme girmiyorsunuz."
+      }
+    },
+    "asama": {
+      "discovery": {
+        "ad": "Keşif",
+        "aciklama": "İhtiyaç, kapsam ve öncelikler netleşiyor. Çıktı: üzerinde anlaştığımız kapsam.",
+        "k1": "Proje keşif aşamasına alındı",
+        "k2": "Kapsam notları paylaşıldı",
+        "k3": "Gereksinim dokümanı eklendi"
+      },
+      "design": {
+        "ad": "Tasarım",
+        "aciklama": "Ekranlar ve akış çıkıyor. Onayınızı almadan geliştirmeye geçilmiyor.",
+        "k1": "Proje tasarım aşamasına geçti",
+        "k2": "Tasarım taslağı eklendi",
+        "k3": "Revizyon notları alındı"
+      },
+      "build": {
+        "ad": "Geliştirme",
+        "aciklama": "Kod yazılıyor ve çalışan parçalar düzenli aralıklarla size açılıyor.",
+        "k1": "Proje geliştirme aşamasına geçti",
+        "k2": "Çalışan sürüm önizlemeye açıldı",
+        "k3": "Haftalık ilerleme notu"
+      },
+      "review": {
+        "ad": "İnceleme",
+        "aciklama": "Siz deniyorsunuz, eksikler listeleniyor ve kapatılıyor.",
+        "k1": "Proje inceleme aşamasına geçti",
+        "k2": "Geri bildirimler işlendi",
+        "k3": "Test raporu eklendi"
+      },
+      "launch": {
+        "ad": "Yayın",
+        "aciklama": "Canlıya alınıyor; alan adı, sertifika ve ölçüm bağlanıyor.",
+        "k1": "Proje yayın aşamasına geçti",
+        "k2": "Canlı yayına alındı",
+        "k3": "Teslim notları paylaşıldı"
+      },
+      "aftercare": {
+        "ad": "Lansman sonrası",
+        "aciklama": "Yayın sonrası takip: hata düzeltme, küçük iyileştirme ve ölçüm.",
+        "k1": "Proje lansman sonrası takibe alındı",
+        "k2": "İlk hafta ölçüm özeti",
+        "k3": "Bakım teslimi yapıldı"
+      }
     }
   }
 }

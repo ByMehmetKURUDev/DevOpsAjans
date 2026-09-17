@@ -672,7 +672,8 @@
     "kesif": "Discovery-Assistent",
     "yatirim": "Kapitalrendite",
     "mimari": "Systemarchitektur",
-    "sss": "Häufige Fragen"
+    "sss": "Häufige Fragen",
+    "panel": "Vorschau Kundenbereich"
   },
   "notify": {
     "bell": "Benachrichtigungen",
@@ -906,6 +907,87 @@
     "s6": {
       "soru": "Wie läuft die Bezahlung?",
       "cevap": "Wir arbeiten in Phasen und stellen jede gelieferte Phase in Rechnung. Rechnungen erscheinen im Kundenbereich. Zahlungsweise und Zeitplan stehen im Vertrag, es taucht kein unerwarteter Posten auf."
+    }
+  },
+  "panel": {
+    "sectionTag": "Kundenbereich",
+    "title": "Sie müssen nie fragen,",
+    "titleHighlight": "wo das Projekt steht",
+    "desc": "Während des Projekts haben Sie einen eigenen Bereich. Wechselt eine Phase, kommt eine Datei dazu oder wird etwas geliefert, erscheint der Eintrag im Bereich und Sie bekommen eine E-Mail. Die sechs Phasen unten sind genau die im System hinterlegten.",
+    "rayEtiket": "Projektphasen",
+    "ornekRozet": "Beispielansicht",
+    "gecmisEtiket": "Projektverlauf",
+    "girisNotu": "Schon Kunde? Dann geht es direkt in Ihren Bereich.",
+    "cta": "Lassen Sie uns sprechen",
+    "ctaGiris": "Zum Kundenbereich",
+    "sekme": {
+      "projeler": "Projekte",
+      "faturalar": "Rechnungen",
+      "destek": "Support"
+    },
+    "kayitTipi": {
+      "stage_change": "Phasenwechsel",
+      "note": "Notiz",
+      "file": "Datei",
+      "delivery": "Lieferung"
+    },
+    "ozellik": {
+      "bildirim": {
+        "ad": "E-Mail zu jedem Eintrag",
+        "aciklama": "Phase gewechselt oder Notiz ergänzt — Sie erfahren es, ohne den Bereich zu öffnen."
+      },
+      "icNot": {
+        "ad": "Interne Notizen bleiben verborgen",
+        "aciklama": "Notizen für das Team sind gesondert markiert und erscheinen nie in der Kundenansicht."
+      },
+      "fatura": {
+        "ad": "Rechnungen und Support an einem Ort",
+        "aciklama": "Rechnungsstatus und Ihre Support-Anfragen liegen im selben Bereich — kein zweites System."
+      }
+    },
+    "asama": {
+      "discovery": {
+        "ad": "Erkundung",
+        "aciklama": "Bedarf, Umfang und Prioritäten werden geklärt. Ergebnis: ein gemeinsam vereinbarter Umfang.",
+        "k1": "Projekt in die Erkundung übernommen",
+        "k2": "Umfangsnotizen geteilt",
+        "k3": "Anforderungsdokument hinzugefügt"
+      },
+      "design": {
+        "ad": "Design",
+        "aciklama": "Screens und Ablauf entstehen. Vor Ihrer Freigabe wird nicht entwickelt.",
+        "k1": "Projekt in die Designphase",
+        "k2": "Designentwurf hinzugefügt",
+        "k3": "Änderungswünsche aufgenommen"
+      },
+      "build": {
+        "ad": "Entwicklung",
+        "aciklama": "Es wird programmiert; lauffähige Teile werden Ihnen regelmäßig geöffnet.",
+        "k1": "Projekt in die Entwicklung",
+        "k2": "Lauffähige Version zur Vorschau freigegeben",
+        "k3": "Wöchentliche Fortschrittsnotiz"
+      },
+      "review": {
+        "ad": "Prüfung",
+        "aciklama": "Sie testen, Lücken werden gelistet und geschlossen.",
+        "k1": "Projekt in die Prüfung",
+        "k2": "Rückmeldungen eingearbeitet",
+        "k3": "Testbericht hinzugefügt"
+      },
+      "launch": {
+        "ad": "Veröffentlichung",
+        "aciklama": "Der Livegang: Domain, Zertifikat und Messung werden angebunden.",
+        "k1": "Projekt in die Veröffentlichung",
+        "k2": "Live gegangen",
+        "k3": "Übergabenotizen geteilt"
+      },
+      "aftercare": {
+        "ad": "Nach dem Launch",
+        "aciklama": "Betreuung nach dem Livegang: Fehlerbehebung, kleine Verbesserungen, Messung.",
+        "k1": "Projekt in die Nachbetreuung",
+        "k2": "Messübersicht der ersten Woche",
+        "k3": "Wartungsübergabe erfolgt"
+      }
     }
   }
 }

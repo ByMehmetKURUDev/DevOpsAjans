@@ -672,7 +672,8 @@
     "kesif": "Discovery Assistant",
     "yatirim": "Return on Investment",
     "mimari": "System Architecture",
-    "sss": "FAQ"
+    "sss": "FAQ",
+    "panel": "Client panel preview"
   },
   "notify": {
     "bell": "Notifications",
@@ -906,6 +907,87 @@
     "s6": {
       "soru": "How does payment work?",
       "cevap": "We work in stages and invoice as each stage is delivered. Invoices appear in the client panel. The payment method and schedule are written into the contract, so no line item appears out of nowhere."
+    }
+  },
+  "panel": {
+    "sectionTag": "Client panel",
+    "title": "You never have to ask",
+    "titleHighlight": "where the work stands",
+    "desc": "You get your own panel for the length of the project. When a stage moves, a file lands or something is delivered, the record appears in the panel and an email reaches you. The six stages below are exactly the ones defined in the system.",
+    "rayEtiket": "Project stages",
+    "ornekRozet": "Example view",
+    "gecmisEtiket": "Project history",
+    "girisNotu": "Already a client? Go straight to your panel.",
+    "cta": "Let's talk about your project",
+    "ctaGiris": "Sign in to the panel",
+    "sekme": {
+      "projeler": "Projects",
+      "faturalar": "Invoices",
+      "destek": "Support"
+    },
+    "kayitTipi": {
+      "stage_change": "Stage change",
+      "note": "Note",
+      "file": "File",
+      "delivery": "Delivery"
+    },
+    "ozellik": {
+      "bildirim": {
+        "ad": "An email for every record",
+        "aciklama": "A stage moved or a note was added — you hear about it without opening the panel."
+      },
+      "icNot": {
+        "ad": "Internal notes stay hidden",
+        "aciklama": "Notes written for the team are marked separately and never enter the client view."
+      },
+      "fatura": {
+        "ad": "Invoices and support in one place",
+        "aciklama": "Invoice status and the support tickets you open live in the same panel — no second system."
+      }
+    },
+    "asama": {
+      "discovery": {
+        "ad": "Discovery",
+        "aciklama": "Needs, scope and priorities are settled. Output: a scope we both agreed on.",
+        "k1": "Project moved to discovery",
+        "k2": "Scope notes shared",
+        "k3": "Requirements document added"
+      },
+      "design": {
+        "ad": "Design",
+        "aciklama": "Screens and flow take shape. Nothing is built before you approve.",
+        "k1": "Project moved to design",
+        "k2": "Design draft added",
+        "k3": "Revision notes received"
+      },
+      "build": {
+        "ad": "Build",
+        "aciklama": "Code is written and working pieces are opened to you on a regular cycle.",
+        "k1": "Project moved to build",
+        "k2": "Working version opened for preview",
+        "k3": "Weekly progress note"
+      },
+      "review": {
+        "ad": "Review",
+        "aciklama": "You try it, gaps are listed and closed.",
+        "k1": "Project moved to review",
+        "k2": "Feedback processed",
+        "k3": "Test report added"
+      },
+      "launch": {
+        "ad": "Launch",
+        "aciklama": "It goes live; domain, certificate and measurement are connected.",
+        "k1": "Project moved to launch",
+        "k2": "Went live",
+        "k3": "Handover notes shared"
+      },
+      "aftercare": {
+        "ad": "Aftercare",
+        "aciklama": "Post-launch follow-up: fixes, small improvements and measurement.",
+        "k1": "Project moved to aftercare",
+        "k2": "First-week measurement summary",
+        "k3": "Maintenance handover done"
+      }
     }
   }
 }
