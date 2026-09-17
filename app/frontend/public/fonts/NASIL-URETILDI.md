@@ -1,8 +1,15 @@
 # Bu klasördeki font dosyaları nasıl üretildi
 
-Inter ve Space Grotesk, Google Fonts'tan indirilip **siteye gereken
-harflere indirgenerek** buraya kondu. İkisi de SIL Open Font License
-altında; kendi sunucundan sunmak lisansın açıkça izin verdiği bir kullanım.
+Plus Jakarta Sans (arayüz ve başlıklar), JetBrains Mono (kod ve etiket
+yazıları) ve Inter (Rusça yedeği), Google Fonts'tan indirilip **siteye
+gereken harflere indirgenerek** buraya kondu. Üçü de SIL Open Font
+License altında; kendi sunucundan sunmak lisansın açıkça izin verdiği
+bir kullanım.
+
+Plus Jakarta Sans'ın Kiril alt kümesi Google Fonts'ta yok. Bu yüzden
+Inter dosyaları duruyor: `unicode-range` sayesinde Rusça sayfalarda
+tarayıcı kendiliğinden Inter'e düşüyor, diğer dillerde Inter hiç
+indirilmiyor.
 
 ## Neden
 
@@ -34,7 +41,7 @@ yüklüyor.
 1. Google Fonts CSS'ini modern bir tarayıcı kimliğiyle çek (woff2 gelmesi için):
 
    ```
-   https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap
+   https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap
    ```
 
 2. İçindeki `latin`, `latin-ext` ve `cyrillic` bloklarının `woff2`

@@ -21,6 +21,16 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        /*
+         * Prototipin fontlari. `font-mono` sinifi 40+ yerde kullaniliyor
+         * (etiketler, sayaclar, kod parcalari) ve Tailwind'in varsayilani
+         * isletim sistemine gore degisiyordu — ayni sayfa Mac'te Menlo,
+         * Windows'ta Consolas cikiyordu. Artik her yerde JetBrains Mono.
+         */
+        sans: ['Plus Jakarta Sans', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
       colors: {
         /*
          * Vurgu paletleri CSS değişkenine bağlı.

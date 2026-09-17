@@ -994,5 +994,20 @@
     "baslik": "Color theme",
     "mor": "Purple",
     "yesil": "Green"
+  },
+  "asistan": {
+    "ac": "Talk to the AI Assistant",
+    "kapat": "Close",
+    "baslik": "Project Discovery Assistant",
+    "altBaslik": "AI-powered",
+    "karsilama": "Hello. Describe the project you have in mind in a few sentences, and we'll work out the scope and which package fits.",
+    "ornek1": "I run an online store and sales are low. What should I do?",
+    "ornek2": "I want to build a SaaS product from scratch. Where do I start?",
+    "ornek3": "My current site is slow. What should I look at?",
+    "yerTutucu": "Describe your project…",
+    "gonder": "Send",
+    "yaziyor": "Typing…",
+    "hata": "I can't answer right now. Write via the contact page and I'll get back to you directly.",
+    "uyari": "AI answers can be wrong. Price and timeline are settled in the call."
   }
 }

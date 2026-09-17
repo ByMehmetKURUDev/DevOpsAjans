@@ -994,5 +994,20 @@
     "baslik": "Farbthema",
     "mor": "Violett",
     "yesil": "Grün"
+  },
+  "asistan": {
+    "ac": "Mit dem KI-Assistenten sprechen",
+    "kapat": "Schließen",
+    "baslik": "Projekt-Erkundungsassistent",
+    "altBaslik": "KI-gestützt",
+    "karsilama": "Hallo. Beschreiben Sie Ihr Vorhaben in ein paar Sätzen — wir klären gemeinsam den Umfang und welches Paket passt.",
+    "ornek1": "Ich habe einen Onlineshop, der Umsatz ist schwach. Was tun?",
+    "ornek2": "Ich möchte ein SaaS-Produkt von Grund auf bauen. Womit anfangen?",
+    "ornek3": "Meine Website ist langsam. Worauf sollte ich schauen?",
+    "yerTutucu": "Beschreiben Sie Ihr Projekt…",
+    "gonder": "Senden",
+    "yaziyor": "Schreibt…",
+    "hata": "Ich kann gerade nicht antworten. Schreiben Sie über die Kontaktseite, ich melde mich direkt.",
+    "uyari": "KI-Antworten können falsch sein. Preis und Zeitrahmen werden im Gespräch festgelegt."
   }
 }

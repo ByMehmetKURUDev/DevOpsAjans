@@ -994,5 +994,20 @@
     "baslik": "Renk teması",
     "mor": "Mor",
     "yesil": "Yeşil"
+  },
+  "asistan": {
+    "ac": "AI Asistan ile Konuş",
+    "kapat": "Kapat",
+    "baslik": "Proje Keşif Asistanı",
+    "altBaslik": "Yapay zekâ destekli",
+    "karsilama": "Merhaba. Aklınızdaki projeyi birkaç cümleyle anlatın; kapsamı netleştirip hangi paketin oturduğunu birlikte bulalım.",
+    "ornek1": "E-ticaret sitem var, satışlar düşük. Ne yapmalıyım?",
+    "ornek2": "Sıfırdan bir SaaS ürünü kurmak istiyorum, nereden başlanır?",
+    "ornek3": "Mevcut sitem yavaş; neye bakmak gerekir?",
+    "yerTutucu": "Projenizi yazın…",
+    "gonder": "Gönder",
+    "yaziyor": "Yazıyor…",
+    "hata": "Şu an yanıt veremiyorum. İletişim sayfasından yazarsanız size doğrudan dönerim.",
+    "uyari": "Yapay zekâ yanıtları yanılabilir. Fiyat ve süre görüşmede netleşir."
   }
 }

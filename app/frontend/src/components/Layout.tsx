@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
 import TemaSecici from '@/components/TemaSecici';
+import AsistanSohbeti from '@/components/AsistanSohbeti';
 import { Button } from '@/components/ui/button';
 import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -620,6 +621,9 @@ export default function Layout() {
 
       <HashKaydirma />
       <ScrollToTop />
+
+      {/* AI asistan — WhatsApp balonunun üstünde duruyor */}
+      <AsistanSohbeti />
 
       {/* Floating WhatsApp */}
       <a
