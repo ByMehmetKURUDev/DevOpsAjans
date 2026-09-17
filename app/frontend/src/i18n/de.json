@@ -2,7 +2,7 @@
   "nav": {
     "home": "Startseite",
     "about": "Über uns",
-    "services": "Wie es funktioniert",
+    "services": "Lösungen",
     "portfolio": "Fallstudien",
     "packages": "Pakete",
     "blog": "Blog",
@@ -804,7 +804,10 @@
       "orta": "Mittlerer Rahmen",
       "genis": "Umfassend",
       "belirsiz": "Noch offen"
-    }
+    },
+    "analizEdiliyor": "Ihre Angaben werden ausgewertet…",
+    "aiOzeti": "Einschätzung",
+    "oneriNotuAi": "Diese Einschätzung entstand aus Ihren Angaben; genauer Umfang und Preis werden im Gespräch festgelegt."
   },
   "yatirim": {
     "sectionTag": "KAPITALRENDITE",

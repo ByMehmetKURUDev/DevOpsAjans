@@ -8,15 +8,13 @@ import { useSiteSettings } from '@/lib/siteSettings';
  * kare içinde `</>` işareti, sağ üst köşede canlılık noktası, yanında iki
  * satırlık künye ("By Mehmet KURU Dev" / "Full-stack & AI Systems").
  *
- * Renkleri bilerek sabit — hem vurgu (#00DC82) hem kutunun yeşil-mor degrade
- * zemini. Logo bir marka işaretidir, tema rengine göre değişmemeli; bu sayede
- * mor ve yeşil dalda birebir aynı çiziliyor.
+ * Renkler temadan geliyor: vurgu `--primary`, kutunun degrade zemini
+ * `--primary` ve `--marka-ikinci`. Böylece logo mor dalda mor-pembe, yeşil
+ * dalda yeşil-mint çiziliyor ve çevresindeki siteyle aynı dili konuşuyor.
  *
  * Panelden `brand_logo` ile başka bir görsel seçilmişse o kullanılır; eski
  * varsayılan dosyalar bu işaretle değiştirilir.
  */
-
-const VURGU = '#00DC82';
 
 const ESKI_VARSAYILANLAR = [
   '/assets/logo-mark-144.webp',
@@ -56,9 +54,9 @@ export default function MarkaLogosu({
         <span
           className="relative flex h-10 w-10 flex-none items-center justify-center rounded-xl border transition-colors"
           style={{
-            borderColor: `${VURGU}4d`,
+            borderColor: 'hsl(var(--primary) / .45)',
             backgroundImage:
-              'linear-gradient(to bottom right, rgba(52, 211, 153, .25), rgba(147, 51, 234, .35))',
+              'linear-gradient(to bottom right, hsl(var(--marka-ikinci) / .25), hsl(var(--primary) / .35))',
           }}
           role="img"
           aria-label={t('ui.logoAlt')}
@@ -68,7 +66,7 @@ export default function MarkaLogosu({
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            stroke={VURGU}
+            stroke="hsl(var(--primary))"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -81,13 +79,11 @@ export default function MarkaLogosu({
           {/* Canlilik noktasi: disaridaki halka nabiz gibi atiyor, icteki sabit.
               Hareketi azaltilmis modda halka gizleniyor. */}
           <span
-            className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full opacity-75 motion-safe:animate-ping motion-reduce:hidden"
-            style={{ backgroundColor: VURGU }}
+            className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-primary opacity-75 motion-safe:animate-ping motion-reduce:hidden"
             aria-hidden="true"
           />
           <span
-            className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full"
-            style={{ backgroundColor: VURGU }}
+            className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-primary"
             aria-hidden="true"
           />
         </span>
@@ -97,7 +93,7 @@ export default function MarkaLogosu({
         <span className="flex flex-col leading-none">
           <span className="text-base font-extrabold tracking-tight text-white sm:text-lg">
             {t('ui.brandPrefix')}
-            <span style={{ color: VURGU }}>{t('ui.brandHighlight')}</span> {t('ui.brandSuffix')}
+            <span className="text-primary">{t('ui.brandHighlight')}</span> {t('ui.brandSuffix')}
           </span>
           <span className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
             {t('ui.brandTagline')}

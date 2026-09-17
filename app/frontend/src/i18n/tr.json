@@ -2,8 +2,8 @@
   "nav": {
     "home": "Ana Sayfa",
     "about": "Hakkımızda",
-    "services": "Nasıl Çalışır",
-    "portfolio": "Vaka Çalışmaları",
+    "services": "Çözümler",
+    "portfolio": "Vaka Çalışması",
     "packages": "Paketler",
     "blog": "Blog",
     "contact": "İletişim",
@@ -804,7 +804,10 @@
       "orta": "Orta ölçekli",
       "genis": "Geniş kapsamlı",
       "belirsiz": "Henüz belirlemedim"
-    }
+    },
+    "analizEdiliyor": "Cevaplarınız değerlendiriliyor…",
+    "aiOzeti": "Değerlendirme",
+    "oneriNotuAi": "Bu değerlendirme cevaplarınıza göre üretildi; kesin kapsam ve fiyat görüşmede netleşir."
   },
   "yatirim": {
     "sectionTag": "YATIRIM GETİRİSİ",

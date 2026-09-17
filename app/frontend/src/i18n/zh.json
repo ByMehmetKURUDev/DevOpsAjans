@@ -2,7 +2,7 @@
   "nav": {
     "home": "首页",
     "about": "关于我们",
-    "services": "服务流程",
+    "services": "解决方案",
     "portfolio": "案例研究",
     "packages": "套餐",
     "blog": "博客",
@@ -804,7 +804,10 @@
       "orta": "中等规模",
       "genis": "全面覆盖",
       "belirsiz": "尚未确定"
-    }
+    },
+    "analizEdiliyor": "正在评估你的回答…",
+    "aiOzeti": "评估",
+    "oneriNotuAi": "该评估依据你的回答生成；具体范围与价格在沟通中确定。"
   },
   "yatirim": {
     "sectionTag": "投资回报",
