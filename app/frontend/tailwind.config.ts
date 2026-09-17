@@ -22,6 +22,42 @@ export default {
     },
     extend: {
       colors: {
+        /*
+         * YESIL DENEME DALI.
+         *
+         * Sitede 296 yerde sabit `purple-*` / `pink-*` sinifi var. Hepsini tek
+         * tek degistirmek yerine Tailwind'in bu iki paletini yesile yeniden
+         * tanimliyoruz: tek dosya degisiyor, 296 kullanim da yesile doner.
+         * Mor dalda bu blok hic yok, dolayisiyla o dal etkilenmez.
+         *
+         * Secim kesinlesirse isimler `marka-*` olarak duzeltilecek.
+         */
+        purple: {
+          50: '#ecfdf3',
+          100: '#d1fadf',
+          200: '#a6f4c5',
+          300: '#6ee7a8',
+          400: '#34d375',
+          500: '#22c55e',
+          600: '#1a8f4f',
+          700: '#15713f',
+          800: '#0b4f28',
+          900: '#052e16',
+          950: '#02170b',
+        },
+        pink: {
+          50: '#effefa',
+          100: '#c9fdee',
+          200: '#94f9dd',
+          300: '#9af1be',
+          400: '#5eead4',
+          500: '#2dd4a7',
+          600: '#14a37c',
+          700: '#0f7a5e',
+          800: '#115e4a',
+          900: '#124c3e',
+          950: '#032c23',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

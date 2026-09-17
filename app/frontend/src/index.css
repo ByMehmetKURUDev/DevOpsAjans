@@ -12,25 +12,25 @@
 @layer base {
   :root {
     /* Cyberpunk purple palette — from hero banner analysis */
-    --background: 270 60% 2%;
-    --foreground: 270 20% 95%;
-    --card: 270 40% 5%;
-    --card-foreground: 270 20% 95%;
-    --popover: 270 50% 4%;
-    --popover-foreground: 270 20% 95%;
-    --primary: 268 100% 62%;
-    --primary-foreground: 270 20% 98%;
-    --secondary: 270 35% 12%;
-    --secondary-foreground: 270 15% 90%;
-    --muted: 270 30% 10%;
-    --muted-foreground: 270 18% 72%;
-    --accent: 272 60% 40%;
-    --accent-foreground: 270 20% 98%;
+    --background: 150 45% 3%;
+    --foreground: 150 12% 95%;
+    --card: 150 30% 6%;
+    --card-foreground: 150 12% 95%;
+    --popover: 150 35% 5%;
+    --popover-foreground: 150 12% 95%;
+    --primary: 145 72% 42%;
+    --primary-foreground: 150 30% 98%;
+    --secondary: 150 25% 12%;
+    --secondary-foreground: 150 12% 90%;
+    --muted: 150 20% 10%;
+    --muted-foreground: 150 10% 72%;
+    --accent: 152 55% 26%;
+    --accent-foreground: 150 30% 98%;
     --destructive: 0 72% 55%;
-    --destructive-foreground: 270 20% 98%;
-    --border: 270 30% 15%;
-    --input: 270 30% 12%;
-    --ring: 268 100% 62%;
+    --destructive-foreground: 150 30% 98%;
+    --border: 150 20% 16%;
+    --input: 150 20% 13%;
+    --ring: 145 72% 42%;
     --radius: 0.75rem;
   }
 }
@@ -111,30 +111,30 @@
 
 @layer utilities {
   .gradient-text {
-    background: linear-gradient(135deg, #8b3dff 0%, #d4a5ff 50%, #5c27a3 100%);
+    background: linear-gradient(135deg, #1a8f4f 0%, #9af1be 50%, #0b4f28 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   .glass {
-    background: rgba(5, 1, 10, 0.65);
+    background: rgba(3, 8, 5, 0.65);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid rgba(139, 61, 255, 0.2);
+    border: 1px solid rgba(26, 143, 79, 0.2);
   }
   .glow-primary {
-    box-shadow: 0 0 40px -10px rgba(139, 61, 255, 0.6);
+    box-shadow: 0 0 40px -10px rgba(26, 143, 79, 0.6);
   }
   .noise-bg {
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(139, 61, 255, 0.18), transparent 50%),
-      radial-gradient(circle at 80% 30%, rgba(92, 39, 163, 0.15), transparent 55%),
-      radial-gradient(circle at 50% 90%, rgba(212, 165, 255, 0.08), transparent 60%);
+      radial-gradient(circle at 20% 20%, rgba(26, 143, 79, 0.18), transparent 50%),
+      radial-gradient(circle at 80% 30%, rgba(11, 79, 40, 0.15), transparent 55%),
+      radial-gradient(circle at 50% 90%, rgba(154, 241, 190, 0.08), transparent 60%);
   }
   .grid-bg {
     background-image:
-      linear-gradient(rgba(139, 61, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 61, 255, 0.06) 1px, transparent 1px);
+      linear-gradient(rgba(26, 143, 79, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 143, 79, 0.06) 1px, transparent 1px);
     background-size: 60px 60px;
   }
   /*
@@ -166,11 +166,11 @@
    */
   .hero-surface {
     min-height: 78vh;
-    background-color: #05010a;
+    background-color: #030805;
     background-image:
-      linear-gradient(180deg, rgba(26, 11, 46, 0.9) 0%, rgba(5, 1, 10, 0.98) 70%, hsl(270 60% 2%) 100%),
-      linear-gradient(rgba(139, 61, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 61, 255, 0.05) 1px, transparent 1px);
+      linear-gradient(180deg, rgba(6, 26, 15, 0.9) 0%, rgba(3, 8, 5, 0.98) 70%, hsl(150 45% 3%) 100%),
+      linear-gradient(rgba(26, 143, 79, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26, 143, 79, 0.05) 1px, transparent 1px);
     background-size: 100% 100%, 64px 64px, 64px 64px;
   }
   /*
@@ -194,10 +194,10 @@
     height: 28rem;
     background: radial-gradient(
       closest-side,
-      rgba(139, 61, 255, 0.3) 0%,
-      rgba(139, 61, 255, 0.22) 38%,
-      rgba(139, 61, 255, 0.09) 66%,
-      rgba(139, 61, 255, 0) 100%
+      rgba(26, 143, 79, 0.3) 0%,
+      rgba(26, 143, 79, 0.22) 38%,
+      rgba(26, 143, 79, 0.09) 66%,
+      rgba(26, 143, 79, 0) 100%
     );
   }
   .hero-glow-b {
@@ -207,10 +207,10 @@
     height: 24rem;
     background: radial-gradient(
       closest-side,
-      rgba(212, 111, 255, 0.2) 0%,
-      rgba(212, 111, 255, 0.14) 40%,
-      rgba(212, 111, 255, 0.06) 68%,
-      rgba(212, 111, 255, 0) 100%
+      rgba(52, 211, 117, 0.2) 0%,
+      rgba(52, 211, 117, 0.14) 40%,
+      rgba(52, 211, 117, 0.06) 68%,
+      rgba(52, 211, 117, 0) 100%
     );
   }
 }
@@ -306,6 +306,6 @@ img {
 
 /* Klavye odak görünürlüğü */
 :focus-visible {
-  outline: 2px solid hsl(268 100% 62%);
+  outline: 2px solid hsl(145 72% 42%);
   outline-offset: 2px;
 }
