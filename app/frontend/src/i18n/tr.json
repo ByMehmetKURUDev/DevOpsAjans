@@ -671,7 +671,8 @@
     "saved": "{{page}} sayfası kaydedildi.",
     "kesif": "Keşif Asistanı",
     "yatirim": "Yatırım Getirisi",
-    "mimari": "Sistem Mimarisi"
+    "mimari": "Sistem Mimarisi",
+    "sss": "Sıkça Sorulanlar"
   },
   "notify": {
     "bell": "Bildirimler",
@@ -872,6 +873,39 @@
       "m2": "Şema değişikliklerinin sürümlenmesi",
       "m3": "Sık okunan verinin önbelleğe alınması",
       "m4": "Düzenli yedekleme ve geri yükleme provası"
+    }
+  },
+  "sss": {
+    "sectionTag": "SIKÇA SORULANLAR",
+    "title": "Çalışmaya başlamadan önce",
+    "titleHighlight": "merak edilenler.",
+    "desc": "Kod mülkiyeti, süreç takibi ve destek hakkında en sık gelen sorular. Cevaplar kısa; ayrıntı gerekiyorsa konuşarak netleştiriyoruz.",
+    "kalanSoru": "Cevabını bulamadınız mı?",
+    "kalanSoruDesc": "Sorunuzu yazın, aynı gün dönüş yapayım.",
+    "cta": "Soru sor",
+    "s1": {
+      "soru": "Proje bitince kaynak kod ve mülkiyet kimde kalıyor?",
+      "cevap": "Tamamı sizde. Git deposu, veritabanı erişimleri, sunucu yetkileri ve dokümantasyon teslim ediliyor. Hiçbir bileşen bana bağlı kalmıyor; isterseniz çalışmaya başka bir ekiple devam edebilirsiniz."
+    },
+    "s2": {
+      "soru": "Geliştirme sürecini nasıl takip ederim?",
+      "cevap": "Projeniz için bir müşteri paneli açılıyor. Aşamalar, tamamlananlar ve sıradaki iş orada görünüyor; önemli gelişmelerde bildirim gidiyor. Çalışan sürümü kendi gözünüzle görmek için ayrı bir test adresi veriliyor."
+    },
+    "s3": {
+      "soru": "Mevcut sitemizi veya yazılımımızı devralabilir misiniz?",
+      "cevap": "Evet. Önce kodu ve altyapıyı inceleyip ne durumda olduğunu yazılı olarak paylaşıyorum — neyin düzeltilebileceğini, neyin yeniden yazılmasının daha ucuz olacağını görüyorsunuz. Kararı ondan sonra birlikte veriyoruz."
+    },
+    "s4": {
+      "soru": "Yayın sonrası bakım ve destek nasıl işliyor?",
+      "cevap": "Seçtiğiniz pakete göre değişiyor. Altyapı ve sistem yönetimi paketinde sunucu, güncelleme ve izleme tarafı bana ait; daha küçük paketlerde teslim sonrası destek saatlik olarak veriliyor. Hangi kapsamın size uygun olduğunu keşif görüşmesinde netleştiriyoruz."
+    },
+    "s5": {
+      "soru": "Bir proje ne kadar sürer?",
+      "cevap": "Kapsama bağlı, bu yüzden görüşmeden önce tarih vermiyorum. Keşif adımından sonra aşamalara bölünmüş yazılı bir plan çıkıyor ve süre orada netleşiyor. Plan değişirse sebebiyle birlikte size bildiriliyor."
+    },
+    "s6": {
+      "soru": "Ödeme nasıl ilerliyor?",
+      "cevap": "Aşamalara bölerek ilerliyoruz; her aşamanın çıktısı teslim edildikçe fatura kesiliyor. Faturalar müşteri panelinde görünüyor. Ödeme yöntemi ve takvim sözleşmede yazılı oluyor, sürpriz kalem çıkmıyor."
     }
   }
 }
