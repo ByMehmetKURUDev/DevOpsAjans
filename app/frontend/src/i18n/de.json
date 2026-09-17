@@ -431,8 +431,10 @@
     "timelineHint": "Streifen seitlich scrollen, um Jahre zu vergleichen.",
     "tabPages": "Website-Seiten",
     "tabNotify": "Benachrichtigungen",
-    "brandName": "By Mehmet KURU Dev",
-    "brandTagline": "Boutique-Entwicklung & Digitalagentur"
+    "brandTagline": "Full-stack & AI Systems",
+    "brandPrefix": "By Mehmet",
+    "brandHighlight": "KURU",
+    "brandSuffix": "Dev"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

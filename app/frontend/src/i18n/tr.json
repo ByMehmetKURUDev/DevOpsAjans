@@ -431,8 +431,10 @@
     "timelineHint": "Yılları yan yana görmek için şeridi yatay kaydırın.",
     "tabPages": "Site Sayfaları",
     "tabNotify": "Bildirimler",
-    "brandName": "By Mehmet KURU Dev",
-    "brandTagline": "Butik Geliştirme & Dijital Ajans"
+    "brandTagline": "Full-stack & AI Systems",
+    "brandPrefix": "By Mehmet",
+    "brandHighlight": "KURU",
+    "brandSuffix": "Dev"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

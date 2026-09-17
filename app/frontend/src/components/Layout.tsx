@@ -313,7 +313,7 @@ export default function Layout() {
               kaldırıldı — saydam görselin arkasında mor bir leke olarak
               görünüyorlardı. Künye doğrudan site zemininin üstünde duruyor.
             */}
-            <MarkaLogosu boyut={36} />
+            <MarkaLogosu />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
@@ -524,7 +524,7 @@ export default function Layout() {
       <footer className="border-t border-white/5 bg-background/60 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2 space-y-4">
-            <MarkaLogosu boyut={36} />
+            <MarkaLogosu />
             <p className="text-sm text-muted-foreground max-w-md">
               {t('footer.desc')}
             </p>
