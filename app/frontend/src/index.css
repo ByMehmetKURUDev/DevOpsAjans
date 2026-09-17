@@ -31,6 +31,10 @@
     --border: 150 20% 16%;
     --input: 150 20% 13%;
     --ring: 145 72% 42%;
+    /* Marka isaretinin orta dugumu. Tema disinda ayri tutuluyor ki
+       renk denemelerinde tek satirdan degistirilebilsin.
+       Yesil dalda mint; mor dalda pembe. */
+    --marka-ikinci: 158 64% 58%;
     --radius: 0.75rem;
   }
 }

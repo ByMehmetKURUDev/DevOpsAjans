@@ -26,6 +26,7 @@ export interface SectionDef {
 export const PAGE_SECTIONS: Record<string, SectionDef[]> = {
   home: [
     { key: 'hero', labelKey: 'pageSections.hero', locked: true },
+    { key: 'kesif', labelKey: 'pageSections.kesif' },
     { key: 'capabilities', labelKey: 'pageSections.capabilities' },
     { key: 'process', labelKey: 'pageSections.process' },
     { key: 'packages', labelKey: 'pageSections.packages' },

@@ -430,7 +430,9 @@
     "shareOther": "More",
     "timelineHint": "Scroll the strip sideways to compare years.",
     "tabPages": "Site Pages",
-    "tabNotify": "Notifications"
+    "tabNotify": "Notifications",
+    "brandName": "By Mehmet KURU Dev",
+    "brandTagline": "Boutique Development & Digital Agency"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -664,7 +666,8 @@
     "pickPage": "Pick a page",
     "pickLang": "Pick a language",
     "save": "Save page",
-    "saved": "{{page}} page saved."
+    "saved": "{{page}} page saved.",
+    "kesif": "Discovery Assistant"
   },
   "notify": {
     "bell": "Notifications",
@@ -742,5 +745,62 @@
     "colStatus": "Status",
     "colTo": "Recipient",
     "colDetail": "Detail"
+  },
+  "kesif": {
+    "sectionTag": "PROJECT DISCOVERY ASSISTANT",
+    "title": "Tell us what you need,",
+    "titleHighlight": "we'll shape the scope together.",
+    "desc": "No technical vocabulary required. Five short questions clarify what you need, then we suggest a fitting package and the next step.",
+    "fayda1": "Five steps, about two minutes.",
+    "fayda2": "Nothing is saved; your answers are sent only if you choose to.",
+    "fayda3": "You end up with a ready project summary and a package suggestion.",
+    "kartBaslik": "Project Discovery Assistant",
+    "adimEtiket": "{{adim}} / {{toplam}} · Let's pin down your needs",
+    "sonAdimEtiket": "Summary and suggestion",
+    "s1Baslik": "What is the project for?",
+    "s1Ornek": "E.g. I want a modern website that presents our services and collects quote requests.",
+    "hizliSecim": "Quick pick",
+    "s2Baslik": "Features you need",
+    "s2Yardim": "Pick as many as apply; leave empty if unsure.",
+    "s3Baslik": "Timeline",
+    "s4Baslik": "Budget range",
+    "s4Yardim": "A rough range is enough — it is not binding.",
+    "ozetEtiket": "What you told us",
+    "belirtilmedi": "Not specified",
+    "onerilen": "Suggested package",
+    "oneriNotu": "This suggestion is calculated from your answers; exact scope and price are settled in the call.",
+    "ozetBaslik": "Project discovery summary",
+    "aciklama": "Description",
+    "geri": "Back",
+    "devam": "Continue",
+    "bastanBasla": "Start over",
+    "teklifIste": "Request a quote",
+    "amac": {
+      "website": "A new website",
+      "eticaret": "E-commerce",
+      "saas": "Custom software / SaaS",
+      "mobil": "Mobile app",
+      "mevcut": "Improving an existing system"
+    },
+    "kapsam": {
+      "girisUyelik": "User accounts and sign-in",
+      "odeme": "Online payments",
+      "cokDil": "Multilingual content",
+      "yonetimPaneli": "Admin dashboard",
+      "entegrasyon": "Integration with other systems",
+      "seoReklam": "SEO and ad management"
+    },
+    "zaman": {
+      "acil": "Within a month",
+      "ceyrek": "One to three months",
+      "yarim": "Three to six months",
+      "esnek": "Flexible, no rush"
+    },
+    "butce": {
+      "baslangic": "Starter budget",
+      "orta": "Mid-sized",
+      "genis": "Comprehensive",
+      "belirsiz": "Not decided yet"
+    }
   }
 }

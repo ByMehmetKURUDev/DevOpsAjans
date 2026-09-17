@@ -430,7 +430,9 @@
     "shareOther": "Mehr",
     "timelineHint": "Streifen seitlich scrollen, um Jahre zu vergleichen.",
     "tabPages": "Website-Seiten",
-    "tabNotify": "Benachrichtigungen"
+    "tabNotify": "Benachrichtigungen",
+    "brandName": "By Mehmet KURU Dev",
+    "brandTagline": "Boutique-Entwicklung & Digitalagentur"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -664,7 +666,8 @@
     "pickPage": "Seite wählen",
     "pickLang": "Sprache wählen",
     "save": "Seite speichern",
-    "saved": "Seite {{page}} gespeichert."
+    "saved": "Seite {{page}} gespeichert.",
+    "kesif": "Discovery-Assistent"
   },
   "notify": {
     "bell": "Benachrichtigungen",
@@ -742,5 +745,62 @@
     "colStatus": "Status",
     "colTo": "Empfänger",
     "colDetail": "Detail"
+  },
+  "kesif": {
+    "sectionTag": "PROJEKT-DISCOVERY-ASSISTENT",
+    "title": "Sagen Sie uns, was Sie brauchen,",
+    "titleHighlight": "den Umfang klären wir gemeinsam.",
+    "desc": "Kein Fachjargon nötig. Fünf kurze Fragen klären Ihren Bedarf; danach schlagen wir ein passendes Paket und den nächsten Schritt vor.",
+    "fayda1": "Fünf Schritte, etwa zwei Minuten.",
+    "fayda2": "Es wird nichts gespeichert; Ihre Angaben gehen nur ab, wenn Sie es wollen.",
+    "fayda3": "Am Ende erhalten Sie eine fertige Projektzusammenfassung und einen Paketvorschlag.",
+    "kartBaslik": "Projekt-Discovery-Assistent",
+    "adimEtiket": "{{adim}} / {{toplam}} · Bedarf eingrenzen",
+    "sonAdimEtiket": "Zusammenfassung und Vorschlag",
+    "s1Baslik": "Wofür ist das Projekt?",
+    "s1Ornek": "Z. B. Ich möchte eine moderne Website, die unsere Leistungen zeigt und Angebotsanfragen sammelt.",
+    "hizliSecim": "Schnellauswahl",
+    "s2Baslik": "Benötigte Funktionen",
+    "s2Yardim": "Mehrfachauswahl möglich; im Zweifel leer lassen.",
+    "s3Baslik": "Zeitrahmen",
+    "s4Baslik": "Budgetrahmen",
+    "s4Yardim": "Eine ungefähre Spanne genügt, sie ist nicht bindend.",
+    "ozetEtiket": "Ihre Angaben",
+    "belirtilmedi": "Keine Angabe",
+    "onerilen": "Empfohlenes Paket",
+    "oneriNotu": "Der Vorschlag ergibt sich aus Ihren Antworten; genauer Umfang und Preis werden im Gespräch festgelegt.",
+    "ozetBaslik": "Projekt-Discovery-Zusammenfassung",
+    "aciklama": "Beschreibung",
+    "geri": "Zurück",
+    "devam": "Weiter",
+    "bastanBasla": "Neu beginnen",
+    "teklifIste": "Angebot anfordern",
+    "amac": {
+      "website": "Eine neue Website",
+      "eticaret": "E-Commerce",
+      "saas": "Individualsoftware / SaaS",
+      "mobil": "Mobile App",
+      "mevcut": "Bestehendes System verbessern"
+    },
+    "kapsam": {
+      "girisUyelik": "Benutzerkonten und Login",
+      "odeme": "Online-Zahlungen",
+      "cokDil": "Mehrsprachige Inhalte",
+      "yonetimPaneli": "Admin-Bereich",
+      "entegrasyon": "Anbindung an andere Systeme",
+      "seoReklam": "SEO und Anzeigenverwaltung"
+    },
+    "zaman": {
+      "acil": "Innerhalb eines Monats",
+      "ceyrek": "Ein bis drei Monate",
+      "yarim": "Drei bis sechs Monate",
+      "esnek": "Flexibel, keine Eile"
+    },
+    "butce": {
+      "baslangic": "Einstiegsbudget",
+      "orta": "Mittlerer Rahmen",
+      "genis": "Umfassend",
+      "belirsiz": "Noch offen"
+    }
   }
 }

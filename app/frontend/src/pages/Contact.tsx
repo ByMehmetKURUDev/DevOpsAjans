@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Mail, MapPin, MessageCircle, Send, Phone, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -17,12 +18,23 @@ export default function Contact() {
   const { t } = useTranslation();
   const { settings } = useSiteSettings();
   const whatsappNumber = (settings.whatsapp_number || '905412965878').replace(/\D/g, '');
+  /*
+   * Kesif Asistani'ndan gelindiyse hazirladigi ozet mesaj alanina dusuyor.
+   * Router state ile tasiniyor: adres cubuguna kisisel bilgi yazilmiyor ve
+   * ozet paylasilan bir baglantiyla baskasina gitmiyor.
+   */
+  const location = useLocation();
+  const kesifOzeti =
+    typeof (location.state as { kesifOzeti?: unknown } | null)?.kesifOzeti === 'string'
+      ? ((location.state as { kesifOzeti: string }).kesifOzeti)
+      : '';
+
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
     subject: '',
-    message: '',
+    message: kesifOzeti,
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);

@@ -7,6 +7,7 @@ import ScrollToTop from '@/components/ScrollToTop';
 import SocialLinks from '@/components/SocialLinks';
 import StoreBadges from '@/components/StoreBadges';
 import { client, oturumIziVarMi, oturumIziniTemizle, yetkisizHataMi } from '@/lib/sdkClient';
+import MarkaLogosu from '@/components/MarkaLogosu';
 import { useTranslation } from 'react-i18next';
 import {
   useSiteSettings,
@@ -312,19 +313,7 @@ export default function Layout() {
               kaldırıldı — saydam görselin arkasında mor bir leke olarak
               görünüyorlardı. Künye doğrudan site zemininin üstünde duruyor.
             */}
-            <div className="relative">
-              <img
-                src={logoSrc}
-                alt={t('ui.logoAlt')}
-                width={48}
-                height={48}
-                decoding="async"
-                className="relative h-12 w-12 object-contain transition-transform group-hover:scale-105"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.display = 'none';
-                }}
-              />
-            </div>
+            <MarkaLogosu boyut={36} />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
@@ -535,20 +524,7 @@ export default function Layout() {
       <footer className="border-t border-white/5 bg-background/60 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <img
-                src={logoSrc}
-                alt={t('ui.logoAlt')}
-                width={48}
-                height={48}
-                loading="lazy"
-                decoding="async"
-                className="h-12 w-12 object-contain"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.display = 'none';
-                }}
-              />
-            </div>
+            <MarkaLogosu boyut={36} />
             <p className="text-sm text-muted-foreground max-w-md">
               {t('footer.desc')}
             </p>
