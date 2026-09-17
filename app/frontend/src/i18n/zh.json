@@ -667,7 +667,8 @@
     "pickLang": "选择语言",
     "save": "保存页面",
     "saved": "已保存 {{page}} 页面。",
-    "kesif": "项目探索助手"
+    "kesif": "项目探索助手",
+    "yatirim": "投资回报"
   },
   "notify": {
     "bell": "通知",
@@ -802,5 +803,27 @@
       "genis": "全面覆盖",
       "belirsiz": "尚未确定"
     }
+  },
+  "yatirim": {
+    "sectionTag": "投资回报",
+    "title": "这会为你带来什么？",
+    "titleHighlight": "用你自己的数字算一算。",
+    "desc": "填入你的流量和转化率，再选择你预期的提升幅度。结果即时更新。",
+    "ziyaretci": "每月访客",
+    "kisi": "{{sayi}} 人",
+    "donusum": "当前转化率",
+    "sepet": "平均订单 / 客户价值",
+    "artis": "你预期的转化提升",
+    "artisNotu": "这个数字由你决定。速度与体验优化的效果在每个业务中都不同；我们不承诺兑现不了的比例。",
+    "sonucEtiket": "预估收益",
+    "aylikEk": "每月新增营收",
+    "mevcutCiro": "当前月营收",
+    "yeniCiro": "预估新营收",
+    "yillikEk": "每年新增营收",
+    "geriOdeme": "回本周期",
+    "ilkAy": "首月",
+    "ay": "{{sayi}} 个月",
+    "geriOdemeNotu": "回本周期按 SEO & Ads 方案每月 {{ucret}} 计算。数字源自你填写的假设，并非承诺。",
+    "cta": "聊聊这样的增长"
   }
 }
