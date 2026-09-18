@@ -1,3 +1,4 @@
+import { AI_MODELI } from '@/lib/aiModel';
 /**
  * Keşif Asistanı'nın yapay zekâ katmanı.
  *
@@ -31,7 +32,6 @@ export interface KesifAnalizi {
   adimlar: string[];
 }
 
-const MODEL = 'claude-sonnet-4.6';
 
 /** Modelden dönen metinden JSON bloğunu ayıklar (kod çiti gelirse de çalışır). */
 function jsonAyikla(metin: string): unknown {
@@ -93,7 +93,7 @@ export async function kesifAnaliziIste(
     headers: { 'content-type': 'application/json' },
     signal,
     body: JSON.stringify({
-      model: MODEL,
+      model: AI_MODELI,
       stream: false,
       temperature: 0.4,
       max_tokens: 700,

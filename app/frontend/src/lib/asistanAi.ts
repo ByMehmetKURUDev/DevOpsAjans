@@ -1,3 +1,5 @@
+import { AI_MODELI } from '@/lib/aiModel';
+
 /**
  * Site asistanının dil modeli katmanı.
  *
@@ -5,9 +7,6 @@
  * duruyor, tarayıcıya hiç inmiyor. AI yapılandırılmamışsa uç hata dönüyor
  * ve arayüz bunu açıkça gösteriyor — uydurma bir cevap üretmiyor.
  */
-
-/** Sağlayıcı değişirse tek satır: `kesifAi.ts` ile aynı model. */
-const MODEL = 'claude-sonnet-4.6';
 
 export interface Mesaj {
   rol: 'kullanici' | 'asistan';
@@ -44,7 +43,7 @@ export async function asistanaSor(
     headers: { 'content-type': 'application/json' },
     signal,
     body: JSON.stringify({
-      model: MODEL,
+      model: AI_MODELI,
       stream: false,
       temperature: 0.5,
       max_tokens: 500,
