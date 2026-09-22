@@ -119,6 +119,7 @@ export default function Layout() {
     { to: localizedPath(activeLang, 'home'), label: t('nav.home') },
     { to: localizedPath(activeLang, 'services'), label: t('nav.services') },
     { to: localizedPath(activeLang, 'portfolio'), label: t('nav.portfolio') },
+    { to: localizedPath(activeLang, 'marketplace'), label: t('nav.marketplace') },
     { to: BLOG_INDEX_ROUTE.routePath, label: t('nav.blog') },
     { to: localizedPath(activeLang, 'contact'), label: t('nav.contact') },
   ];

@@ -22,6 +22,7 @@ import {
   GitBranch,
   BellRing,
   Briefcase,
+  Boxes,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,6 +49,8 @@ import { SUPPORTED_LANGUAGES } from '@/i18n';
 
 // Analitik panosu recharts'a bağlı olduğu için yalnızca sekme açıldığında indirilir.
 const AnalyticsDashboard = lazy(() => import('@/components/AnalyticsDashboard'));
+// Marketplace yonetimi ayri bir parcada: sekme acilmadan indirilmiyor.
+const MarketplacePanel = lazy(() => import('@/components/admin/MarketplacePanel'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -132,6 +135,7 @@ interface Ticket {
 
 type Tab =
   | 'analytics'
+  | 'marketplace'
   | 'settings'
   | 'pages'
   | 'notify'
@@ -665,6 +669,7 @@ export default function AdminPanel() {
     { key: 'pages', label: t('ui.tabPages'), icon: LayoutList },
     { key: 'notify', label: t('ui.tabNotify'), icon: BellRing },
     { key: 'projects', label: t('ui.tabPortfolio'), icon: FolderKanban },
+    { key: 'marketplace', label: t('ui.tabMarketplace'), icon: Boxes },
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
@@ -709,6 +714,18 @@ export default function AdminPanel() {
           </button>
         ))}
       </div>
+
+      {tab === 'marketplace' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <MarketplacePanel />
+        </Suspense>
+      )}
 
       {tab === 'analytics' && (
         <Suspense

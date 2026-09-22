@@ -15,6 +15,7 @@ const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthError = lazy(() => import('./pages/AuthError'));
 const Services = lazy(() => import('./pages/Services'));
 const Portfolio = lazy(() => import('./pages/Portfolio'));
+const Marketplace = lazy(() => import('./pages/Marketplace'));
 const BlogIndexPage = lazy(() => import('./pages/blog/BlogIndexPage'));
 const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -37,6 +38,7 @@ const AppRoutes = () => (
         <Route path="/" element={<Index />} />
         <Route path="/services" element={<Services />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/contact" element={<Contact />} />
@@ -55,6 +57,7 @@ const AppRoutes = () => (
         <Route index element={<Index />} />
         <Route path="services" element={<Services />} />
         <Route path="portfolio" element={<Portfolio />} />
+        <Route path="marketplace" element={<Marketplace />} />
         <Route path="contact" element={<Contact />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

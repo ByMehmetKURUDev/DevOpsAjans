@@ -18,6 +18,7 @@ import LanguageGate from '../src/components/LanguageGate';
 import Index from '../src/pages/Index';
 import Services from '../src/pages/Services';
 import Portfolio from '../src/pages/Portfolio';
+import Marketplace from '../src/pages/Marketplace';
 import Contact from '../src/pages/Contact';
 import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
@@ -77,6 +78,7 @@ function renderApp(url) {
             h(Route, { path: '/', element: h(Index, null) }),
             h(Route, { path: '/services', element: h(Services, null) }),
             h(Route, { path: '/portfolio', element: h(Portfolio, null) }),
+            h(Route, { path: '/marketplace', element: h(Marketplace, null) }),
             h(Route, { path: '/contact', element: h(Contact, null) }),
             h(Route, { path: '/blog', element: h(BlogIndexPage, null) }),
             h(Route, { path: '/blog/:slug', element: h(BlogPostPage, null) }),
@@ -87,6 +89,7 @@ function renderApp(url) {
             h(Route, { index: true, element: h(Index, null) }),
             h(Route, { path: 'services', element: h(Services, null) }),
             h(Route, { path: 'portfolio', element: h(Portfolio, null) }),
+            h(Route, { path: 'marketplace', element: h(Marketplace, null) }),
             h(Route, { path: 'contact', element: h(Contact, null) }),
           ),
         ),
