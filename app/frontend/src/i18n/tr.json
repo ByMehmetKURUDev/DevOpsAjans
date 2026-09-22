@@ -555,7 +555,14 @@
     "inquiryConverted": "Talep proje formuna taşındı — kaydedince müşteriye davet gider.",
     "inquiryCloseFailed": "Proje açıldı ama talep kapatılamadı; elle işaretleyin.",
     "clientInvited": "Davet gönderildi: {{email}}",
-    "clientInviteFailed": "Proje açıldı ama davet e-postası gönderilemedi."
+    "clientInviteFailed": "Proje açıldı ama davet e-postası gönderilemedi.",
+    "inviteNotSentTitle": "Davet e-postası gönderilemedi",
+    "inviteNotSentDesc": "Proje açıldı, ama {{email}} adresine e-posta gitmedi (sunucuda e-posta sağlayıcısı tanımlı değil ya da gönderim başarısız oldu). Aşağıdaki metni kopyalayıp müşteriye kendiniz iletin — hangi adresle kaydolması gerektiği metinde yazıyor.",
+    "inviteCopy": "Metni kopyala",
+    "inviteCopied": "Davet metni panoya kopyalandı.",
+    "inviteCopyFailed": "Panoya kopyalanamadı; metni elle seçip kopyalayabilirsiniz.",
+    "inviteViaWhatsapp": "WhatsApp ile gönder",
+    "inviteViaMail": "E-posta uygulamasıyla gönder"
   },
   "footer": {
     "desc": "Cesur, yüksek performanslı yazılım ve unutulmaz markalar üreten butik bir geliştirme ve dijital ajans. Özel geliştirme, dijital pazarlama ve ürün tasarımı.",

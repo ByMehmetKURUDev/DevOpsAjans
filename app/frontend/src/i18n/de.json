@@ -555,7 +555,14 @@
     "inquiryConverted": "Anfrage ins Projektformular übernommen — beim Speichern geht die Einladung raus.",
     "inquiryCloseFailed": "Projekt angelegt, Anfrage konnte nicht geschlossen werden; bitte manuell markieren.",
     "clientInvited": "Einladung gesendet: {{email}}",
-    "clientInviteFailed": "Projekt angelegt, aber die Einladung konnte nicht gesendet werden."
+    "clientInviteFailed": "Projekt angelegt, aber die Einladung konnte nicht gesendet werden.",
+    "inviteNotSentTitle": "Einladungs-E-Mail wurde nicht gesendet",
+    "inviteNotSentDesc": "Das Projekt wurde angelegt, aber an {{email}} ging keine E-Mail (auf dem Server ist kein E-Mail-Anbieter eingerichtet, oder der Versand schlug fehl). Kopieren Sie den Text unten und senden Sie ihn selbst — darin steht, mit welcher Adresse sich die Kundin oder der Kunde registrieren muss.",
+    "inviteCopy": "Text kopieren",
+    "inviteCopied": "Einladungstext in die Zwischenablage kopiert.",
+    "inviteCopyFailed": "Kopieren nicht möglich; markieren Sie den Text bitte manuell.",
+    "inviteViaWhatsapp": "Per WhatsApp senden",
+    "inviteViaMail": "Mit E-Mail-Programm senden"
   },
   "footer": {
     "desc": "Eine Boutique-Entwicklungs- und Digitalagentur, die mutige, leistungsstarke Software und unvergessliche Marken erschafft. Individuelle Entwicklung, digitales Marketing und Produktdesign.",

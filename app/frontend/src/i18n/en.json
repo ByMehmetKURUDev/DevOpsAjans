@@ -555,7 +555,14 @@
     "inquiryConverted": "Inquiry moved into the project form — saving sends the client an invite.",
     "inquiryCloseFailed": "Project created but the inquiry couldn't be closed; mark it manually.",
     "clientInvited": "Invite sent: {{email}}",
-    "clientInviteFailed": "Project created but the invite email couldn't be sent."
+    "clientInviteFailed": "Project created but the invite email couldn't be sent.",
+    "inviteNotSentTitle": "Invitation e-mail was not sent",
+    "inviteNotSentDesc": "The project was created, but no e-mail reached {{email}} (no e-mail provider is configured on the server, or sending failed). Copy the text below and send it to the client yourself — it states which address they must register with.",
+    "inviteCopy": "Copy text",
+    "inviteCopied": "Invitation text copied to clipboard.",
+    "inviteCopyFailed": "Could not copy; select the text manually instead.",
+    "inviteViaWhatsapp": "Send via WhatsApp",
+    "inviteViaMail": "Send via mail app"
   },
   "footer": {
     "desc": "A boutique dev & digital agency crafting bold, high-performance software and unforgettable brands. Custom development, digital marketing, and product design.",

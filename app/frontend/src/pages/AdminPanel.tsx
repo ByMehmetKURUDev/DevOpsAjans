@@ -32,7 +32,7 @@ import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import NotificationCenter from '@/components/admin/NotificationCenter';
 import ProjectStageManager from '@/components/admin/ProjectStageManager';
 import { asamaAnahtari, useStageLabels, useStages } from '@/lib/projectEvents';
-import { musteriyiDavetEt } from '@/lib/musteriDaveti';
+import { musteriyiDavetEt, type DavetSonucu } from '@/lib/musteriDaveti';
 import { useTranslation } from 'react-i18next';
 import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import {
@@ -208,6 +208,12 @@ export default function AdminPanel() {
   const [stageProject, setStageProject] = useState<Project | null>(null);
   const stageLabel = useStageLabels();
   const asamaListesi = useStages();
+  // Davet e-postasi gitmediyse metni burada tutup yoneticiye elden
+  // gondermesi icin veriyoruz. Yoksa davet sessizce kaybolur ve musteri
+  // hangi adresle kaydolacagini hic ogrenemez.
+  const [davetYedegi, setDavetYedegi] = useState<
+    (DavetSonucu & { email: string }) | null
+  >(null);
   const [editPost, setEditPost] = useState<Partial<BlogPost> | null>(null);
   const [editInvoice, setEditInvoice] = useState<Partial<Invoice> | null>(null);
   const [replyTicket, setReplyTicket] = useState<Ticket | null>(null);
@@ -383,8 +389,19 @@ export default function AdminPanel() {
         }
         if (payload.client_email) {
           try {
-            await musteriyiDavetEt(payload.client_email, payload.client_name, payload.title);
-            toast.success(t('admin.clientInvited', { email: payload.client_email }));
+            const sonuc = await musteriyiDavetEt(
+              payload.client_email,
+              payload.client_name,
+              payload.title,
+            );
+            if (sonuc.epostaGitti) {
+              toast.success(t('admin.clientInvited', { email: payload.client_email }));
+            } else {
+              // Uc "ok" donse bile e-posta gitmemis olabilir (saglayici
+              // yapilandirilmamissa gonderim atlaniyor). Bunu basari gibi
+              // gostermek yerine metni yoneticiye veriyoruz.
+              setDavetYedegi({ ...sonuc, email: payload.client_email });
+            }
           } catch {
             toast.warning(t('admin.clientInviteFailed'));
           }
@@ -1946,6 +1963,77 @@ export default function AdminPanel() {
                 className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
               >
                 {t('admin.cancel')}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Davet e-postasi gitmediyse: metni elden gondermek icin */}
+      {davetYedegi && (
+        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+          <div className="relative w-full max-w-xl my-8 rounded-2xl glass p-8 border border-purple-500/30">
+            <button
+              className="absolute top-4 right-4 p-2 hover:bg-white/5 rounded-lg"
+              onClick={() => setDavetYedegi(null)}
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <h3 className="text-xl font-bold mb-2">{t('admin.inviteNotSentTitle')}</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              {t('admin.inviteNotSentDesc', { email: davetYedegi.email })}
+            </p>
+            {davetYedegi.epostaAyrinti && (
+              <p className="text-xs text-muted-foreground mb-4 font-mono break-words">
+                {davetYedegi.epostaAyrinti}
+              </p>
+            )}
+            <Textarea
+              readOnly
+              rows={10}
+              value={davetYedegi.metin}
+              className="bg-white/5 border-white/10 font-mono text-xs"
+            />
+            <div className="flex flex-wrap gap-3 mt-6">
+              <Button
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(davetYedegi.metin);
+                    toast.success(t('admin.inviteCopied'));
+                  } catch {
+                    // Panoya yazma izni yoksa metin zaten ekranda duruyor.
+                    toast.warning(t('admin.inviteCopyFailed'));
+                  }
+                }}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
+              >
+                {t('admin.inviteCopy')}
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
+              >
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(davetYedegi.metin)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('admin.inviteViaWhatsapp')}
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
+              >
+                <a
+                  href={`mailto:${encodeURIComponent(davetYedegi.email)}?subject=${encodeURIComponent(
+                    davetYedegi.baslik,
+                  )}&body=${encodeURIComponent(davetYedegi.metin)}`}
+                >
+                  {t('admin.inviteViaMail')}
+                </a>
               </Button>
             </div>
           </div>

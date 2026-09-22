@@ -555,7 +555,14 @@
     "inquiryConverted": "询单已填入项目表单——保存后会给客户发送邀请。",
     "inquiryCloseFailed": "项目已创建，但询单未能关闭，请手动标记。",
     "clientInvited": "邀请已发送：{{email}}",
-    "clientInviteFailed": "项目已创建，但邀请邮件未能发送。"
+    "clientInviteFailed": "项目已创建，但邀请邮件未能发送。",
+    "inviteNotSentTitle": "邀请邮件未发出",
+    "inviteNotSentDesc": "项目已创建，但邮件没有发送到 {{email}}（服务器未配置邮件服务商，或发送失败）。请复制下面的文本自行发给客户——其中写明了对方必须使用哪个邮箱注册。",
+    "inviteCopy": "复制文本",
+    "inviteCopied": "邀请文本已复制。",
+    "inviteCopyFailed": "无法复制，请手动选择文本。",
+    "inviteViaWhatsapp": "通过 WhatsApp 发送",
+    "inviteViaMail": "用邮件应用发送"
   },
   "footer": {
     "desc": "一家精品开发与数字代理机构，打造大胆、高性能的软件与令人难忘的品牌。定制开发、数字营销与产品设计。",

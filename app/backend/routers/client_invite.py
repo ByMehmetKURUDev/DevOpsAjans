@@ -51,6 +51,15 @@ class InviteRequest(BaseModel):
 class InviteResponse(BaseModel):
     ok: bool
     link: str
+    # E-posta gerçekten gitti mi? "sent" | "skipped" | "failed" | "off"
+    # Panel bunu görünce gerekirse daveti elden göndermeyi öneriyor;
+    # eskiden uç her hâlükârda ok:true dönüyordu ve e-posta altyapısı
+    # kurulu değilse davet sessizce kayboluyordu.
+    email_status: str = "unknown"
+    email_detail: str = ""
+    # Panelin kopyalayıp WhatsApp'tan gönderebilmesi için metnin kendisi.
+    subject: str = ""
+    message: str = ""
 
 
 @router.post("", response_model=InviteResponse)
@@ -89,7 +98,7 @@ async def invite_client(
         },
     )
 
-    await dispatch(
+    satirlar = await dispatch(
         db,
         event_type="client_invite",
         title=baslik,
@@ -98,4 +107,23 @@ async def invite_client(
         link=yol,
     )
 
-    return InviteResponse(ok=True, link=yol)
+    # dispatch kanal başına bir satır döndürüyor. E-posta satırı hiç yoksa
+    # kanal panelden kapatılmış demektir ("off"); varsa satırın kendi
+    # durumu ne diyorsa o. Bu bilgi panele taşınıyor çünkü "davet gitti"
+    # demek, gerçekten gittiğini bilmeden, en kötü yalan.
+    eposta_durumu = "off"
+    eposta_ayrinti = ""
+    for satir in satirlar:
+        if satir.channel == "email":
+            eposta_durumu = satir.delivery_status or "unknown"
+            eposta_ayrinti = satir.delivery_detail or ""
+            break
+
+    return InviteResponse(
+        ok=True,
+        link=yol,
+        email_status=eposta_durumu,
+        email_detail=eposta_ayrinti,
+        subject=baslik,
+        message=govde,
+    )
