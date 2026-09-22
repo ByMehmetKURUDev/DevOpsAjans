@@ -179,23 +179,32 @@ export default function Marketplace() {
                   )}
 
                   <div className="flex flex-1 flex-col p-6">
+                    {/*
+                      Rozet kendi satırında duruyor, başlığın yanında değil.
+                      Yanındayken uzun bir başlık ("Konfigüratörlü Ürün
+                      Sitesi") rozetin üstüne biniyor, kısa olanlar da dört
+                      satıra kırılıyordu: kart genişliği ikisine birden
+                      yetmiyor.
+                    */}
+                    {urun.badge && (
+                      <span className="mb-3 self-start rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                        {urun.badge}
+                      </span>
+                    )}
                     <div className="mb-3 flex items-start gap-3">
                       <span className="flex h-9 w-9 flex-none items-center justify-center rounded-xl bg-primary/15">
                         <Ikon className="h-4 w-4 text-primary" aria-hidden="true" />
                       </span>
                       <div className="min-w-0">
-                        <h2 className="text-lg font-bold leading-tight">{urun.title}</h2>
+                        <h2 className="text-lg font-bold leading-tight break-words">
+                          {urun.title}
+                        </h2>
                         {urun.category && (
                           <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
                             {t(kategoriEtiketi(urun.category), urun.category)}
                           </p>
                         )}
                       </div>
-                      {urun.badge && (
-                        <span className="ms-auto flex-none rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-                          {urun.badge}
-                        </span>
-                      )}
                     </div>
 
                     {urun.summary && (
