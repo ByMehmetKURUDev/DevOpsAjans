@@ -223,7 +223,8 @@
     "send": "发送消息",
     "sending": "正在发送...",
     "success": "已收到您的消息——我们会在 24 小时内联系您。",
-    "errorRequired": "请填写姓名、邮箱与留言内容。"
+    "errorRequired": "请填写姓名、邮箱与留言内容。",
+    "whatsappIntro": "你好，我从 mehmetkuru.dev 过来，想聊一个项目。"
   },
   "clientPanel": {
     "sectionTag": "客户面板",
@@ -434,7 +435,10 @@
     "brandTagline": "Full-stack & AI Systems",
     "brandPrefix": "By Mehmet",
     "brandHighlight": "KURU",
-    "brandSuffix": "Dev"
+    "brandSuffix": "Dev",
+    "emailMismatchTitle": "该账号下没有关联的内容",
+    "emailMismatchDesc": "面板按邮箱地址匹配记录。你当前以 {{email}} 登录。如果项目绑定的是另一个地址，这里就不会显示——给我们留言，我们来对齐。",
+    "emailMismatchCta": "联系我们"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -544,7 +548,14 @@
     "publishedProject": "发布到案例研究",
     "publishedBadge": "已发布",
     "draftBadge": "草稿",
-    "publishHint": "关闭时，项目仅在客户面板可见，不会出现在公开的案例研究页面。"
+    "publishHint": "关闭时，项目仅在客户面板可见，不会出现在公开的案例研究页面。",
+    "unknownStage": "无法识别",
+    "convertToProject": "转为项目",
+    "convertedLabel": "已转为项目",
+    "inquiryConverted": "询单已填入项目表单——保存后会给客户发送邀请。",
+    "inquiryCloseFailed": "项目已创建，但询单未能关闭，请手动标记。",
+    "clientInvited": "邀请已发送：{{email}}",
+    "clientInviteFailed": "项目已创建，但邀请邮件未能发送。"
   },
   "footer": {
     "desc": "一家精品开发与数字代理机构，打造大胆、高性能的软件与令人难忘的品牌。定制开发、数字营销与产品设计。",

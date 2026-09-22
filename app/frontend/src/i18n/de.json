@@ -223,7 +223,8 @@
     "send": "Nachricht senden",
     "sending": "Wird gesendet...",
     "success": "Nachricht erhalten — wir melden uns innerhalb von 24 Stunden.",
-    "errorRequired": "Bitte füllen Sie Name, E-Mail und Nachricht aus."
+    "errorRequired": "Bitte füllen Sie Name, E-Mail und Nachricht aus.",
+    "whatsappIntro": "Hallo, ich schreibe über mehmetkuru.dev. Ich möchte über ein Projekt sprechen."
   },
   "clientPanel": {
     "sectionTag": "Kunden-Panel",
@@ -434,7 +435,10 @@
     "brandTagline": "Full-stack & AI Systems",
     "brandPrefix": "By Mehmet",
     "brandHighlight": "KURU",
-    "brandSuffix": "Dev"
+    "brandSuffix": "Dev",
+    "emailMismatchTitle": "Diesem Konto ist nichts zugeordnet",
+    "emailMismatchDesc": "Der Bereich ordnet Einträge über die E-Mail-Adresse zu. Sie sind als {{email}} angemeldet. Hängt Ihr Projekt an einer anderen Adresse, erscheint es hier nicht — schreiben Sie uns, wir gleichen das ab.",
+    "emailMismatchCta": "Schreiben Sie uns"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -544,7 +548,14 @@
     "publishedProject": "In Fallstudien veröffentlichen",
     "publishedBadge": "Veröffentlicht",
     "draftBadge": "Entwurf",
-    "publishHint": "Solange deaktiviert, ist das Projekt nur im Kundenbereich sichtbar, nicht auf der öffentlichen Fallstudien-Seite."
+    "publishHint": "Solange deaktiviert, ist das Projekt nur im Kundenbereich sichtbar, nicht auf der öffentlichen Fallstudien-Seite.",
+    "unknownStage": "unbekannt",
+    "convertToProject": "In Projekt umwandeln",
+    "convertedLabel": "Umgewandelt",
+    "inquiryConverted": "Anfrage ins Projektformular übernommen — beim Speichern geht die Einladung raus.",
+    "inquiryCloseFailed": "Projekt angelegt, Anfrage konnte nicht geschlossen werden; bitte manuell markieren.",
+    "clientInvited": "Einladung gesendet: {{email}}",
+    "clientInviteFailed": "Projekt angelegt, aber die Einladung konnte nicht gesendet werden."
   },
   "footer": {
     "desc": "Eine Boutique-Entwicklungs- und Digitalagentur, die mutige, leistungsstarke Software und unvergessliche Marken erschafft. Individuelle Entwicklung, digitales Marketing und Produktdesign.",

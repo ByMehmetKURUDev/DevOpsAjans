@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Loader2,
@@ -368,6 +369,34 @@ export default function ClientPanel() {
         </div>
       ) : (
         <>
+          {/*
+            Hiçbir kaydı olmayan müşteriye sebebini söylüyoruz.
+            Panel kayıtları `client_email` ile eşleştiriyor; müşteri
+            projedekinden farklı bir adresle kaydolduysa üç sekme de boş
+            geliyor ve bunun sebebi ekranda hiçbir yerde yazmıyordu —
+            müşteri "panel çalışmıyor" diye arıyordu. Boş bir ekranın
+            "kaydınız yok" mu "yanlış hesap" mı demek olduğu belli olmalı.
+          */}
+          {projects.length === 0 && invoices.length === 0 && tickets.length === 0 && (
+            <div className="mb-6 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5">
+              <p className="text-sm font-medium text-amber-200">
+                {t('ui.emailMismatchTitle')}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-amber-200/80">
+                {t('ui.emailMismatchDesc', { email })}
+              </p>
+              <Link to="/contact" className="mt-4 inline-block">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="!bg-transparent border-amber-400/40 text-amber-100 hover:border-amber-300"
+                >
+                  {t('ui.emailMismatchCta')}
+                </Button>
+              </Link>
+            </div>
+          )}
+
           {tab === 'projects' && (
             <div className="grid gap-4">
               {projects.length === 0 ? (

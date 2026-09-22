@@ -103,7 +103,13 @@ export async function deleteProjectEvent(eventId: number): Promise<void> {
 let stageCache: Stage[] | null = null;
 let stagePromise: Promise<Stage[]> | null = null;
 
-export function useStageLabels(): (key: string | undefined) => string {
+/**
+ * Aşama listesini döndürür (arka uçtan, bir kez).
+ *
+ * Hem yönetici panelindeki aşama seçicisi hem etiket çevirici bunu
+ * kullanıyor; liste tek yerden geliyor, kopyası yok.
+ */
+export function useStages(): Stage[] {
   const [stages, setStages] = useState<Stage[]>(stageCache ?? []);
 
   useEffect(() => {
@@ -125,8 +131,57 @@ export function useStageLabels(): (key: string | undefined) => string {
     };
   }, []);
 
+  return stages;
+}
+
+/**
+ * Eski kayıtlardaki Türkçe aşama adlarını anahtara çevirir.
+ *
+ * Aşama alanı bir dönem serbest metindi ve yeni proje şablonu "Tasarım"
+ * ile başlıyordu. Arka uç ise anahtar bekliyor ("design"); eşleşmeyince
+ * aşama yöneticisi projenin nerede olduğunu gösteremiyordu.
+ *
+ * Veritabanını toptan güncellemek yerine okurken çeviriyoruz: eski
+ * kayıtlar da doğru görünüyor, yeni kayıtlar zaten anahtar yazıyor ve
+ * elle düzeltme gerekmiyor. Listede olmayan bir metin geldiğinde
+ * dokunmadan geçiyoruz — uydurma bir aşamaya oturtmak, yanlış yerde
+ * duran bir projeyi doğruymuş gibi göstermekten iyi değil.
+ */
+const ESKI_ASAMA_ADLARI: Record<string, string> = {
+  keşif: 'discovery',
+  kesif: 'discovery',
+  tasarım: 'design',
+  tasarim: 'design',
+  geliştirme: 'build',
+  gelistirme: 'build',
+  inceleme: 'review',
+  i̇nceleme: 'review',
+  yayın: 'launch',
+  yayin: 'launch',
+  'lansman sonrası': 'aftercare',
+  'lansman sonrasi': 'aftercare',
+};
+
+export function asamaAnahtari(deger: string | undefined): string {
+  if (!deger) return '';
+  const ham = deger.trim();
+  // Zaten anahtarsa dokunma.
+  if (/^[a-z_]+$/.test(ham)) return ham;
+  return ESKI_ASAMA_ADLARI[ham.toLocaleLowerCase('tr')] ?? ham;
+}
+
+/**
+ * Aşama anahtarını okunur etikete çevirir.
+ *
+ * Panellerde ham anahtar ("design") görünüyordu; müşteri bunu okumak
+ * zorunda değil.
+ */
+export function useStageLabels(): (key: string | undefined) => string {
+  const stages = useStages();
+
   return (key) => {
     if (!key) return '';
-    return stages.find((s) => s.key === key)?.label ?? key;
+    const anahtar = asamaAnahtari(key);
+    return stages.find((s) => s.key === anahtar)?.label ?? key;
   };
 }

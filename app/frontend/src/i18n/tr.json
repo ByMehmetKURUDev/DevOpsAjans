@@ -223,7 +223,8 @@
     "send": "Mesaj gönder",
     "sending": "Gönderiliyor...",
     "success": "Mesaj alındı — 24 saat içinde iletişime geçeceğiz.",
-    "errorRequired": "Lütfen isim, e-posta ve mesaj alanlarını doldurun."
+    "errorRequired": "Lütfen isim, e-posta ve mesaj alanlarını doldurun.",
+    "whatsappIntro": "Merhaba, mehmetkuru.dev üzerinden yazıyorum. Bir proje hakkında görüşmek istiyorum."
   },
   "clientPanel": {
     "sectionTag": "Müşteri Paneli",
@@ -434,7 +435,10 @@
     "brandTagline": "Full-stack & AI Systems",
     "brandPrefix": "By Mehmet",
     "brandHighlight": "KURU",
-    "brandSuffix": "Dev"
+    "brandSuffix": "Dev",
+    "emailMismatchTitle": "Bu hesapta kayıtlı bir şey görünmüyor",
+    "emailMismatchDesc": "Panel kayıtları e-posta adresinize göre eşleştiriyor. Şu an {{email}} adresiyle giriş yaptınız. Projeniz başka bir adrese bağlıysa burada görünmez — bu durumda bize yazın, adresi eşitleyelim.",
+    "emailMismatchCta": "Bize yazın"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -544,7 +548,14 @@
     "publishedProject": "Vaka çalışmalarında yayınla",
     "publishedBadge": "Yayında",
     "draftBadge": "Taslak",
-    "publishHint": "Kapalıyken proje yalnızca müşteri panelinde görünür; sitedeki Vaka Çalışmaları sayfasında görünmez."
+    "publishHint": "Kapalıyken proje yalnızca müşteri panelinde görünür; sitedeki Vaka Çalışmaları sayfasında görünmez.",
+    "unknownStage": "tanınmayan",
+    "convertToProject": "Projeye çevir",
+    "convertedLabel": "Projeye çevrildi",
+    "inquiryConverted": "Talep proje formuna taşındı — kaydedince müşteriye davet gider.",
+    "inquiryCloseFailed": "Proje açıldı ama talep kapatılamadı; elle işaretleyin.",
+    "clientInvited": "Davet gönderildi: {{email}}",
+    "clientInviteFailed": "Proje açıldı ama davet e-postası gönderilemedi."
   },
   "footer": {
     "desc": "Cesur, yüksek performanslı yazılım ve unutulmaz markalar üreten butik bir geliştirme ve dijital ajans. Özel geliştirme, dijital pazarlama ve ürün tasarımı.",

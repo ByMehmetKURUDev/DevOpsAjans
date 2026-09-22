@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
 import AsistanSohbeti from '@/components/AsistanSohbeti';
+import { kesifOzetiniOku } from '@/lib/kesifOzetiSaklama';
 import { Button } from '@/components/ui/button';
 import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -306,6 +307,23 @@ export default function Layout() {
   const isAdmin = isAdminUser(user, settings);
   const logoSrc = settings.brand_logo || '/assets/logo-mark-144.webp';
   const whatsappNumber = (settings.whatsapp_number || '905412965878').replace(/\D/g, '');
+
+  /*
+   * WhatsApp mesaji onceden dolu aciliyor.
+   *
+   * Bos bir sohbet penceresi acilinca ziyaretci ya "merhaba" yazip
+   * bekliyor ya da vazgeciyor; iki halde de ne istedigi belli olmuyor.
+   * Kesif Sihirbazi'ni doldurmussa ozet de ekleniyor, boylece anlattigini
+   * bastan yazmak zorunda kalmiyor.
+   */
+  const whatsappBaglantisi = (() => {
+    const ozet = kesifOzetiniOku();
+    const metin = ozet
+      ? `${t('contact.whatsappIntro')}\n\n${ozet}`
+      : t('contact.whatsappIntro');
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(metin)}`;
+  })();
+
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -613,7 +631,7 @@ export default function Layout() {
 
       {/* Floating WhatsApp */}
       <a
-        href={`https://wa.me/${whatsappNumber}`}
+        href={whatsappBaglantisi}
         target="_blank"
         rel="noreferrer"
         className={`fixed bottom-6 z-40 group ${isRtl ? 'left-6' : 'right-6'}`}

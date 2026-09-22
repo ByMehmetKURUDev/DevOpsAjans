@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight, Check, Compass, Loader2, RotateCcw, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { kesifAnaliziIste, type KesifAnalizi } from '@/lib/kesifAi';
+import { kesifOzetiniSakla } from '@/lib/kesifOzetiSaklama';
 
 /**
  * Proje Keşif Asistanı.
@@ -465,7 +466,12 @@ export default function KesifAsistani() {
                   </Button>
                   <Button
                     size="sm"
-                    onClick={() => navigate('/contact', { state: { kesifOzeti: ozetMetni() } })}
+                    onClick={() => {
+                      const ozet = ozetMetni();
+                      // WhatsApp balonu da okusun diye sekleme sakliyoruz.
+                      kesifOzetiniSakla(ozet);
+                      navigate('/contact', { state: { kesifOzeti: ozet } });
+                    }}
                     className="h-11 gap-2 border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500"
                   >
                     {t('kesif.teklifIste')}

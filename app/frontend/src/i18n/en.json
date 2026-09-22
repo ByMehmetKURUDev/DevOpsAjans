@@ -223,7 +223,8 @@
     "send": "Send message",
     "sending": "Sending...",
     "success": "Message received — we'll be in touch within 24 hours.",
-    "errorRequired": "Please fill in name, email, and message."
+    "errorRequired": "Please fill in name, email, and message.",
+    "whatsappIntro": "Hello, I'm writing from mehmetkuru.dev. I'd like to talk about a project."
   },
   "clientPanel": {
     "sectionTag": "Client Panel",
@@ -434,7 +435,10 @@
     "brandTagline": "Full-stack & AI Systems",
     "brandPrefix": "By Mehmet",
     "brandHighlight": "KURU",
-    "brandSuffix": "Dev"
+    "brandSuffix": "Dev",
+    "emailMismatchTitle": "Nothing is linked to this account",
+    "emailMismatchDesc": "The panel matches records by email address. You're signed in as {{email}}. If your project is linked to a different address it won't appear here — write to us and we'll line them up.",
+    "emailMismatchCta": "Contact us"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -544,7 +548,14 @@
     "publishedProject": "Publish in case studies",
     "publishedBadge": "Published",
     "draftBadge": "Draft",
-    "publishHint": "While off, the project is visible only in the client panel, not on the public case studies page."
+    "publishHint": "While off, the project is visible only in the client panel, not on the public case studies page.",
+    "unknownStage": "unrecognised",
+    "convertToProject": "Convert to project",
+    "convertedLabel": "Converted",
+    "inquiryConverted": "Inquiry moved into the project form — saving sends the client an invite.",
+    "inquiryCloseFailed": "Project created but the inquiry couldn't be closed; mark it manually.",
+    "clientInvited": "Invite sent: {{email}}",
+    "clientInviteFailed": "Project created but the invite email couldn't be sent."
   },
   "footer": {
     "desc": "A boutique dev & digital agency crafting bold, high-performance software and unforgettable brands. Custom development, digital marketing, and product design.",

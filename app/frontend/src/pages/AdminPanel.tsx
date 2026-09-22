@@ -21,6 +21,7 @@ import {
   LayoutList,
   GitBranch,
   BellRing,
+  Briefcase,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,7 +31,8 @@ import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import NotificationCenter from '@/components/admin/NotificationCenter';
 import ProjectStageManager from '@/components/admin/ProjectStageManager';
-import { useStageLabels } from '@/lib/projectEvents';
+import { asamaAnahtari, useStageLabels, useStages } from '@/lib/projectEvents';
+import { musteriyiDavetEt } from '@/lib/musteriDaveti';
 import { useTranslation } from 'react-i18next';
 import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import {
@@ -149,7 +151,7 @@ const emptyProject: Partial<Project> = {
   client_name: '',
   client_email: '',
   status: 'in_progress',
-  stage: 'Tasarım',
+  stage: 'discovery',
   progress: 0,
   tech_stack: '',
   featured: false,
@@ -205,6 +207,7 @@ export default function AdminPanel() {
   // Aşaması yönetilen proje; liste altında açılan panel.
   const [stageProject, setStageProject] = useState<Project | null>(null);
   const stageLabel = useStageLabels();
+  const asamaListesi = useStages();
   const [editPost, setEditPost] = useState<Partial<BlogPost> | null>(null);
   const [editInvoice, setEditInvoice] = useState<Partial<Invoice> | null>(null);
   const [replyTicket, setReplyTicket] = useState<Ticket | null>(null);
@@ -343,7 +346,7 @@ export default function AdminPanel() {
         client_name: editProject.client_name || '',
         client_email: (editProject.client_email || '').toLowerCase(),
         status: editProject.status || 'in_progress',
-        stage: editProject.stage || '',
+        stage: asamaAnahtari(editProject.stage),
         progress: Number(editProject.progress) || 0,
         tech_stack: editProject.tech_stack || '',
         featured: !!editProject.featured,
@@ -358,6 +361,34 @@ export default function AdminPanel() {
       } else {
         await client.entities.projects.create({ data: payload });
         toast.success(t('admin.projectCreated'));
+
+        /*
+         * Talepten geldiyse talebi kapat ve müşteriyi panele davet et.
+         *
+         * İkisi de proje kaydedildikten SONRA: proje oluşmadan talebi
+         * kapatmak, kayıt hata verirse talebi kaybetmek demek olurdu.
+         * Davet başarısız olursa yalnızca uyarı veriyoruz — proje zaten
+         * kaydedildi, onu geri almak daha kötü bir sonuç olur.
+         */
+        const talepId = (editProject as { kaynakTalepId?: string }).kaynakTalepId;
+        if (talepId) {
+          try {
+            await client.entities.inquiries.update({
+              id: talepId,
+              data: { status: 'converted' },
+            });
+          } catch {
+            toast.warning(t('admin.inquiryCloseFailed'));
+          }
+        }
+        if (payload.client_email) {
+          try {
+            await musteriyiDavetEt(payload.client_email, payload.client_name, payload.title);
+            toast.success(t('admin.clientInvited', { email: payload.client_email }));
+          } catch {
+            toast.warning(t('admin.clientInviteFailed'));
+          }
+        }
       }
       setEditProject(null);
       loadAll();
@@ -496,6 +527,35 @@ export default function AdminPanel() {
       const err = e as { message?: string };
       toast.error(err?.message || t('admin.replySendError'));
     }
+  };
+
+  /**
+   * Talebi projeye çevirir.
+   *
+   * Talepler sekmesi bir çıkmazdı: gelen müşteri bilgisi orada kalıyor,
+   * projeye elle yeniden yazılıyordu. Aradaki kopukluk yüzünden müşterinin
+   * yazdığı e-posta ile projeye girilen e-posta tutmayabiliyordu; tutmayınca
+   * müşteri panelinde hiçbir şey göremiyor.
+   *
+   * Kaydetmiyoruz, formu dolduruyoruz: yönetici başlığı ve kapsamı görüp
+   * düzeltsin. Talebin projeye bağlanması Kaydet'e basıldığında oluyor
+   * (`saveProject`), yarım kalan bir çevirim iz bırakmıyor.
+   */
+  const talebiProjeyeCevir = (inq: Inquiry) => {
+    setTab('projects');
+    setEditProject({
+      ...emptyProject,
+      title: inq.subject?.trim() || inq.name,
+      description: inq.message,
+      client_name: inq.name,
+      client_email: (inq.email || '').toLowerCase(),
+      // Yeni iş her zaman keşifle başlar.
+      stage: 'discovery',
+      status: 'planning',
+      // Hangi talepten geldiği Kaydet'te işaretlenecek.
+      kaynakTalepId: String(inq.id),
+    } as Partial<Project> & { kaynakTalepId: string });
+    toast.success(t('admin.inquiryConverted'));
   };
 
   const markInquiryResolved = async (inq: Inquiry) => {
@@ -870,7 +930,7 @@ export default function AdminPanel() {
                       projectId={Number(stageProject.id)}
                       projectTitle={stageProject.title}
                       clientEmail={stageProject.client_email}
-                      currentStage={stageProject.stage}
+                      currentStage={asamaAnahtari(stageProject.stage)}
                       adminName={user.name}
                       adminEmail={user.email}
                       onChanged={loadAll}
@@ -1179,12 +1239,18 @@ export default function AdminPanel() {
                           <h3 className="font-semibold">{inq.name}</h3>
                           <span
                             className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full ${
-                              inq.status === 'resolved'
-                                ? 'bg-emerald-500/15 text-emerald-300'
-                                : 'bg-pink-500/15 text-pink-300'
+                              inq.status === 'converted'
+                                ? 'bg-purple-500/15 text-purple-300'
+                                : inq.status === 'resolved'
+                                  ? 'bg-emerald-500/15 text-emerald-300'
+                                  : 'bg-pink-500/15 text-pink-300'
                             }`}
                           >
-                            {inq.status === 'resolved' ? t('admin.resolved') : t('admin.newLabel')}
+                            {inq.status === 'converted'
+                              ? t('admin.convertedLabel')
+                              : inq.status === 'resolved'
+                                ? t('admin.resolved')
+                                : t('admin.newLabel')}
                           </span>
                         </div>
                         <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
@@ -1204,7 +1270,22 @@ export default function AdminPanel() {
                           )}
                         </div>
                       </div>
-                      {inq.status !== 'resolved' && (
+                      {/*
+                        Çevrilmiş talepte "projeye çevir" göstermiyoruz:
+                        ikinci kez basmak aynı müşteri için ikinci bir proje
+                        açar ve panelinde iki kopya görünür.
+                      */}
+                      {inq.status !== 'converted' && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => talebiProjeyeCevir(inq)}
+                          className="gap-1 text-purple-300"
+                        >
+                          <Briefcase className="h-4 w-4" /> {t('admin.convertToProject')}
+                        </Button>
+                      )}
+                      {inq.status !== 'resolved' && inq.status !== 'converted' && (
                         <Button
                           size="sm"
                           variant="ghost"
@@ -1328,14 +1409,37 @@ export default function AdminPanel() {
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
                     {t('admin.stageLabel')}
                   </Label>
-                  <Input
-                    value={editProject.stage || ''}
-                    placeholder={t('admin.stagePlaceholder')}
+                  {/*
+                    Aşama serbest metindi; yazılan her şey kaydediliyordu.
+                    Arka uç anahtar bekliyor, o yüzden "Tasarım" gibi bir
+                    metin girilince aşama yöneticisi ve müşteri panelindeki
+                    ray projeyi hiçbir aşamaya oturtamıyordu. Artık liste
+                    arka uçtan geliyor, uydurma değer girilemiyor.
+                  */}
+                  <select
+                    value={asamaAnahtari(editProject.stage)}
                     onChange={(e) =>
                       setEditProject({ ...editProject, stage: e.target.value })
                     }
-                    className="bg-white/5 border-white/10"
-                  />
+                    className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm"
+                  >
+                    {asamaListesi.map((s) => (
+                      <option key={s.key} value={s.key} className="bg-[#150a2b]">
+                        {s.label}
+                      </option>
+                    ))}
+                    {/*
+                      Listede olmayan eski bir değer varsa görünür kalsın:
+                      sessizce başka bir aşamaya atlatmak, projenin nerede
+                      olduğu konusunda yanlış bilgi verir.
+                    */}
+                    {editProject.stage &&
+                      !asamaListesi.some((s) => s.key === asamaAnahtari(editProject.stage)) && (
+                        <option value={editProject.stage} className="bg-[#150a2b]">
+                          {editProject.stage} ({t('admin.unknownStage')})
+                        </option>
+                      )}
+                  </select>
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
