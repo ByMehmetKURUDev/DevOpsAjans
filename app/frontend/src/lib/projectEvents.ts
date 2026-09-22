@@ -31,12 +31,34 @@ const BASE = '/api/v1/entities/project_events';
  * Kodda iki yerde (panel ve sunucu) ayrı ayrı tanımlamak, birinin
  * değişip diğerinin kalmasıyla sonuçlanır. Tek kaynak sunucu.
  */
+/**
+ * Arka uçtaki aşama listesinin birebir kopyası.
+ *
+ * Normalde liste sunucudan geliyor; burası yalnızca istek düşerse
+ * devreye giriyor. Kopya tutmak hoşuma gitmiyor ama alternatifi daha
+ * kötü: liste boş kalınca yönetici panelindeki aşama seçicisi de boş
+ * kalıyor ve proje aşaması hiç değiştirilemiyor -- düzeltmeye
+ * çalıştığımız hatanın ta kendisi.
+ *
+ * Anahtarlar routers/project_events.py içindeki STAGES ile aynı olmak
+ * zorunda; etiketler oradaki STAGE_LABELS'tan alındı.
+ */
+export const VARSAYILAN_ASAMALAR: Stage[] = [
+  { key: 'discovery', label: 'Keşif', order: 0 },
+  { key: 'design', label: 'Tasarım', order: 1 },
+  { key: 'build', label: 'Geliştirme', order: 2 },
+  { key: 'review', label: 'İnceleme', order: 3 },
+  { key: 'launch', label: 'Yayın', order: 4 },
+  { key: 'aftercare', label: 'Lansman sonrası', order: 5 },
+];
+
 export async function fetchStages(): Promise<Stage[]> {
   const res = (await client.apiCall.invoke({
     method: 'GET',
     url: `${BASE}/stages`,
   })) as { data?: { stages?: Stage[] } };
-  return res?.data?.stages ?? [];
+  const liste = res?.data?.stages;
+  return liste && liste.length ? liste : VARSAYILAN_ASAMALAR;
 }
 
 export async function fetchProjectEvents(
@@ -110,7 +132,7 @@ let stagePromise: Promise<Stage[]> | null = null;
  * kullanıyor; liste tek yerden geliyor, kopyası yok.
  */
 export function useStages(): Stage[] {
-  const [stages, setStages] = useState<Stage[]>(stageCache ?? []);
+  const [stages, setStages] = useState<Stage[]>(stageCache ?? VARSAYILAN_ASAMALAR);
 
   useEffect(() => {
     if (stageCache) return;
@@ -121,7 +143,8 @@ export function useStages(): Stage[] {
           stageCache = liste;
           return liste;
         })
-        .catch(() => []);
+        // Sunucuya ulaşılamazsa yerel kopya: seçici boş kalmasın.
+        .catch(() => VARSAYILAN_ASAMALAR);
     let iptal = false;
     void stagePromise.then((liste) => {
       if (!iptal) setStages(liste);
