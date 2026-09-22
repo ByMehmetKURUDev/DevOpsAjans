@@ -634,7 +634,8 @@
     "fNotifySms": "短信通知 (1/0)",
     "fNotifyWhatsapp": "WhatsApp 通知 (1/0)",
     "fNotifyPhone": "管理员手机（短信/WhatsApp）",
-    "fWhatsappTemplate": "WhatsApp 模板名（Meta 审核通过）"
+    "fWhatsappTemplate": "WhatsApp 模板名（Meta 审核通过）",
+    "fMeetingLink": "会议链接（Google Meet / 预约）"
   },
   "tools": {
     "sectionTag": "使用的工具",
@@ -1021,6 +1022,13 @@
     "gonder": "发送",
     "yaziyor": "正在输入…",
     "hata": "现在无法回复。请通过联系页面留言，我会直接回复你。",
-    "uyari": "AI 的回答可能有误。价格与周期在沟通中确定。"
+    "uyari": "AI 的回答可能有误。价格与周期在沟通中确定。",
+    "kanallarBaslik": "直接联系",
+    "kanalWhatsapp": "WhatsApp",
+    "kanalTelefon": "致电",
+    "kanalSms": "短信",
+    "kanalEposta": "电子邮件",
+    "kanalToplanti": "预约会议",
+    "epostaKonu": "项目咨询"
   }
 }

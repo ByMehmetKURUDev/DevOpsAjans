@@ -2,14 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Bot, Loader2, Send, X } from 'lucide-react';
 
+import IletisimKanallari from '@/components/IletisimKanallari';
 import { asistanaSor, type Mesaj } from '@/lib/asistanAi';
 
 /**
  * "AI Asistan ile Konuş" — sağ alttaki tuş ve açılan sohbet paneli.
  *
  * Tuş prototipteki gibi: bot simgesi, yanında yanıp sönen nokta, yazı
- * mobilde gizleniyor. WhatsApp balonunun üstünde duruyor; ikisi de
- * erişilebilir kalsın diye alt alta.
+ * mobilde gizleniyor. Sağ altta TEK tuş var: eskiden bunun altında ayrı
+ * bir WhatsApp balonu duruyordu, iki balon hem mobilde yer kaplıyor hem
+ * de ziyaretçiye gereksiz bir seçim yaptırıyordu. WhatsApp artık panelin
+ * içindeki kanal satırında (IletisimKanallari).
  *
  * Cevaplar gerçek bir dil modelinden geliyor (`/api/v1/aihub/gentxt`).
  * AI yapılandırılmamışsa ya da ağ koparsa asistan uydurma bir cevap
@@ -93,13 +96,13 @@ export default function AsistanSohbeti() {
 
   return (
     <>
-      {/* Açma tuşu — WhatsApp balonunun üstünde */}
+      {/* Açma tuşu — sağ altta, tek başına */}
       <button
         type="button"
         onClick={() => setAcik((a) => !a)}
         aria-expanded={acik}
         aria-controls="asistan-paneli"
-        className="fixed bottom-24 end-6 z-40 group flex items-center gap-2.5 rounded-full bg-primary px-4 py-3 text-xs font-bold text-background shadow-[0_0_30px_rgb(var(--hero-a)/0.5)] transition-transform duration-300 hover:scale-105 active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
+        className="fixed bottom-6 end-6 z-40 group flex items-center gap-2.5 rounded-full bg-primary px-4 py-3 text-xs font-bold text-background shadow-[0_0_30px_rgb(var(--hero-a)/0.5)] transition-transform duration-300 hover:scale-105 active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
       >
         <span className="relative flex items-center justify-center">
           {acik ? (
@@ -123,7 +126,7 @@ export default function AsistanSohbeti() {
         <section
           id="asistan-paneli"
           aria-label={t('asistan.baslik')}
-          className="fixed bottom-40 end-4 z-40 flex max-h-[min(70vh,560px)] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-white/12 bg-background/95 shadow-2xl backdrop-blur-xl sm:end-6"
+          className="fixed bottom-24 end-4 z-40 flex max-h-[min(70vh,560px)] w-[min(24rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-2xl border border-white/12 bg-background/95 shadow-2xl backdrop-blur-xl sm:end-6"
         >
           <header className="flex items-start gap-3 border-b border-white/10 px-4 py-3">
             <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-xl bg-primary/15">
@@ -144,6 +147,9 @@ export default function AsistanSohbeti() {
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
           </header>
+
+          {/* Doğrudan iletişim: WhatsApp, arama, SMS, e-posta, toplantı */}
+          <IletisimKanallari />
 
           {/* Konuşma */}
           <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4" aria-live="polite">

@@ -634,7 +634,8 @@
     "fNotifySms": "SMS bildirimi (1/0)",
     "fNotifyWhatsapp": "WhatsApp bildirimi (1/0)",
     "fNotifyPhone": "Yönetici telefonu (SMS/WhatsApp için)",
-    "fWhatsappTemplate": "WhatsApp şablon adı (Meta onaylı)"
+    "fWhatsappTemplate": "WhatsApp şablon adı (Meta onaylı)",
+    "fMeetingLink": "Toplantı bağlantısı (Google Meet / randevu)"
   },
   "tools": {
     "sectionTag": "Kullanılan Araçlar",
@@ -1021,6 +1022,13 @@
     "gonder": "Gönder",
     "yaziyor": "Yazıyor…",
     "hata": "Şu an yanıt veremiyorum. İletişim sayfasından yazarsanız size doğrudan dönerim.",
-    "uyari": "Yapay zekâ yanıtları yanılabilir. Fiyat ve süre görüşmede netleşir."
+    "uyari": "Yapay zekâ yanıtları yanılabilir. Fiyat ve süre görüşmede netleşir.",
+    "kanallarBaslik": "Doğrudan iletişim",
+    "kanalWhatsapp": "WhatsApp",
+    "kanalTelefon": "Ara",
+    "kanalSms": "SMS",
+    "kanalEposta": "E-posta",
+    "kanalToplanti": "Toplantı ayarla",
+    "epostaKonu": "Proje hakkında görüşme talebi"
   }
 }

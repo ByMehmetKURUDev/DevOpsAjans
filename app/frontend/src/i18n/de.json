@@ -634,7 +634,8 @@
     "fNotifySms": "SMS (1/0)",
     "fNotifyWhatsapp": "WhatsApp (1/0)",
     "fNotifyPhone": "Admin-Telefon (SMS/WhatsApp)",
-    "fWhatsappTemplate": "WhatsApp-Vorlage (von Meta freigegeben)"
+    "fWhatsappTemplate": "WhatsApp-Vorlage (von Meta freigegeben)",
+    "fMeetingLink": "Meeting-Link (Google Meet / Terminbuchung)"
   },
   "tools": {
     "sectionTag": "Eingesetzte Werkzeuge",
@@ -1021,6 +1022,13 @@
     "gonder": "Senden",
     "yaziyor": "Schreibt…",
     "hata": "Ich kann gerade nicht antworten. Schreiben Sie über die Kontaktseite, ich melde mich direkt.",
-    "uyari": "KI-Antworten können falsch sein. Preis und Zeitrahmen werden im Gespräch festgelegt."
+    "uyari": "KI-Antworten können falsch sein. Preis und Zeitrahmen werden im Gespräch festgelegt.",
+    "kanallarBaslik": "Direkter Kontakt",
+    "kanalWhatsapp": "WhatsApp",
+    "kanalTelefon": "Anrufen",
+    "kanalSms": "SMS",
+    "kanalEposta": "E-Mail",
+    "kanalToplanti": "Termin buchen",
+    "epostaKonu": "Projektanfrage"
   }
 }

@@ -25,6 +25,10 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   contact_phone: '0541 296 58 78',
   contact_address: 'Sultan Selim Mah. Kağıthane / İstanbul',
   whatsapp_number: '905412965878',
+  // Randevu/Google Meet bağlantısı. Boşken asistan panelinde
+  // "Toplantı ayarla" tuşu hiç çıkmıyor — çalışmayan bir tuş
+  // göstermektense hiç göstermemek daha doğru.
+  meeting_link: '',
   app_store_url: '',
   google_play_url: '',
   social_facebook: '',
@@ -158,6 +162,7 @@ export const SETTING_GROUPS: {
       { key: 'contact_phone', label: 'settingsForm.fPhone' },
       { key: 'contact_address', label: 'settingsForm.fAddress', translatable: true },
       { key: 'whatsapp_number', label: 'settingsForm.fWhatsapp' },
+      { key: 'meeting_link', label: 'settingsForm.fMeetingLink' },
       { key: 'app_store_url', label: 'settingsForm.fAppStore' },
       { key: 'google_play_url', label: 'settingsForm.fGooglePlay' },
     ],

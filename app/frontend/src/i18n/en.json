@@ -634,7 +634,8 @@
     "fNotifySms": "SMS notifications (1/0)",
     "fNotifyWhatsapp": "WhatsApp notifications (1/0)",
     "fNotifyPhone": "Admin phone (for SMS/WhatsApp)",
-    "fWhatsappTemplate": "WhatsApp template name (Meta-approved)"
+    "fWhatsappTemplate": "WhatsApp template name (Meta-approved)",
+    "fMeetingLink": "Meeting link (Google Meet / booking)"
   },
   "tools": {
     "sectionTag": "Tools We Use",
@@ -1021,6 +1022,13 @@
     "gonder": "Send",
     "yaziyor": "Typing…",
     "hata": "I can't answer right now. Write via the contact page and I'll get back to you directly.",
-    "uyari": "AI answers can be wrong. Price and timeline are settled in the call."
+    "uyari": "AI answers can be wrong. Price and timeline are settled in the call.",
+    "kanallarBaslik": "Talk to a human",
+    "kanalWhatsapp": "WhatsApp",
+    "kanalTelefon": "Call",
+    "kanalSms": "SMS",
+    "kanalEposta": "E-mail",
+    "kanalToplanti": "Book a meeting",
+    "epostaKonu": "Project enquiry"
   }
 }

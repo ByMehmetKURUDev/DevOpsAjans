@@ -634,7 +634,8 @@
     "fNotifySms": "SMS सूचना (1/0)",
     "fNotifyWhatsapp": "WhatsApp सूचना (1/0)",
     "fNotifyPhone": "व्यवस्थापक फ़ोन (SMS/WhatsApp)",
-    "fWhatsappTemplate": "WhatsApp टेम्पलेट नाम (Meta स्वीकृत)"
+    "fWhatsappTemplate": "WhatsApp टेम्पलेट नाम (Meta स्वीकृत)",
+    "fMeetingLink": "मीटिंग लिंक (Google Meet / बुकिंग)"
   },
   "tools": {
     "sectionTag": "उपयोग किए गए उपकरण",
@@ -1021,6 +1022,13 @@
     "gonder": "भेजें",
     "yaziyor": "लिख रहे हैं…",
     "hata": "अभी उत्तर नहीं दे पा रहा। संपर्क पृष्ठ से लिखिए, मैं सीधे जवाब दूँगा।",
-    "uyari": "AI के उत्तर ग़लत हो सकते हैं। क़ीमत और अवधि बातचीत में तय होती है।"
+    "uyari": "AI के उत्तर ग़लत हो सकते हैं। क़ीमत और अवधि बातचीत में तय होती है।",
+    "kanallarBaslik": "सीधे संपर्क करें",
+    "kanalWhatsapp": "व्हाट्सऐप",
+    "kanalTelefon": "कॉल करें",
+    "kanalSms": "एसएमएस",
+    "kanalEposta": "ई-मेल",
+    "kanalToplanti": "मीटिंग बुक करें",
+    "epostaKonu": "प्रोजेक्ट पूछताछ"
   }
 }

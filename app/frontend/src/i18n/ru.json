@@ -634,7 +634,8 @@
     "fNotifySms": "SMS (1/0)",
     "fNotifyWhatsapp": "WhatsApp (1/0)",
     "fNotifyPhone": "Телефон администратора (SMS/WhatsApp)",
-    "fWhatsappTemplate": "Имя шаблона WhatsApp (одобрено Meta)"
+    "fWhatsappTemplate": "Имя шаблона WhatsApp (одобрено Meta)",
+    "fMeetingLink": "Ссылка на встречу (Google Meet / запись)"
   },
   "tools": {
     "sectionTag": "Используемые инструменты",
@@ -1021,6 +1022,13 @@
     "gonder": "Отправить",
     "yaziyor": "Печатает…",
     "hata": "Сейчас не могу ответить. Напишите со страницы контактов — отвечу лично.",
-    "uyari": "Ответы ИИ могут быть неточными. Цена и сроки определяются на созвоне."
+    "uyari": "Ответы ИИ могут быть неточными. Цена и сроки определяются на созвоне.",
+    "kanallarBaslik": "Связаться напрямую",
+    "kanalWhatsapp": "WhatsApp",
+    "kanalTelefon": "Позвонить",
+    "kanalSms": "SMS",
+    "kanalEposta": "E-mail",
+    "kanalToplanti": "Назначить встречу",
+    "epostaKonu": "Вопрос по проекту"
   }
 }
