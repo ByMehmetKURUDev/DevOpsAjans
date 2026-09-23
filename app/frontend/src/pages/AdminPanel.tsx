@@ -23,6 +23,7 @@ import {
   BellRing,
   Briefcase,
   Boxes,
+  CalendarDays,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -52,6 +53,9 @@ import { SUPPORTED_LANGUAGES } from '@/i18n';
 const AnalyticsDashboard = lazy(() => import('@/components/AnalyticsDashboard'));
 // Marketplace yonetimi ayri bir parcada: sekme acilmadan indirilmiyor.
 const MarketplacePanel = lazy(() => import('@/components/admin/MarketplacePanel'));
+// Icerik takvimi de ayri parcada: AI katmani ve form yalnizca sekme
+// acilinca iniyor.
+const IcerikPlani = lazy(() => import('@/components/admin/IcerikPlani'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -137,6 +141,7 @@ interface Ticket {
 type Tab =
   | 'analytics'
   | 'marketplace'
+  | 'icerik'
   | 'settings'
   | 'pages'
   | 'notify'
@@ -671,6 +676,7 @@ export default function AdminPanel() {
     { key: 'notify', label: t('ui.tabNotify'), icon: BellRing },
     { key: 'projects', label: t('ui.tabPortfolio'), icon: FolderKanban },
     { key: 'marketplace', label: t('ui.tabMarketplace'), icon: Boxes },
+    { key: 'icerik', label: t('ui.tabIcerik'), icon: CalendarDays },
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
@@ -715,6 +721,18 @@ export default function AdminPanel() {
           </button>
         ))}
       </div>
+
+      {tab === 'icerik' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <IcerikPlani />
+        </Suspense>
+      )}
 
       {tab === 'marketplace' && (
         <Suspense
