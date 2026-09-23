@@ -31,6 +31,8 @@ class InquiriesData(BaseModel):
     message: str
     status: str = None
     source: str = None
+    # Panelde uretilen uzman promptlari (JSON metni).
+    brief: str = None
 
 
 class InquiriesUpdateData(BaseModel):
@@ -42,6 +44,7 @@ class InquiriesUpdateData(BaseModel):
     message: Optional[str] = None
     status: Optional[str] = None
     source: Optional[str] = None
+    brief: Optional[str] = None
 
 
 class InquiriesResponse(BaseModel):
@@ -54,6 +57,7 @@ class InquiriesResponse(BaseModel):
     message: str
     status: Optional[str] = None
     source: Optional[str] = None
+    brief: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
