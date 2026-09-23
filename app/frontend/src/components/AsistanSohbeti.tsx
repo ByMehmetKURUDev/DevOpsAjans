@@ -102,6 +102,14 @@ export default function AsistanSohbeti() {
         onClick={() => setAcik((a) => !a)}
         aria-expanded={acik}
         aria-controls="asistan-paneli"
+        /*
+          Yazı `sm` altında gizleniyor; mobilde tuşun içinde yalnızca
+          aria-hidden bir ikon kalıyordu, yani ERİŞİLEBİLİR ADI YOKTU.
+          Ekran okuyucu kullanan bir ziyaretçi telefonda tuşun ne
+          yaptığını duyamıyordu (Lighthouse mobil erişilebilirlik 95).
+          Görünen yazı olsun olmasın ad burada duruyor.
+        */
+        aria-label={acik ? t('asistan.kapat') : t('asistan.ac')}
         className="fixed bottom-6 end-6 z-40 group flex items-center gap-2.5 rounded-full bg-primary px-4 py-3 text-xs font-bold text-background shadow-[0_0_30px_rgb(var(--hero-a)/0.5)] transition-transform duration-300 hover:scale-105 active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
       >
         <span className="relative flex items-center justify-center">
