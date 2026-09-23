@@ -115,6 +115,8 @@ interface Inquiry {
   status?: string;
   /** Talep nereden geldi: iletisim-formu | kesif-sihirbazi | marketplace: <urun> */
   source?: string;
+  /** Uretilen uzman promptlari (JSON metni); uretilmediyse bos. */
+  brief?: string | null;
   created_at?: string;
 }
 
@@ -1417,7 +1419,8 @@ export default function AdminPanel() {
                           onClick={() => setPromptTalebi(inq)}
                           className="gap-1 text-purple-300"
                         >
-                          <Sparkles className="h-4 w-4" /> {t('uzman.dugme')}
+                          <Sparkles className="h-4 w-4" />
+                          {t(inq.brief ? 'uzman.dugmeHazir' : 'uzman.dugme')}
                         </Button>
                         {inq.status !== 'converted' && (
                           <Button
@@ -2099,9 +2102,12 @@ export default function AdminPanel() {
 
       {promptTalebi && (
         <UzmanPromptlari
+          talepId={promptTalebi.id}
           musteri={promptTalebi.name}
           konu={promptTalebi.subject || ''}
           mesaj={promptTalebi.message}
+          kayitliBrief={promptTalebi.brief}
+          onSaved={loadAll}
           onClose={() => setPromptTalebi(null)}
         />
       )}

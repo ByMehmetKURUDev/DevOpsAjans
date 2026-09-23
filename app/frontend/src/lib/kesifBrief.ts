@@ -90,6 +90,50 @@ export function metindenTahmin(metin: string): Partial<BriefGirdisi> {
   return { amac, kapsam, zaman };
 }
 
+/**
+ * Talep kaydında saklanan hâli: seçimler + üretilen metin birlikte.
+ *
+ * Seçimleri de saklıyoruz; brief'i tekrar açan kişi hangi varsayımlarla
+ * üretildiğini görebilsin, gerekirse bir seçimi düzeltip yeniden üretsin.
+ */
+export interface SaklananBrief {
+  girdi: BriefGirdisi;
+  brief: Brief;
+  tarih: string;
+}
+
+/** Talepteki `brief` sütununu okur; bozuksa yok sayar. */
+export function saklananiCoz(ham?: string | null): SaklananBrief | null {
+  if (!ham) return null;
+  try {
+    const v = JSON.parse(ham) as Partial<SaklananBrief>;
+    if (!v.brief || !Array.isArray(v.brief.roller) || !v.girdi) return null;
+    return { girdi: v.girdi, brief: v.brief, tarih: v.tarih || '' };
+  } catch {
+    // Elle düzenlenmiş ya da eski biçimdeki içeriği sessizce yok sayıyoruz:
+    // brief kaybolmuş olur, panel çalışmaya devam eder.
+    return null;
+  }
+}
+
+/** Üretilen brief'i talep kaydına yazar. Hata yutuluyor — kayıt zorunlu değil. */
+export async function briefiSakla(
+  talepId: number | string,
+  girdi: BriefGirdisi,
+  brief: Brief,
+): Promise<boolean> {
+  try {
+    const paket: SaklananBrief = { girdi, brief, tarih: new Date().toISOString() };
+    await client.entities.inquiries.update({
+      id: String(talepId),
+      data: { brief: JSON.stringify(paket) },
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function briefUret(girdi: BriefGirdisi): Promise<Brief> {
   const yanit = (await client.apiCall.invoke({
     method: 'POST',

@@ -1277,6 +1277,10 @@
     "kopyalandi": "Kopyalandı",
     "kopyaHatasi": "Panoya kopyalanamadı; metni elle seçebilirsiniz.",
     "hata": "Promptlar üretilemedi.",
-    "kapat": "Kapat"
+    "kapat": "Kapat",
+    "dugmeHazir": "Uzman promptları (hazır)",
+    "yenidenUret": "Yeniden üret",
+    "kayitli": "Bu brief {{tarih}} tarihinde üretilip talebe kaydedildi.",
+    "kaydedilemedi": "Promptlar üretildi ama talebe kaydedilemedi; pencereyi kapatırsanız kaybolur."
   }
 }

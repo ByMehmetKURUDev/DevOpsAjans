@@ -214,6 +214,14 @@ class DatabaseManager:
             "tur_pg": "VARCHAR",
             "tur_sqlite": "TEXT",
         },
+        {
+            # Panelde uretilen uzman promptlari (JSON metni). Eski
+            # taleplerde NULL; brief istendiginde uretilip yaziliyor.
+            "tablo": "inquiries",
+            "sutun": "brief",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

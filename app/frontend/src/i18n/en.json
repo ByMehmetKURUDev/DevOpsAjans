@@ -1276,6 +1276,10 @@
     "kopyalandi": "Copied",
     "kopyaHatasi": "Could not copy; you can select the text manually.",
     "hata": "Could not generate the prompts.",
-    "kapat": "Close"
+    "kapat": "Close",
+    "dugmeHazir": "Expert prompts (ready)",
+    "yenidenUret": "Regenerate",
+    "kayitli": "This brief was generated on {{tarih}} and saved to the request.",
+    "kaydedilemedi": "The prompts were generated but could not be saved to the request; closing this window loses them."
   }
 }

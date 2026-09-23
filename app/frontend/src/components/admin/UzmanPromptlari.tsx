@@ -11,7 +11,9 @@ import {
   KAPSAM_SECENEKLERI,
   ZAMAN_SECENEKLERI,
   briefUret,
+  briefiSakla,
   metindenTahmin,
+  saklananiCoz,
   type Brief,
 } from '@/lib/kesifBrief';
 
@@ -28,22 +30,44 @@ import {
  */
 
 interface Props {
+  talepId: number | string;
   musteri: string;
   konu: string;
   mesaj: string;
+  /** Talep kaydındaki `brief` sütunu; daha önce üretildiyse dolu. */
+  kayitliBrief?: string | null;
+  /** Kaydetme başarılıysa listeyi tazelemek için. */
+  onSaved?: () => void;
   onClose: () => void;
 }
 
-export default function UzmanPromptlari({ musteri, konu, mesaj, onClose }: Props) {
+export default function UzmanPromptlari({
+  talepId,
+  musteri,
+  konu,
+  mesaj,
+  kayitliBrief,
+  onSaved,
+  onClose,
+}: Props) {
   const { t } = useTranslation();
   const tahmin = useMemo(() => metindenTahmin(mesaj), [mesaj]);
+  /*
+   * Daha önce üretilmişse onu aç.
+   *
+   * Brief yalnızca ekranda dursaydı her açılışta yeniden üretilirdi ve
+   * yönetici hangi seçimlerle üretildiğini hatırlamak zorunda kalırdı.
+   * Kayıt talebin kendi satırında duruyor, yani projeye çevrilse de
+   * kayboluyor değil.
+   */
+  const onceki = useMemo(() => saklananiCoz(kayitliBrief), [kayitliBrief]);
 
-  const [amac, setAmac] = useState(tahmin.amac || '');
-  const [kapsam, setKapsam] = useState<string[]>(tahmin.kapsam || []);
-  const [zaman, setZaman] = useState(tahmin.zaman || '');
-  const [butce, setButce] = useState('');
+  const [amac, setAmac] = useState(onceki?.girdi.amac || tahmin.amac || '');
+  const [kapsam, setKapsam] = useState<string[]>(onceki?.girdi.kapsam || tahmin.kapsam || []);
+  const [zaman, setZaman] = useState(onceki?.girdi.zaman || tahmin.zaman || '');
+  const [butce, setButce] = useState(onceki?.girdi.butce || '');
   const [yukleniyor, setYukleniyor] = useState(false);
-  const [brief, setBrief] = useState<Brief | null>(null);
+  const [brief, setBrief] = useState<Brief | null>(onceki?.brief || null);
   const [secili, setSecili] = useState('zincir');
   const [kopyalanan, setKopyalanan] = useState('');
 
@@ -58,18 +82,26 @@ export default function UzmanPromptlari({ musteri, konu, mesaj, onClose }: Props
 
   const uret = async () => {
     setYukleniyor(true);
+    const girdi = {
+      amac,
+      serbest: mesaj,
+      kapsam,
+      zaman,
+      butce,
+      musteri,
+      proje: konu,
+    };
     try {
-      const sonuc = await briefUret({
-        amac,
-        serbest: mesaj,
-        kapsam,
-        zaman,
-        butce,
-        musteri,
-        proje: konu,
-      });
+      const sonuc = await briefUret(girdi);
       setBrief(sonuc);
       setSecili('zincir');
+
+      // Kayıt ayrı bir adım: üretim başarılı olsa da kayıt başarısız
+      // olabilir (yetki, ağ). O durumda metin ekranda duruyor, yalnızca
+      // kalıcı olmuyor — bunu sessiz geçmiyoruz.
+      const kaydedildi = await briefiSakla(talepId, girdi, sonuc);
+      if (kaydedildi) onSaved?.();
+      else toast.warning(t('uzman.kaydedilemedi'));
     } catch {
       toast.error(t('uzman.hata'));
     } finally {
@@ -186,9 +218,17 @@ export default function UzmanPromptlari({ musteri, konu, mesaj, onClose }: Props
               {t('uzman.uretiliyor')}
             </>
           ) : (
-            t('uzman.uret')
+            t(brief ? 'uzman.yenidenUret' : 'uzman.uret')
           )}
         </Button>
+
+        {onceki?.tarih && (
+          <p className="mt-2 text-xs text-muted-foreground">
+            {t('uzman.kayitli', {
+              tarih: new Date(onceki.tarih).toLocaleString('tr-TR'),
+            })}
+          </p>
+        )}
 
         {brief && (
           <div className="mt-6">
