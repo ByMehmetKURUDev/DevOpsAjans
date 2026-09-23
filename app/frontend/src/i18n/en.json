@@ -701,7 +701,8 @@
     "yatirim": "Return on Investment",
     "mimari": "System Architecture",
     "sss": "FAQ",
-    "panel": "Client panel preview"
+    "panel": "Client panel preview",
+    "playground": "Code sandbox"
   },
   "notify": {
     "bell": "Notifications",
@@ -1191,5 +1192,16 @@
     "kabul": "Accept",
     "reddet": "Decline",
     "tercihler": "Cookie preferences"
+  },
+  "playground": {
+    "etiket": "Live sandbox",
+    "baslik": "Try the code",
+    "baslikVurgu": "right here.",
+    "aciklama": "Type on the left, watch it run on the right. HTML, CSS and JavaScript together.",
+    "kod": "Code",
+    "sonuc": "Result",
+    "calistir": "Run",
+    "sifirla": "Reset",
+    "not": "The code runs only in your browser, inside an isolated frame; nothing is sent anywhere or stored."
   }
 }

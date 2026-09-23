@@ -34,6 +34,7 @@ export const PAGE_SECTIONS: Record<string, SectionDef[]> = {
     { key: 'packages', labelKey: 'pageSections.packages' },
     { key: 'yatirim', labelKey: 'pageSections.yatirim' },
     { key: 'tech', labelKey: 'pageSections.tech' },
+    { key: 'playground', labelKey: 'pageSections.playground' },
     { key: 'caseCategories', labelKey: 'pageSections.caseCategories' },
     { key: 'testimonials', labelKey: 'pageSections.testimonials' },
     { key: 'sss', labelKey: 'pageSections.sss' },

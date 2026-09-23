@@ -701,7 +701,8 @@
     "yatirim": "Kapitalrendite",
     "mimari": "Systemarchitektur",
     "sss": "Häufige Fragen",
-    "panel": "Vorschau Kundenbereich"
+    "panel": "Vorschau Kundenbereich",
+    "playground": "Code-Sandbox"
   },
   "notify": {
     "bell": "Benachrichtigungen",
@@ -1191,5 +1192,16 @@
     "kabul": "Akzeptieren",
     "reddet": "Ablehnen",
     "tercihler": "Cookie-Einstellungen"
+  },
+  "playground": {
+    "etiket": "Live-Sandbox",
+    "baslik": "Probieren Sie den Code",
+    "baslikVurgu": "direkt hier.",
+    "aciklama": "Links tippen, rechts sofort ausführen. HTML, CSS und JavaScript zusammen.",
+    "kod": "Code",
+    "sonuc": "Ergebnis",
+    "calistir": "Ausführen",
+    "sifirla": "Zurücksetzen",
+    "not": "Der Code läuft nur in Ihrem Browser in einem isolierten Frame; nichts wird gesendet oder gespeichert."
   }
 }

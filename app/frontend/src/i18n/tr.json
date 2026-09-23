@@ -701,7 +701,8 @@
     "yatirim": "Yatırım Getirisi",
     "mimari": "Sistem Mimarisi",
     "sss": "Sıkça Sorulanlar",
-    "panel": "Müşteri paneli önizlemesi"
+    "panel": "Müşteri paneli önizlemesi",
+    "playground": "Kod deneme alanı"
   },
   "notify": {
     "bell": "Bildirimler",
@@ -1192,5 +1193,16 @@
     "kabul": "Kabul et",
     "reddet": "Reddet",
     "tercihler": "Çerez tercihleri"
+  },
+  "playground": {
+    "etiket": "Canlı deneme",
+    "baslik": "Kodu",
+    "baslikVurgu": "burada deneyin.",
+    "aciklama": "Soldaki kutuya yazın, sağda anında çalışsın. HTML, CSS ve JavaScript birlikte.",
+    "kod": "Kod",
+    "sonuc": "Sonuç",
+    "calistir": "Çalıştır",
+    "sifirla": "Sıfırla",
+    "not": "Kod yalnızca tarayıcınızda, yalıtılmış bir çerçevede çalışır; hiçbir yere gönderilmez ve kaydedilmez."
   }
 }

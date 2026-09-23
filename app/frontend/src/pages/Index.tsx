@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import KesifAsistani from '@/components/KesifAsistani';
 import MimariKatmanlari from '@/components/MimariKatmanlari';
 import MusteriPaneliOnizleme from '@/components/MusteriPaneliOnizleme';
+import KodDenemeAlani from '@/components/KodDenemeAlani';
 import PricingPlans from '@/components/PricingPlans';
 import SikSorulanlar from '@/components/SikSorulanlar';
 import YatirimHesaplayici from '@/components/YatirimHesaplayici';
@@ -295,6 +296,8 @@ export default function Index() {
     mimari: <MimariKatmanlari />,
 
     panel: <MusteriPaneliOnizleme />,
+
+    playground: <KodDenemeAlani />,
 
     packages: (
       <>

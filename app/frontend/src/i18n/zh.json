@@ -701,7 +701,8 @@
     "yatirim": "投资回报",
     "mimari": "系统架构",
     "sss": "常见问题",
-    "panel": "客户面板预览"
+    "panel": "客户面板预览",
+    "playground": "代码沙盒"
   },
   "notify": {
     "bell": "通知",
@@ -1191,5 +1192,16 @@
     "kabul": "接受",
     "reddet": "拒绝",
     "tercihler": "Cookie 设置"
+  },
+  "playground": {
+    "etiket": "在线沙盒",
+    "baslik": "在这里",
+    "baslikVurgu": "试写代码。",
+    "aciklama": "在左边输入，右边即时运行。HTML、CSS 与 JavaScript 一起。",
+    "kod": "代码",
+    "sonuc": "结果",
+    "calistir": "运行",
+    "sifirla": "重置",
+    "not": "代码只在你的浏览器中、于隔离框架内运行；不会发送到任何地方，也不会被保存。"
   }
 }
