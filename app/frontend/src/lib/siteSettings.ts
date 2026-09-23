@@ -31,6 +31,12 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   meeting_link: '',
   app_store_url: '',
   google_play_url: '',
+  // Pazarlama ve dogrulama kimlikleri. Bos olan platformun betigi hic
+  // indirilmiyor; bos kimlikle kurulan bir etiket sessiz hata uretiyor.
+  google_ads_id: '',
+  meta_pixel_id: '',
+  google_site_verification: '',
+  bing_site_verification: '',
   social_facebook: '',
   social_instagram: '',
   social_twitter: '',
@@ -231,6 +237,17 @@ export const SETTING_GROUPS: {
         multiline: true,
         translatable: true,
       },
+    ],
+  },
+  {
+    group: 'entegrasyon',
+    title: 'settingsForm.entegrasyonTitle',
+    description: 'settingsForm.entegrasyonDesc',
+    fields: [
+      { key: 'google_ads_id', label: 'settingsForm.fGoogleAds' },
+      { key: 'meta_pixel_id', label: 'settingsForm.fMetaPixel' },
+      { key: 'google_site_verification', label: 'settingsForm.fGoogleDogrulama' },
+      { key: 'bing_site_verification', label: 'settingsForm.fBingDogrulama' },
     ],
   },
   {

@@ -30,6 +30,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
+import SiteSagligi from '@/components/admin/SiteSagligi';
 import NotificationCenter from '@/components/admin/NotificationCenter';
 import ProjectStageManager from '@/components/admin/ProjectStageManager';
 import { asamaAnahtari, useStageLabels, useStages } from '@/lib/projectEvents';
@@ -765,6 +766,8 @@ export default function AdminPanel() {
 
       {tab === 'settings' && (
         <div className="space-y-6">
+          <SiteSagligi />
+
           <div className="p-5 rounded-2xl glass">
             <div className="flex items-center gap-2 mb-1">
               <Languages className="h-4 w-4 text-purple-300" />

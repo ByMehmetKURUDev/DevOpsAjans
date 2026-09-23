@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-do
 import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
 import AsistanSohbeti from '@/components/AsistanSohbeti';
+import PazarlamaEtiketleri from '@/components/PazarlamaEtiketleri';
 import { Button } from '@/components/ui/button';
 import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -617,6 +618,9 @@ export default function Layout() {
         yaptırıyordu.
       */}
       <AsistanSohbeti />
+
+      {/* Reklam ve dogrulama etiketleri; kimlikler panelden geliyor. */}
+      <PazarlamaEtiketleri />
 
     </div>
   );

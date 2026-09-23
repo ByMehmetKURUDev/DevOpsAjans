@@ -637,7 +637,13 @@
     "fNotifyWhatsapp": "WhatsApp 通知 (1/0)",
     "fNotifyPhone": "管理员手机（短信/WhatsApp）",
     "fWhatsappTemplate": "WhatsApp 模板名（Meta 审核通过）",
-    "fMeetingLink": "会议链接（Google Meet / 预约）"
+    "fMeetingLink": "会议链接（Google Meet / 预约）",
+    "entegrasyonTitle": "Integrations",
+    "entegrasyonDesc": "Advertising and verification IDs. A platform you leave empty is never loaded. Ad pixels process visitor data — update your privacy notice before enabling them.",
+    "fGoogleAds": "Google Ads ID (AW-…)",
+    "fMetaPixel": "Meta (Facebook) Pixel ID",
+    "fGoogleDogrulama": "Google Search Console verification code",
+    "fBingDogrulama": "Bing verification code"
   },
   "tools": {
     "sectionTag": "使用的工具",
@@ -1102,5 +1108,19 @@
     "fDemo": "Demo URL",
     "fAciklama": "Long description",
     "fYayinda": "Publish on the site"
+  },
+  "siteSagligi": {
+    "baslik": "Site health",
+    "aciklama": "None of these put a tag on your site; they all measure it from outside. The links open with your address prefilled.",
+    "psi": "PageSpeed / Lighthouse",
+    "psiDesc": "Google’s speed and Core Web Vitals measurement (mobile).",
+    "gtmetrix": "GTmetrix",
+    "gtmetrixDesc": "Detailed loading waterfall and report history.",
+    "gsc": "Search Console",
+    "gscDesc": "Search performance and indexing issues.",
+    "sitemap": "Sitemap",
+    "sitemapDesc": "The live sitemap.xml — regenerated on every build.",
+    "robots": "robots.txt",
+    "robotsDesc": "The rules given to crawlers."
   }
 }

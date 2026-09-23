@@ -637,7 +637,13 @@
     "fNotifyWhatsapp": "WhatsApp bildirimi (1/0)",
     "fNotifyPhone": "Yönetici telefonu (SMS/WhatsApp için)",
     "fWhatsappTemplate": "WhatsApp şablon adı (Meta onaylı)",
-    "fMeetingLink": "Toplantı bağlantısı (Google Meet / randevu)"
+    "fMeetingLink": "Toplantı bağlantısı (Google Meet / randevu)",
+    "entegrasyonTitle": "Entegrasyonlar",
+    "entegrasyonDesc": "Reklam ve doğrulama kimlikleri. Boş bıraktığınız platformun betiği siteye hiç yüklenmez. Reklam pikselleri ziyaretçi verisi işler — açmadan önce gizlilik metninizi güncelleyin.",
+    "fGoogleAds": "Google Ads kimliği (AW-…)",
+    "fMetaPixel": "Meta (Facebook) Pixel kimliği",
+    "fGoogleDogrulama": "Google Search Console doğrulama kodu",
+    "fBingDogrulama": "Bing doğrulama kodu"
   },
   "tools": {
     "sectionTag": "Kullanılan Araçlar",
@@ -1103,5 +1109,19 @@
     "fDemo": "Demo adresi",
     "fAciklama": "Uzun açıklama",
     "fYayinda": "Sitede yayınla"
+  },
+  "siteSagligi": {
+    "baslik": "Site sağlığı",
+    "aciklama": "Bu araçların hiçbiri siteye etiket koymaz; hepsi siteyi dışarıdan ölçer. Bağlantılar adresiniz hazır olarak açılır.",
+    "psi": "PageSpeed / Lighthouse",
+    "psiDesc": "Google’ın hız ve Core Web Vitals ölçümü (mobil).",
+    "gtmetrix": "GTmetrix",
+    "gtmetrixDesc": "Ayrıntılı yükleme şelalesi ve rapor geçmişi.",
+    "gsc": "Search Console",
+    "gscDesc": "Arama performansı ve dizine ekleme sorunları.",
+    "sitemap": "Site haritası",
+    "sitemapDesc": "Yayındaki sitemap.xml — her derlemede yeniden üretilir.",
+    "robots": "robots.txt",
+    "robotsDesc": "Tarayıcılara verilen kurallar."
   }
 }
