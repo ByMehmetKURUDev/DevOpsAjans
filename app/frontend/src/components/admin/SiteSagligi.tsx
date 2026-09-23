@@ -1,4 +1,15 @@
-import { Activity, ExternalLink, FileSearch, Gauge, Map as MapIcon, Search } from 'lucide-react';
+import {
+  Activity,
+  Bot,
+  ExternalLink,
+  FileSearch,
+  Gauge,
+  Map as MapIcon,
+  Monitor,
+  ScanSearch,
+  Search,
+  Smartphone,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { SITE_URL } from '../../../prerender/site.js';
@@ -23,11 +34,18 @@ export default function SiteSagligi() {
 
   const baglantilar = [
     {
-      anahtar: 'psi',
-      ikon: Gauge,
-      etiket: t('siteSagligi.psi'),
-      aciklama: t('siteSagligi.psiDesc'),
+      anahtar: 'psiMobil',
+      ikon: Smartphone,
+      etiket: t('siteSagligi.psiMobil'),
+      aciklama: t('siteSagligi.psiMobilDesc'),
       url: `https://pagespeed.web.dev/analysis?url=${kodlu}&form_factor=mobile`,
+    },
+    {
+      anahtar: 'psiMasaustu',
+      ikon: Monitor,
+      etiket: t('siteSagligi.psiMasaustu'),
+      aciklama: t('siteSagligi.psiMasaustuDesc'),
+      url: `https://pagespeed.web.dev/analysis?url=${kodlu}&form_factor=desktop`,
     },
     {
       anahtar: 'gtmetrix',
@@ -42,6 +60,20 @@ export default function SiteSagligi() {
       etiket: t('siteSagligi.gsc'),
       aciklama: t('siteSagligi.gscDesc'),
       url: `https://search.google.com/search-console?resource_id=${kodlu}`,
+    },
+    {
+      anahtar: 'crawlStats',
+      ikon: Bot,
+      etiket: t('siteSagligi.crawlStats'),
+      aciklama: t('siteSagligi.crawlStatsDesc'),
+      url: `https://search.google.com/search-console/settings/crawl-stats?resource_id=${kodlu}`,
+    },
+    {
+      anahtar: 'urlInspect',
+      ikon: ScanSearch,
+      etiket: t('siteSagligi.urlInspect'),
+      aciklama: t('siteSagligi.urlInspectDesc'),
+      url: `https://search.google.com/search-console/inspect?resource_id=${kodlu}&id=${kodlu}`,
     },
     {
       anahtar: 'sitemap',
