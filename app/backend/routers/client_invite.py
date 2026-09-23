@@ -78,24 +78,34 @@ async def invite_client(
     eposta = str(payload.email).strip().lower()
     yol = "/client"
 
+    ad = payload.name or eposta
+    proje = payload.project_title or "Projeniz"
+
+    # DİKKAT: varsayılan gövdenin yer tutucuları BURADA doldurulmalı.
+    # `render` yalnızca panelde yazılmış şablona `{{anahtar}}` değişimi
+    # uyguluyor; varsayılan metni olduğu gibi döndürüyor. Bu metin daha
+    # önce "{ad}" ve "{eposta}" gibi tek süslü yer tutucularla yazılmıştı
+    # ve hiçbir yerde doldurulmuyordu -- davet "Kaydolurken şu adresi
+    # kullanın: {eposta}" diyerek gidiyordu. Davetin tek işi o adresi
+    # söylemek olduğu için hata sessiz değil, ölümcüldü.
+    varsayilan_govde = (
+        f"Merhaba {ad},\n\n"
+        f"{proje} için proje kaydınız açıldı. Aşamaları takip etmek, "
+        "dosyalara ulaşmak ve soru sormak için panelinize kaydolabilirsiniz.\n\n"
+        "ÖNEMLİ: Kaydolurken şu e-posta adresini kullanın:\n"
+        f"{eposta}\n\n"
+        "Projeniz bu adrese bağlı. Başka bir adresle kaydolursanız "
+        "panelinizde projeyi göremezsiniz."
+    )
+
     baslik, govde = await render(
         db,
         "client_invite",
-        "Projeniz açıldı",
-        (
-            "Merhaba {ad},\n\n"
-            "{proje} için proje kaydınız açıldı. Aşamaları takip etmek, "
-            "dosyalara ulaşmak ve soru sormak için panelinize kaydolabilirsiniz.\n\n"
-            "ÖNEMLİ: Kaydolurken şu e-posta adresini kullanın:\n"
-            "{eposta}\n\n"
-            "Projeniz bu adrese bağlı. Başka bir adresle kaydolursanız "
-            "panelinizde projeyi göremezsiniz."
-        ),
-        {
-            "ad": payload.name or eposta,
-            "proje": payload.project_title or "Projeniz",
-            "eposta": eposta,
-        },
+        f"{proje} için proje kaydınız açıldı",
+        varsayilan_govde,
+        # Panelde şablon yazılmışsa `{{ad}}`, `{{proje}}`, `{{eposta}}`
+        # bunlarla doldurulur.
+        {"ad": ad, "proje": proje, "eposta": eposta},
     )
 
     satirlar = await dispatch(
