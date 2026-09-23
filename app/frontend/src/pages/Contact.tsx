@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Mail, MapPin, MessageCircle, Send, Phone, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -62,6 +62,16 @@ export default function Contact() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  /*
+   * Gönderilen adres formu temizledikten sonra da lazım.
+   *
+   * Müşteri panelde projesini ancak talepteki adresle kaydolursa
+   * görüyor — panel bütün kayıtları `client_email` ile eşleştiriyor.
+   * Kayıt bu sitede değil kimlik sağlayıcıda yapıldığı için adresi
+   * forma önceden yazdıramıyoruz; elimizdeki tek koruma, adresi
+   * ekranda açıkça söylemek.
+   */
+  const [gonderilenEposta, setGonderilenEposta] = useState('');
 
   const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -86,6 +96,7 @@ export default function Contact() {
           source: kaynak,
         },
       });
+      setGonderilenEposta(form.email.trim());
       setSuccess(true);
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
       toast.success(t('contact.success'));
@@ -174,9 +185,32 @@ export default function Contact() {
           <div>
             <div className="relative rounded-3xl glass p-8 md:p-10">
               <div className="absolute -inset-4 bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-cyan-600/10 blur-2xl -z-10 rounded-3xl" />
+              {/*
+                Gönderim sonrası ekran.
+
+                Eskiden yalnızca "mesajınız alındı" yazıyordu ve akış orada
+                bitiyordu: ziyaretçi projesini nereden takip edeceğini hiç
+                öğrenmiyordu. Panel zaten var (/client) ama kimse oraya
+                yönlendirilmiyordu. Şimdi bir sonraki adım burada duruyor.
+              */}
               {success && (
-                <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-sm text-green-300">
-                  {t('contact.success')}
+                <div className="mb-6 rounded-xl border border-green-500/30 bg-green-500/10 p-5">
+                  <p className="mb-3 text-sm font-semibold text-green-300">
+                    {t('contact.success')}
+                  </p>
+                  <p className="mb-2 text-sm text-muted-foreground">
+                    {t('contact.panelYonlendirme')}
+                  </p>
+                  <p className="mb-4 text-sm">
+                    <span className="text-muted-foreground">{t('contact.panelEposta')}</span>{' '}
+                    <span className="font-mono font-semibold break-all">{gonderilenEposta}</span>
+                  </p>
+                  <Button
+                    asChild
+                    className="h-11 border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+                  >
+                    <Link to="/client">{t('contact.panelBtn')}</Link>
+                  </Button>
                 </div>
               )}
               <form onSubmit={handleSubmit} className="space-y-5">

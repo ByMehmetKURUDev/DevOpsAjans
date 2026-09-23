@@ -225,7 +225,10 @@
     "sending": "正在发送...",
     "success": "已收到您的消息——我们会在 24 小时内联系您。",
     "errorRequired": "请填写姓名、邮箱与留言内容。",
-    "whatsappIntro": "你好，我从 mehmetkuru.dev 过来，想聊一个项目。"
+    "whatsappIntro": "你好，我从 mehmetkuru.dev 过来，想聊一个项目。",
+    "panelYonlendirme": "You can follow your project from here. The panel shows stages, files and messages in one place.",
+    "panelEposta": "Sign up with this address:",
+    "panelBtn": "Go to my project panel"
   },
   "clientPanel": {
     "sectionTag": "客户面板",
@@ -357,6 +360,7 @@
     "tabClients": "客户",
     "tabInquiries": "消息",
     "tabPortfolio": "案例研究",
+    "tabProjects": "Projects",
     "statTotalProjects": "项目总数",
     "statInProgress": "进行中",
     "statCompleted": "已完成",
@@ -565,7 +569,11 @@
     "inviteCopied": "邀请文本已复制。",
     "inviteCopyFailed": "无法复制，请手动选择文本。",
     "inviteViaWhatsapp": "通过 WhatsApp 发送",
-    "inviteViaMail": "用邮件应用发送"
+    "inviteViaMail": "用邮件应用发送",
+    "projeFiltreMusteri": "Client projects",
+    "projeFiltreVaka": "Case studies",
+    "projeFiltreHepsi": "All",
+    "projeMusteriBos": "No project is linked to a client yet. Edit a project and fill in the client e-mail; it will show up here and stage tracking opens."
   },
   "footer": {
     "desc": "一家精品开发与数字代理机构，打造大胆、高性能的软件与令人难忘的品牌。定制开发、数字营销与产品设计。",

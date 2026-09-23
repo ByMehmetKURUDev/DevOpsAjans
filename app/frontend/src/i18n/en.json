@@ -225,7 +225,10 @@
     "sending": "Sending...",
     "success": "Message received — we'll be in touch within 24 hours.",
     "errorRequired": "Please fill in name, email, and message.",
-    "whatsappIntro": "Hello, I'm writing from mehmetkuru.dev. I'd like to talk about a project."
+    "whatsappIntro": "Hello, I'm writing from mehmetkuru.dev. I'd like to talk about a project.",
+    "panelYonlendirme": "You can follow your project from here. The panel shows stages, files and messages in one place.",
+    "panelEposta": "Sign up with this address:",
+    "panelBtn": "Go to my project panel"
   },
   "clientPanel": {
     "sectionTag": "Client Panel",
@@ -357,6 +360,7 @@
     "tabClients": "Clients",
     "tabInquiries": "Messages",
     "tabPortfolio": "Case Studies",
+    "tabProjects": "Projects",
     "statTotalProjects": "Total Projects",
     "statInProgress": "In Progress",
     "statCompleted": "Completed",
@@ -565,7 +569,11 @@
     "inviteCopied": "Invitation text copied to clipboard.",
     "inviteCopyFailed": "Could not copy; select the text manually instead.",
     "inviteViaWhatsapp": "Send via WhatsApp",
-    "inviteViaMail": "Send via mail app"
+    "inviteViaMail": "Send via mail app",
+    "projeFiltreMusteri": "Client projects",
+    "projeFiltreVaka": "Case studies",
+    "projeFiltreHepsi": "All",
+    "projeMusteriBos": "No project is linked to a client yet. Edit a project and fill in the client e-mail; it will show up here and stage tracking opens."
   },
   "footer": {
     "desc": "A boutique dev & digital agency crafting bold, high-performance software and unforgettable brands. Custom development, digital marketing, and product design.",

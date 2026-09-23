@@ -221,6 +221,7 @@ export default function AdminPanel() {
   const [stageProject, setStageProject] = useState<Project | null>(null);
   const stageLabel = useStageLabels();
   const asamaListesi = useStages();
+  const [projeFiltresi, setProjeFiltresi] = useState<'musteri' | 'vaka' | 'hepsi'>('musteri');
   // Davet e-postasi gitmediyse metni burada tutup yoneticiye elden
   // gondermesi icin veriyoruz. Yoksa davet sessizce kaybolur ve musteri
   // hangi adresle kaydolacagini hic ogrenemez.
@@ -672,12 +673,29 @@ export default function AdminPanel() {
     ).values()
   );
 
+  /*
+   * Projeler sekmesindeki görünüm.
+   *
+   * `projects` tablosu iki farklı şeyi tutuyor: müşteriye bağlı,
+   * aşaması takip edilen işler ve sitede yayımlanan vaka çalışmaları.
+   * Ayıran tek alan `client_email`. Varsayılan "müşteri projeleri":
+   * proje yönetimi aranan şey, vaka çalışmaları zaten sitede duruyor.
+   */
+  const musteriProjeleri = projects.filter((p) => (p.client_email || '').trim());
+  const vakaCalismalari = projects.filter((p) => !(p.client_email || '').trim());
+  const gorunenProjeler =
+    projeFiltresi === 'musteri'
+      ? musteriProjeleri
+      : projeFiltresi === 'vaka'
+        ? vakaCalismalari
+        : projects;
+
   const TABS: { key: Tab; label: string; icon: typeof BarChart3 }[] = [
     { key: 'analytics', label: t('ui.tabAnalytics'), icon: BarChart3 },
     { key: 'settings', label: t('ui.tabSettings'), icon: Settings2 },
     { key: 'pages', label: t('ui.tabPages'), icon: LayoutList },
     { key: 'notify', label: t('ui.tabNotify'), icon: BellRing },
-    { key: 'projects', label: t('ui.tabPortfolio'), icon: FolderKanban },
+    { key: 'projects', label: t('ui.tabProjects'), icon: FolderKanban },
     { key: 'marketplace', label: t('ui.tabMarketplace'), icon: Boxes },
     { key: 'icerik', label: t('ui.tabIcerik'), icon: CalendarDays },
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
@@ -894,9 +912,9 @@ export default function AdminPanel() {
         <>
           {tab === 'projects' && (
             <div>
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-center mb-3">
                 <h2 className="text-xl font-semibold">
-                  {t('ui.tabPortfolio')} ({projects.length})
+                  {t('ui.tabProjects')} ({gorunenProjeler.length})
                 </h2>
                 <Button
                   onClick={() => setEditProject({ ...emptyProject })}
@@ -905,8 +923,45 @@ export default function AdminPanel() {
                   <Plus className="h-4 w-4" /> {t('admin.newProjectBtn')}
                 </Button>
               </div>
+
+              {/*
+                Tek tablo iki işi görüyor: müşteriye ait, aşaması takip
+                edilen projeler ve sitede yayımlanan vaka çalışmaları.
+                Aynı listede durunca proje yönetimi görünmüyordu — altı
+                portfolyo kartının arasında kayboluyordu. Ayıran ölçüt
+                `client_email`: dolu olan müşteri projesi.
+              */}
+              <div className="mb-6 flex flex-wrap gap-2">
+                {(
+                  [
+                    ['musteri', t('admin.projeFiltreMusteri'), musteriProjeleri.length],
+                    ['vaka', t('admin.projeFiltreVaka'), vakaCalismalari.length],
+                    ['hepsi', t('admin.projeFiltreHepsi'), projects.length],
+                  ] as const
+                ).map(([anahtar, etiket, adet]) => (
+                  <button
+                    key={anahtar}
+                    onClick={() => setProjeFiltresi(anahtar)}
+                    className={
+                      'rounded-full px-3 py-1.5 text-xs transition-colors ' +
+                      (projeFiltresi === anahtar
+                        ? 'bg-purple-500/20 text-purple-200 ring-1 ring-purple-400/40'
+                        : 'bg-white/5 text-muted-foreground hover:text-foreground')
+                    }
+                  >
+                    {etiket} ({adet})
+                  </button>
+                ))}
+              </div>
+
+              {projeFiltresi === 'musteri' && musteriProjeleri.length === 0 && (
+                <p className="mb-4 text-xs text-muted-foreground">
+                  {t('admin.projeMusteriBos')}
+                </p>
+              )}
+
               <div className="grid gap-3">
-                {projects.map((p) => (
+                {gorunenProjeler.map((p) => (
                   <div
                     key={p.id}
                     className="p-4 rounded-xl glass flex items-center gap-4"

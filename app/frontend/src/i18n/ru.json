@@ -225,7 +225,10 @@
     "sending": "Отправка...",
     "success": "Сообщение получено — свяжемся в течение 24 часов.",
     "errorRequired": "Пожалуйста, заполните имя, email и сообщение.",
-    "whatsappIntro": "Здравствуйте, пишу с сайта mehmetkuru.dev. Хочу обсудить проект."
+    "whatsappIntro": "Здравствуйте, пишу с сайта mehmetkuru.dev. Хочу обсудить проект.",
+    "panelYonlendirme": "You can follow your project from here. The panel shows stages, files and messages in one place.",
+    "panelEposta": "Sign up with this address:",
+    "panelBtn": "Go to my project panel"
   },
   "clientPanel": {
     "sectionTag": "Кабинет клиента",
@@ -357,6 +360,7 @@
     "tabClients": "Клиенты",
     "tabInquiries": "Сообщения",
     "tabPortfolio": "Кейсы",
+    "tabProjects": "Projects",
     "statTotalProjects": "Всего проектов",
     "statInProgress": "В работе",
     "statCompleted": "Завершено",
@@ -565,7 +569,11 @@
     "inviteCopied": "Текст приглашения скопирован.",
     "inviteCopyFailed": "Не удалось скопировать; выделите текст вручную.",
     "inviteViaWhatsapp": "Отправить в WhatsApp",
-    "inviteViaMail": "Отправить через почту"
+    "inviteViaMail": "Отправить через почту",
+    "projeFiltreMusteri": "Client projects",
+    "projeFiltreVaka": "Case studies",
+    "projeFiltreHepsi": "All",
+    "projeMusteriBos": "No project is linked to a client yet. Edit a project and fill in the client e-mail; it will show up here and stage tracking opens."
   },
   "footer": {
     "desc": "Бутиковое агентство разработки и digital, создающее смелое высокопроизводительное ПО и запоминающиеся бренды. Заказная разработка, digital-маркетинг и продуктовый дизайн.",

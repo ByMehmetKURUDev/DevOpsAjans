@@ -225,7 +225,10 @@
     "sending": "Gönderiliyor...",
     "success": "Mesaj alındı — 24 saat içinde iletişime geçeceğiz.",
     "errorRequired": "Lütfen isim, e-posta ve mesaj alanlarını doldurun.",
-    "whatsappIntro": "Merhaba, mehmetkuru.dev üzerinden yazıyorum. Bir proje hakkında görüşmek istiyorum."
+    "whatsappIntro": "Merhaba, mehmetkuru.dev üzerinden yazıyorum. Bir proje hakkında görüşmek istiyorum.",
+    "panelYonlendirme": "Projenizi buradan takip edebilirsiniz. Panelde aşamaları, dosyaları ve yazışmayı tek yerde görürsünüz.",
+    "panelEposta": "Kaydolurken şu adresi kullanın:",
+    "panelBtn": "Proje panelime git"
   },
   "clientPanel": {
     "sectionTag": "Müşteri Paneli",
@@ -357,6 +360,7 @@
     "tabClients": "Müşteriler",
     "tabInquiries": "Mesajlar",
     "tabPortfolio": "Vaka Çalışmaları",
+    "tabProjects": "Projeler",
     "statTotalProjects": "Toplam Proje",
     "statInProgress": "Devam Eden",
     "statCompleted": "Tamamlanan",
@@ -565,7 +569,11 @@
     "inviteCopied": "Davet metni panoya kopyalandı.",
     "inviteCopyFailed": "Panoya kopyalanamadı; metni elle seçip kopyalayabilirsiniz.",
     "inviteViaWhatsapp": "WhatsApp ile gönder",
-    "inviteViaMail": "E-posta uygulamasıyla gönder"
+    "inviteViaMail": "E-posta uygulamasıyla gönder",
+    "projeFiltreMusteri": "Müşteri projeleri",
+    "projeFiltreVaka": "Vaka çalışmaları",
+    "projeFiltreHepsi": "Hepsi",
+    "projeMusteriBos": "Henüz müşteriye bağlı proje yok. Bir projeyi düzenleyip müşteri e-postasını yazdığınızda burada görünür ve aşama takibi açılır."
   },
   "footer": {
     "desc": "Cesur, yüksek performanslı yazılım ve unutulmaz markalar üreten butik bir geliştirme ve dijital ajans. Özel geliştirme, dijital pazarlama ve ürün tasarımı.",
