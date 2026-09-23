@@ -13,7 +13,16 @@
  * API çağrıları (/api/) hiç dokunulmadan geçer: oturum, panel ve form
  * istekleri önbelleğe alınmamalı.
  */
-const SURUM = 'mk-v1';
+/*
+ * SÜRÜM NUMARASI — değiştirmeyi unutma.
+ *
+ * `activate` yalnızca bu önekle BAŞLAMAYAN önbellekleri siliyor. Sayı
+ * sabit kaldığı sürece eski önbellek hiç temizlenmiyor: favicon yenilendiği
+ * hâlde daha önce siteye girmiş herkeste aylarca eskisi göründü, sebebi
+ * buydu. Önbelleğe alınan bir varlığın davranışı değiştiğinde bu sayı
+ * artırılmalı.
+ */
+const SURUM = 'mk-v2';
 const KABUK = `${SURUM}-kabuk`;
 const VARLIK = `${SURUM}-varlik`;
 const CEVRIMDISI = '/cevrimdisi.html';
@@ -80,7 +89,8 @@ self.addEventListener('fetch', (event) => {
   }
 
   // 2) İçerik özetli varlıklar — önce önbellek.
-  if (icerikOzetliMi(url) || gorselMi(url)) {
+  // Adı içeriğine bağlı olduğu için önbellekteki kopya asla yanlış olamaz.
+  if (icerikOzetliMi(url)) {
     event.respondWith(
       caches.match(request).then(
         (onbellek) =>
@@ -94,7 +104,39 @@ self.addEventListener('fetch', (event) => {
           }),
       ),
     );
+    return;
   }
 
-  // 3) Geri kalan her şey normal ağ akışına bırakılır.
+  // 3) Görseller — önbellekten göster, ARKADA tazele.
+  //
+  // Burası önceden görselleri de "önce önbellek, bulursa ağa hiç çıkma"
+  // kuralına sokuyordu. Görsellerin adında içerik özeti yok: favicon,
+  // logo ya da kapak görseli değiştiğinde adres aynı kaldığı için daha
+  // önce siteye girmiş herkes eski dosyayı görmeye devam ediyordu ve
+  // bunun süresi yoktu. Şimdi kopya anında dönüyor (hız aynı), ama aynı
+  // anda ağdan tazesi alınıp önbelleğe yazılıyor; ikinci ziyarette yenisi
+  // görünüyor.
+  if (gorselMi(url)) {
+    event.respondWith(
+      caches.match(request).then((onbellek) => {
+        const agIstegi = fetch(request)
+          .then((yanit) => {
+            if (yanit.ok) {
+              const kopya = yanit.clone();
+              caches.open(VARLIK).then((cache) => cache.put(request, kopya));
+            }
+            return yanit;
+          })
+          .catch(() => onbellek);
+
+        // Önbellekten yanıt verirken bile tazeleme bitene kadar servis
+        // çalışanı ayakta kalsın.
+        if (onbellek) event.waitUntil(agIstegi);
+        return onbellek || agIstegi;
+      }),
+    );
+    return;
+  }
+
+  // 4) Geri kalan her şey normal ağ akışına bırakılır.
 });

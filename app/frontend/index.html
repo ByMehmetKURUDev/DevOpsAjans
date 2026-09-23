@@ -2,10 +2,18 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <!-- Site ikonları: kendi domainimizden, logonun avatar kırpmasından üretilir. -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!--
+      Site ikonları: kendi domainimizden, logonun `</>` işaretinden üretilir.
+
+      Sondaki ?v=2 bilerek duruyor. Chrome favicon'ı kendi ayrı deposunda,
+      ADRESE göre saklıyor; dosyanın içeriği değişse de aynı adres için
+      yıllarca eski ikonu göstermeye devam edebiliyor (sayfa yenilemek,
+      hatta önbellek temizlemek çoğu zaman yetmiyor). Adresi değiştirmek
+      tek güvenilir yol. İkon bir daha değişirse bu sayı da artırılmalı.
+    -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
 
     <!--
       viewport-fit=cover: iPhone'da çentik ve ana ekran çubuğunun altındaki
