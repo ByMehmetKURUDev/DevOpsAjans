@@ -285,11 +285,43 @@ function writeCache(map: SettingsMap) {
   }
 }
 
-/** Tüm ayarları backend'den okur, key/value haritasına çevirir. */
+/**
+ * Önbellek tazelendiğinde haber verilecek aboneler.
+ *
+ * `useSiteSettings` buraya abone oluyor: arka planda gelen yeni ayarlar
+ * ekranda da görünsün diye.
+ */
+const aboneler = new Set<(map: SettingsMap) => void>();
+
+function haberVer(map: SettingsMap) {
+  aboneler.forEach((f) => {
+    try {
+      f(map);
+    } catch {
+      /* Bir abonenin hatası diğerlerini düşürmesin. */
+    }
+  });
+}
+
+/**
+ * Tüm ayarları backend'den okur, key/value haritasına çevirir.
+ *
+ * Önbellek "önce göster, arkadan tazele" mantığıyla çalışıyor. Eskiden
+ * önbellek varsa istek HİÇ atılmıyordu; bir ayar panelden silinse bile
+ * o tarayıcıda sonsuza kadar eski değer kalıyordu. Gerçek sonucu şuydu:
+ * `brand_logo` veritabanından kalkmasına rağmen bazı ziyaretçilerde
+ * "/assets/logo-new.jpg" denenmeye devam ediyor, dosya olmadığı için
+ * görsel yüklenemiyor ve logo kayboluyordu -- ama yalnızca o değeri
+ * önbelleğe almış tarayıcılarda, yani "bazen".
+ */
 export async function fetchSiteSettings(force = false): Promise<SettingsMap> {
   if (!force) {
     const cached = readCache();
-    if (cached) return cached;
+    if (cached) {
+      // Önbelleği hemen döndür, tazelemeyi arkada yap.
+      if (!inFlight) void fetchSiteSettings(true).catch(() => {});
+      return cached;
+    }
     if (inFlight) return inFlight;
   }
 
@@ -302,6 +334,7 @@ export async function fetchSiteSettings(force = false): Promise<SettingsMap> {
         if (row?.setting_key) map[row.setting_key] = row.setting_value ?? '';
       });
       writeCache(map);
+      haberVer(map);
       return map;
     } catch {
       return readCache() ?? { ...DEFAULT_SETTINGS };
@@ -379,6 +412,15 @@ export function useSiteSettings() {
   useEffect(() => {
     load();
   }, [load]);
+
+  // Arka planda tazelenen ayarlar ekrana da yansısın.
+  useEffect(() => {
+    const dinle = (map: SettingsMap) => setRawSettings(map);
+    aboneler.add(dinle);
+    return () => {
+      aboneler.delete(dinle);
+    };
+  }, []);
 
   const settings = useMemo(() => localizeSettings(rawSettings, lang), [rawSettings, lang]);
 

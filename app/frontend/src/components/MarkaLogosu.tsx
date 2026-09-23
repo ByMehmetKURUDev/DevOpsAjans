@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSiteSettings } from '@/lib/siteSettings';
 
@@ -34,7 +35,17 @@ export default function MarkaLogosu({
   const { settings } = useSiteSettings();
 
   const ayarliLogo = (settings.brand_logo || '').trim();
-  const ozelLogo = ayarliLogo && !ESKI_VARSAYILANLAR.includes(ayarliLogo) ? ayarliLogo : '';
+  /*
+    Görsel yüklenemezse logoyu GİZLEMİYORUZ, yerleşik `</>` markasına
+    düşüyoruz. Eskiden onError görseli display:none yapıyordu ve künye
+    tamamen kayboluyordu -- ayarda duran dosya silinmişse ya da adres
+    yanlışsa ziyaretçi markasız bir başlık görüyordu. Üstelik Cloudflare
+    olmayan dosyaya 404 değil, SPA yedeği olarak HTML döndürüyor: tarayıcı
+    HTML'i görsel diye çözmeye çalışıp sessizce vazgeçiyor.
+  */
+  const [gorselDustu, setGorselDustu] = useState(false);
+  const secilen = ayarliLogo && !ESKI_VARSAYILANLAR.includes(ayarliLogo) ? ayarliLogo : '';
+  const ozelLogo = gorselDustu ? '' : secilen;
 
   return (
     <span className={`flex items-center gap-3 ${className}`}>
@@ -46,9 +57,7 @@ export default function MarkaLogosu({
           height={40}
           decoding="async"
           className="h-10 w-10 object-contain transition-transform group-hover:scale-105"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).style.display = 'none';
-          }}
+          onError={() => setGorselDustu(true)}
         />
       ) : (
         <span
