@@ -29,11 +29,35 @@ export default function Contact() {
       ? ((location.state as { kesifOzeti: string }).kesifOzeti)
       : '';
 
+  /*
+   * Talep nereden geldi?
+   *
+   * Hangi sayfanın iş getirdiğini bilmeden nereye emek harcanacağına
+   * karar vermek tahmine kalıyor. Marketplace kartından gelindiyse
+   * hangi ÜRÜN olduğu da yazılıyor; "marketplace işe yarıyor mu"
+   * sorusunun cevabı ürün bazında değişiyor.
+   *
+   * Değer ziyaretçinin girdiği bir şey değil, uygulamanın kendi
+   * durumundan geliyor; kişisel veri taşımıyor.
+   */
+  const durum = location.state as { kaynak?: unknown; konu?: unknown } | null;
+  const kaynak = (() => {
+    if (durum?.kaynak === 'marketplace') {
+      const konu = typeof durum.konu === 'string' ? durum.konu.trim() : '';
+      return konu ? `marketplace: ${konu}` : 'marketplace';
+    }
+    if (kesifOzeti) return 'kesif-sihirbazi';
+    return 'iletisim-formu';
+  })();
+
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
-    subject: '',
+    // Marketplace kartından gelindiyse ürün adı konuya yazılıyor:
+    // ziyaretçi hangi ürün için yazdığını baştan anlatmak zorunda kalmasın.
+    subject:
+      durum?.kaynak === 'marketplace' && typeof durum.konu === 'string' ? durum.konu : '',
     message: kesifOzeti,
   });
   const [submitting, setSubmitting] = useState(false);
@@ -59,6 +83,7 @@ export default function Contact() {
           subject: form.subject.trim(),
           message: form.message.trim(),
           status: 'new',
+          source: kaynak,
         },
       });
       setSuccess(true);

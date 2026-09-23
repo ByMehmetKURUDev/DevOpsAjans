@@ -14,5 +14,10 @@ class Inquiries(Base):
     subject = Column(String, nullable=True)
     message = Column(String, nullable=False)
     status = Column(String, nullable=True)
+    # Talebin nereden geldigi: iletisim formu mu, kesif sihirbazi mi,
+    # marketplace urun karti mi. Hangi sayfanin is getirdigini bilmeden
+    # nereye yatirim yapilacagina karar vermek tahmine kaliyor.
+    # Deger orn. "contact", "kesif", "marketplace:kartvizit-web-sitesi".
+    source = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

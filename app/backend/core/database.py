@@ -205,6 +205,15 @@ class DatabaseManager:
             "tur_sqlite": "BOOLEAN",
             "dolgu": "TRUE",
         },
+        {
+            # Talep kaynagi. Eski satirlarda bilinmiyor: "bilinmiyor"
+            # yazmak yerine NULL birakiliyor, boylece "kaynak yok" ile
+            # "kaynak olcumden once geldi" ayirt edilebiliyor.
+            "tablo": "inquiries",
+            "sutun": "source",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

@@ -110,6 +110,8 @@ interface Inquiry {
   subject?: string;
   message: string;
   status?: string;
+  /** Talep nereden geldi: iletisim-formu | kesif-sihirbazi | marketplace: <urun> */
+  source?: string;
   created_at?: string;
 }
 
@@ -1321,6 +1323,17 @@ export default function AdminPanel() {
                               {new Date(inq.created_at).toLocaleDateString(
                                 'tr-TR'
                               )}
+                            </span>
+                          )}
+                          {/*
+                            Kaynak yalnizca VARSA gosteriliyor. Olcum
+                            baslamadan once gelen taleplerde sutun bos;
+                            oraya "bilinmiyor" yazmak, gercekten bilinmeyeni
+                            bir kategori gibi gosterirdi.
+                          */}
+                          {inq.source && (
+                            <span className="rounded-full bg-white/5 px-2 py-0.5 font-mono text-[10px]">
+                              {inq.source}
                             </span>
                           )}
                         </div>

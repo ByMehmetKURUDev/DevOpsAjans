@@ -30,6 +30,7 @@ class InquiriesData(BaseModel):
     subject: str = None
     message: str
     status: str = None
+    source: str = None
 
 
 class InquiriesUpdateData(BaseModel):
@@ -40,6 +41,7 @@ class InquiriesUpdateData(BaseModel):
     subject: Optional[str] = None
     message: Optional[str] = None
     status: Optional[str] = None
+    source: Optional[str] = None
 
 
 class InquiriesResponse(BaseModel):
@@ -51,6 +53,7 @@ class InquiriesResponse(BaseModel):
     subject: Optional[str] = None
     message: str
     status: Optional[str] = None
+    source: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
