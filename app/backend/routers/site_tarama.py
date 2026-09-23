@@ -64,9 +64,16 @@ AJAN = "MehmetKuruDevSiteTaramasi/1.0 (+https://mehmetkuru.dev)"
 
 
 class Bulgu(BaseModel):
+    """Bulgunun kendisi, metni degil.
+
+    Metni panel yaziyor: panel yedi dilde ve arka uc hangi dilde
+    bakildigini bilmiyor. Burasi ne oldugunu (`kod`) ve varsa sayiyi
+    (`deger`) soyluyor, cumleyi i18n kuruyor.
+    """
+
     kod: str
     seviye: str  # "hata" | "uyari" | "bilgi"
-    mesaj: str
+    deger: Optional[int] = None
 
 
 class SayfaRaporu(BaseModel):
@@ -84,6 +91,14 @@ class KirikBaglanti(BaseModel):
     kaynaklar: List[str] = []
 
 
+class Not(BaseModel):
+    """Taramanin kendisiyle ilgili aciklama (tavana takilma gibi)."""
+
+    kod: str
+    deger: Optional[int] = None
+    tavan: Optional[int] = None
+
+
 class TaramaRaporu(BaseModel):
     site: str
     sayfa_sayisi: int
@@ -92,7 +107,7 @@ class TaramaRaporu(BaseModel):
     ozet: Dict[str, int]
     sayfalar: List[SayfaRaporu]
     kirik_baglantilar: List[KirikBaglanti]
-    notlar: List[str] = []
+    notlar: List[Not] = []
 
 
 # --------------------------------------------------------------------------
@@ -159,69 +174,55 @@ def _sayfayi_incele(url: str, durum: int, sure_ms: int, html: str) -> Tuple[Sayf
     baglantilar: List[str] = []
 
     if durum >= 400:
-        bulgular.append(Bulgu(kod="durum", seviye="hata", mesaj=f"Sayfa {durum} döndü."))
+        bulgular.append(Bulgu(kod="durum", seviye="hata", deger=durum))
         return SayfaRaporu(url=url, durum=durum, sure_ms=sure_ms, boyut=len(html),
                            bulgular=bulgular), baglantilar
 
     if sure_ms > 2500:
-        bulgular.append(Bulgu(kod="yavas", seviye="uyari",
-                              mesaj=f"Sunucu yanıtı {sure_ms} ms sürdü."))
+        bulgular.append(Bulgu(kod="yavas", seviye="uyari", deger=sure_ms))
 
     m = _BASLIK.search(html)
     baslik = _metin(m.group(1)) if m else ""
     if not baslik:
-        bulgular.append(Bulgu(kod="baslik_yok", seviye="hata",
-                              mesaj="Sayfanın <title> etiketi yok."))
+        bulgular.append(Bulgu(kod="baslik_yok", seviye="hata"))
     elif len(baslik) < BASLIK_ALT:
-        bulgular.append(Bulgu(kod="baslik_kisa", seviye="uyari",
-                              mesaj=f"Başlık çok kısa ({len(baslik)} karakter)."))
+        bulgular.append(Bulgu(kod="baslik_kisa", seviye="uyari", deger=len(baslik)))
     elif len(baslik) > BASLIK_UST:
-        bulgular.append(Bulgu(kod="baslik_uzun", seviye="uyari",
-                              mesaj=f"Başlık {len(baslik)} karakter; arama sonucunda kesilir."))
+        bulgular.append(Bulgu(kod="baslik_uzun", seviye="uyari", deger=len(baslik)))
 
     aciklama = _meta(html, "description")
     if not aciklama:
-        bulgular.append(Bulgu(kod="aciklama_yok", seviye="hata",
-                              mesaj="Meta description yok."))
+        bulgular.append(Bulgu(kod="aciklama_yok", seviye="hata"))
     elif len(aciklama) < ACIKLAMA_ALT:
-        bulgular.append(Bulgu(kod="aciklama_kisa", seviye="uyari",
-                              mesaj=f"Açıklama çok kısa ({len(aciklama)} karakter)."))
+        bulgular.append(Bulgu(kod="aciklama_kisa", seviye="uyari", deger=len(aciklama)))
     elif len(aciklama) > ACIKLAMA_UST:
-        bulgular.append(Bulgu(kod="aciklama_uzun", seviye="uyari",
-                              mesaj=f"Açıklama {len(aciklama)} karakter; kesilir."))
+        bulgular.append(Bulgu(kod="aciklama_uzun", seviye="uyari", deger=len(aciklama)))
 
     h1_sayisi = len(_H1.findall(html))
     if h1_sayisi == 0:
-        bulgular.append(Bulgu(kod="h1_yok", seviye="hata", mesaj="Sayfada H1 başlığı yok."))
+        bulgular.append(Bulgu(kod="h1_yok", seviye="hata"))
     elif h1_sayisi > 1:
-        bulgular.append(Bulgu(kod="h1_fazla", seviye="uyari",
-                              mesaj=f"Sayfada {h1_sayisi} adet H1 var; bir tane olmalı."))
+        bulgular.append(Bulgu(kod="h1_fazla", seviye="uyari", deger=h1_sayisi))
 
     if not _CANONICAL.search(html):
-        bulgular.append(Bulgu(kod="canonical_yok", seviye="uyari",
-                              mesaj="Canonical bağlantısı yok."))
+        bulgular.append(Bulgu(kod="canonical_yok", seviye="uyari"))
 
     if not _LANG.search(html):
-        bulgular.append(Bulgu(kod="lang_yok", seviye="uyari",
-                              mesaj="<html> etiketinde lang yok."))
+        bulgular.append(Bulgu(kod="lang_yok", seviye="uyari"))
 
     if not _meta(html, "og:image", alan="property"):
-        bulgular.append(Bulgu(kod="og_yok", seviye="bilgi",
-                              mesaj="og:image yok; paylaşımda kapak görseli çıkmaz."))
+        bulgular.append(Bulgu(kod="og_yok", seviye="bilgi"))
 
     robots = (_meta(html, "robots") or "").lower()
     if "noindex" in robots:
-        bulgular.append(Bulgu(kod="noindex", seviye="hata",
-                              mesaj="Sayfa noindex; aramada görünmez."))
+        bulgular.append(Bulgu(kod="noindex", seviye="hata"))
 
     altsiz = sum(1 for g in _IMG.findall(html) if not _ALT.search(g))
     if altsiz:
-        bulgular.append(Bulgu(kod="alt_yok", seviye="uyari",
-                              mesaj=f"{altsiz} görselde alt metni yok."))
+        bulgular.append(Bulgu(kod="alt_yok", seviye="uyari", deger=altsiz))
 
     if len(html) > 400_000:
-        bulgular.append(Bulgu(kod="agir", seviye="uyari",
-                              mesaj=f"HTML {len(html) // 1024} KB; sayfa ağır."))
+        bulgular.append(Bulgu(kod="agir", seviye="uyari", deger=len(html) // 1024))
 
     for ham in _HREF.findall(html):
         hedef = _normalize(ham, url)
@@ -267,7 +268,7 @@ async def tarama_calistir(request: Request):
         )
 
     basla = time.perf_counter()
-    notlar: List[str] = []
+    notlar: List[Not] = []
 
     limitler = httpx.Limits(max_connections=ESZAMANLILIK, max_keepalive_connections=ESZAMANLILIK)
     async with httpx.AsyncClient(
@@ -284,7 +285,7 @@ async def tarama_calistir(request: Request):
             adresler = []
 
         if not adresler:
-            notlar.append("sitemap.xml okunamadı; yalnızca ana sayfa tarandı.")
+            notlar.append(Not(kod="sitemap_yok"))
             adresler = [SITE_ADRESI + "/"]
 
         # Aynı sayfanın dil kopyaları raporu şişiriyor; benzersizleştirip
@@ -296,7 +297,7 @@ async def tarama_calistir(request: Request):
                 benzersiz.append(a)
         if len(benzersiz) > SAYFA_TAVANI:
             notlar.append(
-                f"Sitemap'te {len(benzersiz)} adres var; ilk {SAYFA_TAVANI} tanesi tarandı."
+                Not(kod="sayfa_tavani", deger=len(benzersiz), tavan=SAYFA_TAVANI)
             )
             benzersiz = benzersiz[:SAYFA_TAVANI]
 
@@ -309,8 +310,7 @@ async def tarama_calistir(request: Request):
             if durum == 0:
                 return SayfaRaporu(
                     url=u, durum=0, sure_ms=sure, boyut=0,
-                    bulgular=[Bulgu(kod="ulasilamadi", seviye="hata",
-                                    mesaj="Sayfaya ulaşılamadı (zaman aşımı ya da ağ hatası).")],
+                    bulgular=[Bulgu(kod="ulasilamadi", seviye="hata")],
                 ), []
             return _sayfayi_incele(u, durum, sure, html)
 
@@ -331,7 +331,7 @@ async def tarama_calistir(request: Request):
         hedefler = list(nerede.keys())
         if len(hedefler) > BAGLANTI_TAVANI:
             notlar.append(
-                f"{len(hedefler)} ayrı bağlantı bulundu; ilk {BAGLANTI_TAVANI} tanesi denetlendi."
+                Not(kod="baglanti_tavani", deger=len(hedefler), tavan=BAGLANTI_TAVANI)
             )
             hedefler = hedefler[:BAGLANTI_TAVANI]
 

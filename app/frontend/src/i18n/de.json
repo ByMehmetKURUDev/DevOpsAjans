@@ -1148,7 +1148,31 @@
     "kirik": "{{count}} broken link(s)",
     "ulasilamadi": "unreachable",
     "gectigiYer": "Linked from:",
-    "temizSayisi": "No findings on the remaining {{count}} page(s)."
+    "temizSayisi": "No findings on the remaining {{count}} page(s).",
+    "bulgu": {
+      "durum": "The page returned {{sayi}}.",
+      "ulasilamadi": "The page could not be reached (timeout or network error).",
+      "yavas": "The server took {{sayi}} ms to respond.",
+      "baslik_yok": "The page has no <title> tag.",
+      "baslik_kisa": "The title is too short ({{sayi}} characters).",
+      "baslik_uzun": "The title is {{sayi}} characters; it gets cut off in search results.",
+      "aciklama_yok": "No meta description.",
+      "aciklama_kisa": "The description is too short ({{sayi}} characters).",
+      "aciklama_uzun": "The description is {{sayi}} characters; it gets cut off in search results.",
+      "h1_yok": "The page has no H1 heading.",
+      "h1_fazla": "The page has {{sayi}} H1 headings; there should be one.",
+      "canonical_yok": "No canonical link.",
+      "lang_yok": "The <html> tag has no lang attribute.",
+      "og_yok": "No og:image; shares will have no cover picture.",
+      "noindex": "The page is noindex; it will not appear in search.",
+      "alt_yok": "{{sayi}} image(s) have no alt text.",
+      "agir": "The HTML is {{sayi}} KB; the page is heavy."
+    },
+    "not": {
+      "sitemap_yok": "sitemap.xml could not be read; only the home page was scanned.",
+      "sayfa_tavani": "The sitemap has {{sayi}} addresses; the first {{tavan}} were scanned.",
+      "baglanti_tavani": "{{sayi}} distinct links were found; the first {{tavan}} were checked."
+    }
   },
   "icerik": {
     "nasilCalisir": "This screen prepares posts; it does NOT publish them. Flow: plan → draft with AI → approve → when the time comes hit \"Copy and open\", paste in the channel, publish, then mark as published. Automatic publishing needs approved app accounts for Instagram/Facebook/LinkedIn and a paid API for X; the free server also sleeps, so a scheduled job would not fire on time.",

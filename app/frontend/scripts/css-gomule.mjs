@@ -54,7 +54,24 @@ const beasties = new Beasties({
    * varlığından ve `font-display: swap` değerinden haberdar olmuyordu.
    */
   inlineFonts: true,
-  preloadFonts: true,
+  /*
+   * `preloadFonts` KAPALI kalmalı.
+   *
+   * Açıkken beasties gömdüğü her `@font-face` için bir
+   * `<link rel="preload" as="font">` ekliyordu — 16 tanım, 22 dosya.
+   * Preload "bunu şimdi indir" demek: `unicode-range` de
+   * `font-display: swap` de devre dışı kalıyor, tarayıcı sayfada hiç
+   * geçmeyen harflerin dosyasını bile çekiyordu. Ölçümde mobilde 451 kB
+   * font indiriliyordu; sayfanın toplam ağırlığının %61'i. Inter yalnızca
+   * yedek aile (yığında Plus Jakarta Sans'tan sonra geliyor) ve Jakarta
+   * onun bütün harflerini kapsıyor, yani dört Inter kalınlığının hiçbirine
+   * gerek yoktu — yine de hepsi iniyordu.
+   *
+   * Kapalıyken tarayıcı `unicode-range`e bakıp yalnızca o sayfada geçen
+   * harflerin dosyasını istiyor. İlk boyamada gereken tek font (H1'in
+   * Jakarta 700'ü) index.html'de elle preload ediliyor.
+   */
+  preloadFonts: false,
   compress: true,
   logLevel: 'silent',
 });

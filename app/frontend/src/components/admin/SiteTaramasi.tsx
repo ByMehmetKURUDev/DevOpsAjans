@@ -112,8 +112,14 @@ export default function SiteTaramasi() {
           </div>
 
           {rapor.notlar.map((n) => (
-            <p key={n} className="text-xs text-muted-foreground">
-              {n}
+            <p key={n.kod} className="text-xs text-muted-foreground">
+              {/* `count` bilerek kullanılmıyor: i18next onu görünce çoğul
+                  eki arıyor ve tek anahtarlı sözlükte anahtarı bulamıyor. */}
+              {t(`siteTarama.not.${n.kod}`, {
+                sayi: n.deger ?? 0,
+                tavan: n.tavan ?? 0,
+                defaultValue: n.kod,
+              })}
             </p>
           ))}
 
@@ -186,7 +192,12 @@ export default function SiteTaramasi() {
                               className={`mt-0.5 h-3.5 w-3.5 flex-none ${bicim.renk}`}
                               aria-hidden="true"
                             />
-                            <span>{b.mesaj}</span>
+                            <span>
+                              {t(`siteTarama.bulgu.${b.kod}`, {
+                                sayi: b.deger ?? 0,
+                                defaultValue: b.kod,
+                              })}
+                            </span>
                           </li>
                         );
                       })}

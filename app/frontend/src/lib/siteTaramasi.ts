@@ -14,10 +14,24 @@ import { client } from '@/lib/sdkClient';
 
 export type Seviye = 'hata' | 'uyari' | 'bilgi';
 
+/**
+ * Bulgu metni TAŞIMIYOR, kod taşıyor.
+ *
+ * Panel yedi dilde; arka uç hangi dilde bakıldığını bilmiyor ve
+ * bilmemeli. Cümleyi `siteTarama.bulgu.<kod>` anahtarıyla panel kuruyor,
+ * `deger` de sayıyı (karakter sayısı, milisaniye, adet) veriyor.
+ */
 export interface Bulgu {
   kod: string;
   seviye: Seviye;
-  mesaj: string;
+  deger?: number | null;
+}
+
+/** Taramanın kendisiyle ilgili açıklama (tavana takılma, sitemap yok…). */
+export interface Not {
+  kod: string;
+  deger?: number | null;
+  tavan?: number | null;
 }
 
 export interface SayfaRaporu {
@@ -43,7 +57,7 @@ export interface TaramaRaporu {
   ozet: Record<string, number>;
   sayfalar: SayfaRaporu[];
   kirik_baglantilar: KirikBaglanti[];
-  notlar: string[];
+  notlar: Not[];
 }
 
 export async function taramayiCalistir(): Promise<TaramaRaporu> {

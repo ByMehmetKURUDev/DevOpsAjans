@@ -1149,7 +1149,31 @@
     "kirik": "{{count}} kırık bağlantı",
     "ulasilamadi": "ulaşılamadı",
     "gectigiYer": "Geçtiği sayfalar:",
-    "temizSayisi": "Kalan {{count}} sayfada bulgu yok."
+    "temizSayisi": "Kalan {{count}} sayfada bulgu yok.",
+    "bulgu": {
+      "durum": "Sayfa {{sayi}} döndü.",
+      "ulasilamadi": "Sayfaya ulaşılamadı (zaman aşımı ya da ağ hatası).",
+      "yavas": "Sunucu yanıtı {{sayi}} ms sürdü.",
+      "baslik_yok": "Sayfanın <title> etiketi yok.",
+      "baslik_kisa": "Başlık çok kısa ({{sayi}} karakter).",
+      "baslik_uzun": "Başlık {{sayi}} karakter; arama sonucunda kesilir.",
+      "aciklama_yok": "Meta description yok.",
+      "aciklama_kisa": "Açıklama çok kısa ({{sayi}} karakter).",
+      "aciklama_uzun": "Açıklama {{sayi}} karakter; arama sonucunda kesilir.",
+      "h1_yok": "Sayfada H1 başlığı yok.",
+      "h1_fazla": "Sayfada {{sayi}} adet H1 var; bir tane olmalı.",
+      "canonical_yok": "Canonical bağlantısı yok.",
+      "lang_yok": "<html> etiketinde lang yok.",
+      "og_yok": "og:image yok; paylaşımda kapak görseli çıkmaz.",
+      "noindex": "Sayfa noindex; aramada görünmez.",
+      "alt_yok": "{{sayi}} görselde alt metni yok.",
+      "agir": "HTML {{sayi}} KB; sayfa ağır."
+    },
+    "not": {
+      "sitemap_yok": "sitemap.xml okunamadı; yalnızca ana sayfa tarandı.",
+      "sayfa_tavani": "Sitemap'te {{sayi}} adres var; ilk {{tavan}} tanesi tarandı.",
+      "baglanti_tavani": "{{sayi}} ayrı bağlantı bulundu; ilk {{tavan}} tanesi denetlendi."
+    }
   },
   "icerik": {
     "nasilCalisir": "Bu ekran gönderi hazırlar, gönderi ATMAZ. Akış: planla → AI taslağı yaz → onayla → zamanı gelince \"Kopyala ve aç\" ile metni panoya al, kanalda yapıştır, paylaş, sonra \"Paylaşıldı\" işaretle. Otomatik yayın için Instagram/Facebook/LinkedIn onaylı uygulama hesabı, X için ücretli API gerekiyor; ayrıca ücretsiz sunucu uykuya geçtiği için zamanlanmış iş tam saatinde çalışmaz.",
