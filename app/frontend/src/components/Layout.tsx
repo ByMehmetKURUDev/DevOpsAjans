@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
 import AsistanSohbeti from '@/components/AsistanSohbeti';
 import PazarlamaEtiketleri from '@/components/PazarlamaEtiketleri';
+import RizaBandi from '@/components/RizaBandi';
+import { rizayiSifirla } from '@/lib/riza';
 import { Button } from '@/components/ui/button';
 import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -600,8 +602,21 @@ export default function Layout() {
             />
           </div>
         </div>
-        <div className="border-t border-white/5 py-6 text-center text-xs text-muted-foreground">
-          &copy; 2026 {t('footer.copyright')}
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t border-white/5 py-6 text-center text-xs text-muted-foreground">
+          <span>&copy; 2026 {t('footer.copyright')}</span>
+          <span aria-hidden="true">·</span>
+          {/*
+            Rızayı geri almanın bir yolu olmak zorunda: KVKK ve GDPR
+            "vazgeçmek en az onaylamak kadar kolay olsun" diyor.
+            Karar sıfırlanınca bant yeniden çıkıyor.
+          */}
+          <button
+            type="button"
+            onClick={rizayiSifirla}
+            className="underline underline-offset-2 transition-colors hover:text-foreground"
+          >
+            {t('riza.tercihler')}
+          </button>
         </div>
       </footer>
 
@@ -621,6 +636,9 @@ export default function Layout() {
 
       {/* Reklam ve dogrulama etiketleri; kimlikler panelden geliyor. */}
       <PazarlamaEtiketleri />
+
+      {/* Olcum ve reklam rizasi; cevaplanana kadar hicbir izleme yok. */}
+      <RizaBandi />
 
     </div>
   );

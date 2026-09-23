@@ -1183,5 +1183,13 @@
       "approved": "Approved",
       "published": "Published"
     }
+  },
+  "riza": {
+    "baslik": "Cookie 与统计选择",
+    "metin": "我们希望使用 Google Analytics、Google Ads 和 Meta 工具来了解你如何使用本站并评估广告效果。如果你拒绝，这些都不会加载；网站功能完全不变。",
+    "detay": "有疑问请联系我们",
+    "kabul": "接受",
+    "reddet": "拒绝",
+    "tercihler": "Cookie 设置"
   }
 }

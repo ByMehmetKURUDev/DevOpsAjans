@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+import { RIZA_OLAYI, rizayiOku } from '@/lib/riza';
 import { useSiteSettings } from '@/lib/siteSettings';
 
 /**
@@ -14,10 +15,13 @@ import { useSiteSettings } from '@/lib/siteSettings';
  * boşta. Reklam betikleri ana iş parçacığını yüz milisaniyelerce meşgul
  * ediyor; ilk boyamanın önüne geçmemeleri gerekiyor.
  *
- * KVKK/GDPR notu: Meta Pixel ve Google Ads ziyaretçi verisi işliyor.
- * Bunları açmadan önce gizlilik metninin güncellenmesi ve -- AB
- * ziyaretçisi varsa -- rıza (consent) mekanizması gerekiyor. Bu bileşen
- * rıza yönetimi YAPMIYOR; yalnızca panelde girilen kimlikleri kuruyor.
+ * KVKK/GDPR: Pixel ve Ads ziyaretçi verisi işliyor, ikisi de açık rıza
+ * istiyor. Ziyaretçi rıza bandında "Kabul et" demediyse bu betikler HİÇ
+ * indirilmiyor -- indirilip "anonim" sayılmıyor, indirilmiyor. Rıza
+ * sonradan verilirse `mk-riza-verildi` olayıyla o an kuruluyorlar.
+ *
+ * Doğrulama etiketleri (Google/Bing) rızadan bağımsız: ziyaretçi verisi
+ * işlemiyorlar, yalnızca site sahipliğini kanıtlıyorlar.
  */
 
 declare global {
@@ -80,6 +84,15 @@ function metaEkle(ad: string, deger: string) {
 
 export default function PazarlamaEtiketleri() {
   const { settings } = useSiteSettings();
+  const [riza, setRiza] = useState(() => rizayiOku());
+
+  useEffect(() => {
+    const tazele = () => setRiza(rizayiOku());
+    window.addEventListener(RIZA_OLAYI, tazele);
+    return () => window.removeEventListener(RIZA_OLAYI, tazele);
+  }, []);
+
+  const izleyebilir = riza === 'kabul';
 
   const adsId = (settings.google_ads_id || '').trim();
   const pixelId = (settings.meta_pixel_id || '').trim();
@@ -94,18 +107,18 @@ export default function PazarlamaEtiketleri() {
 
   // Google Ads
   useEffect(() => {
-    if (!adsId) return;
+    if (!adsId || !izleyebilir) return;
     return bostaCalistir(() => {
       gtagHazirla();
       betikEkle(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(adsId)}`, 'mk-ads');
       window.gtag?.('js', new Date());
       window.gtag?.('config', adsId);
     });
-  }, [adsId]);
+  }, [adsId, izleyebilir]);
 
   // Meta (Facebook) Pixel
   useEffect(() => {
-    if (!pixelId) return;
+    if (!pixelId || !izleyebilir) return;
     return bostaCalistir(() => {
       if (!window.fbq) {
         const n = function (...args: unknown[]) {
@@ -122,7 +135,7 @@ export default function PazarlamaEtiketleri() {
       window.fbq?.('init', pixelId);
       window.fbq?.('track', 'PageView');
     });
-  }, [pixelId]);
+  }, [pixelId, izleyebilir]);
 
   return null;
 }

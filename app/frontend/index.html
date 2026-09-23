@@ -111,8 +111,29 @@
       (function () {
         var GA_ID = 'G-297VMX9Z6X';
         var loaded = false;
+        /*
+         * Rıza kontrolü.
+         *
+         * GA ziyaretçi verisi işliyor; KVKK ve GDPR bunun için açık rıza
+         * istiyor. Ziyaretçi bandı henüz cevaplamadıysa ya da reddettiyse
+         * betik HİÇ indirilmiyor. Onay verilince `mk-riza-verildi` olayı
+         * tetikleniyor ve yükleme o an başlıyor -- sayfayı yenilemeye
+         * gerek kalmıyor.
+         *
+         * Değer `localStorage` içinde: sunucuya gitmiyor, çerez de
+         * üretmiyor. Reddeden ziyaretçiden hiçbir ölçüm kaydı kalmıyor.
+         */
+        function rizaVarMi() {
+          try {
+            return localStorage.getItem('mk_riza_v1') === 'kabul';
+          } catch (e) {
+            // Gizli sekmede erişim hata verebiliyor; rıza yok say.
+            return false;
+          }
+        }
         function loadGa() {
           if (loaded) return;
+          if (!rizaVarMi()) return;
           loaded = true;
           cleanup();
           var s = document.createElement('script');
@@ -131,6 +152,8 @@
         events.forEach(function (e) {
           window.addEventListener(e, loadGa, { passive: true, once: true });
         });
+        // Bant "Kabul et" dediğinde beklemeden yükle.
+        window.addEventListener('mk-riza-verildi', loadGa);
         /*
          * Etkileşim olmazsa devreye giren yedek.
          *

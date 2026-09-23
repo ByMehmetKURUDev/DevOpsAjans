@@ -1183,5 +1183,13 @@
       "approved": "Approved",
       "published": "Published"
     }
+  },
+  "riza": {
+    "baslik": "Cookie- und Messeinstellung",
+    "metin": "Wir möchten Google Analytics, Google Ads und Meta-Tools einsetzen, um die Nutzung der Website zu messen und Anzeigen auszuwerten. Bei Ablehnung wird keines davon geladen; die Website funktioniert unverändert.",
+    "detay": "Schreiben Sie uns bei Fragen",
+    "kabul": "Akzeptieren",
+    "reddet": "Ablehnen",
+    "tercihler": "Cookie-Einstellungen"
   }
 }

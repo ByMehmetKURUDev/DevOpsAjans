@@ -1183,5 +1183,13 @@
       "approved": "Approved",
       "published": "Published"
     }
+  },
+  "riza": {
+    "baslik": "Cookie and measurement choice",
+    "metin": "We would like to use Google Analytics, Google Ads and Meta tools to measure how you use the site and to evaluate ads. If you decline, none of them are loaded; the site works exactly the same.",
+    "detay": "Write to us with any questions",
+    "kabul": "Accept",
+    "reddet": "Decline",
+    "tercihler": "Cookie preferences"
   }
 }
