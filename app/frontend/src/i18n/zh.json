@@ -1260,5 +1260,22 @@
     "calistir": "运行",
     "sifirla": "重置",
     "not": "代码只在你的浏览器中、于隔离框架内运行；不会发送到任何地方，也不会被保存。"
+  },
+  "uzman": {
+    "dugme": "Expert prompts",
+    "baslik": "Expert prompts",
+    "aciklama": "Builds one working prompt per role from the request, plus a chain that links them. The selections below were guessed from the text — correct them if wrong.",
+    "amac": "Project goal",
+    "kapsam": "Scope",
+    "zaman": "Timeline",
+    "butce": "Budget",
+    "uret": "Generate prompts",
+    "uretiliyor": "Generating…",
+    "zincir": "Chain (all)",
+    "kopyala": "Copy text",
+    "kopyalandi": "Copied",
+    "kopyaHatasi": "Could not copy; you can select the text manually.",
+    "hata": "Could not generate the prompts.",
+    "kapat": "Close"
   }
 }

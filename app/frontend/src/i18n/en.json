@@ -1260,5 +1260,22 @@
     "calistir": "Run",
     "sifirla": "Reset",
     "not": "The code runs only in your browser, inside an isolated frame; nothing is sent anywhere or stored."
+  },
+  "uzman": {
+    "dugme": "Expert prompts",
+    "baslik": "Expert prompts",
+    "aciklama": "Builds one working prompt per role from the request, plus a chain that links them. The selections below were guessed from the text — correct them if wrong.",
+    "amac": "Project goal",
+    "kapsam": "Scope",
+    "zaman": "Timeline",
+    "butce": "Budget",
+    "uret": "Generate prompts",
+    "uretiliyor": "Generating…",
+    "zincir": "Chain (all)",
+    "kopyala": "Copy text",
+    "kopyalandi": "Copied",
+    "kopyaHatasi": "Could not copy; you can select the text manually.",
+    "hata": "Could not generate the prompts.",
+    "kapat": "Close"
   }
 }

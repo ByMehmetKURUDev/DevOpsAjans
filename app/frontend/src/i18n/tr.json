@@ -1261,5 +1261,22 @@
     "calistir": "Çalıştır",
     "sifirla": "Sıfırla",
     "not": "Kod yalnızca tarayıcınızda, yalıtılmış bir çerçevede çalışır; hiçbir yere gönderilmez ve kaydedilmez."
+  },
+  "uzman": {
+    "dugme": "Uzman promptları",
+    "baslik": "Uzman promptları",
+    "aciklama": "Talepteki bilgilerden her rol için ayrı bir çalışma promptu ve hepsini birbirine bağlayan bir zincir üretir. Aşağıdaki seçimler metinden tahmin edildi — yanlışsa düzeltin.",
+    "amac": "Projenin amacı",
+    "kapsam": "Kapsam",
+    "zaman": "Zaman",
+    "butce": "Bütçe",
+    "uret": "Promptları üret",
+    "uretiliyor": "Üretiliyor…",
+    "zincir": "Zincir (hepsi)",
+    "kopyala": "Metni kopyala",
+    "kopyalandi": "Kopyalandı",
+    "kopyaHatasi": "Panoya kopyalanamadı; metni elle seçebilirsiniz.",
+    "hata": "Promptlar üretilemedi.",
+    "kapat": "Kapat"
   }
 }

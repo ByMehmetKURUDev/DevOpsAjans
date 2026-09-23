@@ -24,6 +24,7 @@ import {
   Briefcase,
   Boxes,
   CalendarDays,
+  Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,6 +34,7 @@ import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import SiteSagligi from '@/components/admin/SiteSagligi';
 import SiteTaramasi from '@/components/admin/SiteTaramasi';
+import UzmanPromptlari from '@/components/admin/UzmanPromptlari';
 import NotificationCenter from '@/components/admin/NotificationCenter';
 import ProjectStageManager from '@/components/admin/ProjectStageManager';
 import { asamaAnahtari, useStageLabels, useStages } from '@/lib/projectEvents';
@@ -222,6 +224,8 @@ export default function AdminPanel() {
   const stageLabel = useStageLabels();
   const asamaListesi = useStages();
   const [projeFiltresi, setProjeFiltresi] = useState<'musteri' | 'vaka' | 'hepsi'>('musteri');
+  // Uzman promptlari uretilen talep; modal bunun uzerinden aciliyor.
+  const [promptTalebi, setPromptTalebi] = useState<Inquiry | null>(null);
   // Davet e-postasi gitmediyse metni burada tutup yoneticiye elden
   // gondermesi icin veriyoruz. Yoksa davet sessizce kaybolur ve musteri
   // hangi adresle kaydolacagini hic ogrenemez.
@@ -1401,26 +1405,41 @@ export default function AdminPanel() {
                         ikinci kez basmak aynı müşteri için ikinci bir proje
                         açar ve panelinde iki kopya görünür.
                       */}
-                      {inq.status !== 'converted' && (
+                      <div className="flex flex-none flex-wrap justify-end gap-1">
+                        {/*
+                          Uzman promptları her talepte duruyor, çevrilmişte
+                          de: işe başlarken de, iş ortasında da aynı brief
+                          lazım oluyor.
+                        */}
                         <Button
                           size="sm"
                           variant="ghost"
-                          onClick={() => talebiProjeyeCevir(inq)}
+                          onClick={() => setPromptTalebi(inq)}
                           className="gap-1 text-purple-300"
                         >
-                          <Briefcase className="h-4 w-4" /> {t('admin.convertToProject')}
+                          <Sparkles className="h-4 w-4" /> {t('uzman.dugme')}
                         </Button>
-                      )}
-                      {inq.status !== 'resolved' && inq.status !== 'converted' && (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => markInquiryResolved(inq)}
-                          className="gap-1 text-emerald-300"
-                        >
-                          <CheckCircle2 className="h-4 w-4" /> {t('admin.resolved')}
-                        </Button>
-                      )}
+                        {inq.status !== 'converted' && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => talebiProjeyeCevir(inq)}
+                            className="gap-1 text-purple-300"
+                          >
+                            <Briefcase className="h-4 w-4" /> {t('admin.convertToProject')}
+                          </Button>
+                        )}
+                        {inq.status !== 'resolved' && inq.status !== 'converted' && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => markInquiryResolved(inq)}
+                            className="gap-1 text-emerald-300"
+                          >
+                            <CheckCircle2 className="h-4 w-4" /> {t('admin.resolved')}
+                          </Button>
+                        )}
+                      </div>
                     </div>
                     {inq.subject && (
                       <p className="font-medium text-sm mb-2">{inq.subject}</p>
@@ -2076,6 +2095,15 @@ export default function AdminPanel() {
             </div>
           </div>
         </div>
+      )}
+
+      {promptTalebi && (
+        <UzmanPromptlari
+          musteri={promptTalebi.name}
+          konu={promptTalebi.subject || ''}
+          mesaj={promptTalebi.message}
+          onClose={() => setPromptTalebi(null)}
+        />
       )}
 
       {/* Davet e-postasi gitmediyse: metni elden gondermek icin */}
