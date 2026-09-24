@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, MessageCircleQuestion } from 'lucide-react';
@@ -24,7 +24,7 @@ import { Button } from '@/components/ui/button';
 /** Çeviride karşılığı olan soru sayısı; fazlası sessizce atlanır. */
 const EN_FAZLA_SORU = 12;
 
-export default function SikSorulanlar() {
+function SikSorulanlar() {
   const { t } = useTranslation();
   const [acik, setAcik] = useState<number | null>(0);
 
@@ -115,3 +115,5 @@ export default function SikSorulanlar() {
     </section>
   );
 }
+
+export default memo(SikSorulanlar);

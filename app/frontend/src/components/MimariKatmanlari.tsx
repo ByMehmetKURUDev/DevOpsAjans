@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Check, Cloud, Database, Layers, Server } from 'lucide-react';
@@ -25,7 +25,7 @@ const KATMANLAR = [
 /** Her katmanda dört madde var; i18n anahtarları `mimari.<katman>.m1..m4`. */
 const MADDELER = ['m1', 'm2', 'm3', 'm4'] as const;
 
-export default function MimariKatmanlari() {
+function MimariKatmanlari() {
   const { t } = useTranslation();
   const [secili, setSecili] = useState(0);
   const katman = KATMANLAR[secili];
@@ -141,3 +141,5 @@ export default function MimariKatmanlari() {
     </section>
   );
 }
+
+export default memo(MimariKatmanlari);

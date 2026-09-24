@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { startTransition, useCallback, useEffect, useMemo, useState } from 'react';
 import { client } from './sdkClient';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGE_CODES } from '@/i18n';
@@ -411,6 +411,20 @@ export function clearSettingsCache() {
  * Bileşenlerde site ayarlarını okumak için hook.
  * `settings` aktif dile göre çözülmüş değerleri içerir; `rawSettings` ham haritadır.
  */
+/**
+ * Iki ayar haritasi ayni mi?
+ *
+ * `setRawSettings` her seferinde yeni bir nesne aldigi icin, sunucudan
+ * gelen degerler oncekiyle birebir ayni olsa bile tum sayfa yeniden
+ * ciziliyordu. Bu karsilastirma o gereksiz cizimi kesiyor.
+ */
+function ayniHarita(a: SettingsMap, b: SettingsMap): boolean {
+  const ak = Object.keys(a);
+  if (ak.length !== Object.keys(b).length) return false;
+  for (const k of ak) if (a[k] !== b[k]) return false;
+  return true;
+}
+
 export function useSiteSettings() {
   const { i18n } = useTranslation();
   const lang = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : 'tr';
@@ -419,11 +433,20 @@ export function useSiteSettings() {
   );
   const [loading, setLoading] = useState(true);
 
+  /*
+   * Ayarlar geldiginde sayfanin tamami yeniden ciziliyor. Bu cizim ilk
+   * etkilesim penceresine denk gelirse ana is parcacigini uzun sure
+   * kilitliyor (PageSpeed'de TBT). `startTransition` React'e "bu acil
+   * degil, aralarda nefes al" diyor: is kucuk parcalara bolunuyor,
+   * ekranda gorunen sey degismiyor.
+   */
   const load = useCallback(async (force = false) => {
     setLoading(true);
     const map = await fetchSiteSettings(force);
-    setRawSettings(map);
-    setLoading(false);
+    startTransition(() => {
+      setRawSettings((onceki) => (ayniHarita(onceki, map) ? onceki : map));
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -432,7 +455,10 @@ export function useSiteSettings() {
 
   // Arka planda tazelenen ayarlar ekrana da yansısın.
   useEffect(() => {
-    const dinle = (map: SettingsMap) => setRawSettings(map);
+    const dinle = (map: SettingsMap) =>
+      startTransition(() =>
+        setRawSettings((onceki) => (ayniHarita(onceki, map) ? onceki : map)),
+      );
     aboneler.add(dinle);
     return () => {
       aboneler.delete(dinle);

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, TrendingUp } from 'lucide-react';
@@ -21,7 +21,7 @@ import { useSiteSettings } from '@/lib/siteSettings';
 
 const VARSAYILAN_SEO_ADS_UCRETI = 500;
 
-export default function YatirimHesaplayici() {
+function YatirimHesaplayici() {
   const { t, i18n } = useTranslation();
   const { settings } = useSiteSettings();
 
@@ -222,3 +222,5 @@ export default function YatirimHesaplayici() {
     </section>
   );
 }
+
+export default memo(YatirimHesaplayici);

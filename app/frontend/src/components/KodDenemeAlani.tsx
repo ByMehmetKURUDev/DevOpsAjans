@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { Play, RotateCcw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -68,7 +68,7 @@ function belgeyiKur(kod: string): string {
 </head><body>${kod}</body></html>`;
 }
 
-export default function KodDenemeAlani() {
+function KodDenemeAlani() {
   const { t } = useTranslation();
   const [kod, setKod] = useState(BASLANGIC);
   const [calisan, setCalisan] = useState(BASLANGIC);
@@ -162,3 +162,5 @@ export default function KodDenemeAlani() {
     </section>
   );
 }
+
+export default memo(KodDenemeAlani);

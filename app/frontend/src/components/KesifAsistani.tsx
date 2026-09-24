@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight, Check, Compass, Loader2, RotateCcw, Sparkles } from 'lucide-react';
@@ -102,7 +102,7 @@ function paketOner(c: Cevaplar): PaketNo {
   return kazanan;
 }
 
-export default function KesifAsistani() {
+function KesifAsistani() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [adim, setAdim] = useState(1);
@@ -486,3 +486,5 @@ export default function KesifAsistani() {
     </section>
   );
 }
+
+export default memo(KesifAsistani);

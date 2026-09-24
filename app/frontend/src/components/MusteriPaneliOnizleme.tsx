@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
@@ -55,7 +55,7 @@ const SEKMELER = [
   { anahtar: 'destek', Icon: MessageSquare },
 ] as const;
 
-export default function MusteriPaneliOnizleme() {
+function MusteriPaneliOnizleme() {
   const { t } = useTranslation();
   const [secili, setSecili] = useState<Asama>('build');
   const seciliSira = ASAMALAR.indexOf(secili);
@@ -216,3 +216,5 @@ export default function MusteriPaneliOnizleme() {
     </section>
   );
 }
+
+export default memo(MusteriPaneliOnizleme);

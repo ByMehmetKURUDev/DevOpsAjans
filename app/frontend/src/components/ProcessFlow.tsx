@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -10,7 +11,7 @@ import { useTranslation } from 'react-i18next';
  * `role="img"` + `aria-label`: ekran okuyucu şemanın ne anlattığını
  * tek cümlede alıyor, içindeki metinler ayrıca okunmuyor.
  */
-export default function ProcessFlow({ className = '' }: { className?: string }) {
+function ProcessFlow({ className = '' }: { className?: string }) {
   const { t } = useTranslation();
 
   const steps = [
@@ -112,3 +113,5 @@ export default function ProcessFlow({ className = '' }: { className?: string }) 
     </svg>
   );
 }
+
+export default memo(ProcessFlow);

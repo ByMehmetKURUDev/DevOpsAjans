@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Quote, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTestimonials } from '@/lib/testimonials';
@@ -9,7 +10,7 @@ import { useTestimonials } from '@/lib/testimonials';
  * göstermek, uydurma yorum koymak kadar kötü. Yapısal veri de yalnızca
  * gerçek yorum varsa üretilir.
  */
-export default function Testimonials({ className = '' }: { className?: string }) {
+function Testimonials({ className = '' }: { className?: string }) {
   const { t } = useTranslation();
   const items = useTestimonials();
 
@@ -77,3 +78,5 @@ export default function Testimonials({ className = '' }: { className?: string })
     </section>
   );
 }
+
+export default memo(Testimonials);

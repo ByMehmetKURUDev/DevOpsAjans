@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Crown, Rocket, Server, Shield, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +22,7 @@ type Billing = 'monthly' | 'yearly';
  *    butonlar aynı hizada kalıyor (eskiden kart yüksekliğine göre kayıyordu).
  *  - DevOps'ta fiyat yok; yerinde "Görüşelim" duruyor, kart yapısı bozulmuyor.
  */
-export default function PricingPlans({ className = '' }: { className?: string }) {
+function PricingPlans({ className = '' }: { className?: string }) {
   const { t } = useTranslation();
   const { settings } = useSiteSettings();
   const [billing, setBilling] = useState<Billing>('monthly');
@@ -168,3 +168,5 @@ export default function PricingPlans({ className = '' }: { className?: string })
     </section>
   );
 }
+
+export default memo(PricingPlans);
