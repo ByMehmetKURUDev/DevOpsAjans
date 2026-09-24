@@ -51,8 +51,13 @@ router = APIRouter(
 #: önizleme dalları kendi adreslerini tarayabilsin.
 SITE_ADRESI = (os.environ.get("SITE_PUBLIC_URL") or "https://mehmetkuru.dev").rstrip("/")
 
-SAYFA_TAVANI = 60          # sitemap'ten alınacak en fazla sayfa
-BAGLANTI_TAVANI = 150      # ayrıca durumu denetlenecek en fazla benzersiz bağlantı
+# Tavanlar ölçüme göre: 60 sayfa + 58 bağlantı 4.4 saniye sürüyor
+# (6 eşzamanlı istek). Sitemap'te 106 adres var; hepsini taramak ~8
+# saniye demek, uç için sorun değil. Tavan yine de duruyor: site
+# büyüdüğünde tarama sessizce uzayıp zaman aşımına düşmesin, bunun
+# yerine "ilk N tanesi tarandı" notuyla dürüstçe eksik kalsın.
+SAYFA_TAVANI = 130         # sitemap'ten alınacak en fazla sayfa
+BAGLANTI_TAVANI = 250      # ayrıca durumu denetlenecek en fazla benzersiz bağlantı
 ESZAMANLILIK = 6           # aynı anda açık istek
 ISTEK_ZAMAN_ASIMI = 12.0   # saniye
 GOVDE_TAVANI = 1_500_000   # 1.5 MB'tan büyük gövdeyi okumuyoruz

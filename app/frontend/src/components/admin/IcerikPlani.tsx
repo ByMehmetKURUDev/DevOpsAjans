@@ -5,6 +5,7 @@ import {
   Copy,
   ExternalLink,
   Loader2,
+  Mail,
   Pencil,
   Plus,
   Sparkles,
@@ -19,6 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { icerikTaslagiUret } from '@/lib/icerikAi';
+import { hatirlatmaGonder } from '@/lib/icerikHatirlatma';
 import {
   KANALLAR,
   KANAL_ADRESI,
@@ -81,6 +83,7 @@ export default function IcerikPlani() {
   const [kaydediliyor, setKaydediliyor] = useState(false);
   const [aiCalisiyor, setAiCalisiyor] = useState(false);
   const [aiYonlendirme, setAiYonlendirme] = useState('');
+  const [hatirlatmaGidiyor, setHatirlatmaGidiyor] = useState(false);
   const [kanalSuzgeci, setKanalSuzgeci] = useState<string>('hepsi');
 
   const yukle = () => {
@@ -95,6 +98,33 @@ export default function IcerikPlani() {
   useEffect(yukle, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const geciken = useMemo(() => (liste ? gecikenler(liste) : []), [liste]);
+
+  /**
+   * Gecikenleri yöneticiye e-postayla yollar.
+   *
+   * Gönderim BAŞARISIZ olsa bile uç 200 dönüyor (kanal kapalı olabilir,
+   * adres tanımlı olmayabilir). O yüzden "gitti" demeden önce durumu
+   * okuyoruz; yoksa panel yalan söylemiş olur.
+   */
+  const hatirlat = async () => {
+    setHatirlatmaGidiyor(true);
+    try {
+      const sonuc = await hatirlatmaGonder();
+      if (sonuc.epostaGitti) {
+        toast.success(t('icerik.hatirlatildi', { count: sonuc.aliciSayisi }));
+      } else {
+        toast.warning(
+          t('icerik.hatirlatmaGitmedi', {
+            ayrinti: sonuc.epostaAyrinti || sonuc.epostaDurumu,
+          }),
+        );
+      }
+    } catch {
+      toast.error(t('icerik.hatirlatmaHatasi'));
+    } finally {
+      setHatirlatmaGidiyor(false);
+    }
+  };
   const gosterilen = useMemo(() => {
     if (!liste) return [];
     if (kanalSuzgeci === 'hepsi') return liste;
@@ -207,9 +237,31 @@ export default function IcerikPlani() {
       {geciken.length > 0 && (
         <div className="mb-4 flex items-start gap-3 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3">
           <AlertTriangle className="mt-0.5 h-4 w-4 flex-none text-amber-300" aria-hidden="true" />
-          <p className="text-sm text-amber-100">
-            {t('icerik.gecikenUyari', { count: geciken.length })}
-          </p>
+          <div className="min-w-0">
+            <p className="text-sm text-amber-100">
+              {t('icerik.gecikenUyari', { count: geciken.length })}
+            </p>
+            {/*
+              Hatırlatma ZAMANLANMIŞ İŞ DEĞİL, düğmeye basınca gidiyor.
+              Ücretsiz sunucu uykuya geçtiği için saat başı çalışacak bir
+              iş tam saatinde çalışmıyor; sessizce çalışmayan hatırlatma,
+              hiç olmamasından kötü.
+            */}
+            <Button
+              size="sm"
+              variant="ghost"
+              disabled={hatirlatmaGidiyor}
+              onClick={hatirlat}
+              className="mt-2 gap-2 px-0 text-amber-200 hover:text-amber-100"
+            >
+              {hatirlatmaGidiyor ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Mail className="h-4 w-4" />
+              )}
+              {t('icerik.hatirlat')}
+            </Button>
+          </div>
         </div>
       )}
 

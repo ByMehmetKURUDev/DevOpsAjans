@@ -1185,7 +1185,7 @@
   },
   "icerik": {
     "nasilCalisir": "Bu ekran gönderi hazırlar, gönderi ATMAZ. Akış: planla → AI taslağı yaz → onayla → zamanı gelince \"Kopyala ve aç\" ile metni panoya al, kanalda yapıştır, paylaş, sonra \"Paylaşıldı\" işaretle. Otomatik yayın için Instagram/Facebook/LinkedIn onaylı uygulama hesabı, X için ücretli API gerekiyor; ayrıca ücretsiz sunucu uykuya geçtiği için zamanlanmış iş tam saatinde çalışmaz.",
-    "gecikenUyari": "{{count}} gönderinin zamanı geçti ve hâlâ paylaşılmadı. (Hatırlatma e-postası gönderilmiyor — sunucuda e-posta sağlayıcısı tanımlı değil.)",
+    "gecikenUyari": "{{count}} gönderinin zamanı geçti ve hâlâ paylaşılmadı.",
     "hepsi": "Hepsi",
     "yeni": "Yeni gönderi",
     "yeniBaslik": "Yeni gönderi",
@@ -1241,7 +1241,11 @@
       "draft": "Taslak",
       "approved": "Onaylı",
       "published": "Paylaşıldı"
-    }
+    },
+    "hatirlat": "Gecikenleri bana e-postayla gönder",
+    "hatirlatildi": "Hatırlatma {{count}} yönetici adresine gönderildi.",
+    "hatirlatmaGitmedi": "E-posta gönderilemedi: {{ayrinti}}",
+    "hatirlatmaHatasi": "Hatırlatma gönderilemedi."
   },
   "riza": {
     "baslik": "Çerez ve ölçüm tercihi",

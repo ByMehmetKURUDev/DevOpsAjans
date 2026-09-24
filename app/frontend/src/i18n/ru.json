@@ -1184,7 +1184,7 @@
   },
   "icerik": {
     "nasilCalisir": "This screen prepares posts; it does NOT publish them. Flow: plan → draft with AI → approve → when the time comes hit \"Copy and open\", paste in the channel, publish, then mark as published. Automatic publishing needs approved app accounts for Instagram/Facebook/LinkedIn and a paid API for X; the free server also sleeps, so a scheduled job would not fire on time.",
-    "gecikenUyari": "{{count}} post(s) are past their time and still unpublished. (No reminder e-mail is sent — no mail provider is configured on the server.)",
+    "gecikenUyari": "{{count}} post(s) are past their time and still unpublished.",
     "hepsi": "All",
     "yeni": "New post",
     "yeniBaslik": "New post",
@@ -1240,7 +1240,11 @@
       "draft": "Draft",
       "approved": "Approved",
       "published": "Published"
-    }
+    },
+    "hatirlat": "E-mail the overdue list to me",
+    "hatirlatildi": "Reminder sent to {{count}} admin address(es).",
+    "hatirlatmaGitmedi": "The e-mail was not sent: {{ayrinti}}",
+    "hatirlatmaHatasi": "Could not send the reminder."
   },
   "riza": {
     "baslik": "Выбор по cookie и аналитике",
