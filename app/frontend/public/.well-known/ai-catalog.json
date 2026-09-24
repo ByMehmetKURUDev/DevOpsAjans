@@ -1,4 +1,9 @@
 {
-  "@context": "https://agenticresourcediscovery.org/context/v1",
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "By Mehmet KURU Dev",
+    "documentationUrl": "https://mehmetkuru.dev/llms.txt",
+    "logoUrl": "https://mehmetkuru.dev/logo512.png"
+  },
   "entries": []
 }

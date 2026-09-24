@@ -25,3 +25,21 @@ identifier (urn:air:mehmetkuru.dev:...), displayName, type (IANA ortam
 türü) ve url/data'dan tam olarak biri; ayrıca 2-5 representativeQueries.
 
 Spesifikasyon: https://agenticresourcediscovery.org/spec/
+
+## İki dosya, iki farklı şema
+
+`ard.json` ve `ai-catalog.json` **aynı içerik değil**, olamaz da:
+
+- `ard.json` → ARD manifesti. Yalnızca `entries` zorunlu, fazladan üst
+  düzey alanlara izin var (`additionalProperties: true`).
+- `ai-catalog.json` → öncül AICatalogManifest şeması. `specVersion`
+  ("1.0") ve `entries` zorunlu, fazladan alan **yasak**
+  (`additionalProperties: false`) — bu yüzden burada `@context` yok.
+
+İkisini aynı dosyadan kopyalamak ilk denemede hataya yol açtı: PageSpeed
+`ai-catalog.json`'ı öncül şemayla doğruluyor ve "specVersion is a
+required property" dedi.
+
+Şemalar:
+- https://raw.githubusercontent.com/ards-project/ard-spec/main/spec/schemas/ard-entry.schema.json
+- https://raw.githubusercontent.com/ards-project/ard-spec/main/spec/schemas/ai-catalog.schema.json
