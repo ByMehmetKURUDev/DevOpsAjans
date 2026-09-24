@@ -200,6 +200,22 @@
     content-visibility: auto;
     contain-intrinsic-size: auto 600px;
   }
+  /*
+   * Henuz cizilmemis bolumun yerini tutan kutu.
+   *
+   * Yukseklik bolum basina olculdu ve iki kirilimda ayri veriliyor:
+   * masaustunde bolumler mobile gore cok daha kisa, tek deger
+   * kullanilinca sayfa gereginden uzun acilip kaydirma cubugu geri
+   * kaciyordu.
+   */
+  .bolum-yer {
+    min-height: var(--yer-mobil, 900px);
+  }
+  @media (min-width: 1024px) {
+    .bolum-yer {
+      min-height: var(--yer-masa, 850px);
+    }
+  }
   .marquee {
     animation: marquee 30s linear infinite;
     will-change: transform;

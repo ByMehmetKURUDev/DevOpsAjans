@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import ErtelenmisBolum from '@/components/ErtelenmisBolum';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
@@ -36,6 +37,29 @@ const TECH = [
   'Kubernetes', 'Terraform', 'Jenkins', 'GitHub Actions',
   'Tailwind', 'GraphQL', 'Figma', 'Three.js', 'Stripe',
 ];
+
+/**
+ * Bolum basina olculen yukseklikler (piksel).
+ *
+ * Bolum cizilmeden once yerini bu kadar bosluk tutuyor; sayfanin toplam
+ * yuksekligi ve kaydirma cubugu bu sayede yerinden oynamiyor. Degerler
+ * canli sayfadan olculdu: `mobil` 390x844, `masa` 1280x900 ekranda.
+ */
+const BOLUM_YUKSEKLIKLERI: Record<string, { mobil: number; masa: number }> = {
+  kesif: { mobil: 1250, masa: 747 },
+  capabilities: { mobil: 1767, masa: 639 },
+  process: { mobil: 1481, masa: 683 },
+  mimari: { mobil: 1602, masa: 847 },
+  panel: { mobil: 1970, masa: 965 },
+  packages: { mobil: 2425, masa: 793 },
+  yatirim: { mobil: 1345, masa: 808 },
+  tech: { mobil: 210, masa: 620 },
+  playground: { mobil: 1377, masa: 719 },
+  caseCategories: { mobil: 793, masa: 674 },
+  testimonials: { mobil: 793, masa: 674 },
+  sss: { mobil: 761, masa: 701 },
+  cta: { mobil: 792, masa: 728 },
+};
 
 export default function Index() {
   const { t, i18n } = useTranslation();
@@ -417,7 +441,19 @@ export default function Index() {
   return (
     <div>
       {visibleSectionKeys('home', settings).map((key) =>
-        BOLUMLER[key] ? <Fragment key={key}>{BOLUMLER[key]}</Fragment> : null,
+        BOLUMLER[key] ? (
+          key === 'hero' ? (
+            <Fragment key={key}>{BOLUMLER[key]}</Fragment>
+          ) : (
+            <ErtelenmisBolum
+              key={key}
+              yukseklikMobil={BOLUM_YUKSEKLIKLERI[key]?.mobil ?? 900}
+              yukseklikMasa={BOLUM_YUKSEKLIKLERI[key]?.masa ?? 850}
+            >
+              {BOLUMLER[key]}
+            </ErtelenmisBolum>
+          )
+        ) : null,
       )}
     </div>
   );
