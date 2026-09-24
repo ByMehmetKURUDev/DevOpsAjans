@@ -297,7 +297,15 @@ function getPostSeoMeta(post?: BlogPost | null): SeoMeta {
     };
   }
 
-  const title = `${post.title} | Blog`;
+  /*
+   * Başlık, yazının kendi başlığı — sonuna " | Blog" EKLENMİYOR.
+   *
+   * O yedi karakter 20 yazıda başlığı Google'ın kestiği sınırın üstüne
+   * taşıyordu. Karşılığında da bir şey vermiyordu: "Blog" marka adı
+   * değil, arama sonucunda hiçbir şey anlatmıyor. Adres zaten /blog/
+   * altında ve breadcrumb işaretlemesi bağlamı veriyor.
+   */
+  const title = post.title;
   const description = post.description;
   const url =
     frontmatterString(post.frontmatter, 'og_url') ??
