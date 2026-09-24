@@ -54,22 +54,18 @@
       fontları yalnızca o diller seçilince, çalışma zamanında yükleniyor.
 
       Başlık fontu önden isteniyor: her sayfanın en büyük öğesi (LCP)
-      h1 başlığı ve Plus Jakarta Sans 700 kullanıyor. Font geç geldiğinde
+      h1 başlığı ve Plus Jakarta Sans kullanıyor. Font geç geldiğinde
       başlık önce yedek yazı tipiyle çiziliyor, sonra değişiyordu; ölçümde
-      ilk boyama 1,7 sn iken LCP 3,5 sn'de kalıyordu. İki dosya da lazım:
-      Latin-1 harfleri birinde, Türkçe'nin ğ ı İ ş harfleri diğerinde.
+      ilk boyama 1,7 sn iken LCP 3,5 sn'de kalıyordu.
+
+      Tek dosya yetiyor: Plus Jakarta Sans artık değişken (variable)
+      sürümüyle geliyor, yani 200-800 arası bütün kalınlıklar ve hem
+      Latin-1 hem Türkçe'nin ğ ı İ ş harfleri aynı dosyada.
       Yazı tiplerinde crossorigin, aynı sunucudan gelse bile zorunlu.
     -->
     <link
       rel="preload"
-      href="/fonts/jakarta-700-latin.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/jakarta-700-latin-ext.woff2"
+      href="/fonts/jakarta-degisken-latin.woff2"
       as="font"
       type="font/woff2"
       crossorigin

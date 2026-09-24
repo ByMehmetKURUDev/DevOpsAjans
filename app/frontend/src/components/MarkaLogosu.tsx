@@ -103,6 +103,20 @@ export default function MarkaLogosu({
           <span className="text-base font-extrabold tracking-tight text-white sm:text-lg">
             {t('ui.brandPrefix')}
             <span className="text-primary">{t('ui.brandHighlight')}</span> {t('ui.brandSuffix')}
+            {/*
+              Tescilli marka işareti.
+
+              Künyenin tamamına ait olduğu için son kelimeden sonra geliyor,
+              üst simge olarak. `title` ekran okuyucuya ve fare üstüne
+              gelene ne olduğunu söylüyor; işaretin kendisi metinde kalıyor,
+              gizlenmiyor.
+            */}
+            <span
+              className="ms-0.5 align-super text-[0.55em] font-semibold text-muted-foreground"
+              title={t('ui.brandRegistered')}
+            >
+              ®
+            </span>
           </span>
           <span className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
             {t('ui.brandTagline')}
