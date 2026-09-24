@@ -25,7 +25,8 @@ from dependencies.entity_guard import entity_guard
 from dependencies.kayit_sahipligi import _yonetici_mi
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi import Depends as _Depends
-from models.content_posts import ContentPosts
+# DIKKAT: uretilmis modelin sinif adi alt cizgili: Content_posts.
+from models.content_posts import Content_posts
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -81,9 +82,9 @@ async def hatirlatma_gonder(request: Request, db: AsyncSession = Depends(get_db)
 
     simdi = datetime.now()
     sonuc = await db.execute(
-        select(ContentPosts).order_by(ContentPosts.scheduled_at.asc())
+        select(Content_posts).order_by(Content_posts.scheduled_at.asc())
     )
-    gecikenler: List[ContentPosts] = [
+    gecikenler: List[Content_posts] = [
         g
         for g in sonuc.scalars().all()
         if g.scheduled_at
