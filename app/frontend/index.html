@@ -27,6 +27,17 @@
     <link rel="manifest" href="/manifest.webmanifest" />
 
     <!--
+      Ajan keşfi (Agentic Resource Discovery).
+
+      Spesifikasyon, tüketicinin rel="ard" bağlantısına uymasını ZORUNLU
+      kılıyor. Etiket olmadan ajan adresi tahmin ediyordu ve Cloudflare
+      Pages var olmayan her yolu 200 + index.html ile döndürdüğü için
+      143 kB HTML'i JSON sanıp "Unexpected token '<'" hatası veriyordu.
+      Etiket onu geçerli ve boş manifeste yönlendiriyor.
+    -->
+    <link rel="ard" href="/.well-known/ard.json" />
+
+    <!--
       iOS'ta manifest okunmuyor; ana ekrana eklenen site bu etiketlerle
       tarayıcı çubuğu olmadan, uygulama gibi açılıyor.
     -->
