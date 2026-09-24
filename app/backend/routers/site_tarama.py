@@ -123,7 +123,8 @@ _LANG = re.compile(r"<html[^>]*\slang\s*=\s*[\"']([^\"']+)", re.I)
 _CANONICAL = re.compile(r"<link[^>]+rel\s*=\s*[\"']canonical[\"'][^>]*>", re.I)
 _IMG = re.compile(r"<img\b[^>]*>", re.I)
 _ALT = re.compile(r"\salt\s*=", re.I)
-_HREF = re.compile(r"<a\b[^>]*\shref\s*=\s*[\"']([^\"']+)[\"']", re.I)
+#: Ayni geri basvuru mantigi: apostrof tasiyan adres kesilmesin.
+_HREF = re.compile(r"<a\b[^>]*\shref\s*=\s*([\"'])(.*?)\1", re.I)
 _ETIKET_TEMIZ = re.compile(r"<[^>]+>")
 
 
@@ -135,8 +136,40 @@ def _meta(html: str, ad: str, alan: str = "name") -> str:
     m = kalip.search(html)
     if not m:
         return ""
-    icerik = re.search(r"content\s*=\s*[\"'](.*?)[\"']", m.group(0), re.I | re.S)
-    return (icerik.group(1).strip() if icerik else "")
+    # Kapanis tirnagi ACILIS tirnagiyla ayni olmali (geri basvuru).
+    # Onceden `[\"']` yaziyordu: content="Turkiye'nin ..." gibi bir
+    # degerde ic apostrof kapanis sanilip metin 7 karakterde kesiliyordu.
+    # Tarama da "aciklama cok kisa" diye YANLIS uyari veriyordu.
+    icerik = re.search(r"content\s*=\s*([\"'])(.*?)\1", m.group(0), re.I | re.S)
+    return (icerik.group(2).strip() if icerik else "")
+
+
+def _genislik(metin: str) -> int:
+    """Metnin arama sonucunda kaplayacagi yaklasik genislik.
+
+    Google baslik ve aciklamayi karakter sayisina gore degil, PIKSEL
+    genisligine gore kesiyor. Cince/Japonca/Korece karakterler latin
+    harflerin yaklasik iki kati genislikte; ayni bilgi yarisi kadar
+    karakterle anlatiliyor.
+
+    Karakter sayarak olctugumuzde Cince sayfalarin hepsi "aciklama cok
+    kisa" diye uyari veriyordu -- 64 karakterlik bir Cince aciklama
+    aslinda ~130 latin karakteri genisliginde ve gayet yeterli. Bu
+    yuzden CJK araliklarindaki her karakter iki sayiliyor.
+    """
+    toplam = 0
+    for ch in metin:
+        k = ord(ch)
+        genis = (
+            0x1100 <= k <= 0x115F        # Hangul Jamo
+            or 0x2E80 <= k <= 0xA4CF     # CJK radikalleri, Kana, Han
+            or 0xAC00 <= k <= 0xD7A3     # Hangul heceleri
+            or 0xF900 <= k <= 0xFAFF     # CJK uyumluluk
+            or 0xFF00 <= k <= 0xFF60     # tam genislikte biçimler
+            or 0x20000 <= k <= 0x3FFFD   # CJK ek düzlemler
+        )
+        toplam += 2 if genis else 1
+    return toplam
 
 
 def _metin(ham: str) -> str:
@@ -185,18 +218,18 @@ def _sayfayi_incele(url: str, durum: int, sure_ms: int, html: str) -> Tuple[Sayf
     baslik = _metin(m.group(1)) if m else ""
     if not baslik:
         bulgular.append(Bulgu(kod="baslik_yok", seviye="hata"))
-    elif len(baslik) < BASLIK_ALT:
-        bulgular.append(Bulgu(kod="baslik_kisa", seviye="uyari", deger=len(baslik)))
-    elif len(baslik) > BASLIK_UST:
-        bulgular.append(Bulgu(kod="baslik_uzun", seviye="uyari", deger=len(baslik)))
+    elif _genislik(baslik) < BASLIK_ALT:
+        bulgular.append(Bulgu(kod="baslik_kisa", seviye="uyari", deger=_genislik(baslik)))
+    elif _genislik(baslik) > BASLIK_UST:
+        bulgular.append(Bulgu(kod="baslik_uzun", seviye="uyari", deger=_genislik(baslik)))
 
     aciklama = _meta(html, "description")
     if not aciklama:
         bulgular.append(Bulgu(kod="aciklama_yok", seviye="hata"))
-    elif len(aciklama) < ACIKLAMA_ALT:
-        bulgular.append(Bulgu(kod="aciklama_kisa", seviye="uyari", deger=len(aciklama)))
-    elif len(aciklama) > ACIKLAMA_UST:
-        bulgular.append(Bulgu(kod="aciklama_uzun", seviye="uyari", deger=len(aciklama)))
+    elif _genislik(aciklama) < ACIKLAMA_ALT:
+        bulgular.append(Bulgu(kod="aciklama_kisa", seviye="uyari", deger=_genislik(aciklama)))
+    elif _genislik(aciklama) > ACIKLAMA_UST:
+        bulgular.append(Bulgu(kod="aciklama_uzun", seviye="uyari", deger=_genislik(aciklama)))
 
     h1_sayisi = len(_H1.findall(html))
     if h1_sayisi == 0:
@@ -224,7 +257,7 @@ def _sayfayi_incele(url: str, durum: int, sure_ms: int, html: str) -> Tuple[Sayf
     if len(html) > 400_000:
         bulgular.append(Bulgu(kod="agir", seviye="uyari", deger=len(html) // 1024))
 
-    for ham in _HREF.findall(html):
+    for _tirnak, ham in _HREF.findall(html):
         hedef = _normalize(ham, url)
         if hedef and _ic_baglanti_mi(hedef):
             baglantilar.append(hedef)

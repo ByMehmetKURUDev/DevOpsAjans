@@ -1,6 +1,6 @@
 ---
 title: "Web Sitesi Yaptırmanın Maliyeti Ne Kadar?"
-description: "Web sitesi maliyetini belirleyen kalemler: kapsam, tasarım yaklaşımı, geliştirme yöntemi, entegrasyonlar, içerik üretimi, yıllık işletme giderleri ve teklifleri karşılaştırma yöntemi."
+description: "Web sitesi maliyetini belirleyen kalemler: kapsam, tasarım yaklaşımı, geliştirme yöntemi, entegrasyonlar, içerik üretimi ve yıllık giderler."
 keywords: "web sitesi maliyeti, web sitesi fiyatları, kurumsal web sitesi fiyatı, e-ticaret sitesi maliyeti, web sitesi yıllık gider, web tasarım teklifi karşılaştırma"
 category: "Website"
 tags:

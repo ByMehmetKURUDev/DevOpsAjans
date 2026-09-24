@@ -1,6 +1,6 @@
 ---
-title: "SEO Nedir? Google'da Üst Sıralara Çıkmak İçin Kapsamlı SEO Rehberi"
-description: "SEO nedir, nasıl çalışır ve hangi çalışma alanlarından oluşur? Teknik SEO, içerik, sayfa içi optimizasyon, otorite ve ölçümleme başlıklarında uçtan uca bir SEO rehberi."
+title: "SEO Nedir? Google'da Üst Sıralara Çıkmak İçin Rehber"
+description: "SEO nedir, nasıl çalışır ve hangi alanlardan oluşur? Teknik SEO, içerik, sayfa içi optimizasyon, otorite ve ölçümleme başlıklarında rehber."
 keywords: "SEO nedir, arama motoru optimizasyonu, teknik SEO, on-page SEO, off-page SEO, anahtar kelime araştırması, Google sıralama faktörleri"
 category: "SEO"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "Birinci Taraf Veri (First-Party Data) Mimarisi"
-description: "Birinci taraf veri mimarisi nasıl kurulur? Veri toplama stratejisi, rıza yönetimi, sunucu tarafı ölçüm, veri modeli, aktivasyon ve üçüncü taraf çerez sonrası dönem."
+description: "Birinci taraf veri mimarisi nasıl kurulur? Veri toplama stratejisi, rıza yönetimi, sunucu tarafı ölçüm, veri modeli ve aktivasyon katmanı."
 keywords: "birinci taraf veri, first-party data, veri mimarisi, rıza yönetimi, sunucu tarafı ölçüm, çerezsiz ölçüm, veri stratejisi"
 category: "Veri ve Analitik"
 tags:

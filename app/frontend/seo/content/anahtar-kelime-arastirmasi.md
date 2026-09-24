@@ -1,6 +1,6 @@
 ---
 title: "Anahtar Kelime Araştırması Nasıl Yapılır?"
-description: "Anahtar kelime araştırması adım adım: sorgu havuzu oluşturma, arama amacı sınıflandırma, hacim ve rekabet değerlendirmesi, ticari değer önceliklendirme ve içerik eşleştirme."
+description: "Anahtar kelime araştırması adım adım: sorgu havuzu oluşturma, arama amacı sınıflandırma, hacim ve rekabet değerlendirmesi, ticari değer önceliklendirme."
 keywords: "anahtar kelime araştırması, keyword research, arama amacı, arama hacmi, kelime rekabeti, uzun kuyruk kelimeler, içerik eşleştirme"
 category: "SEO"
 tags:

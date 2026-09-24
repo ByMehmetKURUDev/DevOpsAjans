@@ -1,6 +1,6 @@
 ---
 title: "GTM ve GA4 için Data Layer Tasarımı"
-description: "Data layer nedir, neden gerekir ve nasıl tasarlanır? GTM ile GA4 arasında tutarlı olay şeması, e-ticaret veri yapısı, isimlendirme standardı ve doğrulama yöntemleri."
+description: "Data layer nedir, neden gerekir ve nasıl tasarlanır? GTM ile GA4 arasında tutarlı olay şeması, e-ticaret veri yapısı ve isimlendirme standardı."
 keywords: "data layer, dataLayer, Google Tag Manager, GTM, GA4 olay şeması, e-ticaret data layer, olay isimlendirme, ölçüm planı"
 category: "Reklam"
 tags:

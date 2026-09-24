@@ -1,6 +1,6 @@
 ---
 title: "Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın"
-description: "İşletmenize özel yazılım geliştirme hizmetleriyle rekabet avantajı sağlayın. Mehmetkuru.dev'in kurumsal yazılım çözümleri ve uzmanlığıyla dijital dönüşümünüzü hızlandırın."
+description: "İşletmenize özel yazılım geliştirme hizmetleriyle rekabet avantajı sağlayın. Mehmetkuru.dev'in kurumsal yazılım çözümleri ve uzmanlık alanları."
 keywords: "özel yazılım geliştirme, custom software development Turkey, kurumsal yazılım çözümleri, işletmeye özel yazılım"
 category: "SaaS"
 tags:

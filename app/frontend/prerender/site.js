@@ -90,7 +90,7 @@ export const PAGE_SEO = {
     portfolio: {
       title: 'Vaka Çalışmaları: Web, E-Ticaret ve SaaS Projeleri | Mehmet KURU',
       description:
-        'Teslim edilen web uygulamaları, e-ticaret altyapıları, SaaS platformları ve pazarlama siteleri. Her vaka çalışmasında kullanılan yaklaşım ve elde edilen sonuçlar.',
+        'Teslim edilen web uygulamaları, e-ticaret altyapıları, SaaS platformları ve pazarlama siteleri; her vakada kullanılan yaklaşım ve elde edilen sonuçlar.',
     },
     marketplace: {
       title: 'Hazır Paketler, Araçlar ve Eklentiler | Mehmet KURU',
@@ -164,12 +164,12 @@ export const PAGE_SEO = {
         'خدمات تطوير المواقع والتجارة الإلكترونية ومنصات SaaS والتسويق الرقمي. مشاريع سريعة وقابلة للقياس ومهيأة لمحركات البحث باستخدام React وTypeScript.',
     },
     services: {
-      title: 'الخدمات: تطوير المواقع والتجارة الإلكترونية وتحسين محركات البحث | Mehmet KURU',
+      title: 'الخدمات: تطوير المواقع والمتاجر الإلكترونية والسيو | Mehmet KURU',
       description:
         'تطوير مواقع مخصص، وبناء متاجر إلكترونية ومنصات SaaS، وتحسين تقني لمحركات البحث، وإعلانات Google والقياس — بإشراف مباشر من مسؤول واحد.',
     },
     portfolio: {
-      title: 'دراسات الحالة: مشاريع الويب والتجارة الإلكترونية وSaaS | Mehmet KURU',
+      title: 'دراسات الحالة: مشاريع الويب والمتاجر وSaaS | Mehmet KURU',
       description:
         'تطبيقات ويب ومتاجر إلكترونية ومنتجات SaaS ومواقع تسويقية منجزة، مع شرح المنهج والنتائج في كل دراسة حالة.',
     },

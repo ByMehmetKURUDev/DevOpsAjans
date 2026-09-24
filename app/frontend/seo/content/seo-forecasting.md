@@ -1,6 +1,6 @@
 ---
 title: "SEO Forecasting Nedir? Organik Trafik ve Gelir Tahminleme"
-description: "SEO forecasting ile organik trafik ve gelir tahmini yapma yöntemi: temel çizgi belirleme, sorgu potansiyeli, tıklama oranı eğrileri, senaryo modelleme ve tahmin doğruluğunu ölçme."
+description: "SEO forecasting ile organik trafik ve gelir tahmini: temel çizgi belirleme, sorgu potansiyeli, tıklama oranı eğrileri ve senaryo modelleme."
 keywords: "SEO forecasting, organik trafik tahmini, SEO tahminleme, CTR eğrisi, senaryo analizi, SEO iş vakası, SEO ROI hesabı"
 category: "SEO"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "Müşteri Yaşam Boyu Değeri (LTV) Nasıl Hesaplanır?"
-description: "Müşteri yaşam boyu değeri (LTV) hesaplama yöntemleri: kohort tabanlı yaklaşım, marj odaklı hesap, tahmin modelleri, segment bazlı LTV ve pazarlama kararlarında kullanımı."
+description: "Müşteri yaşam boyu değeri (LTV) hesaplama yöntemleri: kohort tabanlı yaklaşım, marj odaklı hesap, tahmin modelleri ve pazarlama kararlarında kullanımı."
 keywords: "LTV hesaplama, müşteri yaşam boyu değeri, CLV, kohort analizi, elde tutma, segment bazlı LTV, tahminsel LTV"
 category: "Veri ve Analitik"
 tags:

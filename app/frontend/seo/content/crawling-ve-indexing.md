@@ -1,6 +1,6 @@
 ---
 title: "Crawling ve Indexing Nedir? Tarama ve İndeksleme Yönetimi"
-description: "Crawling ve indexing süreçleri nasıl çalışır? Tarama bütçesi yönetimi, robots.txt, canonical, noindex kullanımı, indeksleme sorunlarının teşhisi ve çözüm yöntemleri."
+description: "Crawling ve indexing süreçleri nasıl çalışır? Tarama bütçesi yönetimi, robots.txt, canonical ve noindex kullanımı, indeksleme sorunlarının teşhisi."
 keywords: "crawling nedir, indexing nedir, tarama bütçesi, crawl budget, robots.txt, noindex, canonical, indeksleme sorunları, Search Console"
 category: "SEO"
 tags:

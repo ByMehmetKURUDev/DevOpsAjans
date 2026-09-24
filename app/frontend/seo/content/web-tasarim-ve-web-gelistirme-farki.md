@@ -1,6 +1,6 @@
 ---
 title: "Web Tasarım ve Web Geliştirme Arasındaki Fark Nedir?"
-description: "Web tasarım ile web geliştirme arasındaki farkı; sorumluluk alanları, kullanılan araçlar, teslim çıktıları ve iki disiplinin projede nasıl birlikte çalıştığı üzerinden açıklıyoruz."
+description: "Web tasarım ile web geliştirme arasındaki fark: sorumluluk alanları, kullanılan araçlar, teslim çıktıları ve projede nasıl birlikte çalıştıkları."
 keywords: "web tasarım nedir, web geliştirme nedir, web tasarım web geliştirme farkı, frontend backend farkı, UI UX tasarım, web developer"
 category: "Website"
 tags:

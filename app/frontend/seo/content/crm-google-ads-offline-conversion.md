@@ -1,6 +1,6 @@
 ---
 title: "CRM ve Google Ads Çevrimdışı Dönüşüm Entegrasyonu"
-description: "CRM verisiyle Google Ads çevrimdışı dönüşüm yükleme: GCLID yakalama, satış aşaması eşleme, gerçek gelir geri besleme, teklif optimizasyonu ve doğrulama adımları."
+description: "CRM verisiyle Google Ads çevrimdışı dönüşüm yükleme: GCLID yakalama, satış aşaması eşleme, gerçek gelir geri besleme ve teklif optimizasyonu."
 keywords: "çevrimdışı dönüşüm, offline conversion, GCLID, CRM entegrasyonu, gerçek gelir yükleme, müşteri adayı kalitesi, teklif optimizasyonu"
 category: "Reklam"
 tags:

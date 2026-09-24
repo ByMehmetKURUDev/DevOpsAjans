@@ -1,6 +1,6 @@
 ---
 title: "SEO Opportunity Scoring: Fırsat Puanlama ile Önceliklendirme"
-description: "SEO fırsat puanlaması nasıl yapılır? Etki, güven ve maliyet boyutlarıyla skor modeli kurma, veri kaynakları, puanlama formülü ve önceliklendirme kuyruğu yönetimi."
+description: "SEO fırsat puanlaması nasıl yapılır? Etki, güven ve maliyet boyutlarıyla skor modeli, veri kaynakları ve önceliklendirme kuyruğu yönetimi."
 keywords: "SEO opportunity scoring, fırsat puanlama, SEO önceliklendirme, etki güven maliyet, ICE skoru, SEO backlog yönetimi, potansiyel hesabı"
 category: "SEO"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "Pazarlama İlişkilendirme Modelleme (Attribution Modeling)"
-description: "Pazarlama ilişkilendirme modelleri nasıl çalışır? Son tıklama, ilk tıklama, doğrusal, zaman azalmalı ve veri odaklı modeller; sınırları, seçim kriterleri ve artımsallıkla ilişkisi."
+description: "Pazarlama ilişkilendirme modelleri: son tıklama, ilk tıklama, doğrusal, zaman azalmalı ve veri odaklı modeller; sınırları ve seçim kriterleri."
 keywords: "ilişkilendirme modelleme, attribution model, son tıklama, veri odaklı ilişkilendirme, çok kanallı ölçüm, dönüşüm yolu analizi"
 category: "Veri ve Analitik"
 tags:

@@ -1,6 +1,6 @@
 ---
-title: "Content Pruning Nedir? İçerik Budama ile SEO Performansını Artırma"
-description: "Content pruning nedir, hangi içerikler silinmeli veya birleştirilmeli? İçerik envanteri çıkarma, karar matrisi, birleştirme ve yönlendirme stratejisi ile etki ölçümü."
+title: "Content Pruning Nedir? İçerik Budama ile SEO Performansı"
+description: "Content pruning nedir, hangi içerikler silinmeli veya birleştirilmeli? İçerik envanteri, karar matrisi, birleştirme ve yönlendirme stratejisi."
 keywords: "content pruning, içerik budama, içerik denetimi, content audit, içerik birleştirme, noindex kararı, 301 yönlendirme, thin content temizliği"
 category: "SEO"
 tags:

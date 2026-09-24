@@ -1,6 +1,6 @@
 ---
 title: "Gizlilik Odaklı Ölçüm (Privacy-Safe Measurement)"
-description: "Gizlilik odaklı ölçüm nasıl kurulur? Rıza yönetimi, veri minimizasyonu, toplu ölçüm yöntemleri, modellenmiş dönüşümler, sunucu tarafı ölçüm ve dayanıklı ölçüm mimarisi."
+description: "Gizlilik odaklı ölçüm nasıl kurulur? Rıza yönetimi, veri minimizasyonu, toplu ölçüm, modellenmiş dönüşümler ve sunucu tarafı ölçüm mimarisi."
 keywords: "gizlilik odaklı ölçüm, privacy-safe measurement, rıza yönetimi, veri minimizasyonu, modellenmiş dönüşüm, çerezsiz ölçüm"
 category: "Veri ve Analitik"
 tags:

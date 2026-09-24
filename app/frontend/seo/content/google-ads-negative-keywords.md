@@ -1,6 +1,6 @@
 ---
 title: "Google Ads Negatif Anahtar Kelime Yönetimi"
-description: "Negatif anahtar kelime nedir, nasıl bulunur ve nasıl yönetilir? Eşleme türleri, negatif listeler, arama terimi analizi, hesap düzeyi hijyen ve bütçe koruma yöntemleri."
+description: "Negatif anahtar kelime nedir, nasıl bulunur ve yönetilir? Eşleme türleri, negatif listeler, arama terimi analizi ve bütçe koruma yöntemleri."
 keywords: "negatif anahtar kelime, negatif liste, arama terimleri raporu, alakasız trafik, bütçe koruma, Google Ads hijyen"
 category: "Reklam"
 tags:

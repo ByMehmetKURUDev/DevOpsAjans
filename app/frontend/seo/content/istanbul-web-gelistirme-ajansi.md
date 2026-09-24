@@ -1,6 +1,6 @@
 ---
 title: "İstanbul'un En İyi Web Geliştirme Ajansı: Mehmetkuru.dev Farkı"
-description: "İstanbul merkezli Mehmetkuru.dev, 13+ yıllık tecrübesiyle KOBİ'ler ve startup'lar için özel web geliştirme, dijital pazarlama ve yazılım çözümleri sunan butik bir ajanstır. İşinizi dijitalde zirveye taşıyın!"
+description: "İstanbul merkezli Mehmetkuru.dev; KOBİ'ler ve startup'lar için özel web geliştirme, dijital pazarlama ve yazılım çözümleri sunan butik bir ajanstır."
 keywords: "web geliştirme ajansı İstanbul, kurumsal web tasarım, butik yazılım ajansı, mehmetkuru.dev"
 category: "Website"
 tags:

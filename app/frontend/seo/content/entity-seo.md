@@ -1,6 +1,6 @@
 ---
 title: "Entity SEO Nedir? Varlık Tabanlı Arama Optimizasyonu Rehberi"
-description: "Entity SEO nedir, arama motorları varlıkları nasıl tanır? Bilgi grafiği, varlık netliği, marka varlığı oluşturma ve yapılandırılmış veri ile varlık sinyallerini güçlendirme yöntemleri."
+description: "Entity SEO nedir, arama motorları varlıkları nasıl tanır? Bilgi grafiği, varlık netliği, marka varlığı ve yapılandırılmış veriyle varlık sinyalleri."
 keywords: "entity SEO, varlık tabanlı SEO, knowledge graph, bilgi grafiği, entity disambiguation, sameAs, marka varlığı, yapılandırılmış veri"
 category: "SEO"
 tags:

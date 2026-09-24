@@ -1,6 +1,6 @@
 ---
 title: "SEO Veri Analitiği: Organik Performansı Doğru Okumak"
-description: "SEO veri analitiği ile organik performansı doğru yorumlama: segmentasyon, marka ayrımı, kohort analizi, korelasyon tuzakları ve karar üreten raporlama yaklaşımı."
+description: "SEO veri analitiği ile organik performansı doğru yorumlama: segmentasyon, marka ayrımı, kohort analizi ve korelasyon tuzaklarından kaçınma."
 keywords: "SEO veri analitiği, organik trafik analizi, SEO segmentasyonu, marka dışı trafik, kohort analizi, SEO raporlama, veri yorumlama"
 category: "SEO"
 tags:

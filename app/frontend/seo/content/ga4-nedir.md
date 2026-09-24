@@ -1,6 +1,6 @@
 ---
 title: "GA4 Nedir? Google Analytics 4'e Geçiş ve Olay Tabanlı Ölçüm"
-description: "GA4 nedir ve Universal Analytics'ten farkı nedir? Olay tabanlı veri modeli, temel raporlar, dönüşüm tanımı, kitleler, BigQuery aktarımı ve doğru kurulum adımları."
+description: "GA4 nedir ve Universal Analytics'ten farkı nedir? Olay tabanlı veri modeli, temel raporlar, dönüşüm tanımı, kitleler ve doğru kurulum adımları."
 keywords: "GA4 nedir, Google Analytics 4, olay tabanlı ölçüm, GA4 dönüşüm, GA4 kurulumu, keşif raporları, BigQuery aktarımı"
 category: "Reklam"
 tags:

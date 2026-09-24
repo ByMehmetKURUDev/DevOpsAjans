@@ -1,6 +1,6 @@
 ---
 title: "Web Sitesi Hızı Nasıl Artırılır?"
-description: "Core Web Vitals metriklerini temel alarak web sitesi hızını artırmanın yolları: görsel optimizasyonu, JavaScript bütçesi, font stratejisi, önbellekleme ve sunucu tarafı iyileştirmeler."
+description: "Core Web Vitals'ı temel alarak web sitesi hızını artırma: görsel optimizasyonu, JavaScript bütçesi, font stratejisi ve önbellekleme."
 keywords: "web sitesi hızı, site hızlandırma, Core Web Vitals, LCP iyileştirme, CLS düzeltme, PageSpeed Insights, sayfa yükleme hızı"
 category: "Website"
 tags:
