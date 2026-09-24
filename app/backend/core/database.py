@@ -222,6 +222,13 @@ class DatabaseManager:
             "tur_pg": "TEXT",
             "tur_sqlite": "TEXT",
         },
+        {
+            # Talepten projeye tasinan brief.
+            "tablo": "projects",
+            "sutun": "brief",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

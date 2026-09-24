@@ -90,6 +90,8 @@ interface Project {
   tech_stack?: string;
   featured?: boolean;
   published?: boolean;
+  /** Talepten tasinan uzman promptlari (JSON metni). */
+  brief?: string | null;
   created_at?: string;
 }
 
@@ -228,6 +230,8 @@ export default function AdminPanel() {
   const [projeFiltresi, setProjeFiltresi] = useState<'musteri' | 'vaka' | 'hepsi'>('musteri');
   // Uzman promptlari uretilen talep; modal bunun uzerinden aciliyor.
   const [promptTalebi, setPromptTalebi] = useState<Inquiry | null>(null);
+  // Ayni modal projeler sekmesinden de aciliyor.
+  const [promptProjesi, setPromptProjesi] = useState<Project | null>(null);
   // Davet e-postasi gitmediyse metni burada tutup yoneticiye elden
   // gondermesi icin veriyoruz. Yoksa davet sessizce kaybolur ve musteri
   // hangi adresle kaydolacagini hic ogrenemez.
@@ -589,6 +593,14 @@ export default function AdminPanel() {
       // Yeni iş her zaman keşifle başlar.
       stage: 'discovery',
       status: 'planning',
+      /*
+       * Brief varsa projeye taşınıyor. Talepte kalsaydı iş başladıktan
+       * sonra ona ulaşmak için talepler sekmesine dönmek gerekirdi;
+       * üstelik talep "çevrildi" olarak kapanıyor ve listede geriye
+       * kayıyor. Aynı metin iki kayıtta duruyor -- kopya değil, biri
+       * satışın biri işin kaydı.
+       */
+      brief: inq.brief || null,
       // Hangi talepten geldiği Kaydet'te işaretlenecek.
       kaynakTalepId: String(inq.id),
     } as Partial<Project> & { kaynakTalepId: string });
@@ -1012,6 +1024,16 @@ export default function AdminPanel() {
                       </p>
                     </div>
                     <div className="flex gap-1">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => setPromptProjesi(p)}
+                        aria-label={t('uzman.baslik')}
+                        title={t('uzman.baslik')}
+                        className={p.brief ? 'text-purple-300' : ''}
+                      >
+                        <Sparkles className="h-4 w-4" />
+                      </Button>
                       <Button
                         size="sm"
                         variant="ghost"
@@ -2100,8 +2122,22 @@ export default function AdminPanel() {
         </div>
       )}
 
+      {promptProjesi && (
+        <UzmanPromptlari
+          kayitTuru="projects"
+          talepId={promptProjesi.id}
+          musteri={promptProjesi.client_name || ''}
+          konu={promptProjesi.title}
+          mesaj={promptProjesi.description || ''}
+          kayitliBrief={promptProjesi.brief}
+          onSaved={loadAll}
+          onClose={() => setPromptProjesi(null)}
+        />
+      )}
+
       {promptTalebi && (
         <UzmanPromptlari
+          kayitTuru="inquiries"
           talepId={promptTalebi.id}
           musteri={promptTalebi.name}
           konu={promptTalebi.subject || ''}

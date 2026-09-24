@@ -116,16 +116,26 @@ export function saklananiCoz(ham?: string | null): SaklananBrief | null {
   }
 }
 
-/** Üretilen brief'i talep kaydına yazar. Hata yutuluyor — kayıt zorunlu değil. */
+/** Brief'in yazilabildigi tablolar. Ikisinde de `brief` sutunu var. */
+export type KayitTuru = 'inquiries' | 'projects';
+
+/**
+ * Üretilen brief'i kayda yazar. Hata yutuluyor — kayıt zorunlu değil.
+ *
+ * Aynı metin hem talepte hem projede durabiliyor: biri satışın kaydı,
+ * diğeri işin kaydı. Talep "çevrildi" olarak kapanıp listede geriye
+ * kaydığı için, iş başladıktan sonra brief'e projeden ulaşmak gerekiyor.
+ */
 export async function briefiSakla(
-  talepId: number | string,
+  kayitTuru: KayitTuru,
+  kayitId: number | string,
   girdi: BriefGirdisi,
   brief: Brief,
 ): Promise<boolean> {
   try {
     const paket: SaklananBrief = { girdi, brief, tarih: new Date().toISOString() };
-    await client.entities.inquiries.update({
-      id: String(talepId),
+    await client.entities[kayitTuru].update({
+      id: String(kayitId),
       data: { brief: JSON.stringify(paket) },
     });
     return true;

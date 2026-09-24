@@ -15,6 +15,7 @@ import {
   metindenTahmin,
   saklananiCoz,
   type Brief,
+  type KayitTuru,
 } from '@/lib/kesifBrief';
 
 /**
@@ -30,6 +31,8 @@ import {
  */
 
 interface Props {
+  /** Brief hangi tabloya yazilacak: talep mi, proje mi? */
+  kayitTuru: KayitTuru;
   talepId: number | string;
   musteri: string;
   konu: string;
@@ -42,6 +45,7 @@ interface Props {
 }
 
 export default function UzmanPromptlari({
+  kayitTuru,
   talepId,
   musteri,
   konu,
@@ -99,7 +103,7 @@ export default function UzmanPromptlari({
       // Kayıt ayrı bir adım: üretim başarılı olsa da kayıt başarısız
       // olabilir (yetki, ağ). O durumda metin ekranda duruyor, yalnızca
       // kalıcı olmuyor — bunu sessiz geçmiyoruz.
-      const kaydedildi = await briefiSakla(talepId, girdi, sonuc);
+      const kaydedildi = await briefiSakla(kayitTuru, talepId, girdi, sonuc);
       if (kaydedildi) onSaved?.();
       else toast.warning(t('uzman.kaydedilemedi'));
     } catch {
