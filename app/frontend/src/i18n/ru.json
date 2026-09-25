@@ -1360,5 +1360,30 @@
     "silOnayOdenmis": "После удаления счёт снова откроется. Удалить?",
     "silEvet": "Удалить",
     "silVazgec": "Отмена"
+  },
+  "talep": {
+    "hizmetSec": "По какой услуге?",
+    "ac": "Открыть переписку",
+    "kapat": "Закрыть переписку",
+    "gonder": "Отправить",
+    "yaz": "Напишите сообщение…",
+    "gonderilemedi": "Не удалось отправить сообщение.",
+    "yuklenemedi": "Не удалось загрузить переписку.",
+    "ajans": "Агентство",
+    "musteri": "Клиент",
+    "hizmetler": {
+      "website": "Разработка сайта",
+      "seo": "Google SEO",
+      "google_ads": "Google Ads",
+      "sosyal_ads": "Реклама в соцсетях",
+      "sosyal_pr": "PR в соцсетях",
+      "sosyal_tasarim": "Дизайн для соцсетей",
+      "youtube_pr": "YouTube PR",
+      "youtube_gelistirme": "Развитие YouTube",
+      "youtube_otomasyon": "Автоматизация YouTube",
+      "basin_pr": "Пресса / радио / ТВ",
+      "yeni_ozellik": "Новая функция / отзыв",
+      "genel": "Общее"
+    }
   }
 }

@@ -1360,5 +1360,30 @@
     "silOnayOdenmis": "Beim Löschen wird die Rechnung wieder geöffnet. Löschen?",
     "silEvet": "Löschen",
     "silVazgec": "Abbrechen"
+  },
+  "talep": {
+    "hizmetSec": "Für welche Leistung?",
+    "ac": "Verlauf öffnen",
+    "kapat": "Verlauf schließen",
+    "gonder": "Senden",
+    "yaz": "Ihre Nachricht…",
+    "gonderilemedi": "Nachricht konnte nicht gesendet werden.",
+    "yuklenemedi": "Verlauf konnte nicht geladen werden.",
+    "ajans": "Agentur",
+    "musteri": "Kunde",
+    "hizmetler": {
+      "website": "Website-Entwicklung",
+      "seo": "Google SEO",
+      "google_ads": "Google Ads",
+      "sosyal_ads": "Social-Media-Werbung",
+      "sosyal_pr": "Social-Media-PR",
+      "sosyal_tasarim": "Social-Media-Design",
+      "youtube_pr": "YouTube PR",
+      "youtube_gelistirme": "YouTube-Entwicklung",
+      "youtube_otomasyon": "YouTube-Automatisierung",
+      "basin_pr": "Presse / Radio / TV",
+      "yeni_ozellik": "Neue Funktion / Feedback",
+      "genel": "Allgemein"
+    }
   }
 }

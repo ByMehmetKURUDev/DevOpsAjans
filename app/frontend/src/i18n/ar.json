@@ -1360,5 +1360,30 @@
     "silOnayOdenmis": "الحذف يعيد فتح الفاتورة. هل تحذف؟",
     "silEvet": "حذف",
     "silVazgec": "إلغاء"
+  },
+  "talep": {
+    "hizmetSec": "لأي خدمة؟",
+    "ac": "فتح المحادثة",
+    "kapat": "إغلاق المحادثة",
+    "gonder": "إرسال",
+    "yaz": "اكتب رسالتك…",
+    "gonderilemedi": "تعذّر إرسال الرسالة.",
+    "yuklenemedi": "تعذّر تحميل المحادثة.",
+    "ajans": "الوكالة",
+    "musteri": "العميل",
+    "hizmetler": {
+      "website": "تطوير الموقع",
+      "seo": "تحسين محركات البحث",
+      "google_ads": "إعلانات Google",
+      "sosyal_ads": "إعلانات التواصل الاجتماعي",
+      "sosyal_pr": "علاقات عامة على التواصل",
+      "sosyal_tasarim": "تصميم للتواصل الاجتماعي",
+      "youtube_pr": "علاقات عامة يوتيوب",
+      "youtube_gelistirme": "تطوير يوتيوب",
+      "youtube_otomasyon": "أتمتة يوتيوب",
+      "basin_pr": "صحافة / راديو / تلفزيون",
+      "yeni_ozellik": "ميزة جديدة / ملاحظات",
+      "genel": "عام"
+    }
   }
 }

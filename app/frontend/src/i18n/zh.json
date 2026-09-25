@@ -1360,5 +1360,30 @@
     "silOnayOdenmis": "删除后发票会重新打开。要删除吗？",
     "silEvet": "删除",
     "silVazgec": "取消"
+  },
+  "talep": {
+    "hizmetSec": "哪项服务？",
+    "ac": "展开对话",
+    "kapat": "收起对话",
+    "gonder": "发送",
+    "yaz": "写下您的留言…",
+    "gonderilemedi": "消息发送失败。",
+    "yuklenemedi": "无法加载对话。",
+    "ajans": "服务方",
+    "musteri": "客户",
+    "hizmetler": {
+      "website": "网站开发",
+      "seo": "Google SEO",
+      "google_ads": "Google 广告",
+      "sosyal_ads": "社交媒体广告",
+      "sosyal_pr": "社交媒体公关",
+      "sosyal_tasarim": "社交媒体设计",
+      "youtube_pr": "YouTube 公关",
+      "youtube_gelistirme": "YouTube 运营",
+      "youtube_otomasyon": "YouTube 自动化",
+      "basin_pr": "报纸 / 广播 / 电视",
+      "yeni_ozellik": "新功能 / 反馈",
+      "genel": "通用"
+    }
   }
 }

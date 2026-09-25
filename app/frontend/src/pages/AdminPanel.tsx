@@ -35,6 +35,7 @@ import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import FaturaOdemeBaglantisi from '@/components/admin/FaturaOdemeBaglantisi';
 import ElleTahsilat from '@/components/admin/ElleTahsilat';
+import TalepYazismasi from '@/components/TalepYazismasi';
 import SiteSagligi from '@/components/admin/SiteSagligi';
 import SiteTaramasi from '@/components/admin/SiteTaramasi';
 import UzmanPromptlari from '@/components/admin/UzmanPromptlari';
@@ -150,6 +151,8 @@ interface Ticket {
   reply?: string;
   status?: string;
   priority?: string;
+  hizmet?: string;
+  project_id?: number;
   created_at?: string;
 }
 
@@ -247,8 +250,9 @@ export default function AdminPanel() {
   >(null);
   const [editPost, setEditPost] = useState<Partial<BlogPost> | null>(null);
   const [editInvoice, setEditInvoice] = useState<Partial<Invoice> | null>(null);
-  const [replyTicket, setReplyTicket] = useState<Ticket | null>(null);
-  const [replyText, setReplyText] = useState('');
+  // Yazismasi acik olan talep. Eski "tek cevap" modali kaldirildi:
+  // her cevap ticket_replies tablosuna ayri satir olarak dusuyor.
+  const [acikTalep, setAcikTalep] = useState<number | null>(null);
 
   const [settingRows, setSettingRows] = useState<SettingRow[]>([]);
   const [settingDraft, setSettingDraft] = useState<Record<string, string>>({});
@@ -552,28 +556,6 @@ export default function AdminPanel() {
     } catch (e) {
       const err = e as { message?: string };
       toast.error(err?.message || t('admin.deleteFailed'));
-    }
-  };
-
-  /* ---------------- Destek ---------------- */
-  const sendReply = async () => {
-    if (!replyTicket) return;
-    if (!replyText.trim()) {
-      toast.error(t('admin.replyEmpty'));
-      return;
-    }
-    try {
-      await client.entities.support_tickets.update({
-        id: String(replyTicket.id),
-        data: { reply: replyText.trim(), status: 'answered' },
-      });
-      toast.success(t('admin.replySent'));
-      setReplyTicket(null);
-      setReplyText('');
-      loadAll();
-    } catch (e) {
-      const err = e as { message?: string };
-      toast.error(err?.message || t('admin.replySendError'));
     }
   };
 
@@ -1357,6 +1339,11 @@ export default function AdminPanel() {
                           >
                             {tk.status === 'answered' ? t('ui.status.answered') : t('ui.status.open')}
                           </span>
+                          {tk.hizmet ? (
+                            <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+                              {t(`talep.hizmetler.${tk.hizmet}`, { defaultValue: tk.hizmet })}
+                            </span>
+                          ) : null}
                         </div>
                         <p className="text-xs text-muted-foreground">
                           {tk.client_name} • {tk.client_email}
@@ -1365,27 +1352,21 @@ export default function AdminPanel() {
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => {
-                          setReplyTicket(tk);
-                          setReplyText(tk.reply || '');
-                        }}
+                        onClick={() =>
+                          setAcikTalep(acikTalep === Number(tk.id) ? null : Number(tk.id))
+                        }
                         className="gap-1 text-purple-300"
                       >
-                        <MessageSquare className="h-4 w-4" /> {t('admin.replyBtn')}
+                        <MessageSquare className="h-4 w-4" />
+                        {acikTalep === Number(tk.id) ? t('talep.kapat') : t('talep.ac')}
                       </Button>
                     </div>
-                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                      {tk.message}
-                    </p>
-                    {tk.reply && (
-                      <div className="mt-3 pt-3 border-t border-white/10">
-                        <p className="text-xs uppercase tracking-widest text-purple-400 mb-1">
-                          {t('admin.yourReply')}
-                        </p>
-                        <p className="text-sm whitespace-pre-wrap">
-                          {tk.reply}
-                        </p>
-                      </div>
+                    {acikTalep !== Number(tk.id) ? (
+                      <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-2">
+                        {tk.message}
+                      </p>
+                    ) : (
+                      <TalepYazismasi ticketId={Number(tk.id)} bizKimiz="ajans" />
                     )}
                   </div>
                 ))}
@@ -2097,51 +2078,6 @@ export default function AdminPanel() {
               </Button>
               <Button
                 onClick={() => setEditInvoice(null)}
-                variant="outline"
-                className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
-              >
-                {t('admin.cancel')}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Destek yanıt modalı */}
-      {replyTicket && (
-        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="relative w-full max-w-lg my-8 rounded-2xl glass p-8 border border-purple-500/30">
-            <button
-              className="absolute top-4 right-4 p-2 hover:bg-white/5 rounded-lg"
-              onClick={() => setReplyTicket(null)}
-            >
-              <X className="h-4 w-4" />
-            </button>
-            <h3 className="text-xl font-bold mb-2">{replyTicket.subject}</h3>
-            <p className="text-xs text-muted-foreground mb-4">
-              {replyTicket.client_email}
-            </p>
-            <p className="text-sm text-muted-foreground mb-5 p-4 rounded-xl bg-white/5 whitespace-pre-wrap">
-              {replyTicket.message}
-            </p>
-            <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-              {t('admin.yourReply')}
-            </Label>
-            <Textarea
-              rows={5}
-              value={replyText}
-              onChange={(e) => setReplyText(e.target.value)}
-              className="bg-white/5 border-white/10"
-            />
-            <div className="flex gap-3 mt-6">
-              <Button
-                onClick={sendReply}
-                className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
-              >
-                {t('admin.sendReply')}
-              </Button>
-              <Button
-                onClick={() => setReplyTicket(null)}
                 variant="outline"
                 className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
               >

@@ -237,6 +237,32 @@ class DatabaseManager:
             "tur_pg": "VARCHAR",
             "tur_sqlite": "TEXT",
         },
+        # Faz 1 — talep akisi. Eski talepler NULL kaliyor: hizmeti
+        # bilinmeyen talep ile "genel" talebi ayirt edebilelim.
+        {
+            "tablo": "support_tickets",
+            "sutun": "hizmet",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "support_tickets",
+            "sutun": "project_id",
+            "tur_pg": "INTEGER",
+            "tur_sqlite": "INTEGER",
+        },
+        {
+            "tablo": "support_tickets",
+            "sutun": "kaynak",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "support_tickets",
+            "sutun": "son_mesaj_at",
+            "tur_pg": "TIMESTAMPTZ",
+            "tur_sqlite": "TIMESTAMP",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

@@ -1360,5 +1360,30 @@
     "silOnayOdenmis": "Deleting reopens the invoice. Delete?",
     "silEvet": "Delete",
     "silVazgec": "Cancel"
+  },
+  "talep": {
+    "hizmetSec": "Which service?",
+    "ac": "Open thread",
+    "kapat": "Close thread",
+    "gonder": "Send",
+    "yaz": "Write your message…",
+    "gonderilemedi": "Message could not be sent.",
+    "yuklenemedi": "Thread could not be loaded.",
+    "ajans": "Agency",
+    "musteri": "Client",
+    "hizmetler": {
+      "website": "Website development",
+      "seo": "Google SEO",
+      "google_ads": "Google Ads",
+      "sosyal_ads": "Social media ads",
+      "sosyal_pr": "Social media PR",
+      "sosyal_tasarim": "Social media design",
+      "youtube_pr": "YouTube PR",
+      "youtube_gelistirme": "YouTube development",
+      "youtube_otomasyon": "YouTube automation",
+      "basin_pr": "Press / radio / TV",
+      "yeni_ozellik": "New feature / feedback",
+      "genel": "General"
+    }
   }
 }

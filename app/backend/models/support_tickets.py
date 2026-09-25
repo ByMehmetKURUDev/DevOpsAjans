@@ -15,5 +15,18 @@ class Support_tickets(Base):
     reply = Column(String, nullable=True)
     status = Column(String, nullable=True)
     priority = Column(String, nullable=True)
+
+    # Faz 1 — talep akışı
+    # Hangi hizmet kalemi için açıldı (seo, website, youtube_pr ...).
+    # Müşteri panelindeki hizmet düğmeleri bunu dolduruyor; boş kalırsa
+    # "genel" sayılıyor, eski kayıtlar da öyle.
+    hizmet = Column(String, index=True, nullable=True)
+    # Hangi projeye bağlı. Müşterinin birden çok işi olabiliyor.
+    project_id = Column(Integer, index=True, nullable=True)
+    # panel | site | eposta — talebin nereden geldiği.
+    kaynak = Column(String, nullable=True)
+    # Son mesajın zamanı. Listeyi buna göre sıralıyoruz: cevap
+    # bekleyen talep, açılış tarihi eski olsa da üste çıksın.
+    son_mesaj_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

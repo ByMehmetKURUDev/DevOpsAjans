@@ -20,6 +20,8 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import ProjectTimeline from '@/components/ProjectTimeline';
+import TalepYazismasi from '@/components/TalepYazismasi';
+import { HIZMETLER } from '@/lib/talepler';
 import { useStageLabels } from '@/lib/projectEvents';
 import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import { useSiteSettings } from '@/lib/siteSettings';
@@ -69,6 +71,7 @@ interface Ticket {
   reply?: string;
   status?: string;
   priority?: string;
+  hizmet?: string;
   created_at?: string;
 }
 
@@ -93,7 +96,10 @@ export default function ClientPanel() {
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const [ticketForm, setTicketForm] = useState({ subject: '', message: '' });
+  const [ticketForm, setTicketForm] = useState({ subject: '', message: '', hizmet: 'genel' });
+  // Yazismasi acik olan talep. Ayni anda tek talep aciliyor: uzun
+  // listede hepsi acik olsa ekran okunmaz hale geliyor.
+  const [acikTalep, setAcikTalep] = useState<number | null>(null);
   const [sending, setSending] = useState(false);
 
   const [profile, setProfile] = useState({ name: '', phone: '', company: '' });
@@ -188,10 +194,16 @@ export default function ClientPanel() {
           message: ticketForm.message.trim(),
           status: 'open',
           priority: 'normal',
+          hizmet: ticketForm.hizmet || 'genel',
+          kaynak: 'panel',
+          // Müşterinin tek projesi varsa talebi ona bağlıyoruz. Birden
+          // çok proje varsa boş bırakıyoruz: yanlış projeye bağlamak,
+          // hiç bağlamamaktan kötü.
+          project_id: projects.length === 1 ? Number(projects[0].id) : undefined,
         },
       });
       toast.success(t('ui.ticketSent'));
-      setTicketForm({ subject: '', message: '' });
+      setTicketForm({ subject: '', message: '', hizmet: 'genel' });
       loadData();
     } catch (e) {
       const err = e as { message?: string };
@@ -572,6 +584,34 @@ export default function ClientPanel() {
                   {t('ui.newTicket')}
                 </h3>
                 <div className="space-y-4">
+                  {/*
+                    Hizmet düğmeleri. Müşteri "sitemde şunu değiştir"
+                    derken hangi iş kalemi olduğunu seçiyor; talep
+                    panele o etiketle düşüyor ve doğru kişiye gidiyor.
+                    Boş bırakılamıyor: varsayılan "genel".
+                  */}
+                  <div>
+                    <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
+                      {t('talep.hizmetSec')}
+                    </Label>
+                    <div className="flex flex-wrap gap-2">
+                      {HIZMETLER.map((h) => (
+                        <button
+                          key={h}
+                          type="button"
+                          onClick={() => setTicketForm({ ...ticketForm, hizmet: h })}
+                          aria-pressed={ticketForm.hizmet === h}
+                          className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
+                            ticketForm.hizmet === h
+                              ? 'border-purple-400/60 bg-purple-500/20 text-white'
+                              : 'border-white/10 bg-white/[0.03] text-muted-foreground hover:border-white/25'
+                          }`}
+                        >
+                          {t(`talep.hizmetler.${h}`)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   <div>
                     <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
                       {t('ui.subject')} *
@@ -644,20 +684,31 @@ export default function ClientPanel() {
                         >
                           {statusLabel(tk.status, 'open')}
                         </span>
+                        {tk.hizmet ? (
+                          <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+                            {t(`talep.hizmetler.${tk.hizmet}`, { defaultValue: tk.hizmet })}
+                          </span>
+                        ) : null}
                       </div>
-                      <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                        {tk.message}
-                      </p>
-                      {tk.reply && (
-                        <div className="mt-3 pt-3 border-t border-white/10">
-                          <p className="text-xs uppercase tracking-widest text-purple-400 mb-1">
-                            {t('ui.reply')}
-                          </p>
-                          <p className="text-sm text-foreground whitespace-pre-wrap">
-                            {tk.reply}
-                          </p>
-                        </div>
-                      )}
+                      {acikTalep !== Number(tk.id) ? (
+                        <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-2">
+                          {tk.message}
+                        </p>
+                      ) : null}
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setAcikTalep(acikTalep === Number(tk.id) ? null : Number(tk.id))
+                        }
+                        className="mt-3 text-xs font-medium text-purple-300 hover:text-purple-200"
+                      >
+                        {acikTalep === Number(tk.id) ? t('talep.kapat') : t('talep.ac')}
+                      </button>
+
+                      {acikTalep === Number(tk.id) ? (
+                        <TalepYazismasi ticketId={Number(tk.id)} bizKimiz="musteri" />
+                      ) : null}
                     </div>
                   ))
                 )}

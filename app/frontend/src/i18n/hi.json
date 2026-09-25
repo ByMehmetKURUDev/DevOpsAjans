@@ -1360,5 +1360,30 @@
     "silOnayOdenmis": "हटाने पर चालान फिर खुल जाएगा। हटाएँ?",
     "silEvet": "हटाएँ",
     "silVazgec": "रद्द करें"
+  },
+  "talep": {
+    "hizmetSec": "किस सेवा के लिए?",
+    "ac": "बातचीत खोलें",
+    "kapat": "बातचीत बंद करें",
+    "gonder": "भेजें",
+    "yaz": "अपना संदेश लिखें…",
+    "gonderilemedi": "संदेश नहीं भेजा जा सका।",
+    "yuklenemedi": "बातचीत लोड नहीं हो सकी।",
+    "ajans": "एजेंसी",
+    "musteri": "ग्राहक",
+    "hizmetler": {
+      "website": "वेबसाइट विकास",
+      "seo": "Google SEO",
+      "google_ads": "Google Ads",
+      "sosyal_ads": "सोशल मीडिया विज्ञापन",
+      "sosyal_pr": "सोशल मीडिया PR",
+      "sosyal_tasarim": "सोशल मीडिया डिज़ाइन",
+      "youtube_pr": "YouTube PR",
+      "youtube_gelistirme": "YouTube विकास",
+      "youtube_otomasyon": "YouTube स्वचालन",
+      "basin_pr": "अख़बार / रेडियो / टीवी",
+      "yeni_ozellik": "नई सुविधा / प्रतिक्रिया",
+      "genel": "सामान्य"
+    }
   }
 }

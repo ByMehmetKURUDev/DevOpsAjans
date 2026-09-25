@@ -1361,5 +1361,30 @@
     "silOnayOdenmis": "Silinirse fatura yeniden açılır. Silinsin mi?",
     "silEvet": "Sil",
     "silVazgec": "Vazgeç"
+  },
+  "talep": {
+    "hizmetSec": "Hangi hizmet için?",
+    "ac": "Yazışmayı aç",
+    "kapat": "Yazışmayı kapat",
+    "gonder": "Gönder",
+    "yaz": "Mesajınızı yazın…",
+    "gonderilemedi": "Mesaj gönderilemedi.",
+    "yuklenemedi": "Yazışma yüklenemedi.",
+    "ajans": "Ajans",
+    "musteri": "Müşteri",
+    "hizmetler": {
+      "website": "Website geliştirme",
+      "seo": "Google SEO",
+      "google_ads": "Google Ads",
+      "sosyal_ads": "Sosyal medya reklamı",
+      "sosyal_pr": "Sosyal medya PR",
+      "sosyal_tasarim": "Sosyal medya tasarımı",
+      "youtube_pr": "YouTube PR",
+      "youtube_gelistirme": "YouTube geliştirme",
+      "youtube_otomasyon": "YouTube otomasyon",
+      "basin_pr": "Gazete / radyo / TV",
+      "yeni_ozellik": "Yeni özellik / geri bildirim",
+      "genel": "Genel"
+    }
   }
 }
