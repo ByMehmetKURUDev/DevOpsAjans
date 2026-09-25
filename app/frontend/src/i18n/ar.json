@@ -353,6 +353,7 @@
     "management": "الإدارة",
     "tabMyProjects": "مشاريعي",
     "tabInvoices": "الفواتير",
+    "tabOdeme": "المدفوعات",
     "tabSupport": "الدعم",
     "tabProfile": "الملف الشخصي",
     "tabSettings": "إعدادات الموقع",
@@ -1286,5 +1287,28 @@
     "yenidenUret": "Regenerate",
     "kayitli": "This brief was generated on {{tarih}} and saved to the request.",
     "kaydedilemedi": "The prompts were generated but could not be saved to the request; closing this window loses them."
+  },
+  "odeme": {
+    "baslik": "المدفوعات الواردة",
+    "yenile": "تحديث",
+    "tahsilEdilen": "المحصّل",
+    "bekleyen": "قيد الانتظار",
+    "komisyon": "العمولة",
+    "kayitSayisi": "السجلات",
+    "bosliste": "لا توجد مدفوعات مسجّلة بعد.",
+    "yuklenemedi": "تعذّر تحميل المدفوعات.",
+    "saglayiciYok": "الدفع بالبطاقة غير مُفعّل بعد. يمكن إنشاء الرابط لكن لا يستطيع العميل الدفع بالبطاقة؛ ويمكن تسجيل الدفع النقدي والحوالات.",
+    "baglantiUret": "رابط الدفع",
+    "uretiliyor": "جارٍ الإنشاء…",
+    "baglantiUretilemedi": "تعذّر إنشاء رابط الدفع.",
+    "kopyala": "نسخ",
+    "kopyalandi": "تم النسخ",
+    "durum": {
+      "odendi": "مدفوع",
+      "bekliyor": "قيد الانتظار",
+      "basarisiz": "فشل",
+      "iade": "مُسترد",
+      "iptal": "مُلغى"
+    }
   }
 }

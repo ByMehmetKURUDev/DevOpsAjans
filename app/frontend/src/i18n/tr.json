@@ -353,6 +353,7 @@
     "management": "YÖNETİM",
     "tabMyProjects": "Projelerim",
     "tabInvoices": "Faturalar",
+    "tabOdeme": "Ödemeler",
     "tabSupport": "Destek",
     "tabProfile": "Profil",
     "tabSettings": "Site Ayarları",
@@ -1287,5 +1288,28 @@
     "yenidenUret": "Yeniden üret",
     "kayitli": "Bu brief {{tarih}} tarihinde üretilip talebe kaydedildi.",
     "kaydedilemedi": "Promptlar üretildi ama talebe kaydedilemedi; pencereyi kapatırsanız kaybolur."
+  },
+  "odeme": {
+    "baslik": "Gelen ödemeler",
+    "yenile": "Yenile",
+    "tahsilEdilen": "Tahsil edilen",
+    "bekleyen": "Bekleyen",
+    "komisyon": "Komisyon",
+    "kayitSayisi": "Kayıt",
+    "bosliste": "Henüz tahsilat kaydı yok.",
+    "yuklenemedi": "Ödemeler yüklenemedi.",
+    "saglayiciYok": "Kart tahsilatı henüz kurulmadı. Bağlantı üretilebiliyor ama müşteri kartla ödeyemiyor; elden ve havale tahsilatı kaydedilebiliyor.",
+    "baglantiUret": "Ödeme bağlantısı",
+    "uretiliyor": "Üretiliyor…",
+    "baglantiUretilemedi": "Ödeme bağlantısı üretilemedi.",
+    "kopyala": "Kopyala",
+    "kopyalandi": "Kopyalandı",
+    "durum": {
+      "odendi": "Ödendi",
+      "bekliyor": "Bekliyor",
+      "basarisiz": "Başarısız",
+      "iade": "İade",
+      "iptal": "İptal"
+    }
   }
 }

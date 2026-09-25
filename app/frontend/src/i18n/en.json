@@ -353,6 +353,7 @@
     "management": "MANAGEMENT",
     "tabMyProjects": "My Projects",
     "tabInvoices": "Invoices",
+    "tabOdeme": "Payments",
     "tabSupport": "Support",
     "tabProfile": "Profile",
     "tabSettings": "Site Settings",
@@ -1286,5 +1287,28 @@
     "yenidenUret": "Regenerate",
     "kayitli": "This brief was generated on {{tarih}} and saved to the request.",
     "kaydedilemedi": "The prompts were generated but could not be saved to the request; closing this window loses them."
+  },
+  "odeme": {
+    "baslik": "Incoming payments",
+    "yenile": "Refresh",
+    "tahsilEdilen": "Collected",
+    "bekleyen": "Pending",
+    "komisyon": "Fees",
+    "kayitSayisi": "Records",
+    "bosliste": "No payments recorded yet.",
+    "yuklenemedi": "Could not load payments.",
+    "saglayiciYok": "Card payments are not set up yet. Links can be created but customers cannot pay by card; cash and bank transfers can still be recorded.",
+    "baglantiUret": "Payment link",
+    "uretiliyor": "Creating…",
+    "baglantiUretilemedi": "Could not create the payment link.",
+    "kopyala": "Copy",
+    "kopyalandi": "Copied",
+    "durum": {
+      "odendi": "Paid",
+      "bekliyor": "Pending",
+      "basarisiz": "Failed",
+      "iade": "Refunded",
+      "iptal": "Cancelled"
+    }
   }
 }

@@ -353,6 +353,7 @@
     "management": "प्रबंधन",
     "tabMyProjects": "मेरी परियोजनाएँ",
     "tabInvoices": "बिल",
+    "tabOdeme": "भुगतान",
     "tabSupport": "सहायता",
     "tabProfile": "प्रोफ़ाइल",
     "tabSettings": "साइट सेटिंग्स",
@@ -1286,5 +1287,28 @@
     "yenidenUret": "Regenerate",
     "kayitli": "This brief was generated on {{tarih}} and saved to the request.",
     "kaydedilemedi": "The prompts were generated but could not be saved to the request; closing this window loses them."
+  },
+  "odeme": {
+    "baslik": "प्राप्त भुगतान",
+    "yenile": "ताज़ा करें",
+    "tahsilEdilen": "प्राप्त",
+    "bekleyen": "लंबित",
+    "komisyon": "शुल्क",
+    "kayitSayisi": "रिकॉर्ड",
+    "bosliste": "अभी तक कोई भुगतान दर्ज नहीं है।",
+    "yuklenemedi": "भुगतान लोड नहीं हो सके।",
+    "saglayiciYok": "कार्ड से भुगतान अभी सेट नहीं है। लिंक बनाया जा सकता है पर ग्राहक कार्ड से भुगतान नहीं कर सकता; नकद और बैंक ट्रांसफ़र दर्ज किए जा सकते हैं।",
+    "baglantiUret": "भुगतान लिंक",
+    "uretiliyor": "बन रहा है…",
+    "baglantiUretilemedi": "भुगतान लिंक नहीं बन सका।",
+    "kopyala": "कॉपी करें",
+    "kopyalandi": "कॉपी हो गया",
+    "durum": {
+      "odendi": "भुगतान हुआ",
+      "bekliyor": "लंबित",
+      "basarisiz": "विफल",
+      "iade": "वापस किया",
+      "iptal": "रद्द"
+    }
   }
 }

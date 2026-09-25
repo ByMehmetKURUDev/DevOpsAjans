@@ -1,0 +1,184 @@
+import { useCallback, useEffect, useState } from 'react';
+import { AlertCircle, Banknote, Clock, Percent, RefreshCw } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+
+import { Button } from '@/components/ui/button';
+import {
+  odemeleriGetir,
+  paraBicimle,
+  type Odeme,
+  type OdemeDurumu,
+  type OdemeOzeti,
+} from '@/lib/odemeler';
+
+/**
+ * Tahsilat ekranı.
+ *
+ * Fatura sekmesi "kime ne kadar borç kestik" diyor; burası "ne geldi"
+ * diyor. İkisi ayrı tabloda çünkü kısmi ödeme, iade ve başarısız deneme
+ * tek satıra sığmıyor.
+ *
+ * Veriyi kendisi çekiyor: AdminPanel'in açılışta attığı toplu isteğe
+ * eklenmedi, çünkü bu sekmeye girilmeden bilgiye gerek yok.
+ */
+
+const DURUM_RENGI: Record<OdemeDurumu, string> = {
+  odendi: 'bg-emerald-500/15 text-emerald-300',
+  bekliyor: 'bg-orange-500/15 text-orange-300',
+  basarisiz: 'bg-red-500/15 text-red-300',
+  iade: 'bg-purple-500/15 text-purple-300',
+  iptal: 'bg-white/5 text-muted-foreground',
+};
+
+function Ozet({
+  ikon: Ikon,
+  etiket,
+  deger,
+  alt,
+  renk,
+}: {
+  ikon: typeof Banknote;
+  etiket: string;
+  deger: string;
+  alt?: string;
+  renk?: string;
+}) {
+  return (
+    <div className="p-4 rounded-xl glass">
+      <div className="flex items-center gap-2 mb-2">
+        <Ikon className="h-3.5 w-3.5 text-muted-foreground" aria-hidden="true" />
+        <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{etiket}</p>
+      </div>
+      <p className={`text-2xl font-bold tabular-nums ${renk || 'gradient-text'}`}>{deger}</p>
+      {alt ? <p className="text-xs text-muted-foreground mt-1">{alt}</p> : null}
+    </div>
+  );
+}
+
+export default function OdemePaneli() {
+  const { t } = useTranslation();
+  const [satirlar, setSatirlar] = useState<Odeme[]>([]);
+  const [ozet, setOzet] = useState<OdemeOzeti | null>(null);
+  const [yukleniyor, setYukleniyor] = useState(true);
+
+  const yukle = useCallback(async () => {
+    setYukleniyor(true);
+    try {
+      const sonuc = await odemeleriGetir();
+      setSatirlar(sonuc.items);
+      setOzet(sonuc.ozet);
+    } catch (hata) {
+      console.error(hata);
+      toast.error(t('odeme.yuklenemedi'));
+    } finally {
+      setYukleniyor(false);
+    }
+  }, [t]);
+
+  useEffect(() => {
+    void yukle();
+  }, [yukle]);
+
+  const paraBirimi = satirlar[0]?.para_birimi || 'TRY';
+
+  return (
+    <div>
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+        <h2 className="text-xl font-semibold">
+          {t('odeme.baslik')} {ozet ? `(${ozet.adet})` : ''}
+        </h2>
+        <Button variant="ghost" size="sm" className="gap-2" onClick={() => void yukle()}>
+          <RefreshCw className={`h-4 w-4 ${yukleniyor ? 'animate-spin' : ''}`} />
+          {t('odeme.yenile')}
+        </Button>
+      </div>
+
+      {ozet && !ozet.saglayici_hazir ? (
+        <div className="mb-6 flex items-start gap-3 rounded-xl border border-orange-500/35 bg-orange-500/[0.07] p-4">
+          <AlertCircle className="h-4 w-4 flex-none text-orange-400 mt-0.5" aria-hidden="true" />
+          <p className="text-sm text-muted-foreground">{t('odeme.saglayiciYok')}</p>
+        </div>
+      ) : null}
+
+      {ozet ? (
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+          <Ozet
+            ikon={Banknote}
+            etiket={t('odeme.tahsilEdilen')}
+            deger={paraBicimle(ozet.tahsil_edilen, paraBirimi)}
+          />
+          <Ozet
+            ikon={Clock}
+            etiket={t('odeme.bekleyen')}
+            deger={paraBicimle(ozet.bekleyen, paraBirimi)}
+            renk="text-orange-300"
+          />
+          <Ozet
+            ikon={Percent}
+            etiket={t('odeme.komisyon')}
+            deger={paraBicimle(ozet.komisyon, paraBirimi)}
+            renk="text-muted-foreground"
+          />
+          <Ozet
+            ikon={Banknote}
+            etiket={t('odeme.kayitSayisi')}
+            deger={String(ozet.adet)}
+            renk="text-foreground"
+          />
+        </div>
+      ) : null}
+
+      <div className="grid gap-3">
+        {satirlar.map((satir) => {
+          const durum = (satir.durum || 'bekliyor') as OdemeDurumu;
+          return (
+            <div key={satir.id} className="p-4 rounded-xl glass flex flex-wrap items-center gap-4">
+              <div className="flex-1 min-w-[200px]">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="font-semibold">{satir.invoice_no || `#${satir.id}`}</span>
+                  <span
+                    className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full ${DURUM_RENGI[durum]}`}
+                  >
+                    {t(`odeme.durum.${durum}`)}
+                  </span>
+                  {satir.saglayici ? (
+                    <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full border border-white/10 text-muted-foreground">
+                      {satir.saglayici}
+                    </span>
+                  ) : null}
+                </div>
+                <p className="text-xs text-muted-foreground break-all">
+                  {satir.client_email || '—'}
+                  {satir.hata_mesaji ? ` • ${satir.hata_mesaji}` : ''}
+                  {satir.odendi_at
+                    ? ` • ${new Date(satir.odendi_at).toLocaleString('tr-TR')}`
+                    : satir.created_at
+                      ? ` • ${new Date(satir.created_at).toLocaleDateString('tr-TR')}`
+                      : ''}
+                </p>
+              </div>
+              <p
+                className={`text-lg font-bold tabular-nums ${
+                  durum === 'odendi'
+                    ? 'text-emerald-300'
+                    : durum === 'bekliyor'
+                      ? 'text-orange-300'
+                      : 'text-muted-foreground'
+                }`}
+              >
+                {paraBicimle(satir.tutar, satir.para_birimi)}
+              </p>
+            </div>
+          );
+        })}
+
+        {!yukleniyor && satirlar.length === 0 ? (
+          <div className="p-8 rounded-xl glass text-center">
+            <p className="text-sm text-muted-foreground">{t('odeme.bosliste')}</p>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}

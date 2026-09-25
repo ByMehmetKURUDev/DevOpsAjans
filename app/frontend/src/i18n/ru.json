@@ -353,6 +353,7 @@
     "management": "УПРАВЛЕНИЕ",
     "tabMyProjects": "Мои проекты",
     "tabInvoices": "Счета",
+    "tabOdeme": "Платежи",
     "tabSupport": "Поддержка",
     "tabProfile": "Профиль",
     "tabSettings": "Настройки сайта",
@@ -1286,5 +1287,28 @@
     "yenidenUret": "Regenerate",
     "kayitli": "This brief was generated on {{tarih}} and saved to the request.",
     "kaydedilemedi": "The prompts were generated but could not be saved to the request; closing this window loses them."
+  },
+  "odeme": {
+    "baslik": "Поступившие платежи",
+    "yenile": "Обновить",
+    "tahsilEdilen": "Получено",
+    "bekleyen": "Ожидается",
+    "komisyon": "Комиссия",
+    "kayitSayisi": "Записей",
+    "bosliste": "Платежей пока нет.",
+    "yuklenemedi": "Не удалось загрузить платежи.",
+    "saglayiciYok": "Приём карт ещё не настроен. Ссылку создать можно, но оплатить картой нельзя; наличные и переводы можно зафиксировать.",
+    "baglantiUret": "Ссылка на оплату",
+    "uretiliyor": "Создаётся…",
+    "baglantiUretilemedi": "Не удалось создать ссылку на оплату.",
+    "kopyala": "Копировать",
+    "kopyalandi": "Скопировано",
+    "durum": {
+      "odendi": "Оплачено",
+      "bekliyor": "Ожидается",
+      "basarisiz": "Ошибка",
+      "iade": "Возврат",
+      "iptal": "Отменено"
+    }
   }
 }

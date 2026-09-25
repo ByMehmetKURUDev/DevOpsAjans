@@ -353,6 +353,7 @@
     "management": "VERWALTUNG",
     "tabMyProjects": "Meine Projekte",
     "tabInvoices": "Rechnungen",
+    "tabOdeme": "Zahlungen",
     "tabSupport": "Support",
     "tabProfile": "Profil",
     "tabSettings": "Website-Einstellungen",
@@ -1286,5 +1287,28 @@
     "yenidenUret": "Regenerate",
     "kayitli": "This brief was generated on {{tarih}} and saved to the request.",
     "kaydedilemedi": "The prompts were generated but could not be saved to the request; closing this window loses them."
+  },
+  "odeme": {
+    "baslik": "Eingehende Zahlungen",
+    "yenile": "Aktualisieren",
+    "tahsilEdilen": "Eingenommen",
+    "bekleyen": "Ausstehend",
+    "komisyon": "Gebühren",
+    "kayitSayisi": "Einträge",
+    "bosliste": "Noch keine Zahlungen erfasst.",
+    "yuklenemedi": "Zahlungen konnten nicht geladen werden.",
+    "saglayiciYok": "Kartenzahlung ist noch nicht eingerichtet. Links lassen sich erstellen, Kunden können aber nicht mit Karte zahlen; Bar- und Überweisungszahlungen sind erfassbar.",
+    "baglantiUret": "Zahlungslink",
+    "uretiliyor": "Wird erstellt…",
+    "baglantiUretilemedi": "Zahlungslink konnte nicht erstellt werden.",
+    "kopyala": "Kopieren",
+    "kopyalandi": "Kopiert",
+    "durum": {
+      "odendi": "Bezahlt",
+      "bekliyor": "Ausstehend",
+      "basarisiz": "Fehlgeschlagen",
+      "iade": "Erstattet",
+      "iptal": "Storniert"
+    }
   }
 }

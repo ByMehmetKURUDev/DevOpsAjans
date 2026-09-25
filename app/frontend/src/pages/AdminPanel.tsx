@@ -12,6 +12,7 @@ import {
   BarChart3,
   Users,
   Receipt,
+  CreditCard,
   MessageSquare,
   FolderKanban,
   Newspaper,
@@ -32,6 +33,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
+import FaturaOdemeBaglantisi from '@/components/admin/FaturaOdemeBaglantisi';
 import SiteSagligi from '@/components/admin/SiteSagligi';
 import SiteTaramasi from '@/components/admin/SiteTaramasi';
 import UzmanPromptlari from '@/components/admin/UzmanPromptlari';
@@ -59,6 +61,9 @@ const MarketplacePanel = lazy(() => import('@/components/admin/MarketplacePanel'
 // Icerik takvimi de ayri parcada: AI katmani ve form yalnizca sekme
 // acilinca iniyor.
 const IcerikPlani = lazy(() => import('@/components/admin/IcerikPlani'));
+// Tahsilat ekranı ayrı parçada: panele girenlerin çoğu bu sekmeyi
+// açmıyor, kodu ilk yüklemede inmesin.
+const OdemePaneli = lazy(() => import('@/components/admin/OdemePaneli'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -158,6 +163,7 @@ type Tab =
   | 'blog'
   | 'clients'
   | 'invoices'
+  | 'odeme'
   | 'tickets'
   | 'inquiries';
 
@@ -719,6 +725,7 @@ export default function AdminPanel() {
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
+    { key: 'odeme', label: t('ui.tabOdeme'), icon: CreditCard },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
   ];
@@ -794,6 +801,18 @@ export default function AdminPanel() {
           }
         >
           <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} />
+        </Suspense>
+      )}
+
+      {tab === 'odeme' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <OdemePaneli />
         </Suspense>
       )}
 
@@ -1278,6 +1297,9 @@ export default function AdminPanel() {
                     <p className="text-lg font-bold gradient-text">
                       {inv.amount} {inv.currency || 'USD'}
                     </p>
+                    {inv.status !== 'paid' ? (
+                      <FaturaOdemeBaglantisi invoiceId={Number(inv.id)} />
+                    ) : null}
                     <div className="flex gap-1">
                       <Button
                         size="sm"

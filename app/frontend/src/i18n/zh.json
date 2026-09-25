@@ -353,6 +353,7 @@
     "management": "后台管理",
     "tabMyProjects": "我的项目",
     "tabInvoices": "账单",
+    "tabOdeme": "收款",
     "tabSupport": "支持",
     "tabProfile": "个人资料",
     "tabSettings": "站点设置",
@@ -1286,5 +1287,28 @@
     "yenidenUret": "Regenerate",
     "kayitli": "This brief was generated on {{tarih}} and saved to the request.",
     "kaydedilemedi": "The prompts were generated but could not be saved to the request; closing this window loses them."
+  },
+  "odeme": {
+    "baslik": "收到的款项",
+    "yenile": "刷新",
+    "tahsilEdilen": "已收款",
+    "bekleyen": "待付款",
+    "komisyon": "手续费",
+    "kayitSayisi": "记录",
+    "bosliste": "暂无收款记录。",
+    "yuklenemedi": "无法加载收款记录。",
+    "saglayiciYok": "尚未开通银行卡收款。可以生成链接，但客户无法刷卡支付；现金和转账仍可记录。",
+    "baglantiUret": "付款链接",
+    "uretiliyor": "生成中…",
+    "baglantiUretilemedi": "无法生成付款链接。",
+    "kopyala": "复制",
+    "kopyalandi": "已复制",
+    "durum": {
+      "odendi": "已付款",
+      "bekliyor": "待付款",
+      "basarisiz": "失败",
+      "iade": "已退款",
+      "iptal": "已取消"
+    }
   }
 }
