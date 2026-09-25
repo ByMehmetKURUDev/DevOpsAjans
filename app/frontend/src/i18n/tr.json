@@ -1310,6 +1310,42 @@
       "basarisiz": "Başarısız",
       "iade": "İade",
       "iptal": "İptal"
+    },
+    "elle": {
+      "dugme": "Elden/havale",
+      "baslik": "Tahsilatı kaydet",
+      "kanal": "Kanal",
+      "kanallar": {
+        "havale": "Havale",
+        "eft": "EFT",
+        "elden": "Elden",
+        "diger": "Diğer"
+      },
+      "tutar": "Tutar (isteğe bağlı)",
+      "tutarTamami": "Tamamı: {{tutar}}",
+      "not": "Not (isteğe bağlı)",
+      "kaydet": "Kaydet",
+      "vazgec": "Vazgeç",
+      "kaydedildi": "Tahsilat kaydedildi.",
+      "kaydedilemedi": "Tahsilat kaydedilemedi.",
+      "tutarGecersiz": "Tutar sıfırdan büyük bir sayı olmalı."
+    },
+    "sayfa": {
+      "baslik": "Ödeme",
+      "yukleniyor": "Yükleniyor",
+      "bulunamadi": "Bağlantı bulunamadı",
+      "bulunamadiAciklama": "Bu ödeme bağlantısı geçersiz ya da kaldırılmış olabilir. Size gönderilen adresi kontrol edin.",
+      "anaSayfa": "Ana sayfaya dön",
+      "faturaNo": "Fatura no",
+      "sonTarih": "Son ödeme tarihi",
+      "odendiMesaj": "Bu fatura tahsil edildi. Ek bir işlem yapmanız gerekmiyor.",
+      "iptalMesaj": "Bu bağlantı kapatıldı. Ödeme başka bir kanaldan alınmış olabilir.",
+      "kartlaOde": "Kartla öde",
+      "havaleBaslik": "Havale veya EFT ile ödeme",
+      "havaleAciklama": "Kart ödemesi şu an kapalı. Tutarı havale veya EFT ile gönderip dekontu iletebilirsiniz; ödemeniz panele işlendiğinde bu sayfa güncellenir.",
+      "aciklamaAlani": "Açıklama alanına yazın",
+      "iletisim": "Havale bilgilerini iste",
+      "guvenlikNotu": "Bu sayfa kart bilgisi istemez."
     }
   }
 }

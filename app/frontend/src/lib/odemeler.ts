@@ -119,6 +119,41 @@ export async function elleTahsilatKaydet(girdi: {
   return govde;
 }
 
+export interface AcikOdeme {
+  jeton: string;
+  invoice_no?: string | null;
+  aciklama?: string | null;
+  tutar?: number | null;
+  para_birimi?: string | null;
+  son_tarih?: string | null;
+  durum?: OdemeDurumu | null;
+  saglayici_hazir: boolean;
+}
+
+/**
+ * Müşterinin gördüğü ödeme özeti. Oturum istemiyor: bağlantıyı açan
+ * herkes görebiliyor, bu yüzden arka uç ad ve e-posta döndürmüyor.
+ */
+export async function acikOdemeGetir(jeton: string): Promise<AcikOdeme> {
+  const yanit = await client.apiCall.invoke({
+    method: 'GET',
+    url: `/api/v1/odeme/${encodeURIComponent(jeton)}`,
+  });
+  const govde = govdeyiAc<Partial<AcikOdeme>>(yanit);
+  if (!govde?.jeton) throw new Error('Bağlantı bulunamadı.');
+
+  return {
+    jeton: govde.jeton,
+    invoice_no: govde.invoice_no ?? null,
+    aciklama: govde.aciklama ?? null,
+    tutar: govde.tutar ?? null,
+    para_birimi: govde.para_birimi ?? 'TRY',
+    son_tarih: govde.son_tarih ?? null,
+    durum: (govde.durum as OdemeDurumu) ?? 'bekliyor',
+    saglayici_hazir: Boolean(govde.saglayici_hazir),
+  };
+}
+
 /** Ödeme bağlantısının tam adresi. */
 export function baglantiAdresi(jeton: string): string {
   const koken = typeof window !== 'undefined' ? window.location.origin : '';

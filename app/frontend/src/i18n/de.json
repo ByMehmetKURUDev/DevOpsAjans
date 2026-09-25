@@ -1309,6 +1309,42 @@
       "basarisiz": "Fehlgeschlagen",
       "iade": "Erstattet",
       "iptal": "Storniert"
+    },
+    "elle": {
+      "dugme": "Bar/Überweisung",
+      "baslik": "Zahlung erfassen",
+      "kanal": "Kanal",
+      "kanallar": {
+        "havale": "Überweisung",
+        "eft": "Eilüberweisung",
+        "elden": "Bar",
+        "diger": "Sonstiges"
+      },
+      "tutar": "Betrag (optional)",
+      "tutarTamami": "Gesamt: {{tutar}}",
+      "not": "Notiz (optional)",
+      "kaydet": "Speichern",
+      "vazgec": "Abbrechen",
+      "kaydedildi": "Zahlung erfasst.",
+      "kaydedilemedi": "Zahlung konnte nicht erfasst werden.",
+      "tutarGecersiz": "Der Betrag muss größer als null sein."
+    },
+    "sayfa": {
+      "baslik": "Zahlung",
+      "yukleniyor": "Wird geladen",
+      "bulunamadi": "Link nicht gefunden",
+      "bulunamadiAciklama": "Dieser Zahlungslink ist möglicherweise ungültig oder entfernt. Bitte prüfen Sie die Adresse, die Sie erhalten haben.",
+      "anaSayfa": "Zur Startseite",
+      "faturaNo": "Rechnungsnr.",
+      "sonTarih": "Fälligkeitsdatum",
+      "odendiMesaj": "Diese Rechnung wurde bezahlt. Es ist nichts weiter zu tun.",
+      "iptalMesaj": "Dieser Link wurde geschlossen. Die Zahlung wurde möglicherweise anders eingezogen.",
+      "kartlaOde": "Mit Karte zahlen",
+      "havaleBaslik": "Per Überweisung zahlen",
+      "havaleAciklama": "Kartenzahlung ist derzeit nicht verfügbar. Sie können den Betrag überweisen und den Beleg senden; diese Seite wird nach der Erfassung aktualisiert.",
+      "aciklamaAlani": "In den Verwendungszweck schreiben",
+      "iletisim": "Bankdaten anfordern",
+      "guvenlikNotu": "Diese Seite fragt nie nach Kartendaten."
     }
   }
 }

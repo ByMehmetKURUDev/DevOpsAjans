@@ -21,6 +21,7 @@ const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
 const Contact = lazy(() => import('./pages/Contact'));
 const ClientPanel = lazy(() => import('./pages/ClientPanel'));
 const AdminPanel = lazy(() => import('./pages/AdminPanel'));
+const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,8 @@ const AppRoutes = () => (
         <Route path="/contact" element={<Contact />} />
         <Route path="/client" element={<ClientPanel />} />
         <Route path="/admin" element={<AdminPanel />} />
+        {/* Müşteriye giden ödeme bağlantısı. Oturum istemiyor. */}
+        <Route path="/ode/:jeton" element={<OdemeSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

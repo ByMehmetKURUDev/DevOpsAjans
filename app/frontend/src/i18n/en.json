@@ -1309,6 +1309,42 @@
       "basarisiz": "Failed",
       "iade": "Refunded",
       "iptal": "Cancelled"
+    },
+    "elle": {
+      "dugme": "Cash/transfer",
+      "baslik": "Record payment",
+      "kanal": "Channel",
+      "kanallar": {
+        "havale": "Bank transfer",
+        "eft": "Wire",
+        "elden": "Cash",
+        "diger": "Other"
+      },
+      "tutar": "Amount (optional)",
+      "tutarTamami": "Full: {{tutar}}",
+      "not": "Note (optional)",
+      "kaydet": "Save",
+      "vazgec": "Cancel",
+      "kaydedildi": "Payment recorded.",
+      "kaydedilemedi": "Payment could not be recorded.",
+      "tutarGecersiz": "Amount must be a number greater than zero."
+    },
+    "sayfa": {
+      "baslik": "Payment",
+      "yukleniyor": "Loading",
+      "bulunamadi": "Link not found",
+      "bulunamadiAciklama": "This payment link may be invalid or removed. Please check the address you were sent.",
+      "anaSayfa": "Back to homepage",
+      "faturaNo": "Invoice no",
+      "sonTarih": "Due date",
+      "odendiMesaj": "This invoice has been paid. No further action is needed.",
+      "iptalMesaj": "This link was closed. The payment may have been collected another way.",
+      "kartlaOde": "Pay by card",
+      "havaleBaslik": "Pay by bank transfer",
+      "havaleAciklama": "Card payment is currently unavailable. You can send the amount by bank transfer and share the receipt; this page updates once the payment is recorded.",
+      "aciklamaAlani": "Write in the reference field",
+      "iletisim": "Request bank details",
+      "guvenlikNotu": "This page never asks for card details."
     }
   }
 }

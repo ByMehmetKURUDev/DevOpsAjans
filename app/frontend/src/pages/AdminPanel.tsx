@@ -34,6 +34,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import FaturaOdemeBaglantisi from '@/components/admin/FaturaOdemeBaglantisi';
+import ElleTahsilat from '@/components/admin/ElleTahsilat';
 import SiteSagligi from '@/components/admin/SiteSagligi';
 import SiteTaramasi from '@/components/admin/SiteTaramasi';
 import UzmanPromptlari from '@/components/admin/UzmanPromptlari';
@@ -1298,7 +1299,14 @@ export default function AdminPanel() {
                       {inv.amount} {inv.currency || 'USD'}
                     </p>
                     {inv.status !== 'paid' ? (
-                      <FaturaOdemeBaglantisi invoiceId={Number(inv.id)} />
+                      <>
+                        <FaturaOdemeBaglantisi invoiceId={Number(inv.id)} />
+                        <ElleTahsilat
+                          invoiceId={Number(inv.id)}
+                          tutar={typeof inv.amount === 'number' ? inv.amount : undefined}
+                          onKaydedildi={() => void loadAll()}
+                        />
+                      </>
                     ) : null}
                     <div className="flex gap-1">
                       <Button

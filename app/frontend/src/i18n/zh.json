@@ -1309,6 +1309,42 @@
       "basarisiz": "失败",
       "iade": "已退款",
       "iptal": "已取消"
+    },
+    "elle": {
+      "dugme": "现金/转账",
+      "baslik": "记录收款",
+      "kanal": "渠道",
+      "kanallar": {
+        "havale": "银行转账",
+        "eft": "电汇",
+        "elden": "现金",
+        "diger": "其他"
+      },
+      "tutar": "金额（可选）",
+      "tutarTamami": "全额：{{tutar}}",
+      "not": "备注（可选）",
+      "kaydet": "保存",
+      "vazgec": "取消",
+      "kaydedildi": "收款已记录。",
+      "kaydedilemedi": "无法记录收款。",
+      "tutarGecersiz": "金额必须是大于零的数字。"
+    },
+    "sayfa": {
+      "baslik": "付款",
+      "yukleniyor": "加载中",
+      "bulunamadi": "未找到链接",
+      "bulunamadiAciklama": "该付款链接可能无效或已被移除。请核对您收到的地址。",
+      "anaSayfa": "返回首页",
+      "faturaNo": "发票号",
+      "sonTarih": "到期日",
+      "odendiMesaj": "该发票已付款，无需其他操作。",
+      "iptalMesaj": "该链接已关闭。款项可能已通过其他方式收取。",
+      "kartlaOde": "使用银行卡付款",
+      "havaleBaslik": "通过银行转账付款",
+      "havaleAciklama": "目前暂不支持银行卡付款。您可以通过转账支付并发送回执；款项登记后本页面会更新。",
+      "aciklamaAlani": "请填写在备注栏",
+      "iletisim": "索取银行信息",
+      "guvenlikNotu": "本页面不会索取银行卡信息。"
     }
   }
 }
