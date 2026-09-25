@@ -1355,8 +1355,11 @@
       "kartHatasi": "Ödeme sayfası açılamadı. Lütfen bilgileri kontrol edip tekrar deneyin."
     },
     "sil": "Sil",
-    "silOnay": "{{kayit}} tahsilat kaydı silinsin mi? Ödenmiş bir kayıt silinirse fatura yeniden açılır.",
+    "silOnay": "Silinsin mi?",
     "silindi": "Kayıt silindi.",
-    "silinemedi": "Kayıt silinemedi."
+    "silinemedi": "Kayıt silinemedi.",
+    "silOnayOdenmis": "Silinirse fatura yeniden açılır. Silinsin mi?",
+    "silEvet": "Sil",
+    "silVazgec": "Vazgeç"
   }
 }

@@ -1354,8 +1354,11 @@
       "kartHatasi": "Die Zahlungsseite konnte nicht geöffnet werden. Bitte prüfen Sie die Angaben und versuchen Sie es erneut."
     },
     "sil": "Löschen",
-    "silOnay": "Zahlungseintrag {{kayit}} löschen? Wird ein bezahlter Eintrag gelöscht, wird die Rechnung wieder geöffnet.",
+    "silOnay": "Löschen?",
     "silindi": "Eintrag gelöscht.",
-    "silinemedi": "Eintrag konnte nicht gelöscht werden."
+    "silinemedi": "Eintrag konnte nicht gelöscht werden.",
+    "silOnayOdenmis": "Beim Löschen wird die Rechnung wieder geöffnet. Löschen?",
+    "silEvet": "Löschen",
+    "silVazgec": "Abbrechen"
   }
 }

@@ -1354,8 +1354,11 @@
       "kartHatasi": "无法打开付款页面。请检查信息后重试。"
     },
     "sil": "删除",
-    "silOnay": "删除收款记录 {{kayit}}？删除已付款记录会重新打开该发票。",
+    "silOnay": "要删除吗？",
     "silindi": "记录已删除。",
-    "silinemedi": "无法删除记录。"
+    "silinemedi": "无法删除记录。",
+    "silOnayOdenmis": "删除后发票会重新打开。要删除吗？",
+    "silEvet": "删除",
+    "silVazgec": "取消"
   }
 }

@@ -63,6 +63,7 @@ export default function OdemePaneli() {
   const [ozet, setOzet] = useState<OdemeOzeti | null>(null);
   const [yukleniyor, setYukleniyor] = useState(true);
   const [silinen, setSilinen] = useState<number | null>(null);
+  const [onayBekleyen, setOnayBekleyen] = useState<number | null>(null);
 
   const yukle = useCallback(async () => {
     setYukleniyor(true);
@@ -83,18 +84,18 @@ export default function OdemePaneli() {
   }, [yukle]);
 
   /**
-   * Kaydı siler. Onay istiyor: silinen kayıt `odendi` ise arka uç
-   * faturayı yeniden açıyor, yani bu düğme yalnızca listeyi değil
-   * fatura durumunu da değiştirebiliyor.
+   * Kaydı siler. İki adımlı: ilk tıklama satırda "Silinsin mi?" uyarısı
+   * açıyor, ikincisi siliyor. Tarayıcının `confirm` kutusu yerine
+   * satır içi onay, çünkü silinen kayıt `odendi` ise fatura da yeniden
+   * açılıyor — kullanıcının neyi onayladığını satırda görmesi gerek.
    */
   const sil = useCallback(
     async (satir: Odeme) => {
-      const etiket = satir.invoice_no || `#${satir.id}`;
-      if (!window.confirm(t('odeme.silOnay', { kayit: etiket }))) return;
       setSilinen(satir.id);
       try {
         await odemeSil(satir.id);
         toast.success(t('odeme.silindi'));
+        setOnayBekleyen(null);
         await yukle();
       } catch (hata) {
         console.error(hata);
@@ -195,17 +196,41 @@ export default function OdemePaneli() {
               >
                 {paraBicimle(satir.tutar, satir.para_birimi)}
               </p>
-              <Button
-                size="sm"
-                variant="ghost"
-                aria-label={t('odeme.sil')}
-                title={t('odeme.sil')}
-                disabled={silinen === satir.id}
-                onClick={() => void sil(satir)}
-                className="text-destructive hover:text-destructive"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              {onayBekleyen === satir.id ? (
+                <div className="flex w-full items-center justify-end gap-2 sm:w-auto">
+                  <span className="text-xs text-orange-300">
+                    {durum === 'odendi' ? t('odeme.silOnayOdenmis') : t('odeme.silOnay')}
+                  </span>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    disabled={silinen === satir.id}
+                    onClick={() => void sil(satir)}
+                    className="text-xs text-destructive hover:text-destructive"
+                  >
+                    {t('odeme.silEvet')}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-xs"
+                    onClick={() => setOnayBekleyen(null)}
+                  >
+                    {t('odeme.silVazgec')}
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  aria-label={t('odeme.sil')}
+                  title={t('odeme.sil')}
+                  onClick={() => setOnayBekleyen(satir.id)}
+                  className="text-destructive hover:text-destructive"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              )}
             </div>
           );
         })}

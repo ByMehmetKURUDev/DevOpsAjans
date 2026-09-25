@@ -1354,8 +1354,11 @@
       "kartHatasi": "The payment page could not be opened. Please check the details and try again."
     },
     "sil": "Delete",
-    "silOnay": "Delete the payment record {{kayit}}? Deleting a paid record reopens the invoice.",
+    "silOnay": "Delete this?",
     "silindi": "Record deleted.",
-    "silinemedi": "Record could not be deleted."
+    "silinemedi": "Record could not be deleted.",
+    "silOnayOdenmis": "Deleting reopens the invoice. Delete?",
+    "silEvet": "Delete",
+    "silVazgec": "Cancel"
   }
 }
