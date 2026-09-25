@@ -119,6 +119,56 @@ export async function elleTahsilatKaydet(girdi: {
   return govde;
 }
 
+/** Tahsilat kaydını siler. Ödenmiş kayıt silinirse fatura yeniden açılır. */
+export async function odemeSil(paymentId: number): Promise<void> {
+  await client.apiCall.invoke({
+    method: 'DELETE',
+    url: `/api/v1/odeme/kayit/${paymentId}`,
+  });
+}
+
+export interface ShopierFormu {
+  adres: string;
+  alanlar: Record<string, string>;
+}
+
+/**
+ * Shopier'e gönderilecek imzalı form alanlarını ister.
+ *
+ * Kart bilgisi bu siteye hiç girilmiyor: form Shopier'in kendi ödeme
+ * sayfasına gönderiliyor, kart numarası orada yazılıyor.
+ */
+export async function shopierFormuIste(
+  jeton: string,
+  musteri: { ad: string; soyad: string; eposta: string; telefon: string },
+): Promise<ShopierFormu> {
+  const yanit = await client.apiCall.invoke({
+    method: 'POST',
+    url: `/api/v1/odeme/${encodeURIComponent(jeton)}/shopier`,
+    data: musteri,
+  });
+  const govde = govdeyiAc<Partial<ShopierFormu>>(yanit);
+  if (!govde?.adres || !govde.alanlar) throw new Error('Ödeme formu alınamadı.');
+  return { adres: govde.adres, alanlar: govde.alanlar };
+}
+
+/** Alanları gizli bir formla Shopier'e POST eder ve sayfayı oraya taşır. */
+export function shopiereGonder(form: ShopierFormu): void {
+  const el = document.createElement('form');
+  el.method = 'POST';
+  el.action = form.adres;
+  el.style.display = 'none';
+  for (const [ad, deger] of Object.entries(form.alanlar)) {
+    const girdi = document.createElement('input');
+    girdi.type = 'hidden';
+    girdi.name = ad;
+    girdi.value = deger ?? '';
+    el.appendChild(girdi);
+  }
+  document.body.appendChild(el);
+  el.submit();
+}
+
 export interface AcikOdeme {
   jeton: string;
   invoice_no?: string | null;

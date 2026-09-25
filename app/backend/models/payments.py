@@ -38,6 +38,10 @@ class Payments(Base):
     # Kanal: shopier | iyzico | paytr | elden | havale
     saglayici = Column(String, nullable=True)
     saglayici_ref = Column(String, index=True, nullable=True)
+    # Shopier imzası `random_nr + platform_order_id` üzerinden kuruluyor.
+    # Geri bildirimi doğrulayabilmek için formu kurarken ürettiğimiz
+    # rastgele sayıyı saklıyoruz; sonradan üretilemez.
+    rastgele = Column(String, nullable=True)
 
     tutar = Column(Float, nullable=True)
     para_birimi = Column(String, nullable=True)

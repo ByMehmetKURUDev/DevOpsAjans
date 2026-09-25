@@ -1344,7 +1344,18 @@
       "havaleAciklama": "Card payment is currently unavailable. You can send the amount by bank transfer and share the receipt; this page updates once the payment is recorded.",
       "aciklamaAlani": "Write in the reference field",
       "iletisim": "Request bank details",
-      "guvenlikNotu": "This page never asks for card details."
-    }
+      "guvenlikNotu": "This page never asks for card details.",
+      "kartAciklama": "Your card details are never entered on this site; you will complete the payment on Shopier's secure page.",
+      "ad": "First name",
+      "soyad": "Last name",
+      "eposta": "Email",
+      "telefon": "Phone (optional)",
+      "yonlendiriliyor": "Redirecting…",
+      "kartHatasi": "The payment page could not be opened. Please check the details and try again."
+    },
+    "sil": "Delete",
+    "silOnay": "Delete the payment record {{kayit}}? Deleting a paid record reopens the invoice.",
+    "silindi": "Record deleted.",
+    "silinemedi": "Record could not be deleted."
   }
 }

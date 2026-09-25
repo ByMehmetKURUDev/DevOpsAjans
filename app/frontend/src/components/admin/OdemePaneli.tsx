@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AlertCircle, Banknote, Clock, Percent, RefreshCw } from 'lucide-react';
+import { AlertCircle, Banknote, Clock, Percent, RefreshCw, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
   odemeleriGetir,
+  odemeSil,
   paraBicimle,
   type Odeme,
   type OdemeDurumu,
@@ -61,6 +62,7 @@ export default function OdemePaneli() {
   const [satirlar, setSatirlar] = useState<Odeme[]>([]);
   const [ozet, setOzet] = useState<OdemeOzeti | null>(null);
   const [yukleniyor, setYukleniyor] = useState(true);
+  const [silinen, setSilinen] = useState<number | null>(null);
 
   const yukle = useCallback(async () => {
     setYukleniyor(true);
@@ -79,6 +81,30 @@ export default function OdemePaneli() {
   useEffect(() => {
     void yukle();
   }, [yukle]);
+
+  /**
+   * Kaydı siler. Onay istiyor: silinen kayıt `odendi` ise arka uç
+   * faturayı yeniden açıyor, yani bu düğme yalnızca listeyi değil
+   * fatura durumunu da değiştirebiliyor.
+   */
+  const sil = useCallback(
+    async (satir: Odeme) => {
+      const etiket = satir.invoice_no || `#${satir.id}`;
+      if (!window.confirm(t('odeme.silOnay', { kayit: etiket }))) return;
+      setSilinen(satir.id);
+      try {
+        await odemeSil(satir.id);
+        toast.success(t('odeme.silindi'));
+        await yukle();
+      } catch (hata) {
+        console.error(hata);
+        toast.error(t('odeme.silinemedi'));
+      } finally {
+        setSilinen(null);
+      }
+    },
+    [t, yukle],
+  );
 
   const paraBirimi = satirlar[0]?.para_birimi || 'TRY';
 
@@ -169,6 +195,17 @@ export default function OdemePaneli() {
               >
                 {paraBicimle(satir.tutar, satir.para_birimi)}
               </p>
+              <Button
+                size="sm"
+                variant="ghost"
+                aria-label={t('odeme.sil')}
+                title={t('odeme.sil')}
+                disabled={silinen === satir.id}
+                onClick={() => void sil(satir)}
+                className="text-destructive hover:text-destructive"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
             </div>
           );
         })}

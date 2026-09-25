@@ -1344,7 +1344,18 @@
       "havaleAciklama": "目前暂不支持银行卡付款。您可以通过转账支付并发送回执；款项登记后本页面会更新。",
       "aciklamaAlani": "请填写在备注栏",
       "iletisim": "索取银行信息",
-      "guvenlikNotu": "本页面不会索取银行卡信息。"
-    }
+      "guvenlikNotu": "本页面不会索取银行卡信息。",
+      "kartAciklama": "本网站不会索取您的银行卡信息；您将在 Shopier 的安全页面完成付款。",
+      "ad": "名",
+      "soyad": "姓",
+      "eposta": "电子邮箱",
+      "telefon": "电话（可选）",
+      "yonlendiriliyor": "正在跳转…",
+      "kartHatasi": "无法打开付款页面。请检查信息后重试。"
+    },
+    "sil": "删除",
+    "silOnay": "删除收款记录 {{kayit}}？删除已付款记录会重新打开该发票。",
+    "silindi": "记录已删除。",
+    "silinemedi": "无法删除记录。"
   }
 }

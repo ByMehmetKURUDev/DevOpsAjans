@@ -1345,7 +1345,18 @@
       "havaleAciklama": "Kart ödemesi şu an kapalı. Tutarı havale veya EFT ile gönderip dekontu iletebilirsiniz; ödemeniz panele işlendiğinde bu sayfa güncellenir.",
       "aciklamaAlani": "Açıklama alanına yazın",
       "iletisim": "Havale bilgilerini iste",
-      "guvenlikNotu": "Bu sayfa kart bilgisi istemez."
-    }
+      "guvenlikNotu": "Bu sayfa kart bilgisi istemez.",
+      "kartAciklama": "Kart bilgileriniz bu sitede istenmiyor; ödemeyi Shopier'in güvenli sayfasında tamamlayacaksınız.",
+      "ad": "Ad",
+      "soyad": "Soyad",
+      "eposta": "E-posta",
+      "telefon": "Telefon (isteğe bağlı)",
+      "yonlendiriliyor": "Yönlendiriliyor…",
+      "kartHatasi": "Ödeme sayfası açılamadı. Lütfen bilgileri kontrol edip tekrar deneyin."
+    },
+    "sil": "Sil",
+    "silOnay": "{{kayit}} tahsilat kaydı silinsin mi? Ödenmiş bir kayıt silinirse fatura yeniden açılır.",
+    "silindi": "Kayıt silindi.",
+    "silinemedi": "Kayıt silinemedi."
   }
 }

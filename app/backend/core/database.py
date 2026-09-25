@@ -229,6 +229,14 @@ class DatabaseManager:
             "tur_pg": "TEXT",
             "tur_sqlite": "TEXT",
         },
+        {
+            # Shopier formunda uretilen random_nr. Geri bildirimin
+            # imzasi bu sayiyla kuruluyor, sonradan uretilemez.
+            "tablo": "payments",
+            "sutun": "rastgele",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

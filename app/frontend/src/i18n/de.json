@@ -1344,7 +1344,18 @@
       "havaleAciklama": "Kartenzahlung ist derzeit nicht verfügbar. Sie können den Betrag überweisen und den Beleg senden; diese Seite wird nach der Erfassung aktualisiert.",
       "aciklamaAlani": "In den Verwendungszweck schreiben",
       "iletisim": "Bankdaten anfordern",
-      "guvenlikNotu": "Diese Seite fragt nie nach Kartendaten."
-    }
+      "guvenlikNotu": "Diese Seite fragt nie nach Kartendaten.",
+      "kartAciklama": "Ihre Kartendaten werden auf dieser Seite nicht abgefragt; die Zahlung schließen Sie auf der sicheren Seite von Shopier ab.",
+      "ad": "Vorname",
+      "soyad": "Nachname",
+      "eposta": "E-Mail",
+      "telefon": "Telefon (optional)",
+      "yonlendiriliyor": "Weiterleitung…",
+      "kartHatasi": "Die Zahlungsseite konnte nicht geöffnet werden. Bitte prüfen Sie die Angaben und versuchen Sie es erneut."
+    },
+    "sil": "Löschen",
+    "silOnay": "Zahlungseintrag {{kayit}} löschen? Wird ein bezahlter Eintrag gelöscht, wird die Rechnung wieder geöffnet.",
+    "silindi": "Eintrag gelöscht.",
+    "silinemedi": "Eintrag konnte nicht gelöscht werden."
   }
 }
