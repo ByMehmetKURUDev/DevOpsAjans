@@ -46,7 +46,10 @@ iniyor. Onun yerine `latin` ve `latin-ext` tek dosyada birleştirildi.
 | `jetbrains-<ağırlık>-latin-tam` | aynı aralık | kod alanı ve mono etiketler |
 | `jetbrains-<ağırlık>-cyrillic` | `U+0301, U+0400-045F, …` | Rusça (`/ru`) mono yazılar |
 | `inter-<ağırlık>-cyrillic` | `U+0301, U+0400-045F, …` | Rusça (`/ru`) — Jakarta'da Kiril yok |
-| `inter-<ağırlık>-latin(-ext)` | Latin | yığında Jakarta'dan sonra geldiği için pratikte hiç inmiyor |
+
+Inter'in Latin dosyaları silindi: yığında Jakarta önce geldiği için o
+aralıklarda Inter hiçbir sayfada inmiyordu — ölçtük, `/ru` dâhil hiçbir
+dilde istenmiyordu. Depoda 198 kB ölü ağırlıktı.
 
 `unicode-range` sayesinde tarayıcı yalnızca sayfada geçen harfler için
 dosya indiriyor — Türkçe bir sayfa Kirilce dosyalarını hiç istemiyor.
