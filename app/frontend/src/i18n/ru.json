@@ -1352,7 +1352,10 @@
       "telefon": "Телефон (необязательно)",
       "yonlendiriliyor": "Перенаправление…",
       "kartHatasi": "Не удалось открыть страницу оплаты. Проверьте данные и попробуйте снова.",
-      "kartNotu": "Your card details are entered on Shopiers secure page and never touch this site. Your invoice closes automatically once the payment completes."
+      "kartNotu": "Your card details are entered on Shopiers secure page and never touch this site. Your invoice closes automatically once the payment completes.",
+      "hemenAlNotu": "On the Shopier page that opens, use the “Buy now” button — no need to add to cart.",
+      "bekleniyor": "Waiting for your payment. Finish it in the Shopier tab; this page updates by itself the moment it lands, so leave it open.",
+      "tekrarAc": "Reopen the payment page"
     },
     "sil": "Удалить",
     "silOnay": "Удалить?",
@@ -1364,7 +1367,10 @@
     "mutabakat": "Reconcile with Shopier",
     "mutabakatBulundu": "Found and processed {{sayi}} payment(s).",
     "mutabakatTemiz": "Nothing missing — everything is in sync.",
-    "mutabakatHata": "Reconciliation failed."
+    "mutabakatHata": "Reconciliation failed.",
+    "webhookKur": "Set up notifications",
+    "webhookKuruldu": "Subscription created.",
+    "webhookHata": "Could not create the subscription."
   },
   "talep": {
     "hizmetSec": "По какой услуге?",

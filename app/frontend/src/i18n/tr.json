@@ -1353,7 +1353,10 @@
       "telefon": "Telefon (isteğe bağlı)",
       "yonlendiriliyor": "Yönlendiriliyor…",
       "kartHatasi": "Ödeme sayfası açılamadı. Lütfen bilgileri kontrol edip tekrar deneyin.",
-      "kartNotu": "Kart bilgileriniz Shopier’ın güvenli sayfasında giriliyor, bu siteye hiç uğramıyor. Ödeme tamamlanınca faturanız otomatik kapanır."
+      "kartNotu": "Kart bilgileriniz Shopier’ın güvenli sayfasında giriliyor, bu siteye hiç uğramıyor. Ödeme tamamlanınca faturanız otomatik kapanır.",
+      "hemenAlNotu": "Açılan Shopier sayfasında “Hemen al” düğmesini kullanın; sepete eklemeye gerek yok.",
+      "bekleniyor": "Ödemeniz bekleniyor. Shopier sekmesinde işlemi tamamlayın; bu sayfa ödeme düşer düşmez kendiliğinden güncellenecek, kapatmayın.",
+      "tekrarAc": "Ödeme sayfasını tekrar aç"
     },
     "sil": "Sil",
     "silOnay": "Silinsin mi?",
@@ -1365,7 +1368,10 @@
     "mutabakat": "Shopier mutabakatı",
     "mutabakatBulundu": "{{sayi}} ödeme bulundu ve işlendi.",
     "mutabakatTemiz": "Eksik ödeme yok, her şey yerinde.",
-    "mutabakatHata": "Mutabakat yapılamadı."
+    "mutabakatHata": "Mutabakat yapılamadı.",
+    "webhookKur": "Bildirimi kur",
+    "webhookKuruldu": "Abonelik kuruldu.",
+    "webhookHata": "Abonelik kurulamadı."
   },
   "talep": {
     "hizmetSec": "Hangi hizmet için?",

@@ -38,6 +38,7 @@ from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.invoices import Invoices
 from models.payments import Payments
+from models.site_settings import Site_settings
 from pydantic import BaseModel
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -376,6 +377,103 @@ async def odeme_listesi(
     return OdemeListesi(items=satirlar, ozet=ozet)
 
 
+WEBHOOK_TOKEN_ANAHTARI = "shopier_webhook_token"
+
+
+async def _webhook_sirri(db: AsyncSession) -> str:
+    """Webhook imza sırrı.
+
+    Önce veritabanı: abonelik panelden kurulduğunda Shopier'in döndüğü
+    token oraya yazılıyor, böylece kimsenin bir yere kopyalayıp
+    yapıştırması gerekmiyor. Ortam değişkeni yedek olarak duruyor.
+    """
+    sonuc = await db.execute(
+        select(Site_settings).where(Site_settings.setting_key == WEBHOOK_TOKEN_ANAHTARI)
+    )
+    kayit = sonuc.scalars().first()
+    if kayit and (kayit.setting_value or "").strip():
+        return kayit.setting_value.strip()
+    return shopier.webhook_sirri()
+
+
+@yonetici_router.post("/shopier/webhook-kur")
+async def shopier_webhook_kur(request: Request, db: AsyncSession = _Depends(get_db)):
+    """Shopier'e "ödeme olduğunda bize haber ver" aboneliğini kurar.
+
+    Webhook ucunu yazmak yetmiyordu: ilk canlı denemede ödeme alındı
+    ama panele düşmedi, çünkü Shopier bizim adresimizi bilmiyordu.
+    Burası o kaydı yapıyor.
+
+    Aynı adres için abonelik zaten varsa yenisi açılmıyor — mükerrer
+    abonelik her ödemede iki bildirim demek olurdu.
+
+    Shopier imza token'ını yalnızca ilk cevapta veriyor; hemen
+    veritabanına yazılıyor. Hata olursa Shopier'in kendi mesajı
+    olduğu gibi dönüyor: bu ucu yöneticiden başkası çağıramıyor ve
+    ilk kurulumda asıl zamanı yiyen şey hatanın ne olduğunu
+    bilememek.
+    """
+    _yonetici_iste(request)
+
+    if not shopier.hazir_mi():
+        raise HTTPException(status_code=503, detail="Shopier erişim anahtarı tanımlı değil")
+
+    adres = f"{_site_adresi()}/api/v1/odeme/shopier/webhook"
+
+    mevcutlar = await shopier.webhook_abonelikleri()
+    for abonelik in mevcutlar:
+        if not isinstance(abonelik, dict):
+            continue
+        if (
+            str(abonelik.get("url") or "").strip() == adres
+            and str(abonelik.get("event") or "").strip() == shopier.ODEME_OLAYI
+        ):
+            return {
+                "ok": True,
+                "yeni": False,
+                "adres": adres,
+                "mesaj": "Abonelik zaten kurulu.",
+            }
+
+    try:
+        cevap = await shopier.webhook_aboneligi_olustur(
+            olay=shopier.ODEME_OLAYI, adres=adres
+        )
+    except shopier.ShopierHatasi as hata:
+        logger.warning("Shopier webhook aboneligi kurulamadi: %s", hata)
+        raise HTTPException(status_code=502, detail=str(hata))
+
+    jeton = str(cevap.get("token") or "").strip()
+    if jeton:
+        sonuc = await db.execute(
+            select(Site_settings).where(
+                Site_settings.setting_key == WEBHOOK_TOKEN_ANAHTARI
+            )
+        )
+        kayit = sonuc.scalars().first()
+        if kayit is None:
+            db.add(
+                Site_settings(
+                    setting_key=WEBHOOK_TOKEN_ANAHTARI,
+                    setting_value=jeton,
+                    group_name="odeme",
+                    label="Shopier webhook imza token'ı",
+                )
+            )
+        else:
+            kayit.setting_value = jeton
+        await db.commit()
+
+    logger.info("Shopier webhook aboneligi kuruldu: %s", adres)
+    return {
+        "ok": True,
+        "yeni": True,
+        "adres": adres,
+        "imza_saklandi": bool(jeton),
+        "mesaj": "Abonelik kuruldu. Bundan sonra ödemeler kendiliğinden düşecek.",
+    }
+
+
 @yonetici_router.post("/shopier/mutabakat")
 async def shopier_mutabakati(request: Request, db: AsyncSession = _Depends(get_db)):
     """Shopier'deki son siparişlerle kendi kayıtlarımızı karşılaştırır.
@@ -572,7 +670,8 @@ async def shopier_webhook(request: Request, db: AsyncSession = _Depends(get_db))
     olay = (request.headers.get("Shopier-Event") or "").strip()
     imza = (request.headers.get("Shopier-Signature") or "").strip()
 
-    if shopier.webhook_sirri() and not shopier.webhook_imzasi_gecerli_mi(ham, imza):
+    sir = await _webhook_sirri(db)
+    if sir and not shopier.webhook_imzasi_gecerli_mi_sirla(ham, imza, sir):
         logger.warning("Shopier webhook imzasi gecersiz (olay=%s)", olay[:40])
         raise HTTPException(status_code=400, detail="İmza doğrulanamadı")
 

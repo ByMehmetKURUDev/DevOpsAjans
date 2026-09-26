@@ -296,3 +296,70 @@ def webhook_imzasi_gecerli_mi(ham_govde: bytes, imza: str) -> bool:
         ozet.hex(),
     )
     return any(hmac.compare_digest(aday, imza) for aday in adaylar)
+
+
+# --------------------------------------------------------------------------
+# Webhook abonelikleri
+# --------------------------------------------------------------------------
+# Webhook ucunu yazmak yetmiyor: Shopier'in bize bildirim gönderebilmesi
+# için önce "şu olayı şu adrese yolla" diye abone olmak gerekiyor. İlk
+# canlı denemede ödeme alındı ama panele düşmedi, çünkü bu adım
+# atlanmıştı — uç hazırdı, Shopier adresimizi bilmiyordu.
+ODEME_OLAYI = "order.created"
+
+
+async def webhook_abonelikleri() -> List[Dict[str, Any]]:
+    """Kayıtlı abonelikler."""
+    try:
+        cevap = await _cagir("GET", "/webhooks")
+    except ShopierHatasi as hata:
+        logger.warning("Shopier webhook abonelikleri okunamadi: %s", hata)
+        return []
+
+    if isinstance(cevap, list):
+        return cevap
+    if isinstance(cevap, dict):
+        for ad in ("data", "webhooks", "items", "results"):
+            deger = cevap.get(ad)
+            if isinstance(deger, list):
+                return deger
+    return []
+
+
+async def webhook_aboneligi_olustur(*, olay: str, adres: str) -> Dict[str, Any]:
+    """Yeni abonelik açar.
+
+    Cevapta dönen `token`, webhook yüklerinin imzasında kullanılıyor ve
+    Shopier onu YALNIZCA bu ilk cevapta veriyor. Çağıran taraf saklamak
+    zorunda; kaybolursa aboneliği silip yeniden açmaktan başka yol yok.
+    """
+    cevap = await _cagir("POST", "/webhooks", govde={"event": olay, "url": adres})
+    if not isinstance(cevap, dict):
+        raise ShopierHatasi("Shopier abonelik cevabı okunamadı")
+    return cevap
+
+
+async def webhook_aboneligi_sil(abonelik_id: str) -> bool:
+    try:
+        await _cagir("DELETE", f"/webhooks/{abonelik_id}")
+        return True
+    except ShopierHatasi as hata:
+        logger.warning("Shopier webhook aboneligi silinemedi (%s): %s", abonelik_id, hata)
+        return False
+
+
+def webhook_imzasi_gecerli_mi_sirla(ham_govde: bytes, imza: str, sir: str) -> bool:
+    """`webhook_imzasi_gecerli_mi` ile aynı, ama sırrı çağıran veriyor.
+
+    Abonelik token'ı veritabanında duruyor (ortam değişkeninde değil):
+    aboneliği panelden kuran kişinin token'ı bir yere kopyalayıp
+    yapıştırması gerekmesin diye.
+    """
+    imza = (imza or "").strip()
+    sir = (sir or "").strip()
+    if not sir or not imza or not ham_govde:
+        return False
+
+    ozet = hmac.new(sir.encode("utf-8"), ham_govde, hashlib.sha256).digest()
+    adaylar = (base64.b64encode(ozet).decode("ascii"), ozet.hex())
+    return any(hmac.compare_digest(aday, imza) for aday in adaylar)

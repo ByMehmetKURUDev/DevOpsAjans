@@ -48,6 +48,7 @@ export default function OdemeSayfasi() {
   const [hata, setHata] = useState<string | null>(null);
   const [kopyalandi, setKopyalandi] = useState(false);
   const [gidiyor, setGidiyor] = useState(false);
+  const [bekleniyor, setBekleniyor] = useState(false);
   const [kartHatasi, setKartHatasi] = useState<string | null>(null);
 
   const kartaGit = useCallback(async () => {
@@ -56,15 +57,45 @@ export default function OdemeSayfasi() {
     setKartHatasi(null);
     try {
       const adres = await shopierBaglantisiIste(jeton);
-      // Buradan sonra sayfa Shopier'e taşınıyor; `gidiyor` açık kalıyor
-      // ki müşteri iki kez basmasın. `replace` kullanılmıyor: müşteri
-      // vazgeçerse geri tuşuyla faturasına dönebilsin.
-      window.location.href = adres;
+      // Shopier YENİ SEKMEDE açılıyor, bu sayfa arkada kalıyor.
+      //
+      // Sebebi: Shopier'in yeni API'sinde ödeme sonrası dönüş adresi
+      // verilemiyor — ürün oluştururken böyle bir alan yok. Aynı
+      // sekmede gitseydik müşteri ödemeyi bitirince Shopier'in kendi
+      // sayfasında kalır, faturasının kapandığını hiç görmezdi.
+      //
+      // Bu sayfa arkada açık kalıp durumu yoklamaya başlıyor; ödeme
+      // düşünce kendiliğinden "Ödendi"ye dönüyor. Dönüş adresini
+      // taklit etmek yerine ihtiyacı doğrudan karşılıyor.
+      window.open(adres, '_blank', 'noopener');
+      setBekleniyor(true);
     } catch {
       setKartHatasi(t('odeme.sayfa.kartHatasi'));
+    } finally {
       setGidiyor(false);
     }
   }, [jeton, t]);
+
+  // Shopier sekmesi açıkken durumu yokluyoruz. Ödeme webhook ile
+  // düşüyor; birkaç saniye sürebiliyor, bu yüzden 4 saniyede bir
+  // soruluyor ve ödendiğinde yoklama kendiliğinden duruyor.
+  useEffect(() => {
+    if (!bekleniyor || !jeton) return;
+    if (kayit?.durum === 'odendi') return;
+
+    const zamanlayici = window.setInterval(() => {
+      void acikOdemeGetir(jeton)
+        .then((guncel) => {
+          setKayit(guncel);
+          if (guncel.durum === 'odendi') setBekleniyor(false);
+        })
+        .catch(() => {
+          /* geçici ağ hatası: bir sonraki turda yine denenecek */
+        });
+    }, 4000);
+
+    return () => window.clearInterval(zamanlayici);
+  }, [bekleniyor, jeton, kayit?.durum]);
 
   // Bu adres arama sonuçlarında çıkmamalı: her jeton tek bir faturaya
   // ait. Prerender listesine girmiyor, burada da çalışma anında
@@ -216,8 +247,23 @@ export default function OdemeSayfasi() {
                 ) : (
                   <CreditCard className="h-4 w-4" aria-hidden="true" />
                 )}
-                {gidiyor ? t('odeme.sayfa.yonlendiriliyor') : t('odeme.sayfa.kartlaOde')}
+                {gidiyor
+                  ? t('odeme.sayfa.yonlendiriliyor')
+                  : bekleniyor
+                    ? t('odeme.sayfa.tekrarAc')
+                    : t('odeme.sayfa.kartlaOde')}
               </button>
+              {bekleniyor ? (
+                <div className="flex items-start gap-2 rounded-lg border border-primary/25 bg-primary/[0.06] p-3">
+                  <Loader2 className="mt-0.5 h-4 w-4 shrink-0 animate-spin text-primary" aria-hidden="true" />
+                  <p className="text-xs leading-relaxed text-muted-foreground">
+                    {t('odeme.sayfa.bekleniyor')}
+                  </p>
+                </div>
+              ) : null}
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                {t('odeme.sayfa.hemenAlNotu')}
+              </p>
               <p className="text-xs leading-relaxed text-muted-foreground">
                 {t('odeme.sayfa.kartNotu')}
               </p>

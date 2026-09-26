@@ -1,5 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AlertCircle, ArrowLeftRight, Banknote, Clock, Percent, RefreshCw, Trash2 } from 'lucide-react';
+import {
+  AlertCircle,
+  ArrowLeftRight,
+  Banknote,
+  Clock,
+  Percent,
+  RefreshCw,
+  Trash2,
+  Webhook,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -9,6 +18,7 @@ import {
   odemeSil,
   paraBicimle,
   shopierMutabakati,
+  shopierWebhookKur,
   type Odeme,
   type OdemeDurumu,
   type OdemeOzeti,
@@ -63,6 +73,7 @@ export default function OdemePaneli() {
   const [satirlar, setSatirlar] = useState<Odeme[]>([]);
   const [ozet, setOzet] = useState<OdemeOzeti | null>(null);
   const [mutabakatta, setMutabakatta] = useState(false);
+  const [kuruluyor, setKuruluyor] = useState(false);
   const [yukleniyor, setYukleniyor] = useState(true);
   const [silinen, setSilinen] = useState<number | null>(null);
   const [onayBekleyen, setOnayBekleyen] = useState<number | null>(null);
@@ -110,6 +121,25 @@ export default function OdemePaneli() {
   );
 
   /**
+   * Shopier'e "ödeme olunca haber ver" aboneliğini kurar.
+   *
+   * Bir kez basılması yeterli. İlk canlı denemede ödeme alındı ama
+   * panele düşmedi: webhook ucu hazırdı, Shopier adresimizi
+   * bilmiyordu. Bu düğme o kaydı yapıyor.
+   */
+  const webhookKur = useCallback(async () => {
+    setKuruluyor(true);
+    try {
+      const sonuc = await shopierWebhookKur();
+      toast.success(sonuc.mesaj || t('odeme.webhookKuruldu'));
+    } catch {
+      toast.error(t('odeme.webhookHata'));
+    } finally {
+      setKuruluyor(false);
+    }
+  }, [t]);
+
+  /**
    * Shopier'deki siparişlerle kayıtları karşılaştırır.
    *
    * Webhook'un yedeği. Bildirim kaybolursa ödeme alınmış ama fatura
@@ -141,6 +171,18 @@ export default function OdemePaneli() {
           {t('odeme.baslik')} {ozet ? `(${ozet.adet})` : ''}
         </h2>
         <div className="flex items-center gap-2">
+          {ozet?.shopier_hazir ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-2"
+              disabled={kuruluyor}
+              onClick={() => void webhookKur()}
+            >
+              <Webhook className={`h-4 w-4 ${kuruluyor ? 'animate-pulse' : ''}`} />
+              {t('odeme.webhookKur')}
+            </Button>
+          ) : null}
           {ozet?.shopier_hazir ? (
             <Button
               variant="ghost"

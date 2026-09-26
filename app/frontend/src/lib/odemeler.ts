@@ -66,6 +66,7 @@ export async function odemeleriGetir(): Promise<OdemeListesi> {
       komisyon: govde?.ozet?.komisyon ?? 0,
       adet: govde?.ozet?.adet ?? 0,
       saglayici_hazir: Boolean(govde?.ozet?.saglayici_hazir),
+      shopier_hazir: Boolean(govde?.ozet?.shopier_hazir),
     },
   };
 }
@@ -147,6 +148,16 @@ export async function shopierBaglantisiIste(jeton: string): Promise<string> {
   const govde = govdeyiAc<{ adres?: string }>(yanit);
   if (!govde?.adres) throw new Error('Ödeme adresi alınamadı.');
   return govde.adres;
+}
+
+/** Yönetici: Shopier'e "ödeme olunca haber ver" aboneliğini kurar. */
+export async function shopierWebhookKur(): Promise<{ yeni: boolean; mesaj: string }> {
+  const yanit = await client.apiCall.invoke({
+    method: 'POST',
+    url: '/api/v1/odeme/shopier/webhook-kur',
+  });
+  const govde = govdeyiAc<{ yeni?: boolean; mesaj?: string }>(yanit);
+  return { yeni: Boolean(govde?.yeni), mesaj: govde?.mesaj ?? '' };
 }
 
 /** Yönetici: Shopier siparişleriyle kayıtları karşılaştırır. */
