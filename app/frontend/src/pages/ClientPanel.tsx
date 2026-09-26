@@ -423,7 +423,13 @@ export default function ClientPanel() {
                     {t('ui.noProjectsDesc')}
                   </p>
                   <Button
-                    onClick={() => (window.location.href = '/contact')}
+                    /*
+                      Eskiden iletişim sayfasına gidiyordu: oturumu açık
+                      müşteriyi herkese açık bir forma göndermek, zaten
+                      bildiğimiz bilgileri ona tekrar yazdırmak demekti.
+                      Artık panelin kendi talep sekmesini açıyor.
+                    */
+                    onClick={() => setTab('tickets')}
                     className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                   >
                     {t('ui.startProject')}

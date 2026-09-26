@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check, Compass, Loader2, RotateCcw, Sparkles } f
 import { Button } from '@/components/ui/button';
 import { kesifAnaliziIste, type KesifAnalizi } from '@/lib/kesifAi';
 import { kesifOzetiniSakla } from '@/lib/kesifOzetiSaklama';
+import HizliTalep from '@/components/HizliTalep';
 
 /**
  * Proje Keşif Asistanı.
@@ -105,6 +106,7 @@ function paketOner(c: Cevaplar): PaketNo {
 function KesifAsistani() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [talepOzeti, setTalepOzeti] = useState<string | null>(null);
   const [adim, setAdim] = useState(1);
   const [cevaplar, setCevaplar] = useState<Cevaplar>(BOS);
   const [analiz, setAnaliz] = useState<KesifAnalizi | null>(null);
@@ -468,9 +470,12 @@ function KesifAsistani() {
                     size="sm"
                     onClick={() => {
                       const ozet = ozetMetni();
-                      // WhatsApp balonu da okusun diye sekleme sakliyoruz.
+                      // WhatsApp balonu da okusun diye sekmede saklıyoruz.
                       kesifOzetiniSakla(ozet);
-                      navigate('/contact', { state: { kesifOzeti: ozet } });
+                      // Eskiden iletişim sayfasına gidiliyordu: müşteri az
+                      // önce cevapladığı onca soruyu orada baştan anlatmak
+                      // zorunda kalıyordu. Artık özet talebe iliştiriliyor.
+                      setTalepOzeti(ozet);
                     }}
                     className="h-11 gap-2 border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500"
                   >
@@ -483,6 +488,19 @@ function KesifAsistani() {
           </div>
         </div>
       </div>
+
+      <HizliTalep
+        acik={talepOzeti !== null}
+        kapat={() => setTalepOzeti(null)}
+        konu={t('kesif.talepKonu', 'Keşif özeti — teklif talebi')}
+        onDolgu={talepOzeti ?? ''}
+        brief={talepOzeti ?? undefined}
+        kaynak="kesif"
+        aciklama={t(
+          'kesif.talepAciklama',
+          'Verdiğiniz cevaplar aşağıda; olduğu gibi gönderebilir ya da ekleme yapabilirsiniz.',
+        )}
+      />
     </section>
   );
 }

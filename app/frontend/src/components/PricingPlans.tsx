@@ -1,9 +1,9 @@
 import { memo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight, Crown, Rocket, Server, Shield, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { useSiteSettings } from '@/lib/siteSettings';
+import HizliTalep from '@/components/HizliTalep';
 
 /** Yıllık ödemede uygulanan indirim. Panelden `yearly_discount` ile değişir. */
 const DEFAULT_YEARLY_DISCOUNT = 20;
@@ -37,6 +37,8 @@ function PricingPlans({ className = '' }: { className?: string }) {
     const yearly = Math.round(value * 12 * (1 - discount / 100));
     return `$${yearly.toLocaleString('en-US')}`;
   };
+
+  const [secilen, setSecilen] = useState<{ ad: string; fiyat: string | null; teklif: boolean } | null>(null);
 
   const PLANS = [
     // Danismanlik & Analiz: 1 saatlik is, aylik/yillik degil saatlik sabit ucret.
@@ -148,8 +150,9 @@ function PricingPlans({ className = '' }: { className?: string }) {
 
               <p className="mb-8 flex-1 text-sm leading-relaxed text-muted-foreground">{plan.desc}</p>
 
-              <Link to="/contact" className="mt-auto block">
+              <div className="mt-auto block">
                 <Button
+                  onClick={() => setSecilen({ ad: plan.name, fiyat: plan.monthly ? priceFor(plan.monthly, plan.fixedHourly) : null, teklif: plan.isQuote })}
                   className={`h-11 w-full gap-2 ${
                     plan.highlight
                       ? 'border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500'
@@ -160,11 +163,28 @@ function PricingPlans({ className = '' }: { className?: string }) {
                   {plan.isQuote ? t('packages.getQuote') : t('packages.buyNow')}
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </Button>
-              </Link>
+              </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/*
+        Paket düğmesi eskiden iletişim sayfasına atıyordu; müşteri
+        seçtiği paketi orada baştan anlatmak zorunda kalıyordu. Artık
+        talep buradan, paket adıyla birlikte gidiyor.
+      */}
+      <HizliTalep
+        acik={secilen !== null}
+        kapat={() => setSecilen(null)}
+        konu={secilen ? `${secilen.ad}${secilen.fiyat ? ` — ${secilen.fiyat}` : ''}` : ''}
+        kaynak={secilen ? `paket:${secilen.ad}` : 'paket'}
+        aciklama={
+          secilen?.teklif
+            ? t('packages.teklifAciklama', 'Kapsamı konuşup size özel fiyat çıkaralım.')
+            : t('packages.satinAlAciklama', 'Talebinizi alıp ödeme bağlantısıyla birlikte dönüyoruz.')
+        }
+      />
     </section>
   );
 }

@@ -1,24 +1,23 @@
-Shopier: webhook aboneligi kurulumu, yeni sekme + durum yoklama
+Paket, kesif ve musteri paneli dugmeleri gercek talebe baglandi
 
-Ilk canli denemede ucu yazdigimiz halde odeme panele dusmedi.
-Sebep: webhook ABONELIGI Shopier'e hic kaydedilmemisti. Uc hazirdi,
-Shopier bizim adresimizi bilmiyordu.
+Uc dugme de kodda duz /contact linkiydi; hicbiri bagli degildi:
+  PricingPlans.tsx:151   paket 'Satin al'
+  KesifAsistani.tsx:473  'Teklif iste'
+  ClientPanel.tsx:426    'Projeye basla'
 
-Panele 'Bildirimi kur' dugmesi eklendi: sunucu kendi anahtariyla
-POST /v1/webhooks cagirip order.created aboneligini aciyor. Shopier
-imza token'ini yalnizca ilk cevapta veriyor; site_settings'e
-yaziliyor, kimsenin kopyalayip yapistirmasi gerekmiyor.
+Musteri sectigi paketi ya da az once cevapladigi onca keisf sorusunu
+iletisim sayfasinda bastan anlatmak zorunda kaliyordu. Cogu
+anlatmiyor, sayfayi kapatiyordu.
 
-Ikinci sorun: odeme sonrasi musteri bizim sayfaya donmuyordu. Yeni
-urun API'sinde donus adresi alani YOK. Cozum: Shopier yeni sekmede
-aciliyor, odeme sayfasi arkada kalip 4 saniyede bir durumu
-yokluyor ve odeme dusunce kendiliginden Odendi'ye geciyor.
-Donus adresini taklit etmek yerine ihtiyaci dogrudan karsiliyor.
+Yeni: components/HizliTalep.tsx — sayfadan ayrilmadan talep birakma
+penceresi. Paket adi ya da kesif ozeti konu olarak geliyor, musteri
+yalnizca kendi bilgilerini yaziyor. Talep inquiries'e dusuyor;
+source alani hangi sayfanin is getirdigini gosteriyor
+(paket:<ad>, kesif), kesif ozeti brief olarak sakalaniyor.
 
-Ayrica: odemeleriGetir ozeti alan alan yeniden kurdugu icin
-shopier_hazir dusuyordu, mutabakat dugmesi hic gorunmuyordu.
-
-31/31 backend testi geciyor.
+Musteri panelindeki dugme artik panelin kendi talep sekmesini
+aciyor: oturumu acik musteriyi herkese acik bir forma gondermek,
+zaten bildigimiz bilgileri ona tekrar yazdirmak demekti.
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01CqqeKbbh9xSetSq1QhSC2k
