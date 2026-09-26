@@ -25,6 +25,7 @@ import {
   Briefcase,
   Boxes,
   CalendarDays,
+  Globe,
   Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -70,6 +71,7 @@ const OdemePaneli = lazy(() => import('@/components/admin/OdemePaneli'));
 const EkipPaneli = lazy(() => import('@/components/admin/EkipPaneli'));
 const MusteriRaporlari = lazy(() => import('@/components/admin/MusteriRaporlari'));
 const HizmetAbonelikleri = lazy(() => import('@/components/admin/HizmetAbonelikleri'));
+const MusteriSiteleri = lazy(() => import('@/components/admin/MusteriSiteleri'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -174,6 +176,7 @@ type Tab =
   | 'invoices'
   | 'odeme'
   | 'abonelik'
+  | 'siteler'
   | 'tickets'
   | 'inquiries';
 
@@ -761,6 +764,7 @@ export default function AdminPanel() {
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
     { key: 'odeme', label: t('ui.tabOdeme'), icon: CreditCard },
     { key: 'abonelik', label: t('abonelik.sekme'), icon: CalendarDays },
+    { key: 'siteler', label: t('site.sekme'), icon: Globe },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
   ];
@@ -848,6 +852,18 @@ export default function AdminPanel() {
           }
         >
           <HizmetAbonelikleri />
+        </Suspense>
+      )}
+
+      {tab === 'siteler' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <MusteriSiteleri />
         </Suspense>
       )}
 

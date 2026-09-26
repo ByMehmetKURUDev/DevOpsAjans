@@ -1,0 +1,33 @@
+Faz 4: musteri siteleri, bakim erisimi ve gomulu geri bildirim dugmesi
+
+Musterinin sifresi hicbir yerde tutulmuyor. Bakim icin ajansin kendi
+hesabi aciliyor, yapilan her is access_log tablosuna yaziliyor,
+musteri izni kendi panelinden tek dugmeyle geri alabiliyor. Izin
+kapaliyken erisim kaydi acilamiyor (409) — anahtarin sahte olmamasi
+icin.
+
+Erisim gunlugu musteriye de acik: goren taraf olmadan
+"denetlenebilir erisim" ajansin kendine verdigi bir sozden ibaret
+kalirdi. Site silinse bile gunluk siliniyor degil.
+
+Geri bildirim dugmesi: musterinin sitesine tek satirlik script
+gomuluyor, sayfanin kenarinda ajans logolu dugme cikiyor. Yazilan
+istek musterinin hesabina destek talebi olarak dusuyor ve siteye
+bakan ekip uyesine atanyor. Uc herkese acik oldugu icin jetonla
+calisiyor, saatte 20 istekle sinirli, musteri e-postasi disari
+sizmiyor. Jeton yenilenince eski gomme kodu o an oluyor.
+
+Widget shadow DOM icinde: musterinin sitesinin CSS'i bize, bizimki
+ona karismasin. Dis bagimlilik yok, alert/confirm yok.
+
+Backend: models/client_sites.py, models/access_log.py,
+routers/musteri_siteleri.py (3 router: yonetici/musteri/acik)
+Frontend: lib/musteriSiteleri.ts, components/admin/MusteriSiteleri.tsx,
+components/SiteBakimIzni.tsx, public/widget.js
+Panel: AdminPanel "Musteri siteleri" sekmesi, ClientPanel "Sitem ve
+erisim" sekmesi. 7 dilde site.* ve sitem.* anahtarlari.
+
+58/58 backend testi gecti (scratchpad/site_testi.py).
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01CqqeKbbh9xSetSq1QhSC2k
