@@ -1351,7 +1351,8 @@
       "eposta": "Email",
       "telefon": "Phone (optional)",
       "yonlendiriliyor": "Redirecting…",
-      "kartHatasi": "The payment page could not be opened. Please check the details and try again."
+      "kartHatasi": "The payment page could not be opened. Please check the details and try again.",
+      "kartNotu": "Your card details are entered on Shopiers secure page and never touch this site. Your invoice closes automatically once the payment completes."
     },
     "sil": "Delete",
     "silOnay": "Delete this?",
@@ -1359,7 +1360,11 @@
     "silinemedi": "Record could not be deleted.",
     "silOnayOdenmis": "Deleting reopens the invoice. Delete?",
     "silEvet": "Delete",
-    "silVazgec": "Cancel"
+    "silVazgec": "Cancel",
+    "mutabakat": "Reconcile with Shopier",
+    "mutabakatBulundu": "Found and processed {{sayi}} payment(s).",
+    "mutabakatTemiz": "Nothing missing — everything is in sync.",
+    "mutabakatHata": "Reconciliation failed."
   },
   "talep": {
     "hizmetSec": "Which service?",

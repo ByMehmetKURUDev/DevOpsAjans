@@ -28,7 +28,7 @@ import json
 import logging
 import secrets
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from core import shopier
 from core.database import get_db
@@ -36,7 +36,6 @@ from dependencies.entity_guard import entity_guard
 from dependencies.kayit_sahipligi import _yonetici_mi
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
-from fastapi.responses import RedirectResponse
 from models.invoices import Invoices
 from models.payments import Payments
 from pydantic import BaseModel
@@ -109,18 +108,15 @@ class OdemeListesi(BaseModel):
     ozet: Dict[str, Any]
 
 
-class ShopierIstegi(BaseModel):
-    """Shopier fatura bilgisi olarak ad, soyad, e-posta ve telefon istiyor."""
+class ShopierBaglantisi(BaseModel):
+    """Müşterinin yönlendirileceği Shopier adresi.
 
-    ad: str
-    soyad: str
-    eposta: str
-    telefon: str = ""
+    Eski sürümde burada imzalı form alanları dönüyordu; Shopier API
+    V1'i kaldırdığı için artık tek bir link dönüyor. Kart bilgisi yine
+    Shopier'in kendi sayfasında giriliyor, bize hiç uğramıyor.
+    """
 
-
-class ShopierFormu(BaseModel):
     adres: str
-    alanlar: Dict[str, str]
 
 
 # --------------------------------------------------------------------------
@@ -147,6 +143,34 @@ def _saglayici_hazir_mi() -> bool:
 
 def _fatura_tahsilati(satirlar: List[Payments]) -> float:
     return sum(s.tutar or 0 for s in satirlar if s.durum == "odendi")
+
+
+async def _faturayi_kapat(db: AsyncSession, kayit: Payments) -> bool:
+    """Tahsilatlar tutarı karşılıyorsa faturayı ödendi işaretler.
+
+    Kısmi ödeme olabildiği için tek bir tahsilat faturayı kapatmaya
+    yetmiyor; o faturanın bütün ödenmiş satırları toplanıyor. Kuruş
+    farkları yüzünden tam eşitlik aranmıyor.
+
+    `commit` çağıran tarafta: tahsilat ile fatura aynı işlemde
+    yazılsın, biri yazılıp diğeri yazılmadan kalmasın.
+    """
+    if not kayit.invoice_id:
+        return False
+
+    sonuc = await db.execute(select(Invoices).where(Invoices.id == kayit.invoice_id))
+    fatura = sonuc.scalar_one_or_none()
+    if fatura is None or fatura.amount is None:
+        return False
+
+    satirlar = await db.execute(
+        select(Payments).where(Payments.invoice_id == fatura.id)
+    )
+    toplam = _fatura_tahsilati(list(satirlar.scalars().all()))
+    if toplam + 0.001 >= fatura.amount:
+        fatura.status = "paid"
+        return True
+    return False
 
 
 def _site_adresi() -> str:
@@ -347,8 +371,39 @@ async def odeme_listesi(
         "komisyon": round(komisyon, 2),
         "adet": len(satirlar),
         "saglayici_hazir": _saglayici_hazir_mi(),
+        "shopier_hazir": shopier.hazir_mi(),
     }
     return OdemeListesi(items=satirlar, ozet=ozet)
+
+
+@yonetici_router.post("/shopier/mutabakat")
+async def shopier_mutabakati(request: Request, db: AsyncSession = _Depends(get_db)):
+    """Shopier'deki son siparişlerle kendi kayıtlarımızı karşılaştırır.
+
+    Webhook'un yedeği. Bildirim kaybolursa (bizim sunucu uykudaysa,
+    Shopier'in denemeleri tükenmişse) ödeme yapılmış ama fatura açık
+    kalır. Burası o boşluğu kapatıyor: ödendiği Shopier tarafında
+    görünen her sipariş bizim kayda yazılıyor.
+
+    Webhook yerine bunu tek başına kullanmıyoruz — müşteri ödedikten
+    saniyeler sonra faturasının kapandığını görmeli, elle
+    çalıştırılan bir kontrolü beklememeli.
+    """
+    _yonetici_iste(request)
+
+    if not shopier.hazir_mi():
+        raise HTTPException(status_code=503, detail="Shopier bağlı değil")
+
+    siparisler = await shopier.siparisleri_getir(limit=50)
+    islenen = 0
+    for siparis in siparisler:
+        if not isinstance(siparis, dict):
+            continue
+        _kayit, yeni = await _odemeyi_isle(db, siparis)
+        if yeni:
+            islenen += 1
+
+    return {"bakilan": len(siparisler), "islenen": islenen}
 
 
 # --------------------------------------------------------------------------
@@ -389,77 +444,19 @@ async def odeme_ozeti(jeton: str, db: AsyncSession = _Depends(get_db)):
     )
 
 
-@acik_router.post("/shopier/donus")
-async def shopier_donusu(request: Request, db: AsyncSession = _Depends(get_db)):
-    """Shopier ödeme sonrası müşteriyi buraya POST ile geri gönderiyor.
+@acik_router.post("/{jeton}/shopier", response_model=ShopierBaglantisi)
+async def shopier_baglantisi(jeton: str, db: AsyncSession = _Depends(get_db)):
+    """Bu fatura için Shopier ödeme linkini üretir (ya da mevcut olanı verir).
 
-    İmza doğrulanmadan hiçbir kayıt değişmiyor. Doğrulama, bizim kendi
-    kaydımızda duran `rastgele` sayıyla yapılıyor — gelen çağrıdaki
-    değerle değil; yoksa imzayı gönderen taraf kendi seçtiği sayıyla
-    geçerli bir imza üretebilirdi.
+    Shopier'in yeni API'sinde "şu tutarı tahsil et" diyen bir uç yok;
+    onun yerine faturaya özel gizli bir ürün açılıyor ve müşteri o
+    ürünün linkine gönderiliyor. Ürün `customListing` olduğu için
+    dükkânın vitrininde görünmüyor, stoğu 1 olduğu için ikinci kez
+    ödenemiyor.
 
-    Tutar geri bildirimden alınmıyor: dönüş imzası tutarı kapsamıyor.
-    Fatura kendi kaydımızdaki tutarla kapanıyor.
-    """
-    form = await request.form()
-    siparis_no = (form.get("platform_order_id") or "").strip()
-    imza = (form.get("signature") or "").strip()
-    durum_metni = (form.get("status") or "").strip().lower()
-    odeme_no = (form.get("payment_id") or "").strip()
-
-    sonuc = await db.execute(select(Payments).where(Payments.jeton == siparis_no))
-    kayit = sonuc.scalar_one_or_none()
-
-    if kayit is None or not shopier.donus_gecerli_mi(
-        rastgele=kayit.rastgele or "", siparis_no=siparis_no, imza=imza
-    ):
-        logger.warning("Shopier donusu dogrulanamadi (siparis=%s)", siparis_no[:40])
-        raise HTTPException(status_code=400, detail="Ödeme bildirimi doğrulanamadı")
-
-    kayit.saglayici = "shopier"
-    kayit.saglayici_ref = odeme_no or kayit.saglayici_ref
-    kayit.ham_yanit = json.dumps(dict(form), ensure_ascii=False)[:4000]
-
-    if durum_metni == "success":
-        # Aynı dönüş iki kez gelebilir (müşteri sayfayı yeniler).
-        # İkinci seferde fatura zaten kapalı, tekrar yazmak zararsız.
-        kayit.durum = "odendi"
-        kayit.odendi_at = datetime.now()
-        kayit.hata_mesaji = None
-        if kayit.invoice_id:
-            fatura = await db.execute(
-                select(Invoices).where(Invoices.id == kayit.invoice_id)
-            )
-            fatura = fatura.scalar_one_or_none()
-            if fatura is not None and fatura.amount is not None:
-                kalanlar = await db.execute(
-                    select(Payments).where(Payments.invoice_id == fatura.id)
-                )
-                toplam = _fatura_tahsilati(list(kalanlar.scalars().all()))
-                if toplam + 0.001 >= fatura.amount:
-                    fatura.status = "paid"
-    else:
-        kayit.durum = "basarisiz"
-        kayit.hata_mesaji = "Shopier ödemeyi tamamlamadı"
-
-    await db.commit()
-
-    return RedirectResponse(
-        url=f"{_site_adresi()}/ode/{kayit.jeton}",
-        status_code=status.HTTP_303_SEE_OTHER,
-    )
-
-
-@acik_router.post("/{jeton}/shopier", response_model=ShopierFormu)
-async def shopier_formu(
-    jeton: str,
-    govde: ShopierIstegi = Body(...),
-    db: AsyncSession = _Depends(get_db),
-):
-    """Müşterinin tarayıcısının Shopier'e göndereceği imzalı form.
-
-    Kart bilgisi Shopier'in kendi sayfasında giriliyor; bize hiç
-    uğramıyor. Buradan yalnızca imzalı alanlar dönüyor.
+    Link bir kez üretilip saklanıyor. Her istekte yeni ürün açsaydık,
+    sayfayı iki kez açan müşteri için Shopier'de iki ürün birikir ve
+    hangisinin ödendiğini takip etmek imkânsızlaşırdı.
     """
     if not shopier.hazir_mi():
         raise HTTPException(status_code=503, detail="Kart ödemesi şu an kapalı")
@@ -475,31 +472,131 @@ async def shopier_formu(
     if not kayit.tutar or kayit.tutar <= 0:
         raise HTTPException(status_code=400, detail="Tutar geçersiz")
 
-    ad = (govde.ad or "").strip()
-    soyad = (govde.soyad or "").strip()
-    eposta = (govde.eposta or "").strip()
-    telefon = (govde.telefon or "").strip()
-    if not ad or not soyad or "@" not in eposta:
-        raise HTTPException(status_code=400, detail="Ad, soyad ve e-posta gerekli")
+    if kayit.shopier_url and kayit.shopier_urun_id:
+        return ShopierBaglantisi(adres=kayit.shopier_url)
 
-    # Her denemede yeni bir rastgele sayı: eski bir imza yeniden
-    # kullanılamasın.
-    kayit.rastgele = shopier.yeni_rastgele()
+    baslik = f"Hizmet bedeli — {kayit.invoice_no or kayit.jeton}"
+    aciklama = (
+        "By Mehmet KURU Dev hizmet bedeli. "
+        f"Fatura: {kayit.invoice_no or '—'}. "
+        "Bu sayfa yalnızca ilgili müşteri içindir."
+    )
+    try:
+        urun = await shopier.odeme_urunu_olustur(
+            baslik=baslik,
+            aciklama=aciklama,
+            tutar=float(kayit.tutar),
+            para_birimi=kayit.para_birimi or "TRY",
+        )
+    except shopier.ShopierHatasi as hata:
+        logger.warning("Shopier urunu acilamadi (jeton=%s): %s", jeton[:20], hata)
+        raise HTTPException(status_code=502, detail=str(hata))
+
+    kayit.saglayici = "shopier"
+    kayit.shopier_urun_id = urun["urun_id"]
+    kayit.shopier_url = urun["adres"]
     await db.commit()
 
-    alanlar = shopier.form_alanlari(
-        siparis_no=kayit.jeton,
-        tutar=kayit.tutar,
-        para_birimi=kayit.para_birimi or "TRY",
-        urun_adi=kayit.invoice_no or "Hizmet bedeli",
-        ad=ad,
-        soyad=soyad,
-        eposta=eposta,
-        telefon=telefon,
-        donus_adresi=f"{_site_adresi()}/api/v1/odeme/shopier/donus",
-        rastgele=kayit.rastgele,
+    logger.info("Shopier odeme linki uretildi: jeton=%s urun=%s", jeton[:20], urun["urun_id"])
+    return ShopierBaglantisi(adres=urun["adres"])
+
+
+async def _odemeyi_isle(
+    db: AsyncSession, siparis: Dict[str, Any]
+) -> Tuple[Optional[int], bool]:
+    """Ödenmiş bir Shopier siparişini bizim kaydımıza yazar.
+
+    `(kayit_id, yeni_mi)` döndürüyor. İki ayrı soru bunlar: webhook
+    için "bu sipariş bize ait mi" yeterli (aynı bildirim iki kez
+    gelirse yine başarı), mutabakat içinse "bu sefer gerçekten bir şey
+    değişti mi" gerekiyor — yoksa her mutabakat aynı eski ödemeleri
+    yeniden saymış gibi rapor ederdi.
+
+    Eşleştirme sipariş satırlarındaki `productId` ile yapılıyor: o
+    ürün tek bir fatura için açılmıştı. Tutar ya da e-posta ile
+    eşleştirmek yanlış faturayı kapatabilirdi — aynı tutarda iki
+    fatura olabilir, müşteri başka bir adresle ödeyebilir.
+    """
+    if not shopier.odenmis_mi(siparis):
+        return None, False
+
+    kimlikler = shopier.siparisin_urun_kimlikleri(siparis)
+    if not kimlikler:
+        return None, False
+
+    sonuc = await db.execute(
+        select(Payments).where(Payments.shopier_urun_id.in_(kimlikler))
     )
-    return ShopierFormu(adres=shopier.ODEME_ADRESI, alanlar=alanlar)
+    kayit = sonuc.scalars().first()
+    if kayit is None:
+        logger.info("Shopier siparisi bizim kayitla eslesmedi: %s", siparis.get("id"))
+        return None, False
+
+    if kayit.durum == "odendi":
+        # Aynı bildirim iki kez geldi ya da mutabakat eski bir ödemeye
+        # denk geldi. Kayıt bizim, ama bu sefer değişen bir şey yok.
+        return kayit.id, False
+
+    kayit.durum = "odendi"
+    kayit.saglayici = "shopier"
+    kayit.saglayici_ref = str(siparis.get("id") or "") or kayit.saglayici_ref
+    kayit.odendi_at = datetime.now()
+    kayit.hata_mesaji = None
+    kayit.ham_yanit = json.dumps(siparis, ensure_ascii=False)[:4000]
+
+    await _faturayi_kapat(db, kayit)
+    await db.commit()
+
+    # Ödendikten sonra link ölmeli; olmazsa iş durmuyor, tahsilat alındı.
+    if kayit.shopier_urun_id:
+        await shopier.odeme_urununu_kapat(kayit.shopier_urun_id)
+
+    logger.info("Shopier odemesi islendi: kayit=%s siparis=%s", kayit.id, siparis.get("id"))
+    return kayit.id, True
+
+
+@acik_router.post("/shopier/webhook")
+async def shopier_webhook(request: Request, db: AsyncSession = _Depends(get_db)):
+    """Shopier'in sipariş bildirimi.
+
+    Gelen gövdeye GÜVENİLMİYOR. Bildirim yalnızca bir tetikleyici
+    sayılıyor; sipariş Shopier'den kendi anahtarımızla yeniden
+    çekiliyor ve karar oradan veriliyor. Böylece adresi bilen birinin
+    uydurma bir gövdeyle fatura kapatması mümkün değil — imza sırrı
+    tanımlı olmasa bile.
+
+    İmza tanımlıysa ayrıca doğrulanıyor; geçmezse istek hiç
+    işlenmiyor. İkisi birbirinin yedeği.
+    """
+    ham = await request.body()
+    olay = (request.headers.get("Shopier-Event") or "").strip()
+    imza = (request.headers.get("Shopier-Signature") or "").strip()
+
+    if shopier.webhook_sirri() and not shopier.webhook_imzasi_gecerli_mi(ham, imza):
+        logger.warning("Shopier webhook imzasi gecersiz (olay=%s)", olay[:40])
+        raise HTTPException(status_code=400, detail="İmza doğrulanamadı")
+
+    if olay and not olay.startswith("order."):
+        return {"ok": True, "islendi": False, "neden": "ilgisiz olay"}
+
+    try:
+        govde = json.loads(ham.decode("utf-8")) if ham else {}
+    except (ValueError, UnicodeDecodeError):
+        govde = {}
+
+    siparis_id = str((govde or {}).get("id") or "").strip()
+    if not siparis_id:
+        return {"ok": True, "islendi": False, "neden": "siparis numarasi yok"}
+
+    # Kritik kısım: bildirimdeki alanlar değil, Shopier'den çekilen
+    # siparişin kendisi kullanılıyor.
+    siparis = await shopier.siparis_getir(siparis_id)
+    if siparis is None:
+        logger.warning("Shopier siparisi dogrulanamadi: %s", siparis_id)
+        return {"ok": True, "islendi": False, "neden": "siparis okunamadi"}
+
+    kayit_id, _yeni = await _odemeyi_isle(db, siparis)
+    return {"ok": True, "islendi": kayit_id is not None}
 
 
 @acik_router.post("/webhook/{saglayici}")

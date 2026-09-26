@@ -1351,7 +1351,8 @@
       "eposta": "البريد الإلكتروني",
       "telefon": "الهاتف (اختياري)",
       "yonlendiriliyor": "جارٍ التحويل…",
-      "kartHatasi": "تعذّر فتح صفحة الدفع. يُرجى التحقق من البيانات والمحاولة مجددًا."
+      "kartHatasi": "تعذّر فتح صفحة الدفع. يُرجى التحقق من البيانات والمحاولة مجددًا.",
+      "kartNotu": "Your card details are entered on Shopiers secure page and never touch this site. Your invoice closes automatically once the payment completes."
     },
     "sil": "حذف",
     "silOnay": "هل تريد الحذف؟",
@@ -1359,7 +1360,11 @@
     "silinemedi": "تعذّر حذف السجل.",
     "silOnayOdenmis": "الحذف يعيد فتح الفاتورة. هل تحذف؟",
     "silEvet": "حذف",
-    "silVazgec": "إلغاء"
+    "silVazgec": "إلغاء",
+    "mutabakat": "Reconcile with Shopier",
+    "mutabakatBulundu": "Found and processed {{sayi}} payment(s).",
+    "mutabakatTemiz": "Nothing missing — everything is in sync.",
+    "mutabakatHata": "Reconciliation failed."
   },
   "talep": {
     "hizmetSec": "لأي خدمة؟",

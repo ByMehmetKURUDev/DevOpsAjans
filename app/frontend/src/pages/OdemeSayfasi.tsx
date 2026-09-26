@@ -5,8 +5,7 @@ import { AlertCircle, CheckCircle2, Copy, CreditCard, Home, Loader2, ShieldCheck
 import {
   acikOdemeGetir,
   paraBicimle,
-  shopierFormuIste,
-  shopiereGonder,
+  shopierBaglantisiIste,
   type AcikOdeme,
 } from '@/lib/odemeler';
 
@@ -48,10 +47,6 @@ export default function OdemeSayfasi() {
   const [yukleniyor, setYukleniyor] = useState(true);
   const [hata, setHata] = useState<string | null>(null);
   const [kopyalandi, setKopyalandi] = useState(false);
-  const [ad, setAd] = useState('');
-  const [soyad, setSoyad] = useState('');
-  const [eposta, setEposta] = useState('');
-  const [telefon, setTelefon] = useState('');
   const [gidiyor, setGidiyor] = useState(false);
   const [kartHatasi, setKartHatasi] = useState<string | null>(null);
 
@@ -60,15 +55,16 @@ export default function OdemeSayfasi() {
     setGidiyor(true);
     setKartHatasi(null);
     try {
-      const form = await shopierFormuIste(jeton, { ad, soyad, eposta, telefon });
+      const adres = await shopierBaglantisiIste(jeton);
       // Buradan sonra sayfa Shopier'e taşınıyor; `gidiyor` açık kalıyor
-      // ki müşteri iki kez göndermesin.
-      shopiereGonder(form);
+      // ki müşteri iki kez basmasın. `replace` kullanılmıyor: müşteri
+      // vazgeçerse geri tuşuyla faturasına dönebilsin.
+      window.location.href = adres;
     } catch {
       setKartHatasi(t('odeme.sayfa.kartHatasi'));
       setGidiyor(false);
     }
-  }, [jeton, ad, soyad, eposta, telefon, t]);
+  }, [jeton, t]);
 
   // Bu adres arama sonuçlarında çıkmamalı: her jeton tek bir faturaya
   // ait. Prerender listesine girmiyor, burada da çalışma anında
@@ -206,52 +202,12 @@ export default function OdemeSayfasi() {
               <p className="text-sm text-muted-foreground">{t('odeme.sayfa.iptalMesaj')}</p>
             </div>
           ) : kayit.saglayici_hazir ? (
-            <form
-              className="mt-7 space-y-3"
-              onSubmit={(e) => {
-                e.preventDefault();
-                void kartaGit();
-              }}
-            >
+            <div className="mt-7 space-y-3">
               <p className="text-sm text-muted-foreground">{t('odeme.sayfa.kartAciklama')}</p>
-              <div className="grid grid-cols-2 gap-3">
-                <input
-                  required
-                  value={ad}
-                  onChange={(e) => setAd(e.target.value)}
-                  placeholder={t('odeme.sayfa.ad')}
-                  autoComplete="given-name"
-                  className="rounded-lg border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder:text-muted-foreground"
-                />
-                <input
-                  required
-                  value={soyad}
-                  onChange={(e) => setSoyad(e.target.value)}
-                  placeholder={t('odeme.sayfa.soyad')}
-                  autoComplete="family-name"
-                  className="rounded-lg border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder:text-muted-foreground"
-                />
-              </div>
-              <input
-                required
-                type="email"
-                value={eposta}
-                onChange={(e) => setEposta(e.target.value)}
-                placeholder={t('odeme.sayfa.eposta')}
-                autoComplete="email"
-                className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder:text-muted-foreground"
-              />
-              <input
-                value={telefon}
-                onChange={(e) => setTelefon(e.target.value)}
-                placeholder={t('odeme.sayfa.telefon')}
-                autoComplete="tel"
-                inputMode="tel"
-                className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder:text-muted-foreground"
-              />
               {kartHatasi ? <p className="text-sm text-red-300">{kartHatasi}</p> : null}
               <button
-                type="submit"
+                type="button"
+                onClick={() => void kartaGit()}
                 disabled={gidiyor}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-black transition-opacity disabled:opacity-60"
               >
@@ -262,7 +218,10 @@ export default function OdemeSayfasi() {
                 )}
                 {gidiyor ? t('odeme.sayfa.yonlendiriliyor') : t('odeme.sayfa.kartlaOde')}
               </button>
-            </form>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                {t('odeme.sayfa.kartNotu')}
+              </p>
+            </div>
           ) : (
             <div className="mt-7 rounded-xl border border-white/10 bg-white/[0.04] p-4">
               <p className="text-sm font-semibold text-white">{t('odeme.sayfa.havaleBaslik')}</p>

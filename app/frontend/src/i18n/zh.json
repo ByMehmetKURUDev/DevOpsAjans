@@ -1351,7 +1351,8 @@
       "eposta": "电子邮箱",
       "telefon": "电话（可选）",
       "yonlendiriliyor": "正在跳转…",
-      "kartHatasi": "无法打开付款页面。请检查信息后重试。"
+      "kartHatasi": "无法打开付款页面。请检查信息后重试。",
+      "kartNotu": "Your card details are entered on Shopiers secure page and never touch this site. Your invoice closes automatically once the payment completes."
     },
     "sil": "删除",
     "silOnay": "要删除吗？",
@@ -1359,7 +1360,11 @@
     "silinemedi": "无法删除记录。",
     "silOnayOdenmis": "删除后发票会重新打开。要删除吗？",
     "silEvet": "删除",
-    "silVazgec": "取消"
+    "silVazgec": "取消",
+    "mutabakat": "Reconcile with Shopier",
+    "mutabakatBulundu": "Found and processed {{sayi}} payment(s).",
+    "mutabakatTemiz": "Nothing missing — everything is in sync.",
+    "mutabakatHata": "Reconciliation failed."
   },
   "talep": {
     "hizmetSec": "哪项服务？",

@@ -38,10 +38,16 @@ class Payments(Base):
     # Kanal: shopier | iyzico | paytr | elden | havale
     saglayici = Column(String, nullable=True)
     saglayici_ref = Column(String, index=True, nullable=True)
-    # Shopier imzası `random_nr + platform_order_id` üzerinden kuruluyor.
-    # Geri bildirimi doğrulayabilmek için formu kurarken ürettiğimiz
-    # rastgele sayıyı saklıyoruz; sonradan üretilemez.
+    # Eski Shopier V1 formunun imzasında kullanılıyordu. V1 kaldırıldı;
+    # sütun eski kayıtlar için duruyor, yeni kayıtlarda boş.
     rastgele = Column(String, nullable=True)
+
+    # Shopier yeni API: fatura için açılan gizli ürünün kimliği ve
+    # satın alma linki. Ödeme bildirimi geldiğinde siparişteki
+    # productId ile bu alan eşleştiriliyor — tutar/e-posta tahminine
+    # gerek kalmıyor.
+    shopier_urun_id = Column(String, index=True, nullable=True)
+    shopier_url = Column(String, nullable=True)
 
     tutar = Column(Float, nullable=True)
     para_birimi = Column(String, nullable=True)

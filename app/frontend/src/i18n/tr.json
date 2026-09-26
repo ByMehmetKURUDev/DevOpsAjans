@@ -1352,7 +1352,8 @@
       "eposta": "E-posta",
       "telefon": "Telefon (isteğe bağlı)",
       "yonlendiriliyor": "Yönlendiriliyor…",
-      "kartHatasi": "Ödeme sayfası açılamadı. Lütfen bilgileri kontrol edip tekrar deneyin."
+      "kartHatasi": "Ödeme sayfası açılamadı. Lütfen bilgileri kontrol edip tekrar deneyin.",
+      "kartNotu": "Kart bilgileriniz Shopier’ın güvenli sayfasında giriliyor, bu siteye hiç uğramıyor. Ödeme tamamlanınca faturanız otomatik kapanır."
     },
     "sil": "Sil",
     "silOnay": "Silinsin mi?",
@@ -1360,7 +1361,11 @@
     "silinemedi": "Kayıt silinemedi.",
     "silOnayOdenmis": "Silinirse fatura yeniden açılır. Silinsin mi?",
     "silEvet": "Sil",
-    "silVazgec": "Vazgeç"
+    "silVazgec": "Vazgeç",
+    "mutabakat": "Shopier mutabakatı",
+    "mutabakatBulundu": "{{sayi}} ödeme bulundu ve işlendi.",
+    "mutabakatTemiz": "Eksik ödeme yok, her şey yerinde.",
+    "mutabakatHata": "Mutabakat yapılamadı."
   },
   "talep": {
     "hizmetSec": "Hangi hizmet için?",

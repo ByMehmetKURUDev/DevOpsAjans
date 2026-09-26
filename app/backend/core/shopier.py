@@ -1,137 +1,294 @@
-"""Shopier ödeme formu ve geri bildirim doğrulaması.
+"""Shopier — yeni REST API (Kişisel Erişim Anahtarı ile).
 
-Shopier'de akış şöyle işliyor: sunucu bir HTML formunun alanlarını
-imzalayıp müşteriye veriyor, müşterinin tarayıcısı o formu Shopier'e
-POST ediyor, kart bilgisi Shopier'de giriliyor. Kart numarası hiçbir
-zaman bize uğramıyor — bu yüzden PCI yükümlülüğü de bizde değil.
+Neden baştan yazıldı
+--------------------
+İlk sürüm Shopier'in API V1 ödeme formunu (`api_pay4.php`) kullanıyordu:
+API Key + API Secret çifti ve HMAC imzalı bir form POST'u. Shopier V1'i
+kaldırdı; yeni açılan hesaplara o çift verilmiyor, panelde yalnızca
+Kişisel Erişim Anahtarı (PAT) var. Yani eski yol bu hesapta hiç
+çalışmıyor — kod değil, altyapı değişti.
 
-Ödeme bitince Shopier, müşterinin tarayıcısını `callback` adresine POST
-ile geri gönderiyor. O çağrının içinde `signature` var ve HMAC-SHA256
-ile doğrulanıyor.
+Yeni API'de "şu tutarı tahsil et" diyen bir uç yok. Onun yerine ürün
+oluşturulabiliyor ve her ürünün kendi satın alma linki dönüyor. Bir
+faturayı tahsil etmek, o fatura için müşteriye özel gizli bir ürün
+açıp müşteriyi o linke göndermek demek.
 
-İki imza farklı dizeler üzerinden kuruluyor; Shopier böyle tanımlamış:
+Ürün şöyle açılıyor:
+  type=digital          hizmet satıyoruz, kargo yok
+  customListing=True    dükkânın vitrininde görünmüyor
+  stockQuantity=1       aynı fatura iki kez ödenemiyor
 
-* Form imzası:   random_nr + platform_order_id + total_order_value + currency
-* Dönüş imzası:  random_nr + platform_order_id
+Ödeme doğrulaması
+-----------------
+Webhook gövdesine GÜVENİLMİYOR. Gelen bildirim yalnızca bir tetikleyici
+sayılıyor; sipariş bilgisi API'den kendi anahtarımızla yeniden
+çekiliyor. Böylece "ödendi" kararı bize gelen istekten değil,
+Shopier'in kendi cevabından çıkıyor — imza sırrı yapılandırılmamış
+olsa bile sahte bir bildirim faturayı ödenmiş gösteremiyor.
 
-Dönüş imzası tutarı kapsamadığı için **geri bildirimin bildirdiği tutara
-güvenmiyoruz**. Faturayı kendi kaydımızdaki tutarla kapatıyoruz; dönüşten
-yalnızca "ödendi mi" bilgisi ile Shopier'in ödeme numarası alınıyor.
-Aksi halde imzayı üretebilen biri tutarı bir kuruşa indirip faturayı
-kapatabilirdi.
-
-Anahtarlar ortam değişkeninde: SHOPIER_API_KEY, SHOPIER_API_SECRET.
-Panele ya da veritabanına yazılmıyor.
+İmza sırrı varsa ayrıca doğrulanıyor; ikisi birbirinin yedeği.
 """
-
-from __future__ import annotations
 
 import base64
 import hashlib
 import hmac
+import logging
 import os
-import random
-from typing import Dict, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
-ODEME_ADRESI = "https://www.shopier.com/ShowProduct/api_pay4.php"
+import httpx
 
-# Shopier para birimini sayı bekliyor.
-PARA_KODLARI = {"TRY": "0", "TL": "0", "USD": "1", "EUR": "2"}
+logger = logging.getLogger(__name__)
+
+API_TABANI = "https://api.shopier.com/v1"
+ZAMAN_ASIMI = 20.0
+
+PARA_BIRIMLERI = {"TRY", "USD", "EUR"}
+
+# Ürün oluştururken en az bir görsel zorunlu. Faturaya özel bir görsel
+# üretmenin anlamı yok; ajans logosu yeterli ve her ürün için aynı.
+VARSAYILAN_GORSEL = "https://mehmetkuru.dev/logo192.png"
 
 
-def anahtarlar() -> Tuple[Optional[str], Optional[str]]:
-    return os.getenv("SHOPIER_API_KEY"), os.getenv("SHOPIER_API_SECRET")
+class ShopierHatasi(Exception):
+    """Shopier API'sinden dönen hata; çağıran tarafa olduğu gibi taşınıyor."""
+
+
+def anahtar() -> str:
+    return (os.getenv("SHOPIER_PAT") or "").strip()
+
+
+def webhook_sirri() -> str:
+    return (os.getenv("SHOPIER_WEBHOOK_SECRET") or "").strip()
 
 
 def hazir_mi() -> bool:
-    api_key, api_secret = anahtarlar()
-    return bool(api_key and api_secret)
+    """Kart ile tahsilat açılabilir mi?"""
+    return bool(anahtar())
 
 
-def yeni_rastgele() -> str:
-    """Shopier altı haneli bir sayı bekliyor."""
-    return str(random.randint(100000, 999999))
-
-
-def _imzala(veri: str, api_secret: str) -> str:
-    ozet = hmac.new(api_secret.encode("utf-8"), veri.encode("utf-8"), hashlib.sha256).digest()
-    return base64.b64encode(ozet).decode("ascii")
-
-
-def _tutar_metni(tutar: float) -> str:
-    """Shopier iki ondalıklı, noktalı biçim bekliyor.
-
-    İmza bu metnin birebir aynısı üzerinden kuruluyor; formda başka bir
-    biçim gönderilirse Shopier imzayı reddediyor.
-    """
-    return f"{float(tutar):.2f}"
-
-
-def form_alanlari(
-    *,
-    siparis_no: str,
-    tutar: float,
-    para_birimi: str,
-    urun_adi: str,
-    ad: str,
-    soyad: str,
-    eposta: str,
-    telefon: str,
-    donus_adresi: str,
-    rastgele: str,
-) -> Dict[str, str]:
-    """Müşterinin tarayıcısının Shopier'e göndereceği alanlar."""
-    api_key, api_secret = anahtarlar()
-    if not api_key or not api_secret:
-        raise RuntimeError("Shopier anahtarları tanımlı değil")
-
-    para = PARA_KODLARI.get((para_birimi or "TRY").upper(), "0")
-    tutar_metni = _tutar_metni(tutar)
-    imza = _imzala(f"{rastgele}{siparis_no}{tutar_metni}{para}", api_secret)
-
+def _basliklar() -> Dict[str, str]:
     return {
-        "API_key": api_key,
-        "website_index": "1",
-        "platform_order_id": siparis_no,
-        "product_name": (urun_adi or "Hizmet bedeli")[:100],
-        # 1 = dijital/hizmet: kargo adresi istenmiyor.
-        "product_type": "1",
-        "buyer_name": ad[:50],
-        "buyer_surname": soyad[:50],
-        "buyer_email": eposta[:100],
-        "buyer_phone": telefon[:20],
-        "buyer_account_age": "0",
-        "buyer_id_nr": "",
-        "billing_address": "-",
-        "billing_city": "-",
-        "billing_country": "Turkiye",
-        "billing_postcode": "34000",
-        "shipping_address": "-",
-        "shipping_city": "-",
-        "shipping_country": "Turkiye",
-        "shipping_postcode": "34000",
-        "total_order_value": tutar_metni,
-        "currency": para,
-        "platform": "0",
-        "is_in_frame": "0",
-        "current_language": "0",
-        "modul_version": "mkdev-1.0",
-        "random_nr": rastgele,
-        "callback": donus_adresi,
-        "signature": imza,
+        "Authorization": f"Bearer {anahtar()}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
     }
 
 
-def donus_gecerli_mi(*, rastgele: str, siparis_no: str, imza: str) -> bool:
-    """Geri bildirimin imzasını doğrular.
+async def _cagir(
+    yontem: str,
+    yol: str,
+    *,
+    govde: Optional[Dict[str, Any]] = None,
+) -> Any:
+    """Shopier API'sine tek bir istek.
 
-    `rastgele` bizim kaydımızdan geliyor, gelen çağrıdan değil: yoksa
-    saldırgan kendi seçtiği bir sayıyla imza üretebilirdi.
+    Hata gövdesi log'a olduğu gibi yazılıyor: Shopier'in doğrulama
+    mesajları alan adı veriyor, onlar olmadan "400 Bad Request"
+    tek başına hiçbir şey anlatmıyor.
     """
-    _, api_secret = anahtarlar()
-    if not api_secret or not rastgele or not imza:
+    if not hazir_mi():
+        raise ShopierHatasi("Shopier erişim anahtarı tanımlı değil")
+
+    adres = f"{API_TABANI}{yol}"
+    try:
+        async with httpx.AsyncClient(timeout=ZAMAN_ASIMI) as istemci:
+            yanit = await istemci.request(
+                yontem, adres, headers=_basliklar(), json=govde
+            )
+    except httpx.HTTPError as hata:
+        logger.warning("Shopier erişilemedi (%s %s): %s", yontem, yol, hata)
+        raise ShopierHatasi("Shopier'e ulaşılamadı") from hata
+
+    if yanit.status_code >= 400:
+        logger.warning(
+            "Shopier hata verdi (%s %s): %s %s",
+            yontem,
+            yol,
+            yanit.status_code,
+            yanit.text[:500],
+        )
+        if yanit.status_code in (401, 403):
+            raise ShopierHatasi("Shopier erişim anahtarı geçersiz")
+        raise ShopierHatasi(f"Shopier isteği reddetti ({yanit.status_code})")
+
+    if not yanit.content:
+        return None
+    try:
+        return yanit.json()
+    except ValueError as hata:
+        raise ShopierHatasi("Shopier okunamayan bir cevap döndü") from hata
+
+
+def _tutar_metni(tutar: float) -> str:
+    return f"{float(tutar):.2f}"
+
+
+# --------------------------------------------------------------------------
+# Ürün — bir faturanın ödeme bağlantısı
+# --------------------------------------------------------------------------
+async def odeme_urunu_olustur(
+    *,
+    baslik: str,
+    aciklama: str,
+    tutar: float,
+    para_birimi: str = "TRY",
+    gorsel: Optional[str] = None,
+) -> Dict[str, str]:
+    """Faturaya özel gizli bir ürün açar, satın alma linkini döndürür.
+
+    `customListing` dükkânın vitrininde göstermiyor, `stockQuantity=1`
+    ikinci kez ödenmesini engelliyor. İkisi birlikte, bir ödeme
+    bağlantısının olması gereken davranışı veriyor.
+    """
+    birim = (para_birimi or "TRY").upper()
+    if birim not in PARA_BIRIMLERI:
+        birim = "TRY"
+
+    govde: Dict[str, Any] = {
+        "title": baslik[:200],
+        "description": aciklama[:2000],
+        "type": "digital",
+        "media": [{"url": gorsel or VARSAYILAN_GORSEL, "placement": 1}],
+        "priceData": {
+            "currency": birim,
+            "price": _tutar_metni(tutar),
+        },
+        "stockQuantity": 1,
+        "shippingPayer": "sellerPays",
+        "customListing": True,
+    }
+
+    cevap = await _cagir("POST", "/products", govde=govde)
+    urun_id = str((cevap or {}).get("id") or "").strip()
+    adres = str((cevap or {}).get("url") or "").strip()
+    if not urun_id or not adres:
+        raise ShopierHatasi("Shopier ürünü oluşturdu ama link dönmedi")
+    return {"urun_id": urun_id, "adres": adres}
+
+
+async def odeme_urununu_kapat(urun_id: str) -> bool:
+    """Ödendikten (ya da iptal edildikten) sonra ürünü stoktan düşürür.
+
+    Silmek yerine stoğu sıfırlıyoruz: sipariş geçmişinde ürün adı
+    görünmeye devam etsin, ama kimse aynı linkten ikinci kez
+    ödeyemesin. Başarısız olursa iş durmuyor — tahsilat zaten alınmış.
+    """
+    urun_id = (urun_id or "").strip()
+    if not urun_id:
         return False
-    beklenen = _imzala(f"{rastgele}{siparis_no}", api_secret)
-    # Sabit süreli karşılaştırma: imzayı deneme yanılma ile bulmayı
-    # zorlaştırıyor.
-    return hmac.compare_digest(beklenen, imza.strip())
+    try:
+        await _cagir(
+            "PUT",
+            f"/products/{urun_id}",
+            govde={"stockQuantity": 0},
+        )
+        return True
+    except ShopierHatasi as hata:
+        logger.warning("Shopier ürünü kapatılamadı (%s): %s", urun_id, hata)
+        return False
+
+
+# --------------------------------------------------------------------------
+# Sipariş — ödemenin gerçekten olduğunun kanıtı
+# --------------------------------------------------------------------------
+async def siparis_getir(siparis_id: str) -> Optional[Dict[str, Any]]:
+    """Tek siparişi Shopier'den çeker."""
+    siparis_id = (siparis_id or "").strip()
+    if not siparis_id:
+        return None
+    try:
+        return await _cagir("GET", f"/orders/{siparis_id}")
+    except ShopierHatasi as hata:
+        logger.warning("Shopier siparişi okunamadı (%s): %s", siparis_id, hata)
+        return None
+
+
+async def siparisleri_getir(limit: int = 50) -> List[Dict[str, Any]]:
+    """Son siparişler — webhook kaçarsa mutabakat için."""
+    try:
+        cevap = await _cagir("GET", f"/orders?limit={int(limit)}")
+    except ShopierHatasi as hata:
+        logger.warning("Shopier siparişleri okunamadı: %s", hata)
+        return []
+
+    if isinstance(cevap, list):
+        return cevap
+    if isinstance(cevap, dict):
+        for anahtar_adi in ("data", "orders", "items", "results"):
+            deger = cevap.get(anahtar_adi)
+            if isinstance(deger, list):
+                return deger
+    return []
+
+
+def odenmis_mi(siparis: Optional[Dict[str, Any]]) -> bool:
+    """Sipariş gerçekten ödenmiş mi?
+
+    Shopier bugün yalnızca ödemesi tamamlanmış siparişleri döndürüyor
+    ama alan ileride `unpaid` de alabilir; o gün sessizce yanlış
+    çalışmasın diye açıkça kontrol ediliyor.
+    """
+    if not siparis:
+        return False
+    return str(siparis.get("paymentStatus") or "").strip().lower() == "paid"
+
+
+def siparisin_urun_kimlikleri(siparis: Optional[Dict[str, Any]]) -> List[str]:
+    """Siparişteki ürün id'leri — ödeme kaydıyla eşleştirme anahtarımız.
+
+    Tutar ve e-posta ile eşleştirmiyoruz: aynı tutarda iki fatura
+    olabilir, müşteri başka bir e-postayla ödeyebilir. Ürün id'si
+    faturaya birebir bağlı.
+    """
+    if not siparis:
+        return []
+    satirlar = siparis.get("lineItems")
+    if not isinstance(satirlar, list):
+        return []
+    kimlikler = []
+    for satir in satirlar:
+        if isinstance(satir, dict):
+            deger = str(satir.get("productId") or "").strip()
+            if deger:
+                kimlikler.append(deger)
+    return kimlikler
+
+
+def siparis_tutari(siparis: Optional[Dict[str, Any]]) -> Optional[float]:
+    if not siparis:
+        return None
+    toplamlar = siparis.get("totals")
+    if not isinstance(toplamlar, dict):
+        return None
+    try:
+        return float(str(toplamlar.get("total") or "").replace(",", "."))
+    except (TypeError, ValueError):
+        return None
+
+
+# --------------------------------------------------------------------------
+# Webhook imzası
+# --------------------------------------------------------------------------
+def webhook_imzasi_gecerli_mi(ham_govde: bytes, imza: str) -> bool:
+    """Bildirimin Shopier'den geldiğini imzayla doğrular.
+
+    Sır tanımlı değilse False dönüyor — ama bu bildirimi reddetmek
+    için tek başına yeterli sayılmıyor: `odemeler.py` her hâlükârda
+    siparişi API'den yeniden çekip oradan karar veriyor. İmza ek bir
+    katman, tek dayanak değil.
+
+    Shopier imzanın kodlamasını belgelemiyor; base64 ve hex'in ikisi
+    de kabul ediliyor, karşılaştırma sabit zamanlı.
+    """
+    sir = webhook_sirri()
+    imza = (imza or "").strip()
+    if not sir or not imza or not ham_govde:
+        return False
+
+    ozet = hmac.new(sir.encode("utf-8"), ham_govde, hashlib.sha256).digest()
+    adaylar = (
+        base64.b64encode(ozet).decode("ascii"),
+        ozet.hex(),
+    )
+    return any(hmac.compare_digest(aday, imza) for aday in adaylar)

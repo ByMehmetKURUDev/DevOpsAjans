@@ -37,6 +37,8 @@ export interface OdemeOzeti {
   adet: number;
   /** Kart tahsilatı için anahtarlar Render'da tanımlı mı? */
   saglayici_hazir: boolean;
+  /** Shopier erişim anahtarı tanımlı mı? Mutabakat düğmesi buna bakıyor. */
+  shopier_hazir?: boolean;
 }
 
 export interface OdemeListesi {
@@ -127,46 +129,34 @@ export async function odemeSil(paymentId: number): Promise<void> {
   });
 }
 
-export interface ShopierFormu {
-  adres: string;
-  alanlar: Record<string, string>;
-}
-
 /**
- * Shopier'e gönderilecek imzalı form alanlarını ister.
+ * Bu fatura için Shopier ödeme adresini ister.
  *
- * Kart bilgisi bu siteye hiç girilmiyor: form Shopier'in kendi ödeme
- * sayfasına gönderiliyor, kart numarası orada yazılıyor.
+ * Shopier API V1'i (imzalı form POST'u) kaldırdı. Yeni akışta sunucu
+ * faturaya özel gizli bir ürün açıyor ve o ürünün linkini dönüyor;
+ * müşteri oraya gidiyor. Kart bilgisi yine bu siteye hiç girilmiyor.
+ *
+ * Ad, soyad, e-posta artık istenmiyor — Shopier onları kendi ödeme
+ * sayfasında topluyor. Bir formu iki kez doldurtmanın anlamı yok.
  */
-export async function shopierFormuIste(
-  jeton: string,
-  musteri: { ad: string; soyad: string; eposta: string; telefon: string },
-): Promise<ShopierFormu> {
+export async function shopierBaglantisiIste(jeton: string): Promise<string> {
   const yanit = await client.apiCall.invoke({
     method: 'POST',
     url: `/api/v1/odeme/${encodeURIComponent(jeton)}/shopier`,
-    data: musteri,
   });
-  const govde = govdeyiAc<Partial<ShopierFormu>>(yanit);
-  if (!govde?.adres || !govde.alanlar) throw new Error('Ödeme formu alınamadı.');
-  return { adres: govde.adres, alanlar: govde.alanlar };
+  const govde = govdeyiAc<{ adres?: string }>(yanit);
+  if (!govde?.adres) throw new Error('Ödeme adresi alınamadı.');
+  return govde.adres;
 }
 
-/** Alanları gizli bir formla Shopier'e POST eder ve sayfayı oraya taşır. */
-export function shopiereGonder(form: ShopierFormu): void {
-  const el = document.createElement('form');
-  el.method = 'POST';
-  el.action = form.adres;
-  el.style.display = 'none';
-  for (const [ad, deger] of Object.entries(form.alanlar)) {
-    const girdi = document.createElement('input');
-    girdi.type = 'hidden';
-    girdi.name = ad;
-    girdi.value = deger ?? '';
-    el.appendChild(girdi);
-  }
-  document.body.appendChild(el);
-  el.submit();
+/** Yönetici: Shopier siparişleriyle kayıtları karşılaştırır. */
+export async function shopierMutabakati(): Promise<{ bakilan: number; islenen: number }> {
+  const yanit = await client.apiCall.invoke({
+    method: 'POST',
+    url: '/api/v1/odeme/shopier/mutabakat',
+  });
+  const govde = govdeyiAc<{ bakilan?: number; islenen?: number }>(yanit);
+  return { bakilan: govde?.bakilan ?? 0, islenen: govde?.islenen ?? 0 };
 }
 
 export interface AcikOdeme {

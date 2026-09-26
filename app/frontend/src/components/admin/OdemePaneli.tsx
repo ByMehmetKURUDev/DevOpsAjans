@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AlertCircle, Banknote, Clock, Percent, RefreshCw, Trash2 } from 'lucide-react';
+import { AlertCircle, ArrowLeftRight, Banknote, Clock, Percent, RefreshCw, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -8,6 +8,7 @@ import {
   odemeleriGetir,
   odemeSil,
   paraBicimle,
+  shopierMutabakati,
   type Odeme,
   type OdemeDurumu,
   type OdemeOzeti,
@@ -61,6 +62,7 @@ export default function OdemePaneli() {
   const { t } = useTranslation();
   const [satirlar, setSatirlar] = useState<Odeme[]>([]);
   const [ozet, setOzet] = useState<OdemeOzeti | null>(null);
+  const [mutabakatta, setMutabakatta] = useState(false);
   const [yukleniyor, setYukleniyor] = useState(true);
   const [silinen, setSilinen] = useState<number | null>(null);
   const [onayBekleyen, setOnayBekleyen] = useState<number | null>(null);
@@ -107,6 +109,29 @@ export default function OdemePaneli() {
     [t, yukle],
   );
 
+  /**
+   * Shopier'deki siparişlerle kayıtları karşılaştırır.
+   *
+   * Webhook'un yedeği. Bildirim kaybolursa ödeme alınmış ama fatura
+   * açık kalır; bu düğme o boşluğu kapatıyor.
+   */
+  const mutabakatYap = useCallback(async () => {
+    setMutabakatta(true);
+    try {
+      const sonuc = await shopierMutabakati();
+      if (sonuc.islenen > 0) {
+        toast.success(t('odeme.mutabakatBulundu', { sayi: sonuc.islenen }));
+        await yukle();
+      } else {
+        toast.success(t('odeme.mutabakatTemiz'));
+      }
+    } catch {
+      toast.error(t('odeme.mutabakatHata'));
+    } finally {
+      setMutabakatta(false);
+    }
+  }, [t, yukle]);
+
   const paraBirimi = satirlar[0]?.para_birimi || 'TRY';
 
   return (
@@ -115,10 +140,24 @@ export default function OdemePaneli() {
         <h2 className="text-xl font-semibold">
           {t('odeme.baslik')} {ozet ? `(${ozet.adet})` : ''}
         </h2>
-        <Button variant="ghost" size="sm" className="gap-2" onClick={() => void yukle()}>
-          <RefreshCw className={`h-4 w-4 ${yukleniyor ? 'animate-spin' : ''}`} />
-          {t('odeme.yenile')}
-        </Button>
+        <div className="flex items-center gap-2">
+          {ozet?.shopier_hazir ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-2"
+              disabled={mutabakatta}
+              onClick={() => void mutabakatYap()}
+            >
+              <ArrowLeftRight className={`h-4 w-4 ${mutabakatta ? 'animate-pulse' : ''}`} />
+              {t('odeme.mutabakat', 'Shopier mutabakatı')}
+            </Button>
+          ) : null}
+          <Button variant="ghost" size="sm" className="gap-2" onClick={() => void yukle()}>
+            <RefreshCw className={`h-4 w-4 ${yukleniyor ? 'animate-spin' : ''}`} />
+            {t('odeme.yenile')}
+          </Button>
+        </div>
       </div>
 
       {ozet && !ozet.saglayici_hazir ? (

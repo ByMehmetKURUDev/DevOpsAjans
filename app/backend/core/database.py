@@ -230,10 +230,26 @@ class DatabaseManager:
             "tur_sqlite": "TEXT",
         },
         {
-            # Shopier formunda uretilen random_nr. Geri bildirimin
-            # imzasi bu sayiyla kuruluyor, sonradan uretilemez.
+            # Eski Shopier V1 formunda uretilen random_nr. V1 kaldirildi;
+            # sutun eski kayitlar icin duruyor.
             "tablo": "payments",
             "sutun": "rastgele",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Shopier yeni API: faturaya acilan gizli urunun kimligi.
+            # Odeme bildirimi geldiginde siparisteki productId ile bu
+            # alan eslestiriliyor.
+            "tablo": "payments",
+            "sutun": "shopier_urun_id",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # O urunun satin alma linki (musteriye gosterilen adres).
+            "tablo": "payments",
+            "sutun": "shopier_url",
             "tur_pg": "VARCHAR",
             "tur_sqlite": "TEXT",
         },

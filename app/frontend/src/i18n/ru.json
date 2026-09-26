@@ -1351,7 +1351,8 @@
       "eposta": "Эл. почта",
       "telefon": "Телефон (необязательно)",
       "yonlendiriliyor": "Перенаправление…",
-      "kartHatasi": "Не удалось открыть страницу оплаты. Проверьте данные и попробуйте снова."
+      "kartHatasi": "Не удалось открыть страницу оплаты. Проверьте данные и попробуйте снова.",
+      "kartNotu": "Your card details are entered on Shopiers secure page and never touch this site. Your invoice closes automatically once the payment completes."
     },
     "sil": "Удалить",
     "silOnay": "Удалить?",
@@ -1359,7 +1360,11 @@
     "silinemedi": "Не удалось удалить запись.",
     "silOnayOdenmis": "После удаления счёт снова откроется. Удалить?",
     "silEvet": "Удалить",
-    "silVazgec": "Отмена"
+    "silVazgec": "Отмена",
+    "mutabakat": "Reconcile with Shopier",
+    "mutabakatBulundu": "Found and processed {{sayi}} payment(s).",
+    "mutabakatTemiz": "Nothing missing — everything is in sync.",
+    "mutabakatHata": "Reconciliation failed."
   },
   "talep": {
     "hizmetSec": "По какой услуге?",
