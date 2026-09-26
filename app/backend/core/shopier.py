@@ -149,7 +149,11 @@ async def odeme_urunu_olustur(
         "title": baslik[:200],
         "description": aciklama[:2000],
         "type": "digital",
-        "media": [{"url": gorsel or VARSAYILAN_GORSEL, "placement": 1}],
+        # `type` zorunlu: Shopier medyasız ürün kabul etmiyor ve
+        # alanı eksik bırakınca "media[0].type is required" diyor.
+        "media": [
+            {"type": "image", "url": gorsel or VARSAYILAN_GORSEL, "placement": 1}
+        ],
         "priceData": {
             "currency": birim,
             "price": _tutar_metni(tutar),

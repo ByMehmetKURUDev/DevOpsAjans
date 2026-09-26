@@ -1,42 +1,14 @@
-Faz 6 Adim 5: Shopier entegrasyonu yeni API'ye (PAT) tasindi
+Shopier urun olustururken media[0].type eklendi
 
-Shopier API V1'i kaldirdi. Yeni acilan hesaplara API Key + API Secret
-cifti verilmiyor, panelde yalnizca Kisisel Erisim Anahtari var. Yani
-eski api_pay4.php form akisi bu hesapta hic calismiyor; kod degil
-altyapi degisti.
+Canli denemede Shopier 400 dondu:
+  {"error":"required","message":"media[0].type is required"}
 
-Yeni API'de "su tutari tahsil et" diyen bir uc yok. Onun yerine urun
-olusturulabiliyor ve her urunun kendi satin alma linki donuyor. Bir
-faturayi tahsil etmek, o fatura icin gizli bir urun acip musteriyi o
-linke gondermek demek:
-  type=digital        hizmet satiyoruz, kargo yok
-  customListing=True  dukkanin vitrininde gorunmuyor
-  stockQuantity=1     ayni fatura iki kez odenemiyor
+Dokumandaki ornek yukte media nesnesinin type alani vardi ama
+zorunlu oldugu yazmiyordu. Medyasiz urun de kabul edilmiyor, yani
+alan atlanabilir degil.
 
-Odeme dogrulamasi: webhook govdesine GUVENILMIYOR. Gelen bildirim
-yalnizca tetikleyici; siparis API'den kendi anahtarimizla yeniden
-cekiliyor ve karar oradan veriliyor. Boylece adresi bilen birinin
-uydurma govdeyle fatura kapatmasi mumkun degil — imza sirri tanimli
-olmasa bile. Sir varsa ayrica dogrulanip ikinci katman oluyor.
-
-Eslestirme lineItems[].productId ile: o urun tek bir fatura icin
-acilmisti. Tutar/e-posta ile eslestirmek yanlis faturayi kapatabilirdi
-(ayni tutarda iki fatura olabilir, musteri baska adresle odeyebilir).
-
-Mutabakat ucu webhook'un yedegi: bildirim kaybolursa odeme alinmis ama
-fatura acik kalir. Paneldeki dugme Shopier'deki son siparisleri
-tarayip bosluğu kapatiyor.
-
-Odeme sayfasindan ad/soyad/eposta formu kalkti — Shopier onlari kendi
-sayfasinda zaten topluyor, iki kez doldurtmanin anlami yok.
-
-Backend: core/shopier.py bastan yazildi, odemeler.py'da /shopier linki,
-/shopier/webhook ve /shopier/mutabakat uclari, payments tablosuna
-shopier_urun_id + shopier_url.
-Frontend: lib/odemeler.ts (shopierBaglantisiIste, shopierMutabakati),
-OdemeSayfasi tek dugme, OdemePaneli mutabakat dugmesi, 7 dilde ceviri.
-
-31/31 backend testi gecti (scratchpad/shopier_testi.py).
+Ayni denemede PAT'in calistigi da dogrulandi: /orders/test cagrisi
+401 degil 404 "Order not found" dondu, yani kimlik dogrulama gecti.
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01CqqeKbbh9xSetSq1QhSC2k
