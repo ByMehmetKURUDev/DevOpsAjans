@@ -49,6 +49,12 @@ class Payments(Base):
     shopier_urun_id = Column(String, index=True, nullable=True)
     shopier_url = Column(String, nullable=True)
 
+    # Lemon Squeezy: fatura basina urun ACILMIYOR. Panelde bir kez acilan
+    # "Hizmet bedeli" varyantinin tutari `custom_price` ile eziliyor;
+    # burada yalnizca uretilen odeme sayfasinin kimligi ve adresi duruyor.
+    lemon_checkout_id = Column(String, index=True, nullable=True)
+    lemon_url = Column(String, nullable=True)
+
     tutar = Column(Float, nullable=True)
     para_birimi = Column(String, nullable=True)
     komisyon = Column(Float, nullable=True)

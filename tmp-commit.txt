@@ -1,19 +1,22 @@
-Tek atanan ve tahsilatta otomatik musteri sitesi
+Lemon Squeezy tahsilat yolu eklendi (Shopier duruyor)
 
-Gomme kodunu elle uretmek iki adim istiyordu (panele site ekle, kodu
-kopyala) ve musteri sayisi arttikca bu adim atlaniyordu. Artik tahsilat
-gerceklestigi anda site kaydi ve dugme jetonu kendiliginden aciliyor;
-kesif promptu uretildiginde de gomme satiri promptun icinde geliyor.
+Shopier'in API'sinde odeme ucu yok; tek yol fatura basina gizli bir urun
+acmak. Sepet adimi, siteye donmeme ve dukkanda olu urun birikmesi bundan
+kaynaklaniyordu. Lemon Squeezy'de gercek checkout ucu var: tek bir
+'Hizmet bedeli' varyanti bir kez aciliyor, tutar custom_price ile
+eziliyor, odeme bitince musteri /ode/<jeton> sayfasina donuyor.
 
-- services/musteri_sitesi.py: siteyi_hazirla, eposta_ile_site,
-  kurulum_blogu, gomme_kodu, varsayilan_atanan
-- odemeler.py: elle tahsilat ve Shopier webhook'u site kaydini aciyor
-- kesif_brief.py: musteri_eposta girdisi, kurulum alani; gomme satiri
-  yazilimci ve test promptlarina + zincire giriyor
-- client_sites.kaynak sutunu (odeme | elle), database.py dolgusu
-- Atanan bos birakilinca varsayilan kisiye gidiyor; widget talepleri de
+- core/lemonsqueezy.py: odeme_baglantisi_ac, siparis_getir,
+  webhook_imzasi_gecerli_mi (HMAC-SHA256, onaltilik, ham govde)
+- odemeler.py: POST /{jeton}/lemon ve POST /lemon/webhook
+- Bildirimde imza ZORUNLU: eslestirme jetonu govdeden geliyor
+- payments.lemon_checkout_id / lemon_url sutunlari
+- ozet'e lemon_hazir eklendi
 
-Testler: otomasyon 55/55, site (Faz 4) 58/58, shopier 31/31, tsc temiz
+NOT: Lemon Squeezy karti USD cekiyor (TL gosterse bile). TL musteri
+Shopier'de kaliyor, doviz musteri buraya yonleniyor.
+
+Testler: lemon 31/31, shopier 31/31, otomasyon 55/55, site 58/58
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01CqqeKbbh9xSetSq1QhSC2k

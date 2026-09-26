@@ -254,6 +254,20 @@ class DatabaseManager:
             "tur_sqlite": "TEXT",
         },
         {
+            # Lemon Squeezy: uretilen odeme sayfasinin kimligi.
+            "tablo": "payments",
+            "sutun": "lemon_checkout_id",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # O odeme sayfasinin adresi (musteriye gosterilen).
+            "tablo": "payments",
+            "sutun": "lemon_url",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
             # Musteri sitesi kaydinin nasil acildigi: odeme | elle | kesif.
             # Tahsilat sonrasi otomatik acilan kayitla elle girileni
             # ayirt edebilmek icin.

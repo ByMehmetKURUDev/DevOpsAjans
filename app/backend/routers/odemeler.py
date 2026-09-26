@@ -30,7 +30,7 @@ import secrets
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 
-from core import shopier
+from core import lemonsqueezy, shopier
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
 from dependencies.kayit_sahipligi import _yonetici_mi
@@ -121,6 +121,17 @@ class ShopierBaglantisi(BaseModel):
     adres: str
 
 
+class LemonBaglantisi(BaseModel):
+    """Lemon Squeezy ödeme sayfasının adresi.
+
+    Shopier'den farkı: bu adres gerçek bir ödeme sayfası, ürün sayfası
+    değil. Sepet adımı yok ve ödeme bitince müşteri bizim sayfamıza
+    geri dönüyor.
+    """
+
+    adres: str
+
+
 # --------------------------------------------------------------------------
 # Yardımcılar
 # --------------------------------------------------------------------------
@@ -138,7 +149,7 @@ def _saglayici_hazir_mi() -> bool:
     """
     import os
 
-    if shopier.hazir_mi():
+    if shopier.hazir_mi() or lemonsqueezy.hazir_mi():
         return True
     return any(os.getenv(ad) for ad in ("IYZICO_API_KEY", "PAYTR_MERCHANT_ID"))
 
@@ -406,6 +417,9 @@ async def odeme_listesi(
         "adet": len(satirlar),
         "saglayici_hazir": _saglayici_hazir_mi(),
         "shopier_hazir": shopier.hazir_mi(),
+        # Panel iki tahsilat yolunu ayrı ayrı görüyor: TL müşteri
+        # Shopier'den, döviz müşteri Lemon Squeezy'den.
+        "lemon_hazir": lemonsqueezy.hazir_mi(),
     }
     return OdemeListesi(items=satirlar, ozet=ozet)
 
@@ -630,6 +644,149 @@ async def shopier_baglantisi(jeton: str, db: AsyncSession = _Depends(get_db)):
 
     logger.info("Shopier odeme linki uretildi: jeton=%s urun=%s", jeton[:20], urun["urun_id"])
     return ShopierBaglantisi(adres=urun["adres"])
+
+
+@acik_router.post("/{jeton}/lemon", response_model=LemonBaglantisi)
+async def lemon_baglantisi(jeton: str, db: AsyncSession = _Depends(get_db)):
+    """Bu fatura için Lemon Squeezy ödeme sayfası açar.
+
+    Shopier'den iki farkı var. Birincisi: fatura başına ürün AÇILMIYOR,
+    panelde bir kez açılmış varyantın tutarı eziliyor — dükkanda ölü
+    ürün birikmiyor. İkincisi: ödeme bitince müşteri `/ode/<jeton>`
+    sayfasına geri dönüyor, "para gitti ama siteye dönmedim" sorunu
+    ortadan kalkıyor.
+
+    Adres bir kez üretilip saklanıyor: sayfayı iki kez açan müşteri için
+    iki ayrı ödeme sayfası açılsaydı hangisinin ödendiğini takip etmek
+    zorlaşırdı.
+    """
+    if not lemonsqueezy.hazir_mi():
+        raise HTTPException(status_code=503, detail="Bu ödeme yolu şu an kapalı")
+
+    sonuc = await db.execute(select(Payments).where(Payments.jeton == jeton))
+    kayit = sonuc.scalar_one_or_none()
+    if kayit is None:
+        raise HTTPException(status_code=404, detail="Bağlantı bulunamadı")
+    if kayit.durum == "odendi":
+        raise HTTPException(status_code=409, detail="Bu fatura zaten ödendi")
+    if kayit.durum == "iptal":
+        raise HTTPException(status_code=409, detail="Bu bağlantı kapatıldı")
+    if not kayit.tutar or kayit.tutar <= 0:
+        raise HTTPException(status_code=400, detail="Tutar geçersiz")
+
+    if kayit.lemon_url:
+        return LemonBaglantisi(adres=kayit.lemon_url)
+
+    baslik = f"Hizmet bedeli — {kayit.invoice_no or kayit.jeton}"
+    aciklama = (
+        "By Mehmet KURU Dev hizmet bedeli. "
+        f"Fatura: {kayit.invoice_no or '—'}."
+    )
+    try:
+        sayfa = await lemonsqueezy.odeme_baglantisi_ac(
+            jeton=kayit.jeton,
+            baslik=baslik,
+            aciklama=aciklama,
+            tutar=float(kayit.tutar),
+            para_birimi=kayit.para_birimi or "TRY",
+            eposta=kayit.client_email,
+            donus_adresi=f"{_site_adresi()}/ode/{kayit.jeton}",
+        )
+    except lemonsqueezy.LemonHatasi as hata:
+        logger.warning("Lemon odeme sayfasi acilamadi (jeton=%s): %s", jeton[:20], hata)
+        raise HTTPException(status_code=502, detail=str(hata))
+
+    kayit.saglayici = "lemonsqueezy"
+    kayit.lemon_checkout_id = sayfa.get("checkout_id") or None
+    kayit.lemon_url = sayfa["adres"]
+    await db.commit()
+
+    logger.info("Lemon odeme sayfasi uretildi: jeton=%s", jeton[:20])
+    return LemonBaglantisi(adres=sayfa["adres"])
+
+
+async def _lemon_odemesini_isle(
+    db: AsyncSession, jeton: str, siparis: Dict[str, Any]
+) -> Tuple[Optional[int], bool]:
+    """Ödenmiş bir Lemon Squeezy siparişini bizim kaydımıza yazar.
+
+    Eşleştirme jetonla: ödeme sayfasını açarken `checkout_data.custom`
+    içine kendi jetonumuzu koymuştuk, bildirimde geri geliyor. Tutar ya
+    da e-posta ile eşleştirmek yanlış faturayı kapatabilirdi.
+    """
+    if not lemonsqueezy.odenmis_mi(siparis):
+        return None, False
+
+    sonuc = await db.execute(select(Payments).where(Payments.jeton == jeton))
+    kayit = sonuc.scalar_one_or_none()
+    if kayit is None:
+        logger.info("Lemon siparisi bizim kayitla eslesmedi: jeton=%s", jeton[:20])
+        return None, False
+
+    if kayit.durum == "odendi":
+        # Aynı bildirim iki kez geldi. Kayıt bizim ama değişen bir şey yok.
+        return kayit.id, False
+
+    kayit.durum = "odendi"
+    kayit.saglayici = "lemonsqueezy"
+    kayit.saglayici_ref = str(siparis.get("id") or "") or kayit.saglayici_ref
+    kayit.odendi_at = datetime.now()
+    kayit.hata_mesaji = None
+    kayit.ham_yanit = json.dumps(siparis, ensure_ascii=False)[:4000]
+
+    await _faturayi_kapat(db, kayit)
+    await _musteri_sitesini_ac(db, kayit)
+    await db.commit()
+
+    logger.info("Lemon odemesi islendi: kayit=%s siparis=%s", kayit.id, siparis.get("id"))
+    return kayit.id, True
+
+
+@acik_router.post("/lemon/webhook")
+async def lemon_webhook(request: Request, db: AsyncSession = _Depends(get_db)):
+    """Lemon Squeezy'nin sipariş bildirimi.
+
+    Gelen gövdeye GÜVENİLMİYOR: imza doğrulandıktan sonra bile sipariş
+    Lemon Squeezy'den kendi anahtarımızla yeniden çekiliyor ve karar
+    oradan veriliyor.
+
+    Shopier ucundan bir farkı var: orada imza sırrı tanımlı değilse
+    gövdeye güvenmeyip siparişi yine de çekebiliyorduk. Burada imza
+    ZORUNLU — sır tanımlı değilse istek reddediliyor. Çünkü eşleştirme
+    jetonu gövdeden geliyor; imzasız bir gövde, adresi bilen birinin
+    istediği faturayı "ödendi" göstermesi demek olurdu.
+    """
+    ham = await request.body()
+    imza = request.headers.get("X-Signature") or ""
+    olay = request.headers.get("X-Event-Name") or ""
+
+    if not lemonsqueezy.webhook_imzasi_gecerli_mi(ham, imza):
+        logger.warning("Lemon webhook imzasi gecersiz (olay=%s)", olay)
+        raise HTTPException(status_code=401, detail="İmza doğrulanamadı")
+
+    try:
+        govde = json.loads(ham.decode("utf-8"))
+    except (ValueError, UnicodeDecodeError):
+        raise HTTPException(status_code=400, detail="Gövde okunamadı")
+
+    if olay and olay != lemonsqueezy.ODEME_OLAYI:
+        # Abonelik olayları da geliyor; tek seferlik satışta
+        # `order_created` her durumda gönderiliyor, gerisini yok sayıyoruz.
+        return {"ok": True, "islendi": False, "neden": f"ilgisiz olay: {olay}"}
+
+    jeton = lemonsqueezy.govdedeki_jeton(govde)
+    siparis_id = lemonsqueezy.govdedeki_siparis_id(govde)
+    if not jeton or not siparis_id:
+        return {"ok": True, "islendi": False, "neden": "jeton ya da siparis yok"}
+
+    try:
+        siparis = await lemonsqueezy.siparis_getir(siparis_id)
+    except lemonsqueezy.LemonHatasi as hata:
+        logger.warning("Lemon siparisi okunamadi (%s): %s", siparis_id, hata)
+        return {"ok": True, "islendi": False, "neden": "siparis okunamadi"}
+
+    kayit_id, _ = await _lemon_odemesini_isle(db, jeton, siparis)
+    return {"ok": True, "islendi": kayit_id is not None}
 
 
 async def _odemeyi_isle(
