@@ -1385,5 +1385,48 @@
       "yeni_ozellik": "新功能 / 反馈",
       "genel": "通用"
     }
+  },
+  "destek": {
+    "kullanici": "客户",
+    "calisan": "团队",
+    "rapor": "客户报告",
+    "atananSec": "负责人",
+    "atanmamis": "未分配",
+    "atandi": "已分配。",
+    "atamaKaldirildi": "已取消分配。",
+    "atanamadi": "无法更改分配。"
+  },
+  "ekip": {
+    "yeniKisi": "添加团队成员",
+    "ad": "姓名",
+    "eposta": "电子邮箱",
+    "rol": "角色",
+    "ekle": "添加",
+    "sil": "移除",
+    "silOnay": "要移除吗？其工单将变为未分配。",
+    "eklendi": "已添加成员。",
+    "eklenemedi": "无法添加成员。",
+    "silindi": "已移除成员。",
+    "silinemedi": "无法移除成员。",
+    "yuklenemedi": "无法加载团队列表。",
+    "bilgiEksik": "需要姓名和有效邮箱。",
+    "bosliste": "团队中还没有成员。",
+    "hizmetler": "负责的服务",
+    "hizmetNotu": "若未选择，则视为负责全部服务。",
+    "tumHizmetler": "全部服务",
+    "pasif": "停用",
+    "roller": {
+      "yonetici": "负责人",
+      "calisan": "员工"
+    }
+  },
+  "rapor": {
+    "yuklenemedi": "无法加载报告。",
+    "bosliste": "暂无客户工单。",
+    "ozet": "{{musteri}} 位客户 · {{talep}} 个工单 · {{acik}} 个待处理",
+    "sonHareket": "最近动态",
+    "acik": "待处理",
+    "cevaplanan": "已回复",
+    "kapali": "已关闭"
   }
 }

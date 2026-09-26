@@ -263,6 +263,13 @@ class DatabaseManager:
             "tur_pg": "TIMESTAMPTZ",
             "tur_sqlite": "TIMESTAMP",
         },
+        {
+            # Faz 2 — talebin atandigi ekip uyesinin e-postasi.
+            "tablo": "support_tickets",
+            "sutun": "atanan",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

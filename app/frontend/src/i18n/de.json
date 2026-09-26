@@ -1385,5 +1385,48 @@
       "yeni_ozellik": "Neue Funktion / Feedback",
       "genel": "Allgemein"
     }
+  },
+  "destek": {
+    "kullanici": "Kunden",
+    "calisan": "Team",
+    "rapor": "Kundenberichte",
+    "atananSec": "Zuständig",
+    "atanmamis": "Nicht zugewiesen",
+    "atandi": "Ticket zugewiesen.",
+    "atamaKaldirildi": "Zuweisung entfernt.",
+    "atanamadi": "Zuweisung konnte nicht geändert werden."
+  },
+  "ekip": {
+    "yeniKisi": "Teammitglied hinzufügen",
+    "ad": "Name",
+    "eposta": "E-Mail",
+    "rol": "Rolle",
+    "ekle": "Hinzufügen",
+    "sil": "Entfernen",
+    "silOnay": "Entfernen? Seine Tickets werden nicht zugewiesen.",
+    "eklendi": "Mitglied hinzugefügt.",
+    "eklenemedi": "Mitglied konnte nicht hinzugefügt werden.",
+    "silindi": "Mitglied entfernt.",
+    "silinemedi": "Mitglied konnte nicht entfernt werden.",
+    "yuklenemedi": "Teamliste konnte nicht geladen werden.",
+    "bilgiEksik": "Name und gültige E-Mail erforderlich.",
+    "bosliste": "Noch niemand im Team.",
+    "hizmetler": "Betreute Leistungen",
+    "hizmetNotu": "Ohne Auswahl betreut die Person alle Leistungen.",
+    "tumHizmetler": "alle Leistungen",
+    "pasif": "Inaktiv",
+    "roller": {
+      "yonetici": "Leitung",
+      "calisan": "Mitarbeiter"
+    }
+  },
+  "rapor": {
+    "yuklenemedi": "Berichte konnten nicht geladen werden.",
+    "bosliste": "Noch keine Kundentickets.",
+    "ozet": "{{musteri}} Kunden · {{talep}} Tickets · {{acik}} offen",
+    "sonHareket": "Letzte Aktivität",
+    "acik": "offen",
+    "cevaplanan": "beantwortet",
+    "kapali": "geschlossen"
   }
 }

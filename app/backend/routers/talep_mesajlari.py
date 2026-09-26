@@ -114,6 +114,14 @@ def _yetki(request: Request, talep: Support_tickets) -> str:
         return "ajans"
 
     eposta = _eposta(kullanici)
+
+    # Talep kendisine atanmış ekip üyesi de ajans adına yazabiliyor.
+    # Yönetici yetkisi vermeden çalışanın işini yapabilmesi için tek
+    # gereken bu; fatura ve site ayarları ona kapalı kalıyor.
+    atanan = (talep.atanan or "").strip().lower()
+    if eposta and atanan and eposta == atanan:
+        return "ajans"
+
     sahibi = (talep.client_email or "").strip().lower()
     if not eposta or not sahibi or eposta != sahibi:
         # 404 değil 403: talebin var olduğunu zaten biliyor olabilir.

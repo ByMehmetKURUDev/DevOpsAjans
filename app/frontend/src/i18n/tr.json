@@ -1386,5 +1386,48 @@
       "yeni_ozellik": "Yeni özellik / geri bildirim",
       "genel": "Genel"
     }
+  },
+  "destek": {
+    "kullanici": "Kullanıcı",
+    "calisan": "Çalışan",
+    "rapor": "Müşteri Raporları",
+    "atananSec": "Atanan kişi",
+    "atanmamis": "Atanmamış",
+    "atandi": "Talep atandı.",
+    "atamaKaldirildi": "Atama kaldırıldı.",
+    "atanamadi": "Atama değiştirilemedi."
+  },
+  "ekip": {
+    "yeniKisi": "Ekibe kişi ekle",
+    "ad": "Ad soyad",
+    "eposta": "E-posta",
+    "rol": "Rol",
+    "ekle": "Ekle",
+    "sil": "Kişiyi çıkar",
+    "silOnay": "Çıkarılsın mı? Talepleri atanmamışa döner.",
+    "eklendi": "Kişi eklendi.",
+    "eklenemedi": "Kişi eklenemedi.",
+    "silindi": "Kişi çıkarıldı.",
+    "silinemedi": "Kişi çıkarılamadı.",
+    "yuklenemedi": "Ekip listesi yüklenemedi.",
+    "bilgiEksik": "Ad ve geçerli e-posta gerekli.",
+    "bosliste": "Ekipte kimse yok.",
+    "hizmetler": "Baktığı hizmetler",
+    "hizmetNotu": "Hiçbiri seçilmezse kişi tüm hizmetlere bakıyor sayılır.",
+    "tumHizmetler": "tüm hizmetler",
+    "pasif": "Pasif",
+    "roller": {
+      "yonetici": "Yönetici",
+      "calisan": "Çalışan"
+    }
+  },
+  "rapor": {
+    "yuklenemedi": "Raporlar yüklenemedi.",
+    "bosliste": "Henüz müşteri talebi yok.",
+    "ozet": "{{musteri}} müşteri · {{talep}} talep · {{acik}} açık",
+    "sonHareket": "Son hareket",
+    "acik": "açık",
+    "cevaplanan": "cevaplanan",
+    "kapali": "kapalı"
   }
 }

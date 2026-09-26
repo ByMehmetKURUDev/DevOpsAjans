@@ -25,6 +25,8 @@ class Support_tickets(Base):
     project_id = Column(Integer, index=True, nullable=True)
     # panel | site | eposta — talebin nereden geldiği.
     kaynak = Column(String, nullable=True)
+    # Faz 2 — hangi ekip uyesine atandi (staff.email). Bos ise atanmamis.
+    atanan = Column(String, index=True, nullable=True)
     # Son mesajın zamanı. Listeyi buna göre sıralıyoruz: cevap
     # bekleyen talep, açılış tarihi eski olsa da üste çıksın.
     son_mesaj_at = Column(DateTime(timezone=True), nullable=True)

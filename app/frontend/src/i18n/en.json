@@ -1385,5 +1385,48 @@
       "yeni_ozellik": "New feature / feedback",
       "genel": "General"
     }
+  },
+  "destek": {
+    "kullanici": "Clients",
+    "calisan": "Team",
+    "rapor": "Client reports",
+    "atananSec": "Assignee",
+    "atanmamis": "Unassigned",
+    "atandi": "Ticket assigned.",
+    "atamaKaldirildi": "Assignment removed.",
+    "atanamadi": "Assignment could not be changed."
+  },
+  "ekip": {
+    "yeniKisi": "Add team member",
+    "ad": "Full name",
+    "eposta": "Email",
+    "rol": "Role",
+    "ekle": "Add",
+    "sil": "Remove",
+    "silOnay": "Remove? Their tickets become unassigned.",
+    "eklendi": "Member added.",
+    "eklenemedi": "Member could not be added.",
+    "silindi": "Member removed.",
+    "silinemedi": "Member could not be removed.",
+    "yuklenemedi": "Team list could not be loaded.",
+    "bilgiEksik": "Name and a valid email are required.",
+    "bosliste": "No one on the team yet.",
+    "hizmetler": "Services covered",
+    "hizmetNotu": "If none are selected, the person covers all services.",
+    "tumHizmetler": "all services",
+    "pasif": "Inactive",
+    "roller": {
+      "yonetici": "Manager",
+      "calisan": "Staff"
+    }
+  },
+  "rapor": {
+    "yuklenemedi": "Reports could not be loaded.",
+    "bosliste": "No client tickets yet.",
+    "ozet": "{{musteri}} clients · {{talep}} tickets · {{acik}} open",
+    "sonHareket": "Last activity",
+    "acik": "open",
+    "cevaplanan": "answered",
+    "kapali": "closed"
   }
 }

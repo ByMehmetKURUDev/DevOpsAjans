@@ -34,6 +34,7 @@ class Support_ticketsData(BaseModel):
     hizmet: str = None
     project_id: int = None
     kaynak: str = None
+    atanan: str = None
 
 
 class Support_ticketsUpdateData(BaseModel):
@@ -48,6 +49,7 @@ class Support_ticketsUpdateData(BaseModel):
     hizmet: Optional[str] = None
     project_id: Optional[int] = None
     kaynak: Optional[str] = None
+    atanan: Optional[str] = None
 
 
 class Support_ticketsResponse(BaseModel):
@@ -63,6 +65,7 @@ class Support_ticketsResponse(BaseModel):
     hizmet: Optional[str] = None
     project_id: Optional[int] = None
     kaynak: Optional[str] = None
+    atanan: Optional[str] = None
     son_mesaj_at: Optional[datetime] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None

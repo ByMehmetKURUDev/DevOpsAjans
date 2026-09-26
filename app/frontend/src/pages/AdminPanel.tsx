@@ -36,6 +36,7 @@ import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import FaturaOdemeBaglantisi from '@/components/admin/FaturaOdemeBaglantisi';
 import ElleTahsilat from '@/components/admin/ElleTahsilat';
 import TalepYazismasi from '@/components/TalepYazismasi';
+import { ekibiGetir, talebiAta, type Personel } from '@/lib/ekip';
 import SiteSagligi from '@/components/admin/SiteSagligi';
 import SiteTaramasi from '@/components/admin/SiteTaramasi';
 import UzmanPromptlari from '@/components/admin/UzmanPromptlari';
@@ -66,6 +67,8 @@ const IcerikPlani = lazy(() => import('@/components/admin/IcerikPlani'));
 // Tahsilat ekranı ayrı parçada: panele girenlerin çoğu bu sekmeyi
 // açmıyor, kodu ilk yüklemede inmesin.
 const OdemePaneli = lazy(() => import('@/components/admin/OdemePaneli'));
+const EkipPaneli = lazy(() => import('@/components/admin/EkipPaneli'));
+const MusteriRaporlari = lazy(() => import('@/components/admin/MusteriRaporlari'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -153,6 +156,7 @@ interface Ticket {
   priority?: string;
   hizmet?: string;
   project_id?: number;
+  atanan?: string;
   created_at?: string;
 }
 
@@ -253,6 +257,11 @@ export default function AdminPanel() {
   // Yazismasi acik olan talep. Eski "tek cevap" modali kaldirildi:
   // her cevap ticket_replies tablosuna ayri satir olarak dusuyor.
   const [acikTalep, setAcikTalep] = useState<number | null>(null);
+  // Destek sekmesinin alt bolumu: musteri talepleri / ekip / raporlar.
+  const [destekBolumu, setDestekBolumu] = useState<'kullanici' | 'calisan' | 'rapor'>('kullanici');
+  // Atama seciciyi doldurmak icin ekip listesi. Yalnizca Destek
+  // sekmesine girildiginde cekiliyor: acilista gereksiz istek olmasin.
+  const [ekip, setEkip] = useState<Personel[]>([]);
 
   const [settingRows, setSettingRows] = useState<SettingRow[]>([]);
   const [settingDraft, setSettingDraft] = useState<Record<string, string>>({});
@@ -274,6 +283,29 @@ export default function AdminPanel() {
   }, []);
 
   const isAdmin = isAdminUser(user, settings);
+
+  // Atama secicisini doldurmak icin ekip listesi. Destek sekmesine
+  // girilene kadar cekilmiyor; acilistaki toplu istege eklenmedi
+  // cunku diger sekmelerde hic kullanilmiyor.
+  useEffect(() => {
+    if (tab !== 'tickets' || ekip.length > 0) return;
+    ekibiGetir()
+      .then(setEkip)
+      .catch(() => {
+        /* ekip cekilemezse atama secicisi bos kalir, panel calismaya devam eder */
+      });
+  }, [tab, ekip.length]);
+
+  const atamaDegistir = async (ticketId: number, email: string) => {
+    try {
+      await talebiAta(ticketId, email || null);
+      toast.success(email ? t('destek.atandi') : t('destek.atamaKaldirildi'));
+      await loadAll();
+    } catch (e) {
+      console.error(e);
+      toast.error(t('destek.atanamadi'));
+    }
+  };
 
   const loadAll = useCallback(async () => {
     setLoading(true);
@@ -1320,9 +1352,41 @@ export default function AdminPanel() {
 
           {tab === 'tickets' && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">
-                {t('admin.tabTickets')} ({tickets.length})
-              </h2>
+              <h2 className="text-xl font-semibold mb-4">{t('admin.tabTickets')}</h2>
+
+              {/*
+                Destek uc bolume ayrildi. Once tek bir liste vardi ve
+                "kim bakiyor", "hangi musteri ne durumda" sorularinin
+                cevabi hicbir yerde yoktu.
+              */}
+              <div className="mb-6 flex flex-wrap gap-2">
+                {(['kullanici', 'calisan', 'rapor'] as const).map((b) => (
+                  <button
+                    key={b}
+                    type="button"
+                    aria-pressed={destekBolumu === b}
+                    onClick={() => setDestekBolumu(b)}
+                    className={`rounded-full border px-4 py-1.5 text-xs font-medium transition-colors ${
+                      destekBolumu === b
+                        ? 'border-primary/50 bg-primary/15 text-white'
+                        : 'border-white/10 bg-white/[0.03] text-muted-foreground hover:border-white/25'
+                    }`}
+                  >
+                    {t(`destek.${b}`)}
+                    {b === 'kullanici' ? ` (${tickets.length})` : ''}
+                  </button>
+                ))}
+              </div>
+
+              {destekBolumu === 'calisan' ? (
+                <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
+                  <EkipPaneli />
+                </Suspense>
+              ) : destekBolumu === 'rapor' ? (
+                <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
+                  <MusteriRaporlari />
+                </Suspense>
+              ) : (
               <div className="grid gap-3">
                 {tickets.map((tk) => (
                   <div key={tk.id} className="p-5 rounded-xl glass">
@@ -1360,6 +1424,19 @@ export default function AdminPanel() {
                         <MessageSquare className="h-4 w-4" />
                         {acikTalep === Number(tk.id) ? t('talep.kapat') : t('talep.ac')}
                       </Button>
+                      <select
+                        value={tk.atanan || ''}
+                        onChange={(e) => void atamaDegistir(Number(tk.id), e.target.value)}
+                        aria-label={t('destek.atananSec')}
+                        className="rounded-md border border-white/10 bg-black/40 px-2.5 py-1.5 text-xs text-white"
+                      >
+                        <option value="">{t('destek.atanmamis')}</option>
+                        {ekip.map((k) => (
+                          <option key={k.id} value={k.email}>
+                            {k.ad}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     {acikTalep !== Number(tk.id) ? (
                       <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-2">
@@ -1376,6 +1453,7 @@ export default function AdminPanel() {
                   </div>
                 )}
               </div>
+              )}
             </div>
           )}
 
