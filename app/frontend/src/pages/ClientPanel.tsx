@@ -12,6 +12,7 @@ import {
   UserCog,
   Send,
   UserPlus,
+  FileText,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,6 +22,7 @@ import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import ProjectTimeline from '@/components/ProjectTimeline';
 import TalepYazismasi from '@/components/TalepYazismasi';
+import RaporArsivi from '@/components/RaporArsivi';
 import { HIZMETLER } from '@/lib/talepler';
 import { useStageLabels } from '@/lib/projectEvents';
 import { client, oturumIziVarMi } from '@/lib/sdkClient';
@@ -75,7 +77,7 @@ interface Ticket {
   created_at?: string;
 }
 
-type Tab = 'projects' | 'invoices' | 'tickets' | 'profile';
+type Tab = 'projects' | 'invoices' | 'tickets' | 'raporlar' | 'profile';
 
 
 export default function ClientPanel() {
@@ -276,6 +278,7 @@ export default function ClientPanel() {
     { key: 'projects', label: t('ui.tabMyProjects'), icon: Briefcase },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
+    { key: 'raporlar', label: t('rapor.sekme'), icon: FileText },
     { key: 'profile', label: t('ui.tabProfile'), icon: UserCog },
   ];
 
@@ -713,6 +716,13 @@ export default function ClientPanel() {
                   ))
                 )}
               </div>
+            </div>
+          )}
+
+          {tab === 'raporlar' && (
+            <div>
+              <h3 className="mb-4 text-lg font-semibold">{t('rapor.sekme')}</h3>
+              <RaporArsivi />
             </div>
           )}
 

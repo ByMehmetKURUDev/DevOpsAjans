@@ -1394,7 +1394,10 @@
     "atanmamis": "Unassigned",
     "atandi": "Ticket assigned.",
     "atamaKaldirildi": "Assignment removed.",
-    "atanamadi": "Assignment could not be changed."
+    "atanamadi": "Assignment could not be changed.",
+    "talepSil": "Delete ticket",
+    "talepSilOnay": "Delete the ticket and its thread?",
+    "talepSilindi": "Ticket deleted."
   },
   "ekip": {
     "yeniKisi": "Add team member",
@@ -1427,6 +1430,54 @@
     "sonHareket": "Last activity",
     "acik": "open",
     "cevaplanan": "answered",
-    "kapali": "closed"
+    "kapali": "closed",
+    "sekme": "My reports",
+    "oku": "Read report",
+    "musteriBos": "No published reports yet."
+  },
+  "abonelik": {
+    "sekme": "Services",
+    "yeni": "New service subscription",
+    "musteriEposta": "Client email",
+    "musteriAdi": "Client name",
+    "aylikTutar": "Monthly amount",
+    "ekle": "Add",
+    "ay": "mo",
+    "sonrakiRapor": "Next report",
+    "raporYaz": "Write report",
+    "vazgec": "Cancel",
+    "duraklat": "Pause",
+    "devamEttir": "Resume",
+    "sil": "Delete subscription",
+    "silOnay": "Delete subscription? Published reports stay.",
+    "silindi": "Subscription deleted.",
+    "silinemedi": "Could not delete.",
+    "eklendi": "Subscription created.",
+    "eklenemedi": "Subscription could not be created.",
+    "epostaGerekli": "A valid client email is required.",
+    "yuklenemedi": "Subscriptions could not be loaded.",
+    "bosliste": "No service subscriptions yet.",
+    "durumDegismedi": "Status could not be changed.",
+    "raporDonem": "Period: {{donem}}",
+    "raporBaslik": "Report title (optional)",
+    "raporOzet": "What was done this month? The client will read this.",
+    "taslakKaydet": "Save draft",
+    "ozetGerekli": "Summary cannot be empty.",
+    "raporKaydedildi": "Draft saved.",
+    "raporKaydedilemedi": "Draft could not be saved.",
+    "yayimla": "Publish",
+    "raporYayimlandi": "Report published; the client can see it.",
+    "raporYayimlanamadi": "Report could not be published.",
+    "raporSil": "Delete report",
+    "raporsuzBaslik": "Untitled report",
+    "durum": {
+      "aktif": "Active",
+      "duraklatildi": "Paused",
+      "iptal": "Cancelled"
+    },
+    "raporDurum": {
+      "taslak": "Draft",
+      "yayinlandi": "Published"
+    }
   }
 }

@@ -1394,7 +1394,10 @@
     "atanmamis": "असाइन नहीं",
     "atandi": "अनुरोध असाइन हुआ।",
     "atamaKaldirildi": "असाइनमेंट हटाया गया।",
-    "atanamadi": "असाइनमेंट नहीं बदला जा सका।"
+    "atanamadi": "असाइनमेंट नहीं बदला जा सका।",
+    "talepSil": "अनुरोध हटाएँ",
+    "talepSilOnay": "अनुरोध और बातचीत हटाएँ?",
+    "talepSilindi": "अनुरोध हटाया गया।"
   },
   "ekip": {
     "yeniKisi": "टीम में जोड़ें",
@@ -1427,6 +1430,54 @@
     "sonHareket": "अंतिम गतिविधि",
     "acik": "खुले",
     "cevaplanan": "उत्तरित",
-    "kapali": "बंद"
+    "kapali": "बंद",
+    "sekme": "मेरी रिपोर्ट",
+    "oku": "रिपोर्ट पढ़ें",
+    "musteriBos": "अभी कोई प्रकाशित रिपोर्ट नहीं।"
+  },
+  "abonelik": {
+    "sekme": "सेवाएँ",
+    "yeni": "नई सेवा सदस्यता",
+    "musteriEposta": "ग्राहक ईमेल",
+    "musteriAdi": "ग्राहक नाम",
+    "aylikTutar": "मासिक राशि",
+    "ekle": "जोड़ें",
+    "ay": "माह",
+    "sonrakiRapor": "अगली रिपोर्ट",
+    "raporYaz": "रिपोर्ट लिखें",
+    "vazgec": "रद्द करें",
+    "duraklat": "रोकें",
+    "devamEttir": "जारी रखें",
+    "sil": "सदस्यता हटाएँ",
+    "silOnay": "सदस्यता हटाएँ? प्रकाशित रिपोर्ट बनी रहेंगी।",
+    "silindi": "सदस्यता हटाई गई।",
+    "silinemedi": "हटाया नहीं जा सका।",
+    "eklendi": "सदस्यता बनाई गई।",
+    "eklenemedi": "सदस्यता नहीं बनाई जा सकी।",
+    "epostaGerekli": "मान्य ग्राहक ईमेल आवश्यक है।",
+    "yuklenemedi": "सदस्यताएँ लोड नहीं हो सकीं।",
+    "bosliste": "अभी कोई सेवा सदस्यता नहीं।",
+    "durumDegismedi": "स्थिति नहीं बदली जा सकी।",
+    "raporDonem": "अवधि: {{donem}}",
+    "raporBaslik": "रिपोर्ट शीर्षक (वैकल्पिक)",
+    "raporOzet": "इस महीने क्या किया गया? ग्राहक इसे पढ़ेगा।",
+    "taslakKaydet": "ड्राफ़्ट सहेजें",
+    "ozetGerekli": "सारांश खाली नहीं हो सकता।",
+    "raporKaydedildi": "ड्राफ़्ट सहेजा गया।",
+    "raporKaydedilemedi": "ड्राफ़्ट नहीं सहेजा जा सका।",
+    "yayimla": "प्रकाशित करें",
+    "raporYayimlandi": "रिपोर्ट प्रकाशित; ग्राहक देख सकता है।",
+    "raporYayimlanamadi": "रिपोर्ट प्रकाशित नहीं हो सकी।",
+    "raporSil": "रिपोर्ट हटाएँ",
+    "raporsuzBaslik": "बिना शीर्षक रिपोर्ट",
+    "durum": {
+      "aktif": "सक्रिय",
+      "duraklatildi": "रोकी गई",
+      "iptal": "रद्द"
+    },
+    "raporDurum": {
+      "taslak": "ड्राफ़्ट",
+      "yayinlandi": "प्रकाशित"
+    }
   }
 }

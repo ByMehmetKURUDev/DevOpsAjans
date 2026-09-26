@@ -1394,7 +1394,10 @@
     "atanmamis": "غير مُسند",
     "atandi": "تم إسناد الطلب.",
     "atamaKaldirildi": "تمت إزالة الإسناد.",
-    "atanamadi": "تعذّر تغيير الإسناد."
+    "atanamadi": "تعذّر تغيير الإسناد.",
+    "talepSil": "حذف الطلب",
+    "talepSilOnay": "هل تحذف الطلب ومحادثته؟",
+    "talepSilindi": "تم حذف الطلب."
   },
   "ekip": {
     "yeniKisi": "إضافة عضو للفريق",
@@ -1427,6 +1430,54 @@
     "sonHareket": "آخر نشاط",
     "acik": "مفتوح",
     "cevaplanan": "تمت الإجابة",
-    "kapali": "مغلق"
+    "kapali": "مغلق",
+    "sekme": "تقاريري",
+    "oku": "قراءة التقرير",
+    "musteriBos": "لا توجد تقارير منشورة بعد."
+  },
+  "abonelik": {
+    "sekme": "الخدمات",
+    "yeni": "اشتراك خدمة جديد",
+    "musteriEposta": "بريد العميل",
+    "musteriAdi": "اسم العميل",
+    "aylikTutar": "المبلغ الشهري",
+    "ekle": "إضافة",
+    "ay": "شهر",
+    "sonrakiRapor": "التقرير التالي",
+    "raporYaz": "كتابة تقرير",
+    "vazgec": "إلغاء",
+    "duraklat": "إيقاف مؤقت",
+    "devamEttir": "استئناف",
+    "sil": "حذف الاشتراك",
+    "silOnay": "هل تحذف الاشتراك؟ التقارير المنشورة تبقى.",
+    "silindi": "تم حذف الاشتراك.",
+    "silinemedi": "تعذّر الحذف.",
+    "eklendi": "تم إنشاء الاشتراك.",
+    "eklenemedi": "تعذّر إنشاء الاشتراك.",
+    "epostaGerekli": "يلزم بريد عميل صالح.",
+    "yuklenemedi": "تعذّر تحميل الاشتراكات.",
+    "bosliste": "لا توجد اشتراكات خدمة بعد.",
+    "durumDegismedi": "تعذّر تغيير الحالة.",
+    "raporDonem": "الفترة: {{donem}}",
+    "raporBaslik": "عنوان التقرير (اختياري)",
+    "raporOzet": "ماذا أُنجز هذا الشهر؟ سيقرأ العميل هذا.",
+    "taslakKaydet": "حفظ المسودة",
+    "ozetGerekli": "لا يمكن ترك الملخص فارغًا.",
+    "raporKaydedildi": "تم حفظ المسودة.",
+    "raporKaydedilemedi": "تعذّر حفظ المسودة.",
+    "yayimla": "نشر",
+    "raporYayimlandi": "تم نشر التقرير؛ يمكن للعميل رؤيته.",
+    "raporYayimlanamadi": "تعذّر نشر التقرير.",
+    "raporSil": "حذف التقرير",
+    "raporsuzBaslik": "تقرير بلا عنوان",
+    "durum": {
+      "aktif": "نشط",
+      "duraklatildi": "متوقف مؤقتًا",
+      "iptal": "ملغى"
+    },
+    "raporDurum": {
+      "taslak": "مسودة",
+      "yayinlandi": "منشور"
+    }
   }
 }

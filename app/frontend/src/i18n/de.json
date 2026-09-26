@@ -1394,7 +1394,10 @@
     "atanmamis": "Nicht zugewiesen",
     "atandi": "Ticket zugewiesen.",
     "atamaKaldirildi": "Zuweisung entfernt.",
-    "atanamadi": "Zuweisung konnte nicht geändert werden."
+    "atanamadi": "Zuweisung konnte nicht geändert werden.",
+    "talepSil": "Ticket löschen",
+    "talepSilOnay": "Ticket und Verlauf löschen?",
+    "talepSilindi": "Ticket gelöscht."
   },
   "ekip": {
     "yeniKisi": "Teammitglied hinzufügen",
@@ -1427,6 +1430,54 @@
     "sonHareket": "Letzte Aktivität",
     "acik": "offen",
     "cevaplanan": "beantwortet",
-    "kapali": "geschlossen"
+    "kapali": "geschlossen",
+    "sekme": "Meine Berichte",
+    "oku": "Bericht lesen",
+    "musteriBos": "Noch keine veröffentlichten Berichte."
+  },
+  "abonelik": {
+    "sekme": "Leistungen",
+    "yeni": "Neues Leistungsabo",
+    "musteriEposta": "Kunden-E-Mail",
+    "musteriAdi": "Kundenname",
+    "aylikTutar": "Monatsbetrag",
+    "ekle": "Hinzufügen",
+    "ay": "Mon.",
+    "sonrakiRapor": "Nächster Bericht",
+    "raporYaz": "Bericht schreiben",
+    "vazgec": "Abbrechen",
+    "duraklat": "Pausieren",
+    "devamEttir": "Fortsetzen",
+    "sil": "Abo löschen",
+    "silOnay": "Abo löschen? Veröffentlichte Berichte bleiben.",
+    "silindi": "Abo gelöscht.",
+    "silinemedi": "Löschen nicht möglich.",
+    "eklendi": "Abo angelegt.",
+    "eklenemedi": "Abo konnte nicht angelegt werden.",
+    "epostaGerekli": "Eine gültige Kunden-E-Mail ist erforderlich.",
+    "yuklenemedi": "Abos konnten nicht geladen werden.",
+    "bosliste": "Noch keine Leistungsabos.",
+    "durumDegismedi": "Status konnte nicht geändert werden.",
+    "raporDonem": "Zeitraum: {{donem}}",
+    "raporBaslik": "Berichtstitel (optional)",
+    "raporOzet": "Was wurde diesen Monat getan? Der Kunde liest das.",
+    "taslakKaydet": "Entwurf speichern",
+    "ozetGerekli": "Zusammenfassung darf nicht leer sein.",
+    "raporKaydedildi": "Entwurf gespeichert.",
+    "raporKaydedilemedi": "Entwurf konnte nicht gespeichert werden.",
+    "yayimla": "Veröffentlichen",
+    "raporYayimlandi": "Bericht veröffentlicht; der Kunde sieht ihn.",
+    "raporYayimlanamadi": "Bericht konnte nicht veröffentlicht werden.",
+    "raporSil": "Bericht löschen",
+    "raporsuzBaslik": "Bericht ohne Titel",
+    "durum": {
+      "aktif": "Aktiv",
+      "duraklatildi": "Pausiert",
+      "iptal": "Storniert"
+    },
+    "raporDurum": {
+      "taslak": "Entwurf",
+      "yayinlandi": "Veröffentlicht"
+    }
   }
 }

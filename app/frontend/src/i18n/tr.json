@@ -1395,7 +1395,10 @@
     "atanmamis": "Atanmamış",
     "atandi": "Talep atandı.",
     "atamaKaldirildi": "Atama kaldırıldı.",
-    "atanamadi": "Atama değiştirilemedi."
+    "atanamadi": "Atama değiştirilemedi.",
+    "talepSil": "Talebi sil",
+    "talepSilOnay": "Talep ve yazışması silinsin mi?",
+    "talepSilindi": "Talep silindi."
   },
   "ekip": {
     "yeniKisi": "Ekibe kişi ekle",
@@ -1428,6 +1431,54 @@
     "sonHareket": "Son hareket",
     "acik": "açık",
     "cevaplanan": "cevaplanan",
-    "kapali": "kapalı"
+    "kapali": "kapalı",
+    "sekme": "Raporlarım",
+    "oku": "Raporu oku",
+    "musteriBos": "Henüz yayımlanmış bir rapor yok."
+  },
+  "abonelik": {
+    "sekme": "Hizmetler",
+    "yeni": "Yeni hizmet aboneliği",
+    "musteriEposta": "Müşteri e-postası",
+    "musteriAdi": "Müşteri adı",
+    "aylikTutar": "Aylık tutar",
+    "ekle": "Ekle",
+    "ay": "ay",
+    "sonrakiRapor": "Sıradaki rapor",
+    "raporYaz": "Rapor yaz",
+    "vazgec": "Vazgeç",
+    "duraklat": "Duraklat",
+    "devamEttir": "Devam ettir",
+    "sil": "Aboneliği sil",
+    "silOnay": "Abonelik silinsin mi? Yayımlanan raporlar kalır.",
+    "silindi": "Abonelik silindi.",
+    "silinemedi": "Silinemedi.",
+    "eklendi": "Abonelik açıldı.",
+    "eklenemedi": "Abonelik açılamadı.",
+    "epostaGerekli": "Geçerli bir müşteri e-postası gerekli.",
+    "yuklenemedi": "Abonelikler yüklenemedi.",
+    "bosliste": "Henüz hizmet aboneliği yok.",
+    "durumDegismedi": "Durum değiştirilemedi.",
+    "raporDonem": "Dönem: {{donem}}",
+    "raporBaslik": "Rapor başlığı (isteğe bağlı)",
+    "raporOzet": "Bu ay ne yapıldı? Müşteri bunu okuyacak.",
+    "taslakKaydet": "Taslağı kaydet",
+    "ozetGerekli": "Özet boş olamaz.",
+    "raporKaydedildi": "Taslak kaydedildi.",
+    "raporKaydedilemedi": "Taslak kaydedilemedi.",
+    "yayimla": "Yayımla",
+    "raporYayimlandi": "Rapor yayımlandı, müşteri görebiliyor.",
+    "raporYayimlanamadi": "Rapor yayımlanamadı.",
+    "raporSil": "Raporu sil",
+    "raporsuzBaslik": "Başlıksız rapor",
+    "durum": {
+      "aktif": "Aktif",
+      "duraklatildi": "Duraklatıldı",
+      "iptal": "İptal"
+    },
+    "raporDurum": {
+      "taslak": "Taslak",
+      "yayinlandi": "Yayımlandı"
+    }
   }
 }

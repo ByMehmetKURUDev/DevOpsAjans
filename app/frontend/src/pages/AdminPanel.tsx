@@ -296,6 +296,23 @@ export default function AdminPanel() {
       });
   }, [tab, ekip.length]);
 
+  // Talep silme iki adimli: satir ici onay. Tarayicinin confirm
+  // kutusu yerine satirda gorunen uyari, cunku silinen talebin
+  // yazismasi da gidiyor ve ne silindigi gorunur olmali.
+  const [silinecekTalep, setSilinecekTalep] = useState<number | null>(null);
+
+  const talepSil = async (id: number | string) => {
+    try {
+      await client.entities.support_tickets.delete({ id: String(id) });
+      toast.success(t('destek.talepSilindi'));
+      setSilinecekTalep(null);
+      loadAll();
+    } catch (e) {
+      const err = e as { message?: string };
+      toast.error(err?.message || t('admin.deleteFailed'));
+    }
+  };
+
   const atamaDegistir = async (ticketId: number, email: string) => {
     try {
       await talebiAta(ticketId, email || null);
@@ -816,6 +833,18 @@ export default function AdminPanel() {
           }
         >
           <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} />
+        </Suspense>
+      )}
+
+      {tab === 'abonelik' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <HizmetAbonelikleri />
         </Suspense>
       )}
 
@@ -1437,6 +1466,38 @@ export default function AdminPanel() {
                           </option>
                         ))}
                       </select>
+                      {silinecekTalep === Number(tk.id) ? (
+                        <span className="flex items-center gap-2">
+                          <span className="text-xs text-orange-300">{t('destek.talepSilOnay')}</span>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-xs text-destructive hover:text-destructive"
+                            onClick={() => void talepSil(tk.id)}
+                          >
+                            {t('odeme.silEvet')}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-xs"
+                            onClick={() => setSilinecekTalep(null)}
+                          >
+                            {t('odeme.silVazgec')}
+                          </Button>
+                        </span>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          aria-label={t('destek.talepSil')}
+                          title={t('destek.talepSil')}
+                          className="text-destructive hover:text-destructive"
+                          onClick={() => setSilinecekTalep(Number(tk.id))}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
                     </div>
                     {acikTalep !== Number(tk.id) ? (
                       <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-2">

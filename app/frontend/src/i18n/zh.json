@@ -1394,7 +1394,10 @@
     "atanmamis": "未分配",
     "atandi": "已分配。",
     "atamaKaldirildi": "已取消分配。",
-    "atanamadi": "无法更改分配。"
+    "atanamadi": "无法更改分配。",
+    "talepSil": "删除工单",
+    "talepSilOnay": "要删除工单及其对话吗？",
+    "talepSilindi": "工单已删除。"
   },
   "ekip": {
     "yeniKisi": "添加团队成员",
@@ -1427,6 +1430,54 @@
     "sonHareket": "最近动态",
     "acik": "待处理",
     "cevaplanan": "已回复",
-    "kapali": "已关闭"
+    "kapali": "已关闭",
+    "sekme": "我的报告",
+    "oku": "阅读报告",
+    "musteriBos": "暂无已发布的报告。"
+  },
+  "abonelik": {
+    "sekme": "服务",
+    "yeni": "新建服务订阅",
+    "musteriEposta": "客户邮箱",
+    "musteriAdi": "客户名称",
+    "aylikTutar": "月费",
+    "ekle": "添加",
+    "ay": "月",
+    "sonrakiRapor": "下次报告",
+    "raporYaz": "撰写报告",
+    "vazgec": "取消",
+    "duraklat": "暂停",
+    "devamEttir": "恢复",
+    "sil": "删除订阅",
+    "silOnay": "要删除订阅吗？已发布的报告会保留。",
+    "silindi": "订阅已删除。",
+    "silinemedi": "无法删除。",
+    "eklendi": "订阅已创建。",
+    "eklenemedi": "无法创建订阅。",
+    "epostaGerekli": "需要有效的客户邮箱。",
+    "yuklenemedi": "无法加载订阅。",
+    "bosliste": "暂无服务订阅。",
+    "durumDegismedi": "无法更改状态。",
+    "raporDonem": "周期：{{donem}}",
+    "raporBaslik": "报告标题（可选）",
+    "raporOzet": "本月做了什么？客户会阅读这段内容。",
+    "taslakKaydet": "保存草稿",
+    "ozetGerekli": "摘要不能为空。",
+    "raporKaydedildi": "草稿已保存。",
+    "raporKaydedilemedi": "无法保存草稿。",
+    "yayimla": "发布",
+    "raporYayimlandi": "报告已发布，客户可以看到。",
+    "raporYayimlanamadi": "无法发布报告。",
+    "raporSil": "删除报告",
+    "raporsuzBaslik": "无标题报告",
+    "durum": {
+      "aktif": "进行中",
+      "duraklatildi": "已暂停",
+      "iptal": "已取消"
+    },
+    "raporDurum": {
+      "taslak": "草稿",
+      "yayinlandi": "已发布"
+    }
   }
 }
