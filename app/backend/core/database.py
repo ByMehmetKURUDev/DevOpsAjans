@@ -253,6 +253,15 @@ class DatabaseManager:
             "tur_pg": "VARCHAR",
             "tur_sqlite": "TEXT",
         },
+        {
+            # Musteri sitesi kaydinin nasil acildigi: odeme | elle | kesif.
+            # Tahsilat sonrasi otomatik acilan kayitla elle girileni
+            # ayirt edebilmek icin.
+            "tablo": "client_sites",
+            "sutun": "kaynak",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
         # Faz 1 — talep akisi. Eski talepler NULL kaliyor: hizmeti
         # bilinmeyen talep ile "genel" talebi ayirt edebilelim.
         {

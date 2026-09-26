@@ -25,11 +25,14 @@ Uç yalnızca yöneticiye açık: müşteriye gösterilecek bir şey değil, iç
 import logging
 from typing import Dict, List, Optional
 
+from core.database import get_db
 from dependencies.entity_guard import entity_guard
 from dependencies.kayit_sahipligi import _yonetici_mi
 from fastapi import APIRouter, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from pydantic import BaseModel
+from services.musteri_sitesi import eposta_ile_site, kurulum_blogu
+from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = logging.getLogger(__name__)
 
@@ -99,6 +102,10 @@ class BriefIstegi(BaseModel):
     proje: Optional[str] = ""
     #: Keşif asistanının modelden aldığı özet; varsa prompt'a giriyor.
     ozet: Optional[str] = ""
+    #: Müşterinin e-postası. Verilirse ve o müşteri için tahsilat
+    #: sonrası açılmış bir site kaydı varsa, geri bildirim düğmesinin
+    #: gömme satırı prompt'un içine giriyor.
+    musteri_eposta: Optional[str] = ""
 
 
 class RolPromptu(BaseModel):
@@ -112,6 +119,9 @@ class BriefYaniti(BaseModel):
     kunye: str
     roller: List[RolPromptu]
     zincir: str
+    #: Geri bildirim düğmesinin kurulum bölümü. Panelde ayrı bir sekme
+    #: olarak da gösteriliyor ki tek satır kopyalanabilsin.
+    kurulum: str = ""
 
 
 def _oku(sozluk: Dict[str, str], anahtar: Optional[str], varsayilan: str) -> str:
@@ -153,15 +163,20 @@ ORTAK_KURAL = (
 )
 
 
-def _roller(p: BriefIstegi) -> List[RolPromptu]:
+def _roller(p: BriefIstegi, kurulum: str = "") -> List[RolPromptu]:
     kunye = _kunye(p)
     teknik = _teknik_liste(p)
+    # Kurulum bölümü yalnızca gerçekten iş yapacak rollere giriyor:
+    # yazılımcı satırı ekliyor, test onu kontrol listesine alıyor.
+    # SEO ya da tasarımcı promptuna koymak gürültü olurdu.
+    ek = f"\n\n{kurulum.strip()}" if kurulum.strip() else ""
 
-    def kur(id_: str, ad: str, govde: str) -> RolPromptu:
+    def kur(id_: str, ad: str, govde: str, kurulumlu: bool = False) -> RolPromptu:
+        kuyruk = ek if kurulumlu else ""
         return RolPromptu(
             id=id_,
             ad=ad,
-            prompt=f"{govde.strip()}\n\nPROJE\n{kunye}\n\n{ORTAK_KURAL}",
+            prompt=f"{govde.strip()}\n\nPROJE\n{kunye}{kuyruk}\n\n{ORTAK_KURAL}",
         )
 
     return [
@@ -213,6 +228,7 @@ def _roller(p: BriefIstegi) -> List[RolPromptu]:
             "3. Hata durumları: ağ koptuğunda, yetki yoksa, veri eksikse ne oluyor?\n"
             "4. Yapılmayacaklar: bu projede gereksiz olan soyutlamaları say.\n\n"
             "ÇIKTI: Çalışır kod + kısa kurulum notu. Kod yorumları neden'i anlatsın.",
+            kurulumlu=True,
         ),
         kur(
             "test",
@@ -224,6 +240,7 @@ def _roller(p: BriefIstegi) -> List[RolPromptu]:
             "3. Performans hedefi: hangi sayfa ne kadar sürede açmalı, nasıl ölçülecek?\n"
             "4. Yayın öncesi kontrol listesi (en fazla 12 madde).\n\n"
             "ÇIKTI: Kontrol listesi + test senaryoları.",
+            kurulumlu=True,
         ),
         kur(
             "seo",
@@ -241,7 +258,7 @@ def _roller(p: BriefIstegi) -> List[RolPromptu]:
     ]
 
 
-def _zincir(p: BriefIstegi, roller: List[RolPromptu]) -> str:
+def _zincir(p: BriefIstegi, roller: List[RolPromptu], kurulum: str = "") -> str:
     """Rolleri sıralı tek bir prompta dizer.
 
     Zincirin anlamı: her adım bir önceki adımın çıktısını girdi kabul
@@ -260,12 +277,17 @@ def _zincir(p: BriefIstegi, roller: List[RolPromptu]) -> str:
         "en fazla beş madde bırak.\n\n"
         f"ADIMLAR\n{adimlar}\n\n"
         f"PROJE\n{_kunye(p)}\n\n"
-        f"{ORTAK_KURAL}"
+        + (f"{kurulum.strip()}\n\n" if kurulum.strip() else "")
+        + f"{ORTAK_KURAL}"
     )
 
 
 @router.post("", response_model=BriefYaniti)
-async def brief_uret(payload: BriefIstegi, request: Request):
+async def brief_uret(
+    payload: BriefIstegi,
+    request: Request,
+    db: AsyncSession = _Depends(get_db),
+):
     _, yonetici = _yonetici_mi(request)
     if not yonetici:
         raise HTTPException(
@@ -273,11 +295,24 @@ async def brief_uret(payload: BriefIstegi, request: Request):
             detail="Bu işlem için yönetici olmanız gerekiyor",
         )
 
-    roller = _roller(payload)
+    # Geri bildirim düğmesinin gömme satırı prompt'un içine giriyor.
+    # Site kaydı burada AÇILMIYOR, yalnızca aranıyor: kayıt tahsilat
+    # anında açılıyor. Prompt üretmek tek başına müşteri kaydı
+    # yaratmamalı, yoksa teklif aşamasındaki her görüşme müşteri
+    # listesine düşerdi.
+    site = None
+    try:
+        site = await eposta_ile_site(db, payload.musteri_eposta)
+    except Exception:  # noqa: BLE001 - brief bu yüzden üretilmemiş olmasın
+        logger.exception("Musteri sitesi okunamadi: %s", payload.musteri_eposta)
+
+    kurulum = kurulum_blogu(site)
+    roller = _roller(payload, kurulum)
     baslik = payload.proje or _oku(AMAC, payload.amac, "Proje")
     return BriefYaniti(
         baslik=baslik,
         kunye=_kunye(payload),
         roller=roller,
-        zincir=_zincir(payload, roller),
+        zincir=_zincir(payload, roller, kurulum),
+        kurulum=kurulum,
     )

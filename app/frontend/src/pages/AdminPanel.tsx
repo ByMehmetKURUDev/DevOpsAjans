@@ -2251,6 +2251,7 @@ export default function AdminPanel() {
           kayitTuru="projects"
           talepId={promptProjesi.id}
           musteri={promptProjesi.client_name || ''}
+          musteriEposta={promptProjesi.client_email || ''}
           konu={promptProjesi.title}
           mesaj={promptProjesi.description || ''}
           kayitliBrief={promptProjesi.brief}
@@ -2264,6 +2265,7 @@ export default function AdminPanel() {
           kayitTuru="inquiries"
           talepId={promptTalebi.id}
           musteri={promptTalebi.name}
+          musteriEposta={promptTalebi.email || ''}
           konu={promptTalebi.subject || ''}
           mesaj={promptTalebi.message}
           kayitliBrief={promptTalebi.brief}

@@ -1,23 +1,19 @@
-Paket, kesif ve musteri paneli dugmeleri gercek talebe baglandi
+Tek atanan ve tahsilatta otomatik musteri sitesi
 
-Uc dugme de kodda duz /contact linkiydi; hicbiri bagli degildi:
-  PricingPlans.tsx:151   paket 'Satin al'
-  KesifAsistani.tsx:473  'Teklif iste'
-  ClientPanel.tsx:426    'Projeye basla'
+Gomme kodunu elle uretmek iki adim istiyordu (panele site ekle, kodu
+kopyala) ve musteri sayisi arttikca bu adim atlaniyordu. Artik tahsilat
+gerceklestigi anda site kaydi ve dugme jetonu kendiliginden aciliyor;
+kesif promptu uretildiginde de gomme satiri promptun icinde geliyor.
 
-Musteri sectigi paketi ya da az once cevapladigi onca keisf sorusunu
-iletisim sayfasinda bastan anlatmak zorunda kaliyordu. Cogu
-anlatmiyor, sayfayi kapatiyordu.
+- services/musteri_sitesi.py: siteyi_hazirla, eposta_ile_site,
+  kurulum_blogu, gomme_kodu, varsayilan_atanan
+- odemeler.py: elle tahsilat ve Shopier webhook'u site kaydini aciyor
+- kesif_brief.py: musteri_eposta girdisi, kurulum alani; gomme satiri
+  yazilimci ve test promptlarina + zincire giriyor
+- client_sites.kaynak sutunu (odeme | elle), database.py dolgusu
+- Atanan bos birakilinca varsayilan kisiye gidiyor; widget talepleri de
 
-Yeni: components/HizliTalep.tsx — sayfadan ayrilmadan talep birakma
-penceresi. Paket adi ya da kesif ozeti konu olarak geliyor, musteri
-yalnizca kendi bilgilerini yaziyor. Talep inquiries'e dusuyor;
-source alani hangi sayfanin is getirdigini gosteriyor
-(paket:<ad>, kesif), kesif ozeti brief olarak sakalaniyor.
-
-Musteri panelindeki dugme artik panelin kendi talep sekmesini
-aciyor: oturumu acik musteriyi herkese acik bir forma gondermek,
-zaten bildigimiz bilgileri ona tekrar yazdirmak demekti.
+Testler: otomasyon 55/55, site (Faz 4) 58/58, shopier 31/31, tsc temiz
 
 Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01CqqeKbbh9xSetSq1QhSC2k

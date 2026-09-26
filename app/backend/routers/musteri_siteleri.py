@@ -23,7 +23,6 @@ yüzden jetonla çalışıyor ve saatlik bir sayaçla sınırlanıyor.
 """
 
 import logging
-import secrets
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
@@ -35,6 +34,11 @@ from models.access_log import Access_log
 from models.client_sites import Client_sites
 from models.support_tickets import Support_tickets
 from pydantic import BaseModel
+from services.musteri_sitesi import AJANS_ADI
+from services.musteri_sitesi import gomme_kodu as gomme_satiri
+from services.musteri_sitesi import site_adresi as _site_adresi
+from services.musteri_sitesi import varsayilan_atanan
+from services.musteri_sitesi import yeni_jeton as _yeni_jeton
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -151,10 +155,6 @@ def _yonetici_iste(request: Request) -> str:
     return _eposta(kullanici)
 
 
-def _yeni_jeton() -> str:
-    return secrets.token_urlsafe(24)
-
-
 async def _site_bul(db: AsyncSession, site_id: int) -> Client_sites:
     sonuc = await db.execute(select(Client_sites).where(Client_sites.id == site_id))
     site = sonuc.scalar_one_or_none()
@@ -233,7 +233,10 @@ async def site_ekle(
         bakim_izni=False,
         widget_jetonu=_yeni_jeton(),
         widget_acik=True,
-        atanan=_temiz(govde.atanan).lower() or None,
+        # Atanan boş bırakılırsa varsayılan kişiye gidiyor. Boş kalması,
+        # düğmeden gelen talebin kimseye düşmemesi demekti.
+        atanan=_temiz(govde.atanan).lower() or varsayilan_atanan(),
+        kaynak="elle",
     )
     db.add(kayit)
     await db.commit()
@@ -267,7 +270,7 @@ async def site_guncelle(
             raise HTTPException(status_code=400, detail="Durum aktif, beklemede ya da bitti olmalı")
         site.durum = d
     if govde.atanan is not None:
-        site.atanan = _temiz(govde.atanan).lower() or None
+        site.atanan = _temiz(govde.atanan).lower() or varsayilan_atanan()
     if govde.widget_acik is not None:
         site.widget_acik = bool(govde.widget_acik)
 
@@ -308,15 +311,11 @@ async def jeton_yenile(site_id: int, request: Request, db: AsyncSession = _Depen
     await db.commit()
     await db.refresh(site)
 
-    adres = _site_adresi()
     return {
         "id": site.id,
         "widget_jetonu": site.widget_jetonu,
         "jeton": site.widget_jetonu,
-        "kod": (
-            f'<script src="{adres}/widget.js" '
-            f'data-jeton="{site.widget_jetonu}" defer></script>'
-        ),
+        "kod": gomme_satiri(site.widget_jetonu),
     }
 
 
@@ -330,12 +329,11 @@ async def gomme_kodu(site_id: int, request: Request, db: AsyncSession = _Depends
         await db.commit()
         await db.refresh(site)
 
-    adres = _site_adresi()
-    kod = (
-        f'<script src="{adres}/widget.js" '
-        f'data-jeton="{site.widget_jetonu}" defer></script>'
-    )
-    return {"kod": kod, "jeton": site.widget_jetonu, "acik": site.widget_acik is not False}
+    return {
+        "kod": gomme_satiri(site.widget_jetonu),
+        "jeton": site.widget_jetonu,
+        "acik": site.widget_acik is not False,
+    }
 
 
 @yonetici_router.post("/{site_id}/erisim", response_model=GunlukSatiri)
@@ -489,17 +487,6 @@ async def kendi_site_gunlugum(
 # --------------------------------------------------------------------------
 # Açık uçlar — müşterinin sitesine gömülen düğme
 # --------------------------------------------------------------------------
-def _site_adresi() -> str:
-    """Kendi sitemizin adresi.
-
-    Host başlığından türetmiyoruz: gömme kodu ve jeton, isteği kimin
-    yaptığına göre değişmemeli.
-    """
-    import os
-
-    return (os.getenv("SITE_ADRESI") or "https://mehmetkuru.dev").rstrip("/")
-
-
 async def _jetonla_site(db: AsyncSession, jeton: str) -> Client_sites:
     jeton = _temiz(jeton)
     if not jeton:
@@ -523,7 +510,7 @@ async def widget_bilgisi(jeton: str, db: AsyncSession = _Depends(get_db)):
     site = await _jetonla_site(db, jeton)
     return {
         "ad": site.ad,
-        "ajans": "By Mehmet KURU Dev",
+        "ajans": AJANS_ADI,
         "logo": f"{_site_adresi()}/logo192.png",
         "adres": _site_adresi(),
     }
@@ -590,7 +577,10 @@ async def geri_bildirim_gonder(
         priority="normal",
         hizmet="website",
         kaynak="widget",
-        atanan=site.atanan or None,
+        # Site kaydında atanan boş kalmışsa (eski kayıtlar) talep
+        # varsayılan kişiye gidiyor. Atanansız talep kimsenin listesinde
+        # görünmez ve sessizce kaybolur.
+        atanan=site.atanan or varsayilan_atanan(),
         son_mesaj_at=simdi,
     )
     db.add(talep)

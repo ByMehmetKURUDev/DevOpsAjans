@@ -20,6 +20,12 @@ export interface BriefGirdisi {
   musteri?: string;
   proje?: string;
   ozet?: string;
+  /**
+   * Müşterinin e-postası. Verilirse ve o müşteri için tahsilat sonrası
+   * açılmış bir site kaydı varsa, geri bildirim düğmesinin gömme satırı
+   * prompt'un içine giriyor — panelde ayrıca bir yere gitmek gerekmiyor.
+   */
+  musteri_eposta?: string;
 }
 
 export interface RolPromptu {
@@ -33,6 +39,11 @@ export interface Brief {
   kunye: string;
   roller: RolPromptu[];
   zincir: string;
+  /**
+   * Geri bildirim düğmesinin kurulum bölümü. Tahsilat alınmış bir müşteride
+   * gömme satırını hazır taşıyor; alınmamışsa neden boş olduğunu anlatıyor.
+   */
+  kurulum?: string;
 }
 
 /** Sihirbazdaki anahtarlar — arka uçtaki sözlüklerle aynı olmak zorunda. */
@@ -167,5 +178,6 @@ export async function briefUret(girdi: BriefGirdisi): Promise<Brief> {
     kunye: govde.kunye || '',
     roller: govde.roller,
     zincir: govde.zincir || '',
+    kurulum: govde.kurulum || '',
   };
 }

@@ -40,6 +40,7 @@ from models.invoices import Invoices
 from models.payments import Payments
 from models.site_settings import Site_settings
 from pydantic import BaseModel
+from services.musteri_sitesi import siteyi_hazirla
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -174,6 +175,34 @@ async def _faturayi_kapat(db: AsyncSession, kayit: Payments) -> bool:
     return False
 
 
+async def _musteri_sitesini_ac(db: AsyncSession, kayit: Payments) -> Optional[int]:
+    """Tahsilat gerçekleşince müşteri sitesi kaydını ve düğme jetonunu açar.
+
+    Neden burada: gömme kodunu elle üretmek iki adım istiyordu (panele
+    site ekle, sonra kodu kopyala) ve müşteri sayısı arttıkça bu adım
+    atlanıyordu. Tahsilat, "bu artık gerçek bir müşteri" diyen en net
+    işaret; kayıt o anda kendiliğinden açılıyor.
+
+    `commit` çağıran tarafta: tahsilat ile site kaydı aynı işlemde
+    yazılsın, biri yazılıp diğeri yazılmadan kalmasın.
+
+    Hata yutuluyor: site kaydı açılamazsa tahsilatın kaydı yine
+    tamamlanmalı. Para alındı, düğme sonra kurulur -- tersi kabul
+    edilemez.
+    """
+    try:
+        site = await siteyi_hazirla(
+            db,
+            client_email=kayit.client_email,
+            ad=(kayit.invoice_no or "").strip() or None,
+            kaynak="odeme",
+        )
+    except Exception:  # noqa: BLE001 - tahsilat bu yüzden düşmemeli
+        logger.exception("Musteri sitesi otomatik acilamadi: odeme=%s", kayit.id)
+        return None
+    return site.id if site is not None else None
+
+
 def _site_adresi() -> str:
     """Müşterinin gördüğü site kökü.
 
@@ -305,6 +334,10 @@ async def elle_tahsilat(
         for eski in bekleyenler.scalars().all():
             eski.durum = "iptal"
             eski.hata_mesaji = f"{kanal} ile tahsil edildi"
+
+    # Tahsilat alındı: müşteri sitesi kaydı ve geri bildirim düğmesinin
+    # jetonu burada açılıyor. Aynı işlemde yazılıyor.
+    await _musteri_sitesini_ac(db, kayit)
 
     await db.commit()
     await db.refresh(kayit)
@@ -643,6 +676,9 @@ async def _odemeyi_isle(
     kayit.ham_yanit = json.dumps(siparis, ensure_ascii=False)[:4000]
 
     await _faturayi_kapat(db, kayit)
+    # Kart tahsilatında da aynı kural: ödeme düştü, müşteri sitesi
+    # kaydı ve düğme jetonu kendiliğinden açılıyor.
+    await _musteri_sitesini_ac(db, kayit)
     await db.commit()
 
     # Ödendikten sonra link ölmeli; olmazsa iş durmuyor, tahsilat alındı.

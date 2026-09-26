@@ -35,6 +35,12 @@ interface Props {
   kayitTuru: KayitTuru;
   talepId: number | string;
   musteri: string;
+  /**
+   * Müşterinin e-postası. Verilirse ve o müşteri için tahsilat sonrası
+   * açılmış bir site kaydı varsa, geri bildirim düğmesinin gömme satırı
+   * promptun içine giriyor — panelde başka bir ekrana gitmek gerekmiyor.
+   */
+  musteriEposta?: string;
   konu: string;
   mesaj: string;
   /** Talep kaydındaki `brief` sütunu; daha önce üretildiyse dolu. */
@@ -48,6 +54,7 @@ export default function UzmanPromptlari({
   kayitTuru,
   talepId,
   musteri,
+  musteriEposta,
   konu,
   mesaj,
   kayitliBrief,
@@ -94,6 +101,7 @@ export default function UzmanPromptlari({
       butce,
       musteri,
       proje: konu,
+      musteri_eposta: musteriEposta || '',
     };
     try {
       const sonuc = await briefUret(girdi);
@@ -116,7 +124,9 @@ export default function UzmanPromptlari({
   const metin =
     brief && (secili === 'zincir'
       ? brief.zincir
-      : brief.roller.find((r) => r.id === secili)?.prompt || '');
+      : secili === 'kurulum'
+        ? brief.kurulum || ''
+        : brief.roller.find((r) => r.id === secili)?.prompt || '');
 
   const kopyala = async () => {
     try {
@@ -249,6 +259,19 @@ export default function UzmanPromptlari({
                   {r.ad}
                 </button>
               ))}
+              {/*
+                Gömme kodu ayrı bir sekmede: promptun içinde de duruyor ama
+                tek satırı kopyalamak isteyen kişi 4000 karakter içinde
+                aramak zorunda kalmasın.
+              */}
+              {brief.kurulum ? (
+                <button
+                  className={cip(secili === 'kurulum')}
+                  onClick={() => setSecili('kurulum')}
+                >
+                  Geri bildirim düğmesi
+                </button>
+              ) : null}
             </div>
 
             <Textarea

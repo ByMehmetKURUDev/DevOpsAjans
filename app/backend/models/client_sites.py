@@ -45,5 +45,10 @@ class Client_sites(Base):
     # Bu siteye bakan ekip üyesi (staff.email).
     atanan = Column(String, index=True, nullable=True)
 
+    # Kaydın nasıl açıldığı: odeme | elle | kesif. Otomatik açılan
+    # kayıtla elle girileni ayırt edebilmek için; otomatiği yanlışsa
+    # nereden geldiğini aramaya gerek kalmıyor.
+    kaynak = Column(String, nullable=True)
+
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)
