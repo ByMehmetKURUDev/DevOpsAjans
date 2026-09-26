@@ -69,6 +69,7 @@ const IcerikPlani = lazy(() => import('@/components/admin/IcerikPlani'));
 const OdemePaneli = lazy(() => import('@/components/admin/OdemePaneli'));
 const EkipPaneli = lazy(() => import('@/components/admin/EkipPaneli'));
 const MusteriRaporlari = lazy(() => import('@/components/admin/MusteriRaporlari'));
+const HizmetAbonelikleri = lazy(() => import('@/components/admin/HizmetAbonelikleri'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -172,6 +173,7 @@ type Tab =
   | 'clients'
   | 'invoices'
   | 'odeme'
+  | 'abonelik'
   | 'tickets'
   | 'inquiries';
 
@@ -758,6 +760,7 @@ export default function AdminPanel() {
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
     { key: 'odeme', label: t('ui.tabOdeme'), icon: CreditCard },
+    { key: 'abonelik', label: t('abonelik.sekme'), icon: CalendarDays },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
   ];
