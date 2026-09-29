@@ -33,7 +33,13 @@ from schemas.auth import UserResponse
 logger = logging.getLogger(__name__)
 
 #: Giriş yapmadan okunabilen tablolar — sitenin kendisi bunları gösteriyor.
-HERKESE_ACIK_OKUMA = {"projects", "blog_posts", "site_settings"}
+#: Fiyatlandırma v5 tabloları da buraya eklendi: ziyaretçi giriş yapmadan
+#: paket/hizmet/eklenti/AI-PM katalogunu görebilmeli (yazma hâlâ admin'e
+#: kapalı — bu sadece okuma kuralı).
+HERKESE_ACIK_OKUMA = {
+    "projects", "blog_posts", "site_settings",
+    "pricing_scales", "pricing_profiles", "pricing_services", "pricing_addons", "ai_pm_tiers",
+}
 
 #: Giriş yapmadan kayıt oluşturulabilen tablolar — iletişim formu.
 HERKESE_ACIK_OLUSTURMA = {"inquiries"}

@@ -12,6 +12,7 @@ import {
   BarChart3,
   Users,
   Receipt,
+  CreditCard,
   MessageSquare,
   FolderKanban,
   Newspaper,
@@ -21,6 +22,12 @@ import {
   LayoutList,
   GitBranch,
   BellRing,
+  Briefcase,
+  Boxes,
+  CalendarDays,
+  Globe,
+  Sparkles,
+  DollarSign,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,11 +35,19 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
+import FaturaOdemeBaglantisi from '@/components/admin/FaturaOdemeBaglantisi';
+import ElleTahsilat from '@/components/admin/ElleTahsilat';
+import TalepYazismasi from '@/components/TalepYazismasi';
+import { ekibiGetir, talebiAta, type Personel } from '@/lib/ekip';
+import SiteSagligi from '@/components/admin/SiteSagligi';
+import SiteTaramasi from '@/components/admin/SiteTaramasi';
+import UzmanPromptlari from '@/components/admin/UzmanPromptlari';
 import NotificationCenter from '@/components/admin/NotificationCenter';
 import ProjectStageManager from '@/components/admin/ProjectStageManager';
-import { useStageLabels } from '@/lib/projectEvents';
+import { asamaAnahtari, useStageLabels, useStages } from '@/lib/projectEvents';
+import { musteriyiDavetEt, type DavetSonucu } from '@/lib/musteriDaveti';
 import { useTranslation } from 'react-i18next';
-import { client } from '@/lib/sdkClient';
+import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import {
   SETTING_GROUPS,
   fetchSettingRows,
@@ -46,15 +61,26 @@ import { SUPPORTED_LANGUAGES } from '@/i18n';
 
 // Analitik panosu recharts'a bağlı olduğu için yalnızca sekme açıldığında indirilir.
 const AnalyticsDashboard = lazy(() => import('@/components/AnalyticsDashboard'));
+// Marketplace yonetimi ayri bir parcada: sekme acilmadan indirilmiyor.
+const MarketplacePanel = lazy(() => import('@/components/admin/MarketplacePanel'));
+// Icerik takvimi de ayri parcada: AI katmani ve form yalnizca sekme
+// acilinca iniyor.
+const IcerikPlani = lazy(() => import('@/components/admin/IcerikPlani'));
+// Tahsilat ekranı ayrı parçada: panele girenlerin çoğu bu sekmeyi
+// açmıyor, kodu ilk yüklemede inmesin.
+const OdemePaneli = lazy(() => import('@/components/admin/OdemePaneli'));
+const EkipPaneli = lazy(() => import('@/components/admin/EkipPaneli'));
+const MusteriRaporlari = lazy(() => import('@/components/admin/MusteriRaporlari'));
+const HizmetAbonelikleri = lazy(() => import('@/components/admin/HizmetAbonelikleri'));
+const MusteriSiteleri = lazy(() => import('@/components/admin/MusteriSiteleri'));
+// Fiyatlandırma v5 paneli de ayrı parçada: 6 tablonun form/tablo mantığı
+// panele her girişte inmesin.
+const FiyatlandirmaV5Paneli = lazy(() => import('@/components/admin/FiyatlandirmaV5Paneli'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
-  { code: 'base', label: 'Varsayılan', flag: '🌐' },
-  ...SUPPORTED_LANGUAGES.map((l) => ({
-    code: l.code,
-    label: l.full,
-    flag: l.flag,
-  })),
+  { code: 'base', label: 'Varsayılan' },
+  ...SUPPORTED_LANGUAGES.map((l) => ({ code: l.code, label: l.full })),
 ];
 
 
@@ -80,6 +106,9 @@ interface Project {
   progress?: number;
   tech_stack?: string;
   featured?: boolean;
+  published?: boolean;
+  /** Talepten tasinan uzman promptlari (JSON metni). */
+  brief?: string | null;
   created_at?: string;
 }
 
@@ -103,6 +132,10 @@ interface Inquiry {
   subject?: string;
   message: string;
   status?: string;
+  /** Talep nereden geldi: iletisim-formu | kesif-sihirbazi | marketplace: <urun> */
+  source?: string;
+  /** Uretilen uzman promptlari (JSON metni); uretilmediyse bos. */
+  brief?: string | null;
   created_at?: string;
 }
 
@@ -128,11 +161,16 @@ interface Ticket {
   reply?: string;
   status?: string;
   priority?: string;
+  hizmet?: string;
+  project_id?: number;
+  atanan?: string;
   created_at?: string;
 }
 
 type Tab =
   | 'analytics'
+  | 'marketplace'
+  | 'icerik'
   | 'settings'
   | 'pages'
   | 'notify'
@@ -140,8 +178,12 @@ type Tab =
   | 'blog'
   | 'clients'
   | 'invoices'
+  | 'odeme'
+  | 'abonelik'
+  | 'siteler'
   | 'tickets'
-  | 'inquiries';
+  | 'inquiries'
+  | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
   title: '',
@@ -152,10 +194,12 @@ const emptyProject: Partial<Project> = {
   client_name: '',
   client_email: '',
   status: 'in_progress',
-  stage: 'Tasarım',
+  stage: 'discovery',
   progress: 0,
   tech_stack: '',
   featured: false,
+  // Yeni proje taslak baslar: musteri panelinde gorunur, sitede gorunmez.
+  published: false,
 };
 
 const emptyPost: Partial<BlogPost> = {
@@ -206,16 +250,39 @@ export default function AdminPanel() {
   // Aşaması yönetilen proje; liste altında açılan panel.
   const [stageProject, setStageProject] = useState<Project | null>(null);
   const stageLabel = useStageLabels();
+  const asamaListesi = useStages();
+  const [projeFiltresi, setProjeFiltresi] = useState<'musteri' | 'vaka' | 'hepsi'>('musteri');
+  // Uzman promptlari uretilen talep; modal bunun uzerinden aciliyor.
+  const [promptTalebi, setPromptTalebi] = useState<Inquiry | null>(null);
+  // Ayni modal projeler sekmesinden de aciliyor.
+  const [promptProjesi, setPromptProjesi] = useState<Project | null>(null);
+  // Davet e-postasi gitmediyse metni burada tutup yoneticiye elden
+  // gondermesi icin veriyoruz. Yoksa davet sessizce kaybolur ve musteri
+  // hangi adresle kaydolacagini hic ogrenemez.
+  const [davetYedegi, setDavetYedegi] = useState<
+    (DavetSonucu & { email: string }) | null
+  >(null);
   const [editPost, setEditPost] = useState<Partial<BlogPost> | null>(null);
   const [editInvoice, setEditInvoice] = useState<Partial<Invoice> | null>(null);
-  const [replyTicket, setReplyTicket] = useState<Ticket | null>(null);
-  const [replyText, setReplyText] = useState('');
+  // Yazismasi acik olan talep. Eski "tek cevap" modali kaldirildi:
+  // her cevap ticket_replies tablosuna ayri satir olarak dusuyor.
+  const [acikTalep, setAcikTalep] = useState<number | null>(null);
+  // Destek sekmesinin alt bolumu: musteri talepleri / ekip / raporlar.
+  const [destekBolumu, setDestekBolumu] = useState<'kullanici' | 'calisan' | 'rapor'>('kullanici');
+  // Atama seciciyi doldurmak icin ekip listesi. Yalnizca Destek
+  // sekmesine girildiginde cekiliyor: acilista gereksiz istek olmasin.
+  const [ekip, setEkip] = useState<Personel[]>([]);
 
   const [settingRows, setSettingRows] = useState<SettingRow[]>([]);
   const [settingDraft, setSettingDraft] = useState<Record<string, string>>({});
   const [savingSettings, setSavingSettings] = useState(false);
 
   useEffect(() => {
+    // Oturum izi yoksa cagri kesin 401 doner; bos yere istek atmiyoruz.
+    if (!oturumIziVarMi()) {
+      setAuthLoading(false);
+      return;
+    }
     client.auth
       .me()
       .then((res) => {
@@ -226,6 +293,46 @@ export default function AdminPanel() {
   }, []);
 
   const isAdmin = isAdminUser(user, settings);
+
+  // Atama secicisini doldurmak icin ekip listesi. Destek sekmesine
+  // girilene kadar cekilmiyor; acilistaki toplu istege eklenmedi
+  // cunku diger sekmelerde hic kullanilmiyor.
+  useEffect(() => {
+    if (tab !== 'tickets' || ekip.length > 0) return;
+    ekibiGetir()
+      .then(setEkip)
+      .catch(() => {
+        /* ekip cekilemezse atama secicisi bos kalir, panel calismaya devam eder */
+      });
+  }, [tab, ekip.length]);
+
+  // Talep silme iki adimli: satir ici onay. Tarayicinin confirm
+  // kutusu yerine satirda gorunen uyari, cunku silinen talebin
+  // yazismasi da gidiyor ve ne silindigi gorunur olmali.
+  const [silinecekTalep, setSilinecekTalep] = useState<number | null>(null);
+
+  const talepSil = async (id: number | string) => {
+    try {
+      await client.entities.support_tickets.delete({ id: String(id) });
+      toast.success(t('destek.talepSilindi'));
+      setSilinecekTalep(null);
+      loadAll();
+    } catch (e) {
+      const err = e as { message?: string };
+      toast.error(err?.message || t('admin.deleteFailed'));
+    }
+  };
+
+  const atamaDegistir = async (ticketId: number, email: string) => {
+    try {
+      await talebiAta(ticketId, email || null);
+      toast.success(email ? t('destek.atandi') : t('destek.atamaKaldirildi'));
+      await loadAll();
+    } catch (e) {
+      console.error(e);
+      toast.error(t('destek.atanamadi'));
+    }
+  };
 
   const loadAll = useCallback(async () => {
     setLoading(true);
@@ -339,10 +446,11 @@ export default function AdminPanel() {
         client_name: editProject.client_name || '',
         client_email: (editProject.client_email || '').toLowerCase(),
         status: editProject.status || 'in_progress',
-        stage: editProject.stage || '',
+        stage: asamaAnahtari(editProject.stage),
         progress: Number(editProject.progress) || 0,
         tech_stack: editProject.tech_stack || '',
         featured: !!editProject.featured,
+        published: !!editProject.published,
       };
       if (editProject.id) {
         await client.entities.projects.update({
@@ -353,6 +461,45 @@ export default function AdminPanel() {
       } else {
         await client.entities.projects.create({ data: payload });
         toast.success(t('admin.projectCreated'));
+
+        /*
+         * Talepten geldiyse talebi kapat ve müşteriyi panele davet et.
+         *
+         * İkisi de proje kaydedildikten SONRA: proje oluşmadan talebi
+         * kapatmak, kayıt hata verirse talebi kaybetmek demek olurdu.
+         * Davet başarısız olursa yalnızca uyarı veriyoruz — proje zaten
+         * kaydedildi, onu geri almak daha kötü bir sonuç olur.
+         */
+        const talepId = (editProject as { kaynakTalepId?: string }).kaynakTalepId;
+        if (talepId) {
+          try {
+            await client.entities.inquiries.update({
+              id: talepId,
+              data: { status: 'converted' },
+            });
+          } catch {
+            toast.warning(t('admin.inquiryCloseFailed'));
+          }
+        }
+        if (payload.client_email) {
+          try {
+            const sonuc = await musteriyiDavetEt(
+              payload.client_email,
+              payload.client_name,
+              payload.title,
+            );
+            if (sonuc.epostaGitti) {
+              toast.success(t('admin.clientInvited', { email: payload.client_email }));
+            } else {
+              // Uc "ok" donse bile e-posta gitmemis olabilir (saglayici
+              // yapilandirilmamissa gonderim atlaniyor). Bunu basari gibi
+              // gostermek yerine metni yoneticiye veriyoruz.
+              setDavetYedegi({ ...sonuc, email: payload.client_email });
+            }
+          } catch {
+            toast.warning(t('admin.clientInviteFailed'));
+          }
+        }
       }
       setEditProject(null);
       loadAll();
@@ -471,26 +618,41 @@ export default function AdminPanel() {
     }
   };
 
-  /* ---------------- Destek ---------------- */
-  const sendReply = async () => {
-    if (!replyTicket) return;
-    if (!replyText.trim()) {
-      toast.error(t('admin.replyEmpty'));
-      return;
-    }
-    try {
-      await client.entities.support_tickets.update({
-        id: String(replyTicket.id),
-        data: { reply: replyText.trim(), status: 'answered' },
-      });
-      toast.success(t('admin.replySent'));
-      setReplyTicket(null);
-      setReplyText('');
-      loadAll();
-    } catch (e) {
-      const err = e as { message?: string };
-      toast.error(err?.message || t('admin.replySendError'));
-    }
+  /**
+   * Talebi projeye çevirir.
+   *
+   * Talepler sekmesi bir çıkmazdı: gelen müşteri bilgisi orada kalıyor,
+   * projeye elle yeniden yazılıyordu. Aradaki kopukluk yüzünden müşterinin
+   * yazdığı e-posta ile projeye girilen e-posta tutmayabiliyordu; tutmayınca
+   * müşteri panelinde hiçbir şey göremiyor.
+   *
+   * Kaydetmiyoruz, formu dolduruyoruz: yönetici başlığı ve kapsamı görüp
+   * düzeltsin. Talebin projeye bağlanması Kaydet'e basıldığında oluyor
+   * (`saveProject`), yarım kalan bir çevirim iz bırakmıyor.
+   */
+  const talebiProjeyeCevir = (inq: Inquiry) => {
+    setTab('projects');
+    setEditProject({
+      ...emptyProject,
+      title: inq.subject?.trim() || inq.name,
+      description: inq.message,
+      client_name: inq.name,
+      client_email: (inq.email || '').toLowerCase(),
+      // Yeni iş her zaman keşifle başlar.
+      stage: 'discovery',
+      status: 'planning',
+      /*
+       * Brief varsa projeye taşınıyor. Talepte kalsaydı iş başladıktan
+       * sonra ona ulaşmak için talepler sekmesine dönmek gerekirdi;
+       * üstelik talep "çevrildi" olarak kapanıyor ve listede geriye
+       * kayıyor. Aynı metin iki kayıtta duruyor -- kopya değil, biri
+       * satışın biri işin kaydı.
+       */
+      brief: inq.brief || null,
+      // Hangi talepten geldiği Kaydet'te işaretlenecek.
+      kaynakTalepId: String(inq.id),
+    } as Partial<Project> & { kaynakTalepId: string });
+    toast.success(t('admin.inquiryConverted'));
   };
 
   const markInquiryResolved = async (inq: Inquiry) => {
@@ -577,17 +739,40 @@ export default function AdminPanel() {
     ).values()
   );
 
+  /*
+   * Projeler sekmesindeki görünüm.
+   *
+   * `projects` tablosu iki farklı şeyi tutuyor: müşteriye bağlı,
+   * aşaması takip edilen işler ve sitede yayımlanan vaka çalışmaları.
+   * Ayıran tek alan `client_email`. Varsayılan "müşteri projeleri":
+   * proje yönetimi aranan şey, vaka çalışmaları zaten sitede duruyor.
+   */
+  const musteriProjeleri = projects.filter((p) => (p.client_email || '').trim());
+  const vakaCalismalari = projects.filter((p) => !(p.client_email || '').trim());
+  const gorunenProjeler =
+    projeFiltresi === 'musteri'
+      ? musteriProjeleri
+      : projeFiltresi === 'vaka'
+        ? vakaCalismalari
+        : projects;
+
   const TABS: { key: Tab; label: string; icon: typeof BarChart3 }[] = [
     { key: 'analytics', label: t('ui.tabAnalytics'), icon: BarChart3 },
     { key: 'settings', label: t('ui.tabSettings'), icon: Settings2 },
     { key: 'pages', label: t('ui.tabPages'), icon: LayoutList },
     { key: 'notify', label: t('ui.tabNotify'), icon: BellRing },
-    { key: 'projects', label: t('ui.tabPortfolio'), icon: FolderKanban },
+    { key: 'projects', label: t('ui.tabProjects'), icon: FolderKanban },
+    { key: 'marketplace', label: t('ui.tabMarketplace'), icon: Boxes },
+    { key: 'icerik', label: t('ui.tabIcerik'), icon: CalendarDays },
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
+    { key: 'odeme', label: t('ui.tabOdeme'), icon: CreditCard },
+    { key: 'abonelik', label: t('abonelik.sekme'), icon: CalendarDays },
+    { key: 'siteler', label: t('site.sekme'), icon: Globe },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
+    { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
   ];
 
   return (
@@ -628,6 +813,30 @@ export default function AdminPanel() {
         ))}
       </div>
 
+      {tab === 'icerik' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <IcerikPlani />
+        </Suspense>
+      )}
+
+      {tab === 'marketplace' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <MarketplacePanel />
+        </Suspense>
+      )}
+
       {tab === 'analytics' && (
         <Suspense
           fallback={
@@ -637,6 +846,54 @@ export default function AdminPanel() {
           }
         >
           <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} />
+        </Suspense>
+      )}
+
+      {tab === 'abonelik' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <HizmetAbonelikleri />
+        </Suspense>
+      )}
+
+      {tab === 'siteler' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <MusteriSiteleri />
+        </Suspense>
+      )}
+
+      {tab === 'odeme' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <OdemePaneli />
+        </Suspense>
+      )}
+
+      {tab === 'fiyatlandirmaV5' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <FiyatlandirmaV5Paneli />
         </Suspense>
       )}
 
@@ -666,6 +923,10 @@ export default function AdminPanel() {
 
       {tab === 'settings' && (
         <div className="space-y-6">
+          <SiteSagligi />
+
+          <SiteTaramasi />
+
           <div className="p-5 rounded-2xl glass">
             <div className="flex items-center gap-2 mb-1">
               <Languages className="h-4 w-4 text-purple-300" />
@@ -685,7 +946,6 @@ export default function AdminPanel() {
                       : 'border-white/10 text-muted-foreground hover:text-foreground hover:bg-white/5'
                   }`}
                 >
-                  <span>{opt.flag}</span>
                   {opt.code === 'base' ? t('admin.default') : opt.label}
                 </button>
               ))}
@@ -770,9 +1030,9 @@ export default function AdminPanel() {
         <>
           {tab === 'projects' && (
             <div>
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-center mb-3">
                 <h2 className="text-xl font-semibold">
-                  {t('ui.tabPortfolio')} ({projects.length})
+                  {t('ui.tabProjects')} ({gorunenProjeler.length})
                 </h2>
                 <Button
                   onClick={() => setEditProject({ ...emptyProject })}
@@ -781,8 +1041,45 @@ export default function AdminPanel() {
                   <Plus className="h-4 w-4" /> {t('admin.newProjectBtn')}
                 </Button>
               </div>
+
+              {/*
+                Tek tablo iki işi görüyor: müşteriye ait, aşaması takip
+                edilen projeler ve sitede yayımlanan vaka çalışmaları.
+                Aynı listede durunca proje yönetimi görünmüyordu — altı
+                portfolyo kartının arasında kayboluyordu. Ayıran ölçüt
+                `client_email`: dolu olan müşteri projesi.
+              */}
+              <div className="mb-6 flex flex-wrap gap-2">
+                {(
+                  [
+                    ['musteri', t('admin.projeFiltreMusteri'), musteriProjeleri.length],
+                    ['vaka', t('admin.projeFiltreVaka'), vakaCalismalari.length],
+                    ['hepsi', t('admin.projeFiltreHepsi'), projects.length],
+                  ] as const
+                ).map(([anahtar, etiket, adet]) => (
+                  <button
+                    key={anahtar}
+                    onClick={() => setProjeFiltresi(anahtar)}
+                    className={
+                      'rounded-full px-3 py-1.5 text-xs transition-colors ' +
+                      (projeFiltresi === anahtar
+                        ? 'bg-purple-500/20 text-purple-200 ring-1 ring-purple-400/40'
+                        : 'bg-white/5 text-muted-foreground hover:text-foreground')
+                    }
+                  >
+                    {etiket} ({adet})
+                  </button>
+                ))}
+              </div>
+
+              {projeFiltresi === 'musteri' && musteriProjeleri.length === 0 && (
+                <p className="mb-4 text-xs text-muted-foreground">
+                  {t('admin.projeMusteriBos')}
+                </p>
+              )}
+
               <div className="grid gap-3">
-                {projects.map((p) => (
+                {gorunenProjeler.map((p) => (
                   <div
                     key={p.id}
                     className="p-4 rounded-xl glass flex items-center gap-4"
@@ -806,6 +1103,16 @@ export default function AdminPanel() {
                             {t('admin.featured')}
                           </span>
                         )}
+                        <span
+                          className={
+                            'text-[10px] px-2 py-0.5 rounded-full ' +
+                            (p.published
+                              ? 'bg-emerald-500/20 text-emerald-300'
+                              : 'bg-amber-500/20 text-amber-300')
+                          }
+                        >
+                          {p.published ? t('admin.publishedBadge') : t('admin.draftBadge')}
+                        </span>
                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-muted-foreground">
                           {p.progress ?? 0}%
                         </span>
@@ -817,6 +1124,16 @@ export default function AdminPanel() {
                       </p>
                     </div>
                     <div className="flex gap-1">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => setPromptProjesi(p)}
+                        aria-label={t('uzman.baslik')}
+                        title={t('uzman.baslik')}
+                        className={p.brief ? 'text-purple-300' : ''}
+                      >
+                        <Sparkles className="h-4 w-4" />
+                      </Button>
                       <Button
                         size="sm"
                         variant="ghost"
@@ -856,7 +1173,7 @@ export default function AdminPanel() {
                       projectId={Number(stageProject.id)}
                       projectTitle={stageProject.title}
                       clientEmail={stageProject.client_email}
-                      currentStage={stageProject.stage}
+                      currentStage={asamaAnahtari(stageProject.stage)}
                       adminName={user.name}
                       adminEmail={user.email}
                       onChanged={loadAll}
@@ -1061,6 +1378,16 @@ export default function AdminPanel() {
                     <p className="text-lg font-bold gradient-text">
                       {inv.amount} {inv.currency || 'USD'}
                     </p>
+                    {inv.status !== 'paid' ? (
+                      <>
+                        <FaturaOdemeBaglantisi invoiceId={Number(inv.id)} />
+                        <ElleTahsilat
+                          invoiceId={Number(inv.id)}
+                          tutar={typeof inv.amount === 'number' ? inv.amount : undefined}
+                          onKaydedildi={() => void loadAll()}
+                        />
+                      </>
+                    ) : null}
                     <div className="flex gap-1">
                       <Button
                         size="sm"
@@ -1091,9 +1418,41 @@ export default function AdminPanel() {
 
           {tab === 'tickets' && (
             <div>
-              <h2 className="text-xl font-semibold mb-6">
-                {t('admin.tabTickets')} ({tickets.length})
-              </h2>
+              <h2 className="text-xl font-semibold mb-4">{t('admin.tabTickets')}</h2>
+
+              {/*
+                Destek uc bolume ayrildi. Once tek bir liste vardi ve
+                "kim bakiyor", "hangi musteri ne durumda" sorularinin
+                cevabi hicbir yerde yoktu.
+              */}
+              <div className="mb-6 flex flex-wrap gap-2">
+                {(['kullanici', 'calisan', 'rapor'] as const).map((b) => (
+                  <button
+                    key={b}
+                    type="button"
+                    aria-pressed={destekBolumu === b}
+                    onClick={() => setDestekBolumu(b)}
+                    className={`rounded-full border px-4 py-1.5 text-xs font-medium transition-colors ${
+                      destekBolumu === b
+                        ? 'border-primary/50 bg-primary/15 text-white'
+                        : 'border-white/10 bg-white/[0.03] text-muted-foreground hover:border-white/25'
+                    }`}
+                  >
+                    {t(`destek.${b}`)}
+                    {b === 'kullanici' ? ` (${tickets.length})` : ''}
+                  </button>
+                ))}
+              </div>
+
+              {destekBolumu === 'calisan' ? (
+                <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
+                  <EkipPaneli />
+                </Suspense>
+              ) : destekBolumu === 'rapor' ? (
+                <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
+                  <MusteriRaporlari />
+                </Suspense>
+              ) : (
               <div className="grid gap-3">
                 {tickets.map((tk) => (
                   <div key={tk.id} className="p-5 rounded-xl glass">
@@ -1110,6 +1469,11 @@ export default function AdminPanel() {
                           >
                             {tk.status === 'answered' ? t('ui.status.answered') : t('ui.status.open')}
                           </span>
+                          {tk.hizmet ? (
+                            <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+                              {t(`talep.hizmetler.${tk.hizmet}`, { defaultValue: tk.hizmet })}
+                            </span>
+                          ) : null}
                         </div>
                         <p className="text-xs text-muted-foreground">
                           {tk.client_name} • {tk.client_email}
@@ -1118,27 +1482,66 @@ export default function AdminPanel() {
                       <Button
                         size="sm"
                         variant="ghost"
-                        onClick={() => {
-                          setReplyTicket(tk);
-                          setReplyText(tk.reply || '');
-                        }}
+                        onClick={() =>
+                          setAcikTalep(acikTalep === Number(tk.id) ? null : Number(tk.id))
+                        }
                         className="gap-1 text-purple-300"
                       >
-                        <MessageSquare className="h-4 w-4" /> {t('admin.replyBtn')}
+                        <MessageSquare className="h-4 w-4" />
+                        {acikTalep === Number(tk.id) ? t('talep.kapat') : t('talep.ac')}
                       </Button>
+                      <select
+                        value={tk.atanan || ''}
+                        onChange={(e) => void atamaDegistir(Number(tk.id), e.target.value)}
+                        aria-label={t('destek.atananSec')}
+                        className="rounded-md border border-white/10 bg-black/40 px-2.5 py-1.5 text-xs text-white"
+                      >
+                        <option value="">{t('destek.atanmamis')}</option>
+                        {ekip.map((k) => (
+                          <option key={k.id} value={k.email}>
+                            {k.ad}
+                          </option>
+                        ))}
+                      </select>
+                      {silinecekTalep === Number(tk.id) ? (
+                        <span className="flex items-center gap-2">
+                          <span className="text-xs text-orange-300">{t('destek.talepSilOnay')}</span>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-xs text-destructive hover:text-destructive"
+                            onClick={() => void talepSil(tk.id)}
+                          >
+                            {t('odeme.silEvet')}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-xs"
+                            onClick={() => setSilinecekTalep(null)}
+                          >
+                            {t('odeme.silVazgec')}
+                          </Button>
+                        </span>
+                      ) : (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          aria-label={t('destek.talepSil')}
+                          title={t('destek.talepSil')}
+                          className="text-destructive hover:text-destructive"
+                          onClick={() => setSilinecekTalep(Number(tk.id))}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      )}
                     </div>
-                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                      {tk.message}
-                    </p>
-                    {tk.reply && (
-                      <div className="mt-3 pt-3 border-t border-white/10">
-                        <p className="text-xs uppercase tracking-widest text-purple-400 mb-1">
-                          {t('admin.yourReply')}
-                        </p>
-                        <p className="text-sm whitespace-pre-wrap">
-                          {tk.reply}
-                        </p>
-                      </div>
+                    {acikTalep !== Number(tk.id) ? (
+                      <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-2">
+                        {tk.message}
+                      </p>
+                    ) : (
+                      <TalepYazismasi ticketId={Number(tk.id)} bizKimiz="ajans" />
                     )}
                   </div>
                 ))}
@@ -1148,6 +1551,7 @@ export default function AdminPanel() {
                   </div>
                 )}
               </div>
+              )}
             </div>
           )}
 
@@ -1165,12 +1569,18 @@ export default function AdminPanel() {
                           <h3 className="font-semibold">{inq.name}</h3>
                           <span
                             className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full ${
-                              inq.status === 'resolved'
-                                ? 'bg-emerald-500/15 text-emerald-300'
-                                : 'bg-pink-500/15 text-pink-300'
+                              inq.status === 'converted'
+                                ? 'bg-purple-500/15 text-purple-300'
+                                : inq.status === 'resolved'
+                                  ? 'bg-emerald-500/15 text-emerald-300'
+                                  : 'bg-pink-500/15 text-pink-300'
                             }`}
                           >
-                            {inq.status === 'resolved' ? t('admin.resolved') : t('admin.newLabel')}
+                            {inq.status === 'converted'
+                              ? t('admin.convertedLabel')
+                              : inq.status === 'resolved'
+                                ? t('admin.resolved')
+                                : t('admin.newLabel')}
                           </span>
                         </div>
                         <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
@@ -1188,18 +1598,60 @@ export default function AdminPanel() {
                               )}
                             </span>
                           )}
+                          {/*
+                            Kaynak yalnizca VARSA gosteriliyor. Olcum
+                            baslamadan once gelen taleplerde sutun bos;
+                            oraya "bilinmiyor" yazmak, gercekten bilinmeyeni
+                            bir kategori gibi gosterirdi.
+                          */}
+                          {inq.source && (
+                            <span className="rounded-full bg-white/5 px-2 py-0.5 font-mono text-[10px]">
+                              {inq.source}
+                            </span>
+                          )}
                         </div>
                       </div>
-                      {inq.status !== 'resolved' && (
+                      {/*
+                        Çevrilmiş talepte "projeye çevir" göstermiyoruz:
+                        ikinci kez basmak aynı müşteri için ikinci bir proje
+                        açar ve panelinde iki kopya görünür.
+                      */}
+                      <div className="flex flex-none flex-wrap justify-end gap-1">
+                        {/*
+                          Uzman promptları her talepte duruyor, çevrilmişte
+                          de: işe başlarken de, iş ortasında da aynı brief
+                          lazım oluyor.
+                        */}
                         <Button
                           size="sm"
                           variant="ghost"
-                          onClick={() => markInquiryResolved(inq)}
-                          className="gap-1 text-emerald-300"
+                          onClick={() => setPromptTalebi(inq)}
+                          className="gap-1 text-purple-300"
                         >
-                          <CheckCircle2 className="h-4 w-4" /> {t('admin.resolved')}
+                          <Sparkles className="h-4 w-4" />
+                          {t(inq.brief ? 'uzman.dugmeHazir' : 'uzman.dugme')}
                         </Button>
-                      )}
+                        {inq.status !== 'converted' && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => talebiProjeyeCevir(inq)}
+                            className="gap-1 text-purple-300"
+                          >
+                            <Briefcase className="h-4 w-4" /> {t('admin.convertToProject')}
+                          </Button>
+                        )}
+                        {inq.status !== 'resolved' && inq.status !== 'converted' && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => markInquiryResolved(inq)}
+                            className="gap-1 text-emerald-300"
+                          >
+                            <CheckCircle2 className="h-4 w-4" /> {t('admin.resolved')}
+                          </Button>
+                        )}
+                      </div>
                     </div>
                     {inq.subject && (
                       <p className="font-medium text-sm mb-2">{inq.subject}</p>
@@ -1314,14 +1766,37 @@ export default function AdminPanel() {
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
                     {t('admin.stageLabel')}
                   </Label>
-                  <Input
-                    value={editProject.stage || ''}
-                    placeholder={t('admin.stagePlaceholder')}
+                  {/*
+                    Aşama serbest metindi; yazılan her şey kaydediliyordu.
+                    Arka uç anahtar bekliyor, o yüzden "Tasarım" gibi bir
+                    metin girilince aşama yöneticisi ve müşteri panelindeki
+                    ray projeyi hiçbir aşamaya oturtamıyordu. Artık liste
+                    arka uçtan geliyor, uydurma değer girilemiyor.
+                  */}
+                  <select
+                    value={asamaAnahtari(editProject.stage)}
                     onChange={(e) =>
                       setEditProject({ ...editProject, stage: e.target.value })
                     }
-                    className="bg-white/5 border-white/10"
-                  />
+                    className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm"
+                  >
+                    {asamaListesi.map((s) => (
+                      <option key={s.key} value={s.key} className="bg-[#150a2b]">
+                        {s.label}
+                      </option>
+                    ))}
+                    {/*
+                      Listede olmayan eski bir değer varsa görünür kalsın:
+                      sessizce başka bir aşamaya atlatmak, projenin nerede
+                      olduğu konusunda yanlış bilgi verir.
+                    */}
+                    {editProject.stage &&
+                      !asamaListesi.some((s) => s.key === asamaAnahtari(editProject.stage)) && (
+                        <option value={editProject.stage} className="bg-[#150a2b]">
+                          {editProject.stage} ({t('admin.unknownStage')})
+                        </option>
+                      )}
+                  </select>
                 </div>
                 <div>
                   <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
@@ -1434,6 +1909,25 @@ export default function AdminPanel() {
                 />
                 {t('admin.featuredProject')}
               </label>
+              <div>
+                <label className="flex items-center gap-2 text-sm cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={!!editProject.published}
+                    onChange={(e) =>
+                      setEditProject({
+                        ...editProject,
+                        published: e.target.checked,
+                      })
+                    }
+                    className="rounded"
+                  />
+                  {t('admin.publishedProject')}
+                </label>
+                <p className="mt-1 ml-6 text-xs text-muted-foreground">
+                  {t('admin.publishHint')}
+                </p>
+              </div>
             </div>
             <div className="flex gap-3 mt-8">
               <Button
@@ -1770,45 +2264,99 @@ export default function AdminPanel() {
         </div>
       )}
 
-      {/* Destek yanıt modalı */}
-      {replyTicket && (
+      {promptProjesi && (
+        <UzmanPromptlari
+          kayitTuru="projects"
+          talepId={promptProjesi.id}
+          musteri={promptProjesi.client_name || ''}
+          musteriEposta={promptProjesi.client_email || ''}
+          konu={promptProjesi.title}
+          mesaj={promptProjesi.description || ''}
+          kayitliBrief={promptProjesi.brief}
+          onSaved={loadAll}
+          onClose={() => setPromptProjesi(null)}
+        />
+      )}
+
+      {promptTalebi && (
+        <UzmanPromptlari
+          kayitTuru="inquiries"
+          talepId={promptTalebi.id}
+          musteri={promptTalebi.name}
+          musteriEposta={promptTalebi.email || ''}
+          konu={promptTalebi.subject || ''}
+          mesaj={promptTalebi.message}
+          kayitliBrief={promptTalebi.brief}
+          onSaved={loadAll}
+          onClose={() => setPromptTalebi(null)}
+        />
+      )}
+
+      {/* Davet e-postasi gitmediyse: metni elden gondermek icin */}
+      {davetYedegi && (
         <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="relative w-full max-w-lg my-8 rounded-2xl glass p-8 border border-purple-500/30">
+          <div className="relative w-full max-w-xl my-8 rounded-2xl glass p-8 border border-purple-500/30">
             <button
               className="absolute top-4 right-4 p-2 hover:bg-white/5 rounded-lg"
-              onClick={() => setReplyTicket(null)}
+              onClick={() => setDavetYedegi(null)}
             >
               <X className="h-4 w-4" />
             </button>
-            <h3 className="text-xl font-bold mb-2">{replyTicket.subject}</h3>
-            <p className="text-xs text-muted-foreground mb-4">
-              {replyTicket.client_email}
+            <h3 className="text-xl font-bold mb-2">{t('admin.inviteNotSentTitle')}</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              {t('admin.inviteNotSentDesc', { email: davetYedegi.email })}
             </p>
-            <p className="text-sm text-muted-foreground mb-5 p-4 rounded-xl bg-white/5 whitespace-pre-wrap">
-              {replyTicket.message}
-            </p>
-            <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-              {t('admin.yourReply')}
-            </Label>
+            {davetYedegi.epostaAyrinti && (
+              <p className="text-xs text-muted-foreground mb-4 font-mono break-words">
+                {davetYedegi.epostaAyrinti}
+              </p>
+            )}
             <Textarea
-              rows={5}
-              value={replyText}
-              onChange={(e) => setReplyText(e.target.value)}
-              className="bg-white/5 border-white/10"
+              readOnly
+              rows={10}
+              value={davetYedegi.metin}
+              className="bg-white/5 border-white/10 font-mono text-xs"
             />
-            <div className="flex gap-3 mt-6">
+            <div className="flex flex-wrap gap-3 mt-6">
               <Button
-                onClick={sendReply}
-                className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(davetYedegi.metin);
+                    toast.success(t('admin.inviteCopied'));
+                  } catch {
+                    // Panoya yazma izni yoksa metin zaten ekranda duruyor.
+                    toast.warning(t('admin.inviteCopyFailed'));
+                  }
+                }}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
               >
-                {t('admin.sendReply')}
+                {t('admin.inviteCopy')}
               </Button>
               <Button
-                onClick={() => setReplyTicket(null)}
+                asChild
                 variant="outline"
                 className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
               >
-                {t('admin.cancel')}
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(davetYedegi.metin)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('admin.inviteViaWhatsapp')}
+                </a>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="!bg-transparent !hover:bg-transparent border-white/20 h-11"
+              >
+                <a
+                  href={`mailto:${encodeURIComponent(davetYedegi.email)}?subject=${encodeURIComponent(
+                    davetYedegi.baslik,
+                  )}&body=${encodeURIComponent(davetYedegi.metin)}`}
+                >
+                  {t('admin.inviteViaMail')}
+                </a>
               </Button>
             </div>
           </div>

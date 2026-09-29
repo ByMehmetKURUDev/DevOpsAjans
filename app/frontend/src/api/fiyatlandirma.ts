@@ -1,0 +1,151 @@
+import { getAPIBaseURL } from '../lib/config';
+
+/**
+ * Fiyatlandırma v5 — backend'deki `routers/fiyatlandirma.py` (herkese açık,
+ * `entity_guard`'a bağlı değil) ve `routers/pricing_entities.py` (katalog
+ * tabloları artık `HERKESE_ACIK_OKUMA`'da, girişsiz okunabiliyor) ile
+ * konuşan ince istemci.
+ *
+ * `@metagptx/web-sdk` üretilmiş istemcisi kullanılmıyor: `/fiyat-hesapla`
+ * ve `/fiyat-teklif` entity CRUD şeklinde değil, SDK'nın bunları tanıması
+ * garanti değil. `src/api/settings.ts` ile aynı düz `fetch` deseni izleniyor.
+ */
+
+const apiBase = () => `${getAPIBaseURL()}/api/v1`;
+
+export type FiyatPeriyodu = 'aylik' | 'yillik' | 'tek_seferlik';
+
+export interface PricingProfile {
+  id: number;
+  kod: string;
+  ad: string;
+  carpan: number;
+  etiket: string | null;
+  sira: number;
+}
+
+export interface PricingScale {
+  id: number;
+  kod: string;
+  sira: number;
+  ad: string;
+  alt_baslik: string;
+  calisan_araligi: string;
+  aciklama: string;
+  baz_aylik_fiyat_usd: number;
+  ozellikler: string[] | null;
+  eklenti_limiti: string | null;
+  revizyon_saat: string | null;
+  populer: boolean;
+  karsilastirma: Record<string, string> | null;
+}
+
+export interface PricingService {
+  id: number;
+  kategori: string;
+  ad: string;
+  baz_fiyat_usd: number;
+  tek_seferlik: boolean;
+  not_metni: string | null;
+  yeni: boolean;
+}
+
+export interface PricingAddon {
+  id: number;
+  scale_kod: string;
+  ad: string;
+  baz_fiyat_usd: number;
+  birim: string | null;
+  sira: number;
+}
+
+export interface AiPmTier {
+  id: number;
+  kod: string;
+  ad: string;
+  fiyat_aylik_usd: number;
+  rozet: string | null;
+  ozellikler: string[] | null;
+  sira: number;
+}
+
+export interface FiyatHesaplaSonucu {
+  paket_fiyat: number;
+  eklentiler_toplami: number;
+  toplam: number;
+  para_birimi: string;
+  formul_notu: string | null;
+  eklenti_detay: { kod: string; fiyat: number }[];
+}
+
+export interface FiyatTeklifIstegi {
+  scale?: string;
+  profile?: string;
+  period?: FiyatPeriyodu;
+  addon_ids?: string[];
+  ai_pm_tier_kod?: string;
+  musteri_eposta: string;
+  musteri_adi?: string;
+}
+
+export interface FiyatTeklifSonucu {
+  inquiry_id: number;
+  invoice_id: number;
+  toplam: number;
+}
+
+/** Sunucudan HTTP hatası geldiğinde kullanıcıya gösterilecek Türkçe mesajı çıkarır. */
+async function ayikla(response: Response): Promise<never> {
+  let detail: string | undefined;
+  try {
+    const body = await response.json();
+    detail = body?.detail;
+  } catch {
+    /* JSON degil */
+  }
+  const hata = new Error(detail || `İstek başarısız (${response.status})`) as Error & { status?: number };
+  hata.status = response.status;
+  throw hata;
+}
+
+async function getJSON<T>(path: string, params?: Record<string, string>): Promise<T> {
+  const url = new URL(`${apiBase()}${path}`, window.location.origin);
+  if (params) {
+    for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v);
+  }
+  const response = await fetch(url.toString());
+  if (!response.ok) return ayikla(response);
+  return response.json();
+}
+
+/** Public entity okuma: `/api/v1/entities/<table>/all` — artık girişsiz açık. */
+async function entityAll<T>(table: string): Promise<T[]> {
+  const data = await getJSON<{ items: T[] }>(`/entities/${table}/all`);
+  return data.items ?? [];
+}
+
+export const fiyatlandirmaApi = {
+  scales: () => entityAll<PricingScale>('pricing_scales'),
+  profiles: () => entityAll<PricingProfile>('pricing_profiles'),
+  services: () => entityAll<PricingService>('pricing_services'),
+  addons: () => entityAll<PricingAddon>('pricing_addons'),
+  aiPmTiers: () => entityAll<AiPmTier>('ai_pm_tiers'),
+
+  hesapla: (args: { scale: string; profile: string; period: FiyatPeriyodu; addons: string[] }) =>
+    getJSON<FiyatHesaplaSonucu>('/fiyat-hesapla', {
+      scale: args.scale,
+      profile: args.profile,
+      period: args.period,
+      addons: args.addons.join(','),
+    }),
+
+  teklifGonder: async (istek: FiyatTeklifIstegi): Promise<FiyatTeklifSonucu> => {
+    const response = await fetch(`${apiBase()}/fiyat-teklif`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(istek),
+    });
+    if (!response.ok) return ayikla(response);
+    return response.json();
+  },
+};
