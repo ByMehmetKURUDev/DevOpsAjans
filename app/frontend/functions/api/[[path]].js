@@ -28,6 +28,11 @@ export async function onRequest({ request, env }) {
   const istek = new Request(hedef, request);
   istek.headers.set('X-Forwarded-Host', url.host);
   istek.headers.set('X-Forwarded-Proto', url.protocol.replace(':', ''));
+  // Arka uca Worker alt isteğiyle gidildiği için oradaki CF-Connecting-IP
+  // Worker'ın adresi olur; ziyaretçinin adresini ayrıca taşıyoruz (IP sınırları).
+  const ziyaretciIp = request.headers.get('CF-Connecting-IP');
+  if (ziyaretciIp) istek.headers.set('X-MK-Istemci-IP', ziyaretciIp);
+  else istek.headers.delete('X-MK-Istemci-IP');
 
   try {
     return await fetch(istek);

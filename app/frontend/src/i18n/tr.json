@@ -448,7 +448,9 @@
     "emailMismatchDesc": "Panel kayıtları e-posta adresinize göre eşleştiriyor. Şu an {{email}} adresiyle giriş yaptınız. Projeniz başka bir adrese bağlıysa burada görünmez — bu durumda bize yazın, adresi eşitleyelim.",
     "emailMismatchCta": "Bize yazın",
     "tabMarketplace": "Marketplace",
-    "tabIcerik": "İçerik"
+    "tabIcerik": "İçerik",
+    "tabSiteAnalizleri": "Site analizleri",
+    "tabAnaliz": "Site analizi"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -582,7 +584,9 @@
     "desc": "Cesur, yüksek performanslı yazılım ve unutulmaz markalar üreten butik bir geliştirme ve dijital ajans. Özel geliştirme, dijital pazarlama ve ürün tasarımı.",
     "navigate": "Gezinti",
     "contact": "İletişim",
-    "copyright": "By@MehmetKURU.Dev"
+    "copyright": "By@MehmetKURU.Dev",
+    "siteAnalizi": "Ücretsiz site analizi",
+    "roadmap": "Yol haritası"
   },
   "settingsForm": {
     "brandTitle": "Marka",
@@ -664,7 +668,9 @@
     "fSeoMarketplaceTitle": "Marketplace — başlık",
     "fSeoMarketplaceDesc": "Marketplace — açıklama",
     "fSeoRoadmapTitle": "Yol haritası — başlık",
-    "fSeoRoadmapDesc": "Yol haritası — açıklama"
+    "fSeoRoadmapDesc": "Yol haritası — açıklama",
+    "fSeoSiteAnalysisTitle": "Site analizi — başlık",
+    "fSeoSiteAnalysisDesc": "Site analizi — açıklama"
   },
   "tools": {
     "sectionTag": "Kullanılan Araçlar",

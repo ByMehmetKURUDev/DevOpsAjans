@@ -28,7 +28,6 @@ yormak için kullanılabilirdi.
 import asyncio
 import logging
 import os
-import re
 import time
 from typing import Dict, List, Optional, Tuple
 
@@ -38,6 +37,7 @@ from dependencies.kayit_sahipligi import _yonetici_mi
 from fastapi import APIRouter, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from pydantic import BaseModel
+from services import site_inceleme
 
 logger = logging.getLogger(__name__)
 
@@ -116,73 +116,15 @@ class TaramaRaporu(BaseModel):
 
 
 # --------------------------------------------------------------------------
-# HTML'i regex ile okuyoruz. Tam bir ayrıştırıcı değil ve olmak zorunda da
-# değil: baktığımız etiketlerin hepsi <head> içinde, tek satırlık, üretilmiş
-# çıktı. Bağımlılık eklememek (beautifulsoup/lxml) ücretsiz katmanda
-# derleme süresi ve bellek demek.
+# HTML okuma `services/site_inceleme.py`'de: aynı kurallar herkese açık site
+# analizinde de kullanılıyor, iki yerde ayrı yazılıp ayrışmasınlar diye.
+# Buradaki kısa adlar eski çağrı noktalarını korumak için.
 # --------------------------------------------------------------------------
 
-_BASLIK = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
-_H1 = re.compile(r"<h1[\s>]", re.I)
-_LANG = re.compile(r"<html[^>]*\slang\s*=\s*[\"']([^\"']+)", re.I)
-_CANONICAL = re.compile(r"<link[^>]+rel\s*=\s*[\"']canonical[\"'][^>]*>", re.I)
-_IMG = re.compile(r"<img\b[^>]*>", re.I)
-_ALT = re.compile(r"\salt\s*=", re.I)
-#: Ayni geri basvuru mantigi: apostrof tasiyan adres kesilmesin.
-_HREF = re.compile(r"<a\b[^>]*\shref\s*=\s*([\"'])(.*?)\1", re.I)
-_ETIKET_TEMIZ = re.compile(r"<[^>]+>")
-
-
-def _meta(html: str, ad: str, alan: str = "name") -> str:
-    kalip = re.compile(
-        r"<meta[^>]+" + alan + r"\s*=\s*[\"']" + re.escape(ad) + r"[\"'][^>]*>",
-        re.I,
-    )
-    m = kalip.search(html)
-    if not m:
-        return ""
-    # Kapanis tirnagi ACILIS tirnagiyla ayni olmali (geri basvuru).
-    # Onceden `[\"']` yaziyordu: content="Turkiye'nin ..." gibi bir
-    # degerde ic apostrof kapanis sanilip metin 7 karakterde kesiliyordu.
-    # Tarama da "aciklama cok kisa" diye YANLIS uyari veriyordu.
-    icerik = re.search(r"content\s*=\s*([\"'])(.*?)\1", m.group(0), re.I | re.S)
-    return (icerik.group(2).strip() if icerik else "")
-
-
-def _genislik(metin: str) -> int:
-    """Metnin arama sonucunda kaplayacagi yaklasik genislik.
-
-    Google baslik ve aciklamayi karakter sayisina gore degil, PIKSEL
-    genisligine gore kesiyor. Cince/Japonca/Korece karakterler latin
-    harflerin yaklasik iki kati genislikte; ayni bilgi yarisi kadar
-    karakterle anlatiliyor.
-
-    Karakter sayarak olctugumuzde Cince sayfalarin hepsi "aciklama cok
-    kisa" diye uyari veriyordu -- 64 karakterlik bir Cince aciklama
-    aslinda ~130 latin karakteri genisliginde ve gayet yeterli. Bu
-    yuzden CJK araliklarindaki her karakter iki sayiliyor.
-    """
-    toplam = 0
-    for ch in metin:
-        k = ord(ch)
-        genis = (
-            0x1100 <= k <= 0x115F        # Hangul Jamo
-            or 0x2E80 <= k <= 0xA4CF     # CJK radikalleri, Kana, Han
-            or 0xAC00 <= k <= 0xD7A3     # Hangul heceleri
-            or 0xF900 <= k <= 0xFAFF     # CJK uyumluluk
-            or 0xFF00 <= k <= 0xFF60     # tam genislikte biçimler
-            or 0x20000 <= k <= 0x3FFFD   # CJK ek düzlemler
-        )
-        toplam += 2 if genis else 1
-    return toplam
-
-
-def _metin(ham: str) -> str:
-    return _ETIKET_TEMIZ.sub("", ham).strip()
-
-
-def _sitemap_adresleri(xml: str) -> List[str]:
-    return [u.strip() for u in re.findall(r"<loc>(.*?)</loc>", xml, re.I | re.S)]
+_meta = site_inceleme.meta
+_genislik = site_inceleme.genislik
+_metin = site_inceleme.metin
+_sitemap_adresleri = site_inceleme.sitemap_adresleri
 
 
 def _ic_baglanti_mi(url: str) -> bool:
@@ -191,20 +133,7 @@ def _ic_baglanti_mi(url: str) -> bool:
 
 def _normalize(ham: str, sayfa: str) -> Optional[str]:
     """Göreli adresi mutlak yapar; site dışını ve gezilemezleri eler."""
-    u = ham.strip()
-    if not u or u.startswith("#"):
-        return None
-    if u.startswith(("mailto:", "tel:", "sms:", "javascript:", "data:", "whatsapp:")):
-        return None
-    if u.startswith("//"):
-        return None
-    if u.startswith("/"):
-        u = SITE_ADRESI + u
-    elif not u.startswith("http"):
-        taban = sayfa.rsplit("/", 1)[0]
-        u = f"{taban}/{u}"
-    u = u.split("#", 1)[0].rstrip("/")
-    return u or SITE_ADRESI
+    return site_inceleme.normalize(ham, sayfa, SITE_ADRESI)
 
 
 def _sayfayi_incele(url: str, durum: int, sure_ms: int, html: str) -> Tuple[SayfaRaporu, List[str]]:
@@ -219,8 +148,9 @@ def _sayfayi_incele(url: str, durum: int, sure_ms: int, html: str) -> Tuple[Sayf
     if sure_ms > 2500:
         bulgular.append(Bulgu(kod="yavas", seviye="uyari", deger=sure_ms))
 
-    m = _BASLIK.search(html)
-    baslik = _metin(m.group(1)) if m else ""
+    oz = site_inceleme.sayfa_ozellikleri(html)
+
+    baslik = oz.baslik
     if not baslik:
         bulgular.append(Bulgu(kod="baslik_yok", seviye="hata"))
     elif _genislik(baslik) < BASLIK_ALT:
@@ -228,7 +158,7 @@ def _sayfayi_incele(url: str, durum: int, sure_ms: int, html: str) -> Tuple[Sayf
     elif _genislik(baslik) > BASLIK_UST:
         bulgular.append(Bulgu(kod="baslik_uzun", seviye="uyari", deger=_genislik(baslik)))
 
-    aciklama = _meta(html, "description")
+    aciklama = oz.aciklama
     if not aciklama:
         bulgular.append(Bulgu(kod="aciklama_yok", seviye="hata"))
     elif _genislik(aciklama) < ACIKLAMA_ALT:
@@ -236,33 +166,30 @@ def _sayfayi_incele(url: str, durum: int, sure_ms: int, html: str) -> Tuple[Sayf
     elif _genislik(aciklama) > ACIKLAMA_UST:
         bulgular.append(Bulgu(kod="aciklama_uzun", seviye="uyari", deger=_genislik(aciklama)))
 
-    h1_sayisi = len(_H1.findall(html))
-    if h1_sayisi == 0:
+    if oz.h1_sayisi == 0:
         bulgular.append(Bulgu(kod="h1_yok", seviye="hata"))
-    elif h1_sayisi > 1:
-        bulgular.append(Bulgu(kod="h1_fazla", seviye="uyari", deger=h1_sayisi))
+    elif oz.h1_sayisi > 1:
+        bulgular.append(Bulgu(kod="h1_fazla", seviye="uyari", deger=oz.h1_sayisi))
 
-    if not _CANONICAL.search(html):
+    if not oz.canonical_var:
         bulgular.append(Bulgu(kod="canonical_yok", seviye="uyari"))
 
-    if not _LANG.search(html):
+    if not oz.lang_var:
         bulgular.append(Bulgu(kod="lang_yok", seviye="uyari"))
 
-    if not _meta(html, "og:image", alan="property"):
+    if not oz.og_image_var:
         bulgular.append(Bulgu(kod="og_yok", seviye="bilgi"))
 
-    robots = (_meta(html, "robots") or "").lower()
-    if "noindex" in robots:
+    if "noindex" in oz.robots_meta:
         bulgular.append(Bulgu(kod="noindex", seviye="hata"))
 
-    altsiz = sum(1 for g in _IMG.findall(html) if not _ALT.search(g))
-    if altsiz:
-        bulgular.append(Bulgu(kod="alt_yok", seviye="uyari", deger=altsiz))
+    if oz.altsiz_gorsel:
+        bulgular.append(Bulgu(kod="alt_yok", seviye="uyari", deger=oz.altsiz_gorsel))
 
     if len(html) > 400_000:
         bulgular.append(Bulgu(kod="agir", seviye="uyari", deger=len(html) // 1024))
 
-    for _tirnak, ham in _HREF.findall(html):
+    for ham in oz.hrefler:
         hedef = _normalize(ham, url)
         if hedef and _ic_baglanti_mi(hedef):
             baglantilar.append(hedef)

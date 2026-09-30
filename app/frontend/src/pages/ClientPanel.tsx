@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ekliLazy } from '@/i18n/ekliLazy';
+import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Loader2,
   LogIn,
@@ -14,6 +15,7 @@ import {
   UserPlus,
   FileText,
   ShieldCheck,
+  Gauge,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,6 +32,8 @@ import { useStageLabels } from '@/lib/projectEvents';
 import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import { useSiteSettings } from '@/lib/siteSettings';
 
+// Site analizi sekmesi ayrı parçada: rapor görünümü panele her girişte inmesin.
+const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
 
 interface AuthUser {
   id?: string;
@@ -79,7 +83,7 @@ interface Ticket {
   created_at?: string;
 }
 
-type Tab = 'projects' | 'invoices' | 'tickets' | 'raporlar' | 'sitem' | 'profile';
+type Tab = 'projects' | 'invoices' | 'tickets' | 'raporlar' | 'sitem' | 'analiz' | 'profile';
 
 
 export default function ClientPanel() {
@@ -282,6 +286,7 @@ export default function ClientPanel() {
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'raporlar', label: t('rapor.sekme'), icon: FileText },
     { key: 'sitem', label: t('sitem.sekme'), icon: ShieldCheck },
+    { key: 'analiz', label: t('ui.tabAnaliz'), icon: Gauge },
     { key: 'profile', label: t('ui.tabProfile'), icon: UserCog },
   ];
 
@@ -740,6 +745,18 @@ export default function ClientPanel() {
               <h3 className="mb-4 text-lg font-semibold">{t('sitem.sekme')}</h3>
               <SiteBakimIzni />
             </div>
+          )}
+
+          {tab === 'analiz' && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <SiteAnalizim />
+            </Suspense>
           )}
 
           {tab === 'profile' && (

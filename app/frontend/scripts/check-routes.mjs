@@ -39,6 +39,8 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   // Ödeme bağlantısı jetona özel: her adres tek bir faturaya ait,
   // önceden üretilecek bir HTML'i yok ve dizine girmemeli.
   '/ode/:jeton',
+  // Site analiz raporu da jetona özel (e-postayla gidiyor), noindex.
+  '/rapor/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

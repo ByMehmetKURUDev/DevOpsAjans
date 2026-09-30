@@ -30,9 +30,9 @@ interface PageSectionsPanelProps {
 
 /**
  * Panelde listelenen sayfalar. Bölüm düzeni olmayan sayfalar (Marketplace,
- * Yol haritası, Blog dizini) yalnızca SEO metni taşıyor.
+ * Yol haritası, Site analizi, Blog dizini) yalnızca SEO metni taşıyor.
  */
-const YALNIZ_SEO = ['marketplace', 'roadmap', 'blog'];
+const YALNIZ_SEO = ['marketplace', 'roadmap', 'siteAnalysis', 'blog'];
 const SAYFALAR = [...PAGE_KEYS, ...YALNIZ_SEO];
 
 const SAYFA_ADI: Record<string, string> = {
@@ -42,6 +42,7 @@ const SAYFA_ADI: Record<string, string> = {
   contact: 'nav.contact',
   marketplace: 'nav.marketplace',
   roadmap: 'nav.roadmap',
+  siteAnalysis: 'footer.siteAnalizi',
   blog: 'nav.blog',
 };
 

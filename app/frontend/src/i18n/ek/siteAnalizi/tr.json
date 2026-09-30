@@ -1,0 +1,436 @@
+{
+  "siteAnalizi": {
+    "etiket": "Ücretsiz araç",
+    "baslik1": "Ücretsiz",
+    "baslikVurgu": "site analizi",
+    "giris": "Alan adınızı yazın; sitenizin hızını, SEO'sunu, içeriğini, teknik altyapısını, güvenliğini ve yapay zekâ görünürlüğünü dışarıdan inceleyip 100 üzerinden puanlayalım. Kayıt gerekmez.",
+    "adresEtiketi": "Site adresi",
+    "adresOrnek": "ornek.com",
+    "analizEt": "Analiz et",
+    "calisiyor": "Analiz ediliyor…",
+    "bekleyin": "Site dışarıdan inceleniyor ve hız ölçülüyor; bu yaklaşık 30 saniye sürebilir. Lütfen sayfadan ayrılmayın.",
+    "neOlcuyor": "Hız (Google PageSpeed), SEO, içerik, teknik altyapı, güvenlik başlıkları ve yapay zekâ görünürlüğü ölçülür. Aynı site günde en fazla 3 kez analiz edilebilir.",
+    "genelPuan": "Genel puan",
+    "olculemedi": "Ölçülemedi",
+    "ozetNotu": "Her bölümde en önemli üç bulgu gösteriliyor. Bütün bulgular ve her biri için ne yapılması gerektiği tam raporda.",
+    "yeniAnaliz": "Başka bir site analiz et",
+    "derece": {
+      "iyi": "İyi",
+      "orta": "Geliştirilmeli",
+      "zayif": "Zayıf"
+    },
+    "bolum": {
+      "hiz": "Hız",
+      "seo": "SEO",
+      "icerik": "İçerik",
+      "teknik": "Teknik",
+      "guvenlik": "Güvenlik",
+      "ai": "Yapay zekâ görünürlüğü"
+    },
+    "bolumAciklama": {
+      "hiz": "Google PageSpeed ile mobil ve masaüstü performans, LCP, CLS ve TBT.",
+      "seo": "Başlık, açıklama, H1, canonical, robots.txt, site haritası ve yapılandırılmış veri.",
+      "icerik": "Metin miktarı, görsellerin alt metinleri ve kırık iç bağlantılar.",
+      "teknik": "HTTPS, yönlendirmeler, durum kodları, sıkıştırma ve önbellek.",
+      "guvenlik": "Güvenlik başlıkları ve SSL sertifikasının geçerlilik süresi.",
+      "ai": "llms.txt, yapay zekâ tarayıcılarına erişim ve yapılandırılmış veri."
+    },
+    "tamRapor": {
+      "baslik": "Tam raporu e-postayla alın",
+      "aciklama": "Bütün bulgular, her biri için neden önemli olduğu ve ne yapılması gerektiği, taranan sayfalar ve kırık bağlantıların listesiyle yazdırılabilir tam rapor. Bağlantı 30 gün geçerli.",
+      "ad": "Adınız (isteğe bağlı)",
+      "eposta": "E-posta adresiniz",
+      "kvkk": "Raporun gönderilmesi ve bu analizle ilgili bana dönüş yapılması için ad ve e-posta bilgilerimin KVKK kapsamında işlenmesini kabul ediyorum.",
+      "gonder": "Tam raporu gönder",
+      "basarili": "Tam rapor bağlantısı e-posta adresinize gönderildi.",
+      "basariliAciklama": "Gelen kutunuzu (ve istenmeyen klasörünü) kontrol edin. Bağlantı 30 gün geçerli."
+    },
+    "teklif": {
+      "baslik": "Bu sorunları birlikte çözelim",
+      "aciklama": "Rapordaki bulguları önceliklendirip sitenizi hızlı, güvenli ve bulunur hâle getiriyoruz. Size uygun planı birlikte çıkaralım.",
+      "teklifAl": "Teklif al",
+      "hizmetler": "Hizmetleri incele"
+    },
+    "hata": {
+      "adres_gecersiz": "Geçerli bir site adresi yazın (ör. ornek.com).",
+      "adres_yasak": "Bu adres analiz edilemez. Herkese açık bir web sitesi adresi yazın.",
+      "cozumlenemedi": "Bu alan adı bulunamadı. Yazımı kontrol edin.",
+      "ulasilamadi": "Siteye ulaşılamadı. Sitenin açık olduğundan emin olup yeniden deneyin.",
+      "cok_yonlendirme": "Site çok fazla yönlendirme yapıyor; analiz tamamlanamadı.",
+      "sinir_alan": "Bu site bugün 3 kez analiz edildi. Yarın yeniden deneyebilirsiniz.",
+      "sinir_ip": "Kısa sürede çok fazla analiz yaptınız. Bir saat sonra yeniden deneyin.",
+      "sinir_musteri": "Günlük 10 analiz sınırına ulaştınız. Yarın yeniden deneyin.",
+      "kvkk_gerekli": "Devam etmek için KVKK onay kutusunu işaretleyin.",
+      "eposta_gecersiz": "Geçerli bir e-posta adresi yazın.",
+      "eposta_farkli": "Bu rapor başka bir e-posta adresine gönderildi. Siteyi yeniden analiz edebilirsiniz.",
+      "analiz_tamamlanmadi": "Bu analiz tamamlanmadığı için rapor gönderilemiyor.",
+      "bulunamadi": "Kayıt bulunamadı.",
+      "sure_doldu": "Bu bağlantının süresi doldu.",
+      "beklenmedik": "Analiz sırasında beklenmedik bir hata oluştu. Lütfen yeniden deneyin.",
+      "ag": "Sunucuya ulaşılamadı. İnternet bağlantınızı kontrol edip yeniden deneyin.",
+      "genel": "Bir şeyler ters gitti. Lütfen yeniden deneyin."
+    },
+    "rapor": {
+      "baslik": "Site analiz raporu",
+      "tarih": "Analiz tarihi",
+      "gecerlilik": "bağlantı {{tarih}} tarihine kadar geçerli",
+      "yazdir": "Yazdır / PDF",
+      "neden": "Neden önemli",
+      "oneri": "Ne yapılmalı",
+      "mobil": "Mobil",
+      "masaustu": "Masaüstü",
+      "hizSatiri": "Puan {{puan}} · LCP {{lcp}} sn · CLS {{cls}} · TBT {{tbt}} ms",
+      "kirikBaglantilar": "Kırık bağlantılar",
+      "kaynak": "Geçtiği sayfa",
+      "ulasilamadi": "ulaşılamadı",
+      "ayrinti": "Tarama ayrıntıları",
+      "denetlenen": "{{sayi}} iç bağlantı denetlendi.",
+      "yonlendirmeler": "Yönlendirme zinciri",
+      "sayfalar": "Taranan sayfalar ({{sayi}})",
+      "durum": "Durum",
+      "sureDoldu": "Bu raporun süresi doldu",
+      "sureDolduAciklama": "Rapor bağlantıları 30 gün geçerli. Siteyi yeniden analiz edip yeni bir rapor alabilirsiniz.",
+      "bulunamadi": "Rapor bulunamadı",
+      "bulunamadiAciklama": "Bağlantı hatalı ya da eksik kopyalanmış olabilir.",
+      "yenidenAnaliz": "Yeniden analiz et"
+    },
+    "yonetim": {
+      "baslik": "Site analizleri",
+      "aciklama": "Ücretsiz site analizi sayfasından yapılan analizler ({{sayi}}). E-posta bırakanlar Talepler'e aday olarak da düşer.",
+      "yalnizEposta": "Yalnız e-posta bırakanlar",
+      "yenile": "Yenile",
+      "tarih": "Tarih",
+      "alan": "Alan adı",
+      "puan": "Puan",
+      "eposta": "E-posta",
+      "aday": "Aday",
+      "adayNo": "Talep #{{sayi}}",
+      "epostaYok": "E-posta bırakılmadı",
+      "bos": "Henüz analiz yok.",
+      "kapat": "Listeye dön",
+      "onceki": "Önceki sayfa",
+      "sonraki": "Sonraki sayfa",
+      "sayfa": "Sayfa {{sayi}} / {{toplam}}",
+      "hata": "Site analizleri yüklenemedi.",
+      "kaynak": {
+        "acik": "Herkese açık form",
+        "musteri": "Müşteri paneli",
+        "yonetici": "Yönetici"
+      }
+    },
+    "musteri": {
+      "baslik": "Sitemi analiz et",
+      "aciklama": "Sitenizin hızını, SEO'sunu, güvenliğini ve yapay zekâ görünürlüğünü ölçün; tam rapor doğrudan burada açılır. Günde 10 analiz yapılabilir.",
+      "analizEt": "Analiz et",
+      "sitelerim": "Sitelerinizden seçin:",
+      "gecmis": "Geçmiş analizler",
+      "bos": "Henüz analiz yapmadınız.",
+      "ac": "Raporu aç",
+      "kapat": "Listeye dön",
+      "paylas": "Rapor bağlantısını kopyala",
+      "kopyalandi": "Rapor bağlantısı kopyalandı."
+    },
+    "bulgu": {
+      "hiz_mobil": {
+        "baslik": "Mobil performans puanı: {{deger}}/100",
+        "neden": "Ziyaretçilerin çoğu telefondan geliyor; Google da sıralamada sitenin mobil sürümünü esas alıyor.",
+        "oneri": "Görselleri sıkıştırıp WebP/AVIF'e çevirin, kullanılmayan JavaScript'i azaltın, kritik CSS'i öne alın."
+      },
+      "hiz_masaustu": {
+        "baslik": "Masaüstü performans puanı: {{deger}}/100",
+        "neden": "Yavaş açılan sayfa, iş bilgisayarından gelen ziyaretçinin de sabrını tüketiyor.",
+        "oneri": "Önbellek, sıkıştırma ve CDN kullanın; büyük betikleri ertelemeli (defer) yükleyin."
+      },
+      "lcp": {
+        "baslik": "En büyük içerik boyaması (LCP): {{deger}} ms",
+        "neden": "LCP, sayfanın ana içeriğinin ne zaman göründüğünü ölçer; Google 2,5 saniyenin altını iyi sayıyor.",
+        "oneri": "Ana görseli önceden yükleyin (preload), boyutunu küçültün ve sunucu yanıt süresini kısaltın."
+      },
+      "cls": {
+        "baslik": "Düzen kayması (CLS): {{deger}}",
+        "neden": "Yüklenirken kayan öğeler yanlış tıklamaya ve güven kaybına yol açar; 0,1'in altı iyi sayılıyor.",
+        "oneri": "Görsellere ve reklam alanlarına genişlik/yükseklik verin; yazı tipi yüklenirken yer tutucu kullanın."
+      },
+      "tbt": {
+        "baslik": "Toplam engelleme süresi (TBT): {{deger}} ms",
+        "neden": "Tarayıcı meşgulken sayfa tıklamalara yanıt vermez; 200 ms'nin altı iyi sayılıyor.",
+        "oneri": "Uzun JavaScript görevlerini bölün, üçüncü taraf betikleri azaltın ya da ertelemeli yükleyin."
+      },
+      "hiz_olculemedi": {
+        "baslik": "Hız ölçülemedi",
+        "neden": "Google PageSpeed ölçümü şu an yanıt vermedi; bu bölüm genel puana katılmadı.",
+        "oneri": "Birkaç dakika sonra yeniden deneyin ya da PageSpeed Insights'ta sitenizi elle ölçün."
+      },
+      "title_yok": {
+        "baslik": "Sayfa başlığı (title) yok",
+        "neden": "Başlık, arama sonucunda tıklanan satırdır; yoksa Google kendi metnini seçer.",
+        "oneri": "Her sayfaya 30–60 karakterlik, ana anahtar kelimeyi içeren benzersiz bir <title> yazın."
+      },
+      "title_kisa": {
+        "baslik": "Başlık çok kısa ({{deger}} karakter)",
+        "neden": "Kısa başlık arama sonucundaki alanı boşa harcar ve sayfanın ne anlattığını yeterince söylemez.",
+        "oneri": "Başlığı 30–60 karakter arasına getirin; hizmeti ve markayı birlikte yazın."
+      },
+      "title_uzun": {
+        "baslik": "Başlık çok uzun ({{deger}} karakter)",
+        "neden": "60 karakteri aşan başlık arama sonucunda kesilir; önemli kısım görünmeyebilir.",
+        "oneri": "Başlığı 60 karakterin altına indirin; en önemli kelimeleri başa alın."
+      },
+      "title_iyi": {
+        "baslik": "Başlık uzunluğu uygun ({{deger}} karakter)",
+        "neden": "Başlık arama sonucunda kesilmeden, tam olarak görünür.",
+        "oneri": "Başlığı güncel tutun ve her sayfada benzersiz olmasına dikkat edin."
+      },
+      "aciklama_yok": {
+        "baslik": "Meta açıklama yok",
+        "neden": "Açıklama, arama sonucunda başlığın altındaki metindir; tıklanma oranını doğrudan etkiler.",
+        "oneri": "70–160 karakterlik, sayfayı özetleyen ve harekete çağıran bir meta description yazın."
+      },
+      "aciklama_kisa": {
+        "baslik": "Meta açıklama kısa ({{deger}} karakter)",
+        "neden": "Kısa açıklama ziyaretçiyi tıklamaya ikna edecek bilgiyi vermez.",
+        "oneri": "Açıklamayı 70–160 karakter arasına genişletin; faydayı ve farkınızı anlatın."
+      },
+      "aciklama_uzun": {
+        "baslik": "Meta açıklama uzun ({{deger}} karakter)",
+        "neden": "160 karakteri aşan açıklama arama sonucunda kesilir.",
+        "oneri": "Açıklamayı 160 karakterin altına kısaltın; ana mesajı başa alın."
+      },
+      "aciklama_iyi": {
+        "baslik": "Meta açıklama uzunluğu uygun ({{deger}} karakter)",
+        "neden": "Açıklama arama sonucunda tam görünür ve sayfayı özetler.",
+        "oneri": "Açıklamayı sayfanın içeriğiyle uyumlu tutun."
+      },
+      "h1_yok": {
+        "baslik": "Sayfada H1 başlığı yok",
+        "neden": "H1, sayfanın ana konusunu hem ziyaretçiye hem arama motoruna söyler.",
+        "oneri": "Sayfanın üstüne ana konuyu anlatan tek bir H1 başlığı ekleyin."
+      },
+      "h1_fazla": {
+        "baslik": "Sayfada {{deger}} adet H1 var",
+        "neden": "Birden fazla H1, sayfanın ana konusunu bulanıklaştırır.",
+        "oneri": "Tek bir H1 bırakın; diğer başlıkları H2 ya da H3 yapın."
+      },
+      "canonical_yok": {
+        "baslik": "Canonical bağlantısı yok",
+        "neden": "Aynı içerik farklı adreslerden açılabiliyorsa Google hangisini sıralayacağını bilemez.",
+        "oneri": "Her sayfaya kendi asıl adresini gösteren <link rel=\"canonical\"> ekleyin."
+      },
+      "noindex": {
+        "baslik": "Sayfa arama motorlarına kapalı (noindex)",
+        "neden": "noindex etiketi taşıyan sayfa Google'da hiç görünmez.",
+        "oneri": "Sayfa yayındaysa robots meta etiketindeki noindex ifadesini kaldırın."
+      },
+      "lang_yok": {
+        "baslik": "<html> etiketinde dil (lang) yok",
+        "neden": "Dil bilgisi ekran okuyuculara ve arama motorlarına sayfanın dilini söyler.",
+        "oneri": "<html lang=\"tr\"> gibi sayfanın diline uygun bir lang özniteliği ekleyin."
+      },
+      "robots_txt_yok": {
+        "baslik": "robots.txt yok",
+        "neden": "robots.txt, arama motorlarına nereyi tarayacaklarını ve site haritasının yerini söyler.",
+        "oneri": "Kök dizine bir robots.txt ekleyin ve içine Sitemap: satırını yazın."
+      },
+      "sitemap_yok": {
+        "baslik": "Site haritası (sitemap.xml) bulunamadı",
+        "neden": "Site haritası, arama motorlarının bütün sayfaları hızlıca bulmasını sağlar.",
+        "oneri": "sitemap.xml oluşturun, robots.txt'de belirtin ve Google Search Console'a gönderin."
+      },
+      "sitemap_var": {
+        "baslik": "Site haritasında {{deger}} adres var",
+        "neden": "Arama motorları sayfalarınızı site haritasından kolayca buluyor.",
+        "oneri": "Yeni sayfa eklediğinizde site haritasının kendiliğinden güncellendiğinden emin olun."
+      },
+      "jsonld_yok": {
+        "baslik": "Yapılandırılmış veri (JSON-LD) yok",
+        "neden": "Yapılandırılmış veri; yıldız, SSS ve işletme bilgisi gibi zengin arama görünümlerinin önünü açar.",
+        "oneri": "Organization/LocalBusiness ve sayfa türüne uygun schema.org JSON-LD işaretlemesi ekleyin."
+      },
+      "hreflang_yok": {
+        "baslik": "hreflang etiketi yok",
+        "neden": "Site birden fazla dilde yayındaysa hreflang her ziyaretçiye doğru dil sürümünü gösterir.",
+        "oneri": "Çok dilli bir siteniz varsa her dil sürümü için hreflang bağlantıları ekleyin; tek dilliyse gerek yok."
+      },
+      "sayfa_basliksiz": {
+        "baslik": "{{deger}} sayfada başlık (title) yok",
+        "neden": "Başlıksız sayfalar arama sonuçlarında zayıf ve tutarsız görünür.",
+        "oneri": "Taranan her sayfaya benzersiz bir başlık yazın."
+      },
+      "sayfa_aciklamasiz": {
+        "baslik": "{{deger}} sayfada meta açıklama yok",
+        "neden": "Açıklaması olmayan sayfalarda Google rastgele bir metin parçası gösterir.",
+        "oneri": "Önemli sayfaların hepsine özgün bir meta açıklama yazın."
+      },
+      "icerik_az": {
+        "baslik": "Ana sayfada az metin var ({{deger}} kelime)",
+        "neden": "Arama motorları sayfanın konusunu metinden anlar; ince içerik zor sıralanır.",
+        "oneri": "Hizmetlerinizi, farkınızı ve sık sorulan soruları anlatan en az 300 kelimelik içerik ekleyin."
+      },
+      "kelime_sayisi": {
+        "baslik": "Ana sayfada {{deger}} kelime var",
+        "neden": "Yeterli metin, arama motorlarının sayfanızı doğru anlamasına yardım eder.",
+        "oneri": "İçeriği güncel tutun; ara başlıklarla bölümlere ayırarak okunur kılın."
+      },
+      "alt_yok": {
+        "baslik": "{{deger}} görselde alternatif metin (alt) yok",
+        "neden": "Alt metin, görme engelli ziyaretçiye görseli anlatır ve görsel aramada sıralamaya katkı verir.",
+        "oneri": "Her anlamlı görsele içeriğini anlatan kısa bir alt metni ekleyin; süs görsellerine alt=\"\" yazın."
+      },
+      "alt_tamam": {
+        "baslik": "Görsellerin alternatif metinleri tam",
+        "neden": "Görseller erişilebilir ve arama motorları tarafından anlaşılır.",
+        "oneri": "Yeni görsel eklerken alt metni yazmayı sürdürün."
+      },
+      "kirik_baglanti": {
+        "baslik": "{{deger}} kırık iç bağlantı bulundu",
+        "neden": "Kırık bağlantılar ziyaretçiyi hata sayfasına düşürür ve tarama bütçesini boşa harcar.",
+        "oneri": "Bağlantıları doğru adrese güncelleyin ya da kaldırın; taşınan sayfalar için 301 yönlendirmesi kurun."
+      },
+      "kirik_baglanti_yok": {
+        "baslik": "Kırık iç bağlantı yok ({{deger}} bağlantı denetlendi)",
+        "neden": "Ziyaretçiler ve arama motorları sitede sorunsuz geziniyor.",
+        "oneri": "Sayfa silerken ya da taşırken yönlendirme eklemeyi unutmayın."
+      },
+      "https_var": {
+        "baslik": "Site HTTPS ile açılıyor",
+        "neden": "Şifreli bağlantı ziyaretçinin verisini korur; tarayıcılar HTTP siteleri \"güvenli değil\" diye işaretler.",
+        "oneri": "Görsel ve betik dahil bütün kaynakların HTTPS'ten yüklendiğinden emin olun."
+      },
+      "https_yok": {
+        "baslik": "Site HTTPS kullanmıyor",
+        "neden": "Şifresiz bağlantıda form verileri açıkta gider; tarayıcı ziyaretçiyi uyarır, Google sıralamada geri iter.",
+        "oneri": "Ücretsiz bir SSL sertifikası (ör. Let's Encrypt) kurun ve bütün trafiği HTTPS'e yönlendirin."
+      },
+      "http_yonlendirme_yok": {
+        "baslik": "HTTP adresi HTTPS'e yönlendirilmiyor",
+        "neden": "http:// ile gelen ziyaretçi şifresiz sürümde kalır; aynı sitenin iki kopyası oluşur.",
+        "oneri": "Sunucuda http:// isteklerini 301 ile https:// adresine yönlendirin."
+      },
+      "yonlendirme_uzun": {
+        "baslik": "Ana sayfaya {{deger}} yönlendirmeyle ulaşılıyor",
+        "neden": "Her yönlendirme açılışı geciktirir ve arama motoru değerinin bir kısmını kaybettirir.",
+        "oneri": "Bağlantıları ve sunucu ayarlarını doğrudan son adrese gidecek şekilde düzenleyin."
+      },
+      "ana_sayfa_durum": {
+        "baslik": "Ana sayfa {{deger}} durum kodu döndürüyor",
+        "neden": "Ana sayfa 200 dışında bir kod döndürürse ziyaretçi de arama motoru da içeriğe ulaşamaz.",
+        "oneri": "Sunucu hatasını ya da eksik sayfayı düzeltin; ana sayfa 200 döndürmeli."
+      },
+      "sayfa_hatali": {
+        "baslik": "{{deger}} sayfa hata döndürüyor",
+        "neden": "Site haritasında ya da menüde olup açılmayan sayfalar güven ve sıralama kaybettirir.",
+        "oneri": "Bu sayfaları onarın ya da site haritasından çıkarıp uygun sayfaya yönlendirin."
+      },
+      "sikistirma_yok": {
+        "baslik": "Sıkıştırma (gzip/brotli) kapalı",
+        "neden": "Sıkıştırılmamış HTML, CSS ve JavaScript birkaç kat daha fazla veri indirtir.",
+        "oneri": "Sunucuda ya da CDN'de brotli veya gzip sıkıştırmayı açın."
+      },
+      "sikistirma_var": {
+        "baslik": "Sıkıştırma açık ({{deger}})",
+        "neden": "Sayfalar daha az veriyle, daha hızlı iniyor.",
+        "oneri": "Statik dosyalarda da sıkıştırmanın açık olduğunu kontrol edin."
+      },
+      "onbellek_yok": {
+        "baslik": "Önbellek başlığı (Cache-Control) yok",
+        "neden": "Önbellek talimatı olmayınca tarayıcı ve CDN her ziyarette her şeyi yeniden indirir.",
+        "oneri": "HTML için kısa, sürümlü statik dosyalar için uzun süreli Cache-Control başlıkları tanımlayın."
+      },
+      "yavas_yanit": {
+        "baslik": "Ana sayfa {{deger}} ms'de yanıt verdi",
+        "neden": "Sunucu yavaş yanıt verince sayfanın geri kalanı da gecikir.",
+        "oneri": "Sunucu tarafında önbellek kullanın, veritabanı sorgularını hızlandırın ya da bir CDN ekleyin."
+      },
+      "hsts_yok": {
+        "baslik": "HSTS başlığı yok",
+        "neden": "HSTS, tarayıcıya siteye yalnızca HTTPS ile bağlanmasını söyler; araya girme saldırılarını zorlaştırır.",
+        "oneri": "Strict-Transport-Security: max-age=31536000; includeSubDomains başlığını ekleyin."
+      },
+      "csp_yok": {
+        "baslik": "İçerik güvenlik politikası (CSP) yok",
+        "neden": "CSP, sayfaya sızdırılan zararlı betiklerin (XSS) çalışmasını engelleyen en güçlü katmandır.",
+        "oneri": "Önce Content-Security-Policy-Report-Only ile izin verilen kaynakları belirleyin, sonra politikayı zorunlu hâle getirin."
+      },
+      "frame_koruma_yok": {
+        "baslik": "Çerçeveleme koruması yok",
+        "neden": "Siteniz başka bir sitede görünmez bir çerçeveye alınıp tıklama tuzağında (clickjacking) kullanılabilir.",
+        "oneri": "X-Frame-Options: DENY ya da CSP'de frame-ancestors 'self' tanımlayın."
+      },
+      "nosniff_yok": {
+        "baslik": "X-Content-Type-Options başlığı yok",
+        "neden": "Bu başlık olmadan tarayıcı dosya türünü tahmin eder; zararlı bir dosya betik gibi çalıştırılabilir.",
+        "oneri": "X-Content-Type-Options: nosniff başlığını ekleyin."
+      },
+      "referrer_yok": {
+        "baslik": "Referrer-Policy başlığı yok",
+        "neden": "Ziyaretçi başka bir siteye geçtiğinde tam adres, içindeki parametrelerle birlikte oraya sızabilir.",
+        "oneri": "Referrer-Policy: strict-origin-when-cross-origin başlığını ekleyin."
+      },
+      "guvenlik_basliklari_tamam": {
+        "baslik": "Temel güvenlik başlıkları tam",
+        "neden": "Tarayıcı düzeyindeki yaygın saldırılara karşı temel koruma açık.",
+        "oneri": "Yeni bir üçüncü taraf betik eklerken CSP'yi güncel tutun."
+      },
+      "ssl_gecersiz": {
+        "baslik": "SSL sertifikası geçersiz",
+        "neden": "Geçersiz sertifikada tarayıcı tam sayfa uyarı gösterir; ziyaretçilerin çoğu geri döner.",
+        "oneri": "Alan adına uygun sertifikayı güvenilir bir sağlayıcıdan yeniden kurun ve ara sertifikaları ekleyin."
+      },
+      "ssl_suresi_gecmis": {
+        "baslik": "SSL sertifikasının süresi {{deger}} gün önce dolmuş",
+        "neden": "Süresi dolmuş sertifikada tarayıcı siteyi güvensiz ilan eder.",
+        "oneri": "Sertifikayı hemen yenileyin ve otomatik yenilemeyi açın."
+      },
+      "ssl_bitiyor": {
+        "baslik": "SSL sertifikası {{deger}} gün içinde bitiyor",
+        "neden": "Yenilenmezse birkaç gün içinde site güvensiz görünmeye başlar.",
+        "oneri": "Sertifikayı şimdi yenileyin ve otomatik yenilemenin çalıştığını kontrol edin."
+      },
+      "ssl_yakinda": {
+        "baslik": "SSL sertifikası {{deger}} gün sonra bitiyor",
+        "neden": "Bitiş yaklaşıyor; otomatik yenileme çalışmıyorsa site kesintiye uğrar.",
+        "oneri": "Otomatik yenilemeyi doğrulayın ya da takvime bir hatırlatma koyun."
+      },
+      "ssl_gecerli": {
+        "baslik": "SSL sertifikası geçerli ({{deger}} gün kaldı)",
+        "neden": "Bağlantı şifreli ve tarayıcı siteye güveniyor.",
+        "oneri": "Otomatik yenilemenin açık olduğundan emin olun."
+      },
+      "ssl_olculemedi": {
+        "baslik": "SSL bitiş tarihi okunamadı",
+        "neden": "Bu analizde sertifikaya doğrudan bağlanılamadı; bu durum puanı düşürmedi.",
+        "oneri": "Tarayıcıdaki asma kilit simgesinden sertifikanın bitiş tarihini kontrol edin."
+      },
+      "llms_txt_var": {
+        "baslik": "llms.txt dosyası var",
+        "neden": "Yapay zekâ asistanları sitenizin özetine ve önemli sayfalarına doğrudan ulaşabiliyor.",
+        "oneri": "Yeni hizmet ve sayfaları llms.txt'ye eklemeyi sürdürün."
+      },
+      "llms_txt_yok": {
+        "baslik": "llms.txt dosyası yok",
+        "neden": "llms.txt, ChatGPT ve Claude gibi yapay zekâ araçlarına sitenizi özetleyen yeni bir standarttır; yanıtlarda doğru anlatılmanıza yardım eder.",
+        "oneri": "Kök dizine sitenizi, hizmetlerinizi ve önemli sayfalarınızı özetleyen bir /llms.txt ekleyin."
+      },
+      "ai_bot_engelli": {
+        "baslik": "robots.txt yapay zekâ tarayıcılarını engelliyor: {{deger}}",
+        "neden": "Engellenen tarayıcılar sitenizi okuyamaz; o yapay zekâ aramalarında görünmeyebilirsiniz.",
+        "oneri": "Bilinçli bir tercih değilse bu tarayıcılar için Disallow: / satırını kaldırın."
+      },
+      "ai_botlar_acik": {
+        "baslik": "Yapay zekâ tarayıcıları engellenmemiş",
+        "neden": "GPTBot, ClaudeBot, PerplexityBot ve Google-Extended sitenizi okuyabiliyor.",
+        "oneri": "İçeriğinizi açık ve güncel tutun; bu araçlar sizi yanıtlarında kaynak gösterebilir."
+      },
+      "yapisal_veri_var": {
+        "baslik": "Yapılandırılmış veri var",
+        "neden": "Yapay zekâ ve arama motorları işletmenizi, hizmetlerinizi ve iletişim bilgilerinizi makine diliyle okuyabiliyor.",
+        "oneri": "İşaretlemeyi Google'ın Zengin Sonuçlar Testi ile düzenli olarak doğrulayın."
+      },
+      "yapisal_veri_yok": {
+        "baslik": "Yapılandırılmış veri yok",
+        "neden": "Yapay zekâ sistemleri kim olduğunuzu ve ne sunduğunuzu yapılandırılmış veriden daha güvenilir çıkarır.",
+        "oneri": "Organization, LocalBusiness, Service ve FAQPage gibi schema.org JSON-LD işaretlemeleri ekleyin."
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
+import { ekliLazy } from '@/i18n/ekliLazy';
 import {
   Loader2,
   LogIn,
@@ -28,6 +29,7 @@ import {
   Globe,
   Sparkles,
   DollarSign,
+  Gauge,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -77,6 +79,8 @@ const MusteriSiteleri = lazy(() => import('@/components/admin/MusteriSiteleri'))
 // Fiyatlandırma v5 paneli de ayrı parçada: 6 tablonun form/tablo mantığı
 // panele her girişte inmesin.
 const FiyatlandirmaV5Paneli = lazy(() => import('@/components/admin/FiyatlandirmaV5Paneli'));
+// Herkese açık site analizlerinin listesi + tam rapor görünümü.
+const SiteAnalizleri = ekliLazy('siteAnalizi', () => import('@/components/admin/SiteAnalizleri'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -184,6 +188,7 @@ type Tab =
   | 'siteler'
   | 'tickets'
   | 'inquiries'
+  | 'siteAnalizleri'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -815,6 +820,7 @@ export default function AdminPanel() {
     { key: 'siteler', label: t('site.sekme'), icon: Globe },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
+    { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
   ];
 
@@ -925,6 +931,18 @@ export default function AdminPanel() {
           }
         >
           <OdemePaneli />
+        </Suspense>
+      )}
+
+      {tab === 'siteAnalizleri' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <SiteAnalizleri />
         </Suspense>
       )}
 

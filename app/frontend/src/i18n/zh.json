@@ -448,7 +448,9 @@
     "emailMismatchDesc": "面板按邮箱地址匹配记录。你当前以 {{email}} 登录。如果项目绑定的是另一个地址，这里就不会显示——给我们留言，我们来对齐。",
     "emailMismatchCta": "联系我们",
     "tabMarketplace": "商城",
-    "tabIcerik": "内容"
+    "tabIcerik": "内容",
+    "tabSiteAnalizleri": "网站分析",
+    "tabAnaliz": "网站分析"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -582,7 +584,9 @@
     "desc": "一家精品开发与数字代理机构，打造大胆、高性能的软件与令人难忘的品牌。定制开发、数字营销与产品设计。",
     "navigate": "导航",
     "contact": "联系",
-    "copyright": "By@MehmetKURU.Dev"
+    "copyright": "By@MehmetKURU.Dev",
+    "siteAnalizi": "免费网站分析",
+    "roadmap": "路线图"
   },
   "settingsForm": {
     "brandTitle": "品牌",
@@ -664,7 +668,9 @@
     "fSeoMarketplaceTitle": "市场 — 标题",
     "fSeoMarketplaceDesc": "市场 — 描述",
     "fSeoRoadmapTitle": "路线图 — 标题",
-    "fSeoRoadmapDesc": "路线图 — 描述"
+    "fSeoRoadmapDesc": "路线图 — 描述",
+    "fSeoSiteAnalysisTitle": "网站分析 — 标题",
+    "fSeoSiteAnalysisDesc": "网站分析 — 描述"
   },
   "tools": {
     "sectionTag": "使用的工具",

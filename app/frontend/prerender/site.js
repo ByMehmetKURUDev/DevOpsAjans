@@ -43,7 +43,7 @@ export function getLanguage(code) {
 }
 
 /** Çok dilli olarak yayınlanan sayfalar. Blog bu listede değil. */
-export const PAGE_KEYS = ['home', 'services', 'portfolio', 'marketplace', 'contact', 'roadmap'];
+export const PAGE_KEYS = ['home', 'services', 'portfolio', 'marketplace', 'contact', 'roadmap', 'siteAnalysis'];
 
 /** Sayfa anahtarı → Türkçe kökteki route yolu. */
 export const PAGE_PATHS = {
@@ -53,6 +53,7 @@ export const PAGE_PATHS = {
   marketplace: '/marketplace',
   contact: '/contact',
   roadmap: '/yol-haritasi',
+  siteAnalysis: '/site-analizi',
 };
 
 export const PAGE_PRIORITY = {
@@ -62,6 +63,7 @@ export const PAGE_PRIORITY = {
   marketplace: 0.85,
   contact: 0.7,
   roadmap: 0.6,
+  siteAnalysis: 0.7,
 };
 
 /**
@@ -109,6 +111,11 @@ export const PAGE_SEO = {
       description:
         'Müşteri portalı, site bakımı, WhatsApp, e-Fatura ve AI modüllerinin hangi aşamada olduğunu görün; ilgilendiklerinize bekleme listesinden kaydolun.',
     },
+    siteAnalysis: {
+      title: 'Ücretsiz Site Analizi: SEO, Hız ve Güvenlik | Mehmet KURU',
+      description:
+        'Sitenizin hızını, SEO\'sunu, içeriğini, teknik altyapısını, güvenlik başlıklarını ve yapay zekâ görünürlüğünü ücretsiz analiz edin; puanınızı 30 saniyede görün.',
+    },
   },
   en: {
     home: {
@@ -140,6 +147,11 @@ export const PAGE_SEO = {
       title: 'Roadmap: Modular Client Portal | Mehmet KURU',
       description:
         'See which modules of the client portal are live, in development or planned — site care, WhatsApp, e-invoicing, AI — and join the waitlist.',
+    },
+    siteAnalysis: {
+      title: 'Free Website Analysis: SEO, Speed and Security | Mehmet KURU',
+      description:
+        'Analyse your website\'s speed, SEO, content, technical setup, security headers and AI visibility for free and get a 0–100 score in about 30 seconds.',
     },
   },
   de: {
@@ -173,6 +185,11 @@ export const PAGE_SEO = {
       description:
         'Sehen Sie, welche Module des Kundenportals live, in Entwicklung oder geplant sind – Website-Pflege, WhatsApp, E-Rechnung, KI – und tragen Sie sich in die Warteliste ein.',
     },
+    siteAnalysis: {
+      title: 'Kostenlose Website-Analyse: SEO & Sicherheit | Mehmet KURU',
+      description:
+        'Prüfen Sie Geschwindigkeit, SEO, Inhalte, Technik, Sicherheits-Header und KI-Sichtbarkeit Ihrer Website kostenlos – mit Punktzahl in rund 30 Sekunden.',
+    },
   },
   ar: {
     home: {
@@ -204,6 +221,11 @@ export const PAGE_SEO = {
       title: 'خارطة الطريق: بوابة عملاء معيارية | Mehmet KURU',
       description:
         'تعرّف على وحدات بوابة العملاء المتاحة الآن وقيد التطوير والمخطط لها — صيانة المواقع وواتساب والفوترة الإلكترونية والذكاء الاصطناعي — وانضم إلى قائمة الانتظار.',
+    },
+    siteAnalysis: {
+      title: 'تحليل مجاني للموقع: السرعة والسيو والأمان | Mehmet KURU',
+      description:
+        'حلّل سرعة موقعك وتحسينه لمحركات البحث والمحتوى والبنية التقنية وترويسات الأمان والظهور في محركات الذكاء الاصطناعي مجانًا، واحصل على نتيجتك خلال 30 ثانية.',
     },
   },
   ru: {
@@ -237,6 +259,11 @@ export const PAGE_SEO = {
       description:
         'Узнайте, какие модули клиентского портала уже работают, в разработке или запланированы — поддержка сайтов, WhatsApp, электронные счета, ИИ — и запишитесь в лист ожидания.',
     },
+    siteAnalysis: {
+      title: 'Бесплатный анализ сайта: SEO и безопасность | Mehmet KURU',
+      description:
+        'Бесплатно проверьте скорость, SEO, контент, техническую часть, заголовки безопасности и видимость сайта для ИИ — оценка от 0 до 100 примерно за 30 секунд.',
+    },
   },
   zh: {
     home: {
@@ -267,6 +294,11 @@ export const PAGE_SEO = {
       title: '路线图：模块化客户门户 | Mehmet KURU',
       description:
         '查看客户门户中哪些模块已上线、正在开发或已规划——网站维护、WhatsApp、电子发票与 AI——并加入候补名单。',
+    },
+    siteAnalysis: {
+      title: '免费网站分析：SEO、速度与安全 | Mehmet KURU',
+      description:
+        '免费分析您网站的速度、SEO、内容、技术架构、安全响应头和 AI 可见度，约 30 秒即可获得 0–100 分的综合评分。',
     },
   },
   hi: {
@@ -300,6 +332,11 @@ export const PAGE_SEO = {
       description:
         'देखें कि क्लाइंट पोर्टल के कौन से मॉड्यूल लाइव हैं, विकास में हैं या योजना में हैं — साइट रखरखाव, WhatsApp, ई-इनवॉइस और AI — और प्रतीक्षा सूची में शामिल हों।',
     },
+    siteAnalysis: {
+      title: 'मुफ़्त वेबसाइट विश्लेषण: SEO, गति और सुरक्षा | Mehmet KURU',
+      description:
+        'अपनी वेबसाइट की गति, SEO, सामग्री, तकनीकी ढांचे, सुरक्षा हेडर और AI दृश्यता का मुफ़्त विश्लेषण करें और लगभग 30 सेकंड में 0–100 का स्कोर पाएँ।',
+    },
   },
 };
 
@@ -314,6 +351,7 @@ export const PAGE_SEO_KEYS = {
   marketplace: { title: 'seo_title_marketplace', description: 'seo_desc_marketplace' },
   contact: { title: 'seo_title_contact', description: 'seo_desc_contact' },
   roadmap: { title: 'seo_title_roadmap', description: 'seo_desc_roadmap' },
+  siteAnalysis: { title: 'seo_title_site_analysis', description: 'seo_desc_site_analysis' },
   blog: { title: 'seo_title_blog', description: 'seo_desc_blog' },
 };
 
@@ -334,6 +372,8 @@ export const NOINDEX_ROUTES = [
   '/auth/error',
   // Servis calisaninin cevrimdisi yedegi; arama sonuclarinda isi yok.
   '/cevrimdisi',
+  // Jetonlu site analiz raporu (/rapor/<jeton>); kisiye ozel, dizine girmemeli.
+  '/rapor',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

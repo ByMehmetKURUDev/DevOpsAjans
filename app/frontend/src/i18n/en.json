@@ -448,7 +448,9 @@
     "emailMismatchDesc": "The panel matches records by email address. You're signed in as {{email}}. If your project is linked to a different address it won't appear here — write to us and we'll line them up.",
     "emailMismatchCta": "Contact us",
     "tabMarketplace": "Marketplace",
-    "tabIcerik": "Content"
+    "tabIcerik": "Content",
+    "tabSiteAnalizleri": "Site analyses",
+    "tabAnaliz": "Site analysis"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -582,7 +584,9 @@
     "desc": "A boutique dev & digital agency crafting bold, high-performance software and unforgettable brands. Custom development, digital marketing, and product design.",
     "navigate": "Navigate",
     "contact": "Contact",
-    "copyright": "By@MehmetKURU.Dev"
+    "copyright": "By@MehmetKURU.Dev",
+    "siteAnalizi": "Free website analysis",
+    "roadmap": "Roadmap"
   },
   "settingsForm": {
     "brandTitle": "Brand",
@@ -664,7 +668,9 @@
     "fSeoMarketplaceTitle": "Marketplace — title",
     "fSeoMarketplaceDesc": "Marketplace — description",
     "fSeoRoadmapTitle": "Roadmap — title",
-    "fSeoRoadmapDesc": "Roadmap — description"
+    "fSeoRoadmapDesc": "Roadmap — description",
+    "fSeoSiteAnalysisTitle": "Site analysis — title",
+    "fSeoSiteAnalysisDesc": "Site analysis — description"
   },
   "tools": {
     "sectionTag": "Tools We Use",

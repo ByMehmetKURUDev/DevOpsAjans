@@ -1,4 +1,5 @@
 import { Toaster } from '@/components/ui/sonner';
+import { ekliLazy } from '@/i18n/ekliLazy';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -23,6 +24,8 @@ const ClientPanel = lazy(() => import('./pages/ClientPanel'));
 const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));
 const YolHaritasi = lazy(() => import('./pages/YolHaritasi'));
+const SiteAnalizi = ekliLazy('siteAnalizi', () => import('./pages/SiteAnalizi'));
+const SiteRaporu = ekliLazy('siteAnalizi', () => import('./pages/SiteRaporu'));
 
 const queryClient = new QueryClient();
 
@@ -45,10 +48,13 @@ const AppRoutes = () => (
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/yol-haritasi" element={<YolHaritasi />} />
+        <Route path="/site-analizi" element={<SiteAnalizi />} />
         <Route path="/client" element={<ClientPanel />} />
         <Route path="/admin" element={<AdminPanel />} />
         {/* Müşteriye giden ödeme bağlantısı. Oturum istemiyor. */}
         <Route path="/ode/:jeton" element={<OdemeSayfasi />} />
+        {/* E-postayla giden tam site analiz raporu. Oturum istemiyor, noindex. */}
+        <Route path="/rapor/:jeton" element={<SiteRaporu />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 
@@ -65,6 +71,7 @@ const AppRoutes = () => (
         <Route path="marketplace" element={<Marketplace />} />
         <Route path="contact" element={<Contact />} />
         <Route path="yol-haritasi" element={<YolHaritasi />} />
+        <Route path="site-analizi" element={<SiteAnalizi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

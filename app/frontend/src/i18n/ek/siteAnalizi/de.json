@@ -1,0 +1,436 @@
+{
+  "siteAnalizi": {
+    "etiket": "Kostenloses Tool",
+    "baslik1": "Kostenlose",
+    "baslikVurgu": "Website-Analyse",
+    "giris": "Geben Sie Ihre Domain ein: Wir prüfen Ihre Website von außen – Geschwindigkeit, SEO, Inhalte, Technik, Sicherheit und KI-Sichtbarkeit – und bewerten sie mit bis zu 100 Punkten. Ohne Anmeldung.",
+    "adresEtiketi": "Website-Adresse",
+    "adresOrnek": "beispiel.de",
+    "analizEt": "Analysieren",
+    "calisiyor": "Wird analysiert…",
+    "bekleyin": "Die Website wird geprüft und die Geschwindigkeit gemessen; das kann etwa 30 Sekunden dauern. Bitte bleiben Sie auf dieser Seite.",
+    "neOlcuyor": "Gemessen werden Geschwindigkeit (Google PageSpeed), SEO, Inhalte, Technik, Sicherheits-Header und KI-Sichtbarkeit. Dieselbe Website kann bis zu 3-mal täglich analysiert werden.",
+    "genelPuan": "Gesamtpunktzahl",
+    "olculemedi": "Nicht gemessen",
+    "ozetNotu": "Pro Bereich werden die drei wichtigsten Befunde angezeigt. Alle Befunde samt Handlungsempfehlungen stehen im vollständigen Bericht.",
+    "yeniAnaliz": "Eine andere Website analysieren",
+    "derece": {
+      "iyi": "Gut",
+      "orta": "Verbesserungswürdig",
+      "zayif": "Schwach"
+    },
+    "bolum": {
+      "hiz": "Geschwindigkeit",
+      "seo": "SEO",
+      "icerik": "Inhalt",
+      "teknik": "Technik",
+      "guvenlik": "Sicherheit",
+      "ai": "KI-Sichtbarkeit"
+    },
+    "bolumAciklama": {
+      "hiz": "Mobile und Desktop-Performance, LCP, CLS und TBT über Google PageSpeed.",
+      "seo": "Titel, Beschreibung, H1, Canonical, robots.txt, Sitemap und strukturierte Daten.",
+      "icerik": "Textumfang, Alt-Texte von Bildern und defekte interne Links.",
+      "teknik": "HTTPS, Weiterleitungen, Statuscodes, Komprimierung und Caching.",
+      "guvenlik": "Sicherheits-Header und Gültigkeit des SSL-Zertifikats.",
+      "ai": "llms.txt, Zugriff für KI-Crawler und strukturierte Daten."
+    },
+    "tamRapor": {
+      "baslik": "Vollständigen Bericht per E-Mail erhalten",
+      "aciklama": "Ein druckbarer Bericht mit allen Befunden, warum sie wichtig sind und was zu tun ist, dazu die geprüften Seiten und defekten Links. Der Link ist 30 Tage gültig.",
+      "ad": "Ihr Name (optional)",
+      "eposta": "Ihre E-Mail-Adresse",
+      "kvkk": "Ich willige ein, dass mein Name und meine E-Mail-Adresse zum Versand des Berichts und für eine Rückmeldung zu dieser Analyse gemäß Datenschutzrecht (KVKK/DSGVO) verarbeitet werden.",
+      "gonder": "Vollständigen Bericht senden",
+      "basarili": "Der Link zum vollständigen Bericht wurde an Ihre E-Mail-Adresse gesendet.",
+      "basariliAciklama": "Prüfen Sie Ihren Posteingang (und den Spam-Ordner). Der Link ist 30 Tage gültig."
+    },
+    "teklif": {
+      "baslik": "Lassen Sie uns diese Probleme gemeinsam lösen",
+      "aciklama": "Wir priorisieren die Befunde aus Ihrem Bericht und machen Ihre Website schnell, sicher und gut auffindbar. Lassen Sie uns den passenden Plan erarbeiten.",
+      "teklifAl": "Angebot anfordern",
+      "hizmetler": "Leistungen ansehen"
+    },
+    "hata": {
+      "adres_gecersiz": "Bitte geben Sie eine gültige Website-Adresse ein (z. B. beispiel.de).",
+      "adres_yasak": "Diese Adresse kann nicht analysiert werden. Bitte geben Sie eine öffentliche Website an.",
+      "cozumlenemedi": "Diese Domain wurde nicht gefunden. Bitte prüfen Sie die Schreibweise.",
+      "ulasilamadi": "Die Website war nicht erreichbar. Stellen Sie sicher, dass sie online ist, und versuchen Sie es erneut.",
+      "cok_yonlendirme": "Die Website leitet zu oft weiter; die Analyse konnte nicht abgeschlossen werden.",
+      "sinir_alan": "Diese Website wurde heute bereits 3-mal analysiert. Bitte versuchen Sie es morgen erneut.",
+      "sinir_ip": "Sie haben in kurzer Zeit zu viele Analysen gestartet. Bitte versuchen Sie es in einer Stunde erneut.",
+      "sinir_musteri": "Sie haben das Tageslimit von 10 Analysen erreicht. Bitte versuchen Sie es morgen erneut.",
+      "kvkk_gerekli": "Bitte bestätigen Sie die Datenschutz-Einwilligung, um fortzufahren.",
+      "eposta_gecersiz": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "eposta_farkli": "Dieser Bericht wurde bereits an eine andere E-Mail-Adresse gesendet. Sie können die Website erneut analysieren.",
+      "analiz_tamamlanmadi": "Diese Analyse wurde nicht abgeschlossen, daher kann kein Bericht gesendet werden.",
+      "bulunamadi": "Eintrag nicht gefunden.",
+      "sure_doldu": "Dieser Link ist abgelaufen.",
+      "beklenmedik": "Bei der Analyse ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+      "ag": "Der Server ist nicht erreichbar. Prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+      "genel": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+    },
+    "rapor": {
+      "baslik": "Website-Analysebericht",
+      "tarih": "Analysiert am",
+      "gecerlilik": "Link gültig bis {{tarih}}",
+      "yazdir": "Drucken / PDF",
+      "neden": "Warum es wichtig ist",
+      "oneri": "Was zu tun ist",
+      "mobil": "Mobil",
+      "masaustu": "Desktop",
+      "hizSatiri": "Punkte {{puan}} · LCP {{lcp}} s · CLS {{cls}} · TBT {{tbt}} ms",
+      "kirikBaglantilar": "Defekte Links",
+      "kaynak": "Gefunden auf",
+      "ulasilamadi": "nicht erreichbar",
+      "ayrinti": "Crawl-Details",
+      "denetlenen": "{{sayi}} interne Links geprüft.",
+      "yonlendirmeler": "Weiterleitungskette",
+      "sayfalar": "Geprüfte Seiten ({{sayi}})",
+      "durum": "Status",
+      "sureDoldu": "Dieser Bericht ist abgelaufen",
+      "sureDolduAciklama": "Berichtslinks sind 30 Tage gültig. Analysieren Sie die Website erneut, um einen neuen Bericht zu erhalten.",
+      "bulunamadi": "Bericht nicht gefunden",
+      "bulunamadiAciklama": "Der Link ist möglicherweise falsch oder unvollständig kopiert.",
+      "yenidenAnaliz": "Erneut analysieren"
+    },
+    "yonetim": {
+      "baslik": "Website-Analysen",
+      "aciklama": "Analysen über die Seite „Kostenlose Website-Analyse“ ({{sayi}}). Wer eine E-Mail hinterlässt, erscheint auch unter Anfragen als Lead.",
+      "yalnizEposta": "Nur mit hinterlassener E-Mail",
+      "yenile": "Aktualisieren",
+      "tarih": "Datum",
+      "alan": "Domain",
+      "puan": "Punkte",
+      "eposta": "E-Mail",
+      "aday": "Lead",
+      "adayNo": "Anfrage #{{sayi}}",
+      "epostaYok": "Keine E-Mail hinterlassen",
+      "bos": "Noch keine Analysen.",
+      "kapat": "Zurück zur Liste",
+      "onceki": "Vorherige Seite",
+      "sonraki": "Nächste Seite",
+      "sayfa": "Seite {{sayi}} / {{toplam}}",
+      "hata": "Website-Analysen konnten nicht geladen werden.",
+      "kaynak": {
+        "acik": "Öffentliches Formular",
+        "musteri": "Kundenbereich",
+        "yonetici": "Admin"
+      }
+    },
+    "musteri": {
+      "baslik": "Meine Website analysieren",
+      "aciklama": "Messen Sie Geschwindigkeit, SEO, Sicherheit und KI-Sichtbarkeit Ihrer Website; der vollständige Bericht öffnet sich direkt hier. Bis zu 10 Analysen pro Tag.",
+      "analizEt": "Analysieren",
+      "sitelerim": "Eine Ihrer Websites wählen:",
+      "gecmis": "Frühere Analysen",
+      "bos": "Sie haben noch keine Analyse durchgeführt.",
+      "ac": "Bericht öffnen",
+      "kapat": "Zurück zur Liste",
+      "paylas": "Berichtslink kopieren",
+      "kopyalandi": "Berichtslink kopiert."
+    },
+    "bulgu": {
+      "hiz_mobil": {
+        "baslik": "Mobile Performance: {{deger}}/100",
+        "neden": "Die meisten Besucher kommen per Smartphone, und Google bewertet Websites anhand der mobilen Version.",
+        "oneri": "Bilder komprimieren und als WebP/AVIF ausliefern, ungenutztes JavaScript reduzieren, kritisches CSS vorziehen."
+      },
+      "hiz_masaustu": {
+        "baslik": "Desktop-Performance: {{deger}}/100",
+        "neden": "Eine langsame Seite strapaziert auch die Geduld von Besuchern am Arbeitsrechner.",
+        "oneri": "Caching, Komprimierung und ein CDN nutzen; große Skripte mit defer laden."
+      },
+      "lcp": {
+        "baslik": "Largest Contentful Paint (LCP): {{deger}} ms",
+        "neden": "LCP misst, wann der Hauptinhalt sichtbar wird; Google wertet unter 2,5 Sekunden als gut.",
+        "oneri": "Hauptbild vorladen (preload), verkleinern und die Server-Antwortzeit verkürzen."
+      },
+      "cls": {
+        "baslik": "Layout-Verschiebung (CLS): {{deger}}",
+        "neden": "Springende Elemente führen zu Fehlklicks und kosten Vertrauen; unter 0,1 gilt als gut.",
+        "oneri": "Bildern und Werbeflächen Breite und Höhe geben; beim Laden von Webfonts Platz reservieren."
+      },
+      "tbt": {
+        "baslik": "Total Blocking Time (TBT): {{deger}} ms",
+        "neden": "Solange der Browser beschäftigt ist, reagiert die Seite nicht auf Eingaben; unter 200 ms gilt als gut.",
+        "oneri": "Lange JavaScript-Aufgaben aufteilen und Drittanbieter-Skripte reduzieren oder verzögert laden."
+      },
+      "hiz_olculemedi": {
+        "baslik": "Geschwindigkeit nicht messbar",
+        "neden": "Google PageSpeed hat diesmal nicht geantwortet; dieser Bereich zählt nicht zur Gesamtpunktzahl.",
+        "oneri": "In einigen Minuten erneut versuchen oder die Website manuell in PageSpeed Insights messen."
+      },
+      "title_yok": {
+        "baslik": "Die Seite hat keinen Titel",
+        "neden": "Der Titel ist die anklickbare Zeile in den Suchergebnissen; ohne ihn wählt Google einen eigenen Text.",
+        "oneri": "Jeder Seite einen eindeutigen <title> mit 30–60 Zeichen und dem Haupt-Keyword geben."
+      },
+      "title_kisa": {
+        "baslik": "Titel zu kurz ({{deger}} Zeichen)",
+        "neden": "Ein kurzer Titel verschenkt Platz in den Suchergebnissen und sagt zu wenig über die Seite.",
+        "oneri": "Titel auf 30–60 Zeichen bringen; Leistung und Marke gemeinsam nennen."
+      },
+      "title_uzun": {
+        "baslik": "Titel zu lang ({{deger}} Zeichen)",
+        "neden": "Titel über 60 Zeichen werden in den Suchergebnissen abgeschnitten.",
+        "oneri": "Titel unter 60 Zeichen kürzen und die wichtigsten Wörter nach vorne stellen."
+      },
+      "title_iyi": {
+        "baslik": "Titellänge passt ({{deger}} Zeichen)",
+        "neden": "Der Titel wird in den Suchergebnissen vollständig angezeigt.",
+        "oneri": "Aktuell halten und auf jeder Seite eindeutig gestalten."
+      },
+      "aciklama_yok": {
+        "baslik": "Keine Meta-Beschreibung",
+        "neden": "Die Beschreibung steht unter dem Titel in den Suchergebnissen und beeinflusst die Klickrate direkt.",
+        "oneri": "Eine Meta-Description mit 70–160 Zeichen schreiben, die die Seite zusammenfasst und zum Klick einlädt."
+      },
+      "aciklama_kisa": {
+        "baslik": "Meta-Beschreibung zu kurz ({{deger}} Zeichen)",
+        "neden": "Eine kurze Beschreibung gibt Besuchern zu wenig Grund zum Klicken.",
+        "oneri": "Auf 70–160 Zeichen erweitern und Nutzen sowie Alleinstellung erklären."
+      },
+      "aciklama_uzun": {
+        "baslik": "Meta-Beschreibung zu lang ({{deger}} Zeichen)",
+        "neden": "Beschreibungen über 160 Zeichen werden in den Suchergebnissen abgeschnitten.",
+        "oneri": "Unter 160 Zeichen kürzen und mit der Kernaussage beginnen."
+      },
+      "aciklama_iyi": {
+        "baslik": "Länge der Meta-Beschreibung passt ({{deger}} Zeichen)",
+        "neden": "Die Beschreibung wird vollständig angezeigt und fasst die Seite zusammen.",
+        "oneri": "Mit dem Seiteninhalt stimmig halten."
+      },
+      "h1_yok": {
+        "baslik": "Die Seite hat keine H1-Überschrift",
+        "neden": "Die H1 zeigt Besuchern und Suchmaschinen das Hauptthema der Seite.",
+        "oneri": "Oben auf der Seite genau eine H1 mit dem Hauptthema einfügen."
+      },
+      "h1_fazla": {
+        "baslik": "Die Seite hat {{deger}} H1-Überschriften",
+        "neden": "Mehrere H1 verwässern das Hauptthema der Seite.",
+        "oneri": "Eine H1 behalten und die übrigen zu H2 oder H3 machen."
+      },
+      "canonical_yok": {
+        "baslik": "Kein Canonical-Link",
+        "neden": "Ist derselbe Inhalt unter mehreren Adressen erreichbar, weiß Google nicht, welche ranken soll.",
+        "oneri": "Jeder Seite ein <link rel=\"canonical\"> auf ihre Hauptadresse geben."
+      },
+      "noindex": {
+        "baslik": "Seite für Suchmaschinen gesperrt (noindex)",
+        "neden": "Eine Seite mit noindex erscheint überhaupt nicht bei Google.",
+        "oneri": "Ist die Seite live, noindex aus dem robots-Meta-Tag entfernen."
+      },
+      "lang_yok": {
+        "baslik": "Keine Sprachangabe (lang) im <html>-Tag",
+        "neden": "Die Sprachangabe sagt Screenreadern und Suchmaschinen, in welcher Sprache die Seite ist.",
+        "oneri": "Ein passendes lang-Attribut ergänzen, z. B. <html lang=\"de\">."
+      },
+      "robots_txt_yok": {
+        "baslik": "Keine robots.txt",
+        "neden": "Die robots.txt sagt Suchmaschinen, was sie crawlen sollen und wo die Sitemap liegt.",
+        "oneri": "Eine robots.txt im Stammverzeichnis anlegen und eine Sitemap:-Zeile eintragen."
+      },
+      "sitemap_yok": {
+        "baslik": "Keine Sitemap (sitemap.xml) gefunden",
+        "neden": "Eine Sitemap hilft Suchmaschinen, alle Seiten schnell zu finden.",
+        "oneri": "sitemap.xml erstellen, in der robots.txt angeben und in der Google Search Console einreichen."
+      },
+      "sitemap_var": {
+        "baslik": "Die Sitemap enthält {{deger}} Adressen",
+        "neden": "Suchmaschinen finden Ihre Seiten leicht über die Sitemap.",
+        "oneri": "Sicherstellen, dass sich die Sitemap bei neuen Seiten automatisch aktualisiert."
+      },
+      "jsonld_yok": {
+        "baslik": "Keine strukturierten Daten (JSON-LD)",
+        "neden": "Strukturierte Daten ermöglichen Rich Results wie Sterne, FAQs und Unternehmensangaben.",
+        "oneri": "schema.org-JSON-LD für Organization/LocalBusiness und den jeweiligen Seitentyp ergänzen."
+      },
+      "hreflang_yok": {
+        "baslik": "Keine hreflang-Tags",
+        "neden": "Bei mehrsprachigen Websites zeigt hreflang jedem Besucher die richtige Sprachversion.",
+        "oneri": "Bei einer mehrsprachigen Website hreflang-Links für jede Sprachversion ergänzen; bei einer einsprachigen nicht nötig."
+      },
+      "sayfa_basliksiz": {
+        "baslik": "{{deger}} Seiten ohne Titel",
+        "neden": "Seiten ohne Titel wirken in den Suchergebnissen schwach und uneinheitlich.",
+        "oneri": "Jeder geprüften Seite einen eindeutigen Titel geben."
+      },
+      "sayfa_aciklamasiz": {
+        "baslik": "{{deger}} Seiten ohne Meta-Beschreibung",
+        "neden": "Ohne Beschreibung zeigt Google einen zufälligen Textausschnitt.",
+        "oneri": "Für alle wichtigen Seiten eine eigene Meta-Beschreibung schreiben."
+      },
+      "icerik_az": {
+        "baslik": "Wenig Text auf der Startseite ({{deger}} Wörter)",
+        "neden": "Suchmaschinen verstehen eine Seite über ihren Text; dünne Inhalte ranken schwer.",
+        "oneri": "Mindestens 300 Wörter zu Leistungen, Alleinstellung und häufigen Fragen ergänzen."
+      },
+      "kelime_sayisi": {
+        "baslik": "Die Startseite hat {{deger}} Wörter",
+        "neden": "Genügend Text hilft Suchmaschinen, Ihre Seite richtig zu verstehen.",
+        "oneri": "Inhalte aktuell halten und mit Zwischenüberschriften gliedern."
+      },
+      "alt_yok": {
+        "baslik": "{{deger}} Bilder ohne Alt-Text",
+        "neden": "Alt-Texte beschreiben Bilder für sehbehinderte Besucher und helfen bei der Bildersuche.",
+        "oneri": "Jedem aussagekräftigen Bild einen kurzen Alt-Text geben; dekorative Bilder mit alt=\"\" versehen."
+      },
+      "alt_tamam": {
+        "baslik": "Alle Bilder haben Alt-Texte",
+        "neden": "Bilder sind barrierefrei und für Suchmaschinen verständlich.",
+        "oneri": "Auch bei neuen Bildern weiterhin Alt-Texte schreiben."
+      },
+      "kirik_baglanti": {
+        "baslik": "{{deger}} defekte interne Links gefunden",
+        "neden": "Defekte Links führen Besucher auf Fehlerseiten und verschwenden Crawl-Budget.",
+        "oneri": "Links korrigieren oder entfernen; für verschobene Seiten 301-Weiterleitungen einrichten."
+      },
+      "kirik_baglanti_yok": {
+        "baslik": "Keine defekten internen Links ({{deger}} geprüft)",
+        "neden": "Besucher und Suchmaschinen bewegen sich problemlos durch die Website.",
+        "oneri": "Beim Löschen oder Verschieben von Seiten an Weiterleitungen denken."
+      },
+      "https_var": {
+        "baslik": "Die Website lädt über HTTPS",
+        "neden": "Eine verschlüsselte Verbindung schützt Besucherdaten; Browser markieren HTTP-Seiten als „nicht sicher“.",
+        "oneri": "Sicherstellen, dass alle Ressourcen inklusive Bilder und Skripte über HTTPS geladen werden."
+      },
+      "https_yok": {
+        "baslik": "Die Website nutzt kein HTTPS",
+        "neden": "Ohne Verschlüsselung gehen Formulardaten im Klartext; Browser warnen und Google stuft ab.",
+        "oneri": "Ein kostenloses SSL-Zertifikat (z. B. Let's Encrypt) einrichten und allen Verkehr auf HTTPS umleiten."
+      },
+      "http_yonlendirme_yok": {
+        "baslik": "HTTP wird nicht auf HTTPS umgeleitet",
+        "neden": "Besucher über http:// bleiben auf der unverschlüsselten Version; es entstehen zwei Kopien der Website.",
+        "oneri": "http://-Anfragen serverseitig per 301 auf https:// umleiten."
+      },
+      "yonlendirme_uzun": {
+        "baslik": "Die Startseite ist nur über {{deger}} Weiterleitungen erreichbar",
+        "neden": "Jede Weiterleitung verlangsamt das Laden und kostet etwas Suchmaschinen-Wert.",
+        "oneri": "Links und Servereinstellungen direkt auf die Zieladresse zeigen lassen."
+      },
+      "ana_sayfa_durum": {
+        "baslik": "Die Startseite liefert Status {{deger}}",
+        "neden": "Liefert die Startseite etwas anderes als 200, erreichen Besucher und Suchmaschinen den Inhalt nicht.",
+        "oneri": "Serverfehler oder fehlende Seite beheben; die Startseite sollte 200 liefern."
+      },
+      "sayfa_hatali": {
+        "baslik": "{{deger}} Seiten liefern Fehler",
+        "neden": "Seiten in Sitemap oder Menü, die nicht laden, kosten Vertrauen und Rankings.",
+        "oneri": "Diese Seiten reparieren oder aus der Sitemap entfernen und passend weiterleiten."
+      },
+      "sikistirma_yok": {
+        "baslik": "Komprimierung (gzip/brotli) aus",
+        "neden": "Unkomprimiertes HTML, CSS und JavaScript lässt Besucher ein Vielfaches an Daten laden.",
+        "oneri": "brotli oder gzip auf dem Server bzw. im CDN aktivieren."
+      },
+      "sikistirma_var": {
+        "baslik": "Komprimierung aktiv ({{deger}})",
+        "neden": "Seiten laden mit weniger Daten schneller.",
+        "oneri": "Prüfen, ob auch statische Dateien komprimiert werden."
+      },
+      "onbellek_yok": {
+        "baslik": "Kein Caching-Header (Cache-Control)",
+        "neden": "Ohne Caching-Regeln laden Browser und CDN bei jedem Besuch alles neu.",
+        "oneri": "Kurzes Cache-Control für HTML und lange Cache-Dauer für versionierte statische Dateien setzen."
+      },
+      "yavas_yanit": {
+        "baslik": "Die Startseite antwortete nach {{deger}} ms",
+        "neden": "Antwortet der Server langsam, verzögert sich auch der Rest der Seite.",
+        "oneri": "Serverseitiges Caching nutzen, Datenbankabfragen beschleunigen oder ein CDN einsetzen."
+      },
+      "hsts_yok": {
+        "baslik": "Kein HSTS-Header",
+        "neden": "HSTS weist den Browser an, nur per HTTPS zu verbinden, und erschwert Abfangangriffe.",
+        "oneri": "Strict-Transport-Security: max-age=31536000; includeSubDomains ergänzen."
+      },
+      "csp_yok": {
+        "baslik": "Keine Content Security Policy (CSP)",
+        "neden": "CSP ist die stärkste Schutzschicht gegen eingeschleuste Schadskripte (XSS).",
+        "oneri": "Mit Content-Security-Policy-Report-Only erlaubte Quellen ermitteln, dann die Richtlinie durchsetzen."
+      },
+      "frame_koruma_yok": {
+        "baslik": "Kein Schutz gegen Einbettung",
+        "neden": "Ihre Website könnte unsichtbar auf einer fremden Seite eingebettet und für Clickjacking missbraucht werden.",
+        "oneri": "X-Frame-Options: DENY oder frame-ancestors 'self' in der CSP setzen."
+      },
+      "nosniff_yok": {
+        "baslik": "Kein X-Content-Type-Options-Header",
+        "neden": "Ohne ihn rät der Browser Dateitypen, sodass eine schädliche Datei als Skript laufen könnte.",
+        "oneri": "X-Content-Type-Options: nosniff ergänzen."
+      },
+      "referrer_yok": {
+        "baslik": "Kein Referrer-Policy-Header",
+        "neden": "Beim Klick auf einen Link kann die vollständige URL samt Parametern an die andere Website gelangen.",
+        "oneri": "Referrer-Policy: strict-origin-when-cross-origin ergänzen."
+      },
+      "guvenlik_basliklari_tamam": {
+        "baslik": "Grundlegende Sicherheits-Header vorhanden",
+        "neden": "Der Basisschutz gegen gängige Browser-Angriffe ist aktiv.",
+        "oneri": "Die CSP beim Einbinden neuer Drittanbieter-Skripte aktuell halten."
+      },
+      "ssl_gecersiz": {
+        "baslik": "Das SSL-Zertifikat ist ungültig",
+        "neden": "Bei ungültigen Zertifikaten zeigen Browser eine ganzseitige Warnung, und die meisten Besucher kehren um.",
+        "oneri": "Ein zur Domain passendes Zertifikat eines vertrauenswürdigen Anbieters neu installieren und Zwischenzertifikate einbinden."
+      },
+      "ssl_suresi_gecmis": {
+        "baslik": "Das SSL-Zertifikat ist seit {{deger}} Tagen abgelaufen",
+        "neden": "Bei abgelaufenem Zertifikat stuft der Browser die Website als unsicher ein.",
+        "oneri": "Zertifikat sofort erneuern und die automatische Verlängerung aktivieren."
+      },
+      "ssl_bitiyor": {
+        "baslik": "Das SSL-Zertifikat läuft in {{deger}} Tagen ab",
+        "neden": "Ohne Erneuerung wirkt die Website in wenigen Tagen unsicher.",
+        "oneri": "Zertifikat jetzt erneuern und prüfen, ob die automatische Verlängerung funktioniert."
+      },
+      "ssl_yakinda": {
+        "baslik": "Das SSL-Zertifikat läuft in {{deger}} Tagen ab",
+        "neden": "Das Ablaufdatum naht; schlägt die automatische Verlängerung fehl, fällt die Website aus.",
+        "oneri": "Automatische Verlängerung prüfen oder eine Kalendererinnerung setzen."
+      },
+      "ssl_gecerli": {
+        "baslik": "SSL-Zertifikat gültig (noch {{deger}} Tage)",
+        "neden": "Die Verbindung ist verschlüsselt und Browser vertrauen der Website.",
+        "oneri": "Sicherstellen, dass die automatische Verlängerung aktiv ist."
+      },
+      "ssl_olculemedi": {
+        "baslik": "SSL-Ablaufdatum nicht lesbar",
+        "neden": "Bei dieser Analyse war keine direkte Verbindung zum Zertifikat möglich; die Punktzahl wurde dadurch nicht gesenkt.",
+        "oneri": "Das Ablaufdatum über das Schloss-Symbol im Browser prüfen."
+      },
+      "llms_txt_var": {
+        "baslik": "llms.txt vorhanden",
+        "neden": "KI-Assistenten erreichen eine Zusammenfassung Ihrer Website und die wichtigsten Seiten direkt.",
+        "oneri": "Neue Leistungen und Seiten weiterhin in die llms.txt aufnehmen."
+      },
+      "llms_txt_yok": {
+        "baslik": "Keine llms.txt",
+        "neden": "llms.txt ist ein neuer Standard, der Ihre Website für KI-Tools wie ChatGPT und Claude zusammenfasst, damit diese Sie korrekt beschreiben.",
+        "oneri": "Eine /llms.txt im Stammverzeichnis anlegen, die Website, Leistungen und wichtige Seiten zusammenfasst."
+      },
+      "ai_bot_engelli": {
+        "baslik": "robots.txt sperrt KI-Crawler: {{deger}}",
+        "neden": "Gesperrte Crawler können Ihre Website nicht lesen; in diesen KI-Suchen erscheinen Sie womöglich nicht.",
+        "oneri": "Wenn dies keine bewusste Entscheidung ist, die Zeile Disallow: / für diese Crawler entfernen."
+      },
+      "ai_botlar_acik": {
+        "baslik": "KI-Crawler sind nicht gesperrt",
+        "neden": "GPTBot, ClaudeBot, PerplexityBot und Google-Extended können Ihre Website lesen.",
+        "oneri": "Inhalte klar und aktuell halten; diese Tools können Sie als Quelle nennen."
+      },
+      "yapisal_veri_var": {
+        "baslik": "Strukturierte Daten vorhanden",
+        "neden": "KI-Systeme und Suchmaschinen lesen Unternehmen, Leistungen und Kontaktdaten maschinenlesbar.",
+        "oneri": "Das Markup regelmäßig mit dem Rich-Results-Test von Google prüfen."
+      },
+      "yapisal_veri_yok": {
+        "baslik": "Keine strukturierten Daten",
+        "neden": "KI-Systeme erkennen aus strukturierten Daten zuverlässiger, wer Sie sind und was Sie anbieten.",
+        "oneri": "schema.org-JSON-LD wie Organization, LocalBusiness, Service und FAQPage ergänzen."
+      }
+    }
+  }
+}

@@ -583,6 +583,14 @@ export default function Layout() {
                   {t('footer.roadmap')}
                 </Link>
               </li>
+              <li>
+                <Link
+                  to={localizedPath(activeLang, 'siteAnalysis')}
+                  className="inline-block py-2 hover:text-foreground transition-colors"
+                >
+                  {t('footer.siteAnalizi')}
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

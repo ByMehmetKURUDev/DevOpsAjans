@@ -448,7 +448,9 @@
     "emailMismatchDesc": "Панель сопоставляет записи по адресу почты. Вы вошли как {{email}}. Если проект привязан к другому адресу, здесь он не появится — напишите нам, и мы это исправим.",
     "emailMismatchCta": "Напишите нам",
     "tabMarketplace": "Маркетплейс",
-    "tabIcerik": "Контент"
+    "tabIcerik": "Контент",
+    "tabSiteAnalizleri": "Анализы сайтов",
+    "tabAnaliz": "Анализ сайта"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",
@@ -582,7 +584,9 @@
     "desc": "Бутиковое агентство разработки и digital, создающее смелое высокопроизводительное ПО и запоминающиеся бренды. Заказная разработка, digital-маркетинг и продуктовый дизайн.",
     "navigate": "Навигация",
     "contact": "Контакты",
-    "copyright": "By@MehmetKURU.Dev"
+    "copyright": "By@MehmetKURU.Dev",
+    "siteAnalizi": "Бесплатный анализ сайта",
+    "roadmap": "Дорожная карта"
   },
   "settingsForm": {
     "brandTitle": "Бренд",
@@ -664,7 +668,9 @@
     "fSeoMarketplaceTitle": "Маркетплейс — заголовок",
     "fSeoMarketplaceDesc": "Маркетплейс — описание",
     "fSeoRoadmapTitle": "Дорожная карта — заголовок",
-    "fSeoRoadmapDesc": "Дорожная карта — описание"
+    "fSeoRoadmapDesc": "Дорожная карта — описание",
+    "fSeoSiteAnalysisTitle": "Анализ сайта — заголовок",
+    "fSeoSiteAnalysisDesc": "Анализ сайта — описание"
   },
   "tools": {
     "sectionTag": "Используемые инструменты",

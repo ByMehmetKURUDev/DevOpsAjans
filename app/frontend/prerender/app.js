@@ -21,6 +21,7 @@ import Portfolio from '../src/pages/Portfolio';
 import Marketplace from '../src/pages/Marketplace';
 import Contact from '../src/pages/Contact';
 import YolHaritasi from '../src/pages/YolHaritasi';
+import SiteAnalizi from '../src/pages/SiteAnalizi';
 import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
 import { extractFaq, getBlogPost, getPostSeoMeta } from '../src/lib/blog';
@@ -54,6 +55,13 @@ for (const [code, resources] of Object.entries(BUNDLES)) {
   }
 }
 
+/** Ek çeviri paketleri (src/i18n/ek) — istemcide sayfayla birlikte iniyor, burada hepsi baştan. */
+const EK_PAKETLER = import.meta.glob('../src/i18n/ek/*/*.json', { eager: true });
+for (const [yol, mod] of Object.entries(EK_PAKETLER)) {
+  const dil = yol.split('/').pop().replace('.json', '');
+  i18n.addResourceBundle(dil, 'translation', mod.default ?? mod, true, true);
+}
+
 /**
  * Sayfalar burada lazy() olmadan kuruluyor: renderToString Suspense'i
  * bekleyemediği için lazy bileşenler sunucuda yalnızca yükleme animasyonunu
@@ -82,6 +90,7 @@ function renderApp(url) {
             h(Route, { path: '/marketplace', element: h(Marketplace, null) }),
             h(Route, { path: '/contact', element: h(Contact, null) }),
             h(Route, { path: '/yol-haritasi', element: h(YolHaritasi, null) }),
+            h(Route, { path: '/site-analizi', element: h(SiteAnalizi, null) }),
             h(Route, { path: '/blog', element: h(BlogIndexPage, null) }),
             h(Route, { path: '/blog/:slug', element: h(BlogPostPage, null) }),
           ),
@@ -94,6 +103,7 @@ function renderApp(url) {
             h(Route, { path: 'marketplace', element: h(Marketplace, null) }),
             h(Route, { path: 'contact', element: h(Contact, null) }),
             h(Route, { path: 'yol-haritasi', element: h(YolHaritasi, null) }),
+            h(Route, { path: 'site-analizi', element: h(SiteAnalizi, null) }),
           ),
         ),
       ),

@@ -97,10 +97,44 @@ export async function loadLanguage(code: string): Promise<void> {
   i18n.addResourceBundle(code, 'translation', mod.default, true, true);
 }
 
+/*
+ * Ek çeviri paketleri — `ek/<ozellik>/<dil>.json`.
+ *
+ * Ana paket (tr.json) ilk açılışta indirilen JS'in içinde; her yeni özelliğin
+ * yüzlerce metni oraya girerse ana sayfanın ilk boyaması yavaşlar. Yalnız bir
+ * sayfada ya da panel sekmesinde kullanılan metinler ek pakete konur ve o
+ * sayfa/sekme açılırken (`ekliLazy`) birlikte indirilir.
+ * Prerender hepsini baştan yüklüyor (prerender/app.js).
+ */
+const EK_PAKETLER = import.meta.glob<{ default: Record<string, unknown> }>('./ek/*/*.json');
+const istenenEkler = new Set<string>();
+// Dil değişimi sürerken istenen ek, geçilen dilde de hazır olsun diye.
+let hedefDil = 'tr';
+const yuklenenEkler = new Set<string>();
+
+async function ekPaketiYukle(ad: string, dil: string): Promise<void> {
+  const yol = `./ek/${ad}/${dil}.json`;
+  if (yuklenenEkler.has(yol)) return;
+  const yukleyici = EK_PAKETLER[yol];
+  if (!yukleyici) return;
+  const mod = await yukleyici();
+  // deep=true, overwrite=false: ana paket sonradan gelse de birbirini silmez.
+  i18n.addResourceBundle(dil, 'translation', mod.default, true, false);
+  yuklenenEkler.add(yol);
+}
+
+/** Bir özelliğin ek metinlerini (Türkçe yedek + etkin dil) indirir. */
+export async function ekYukle(ad: string): Promise<void> {
+  istenenEkler.add(ad);
+  const diller = new Set(['tr', i18n.language || 'tr', hedefDil]);
+  await Promise.all([...diller].map((dil) => ekPaketiYukle(ad, dil)));
+}
+
 /** Uygulama dilini değiştirir; paket henüz yüklenmemişse önce indirir. */
 export async function changeAppLanguage(code: string): Promise<void> {
   if (!LANGUAGE_CODES.includes(code)) return;
-  await loadLanguage(code);
+  hedefDil = code;
+  await Promise.all([loadLanguage(code), ...[...istenenEkler].map((ad) => ekPaketiYukle(ad, code))]);
   await i18n.changeLanguage(code);
 }
 

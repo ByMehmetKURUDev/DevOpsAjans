@@ -1,0 +1,436 @@
+{
+  "siteAnalizi": {
+    "etiket": "免费工具",
+    "baslik1": "免费",
+    "baslikVurgu": "网站分析",
+    "giris": "输入您的域名，我们将从外部检查网站的速度、SEO、内容、技术架构、安全性和 AI 可见度，并给出满分 100 的评分。无需注册。",
+    "adresEtiketi": "网站地址",
+    "adresOrnek": "example.com",
+    "analizEt": "开始分析",
+    "calisiyor": "正在分析…",
+    "bekleyin": "正在检查网站并测量速度，大约需要 30 秒，请不要离开此页面。",
+    "neOlcuyor": "检测项目包括速度（Google PageSpeed）、SEO、内容、技术架构、安全响应头和 AI 可见度。同一网站每天最多可分析 3 次。",
+    "genelPuan": "总分",
+    "olculemedi": "未能测量",
+    "ozetNotu": "每个部分显示最重要的三项发现。完整报告列出全部发现及改进方法。",
+    "yeniAnaliz": "分析其他网站",
+    "derece": {
+      "iyi": "良好",
+      "orta": "有待改进",
+      "zayif": "较差"
+    },
+    "bolum": {
+      "hiz": "速度",
+      "seo": "SEO",
+      "icerik": "内容",
+      "teknik": "技术",
+      "guvenlik": "安全",
+      "ai": "AI 可见度"
+    },
+    "bolumAciklama": {
+      "hiz": "通过 Google PageSpeed 测量移动端和桌面端性能、LCP、CLS 与 TBT。",
+      "seo": "标题、描述、H1、canonical、robots.txt、站点地图和结构化数据。",
+      "icerik": "文字量、图片替代文本和失效的内部链接。",
+      "teknik": "HTTPS、重定向、状态码、压缩和缓存。",
+      "guvenlik": "安全响应头和 SSL 证书有效期。",
+      "ai": "llms.txt、AI 爬虫访问权限和结构化数据。"
+    },
+    "tamRapor": {
+      "baslik": "通过邮件获取完整报告",
+      "aciklama": "可打印的完整报告，包含全部发现、其重要性和改进方法，以及已检查页面和失效链接列表。链接 30 天内有效。",
+      "ad": "您的姓名（选填）",
+      "eposta": "您的电子邮箱",
+      "kvkk": "我同意根据数据保护法规（KVKK/GDPR）处理我的姓名和邮箱，用于发送报告并就本次分析与我联系。",
+      "gonder": "发送完整报告",
+      "basarili": "完整报告链接已发送到您的邮箱。",
+      "basariliAciklama": "请查看收件箱（以及垃圾邮件文件夹）。链接 30 天内有效。"
+    },
+    "teklif": {
+      "baslik": "让我们一起解决这些问题",
+      "aciklama": "我们会按优先级处理报告中的问题，让您的网站更快、更安全、更容易被找到。一起制定适合您的方案吧。",
+      "teklifAl": "获取报价",
+      "hizmetler": "查看服务"
+    },
+    "hata": {
+      "adres_gecersiz": "请输入有效的网站地址（例如 example.com）。",
+      "adres_yasak": "无法分析此地址，请输入公开可访问的网站地址。",
+      "cozumlenemedi": "找不到该域名，请检查拼写。",
+      "ulasilamadi": "无法访问该网站。请确认网站在线后重试。",
+      "cok_yonlendirme": "网站重定向次数过多，分析未能完成。",
+      "sinir_alan": "该网站今天已分析 3 次，请明天再试。",
+      "sinir_ip": "您在短时间内分析次数过多，请一小时后再试。",
+      "sinir_musteri": "您已达到每日 10 次分析的上限，请明天再试。",
+      "kvkk_gerekli": "请勾选数据保护同意框后继续。",
+      "eposta_gecersiz": "请输入有效的电子邮箱。",
+      "eposta_farkli": "此报告已发送至其他邮箱。您可以重新分析该网站。",
+      "analiz_tamamlanmadi": "此次分析未完成，无法发送报告。",
+      "bulunamadi": "未找到记录。",
+      "sure_doldu": "此链接已过期。",
+      "beklenmedik": "分析过程中发生意外错误，请重试。",
+      "ag": "无法连接服务器，请检查网络连接后重试。",
+      "genel": "出现问题，请重试。"
+    },
+    "rapor": {
+      "baslik": "网站分析报告",
+      "tarih": "分析日期",
+      "gecerlilik": "链接有效期至 {{tarih}}",
+      "yazdir": "打印 / PDF",
+      "neden": "为什么重要",
+      "oneri": "如何改进",
+      "mobil": "移动端",
+      "masaustu": "桌面端",
+      "hizSatiri": "得分 {{puan}} · LCP {{lcp}} 秒 · CLS {{cls}} · TBT {{tbt}} 毫秒",
+      "kirikBaglantilar": "失效链接",
+      "kaynak": "所在页面",
+      "ulasilamadi": "无法访问",
+      "ayrinti": "检查详情",
+      "denetlenen": "已检查 {{sayi}} 个内部链接。",
+      "yonlendirmeler": "重定向链",
+      "sayfalar": "已检查页面（{{sayi}}）",
+      "durum": "状态",
+      "sureDoldu": "此报告已过期",
+      "sureDolduAciklama": "报告链接有效期为 30 天。您可以重新分析网站以获取新报告。",
+      "bulunamadi": "未找到报告",
+      "bulunamadiAciklama": "链接可能有误或复制不完整。",
+      "yenidenAnaliz": "重新分析"
+    },
+    "yonetim": {
+      "baslik": "网站分析",
+      "aciklama": "通过免费网站分析页面完成的分析（{{sayi}}）。留下邮箱的访客也会作为潜在客户出现在“咨询”中。",
+      "yalnizEposta": "仅显示留下邮箱的",
+      "yenile": "刷新",
+      "tarih": "日期",
+      "alan": "域名",
+      "puan": "得分",
+      "eposta": "邮箱",
+      "aday": "潜在客户",
+      "adayNo": "咨询 #{{sayi}}",
+      "epostaYok": "未留下邮箱",
+      "bos": "暂无分析。",
+      "kapat": "返回列表",
+      "onceki": "上一页",
+      "sonraki": "下一页",
+      "sayfa": "第 {{sayi}} / {{toplam}} 页",
+      "hata": "无法加载网站分析。",
+      "kaynak": {
+        "acik": "公开表单",
+        "musteri": "客户面板",
+        "yonetici": "管理员"
+      }
+    },
+    "musteri": {
+      "baslik": "分析我的网站",
+      "aciklama": "测量网站的速度、SEO、安全性和 AI 可见度，完整报告会直接在此打开。每天最多 10 次分析。",
+      "analizEt": "开始分析",
+      "sitelerim": "从您的网站中选择：",
+      "gecmis": "历史分析",
+      "bos": "您还没有进行过分析。",
+      "ac": "打开报告",
+      "kapat": "返回列表",
+      "paylas": "复制报告链接",
+      "kopyalandi": "报告链接已复制。"
+    },
+    "bulgu": {
+      "hiz_mobil": {
+        "baslik": "移动端性能得分：{{deger}}/100",
+        "neden": "大多数访客使用手机访问，Google 也以移动版为排名依据。",
+        "oneri": "压缩图片并使用 WebP/AVIF，删减未使用的 JavaScript，内联关键 CSS。"
+      },
+      "hiz_masaustu": {
+        "baslik": "桌面端性能得分：{{deger}}/100",
+        "neden": "加载缓慢的页面同样会消耗办公电脑前访客的耐心。",
+        "oneri": "使用缓存、压缩和 CDN；大型脚本使用 defer 延迟加载。"
+      },
+      "lcp": {
+        "baslik": "最大内容绘制（LCP）：{{deger}} 毫秒",
+        "neden": "LCP 衡量主要内容何时出现；Google 认为 2.5 秒以内为良好。",
+        "oneri": "预加载（preload）主图、减小其体积并缩短服务器响应时间。"
+      },
+      "cls": {
+        "baslik": "布局偏移（CLS）：{{deger}}",
+        "neden": "加载时跳动的元素会导致误点并降低信任；低于 0.1 为良好。",
+        "oneri": "为图片和广告位设置宽高；网页字体加载时预留空间。"
+      },
+      "tbt": {
+        "baslik": "总阻塞时间（TBT）：{{deger}} 毫秒",
+        "neden": "浏览器繁忙时页面无法响应点击；低于 200 毫秒为良好。",
+        "oneri": "拆分耗时的 JavaScript 任务，减少或延迟加载第三方脚本。"
+      },
+      "hiz_olculemedi": {
+        "baslik": "无法测量速度",
+        "neden": "Google PageSpeed 本次未响应，此部分未计入总分。",
+        "oneri": "几分钟后重试，或在 PageSpeed Insights 中手动测量。"
+      },
+      "title_yok": {
+        "baslik": "页面没有标题（title）",
+        "neden": "标题是搜索结果中可点击的那一行；缺失时 Google 会自行选取文字。",
+        "oneri": "为每个页面编写 30–60 个字符、包含核心关键词的唯一 <title>。"
+      },
+      "title_kisa": {
+        "baslik": "标题过短（{{deger}} 个字符）",
+        "neden": "过短的标题浪费搜索结果空间，也无法充分说明页面内容。",
+        "oneri": "将标题调整到 30–60 个字符，同时写出服务和品牌。"
+      },
+      "title_uzun": {
+        "baslik": "标题过长（{{deger}} 个字符）",
+        "neden": "超过 60 个字符的标题会在搜索结果中被截断，重要部分可能看不到。",
+        "oneri": "将标题缩短到 60 个字符以内，把最重要的词放在前面。"
+      },
+      "title_iyi": {
+        "baslik": "标题长度合适（{{deger}} 个字符）",
+        "neden": "标题能在搜索结果中完整显示。",
+        "oneri": "保持标题更新，并确保每个页面唯一。"
+      },
+      "aciklama_yok": {
+        "baslik": "缺少 meta 描述",
+        "neden": "描述是搜索结果中标题下方的文字，直接影响点击率。",
+        "oneri": "编写 70–160 个字符、概括页面并吸引点击的 meta description。"
+      },
+      "aciklama_kisa": {
+        "baslik": "meta 描述过短（{{deger}} 个字符）",
+        "neden": "过短的描述无法给访客足够的点击理由。",
+        "oneri": "扩展到 70–160 个字符，说明价值和差异化优势。"
+      },
+      "aciklama_uzun": {
+        "baslik": "meta 描述过长（{{deger}} 个字符）",
+        "neden": "超过 160 个字符的描述会在搜索结果中被截断。",
+        "oneri": "缩短到 160 个字符以内，并把核心信息放在开头。"
+      },
+      "aciklama_iyi": {
+        "baslik": "meta 描述长度合适（{{deger}} 个字符）",
+        "neden": "描述能完整显示并概括页面。",
+        "oneri": "保持描述与页面内容一致。"
+      },
+      "h1_yok": {
+        "baslik": "页面没有 H1 标题",
+        "neden": "H1 向访客和搜索引擎说明页面的主题。",
+        "oneri": "在页面顶部添加一个说明主题的 H1。"
+      },
+      "h1_fazla": {
+        "baslik": "页面有 {{deger}} 个 H1",
+        "neden": "多个 H1 会模糊页面的主题。",
+        "oneri": "只保留一个 H1，其余改为 H2 或 H3。"
+      },
+      "canonical_yok": {
+        "baslik": "缺少 canonical 链接",
+        "neden": "同一内容可通过多个地址访问时，Google 无法判断应为哪个排名。",
+        "oneri": "为每个页面添加指向其主地址的 <link rel=\"canonical\">。"
+      },
+      "noindex": {
+        "baslik": "页面禁止搜索引擎收录（noindex）",
+        "neden": "带有 noindex 标记的页面完全不会出现在 Google 中。",
+        "oneri": "如果页面已上线，请从 robots meta 标签中移除 noindex。"
+      },
+      "lang_yok": {
+        "baslik": "<html> 标签缺少语言（lang）",
+        "neden": "语言属性告诉屏幕阅读器和搜索引擎页面使用的语言。",
+        "oneri": "添加与页面语言一致的 lang 属性，例如 <html lang=\"zh\">。"
+      },
+      "robots_txt_yok": {
+        "baslik": "缺少 robots.txt",
+        "neden": "robots.txt 告诉搜索引擎应抓取哪些内容以及站点地图的位置。",
+        "oneri": "在根目录添加 robots.txt，并写入 Sitemap: 行。"
+      },
+      "sitemap_yok": {
+        "baslik": "未找到站点地图（sitemap.xml）",
+        "neden": "站点地图帮助搜索引擎快速发现所有页面。",
+        "oneri": "创建 sitemap.xml，在 robots.txt 中声明，并提交到 Google Search Console。"
+      },
+      "sitemap_var": {
+        "baslik": "站点地图包含 {{deger}} 个地址",
+        "neden": "搜索引擎可以通过站点地图轻松发现您的页面。",
+        "oneri": "确保新增页面时站点地图会自动更新。"
+      },
+      "jsonld_yok": {
+        "baslik": "缺少结构化数据（JSON-LD）",
+        "neden": "结构化数据可带来星级、常见问题、企业信息等富媒体搜索结果。",
+        "oneri": "为 Organization/LocalBusiness 及各页面类型添加 schema.org JSON-LD。"
+      },
+      "hreflang_yok": {
+        "baslik": "缺少 hreflang 标签",
+        "neden": "网站提供多种语言时，hreflang 能为每位访客展示正确的语言版本。",
+        "oneri": "多语言网站请为每个语言版本添加 hreflang；单语言网站无需添加。"
+      },
+      "sayfa_basliksiz": {
+        "baslik": "{{deger}} 个页面没有标题",
+        "neden": "没有标题的页面在搜索结果中显得薄弱且不统一。",
+        "oneri": "为每个已检查页面编写唯一标题。"
+      },
+      "sayfa_aciklamasiz": {
+        "baslik": "{{deger}} 个页面没有 meta 描述",
+        "neden": "没有描述时，Google 会显示随机的文字片段。",
+        "oneri": "为所有重要页面编写原创 meta 描述。"
+      },
+      "icerik_az": {
+        "baslik": "首页文字较少（{{deger}} 个词）",
+        "neden": "搜索引擎通过文字理解页面；内容单薄的页面很难获得排名。",
+        "oneri": "补充至少 300 词，介绍服务、优势和常见问题。"
+      },
+      "kelime_sayisi": {
+        "baslik": "首页有 {{deger}} 个词",
+        "neden": "足够的文字有助于搜索引擎正确理解页面。",
+        "oneri": "保持内容更新，并用小标题划分段落。"
+      },
+      "alt_yok": {
+        "baslik": "{{deger}} 张图片缺少替代文本（alt）",
+        "neden": "替代文本为视障访客描述图片，也有助于图片搜索排名。",
+        "oneri": "为每张有意义的图片添加简短 alt 文本；装饰性图片使用 alt=\"\"。"
+      },
+      "alt_tamam": {
+        "baslik": "所有图片都有替代文本",
+        "neden": "图片可访问，且能被搜索引擎理解。",
+        "oneri": "新增图片时继续填写 alt 文本。"
+      },
+      "kirik_baglanti": {
+        "baslik": "发现 {{deger}} 个失效的内部链接",
+        "neden": "失效链接会把访客带到错误页面，并浪费抓取预算。",
+        "oneri": "更新或删除这些链接；对已迁移页面设置 301 重定向。"
+      },
+      "kirik_baglanti_yok": {
+        "baslik": "没有失效的内部链接（已检查 {{deger}} 个）",
+        "neden": "访客和搜索引擎可以顺畅浏览网站。",
+        "oneri": "删除或迁移页面时记得添加重定向。"
+      },
+      "https_var": {
+        "baslik": "网站使用 HTTPS 访问",
+        "neden": "加密连接保护访客数据；浏览器会将 HTTP 网站标记为“不安全”。",
+        "oneri": "确保图片、脚本等所有资源都通过 HTTPS 加载。"
+      },
+      "https_yok": {
+        "baslik": "网站未使用 HTTPS",
+        "neden": "未加密时表单数据以明文传输；浏览器会警告访客，Google 也会降低排名。",
+        "oneri": "安装免费的 SSL 证书（如 Let's Encrypt），并将所有流量重定向到 HTTPS。"
+      },
+      "http_yonlendirme_yok": {
+        "baslik": "HTTP 未重定向到 HTTPS",
+        "neden": "通过 http:// 访问的用户停留在未加密版本，形成两个网站副本。",
+        "oneri": "在服务器上使用 301 将 http:// 请求重定向到 https://。"
+      },
+      "yonlendirme_uzun": {
+        "baslik": "首页需经过 {{deger}} 次重定向才能访问",
+        "neden": "每次重定向都会拖慢加载并损失部分搜索权重。",
+        "oneri": "调整链接和服务器设置，使其直接指向最终地址。"
+      },
+      "ana_sayfa_durum": {
+        "baslik": "首页返回状态码 {{deger}}",
+        "neden": "首页返回非 200 状态时，访客和搜索引擎都无法获取内容。",
+        "oneri": "修复服务器错误或缺失页面；首页应返回 200。"
+      },
+      "sayfa_hatali": {
+        "baslik": "{{deger}} 个页面返回错误",
+        "neden": "站点地图或菜单中无法打开的页面会损害信任和排名。",
+        "oneri": "修复这些页面，或将其从站点地图移除并重定向到合适页面。"
+      },
+      "sikistirma_yok": {
+        "baslik": "未启用压缩（gzip/brotli）",
+        "neden": "未压缩的 HTML、CSS 和 JavaScript 会让访客多下载数倍数据。",
+        "oneri": "在服务器或 CDN 上启用 brotli 或 gzip。"
+      },
+      "sikistirma_var": {
+        "baslik": "已启用压缩（{{deger}}）",
+        "neden": "页面以更少的数据更快地加载。",
+        "oneri": "确认静态文件也已压缩。"
+      },
+      "onbellek_yok": {
+        "baslik": "缺少缓存头（Cache-Control）",
+        "neden": "没有缓存规则时，浏览器和 CDN 每次访问都会重新下载全部内容。",
+        "oneri": "HTML 设置较短的 Cache-Control，带版本号的静态文件设置长期缓存。"
+      },
+      "yavas_yanit": {
+        "baslik": "首页响应耗时 {{deger}} 毫秒",
+        "neden": "服务器响应慢时，页面其余部分也会随之延迟。",
+        "oneri": "使用服务器端缓存、优化数据库查询或接入 CDN。"
+      },
+      "hsts_yok": {
+        "baslik": "缺少 HSTS 响应头",
+        "neden": "HSTS 要求浏览器只通过 HTTPS 连接，使中间人攻击更难实施。",
+        "oneri": "添加 Strict-Transport-Security: max-age=31536000; includeSubDomains。"
+      },
+      "csp_yok": {
+        "baslik": "缺少内容安全策略（CSP）",
+        "neden": "CSP 是阻止注入恶意脚本（XSS）最有力的防线。",
+        "oneri": "先用 Content-Security-Policy-Report-Only 梳理允许的来源，再强制启用策略。"
+      },
+      "frame_koruma_yok": {
+        "baslik": "缺少防嵌套保护",
+        "neden": "您的网站可能被嵌入其他网站的隐形框架中，用于点击劫持。",
+        "oneri": "设置 X-Frame-Options: DENY，或在 CSP 中使用 frame-ancestors 'self'。"
+      },
+      "nosniff_yok": {
+        "baslik": "缺少 X-Content-Type-Options 响应头",
+        "neden": "缺少该头时浏览器会猜测文件类型，恶意文件可能被当作脚本执行。",
+        "oneri": "添加 X-Content-Type-Options: nosniff。"
+      },
+      "referrer_yok": {
+        "baslik": "缺少 Referrer-Policy 响应头",
+        "neden": "访客点击链接时，包含参数的完整网址可能泄露给对方网站。",
+        "oneri": "添加 Referrer-Policy: strict-origin-when-cross-origin。"
+      },
+      "guvenlik_basliklari_tamam": {
+        "baslik": "基础安全响应头齐全",
+        "neden": "已启用针对常见浏览器层攻击的基础防护。",
+        "oneri": "添加第三方脚本时同步更新 CSP。"
+      },
+      "ssl_gecersiz": {
+        "baslik": "SSL 证书无效",
+        "neden": "证书无效时浏览器会显示整页警告，大多数访客会离开。",
+        "oneri": "从可信机构重新安装与域名匹配的证书，并配置中间证书。"
+      },
+      "ssl_suresi_gecmis": {
+        "baslik": "SSL 证书已过期 {{deger}} 天",
+        "neden": "证书过期后，浏览器会将网站标记为不安全。",
+        "oneri": "立即续期证书并开启自动续期。"
+      },
+      "ssl_bitiyor": {
+        "baslik": "SSL 证书将在 {{deger}} 天内过期",
+        "neden": "如不续期，几天后网站就会显示为不安全。",
+        "oneri": "立即续期，并检查自动续期是否正常。"
+      },
+      "ssl_yakinda": {
+        "baslik": "SSL 证书将在 {{deger}} 天后过期",
+        "neden": "到期临近；若自动续期失败，网站将无法正常访问。",
+        "oneri": "确认自动续期，或在日历中设置提醒。"
+      },
+      "ssl_gecerli": {
+        "baslik": "SSL 证书有效（剩余 {{deger}} 天）",
+        "neden": "连接已加密，浏览器信任该网站。",
+        "oneri": "确认已开启自动续期。"
+      },
+      "ssl_olculemedi": {
+        "baslik": "无法读取 SSL 到期日期",
+        "neden": "本次分析无法直接连接证书；这不会降低评分。",
+        "oneri": "通过浏览器地址栏的锁形图标查看证书到期日期。"
+      },
+      "llms_txt_var": {
+        "baslik": "已有 llms.txt",
+        "neden": "AI 助手可以直接获取网站摘要和重要页面。",
+        "oneri": "继续将新服务和新页面添加到 llms.txt。"
+      },
+      "llms_txt_yok": {
+        "baslik": "缺少 llms.txt",
+        "neden": "llms.txt 是一项新标准，为 ChatGPT、Claude 等 AI 工具概括您的网站，帮助它们准确介绍您。",
+        "oneri": "在根目录添加 /llms.txt，概述网站、服务和重要页面。"
+      },
+      "ai_bot_engelli": {
+        "baslik": "robots.txt 屏蔽了 AI 爬虫：{{deger}}",
+        "neden": "被屏蔽的爬虫无法读取您的网站，您可能不会出现在这些 AI 搜索中。",
+        "oneri": "如非有意为之，请删除针对这些爬虫的 Disallow: / 规则。"
+      },
+      "ai_botlar_acik": {
+        "baslik": "未屏蔽 AI 爬虫",
+        "neden": "GPTBot、ClaudeBot、PerplexityBot 和 Google-Extended 可以读取您的网站。",
+        "oneri": "保持内容清晰、及时，这些工具可能会将您作为信息来源引用。"
+      },
+      "yapisal_veri_var": {
+        "baslik": "已有结构化数据",
+        "neden": "AI 系统和搜索引擎能以机器可读的形式获取您的企业、服务和联系方式。",
+        "oneri": "定期使用 Google 富媒体搜索结果测试验证标记。"
+      },
+      "yapisal_veri_yok": {
+        "baslik": "缺少结构化数据",
+        "neden": "AI 系统能从结构化数据中更可靠地识别您是谁以及提供什么。",
+        "oneri": "添加 Organization、LocalBusiness、Service、FAQPage 等 schema.org JSON-LD。"
+      }
+    }
+  }
+}

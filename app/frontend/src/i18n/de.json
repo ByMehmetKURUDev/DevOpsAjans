@@ -448,7 +448,9 @@
     "emailMismatchDesc": "Der Bereich ordnet Einträge über die E-Mail-Adresse zu. Sie sind als {{email}} angemeldet. Hängt Ihr Projekt an einer anderen Adresse, erscheint es hier nicht — schreiben Sie uns, wir gleichen das ab.",
     "emailMismatchCta": "Schreiben Sie uns",
     "tabMarketplace": "Marketplace",
-    "tabIcerik": "Inhalte"
+    "tabIcerik": "Inhalte",
+    "tabSiteAnalizleri": "Website-Analysen",
+    "tabAnaliz": "Website-Analyse"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -582,7 +584,9 @@
     "desc": "Eine Boutique-Entwicklungs- und Digitalagentur, die mutige, leistungsstarke Software und unvergessliche Marken erschafft. Individuelle Entwicklung, digitales Marketing und Produktdesign.",
     "navigate": "Navigation",
     "contact": "Kontakt",
-    "copyright": "By Mehmet KURU Dev. Mit Besessenheit gefertigt."
+    "copyright": "By Mehmet KURU Dev. Mit Besessenheit gefertigt.",
+    "siteAnalizi": "Kostenlose Website-Analyse",
+    "roadmap": "Roadmap"
   },
   "settingsForm": {
     "brandTitle": "Marke",
@@ -664,7 +668,9 @@
     "fSeoMarketplaceTitle": "Marketplace — Titel",
     "fSeoMarketplaceDesc": "Marketplace — Beschreibung",
     "fSeoRoadmapTitle": "Roadmap — Titel",
-    "fSeoRoadmapDesc": "Roadmap — Beschreibung"
+    "fSeoRoadmapDesc": "Roadmap — Beschreibung",
+    "fSeoSiteAnalysisTitle": "Website-Analyse — Titel",
+    "fSeoSiteAnalysisDesc": "Website-Analyse — Beschreibung"
   },
   "tools": {
     "sectionTag": "Eingesetzte Werkzeuge",

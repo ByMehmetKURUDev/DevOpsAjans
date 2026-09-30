@@ -98,6 +98,8 @@ export const TRANSLATABLE_KEYS = [
   'seo_desc_marketplace',
   'seo_title_roadmap',
   'seo_desc_roadmap',
+  'seo_title_site_analysis',
+  'seo_desc_site_analysis',
   'seo_title_blog',
   'seo_desc_blog',
 ] as const;
@@ -295,6 +297,8 @@ export const SETTING_GROUPS: {
       { key: 'seo_desc_marketplace', label: 'settingsForm.fSeoMarketplaceDesc', multiline: true, translatable: true },
       { key: 'seo_title_roadmap', label: 'settingsForm.fSeoRoadmapTitle', translatable: true },
       { key: 'seo_desc_roadmap', label: 'settingsForm.fSeoRoadmapDesc', multiline: true, translatable: true },
+      { key: 'seo_title_site_analysis', label: 'settingsForm.fSeoSiteAnalysisTitle', translatable: true },
+      { key: 'seo_desc_site_analysis', label: 'settingsForm.fSeoSiteAnalysisDesc', multiline: true, translatable: true },
       { key: 'seo_title_blog', label: 'settingsForm.fSeoBlogTitle', translatable: true },
       { key: 'seo_desc_blog', label: 'settingsForm.fSeoBlogDesc', multiline: true, translatable: true },
     ],

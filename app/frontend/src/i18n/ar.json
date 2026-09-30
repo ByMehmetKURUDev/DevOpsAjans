@@ -448,7 +448,9 @@
     "emailMismatchDesc": "تُطابق اللوحة السجلات حسب البريد الإلكتروني. أنت مسجَّل الدخول بـ {{email}}. إذا كان مشروعك مرتبطًا بعنوان آخر فلن يظهر هنا — راسلنا وسنوحّد العنوان.",
     "emailMismatchCta": "راسلنا",
     "tabMarketplace": "المتجر",
-    "tabIcerik": "المحتوى"
+    "tabIcerik": "المحتوى",
+    "tabSiteAnalizleri": "تحليلات المواقع",
+    "tabAnaliz": "تحليل الموقع"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",
@@ -582,7 +584,9 @@
     "desc": "وكالة تطوير ورقمية متخصصة تنتج برمجيات جسورة عالية الأداء وعلامات لا تُنسى. تطوير مخصص، تسويق رقمي وتصميم منتجات.",
     "navigate": "التنقل",
     "contact": "اتصل بنا",
-    "copyright": "By@MehmetKURU.Dev"
+    "copyright": "By@MehmetKURU.Dev",
+    "siteAnalizi": "تحليل مجاني للموقع",
+    "roadmap": "خارطة الطريق"
   },
   "settingsForm": {
     "brandTitle": "الهوية",
@@ -664,7 +668,9 @@
     "fSeoMarketplaceTitle": "المتجر — العنوان",
     "fSeoMarketplaceDesc": "المتجر — الوصف",
     "fSeoRoadmapTitle": "خارطة الطريق — العنوان",
-    "fSeoRoadmapDesc": "خارطة الطريق — الوصف"
+    "fSeoRoadmapDesc": "خارطة الطريق — الوصف",
+    "fSeoSiteAnalysisTitle": "تحليل الموقع — العنوان",
+    "fSeoSiteAnalysisDesc": "تحليل الموقع — الوصف"
   },
   "tools": {
     "sectionTag": "الأدوات المستخدمة",

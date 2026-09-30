@@ -1,0 +1,436 @@
+{
+  "siteAnalizi": {
+    "etiket": "Free tool",
+    "baslik1": "Free",
+    "baslikVurgu": "website analysis",
+    "giris": "Enter your domain and we will inspect your site from the outside — speed, SEO, content, technical setup, security and AI visibility — and score it out of 100. No sign-up needed.",
+    "adresEtiketi": "Website address",
+    "adresOrnek": "example.com",
+    "analizEt": "Analyse",
+    "calisiyor": "Analysing…",
+    "bekleyin": "We are inspecting the site and measuring its speed; this can take about 30 seconds. Please stay on this page.",
+    "neOlcuyor": "We measure speed (Google PageSpeed), SEO, content, technical setup, security headers and AI visibility. The same site can be analysed up to 3 times a day.",
+    "genelPuan": "Overall score",
+    "olculemedi": "Not measured",
+    "ozetNotu": "Each section shows its three most important findings. The full report lists every finding and what to do about it.",
+    "yeniAnaliz": "Analyse another site",
+    "derece": {
+      "iyi": "Good",
+      "orta": "Needs work",
+      "zayif": "Poor"
+    },
+    "bolum": {
+      "hiz": "Speed",
+      "seo": "SEO",
+      "icerik": "Content",
+      "teknik": "Technical",
+      "guvenlik": "Security",
+      "ai": "AI visibility"
+    },
+    "bolumAciklama": {
+      "hiz": "Mobile and desktop performance, LCP, CLS and TBT via Google PageSpeed.",
+      "seo": "Title, description, H1, canonical, robots.txt, sitemap and structured data.",
+      "icerik": "Amount of text, image alt text and broken internal links.",
+      "teknik": "HTTPS, redirects, status codes, compression and caching.",
+      "guvenlik": "Security headers and SSL certificate validity.",
+      "ai": "llms.txt, access for AI crawlers and structured data."
+    },
+    "tamRapor": {
+      "baslik": "Get the full report by email",
+      "aciklama": "A printable full report with every finding, why it matters and what to do, plus the crawled pages and broken links. The link is valid for 30 days.",
+      "ad": "Your name (optional)",
+      "eposta": "Your email address",
+      "kvkk": "I agree that my name and email may be processed to send me the report and to follow up on this analysis, in line with data protection law (KVKK/GDPR).",
+      "gonder": "Send the full report",
+      "basarili": "The full report link has been sent to your email address.",
+      "basariliAciklama": "Check your inbox (and spam folder). The link is valid for 30 days."
+    },
+    "teklif": {
+      "baslik": "Let's fix these issues together",
+      "aciklama": "We prioritise the findings in your report and make your site fast, secure and easy to find. Let's work out the right plan for you.",
+      "teklifAl": "Get a quote",
+      "hizmetler": "See our services"
+    },
+    "hata": {
+      "adres_gecersiz": "Please enter a valid website address (e.g. example.com).",
+      "adres_yasak": "This address cannot be analysed. Please enter a public website address.",
+      "cozumlenemedi": "This domain could not be found. Please check the spelling.",
+      "ulasilamadi": "The site could not be reached. Make sure it is online and try again.",
+      "cok_yonlendirme": "The site redirects too many times; the analysis could not be completed.",
+      "sinir_alan": "This site has already been analysed 3 times today. Please try again tomorrow.",
+      "sinir_ip": "You have run too many analyses in a short time. Please try again in an hour.",
+      "sinir_musteri": "You have reached the daily limit of 10 analyses. Please try again tomorrow.",
+      "kvkk_gerekli": "Please tick the data protection consent box to continue.",
+      "eposta_gecersiz": "Please enter a valid email address.",
+      "eposta_farkli": "This report has already been sent to another email address. You can analyse the site again.",
+      "analiz_tamamlanmadi": "This analysis did not complete, so no report can be sent.",
+      "bulunamadi": "Record not found.",
+      "sure_doldu": "This link has expired.",
+      "beklenmedik": "An unexpected error occurred during the analysis. Please try again.",
+      "ag": "Could not reach the server. Check your internet connection and try again.",
+      "genel": "Something went wrong. Please try again."
+    },
+    "rapor": {
+      "baslik": "Website analysis report",
+      "tarih": "Analysed on",
+      "gecerlilik": "link valid until {{tarih}}",
+      "yazdir": "Print / PDF",
+      "neden": "Why it matters",
+      "oneri": "What to do",
+      "mobil": "Mobile",
+      "masaustu": "Desktop",
+      "hizSatiri": "Score {{puan}} · LCP {{lcp}} s · CLS {{cls}} · TBT {{tbt}} ms",
+      "kirikBaglantilar": "Broken links",
+      "kaynak": "Found on",
+      "ulasilamadi": "unreachable",
+      "ayrinti": "Crawl details",
+      "denetlenen": "{{sayi}} internal links checked.",
+      "yonlendirmeler": "Redirect chain",
+      "sayfalar": "Crawled pages ({{sayi}})",
+      "durum": "Status",
+      "sureDoldu": "This report has expired",
+      "sureDolduAciklama": "Report links are valid for 30 days. You can analyse the site again to get a new report.",
+      "bulunamadi": "Report not found",
+      "bulunamadiAciklama": "The link may be wrong or copied incompletely.",
+      "yenidenAnaliz": "Analyse again"
+    },
+    "yonetim": {
+      "baslik": "Site analyses",
+      "aciklama": "Analyses run from the free website analysis page ({{sayi}}). Visitors who leave an email also appear under Inquiries as leads.",
+      "yalnizEposta": "Only those who left an email",
+      "yenile": "Refresh",
+      "tarih": "Date",
+      "alan": "Domain",
+      "puan": "Score",
+      "eposta": "Email",
+      "aday": "Lead",
+      "adayNo": "Inquiry #{{sayi}}",
+      "epostaYok": "No email left",
+      "bos": "No analyses yet.",
+      "kapat": "Back to list",
+      "onceki": "Previous page",
+      "sonraki": "Next page",
+      "sayfa": "Page {{sayi}} / {{toplam}}",
+      "hata": "Could not load site analyses.",
+      "kaynak": {
+        "acik": "Public form",
+        "musteri": "Client panel",
+        "yonetici": "Admin"
+      }
+    },
+    "musteri": {
+      "baslik": "Analyse my site",
+      "aciklama": "Measure your site's speed, SEO, security and AI visibility; the full report opens right here. Up to 10 analyses per day.",
+      "analizEt": "Analyse",
+      "sitelerim": "Pick one of your sites:",
+      "gecmis": "Past analyses",
+      "bos": "You have not run any analyses yet.",
+      "ac": "Open report",
+      "kapat": "Back to list",
+      "paylas": "Copy report link",
+      "kopyalandi": "Report link copied."
+    },
+    "bulgu": {
+      "hiz_mobil": {
+        "baslik": "Mobile performance score: {{deger}}/100",
+        "neden": "Most visitors arrive on a phone, and Google ranks sites based on their mobile version.",
+        "oneri": "Compress images and serve WebP/AVIF, cut unused JavaScript and inline critical CSS."
+      },
+      "hiz_masaustu": {
+        "baslik": "Desktop performance score: {{deger}}/100",
+        "neden": "A slow page wears out the patience of visitors on work computers too.",
+        "oneri": "Use caching, compression and a CDN; load large scripts with defer."
+      },
+      "lcp": {
+        "baslik": "Largest Contentful Paint (LCP): {{deger}} ms",
+        "neden": "LCP measures when the main content appears; Google considers under 2.5 seconds good.",
+        "oneri": "Preload the hero image, reduce its size and shorten server response time."
+      },
+      "cls": {
+        "baslik": "Layout shift (CLS): {{deger}}",
+        "neden": "Elements that jump while loading cause misclicks and erode trust; under 0.1 is considered good.",
+        "oneri": "Give images and ad slots a width and height; reserve space while web fonts load."
+      },
+      "tbt": {
+        "baslik": "Total Blocking Time (TBT): {{deger}} ms",
+        "neden": "While the browser is busy the page does not respond to taps and clicks; under 200 ms is considered good.",
+        "oneri": "Break up long JavaScript tasks and reduce or defer third-party scripts."
+      },
+      "hiz_olculemedi": {
+        "baslik": "Speed could not be measured",
+        "neden": "Google PageSpeed did not respond this time; this section was left out of the overall score.",
+        "oneri": "Try again in a few minutes or measure your site manually in PageSpeed Insights."
+      },
+      "title_yok": {
+        "baslik": "The page has no title",
+        "neden": "The title is the clickable line in search results; without it Google picks its own text.",
+        "oneri": "Give every page a unique 30–60 character <title> containing its main keyword."
+      },
+      "title_kisa": {
+        "baslik": "Title is too short ({{deger}} characters)",
+        "neden": "A short title wastes space in search results and does not say enough about the page.",
+        "oneri": "Bring the title to 30–60 characters; include both the service and the brand."
+      },
+      "title_uzun": {
+        "baslik": "Title is too long ({{deger}} characters)",
+        "neden": "Titles over 60 characters are cut off in search results, so the key part may be hidden.",
+        "oneri": "Shorten the title to under 60 characters and put the most important words first."
+      },
+      "title_iyi": {
+        "baslik": "Title length is good ({{deger}} characters)",
+        "neden": "The title is shown in full in search results.",
+        "oneri": "Keep it up to date and unique on every page."
+      },
+      "aciklama_yok": {
+        "baslik": "No meta description",
+        "neden": "The description is the text under the title in search results and directly affects click-through rate.",
+        "oneri": "Write a 70–160 character meta description that sums up the page and invites a click."
+      },
+      "aciklama_kisa": {
+        "baslik": "Meta description is short ({{deger}} characters)",
+        "neden": "A short description does not give visitors enough reason to click.",
+        "oneri": "Expand it to 70–160 characters and explain the benefit and what sets you apart."
+      },
+      "aciklama_uzun": {
+        "baslik": "Meta description is long ({{deger}} characters)",
+        "neden": "Descriptions over 160 characters are cut off in search results.",
+        "oneri": "Trim it to under 160 characters and lead with the main message."
+      },
+      "aciklama_iyi": {
+        "baslik": "Meta description length is good ({{deger}} characters)",
+        "neden": "The description is shown in full and summarises the page.",
+        "oneri": "Keep it in line with the page content."
+      },
+      "h1_yok": {
+        "baslik": "The page has no H1 heading",
+        "neden": "The H1 tells both visitors and search engines what the page is about.",
+        "oneri": "Add a single H1 at the top that states the page's main topic."
+      },
+      "h1_fazla": {
+        "baslik": "The page has {{deger}} H1 headings",
+        "neden": "Several H1s blur the page's main topic.",
+        "oneri": "Keep one H1 and turn the others into H2 or H3."
+      },
+      "canonical_yok": {
+        "baslik": "No canonical link",
+        "neden": "If the same content is reachable at several addresses, Google cannot tell which one to rank.",
+        "oneri": "Add a <link rel=\"canonical\"> pointing to each page's primary address."
+      },
+      "noindex": {
+        "baslik": "Page is blocked from search engines (noindex)",
+        "neden": "A page with a noindex tag does not appear in Google at all.",
+        "oneri": "If the page is live, remove noindex from the robots meta tag."
+      },
+      "lang_yok": {
+        "baslik": "No language (lang) on the <html> tag",
+        "neden": "The language attribute tells screen readers and search engines what language the page is in.",
+        "oneri": "Add a lang attribute matching the page language, e.g. <html lang=\"en\">."
+      },
+      "robots_txt_yok": {
+        "baslik": "No robots.txt",
+        "neden": "robots.txt tells search engines what to crawl and where the sitemap is.",
+        "oneri": "Add a robots.txt to the root and include a Sitemap: line."
+      },
+      "sitemap_yok": {
+        "baslik": "No sitemap (sitemap.xml) found",
+        "neden": "A sitemap helps search engines find every page quickly.",
+        "oneri": "Create sitemap.xml, reference it in robots.txt and submit it to Google Search Console."
+      },
+      "sitemap_var": {
+        "baslik": "The sitemap lists {{deger}} URLs",
+        "neden": "Search engines can easily discover your pages through the sitemap.",
+        "oneri": "Make sure the sitemap updates automatically when you add pages."
+      },
+      "jsonld_yok": {
+        "baslik": "No structured data (JSON-LD)",
+        "neden": "Structured data unlocks rich results such as stars, FAQs and business details.",
+        "oneri": "Add schema.org JSON-LD for Organization/LocalBusiness and for each page type."
+      },
+      "hreflang_yok": {
+        "baslik": "No hreflang tags",
+        "neden": "If the site is published in several languages, hreflang shows each visitor the right version.",
+        "oneri": "For a multilingual site, add hreflang links for every language version; a single-language site does not need them."
+      },
+      "sayfa_basliksiz": {
+        "baslik": "{{deger}} pages have no title",
+        "neden": "Pages without titles look weak and inconsistent in search results.",
+        "oneri": "Write a unique title for every crawled page."
+      },
+      "sayfa_aciklamasiz": {
+        "baslik": "{{deger}} pages have no meta description",
+        "neden": "Without a description Google shows a random snippet of text.",
+        "oneri": "Write an original meta description for all important pages."
+      },
+      "icerik_az": {
+        "baslik": "The home page has little text ({{deger}} words)",
+        "neden": "Search engines understand a page from its text; thin content is hard to rank.",
+        "oneri": "Add at least 300 words describing your services, what sets you apart and common questions."
+      },
+      "kelime_sayisi": {
+        "baslik": "The home page has {{deger}} words",
+        "neden": "Enough text helps search engines understand your page correctly.",
+        "oneri": "Keep content current and break it into sections with subheadings."
+      },
+      "alt_yok": {
+        "baslik": "{{deger}} images have no alt text",
+        "neden": "Alt text describes images to visually impaired visitors and helps image search rankings.",
+        "oneri": "Add short alt text to every meaningful image; use alt=\"\" for decorative ones."
+      },
+      "alt_tamam": {
+        "baslik": "All images have alt text",
+        "neden": "Images are accessible and understood by search engines.",
+        "oneri": "Keep writing alt text for new images."
+      },
+      "kirik_baglanti": {
+        "baslik": "{{deger}} broken internal links found",
+        "neden": "Broken links send visitors to error pages and waste crawl budget.",
+        "oneri": "Update or remove the links; set up 301 redirects for moved pages."
+      },
+      "kirik_baglanti_yok": {
+        "baslik": "No broken internal links ({{deger}} links checked)",
+        "neden": "Visitors and search engines can move around the site without problems.",
+        "oneri": "Remember to add redirects when you delete or move pages."
+      },
+      "https_var": {
+        "baslik": "The site loads over HTTPS",
+        "neden": "An encrypted connection protects visitor data; browsers flag HTTP sites as \"not secure\".",
+        "oneri": "Make sure every resource, including images and scripts, loads over HTTPS."
+      },
+      "https_yok": {
+        "baslik": "The site does not use HTTPS",
+        "neden": "Without encryption form data travels in the clear; browsers warn visitors and Google ranks the site lower.",
+        "oneri": "Install a free SSL certificate (e.g. Let's Encrypt) and redirect all traffic to HTTPS."
+      },
+      "http_yonlendirme_yok": {
+        "baslik": "HTTP is not redirected to HTTPS",
+        "neden": "Visitors arriving via http:// stay on the unencrypted version, creating two copies of the site.",
+        "oneri": "Redirect http:// requests to https:// with a 301 on the server."
+      },
+      "yonlendirme_uzun": {
+        "baslik": "The home page is reached via {{deger}} redirects",
+        "neden": "Every redirect slows down loading and loses some search value.",
+        "oneri": "Update links and server settings so they point straight to the final address."
+      },
+      "ana_sayfa_durum": {
+        "baslik": "The home page returns status {{deger}}",
+        "neden": "If the home page returns anything other than 200, visitors and search engines cannot reach the content.",
+        "oneri": "Fix the server error or missing page; the home page should return 200."
+      },
+      "sayfa_hatali": {
+        "baslik": "{{deger}} pages return errors",
+        "neden": "Pages listed in the sitemap or menu that fail to load cost trust and rankings.",
+        "oneri": "Fix these pages, or remove them from the sitemap and redirect to a suitable page."
+      },
+      "sikistirma_yok": {
+        "baslik": "Compression (gzip/brotli) is off",
+        "neden": "Uncompressed HTML, CSS and JavaScript make visitors download several times more data.",
+        "oneri": "Enable brotli or gzip on the server or CDN."
+      },
+      "sikistirma_var": {
+        "baslik": "Compression is on ({{deger}})",
+        "neden": "Pages download faster with less data.",
+        "oneri": "Check that static files are compressed as well."
+      },
+      "onbellek_yok": {
+        "baslik": "No caching header (Cache-Control)",
+        "neden": "Without caching rules, browsers and CDNs download everything again on every visit.",
+        "oneri": "Set short Cache-Control for HTML and long-lived caching for versioned static files."
+      },
+      "yavas_yanit": {
+        "baslik": "The home page responded in {{deger}} ms",
+        "neden": "When the server is slow, the rest of the page is delayed too.",
+        "oneri": "Use server-side caching, speed up database queries or add a CDN."
+      },
+      "hsts_yok": {
+        "baslik": "No HSTS header",
+        "neden": "HSTS tells the browser to connect only over HTTPS, making interception attacks harder.",
+        "oneri": "Add Strict-Transport-Security: max-age=31536000; includeSubDomains."
+      },
+      "csp_yok": {
+        "baslik": "No Content Security Policy (CSP)",
+        "neden": "CSP is the strongest layer against injected malicious scripts (XSS).",
+        "oneri": "Start with Content-Security-Policy-Report-Only to map allowed sources, then enforce the policy."
+      },
+      "frame_koruma_yok": {
+        "baslik": "No framing protection",
+        "neden": "Your site could be loaded in an invisible frame on another site and used for clickjacking.",
+        "oneri": "Set X-Frame-Options: DENY or frame-ancestors 'self' in your CSP."
+      },
+      "nosniff_yok": {
+        "baslik": "No X-Content-Type-Options header",
+        "neden": "Without it the browser guesses file types, so a malicious file could run as a script.",
+        "oneri": "Add X-Content-Type-Options: nosniff."
+      },
+      "referrer_yok": {
+        "baslik": "No Referrer-Policy header",
+        "neden": "When a visitor follows a link, the full URL including its parameters can leak to the other site.",
+        "oneri": "Add Referrer-Policy: strict-origin-when-cross-origin."
+      },
+      "guvenlik_basliklari_tamam": {
+        "baslik": "Core security headers are in place",
+        "neden": "Basic protection against common browser-level attacks is enabled.",
+        "oneri": "Keep the CSP up to date when adding third-party scripts."
+      },
+      "ssl_gecersiz": {
+        "baslik": "The SSL certificate is invalid",
+        "neden": "Browsers show a full-page warning for invalid certificates and most visitors turn back.",
+        "oneri": "Reinstall a certificate that matches the domain from a trusted provider and include intermediate certificates."
+      },
+      "ssl_suresi_gecmis": {
+        "baslik": "The SSL certificate expired {{deger}} days ago",
+        "neden": "With an expired certificate the browser marks the site as unsafe.",
+        "oneri": "Renew the certificate now and turn on automatic renewal."
+      },
+      "ssl_bitiyor": {
+        "baslik": "The SSL certificate expires within {{deger}} days",
+        "neden": "If it is not renewed, the site will look unsafe within days.",
+        "oneri": "Renew the certificate now and check that automatic renewal works."
+      },
+      "ssl_yakinda": {
+        "baslik": "The SSL certificate expires in {{deger}} days",
+        "neden": "Expiry is approaching; if automatic renewal fails, the site will be disrupted.",
+        "oneri": "Verify automatic renewal or set a calendar reminder."
+      },
+      "ssl_gecerli": {
+        "baslik": "The SSL certificate is valid ({{deger}} days left)",
+        "neden": "The connection is encrypted and browsers trust the site.",
+        "oneri": "Make sure automatic renewal is enabled."
+      },
+      "ssl_olculemedi": {
+        "baslik": "Could not read the SSL expiry date",
+        "neden": "We could not connect to the certificate directly during this analysis; this did not lower the score.",
+        "oneri": "Check the certificate expiry date via the padlock icon in your browser."
+      },
+      "llms_txt_var": {
+        "baslik": "llms.txt is present",
+        "neden": "AI assistants can reach a summary of your site and its key pages directly.",
+        "oneri": "Keep adding new services and pages to llms.txt."
+      },
+      "llms_txt_yok": {
+        "baslik": "No llms.txt",
+        "neden": "llms.txt is a new standard that summarises your site for AI tools such as ChatGPT and Claude, helping them describe you accurately.",
+        "oneri": "Add a /llms.txt at the root summarising your site, services and key pages."
+      },
+      "ai_bot_engelli": {
+        "baslik": "robots.txt blocks AI crawlers: {{deger}}",
+        "neden": "Blocked crawlers cannot read your site, so you may not appear in those AI search tools.",
+        "oneri": "Unless this is a deliberate choice, remove the Disallow: / line for these crawlers."
+      },
+      "ai_botlar_acik": {
+        "baslik": "AI crawlers are not blocked",
+        "neden": "GPTBot, ClaudeBot, PerplexityBot and Google-Extended can read your site.",
+        "oneri": "Keep content clear and current; these tools may cite you as a source."
+      },
+      "yapisal_veri_var": {
+        "baslik": "Structured data is present",
+        "neden": "AI systems and search engines can read your business, services and contact details in machine-readable form.",
+        "oneri": "Validate the markup regularly with Google's Rich Results Test."
+      },
+      "yapisal_veri_yok": {
+        "baslik": "No structured data",
+        "neden": "AI systems infer who you are and what you offer more reliably from structured data.",
+        "oneri": "Add schema.org JSON-LD such as Organization, LocalBusiness, Service and FAQPage."
+      }
+    }
+  }
+}
