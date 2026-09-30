@@ -468,7 +468,7 @@ MODULLER: Tuple[Modul, ...] = (
     ),
     Modul(
         anahtar="pazaryeri",
-        ad_varsayilan={"tr": "Pazar yeri", "en": "Marketplace"},
+        ad_varsayilan={"tr": "Pazaryeri", "en": "Marketplace"},
         ikon="Boxes",
         kategori="icerik",
         musteri_sekmesi=None,

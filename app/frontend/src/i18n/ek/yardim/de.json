@@ -31,7 +31,7 @@
       "ilkYanitSaat": "Erste Antwort (Arbeitsstunden)",
       "cozumSaat": "Lösung (Arbeitsstunden)",
       "tatiller": "Feiertage",
-      "tatilIpucu": "Ein Datum pro Zeile (JJJJ-MM-TT). Religiöse Feiertage verschieben sich jedes Jahr; im Januar aktualisieren.",
+      "tatilIpucu": "Ein Datum pro Zeile (JJJJ-MM-TT). Religiöse Feiertage verschieben sich jedes Jahr; im Januar aktualisieren. Für halbe Tage (z. B. Vorabend eines Feiertags) „yarım“ hinter das Datum schreiben (z. B. 2026-05-26 yarım): Arbeitszeit endet um 13:00.",
       "kaydedildi": "SLA-Einstellungen gespeichert.",
       "ilkYanit": "Erste Antwort",
       "cozum": "Lösung",

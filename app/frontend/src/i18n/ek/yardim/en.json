@@ -31,7 +31,7 @@
       "ilkYanitSaat": "First response (business hours)",
       "cozumSaat": "Resolution (business hours)",
       "tatiller": "Holidays",
-      "tatilIpucu": "One date per line (YYYY-MM-DD). Religious holiday dates change every year; update them each January.",
+      "tatilIpucu": "One date per line (YYYY-MM-DD). Religious holiday dates change every year; update them each January. For half days such as holiday eves, add \"yarım\" after the date (e.g. 2026-05-26 yarım): working hours end at 13:00.",
       "kaydedildi": "SLA settings saved.",
       "ilkYanit": "First response",
       "cozum": "Resolution",

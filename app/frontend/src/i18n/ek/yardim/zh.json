@@ -31,7 +31,7 @@
       "ilkYanitSaat": "首次回复（工作小时）",
       "cozumSaat": "解决（工作小时）",
       "tatiller": "节假日",
-      "tatilIpucu": "每行一个日期（YYYY-MM-DD）。宗教节日日期每年不同，请在一月更新。",
+      "tatilIpucu": "每行一个日期（YYYY-MM-DD）。宗教节日日期每年不同，请在一月更新。 半天假（如节日前夕）请在日期后加 \"yarım\"（例如 2026-05-26 yarım）：工作时间在 13:00 结束。",
       "kaydedildi": "SLA 设置已保存。",
       "ilkYanit": "首次回复",
       "cozum": "解决",

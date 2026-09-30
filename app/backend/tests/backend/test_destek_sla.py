@@ -23,9 +23,10 @@ def _tr(y, a, g, s=0, d=0):
 
 
 def _ayar(tatiller=()):
-    from services.sla import MesaiAyari
+    from services.sla import MesaiAyari, _tatilleri_ayir
 
-    return MesaiAyari(tatiller=frozenset(date.fromisoformat(t) for t in tatiller))
+    tam, yarim = _tatilleri_ayir(tatiller)
+    return MesaiAyari(tatiller=tam, yarim_gunler=yarim)
 
 
 # ---------------------------------------------------------------------------
@@ -358,3 +359,22 @@ async def test_kb_yonetim_arama_oneri_ve_bekci(istemci, yonetici_basligi, muster
     y = await istemci.put(f"{KB_Y}/{taslak['id']}", json={"baslik": "Yayında artık", "icerik": "x", "durum": "yayinda"}, headers=yonetici_basligi)
     assert y.json()["durum"] == "yayinda"
     assert (await istemci.delete(f"{KB_Y}/{taslak['id']}", headers=yonetici_basligi)).status_code == 200
+
+
+def test_arife_yarim_gun_mesai_13te_biter():
+    from datetime import datetime, date
+    from services.sla import ayarlari_coz, _pencere, TR
+
+    ayar = ayarlari_coz({"tatiller": ["2026-03-20", "2026-03-19 yarım"]}).mesai
+    bas, bit = _pencere(date(2026, 3, 19), ayar)
+    assert bas == datetime(2026, 3, 19, 9, 0, tzinfo=TR) and bit == datetime(2026, 3, 19, 13, 0, tzinfo=TR)
+    assert _pencere(date(2026, 3, 20), ayar) is None
+    # varsayılan listede arifeler var ve sözlükte "yarım" olarak dönüyor
+    from services.sla import SlaAyarlari
+    varsayilan = ayarlari_coz({})
+    assert date(2026, 5, 26) in varsayilan.mesai.yarim_gunler
+    assert "2026-05-26 yarım" in varsayilan.sozluk()["tatiller"]
+    import pytest
+    from services.sla import SlaHatasi
+    with pytest.raises(SlaHatasi):
+        ayarlari_coz({"tatiller": ["2026-03-19 bilmem"]}, sessiz=False)

@@ -43,9 +43,15 @@ VARSAYILAN_HEDEFLER: Dict[str, Dict[str, int]] = {
     "dusuk": {"ilk_yanit_dk": 540, "cozum_dk": 2700},
 }
 
-#: Resmi tatiller (tam gün). Dini bayramlar her yıl kayıyor; listeyi
-#: panelden güncellemek gerekiyor (arife yarım günleri tam gün sayılmıyor).
+#: Resmi tatiller. Dini bayramlar her yıl kayıyor; listeyi panelden
+#: güncellemek gerekiyor. "YYYY-AA-GG yarım" = arife: mesai 13:00'te biter.
+#: 2026–2027 tarihleri Diyanet takvimiyle karşılaştırıldı (1 Ekim 2026):
+#: Ramazan 20–22 Mart 2026 (arife 19), Kurban 27–30 Mayıs 2026 (arife 26),
+#: Ramazan 9–11 Mart 2027 (arife 8), Kurban 16–19 Mayıs 2027 (arife 15).
+YARIM_GUN_SONU_DK = 13 * 60
 VARSAYILAN_TATILLER: Tuple[str, ...] = (
+    "2026-03-19 yarım", "2026-05-26 yarım", "2026-10-28 yarım",
+    "2027-03-08 yarım", "2027-05-15 yarım", "2027-10-28 yarım",
     "2026-01-01", "2026-03-20", "2026-03-21", "2026-03-22", "2026-04-23", "2026-05-01",
     "2026-05-19", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-07-15",
     "2026-08-30", "2026-10-29",
@@ -62,6 +68,8 @@ class MesaiAyari:
     #: Pazartesi=0 … Pazar=6
     gunler: FrozenSet[int] = frozenset({0, 1, 2, 3, 4})
     tatiller: FrozenSet[date] = frozenset()
+    #: Arife gibi yarım günler: mesai YARIM_GUN_SONU_DK'da biter.
+    yarim_gunler: FrozenSet[date] = frozenset()
 
 
 @dataclass
@@ -76,7 +84,10 @@ class SlaAyarlari:
                 "bit": f"{self.mesai.bit_dk // 60:02d}:{self.mesai.bit_dk % 60:02d}",
                 "gunler": sorted(self.mesai.gunler),
             },
-            "tatiller": sorted(d.isoformat() for d in self.mesai.tatiller),
+            "tatiller": sorted(
+                [d.isoformat() for d in self.mesai.tatiller]
+                + [f"{d.isoformat()} yarım" for d in self.mesai.yarim_gunler if d not in self.mesai.tatiller]
+            ),
             "hedefler": {k: dict(v) for k, v in self.hedefler.items()},
         }
 
@@ -114,8 +125,13 @@ def oncelik_duzelt(ham: Optional[str]) -> str:
 def _pencere(gun: date, ayar: MesaiAyari) -> Optional[Tuple[datetime, datetime]]:
     if gun.weekday() not in ayar.gunler or gun in ayar.tatiller or ayar.bit_dk <= ayar.bas_dk:
         return None
+    bit_dk = ayar.bit_dk
+    if gun in ayar.yarim_gunler:
+        bit_dk = min(bit_dk, YARIM_GUN_SONU_DK)
+        if bit_dk <= ayar.bas_dk:
+            return None
     gece = datetime.combine(gun, time(0, 0), tzinfo=TR)
-    return gece + timedelta(minutes=ayar.bas_dk), gece + timedelta(minutes=ayar.bit_dk)
+    return gece + timedelta(minutes=ayar.bas_dk), gece + timedelta(minutes=bit_dk)
 
 
 def mesai_ekle(baslangic: datetime, dakika: int, ayar: MesaiAyari) -> datetime:
@@ -201,9 +217,29 @@ def _saat_dk(metin: Any) -> int:
     return s_i * 60 + d_i
 
 
+def _tatilleri_ayir(liste: Any) -> Tuple[FrozenSet[date], FrozenSet[date]]:
+    """"2026-03-20" → tam gün; "2026-03-19 yarım" (ya da "yarim") → yarım gün."""
+    tam, yarim = set(), set()
+    for t in liste:
+        metin = str(t).strip()
+        try:
+            gun = date.fromisoformat(metin[:10])
+        except ValueError:
+            raise SlaHatasi("gecersiz_tatil")
+        ek = metin[10:].strip().lower()
+        if ek in ("", ):
+            tam.add(gun)
+        elif ek in ("yarım", "yarim", "yarım gün", "yarim gun", "½", "1/2"):
+            yarim.add(gun)
+        else:
+            raise SlaHatasi("gecersiz_tatil")
+    return frozenset(tam), frozenset(yarim - tam)
+
+
 def ayarlari_coz(ham: Any, sessiz: bool = True) -> SlaAyarlari:
     """Kaydedilmiş/gönderilmiş ayarı doğrular. `sessiz` ise bozuk alan varsayılana düşer."""
-    ayar = SlaAyarlari(mesai=MesaiAyari(tatiller=frozenset(date.fromisoformat(d) for d in VARSAYILAN_TATILLER)))
+    tam0, yarim0 = _tatilleri_ayir(VARSAYILAN_TATILLER)
+    ayar = SlaAyarlari(mesai=MesaiAyari(tatiller=tam0, yarim_gunler=yarim0))
     if not isinstance(ham, dict):
         return ayar
     try:
@@ -220,12 +256,7 @@ def ayarlari_coz(ham: Any, sessiz: bool = True) -> SlaAyarlari:
         tatil_ham = ham.get("tatiller", list(VARSAYILAN_TATILLER))
         if not isinstance(tatil_ham, list):
             raise SlaHatasi("gecersiz_tatil")
-        tatiller = set()
-        for t in tatil_ham:
-            try:
-                tatiller.add(date.fromisoformat(str(t).strip()[:10]))
-            except ValueError:
-                raise SlaHatasi("gecersiz_tatil")
+        tatiller, yarim_gunler = _tatilleri_ayir(tatil_ham)
         hedefler = {k: dict(v) for k, v in VARSAYILAN_HEDEFLER.items()}
         for oncelik, deger in (ham.get("hedefler") or {}).items():
             if oncelik not in ONCELIKLER or not isinstance(deger, dict):
@@ -239,7 +270,10 @@ def ayarlari_coz(ham: Any, sessiz: bool = True) -> SlaAyarlari:
             if hedefler[oncelik]["cozum_dk"] < hedefler[oncelik]["ilk_yanit_dk"]:
                 raise SlaHatasi("gecersiz_hedef")
         return SlaAyarlari(
-            mesai=MesaiAyari(bas_dk=bas, bit_dk=bit, gunler=frozenset(gunler), tatiller=frozenset(tatiller)),
+            mesai=MesaiAyari(
+                bas_dk=bas, bit_dk=bit, gunler=frozenset(gunler),
+                tatiller=frozenset(tatiller), yarim_gunler=frozenset(yarim_gunler),
+            ),
             hedefler=hedefler,
         )
     except SlaHatasi:

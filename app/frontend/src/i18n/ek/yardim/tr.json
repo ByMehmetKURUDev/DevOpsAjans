@@ -31,7 +31,7 @@
       "ilkYanitSaat": "İlk yanıt (iş saati)",
       "cozumSaat": "Çözüm (iş saati)",
       "tatiller": "Tatil günleri",
-      "tatilIpucu": "Her satıra bir tarih (YYYY-AA-GG). Dini bayram tarihleri her yıl değişir; yılbaşında güncelleyin.",
+      "tatilIpucu": "Her satıra bir tarih (YYYY-AA-GG). Dini bayram tarihleri her yıl değişir; yılbaşında güncelleyin. Arife gibi yarım günler için tarihin yanına \"yarım\" yazın (ör. 2026-05-26 yarım): mesai 13:00'te biter.",
       "kaydedildi": "SLA ayarları kaydedildi.",
       "ilkYanit": "İlk yanıt",
       "cozum": "Çözüm",
