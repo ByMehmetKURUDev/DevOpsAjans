@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo, useState } from 'react';
-import { ArrowRight, Check, ChevronDown, Coins, Loader2, Sparkles } from 'lucide-react';
+import { ArrowRight, Check, ChevronDown, Coins, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import FiyatTeklifModal from '@/components/FiyatTeklifModal';
@@ -406,27 +406,178 @@ function AiVsPmSekmesi({
   );
 }
 
+/**
+ * Kullandıkça Öde kredi paketleri — onaylı mockup'taki (v5) değerler birebir.
+ * 1 Kredi = 1 Saat Senior, 12 ay geçerli. Satın alma bu fazda bağlı değil:
+ * "Kredi Al" devre dışı ve "Yakında" etiketli (bkz. v5 spec).
+ */
+const KREDI_PAKETLERI: { kredi: number; bonus: number; fiyat: number; populer?: boolean }[] = [
+  { kredi: 10, bonus: 0, fiyat: 1000 },
+  { kredi: 25, bonus: 2, fiyat: 2250, populer: true },
+  { kredi: 50, bonus: 5, fiyat: 4000 },
+  { kredi: 100, bonus: 15, fiyat: 7000 },
+];
+const PAYG_SAATLIK_USD = 120;
+const IHTIYAC_MIN = 1;
+const IHTIYAC_MAX = 120;
+const IHTIYAC_VARSAYILAN = 28;
+
+function ihtiyacSeviyesi(saat: number): { key: string; varsayilan: string } {
+  if (saat <= 10) return { key: 'fiyatV5.seviyeKucuk', varsayilan: 'Küçük' };
+  if (saat <= 30) return { key: 'fiyatV5.seviyeOrta', varsayilan: 'Orta' };
+  if (saat <= 60) return { key: 'fiyatV5.seviyeBuyuk', varsayilan: 'Büyük' };
+  return { key: 'fiyatV5.seviyeOlcek', varsayilan: 'Ölçek' };
+}
+
+function saatlikFormatla(n: number): string {
+  return `$${n.toLocaleString('en-US', { maximumFractionDigits: 3 })}`;
+}
+
 function KullandikcaOdeBlok() {
   const { t } = useTranslation();
+  const [ihtiyac, setIhtiyac] = useState(IHTIYAC_VARSAYILAN);
+
+  // İhtiyacı karşılayan en küçük paket; hiçbiri yetmiyorsa en büyük paket +
+  // aşan saatler PAYG fiyatından ("… saat için özel").
+  const oneri = useMemo(() => {
+    const paket = KREDI_PAKETLERI.find((p) => p.kredi + p.bonus >= ihtiyac);
+    if (paket) return { paket, saat: paket.kredi + paket.bonus, fiyat: paket.fiyat, ozel: false };
+    const enBuyuk = KREDI_PAKETLERI[KREDI_PAKETLERI.length - 1];
+    const enBuyukSaat = enBuyuk.kredi + enBuyuk.bonus;
+    return {
+      paket: null,
+      saat: ihtiyac,
+      fiyat: enBuyuk.fiyat + (ihtiyac - enBuyukSaat) * PAYG_SAATLIK_USD,
+      ozel: true,
+    };
+  }, [ihtiyac]);
+
+  const seviye = ihtiyacSeviyesi(ihtiyac);
+
   return (
-    <div className="mx-auto mt-16 max-w-3xl rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-6 text-center">
-      <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500">
-        <Coins className="h-5 w-5 text-white" aria-hidden="true" />
+    <div
+      id="kullandikca-ode"
+      className="mt-16 grid grid-cols-1 gap-8 rounded-3xl border border-white/10 bg-white/[0.02] p-6 md:p-8 lg:grid-cols-2"
+    >
+      <div>
+        <div className="flex flex-wrap gap-2">
+          <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t('fiyatV5.saatBankasiYeni', 'Saat Bankası → Yeni')}
+          </span>
+          <span className="rounded-full bg-emerald-500 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
+            {t('fiyatV5.kullandikcaOdeBaslik', 'Kullandıkça Öde')}
+          </span>
+          <span className="rounded-full border border-indigo-800 bg-indigo-950 px-2.5 py-1 text-[10px] uppercase tracking-widest text-indigo-300">
+            {t('fiyatV5.besProfil', '5 Profil')}
+          </span>
+        </div>
+
+        <h3 className="mt-4 text-2xl font-bold tracking-tight md:text-3xl">
+          {t('fiyatV5.kullandikcaOdeKredileri', 'Kullandıkça Öde Kredileri')}
+        </h3>
+        <p className="mt-2 max-w-[52ch] text-sm leading-relaxed text-muted-foreground">
+          {t('fiyatV5.krediAciklama1', 'AI kredisi değil.')}{' '}
+          <span className="font-medium text-white">{t('fiyatV5.krediTanim', '1 Kredi = 1 Saat Senior.')}</span>{' '}
+          {t('fiyatV5.krediAciklama2', '12 ay geçerli, 80 hizmet için.')}
+        </p>
+
+        <div className="mt-6">
+          <div className="flex items-center justify-between">
+            <label htmlFor="kredi-ihtiyac" className="text-xs text-muted-foreground">
+              {t('fiyatV5.ihtiyac', 'İhtiyaç')}: {ihtiyac} {t('fiyatV5.saat', 'saat')}
+            </label>
+            <span className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-1 font-mono text-[11px] text-muted-foreground">
+              {t(seviye.key, seviye.varsayilan)}
+            </span>
+          </div>
+          <input
+            id="kredi-ihtiyac"
+            type="range"
+            min={IHTIYAC_MIN}
+            max={IHTIYAC_MAX}
+            value={ihtiyac}
+            onChange={(e) => setIhtiyac(Number(e.target.value))}
+            className="mt-3 w-full accent-emerald-500"
+          />
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          {KREDI_PAKETLERI.map((p) => {
+            const saat = p.kredi + p.bonus;
+            const secili = oneri.paket === p;
+            return (
+              <div
+                key={p.kredi}
+                className={`rounded-2xl border bg-white/[0.03] p-4 transition-colors ${
+                  secili ? 'border-emerald-500 ring-1 ring-emerald-500/30' : 'border-white/10'
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="text-xs font-semibold text-white">
+                    {p.kredi} {t('fiyatV5.kredi', 'Kredi')}
+                    {p.bonus > 0 && (
+                      <span className="text-emerald-400">
+                        {' '}+{p.bonus} {t('fiyatV5.bonus', 'bonus')}
+                      </span>
+                    )}
+                  </div>
+                  {p.populer && (
+                    <span className="rounded-full bg-emerald-500 px-2 py-0.5 text-[9px] font-bold text-black">
+                      {t('ui.popular', 'Popüler').toLocaleUpperCase('tr-TR')}
+                    </span>
+                  )}
+                </div>
+                <div className="mt-2 text-lg font-bold text-white">{paraFormatla(p.fiyat)}</div>
+                <div className="text-[11px] text-muted-foreground">
+                  {saat} {t('fiyatV5.saat', 'saat')} • {saatlikFormatla(p.fiyat / saat)}/{t('fiyatV5.saat', 'saat')}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <h4 className="text-lg font-bold">{t('fiyatV5.kullandikcaOdeBaslik', 'Kullandıkça Öde')}</h4>
-      <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-        {t(
-          'fiyatV5.kullandikcaOdeAciklama',
-          'Kredi yükleyip yalnızca kullandığınız revizyon/geliştirme saatini harcayın. Bu özellik yakında açılıyor.',
-        )}
-      </p>
-      <Button disabled className="mt-4 gap-2 opacity-60">
-        <Sparkles className="h-4 w-4" aria-hidden="true" />
-        {t('fiyatV5.krediAl', 'Kredi Al')}
-        <span className="ms-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold">
-          {t('fiyatV5.yakinda', 'Yakında')}
-        </span>
-      </Button>
+
+      <div>
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t('fiyatV5.onerilen', 'Önerilen')}
+          </div>
+          <div className="mt-2 text-xl font-semibold text-white">
+            {oneri.saat} {t('fiyatV5.saat', 'saat')}
+            {oneri.ozel ? ` ${t('fiyatV5.icinOzel', 'için özel')}` : ''}
+          </div>
+          <div className="mt-4 text-3xl font-extrabold text-white">
+            <span className="text-emerald-400">$</span>
+            {oneri.fiyat.toLocaleString('en-US', { maximumFractionDigits: 0 })}
+          </div>
+          <div className="mt-4 space-y-2 text-xs text-muted-foreground">
+            <div className="flex justify-between">
+              <span>PAYG</span>
+              <span className="font-mono text-white">
+                ${PAYG_SAATLIK_USD}/{t('fiyatV5.saat', 'saat')}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span>{t('fiyatV5.gecerlilik', 'Geçerlilik')}</span>
+              <span className="text-white">{t('fiyatV5.onIkiAy', '12 ay')}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>{t('fiyatV5.tanim', 'Tanım')}</span>
+              <span className="text-white">{t('fiyatV5.krediTanimKisa', '1 Kredi = 1 Saat Senior')}</span>
+            </div>
+          </div>
+          <Button
+            disabled
+            className="mt-6 h-11 w-full gap-2 rounded-full bg-emerald-500 font-semibold text-black opacity-70 hover:bg-emerald-500"
+          >
+            <Coins className="h-4 w-4" aria-hidden="true" />
+            {t('fiyatV5.krediAl', 'Kredi Al')} — {paraFormatla(oneri.fiyat)}
+            <span className="ms-1 rounded-full bg-black/15 px-2 py-0.5 text-[10px] font-semibold">
+              {t('fiyatV5.yakinda', 'Yakında')}
+            </span>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
