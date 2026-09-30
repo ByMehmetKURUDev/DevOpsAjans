@@ -128,9 +128,6 @@ export default function Layout() {
     { to: localizedPath(activeLang, 'services'), label: t('nav.services') },
     { to: localizedPath(activeLang, 'portfolio'), label: t('nav.portfolio') },
     { to: localizedPath(activeLang, 'marketplace'), label: t('nav.marketplace') },
-    // Üst menüde yalnız geniş ekranda (≥1280 px); dar masaüstünde menü taşmasın.
-    // Mobil menüde ve alt bilgide her zaman var.
-    { to: localizedPath(activeLang, 'roadmap'), label: t('nav.roadmap'), genisEkran: true },
     { to: BLOG_INDEX_ROUTE.routePath, label: t('nav.blog') },
     { to: localizedPath(activeLang, 'contact'), label: t('nav.contact') },
   ];
@@ -346,9 +343,7 @@ export default function Layout() {
                 to={link.to}
                 end={link.to === '/'}
                 className={({ isActive }) =>
-                  `relative px-4 xl:px-3 xl:whitespace-nowrap py-2 text-sm font-medium transition-colors rounded-md ${
-                    link.genisEkran ? 'hidden xl:inline-block' : ''
-                  } ${
+                  `relative px-4 py-2 text-sm font-medium transition-colors rounded-md ${
                     navAktifMi(link.to, isActive)
                       ? 'text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
@@ -580,6 +575,14 @@ export default function Layout() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to={localizedPath(activeLang, 'roadmap')}
+                  className="inline-block py-2 hover:text-foreground transition-colors"
+                >
+                  {t('footer.roadmap')}
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
