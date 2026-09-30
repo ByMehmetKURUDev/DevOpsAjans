@@ -1,0 +1,16 @@
+{
+  "hizliTalep": {
+    "eksik": "Ad ve e-posta gerekli.",
+    "alindi": "Talebiniz alındı.",
+    "hata": "Gönderilemedi.",
+    "tesekkur": "Talebiniz bize ulaştı",
+    "donus": "En kısa sürede e-posta ile dönüyoruz. Aciliyeti varsa telefonla da arayabilirsiniz.",
+    "baslik": "Talep bırakın",
+    "ad": "Adınız *",
+    "eposta": "E-posta *",
+    "telefon": "Telefon (isteğe bağlı)",
+    "mesaj": "Eklemek istedikleriniz",
+    "gonder": "Gönder",
+    "gizlilik": "Bilgileriniz yalnızca bu talep için kullanılır."
+  }
+}

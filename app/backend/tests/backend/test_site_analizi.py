@@ -637,3 +637,100 @@ def test_vekil_ip_basligi_once_okunur():
     # Bozuk değer yok sayılır.
     assert _istemci_ip(istek({"x-mk-istemci-ip": "abc", "cf-connecting-ip": "198.51.100.2"})) == "198.51.100.2"
     assert _istemci_ip(istek({})) == "9.9.9.9"
+
+
+def _guvenlik(basliklar):
+    ana = motor.Yanit(url="http://ornek.com/", durum=200, basliklar=basliklar)
+    return motor._guvenlik_bolumu(ana, None, None).sonuc()
+
+
+def test_csp_rapor_modu_kismen_sayilir():
+    tam = dict(GUVENLI_BASLIKLAR)
+    zorunlu = _guvenlik(tam)
+    assert "guvenlik_basliklari_tamam" in [b["kod"] for b in zorunlu["bulgular"]]
+
+    rapor = dict(tam)
+    politika = rapor.pop("content-security-policy")
+    rapor["content-security-policy-report-only"] = politika
+    rapor["x-frame-options"] = "SAMEORIGIN"
+    kismen = _guvenlik(rapor)
+    kodlar = [b["kod"] for b in kismen["bulgular"]]
+    assert "csp_rapor" in kodlar and "csp_yok" not in kodlar
+    # "Tamam" sayılmaz; ama hiç CSP olmayandan daha yüksek puan alır.
+    assert "guvenlik_basliklari_tamam" not in kodlar
+    assert next(b for b in kismen["bulgular"] if b["kod"] == "csp_rapor")["seviye"] == "bilgi"
+
+    hic = dict(rapor)
+    hic.pop("content-security-policy-report-only")
+    yok = _guvenlik(hic)
+    assert "csp_yok" in [b["kod"] for b in yok["bulgular"]]
+    assert zorunlu["puan"] > kismen["puan"] > yok["puan"]
+    assert kismen["puan"] - yok["puan"] == 8
+
+
+def test_csp_rapor_modu_frame_korumasi_saymaz():
+    # Rapor modundaki frame-ancestors tarayıcıyı bağlamaz: X-Frame-Options
+    # yoksa çerçeveleme koruması eksik sayılmalı.
+    basliklar = {
+        "strict-transport-security": "max-age=31536000",
+        "content-security-policy-report-only": "default-src 'self'; frame-ancestors 'self'",
+        "x-content-type-options": "nosniff",
+        "referrer-policy": "strict-origin-when-cross-origin",
+    }
+    kodlar = [b["kod"] for b in _guvenlik(basliklar)["bulgular"]]
+    assert "frame_koruma_yok" in kodlar and "csp_rapor" in kodlar
+
+
+def test_csp_rapor_metni_yedi_dilde():
+    import pathlib
+
+    kok = pathlib.Path(__file__).resolve().parents[3] / "frontend" / "src" / "i18n" / "ek" / "siteAnalizi"
+    for dil in ("tr", "en", "de", "ru", "zh", "hi", "ar"):
+        veri = json.loads((kok / f"{dil}.json").read_text(encoding="utf-8"))
+        metin = veri["siteAnalizi"]["bulgu"]["csp_rapor"]
+        assert metin["baslik"] and metin["neden"] and metin["oneri"], dil
+
+
+async def test_musteri_gunluk_siniri_modul_ayarindan(istemci, ag, db_oturumu, musteri_basligi, yonetici_basligi):
+    """`site_analizi` modülünün `gunluk_sinir` ayarı müşteri başına okunuyor."""
+    simdi = datetime.now(timezone.utc)
+
+    def _dolu(eposta, adet):
+        for i in range(adet):
+            db_oturumu.add(Site_analyses(
+                alan_adi=f"g{i}.com", url=f"https://g{i}.com/", durum="tamam",
+                eposta=eposta, kaynak="musteri", created_at=simdi,
+            ))
+
+    # Sınırı 2'ye indirilen müşteri: 2 analizden sonra 429.
+    yanit = await istemci.put(
+        "/api/v1/moduller/musteri/sinirli@musteri.com/site_analizi",
+        json={"ayarlar": {"gunluk_sinir": 2}}, headers=yonetici_basligi,
+    )
+    assert yanit.status_code == 200, yanit.text
+    _dolu("sinirli@musteri.com", 2)
+    # Sınırı 20'ye çıkarılan müşteri: 12 analizden sonra hâlâ açık (varsayılan 10 olsaydı 429).
+    yanit = await istemci.put(
+        "/api/v1/moduller/musteri/genis@musteri.com/site_analizi",
+        json={"ayarlar": {"gunluk_sinir": 20}}, headers=yonetici_basligi,
+    )
+    assert yanit.status_code == 200, yanit.text
+    _dolu("genis@musteri.com", 12)
+    # Ayarı olmayan müşteri: varsayılan 10.
+    _dolu("varsayilan@musteri.com", 10)
+    await db_oturumu.commit()
+
+    async def _dene(eposta):
+        return await istemci.post(f"{UC}/benim", json={"url": "ornek.com"}, headers=musteri_basligi(eposta))
+
+    y = await _dene("sinirli@musteri.com")
+    assert y.status_code == 429 and y.json()["detail"]["kod"] == "sinir_musteri"
+    assert (await _dene("genis@musteri.com")).status_code == 200
+    assert (await _dene("varsayilan@musteri.com")).status_code == 429
+
+    # Sıfır: müşteri panelden hiç analiz yapamaz.
+    await istemci.put(
+        "/api/v1/moduller/musteri/sifir@musteri.com/site_analizi",
+        json={"ayarlar": {"gunluk_sinir": 0}}, headers=yonetici_basligi,
+    )
+    assert (await _dene("sifir@musteri.com")).status_code == 429

@@ -88,3 +88,29 @@ export function resolvePanelValue(settings, key, lang, fallback) {
 
   return fallback;
 }
+
+/**
+ * Derlemede geçerli site görünümü (`site_gorunum`): 'modern' ya da 'klasik'.
+ *
+ * Tanınmayan/boş değer klasik sayılır — src/lib/gorunum.ts ile aynı kural.
+ */
+export function siteGorunumu(settings = {}) {
+  const deger = String(settings?.site_gorunum ?? '').trim();
+  return deger === 'modern' ? 'modern' : 'klasik';
+}
+
+/**
+ * Prerender HTML'inin `<html>` etiketine `data-gorunum` yazar.
+ *
+ * Yalnız Modern'de yazılıyor: Klasik varsayılan ve HTML'in eski hâlinden
+ * tek bayt farkı olmasın. Modern iken ilk kez gelen ziyaretçi (önbelleği
+ * yok) böylece ayar isteği dönmeden Modern görüyor; kritik CSS'i gömen
+ * `scripts/css-gomule.mjs` de Modern kurallarını ilk boyamaya katıyor.
+ */
+export function htmlGorunumYaz(html, gorunum) {
+  if (gorunum !== 'modern') return html;
+  return html.replace(/<html\b([^>]*)>/i, (_tam, oznitelikler) => {
+    const temiz = oznitelikler.replace(/\s+data-gorunum=("[^"]*"|'[^']*'|\S+)/gi, '');
+    return `<html${temiz} data-gorunum="modern">`;
+  });
+}

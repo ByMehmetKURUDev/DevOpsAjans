@@ -97,11 +97,13 @@ interface AuthUser {
 
 export default function Layout() {
   const { t, i18n } = useTranslation();
-  const { settings } = useSiteSettings();
+  const { settings, loading: ayarlarYukleniyor } = useSiteSettings();
   // Site görünümü (Klasik / Modern) — admin panelindeki Görünüm ayarı.
+  // Ayarlar gelene kadar koddaki varsayılan ('klasik') uygulanmıyor:
+  // önbellek ya da derlemenin HTML'e yazdığı değer geçerli kalıyor.
   useEffect(() => {
-    gorunumUygula(settings.site_gorunum);
-  }, [settings.site_gorunum]);
+    gorunumUygula(ayarlarYukleniyor ? undefined : settings.site_gorunum);
+  }, [settings.site_gorunum, ayarlarYukleniyor]);
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -201,12 +203,12 @@ export default function Layout() {
     setLangOpen(false);
     const { pageKey } = resolveRoute(location.pathname);
 
-    if (pageKey) {
-      navigate(localizedPath(code, pageKey));
-      return;
-    }
-
+    // Dil her durumda burada değiştiriliyor: Türkçe kök yollarda (`/`,
+    // `/marketplace`) dili ayarlayan bir kapı yok (LanguageGate yalnız
+    // `/en`, `/de`… önekli yollarda). Yalnız adres değiştiğinde /en'den
+    // Türkçeye geçen ziyaretçi Türkçe adreste İngilizce sayfa görüyordu.
     void changeAppLanguage(code);
+    if (pageKey) navigate(localizedPath(code, pageKey));
   };
 
   const currentLang = getLanguageMeta(i18n.language);

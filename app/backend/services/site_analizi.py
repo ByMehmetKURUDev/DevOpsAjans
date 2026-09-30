@@ -674,7 +674,12 @@ def _guvenlik_bolumu(ana: Yanit, ssl_bitis: Optional[datetime], ssl_hata: Option
         eksik += 1
     csp = (h.get("content-security-policy") or "").lower()
     if not csp:
-        b.ekle("csp_yok", "uyari", 15)
+        if h.get("content-security-policy-report-only"):
+            # Yalnız rapor modunda CSP: politika yazılmış ama tarayıcı henüz
+            # engellemiyor. Kısmen sayılır — cezanın yarısı, "tamam" değil.
+            b.ekle("csp_rapor", "bilgi", 7)
+        else:
+            b.ekle("csp_yok", "uyari", 15)
         eksik += 1
     if not h.get("x-frame-options") and "frame-ancestors" not in csp:
         b.ekle("frame_koruma_yok", "uyari", 10)

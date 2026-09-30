@@ -105,9 +105,9 @@
       "elle": "Manual"
     },
     "ayar": {
-      "dusuk_bakiye_esigi": "Low balance alert threshold (hours)",
+      "esik_saat": "Low balance alert threshold (hours)",
       "eposta_ozeti": "Email a summary when a report is published",
-      "aylik_analiz_siniri": "Monthly analysis limit",
+      "gunluk_sinir": "Daily analysis limit",
       "kontrol_araligi_dk": "Check interval (minutes)"
     },
     "musteri": {
@@ -153,7 +153,8 @@
       "ayarlar": "Client-specific settings",
       "ayarKaydet": "Save settings",
       "ayarKaydedildi": "{{ad}} settings saved.",
-      "musteriHata": "Couldn't load the client's modules."
+      "musteriHata": "Couldn't load the client's modules.",
+      "bosGenel": "Empty: general setting"
     },
     "hata": {
       "bagimlilik_kapali": "Enable these first: {{moduller}}",

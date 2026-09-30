@@ -21,12 +21,13 @@ sırası verilmiş olanların arasına karışmamalı.
 
 import logging
 from datetime import datetime
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from core.database import get_db
 from fastapi import APIRouter, Depends, Query
 from models.marketplace_items import Marketplace_items
-from pydantic import BaseModel
+from utils.ceviriler import ceviriler_coz
+from pydantic import BaseModel, field_validator
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -56,10 +57,17 @@ class UrunYaniti(BaseModel):
     demo_url: Optional[str] = None
     badge: Optional[str] = None
     sort_order: Optional[int] = None
+    # Dil başına çeviriler; site seçili dilde alan yoksa Türkçeyi gösteriyor.
+    ceviriler: Optional[Dict[str, Any]] = None
     created_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True
+
+    @field_validator("ceviriler", mode="before")
+    @classmethod
+    def _ceviriler_coz(cls, deger):
+        return ceviriler_coz(deger)
 
 
 class ListeYaniti(BaseModel):

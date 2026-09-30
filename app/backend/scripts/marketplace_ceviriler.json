@@ -1,0 +1,182 @@
+{
+ "en": {
+  "kartvizit-web-sitesi": {
+   "title": "Business Card Website",
+   "badge": "Sample work",
+   "summary": "A one-page personal showcase site — project and blog sections, one-tap WhatsApp and email, dark theme.",
+   "description": "A fast-loading showcase site that presents you or your business on a single page. As visitors scroll, they see who you are, what you do and how to reach you. You can explore the sample project via the demo link.",
+   "features": "Single page, fast loading with 8 KB of critical CSS\nPageSpeed 100/100 (mobile and desktop)\nProject showcase and blog cards\nDirect contact via WhatsApp and email\nInteractive terminal section"
+  },
+  "ozel-yazilim-eticaret-sitesi": {
+   "title": "Custom-Built E-Commerce Website",
+   "badge": "Sample work",
+   "summary": "An e-commerce site written from scratch, with a product catalogue, cart and needs calculator.",
+   "description": "An e-commerce site built from scratch for products that don't fit an off-the-shelf platform. Product cards, dual currency, a cart and a calculator that helps customers choose the right model — all in one. You can explore the sample project via the demo link.",
+   "features": "Prices shown with and without VAT\nDual currency (TRY and USD)\nAdd to cart\nCapacity calculator based on needs\nReference brand strip and installation process section"
+  },
+  "kurumsal-urun-tanitim-sitesi": {
+   "title": "Corporate Product Showcase Website",
+   "badge": "Sample work",
+   "summary": "A corporate showcase site with a technical product range, model comparison and a quote flow.",
+   "description": "A showcase site for manufacturers and distributors with multiple models. Each model is listed with its own technical specs; visitors compare them and go straight to the quote form. You can explore the sample project via the demo link.",
+   "features": "Model-based product family (capacity, power, weight)\nTechnical package list\nStatistics section (project count, experience)\nQuote form link from every model\nBrand and manufacturing highlight sections"
+  },
+  "konfiguratorlu-urun-sitesi": {
+   "title": "Product Website with Configurator",
+   "badge": "Sample work",
+   "summary": "A product site with an interactive configurator that instantly recommends the right model based on the visitor's input.",
+   "description": "When customers don't know which model they need, the site works it out for them instead of asking. The recommendation updates instantly as inputs change, so the sales conversation starts with the right model. You can explore the sample project via the demo link.",
+   "features": "Live configurator — results update instantly as inputs change\nSeries-based product family\nReference strip\nStock and delivery time information\nJump to the configurator from every product"
+  }
+ },
+ "de": {
+  "kartvizit-web-sitesi": {
+   "title": "Visitenkarten-Website",
+   "badge": "Beispielprojekt",
+   "summary": "Einseitige persönliche Vorstellungsseite – Projekt- und Blogbereich, WhatsApp und E-Mail mit einem Klick, dunkles Design.",
+   "description": "Eine schnell ladende Vorstellungsseite, die Sie oder Ihr Unternehmen auf einer einzigen Seite präsentiert. Beim Scrollen sehen Besucher, wer Sie sind, was Sie tun und wie sie Sie erreichen. Das Beispielprojekt können Sie über den Demo-Link ansehen.",
+   "features": "Eine Seite, schneller Aufbau mit 8 KB kritischem CSS\nPageSpeed 100/100 (Mobil und Desktop)\nProjektschaufenster und Blog-Karten\nDirekter Kontakt per WhatsApp und E-Mail\nInteraktiver Terminal-Bereich"
+  },
+  "ozel-yazilim-eticaret-sitesi": {
+   "title": "Individuell entwickelter Onlineshop",
+   "badge": "Beispielprojekt",
+   "summary": "Ein von Grund auf entwickelter Onlineshop mit Produktkatalog, Warenkorb und Bedarfsrechner.",
+   "description": "Ein von Grund auf entwickelter Onlineshop für Produkte, die in kein Standardsystem passen. Produktkarten, zwei Währungen, Warenkorb und ein Rechner, der Kunden zum richtigen Modell führt – alles in einem. Das Beispielprojekt können Sie über den Demo-Link ansehen.",
+   "features": "Preisanzeige mit und ohne MwSt.\nZwei Währungen (TRY und USD)\nIn den Warenkorb legen\nKapazitätsrechner nach Bedarf\nReferenzmarken-Leiste und Abschnitt zum Installationsablauf"
+  },
+  "kurumsal-urun-tanitim-sitesi": {
+   "title": "Unternehmenswebsite zur Produktpräsentation",
+   "badge": "Beispielprojekt",
+   "summary": "Unternehmenswebsite mit technischer Produktreihe, Modellvergleich und Angebotsanfrage.",
+   "description": "Eine Präsentationswebsite für Hersteller und Händler mit mehreren Modellen. Jedes Modell wird mit seinen technischen Daten aufgeführt; Besucher vergleichen und gelangen direkt zum Angebotsformular. Das Beispielprojekt können Sie über den Demo-Link ansehen.",
+   "features": "Modellbasierte Produktfamilie (Kapazität, Leistung, Gewicht)\nListe technischer Pakete\nStatistikbereich (Projektanzahl, Erfahrung)\nVon jedem Modell direkt zum Angebotsformular\nAbschnitte zu Marke und Fertigung"
+  },
+  "konfiguratorlu-urun-sitesi": {
+   "title": "Produktwebsite mit Konfigurator",
+   "badge": "Beispielprojekt",
+   "summary": "Produktwebsite mit interaktivem Konfigurator, der anhand der Eingaben sofort das passende Modell empfiehlt.",
+   "description": "Wenn Kunden nicht wissen, welches Modell sie brauchen, rechnet die Website es für sie aus, statt sie zu fragen. Die Empfehlung aktualisiert sich bei jeder Eingabe sofort, und das Verkaufsgespräch beginnt beim richtigen Modell. Das Beispielprojekt können Sie über den Demo-Link ansehen.",
+   "features": "Live-Konfigurator – das Ergebnis aktualisiert sich bei jeder Eingabe sofort\nProduktfamilie nach Serien\nReferenzleiste\nAngaben zu Lagerbestand und Lieferzeit\nVon jedem Produkt direkt zum Konfigurator"
+  }
+ },
+ "ru": {
+  "kartvizit-web-sitesi": {
+   "title": "Сайт-визитка",
+   "badge": "Пример работы",
+   "summary": "Одностраничный личный сайт-презентация — разделы проектов и блога, WhatsApp и e-mail в один клик, тёмная тема.",
+   "description": "Быстро загружающийся сайт-презентация, который рассказывает о вас или вашем бизнесе на одной странице. Прокручивая вниз, посетитель видит, кто вы, чем занимаетесь и как с вами связаться. Пример работы можно посмотреть по демо-ссылке.",
+   "features": "Одна страница, быстрая загрузка благодаря 8 КБ критического CSS\nPageSpeed 100/100 (мобильные и десктоп)\nВитрина проектов и карточки блога\nПрямая связь через WhatsApp и e-mail\nИнтерактивный раздел-терминал"
+  },
+  "ozel-yazilim-eticaret-sitesi": {
+   "title": "Интернет-магазин на заказ",
+   "badge": "Пример работы",
+   "summary": "Интернет-магазин, написанный с нуля: каталог товаров, корзина и калькулятор потребностей.",
+   "description": "Интернет-магазин с нуля для товаров, которые не укладываются в готовую платформу. Карточки товаров, две валюты, корзина и калькулятор, помогающий покупателю выбрать подходящую модель, — всё в одном. Пример работы можно посмотреть по демо-ссылке.",
+   "features": "Цены с НДС и без НДС\nДве валюты (TRY и USD)\nДобавление в корзину\nКалькулятор производительности под потребности\nЛента брендов-партнёров и раздел о процессе установки"
+  },
+  "kurumsal-urun-tanitim-sitesi": {
+   "title": "Корпоративный сайт-каталог продукции",
+   "badge": "Пример работы",
+   "summary": "Корпоративный сайт с технической линейкой продукции, сравнением моделей и запросом коммерческого предложения.",
+   "description": "Сайт-презентация для производителей и дистрибьюторов с несколькими моделями. Каждая модель представлена со своими техническими характеристиками: посетитель сравнивает их и сразу переходит к форме запроса предложения. Пример работы можно посмотреть по демо-ссылке.",
+   "features": "Линейка продукции по моделям (производительность, мощность, вес)\nСписок технических комплектаций\nРаздел статистики (число проектов, опыт)\nПереход к форме запроса с каждой модели\nРазделы о бренде и производстве"
+  },
+  "konfiguratorlu-urun-sitesi": {
+   "title": "Сайт продукции с конфигуратором",
+   "badge": "Пример работы",
+   "summary": "Сайт продукции с интерактивным конфигуратором, который мгновенно подбирает нужную модель по введённым данным.",
+   "description": "Если клиент не знает, какая модель ему нужна, сайт не спрашивает, а рассчитывает её за него. Рекомендация обновляется сразу при изменении данных, и разговор о продаже начинается с правильной модели. Пример работы можно посмотреть по демо-ссылке.",
+   "features": "Живой конфигуратор — результат обновляется сразу при изменении данных\nЛинейка продукции по сериям\nЛента референсов\nИнформация о наличии и сроках поставки\nПереход к конфигуратору с любого товара"
+  }
+ },
+ "zh": {
+  "kartvizit-web-sitesi": {
+   "title": "名片式网站",
+   "badge": "示例作品",
+   "summary": "单页个人展示网站——包含项目和博客板块，一键联系 WhatsApp 和电子邮件，深色主题。",
+   "description": "一个加载迅速的展示网站，在一个页面上介绍您或您的业务。访客向下滚动时，就能了解您是谁、做什么以及如何联系您。您可以通过演示链接查看示例作品。",
+   "features": "单页设计，仅 8 KB 关键 CSS，加载迅速\nPageSpeed 100/100（移动端和桌面端）\n项目展示与博客卡片\n通过 WhatsApp 和电子邮件直接联系\n交互式终端板块"
+  },
+  "ozel-yazilim-eticaret-sitesi": {
+   "title": "定制开发电商网站",
+   "badge": "示例作品",
+   "summary": "从零开发的电商网站，包含产品目录、购物车和需求计算器。",
+   "description": "为无法套用现成平台的产品从零打造的电商网站。产品卡片、双币种、购物车，以及帮助客户选对型号的计算工具，一应俱全。您可以通过演示链接查看示例作品。",
+   "features": "含税与不含税价格显示\n双币种（土耳其里拉和美元）\n加入购物车\n按需求计算产能的工具\n合作品牌展示条与安装流程板块"
+  },
+  "kurumsal-urun-tanitim-sitesi": {
+   "title": "企业产品展示网站",
+   "badge": "示例作品",
+   "summary": "企业展示网站，包含技术产品系列、型号对比和询价流程。",
+   "description": "面向拥有多个型号的制造商和经销商的展示网站。每个型号都列出各自的技术参数，访客可以对比后直接进入询价表单。您可以通过演示链接查看示例作品。",
+   "features": "按型号划分的产品系列（产能、功率、重量）\n技术配置清单\n数据统计板块（项目数量、经验年限）\n每个型号均可直达询价表单\n品牌与生产亮点板块"
+  },
+  "konfiguratorlu-urun-sitesi": {
+   "title": "带配置器的产品网站",
+   "badge": "示例作品",
+   "summary": "带交互式配置器的产品网站，根据访客输入即时推荐合适的型号。",
+   "description": "当客户不清楚自己需要哪个型号时，网站不是让他们自己说，而是替他们算出来。输入一变，推荐即时更新，销售沟通从一开始就对准正确的型号。您可以通过演示链接查看示例作品。",
+   "features": "实时配置器——输入变化，结果即时更新\n按系列划分的产品线\n客户案例展示条\n库存与交货周期信息\n每个产品都可跳转至配置器"
+  }
+ },
+ "hi": {
+  "kartvizit-web-sitesi": {
+   "title": "बिज़नेस कार्ड वेबसाइट",
+   "badge": "नमूना काम",
+   "summary": "एक पेज की व्यक्तिगत परिचय वेबसाइट — प्रोजेक्ट और ब्लॉग सेक्शन, एक टैप में WhatsApp और ईमेल, डार्क थीम।",
+   "description": "तेज़ी से खुलने वाली परिचय वेबसाइट, जो आपको या आपके व्यवसाय को एक ही पेज पर प्रस्तुत करती है। नीचे स्क्रॉल करते हुए विज़िटर देखता है कि आप कौन हैं, क्या करते हैं और आपसे कैसे संपर्क करें। नमूना काम आप डेमो लिंक से देख सकते हैं।",
+   "features": "एक पेज, 8 KB क्रिटिकल CSS के साथ तेज़ लोडिंग\nPageSpeed 100/100 (मोबाइल और डेस्कटॉप)\nप्रोजेक्ट शोकेस और ब्लॉग कार्ड\nWhatsApp और ईमेल से सीधा संपर्क\nइंटरैक्टिव टर्मिनल सेक्शन"
+  },
+  "ozel-yazilim-eticaret-sitesi": {
+   "title": "कस्टम-निर्मित ई-कॉमर्स वेबसाइट",
+   "badge": "नमूना काम",
+   "summary": "शुरुआत से लिखी गई ई-कॉमर्स वेबसाइट, जिसमें प्रोडक्ट कैटलॉग, कार्ट और ज़रूरत कैलकुलेटर है।",
+   "description": "उन उत्पादों के लिए शुरुआत से बनाई गई ई-कॉमर्स वेबसाइट, जो किसी तैयार प्लेटफ़ॉर्म में फ़िट नहीं होते। प्रोडक्ट कार्ड, दोहरी मुद्रा, कार्ट और ग्राहक को सही मॉडल चुनने में मदद करने वाला गणना टूल — सब एक साथ। नमूना काम आप डेमो लिंक से देख सकते हैं।",
+   "features": "VAT सहित और VAT रहित कीमतें\nदोहरी मुद्रा (TRY और USD)\nकार्ट में जोड़ना\nज़रूरत के अनुसार क्षमता गणना टूल\nरेफ़रेंस ब्रांड पट्टी और इंस्टॉलेशन प्रक्रिया सेक्शन"
+  },
+  "kurumsal-urun-tanitim-sitesi": {
+   "title": "कॉर्पोरेट प्रोडक्ट शोकेस वेबसाइट",
+   "badge": "नमूना काम",
+   "summary": "तकनीकी प्रोडक्ट सीरीज़, मॉडल तुलना और कोटेशन प्रक्रिया वाली कॉर्पोरेट परिचय वेबसाइट।",
+   "description": "कई मॉडल वाले निर्माताओं और वितरकों के लिए परिचय वेबसाइट। हर मॉडल अपने तकनीकी विवरण के साथ सूचीबद्ध है; विज़िटर तुलना करके सीधे कोटेशन फ़ॉर्म पर पहुँचता है। नमूना काम आप डेमो लिंक से देख सकते हैं।",
+   "features": "मॉडल-आधारित प्रोडक्ट फ़ैमिली (क्षमता, पावर, वज़न)\nतकनीकी पैकेज सूची\nआँकड़े सेक्शन (प्रोजेक्ट संख्या, अनुभव)\nहर मॉडल से कोटेशन फ़ॉर्म तक सीधा रास्ता\nब्रांड और उत्पादन पर केंद्रित सेक्शन"
+  },
+  "konfiguratorlu-urun-sitesi": {
+   "title": "कॉन्फ़िगरेटर वाली प्रोडक्ट वेबसाइट",
+   "badge": "नमूना काम",
+   "summary": "इंटरैक्टिव कॉन्फ़िगरेटर वाली प्रोडक्ट वेबसाइट, जो विज़िटर के इनपुट के आधार पर तुरंत सही मॉडल सुझाती है।",
+   "description": "अगर ग्राहक को नहीं पता कि उसे कौन-सा मॉडल चाहिए, तो साइट उससे पूछने के बजाय ख़ुद गणना करके बताती है। इनपुट बदलते ही सुझाव तुरंत अपडेट होता है, और बिक्री की बातचीत सही मॉडल से शुरू होती है। नमूना काम आप डेमो लिंक से देख सकते हैं।",
+   "features": "लाइव कॉन्फ़िगरेटर — इनपुट बदलते ही नतीजा तुरंत अपडेट\nसीरीज़-आधारित प्रोडक्ट फ़ैमिली\nरेफ़रेंस पट्टी\nस्टॉक और डिलीवरी समय की जानकारी\nहर प्रोडक्ट से कॉन्फ़िगरेटर तक पहुँच"
+  }
+ },
+ "ar": {
+  "kartvizit-web-sitesi": {
+   "title": "موقع بطاقة أعمال",
+   "badge": "نموذج عمل",
+   "summary": "موقع تعريفي شخصي من صفحة واحدة — أقسام للمشاريع والمدونة، وتواصل عبر واتساب والبريد الإلكتروني بنقرة واحدة، وتصميم داكن.",
+   "description": "موقع تعريفي سريع التحميل يعرّف بك أو بعملك في صفحة واحدة. وأثناء التمرير يرى الزائر من أنت وماذا تقدّم وكيف يتواصل معك. يمكنك الاطلاع على نموذج العمل عبر رابط العرض التجريبي.",
+   "features": "صفحة واحدة وتحميل سريع بفضل 8 كيلوبايت فقط من CSS الحرج\nPageSpeed 100/100 (للجوال وسطح المكتب)\nواجهة لعرض المشاريع وبطاقات للمدونة\nتواصل مباشر عبر واتساب والبريد الإلكتروني\nقسم طرفية تفاعلي"
+  },
+  "ozel-yazilim-eticaret-sitesi": {
+   "title": "متجر إلكتروني مبرمج خصيصًا",
+   "badge": "نموذج عمل",
+   "summary": "متجر إلكتروني مكتوب من الصفر، يضم كتالوج منتجات وسلة مشتريات وحاسبة احتياجات.",
+   "description": "متجر إلكتروني مبني من الصفر للمنتجات التي لا تناسبها المنصات الجاهزة. بطاقات منتجات، وعملتان، وسلة مشتريات، وأداة حساب تساعد العميل على اختيار الطراز المناسب — كلها في مكان واحد. يمكنك الاطلاع على نموذج العمل عبر رابط العرض التجريبي.",
+   "features": "عرض الأسعار شاملة الضريبة وغير شاملة لها\nعملتان (الليرة التركية والدولار الأمريكي)\nالإضافة إلى السلة\nأداة لحساب السعة حسب الاحتياج\nشريط العلامات المرجعية وقسم لمراحل التركيب"
+  },
+  "kurumsal-urun-tanitim-sitesi": {
+   "title": "موقع مؤسسي لعرض المنتجات",
+   "badge": "نموذج عمل",
+   "summary": "موقع مؤسسي تعريفي يضم سلسلة منتجات تقنية ومقارنة بين الطرازات ومسارًا لطلب عرض السعر.",
+   "description": "موقع تعريفي للمصنّعين والموزّعين الذين لديهم أكثر من طراز. يُعرض كل طراز بمواصفاته الفنية، فيقارن الزائر بينها وينتقل مباشرة إلى نموذج طلب عرض السعر. يمكنك الاطلاع على نموذج العمل عبر رابط العرض التجريبي.",
+   "features": "عائلة منتجات مصنّفة حسب الطراز (السعة، القدرة، الوزن)\nقائمة بالحزم الفنية\nقسم إحصاءات (عدد المشاريع، سنوات الخبرة)\nانتقال من كل طراز إلى نموذج طلب عرض السعر\nأقسام تُبرز العلامة التجارية والتصنيع"
+  },
+  "konfiguratorlu-urun-sitesi": {
+   "title": "موقع منتجات مزوّد بأداة تهيئة",
+   "badge": "نموذج عمل",
+   "summary": "موقع منتجات بأداة تهيئة تفاعلية تقترح الطراز المناسب فورًا بحسب ما يُدخله الزائر.",
+   "description": "إذا لم يكن العميل يعرف الطراز الذي يحتاجه، فإن الموقع يحسبه له بدلًا من أن يسأله. تتحدّث التوصية فور تغيّر المدخلات، فيبدأ حوار البيع من الطراز الصحيح. يمكنك الاطلاع على نموذج العمل عبر رابط العرض التجريبي.",
+   "features": "أداة تهيئة مباشرة — تتحدّث النتيجة فور تغيّر المدخلات\nعائلة منتجات مصنّفة حسب السلسلة\nشريط المراجع\nمعلومات المخزون ومدة التسليم\nانتقال إلى أداة التهيئة من كل منتج"
+  }
+ }
+}

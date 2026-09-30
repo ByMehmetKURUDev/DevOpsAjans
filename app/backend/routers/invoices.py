@@ -20,6 +20,30 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/v1/entities/invoices", tags=["invoices"], dependencies=[_Depends(entity_guard)])
 
 
+async def _odendiyse_kredi_yukle(db: AsyncSession, fatura) -> None:
+    """Fatura panelden elle `paid` yapıldıysa bağlı kredi paketini yükler.
+
+    Tahsilat yolları (Lemon, Shopier, elle tahsilat) krediyi zaten
+    `services/kredi.odeme_kredilerini_yukle` ile yüklüyor. Yönetici faturayı
+    tahsilat girmeden doğrudan "ödendi" işaretlerse de aynı kanca çağrılıyor.
+    Anahtar faturaya bağlı (`fatura:<id>:kredi`): sonradan tahsilat gelse,
+    fatura paid→unpaid→paid gidip gelse de kredi bir kez yazılıyor.
+    Hata yutuluyor: fatura güncellemesi bu yüzden düşmemeli.
+    """
+    if fatura is None or (getattr(fatura, "status", None) or "") != "paid":
+        return
+    try:
+        from services import kredi
+
+        ozet = await kredi.odeme_kredilerini_yukle(db, fatura.id)
+        if ozet:
+            await db.commit()
+            await db.refresh(fatura)
+            await kredi.kredi_yuklendi_bildir(db, ozet)
+    except Exception:  # noqa: BLE001
+        logger.exception("Elle ödendi işaretlenen faturanın kredisi yüklenemedi: fatura=%s", getattr(fatura, "id", None))
+
+
 # ---------- Pydantic Schemas ----------
 class InvoicesData(BaseModel):
     """Entity data schema (for create/update)"""
@@ -277,6 +301,7 @@ async def update_invoicess_batch(
             update_dict = {k: v for k, v in item.updates.model_dump().items() if v is not None}
             result = await service.update(item.id, update_dict)
             if result:
+                await _odendiyse_kredi_yukle(db, result)
                 results.append(result)
         
         logger.info(f"Batch updated {len(results)} invoicess successfully")
@@ -304,6 +329,7 @@ async def update_invoices(
         if not result:
             logger.warning(f"Invoices with id {id} not found for update")
             raise HTTPException(status_code=404, detail="Invoices not found")
+        await _odendiyse_kredi_yukle(db, result)
         
         logger.info(f"Invoices {id} updated successfully")
         return result

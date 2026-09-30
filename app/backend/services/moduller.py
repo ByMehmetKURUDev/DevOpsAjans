@@ -251,6 +251,29 @@ async def musteri_modulleri(db: AsyncSession, eposta: str) -> MusteriModulleri:
     return MusteriModulleri(eposta=eposta, paket=paket, durumlar=durumlari_hesapla(paket, satirlar))
 
 
+async def musteri_ayari(db: AsyncSession, eposta: str, anahtar: str, alan: str) -> Any:
+    """Müşterinin bir modül ayarı (kayıtlı değer ya da manifest varsayılanı).
+
+    Modüllerin davranışı bu değeri okuyor (ör. kredi eşiği, günlük analiz
+    sınırı). Tek satır okunuyor; bilinmeyen modül/alan ya da okuma hatası
+    None döndürür — çağıran kendi varsayılanına düşer.
+    """
+    m = manifest.modul(anahtar)
+    if m is None or alan not in {a.anahtar for a in m.ayarlar}:
+        return None
+    try:
+        satir = (
+            await db.execute(
+                select(WorkspaceModules)
+                .where(WorkspaceModules.musteri_eposta == eposta_duzelt(eposta))
+                .where(WorkspaceModules.modul_anahtari == anahtar)
+            )
+        ).scalars().first()
+    except Exception:  # noqa: BLE001
+        return m.varsayilan_ayarlar().get(alan)
+    return _ayar_oku(m, satir.ayarlar_json if satir is not None else None).get(alan)
+
+
 async def modul_acik_mi(db: AsyncSession, eposta: str, anahtar: str) -> bool:
     m = manifest.modul(anahtar)
     if m is None:

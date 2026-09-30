@@ -1,0 +1,16 @@
+{
+  "hizliTalep": {
+    "eksik": "Name und E-Mail sind erforderlich.",
+    "alindi": "Ihre Anfrage ist eingegangen.",
+    "hata": "Senden fehlgeschlagen.",
+    "tesekkur": "Ihre Anfrage ist bei uns angekommen",
+    "donus": "Wir melden uns so schnell wie möglich per E-Mail. Wenn es dringend ist, können Sie uns auch anrufen.",
+    "baslik": "Anfrage hinterlassen",
+    "ad": "Ihr Name *",
+    "eposta": "E-Mail *",
+    "telefon": "Telefon (optional)",
+    "mesaj": "Was Sie ergänzen möchten",
+    "gonder": "Senden",
+    "gizlilik": "Ihre Angaben werden nur für diese Anfrage verwendet."
+  }
+}

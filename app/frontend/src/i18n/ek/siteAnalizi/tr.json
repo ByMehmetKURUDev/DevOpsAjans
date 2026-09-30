@@ -351,6 +351,11 @@
         "neden": "CSP, sayfaya sızdırılan zararlı betiklerin (XSS) çalışmasını engelleyen en güçlü katmandır.",
         "oneri": "Önce Content-Security-Policy-Report-Only ile izin verilen kaynakları belirleyin, sonra politikayı zorunlu hâle getirin."
       },
+      "csp_rapor": {
+        "baslik": "İçerik güvenlik politikası (CSP) yalnız rapor modunda",
+        "neden": "Politika yazılmış ama Content-Security-Policy-Report-Only olarak gönderiliyor: tarayıcı ihlalleri yalnızca bildiriyor, zararlı betikleri henüz engellemiyor.",
+        "oneri": "İhlal raporlarını birkaç gün izleyin; temiz çıkınca aynı politikayı Content-Security-Policy başlığıyla zorunlu hâle getirin."
+      },
       "frame_koruma_yok": {
         "baslik": "Çerçeveleme koruması yok",
         "neden": "Siteniz başka bir sitede görünmez bir çerçeveye alınıp tıklama tuzağında (clickjacking) kullanılabilir.",

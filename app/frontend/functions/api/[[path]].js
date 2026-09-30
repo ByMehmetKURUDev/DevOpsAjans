@@ -8,16 +8,40 @@
  * değişkeni olarak veriliyor. Böylece geçici adresten gerçek adrese
  * geçerken tek bir yer değişiyor.
  */
+/*
+ * Temel güvenlik başlıkları. `public/_headers` Pages Function yanıtlarına
+ * uygulanmıyor (Cloudflare kuralı), bu yüzden `/api/*` yanıtlarına burada
+ * ekleniyor. CSP yok: yanıtlar JSON, tarayıcıda belge olarak çizilmiyor.
+ * Arka uç aynı başlığı zaten gönderdiyse onunki korunuyor.
+ */
+const GUVENLIK_BASLIKLARI = {
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'X-Frame-Options': 'SAMEORIGIN',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+};
+
+function basliklariEkle(yanit) {
+  // fetch() yanıtının başlıkları değiştirilemez; kopyası üzerinde çalışılıyor.
+  const kopya = new Response(yanit.body, yanit);
+  for (const [ad, deger] of Object.entries(GUVENLIK_BASLIKLARI)) {
+    if (!kopya.headers.has(ad)) kopya.headers.set(ad, deger);
+  }
+  return kopya;
+}
+
 export async function onRequest({ request, env }) {
   const origin = env.API_ORIGIN;
 
   if (!origin) {
-    return new Response(
-      JSON.stringify({
-        detail:
-          'API_ORIGIN ortam değişkeni tanımlı değil. Pages → Settings → Environment variables.',
-      }),
-      { status: 503, headers: { 'content-type': 'application/json; charset=utf-8' } }
+    return basliklariEkle(
+      new Response(
+        JSON.stringify({
+          detail:
+            'API_ORIGIN ortam değişkeni tanımlı değil. Pages → Settings → Environment variables.',
+        }),
+        { status: 503, headers: { 'content-type': 'application/json; charset=utf-8' } }
+      )
     );
   }
 
@@ -35,12 +59,14 @@ export async function onRequest({ request, env }) {
   else istek.headers.delete('X-MK-Istemci-IP');
 
   try {
-    return await fetch(istek);
+    return basliklariEkle(await fetch(istek));
   } catch (e) {
     // Ücretsiz planda arka uç uykudaysa ilk istek zaman aşımına düşebilir.
-    return new Response(
-      JSON.stringify({ detail: 'Arka uca ulaşılamadı: ' + String(e) }),
-      { status: 502, headers: { 'content-type': 'application/json; charset=utf-8' } }
+    return basliklariEkle(
+      new Response(
+        JSON.stringify({ detail: 'Arka uca ulaşılamadı: ' + String(e) }),
+        { status: 502, headers: { 'content-type': 'application/json; charset=utf-8' } }
+      )
     );
   }
 }

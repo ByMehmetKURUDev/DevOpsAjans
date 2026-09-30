@@ -29,16 +29,33 @@ import { Button } from '@/components/ui/button';
  * iş yapıyor.
  */
 
-const BASLANGIC = `<!-- Yazın, sağda anında çalışsın -->
-<div class="kutu">
-  <h2>Merhaba <span id="ad">dünya</span></h2>
-  <button onclick="degistir()">Değiştir</button>
+interface OrnekMetinleri {
+  yorum: string;
+  merhaba: string;
+  degistir: string;
+  isimler: string[];
+  /** Kod içindeki adlar: Türkçede Türkçe, diğer dillerde İngilizce. */
+  sinif: string;
+  dizi: string;
+  fonksiyon: string;
+}
+
+/**
+ * Başlangıç örneği ziyaretçinin dilinde: yorum, selam, düğme ve dönen
+ * adlar i18n'den geliyor. Türkçe çıktı eskisiyle harfi harfine aynı.
+ */
+function ornekKod(m: OrnekMetinleri): string {
+  const liste = m.isimler.map((ad) => `'${ad.replace(/'/g, "\\'")}'`).join(', ');
+  return `<!-- ${m.yorum} -->
+<div class="${m.sinif}">
+  <h2>${m.merhaba} <span id="ad">${m.isimler[0] ?? ''}</span></h2>
+  <button onclick="${m.fonksiyon}()">${m.degistir}</button>
 </div>
 
 <style>
   body { font-family: system-ui, sans-serif; background: #0b0f14; color: #e6edf3;
          display: grid; place-items: center; height: 100vh; margin: 0; }
-  .kutu { text-align: center; }
+  .${m.sinif} { text-align: center; }
   h2 { font-weight: 800; letter-spacing: -.02em; }
   #ad { color: #00dc82; }
   button { margin-top: 12px; padding: 10px 18px; border: 0; border-radius: 10px;
@@ -46,13 +63,14 @@ const BASLANGIC = `<!-- Yazın, sağda anında çalışsın -->
 </style>
 
 <script>
-  const isimler = ['dünya', 'İstanbul', 'geliştirici', 'ziyaretçi'];
+  const ${m.dizi} = [${liste}];
   let i = 0;
-  function degistir() {
-    i = (i + 1) % isimler.length;
-    document.getElementById('ad').textContent = isimler[i];
+  function ${m.fonksiyon}() {
+    i = (i + 1) % ${m.dizi}.length;
+    document.getElementById('ad').textContent = ${m.dizi}[i];
   }
 </script>`;
+}
 
 /**
  * Ziyaretçinin kodunu, dışarıya çıkamayan bir belgeye sarar.
@@ -69,10 +87,38 @@ function belgeyiKur(kod: string): string {
 }
 
 function KodDenemeAlani() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const turkce = (i18n.language || 'tr').startsWith('tr');
+  const BASLANGIC = useMemo(
+    () =>
+      ornekKod({
+        yorum: t('playground.ornekYorum', 'Yazın, sağda anında çalışsın'),
+        merhaba: t('playground.ornekMerhaba', 'Merhaba'),
+        degistir: t('playground.ornekDegistir', 'Değiştir'),
+        isimler: t('playground.ornekIsimler', 'dünya,İstanbul,geliştirici,ziyaretçi')
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean),
+        sinif: turkce ? 'kutu' : 'box',
+        dizi: turkce ? 'isimler' : 'names',
+        fonksiyon: turkce ? 'degistir' : 'change',
+      }),
+    [t, turkce],
+  );
   const [kod, setKod] = useState(BASLANGIC);
   const [calisan, setCalisan] = useState(BASLANGIC);
   const zamanlayici = useRef<number | null>(null);
+
+  // Dil değişince örnek de değişsin — ama ziyaretçi kodu değiştirdiyse
+  // onun yazdığına dokunulmuyor.
+  const oncekiBaslangic = useRef(BASLANGIC);
+  useEffect(() => {
+    const onceki = oncekiBaslangic.current;
+    oncekiBaslangic.current = BASLANGIC;
+    if (onceki === BASLANGIC) return;
+    setKod((k) => (k === onceki ? BASLANGIC : k));
+    setCalisan((c) => (c === onceki ? BASLANGIC : c));
+  }, [BASLANGIC]);
 
   // Yazmayı bırakınca çalıştır.
   useEffect(() => {

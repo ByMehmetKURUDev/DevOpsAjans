@@ -1,0 +1,38 @@
+# Cloudflare Pages — güvenlik başlıkları.
+#
+# Bu dosya yalnız statik yanıtlara (HTML, JS, CSS, görsel) uygulanıyor.
+# `/api/*` Pages Function tarafından karşılanıyor ve Cloudflare `_headers`
+# kurallarını Function yanıtlarına UYGULAMIYOR; aynı temel başlıklar
+# `functions/api/[[path]].js` içinde ayrıca ekleniyor.
+#
+# HSTS: `preload` bilerek yok. Preload listesine girmek geri alınması aylar
+# süren bir karar; önce alt alan adlarının hepsinin HTTPS'te sorunsuz
+# olduğundan emin olunmalı.
+#
+# CSP şimdilik YALNIZ RAPOR modunda (Content-Security-Policy-Report-Only):
+# tarayıcı ihlali konsola yazıyor ama hiçbir şeyi engellemiyor. Zorunlu
+# moda geçmeden önce ihlaller izlenecek (bkz. scripts/guvenlik-basliklari.mjs).
+#
+# Satır içi betikler hash ile izinli (index.html'deki üç betik, kritik CSS
+# bağlantısındaki onload ve cevrimdisi.html'deki "yeniden dene" düğmesinin
+# onclick'i — olay işleyicileri için 'unsafe-hashes'). Bu betiklerden biri
+# değişirse hash de değişir; `npm run build` sonunda
+# scripts/guvenlik-basliklari.mjs eksik hash'i uyarı olarak yazar.
+#
+# Kaynaklar:
+#   betik   — kendi kökeni, Google Analytics/Ads (gtag), Meta Pixel (onay sonrası)
+#   stil    — kendi kökeni + satır içi (kritik CSS gömülü, React style=)
+#             + Google Fonts CSS'i (yalnız ar/hi dilleri seçilince)
+#   font    — kendi kökeni + fonts.gstatic.com (ar/hi)
+#   görsel  — https: (blog/marketplace görselleri, reklam pikselleri)
+#   bağlantı — kendi kökeni (/api) + analitik/reklam ölçüm uçları
+#   çerçeve — Google Haritalar (iletişim), reklam dönüşüm çerçeveleri
+#   ödeme   — Shopier yeni sekmede açılıyor (window.open); CSP'yi ilgilendirmiyor.
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'sha256-oqFr/On43q4LbOnWpE/eciGi1ITFYFkDfTBZuPtANFA=' 'sha256-NqlEXPWBrmha1dC1xVrYiUGynn+DKTXlF9l62QQtMl8=' 'sha256-PCjmZn0yQDGBUSNPN2ty+MWlzJdvWnTmUGsuUU8TjWY=' 'unsafe-hashes' 'sha256-F1noxsLOnJhyRSgc0zu5JgzoLjG2BBMaXaSG24k2mRM=' 'sha256-9gOBGqEQINNDuds+tkXbNzih6klbz+KeCyxEj4KRLeM=' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://www.google.com https://www.googleadservices.com https://connect.facebook.net https://www.facebook.com; frame-src 'self' https://www.google.com https://td.doubleclick.net https://www.googletagmanager.com https://www.facebook.com; worker-src 'self'; manifest-src 'self'; media-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'

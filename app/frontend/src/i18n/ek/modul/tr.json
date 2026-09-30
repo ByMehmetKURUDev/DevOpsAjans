@@ -105,9 +105,9 @@
       "elle": "Elle"
     },
     "ayar": {
-      "dusuk_bakiye_esigi": "Düşük bakiye uyarı eşiği (saat)",
+      "esik_saat": "Düşük bakiye uyarı eşiği (saat)",
       "eposta_ozeti": "Rapor yayınlanınca e-posta özeti gönder",
-      "aylik_analiz_siniri": "Aylık analiz sınırı",
+      "gunluk_sinir": "Günlük analiz sınırı",
       "kontrol_araligi_dk": "Kontrol aralığı (dakika)"
     },
     "musteri": {
@@ -153,7 +153,8 @@
       "ayarlar": "Müşteriye özel ayarlar",
       "ayarKaydet": "Ayarları kaydet",
       "ayarKaydedildi": "{{ad}} ayarları kaydedildi.",
-      "musteriHata": "Müşterinin modülleri yüklenemedi."
+      "musteriHata": "Müşterinin modülleri yüklenemedi.",
+      "bosGenel": "Boş: genel ayar"
     },
     "hata": {
       "bagimlilik_kapali": "Önce şunları açın: {{moduller}}",

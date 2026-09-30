@@ -1,9 +1,10 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { CheckCircle2, Loader2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import { ekYukle } from '@/i18n';
 import { client } from '@/lib/sdkClient';
 
 /**
@@ -55,6 +56,19 @@ export default function HizliTalep({
   const [mesaj, setMesaj] = useState(onDolgu ?? '');
   const [gonderiliyor, setGonderiliyor] = useState(false);
   const [bitti, setBitti] = useState(false);
+  // Metinler ek pakette (i18n/ek/hizliTalep): pencere yalnız keşif sonunda
+  // açılıyor, ana pakete girmesin. Açılınca indirilip yeniden çiziliyor.
+  const [, setMetinlerHazir] = useState(false);
+  useEffect(() => {
+    if (!acik) return;
+    let iptal = false;
+    void ekYukle('hizliTalep').then(() => {
+      if (!iptal) setMetinlerHazir(true);
+    });
+    return () => {
+      iptal = true;
+    };
+  }, [acik]);
 
   if (!acik) return null;
 

@@ -84,6 +84,18 @@ async def initialize_pricing_seed():
     except Exception as exc:  # pragma: no cover - defensive
         logger.error("Fiyat kataloğu çevirileri yazılamadı: %s", exc, exc_info=True)
 
+    # Marketplace ürün çevirileri: aynı kural — yalnız `ceviriler` boş
+    # ürünler, `slug` ile eşleşerek doldurulur.
+    try:
+        from scripts.marketplace_ceviri_doldur import doldur as marketplace_ceviri_doldur
+
+        async with db_manager.async_session_maker() as session:
+            session.info["denetim_kapali"] = True
+            sayi = await marketplace_ceviri_doldur(session)
+        logger.info("Marketplace çevirileri: %s ürün dolduruldu", sayi)
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.error("Marketplace çevirileri yazılamadı: %s", exc, exc_info=True)
+
 
 def _prepare_records(raw_data: Any, table: Table) -> list[dict[str, Any]]:
     """Filter JSON payload to match the table definition and coerce values."""

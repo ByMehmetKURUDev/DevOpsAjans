@@ -187,7 +187,8 @@
     "featured": "精选",
     "inProgress": "进行中",
     "loading": "正在加载项目...",
-    "empty": "该分类下暂无项目。"
+    "empty": "该分类下暂无项目。",
+    "googleAdsKampanyalari": "Google Ads 广告活动"
   },
   "blog": {
     "sectionTag": "日志",
@@ -455,7 +456,10 @@
     "tabKrediler": "额度",
     "tabKredilerim": "我的额度",
     "tabIslemler": "签名操作",
-    "tabModuller": "模块"
+    "tabModuller": "模块",
+    "indir": "下载",
+    "appStoreIndir": "在 App Store 下载",
+    "googlePlayIndir": "在 Google Play 上获取"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -870,7 +874,9 @@
     },
     "analizEdiliyor": "正在评估你的回答…",
     "aiOzeti": "评估",
-    "oneriNotuAi": "该评估依据你的回答生成；具体范围与价格在沟通中确定。"
+    "oneriNotuAi": "该评估依据你的回答生成；具体范围与价格在沟通中确定。",
+    "talepKonu": "需求梳理摘要——报价申请",
+    "talepAciklama": "您的回答如下，可以直接发送，也可以补充内容。"
   },
   "yatirim": {
     "sectionTag": "投资回报",
@@ -1286,7 +1292,11 @@
     "sonuc": "结果",
     "calistir": "运行",
     "sifirla": "重置",
-    "not": "代码只在你的浏览器中、于隔离框架内运行；不会发送到任何地方，也不会被保存。"
+    "not": "代码只在你的浏览器中、于隔离框架内运行；不会发送到任何地方，也不会被保存。",
+    "ornekYorum": "在这里输入，右侧即时运行",
+    "ornekMerhaba": "你好",
+    "ornekDegistir": "切换",
+    "ornekIsimler": "世界,伊斯坦布尔,开发者,访客"
   },
   "uzman": {
     "dugme": "Expert prompts",

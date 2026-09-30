@@ -187,7 +187,8 @@
     "featured": "Empfohlen",
     "inProgress": "In Arbeit",
     "loading": "Projekte werden geladen...",
-    "empty": "Noch keine Projekte in dieser Kategorie."
+    "empty": "Noch keine Projekte in dieser Kategorie.",
+    "googleAdsKampanyalari": "Google-Ads-Kampagnen"
   },
   "blog": {
     "sectionTag": "Journal",
@@ -455,7 +456,10 @@
     "tabKrediler": "Credits",
     "tabKredilerim": "Meine Credits",
     "tabIslemler": "Signierte Aktionen",
-    "tabModuller": "Module"
+    "tabModuller": "Module",
+    "indir": "Laden",
+    "appStoreIndir": "Laden im App Store",
+    "googlePlayIndir": "Jetzt bei Google Play"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -870,7 +874,9 @@
     },
     "analizEdiliyor": "Ihre Angaben werden ausgewertet…",
     "aiOzeti": "Einschätzung",
-    "oneriNotuAi": "Diese Einschätzung entstand aus Ihren Angaben; genauer Umfang und Preis werden im Gespräch festgelegt."
+    "oneriNotuAi": "Diese Einschätzung entstand aus Ihren Angaben; genauer Umfang und Preis werden im Gespräch festgelegt.",
+    "talepKonu": "Zusammenfassung der Bedarfsanalyse — Angebotsanfrage",
+    "talepAciklama": "Ihre Antworten stehen unten; Sie können sie so absenden oder ergänzen."
   },
   "yatirim": {
     "sectionTag": "KAPITALRENDITE",
@@ -1286,7 +1292,11 @@
     "sonuc": "Ergebnis",
     "calistir": "Ausführen",
     "sifirla": "Zurücksetzen",
-    "not": "Der Code läuft nur in Ihrem Browser in einem isolierten Frame; nichts wird gesendet oder gespeichert."
+    "not": "Der Code läuft nur in Ihrem Browser in einem isolierten Frame; nichts wird gesendet oder gespeichert.",
+    "ornekYorum": "Hier tippen – rechts läuft es sofort",
+    "ornekMerhaba": "Hallo",
+    "ornekDegistir": "Ändern",
+    "ornekIsimler": "Welt,Istanbul,Entwickler,Besucher"
   },
   "uzman": {
     "dugme": "Expert prompts",

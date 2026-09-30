@@ -105,9 +105,9 @@
       "elle": "手动"
     },
     "ayar": {
-      "dusuk_bakiye_esigi": "余额不足提醒阈值（小时）",
+      "esik_saat": "余额不足提醒阈值（小时）",
       "eposta_ozeti": "报告发布时发送邮件摘要",
-      "aylik_analiz_siniri": "每月分析次数上限",
+      "gunluk_sinir": "每日分析次数上限",
       "kontrol_araligi_dk": "检查间隔（分钟）"
     },
     "musteri": {
@@ -153,7 +153,8 @@
       "ayarlar": "客户专属设置",
       "ayarKaydet": "保存设置",
       "ayarKaydedildi": "{{ad}} 的设置已保存。",
-      "musteriHata": "无法加载该客户的模块。"
+      "musteriHata": "无法加载该客户的模块。",
+      "bosGenel": "留空：使用通用设置"
     },
     "hata": {
       "bagimlilik_kapali": "请先启用：{{moduller}}",

@@ -351,6 +351,11 @@
         "neden": "CSP is the strongest layer against injected malicious scripts (XSS).",
         "oneri": "Start with Content-Security-Policy-Report-Only to map allowed sources, then enforce the policy."
       },
+      "csp_rapor": {
+        "baslik": "Content Security Policy (CSP) is in report-only mode",
+        "neden": "A policy exists but is sent as Content-Security-Policy-Report-Only: the browser only reports violations and does not yet block malicious scripts.",
+        "oneri": "Watch the violation reports for a few days; once they are clean, enforce the same policy with the Content-Security-Policy header."
+      },
       "frame_koruma_yok": {
         "baslik": "No framing protection",
         "neden": "Your site could be loaded in an invisible frame on another site and used for clickjacking.",

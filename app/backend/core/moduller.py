@@ -56,6 +56,9 @@ class AyarAlani:
     en_cok: Optional[int] = None
     secenekler: Tuple[str, ...] = ()
     uzunluk: int = 200
+    #: Boş (None) kabul edilir mi? Boş = "müşteriye özel değer yok, genel
+    #: ayar geçerli" (ör. kredi eşiği boşsa site ayarı kullanılıyor).
+    bos_olabilir: bool = False
 
     def sozluk(self) -> Dict[str, Any]:
         return {
@@ -65,10 +68,15 @@ class AyarAlani:
             "en_az": self.en_az,
             "en_cok": self.en_cok,
             "secenekler": list(self.secenekler),
+            "bos_olabilir": self.bos_olabilir,
         }
 
     def dogrula(self, deger: Any) -> Any:
         """Geçerli değeri döndürür; geçersizse ValueError."""
+        if deger is None:
+            if self.bos_olabilir:
+                return None
+            raise ValueError("bos")
         if self.tur == "bool":
             if isinstance(deger, bool):
                 return deger
@@ -189,7 +197,9 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=True,
         paketler=TUM_PAKETLER,
         bagimliliklar=("faturalar",),
-        ayarlar=(AyarAlani("dusuk_bakiye_esigi", "int", 2, en_az=0, en_cok=100),),
+        # Düşük bakiye uyarı eşiği (saat). Boşsa site ayarı `kredi_esik_saat`,
+        # o da yoksa 2 (services/kredi.esik_degeri).
+        ayarlar=(AyarAlani("esik_saat", "int", None, en_az=0, en_cok=1000, bos_olabilir=True),),
         yerlesim=("genel",),
     ),
     Modul(
@@ -237,7 +247,9 @@ MODULLER: Tuple[Modul, ...] = (
         gerekli_rol="her_ikisi",
         varsayilan_acik=True,
         paketler=TUM_PAKETLER,
-        ayarlar=(AyarAlani("aylik_analiz_siniri", "int", 10, en_az=0, en_cok=500),),
+        # Müşterinin panelden günde yapabileceği analiz sayısı
+        # (`/site-analizi/benim`; routers/site_analizi.py).
+        ayarlar=(AyarAlani("gunluk_sinir", "int", 10, en_az=0, en_cok=500),),
     ),
     Modul(
         anahtar="islem",

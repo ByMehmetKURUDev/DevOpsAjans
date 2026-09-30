@@ -105,9 +105,9 @@
       "elle": "Manuell"
     },
     "ayar": {
-      "dusuk_bakiye_esigi": "Warnschwelle für niedriges Guthaben (Stunden)",
+      "esik_saat": "Warnschwelle für niedriges Guthaben (Stunden)",
       "eposta_ozeti": "Zusammenfassung per E-Mail senden, wenn ein Bericht veröffentlicht wird",
-      "aylik_analiz_siniri": "Monatliches Analyselimit",
+      "gunluk_sinir": "Tägliches Analyselimit",
       "kontrol_araligi_dk": "Prüfintervall (Minuten)"
     },
     "musteri": {
@@ -153,7 +153,8 @@
       "ayarlar": "Kundenspezifische Einstellungen",
       "ayarKaydet": "Einstellungen speichern",
       "ayarKaydedildi": "Einstellungen für {{ad}} gespeichert.",
-      "musteriHata": "Module des Kunden konnten nicht geladen werden."
+      "musteriHata": "Module des Kunden konnten nicht geladen werden.",
+      "bosGenel": "Leer: allgemeine Einstellung"
     },
     "hata": {
       "bagimlilik_kapali": "Aktivieren Sie zuerst: {{moduller}}",

@@ -497,7 +497,7 @@ function KullandikcaOdeBlok({
   setIhtiyac: (n: number) => void;
   onKrediAl: (kredi: number, konu: string, fiyatMetni: string) => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // İhtiyacı karşılayan en küçük paket; hiçbiri yetmiyorsa en büyük paket +
   // aşan saatler PAYG fiyatından ("… saat için özel").
@@ -585,7 +585,7 @@ function KullandikcaOdeBlok({
                   </div>
                   {p.populer && (
                     <span className="rounded-full bg-emerald-500 px-2 py-0.5 text-[9px] font-bold text-black">
-                      {t('ui.popular', 'Popüler').toLocaleUpperCase('tr-TR')}
+                      {t('ui.popular', 'Popüler').toLocaleUpperCase(i18n.language === 'tr' ? 'tr-TR' : i18n.language)}
                     </span>
                   )}
                 </div>

@@ -119,6 +119,31 @@
       })();
     </script>
 
+    <!--
+      Site görünümü (Klasik / Modern) ilk boyamadan önce.
+
+      Derleme, site ayarı Modern iken html etiketine data-gorunum="modern"
+      yazıyor (prerender/gorunum-plugin.js). Bu betik ziyaretçinin kendi seçimini
+      (?gorunum=, localStorage) ya da önbelleğe alınmış site ayarını React'ten
+      önce uygular; öncelik src/lib/gorunum.ts ile aynı. Hata olursa sessiz.
+      İçerik değişirse public/_headers içindeki CSP hash'i de güncellenmeli
+      (scripts/guvenlik-basliklari.mjs derlemede uyarır).
+    -->
+    <script>
+      (function () {
+        try {
+          var g = function (v) { return v === 'klasik' || v === 'modern' ? v : null; };
+          var p = new URLSearchParams(location.search).get('gorunum');
+          var s = p === 'site' ? null : g(p) || g(localStorage.getItem('gorunum-onizleme'));
+          if (!s) {
+            var c = localStorage.getItem('mk_site_settings_v2');
+            s = c ? g(JSON.parse(c).site_gorunum) : null;
+          }
+          if (s) document.documentElement.setAttribute('data-gorunum', s);
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Google Analytics 4 — render-blocking olmaması için ilk etkileşim/idle sonrası yüklenir -->
     <script>
       window.dataLayer = window.dataLayer || [];

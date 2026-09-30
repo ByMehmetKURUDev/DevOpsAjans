@@ -23,6 +23,8 @@ export interface AyarAlani {
   en_az?: number | null;
   en_cok?: number | null;
   secenekler?: string[];
+  /** Boş (null) kabul ediliyor: boş = müşteriye özel değer yok, genel ayar geçerli. */
+  bos_olabilir?: boolean;
 }
 
 /** Müşterinin kendi modülü (`/api/v1/modullerim`). */

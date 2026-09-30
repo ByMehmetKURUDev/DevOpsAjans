@@ -29,8 +29,41 @@ export interface MarketplaceUrunu {
   image_url?: string;
   demo_url?: string;
   badge?: string;
+  published?: boolean;
   sort_order?: number;
+  /**
+   * Dil başına çeviriler: `{ en: { title, summary, ... }, de: {...} }`.
+   * Türkçe ana alanlarda; seçili dilde alan boşsa Türkçe gösterilir.
+   */
+  ceviriler?: Record<string, Partial<Record<CevrilebilirAlan, string>>> | null;
   created_at?: string;
+}
+
+/** Panelde dil başına çevrilebilen ürün alanları. */
+export const CEVRILEBILIR_ALANLAR = [
+  'title',
+  'summary',
+  'description',
+  'features',
+  'price_note',
+  'delivery_time',
+  'badge',
+] as const;
+export type CevrilebilirAlan = (typeof CEVRILEBILIR_ALANLAR)[number];
+
+/** Türkçe dışında çeviri tutulan diller (panel dil seçicisinin sırası). */
+export const CEVIRI_DILLERI = ['en', 'de', 'ru', 'zh', 'hi', 'ar'] as const;
+
+/**
+ * Ürün alanını seçili dilde döndürür. Çeviri `ceviriler` içinde; o dilde
+ * alan boşsa Türkçe değer gösterilir (boş kart yerine Türkçe metin).
+ */
+export function yerel(urun: MarketplaceUrunu, alan: CevrilebilirAlan, dil: string): string {
+  const kod = (dil || 'tr').slice(0, 2);
+  const turkce = urun[alan] ?? '';
+  if (kod === 'tr') return turkce;
+  const deger = urun.ceviriler?.[kod]?.[alan];
+  return typeof deger === 'string' && deger.trim() ? deger : turkce;
 }
 
 interface ListeYaniti {
@@ -89,9 +122,9 @@ export function fiyatMetni(urun: MarketplaceUrunu): string {
   return `${simge}${ham}`;
 }
 
-/** Özellik satırları; boş satırlar atılıyor. */
-export function ozellikler(urun: MarketplaceUrunu): string[] {
-  return (urun.features || '')
+/** Özellik satırları (seçili dilde); boş satırlar atılıyor. */
+export function ozellikler(urun: MarketplaceUrunu, dil = 'tr'): string[] {
+  return yerel(urun, 'features', dil)
     .split('\n')
     .map((s) => s.trim())
     .filter(Boolean);

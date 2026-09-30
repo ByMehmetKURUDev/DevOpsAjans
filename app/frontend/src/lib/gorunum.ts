@@ -51,11 +51,22 @@ function onbellektekiSiteAyari(): string | undefined {
   }
 }
 
-/** Etkin görünümü `<html data-gorunum>` olarak uygular. */
+/**
+ * Etkin görünümü `<html data-gorunum>` olarak uygular.
+ *
+ * Öncelik: tarayıcı seçimi (?gorunum=, localStorage) → site ayarı (verilen
+ * ya da önbellekteki) → HTML'de zaten yazılı değer → klasik.
+ *
+ * "HTML'de yazılı değer": ayar henüz bilinmiyorsa (ilk ziyaret, önbellek
+ * yok) derlemenin `<html data-gorunum="modern">` olarak bastığı site ayarı
+ * korunur. Yoksa ilk ziyaretçi, ayar isteği dönene kadar bir an Klasik
+ * görüyordu. Çağıran ayar yüklenmeden `siteAyari` vermemeli (Layout).
+ */
 export function gorunumUygula(siteAyari?: string): void {
   if (typeof document === 'undefined') return;
   const ayar = siteAyari ?? onbellektekiSiteAyari();
-  const secim = tarayiciSecimi() ?? (gecerli(ayar) ? ayar : 'klasik');
+  const yazili = document.documentElement.getAttribute('data-gorunum');
+  const secim = tarayiciSecimi() ?? (gecerli(ayar) ? ayar : gecerli(yazili) ? yazili : 'klasik');
   if (document.documentElement.getAttribute('data-gorunum') !== secim) {
     document.documentElement.setAttribute('data-gorunum', secim);
   }

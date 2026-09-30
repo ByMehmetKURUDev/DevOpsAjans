@@ -351,6 +351,11 @@
         "neden": "CSP ist die stärkste Schutzschicht gegen eingeschleuste Schadskripte (XSS).",
         "oneri": "Mit Content-Security-Policy-Report-Only erlaubte Quellen ermitteln, dann die Richtlinie durchsetzen."
       },
+      "csp_rapor": {
+        "baslik": "Content Security Policy (CSP) nur im Berichtsmodus",
+        "neden": "Eine Richtlinie ist vorhanden, wird aber als Content-Security-Policy-Report-Only gesendet: Der Browser meldet Verstöße nur und blockiert Schadskripte noch nicht.",
+        "oneri": "Beobachten Sie die Verstoßberichte einige Tage lang; sind sie sauber, setzen Sie dieselbe Richtlinie mit dem Header Content-Security-Policy durch."
+      },
       "frame_koruma_yok": {
         "baslik": "Kein Schutz gegen Einbettung",
         "neden": "Ihre Website könnte unsichtbar auf einer fremden Seite eingebettet und für Clickjacking missbraucht werden.",

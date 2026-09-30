@@ -23,6 +23,8 @@ interface Project {
   published?: boolean;
   date?: string;
   created_at?: string;
+  /** Başlık çevrilebilir bir ifadeyse i18n anahtarı; özel adlar (marka) çevrilmez. */
+  titleKey?: string;
 }
 
 const STATIC_PROJECTS: Project[] = [
@@ -44,7 +46,7 @@ const STATIC_PROJECTS: Project[] = [
   { id: 'm3', title: 'Watermaker Mobile', description: 'Mobile shopping app for water products', category: 'Mobil Uygulama', project_url: 'https://watermaker.market', date: '2023-10' },
   { id: 'm4', title: 'FSM Watermakers Mobile', description: 'Mobile app for FSM Watermakers services', category: 'Mobil Uygulama', project_url: 'https://fsmwatermaker.com', date: '2023-06' },
   // Reklam
-  { id: 'r1', title: 'Google Ads Kampanyaları', description: 'Multi-channel Google Ads campaign management for e-commerce clients', category: 'Reklam', featured: true, date: '2024-05' },
+  { id: 'r1', title: 'Google Ads Kampanyaları', titleKey: 'portfolio.googleAdsKampanyalari', description: 'Multi-channel Google Ads campaign management for e-commerce clients', category: 'Reklam', featured: true, date: '2024-05' },
   { id: 'r2', title: 'Meta Ads & Social Media', description: 'Facebook & Instagram advertising campaigns with high ROAS', category: 'Reklam', date: '2024-04' },
   { id: 'r3', title: 'SEO & Content Marketing', description: 'Organic growth strategy and content marketing for SaaS products', category: 'Reklam', date: '2023-12' },
 ];
@@ -90,9 +92,12 @@ export default function Portfolio() {
     };
   }, []);
 
+  // Statik projelerde çevrilebilir başlıklar (ör. "Google Ads Kampanyaları")
+  // aktif dile çevriliyor; marka adları olduğu gibi kalıyor.
   const allProjects = useMemo(() => {
-    return [...STATIC_PROJECTS, ...dbProjects];
-  }, [dbProjects]);
+    const statik = STATIC_PROJECTS.map((p) => (p.titleKey ? { ...p, title: t(p.titleKey, p.title) } : p));
+    return [...statik, ...dbProjects];
+  }, [dbProjects, t]);
 
   const filtered = useMemo(() => {
     let items = activeCat === 'all' ? allProjects : allProjects.filter((p) => p.category === activeCat);

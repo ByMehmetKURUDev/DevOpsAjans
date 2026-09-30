@@ -8,7 +8,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { client } from '@/lib/sdkClient';
-import { KATEGORILER, kategoriEtiketi, type MarketplaceUrunu } from '@/lib/marketplace';
+import {
+  CEVIRI_DILLERI,
+  CEVRILEBILIR_ALANLAR,
+  KATEGORILER,
+  kategoriEtiketi,
+  type CevrilebilirAlan,
+  type MarketplaceUrunu,
+} from '@/lib/marketplace';
 
 /**
  * Marketplace ürünlerinin yönetimi.
@@ -23,6 +30,57 @@ import { KATEGORILER, kategoriEtiketi, type MarketplaceUrunu } from '@/lib/marke
  */
 
 type Taslak = Partial<MarketplaceUrunu> & { id?: number };
+
+/** Düzenleme formundaki çeviri alanları: dil → alan → metin. */
+type CeviriFormu = Record<string, Partial<Record<CevrilebilirAlan, string>>>;
+
+/** Çeviri formunda alanların sırası ve etiket anahtarları (Türkçe formla aynı). */
+const CEVIRI_ALAN_ETIKETI: Record<CevrilebilirAlan, string> = {
+  title: 'marketplaceAdmin.fBaslik',
+  summary: 'marketplaceAdmin.fOzet',
+  features: 'marketplaceAdmin.fOzellikler',
+  price_note: 'marketplaceAdmin.fFiyatNotu',
+  delivery_time: 'marketplaceAdmin.fTeslim',
+  badge: 'marketplaceAdmin.fRozet',
+  description: 'marketplaceAdmin.fAciklama',
+};
+const CEVIRI_ALAN_SIRASI: CevrilebilirAlan[] = [
+  'title',
+  'summary',
+  'features',
+  'price_note',
+  'delivery_time',
+  'badge',
+  'description',
+];
+const COK_SATIRLI = new Set<CevrilebilirAlan>(['summary', 'features', 'description']);
+
+/** Kayıtlı çevirilerden form durumunu kurar (her dil, her alan). */
+function ceviriFormuKur(urun: Taslak): CeviriFormu {
+  const form: CeviriFormu = {};
+  for (const d of CEVIRI_DILLERI) {
+    form[d] = {};
+    for (const a of CEVRILEBILIR_ALANLAR) form[d][a] = urun.ceviriler?.[d]?.[a] ?? '';
+  }
+  return form;
+}
+
+/** Formdaki dolu çeviri alanları; boş alan kaydedilmez (sitede Türkçeye düşer). */
+function ceviriFormunuTopla(form: CeviriFormu): Record<string, Partial<Record<CevrilebilirAlan, string>>> {
+  const sonuc: Record<string, Partial<Record<CevrilebilirAlan, string>>> = {};
+  for (const d of CEVIRI_DILLERI) {
+    for (const a of CEVRILEBILIR_ALANLAR) {
+      const deger = (form[d]?.[a] ?? '').trim();
+      if (deger) (sonuc[d] ??= {})[a] = deger;
+    }
+  }
+  return sonuc;
+}
+
+/** Bir üründe en az bir alanı çevrilmiş dil sayısı. */
+function ceviriliDilSayisi(urun: MarketplaceUrunu): number {
+  return CEVIRI_DILLERI.filter((d) => Object.values(urun.ceviriler?.[d] ?? {}).some((v) => (v ?? '').trim())).length;
+}
 
 const BOS: Taslak = {
   title: '',
@@ -63,6 +121,15 @@ export default function MarketplacePanel() {
   const [urunler, setUrunler] = useState<MarketplaceUrunu[] | null>(null);
   const [duzenlenen, setDuzenlenen] = useState<Taslak | null>(null);
   const [kaydediliyor, setKaydediliyor] = useState(false);
+  // Formda hangi dil düzenleniyor: 'tr' ana alanlar, diğerleri `ceviriler`.
+  const [formDili, setFormDili] = useState<string>('tr');
+  const [ceviriFormu, setCeviriFormu] = useState<CeviriFormu>({});
+
+  const duzenlemeyeBasla = (urun: Taslak) => {
+    setFormDili('tr');
+    setCeviriFormu(ceviriFormuKur(urun));
+    setDuzenlenen(urun);
+  };
 
   const yukle = () => {
     void client.entities.marketplace_items
@@ -90,8 +157,12 @@ export default function MarketplacePanel() {
 
     // Slug boşsa başlıktan üretiliyor; kullanıcının her ürün için ayrıca
     // slug düşünmesi gereksiz bir yük.
+    const ceviriler = ceviriFormunuTopla(ceviriFormu);
     const payload = {
       ...duzenlenen,
+      // Hepsi silindiyse boş sözlük gönderiliyor: kısmi güncellemede `null`
+      // "değiştirme" demek, eski çeviriler yerinde kalırdı.
+      ceviriler: Object.keys(ceviriler).length ? ceviriler : duzenlenen.id ? {} : null,
       title: baslik,
       slug: (duzenlenen.slug || '').trim() || slugla(baslik),
       sort_order:
@@ -153,7 +224,7 @@ export default function MarketplacePanel() {
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-muted-foreground">{t('marketplaceAdmin.aciklama')}</p>
         <Button
-          onClick={() => setDuzenlenen({ ...BOS })}
+          onClick={() => duzenlemeyeBasla({ ...BOS })}
           className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0 h-11"
         >
           <Plus className="me-2 h-4 w-4" /> {t('marketplaceAdmin.yeni')}
@@ -189,6 +260,10 @@ export default function MarketplacePanel() {
                     {urun.sort_order !== null && urun.sort_order !== undefined
                       ? ` · #${urun.sort_order}`
                       : ''}
+                    {` · ${t('marketplaceCeviri.durum', 'çeviri {{sayi}}/{{toplam}}', {
+                      sayi: ceviriliDilSayisi(urun),
+                      toplam: CEVIRI_DILLERI.length,
+                    })}`}
                   </p>
                 </div>
 
@@ -214,7 +289,7 @@ export default function MarketplacePanel() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setDuzenlenen({ ...urun })}
+                  onClick={() => duzenlemeyeBasla({ ...urun })}
                   aria-label={t('marketplaceAdmin.duzenle')}
                   className="!bg-transparent !hover:bg-transparent border-white/20"
                 >
@@ -250,6 +325,66 @@ export default function MarketplacePanel() {
               {duzenlenen.id ? t('marketplaceAdmin.duzenleBaslik') : t('marketplaceAdmin.yeniBaslik')}
             </h3>
 
+            <div className="mb-5 flex flex-wrap items-center gap-1.5" role="group" aria-label={t('marketplaceCeviri.dilSecimi', 'Düzenlenen dil')}>
+              {['tr', ...CEVIRI_DILLERI].map((d) => (
+                <button
+                  key={d}
+                  type="button"
+                  onClick={() => setFormDili(d)}
+                  aria-pressed={formDili === d}
+                  data-dil={d}
+                  className={`rounded-md px-2.5 py-1 text-xs font-semibold uppercase ${
+                    formDili === d
+                      ? 'bg-primary text-background'
+                      : 'border border-white/10 text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {d}
+                </button>
+              ))}
+              {formDili !== 'tr' && (
+                <span className="ms-2 text-[11px] text-muted-foreground">
+                  {t('marketplaceCeviri.ipucu', 'Boş bırakılan alan sitede Türkçe görünür. Soluk yazı Türkçe değerdir.')}
+                </span>
+              )}
+            </div>
+
+            {formDili !== 'tr' ? (
+              <div className="space-y-4" dir={formDili === 'ar' ? 'rtl' : undefined}>
+                {CEVIRI_ALAN_SIRASI.map((a) => {
+                  const deger = ceviriFormu[formDili]?.[a] ?? '';
+                  const degistir = (yeni: string) =>
+                    setCeviriFormu((onceki) => ({ ...onceki, [formDili]: { ...onceki[formDili], [a]: yeni } }));
+                  return (
+                    <div key={a}>
+                      <Label className={etiket} htmlFor={`ceviri-${a}`}>
+                        {t(CEVIRI_ALAN_ETIKETI[a])} ({formDili.toUpperCase()})
+                      </Label>
+                      {COK_SATIRLI.has(a) ? (
+                        <Textarea
+                          id={`ceviri-${a}`}
+                          name={`ceviri-${a}`}
+                          rows={a === 'features' ? 5 : a === 'description' ? 4 : 2}
+                          className={`${alan} ${a === 'features' ? 'font-mono text-xs' : ''} placeholder:text-white/30`}
+                          placeholder={duzenlenen[a] || ''}
+                          value={deger}
+                          onChange={(e) => degistir(e.target.value)}
+                        />
+                      ) : (
+                        <Input
+                          id={`ceviri-${a}`}
+                          name={`ceviri-${a}`}
+                          className={`${alan} placeholder:text-white/30`}
+                          placeholder={duzenlenen[a] || ''}
+                          value={deger}
+                          onChange={(e) => degistir(e.target.value)}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
             <div className="space-y-4">
               <div>
                 <Label className={etiket}>{t('marketplaceAdmin.fBaslik')} *</Label>
@@ -411,6 +546,7 @@ export default function MarketplacePanel() {
                 {t('marketplaceAdmin.fYayinda')}
               </label>
             </div>
+            )}
 
             <div className="mt-6 flex gap-3">
               <Button

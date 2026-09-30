@@ -351,6 +351,11 @@
         "neden": "CSP 是阻止注入恶意脚本（XSS）最有力的防线。",
         "oneri": "先用 Content-Security-Policy-Report-Only 梳理允许的来源，再强制启用策略。"
       },
+      "csp_rapor": {
+        "baslik": "内容安全策略（CSP）仅处于报告模式",
+        "neden": "已编写策略，但以 Content-Security-Policy-Report-Only 发送：浏览器只报告违规，尚未拦截恶意脚本。",
+        "oneri": "先观察几天违规报告；确认无误后，用 Content-Security-Policy 标头强制执行同一策略。"
+      },
       "frame_koruma_yok": {
         "baslik": "缺少防嵌套保护",
         "neden": "您的网站可能被嵌入其他网站的隐形框架中，用于点击劫持。",

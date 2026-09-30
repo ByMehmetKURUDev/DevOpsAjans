@@ -1,0 +1,16 @@
+{
+  "hizliTalep": {
+    "eksik": "Name and email are required.",
+    "alindi": "Your request has been received.",
+    "hata": "Could not be sent.",
+    "tesekkur": "Your request has reached us",
+    "donus": "We'll get back to you by email as soon as possible. If it's urgent, you can also call us.",
+    "baslik": "Leave a request",
+    "ad": "Your name *",
+    "eposta": "Email *",
+    "telefon": "Phone (optional)",
+    "mesaj": "Anything you'd like to add",
+    "gonder": "Send",
+    "gizlilik": "Your details are used only for this request."
+  }
+}

@@ -187,7 +187,8 @@
     "featured": "Öne Çıkan",
     "inProgress": "Devam ediyor",
     "loading": "Projeler yükleniyor...",
-    "empty": "Bu kategoride henüz proje yok."
+    "empty": "Bu kategoride henüz proje yok.",
+    "googleAdsKampanyalari": "Google Ads Kampanyaları"
   },
   "blog": {
     "sectionTag": "Günlük",
@@ -455,7 +456,10 @@
     "tabKrediler": "Krediler",
     "tabKredilerim": "Kredilerim",
     "tabIslemler": "İmzalı işlemler",
-    "tabModuller": "Modüller"
+    "tabModuller": "Modüller",
+    "indir": "İndir",
+    "appStoreIndir": "App Store'dan indirin",
+    "googlePlayIndir": "Google Play'den indirin"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -870,7 +874,9 @@
     },
     "analizEdiliyor": "Cevaplarınız değerlendiriliyor…",
     "aiOzeti": "Değerlendirme",
-    "oneriNotuAi": "Bu değerlendirme cevaplarınıza göre üretildi; kesin kapsam ve fiyat görüşmede netleşir."
+    "oneriNotuAi": "Bu değerlendirme cevaplarınıza göre üretildi; kesin kapsam ve fiyat görüşmede netleşir.",
+    "talepKonu": "Keşif özeti — teklif talebi",
+    "talepAciklama": "Verdiğiniz cevaplar aşağıda; olduğu gibi gönderebilir ya da ekleme yapabilirsiniz."
   },
   "yatirim": {
     "sectionTag": "YATIRIM GETİRİSİ",
@@ -1287,7 +1293,11 @@
     "sonuc": "Sonuç",
     "calistir": "Çalıştır",
     "sifirla": "Sıfırla",
-    "not": "Kod yalnızca tarayıcınızda, yalıtılmış bir çerçevede çalışır; hiçbir yere gönderilmez ve kaydedilmez."
+    "not": "Kod yalnızca tarayıcınızda, yalıtılmış bir çerçevede çalışır; hiçbir yere gönderilmez ve kaydedilmez.",
+    "ornekYorum": "Yazın, sağda anında çalışsın",
+    "ornekMerhaba": "Merhaba",
+    "ornekDegistir": "Değiştir",
+    "ornekIsimler": "dünya,İstanbul,geliştirici,ziyaretçi"
   },
   "uzman": {
     "dugme": "Uzman promptları",

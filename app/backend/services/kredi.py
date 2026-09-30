@@ -541,7 +541,21 @@ async def kredi_yuklendi_bildir(db: AsyncSession, ozet: Optional[Dict[str, Any]]
         logger.exception("Kredi yüklendi bildirimi gönderilemedi")
 
 
-async def esik_degeri(db: AsyncSession) -> float:
+async def esik_degeri(db: AsyncSession, eposta: Optional[str] = None) -> float:
+    """Düşük bakiye uyarı eşiği (saat).
+
+    Öncelik: müşterinin `krediler` modül ayarı `esik_saat` (panel › Modüller)
+    → site ayarı `kredi_esik_saat` → 2.
+    """
+    if eposta:
+        try:
+            from services.moduller import musteri_ayari
+
+            ozel = await musteri_ayari(db, eposta, "krediler", "esik_saat")
+            if ozel is not None:
+                return float(ozel)
+        except Exception:  # noqa: BLE001
+            logger.debug("Müşterinin kredi eşiği okunamadı", exc_info=True)
     try:
         from models.site_settings import Site_settings
 
@@ -564,7 +578,7 @@ async def esik_bildir(db: AsyncSession, eposta: str, yeni_bakiye: float) -> bool
     tekrar gönderilmiyor: gün içinde birkaç küçük harcama yazılınca
     müşteriye art arda aynı e-posta gitmesin.
     """
-    esik = await esik_degeri(db)
+    esik = await esik_degeri(db, eposta)
     if yeni_bakiye > esik + _KUSURAT:
         return False
 

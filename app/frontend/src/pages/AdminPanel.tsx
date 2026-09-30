@@ -69,7 +69,7 @@ import { BLOG_INDEX_ROUTE, PAGE_SEO } from '../../prerender/site.js';
 // Analitik panosu recharts'a bağlı olduğu için yalnızca sekme açıldığında indirilir.
 const AnalyticsDashboard = lazy(() => import('@/components/AnalyticsDashboard'));
 // Marketplace yonetimi ayri bir parcada: sekme acilmadan indirilmiyor.
-const MarketplacePanel = lazy(() => import('@/components/admin/MarketplacePanel'));
+const MarketplacePanel = ekliLazy('marketplaceCeviri', () => import('@/components/admin/MarketplacePanel'));
 // Icerik takvimi de ayri parcada: AI katmani ve form yalnizca sekme
 // acilinca iniyor.
 const IcerikPlani = lazy(() => import('@/components/admin/IcerikPlani'));

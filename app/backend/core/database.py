@@ -234,6 +234,13 @@ class DatabaseManager:
             "tur_sqlite": "TEXT",
         },
         {
+            # Marketplace ürün çevirileri (JSON metni), Eylül 2026.
+            "tablo": "marketplace_items",
+            "sutun": "ceviriler",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
             "tablo": "projects",
             "sutun": "published",
             "tur_pg": "BOOLEAN",

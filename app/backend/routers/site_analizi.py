@@ -477,6 +477,22 @@ async def yonetim_raporu(analiz_id: int, request: Request, db: AsyncSession = _D
 # --------------------------------------------------------------------------
 # Müşteri uçları
 # --------------------------------------------------------------------------
+async def _musteri_gunluk_siniri(db: AsyncSession, eposta: str) -> int:
+    """Müşterinin günlük analiz sınırı: `site_analizi` modül ayarı `gunluk_sinir`.
+
+    Panel › Modüller'den müşteri başına değişiyor; okunamazsa 10.
+    """
+    try:
+        from services.moduller import musteri_ayari
+
+        deger = await musteri_ayari(db, eposta, "site_analizi", "gunluk_sinir")
+        if deger is not None:
+            return int(deger)
+    except Exception:  # noqa: BLE001
+        logger.debug("Günlük analiz sınırı okunamadı", exc_info=True)
+    return MUSTERI_GUNLUK_SINIR
+
+
 @musteri_router.post("")
 async def benim_analizim(
     request: Request,
@@ -496,7 +512,7 @@ async def benim_analizim(
         Site_analyses.kaynak == "musteri",
         Site_analyses.eposta == eposta,
         Site_analyses.created_at >= simdi - timedelta(days=1),
-    ) >= MUSTERI_GUNLUK_SINIR:
+    ) >= await _musteri_gunluk_siniri(db, eposta):
         raise _hata(429, "sinir_musteri")
 
     kayit = Site_analyses(

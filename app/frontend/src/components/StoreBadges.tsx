@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { cn } from '@/lib/utils';
 
@@ -47,6 +48,7 @@ export default function StoreBadges({
   googlePlayUrl,
   className,
 }: StoreBadgesProps) {
+  const { t } = useTranslation();
   const [failed, setFailed] = useState<Record<string, boolean>>({});
 
   const stores: Store[] = [
@@ -56,8 +58,8 @@ export default function StoreBadges({
           href: appStoreUrl.trim(),
           badge: '/store-badges/app-store.svg',
           name: 'App Store',
-          caption: 'İndir',
-          alt: "App Store'dan indirin",
+          caption: t('ui.indir', 'İndir'),
+          alt: t('ui.appStoreIndir', "App Store'dan indirin"),
         }
       : null,
     googlePlayUrl?.trim()
@@ -66,8 +68,8 @@ export default function StoreBadges({
           href: googlePlayUrl.trim(),
           badge: '/store-badges/google-play.svg',
           name: 'Google Play',
-          caption: 'İndir',
-          alt: "Google Play'den indirin",
+          caption: t('ui.indir', 'İndir'),
+          alt: t('ui.googlePlayIndir', "Google Play'den indirin"),
         }
       : null,
   ].filter(Boolean) as Store[];

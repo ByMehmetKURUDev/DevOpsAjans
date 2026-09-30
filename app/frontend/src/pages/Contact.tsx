@@ -40,10 +40,13 @@ export default function Contact() {
    * Değer ziyaretçinin girdiği bir şey değil, uygulamanın kendi
    * durumundan geliyor; kişisel veri taşımıyor.
    */
-  const durum = location.state as { kaynak?: unknown; konu?: unknown } | null;
+  const durum = location.state as { kaynak?: unknown; konu?: unknown; kaynakKonu?: unknown } | null;
   const kaynak = (() => {
     if (durum?.kaynak === 'marketplace') {
-      const konu = typeof durum.konu === 'string' ? durum.konu.trim() : '';
+      // Kaynak ölçümü dilden bağımsız kalsın: ürünün Türkçe adı
+      // (`kaynakKonu`) varsa o yazılıyor; konu alanı ziyaretçinin dilinde.
+      const ham = typeof durum.kaynakKonu === 'string' ? durum.kaynakKonu : durum.konu;
+      const konu = typeof ham === 'string' ? ham.trim() : '';
       return konu ? `marketplace: ${konu}` : 'marketplace';
     }
     // Müşteri paneli › Modüllerim › "Teklif iste" (kapalı modül).

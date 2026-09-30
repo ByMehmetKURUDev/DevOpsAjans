@@ -21,6 +21,7 @@ import {
   kategoriEtiketi,
   ozellikler,
   urunleriGetir,
+  yerel,
   type MarketplaceUrunu,
 } from '@/lib/marketplace';
 
@@ -50,7 +51,10 @@ const KATEGORI_IKONU = {
 } as const;
 
 export default function Marketplace() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // Ürün metinleri veritabanından geliyor; çevirisi `ceviriler` içinde.
+  // Dil değişince useTranslation yeniden çizdiriyor, kartlar anında değişiyor.
+  const dil = i18n.language || 'tr';
   const [urunler, setUrunler] = useState<MarketplaceUrunu[] | null>(null);
   const [secili, setSecili] = useState<string>('hepsi');
 
@@ -161,7 +165,12 @@ export default function Marketplace() {
               const Ikon =
                 KATEGORI_IKONU[urun.category as keyof typeof KATEGORI_IKONU] ?? Boxes;
               const fiyat = fiyatMetni(urun);
-              const liste = ozellikler(urun).slice(0, 5);
+              const liste = ozellikler(urun, dil).slice(0, 5);
+              const baslik = yerel(urun, 'title', dil);
+              const ozet = yerel(urun, 'summary', dil);
+              const rozet = yerel(urun, 'badge', dil);
+              const teslim = yerel(urun, 'delivery_time', dil);
+              const fiyatNotu = yerel(urun, 'price_note', dil);
 
               return (
                 <article
@@ -186,9 +195,9 @@ export default function Marketplace() {
                       satıra kırılıyordu: kart genişliği ikisine birden
                       yetmiyor.
                     */}
-                    {urun.badge && (
+                    {rozet && (
                       <span className="mb-3 self-start rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
-                        {urun.badge}
+                        {rozet}
                       </span>
                     )}
                     <div className="mb-3 flex items-start gap-3">
@@ -197,7 +206,7 @@ export default function Marketplace() {
                       </span>
                       <div className="min-w-0">
                         <h2 className="text-lg font-bold leading-tight break-words">
-                          {urun.title}
+                          {baslik}
                         </h2>
                         {urun.category && (
                           <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
@@ -207,9 +216,9 @@ export default function Marketplace() {
                       </div>
                     </div>
 
-                    {urun.summary && (
+                    {ozet && (
                       <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                        {urun.summary}
+                        {ozet}
                       </p>
                     )}
 
@@ -227,10 +236,10 @@ export default function Marketplace() {
                       </ul>
                     )}
 
-                    {urun.delivery_time && (
+                    {teslim && (
                       <p className="mb-4 flex items-center gap-1.5 font-mono text-[11px] text-muted-foreground">
                         <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                        {urun.delivery_time}
+                        {teslim}
                       </p>
                     )}
 
@@ -242,9 +251,9 @@ export default function Marketplace() {
                             {t('marketplace.fiyatAliniz')}
                           </span>
                         )}
-                        {fiyat && urun.price_note && (
+                        {fiyat && fiyatNotu && (
                           <span className="ms-2 text-xs font-normal text-muted-foreground">
-                            {urun.price_note}
+                            {fiyatNotu}
                           </span>
                         )}
                       </p>
@@ -256,7 +265,7 @@ export default function Marketplace() {
                         >
                           <Link
                             to="/contact"
-                            state={{ konu: urun.title, kaynak: 'marketplace' }}
+                            state={{ konu: baslik, kaynakKonu: urun.title, kaynak: 'marketplace' }}
                           >
                             {fiyat ? t('marketplace.satinAl') : t('marketplace.teklifIste')}
                           </Link>

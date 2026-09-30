@@ -9,6 +9,7 @@ import Sitemap from 'vite-plugin-sitemap';
 import { getAllPrerenderRoutes } from './prerender/blog-routes.js';
 import { getSitemapLastmod } from './prerender/blog-sitemap.js';
 import { blogIndexPlugin } from './prerender/blog-index-plugin.js';
+import { gorunumOzniteligi } from './prerender/gorunum-plugin.js';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
@@ -116,6 +117,8 @@ export default defineConfig(({ command }) => {
       atoms(),
       ensureBuildOutDir(),
       blogIndexPlugin(),
+      // Site ayarı Modern ise prerender HTML'ine <html data-gorunum="modern">.
+      gorunumOzniteligi(),
       ...(process.env.STATS === '1' ? [bundleStats()] : []),
       Sitemap({
         hostname: SITE_URL,

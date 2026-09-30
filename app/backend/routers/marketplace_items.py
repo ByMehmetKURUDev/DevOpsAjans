@@ -14,18 +14,19 @@ butun entity uclarini ayni bicimde cagiriyor.
 
 import json
 import logging
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from datetime import datetime, date
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
 from fastapi import Depends as _Depends
 from services.marketplace_items import Marketplace_itemsService
+from utils.ceviriler import ceviriler_coz, ceviriyi_metne_cevir
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -51,6 +52,8 @@ class Marketplace_itemsData(BaseModel):
     badge: str = None
     published: bool = None
     sort_order: int = None
+    # Dil başına çeviriler: {"en": {"title": "...", "summary": "..."}, ...}
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class Marketplace_itemsUpdateData(BaseModel):
@@ -70,6 +73,7 @@ class Marketplace_itemsUpdateData(BaseModel):
     badge: Optional[str] = None
     published: Optional[bool] = None
     sort_order: Optional[int] = None
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class Marketplace_itemsResponse(BaseModel):
@@ -90,11 +94,17 @@ class Marketplace_itemsResponse(BaseModel):
     badge: Optional[str] = None
     published: Optional[bool] = None
     sort_order: Optional[int] = None
+    ceviriler: Optional[Dict[str, Any]] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True
+
+    @field_validator("ceviriler", mode="before")
+    @classmethod
+    def _ceviriler_coz(cls, deger):
+        return ceviriler_coz(deger)
 
 
 class Marketplace_itemsListResponse(BaseModel):
@@ -241,7 +251,7 @@ async def create_marketplace_items(
     
     service = Marketplace_itemsService(db)
     try:
-        result = await service.create(data.model_dump())
+        result = await service.create(ceviriyi_metne_cevir(data.model_dump()))
         if not result:
             raise HTTPException(status_code=400, detail="Failed to create marketplace_items")
         
@@ -268,7 +278,7 @@ async def create_marketplace_itemss_batch(
     
     try:
         for item_data in request.items:
-            result = await service.create(item_data.model_dump())
+            result = await service.create(ceviriyi_metne_cevir(item_data.model_dump()))
             if result:
                 results.append(result)
         
@@ -294,7 +304,7 @@ async def update_marketplace_itemss_batch(
     try:
         for item in request.items:
             # Only include non-None values for partial updates
-            update_dict = {k: v for k, v in item.updates.model_dump().items() if v is not None}
+            update_dict = ceviriyi_metne_cevir({k: v for k, v in item.updates.model_dump().items() if v is not None})
             result = await service.update(item.id, update_dict)
             if result:
                 results.append(result)
@@ -319,7 +329,7 @@ async def update_marketplace_items(
     service = Marketplace_itemsService(db)
     try:
         # Only include non-None values for partial updates
-        update_dict = {k: v for k, v in data.model_dump().items() if v is not None}
+        update_dict = ceviriyi_metne_cevir({k: v for k, v in data.model_dump().items() if v is not None})
         result = await service.update(id, update_dict)
         if not result:
             logger.warning(f"Marketplace_items with id {id} not found for update")

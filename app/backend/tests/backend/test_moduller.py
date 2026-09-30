@@ -209,11 +209,16 @@ def test_ayar_dogrulama():
     from services.moduller import ModulHatasi, ayarlari_dogrula
 
     m = MODUL_SOZLUGU["krediler"]
-    assert ayarlari_dogrula(m, {"dusuk_bakiye_esigi": 5}) == {"dusuk_bakiye_esigi": 5}
-    for kotu in ({"dusuk_bakiye_esigi": -1}, {"dusuk_bakiye_esigi": "5"}, {"dusuk_bakiye_esigi": True},
-                 {"dusuk_bakiye_esigi": 1.5}, {"yok": 1}):
+    assert ayarlari_dogrula(m, {"esik_saat": 5}) == {"esik_saat": 5}
+    # Boş = "müşteriye özel eşik yok, site ayarı geçerli".
+    assert ayarlari_dogrula(m, {"esik_saat": None}) == {"esik_saat": None}
+    for kotu in ({"esik_saat": -1}, {"esik_saat": "5"}, {"esik_saat": True},
+                 {"esik_saat": 1.5}, {"yok": 1}):
         with pytest.raises(ModulHatasi):
             ayarlari_dogrula(m, kotu)
+    # Boş olamayan alan None kabul etmiyor.
+    with pytest.raises(ModulHatasi):
+        ayarlari_dogrula(MODUL_SOZLUGU["site_analizi"], {"gunluk_sinir": None})
 
 
 # ---------------------------------------------------------------------------
@@ -313,9 +318,9 @@ async def test_gecersiz_istekler(istemci, yonetici_basligi):
     kotu = await istemci.put(f"{YONETIM}/musteri/bir-adres-degil/krediler", json={"acik": True}, headers=yonetici_basligi)
     assert kotu.status_code == 400 and kotu.json()["detail"]["kod"] == "gecersiz_eposta"
     kotu_ayar = await istemci.put(
-        f"{YONETIM}/musteri/{eposta}/krediler", json={"ayarlar": {"dusuk_bakiye_esigi": 9999}}, headers=yonetici_basligi
+        f"{YONETIM}/musteri/{eposta}/krediler", json={"ayarlar": {"esik_saat": 9999}}, headers=yonetici_basligi
     )
-    assert kotu_ayar.status_code == 400 and kotu_ayar.json()["detail"] == {"kod": "gecersiz_ayar", "alan": "dusuk_bakiye_esigi"}
+    assert kotu_ayar.status_code == 400 and kotu_ayar.json()["detail"] == {"kod": "gecersiz_ayar", "alan": "esik_saat"}
 
 
 async def test_bagimlilik_kapaliyken_acilamaz_409(istemci, yonetici_basligi):
@@ -349,15 +354,15 @@ async def test_bagimlisi_acikken_kapatilamaz_409(istemci, yonetici_basligi):
 async def test_ayarlar_kaydediliyor_ve_varsayilana_donunce_korunuyor(istemci, yonetici_basligi):
     eposta = _eposta()
     yanit = await _ayarla(
-        istemci, yonetici_basligi, eposta, "site_analizi", ayarlar={"aylik_analiz_siniri": 3}
+        istemci, yonetici_basligi, eposta, "site_analizi", ayarlar={"gunluk_sinir": 3}
     )
     m = _modul(yanit, "site_analizi")
-    assert m["ayarlar"] == {"aylik_analiz_siniri": 3}
+    assert m["ayarlar"] == {"gunluk_sinir": 3}
     assert m["kaynak"] == "varsayilan" and m["elle"] is None  # yalnız ayar: durum değişmedi
     await _ayarla(istemci, yonetici_basligi, eposta, "site_analizi", acik=False)
     geri = (await istemci.delete(f"{YONETIM}/musteri/{eposta}/site_analizi", headers=yonetici_basligi)).json()
     m = _modul(geri, "site_analizi")
-    assert m["acik"] is True and m["ayarlar"] == {"aylik_analiz_siniri": 3}
+    assert m["acik"] is True and m["ayarlar"] == {"gunluk_sinir": 3}
 
 
 # ---------------------------------------------------------------------------

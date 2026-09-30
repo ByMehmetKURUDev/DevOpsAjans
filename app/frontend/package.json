@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/check-routes.mjs && vite build && node scripts/sitemap-egik-cizgi.mjs && node scripts/llms-txt-uret.mjs && node scripts/css-gomule.mjs",
+    "build": "node scripts/check-routes.mjs && vite build && node scripts/sitemap-egik-cizgi.mjs && node scripts/llms-txt-uret.mjs && node scripts/css-gomule.mjs && node scripts/guvenlik-basliklari.mjs",
     "check:routes": "node scripts/check-routes.mjs",
     "lint": "eslint --quiet ./src",
     "preview": "vite preview",

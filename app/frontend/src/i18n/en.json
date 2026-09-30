@@ -187,7 +187,8 @@
     "featured": "Featured",
     "inProgress": "In progress",
     "loading": "Loading projects...",
-    "empty": "No projects in this category yet."
+    "empty": "No projects in this category yet.",
+    "googleAdsKampanyalari": "Google Ads Campaigns"
   },
   "blog": {
     "sectionTag": "Journal",
@@ -455,7 +456,10 @@
     "tabKrediler": "Credits",
     "tabKredilerim": "My credits",
     "tabIslemler": "Signed actions",
-    "tabModuller": "Modules"
+    "tabModuller": "Modules",
+    "indir": "Download",
+    "appStoreIndir": "Download on the App Store",
+    "googlePlayIndir": "Get it on Google Play"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -870,7 +874,9 @@
     },
     "analizEdiliyor": "Reviewing your answers…",
     "aiOzeti": "Assessment",
-    "oneriNotuAi": "This assessment was produced from your answers; exact scope and price are settled in the call."
+    "oneriNotuAi": "This assessment was produced from your answers; exact scope and price are settled in the call.",
+    "talepKonu": "Discovery summary — quote request",
+    "talepAciklama": "Your answers are below; you can send them as they are or add to them."
   },
   "yatirim": {
     "sectionTag": "RETURN ON INVESTMENT",
@@ -1286,7 +1292,11 @@
     "sonuc": "Result",
     "calistir": "Run",
     "sifirla": "Reset",
-    "not": "The code runs only in your browser, inside an isolated frame; nothing is sent anywhere or stored."
+    "not": "The code runs only in your browser, inside an isolated frame; nothing is sent anywhere or stored.",
+    "ornekYorum": "Type here — it runs instantly on the right",
+    "ornekMerhaba": "Hello",
+    "ornekDegistir": "Change",
+    "ornekIsimler": "world,Istanbul,developer,visitor"
   },
   "uzman": {
     "dugme": "Expert prompts",

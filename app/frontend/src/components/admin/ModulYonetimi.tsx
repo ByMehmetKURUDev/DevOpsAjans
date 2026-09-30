@@ -93,7 +93,13 @@ function AyarFormu({
     const temiz: Record<string, unknown> = {};
     for (const alan of modul.ayar_alanlari) {
       const d = degerler[alan.anahtar];
-      temiz[alan.anahtar] = alan.tur === 'int' ? Number(d) : d;
+      if (alan.tur === 'int') {
+        // Boş bırakılan alan: boş olabiliyorsa null (genel ayar geçerli).
+        const bos = d === null || d === undefined || String(d).trim() === '';
+        temiz[alan.anahtar] = bos && alan.bos_olabilir ? null : Number(d);
+      } else {
+        temiz[alan.anahtar] = d;
+      }
     }
     await onKaydet(temiz);
   };
@@ -144,6 +150,7 @@ function AyarFormu({
           min={alan.en_az ?? undefined}
           max={alan.en_cok ?? undefined}
           value={String(deger ?? '')}
+          placeholder={alan.bos_olabilir ? t('modul.yonetim.bosGenel') : undefined}
           onChange={(e) => setDegerler({ ...degerler, [alan.anahtar]: e.target.value })}
           className="h-9 bg-white/5 border-white/10"
         />

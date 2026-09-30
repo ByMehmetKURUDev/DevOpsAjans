@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from core.database import Base
-from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
 
 
 class Marketplace_items(Base):
@@ -49,6 +49,9 @@ class Marketplace_items(Base):
     # "Yeni", "Popüler" gibi küçük rozet.
     badge = Column(String, nullable=True)
     published = Column(Boolean, nullable=True)
+    # Dil başına çeviriler (JSON metni): {"en": {"title": "...", ...}, ...}.
+    # Türkçe ana alanlarda; sitede seçili dilde alan yoksa Türkçe gösteriliyor.
+    ceviriler = Column(Text, nullable=True)
     sort_order = Column(Integer, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

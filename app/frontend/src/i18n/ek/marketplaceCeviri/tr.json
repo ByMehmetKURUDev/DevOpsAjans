@@ -1,0 +1,7 @@
+{
+  "marketplaceCeviri": {
+    "dilSecimi": "Düzenlenen dil",
+    "ipucu": "Boş bırakılan alan sitede Türkçe görünür. Soluk yazı Türkçe değerdir.",
+    "durum": "çeviri {{sayi}}/{{toplam}}"
+  }
+}
