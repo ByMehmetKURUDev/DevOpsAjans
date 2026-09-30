@@ -27,7 +27,9 @@
       "site_analizi_rapor": "साइट विश्लेषण रिपोर्ट तैयार",
       "site_analizi_aday": "नया साइट विश्लेषण अनुरोध",
       "bekleme_listesi": "प्रतीक्षा सूची",
-      "content_overdue": "विलंबित सामग्री"
+      "content_overdue": "विलंबित सामग्री",
+      "modul_acildi": "मॉड्यूल सक्रिय हुआ",
+      "modul_kapandi": "मॉड्यूल बंद हुआ"
     },
     "kanal": {
       "inapp": "पैनल",

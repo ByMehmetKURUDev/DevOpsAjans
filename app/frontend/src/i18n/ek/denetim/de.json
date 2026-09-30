@@ -84,7 +84,8 @@
       "ai_pm_tiers": "AI-PM-Stufen",
       "pricing_inquiries": "Preisangebote",
       "ayarlar": "Umgebungseinstellungen",
-      "credit_ledger": "Guthabenbewegungen"
+      "credit_ledger": "Guthabenbewegungen",
+      "workspace_modules": "Module"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

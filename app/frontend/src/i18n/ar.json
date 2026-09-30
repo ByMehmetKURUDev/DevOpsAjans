@@ -454,7 +454,8 @@
     "tabDenetim": "سجل التغييرات",
     "tabKrediler": "الأرصدة",
     "tabKredilerim": "أرصدتي",
-    "tabIslemler": "الإجراءات الموقّعة"
+    "tabIslemler": "الإجراءات الموقّعة",
+    "tabModuller": "الوحدات"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

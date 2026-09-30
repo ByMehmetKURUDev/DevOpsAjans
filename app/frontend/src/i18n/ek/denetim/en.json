@@ -84,7 +84,8 @@
       "ai_pm_tiers": "AI-PM tiers",
       "pricing_inquiries": "Price quotes",
       "ayarlar": "Environment settings",
-      "credit_ledger": "Credit ledger"
+      "credit_ledger": "Credit ledger",
+      "workspace_modules": "Modules"
     },
     "hareket": {
       "baslik": "Account activity",

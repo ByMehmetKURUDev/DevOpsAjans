@@ -1,0 +1,169 @@
+{
+  "modul": {
+    "m": {
+      "projeler": {
+        "ad": "Projects",
+        "aciklama": "Stages, progress and history of your projects in one place."
+      },
+      "faturalar": {
+        "ad": "Invoices and payments",
+        "aciklama": "View your invoices and pay them through a secure link."
+      },
+      "krediler": {
+        "ad": "Credits",
+        "aciklama": "Your pay-as-you-go balance: top-ups, hours spent and expiry dates."
+      },
+      "destek": {
+        "ad": "Support",
+        "aciklama": "Open requests, message our team and follow their status."
+      },
+      "raporlar": {
+        "ad": "Reports and subscriptions",
+        "aciklama": "Monthly service reports for your subscriptions."
+      },
+      "sitem": {
+        "ad": "Site maintenance access",
+        "aciklama": "Grant or revoke maintenance access to your site and see the work log."
+      },
+      "site_analizi": {
+        "ad": "Site analysis",
+        "aciklama": "SEO, speed, security and accessibility scores for your site with priority fixes."
+      },
+      "islem": {
+        "ad": "Awaiting approval",
+        "aciklama": "Items waiting for your decision, such as quote acceptance and delivery approval."
+      },
+      "denetim": {
+        "ad": "Account activity",
+        "aciklama": "Recent changes made to your account and records."
+      },
+      "bildirimler": {
+        "ad": "Notifications",
+        "aciklama": "Choose which channel notifies you about each event."
+      },
+      "profil": {
+        "ad": "Profile",
+        "aciklama": "Your contact details and account settings."
+      },
+      "dosyalar": {
+        "ad": "Files and document requests",
+        "aciklama": "Secure sharing for project files, folder permissions and documents we request from you."
+      },
+      "uptime": {
+        "ad": "Uptime and status page",
+        "aciklama": "Minute-by-minute availability monitoring, downtime alerts and a public status page."
+      },
+      "aylik_rapor": {
+        "ad": "Monthly client report",
+        "aciklama": "An automatic monthly PDF bringing together SEO, analytics, speed and completed work."
+      },
+      "whatsapp": {
+        "ad": "WhatsApp inbox",
+        "aciklama": "A team inbox on the official WhatsApp Business API, with assignment and quick replies."
+      },
+      "talepler": {
+        "ad": "Inquiries",
+        "aciklama": "Messages from the site's forms and discovery briefs."
+      },
+      "icerik": {
+        "ad": "Blog and content calendar",
+        "aciklama": "Blog posts and the social media content plan."
+      },
+      "pazaryeri": {
+        "ad": "Marketplace",
+        "aciklama": "Ready-made products and templates sold on the site."
+      },
+      "analitik": {
+        "ad": "Site analytics",
+        "aciklama": "Visits, sources and conversions for the agency site."
+      },
+      "fiyatlandirma": {
+        "ad": "Pricing",
+        "aciklama": "Package prices built from scales, profiles, services and add-ons."
+      }
+    },
+    "kategori": {
+      "cekirdek": "Core",
+      "hizmet": "Service",
+      "icerik": "Content",
+      "finans": "Finance",
+      "analiz": "Analytics"
+    },
+    "durum": {
+      "yayinda": "Live",
+      "beta": "Beta",
+      "yakinda": "Coming soon"
+    },
+    "gorunum": {
+      "acik": "Enabled",
+      "yakinda": "Coming soon",
+      "eklenebilir": "Available to add"
+    },
+    "kaynak": {
+      "varsayilan": "Default",
+      "paket": "Package",
+      "elle": "Manual"
+    },
+    "ayar": {
+      "dusuk_bakiye_esigi": "Low balance alert threshold (hours)",
+      "eposta_ozeti": "Email a summary when a report is published",
+      "aylik_analiz_siniri": "Monthly analysis limit",
+      "kontrol_araligi_dk": "Check interval (minutes)"
+    },
+    "musteri": {
+      "baslik": "My modules",
+      "aciklama": "Modules enabled in your panel, those coming soon, and those you can add to your package.",
+      "paketiniz": "Your package: {{paket}}",
+      "hata": "Module information couldn't be loaded right now; all sections of your panel are shown.",
+      "paketinizde": "Included in your package: it will be enabled in your panel automatically at launch.",
+      "teklifIste": "Request a quote",
+      "teklifKonusu": "Module quote: {{ad}}",
+      "grup": {
+        "acik": "Enabled in your panel",
+        "yakinda": "Coming soon",
+        "eklenebilir": "Available to add to your package"
+      }
+    },
+    "yonetim": {
+      "baslik": "Modules",
+      "aciklama": "All modules in the portal. You can enable or disable them per client; in the agency panel all of them are always on. Core modules can't be disabled.",
+      "yenile": "Refresh",
+      "hata": "Modules couldn't be loaded.",
+      "kategoriSuzgeci": "Category",
+      "hepsi": "All",
+      "yalnizAjans": "Agency only",
+      "acikMusteri": "Enabled for {{sayi}} of {{toplam}} clients",
+      "paketler": "Packages",
+      "bagimli": "Depends on: {{moduller}}",
+      "musteriBaslik": "Client modules",
+      "musteriAciklama": "Pick a client or type their email address.",
+      "musteriAra": "Name or email",
+      "ac": "Open",
+      "musteriYok": "No matching clients.",
+      "musteriSec": "Select a client from the list to manage their modules.",
+      "secili": "Selected client",
+      "paketVar": "Package: {{paket}}",
+      "paketYok": "No package (defaults only)",
+      "cekirdekKilitli": "Core module — can't be disabled",
+      "varsayilanaDon": "Reset to default",
+      "varsayilanaDondu": "{{ad}} was reset to default.",
+      "acildi": "{{ad}} enabled; the client has been notified.",
+      "kapandi": "{{ad}} disabled; the client has been notified.",
+      "engellendi": "Treated as disabled because a required module is off: {{moduller}}",
+      "ayarlar": "Client-specific settings",
+      "ayarKaydet": "Save settings",
+      "ayarKaydedildi": "{{ad}} settings saved.",
+      "musteriHata": "Couldn't load the client's modules."
+    },
+    "hata": {
+      "bagimlilik_kapali": "Enable these first: {{moduller}}",
+      "bagimli_acik": "Disable the modules that depend on it first: {{moduller}}",
+      "cekirdek_kapatilamaz": "Core modules can't be disabled.",
+      "yalniz_yonetici_modulu": "This module is only used in the agency's own panel.",
+      "gecersiz_ayar": "Invalid setting value.",
+      "bilinmeyen_ayar": "This module has no such setting.",
+      "modul_yok": "Module not found.",
+      "genel": "The action couldn't be completed. Please try again."
+    }
+  }
+}

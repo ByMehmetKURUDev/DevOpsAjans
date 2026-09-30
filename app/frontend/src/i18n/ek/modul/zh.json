@@ -1,0 +1,169 @@
+{
+  "modul": {
+    "m": {
+      "projeler": {
+        "ad": "项目",
+        "aciklama": "在一处查看项目的阶段、进度和历史。"
+      },
+      "faturalar": {
+        "ad": "发票与付款",
+        "aciklama": "查看发票并通过安全链接付款。"
+      },
+      "krediler": {
+        "ad": "额度",
+        "aciklama": "按需付费余额：充值、已用工时和到期日期。"
+      },
+      "destek": {
+        "ad": "支持",
+        "aciklama": "提交请求、与团队沟通并跟踪进度。"
+      },
+      "raporlar": {
+        "ad": "报告与订阅",
+        "aciklama": "您订阅服务的月度报告。"
+      },
+      "sitem": {
+        "ad": "网站维护授权",
+        "aciklama": "授予或撤销网站维护权限，并查看工作日志。"
+      },
+      "site_analizi": {
+        "ad": "网站分析",
+        "aciklama": "网站的 SEO、速度、安全和无障碍评分，以及优先修复建议。"
+      },
+      "islem": {
+        "ad": "待审批",
+        "aciklama": "等待您决定的事项，例如接受报价和确认交付。"
+      },
+      "denetim": {
+        "ad": "账户动态",
+        "aciklama": "您的账户和记录最近的变更。"
+      },
+      "bildirimler": {
+        "ad": "通知",
+        "aciklama": "选择每类事件通过哪个渠道通知您。"
+      },
+      "profil": {
+        "ad": "个人资料",
+        "aciklama": "您的联系信息和账户设置。"
+      },
+      "dosyalar": {
+        "ad": "文件与资料请求",
+        "aciklama": "安全共享项目文件、文件夹权限以及我们向您索取的资料。"
+      },
+      "uptime": {
+        "ad": "在线监测与状态页",
+        "aciklama": "按分钟监测网站可用性、宕机提醒以及公开状态页。"
+      },
+      "aylik_rapor": {
+        "ad": "月度客户报告",
+        "aciklama": "自动生成的月度 PDF，汇总 SEO、分析、速度和已完成的工作。"
+      },
+      "whatsapp": {
+        "ad": "WhatsApp 收件箱",
+        "aciklama": "基于官方 WhatsApp Business API 的团队收件箱，支持分配和快捷回复。"
+      },
+      "talepler": {
+        "ad": "咨询",
+        "aciklama": "来自网站表单的消息和需求简报。"
+      },
+      "icerik": {
+        "ad": "博客与内容日历",
+        "aciklama": "博客文章和社交媒体内容计划。"
+      },
+      "pazaryeri": {
+        "ad": "市场",
+        "aciklama": "网站上销售的现成产品和模板。"
+      },
+      "analitik": {
+        "ad": "网站统计",
+        "aciklama": "代理机构网站的访问量、来源和转化数据。"
+      },
+      "fiyatlandirma": {
+        "ad": "定价",
+        "aciklama": "由规模、客户类型、服务和附加项组成的套餐价格。"
+      }
+    },
+    "kategori": {
+      "cekirdek": "核心",
+      "hizmet": "服务",
+      "icerik": "内容",
+      "finans": "财务",
+      "analiz": "分析"
+    },
+    "durum": {
+      "yayinda": "已上线",
+      "beta": "测试版",
+      "yakinda": "即将推出"
+    },
+    "gorunum": {
+      "acik": "已启用",
+      "yakinda": "即将推出",
+      "eklenebilir": "可加购"
+    },
+    "kaynak": {
+      "varsayilan": "默认",
+      "paket": "套餐",
+      "elle": "手动"
+    },
+    "ayar": {
+      "dusuk_bakiye_esigi": "余额不足提醒阈值（小时）",
+      "eposta_ozeti": "报告发布时发送邮件摘要",
+      "aylik_analiz_siniri": "每月分析次数上限",
+      "kontrol_araligi_dk": "检查间隔（分钟）"
+    },
+    "musteri": {
+      "baslik": "我的模块",
+      "aciklama": "您面板中已启用的模块、即将推出的模块以及可加入套餐的模块。",
+      "paketiniz": "您的套餐：{{paket}}",
+      "hata": "暂时无法获取模块信息，已显示面板的全部部分。",
+      "paketinizde": "已包含在您的套餐中：上线后将自动在面板中启用。",
+      "teklifIste": "获取报价",
+      "teklifKonusu": "模块报价：{{ad}}",
+      "grup": {
+        "acik": "已在面板中启用",
+        "yakinda": "即将推出",
+        "eklenebilir": "可加入您的套餐"
+      }
+    },
+    "yonetim": {
+      "baslik": "模块",
+      "aciklama": "门户中的全部模块。可按客户启用或停用；代理机构面板中始终全部启用。核心模块无法停用。",
+      "yenile": "刷新",
+      "hata": "无法加载模块。",
+      "kategoriSuzgeci": "类别",
+      "hepsi": "全部",
+      "yalnizAjans": "仅限代理机构",
+      "acikMusteri": "{{toplam}} 位客户中 {{sayi}} 位已启用",
+      "paketler": "套餐",
+      "bagimli": "依赖：{{moduller}}",
+      "musteriBaslik": "客户模块",
+      "musteriAciklama": "选择一位客户或输入其电子邮件地址。",
+      "musteriAra": "姓名或邮箱",
+      "ac": "打开",
+      "musteriYok": "没有匹配的客户。",
+      "musteriSec": "从列表中选择一位客户以管理其模块。",
+      "secili": "已选客户",
+      "paketVar": "套餐：{{paket}}",
+      "paketYok": "无套餐（仅默认）",
+      "cekirdekKilitli": "核心模块——无法停用",
+      "varsayilanaDon": "恢复默认",
+      "varsayilanaDondu": "{{ad}} 已恢复默认。",
+      "acildi": "{{ad}} 已启用，已通知客户。",
+      "kapandi": "{{ad}} 已停用，已通知客户。",
+      "engellendi": "由于所依赖的模块已停用，此模块视为停用：{{moduller}}",
+      "ayarlar": "客户专属设置",
+      "ayarKaydet": "保存设置",
+      "ayarKaydedildi": "{{ad}} 的设置已保存。",
+      "musteriHata": "无法加载该客户的模块。"
+    },
+    "hata": {
+      "bagimlilik_kapali": "请先启用：{{moduller}}",
+      "bagimli_acik": "请先停用依赖它的模块：{{moduller}}",
+      "cekirdek_kapatilamaz": "核心模块无法停用。",
+      "yalniz_yonetici_modulu": "该模块仅用于代理机构自己的面板。",
+      "gecersiz_ayar": "设置值无效。",
+      "bilinmeyen_ayar": "该模块没有此设置。",
+      "modul_yok": "未找到模块。",
+      "genel": "操作未能完成，请重试。"
+    }
+  }
+}

@@ -28,6 +28,7 @@ from typing import Any, Dict, List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.modul_bekcisi import modul_gerekli
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.access_log import Access_log
@@ -45,7 +46,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 logger = logging.getLogger(__name__)
 
 yonetici_router = APIRouter(prefix="/api/v1/musteri-sitesi", tags=["musteri-sitesi"])
-musteri_router = APIRouter(prefix="/api/v1/sitelerim", tags=["musteri-sitesi"])
+# Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
+musteri_router = APIRouter(prefix="/api/v1/sitelerim", tags=["musteri-sitesi"], dependencies=[_Depends(modul_gerekli("sitem"))])
 acik_router = APIRouter(prefix="/api/v1/geri-bildirim", tags=["geri-bildirim"])
 
 PLATFORMLAR = {"wordpress", "custom", "shopify", "wix", "webflow", "diger"}

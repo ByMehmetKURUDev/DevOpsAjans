@@ -33,6 +33,7 @@ import {
   History,
   Coins,
   Link2,
+  Blocks,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -90,6 +91,8 @@ const KayitGecmisi = ekliLazy('denetim', () => import('@/components/admin/KayitG
 const KrediDefteri = ekliLazy('kredi', () => import('@/components/admin/KrediDefteri'));
 // İmzalı işlem bağlantıları (girişsiz tek tıkla teklif kabulü / teslim onayı).
 const ImzaliIslemler = ekliLazy('islem', () => import('@/components/admin/ImzaliIslemler'));
+// Modül kaydı (Faz 1F): katalog + müşteri başına modül aç/kapa.
+const ModulYonetimi = ekliLazy('modul', () => import('@/components/admin/ModulYonetimi'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -201,6 +204,7 @@ type Tab =
   | 'denetim'
   | 'krediler'
   | 'islemler'
+  | 'moduller'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -837,6 +841,7 @@ export default function AdminPanel() {
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
     { key: 'denetim', label: t('ui.tabDenetim'), icon: History },
+    { key: 'moduller', label: t('ui.tabModuller'), icon: Blocks },
   ];
 
   return (
@@ -994,6 +999,18 @@ export default function AdminPanel() {
           }
         >
           <KayitGecmisi />
+        </Suspense>
+      )}
+
+      {tab === 'moduller' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <ModulYonetimi />
         </Suspense>
       )}
 

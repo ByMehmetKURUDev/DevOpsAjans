@@ -1,0 +1,169 @@
+{
+  "modul": {
+    "m": {
+      "projeler": {
+        "ad": "Projeler",
+        "aciklama": "Projelerinizin aşamaları, ilerlemesi ve geçmişi tek yerde."
+      },
+      "faturalar": {
+        "ad": "Faturalar ve ödeme",
+        "aciklama": "Faturalarınızı görün, güvenli bağlantıyla ödeyin."
+      },
+      "krediler": {
+        "ad": "Krediler",
+        "aciklama": "Kullandıkça Öde bakiyeniz: yüklemeler, harcanan saatler ve son kullanma tarihleri."
+      },
+      "destek": {
+        "ad": "Destek",
+        "aciklama": "Talep açın, ekibimizle yazışın, durumunu takip edin."
+      },
+      "raporlar": {
+        "ad": "Raporlar ve abonelik",
+        "aciklama": "Aboneliğinize ait aylık hizmet raporları."
+      },
+      "sitem": {
+        "ad": "Site bakım izni",
+        "aciklama": "Sitenize bakım erişimi verin ya da geri alın; yapılan işlerin günlüğü."
+      },
+      "site_analizi": {
+        "ad": "Site analizi",
+        "aciklama": "Sitenizin SEO, hız, güvenlik ve erişilebilirlik puanı ile öncelikli düzeltmeler."
+      },
+      "islem": {
+        "ad": "Onay bekleyenler",
+        "aciklama": "Teklif kabulü ve teslim onayı gibi kararınızı bekleyen işler."
+      },
+      "denetim": {
+        "ad": "Hesap hareketleri",
+        "aciklama": "Hesabınızda ve kayıtlarınızda yapılan son işlemler."
+      },
+      "bildirimler": {
+        "ad": "Bildirimler",
+        "aciklama": "Hangi olayda hangi kanaldan haber alacağınızı seçin."
+      },
+      "profil": {
+        "ad": "Profil",
+        "aciklama": "İletişim bilgileriniz ve hesap ayarlarınız."
+      },
+      "dosyalar": {
+        "ad": "Dosyalar ve belge talebi",
+        "aciklama": "Proje dosyaları, klasör yetkisi ve sizden istenen belgeler için güvenli paylaşım."
+      },
+      "uptime": {
+        "ad": "Uptime ve durum sayfası",
+        "aciklama": "Sitenizin erişilebilirliğini dakika dakika izleme, kesinti uyarısı ve herkese açık durum sayfası."
+      },
+      "aylik_rapor": {
+        "ad": "Aylık müşteri raporu",
+        "aciklama": "SEO, analitik, hız ve yapılan işleri tek PDF'te toplayan otomatik aylık rapor."
+      },
+      "whatsapp": {
+        "ad": "WhatsApp gelen kutusu",
+        "aciklama": "Resmî WhatsApp Business API ile ekip gelen kutusu, atama ve hazır yanıtlar."
+      },
+      "talepler": {
+        "ad": "İletişim talepleri",
+        "aciklama": "Sitedeki formlardan gelen mesajlar ve keşif özetleri."
+      },
+      "icerik": {
+        "ad": "Blog ve içerik takvimi",
+        "aciklama": "Blog yazıları ve sosyal medya içerik planı."
+      },
+      "pazaryeri": {
+        "ad": "Pazar yeri",
+        "aciklama": "Sitede satılan hazır ürünler ve şablonlar."
+      },
+      "analitik": {
+        "ad": "Site analitiği",
+        "aciklama": "Ajans sitesinin ziyaret, kaynak ve dönüşüm verileri."
+      },
+      "fiyatlandirma": {
+        "ad": "Fiyatlandırma",
+        "aciklama": "Ölçekler, profiller, hizmetler ve eklentilerle paket fiyatları."
+      }
+    },
+    "kategori": {
+      "cekirdek": "Çekirdek",
+      "hizmet": "Hizmet",
+      "icerik": "İçerik",
+      "finans": "Finans",
+      "analiz": "Analiz"
+    },
+    "durum": {
+      "yayinda": "Yayında",
+      "beta": "Beta",
+      "yakinda": "Yakında"
+    },
+    "gorunum": {
+      "acik": "Açık",
+      "yakinda": "Yakında",
+      "eklenebilir": "Paketinize eklenebilir"
+    },
+    "kaynak": {
+      "varsayilan": "Varsayılan",
+      "paket": "Paket",
+      "elle": "Elle"
+    },
+    "ayar": {
+      "dusuk_bakiye_esigi": "Düşük bakiye uyarı eşiği (saat)",
+      "eposta_ozeti": "Rapor yayınlanınca e-posta özeti gönder",
+      "aylik_analiz_siniri": "Aylık analiz sınırı",
+      "kontrol_araligi_dk": "Kontrol aralığı (dakika)"
+    },
+    "musteri": {
+      "baslik": "Modüllerim",
+      "aciklama": "Panelinizde açık olan modüller, yakında gelecekler ve paketinize eklenebilecekler.",
+      "paketiniz": "Paketiniz: {{paket}}",
+      "hata": "Modül bilgisi şu an alınamadı; panelinizin bütün bölümleri açık gösteriliyor.",
+      "paketinizde": "Paketinize dahil: yayına çıktığında panelinizde kendiliğinden açılacak.",
+      "teklifIste": "Teklif iste",
+      "teklifKonusu": "Modül teklifi: {{ad}}",
+      "grup": {
+        "acik": "Panelinizde açık",
+        "yakinda": "Yakında",
+        "eklenebilir": "Paketinize eklenebilir"
+      }
+    },
+    "yonetim": {
+      "baslik": "Modüller",
+      "aciklama": "Portaldaki bütün modüller. Müşteri başına açıp kapatabilirsiniz; ajans panelinde hepsi her zaman açıktır. Çekirdek modüller kapatılamaz.",
+      "yenile": "Yenile",
+      "hata": "Modüller yüklenemedi.",
+      "kategoriSuzgeci": "Kategori",
+      "hepsi": "Tümü",
+      "yalnizAjans": "Yalnız ajans",
+      "acikMusteri": "{{sayi}} / {{toplam}} müşteride açık",
+      "paketler": "Paketler",
+      "bagimli": "Bağlı olduğu: {{moduller}}",
+      "musteriBaslik": "Müşteri modülleri",
+      "musteriAciklama": "Bir müşteri seçin ya da e-posta adresini yazın.",
+      "musteriAra": "Ad ya da e-posta",
+      "ac": "Aç",
+      "musteriYok": "Eşleşen müşteri yok.",
+      "musteriSec": "Modüllerini yönetmek için listeden bir müşteri seçin.",
+      "secili": "Seçili müşteri",
+      "paketVar": "Paket: {{paket}}",
+      "paketYok": "Paket yok (yalnız varsayılanlar)",
+      "cekirdekKilitli": "Çekirdek modül — kapatılamaz",
+      "varsayilanaDon": "Varsayılana dön",
+      "varsayilanaDondu": "{{ad}} varsayılana döndü.",
+      "acildi": "{{ad}} açıldı; müşteriye bildirildi.",
+      "kapandi": "{{ad}} kapatıldı; müşteriye bildirildi.",
+      "engellendi": "Bağlı olduğu modül kapalı olduğu için kapalı sayılıyor: {{moduller}}",
+      "ayarlar": "Müşteriye özel ayarlar",
+      "ayarKaydet": "Ayarları kaydet",
+      "ayarKaydedildi": "{{ad}} ayarları kaydedildi.",
+      "musteriHata": "Müşterinin modülleri yüklenemedi."
+    },
+    "hata": {
+      "bagimlilik_kapali": "Önce şunları açın: {{moduller}}",
+      "bagimli_acik": "Önce buna bağlı modülleri kapatın: {{moduller}}",
+      "cekirdek_kapatilamaz": "Çekirdek modüller kapatılamaz.",
+      "yalniz_yonetici_modulu": "Bu modül yalnız ajansın kendi panelinde kullanılır.",
+      "gecersiz_ayar": "Ayar değeri geçersiz.",
+      "bilinmeyen_ayar": "Bu modülde böyle bir ayar yok.",
+      "modul_yok": "Modül bulunamadı.",
+      "genel": "İşlem tamamlanamadı. Lütfen tekrar deneyin."
+    }
+  }
+}

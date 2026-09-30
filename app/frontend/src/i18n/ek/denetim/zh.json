@@ -84,7 +84,8 @@
       "ai_pm_tiers": "AI-PM 等级",
       "pricing_inquiries": "报价",
       "ayarlar": "环境设置",
-      "credit_ledger": "额度记录"
+      "credit_ledger": "额度记录",
+      "workspace_modules": "模块"
     },
     "hareket": {
       "baslik": "账户动态",

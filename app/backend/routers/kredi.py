@@ -19,6 +19,7 @@ from typing import List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.modul_bekcisi import modul_gerekli
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.credit_ledger import CreditLedger
@@ -30,7 +31,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 logger = logging.getLogger(__name__)
 
 yonetici_router = APIRouter(prefix="/api/v1/kredi/yonetim", tags=["kredi"])
-musteri_router = APIRouter(prefix="/api/v1/kredilerim", tags=["kredi"])
+# Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
+musteri_router = APIRouter(prefix="/api/v1/kredilerim", tags=["kredi"], dependencies=[_Depends(modul_gerekli("krediler"))])
 
 
 # --------------------------------------------------------------------------

@@ -454,7 +454,8 @@
     "tabDenetim": "Änderungsprotokoll",
     "tabKrediler": "Credits",
     "tabKredilerim": "Meine Credits",
-    "tabIslemler": "Signierte Aktionen"
+    "tabIslemler": "Signierte Aktionen",
+    "tabModuller": "Module"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

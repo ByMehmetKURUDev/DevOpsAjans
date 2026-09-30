@@ -32,6 +32,8 @@ import { HIZMETLER } from '@/lib/talepler';
 import { useStageLabels } from '@/lib/projectEvents';
 import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import { useSiteSettings } from '@/lib/siteSettings';
+import { modullerimiGetir, type Modullerim as ModulBilgisi } from '@/lib/moduller';
+import { modulIkonu } from '@/lib/modulIkonlari';
 
 // Site analizi sekmesi ayrı parçada: rapor görünümü panele her girişte inmesin.
 const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
@@ -44,6 +46,8 @@ const Kredilerim = ekliLazy('kredi', () => import('@/components/Kredilerim'));
 const KrediOzetKarti = ekliLazy('kredi', () => import('@/components/KrediOzetKarti'));
 // Onay bekleyen imzalı işlemler (teklif kabulü, teslim onayı) — yoksa hiç çizilmez.
 const OnayBekleyenler = ekliLazy('islem', () => import('@/components/OnayBekleyenler'));
+// Profil › Modüllerim (açık / yakında / paketinize eklenebilir modüller).
+const Modullerim = ekliLazy('modul', () => import('@/components/Modullerim'));
 
 interface AuthUser {
   id?: string;
@@ -95,6 +99,10 @@ interface Ticket {
 
 type Tab = 'projects' | 'invoices' | 'krediler' | 'tickets' | 'raporlar' | 'sitem' | 'analiz' | 'profile';
 
+/**
+ * Bugünkü bütün sekmeler, bugünkü sırayla. Modül bilgisi (`/api/v1/modullerim`)
+ * gelene kadar ya da gelmezse (hata) bu liste gösteriliyor — güvenli geri dönüş.
+ */
 const SEKMELER: Tab[] = ['projects', 'invoices', 'krediler', 'tickets', 'raporlar', 'sitem', 'analiz', 'profile'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
@@ -130,6 +138,11 @@ export default function ClientPanel() {
   const [sending, setSending] = useState(false);
 
   const [profile, setProfile] = useState({ name: '', phone: '', company: '' });
+
+  // Faz 1F — modül kaydı. `null` = henüz gelmedi ya da gelmedi (hata):
+  // o durumda bugünkü bütün sekmeler ve kartlar gösteriliyor.
+  const [modulBilgisi, setModulBilgisi] = useState<ModulBilgisi | null>(null);
+  const [modulHatasi, setModulHatasi] = useState(false);
 
   useEffect(() => {
     // Oturum izi yoksa cagri kesin 401 doner; bos yere istek atmiyoruz.
@@ -205,6 +218,55 @@ export default function ClientPanel() {
   useEffect(() => {
     if (user) loadData();
   }, [user, loadData]);
+
+  useEffect(() => {
+    if (!user) return;
+    let iptal = false;
+    modullerimiGetir()
+      .then((b) => {
+        if (!iptal) {
+          setModulBilgisi(b);
+          setModulHatasi(false);
+        }
+      })
+      .catch(() => {
+        if (!iptal) setModulHatasi(true);
+      });
+    return () => {
+      iptal = true;
+    };
+  }, [user]);
+
+  /** Modül açık mı? Bilgi yoksa (yükleniyor/hata) açık say: bugünkü davranış. */
+  const modulAcik = useCallback(
+    (anahtar: string) => {
+      if (!modulBilgisi) return true;
+      const m = modulBilgisi.moduller.find((x) => x.anahtar === anahtar);
+      return m ? m.acik && m.durum !== 'yakinda' : true;
+    },
+    [modulBilgisi]
+  );
+
+  /** Görünen sekmeler: sunucu sırası + açık olanlar; bilgi yoksa hepsi. */
+  const gorunenSekmeler = useMemo<{ key: Tab; ikon?: string }[]>(() => {
+    if (!modulBilgisi) return SEKMELER.map((key) => ({ key }));
+    const liste: { key: Tab; ikon?: string }[] = [];
+    for (const m of modulBilgisi.moduller) {
+      const sekme = m.musteri_sekmesi as Tab | null;
+      if (!sekme || !SEKMELER.includes(sekme) || liste.some((x) => x.key === sekme)) continue;
+      if (!m.acik || m.durum === 'yakinda') continue;
+      liste.push({ key: sekme, ikon: m.ikon });
+    }
+    // Projeler ve profil çekirdek: sunucu ne derse desin sekme çubuğunda kalır.
+    if (!liste.some((x) => x.key === 'projects')) liste.unshift({ key: 'projects' });
+    if (!liste.some((x) => x.key === 'profile')) liste.push({ key: 'profile' });
+    return liste;
+  }, [modulBilgisi]);
+
+  // Açık sekme kapatılmış bir modüle aitse (ör. `?sekme=krediler`) projelere dön.
+  useEffect(() => {
+    if (!gorunenSekmeler.some((x) => x.key === tab)) setTab('projects');
+  }, [gorunenSekmeler, tab]);
 
   const submitTicket = async () => {
     if (!ticketForm.subject.trim() || !ticketForm.message.trim()) {
@@ -299,16 +361,23 @@ export default function ClientPanel() {
     );
   }
 
-  const TABS: { key: Tab; label: string; icon: typeof Briefcase }[] = [
-    { key: 'projects', label: t('ui.tabMyProjects'), icon: Briefcase },
-    { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
-    { key: 'krediler', label: t('ui.tabKredilerim'), icon: Coins },
-    { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
-    { key: 'raporlar', label: t('rapor.sekme'), icon: FileText },
-    { key: 'sitem', label: t('sitem.sekme'), icon: ShieldCheck },
-    { key: 'analiz', label: t('ui.tabAnaliz'), icon: Gauge },
-    { key: 'profile', label: t('ui.tabProfile'), icon: UserCog },
-  ];
+  // Sekme anahtarı → etiket ve varsayılan ikon (bileşen eşlemesi aşağıda, kodda).
+  // Görünürlük, sıra ve ikon adı sunucudaki modül kaydından geliyor.
+  const SEKME_TANIMLARI: Record<Tab, { label: string; icon: typeof Briefcase }> = {
+    projects: { label: t('ui.tabMyProjects'), icon: Briefcase },
+    invoices: { label: t('ui.tabInvoices'), icon: Receipt },
+    krediler: { label: t('ui.tabKredilerim'), icon: Coins },
+    tickets: { label: t('ui.tabSupport'), icon: MessageSquare },
+    raporlar: { label: t('rapor.sekme'), icon: FileText },
+    sitem: { label: t('sitem.sekme'), icon: ShieldCheck },
+    analiz: { label: t('ui.tabAnaliz'), icon: Gauge },
+    profile: { label: t('ui.tabProfile'), icon: UserCog },
+  };
+  const TABS: { key: Tab; label: string; icon: typeof Briefcase }[] = gorunenSekmeler.map((s) => ({
+    key: s.key,
+    label: SEKME_TANIMLARI[s.key].label,
+    icon: s.ikon ? modulIkonu(s.ikon) : SEKME_TANIMLARI[s.key].icon,
+  }));
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -328,9 +397,11 @@ export default function ClientPanel() {
       </div>
 
       {/* Genel görünümün en üstü: müşterinin kararını bekleyen işler. */}
-      <Suspense fallback={null}>
-        <OnayBekleyenler onDegisti={loadData} />
-      </Suspense>
+      {modulAcik('islem') && (
+        <Suspense fallback={null}>
+          <OnayBekleyenler onDegisti={loadData} />
+        </Suspense>
+      )}
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-10">
         {[
@@ -378,15 +449,23 @@ export default function ClientPanel() {
         ))}
       </div>
 
-      <Suspense fallback={null}>
-        <KrediOzetKarti onAc={() => setTab('krediler')} />
-      </Suspense>
+      {modulAcik('krediler') && (
+        <Suspense fallback={null}>
+          <KrediOzetKarti onAc={() => setTab('krediler')} />
+        </Suspense>
+      )}
 
       {/* Tabs */}
-      <div className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
+      <div
+        className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto"
+        data-sekme-cubugu
+        data-moduller={modulBilgisi ? 'sunucu' : modulHatasi ? 'hata' : 'yukleniyor'}
+      >
         {TABS.map((tItem) => (
           <button
             key={tItem.key}
+            data-sekme={tItem.key}
+            data-secili={tab === tItem.key ? 'evet' : undefined}
             onClick={() => setTab(tItem.key)}
             className={`px-5 py-3 text-sm font-medium transition-colors relative inline-flex items-center gap-2 whitespace-nowrap ${
               tab === tItem.key
@@ -762,21 +841,21 @@ export default function ClientPanel() {
             </div>
           )}
 
-          {tab === 'raporlar' && (
+          {tab === 'raporlar' && modulAcik('raporlar') && (
             <div>
               <h3 className="mb-4 text-lg font-semibold">{t('rapor.sekme')}</h3>
               <RaporArsivi />
             </div>
           )}
 
-          {tab === 'sitem' && (
+          {tab === 'sitem' && modulAcik('sitem') && (
             <div>
               <h3 className="mb-4 text-lg font-semibold">{t('sitem.sekme')}</h3>
               <SiteBakimIzni />
             </div>
           )}
 
-          {tab === 'krediler' && (
+          {tab === 'krediler' && modulAcik('krediler') && (
             <Suspense
               fallback={
                 <div className="flex items-center justify-center py-20 text-muted-foreground">
@@ -788,7 +867,7 @@ export default function ClientPanel() {
             </Suspense>
           )}
 
-          {tab === 'analiz' && (
+          {tab === 'analiz' && modulAcik('site_analizi') && (
             <Suspense
               fallback={
                 <div className="flex items-center justify-center py-20 text-muted-foreground">
@@ -877,14 +956,25 @@ export default function ClientPanel() {
               >
                 <BildirimTercihleri />
               </Suspense>
+              {modulAcik('denetim') && (
+                <Suspense
+                  fallback={
+                    <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
+                      <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                    </div>
+                  }
+                >
+                  <HesapHareketleri />
+                </Suspense>
+              )}
               <Suspense
                 fallback={
-                  <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
+                  <div className="flex items-center justify-center py-10 text-muted-foreground">
                     <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
                   </div>
                 }
               >
-                <HesapHareketleri />
+                <Modullerim bilgi={modulBilgisi} hata={modulHatasi} />
               </Suspense>
             </div>
           )}

@@ -34,6 +34,7 @@ from typing import Any, Dict, List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.modul_bekcisi import modul_gerekli
 from fastapi import APIRouter, Body, HTTPException, Query, Request, status
 from fastapi import Depends as _Depends
 from models.inquiries import Inquiries
@@ -49,7 +50,8 @@ logger = logging.getLogger(__name__)
 
 acik_router = APIRouter(prefix="/api/v1/site-analizi", tags=["site-analizi"])
 yonetici_router = APIRouter(prefix="/api/v1/site-analizi/yonetim", tags=["site-analizi"])
-musteri_router = APIRouter(prefix="/api/v1/site-analizi/benim", tags=["site-analizi"])
+# Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
+musteri_router = APIRouter(prefix="/api/v1/site-analizi/benim", tags=["site-analizi"], dependencies=[_Depends(modul_gerekli("site_analizi"))])
 
 ALAN_GUNLUK_SINIR = 3
 IP_SAATLIK_SINIR = 5

@@ -454,7 +454,8 @@
     "tabDenetim": "Audit log",
     "tabKrediler": "Credits",
     "tabKredilerim": "My credits",
-    "tabIslemler": "Signed actions"
+    "tabIslemler": "Signed actions",
+    "tabModuller": "Modules"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

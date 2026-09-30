@@ -84,7 +84,8 @@
       "ai_pm_tiers": "AI-PM kademeleri",
       "pricing_inquiries": "Fiyat teklifleri",
       "ayarlar": "Ortam ayarları",
-      "credit_ledger": "Kredi hareketleri"
+      "credit_ledger": "Kredi hareketleri",
+      "workspace_modules": "Modüller"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

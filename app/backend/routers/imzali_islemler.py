@@ -28,6 +28,7 @@ from typing import Any, Deque, Dict, List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.modul_bekcisi import modul_gerekli
 from fastapi import APIRouter, Body, HTTPException, Query, Request, status
 from fastapi import Depends as _Depends
 from models.signed_actions import SignedActions
@@ -42,7 +43,8 @@ logger = logging.getLogger(__name__)
 
 acik_router = APIRouter(prefix="/api/v1/islem", tags=["imzali-islem"])
 yonetici_router = APIRouter(prefix="/api/v1/islem-yonetim", tags=["imzali-islem"])
-musteri_router = APIRouter(prefix="/api/v1/islemlerim", tags=["imzali-islem"])
+# Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
+musteri_router = APIRouter(prefix="/api/v1/islemlerim", tags=["imzali-islem"], dependencies=[_Depends(modul_gerekli("islem"))])
 
 DAKIKA_SINIRI = 20
 _EPOSTA = re.compile(r"^[^@\s<>,;]+@[^@\s<>,;]+\.[^@\s<>,;]{2,}$")

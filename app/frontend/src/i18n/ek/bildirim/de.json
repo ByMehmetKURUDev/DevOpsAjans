@@ -27,7 +27,9 @@
       "site_analizi_rapor": "Website-Analysebericht fertig",
       "site_analizi_aday": "Neue Anfrage zur Website-Analyse",
       "bekleme_listesi": "Warteliste",
-      "content_overdue": "Überfällige Inhalte"
+      "content_overdue": "Überfällige Inhalte",
+      "modul_acildi": "Modul aktiviert",
+      "modul_kapandi": "Modul deaktiviert"
     },
     "kanal": {
       "inapp": "Panel",

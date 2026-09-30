@@ -46,6 +46,11 @@ export default function Contact() {
       const konu = typeof durum.konu === 'string' ? durum.konu.trim() : '';
       return konu ? `marketplace: ${konu}` : 'marketplace';
     }
+    // Müşteri paneli › Modüllerim › "Teklif iste" (kapalı modül).
+    if (durum?.kaynak === 'modul') {
+      const konu = typeof durum.konu === 'string' ? durum.konu.trim() : '';
+      return konu ? `modul: ${konu}`.slice(0, 120) : 'modul';
+    }
     if (kesifOzeti) return 'kesif-sihirbazi';
     return 'iletisim-formu';
   })();
@@ -57,7 +62,9 @@ export default function Contact() {
     // Marketplace kartından gelindiyse ürün adı konuya yazılıyor:
     // ziyaretçi hangi ürün için yazdığını baştan anlatmak zorunda kalmasın.
     subject:
-      durum?.kaynak === 'marketplace' && typeof durum.konu === 'string' ? durum.konu : '',
+      (durum?.kaynak === 'marketplace' || durum?.kaynak === 'modul') && typeof durum.konu === 'string'
+        ? durum.konu
+        : '',
     message: kesifOzeti,
   });
   const [submitting, setSubmitting] = useState(false);

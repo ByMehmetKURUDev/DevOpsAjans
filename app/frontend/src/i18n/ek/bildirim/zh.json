@@ -27,7 +27,9 @@
       "site_analizi_rapor": "网站分析报告已就绪",
       "site_analizi_aday": "新的网站分析申请",
       "bekleme_listesi": "候补名单",
-      "content_overdue": "逾期内容"
+      "content_overdue": "逾期内容",
+      "modul_acildi": "模块已启用",
+      "modul_kapandi": "模块已停用"
     },
     "kanal": {
       "inapp": "面板",

@@ -23,6 +23,7 @@ from typing import Any, Dict, List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.modul_bekcisi import modul_gerekli
 from fastapi import APIRouter, HTTPException, Query, Request, status
 from fastapi import Depends as _Depends
 from models.audit_log import AuditLog
@@ -46,6 +47,7 @@ MUSTERI_SINIRI = 50
 MUSTERI_TABLOLARI = (
     "projects", "invoices", "support_tickets", "payments",
     "client_sites", "service_subscriptions", "users", "credit_ledger",
+    "workspace_modules",
 )
 
 _son_temizlik_gunu: Optional[date] = None
@@ -269,7 +271,10 @@ async def filtre_secenekleri(request: Request, db: AsyncSession = _Depends(get_d
 # --------------------------------------------------------------------------
 # Müşteri
 # --------------------------------------------------------------------------
-@musteri_router.get("/benim", response_model=List[HareketSatiri])
+# Faz 1F: "Hesap hareketleri" modülü kapalı müşteriye 403 `modul_kapali`.
+@musteri_router.get(
+    "/benim", response_model=List[HareketSatiri], dependencies=[_Depends(modul_gerekli("denetim"))]
+)
 async def hesap_hareketlerim(request: Request, db: AsyncSession = _Depends(get_db)):
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:

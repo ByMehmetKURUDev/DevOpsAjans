@@ -27,7 +27,9 @@
       "site_analizi_rapor": "Site analysis report ready",
       "site_analizi_aday": "New site analysis request",
       "bekleme_listesi": "Waiting list",
-      "content_overdue": "Overdue content"
+      "content_overdue": "Overdue content",
+      "modul_acildi": "Module enabled",
+      "modul_kapandi": "Module disabled"
     },
     "kanal": {
       "inapp": "Panel",

@@ -27,7 +27,9 @@
       "site_analizi_rapor": "Site analiz raporu hazır",
       "site_analizi_aday": "Yeni site analizi talebi",
       "bekleme_listesi": "Bekleme listesi",
-      "content_overdue": "Geciken içerik"
+      "content_overdue": "Geciken içerik",
+      "modul_acildi": "Modül açıldı",
+      "modul_kapandi": "Modül kapatıldı"
     },
     "kanal": {
       "inapp": "Panel",

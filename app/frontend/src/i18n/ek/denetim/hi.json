@@ -84,7 +84,8 @@
       "ai_pm_tiers": "AI-PM स्तर",
       "pricing_inquiries": "मूल्य कोटेशन",
       "ayarlar": "परिवेश सेटिंग्स",
-      "credit_ledger": "क्रेडिट लेन-देन"
+      "credit_ledger": "क्रेडिट लेन-देन",
+      "workspace_modules": "मॉड्यूल"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

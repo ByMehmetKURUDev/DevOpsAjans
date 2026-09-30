@@ -454,7 +454,8 @@
     "tabDenetim": "Журнал изменений",
     "tabKrediler": "Кредиты",
     "tabKredilerim": "Мои кредиты",
-    "tabIslemler": "Подписанные действия"
+    "tabIslemler": "Подписанные действия",
+    "tabModuller": "Модули"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

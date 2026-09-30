@@ -27,7 +27,9 @@
       "site_analizi_rapor": "Отчёт об анализе сайта готов",
       "site_analizi_aday": "Новая заявка на анализ сайта",
       "bekleme_listesi": "Лист ожидания",
-      "content_overdue": "Просроченный контент"
+      "content_overdue": "Просроченный контент",
+      "modul_acildi": "Модуль включён",
+      "modul_kapandi": "Модуль отключён"
     },
     "kanal": {
       "inapp": "Панель",

@@ -454,7 +454,8 @@
     "tabDenetim": "बदलाव इतिहास",
     "tabKrediler": "क्रेडिट",
     "tabKredilerim": "मेरे क्रेडिट",
-    "tabIslemler": "हस्ताक्षरित कार्रवाइयाँ"
+    "tabIslemler": "हस्ताक्षरित कार्रवाइयाँ",
+    "tabModuller": "मॉड्यूल"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

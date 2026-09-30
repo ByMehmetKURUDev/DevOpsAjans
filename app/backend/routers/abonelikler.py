@@ -26,6 +26,7 @@ from typing import Any, Dict, List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.modul_bekcisi import modul_gerekli
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.service_subscriptions import Service_reports, Service_subscriptions
@@ -36,7 +37,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 logger = logging.getLogger(__name__)
 
 yonetici_router = APIRouter(prefix="/api/v1/abonelik", tags=["abonelik"])
-musteri_router = APIRouter(prefix="/api/v1/raporlarim", tags=["abonelik"])
+# Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
+musteri_router = APIRouter(prefix="/api/v1/raporlarim", tags=["abonelik"], dependencies=[_Depends(modul_gerekli("raporlar"))])
 
 PERIYOTLAR = {"aylik", "yillik"}
 DURUMLAR = {"aktif", "duraklatildi", "iptal"}

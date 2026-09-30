@@ -27,7 +27,9 @@
       "site_analizi_rapor": "تقرير تحليل الموقع جاهز",
       "site_analizi_aday": "طلب جديد لتحليل موقع",
       "bekleme_listesi": "قائمة الانتظار",
-      "content_overdue": "محتوى متأخر"
+      "content_overdue": "محتوى متأخر",
+      "modul_acildi": "تم تفعيل وحدة",
+      "modul_kapandi": "تم تعطيل وحدة"
     },
     "kanal": {
       "inapp": "اللوحة",

@@ -73,7 +73,7 @@ ROLLER = ("admin", "client", "sistem", "anonim")
 #: Kaydın "adı" gibi okunabilecek alanlar; özetin başına ilk dolu olan yazılıyor.
 ETIKET_ALANLARI = (
     "invoice_no", "title", "baslik", "name", "ad", "subject", "konu", "key",
-    "alan_adi", "domain", "slug", "kod", "email", "client_email",
+    "alan_adi", "domain", "slug", "kod", "modul_anahtari", "email", "client_email",
 )
 
 
@@ -167,8 +167,15 @@ def _gecerli_baglam() -> DenetimBaglami:
 # ---------------------------------------------------------------------------
 
 
+#: Adında hassas bir parça geçse de gizli bilgi taşımayan alanlar
+#: (`modul_anahtari` bir modül adı, "anahtar" parolası değil).
+HASSAS_OLMAYAN_ALANLAR = frozenset({"modul_anahtari"})
+
+
 def hassas_mi(alan: str) -> bool:
     ad = (alan or "").lower()
+    if ad in HASSAS_OLMAYAN_ALANLAR:
+        return False
     return any(parca in ad for parca in HASSAS_PARCALAR)
 
 

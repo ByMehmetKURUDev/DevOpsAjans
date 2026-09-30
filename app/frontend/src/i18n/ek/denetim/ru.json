@@ -84,7 +84,8 @@
       "ai_pm_tiers": "Уровни AI-PM",
       "pricing_inquiries": "Ценовые предложения",
       "ayarlar": "Настройки окружения",
-      "credit_ledger": "Движения кредитов"
+      "credit_ledger": "Движения кредитов",
+      "workspace_modules": "Модули"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

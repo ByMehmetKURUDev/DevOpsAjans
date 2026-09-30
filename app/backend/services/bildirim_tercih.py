@@ -55,6 +55,9 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "site_analizi_aday": {"roller": ("admin",), "tetikleniyor": True},
     "bekleme_listesi": {"roller": ("admin", "client"), "tetikleniyor": False},
     "content_overdue": {"roller": ("admin",), "tetikleniyor": True},
+    # Faz 1F — yönetici müşteride bir modülü açtı/kapattı.
+    "modul_acildi": {"roller": ("client",), "tetikleniyor": True},
+    "modul_kapandi": {"roller": ("client",), "tetikleniyor": True},
 }
 
 

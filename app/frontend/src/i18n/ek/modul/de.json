@@ -1,0 +1,169 @@
+{
+  "modul": {
+    "m": {
+      "projeler": {
+        "ad": "Projekte",
+        "aciklama": "Phasen, Fortschritt und Verlauf Ihrer Projekte an einem Ort."
+      },
+      "faturalar": {
+        "ad": "Rechnungen und Zahlungen",
+        "aciklama": "Rechnungen einsehen und über einen sicheren Link bezahlen."
+      },
+      "krediler": {
+        "ad": "Guthaben",
+        "aciklama": "Ihr Pay-as-you-go-Guthaben: Aufladungen, verbrauchte Stunden und Ablaufdaten."
+      },
+      "destek": {
+        "ad": "Support",
+        "aciklama": "Anfragen stellen, mit unserem Team schreiben und den Status verfolgen."
+      },
+      "raporlar": {
+        "ad": "Berichte und Abonnements",
+        "aciklama": "Monatliche Leistungsberichte zu Ihren Abonnements."
+      },
+      "sitem": {
+        "ad": "Wartungszugriff auf die Website",
+        "aciklama": "Wartungszugriff auf Ihre Website erteilen oder entziehen, mit Arbeitsprotokoll."
+      },
+      "site_analizi": {
+        "ad": "Website-Analyse",
+        "aciklama": "SEO-, Geschwindigkeits-, Sicherheits- und Barrierefreiheitswerte Ihrer Website mit vorrangigen Korrekturen."
+      },
+      "islem": {
+        "ad": "Ausstehende Freigaben",
+        "aciklama": "Vorgänge, die auf Ihre Entscheidung warten, etwa Angebotsannahme und Abnahme."
+      },
+      "denetim": {
+        "ad": "Kontoaktivität",
+        "aciklama": "Letzte Änderungen an Ihrem Konto und Ihren Datensätzen."
+      },
+      "bildirimler": {
+        "ad": "Benachrichtigungen",
+        "aciklama": "Legen Sie fest, über welchen Kanal Sie bei welchem Ereignis informiert werden."
+      },
+      "profil": {
+        "ad": "Profil",
+        "aciklama": "Ihre Kontaktdaten und Kontoeinstellungen."
+      },
+      "dosyalar": {
+        "ad": "Dateien und Dokumentanfragen",
+        "aciklama": "Sicheres Teilen von Projektdateien, Ordnerrechten und angeforderten Dokumenten."
+      },
+      "uptime": {
+        "ad": "Uptime und Statusseite",
+        "aciklama": "Verfügbarkeitsüberwachung im Minutentakt, Ausfallwarnungen und eine öffentliche Statusseite."
+      },
+      "aylik_rapor": {
+        "ad": "Monatlicher Kundenbericht",
+        "aciklama": "Automatischer Monatsbericht als PDF mit SEO, Analytics, Geschwindigkeit und erledigten Arbeiten."
+      },
+      "whatsapp": {
+        "ad": "WhatsApp-Posteingang",
+        "aciklama": "Team-Posteingang über die offizielle WhatsApp Business API mit Zuweisung und Schnellantworten."
+      },
+      "talepler": {
+        "ad": "Anfragen",
+        "aciklama": "Nachrichten aus den Formularen der Website und Discovery-Briefings."
+      },
+      "icerik": {
+        "ad": "Blog und Redaktionskalender",
+        "aciklama": "Blogbeiträge und der Social-Media-Redaktionsplan."
+      },
+      "pazaryeri": {
+        "ad": "Marktplatz",
+        "aciklama": "Fertige Produkte und Vorlagen, die auf der Website verkauft werden."
+      },
+      "analitik": {
+        "ad": "Website-Analytics",
+        "aciklama": "Besuche, Quellen und Conversions der Agentur-Website."
+      },
+      "fiyatlandirma": {
+        "ad": "Preisgestaltung",
+        "aciklama": "Paketpreise aus Stufen, Profilen, Leistungen und Add-ons."
+      }
+    },
+    "kategori": {
+      "cekirdek": "Kern",
+      "hizmet": "Leistung",
+      "icerik": "Inhalte",
+      "finans": "Finanzen",
+      "analiz": "Analyse"
+    },
+    "durum": {
+      "yayinda": "Verfügbar",
+      "beta": "Beta",
+      "yakinda": "Demnächst"
+    },
+    "gorunum": {
+      "acik": "Aktiv",
+      "yakinda": "Demnächst",
+      "eklenebilir": "Hinzubuchbar"
+    },
+    "kaynak": {
+      "varsayilan": "Standard",
+      "paket": "Paket",
+      "elle": "Manuell"
+    },
+    "ayar": {
+      "dusuk_bakiye_esigi": "Warnschwelle für niedriges Guthaben (Stunden)",
+      "eposta_ozeti": "Zusammenfassung per E-Mail senden, wenn ein Bericht veröffentlicht wird",
+      "aylik_analiz_siniri": "Monatliches Analyselimit",
+      "kontrol_araligi_dk": "Prüfintervall (Minuten)"
+    },
+    "musteri": {
+      "baslik": "Meine Module",
+      "aciklama": "In Ihrem Panel aktive Module, demnächst verfügbare und solche, die Sie Ihrem Paket hinzufügen können.",
+      "paketiniz": "Ihr Paket: {{paket}}",
+      "hata": "Modulinformationen konnten gerade nicht geladen werden; alle Bereiche Ihres Panels werden angezeigt.",
+      "paketinizde": "In Ihrem Paket enthalten: wird beim Start automatisch in Ihrem Panel aktiviert.",
+      "teklifIste": "Angebot anfordern",
+      "teklifKonusu": "Modulangebot: {{ad}}",
+      "grup": {
+        "acik": "In Ihrem Panel aktiv",
+        "yakinda": "Demnächst",
+        "eklenebilir": "Zu Ihrem Paket hinzubuchbar"
+      }
+    },
+    "yonetim": {
+      "baslik": "Module",
+      "aciklama": "Alle Module des Portals. Sie können sie pro Kunde aktivieren oder deaktivieren; im Agentur-Panel sind immer alle aktiv. Kernmodule lassen sich nicht deaktivieren.",
+      "yenile": "Aktualisieren",
+      "hata": "Module konnten nicht geladen werden.",
+      "kategoriSuzgeci": "Kategorie",
+      "hepsi": "Alle",
+      "yalnizAjans": "Nur Agentur",
+      "acikMusteri": "Bei {{sayi}} von {{toplam}} Kunden aktiv",
+      "paketler": "Pakete",
+      "bagimli": "Abhängig von: {{moduller}}",
+      "musteriBaslik": "Kundenmodule",
+      "musteriAciklama": "Wählen Sie einen Kunden oder geben Sie seine E-Mail-Adresse ein.",
+      "musteriAra": "Name oder E-Mail",
+      "ac": "Öffnen",
+      "musteriYok": "Keine passenden Kunden.",
+      "musteriSec": "Wählen Sie einen Kunden aus der Liste, um seine Module zu verwalten.",
+      "secili": "Ausgewählter Kunde",
+      "paketVar": "Paket: {{paket}}",
+      "paketYok": "Kein Paket (nur Standard)",
+      "cekirdekKilitli": "Kernmodul – kann nicht deaktiviert werden",
+      "varsayilanaDon": "Auf Standard zurücksetzen",
+      "varsayilanaDondu": "{{ad}} wurde auf Standard zurückgesetzt.",
+      "acildi": "{{ad}} aktiviert; der Kunde wurde benachrichtigt.",
+      "kapandi": "{{ad}} deaktiviert; der Kunde wurde benachrichtigt.",
+      "engellendi": "Gilt als deaktiviert, weil ein benötigtes Modul aus ist: {{moduller}}",
+      "ayarlar": "Kundenspezifische Einstellungen",
+      "ayarKaydet": "Einstellungen speichern",
+      "ayarKaydedildi": "Einstellungen für {{ad}} gespeichert.",
+      "musteriHata": "Module des Kunden konnten nicht geladen werden."
+    },
+    "hata": {
+      "bagimlilik_kapali": "Aktivieren Sie zuerst: {{moduller}}",
+      "bagimli_acik": "Deaktivieren Sie zuerst die davon abhängigen Module: {{moduller}}",
+      "cekirdek_kapatilamaz": "Kernmodule können nicht deaktiviert werden.",
+      "yalniz_yonetici_modulu": "Dieses Modul wird nur im Agentur-Panel verwendet.",
+      "gecersiz_ayar": "Ungültiger Einstellungswert.",
+      "bilinmeyen_ayar": "Dieses Modul hat keine solche Einstellung.",
+      "modul_yok": "Modul nicht gefunden.",
+      "genel": "Die Aktion konnte nicht abgeschlossen werden. Bitte erneut versuchen."
+    }
+  }
+}

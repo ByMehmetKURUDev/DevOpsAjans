@@ -454,7 +454,8 @@
     "tabDenetim": "Kayıt geçmişi",
     "tabKrediler": "Krediler",
     "tabKredilerim": "Kredilerim",
-    "tabIslemler": "İmzalı işlemler"
+    "tabIslemler": "İmzalı işlemler",
+    "tabModuller": "Modüller"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
