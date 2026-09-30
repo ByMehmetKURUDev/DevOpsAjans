@@ -7,8 +7,18 @@ let runtimeConfig: {
 let configLoading = true;
 
 // Default fallback configuration
+//
+// Boş string bilerek böyle: `${API_BASE_URL}/api/v1/...` o zaman `/api/v1/...`
+// olur ve tarayıcı bunu her zaman güncel sayfanın origin'ine göre çözer.
+// Yerel geliştirmede Vite'ın kendi proxy'si (vite.config.ts -> server.proxy)
+// zaten `/api` isteklerini backend'e yönlendiriyor, üretimde de aynı origin
+// zaten doğru backend'e gidiyor. Eskiden burada `http://127.0.0.1:8000`
+// vardı: runtime config hiç yüklenmediği ya da VITE_API_BASE_URL build'de
+// tanımlanmadığı her durumda (üretim build'i de dahil) buraya düşülüyordu,
+// bu da tarayıcıdan asla erişilemeyen bir adrese istek atılmasına yol
+// açıyordu (fiyatlandırma v5 kataloğunun canlıda hiç yüklenmemesinin sebebi).
 const defaultConfig = {
-  API_BASE_URL: 'http://127.0.0.1:8000', // Only used if runtime config fails to load
+  API_BASE_URL: '', // Only used if runtime config fails to load
 };
 
 /**
