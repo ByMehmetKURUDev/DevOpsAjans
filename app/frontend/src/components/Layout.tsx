@@ -327,7 +327,7 @@ export default function Layout() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group shrink-0">
             {/*
               Logo saydam zeminli: kutu, çerçeve ve arkasındaki mor parıltı
               kaldırıldı — saydam görselin arkasında mor bir leke olarak
@@ -336,14 +336,19 @@ export default function Layout() {
             <MarkaLogosu />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          {/*
+            1024–1279 px arası dar masaüstü: bağlantılar sıkıştırılıyor ve tek
+            satırda tutuluyor. Almanca/Rusça etiketler uzun olduğu için eskiden
+            menü taşıyor, Türkçe/İngilizce'de de iki satıra kırılıyordu.
+          */}
+          <nav className="hidden lg:flex items-center gap-0 xl:gap-1">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 end={link.to === '/'}
                 className={({ isActive }) =>
-                  `relative px-4 py-2 text-sm font-medium transition-colors rounded-md ${
+                  `relative px-2 xl:px-4 py-2 text-[13px] xl:text-sm whitespace-nowrap font-medium transition-colors rounded-md ${
                     navAktifMi(link.to, isActive)
                       ? 'text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
@@ -362,7 +367,7 @@ export default function Layout() {
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 shrink-0">
             {/* Language switcher */}
             <div className="relative">
               <button
@@ -402,14 +407,15 @@ export default function Layout() {
               <>
                 {/* Bildirim çanı yalnızca giriş yapmış kullanıcıya. */}
                 <NotificationBell email={user.email} />
-                <Link to={isAdmin ? '/admin' : '/client'}>
+                <Link to={isAdmin ? '/admin' : '/client'} title={isAdmin ? t('nav.adminPanel') : t('nav.clientPanel')}>
                   <Button
                     variant="ghost"
                     size="sm"
+                    aria-label={isAdmin ? t('nav.adminPanel') : t('nav.clientPanel')}
                     className="gap-2 hover:bg-purple-500/10 hover:text-purple-300"
                   >
                     <User className="h-4 w-4" />
-                    {isAdmin ? t('nav.adminPanel') : t('nav.clientPanel')}
+                    <span className="hidden xl:inline">{isAdmin ? t('nav.adminPanel') : t('nav.clientPanel')}</span>
                   </Button>
                 </Link>
                 <Button
@@ -429,18 +435,23 @@ export default function Layout() {
                     variant="outline"
                     size="sm"
                     onClick={handleLogin}
+                    aria-label={t('nav.signIn')}
+                    title={t('nav.signIn')}
                     className="gap-2 !bg-transparent !hover:bg-transparent border-white/20 hover:border-purple-400/60 text-foreground"
                   >
                     <LogIn className="h-4 w-4" />
-                    {t('nav.signIn')}
+                    {/* Dar masaüstünde (1024–1279) yalnız simge; menüye yer açılıyor. */}
+                    <span className="hidden xl:inline">{t('nav.signIn')}</span>
                   </Button>
                   <Button
                     size="sm"
                     onClick={handleRegister}
+                    aria-label={t('nav.signUp')}
+                    title={t('nav.signUp')}
                     className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 glow-primary"
                   >
                     <UserPlus className="h-4 w-4" />
-                    {t('nav.signUp')}
+                    <span className="hidden xl:inline">{t('nav.signUp')}</span>
                   </Button>
                 </>
               )
