@@ -9,6 +9,7 @@ KANALLAR
 --------
 inapp     her zaman açık, dışarıya bağımlılığı yok
 email     RESEND_API_KEY ya da SMTP_* ayarlıysa
+push      VAPID_PUBLIC_KEY + VAPID_PRIVATE_KEY ayarlıysa (services/web_push.py)
 sms       SMS_PROVIDER + kimlik bilgileri ayarlıysa (Netgsm / Twilio)
 whatsapp  WHATSAPP_TOKEN + WHATSAPP_PHONE_ID ayarlıysa (Meta Cloud API)
 
@@ -290,42 +291,45 @@ async def dispatch(
     `recipients`: [{"email": ..., "role": "admin"|"client", "phone": ...}]
     Telefon yoksa SMS ve WhatsApp o kişi için atlanır.
 
+    Hangi kanala gideceğine üç katman karar veriyor (ayrıntı
+    `services/bildirim_tercih.py`): kanalın ana anahtarı, yönetici olay ×
+    kanal matrisi (alıcı rolüne göre) ve kişinin kendi tercihi. Matris ya da
+    kişi kanalı kapattıysa o kanal için SATIR YAZILMIYOR. Panel içi her
+    zaman yazılıyor. Sessiz saatlerde anlık kanallar (push/SMS/WhatsApp)
+    `skipped` yazılıyor.
+
     Dönen liste yazılan bildirim satırları. Hata fırlatmaz.
     """
+    from services import bildirim_tercih as bt
+    from services.web_push import push_gonder
+
     yazilanlar: List[Notifications] = []
+    alicilar = [a for a in recipients if (a.get("email") or "").strip()]
+    if not alicilar:
+        return []
 
     eposta_acik = _acik(await _ayar(db, "notify_email", "1"))
     sms_acik = _acik(await _ayar(db, "notify_sms", "0"))
     whatsapp_acik = _acik(await _ayar(db, "notify_whatsapp", "0"))
     wa_sablon = await _ayar(db, "whatsapp_template", _env("WHATSAPP_TEMPLATE") or "")
+    try:
+        matris = await bt.matris_oku(db)
+        tercihler = await bt.tercihleri_oku(db, [a.get("email") or "" for a in alicilar])
+    except Exception as hata:  # tercih okunamazsa eski davranış
+        logger.warning("Bildirim tercihleri okunamadı, varsayılanla devam: %s", hata)
+        matris, tercihler = bt.varsayilan_matris(), {}
 
-    for alici in recipients:
+    for alici in alicilar:
         eposta = (alici.get("email") or "").strip()
-        if not eposta:
-            continue
         rol = alici.get("role") or "client"
         telefon = (alici.get("phone") or "").strip()
+        kisi = tercihler.get(bt.eposta_duzelt(eposta))
+        sessizde = bool(kisi and bt.sessiz_saatte_mi(kisi.sessiz))
 
-        # 1) Panel içi — her zaman.
-        yazilanlar.append(
-            Notifications(
-                recipient_email=eposta,
-                recipient_role=rol,
-                event_type=event_type,
-                title=title,
-                body=body,
-                link=link,
-                channel="inapp",
-                delivery_status="sent",
-                ref_type=ref_type,
-                ref_id=ref_id,
-                created_at=datetime.now(),
-            )
-        )
+        def izinli(kanal: str) -> bool:
+            return bt.izinli_mi(matris, kisi, rol, event_type, kanal)
 
-        # 2) E-posta
-        if eposta_acik:
-            durum, ayrinti = await _eposta_gonder(eposta, title, body or title)
+        def satir(kanal: str, durum: str, ayrinti: Optional[str] = None) -> None:
             yazilanlar.append(
                 Notifications(
                     recipient_email=eposta,
@@ -334,7 +338,7 @@ async def dispatch(
                     title=title,
                     body=body,
                     link=link,
-                    channel="email",
+                    channel=kanal,
                     delivery_status=durum,
                     delivery_detail=ayrinti,
                     ref_type=ref_type,
@@ -343,50 +347,43 @@ async def dispatch(
                 )
             )
 
-        # 3) SMS ve WhatsApp — telefon numarası şart.
-        if sms_acik:
-            if telefon:
+        # 1) Panel içi — her zaman.
+        satir("inapp", "sent")
+
+        # 2) E-posta
+        if eposta_acik and izinli("email"):
+            durum, ayrinti = await _eposta_gonder(eposta, title, body or title)
+            satir("email", durum, ayrinti)
+
+        # 3) Tarayıcı bildirimi (Web Push)
+        if izinli("push"):
+            if sessizde:
+                durum, ayrinti = "skipped", "sessiz saatler"
+            else:
+                try:
+                    durum, ayrinti = await push_gonder(db, eposta, title, body or "", link)
+                except Exception as hata:
+                    durum, ayrinti = "failed", f"push: {hata}"[:300]
+            satir("push", durum, ayrinti)
+
+        # 4) SMS ve WhatsApp — telefon numarası şart.
+        if sms_acik and izinli("sms"):
+            if sessizde:
+                durum, ayrinti = "skipped", "sessiz saatler"
+            elif telefon:
                 durum, ayrinti = await _sms_gonder(telefon, f"{title}\n{body}"[:300])
             else:
                 durum, ayrinti = "skipped", "alıcının telefon numarası yok"
-            yazilanlar.append(
-                Notifications(
-                    recipient_email=eposta,
-                    recipient_role=rol,
-                    event_type=event_type,
-                    title=title,
-                    body=body,
-                    link=link,
-                    channel="sms",
-                    delivery_status=durum,
-                    delivery_detail=ayrinti,
-                    ref_type=ref_type,
-                    ref_id=ref_id,
-                    created_at=datetime.now(),
-                )
-            )
+            satir("sms", durum, ayrinti)
 
-        if whatsapp_acik:
-            if telefon:
+        if whatsapp_acik and izinli("whatsapp"):
+            if sessizde:
+                durum, ayrinti = "skipped", "sessiz saatler"
+            elif telefon:
                 durum, ayrinti = await _whatsapp_gonder(telefon, wa_sablon, [title, body or ""])
             else:
                 durum, ayrinti = "skipped", "alıcının telefon numarası yok"
-            yazilanlar.append(
-                Notifications(
-                    recipient_email=eposta,
-                    recipient_role=rol,
-                    event_type=event_type,
-                    title=title,
-                    body=body,
-                    link=link,
-                    channel="whatsapp",
-                    delivery_status=durum,
-                    delivery_detail=ayrinti,
-                    ref_type=ref_type,
-                    ref_id=ref_id,
-                    created_at=datetime.now(),
-                )
-            )
+            satir("whatsapp", durum, ayrinti)
 
     if not yazilanlar:
         return []

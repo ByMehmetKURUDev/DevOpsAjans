@@ -1,0 +1,89 @@
+{
+  "bildirim": {
+    "baslik": "通知偏好",
+    "aciklama": "选择每个事件通过哪些渠道通知您。面板内通知始终开启。",
+    "yenile": "刷新",
+    "hata": "无法加载偏好设置。",
+    "kaydet": "保存偏好",
+    "kaydedildi": "您的通知偏好已保存。",
+    "kaydedilemedi": "无法保存偏好设置。",
+    "olayBaslik": "事件",
+    "lejant": "带锁的开关无法更改：面板内通知始终开启；如果管理员为某事件关闭了某个渠道，您无法将其开启。颜色变淡的列表示该渠道目前不可用。",
+    "inappKilitli": "面板内通知无法关闭",
+    "yoneticiKapatti": "管理员已为此事件关闭该渠道",
+    "kanalKullanilamaz": "该渠道目前不可用",
+    "kendiTercihlerim": "我的通知偏好",
+    "olay": {
+      "inquiry": "新的联系消息",
+      "ticket": "新的支持工单",
+      "ticket_reply": "我的支持工单有回复",
+      "project_stage": "项目阶段已变更",
+      "project_note": "项目新增备注或文件",
+      "project_delivery": "项目已交付",
+      "invoice": "新发票",
+      "invoice_paid": "发票已支付",
+      "kredi_yuklendi": "额度已充值",
+      "kredi_azaldi": "额度余额不足",
+      "site_analizi_rapor": "网站分析报告已就绪",
+      "site_analizi_aday": "新的网站分析申请",
+      "bekleme_listesi": "候补名单",
+      "content_overdue": "逾期内容"
+    },
+    "kanal": {
+      "inapp": "面板",
+      "email": "电子邮件",
+      "push": "浏览器",
+      "sms": "短信",
+      "whatsapp": "WhatsApp"
+    },
+    "durum": {
+      "hazir": "就绪",
+      "kapali": "管理员已关闭",
+      "yapilandirilmadi": "尚未配置"
+    },
+    "sessiz": {
+      "baslik": "免打扰时段",
+      "aciklama": "在此时段内不发送浏览器、短信和 WhatsApp 通知；面板和电子邮件不受影响（土耳其时间）。",
+      "bas": "开始",
+      "bit": "结束"
+    },
+    "push": {
+      "baslik": "此浏览器中的通知",
+      "yapilandirilmadi": "浏览器通知尚未配置。配置完成后，您可以在此为本浏览器开启通知。",
+      "destekYok": "此浏览器不支持推送通知。",
+      "ios": "在 iPhone 和 iPad 上，需在 Safari 中通过“分享 › 添加到主屏幕”添加本网站并从主屏幕打开，通知才会生效。",
+      "ac": "在此浏览器中开启通知",
+      "kapat": "在此浏览器中关闭通知",
+      "acik": "此浏览器已开启通知。",
+      "kapaliDurum": "此浏览器已关闭通知。",
+      "izinReddedildi": "通知权限被拒绝。您可以在浏览器设置中为本网站允许通知。",
+      "acildi": "已在此浏览器中开启通知。",
+      "kapatildi": "已在此浏览器中关闭通知。",
+      "hata": "无法开启通知。",
+      "dene": "发送测试通知",
+      "denendi": "测试通知已发送。",
+      "denemeHata": "无法发送测试通知"
+    },
+    "matris": {
+      "baslik": "事件 × 渠道矩阵",
+      "aciklama": "在此决定每个事件通过哪些渠道发送。用户只能为自己关闭您保留开启的渠道，无法开启您已关闭的渠道。面板内通知无法关闭。",
+      "yonetici": "发送给管理员的通知",
+      "musteri": "发送给客户的通知",
+      "kaydet": "保存矩阵",
+      "kaydedildi": "通知矩阵已保存。",
+      "kaydedilemedi": "无法保存矩阵。",
+      "yakinda": "即将推出",
+      "yakindaAciklama": "目前尚无流程触发此事件；设置会提前保存。",
+      "kanalDurumu": "渠道状态",
+      "hata": "无法加载矩阵。"
+    },
+    "pushDurum": {
+      "baslik": "浏览器通知（Web Push）",
+      "hazir": "密钥已配置，正常工作",
+      "yokKisa": "未配置",
+      "yok": "尚未配置 VAPID 密钥。请在服务器上用以下命令生成密钥对，并添加到 Render 环境变量（VAPID_PUBLIC_KEY、VAPID_PRIVATE_KEY、VAPID_SUBJECT）：",
+      "abonelik": "已注册浏览器：{{sayi}}",
+      "kisi": "用户：{{sayi}}"
+    }
+  }
+}

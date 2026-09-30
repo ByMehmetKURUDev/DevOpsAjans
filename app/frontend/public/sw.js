@@ -12,6 +12,9 @@
  *
  * API çağrıları (/api/) hiç dokunulmadan geçer: oturum, panel ve form
  * istekleri önbelleğe alınmamalı.
+ *
+ * Web Push: sunucu `{title, body, url}` gönderir; bildirim tıklanınca aynı
+ * kökendeki adres açılır (açık bir sekme varsa ona odaklanılır).
  */
 /*
  * SÜRÜM NUMARASI — değiştirmeyi unutma.
@@ -22,7 +25,7 @@
  * buydu. Önbelleğe alınan bir varlığın davranışı değiştiğinde bu sayı
  * artırılmalı.
  */
-const SURUM = 'mk-v2';
+const SURUM = 'mk-v3';
 const KABUK = `${SURUM}-kabuk`;
 const VARLIK = `${SURUM}-varlik`;
 const CEVRIMDISI = '/cevrimdisi.html';
@@ -139,4 +142,57 @@ self.addEventListener('fetch', (event) => {
   }
 
   // 4) Geri kalan her şey normal ağ akışına bırakılır.
+});
+
+// --------------------------------------------------------------------------
+// Web Push
+// --------------------------------------------------------------------------
+
+/** Yalnız aynı kökenli adres; başka bir yere yönlendirme yapılmaz. */
+function guvenliAdres(ham) {
+  try {
+    const adres = new URL(ham || '/', self.location.origin);
+    return adres.origin === self.location.origin ? adres.href : self.location.origin + '/';
+  } catch (e) {
+    return self.location.origin + '/';
+  }
+}
+
+self.addEventListener('push', (event) => {
+  let veri = {};
+  try {
+    veri = event.data ? event.data.json() : {};
+  } catch (e) {
+    veri = { body: event.data ? event.data.text() : '' };
+  }
+  const baslik = veri.title || 'mehmetkuru.dev';
+  event.waitUntil(
+    self.registration.showNotification(baslik, {
+      body: veri.body || '',
+      icon: '/logo192.png',
+      badge: '/favicon-32.png',
+      data: { url: guvenliAdres(veri.url) },
+      // Aynı adrese giden art arda bildirimler üst üste yığılmasın.
+      tag: veri.url || undefined,
+      renotify: Boolean(veri.url),
+    }),
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const hedef = guvenliAdres(event.notification.data && event.notification.data.url);
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((pencereler) => {
+      for (const pencere of pencereler) {
+        if (pencere.url === hedef && 'focus' in pencere) return pencere.focus();
+      }
+      for (const pencere of pencereler) {
+        if (new URL(pencere.url).origin === self.location.origin && 'navigate' in pencere) {
+          return pencere.focus().then((p) => (p || pencere).navigate(hedef));
+        }
+      }
+      return self.clients.openWindow ? self.clients.openWindow(hedef) : undefined;
+    }),
+  );
 });

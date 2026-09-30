@@ -1,0 +1,89 @@
+{
+  "bildirim": {
+    "baslik": "Benachrichtigungseinstellungen",
+    "aciklama": "Legen Sie fest, über welche Kanäle Sie bei welchem Ereignis benachrichtigt werden. Benachrichtigungen im Panel sind immer aktiv.",
+    "yenile": "Aktualisieren",
+    "hata": "Die Einstellungen konnten nicht geladen werden.",
+    "kaydet": "Einstellungen speichern",
+    "kaydedildi": "Ihre Benachrichtigungseinstellungen wurden gespeichert.",
+    "kaydedilemedi": "Die Einstellungen konnten nicht gespeichert werden.",
+    "olayBaslik": "Ereignis",
+    "lejant": "Gesperrte Schalter lassen sich nicht ändern: Benachrichtigungen im Panel sind immer aktiv, und hat ein Administrator einen Kanal für ein Ereignis deaktiviert, können Sie ihn nicht aktivieren. Eine abgeblendete Spalte bedeutet, dass der Kanal derzeit nicht verfügbar ist.",
+    "inappKilitli": "Benachrichtigungen im Panel lassen sich nicht deaktivieren",
+    "yoneticiKapatti": "Ein Administrator hat diesen Kanal für dieses Ereignis deaktiviert",
+    "kanalKullanilamaz": "Dieser Kanal ist derzeit nicht verfügbar",
+    "kendiTercihlerim": "Meine Benachrichtigungseinstellungen",
+    "olay": {
+      "inquiry": "Neue Kontaktnachricht",
+      "ticket": "Neues Support-Ticket",
+      "ticket_reply": "Antwort auf mein Support-Ticket",
+      "project_stage": "Projektphase geändert",
+      "project_note": "Notiz oder Datei zum Projekt hinzugefügt",
+      "project_delivery": "Projekt übergeben",
+      "invoice": "Neue Rechnung",
+      "invoice_paid": "Rechnung bezahlt",
+      "kredi_yuklendi": "Guthaben aufgeladen",
+      "kredi_azaldi": "Guthaben wird knapp",
+      "site_analizi_rapor": "Website-Analysebericht fertig",
+      "site_analizi_aday": "Neue Anfrage zur Website-Analyse",
+      "bekleme_listesi": "Warteliste",
+      "content_overdue": "Überfällige Inhalte"
+    },
+    "kanal": {
+      "inapp": "Panel",
+      "email": "E-Mail",
+      "push": "Browser",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "durum": {
+      "hazir": "Bereit",
+      "kapali": "Vom Admin deaktiviert",
+      "yapilandirilmadi": "Noch nicht eingerichtet"
+    },
+    "sessiz": {
+      "baslik": "Ruhezeiten",
+      "aciklama": "In diesem Zeitraum werden keine Browser-, SMS- oder WhatsApp-Benachrichtigungen gesendet; Panel und E-Mail sind nicht betroffen (türkische Zeit).",
+      "bas": "Beginn",
+      "bit": "Ende"
+    },
+    "push": {
+      "baslik": "Benachrichtigungen in diesem Browser",
+      "yapilandirilmadi": "Browser-Benachrichtigungen sind noch nicht eingerichtet. Danach können Sie sie hier für diesen Browser aktivieren.",
+      "destekYok": "Dieser Browser unterstützt keine Push-Benachrichtigungen.",
+      "ios": "Auf iPhone und iPad funktionieren Benachrichtigungen, wenn Sie die Website in Safari über Teilen › Zum Home-Bildschirm hinzufügen und vom Home-Bildschirm aus öffnen.",
+      "ac": "Benachrichtigungen in diesem Browser aktivieren",
+      "kapat": "Benachrichtigungen in diesem Browser deaktivieren",
+      "acik": "Benachrichtigungen sind in diesem Browser aktiv.",
+      "kapaliDurum": "Benachrichtigungen sind in diesem Browser deaktiviert.",
+      "izinReddedildi": "Die Benachrichtigungsberechtigung wurde verweigert. Sie können sie in den Browsereinstellungen für diese Website erlauben.",
+      "acildi": "Benachrichtigungen in diesem Browser aktiviert.",
+      "kapatildi": "Benachrichtigungen in diesem Browser deaktiviert.",
+      "hata": "Benachrichtigungen konnten nicht aktiviert werden.",
+      "dene": "Testbenachrichtigung senden",
+      "denendi": "Testbenachrichtigung gesendet.",
+      "denemeHata": "Testbenachrichtigung konnte nicht gesendet werden"
+    },
+    "matris": {
+      "baslik": "Ereignis × Kanal-Matrix",
+      "aciklama": "Legen Sie fest, welches Ereignis über welchen Kanal versendet wird. Personen können nur die Kanäle für sich deaktivieren, die Sie aktiv lassen; was Sie deaktiviert haben, können sie nicht aktivieren. Benachrichtigungen im Panel lassen sich nicht deaktivieren.",
+      "yonetici": "Benachrichtigungen an Administratoren",
+      "musteri": "Benachrichtigungen an Kunden",
+      "kaydet": "Matrix speichern",
+      "kaydedildi": "Benachrichtigungsmatrix gespeichert.",
+      "kaydedilemedi": "Die Matrix konnte nicht gespeichert werden.",
+      "yakinda": "demnächst",
+      "yakindaAciklama": "Dieses Ereignis wird noch von keinem Ablauf ausgelöst; die Einstellung wird vorab gespeichert.",
+      "kanalDurumu": "Kanalstatus",
+      "hata": "Die Matrix konnte nicht geladen werden."
+    },
+    "pushDurum": {
+      "baslik": "Browser-Benachrichtigungen (Web Push)",
+      "hazir": "Schlüssel hinterlegt, funktioniert",
+      "yokKisa": "Nicht eingerichtet",
+      "yok": "Keine VAPID-Schlüssel hinterlegt. Erzeugen Sie auf dem Server mit diesem Befehl ein Schlüsselpaar und tragen Sie es in die Render-Umgebungsvariablen ein (VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT):",
+      "abonelik": "Registrierte Browser: {{sayi}}",
+      "kisi": "Personen: {{sayi}}"
+    }
+  }
+}

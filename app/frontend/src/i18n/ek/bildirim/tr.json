@@ -1,0 +1,89 @@
+{
+  "bildirim": {
+    "baslik": "Bildirim tercihleri",
+    "aciklama": "Hangi olayda hangi kanaldan haber almak istediğinizi seçin. Panel içi bildirimler her zaman açıktır.",
+    "yenile": "Yenile",
+    "hata": "Tercihler yüklenemedi.",
+    "kaydet": "Tercihleri kaydet",
+    "kaydedildi": "Bildirim tercihleriniz kaydedildi.",
+    "kaydedilemedi": "Tercihler kaydedilemedi.",
+    "olayBaslik": "Olay",
+    "lejant": "Kilitli anahtarlar değiştirilemez: panel içi bildirim her zaman açıktır; yönetici bir kanalı bir olay için kapattıysa siz açamazsınız. Soluk sütundaki kanal şu an kullanılamıyor.",
+    "inappKilitli": "Panel içi bildirimler kapatılamaz",
+    "yoneticiKapatti": "Yönetici bu olay için bu kanalı kapattı",
+    "kanalKullanilamaz": "Bu kanal şu an kullanılamıyor",
+    "kendiTercihlerim": "Kendi bildirim tercihlerim",
+    "olay": {
+      "inquiry": "Yeni iletişim mesajı",
+      "ticket": "Yeni destek talebi",
+      "ticket_reply": "Destek talebime yanıt",
+      "project_stage": "Proje aşaması değişti",
+      "project_note": "Projeye not veya dosya eklendi",
+      "project_delivery": "Proje teslim edildi",
+      "invoice": "Yeni fatura",
+      "invoice_paid": "Fatura ödendi",
+      "kredi_yuklendi": "Kredi yüklendi",
+      "kredi_azaldi": "Kredi bakiyesi azaldı",
+      "site_analizi_rapor": "Site analiz raporu hazır",
+      "site_analizi_aday": "Yeni site analizi talebi",
+      "bekleme_listesi": "Bekleme listesi",
+      "content_overdue": "Geciken içerik"
+    },
+    "kanal": {
+      "inapp": "Panel",
+      "email": "E-posta",
+      "push": "Tarayıcı",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "durum": {
+      "hazir": "Hazır",
+      "kapali": "Yönetici kapattı",
+      "yapilandirilmadi": "Henüz kurulmadı"
+    },
+    "sessiz": {
+      "baslik": "Sessiz saatler",
+      "aciklama": "Bu saatler arasında tarayıcı, SMS ve WhatsApp bildirimi gönderilmez; panel ve e-posta etkilenmez (Türkiye saati).",
+      "bas": "Başlangıç",
+      "bit": "Bitiş"
+    },
+    "push": {
+      "baslik": "Bu tarayıcıda bildirimler",
+      "yapilandirilmadi": "Tarayıcı bildirimleri henüz kurulmadı. Kurulduğunda bu tarayıcıda buradan açabileceksiniz.",
+      "destekYok": "Bu tarayıcı anlık bildirimleri desteklemiyor.",
+      "ios": "iPhone ve iPad'de bildirimler, siteyi Safari'de Paylaş › Ana Ekrana Ekle ile ekleyip ana ekrandan açtığınızda çalışır.",
+      "ac": "Bu tarayıcıda bildirimleri aç",
+      "kapat": "Bu tarayıcıda bildirimleri kapat",
+      "acik": "Bu tarayıcıda bildirimler açık.",
+      "kapaliDurum": "Bu tarayıcıda bildirimler kapalı.",
+      "izinReddedildi": "Bildirim izni reddedildi. Tarayıcı ayarlarından bu site için izin verebilirsiniz.",
+      "acildi": "Bu tarayıcıda bildirimler açıldı.",
+      "kapatildi": "Bu tarayıcıda bildirimler kapatıldı.",
+      "hata": "Bildirimler açılamadı.",
+      "dene": "Deneme bildirimi gönder",
+      "denendi": "Deneme bildirimi gönderildi.",
+      "denemeHata": "Deneme bildirimi gönderilemedi"
+    },
+    "matris": {
+      "baslik": "Olay × kanal matrisi",
+      "aciklama": "Hangi olayın hangi kanaldan gideceğine buradan karar verirsiniz. Kişiler yalnız açık bıraktığınız kanalları kendileri için kapatabilir; kapattığınızı açamaz. Panel içi bildirim kapatılamaz.",
+      "yonetici": "Yöneticiye giden bildirimler",
+      "musteri": "Müşteriye giden bildirimler",
+      "kaydet": "Matrisi kaydet",
+      "kaydedildi": "Bildirim matrisi kaydedildi.",
+      "kaydedilemedi": "Matris kaydedilemedi.",
+      "yakinda": "yakında",
+      "yakindaAciklama": "Bu olayı tetikleyen akış henüz yok; ayar şimdiden saklanır.",
+      "kanalDurumu": "Kanal durumu",
+      "hata": "Matris yüklenemedi."
+    },
+    "pushDurum": {
+      "baslik": "Tarayıcı bildirimleri (Web Push)",
+      "hazir": "Anahtarlar tanımlı, çalışıyor",
+      "yokKisa": "Yapılandırılmadı",
+      "yok": "VAPID anahtarları tanımlı değil. Anahtar çiftini sunucuda şu komutla üretip Render ortam değişkenlerine (VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT) ekleyin:",
+      "abonelik": "Kayıtlı tarayıcı: {{sayi}}",
+      "kisi": "Kişi: {{sayi}}"
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "bildirim": {
+    "baslik": "Notification preferences",
+    "aciklama": "Choose which channels notify you about each event. In-panel notifications are always on.",
+    "yenile": "Refresh",
+    "hata": "Preferences could not be loaded.",
+    "kaydet": "Save preferences",
+    "kaydedildi": "Your notification preferences were saved.",
+    "kaydedilemedi": "Preferences could not be saved.",
+    "olayBaslik": "Event",
+    "lejant": "Locked switches cannot be changed: in-panel notifications are always on, and if an administrator turned a channel off for an event you cannot turn it on. A dimmed column means the channel is currently unavailable.",
+    "inappKilitli": "In-panel notifications cannot be turned off",
+    "yoneticiKapatti": "An administrator turned this channel off for this event",
+    "kanalKullanilamaz": "This channel is currently unavailable",
+    "kendiTercihlerim": "My notification preferences",
+    "olay": {
+      "inquiry": "New contact message",
+      "ticket": "New support ticket",
+      "ticket_reply": "Reply to my support ticket",
+      "project_stage": "Project stage changed",
+      "project_note": "Note or file added to project",
+      "project_delivery": "Project delivered",
+      "invoice": "New invoice",
+      "invoice_paid": "Invoice paid",
+      "kredi_yuklendi": "Credits added",
+      "kredi_azaldi": "Credit balance running low",
+      "site_analizi_rapor": "Site analysis report ready",
+      "site_analizi_aday": "New site analysis request",
+      "bekleme_listesi": "Waiting list",
+      "content_overdue": "Overdue content"
+    },
+    "kanal": {
+      "inapp": "Panel",
+      "email": "Email",
+      "push": "Browser",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "durum": {
+      "hazir": "Ready",
+      "kapali": "Turned off by admin",
+      "yapilandirilmadi": "Not set up yet"
+    },
+    "sessiz": {
+      "baslik": "Quiet hours",
+      "aciklama": "No browser, SMS or WhatsApp notifications are sent during these hours; panel and email are not affected (Türkiye time).",
+      "bas": "Start",
+      "bit": "End"
+    },
+    "push": {
+      "baslik": "Notifications in this browser",
+      "yapilandirilmadi": "Browser notifications are not set up yet. Once they are, you can turn them on for this browser here.",
+      "destekYok": "This browser does not support push notifications.",
+      "ios": "On iPhone and iPad, notifications work after you add the site with Share › Add to Home Screen in Safari and open it from the home screen.",
+      "ac": "Turn on notifications in this browser",
+      "kapat": "Turn off notifications in this browser",
+      "acik": "Notifications are on in this browser.",
+      "kapaliDurum": "Notifications are off in this browser.",
+      "izinReddedildi": "Notification permission was denied. You can allow it for this site in your browser settings.",
+      "acildi": "Notifications turned on in this browser.",
+      "kapatildi": "Notifications turned off in this browser.",
+      "hata": "Notifications could not be turned on.",
+      "dene": "Send a test notification",
+      "denendi": "Test notification sent.",
+      "denemeHata": "Test notification could not be sent"
+    },
+    "matris": {
+      "baslik": "Event × channel matrix",
+      "aciklama": "Decide which event goes out through which channel. People can only turn off the channels you leave on; they cannot turn on what you turned off. In-panel notifications cannot be turned off.",
+      "yonetici": "Notifications to administrators",
+      "musteri": "Notifications to clients",
+      "kaydet": "Save matrix",
+      "kaydedildi": "Notification matrix saved.",
+      "kaydedilemedi": "The matrix could not be saved.",
+      "yakinda": "coming soon",
+      "yakindaAciklama": "Nothing triggers this event yet; the setting is stored in advance.",
+      "kanalDurumu": "Channel status",
+      "hata": "The matrix could not be loaded."
+    },
+    "pushDurum": {
+      "baslik": "Browser notifications (Web Push)",
+      "hazir": "Keys configured, working",
+      "yokKisa": "Not configured",
+      "yok": "VAPID keys are not configured. Generate a key pair on the server with this command and add it to the Render environment variables (VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT):",
+      "abonelik": "Registered browsers: {{sayi}}",
+      "kisi": "People: {{sayi}}"
+    }
+  }
+}

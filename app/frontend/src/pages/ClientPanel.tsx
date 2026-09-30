@@ -37,6 +37,8 @@ import { useSiteSettings } from '@/lib/siteSettings';
 const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
 // Profil altındaki "Hesap hareketleri" (denetim kaydının müşteriye açık kısmı).
 const HesapHareketleri = ekliLazy('denetim', () => import('@/components/HesapHareketleri'));
+// Profil › Bildirim tercihleri (olay × kanal, tarayıcı bildirimi).
+const BildirimTercihleri = ekliLazy('bildirim', () => import('@/components/BildirimTercihleri'));
 // Kredilerim (Kullandıkça Öde) ve genel görünümdeki küçük bakiye kartı.
 const Kredilerim = ekliLazy('kredi', () => import('@/components/Kredilerim'));
 const KrediOzetKarti = ekliLazy('kredi', () => import('@/components/KrediOzetKarti'));
@@ -863,6 +865,15 @@ export default function ClientPanel() {
                 fallback={
                   <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
                     <Loader2 className="h-5 w-5 animate-spin" />
+                  </div>
+                }
+              >
+                <BildirimTercihleri />
+              </Suspense>
+              <Suspense
+                fallback={
+                  <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
                   </div>
                 }
               >

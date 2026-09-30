@@ -12,7 +12,7 @@ class Notifications(Base):
 
     1. Panel içi bildirim — yönetici ve müşteri panellerindeki çan.
        `read_at` boşsa okunmamış.
-    2. Dış kanalların (e-posta, SMS, WhatsApp) gönderim kaydı.
+    2. Dış kanalların (e-posta, tarayıcı bildirimi, SMS, WhatsApp) gönderim kaydı.
        `channel` hangi kanal, `delivery_status` ne olduğu.
 
     İkisini ayırmadım çünkü aynı olay her iki yere de gidiyor ve tek
@@ -34,7 +34,7 @@ class Notifications(Base):
     body = Column(String, nullable=True)
     # Panelde tıklanınca gidilecek yer.
     link = Column(String, nullable=True)
-    # inapp | email | sms | whatsapp
+    # inapp | email | push | sms | whatsapp
     channel = Column(String, nullable=False, default="inapp")
     # pending | sent | failed | skipped
     delivery_status = Column(String, nullable=True, default="pending")

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { CheckCircle2, Loader2, RefreshCw, Save, Send, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,11 @@ import {
   type DeliveryLog,
 } from '@/lib/notifyAdmin';
 import { saveSiteSetting, type SettingRow, type SettingsMap } from '@/lib/siteSettings';
+import { ekliLazy } from '@/i18n/ekliLazy';
+
+// Olay × kanal matrisi, push durumu ve kendi tercihlerim: ayrı paket, ek çeviri
+// paketiyle birlikte yalnız bu sekme açılınca yükleniyor.
+const BildirimMatrisi = ekliLazy('bildirim', () => import('@/components/admin/BildirimMatrisi'));
 
 interface NotificationCenterProps {
   settings: SettingsMap;
@@ -131,6 +136,16 @@ export default function NotificationCenter({
 
   return (
     <div className="space-y-8">
+      <Suspense
+        fallback={
+          <div className="flex justify-center py-10 text-muted-foreground">
+            <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+          </div>
+        }
+      >
+        <BildirimMatrisi />
+      </Suspense>
+
       {/* Kanal testi */}
       <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
         <h3 className="text-lg font-semibold">{t('notifyAdmin.testTitle')}</h3>

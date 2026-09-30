@@ -33,5 +33,8 @@ openai==2.16.0
 sse-starlette>=1.6.0
 PyMuPDF
 
+# Web Push (tarayıcı bildirimi, services/web_push.py)
+pywebpush>=2.0.0
+
 # payment module dependencies
 stripe>=12.0.0

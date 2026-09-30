@@ -53,6 +53,8 @@ logger = logging.getLogger(__name__)
 HARIC_TABLOLAR = frozenset({
     "audit_log", "notifications", "site_analyses", "access_log",
     "analytics_snapshots", "oidc_states",
+    # Her gönderimde sayaç/zaman güncelleniyor, anahtar malzemesi taşıyor.
+    "push_subscriptions",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
