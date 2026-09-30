@@ -88,6 +88,22 @@
       "bilgi_bankasi": {
         "ad": "Bilgi bankası",
         "aciklama": "Sık sorulan sorular ve rehberler; talep açarken ilgili makaleler önerilir."
+      },
+      "gorevler": {
+        "ad": "Görevler ve revizyon sayacı",
+        "aciklama": "Projenizdeki görevleri, ilerlemeyi ve kilometre taşlarını izleme; bu ayki revizyon kullanımınız."
+      },
+      "geri_bildirim": {
+        "ad": "Hata ve geri bildirim",
+        "aciklama": "Panelin her yerinden ekran görüntülü hata, öneri ya da soru bildirme ve durumunu takip etme."
+      },
+      "duyurular": {
+        "ad": "Duyurular",
+        "aciklama": "Ajansın bakım, yenilik ve önemli durum duyuruları; okuduklarınızı kapatabilirsiniz."
+      },
+      "oneri_kutusu": {
+        "ad": "Öneri kutusu",
+        "aciklama": "Geliştirme önerileri gönderme ve diğer müşterilerin önerilerini anonim olarak oylama."
       }
     },
     "kategori": {

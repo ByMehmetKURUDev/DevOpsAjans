@@ -1,0 +1,139 @@
+{
+  "gorevler": {
+    "baslik": "任务",
+    "aciklama": "将项目拆分为任务。标记为“客户可见”的任务会以只读看板形式显示在客户面板中。",
+    "kanban": "看板",
+    "liste": "列表",
+    "yeni": "新任务标题",
+    "ekle": "添加",
+    "kaydet": "保存",
+    "kaydedildi": "已保存。",
+    "sil": "删除",
+    "silOnay": "删除此任务？其检查清单和依赖关系也会一并删除。",
+    "kapat": "关闭",
+    "yenile": "刷新",
+    "bos": "此列中没有任务。",
+    "hicGorev": "还没有任务。请在上方添加第一个任务。",
+    "tasi": "移动",
+    "tasiAria": "将任务“{{baslik}}”移到其他列",
+    "tasindi": "任务已移动：{{durum}}",
+    "surukle": "拖放卡片，或使用每张卡片上的“移动”选项通过键盘移动。",
+    "geriBildirimSutunu": "反馈",
+    "donustur": "转为任务",
+    "donusturuldu": "反馈已转为任务。",
+    "alan": {
+      "baslik": "标题",
+      "aciklama": "说明",
+      "durum": "状态",
+      "oncelik": "优先级",
+      "atanan": "负责人",
+      "atanmamis": "未分配",
+      "bitis": "截止日期",
+      "gorunur": "客户可见",
+      "kilometre": "里程碑",
+      "ustGorev": "父任务",
+      "ustYok": "无（主任务）",
+      "tahmini": "预估工时",
+      "harcanan": "已用 / 预估工时",
+      "etiketler": "标签",
+      "etiketIpucu": "用逗号分隔。带有“revizyon”标签的任务工时将计入每月修改额度。"
+    },
+    "durum": {
+      "yapilacak": "待办",
+      "suruyor": "进行中",
+      "incelemede": "审核中",
+      "tamam": "已完成"
+    },
+    "oncelik": {
+      "dusuk": "低",
+      "normal": "普通",
+      "yuksek": "高",
+      "acil": "紧急"
+    },
+    "rozet": {
+      "gizli": "内部任务",
+      "gorunur": "客户可见",
+      "kilometre": "里程碑",
+      "altGorev": "子任务，所属：{{baslik}}",
+      "bekliyor": "等待 {{sayi}} 个依赖项"
+    },
+    "kontrol": {
+      "baslik": "检查清单",
+      "yeni": "添加新条目",
+      "ilerleme": "{{tamam}}/{{toplam}} 项"
+    },
+    "bagimlilik": {
+      "baslik": "依赖关系",
+      "aciklama": "在所选任务完成之前，此任务无法变为“已完成”。",
+      "sec": "选择任务",
+      "yok": "此任务没有依赖关系。",
+      "ekle": "添加依赖"
+    },
+    "uyari": {
+      "bagimlilik": "此任务暂时无法完成；需先完成以下任务：{{liste}}"
+    },
+    "saat": {
+      "baslik": "工时记录",
+      "saat": "工时",
+      "tarih": "日期",
+      "not": "简短备注",
+      "gir": "记录工时",
+      "krediden": "从客户额度中扣除",
+      "krediKapali": "该客户的额度模块已关闭",
+      "bakiye": "剩余额度：{{saat}} 小时",
+      "krediDusuldu": "已从额度扣除",
+      "sonradanDus": "从额度扣除",
+      "yok": "此任务尚未记录工时。"
+    },
+    "revizyon": {
+      "baslik": "每月修改用量",
+      "gosterge": "本月修改：{{kullanilan}}/{{hak}} 小时",
+      "hakYok": "本月修改：{{kullanilan}} 小时",
+      "kalan": "剩余 {{saat}} 小时",
+      "asildi": "每月额度已超出 {{saat}} 小时",
+      "asildiMusteri": "您的每月修改额度已超出 {{saat}} 小时；超出部分可从您的额度中扣除。",
+      "kaynakPaket": "来自套餐的额度",
+      "kaynakProje": "项目中设定的额度",
+      "istek": "{{sayi}} 个修改请求",
+      "elleHak": "每月修改工时（无套餐时）",
+      "krediOneri": "修改额度已超出。是否从客户额度中扣除多出的 {{saat}} 小时？",
+      "krediden": "从额度扣除超出部分"
+    },
+    "musteri": {
+      "baslik": "任务看板",
+      "ilerleme": "已完成 {{tamam}}/{{toplam}} 个任务",
+      "kilometre": "里程碑",
+      "tarihYok": "未设定日期"
+    },
+    "hata": {
+      "genel": "操作未能完成。",
+      "yuklenemedi": "无法加载任务。",
+      "baslik_gerekli": "标题不能为空。",
+      "metin_gerekli": "条目内容不能为空。",
+      "durum_gecersiz": "状态无效。",
+      "oncelik_gecersiz": "优先级无效。",
+      "tarih_gecersiz": "日期无效。",
+      "atanan_gecersiz": "所选人员不在团队中。",
+      "saat_gecersiz": "工时必须大于零。",
+      "saat_ceyrek": "工时必须是一刻钟的整数倍（0.25 · 0.5 · 1 …）。",
+      "etiket_gecersiz": "标签无效。",
+      "etiket_siniri": "最多只能添加 10 个标签。",
+      "bagimlilik_bitmedi": "必须先完成依赖的任务。",
+      "bagimlilik_dongusu": "此依赖会形成循环。",
+      "bagimlilik_gecersiz": "只能在同一项目的任务之间建立依赖。",
+      "ust_gorev_gecersiz": "父任务必须属于同一项目。",
+      "ust_gorev_dongusu": "任务不能放到它自己的子任务之下。",
+      "yetersiz_bakiye": "客户的额度余额不足。",
+      "kredi_modulu_kapali": "该客户的额度模块已关闭。",
+      "musteri_yok": "此项目未关联客户。",
+      "kredi_saat_fazla": "扣除的工时不能超过记录的工时。",
+      "zaten_dusuldu": "此记录已从额度中扣除。",
+      "kredide_dusulmus": "已从额度扣除的记录不能删除；请先在额度账本中更正。",
+      "gorev_siniri": "此项目的任务数量已达上限。",
+      "kontrol_siniri": "每个任务最多可有 50 个检查项。",
+      "proje_yok": "未找到项目。",
+      "gorev_yok": "未找到任务。",
+      "zaten_gorev": "此反馈已转为任务。"
+    }
+  }
+}

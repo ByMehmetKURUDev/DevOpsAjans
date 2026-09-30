@@ -42,7 +42,13 @@
       "sla_yaklasiyor": "تقترب مهلة اتفاقية الخدمة",
       "sla_asildi": "تم تجاوز اتفاقية الخدمة (تصعيد)",
       "aylik_rapor": "نُشر التقرير الشهري",
-      "aylik_rapor_taslak": "مسودات التقارير الشهرية جاهزة"
+      "aylik_rapor_taslak": "مسودات التقارير الشهرية جاهزة",
+      "gorev_guncellendi": "مهمة المشروع قيد المراجعة / مكتملة",
+      "revizyon_asildi": "تم تجاوز رصيد التعديلات الشهري",
+      "geri_bildirim_yeni": "بلاغ خطأ / ملاحظة جديدة",
+      "geri_bildirim_durumu": "تغيّرت حالة ملاحظتي",
+      "duyuru": "إعلان جديد",
+      "oneri_durumu": "تغيّرت حالة اقتراحي"
     },
     "kanal": {
       "inapp": "اللوحة",

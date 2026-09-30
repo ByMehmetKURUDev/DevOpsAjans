@@ -1,10 +1,18 @@
-import { useState, type FormEvent } from 'react';
+import { Suspense, useEffect, useState, type FormEvent } from 'react';
 import { CheckCircle2, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import { ekliLazy } from '@/i18n/ekliLazy';
+import { getAPIBaseURL } from '@/lib/config';
 import { client } from '@/lib/sdkClient';
+
+// Faz 2B — "Topluluktan" (planlanan müşteri önerileri). Yalnız yönetici
+// ayarı açıksa ve liste boş değilse, istemcide yükleniyor; prerender ve
+// kapalı durumda sayfaya hiçbir kod/metin eklenmiyor.
+const TopluluktanBolumu = ekliLazy('duyurular', () => import('@/components/TopluluktanBolumu'));
+type ToplulukOnerisi = { baslik: string; oy_sayisi: number };
 
 /**
  * Yol haritası + bekleme listesi (Faz 0, 30 Eylül 2026).
@@ -46,6 +54,20 @@ export default function YolHaritasi() {
   const [secili, setSecili] = useState<number[]>([]);
   const [gonderiliyor, setGonderiliyor] = useState(false);
   const [bitti, setBitti] = useState(false);
+  const [topluluk, setTopluluk] = useState<ToplulukOnerisi[]>([]);
+
+  useEffect(() => {
+    let iptal = false;
+    fetch(`${getAPIBaseURL()}/api/v1/topluluk-onerileri`)
+      .then((y) => (y.ok ? y.json() : null))
+      .then((g: { acik?: boolean; oneriler?: ToplulukOnerisi[] } | null) => {
+        if (!iptal && g?.acik && Array.isArray(g.oneriler)) setTopluluk(g.oneriler);
+      })
+      .catch(() => {});
+    return () => {
+      iptal = true;
+    };
+  }, []);
 
   const baslik = (no: number) => t(`yolHaritasi.f${no}Baslik`);
   const secimDegistir = (no: number) =>
@@ -113,6 +135,12 @@ export default function YolHaritasi() {
             </li>
           ))}
         </ol>
+
+        {topluluk.length > 0 && (
+          <Suspense fallback={null}>
+            <TopluluktanBolumu oneriler={topluluk} />
+          </Suspense>
+        )}
 
         <section
           id="bekleme-listesi"

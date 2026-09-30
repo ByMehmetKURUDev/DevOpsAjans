@@ -42,7 +42,13 @@
       "sla_yaklasiyor": "SLA समय-सीमा निकट",
       "sla_asildi": "SLA टूटा (एस्केलेशन)",
       "aylik_rapor": "मासिक रिपोर्ट प्रकाशित",
-      "aylik_rapor_taslak": "मासिक रिपोर्ट के मसौदे तैयार"
+      "aylik_rapor_taslak": "मासिक रिपोर्ट के मसौदे तैयार",
+      "gorev_guncellendi": "प्रोजेक्ट कार्य समीक्षा में / पूर्ण",
+      "revizyon_asildi": "मासिक संशोधन कोटा पार हुआ",
+      "geri_bildirim_yeni": "नई त्रुटि रिपोर्ट / प्रतिक्रिया",
+      "geri_bildirim_durumu": "मेरी प्रतिक्रिया की स्थिति बदली",
+      "duyuru": "नई घोषणा",
+      "oneri_durumu": "मेरे सुझाव की स्थिति बदली"
     },
     "kanal": {
       "inapp": "पैनल",

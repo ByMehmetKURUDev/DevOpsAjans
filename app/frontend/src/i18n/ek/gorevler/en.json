@@ -1,0 +1,139 @@
+{
+  "gorevler": {
+    "baslik": "Tasks",
+    "aciklama": "Break the project into tasks. Tasks marked “Visible to client” appear as a read-only board in the client panel.",
+    "kanban": "Kanban",
+    "liste": "List",
+    "yeni": "New task title",
+    "ekle": "Add",
+    "kaydet": "Save",
+    "kaydedildi": "Saved.",
+    "sil": "Delete",
+    "silOnay": "Delete this task? Its checklist and dependencies will be deleted too.",
+    "kapat": "Close",
+    "yenile": "Refresh",
+    "bos": "No tasks in this column.",
+    "hicGorev": "No tasks yet. Add the first one above.",
+    "tasi": "Move",
+    "tasiAria": "Move task “{{baslik}}” to another column",
+    "tasindi": "Task moved: {{durum}}",
+    "surukle": "Drag and drop cards, or use the “Move” picker on each card with the keyboard.",
+    "geriBildirimSutunu": "Feedback",
+    "donustur": "Turn into task",
+    "donusturuldu": "Feedback turned into a task.",
+    "alan": {
+      "baslik": "Title",
+      "aciklama": "Description",
+      "durum": "Status",
+      "oncelik": "Priority",
+      "atanan": "Assignee",
+      "atanmamis": "Unassigned",
+      "bitis": "Due date",
+      "gorunur": "Visible to client",
+      "kilometre": "Milestone",
+      "ustGorev": "Parent task",
+      "ustYok": "None (top-level task)",
+      "tahmini": "Estimated hours",
+      "harcanan": "Spent / estimated hours",
+      "etiketler": "Tags",
+      "etiketIpucu": "Separate with commas. Hours on tasks tagged “revizyon” count against the monthly revision allowance."
+    },
+    "durum": {
+      "yapilacak": "To do",
+      "suruyor": "In progress",
+      "incelemede": "In review",
+      "tamam": "Done"
+    },
+    "oncelik": {
+      "dusuk": "Low",
+      "normal": "Normal",
+      "yuksek": "High",
+      "acil": "Urgent"
+    },
+    "rozet": {
+      "gizli": "Internal",
+      "gorunur": "Client sees",
+      "kilometre": "Milestone",
+      "altGorev": "Subtask of: {{baslik}}",
+      "bekliyor": "Waiting on {{sayi}} dependencies"
+    },
+    "kontrol": {
+      "baslik": "Checklist",
+      "yeni": "Add a new item",
+      "ilerleme": "{{tamam}}/{{toplam}} items"
+    },
+    "bagimlilik": {
+      "baslik": "Dependencies",
+      "aciklama": "This task cannot move to “Done” until the selected tasks are finished.",
+      "sec": "Choose a task",
+      "yok": "This task has no dependencies.",
+      "ekle": "Add dependency"
+    },
+    "uyari": {
+      "bagimlilik": "This task can't be completed yet; these tasks must be finished first: {{liste}}"
+    },
+    "saat": {
+      "baslik": "Time entries",
+      "saat": "Hours",
+      "tarih": "Date",
+      "not": "Short note",
+      "gir": "Log time",
+      "krediden": "Charge to the client's credits",
+      "krediKapali": "the credits module is off for this client",
+      "bakiye": "Remaining credit: {{saat}} h",
+      "krediDusuldu": "Charged to credits",
+      "sonradanDus": "Charge to credits",
+      "yok": "No time logged on this task yet."
+    },
+    "revizyon": {
+      "baslik": "Monthly revision usage",
+      "gosterge": "Revisions this month: {{kullanilan}}/{{hak}} h",
+      "hakYok": "Revisions this month: {{kullanilan}} h",
+      "kalan": "{{saat}} h left",
+      "asildi": "Monthly allowance exceeded by {{saat}} h",
+      "asildiMusteri": "Your monthly revision allowance is exceeded by {{saat}} h; the excess can be charged to your credits.",
+      "kaynakPaket": "Allowance from package",
+      "kaynakProje": "Allowance set on project",
+      "istek": "{{sayi}} revision requests",
+      "elleHak": "Monthly revision hours (if no package)",
+      "krediOneri": "Revision allowance exceeded. Charge the extra {{saat}} h to the client's credits?",
+      "krediden": "Charge excess to credits"
+    },
+    "musteri": {
+      "baslik": "Task board",
+      "ilerleme": "{{tamam}} of {{toplam}} tasks completed",
+      "kilometre": "Milestones",
+      "tarihYok": "no date set"
+    },
+    "hata": {
+      "genel": "The action could not be completed.",
+      "yuklenemedi": "Tasks could not be loaded.",
+      "baslik_gerekli": "Title cannot be empty.",
+      "metin_gerekli": "Item text cannot be empty.",
+      "durum_gecersiz": "Invalid status.",
+      "oncelik_gecersiz": "Invalid priority.",
+      "tarih_gecersiz": "Invalid date.",
+      "atanan_gecersiz": "The selected person is not on the team.",
+      "saat_gecersiz": "Hours must be greater than zero.",
+      "saat_ceyrek": "Hours must be a multiple of a quarter (0.25 · 0.5 · 1 …).",
+      "etiket_gecersiz": "Invalid tags.",
+      "etiket_siniri": "At most 10 tags can be added.",
+      "bagimlilik_bitmedi": "Dependent tasks must be completed first.",
+      "bagimlilik_dongusu": "This dependency would create a cycle.",
+      "bagimlilik_gecersiz": "Dependencies can only link tasks in the same project.",
+      "ust_gorev_gecersiz": "The parent task must be in the same project.",
+      "ust_gorev_dongusu": "A task cannot be placed under its own subtask.",
+      "yetersiz_bakiye": "The client's credit balance is insufficient.",
+      "kredi_modulu_kapali": "The credits module is off for this client.",
+      "musteri_yok": "No client is linked to this project.",
+      "kredi_saat_fazla": "Hours charged to credits cannot exceed the logged hours.",
+      "zaten_dusuldu": "This entry has already been charged to credits.",
+      "kredide_dusulmus": "An entry charged to credits cannot be deleted; correct it in the credit ledger first.",
+      "gorev_siniri": "This project has reached its task limit.",
+      "kontrol_siniri": "A task can have at most 50 checklist items.",
+      "proje_yok": "Project not found.",
+      "gorev_yok": "Task not found.",
+      "zaten_gorev": "This feedback has already been turned into a task."
+    }
+  }
+}

@@ -461,7 +461,10 @@
     "appStoreIndir": "Загрузите в App Store",
     "googlePlayIndir": "Доступно в Google Play",
     "tabDosyalar": "Файлы",
-    "tabBilgiBankasi": "База знаний"
+    "tabBilgiBankasi": "База знаний",
+    "tabGeriBildirim": "Обратная связь",
+    "tabDuyurular": "Объявления",
+    "gorevler": "Задачи"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

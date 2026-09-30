@@ -1,0 +1,139 @@
+{
+  "gorevler": {
+    "baslik": "Görevler",
+    "aciklama": "Projeyi görevlere bölün. “Müşteriye görünür” işaretli görevler müşteri panelinde salt okunur bir pano olarak çıkar.",
+    "kanban": "Kanban",
+    "liste": "Liste",
+    "yeni": "Yeni görev başlığı",
+    "ekle": "Ekle",
+    "kaydet": "Kaydet",
+    "kaydedildi": "Kaydedildi.",
+    "sil": "Sil",
+    "silOnay": "Bu görev silinsin mi? Kontrol listesi ve bağımlılıkları da silinir.",
+    "kapat": "Kapat",
+    "yenile": "Yenile",
+    "bos": "Bu sütunda görev yok.",
+    "hicGorev": "Henüz görev yok. İlk görevi yukarıdan ekleyin.",
+    "tasi": "Taşı",
+    "tasiAria": "“{{baslik}}” görevini başka sütuna taşı",
+    "tasindi": "Görev taşındı: {{durum}}",
+    "surukle": "Kartları sürükleyip bırakın ya da her karttaki “Taşı” seçimiyle klavyeden taşıyın.",
+    "geriBildirimSutunu": "Geri bildirimler",
+    "donustur": "Göreve dönüştür",
+    "donusturuldu": "Geri bildirim göreve dönüştürüldü.",
+    "alan": {
+      "baslik": "Başlık",
+      "aciklama": "Açıklama",
+      "durum": "Durum",
+      "oncelik": "Öncelik",
+      "atanan": "Atanan kişi",
+      "atanmamis": "Atanmamış",
+      "bitis": "Bitiş tarihi",
+      "gorunur": "Müşteriye görünür",
+      "kilometre": "Kilometre taşı",
+      "ustGorev": "Üst görev",
+      "ustYok": "Yok (ana görev)",
+      "tahmini": "Tahmini saat",
+      "harcanan": "Harcanan / tahmini saat",
+      "etiketler": "Etiketler",
+      "etiketIpucu": "Virgülle ayırın. “revizyon” etiketli görevin saatleri aylık revizyon hakkından düşer."
+    },
+    "durum": {
+      "yapilacak": "Yapılacak",
+      "suruyor": "Sürüyor",
+      "incelemede": "İncelemede",
+      "tamam": "Tamamlandı"
+    },
+    "oncelik": {
+      "dusuk": "Düşük",
+      "normal": "Normal",
+      "yuksek": "Yüksek",
+      "acil": "Acil"
+    },
+    "rozet": {
+      "gizli": "İç görev",
+      "gorunur": "Müşteri görür",
+      "kilometre": "Kilometre taşı",
+      "altGorev": "Alt görev: {{baslik}}",
+      "bekliyor": "{{sayi}} bağımlılık bekliyor"
+    },
+    "kontrol": {
+      "baslik": "Kontrol listesi",
+      "yeni": "Yeni madde ekle",
+      "ilerleme": "{{tamam}}/{{toplam}} madde"
+    },
+    "bagimlilik": {
+      "baslik": "Bağımlılıklar",
+      "aciklama": "Seçilen görevler bitmeden bu görev “Tamamlandı”ya geçemez.",
+      "sec": "Görev seçin",
+      "yok": "Bu görevin bağımlılığı yok.",
+      "ekle": "Bağımlılık ekle"
+    },
+    "uyari": {
+      "bagimlilik": "Bu görev henüz tamamlanamaz; önce şu görevler bitmeli: {{liste}}"
+    },
+    "saat": {
+      "baslik": "Saat girişleri",
+      "saat": "Saat",
+      "tarih": "Tarih",
+      "not": "Kısa not",
+      "gir": "Saat gir",
+      "krediden": "Müşterinin kredisinden düş",
+      "krediKapali": "bu müşteride kredi modülü kapalı",
+      "bakiye": "Kalan kredi: {{saat}} saat",
+      "krediDusuldu": "Krediden düşüldü",
+      "sonradanDus": "Krediden düş",
+      "yok": "Bu göreve henüz saat girilmedi."
+    },
+    "revizyon": {
+      "baslik": "Aylık revizyon kullanımı",
+      "gosterge": "Bu ay revizyon: {{kullanilan}}/{{hak}} saat",
+      "hakYok": "Bu ay revizyon: {{kullanilan}} saat",
+      "kalan": "{{saat}} saat kaldı",
+      "asildi": "Aylık hak {{saat}} saat aşıldı",
+      "asildiMusteri": "Aylık revizyon hakkınız {{saat}} saat aşıldı; aşan kısım kredinizden düşülebilir.",
+      "kaynakPaket": "Paketten gelen hak",
+      "kaynakProje": "Projeye tanımlı hak",
+      "istek": "{{sayi}} revizyon isteği",
+      "elleHak": "Aylık revizyon saati (paket yoksa)",
+      "krediOneri": "Revizyon hakkı aşıldı. Aşan {{saat}} saati müşterinin kredisinden düşmek ister misiniz?",
+      "krediden": "Aşanı krediden düş"
+    },
+    "musteri": {
+      "baslik": "Görev panosu",
+      "ilerleme": "{{toplam}} görevden {{tamam}} tanesi tamamlandı",
+      "kilometre": "Kilometre taşları",
+      "tarihYok": "tarih belirlenmedi"
+    },
+    "hata": {
+      "genel": "İşlem yapılamadı.",
+      "yuklenemedi": "Görevler yüklenemedi.",
+      "baslik_gerekli": "Başlık boş olamaz.",
+      "metin_gerekli": "Madde metni boş olamaz.",
+      "durum_gecersiz": "Geçersiz durum.",
+      "oncelik_gecersiz": "Geçersiz öncelik.",
+      "tarih_gecersiz": "Tarih geçersiz.",
+      "atanan_gecersiz": "Seçilen kişi ekipte değil.",
+      "saat_gecersiz": "Saat sıfırdan büyük olmalı.",
+      "saat_ceyrek": "Saat çeyreğin katı olmalı (0,25 · 0,5 · 1 …).",
+      "etiket_gecersiz": "Etiketler geçersiz.",
+      "etiket_siniri": "En çok 10 etiket eklenebilir.",
+      "bagimlilik_bitmedi": "Önce bağlı görevler tamamlanmalı.",
+      "bagimlilik_dongusu": "Bu bağımlılık döngü oluşturur.",
+      "bagimlilik_gecersiz": "Bağımlılık yalnız aynı projedeki görevlere kurulabilir.",
+      "ust_gorev_gecersiz": "Üst görev aynı projede olmalı.",
+      "ust_gorev_dongusu": "Bir görev kendi alt görevinin altına taşınamaz.",
+      "yetersiz_bakiye": "Müşterinin kredi bakiyesi yetmiyor.",
+      "kredi_modulu_kapali": "Bu müşteride kredi modülü kapalı.",
+      "musteri_yok": "Projeye bağlı müşteri yok.",
+      "kredi_saat_fazla": "Krediden düşülecek saat, girilen saatten fazla olamaz.",
+      "zaten_dusuldu": "Bu giriş zaten krediden düşüldü.",
+      "kredide_dusulmus": "Krediden düşülmüş giriş silinemez; önce kredi defterinde düzeltme yapın.",
+      "gorev_siniri": "Bu projede görev sınırına ulaşıldı.",
+      "kontrol_siniri": "Bir göreve en çok 50 madde eklenebilir.",
+      "proje_yok": "Proje bulunamadı.",
+      "gorev_yok": "Görev bulunamadı.",
+      "zaten_gorev": "Bu geri bildirim zaten göreve dönüştürüldü."
+    }
+  }
+}

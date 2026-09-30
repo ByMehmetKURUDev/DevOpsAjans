@@ -1,0 +1,107 @@
+{
+  "duyurular": {
+    "yenile": "Yenile",
+    "serit": {
+      "kapat": "Duyuruyu kapat",
+      "tumu": "Tüm duyurular ({{sayi}})",
+      "yeni": "{{sayi}} yeni"
+    },
+    "liste": {
+      "baslik": "Duyurular"
+    },
+    "onem": {
+      "bilgi": "Bilgi",
+      "onemli": "Önemli",
+      "kritik": "Kritik"
+    },
+    "hedef": {
+      "tum": "Tüm müşteriler",
+      "secili": "Seçili müşteriler",
+      "ekip": "Ekip"
+    },
+    "sekme": {
+      "duyurular": "Duyurular",
+      "oneriler": "Öneri kutusu"
+    },
+    "yonetici": {
+      "baslik": "Duyurular",
+      "aciklama": "Müşteri panelinin üstünde kapatılabilir şerit olarak görünür; kimin okuduğu sayılır. Bitiş tarihinden sonra kendiliğinden kalkar.",
+      "baslikAlan": "Başlık",
+      "metin": "Metin",
+      "onem": "Önem",
+      "hedef": "Kime",
+      "alicilar": "Alıcı e-postaları",
+      "aliciIpucu": "Virgül, boşluk ya da satırla ayırın.",
+      "bitis": "Bitiş tarihi",
+      "bitisIpucu": "Boş bırakırsanız siz kaldırana kadar yayında kalır.",
+      "bildirim": "Hedef kitleye bildirim de gönder (e-posta/panel, bildirim matrisine göre)",
+      "yayinla": "Yayınla",
+      "yayinlandi": "Duyuru yayınlandı.",
+      "etkin": "Yayında",
+      "pasif": "Yayında değil",
+      "yayindanKaldir": "Yayından kaldır",
+      "yayinaAl": "Yayına al",
+      "sil": "Sil",
+      "silOnay": "Bu duyuru silinsin mi? Okunma kayıtları da silinir.",
+      "okunma": "{{sayi}} kişi okudu",
+      "kapatma": "{{sayi}} kişi kapattı",
+      "bos": "Henüz duyuru yok."
+    },
+    "oneri": {
+      "baslik": "Öneri kutusu",
+      "beta": "Beta",
+      "aciklama": "Aklınızdaki geliştirmeyi yazın; diğer müşteriler oylayabilir. Kimin önerdiği ve kimin oy verdiği görünmez.",
+      "yeniBaslik": "Önerinizin kısa başlığı",
+      "yeniAciklama": "Biraz daha anlatın (isteğe bağlı)",
+      "gonder": "Öneri gönder",
+      "gonderildi": "Öneriniz alındı, teşekkürler!",
+      "oy": "Bu öneriye oy ver",
+      "oyGeriAl": "Oyumu geri al",
+      "oySayisi": "{{sayi}} oy",
+      "benim": "Sizin öneriniz",
+      "bos": "Henüz öneri yok. İlk öneriyi siz yazın.",
+      "yoneticiNotu": "Ajansın notu"
+    },
+    "oneriDurum": {
+      "yeni": "Yeni",
+      "inceleniyor": "İnceleniyor",
+      "planlandi": "Planlandı",
+      "yapildi": "Yapıldı",
+      "reddedildi": "Reddedildi"
+    },
+    "oneriYonetimi": {
+      "baslik": "Öneri kutusu",
+      "aciklama": "Müşterilerin önerileri ve anonim oy sayıları. Durum değişince öneri sahibine bildirim gider.",
+      "topluluk": "“Planlandı” önerileri Yol haritası sayfasında “Topluluktan” bölümünde göster (yalnız başlık ve oy sayısı)",
+      "sahip": "Öneren",
+      "not": "Müşterilere görünen not",
+      "notKaydet": "Notu kaydet",
+      "kaydedildi": "Not kaydedildi.",
+      "durum": "Durum",
+      "bos": "Henüz öneri yok."
+    },
+    "topluluk": {
+      "baslik": "Topluluktan",
+      "aciklama": "Müşterilerimizin önerip oyladığı ve planımıza aldığımız geliştirmeler.",
+      "oy": "{{sayi}} oy"
+    },
+    "hata": {
+      "genel": "İşlem yapılamadı.",
+      "yuklenemedi": "Liste yüklenemedi.",
+      "baslik_gerekli": "Başlık boş olamaz.",
+      "alici_gerekli": "Seçili müşteriler için en az bir e-posta girin.",
+      "eposta_gecersiz": "E-posta adreslerinden biri geçersiz.",
+      "cok_fazla_alici": "Alıcı sayısı çok fazla.",
+      "tarih_gecersiz": "Tarih geçersiz.",
+      "onem_gecersiz": "Geçersiz önem.",
+      "hedef_gecersiz": "Geçersiz hedef.",
+      "kendi_onerin": "Kendi önerinize oy veremezsiniz.",
+      "oylamaya_kapali": "Bu öneri artık oylamaya kapalı.",
+      "gunluk_sinir": "Bugün yeterince öneri gönderdiniz; yarın yeniden deneyin.",
+      "durum_gecersiz": "Geçersiz durum.",
+      "oneri_yok": "Öneri bulunamadı.",
+      "duyuru_yok": "Duyuru bulunamadı.",
+      "modul_kapali": "Bu özellik hesabınızda kapalı."
+    }
+  }
+}

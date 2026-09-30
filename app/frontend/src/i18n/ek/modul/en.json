@@ -88,6 +88,22 @@
       "bilgi_bankasi": {
         "ad": "Knowledge base",
         "aciklama": "FAQs and guides; related articles are suggested when you open a ticket."
+      },
+      "gorevler": {
+        "ad": "Tasks and revision meter",
+        "aciklama": "Follow tasks, progress and milestones on your project, plus this month's revision usage."
+      },
+      "geri_bildirim": {
+        "ad": "Bug reports and feedback",
+        "aciklama": "Report bugs, suggestions or questions with screenshots from anywhere in the panel and track their status."
+      },
+      "duyurular": {
+        "ad": "Announcements",
+        "aciklama": "Maintenance, feature and important status announcements from the agency; dismiss the ones you've read."
+      },
+      "oneri_kutusu": {
+        "ad": "Suggestion box",
+        "aciklama": "Send improvement ideas and vote anonymously on other clients' suggestions."
       }
     },
     "kategori": {

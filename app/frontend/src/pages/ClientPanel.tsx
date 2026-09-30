@@ -57,6 +57,13 @@ const Dosyalarim = ekliLazy('dosyalar', () => import('@/components/Dosyalarim'))
 const DestekYardim = ekliLazy('yardim', () => import('@/components/DestekYardim'));
 const KbOnerileri = ekliLazy('yardim', () => import('@/components/KbOnerileri'));
 const AylikRaporArsivi = ekliLazy('aylikRapor', () => import('@/components/AylikRaporArsivi'));
+// Faz 2B — proje görevleri, revizyon sayacı, hata bildir, duyurular, öneri kutusu.
+const ProjeGorevGorunumu = ekliLazy('gorevler', () => import('@/components/ProjeGorevGorunumu'));
+const RevizyonGostergesi = ekliLazy('gorevler', () => import('@/components/RevizyonGostergesi'));
+const HataBildir = ekliLazy('geriBildirim', () => import('@/components/HataBildir'));
+const GeriBildirimlerim = ekliLazy('geriBildirim', () => import('@/components/GeriBildirimlerim'));
+const DuyuruSeridi = ekliLazy('duyurular', () => import('@/components/DuyuruSeridi'));
+const OneriKutusu = ekliLazy('duyurular', () => import('@/components/OneriKutusu'));
 
 interface AuthUser {
   id?: string;
@@ -145,6 +152,8 @@ export default function ClientPanel() {
   // listede hepsi acik olsa ekran okunmaz hale geliyor.
   const [acikTalep, setAcikTalep] = useState<number | null>(null);
   const [sending, setSending] = useState(false);
+  // "Hata bildir" ile yeni kayıt gönderilince Destek'teki liste yenilensin.
+  const [geriBildirimSayaci, setGeriBildirimSayaci] = useState(0);
 
   const [profile, setProfile] = useState({ name: '', phone: '', company: '' });
 
@@ -323,6 +332,9 @@ export default function ClientPanel() {
     }
   };
 
+  // "Hata bildir" formunun proje seçimi (her çizimde yeni dizi olmasın).
+  const hataProjeleri = useMemo(() => projects.map((p) => ({ id: p.id, title: p.title })), [projects]);
+
   const stats = useMemo(
     () => ({
       total: projects.length,
@@ -405,6 +417,13 @@ export default function ClientPanel() {
           </span>
         </p>
       </div>
+
+      {/* Duyurular: kapatılabilir şerit + "Tüm duyurular" listesi. */}
+      {modulAcik('duyurular') && (
+        <Suspense fallback={null}>
+          <DuyuruSeridi />
+        </Suspense>
+      )}
 
       {/* Genel görünümün en üstü: müşterinin kararını bekleyen işler. */}
       {modulAcik('islem') && (
@@ -538,6 +557,12 @@ export default function ClientPanel() {
             </div>
           )}
 
+          {tab === 'projects' && modulAcik('gorevler') && projects.length > 0 && (
+            <Suspense fallback={null}>
+              <RevizyonGostergesi />
+            </Suspense>
+          )}
+
           {tab === 'projects' && (
             <div className="grid gap-4">
               {projects.length === 0 ? (
@@ -577,7 +602,7 @@ export default function ClientPanel() {
                         </div>
                       )}
                     </div>
-                    <div className="flex-1">
+                    <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2 mb-2">
                         <span className="text-[10px] uppercase tracking-widest text-purple-400">
                           {p.category}
@@ -624,6 +649,12 @@ export default function ClientPanel() {
                         projeye sahipse liste açıkken okunmaz oluyordu.
                         `details` içeriği HTML'de duruyor, tıklayınca açılıyor.
                       */}
+                      {modulAcik('gorevler') && (
+                        <Suspense fallback={null}>
+                          <ProjeGorevGorunumu projeId={Number(p.id)} />
+                        </Suspense>
+                      )}
+
                       <details className="mb-3 rounded-xl border border-white/10 bg-white/[0.02] p-3">
                         <summary className="cursor-pointer text-sm font-semibold text-purple-300 hover:text-pink-300">
                           {t('projectStages.history')}
@@ -862,6 +893,20 @@ export default function ClientPanel() {
                   ))
                 )}
               </div>
+              {(modulAcik('geri_bildirim') || modulAcik('oneri_kutusu')) && (
+                <div className="grid gap-8 lg:col-span-2 lg:grid-cols-2">
+                  {modulAcik('geri_bildirim') && (
+                    <Suspense fallback={null}>
+                      <GeriBildirimlerim yenile={geriBildirimSayaci} />
+                    </Suspense>
+                  )}
+                  {modulAcik('oneri_kutusu') && (
+                    <Suspense fallback={null}>
+                      <OneriKutusu />
+                    </Suspense>
+                  )}
+                </div>
+              )}
             </div>
           )}
 
@@ -1023,6 +1068,16 @@ export default function ClientPanel() {
             </div>
           )}
         </>
+      )}
+
+      {/* "Hata bildir": her sekmede sağ altta küçük düğme. */}
+      {modulAcik('geri_bildirim') && (
+        <Suspense fallback={null}>
+          <HataBildir
+            projeler={hataProjeleri}
+            onGonderildi={() => setGeriBildirimSayaci((s) => s + 1)}
+          />
+        </Suspense>
       )}
     </div>
   );

@@ -461,7 +461,10 @@
     "appStoreIndir": "在 App Store 下载",
     "googlePlayIndir": "在 Google Play 上获取",
     "tabDosyalar": "文件",
-    "tabBilgiBankasi": "知识库"
+    "tabBilgiBankasi": "知识库",
+    "tabGeriBildirim": "反馈",
+    "tabDuyurular": "公告",
+    "gorevler": "任务"
   },
   "admin": {
     "loadError": "管理数据加载失败",

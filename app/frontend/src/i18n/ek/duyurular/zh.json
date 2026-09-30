@@ -1,0 +1,107 @@
+{
+  "duyurular": {
+    "yenile": "刷新",
+    "serit": {
+      "kapat": "关闭公告",
+      "tumu": "全部公告（{{sayi}}）",
+      "yeni": "{{sayi}} 条新公告"
+    },
+    "liste": {
+      "baslik": "公告"
+    },
+    "onem": {
+      "bilgi": "信息",
+      "onemli": "重要",
+      "kritik": "紧急"
+    },
+    "hedef": {
+      "tum": "全部客户",
+      "secili": "指定客户",
+      "ekip": "团队"
+    },
+    "sekme": {
+      "duyurular": "公告",
+      "oneriler": "建议箱"
+    },
+    "yonetici": {
+      "baslik": "公告",
+      "aciklama": "以可关闭横幅的形式显示在客户面板顶部，并统计阅读人数。到达结束日期后自动撤下。",
+      "baslikAlan": "标题",
+      "metin": "正文",
+      "onem": "重要程度",
+      "hedef": "发送对象",
+      "alicilar": "收件人邮箱",
+      "aliciIpucu": "用逗号、空格或换行分隔。",
+      "bitis": "结束日期",
+      "bitisIpucu": "留空则一直显示，直到您手动撤下。",
+      "bildirim": "同时通知目标对象（邮件/面板，依据通知矩阵）",
+      "yayinla": "发布",
+      "yayinlandi": "公告已发布。",
+      "etkin": "已发布",
+      "pasif": "未发布",
+      "yayindanKaldir": "撤下",
+      "yayinaAl": "重新发布",
+      "sil": "删除",
+      "silOnay": "删除此公告？阅读记录也会一并删除。",
+      "okunma": "{{sayi}} 人已读",
+      "kapatma": "{{sayi}} 人已关闭",
+      "bos": "暂无公告。"
+    },
+    "oneri": {
+      "baslik": "建议箱",
+      "beta": "测试版",
+      "aciklama": "写下您想要的改进，其他客户可以投票。任何人都看不到是谁提出或投票的。",
+      "yeniBaslik": "建议的简短标题",
+      "yeniAciklama": "再多说几句（可选）",
+      "gonder": "提交建议",
+      "gonderildi": "谢谢，已收到您的建议！",
+      "oy": "为此建议投票",
+      "oyGeriAl": "撤回我的投票",
+      "oySayisi": "{{sayi}} 票",
+      "benim": "您的建议",
+      "bos": "暂无建议。欢迎您写下第一条。",
+      "yoneticiNotu": "机构备注"
+    },
+    "oneriDurum": {
+      "yeni": "新建",
+      "inceleniyor": "审核中",
+      "planlandi": "已计划",
+      "yapildi": "已完成",
+      "reddedildi": "已拒绝"
+    },
+    "oneriYonetimi": {
+      "baslik": "建议箱",
+      "aciklama": "客户的建议及匿名票数。状态变化时会通知提出者。",
+      "topluluk": "在路线图页面的“来自社区”部分显示“已计划”的建议（仅标题和票数）",
+      "sahip": "提出者",
+      "not": "客户可见的备注",
+      "notKaydet": "保存备注",
+      "kaydedildi": "备注已保存。",
+      "durum": "状态",
+      "bos": "暂无建议。"
+    },
+    "topluluk": {
+      "baslik": "来自社区",
+      "aciklama": "由客户提出并投票、已列入我们计划的改进。",
+      "oy": "{{sayi}} 票"
+    },
+    "hata": {
+      "genel": "操作未能完成。",
+      "yuklenemedi": "无法加载列表。",
+      "baslik_gerekli": "标题不能为空。",
+      "alici_gerekli": "指定客户时请至少填写一个邮箱。",
+      "eposta_gecersiz": "其中一个邮箱地址无效。",
+      "cok_fazla_alici": "收件人过多。",
+      "tarih_gecersiz": "日期无效。",
+      "onem_gecersiz": "重要程度无效。",
+      "hedef_gecersiz": "发送对象无效。",
+      "kendi_onerin": "不能为自己的建议投票。",
+      "oylamaya_kapali": "此建议已停止投票。",
+      "gunluk_sinir": "您今天提交的建议已够多，请明天再试。",
+      "durum_gecersiz": "状态无效。",
+      "oneri_yok": "未找到建议。",
+      "duyuru_yok": "未找到公告。",
+      "modul_kapali": "您的账户未启用此功能。"
+    }
+  }
+}

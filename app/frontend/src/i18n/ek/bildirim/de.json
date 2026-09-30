@@ -42,7 +42,13 @@
       "sla_yaklasiyor": "SLA-Frist läuft ab",
       "sla_asildi": "SLA verletzt (Eskalation)",
       "aylik_rapor": "Monatsbericht veröffentlicht",
-      "aylik_rapor_taslak": "Monatsberichtsentwürfe bereit"
+      "aylik_rapor_taslak": "Monatsberichtsentwürfe bereit",
+      "gorev_guncellendi": "Projektaufgabe in Prüfung / erledigt",
+      "revizyon_asildi": "Monatliches Überarbeitungskontingent überschritten",
+      "geri_bildirim_yeni": "Neue Fehlermeldung / Rückmeldung",
+      "geri_bildirim_durumu": "Status meiner Rückmeldung geändert",
+      "duyuru": "Neue Ankündigung",
+      "oneri_durumu": "Status meines Vorschlags geändert"
     },
     "kanal": {
       "inapp": "Panel",

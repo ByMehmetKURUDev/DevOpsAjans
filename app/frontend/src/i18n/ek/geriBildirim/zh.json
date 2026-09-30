@@ -1,0 +1,88 @@
+{
+  "geriBildirim": {
+    "dugme": "报告问题",
+    "dugmeAria": "发送问题报告或反馈",
+    "baslik": "报告问题",
+    "aciklama": "请简要描述发生了什么；附上截图可加快处理。浏览器信息会自动附加。",
+    "kapat": "关闭",
+    "iptal": "取消",
+    "gonder": "发送",
+    "gonderildi": "已收到您的报告。状态变化时我们会通知您。",
+    "yenile": "刷新",
+    "dosyaBuyuk": "图片不能超过 5 MB。",
+    "dosyaTur": "只能上传图片（PNG、JPEG、WebP、GIF）。",
+    "dosyaKaldir": "移除图片",
+    "otomatik": "自动附加的浏览器信息：{{bilgi}}",
+    "alan": {
+      "tur": "类型",
+      "baslik": "标题",
+      "aciklama": "发生了什么？您原本期望什么？",
+      "sayfa": "页面地址",
+      "proje": "相关项目",
+      "projeSec": "选择项目（可选）",
+      "ekran": "截图",
+      "ekranIpucu": "选择图片 · PNG、JPEG、WebP 或 GIF · 最大 5 MB",
+      "durum": "状态"
+    },
+    "tur": {
+      "hata": "问题",
+      "oneri": "建议",
+      "soru": "疑问"
+    },
+    "durum": {
+      "yeni": "已收到",
+      "inceleniyor": "审核中",
+      "gorev": "已转为任务",
+      "cozuldu": "已解决",
+      "kapatildi": "已关闭"
+    },
+    "oncelik": {
+      "dusuk": "低",
+      "normal": "普通",
+      "yuksek": "高",
+      "acil": "紧急"
+    },
+    "benim": {
+      "baslik": "我的问题报告与反馈",
+      "bos": "您还没有发送任何报告。可以使用右下角的“报告问题”按钮。",
+      "ekler": "{{sayi}} 张图片"
+    },
+    "yonetici": {
+      "baslik": "反馈",
+      "aciklama": "客户通过“报告问题”发送的内容。状态变化时会通知客户；一键即可转为项目任务。",
+      "filtreDurum": "状态",
+      "filtreTur": "类型",
+      "hepsi": "全部",
+      "acik": "仅未结",
+      "musteri": "客户",
+      "proje": "项目",
+      "projesiz": "无项目",
+      "sayfa": "页面",
+      "tarayici": "浏览器",
+      "oncelik": "优先级",
+      "donustur": "转为任务",
+      "donusturuldu": "已创建任务，并已通知客户。",
+      "gorevVar": "任务 #{{id}}",
+      "ekGoster": "显示截图",
+      "bos": "没有符合此筛选条件的反馈。"
+    },
+    "hata": {
+      "genel": "操作未能完成。",
+      "yuklenemedi": "无法加载反馈。",
+      "baslik_gerekli": "请填写简短的标题。",
+      "tur_gecersiz": "类型无效。",
+      "tur_desteklenmiyor": "该文件不是图片。请上传 PNG、JPEG、WebP 或 GIF。",
+      "dosya_buyuk": "图片不能超过 5 MB。",
+      "dosya_bos": "所选文件为空。",
+      "proje_yok": "未找到项目。",
+      "gunluk_sinir": "您今天发送的报告较多，请明天再试。",
+      "ek_siniri": "每份报告最多可附 3 张图片。",
+      "zaten_gorev": "此报告已转为任务。",
+      "gorev_yok": "请先将其转为任务。",
+      "durum_gecersiz": "状态无效。",
+      "modul_kapali": "您的账户未启用此功能。",
+      "ek_okunamadi": "无法打开图片。",
+      "kayit_yok": "未找到记录。"
+    }
+  }
+}

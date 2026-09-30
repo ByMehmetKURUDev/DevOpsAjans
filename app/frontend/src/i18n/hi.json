@@ -461,7 +461,10 @@
     "appStoreIndir": "App Store से डाउनलोड करें",
     "googlePlayIndir": "Google Play पर पाएँ",
     "tabDosyalar": "फ़ाइलें",
-    "tabBilgiBankasi": "ज्ञान आधार"
+    "tabBilgiBankasi": "ज्ञान आधार",
+    "tabGeriBildirim": "प्रतिक्रियाएँ",
+    "tabDuyurular": "घोषणाएँ",
+    "gorevler": "कार्य"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

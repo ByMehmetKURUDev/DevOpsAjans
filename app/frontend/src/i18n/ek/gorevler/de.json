@@ -1,0 +1,139 @@
+{
+  "gorevler": {
+    "baslik": "Aufgaben",
+    "aciklama": "Teilen Sie das Projekt in Aufgaben auf. Als „für Kunden sichtbar“ markierte Aufgaben erscheinen im Kundenbereich als schreibgeschütztes Board.",
+    "kanban": "Kanban",
+    "liste": "Liste",
+    "yeni": "Titel der neuen Aufgabe",
+    "ekle": "Hinzufügen",
+    "kaydet": "Speichern",
+    "kaydedildi": "Gespeichert.",
+    "sil": "Löschen",
+    "silOnay": "Diese Aufgabe löschen? Checkliste und Abhängigkeiten werden ebenfalls gelöscht.",
+    "kapat": "Schließen",
+    "yenile": "Aktualisieren",
+    "bos": "Keine Aufgaben in dieser Spalte.",
+    "hicGorev": "Noch keine Aufgaben. Fügen Sie oben die erste hinzu.",
+    "tasi": "Verschieben",
+    "tasiAria": "Aufgabe „{{baslik}}“ in eine andere Spalte verschieben",
+    "tasindi": "Aufgabe verschoben: {{durum}}",
+    "surukle": "Karten per Drag-and-drop verschieben oder mit der Auswahl „Verschieben“ auf jeder Karte per Tastatur.",
+    "geriBildirimSutunu": "Rückmeldungen",
+    "donustur": "In Aufgabe umwandeln",
+    "donusturuldu": "Rückmeldung wurde in eine Aufgabe umgewandelt.",
+    "alan": {
+      "baslik": "Titel",
+      "aciklama": "Beschreibung",
+      "durum": "Status",
+      "oncelik": "Priorität",
+      "atanan": "Zuständig",
+      "atanmamis": "Nicht zugewiesen",
+      "bitis": "Fälligkeitsdatum",
+      "gorunur": "Für Kunden sichtbar",
+      "kilometre": "Meilenstein",
+      "ustGorev": "Übergeordnete Aufgabe",
+      "ustYok": "Keine (Hauptaufgabe)",
+      "tahmini": "Geschätzte Stunden",
+      "harcanan": "Aufgewendet / geschätzt (Std.)",
+      "etiketler": "Schlagwörter",
+      "etiketIpucu": "Mit Kommas trennen. Stunden auf Aufgaben mit dem Schlagwort „revizyon“ zählen zum monatlichen Überarbeitungskontingent."
+    },
+    "durum": {
+      "yapilacak": "Zu erledigen",
+      "suruyor": "In Arbeit",
+      "incelemede": "In Prüfung",
+      "tamam": "Erledigt"
+    },
+    "oncelik": {
+      "dusuk": "Niedrig",
+      "normal": "Normal",
+      "yuksek": "Hoch",
+      "acil": "Dringend"
+    },
+    "rozet": {
+      "gizli": "Intern",
+      "gorunur": "Kunde sieht es",
+      "kilometre": "Meilenstein",
+      "altGorev": "Unteraufgabe von: {{baslik}}",
+      "bekliyor": "Wartet auf {{sayi}} Abhängigkeiten"
+    },
+    "kontrol": {
+      "baslik": "Checkliste",
+      "yeni": "Neuen Punkt hinzufügen",
+      "ilerleme": "{{tamam}}/{{toplam}} Punkte"
+    },
+    "bagimlilik": {
+      "baslik": "Abhängigkeiten",
+      "aciklama": "Diese Aufgabe kann erst auf „Erledigt“ wechseln, wenn die ausgewählten Aufgaben abgeschlossen sind.",
+      "sec": "Aufgabe wählen",
+      "yok": "Diese Aufgabe hat keine Abhängigkeiten.",
+      "ekle": "Abhängigkeit hinzufügen"
+    },
+    "uyari": {
+      "bagimlilik": "Diese Aufgabe kann noch nicht abgeschlossen werden; zuerst müssen diese erledigt sein: {{liste}}"
+    },
+    "saat": {
+      "baslik": "Zeiteinträge",
+      "saat": "Stunden",
+      "tarih": "Datum",
+      "not": "Kurze Notiz",
+      "gir": "Zeit erfassen",
+      "krediden": "Vom Guthaben des Kunden abziehen",
+      "krediKapali": "das Guthabenmodul ist bei diesem Kunden deaktiviert",
+      "bakiye": "Restguthaben: {{saat}} Std.",
+      "krediDusuldu": "Vom Guthaben abgezogen",
+      "sonradanDus": "Vom Guthaben abziehen",
+      "yok": "Für diese Aufgabe wurde noch keine Zeit erfasst."
+    },
+    "revizyon": {
+      "baslik": "Monatliche Überarbeitungen",
+      "gosterge": "Überarbeitungen diesen Monat: {{kullanilan}}/{{hak}} Std.",
+      "hakYok": "Überarbeitungen diesen Monat: {{kullanilan}} Std.",
+      "kalan": "noch {{saat}} Std.",
+      "asildi": "Monatskontingent um {{saat}} Std. überschritten",
+      "asildiMusteri": "Ihr monatliches Überarbeitungskontingent ist um {{saat}} Std. überschritten; der Rest kann von Ihrem Guthaben abgezogen werden.",
+      "kaynakPaket": "Kontingent aus dem Paket",
+      "kaynakProje": "Am Projekt festgelegt",
+      "istek": "{{sayi}} Überarbeitungsanfragen",
+      "elleHak": "Monatliche Überarbeitungsstunden (ohne Paket)",
+      "krediOneri": "Kontingent überschritten. Die zusätzlichen {{saat}} Std. vom Guthaben des Kunden abziehen?",
+      "krediden": "Überschuss vom Guthaben abziehen"
+    },
+    "musteri": {
+      "baslik": "Aufgabenboard",
+      "ilerleme": "{{tamam}} von {{toplam}} Aufgaben erledigt",
+      "kilometre": "Meilensteine",
+      "tarihYok": "kein Datum festgelegt"
+    },
+    "hata": {
+      "genel": "Die Aktion konnte nicht ausgeführt werden.",
+      "yuklenemedi": "Aufgaben konnten nicht geladen werden.",
+      "baslik_gerekli": "Der Titel darf nicht leer sein.",
+      "metin_gerekli": "Der Punkttext darf nicht leer sein.",
+      "durum_gecersiz": "Ungültiger Status.",
+      "oncelik_gecersiz": "Ungültige Priorität.",
+      "tarih_gecersiz": "Ungültiges Datum.",
+      "atanan_gecersiz": "Die gewählte Person gehört nicht zum Team.",
+      "saat_gecersiz": "Die Stundenzahl muss größer als null sein.",
+      "saat_ceyrek": "Stunden müssen ein Vielfaches einer Viertelstunde sein (0,25 · 0,5 · 1 …).",
+      "etiket_gecersiz": "Ungültige Schlagwörter.",
+      "etiket_siniri": "Höchstens 10 Schlagwörter sind möglich.",
+      "bagimlilik_bitmedi": "Zuerst müssen die abhängigen Aufgaben erledigt sein.",
+      "bagimlilik_dongusu": "Diese Abhängigkeit würde einen Zyklus erzeugen.",
+      "bagimlilik_gecersiz": "Abhängigkeiten sind nur zwischen Aufgaben desselben Projekts möglich.",
+      "ust_gorev_gecersiz": "Die übergeordnete Aufgabe muss im selben Projekt liegen.",
+      "ust_gorev_dongusu": "Eine Aufgabe kann nicht unter ihre eigene Unteraufgabe gestellt werden.",
+      "yetersiz_bakiye": "Das Guthaben des Kunden reicht nicht aus.",
+      "kredi_modulu_kapali": "Das Guthabenmodul ist bei diesem Kunden deaktiviert.",
+      "musteri_yok": "Dem Projekt ist kein Kunde zugeordnet.",
+      "kredi_saat_fazla": "Die abzuziehenden Stunden dürfen die erfassten nicht übersteigen.",
+      "zaten_dusuldu": "Dieser Eintrag wurde bereits vom Guthaben abgezogen.",
+      "kredide_dusulmus": "Ein vom Guthaben abgezogener Eintrag kann nicht gelöscht werden; korrigieren Sie zuerst das Guthabenbuch.",
+      "gorev_siniri": "Dieses Projekt hat das Aufgabenlimit erreicht.",
+      "kontrol_siniri": "Eine Aufgabe kann höchstens 50 Checklistenpunkte haben.",
+      "proje_yok": "Projekt nicht gefunden.",
+      "gorev_yok": "Aufgabe nicht gefunden.",
+      "zaten_gorev": "Diese Rückmeldung wurde bereits in eine Aufgabe umgewandelt."
+    }
+  }
+}

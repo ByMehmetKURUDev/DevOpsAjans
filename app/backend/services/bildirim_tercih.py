@@ -73,6 +73,13 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "sla_asildi": {"roller": ("admin",), "tetikleniyor": True},
     "aylik_rapor": {"roller": ("client",), "tetikleniyor": True},
     "aylik_rapor_taslak": {"roller": ("admin",), "tetikleniyor": True},
+    # Faz 2B — görevler, revizyon sayacı, geri bildirim, duyuru, öneri kutusu.
+    "gorev_guncellendi": {"roller": ("client",), "tetikleniyor": True},
+    "revizyon_asildi": {"roller": ("admin",), "tetikleniyor": True},
+    "geri_bildirim_yeni": {"roller": ("admin",), "tetikleniyor": True},
+    "geri_bildirim_durumu": {"roller": ("client",), "tetikleniyor": True},
+    "duyuru": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "oneri_durumu": {"roller": ("client",), "tetikleniyor": True},
 }
 
 

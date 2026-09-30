@@ -42,7 +42,13 @@
       "sla_yaklasiyor": "SLA 即将到期",
       "sla_asildi": "SLA 已超时（升级）",
       "aylik_rapor": "月度报告已发布",
-      "aylik_rapor_taslak": "月度报告草稿已就绪"
+      "aylik_rapor_taslak": "月度报告草稿已就绪",
+      "gorev_guncellendi": "项目任务进入审核 / 已完成",
+      "revizyon_asildi": "已超出每月修改额度",
+      "geri_bildirim_yeni": "新的问题报告 / 反馈",
+      "geri_bildirim_durumu": "我的反馈状态已变化",
+      "duyuru": "新公告",
+      "oneri_durumu": "我的建议状态已变化"
     },
     "kanal": {
       "inapp": "面板",

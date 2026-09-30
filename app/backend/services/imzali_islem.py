@@ -655,6 +655,21 @@ async def _teslimat_etkisi(db: AsyncSession, kayit: SignedActions, sonuc: str, n
     )
     db.add(talep)
     await db.flush()
+    # Faz 2B — revizyon isteği projede "revizyon" etiketli bir görev açıyor;
+    # bu göreve girilen saatler aylık revizyon sayacına düşüyor.
+    try:
+        from services.gorevler import revizyon_gorevi_ac
+
+        async with db.begin_nested():
+            await revizyon_gorevi_ac(
+                db,
+                proje_id=proje.id,
+                baslik=f"Revizyon: {etiket}",
+                aciklama=not_,
+                imzali_islem_id=kayit.id,
+            )
+    except Exception:  # noqa: BLE001 - görev açılamasa da karar kaydedilsin
+        logger.exception("Revizyon görevi açılamadı: proje %s", proje.id)
     bildirimler.append(
         _yonetici_bildirimi(
             f"Revizyon istendi: {proje.title} ({etiket})",

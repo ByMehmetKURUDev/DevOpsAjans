@@ -42,6 +42,7 @@ class ProjectsData(BaseModel):
     featured: bool = None
     published: bool = None
     brief: str = None
+    aylik_revizyon_saati: float = None
 
 
 class ProjectsUpdateData(BaseModel):
@@ -60,6 +61,7 @@ class ProjectsUpdateData(BaseModel):
     featured: Optional[bool] = None
     published: Optional[bool] = None
     brief: Optional[str] = None
+    aylik_revizyon_saati: Optional[float] = None
 
 
 class ProjectsResponse(BaseModel):
@@ -79,6 +81,7 @@ class ProjectsResponse(BaseModel):
     featured: Optional[bool] = None
     published: Optional[bool] = None
     brief: Optional[str] = None
+    aylik_revizyon_saati: Optional[float] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 

@@ -1,6 +1,6 @@
 from core.database import Base
 from datetime import datetime
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
+from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text
 
 
 class Projects(Base):
@@ -28,5 +28,8 @@ class Projects(Base):
     # basladiginda brief'in yeniden uretilmesi gerekmiyor; hangi
     # varsayimlarla baslandigi da kayitli kaliyor.
     brief = Column(Text, nullable=True)
+    # Faz 2B — paketten revizyon hakkı bulunamazsa elle girilen aylık
+    # revizyon saati (bkz. services/gorevler.revizyon_sayaci).
+    aylik_revizyon_saati = Column(Float, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

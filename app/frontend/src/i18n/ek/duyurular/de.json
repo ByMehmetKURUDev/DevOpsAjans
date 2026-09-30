@@ -1,0 +1,107 @@
+{
+  "duyurular": {
+    "yenile": "Aktualisieren",
+    "serit": {
+      "kapat": "Ankündigung schließen",
+      "tumu": "Alle Ankündigungen ({{sayi}})",
+      "yeni": "{{sayi}} neu"
+    },
+    "liste": {
+      "baslik": "Ankündigungen"
+    },
+    "onem": {
+      "bilgi": "Info",
+      "onemli": "Wichtig",
+      "kritik": "Kritisch"
+    },
+    "hedef": {
+      "tum": "Alle Kunden",
+      "secili": "Ausgewählte Kunden",
+      "ekip": "Team"
+    },
+    "sekme": {
+      "duyurular": "Ankündigungen",
+      "oneriler": "Ideenbox"
+    },
+    "yonetici": {
+      "baslik": "Ankündigungen",
+      "aciklama": "Erscheint als schließbares Banner oben im Kundenbereich; Lesevorgänge werden gezählt. Nach dem Enddatum wird sie automatisch entfernt.",
+      "baslikAlan": "Titel",
+      "metin": "Text",
+      "onem": "Wichtigkeit",
+      "hedef": "Zielgruppe",
+      "alicilar": "Empfänger-E-Mails",
+      "aliciIpucu": "Mit Kommas, Leerzeichen oder Zeilenumbrüchen trennen.",
+      "bitis": "Enddatum",
+      "bitisIpucu": "Leer lassen, damit sie bis zum manuellen Entfernen sichtbar bleibt.",
+      "bildirim": "Zielgruppe zusätzlich benachrichtigen (E-Mail/Panel, gemäß Benachrichtigungsmatrix)",
+      "yayinla": "Veröffentlichen",
+      "yayinlandi": "Ankündigung veröffentlicht.",
+      "etkin": "Aktiv",
+      "pasif": "Nicht aktiv",
+      "yayindanKaldir": "Zurückziehen",
+      "yayinaAl": "Wieder veröffentlichen",
+      "sil": "Löschen",
+      "silOnay": "Diese Ankündigung löschen? Die Lesedaten werden ebenfalls gelöscht.",
+      "okunma": "Von {{sayi}} gelesen",
+      "kapatma": "Von {{sayi}} geschlossen",
+      "bos": "Noch keine Ankündigungen."
+    },
+    "oneri": {
+      "baslik": "Ideenbox",
+      "beta": "Beta",
+      "aciklama": "Schreiben Sie Ihre Verbesserungsidee; andere Kunden können abstimmen. Niemand sieht, wer sie vorgeschlagen oder abgestimmt hat.",
+      "yeniBaslik": "Kurzer Titel für Ihren Vorschlag",
+      "yeniAciklama": "Erzählen Sie etwas mehr (optional)",
+      "gonder": "Vorschlag senden",
+      "gonderildi": "Danke, Ihr Vorschlag ist eingegangen!",
+      "oy": "Für diesen Vorschlag stimmen",
+      "oyGeriAl": "Stimme zurückziehen",
+      "oySayisi": "{{sayi}} Stimmen",
+      "benim": "Ihr Vorschlag",
+      "bos": "Noch keine Vorschläge. Schreiben Sie den ersten.",
+      "yoneticiNotu": "Notiz der Agentur"
+    },
+    "oneriDurum": {
+      "yeni": "Neu",
+      "inceleniyor": "In Prüfung",
+      "planlandi": "Geplant",
+      "yapildi": "Umgesetzt",
+      "reddedildi": "Abgelehnt"
+    },
+    "oneriYonetimi": {
+      "baslik": "Ideenbox",
+      "aciklama": "Vorschläge der Kunden mit anonymen Stimmenzahlen. Bei Statusänderung wird der Verfasser benachrichtigt.",
+      "topluluk": "„Geplante“ Vorschläge auf der Roadmap-Seite im Abschnitt „Aus der Community“ zeigen (nur Titel und Stimmen)",
+      "sahip": "Vorgeschlagen von",
+      "not": "Für Kunden sichtbare Notiz",
+      "notKaydet": "Notiz speichern",
+      "kaydedildi": "Notiz gespeichert.",
+      "durum": "Status",
+      "bos": "Noch keine Vorschläge."
+    },
+    "topluluk": {
+      "baslik": "Aus der Community",
+      "aciklama": "Verbesserungen, die unsere Kunden vorgeschlagen und gewählt haben und die wir eingeplant haben.",
+      "oy": "{{sayi}} Stimmen"
+    },
+    "hata": {
+      "genel": "Die Aktion konnte nicht ausgeführt werden.",
+      "yuklenemedi": "Die Liste konnte nicht geladen werden.",
+      "baslik_gerekli": "Der Titel darf nicht leer sein.",
+      "alici_gerekli": "Geben Sie für ausgewählte Kunden mindestens eine E-Mail an.",
+      "eposta_gecersiz": "Eine der E-Mail-Adressen ist ungültig.",
+      "cok_fazla_alici": "Zu viele Empfänger.",
+      "tarih_gecersiz": "Ungültiges Datum.",
+      "onem_gecersiz": "Ungültige Wichtigkeit.",
+      "hedef_gecersiz": "Ungültige Zielgruppe.",
+      "kendi_onerin": "Für den eigenen Vorschlag können Sie nicht stimmen.",
+      "oylamaya_kapali": "Die Abstimmung für diesen Vorschlag ist geschlossen.",
+      "gunluk_sinir": "Sie haben heute genug Vorschläge gesendet; bitte morgen erneut versuchen.",
+      "durum_gecersiz": "Ungültiger Status.",
+      "oneri_yok": "Vorschlag nicht gefunden.",
+      "duyuru_yok": "Ankündigung nicht gefunden.",
+      "modul_kapali": "Diese Funktion ist für Ihr Konto deaktiviert."
+    }
+  }
+}

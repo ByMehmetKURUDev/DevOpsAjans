@@ -63,6 +63,11 @@ HARIC_TABLOLAR = frozenset({
     # Faz 2C: dosya içeriği (ikili, MB'larca) ve zamanlı görevin güncellediği
     # SLA saatleri. Dosyanın kendisi (`files`) ve paylaşım bağlantısı kaydediliyor.
     "dosya_icerikleri", "talep_sla",
+    # Faz 2B: kişi başına okundu/kapattı ve oy satırları (gürültü; oy
+    # verenin kimliği kimseye gösterilmiyor), ekran görüntüsünün ikili
+    # içeriği (geri bildirim satırı zaten kaydediliyor) ve aylık revizyon
+    # uyarısının tekrar kilidi.
+    "duyuru_okumalari", "oneri_oylari", "feedback_attachments", "revizyon_uyarilari",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
@@ -74,6 +79,9 @@ GURULTU_ALANLARI = frozenset({"created_at", "updated_at"})
 TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     "uptime_kontrolleri": frozenset({"son_kontrol_at", "son_durum", "ardisik_hata", "ilk_hata_at"}),
     "site_izleme": frozenset({"alan_kontrol_at", "ssl_kontrol_at", "ssl_bitis", "ssl_hata", "alan_rdap_hata"}),
+    # Faz 2B: Kanban'da sürükle-bırak yalnız sırayı değiştiriyorsa satır yok;
+    # harcanan saat önbellek (asıl kayıt task_time_entries).
+    "project_tasks": frozenset({"sira", "harcanan_saat"}),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

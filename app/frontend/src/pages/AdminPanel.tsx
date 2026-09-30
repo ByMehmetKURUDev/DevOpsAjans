@@ -36,6 +36,9 @@ import {
   Blocks,
   FolderOpen,
   BookOpen,
+  Bug,
+  ListChecks,
+  Megaphone,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -105,6 +108,11 @@ const BilgiBankasiYonetimi = ekliLazy('yardim', () => import('@/components/admin
 const DestekAyarlari = ekliLazy('yardim', () => import('@/components/admin/DestekAyarlari'));
 const SlaRozeti = ekliLazy('yardim', () => import('@/components/admin/SlaRozeti'));
 const AylikRaporlar = ekliLazy('aylikRapor', () => import('@/components/admin/AylikRaporlar'));
+// Faz 2B — proje görevleri (Kanban), geri bildirimler, duyurular + öneri kutusu.
+const ProjeGorevleri = ekliLazy(['gorevler', 'geriBildirim'], () => import('@/components/admin/ProjeGorevleri'));
+const GeriBildirimler = ekliLazy('geriBildirim', () => import('@/components/admin/GeriBildirimler'));
+const DuyuruYonetimi = ekliLazy('duyurular', () => import('@/components/admin/DuyuruYonetimi'));
+const DuyuruSeridi = ekliLazy('duyurular', () => import('@/components/DuyuruSeridi'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -219,6 +227,8 @@ type Tab =
   | 'moduller'
   | 'dosyalar'
   | 'bilgiBankasi'
+  | 'geriBildirim'
+  | 'duyurular'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -327,6 +337,8 @@ export default function AdminPanel() {
   const [editProject, setEditProject] = useState<Partial<Project> | null>(null);
   // Aşaması yönetilen proje; liste altında açılan panel.
   const [stageProject, setStageProject] = useState<Project | null>(null);
+  // Faz 2B — görev panosu açık olan proje.
+  const [gorevProjesi, setGorevProjesi] = useState<Project | null>(null);
   const stageLabel = useStageLabels();
   const asamaListesi = useStages();
   const [projeFiltresi, setProjeFiltresi] = useState<'musteri' | 'vaka' | 'hepsi'>('musteri');
@@ -874,6 +886,8 @@ export default function AdminPanel() {
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
     { key: 'denetim', label: t('ui.tabDenetim'), icon: History },
     { key: 'moduller', label: t('ui.tabModuller'), icon: Blocks },
+    { key: 'geriBildirim', label: t('ui.tabGeriBildirim'), icon: Bug },
+    { key: 'duyurular', label: t('ui.tabDuyurular'), icon: Megaphone },
   ];
 
   return (
@@ -892,6 +906,11 @@ export default function AdminPanel() {
           <span className="text-foreground">{user.email || user.name}</span>
         </div>
       </div>
+
+      {/* Ekip duyuruları (hedef: ekip) — yoksa hiçbir şey çizilmez. */}
+      <Suspense fallback={null}>
+        <DuyuruSeridi />
+      </Suspense>
 
       {/* Tabs */}
       <div className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
@@ -1044,6 +1063,30 @@ export default function AdminPanel() {
           }
         >
           <KrediDefteri />
+        </Suspense>
+      )}
+
+      {tab === 'geriBildirim' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <GeriBildirimler />
+        </Suspense>
+      )}
+
+      {tab === 'duyurular' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <DuyuruYonetimi />
         </Suspense>
       )}
 
@@ -1299,7 +1342,7 @@ export default function AdminPanel() {
                 {gorunenProjeler.map((p) => (
                   <div
                     key={p.id}
-                    className="p-4 rounded-xl glass flex items-center gap-4"
+                    className="p-4 rounded-xl glass flex min-w-0 flex-wrap items-center gap-4 sm:flex-nowrap"
                   >
                     <div className="w-20 h-14 rounded-lg overflow-hidden bg-white/5 shrink-0">
                       {p.image_url && (
@@ -1310,8 +1353,8 @@ export default function AdminPanel() {
                         />
                       )}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
+                    <div className="min-w-[10rem] flex-1">
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
                         <p className="text-[10px] uppercase tracking-widest text-purple-400">
                           {p.category}
                         </p>
@@ -1350,6 +1393,17 @@ export default function AdminPanel() {
                         className={p.brief ? 'text-purple-300' : ''}
                       >
                         <Sparkles className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => setGorevProjesi(gorevProjesi?.id === p.id ? null : p)}
+                        aria-label={t('ui.gorevler')}
+                        title={t('ui.gorevler')}
+                        className={gorevProjesi?.id === p.id ? 'text-purple-300' : ''}
+                        data-testid={`gorevler-ac-${p.id}`}
+                      >
+                        <ListChecks className="h-4 w-4" />
                       </Button>
                       <Button
                         size="sm"
@@ -1395,6 +1449,24 @@ export default function AdminPanel() {
                       adminEmail={user.email}
                       onChanged={loadAll}
                     />
+                  </div>
+                )}
+
+                {gorevProjesi && (
+                  <div className="mt-4 min-w-0 scroll-mt-24 rounded-2xl border border-purple-500/30 bg-white/[0.02] p-4 sm:p-6">
+                    <Suspense
+                      fallback={
+                        <div className="flex items-center justify-center py-10 text-muted-foreground">
+                          <Loader2 className="h-5 w-5 animate-spin" />
+                        </div>
+                      }
+                    >
+                      <ProjeGorevleri
+                        projeId={Number(gorevProjesi.id)}
+                        projeBasligi={gorevProjesi.title}
+                        onKapat={() => setGorevProjesi(null)}
+                      />
+                    </Suspense>
                   </div>
                 )}
 

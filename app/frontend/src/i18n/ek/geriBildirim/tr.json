@@ -1,0 +1,88 @@
+{
+  "geriBildirim": {
+    "dugme": "Hata bildir",
+    "dugmeAria": "Hata ya da geri bildirim gönder",
+    "baslik": "Hata bildir",
+    "aciklama": "Ne olduğunu kısaca yazın; ekran görüntüsü eklemek çözümü hızlandırır. Tarayıcı bilgisi otomatik eklenir.",
+    "kapat": "Kapat",
+    "iptal": "Vazgeç",
+    "gonder": "Gönder",
+    "gonderildi": "Bildiriminiz alındı. Durum değiştikçe size haber vereceğiz.",
+    "yenile": "Yenile",
+    "dosyaBuyuk": "Görsel 5 MB'tan büyük olamaz.",
+    "dosyaTur": "Yalnız görsel yükleyebilirsiniz (PNG, JPEG, WebP, GIF).",
+    "dosyaKaldir": "Görseli kaldır",
+    "otomatik": "Otomatik eklenen tarayıcı bilgisi: {{bilgi}}",
+    "alan": {
+      "tur": "Tür",
+      "baslik": "Başlık",
+      "aciklama": "Ne oldu? Ne bekliyordunuz?",
+      "sayfa": "Sayfa adresi",
+      "proje": "İlgili proje",
+      "projeSec": "Proje seçin (isteğe bağlı)",
+      "ekran": "Ekran görüntüsü",
+      "ekranIpucu": "Görsel seçin · PNG, JPEG, WebP ya da GIF · en çok 5 MB",
+      "durum": "Durum"
+    },
+    "tur": {
+      "hata": "Hata",
+      "oneri": "Öneri",
+      "soru": "Soru"
+    },
+    "durum": {
+      "yeni": "Alındı",
+      "inceleniyor": "İnceleniyor",
+      "gorev": "Göreve dönüştürüldü",
+      "cozuldu": "Çözüldü",
+      "kapatildi": "Kapatıldı"
+    },
+    "oncelik": {
+      "dusuk": "Düşük",
+      "normal": "Normal",
+      "yuksek": "Yüksek",
+      "acil": "Acil"
+    },
+    "benim": {
+      "baslik": "Hata ve geri bildirimlerim",
+      "bos": "Henüz bildirim göndermediniz. Sağ alttaki “Hata bildir” düğmesini kullanabilirsiniz.",
+      "ekler": "{{sayi}} görsel"
+    },
+    "yonetici": {
+      "baslik": "Geri bildirimler",
+      "aciklama": "Müşterilerin “Hata bildir” ile gönderdikleri. Durum değişince müşteriye bildirim gider; tek tıkla proje görevine dönüştürülebilir.",
+      "filtreDurum": "Durum",
+      "filtreTur": "Tür",
+      "hepsi": "Tümü",
+      "acik": "Açık olanlar",
+      "musteri": "Müşteri",
+      "proje": "Proje",
+      "projesiz": "Projesiz",
+      "sayfa": "Sayfa",
+      "tarayici": "Tarayıcı",
+      "oncelik": "Öncelik",
+      "donustur": "Göreve dönüştür",
+      "donusturuldu": "Görev oluşturuldu; müşteriye haber verildi.",
+      "gorevVar": "Görev #{{id}}",
+      "ekGoster": "Ekran görüntüsünü göster",
+      "bos": "Bu süzgece uyan geri bildirim yok."
+    },
+    "hata": {
+      "genel": "İşlem yapılamadı.",
+      "yuklenemedi": "Geri bildirimler yüklenemedi.",
+      "baslik_gerekli": "Kısa bir başlık yazın.",
+      "tur_gecersiz": "Geçersiz tür.",
+      "tur_desteklenmiyor": "Dosya bir görsel değil. PNG, JPEG, WebP ya da GIF yükleyin.",
+      "dosya_buyuk": "Görsel 5 MB'tan büyük olamaz.",
+      "dosya_bos": "Seçilen dosya boş.",
+      "proje_yok": "Proje bulunamadı.",
+      "gunluk_sinir": "Bugün çok sayıda bildirim gönderdiniz; lütfen yarın yeniden deneyin.",
+      "ek_siniri": "Bir bildirime en çok 3 görsel eklenebilir.",
+      "zaten_gorev": "Bu bildirim zaten göreve dönüştürüldü.",
+      "gorev_yok": "Önce göreve dönüştürün.",
+      "durum_gecersiz": "Geçersiz durum.",
+      "modul_kapali": "Bu özellik hesabınızda kapalı.",
+      "ek_okunamadi": "Görsel açılamadı.",
+      "kayit_yok": "Kayıt bulunamadı."
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "duyurular": {
+    "yenile": "Refresh",
+    "serit": {
+      "kapat": "Dismiss announcement",
+      "tumu": "All announcements ({{sayi}})",
+      "yeni": "{{sayi}} new"
+    },
+    "liste": {
+      "baslik": "Announcements"
+    },
+    "onem": {
+      "bilgi": "Info",
+      "onemli": "Important",
+      "kritik": "Critical"
+    },
+    "hedef": {
+      "tum": "All clients",
+      "secili": "Selected clients",
+      "ekip": "Team"
+    },
+    "sekme": {
+      "duyurular": "Announcements",
+      "oneriler": "Suggestion box"
+    },
+    "yonetici": {
+      "baslik": "Announcements",
+      "aciklama": "Shown as a dismissible banner at the top of the client panel; reads are counted. Removed automatically after the end date.",
+      "baslikAlan": "Title",
+      "metin": "Text",
+      "onem": "Importance",
+      "hedef": "Audience",
+      "alicilar": "Recipient emails",
+      "aliciIpucu": "Separate with commas, spaces or new lines.",
+      "bitis": "End date",
+      "bitisIpucu": "Leave empty to keep it live until you remove it.",
+      "bildirim": "Also notify the audience (email/panel, per the notification matrix)",
+      "yayinla": "Publish",
+      "yayinlandi": "Announcement published.",
+      "etkin": "Live",
+      "pasif": "Not live",
+      "yayindanKaldir": "Unpublish",
+      "yayinaAl": "Publish again",
+      "sil": "Delete",
+      "silOnay": "Delete this announcement? Read records will be deleted too.",
+      "okunma": "Read by {{sayi}}",
+      "kapatma": "Dismissed by {{sayi}}",
+      "bos": "No announcements yet."
+    },
+    "oneri": {
+      "baslik": "Suggestion box",
+      "beta": "Beta",
+      "aciklama": "Share the improvement you have in mind; other clients can vote on it. Nobody sees who suggested or who voted.",
+      "yeniBaslik": "Short title for your suggestion",
+      "yeniAciklama": "Tell us a bit more (optional)",
+      "gonder": "Send suggestion",
+      "gonderildi": "Thanks, your suggestion was received!",
+      "oy": "Vote for this suggestion",
+      "oyGeriAl": "Withdraw my vote",
+      "oySayisi": "{{sayi}} votes",
+      "benim": "Your suggestion",
+      "bos": "No suggestions yet. Be the first to write one.",
+      "yoneticiNotu": "Agency's note"
+    },
+    "oneriDurum": {
+      "yeni": "New",
+      "inceleniyor": "Under review",
+      "planlandi": "Planned",
+      "yapildi": "Done",
+      "reddedildi": "Declined"
+    },
+    "oneriYonetimi": {
+      "baslik": "Suggestion box",
+      "aciklama": "Clients' suggestions with anonymous vote counts. The author is notified when the status changes.",
+      "topluluk": "Show “Planned” suggestions in a “From the community” section on the Roadmap page (title and vote count only)",
+      "sahip": "Suggested by",
+      "not": "Note visible to clients",
+      "notKaydet": "Save note",
+      "kaydedildi": "Note saved.",
+      "durum": "Status",
+      "bos": "No suggestions yet."
+    },
+    "topluluk": {
+      "baslik": "From the community",
+      "aciklama": "Improvements our clients suggested and voted for, now on our plan.",
+      "oy": "{{sayi}} votes"
+    },
+    "hata": {
+      "genel": "The action could not be completed.",
+      "yuklenemedi": "The list could not be loaded.",
+      "baslik_gerekli": "Title cannot be empty.",
+      "alici_gerekli": "Enter at least one email for selected clients.",
+      "eposta_gecersiz": "One of the email addresses is invalid.",
+      "cok_fazla_alici": "Too many recipients.",
+      "tarih_gecersiz": "Invalid date.",
+      "onem_gecersiz": "Invalid importance.",
+      "hedef_gecersiz": "Invalid audience.",
+      "kendi_onerin": "You can't vote for your own suggestion.",
+      "oylamaya_kapali": "Voting is closed for this suggestion.",
+      "gunluk_sinir": "You've sent enough suggestions today; please try again tomorrow.",
+      "durum_gecersiz": "Invalid status.",
+      "oneri_yok": "Suggestion not found.",
+      "duyuru_yok": "Announcement not found.",
+      "modul_kapali": "This feature is turned off for your account."
+    }
+  }
+}

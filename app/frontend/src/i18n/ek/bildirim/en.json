@@ -42,7 +42,13 @@
       "sla_yaklasiyor": "SLA deadline approaching",
       "sla_asildi": "SLA breached (escalation)",
       "aylik_rapor": "Monthly report published",
-      "aylik_rapor_taslak": "Monthly report drafts ready"
+      "aylik_rapor_taslak": "Monthly report drafts ready",
+      "gorev_guncellendi": "Project task in review / done",
+      "revizyon_asildi": "Monthly revision allowance exceeded",
+      "geri_bildirim_yeni": "New bug report / feedback",
+      "geri_bildirim_durumu": "My feedback status changed",
+      "duyuru": "New announcement",
+      "oneri_durumu": "My suggestion status changed"
     },
     "kanal": {
       "inapp": "Panel",

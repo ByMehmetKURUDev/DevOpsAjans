@@ -88,6 +88,22 @@
       "bilgi_bankasi": {
         "ad": "Wissensdatenbank",
         "aciklama": "FAQs und Anleitungen; beim Eröffnen eines Tickets werden passende Artikel vorgeschlagen."
+      },
+      "gorevler": {
+        "ad": "Aufgaben und Überarbeitungszähler",
+        "aciklama": "Aufgaben, Fortschritt und Meilensteine Ihres Projekts verfolgen, dazu die Überarbeitungen dieses Monats."
+      },
+      "geri_bildirim": {
+        "ad": "Fehler und Rückmeldungen",
+        "aciklama": "Fehler, Vorschläge oder Fragen mit Screenshot von überall im Panel melden und den Status verfolgen."
+      },
+      "duyurular": {
+        "ad": "Ankündigungen",
+        "aciklama": "Wartungs-, Neuigkeiten- und Statusankündigungen der Agentur; gelesene können Sie schließen."
+      },
+      "oneri_kutusu": {
+        "ad": "Ideenbox",
+        "aciklama": "Verbesserungsideen senden und anonym über Vorschläge anderer Kunden abstimmen."
       }
     },
     "kategori": {

@@ -461,7 +461,10 @@
     "appStoreIndir": "حمّله من App Store",
     "googlePlayIndir": "احصل عليه من Google Play",
     "tabDosyalar": "الملفات",
-    "tabBilgiBankasi": "قاعدة المعرفة"
+    "tabBilgiBankasi": "قاعدة المعرفة",
+    "tabGeriBildirim": "الملاحظات",
+    "tabDuyurular": "الإعلانات",
+    "gorevler": "المهام"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

@@ -397,6 +397,13 @@ class DatabaseManager:
             "tur_pg": "TIMESTAMPTZ",
             "tur_sqlite": "TIMESTAMP",
         },
+        # Faz 2B — paketten bulunamazsa projeye elle girilen aylik revizyon saati.
+        {
+            "tablo": "projects",
+            "sutun": "aylik_revizyon_saati",
+            "tur_pg": "DOUBLE PRECISION",
+            "tur_sqlite": "REAL",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

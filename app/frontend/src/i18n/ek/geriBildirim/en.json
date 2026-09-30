@@ -1,0 +1,88 @@
+{
+  "geriBildirim": {
+    "dugme": "Report a bug",
+    "dugmeAria": "Send a bug report or feedback",
+    "baslik": "Report a bug",
+    "aciklama": "Briefly describe what happened; adding a screenshot speeds up the fix. Browser details are attached automatically.",
+    "kapat": "Close",
+    "iptal": "Cancel",
+    "gonder": "Send",
+    "gonderildi": "Your report was received. We'll let you know as its status changes.",
+    "yenile": "Refresh",
+    "dosyaBuyuk": "The image cannot be larger than 5 MB.",
+    "dosyaTur": "You can only upload images (PNG, JPEG, WebP, GIF).",
+    "dosyaKaldir": "Remove image",
+    "otomatik": "Browser details attached automatically: {{bilgi}}",
+    "alan": {
+      "tur": "Type",
+      "baslik": "Title",
+      "aciklama": "What happened? What did you expect?",
+      "sayfa": "Page address",
+      "proje": "Related project",
+      "projeSec": "Choose a project (optional)",
+      "ekran": "Screenshot",
+      "ekranIpucu": "Choose an image · PNG, JPEG, WebP or GIF · up to 5 MB",
+      "durum": "Status"
+    },
+    "tur": {
+      "hata": "Bug",
+      "oneri": "Suggestion",
+      "soru": "Question"
+    },
+    "durum": {
+      "yeni": "Received",
+      "inceleniyor": "Under review",
+      "gorev": "Turned into a task",
+      "cozuldu": "Resolved",
+      "kapatildi": "Closed"
+    },
+    "oncelik": {
+      "dusuk": "Low",
+      "normal": "Normal",
+      "yuksek": "High",
+      "acil": "Urgent"
+    },
+    "benim": {
+      "baslik": "My bug reports and feedback",
+      "bos": "You haven't sent any reports yet. Use the “Report a bug” button at the bottom right.",
+      "ekler": "{{sayi}} images"
+    },
+    "yonetici": {
+      "baslik": "Feedback",
+      "aciklama": "Sent by clients via “Report a bug”. The client is notified when the status changes; one click turns it into a project task.",
+      "filtreDurum": "Status",
+      "filtreTur": "Type",
+      "hepsi": "All",
+      "acik": "Open only",
+      "musteri": "Client",
+      "proje": "Project",
+      "projesiz": "No project",
+      "sayfa": "Page",
+      "tarayici": "Browser",
+      "oncelik": "Priority",
+      "donustur": "Turn into task",
+      "donusturuldu": "Task created; the client has been notified.",
+      "gorevVar": "Task #{{id}}",
+      "ekGoster": "Show screenshot",
+      "bos": "No feedback matches this filter."
+    },
+    "hata": {
+      "genel": "The action could not be completed.",
+      "yuklenemedi": "Feedback could not be loaded.",
+      "baslik_gerekli": "Please write a short title.",
+      "tur_gecersiz": "Invalid type.",
+      "tur_desteklenmiyor": "The file is not an image. Upload a PNG, JPEG, WebP or GIF.",
+      "dosya_buyuk": "The image cannot be larger than 5 MB.",
+      "dosya_bos": "The selected file is empty.",
+      "proje_yok": "Project not found.",
+      "gunluk_sinir": "You've sent many reports today; please try again tomorrow.",
+      "ek_siniri": "A report can have at most 3 images.",
+      "zaten_gorev": "This report has already been turned into a task.",
+      "gorev_yok": "Turn it into a task first.",
+      "durum_gecersiz": "Invalid status.",
+      "modul_kapali": "This feature is turned off for your account.",
+      "ek_okunamadi": "The image could not be opened.",
+      "kayit_yok": "Record not found."
+    }
+  }
+}

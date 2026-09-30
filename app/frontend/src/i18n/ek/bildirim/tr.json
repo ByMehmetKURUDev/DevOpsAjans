@@ -42,7 +42,13 @@
       "sla_yaklasiyor": "SLA süresi doluyor",
       "sla_asildi": "SLA aşıldı (eskalasyon)",
       "aylik_rapor": "Aylık rapor yayınlandı",
-      "aylik_rapor_taslak": "Aylık rapor taslakları hazır"
+      "aylik_rapor_taslak": "Aylık rapor taslakları hazır",
+      "gorev_guncellendi": "Proje görevi incelemede / tamamlandı",
+      "revizyon_asildi": "Aylık revizyon hakkı aşıldı",
+      "geri_bildirim_yeni": "Yeni hata / geri bildirim",
+      "geri_bildirim_durumu": "Geri bildirimimin durumu değişti",
+      "duyuru": "Yeni duyuru",
+      "oneri_durumu": "Önerimin durumu değişti"
     },
     "kanal": {
       "inapp": "Panel",

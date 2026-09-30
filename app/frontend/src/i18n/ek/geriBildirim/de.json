@@ -1,0 +1,88 @@
+{
+  "geriBildirim": {
+    "dugme": "Fehler melden",
+    "dugmeAria": "Fehlerbericht oder Rückmeldung senden",
+    "baslik": "Fehler melden",
+    "aciklama": "Beschreiben Sie kurz, was passiert ist; ein Screenshot beschleunigt die Lösung. Browserdaten werden automatisch angehängt.",
+    "kapat": "Schließen",
+    "iptal": "Abbrechen",
+    "gonder": "Senden",
+    "gonderildi": "Ihre Meldung ist eingegangen. Wir informieren Sie, sobald sich der Status ändert.",
+    "yenile": "Aktualisieren",
+    "dosyaBuyuk": "Das Bild darf nicht größer als 5 MB sein.",
+    "dosyaTur": "Sie können nur Bilder hochladen (PNG, JPEG, WebP, GIF).",
+    "dosyaKaldir": "Bild entfernen",
+    "otomatik": "Automatisch angehängte Browserdaten: {{bilgi}}",
+    "alan": {
+      "tur": "Art",
+      "baslik": "Titel",
+      "aciklama": "Was ist passiert? Was haben Sie erwartet?",
+      "sayfa": "Seitenadresse",
+      "proje": "Betroffenes Projekt",
+      "projeSec": "Projekt wählen (optional)",
+      "ekran": "Screenshot",
+      "ekranIpucu": "Bild wählen · PNG, JPEG, WebP oder GIF · bis 5 MB",
+      "durum": "Status"
+    },
+    "tur": {
+      "hata": "Fehler",
+      "oneri": "Vorschlag",
+      "soru": "Frage"
+    },
+    "durum": {
+      "yeni": "Eingegangen",
+      "inceleniyor": "In Prüfung",
+      "gorev": "In Aufgabe umgewandelt",
+      "cozuldu": "Gelöst",
+      "kapatildi": "Geschlossen"
+    },
+    "oncelik": {
+      "dusuk": "Niedrig",
+      "normal": "Normal",
+      "yuksek": "Hoch",
+      "acil": "Dringend"
+    },
+    "benim": {
+      "baslik": "Meine Fehlermeldungen und Rückmeldungen",
+      "bos": "Sie haben noch keine Meldung gesendet. Nutzen Sie die Schaltfläche „Fehler melden“ unten rechts.",
+      "ekler": "{{sayi}} Bilder"
+    },
+    "yonetici": {
+      "baslik": "Rückmeldungen",
+      "aciklama": "Von Kunden über „Fehler melden“ gesendet. Bei Statusänderung wird der Kunde benachrichtigt; per Klick wird daraus eine Projektaufgabe.",
+      "filtreDurum": "Status",
+      "filtreTur": "Art",
+      "hepsi": "Alle",
+      "acik": "Nur offene",
+      "musteri": "Kunde",
+      "proje": "Projekt",
+      "projesiz": "Ohne Projekt",
+      "sayfa": "Seite",
+      "tarayici": "Browser",
+      "oncelik": "Priorität",
+      "donustur": "In Aufgabe umwandeln",
+      "donusturuldu": "Aufgabe erstellt; der Kunde wurde benachrichtigt.",
+      "gorevVar": "Aufgabe #{{id}}",
+      "ekGoster": "Screenshot anzeigen",
+      "bos": "Keine Rückmeldungen für diesen Filter."
+    },
+    "hata": {
+      "genel": "Die Aktion konnte nicht ausgeführt werden.",
+      "yuklenemedi": "Rückmeldungen konnten nicht geladen werden.",
+      "baslik_gerekli": "Bitte einen kurzen Titel eingeben.",
+      "tur_gecersiz": "Ungültige Art.",
+      "tur_desteklenmiyor": "Die Datei ist kein Bild. Laden Sie PNG, JPEG, WebP oder GIF hoch.",
+      "dosya_buyuk": "Das Bild darf nicht größer als 5 MB sein.",
+      "dosya_bos": "Die gewählte Datei ist leer.",
+      "proje_yok": "Projekt nicht gefunden.",
+      "gunluk_sinir": "Sie haben heute viele Meldungen gesendet; bitte versuchen Sie es morgen erneut.",
+      "ek_siniri": "Eine Meldung kann höchstens 3 Bilder haben.",
+      "zaten_gorev": "Diese Meldung wurde bereits in eine Aufgabe umgewandelt.",
+      "gorev_yok": "Bitte zuerst in eine Aufgabe umwandeln.",
+      "durum_gecersiz": "Ungültiger Status.",
+      "modul_kapali": "Diese Funktion ist für Ihr Konto deaktiviert.",
+      "ek_okunamadi": "Das Bild konnte nicht geöffnet werden.",
+      "kayit_yok": "Eintrag nicht gefunden."
+    }
+  }
+}
