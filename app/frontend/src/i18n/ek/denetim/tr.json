@@ -83,7 +83,8 @@
       "pricing_addons": "Fiyat eklentileri",
       "ai_pm_tiers": "AI-PM kademeleri",
       "pricing_inquiries": "Fiyat teklifleri",
-      "ayarlar": "Ortam ayarları"
+      "ayarlar": "Ortam ayarları",
+      "credit_ledger": "Kredi hareketleri"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

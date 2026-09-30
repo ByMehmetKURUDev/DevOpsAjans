@@ -45,7 +45,7 @@ MUSTERI_SINIRI = 50
 #: müşteriye henüz açılmamış şeylerin varlığı sızmasın diye liste kapalı.
 MUSTERI_TABLOLARI = (
     "projects", "invoices", "support_tickets", "payments",
-    "client_sites", "service_subscriptions", "users",
+    "client_sites", "service_subscriptions", "users", "credit_ledger",
 )
 
 _son_temizlik_gunu: Optional[date] = None

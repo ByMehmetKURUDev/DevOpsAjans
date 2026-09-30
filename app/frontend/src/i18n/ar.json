@@ -451,7 +451,9 @@
     "tabIcerik": "المحتوى",
     "tabSiteAnalizleri": "تحليلات المواقع",
     "tabAnaliz": "تحليل الموقع",
-    "tabDenetim": "سجل التغييرات"
+    "tabDenetim": "سجل التغييرات",
+    "tabKrediler": "الأرصدة",
+    "tabKredilerim": "أرصدتي"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

@@ -451,7 +451,9 @@
     "tabIcerik": "Inhalte",
     "tabSiteAnalizleri": "Website-Analysen",
     "tabAnaliz": "Website-Analyse",
-    "tabDenetim": "Änderungsprotokoll"
+    "tabDenetim": "Änderungsprotokoll",
+    "tabKrediler": "Credits",
+    "tabKredilerim": "Meine Credits"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

@@ -40,6 +40,7 @@ from models.invoices import Invoices
 from models.payments import Payments
 from models.site_settings import Site_settings
 from pydantic import BaseModel
+from services import kredi
 from services.musteri_sitesi import siteyi_hazirla
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -349,9 +350,12 @@ async def elle_tahsilat(
     # Tahsilat alındı: müşteri sitesi kaydı ve geri bildirim düğmesinin
     # jetonu burada açılıyor. Aynı işlemde yazılıyor.
     await _musteri_sitesini_ac(db, kayit)
+    # Fatura bir kredi paketiyse krediler de aynı işlemde yükleniyor.
+    kredi_ozeti = await kredi.odeme_kredilerini_yukle(db, fatura.id)
 
     await db.commit()
     await db.refresh(kayit)
+    await kredi.kredi_yuklendi_bildir(db, kredi_ozeti)
     return kayit
 
 
@@ -736,7 +740,9 @@ async def _lemon_odemesini_isle(
 
     await _faturayi_kapat(db, kayit)
     await _musteri_sitesini_ac(db, kayit)
+    kredi_ozeti = await kredi.odeme_kredilerini_yukle(db, kayit.invoice_id)
     await db.commit()
+    await kredi.kredi_yuklendi_bildir(db, kredi_ozeti)
 
     logger.info("Lemon odemesi islendi: kayit=%s siparis=%s", kayit.id, siparis.get("id"))
     return kayit.id, True
@@ -836,7 +842,10 @@ async def _odemeyi_isle(
     # Kart tahsilatında da aynı kural: ödeme düştü, müşteri sitesi
     # kaydı ve düğme jetonu kendiliğinden açılıyor.
     await _musteri_sitesini_ac(db, kayit)
+    # Kredi paketi faturasıysa krediler tahsilatla aynı işlemde yükleniyor.
+    kredi_ozeti = await kredi.odeme_kredilerini_yukle(db, kayit.invoice_id)
     await db.commit()
+    await kredi.kredi_yuklendi_bildir(db, kredi_ozeti)
 
     # Ödendikten sonra link ölmeli; olmazsa iş durmuyor, tahsilat alındı.
     if kayit.shopier_urun_id:

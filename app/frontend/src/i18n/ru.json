@@ -451,7 +451,9 @@
     "tabIcerik": "Контент",
     "tabSiteAnalizleri": "Анализы сайтов",
     "tabAnaliz": "Анализ сайта",
-    "tabDenetim": "Журнал изменений"
+    "tabDenetim": "Журнал изменений",
+    "tabKrediler": "Кредиты",
+    "tabKredilerim": "Мои кредиты"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

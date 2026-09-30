@@ -294,6 +294,9 @@ def _nesne_satiri(obj: Any, tur: str, baglam: DenetimBaglami) -> Optional[Dict[s
     ilgili = sozluk.get("client_email") if "client_email" in sozluk else None
     if tablo == "users":
         ilgili = sozluk.get("email")
+    elif ilgili is None and "musteri_eposta" in sozluk:
+        # Kredi defteri gibi sahibini `musteri_eposta` ile tutan tablolar.
+        ilgili = sozluk.get("musteri_eposta")
     ilgili = (str(ilgili).strip().lower() or None) if ilgili else None
 
     maskeli = _maskele(fark)

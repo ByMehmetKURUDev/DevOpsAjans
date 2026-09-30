@@ -451,7 +451,9 @@
     "tabIcerik": "İçerik",
     "tabSiteAnalizleri": "Site analizleri",
     "tabAnaliz": "Site analizi",
-    "tabDenetim": "Kayıt geçmişi"
+    "tabDenetim": "Kayıt geçmişi",
+    "tabKrediler": "Krediler",
+    "tabKredilerim": "Kredilerim"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

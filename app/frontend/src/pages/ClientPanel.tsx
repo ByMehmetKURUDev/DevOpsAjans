@@ -16,6 +16,7 @@ import {
   FileText,
   ShieldCheck,
   Gauge,
+  Coins,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -36,6 +37,9 @@ import { useSiteSettings } from '@/lib/siteSettings';
 const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
 // Profil altındaki "Hesap hareketleri" (denetim kaydının müşteriye açık kısmı).
 const HesapHareketleri = ekliLazy('denetim', () => import('@/components/HesapHareketleri'));
+// Kredilerim (Kullandıkça Öde) ve genel görünümdeki küçük bakiye kartı.
+const Kredilerim = ekliLazy('kredi', () => import('@/components/Kredilerim'));
+const KrediOzetKarti = ekliLazy('kredi', () => import('@/components/KrediOzetKarti'));
 
 interface AuthUser {
   id?: string;
@@ -85,7 +89,16 @@ interface Ticket {
   created_at?: string;
 }
 
-type Tab = 'projects' | 'invoices' | 'tickets' | 'raporlar' | 'sitem' | 'analiz' | 'profile';
+type Tab = 'projects' | 'invoices' | 'krediler' | 'tickets' | 'raporlar' | 'sitem' | 'analiz' | 'profile';
+
+const SEKMELER: Tab[] = ['projects', 'invoices', 'krediler', 'tickets', 'raporlar', 'sitem', 'analiz', 'profile'];
+
+/** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
+function ilkSekme(): Tab {
+  if (typeof window === 'undefined') return 'projects';
+  const istenen = new URLSearchParams(window.location.search).get('sekme') as Tab | null;
+  return istenen && SEKMELER.includes(istenen) ? istenen : 'projects';
+}
 
 
 export default function ClientPanel() {
@@ -98,7 +111,7 @@ export default function ClientPanel() {
     t(`ui.status.${status || fallbackKey}`, { defaultValue: status || '' });
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [tab, setTab] = useState<Tab>('projects');
+  const [tab, setTab] = useState<Tab>(ilkSekme);
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
@@ -285,6 +298,7 @@ export default function ClientPanel() {
   const TABS: { key: Tab; label: string; icon: typeof Briefcase }[] = [
     { key: 'projects', label: t('ui.tabMyProjects'), icon: Briefcase },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
+    { key: 'krediler', label: t('ui.tabKredilerim'), icon: Coins },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'raporlar', label: t('rapor.sekme'), icon: FileText },
     { key: 'sitem', label: t('sitem.sekme'), icon: ShieldCheck },
@@ -354,6 +368,10 @@ export default function ClientPanel() {
           </div>
         ))}
       </div>
+
+      <Suspense fallback={null}>
+        <KrediOzetKarti onAc={() => setTab('krediler')} />
+      </Suspense>
 
       {/* Tabs */}
       <div className="flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
@@ -747,6 +765,18 @@ export default function ClientPanel() {
               <h3 className="mb-4 text-lg font-semibold">{t('sitem.sekme')}</h3>
               <SiteBakimIzni />
             </div>
+          )}
+
+          {tab === 'krediler' && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <Kredilerim eposta={user.email} ad={user.name} />
+            </Suspense>
           )}
 
           {tab === 'analiz' && (

@@ -83,7 +83,8 @@
       "pricing_addons": "Ценовые дополнения",
       "ai_pm_tiers": "Уровни AI-PM",
       "pricing_inquiries": "Ценовые предложения",
-      "ayarlar": "Настройки окружения"
+      "ayarlar": "Настройки окружения",
+      "credit_ledger": "Движения кредитов"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

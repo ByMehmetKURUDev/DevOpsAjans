@@ -451,7 +451,9 @@
     "tabIcerik": "कंटेंट",
     "tabSiteAnalizleri": "साइट विश्लेषण",
     "tabAnaliz": "साइट विश्लेषण",
-    "tabDenetim": "बदलाव इतिहास"
+    "tabDenetim": "बदलाव इतिहास",
+    "tabKrediler": "क्रेडिट",
+    "tabKredilerim": "मेरे क्रेडिट"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

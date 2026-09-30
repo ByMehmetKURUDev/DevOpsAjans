@@ -451,7 +451,9 @@
     "tabIcerik": "Content",
     "tabSiteAnalizleri": "Site analyses",
     "tabAnaliz": "Site analysis",
-    "tabDenetim": "Audit log"
+    "tabDenetim": "Audit log",
+    "tabKrediler": "Credits",
+    "tabKredilerim": "My credits"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

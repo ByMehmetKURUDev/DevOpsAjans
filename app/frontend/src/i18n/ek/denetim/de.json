@@ -83,7 +83,8 @@
       "pricing_addons": "Preis-Add-ons",
       "ai_pm_tiers": "AI-PM-Stufen",
       "pricing_inquiries": "Preisangebote",
-      "ayarlar": "Umgebungseinstellungen"
+      "ayarlar": "Umgebungseinstellungen",
+      "credit_ledger": "Guthabenbewegungen"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

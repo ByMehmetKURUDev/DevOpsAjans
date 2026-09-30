@@ -83,7 +83,8 @@
       "pricing_addons": "Price add-ons",
       "ai_pm_tiers": "AI-PM tiers",
       "pricing_inquiries": "Price quotes",
-      "ayarlar": "Environment settings"
+      "ayarlar": "Environment settings",
+      "credit_ledger": "Credit ledger"
     },
     "hareket": {
       "baslik": "Account activity",
