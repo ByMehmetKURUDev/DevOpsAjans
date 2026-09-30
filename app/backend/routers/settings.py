@@ -1,10 +1,13 @@
 from pathlib import Path
 from typing import Dict
 
+from core.database import get_db
 from dependencies.auth import get_admin_user
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from schemas.auth import UserResponse
+from services.denetim import denetim_yaz
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter(prefix="/api/v1/admin/settings", tags=["admin-settings"])
 
@@ -49,6 +52,27 @@ def read_env_file(env_type: str) -> Dict[str, str]:
                 key, value = line.split("=", 1)
                 env_vars[key.strip()] = value.strip()
     return env_vars
+
+
+async def _ayari_denetle(db, kullanici, islem: str, env_type: str, key: str, eski, yeni) -> None:
+    """Ortam ayarı değişikliğini denetim kaydına yazar.
+
+    Veritabanına dokunmayan bir iş olduğu için oturum olayı görmüyor; elle
+    yazılıyor. Değerler çoğunlukla gizli anahtar: hepsi maskeli, yalnız
+    değişip değişmediği görünüyor.
+    """
+    await denetim_yaz(
+        db,
+        aktor=kullanici,
+        islem=islem,
+        tablo="ayarlar",
+        kayit_id=f"{env_type}:{key}",
+        ozet=f"{env_type} · {key}",
+        once={"deger": eski},
+        sonra={"deger": yeni},
+        maskele={"deger"},
+        commit=True,
+    )
 
 
 def write_env_file(env_type: str, env_vars: Dict[str, str]):
@@ -109,13 +133,18 @@ async def get_settings(current_user: UserResponse = Depends(get_admin_user)):
 
 @router.put("/backend/{key}")
 async def update_backend_setting(
-    key: str, update: EnvVariableUpdate, current_user: UserResponse = Depends(get_admin_user)
+    key: str,
+    update: EnvVariableUpdate,
+    current_user: UserResponse = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
 ):
     """Update a backend environment variable."""
     try:
         env_vars = read_env_file("backend")
+        eski = env_vars.get(key)
         env_vars[key] = update.value
         write_env_file("backend", env_vars)
+        await _ayari_denetle(db, current_user, "guncelle" if eski is not None else "olustur", "backend", key, eski, update.value)
         return {"message": f"Backend configuration '{key}' updated successfully; restart required to take effect."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to update configuration: {str(e)}")
@@ -123,13 +152,18 @@ async def update_backend_setting(
 
 @router.put("/frontend/{key}")
 async def update_frontend_setting(
-    key: str, update: EnvVariableUpdate, current_user: UserResponse = Depends(get_admin_user)
+    key: str,
+    update: EnvVariableUpdate,
+    current_user: UserResponse = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
 ):
     """Update a frontend environment variable."""
     try:
         env_vars = read_env_file("frontend")
+        eski = env_vars.get(key)
         env_vars[key] = update.value
         write_env_file("frontend", env_vars)
+        await _ayari_denetle(db, current_user, "guncelle" if eski is not None else "olustur", "frontend", key, eski, update.value)
         return {"message": f"Frontend configuration '{key}' updated successfully; restart required to take effect."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to update configuration: {str(e)}")
@@ -137,13 +171,18 @@ async def update_frontend_setting(
 
 @router.post("/backend/{key}")
 async def add_backend_setting(
-    key: str, update: EnvVariableUpdate, current_user: UserResponse = Depends(get_admin_user)
+    key: str,
+    update: EnvVariableUpdate,
+    current_user: UserResponse = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
 ):
     """Add a backend environment variable."""
     try:
         env_vars = read_env_file("backend")
+        eski = env_vars.get(key)
         env_vars[key] = update.value
         write_env_file("backend", env_vars)
+        await _ayari_denetle(db, current_user, "guncelle" if eski is not None else "olustur", "backend", key, eski, update.value)
         return {"message": f"Backend configuration '{key}' added successfully; restart required to take effect."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to add configuration: {str(e)}")
@@ -151,26 +190,36 @@ async def add_backend_setting(
 
 @router.post("/frontend/{key}")
 async def add_frontend_setting(
-    key: str, update: EnvVariableUpdate, current_user: UserResponse = Depends(get_admin_user)
+    key: str,
+    update: EnvVariableUpdate,
+    current_user: UserResponse = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
 ):
     """Add a frontend environment variable."""
     try:
         env_vars = read_env_file("frontend")
+        eski = env_vars.get(key)
         env_vars[key] = update.value
         write_env_file("frontend", env_vars)
+        await _ayari_denetle(db, current_user, "guncelle" if eski is not None else "olustur", "frontend", key, eski, update.value)
         return {"message": f"Frontend configuration '{key}' added successfully; restart required to take effect."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to add configuration: {str(e)}")
 
 
 @router.delete("/backend/{key}")
-async def delete_backend_setting(key: str, current_user: UserResponse = Depends(get_admin_user)):
+async def delete_backend_setting(
+    key: str,
+    current_user: UserResponse = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
     """Delete a backend environment variable."""
     try:
         env_vars = read_env_file("backend")
         if key in env_vars:
-            del env_vars[key]
+            eski = env_vars.pop(key)
             write_env_file("backend", env_vars)
+            await _ayari_denetle(db, current_user, "sil", "backend", key, eski, None)
             return {"message": f"Backend configuration '{key}' deleted successfully; restart required to take effect."}
         else:
             raise HTTPException(status_code=404, detail=f"Configuration item '{key}' does not exist")
@@ -179,13 +228,18 @@ async def delete_backend_setting(key: str, current_user: UserResponse = Depends(
 
 
 @router.delete("/frontend/{key}")
-async def delete_frontend_setting(key: str, current_user: UserResponse = Depends(get_admin_user)):
+async def delete_frontend_setting(
+    key: str,
+    current_user: UserResponse = Depends(get_admin_user),
+    db: AsyncSession = Depends(get_db),
+):
     """Delete a frontend environment variable."""
     try:
         env_vars = read_env_file("frontend")
         if key in env_vars:
-            del env_vars[key]
+            eski = env_vars.pop(key)
             write_env_file("frontend", env_vars)
+            await _ayari_denetle(db, current_user, "sil", "frontend", key, eski, None)
             return {"message": f"Frontend configuration '{key}' deleted successfully; restart required to take effect."}
         else:
             raise HTTPException(status_code=404, detail=f"Configuration item '{key}' does not exist")

@@ -64,6 +64,9 @@ async def initialize_pricing_seed():
         from scripts.seed_pricing_v5 import seed as seed_pricing_v5
 
         async with db_manager.async_session_maker() as session:
+            # Açılış tohumu bir kullanıcı işlemi değil; ilk açılışta yüzlerce
+            # "sistem" satırıyla denetim kaydını boğmasın.
+            session.info["denetim_kapali"] = True
             counts = await seed_pricing_v5(session)
         logger.info("Fiyatlandırma v5 seed kontrolü tamamlandı: %s", counts)
     except Exception as exc:  # pragma: no cover - defensive
@@ -75,6 +78,7 @@ async def initialize_pricing_seed():
         from scripts.pricing_ceviri_doldur import doldur as ceviri_doldur
 
         async with db_manager.async_session_maker() as session:
+            session.info["denetim_kapali"] = True
             sayac = await ceviri_doldur(session)
         logger.info("Fiyat kataloğu çevirileri: %s", sayac)
     except Exception as exc:  # pragma: no cover - defensive

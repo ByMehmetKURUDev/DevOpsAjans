@@ -1,0 +1,99 @@
+{
+  "denetim": {
+    "baslik": "Audit log",
+    "aciklama": "Every change written to the database from the panel and the site: who changed which record, when, and what. Click a row to see the old → new values per field. Entries are kept for 365 days; maintenance access to client sites is logged separately in the site log.",
+    "yenile": "Refresh",
+    "hata": "Could not load the audit log.",
+    "bos": "No entries match these filters.",
+    "dahaFazla": "Load more",
+    "gosterilen": "{{sayi}} of {{toplam}} entries",
+    "ozet": {
+      "toplam": "Total actions",
+      "sure": "Last {{sayi}} days",
+      "enCokTablo": "Most changed",
+      "enAktif": "Most active person",
+      "dagilim": "Actions by type",
+      "islemSayisi": "{{sayi}} actions"
+    },
+    "filtre": {
+      "kisi": "Person",
+      "kisiOrnek": "Search in email…",
+      "tablo": "Table",
+      "islem": "Action",
+      "hepsi": "All",
+      "baslangic": "From",
+      "bitis": "To",
+      "uygula": "Filter",
+      "temizle": "Clear filters"
+    },
+    "sutun": {
+      "zaman": "Time",
+      "kisi": "Person",
+      "islem": "Action",
+      "kayit": "Record",
+      "ozet": "Summary"
+    },
+    "islem": {
+      "olustur": "Created",
+      "guncelle": "Updated",
+      "sil": "Deleted",
+      "giris": "Sign-in",
+      "onay": "Permission",
+      "odeme": "Payment",
+      "diger": "Other"
+    },
+    "rol": {
+      "admin": "Admin",
+      "client": "Client",
+      "sistem": "System",
+      "anonim": "Visitor"
+    },
+    "fark": {
+      "alan": "Field",
+      "eski": "Old",
+      "yeni": "New",
+      "yok": "No field details.",
+      "bos": "(empty)",
+      "gizli": "hidden",
+      "evet": "yes",
+      "hayir": "no",
+      "istek": "Request",
+      "ip": "IP hash"
+    },
+    "tablo": {
+      "projects": "Projects",
+      "invoices": "Invoices",
+      "support_tickets": "Support tickets",
+      "ticket_replies": "Ticket messages",
+      "inquiries": "Contact messages",
+      "payments": "Payments",
+      "client_sites": "Client sites",
+      "service_subscriptions": "Subscriptions",
+      "service_reports": "Monthly reports",
+      "blog_posts": "Blog posts",
+      "content_posts": "Content calendar",
+      "site_settings": "Site settings",
+      "marketplace_items": "Marketplace",
+      "staff": "Team",
+      "users": "Account",
+      "project_events": "Project events",
+      "pricing_scales": "Price scales",
+      "pricing_profiles": "Price profiles",
+      "pricing_services": "Priced services",
+      "pricing_addons": "Price add-ons",
+      "ai_pm_tiers": "AI-PM tiers",
+      "pricing_inquiries": "Price quotes",
+      "ayarlar": "Environment settings"
+    },
+    "hareket": {
+      "baslik": "Account activity",
+      "aciklama": "Recent actions on your account and on your records (projects, invoices, support tickets, payments, sites).",
+      "bos": "No activity yet.",
+      "hata": "Could not load account activity.",
+      "siz": "You",
+      "ekip": "Our team",
+      "sistem": "System",
+      "ziyaretci": "Visitor"
+    }
+  }
+}

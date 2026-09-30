@@ -1,0 +1,99 @@
+{
+  "denetim": {
+    "baslik": "Kayıt geçmişi",
+    "aciklama": "Panelde ve sitede veritabanına yazılan her değişiklik: kim, ne zaman, hangi kaydı, neyi değiştirdi. Satıra tıklayınca alan bazında eski → yeni farkı açılır. Kayıtlar 365 gün saklanır; müşteri sitelerine yapılan bakım erişimleri ayrıca site günlüğünde.",
+    "yenile": "Yenile",
+    "hata": "Kayıt geçmişi yüklenemedi.",
+    "bos": "Bu filtrelere uyan kayıt yok.",
+    "dahaFazla": "Daha fazla yükle",
+    "gosterilen": "{{sayi}} / {{toplam}} kayıt",
+    "ozet": {
+      "toplam": "Toplam işlem",
+      "sure": "Son {{sayi}} gün",
+      "enCokTablo": "En çok değişen",
+      "enAktif": "En etkin kişi",
+      "dagilim": "İşlem dağılımı",
+      "islemSayisi": "{{sayi}} işlem"
+    },
+    "filtre": {
+      "kisi": "Kişi",
+      "kisiOrnek": "E-postada ara…",
+      "tablo": "Tablo",
+      "islem": "İşlem",
+      "hepsi": "Tümü",
+      "baslangic": "Başlangıç",
+      "bitis": "Bitiş",
+      "uygula": "Filtrele",
+      "temizle": "Filtreleri temizle"
+    },
+    "sutun": {
+      "zaman": "Zaman",
+      "kisi": "Kişi",
+      "islem": "İşlem",
+      "kayit": "Kayıt",
+      "ozet": "Özet"
+    },
+    "islem": {
+      "olustur": "Oluşturma",
+      "guncelle": "Güncelleme",
+      "sil": "Silme",
+      "giris": "Giriş",
+      "onay": "İzin / onay",
+      "odeme": "Ödeme",
+      "diger": "Diğer"
+    },
+    "rol": {
+      "admin": "Yönetici",
+      "client": "Müşteri",
+      "sistem": "Sistem",
+      "anonim": "Ziyaretçi"
+    },
+    "fark": {
+      "alan": "Alan",
+      "eski": "Eski",
+      "yeni": "Yeni",
+      "yok": "Alan ayrıntısı yok.",
+      "bos": "(boş)",
+      "gizli": "gizli",
+      "evet": "evet",
+      "hayir": "hayır",
+      "istek": "İstek",
+      "ip": "IP özeti"
+    },
+    "tablo": {
+      "projects": "Projeler",
+      "invoices": "Faturalar",
+      "support_tickets": "Destek talepleri",
+      "ticket_replies": "Talep mesajları",
+      "inquiries": "İletişim mesajları",
+      "payments": "Ödemeler",
+      "client_sites": "Müşteri siteleri",
+      "service_subscriptions": "Abonelikler",
+      "service_reports": "Aylık raporlar",
+      "blog_posts": "Blog yazıları",
+      "content_posts": "İçerik takvimi",
+      "site_settings": "Site ayarları",
+      "marketplace_items": "Pazar yeri",
+      "staff": "Ekip",
+      "users": "Hesap",
+      "project_events": "Proje olayları",
+      "pricing_scales": "Fiyat ölçekleri",
+      "pricing_profiles": "Fiyat profilleri",
+      "pricing_services": "Fiyat hizmetleri",
+      "pricing_addons": "Fiyat eklentileri",
+      "ai_pm_tiers": "AI-PM kademeleri",
+      "pricing_inquiries": "Fiyat teklifleri",
+      "ayarlar": "Ortam ayarları"
+    },
+    "hareket": {
+      "baslik": "Hesap hareketleri",
+      "aciklama": "Hesabınızda ve size ait kayıtlarda (projeler, faturalar, destek talepleri, ödemeler, siteler) yapılan son işlemler.",
+      "bos": "Henüz bir hareket yok.",
+      "hata": "Hesap hareketleri yüklenemedi.",
+      "siz": "Siz",
+      "ekip": "Ekibimiz",
+      "sistem": "Sistem",
+      "ziyaretci": "Ziyaretçi"
+    }
+  }
+}

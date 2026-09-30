@@ -24,8 +24,6 @@ aynı anda gelen istekler de sayılıyor.
 Ham IP saklanmıyor; yalnız sha256 özeti.
 """
 
-import hashlib
-import ipaddress
 import json
 import logging
 import os
@@ -45,6 +43,7 @@ from services import site_analizi as motor
 from services.notify import admin_recipients, dispatch, render
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
 
@@ -109,37 +108,10 @@ def _hata(kod: int, anahtar: str) -> HTTPException:
     return HTTPException(status_code=kod, detail={"kod": anahtar})
 
 
-def _istemci_ip(request: Request) -> str:
-    """İsteği yapanın IP'si.
-
-    1. X-MK-Istemci-IP: sitenin /api vekili (functions/api/[[path]].js)
-       ziyaretçinin CF-Connecting-IP değerini buna yazıyor. Vekil Render'a
-       Worker alt isteğiyle gittiği için Render'a varan CF-Connecting-IP
-       artık ziyaretçinin değil Worker'ın adresi olur — hepsi tek IP sayılırdı.
-       (Render adresine doğrudan gelen biri bu başlığı uydurabilir; o zaman
-       yalnız IP sınırını atlar, alan adı sınırı yine işler.)
-    2. CF-Connecting-IP: Cloudflare yazıyor, istemci değiştiremiyor.
-    3. X-Forwarded-For'un ilk değeri — istemci yazabildiği için en son.
-    4. Doğrudan bağlantıda soket adresi.
-    """
-    vekil = (request.headers.get("x-mk-istemci-ip") or "").strip()
-    if vekil:
-        try:
-            return str(ipaddress.ip_address(vekil))
-        except ValueError:
-            pass
-    cf = (request.headers.get("cf-connecting-ip") or "").strip()
-    if cf:
-        return cf
-    xff = (request.headers.get("x-forwarded-for") or "").split(",")[0].strip()
-    if xff:
-        return xff
-    return request.client.host if request.client else "bilinmiyor"
-
-
-def _ip_ozeti(ip: str) -> str:
-    tuz = os.environ.get("IP_OZET_TUZU", "")
-    return hashlib.sha256(f"{tuz}{ip}".encode("utf-8")).hexdigest()
+# IP yardımcıları ortak modülde (denetim kaydı da aynısını kullanıyor);
+# eski adlar testler ve bu dosyanın geri kalanı için korunuyor.
+_istemci_ip = istemci_ip
+_ip_ozeti = ip_ozeti
 
 
 def _eposta(kullanici: Any) -> str:

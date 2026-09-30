@@ -1,0 +1,99 @@
+{
+  "denetim": {
+    "baslik": "操作记录",
+    "aciklama": "通过后台和网站写入数据库的每一次更改：谁在何时修改了哪条记录、改了什么。点击某一行可查看各字段的旧值 → 新值。记录保留 365 天；对客户网站的维护访问另记在网站日志中。",
+    "yenile": "刷新",
+    "hata": "无法加载操作记录。",
+    "bos": "没有符合这些筛选条件的记录。",
+    "dahaFazla": "加载更多",
+    "gosterilen": "{{sayi}} / {{toplam}} 条记录",
+    "ozet": {
+      "toplam": "操作总数",
+      "sure": "最近 {{sayi}} 天",
+      "enCokTablo": "改动最多",
+      "enAktif": "最活跃的人",
+      "dagilim": "按类型统计",
+      "islemSayisi": "{{sayi}} 次操作"
+    },
+    "filtre": {
+      "kisi": "人员",
+      "kisiOrnek": "按邮箱搜索…",
+      "tablo": "数据表",
+      "islem": "操作",
+      "hepsi": "全部",
+      "baslangic": "开始日期",
+      "bitis": "结束日期",
+      "uygula": "筛选",
+      "temizle": "清除筛选"
+    },
+    "sutun": {
+      "zaman": "时间",
+      "kisi": "人员",
+      "islem": "操作",
+      "kayit": "记录",
+      "ozet": "摘要"
+    },
+    "islem": {
+      "olustur": "创建",
+      "guncelle": "修改",
+      "sil": "删除",
+      "giris": "登录",
+      "onay": "授权",
+      "odeme": "付款",
+      "diger": "其他"
+    },
+    "rol": {
+      "admin": "管理员",
+      "client": "客户",
+      "sistem": "系统",
+      "anonim": "访客"
+    },
+    "fark": {
+      "alan": "字段",
+      "eski": "旧值",
+      "yeni": "新值",
+      "yok": "没有字段详情。",
+      "bos": "（空）",
+      "gizli": "已隐藏",
+      "evet": "是",
+      "hayir": "否",
+      "istek": "请求",
+      "ip": "IP 摘要"
+    },
+    "tablo": {
+      "projects": "项目",
+      "invoices": "发票",
+      "support_tickets": "支持工单",
+      "ticket_replies": "工单消息",
+      "inquiries": "联系消息",
+      "payments": "付款",
+      "client_sites": "客户网站",
+      "service_subscriptions": "订阅",
+      "service_reports": "月度报告",
+      "blog_posts": "博客文章",
+      "content_posts": "内容日历",
+      "site_settings": "网站设置",
+      "marketplace_items": "市场",
+      "staff": "团队",
+      "users": "账户",
+      "project_events": "项目事件",
+      "pricing_scales": "价格档位",
+      "pricing_profiles": "价格方案",
+      "pricing_services": "计价服务",
+      "pricing_addons": "价格附加项",
+      "ai_pm_tiers": "AI-PM 等级",
+      "pricing_inquiries": "报价",
+      "ayarlar": "环境设置"
+    },
+    "hareket": {
+      "baslik": "账户动态",
+      "aciklama": "您的账户以及属于您的记录（项目、发票、支持工单、付款、网站）上的最近操作。",
+      "bos": "暂无动态。",
+      "hata": "无法加载账户动态。",
+      "siz": "您",
+      "ekip": "我们的团队",
+      "sistem": "系统",
+      "ziyaretci": "访客"
+    }
+  }
+}

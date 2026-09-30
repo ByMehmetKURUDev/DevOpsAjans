@@ -450,7 +450,8 @@
     "tabMarketplace": "Marketplace",
     "tabIcerik": "Inhalte",
     "tabSiteAnalizleri": "Website-Analysen",
-    "tabAnaliz": "Website-Analyse"
+    "tabAnaliz": "Website-Analyse",
+    "tabDenetim": "Änderungsprotokoll"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

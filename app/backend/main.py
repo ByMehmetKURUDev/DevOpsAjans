@@ -97,6 +97,12 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["*"],
 )
+
+# Denetim kaydı: her istekte "kim yapıyor" bağlamını kurar; kaydın kendisi
+# SQLAlchemy flush olayında yazılıyor (services/denetim.py).
+from middlewares.denetim_baglami import DenetimBaglamiMiddleware  # noqa: E402
+
+app.add_middleware(DenetimBaglamiMiddleware)
 # MODULE_MIDDLEWARE_END
 
 

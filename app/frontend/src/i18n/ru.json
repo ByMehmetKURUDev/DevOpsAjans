@@ -450,7 +450,8 @@
     "tabMarketplace": "Маркетплейс",
     "tabIcerik": "Контент",
     "tabSiteAnalizleri": "Анализы сайтов",
-    "tabAnaliz": "Анализ сайта"
+    "tabAnaliz": "Анализ сайта",
+    "tabDenetim": "Журнал изменений"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

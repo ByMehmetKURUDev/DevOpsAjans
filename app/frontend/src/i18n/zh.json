@@ -450,7 +450,8 @@
     "tabMarketplace": "商城",
     "tabIcerik": "内容",
     "tabSiteAnalizleri": "网站分析",
-    "tabAnaliz": "网站分析"
+    "tabAnaliz": "网站分析",
+    "tabDenetim": "操作记录"
   },
   "admin": {
     "loadError": "管理数据加载失败",

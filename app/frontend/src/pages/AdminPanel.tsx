@@ -30,6 +30,7 @@ import {
   Sparkles,
   DollarSign,
   Gauge,
+  History,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -81,6 +82,8 @@ const MusteriSiteleri = lazy(() => import('@/components/admin/MusteriSiteleri'))
 const FiyatlandirmaV5Paneli = lazy(() => import('@/components/admin/FiyatlandirmaV5Paneli'));
 // Herkese açık site analizlerinin listesi + tam rapor görünümü.
 const SiteAnalizleri = ekliLazy('siteAnalizi', () => import('@/components/admin/SiteAnalizleri'));
+// Denetim kaydı: kim, ne zaman, hangi kaydı, neyi değiştirdi.
+const KayitGecmisi = ekliLazy('denetim', () => import('@/components/admin/KayitGecmisi'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -189,6 +192,7 @@ type Tab =
   | 'tickets'
   | 'inquiries'
   | 'siteAnalizleri'
+  | 'denetim'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -822,6 +826,7 @@ export default function AdminPanel() {
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
+    { key: 'denetim', label: t('ui.tabDenetim'), icon: History },
   ];
 
   return (
@@ -943,6 +948,18 @@ export default function AdminPanel() {
           }
         >
           <SiteAnalizleri />
+        </Suspense>
+      )}
+
+      {tab === 'denetim' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <KayitGecmisi />
         </Suspense>
       )}
 

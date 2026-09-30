@@ -450,7 +450,8 @@
     "tabMarketplace": "Marketplace",
     "tabIcerik": "İçerik",
     "tabSiteAnalizleri": "Site analizleri",
-    "tabAnaliz": "Site analizi"
+    "tabAnaliz": "Site analizi",
+    "tabDenetim": "Kayıt geçmişi"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

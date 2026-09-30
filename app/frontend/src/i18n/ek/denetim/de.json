@@ -1,0 +1,99 @@
+{
+  "denetim": {
+    "baslik": "Änderungsprotokoll",
+    "aciklama": "Jede Änderung, die über das Panel oder die Website in die Datenbank geschrieben wird: wer wann welchen Datensatz wie geändert hat. Ein Klick auf eine Zeile zeigt alt → neu je Feld. Einträge werden 365 Tage aufbewahrt; Wartungszugriffe auf Kundenwebsites stehen separat im Website-Protokoll.",
+    "yenile": "Aktualisieren",
+    "hata": "Das Änderungsprotokoll konnte nicht geladen werden.",
+    "bos": "Keine Einträge passen zu diesen Filtern.",
+    "dahaFazla": "Mehr laden",
+    "gosterilen": "{{sayi}} von {{toplam}} Einträgen",
+    "ozet": {
+      "toplam": "Aktionen gesamt",
+      "sure": "Letzte {{sayi}} Tage",
+      "enCokTablo": "Am häufigsten geändert",
+      "enAktif": "Aktivste Person",
+      "dagilim": "Aktionen nach Art",
+      "islemSayisi": "{{sayi}} Aktionen"
+    },
+    "filtre": {
+      "kisi": "Person",
+      "kisiOrnek": "In E-Mail suchen…",
+      "tablo": "Tabelle",
+      "islem": "Aktion",
+      "hepsi": "Alle",
+      "baslangic": "Von",
+      "bitis": "Bis",
+      "uygula": "Filtern",
+      "temizle": "Filter zurücksetzen"
+    },
+    "sutun": {
+      "zaman": "Zeit",
+      "kisi": "Person",
+      "islem": "Aktion",
+      "kayit": "Datensatz",
+      "ozet": "Zusammenfassung"
+    },
+    "islem": {
+      "olustur": "Erstellt",
+      "guncelle": "Geändert",
+      "sil": "Gelöscht",
+      "giris": "Anmeldung",
+      "onay": "Freigabe",
+      "odeme": "Zahlung",
+      "diger": "Sonstiges"
+    },
+    "rol": {
+      "admin": "Administrator",
+      "client": "Kunde",
+      "sistem": "System",
+      "anonim": "Besucher"
+    },
+    "fark": {
+      "alan": "Feld",
+      "eski": "Alt",
+      "yeni": "Neu",
+      "yok": "Keine Felddetails.",
+      "bos": "(leer)",
+      "gizli": "verborgen",
+      "evet": "ja",
+      "hayir": "nein",
+      "istek": "Anfrage",
+      "ip": "IP-Hash"
+    },
+    "tablo": {
+      "projects": "Projekte",
+      "invoices": "Rechnungen",
+      "support_tickets": "Support-Tickets",
+      "ticket_replies": "Ticket-Nachrichten",
+      "inquiries": "Kontaktnachrichten",
+      "payments": "Zahlungen",
+      "client_sites": "Kundenwebsites",
+      "service_subscriptions": "Abonnements",
+      "service_reports": "Monatsberichte",
+      "blog_posts": "Blogbeiträge",
+      "content_posts": "Content-Kalender",
+      "site_settings": "Website-Einstellungen",
+      "marketplace_items": "Marktplatz",
+      "staff": "Team",
+      "users": "Konto",
+      "project_events": "Projektereignisse",
+      "pricing_scales": "Preisstufen",
+      "pricing_profiles": "Preisprofile",
+      "pricing_services": "Preisleistungen",
+      "pricing_addons": "Preis-Add-ons",
+      "ai_pm_tiers": "AI-PM-Stufen",
+      "pricing_inquiries": "Preisangebote",
+      "ayarlar": "Umgebungseinstellungen"
+    },
+    "hareket": {
+      "baslik": "Kontoaktivität",
+      "aciklama": "Letzte Aktionen in Ihrem Konto und an Ihren Datensätzen (Projekte, Rechnungen, Support-Tickets, Zahlungen, Websites).",
+      "bos": "Noch keine Aktivität.",
+      "hata": "Kontoaktivität konnte nicht geladen werden.",
+      "siz": "Sie",
+      "ekip": "Unser Team",
+      "sistem": "System",
+      "ziyaretci": "Besucher"
+    }
+  }
+}

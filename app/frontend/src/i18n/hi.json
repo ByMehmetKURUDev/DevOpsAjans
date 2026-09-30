@@ -450,7 +450,8 @@
     "tabMarketplace": "मार्केटप्लेस",
     "tabIcerik": "कंटेंट",
     "tabSiteAnalizleri": "साइट विश्लेषण",
-    "tabAnaliz": "साइट विश्लेषण"
+    "tabAnaliz": "साइट विश्लेषण",
+    "tabDenetim": "बदलाव इतिहास"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

@@ -450,7 +450,8 @@
     "tabMarketplace": "المتجر",
     "tabIcerik": "المحتوى",
     "tabSiteAnalizleri": "تحليلات المواقع",
-    "tabAnaliz": "تحليل الموقع"
+    "tabAnaliz": "تحليل الموقع",
+    "tabDenetim": "سجل التغييرات"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

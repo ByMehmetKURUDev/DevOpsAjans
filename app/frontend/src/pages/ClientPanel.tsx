@@ -34,6 +34,8 @@ import { useSiteSettings } from '@/lib/siteSettings';
 
 // Site analizi sekmesi ayrı parçada: rapor görünümü panele her girişte inmesin.
 const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
+// Profil altındaki "Hesap hareketleri" (denetim kaydının müşteriye açık kısmı).
+const HesapHareketleri = ekliLazy('denetim', () => import('@/components/HesapHareketleri'));
 
 interface AuthUser {
   id?: string;
@@ -760,71 +762,82 @@ export default function ClientPanel() {
           )}
 
           {tab === 'profile' && (
-            <div className="max-w-xl p-6 rounded-2xl glass">
-              <h3 className="text-lg font-semibold mb-4">{t('ui.profileSettings')}</h3>
-              <div className="space-y-4">
-                <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    {t('ui.emailReadonly')}
-                  </Label>
-                  <Input
-                    value={user.email || ''}
-                    disabled
-                    className="bg-white/5 border-white/10 opacity-70"
-                  />
-                </div>
-                <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    {t('ui.fullName')}
-                  </Label>
-                  <Input
-                    value={profile.name}
-                    onChange={(e) =>
-                      setProfile({ ...profile, name: e.target.value })
-                    }
-                    className="bg-white/5 border-white/10"
-                  />
-                </div>
-                <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    {t('ui.phone')}
-                  </Label>
-                  <Input
-                    value={profile.phone}
-                    onChange={(e) =>
-                      setProfile({ ...profile, phone: e.target.value })
-                    }
-                    className="bg-white/5 border-white/10"
-                  />
-                </div>
-                <div>
-                  <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    {t('ui.company')}
-                  </Label>
-                  <Input
-                    value={profile.company}
-                    onChange={(e) =>
-                      setProfile({ ...profile, company: e.target.value })
-                    }
-                    className="bg-white/5 border-white/10"
-                  />
-                </div>
-                <Button
-                  onClick={saveProfile}
-                  className="h-11 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
-                >
-                  {t('ui.save')}
-                </Button>
-                <p className="text-xs text-muted-foreground pt-2 border-t border-white/10">
-                  {t('ui.forQuestions')}:{' '}
-                  <a
-                    href={`mailto:${settings.contact_email}`}
-                    className="text-purple-400 hover:text-pink-400"
+            <div className="space-y-6">
+              <div className="max-w-xl p-6 rounded-2xl glass">
+                <h3 className="text-lg font-semibold mb-4">{t('ui.profileSettings')}</h3>
+                <div className="space-y-4">
+                  <div>
+                    <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
+                      {t('ui.emailReadonly')}
+                    </Label>
+                    <Input
+                      value={user.email || ''}
+                      disabled
+                      className="bg-white/5 border-white/10 opacity-70"
+                    />
+                  </div>
+                  <div>
+                    <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
+                      {t('ui.fullName')}
+                    </Label>
+                    <Input
+                      value={profile.name}
+                      onChange={(e) =>
+                        setProfile({ ...profile, name: e.target.value })
+                      }
+                      className="bg-white/5 border-white/10"
+                    />
+                  </div>
+                  <div>
+                    <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
+                      {t('ui.phone')}
+                    </Label>
+                    <Input
+                      value={profile.phone}
+                      onChange={(e) =>
+                        setProfile({ ...profile, phone: e.target.value })
+                      }
+                      className="bg-white/5 border-white/10"
+                    />
+                  </div>
+                  <div>
+                    <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
+                      {t('ui.company')}
+                    </Label>
+                    <Input
+                      value={profile.company}
+                      onChange={(e) =>
+                        setProfile({ ...profile, company: e.target.value })
+                      }
+                      className="bg-white/5 border-white/10"
+                    />
+                  </div>
+                  <Button
+                    onClick={saveProfile}
+                    className="h-11 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                   >
-                    {settings.contact_email}
-                  </a>
-                </p>
+                    {t('ui.save')}
+                  </Button>
+                  <p className="text-xs text-muted-foreground pt-2 border-t border-white/10">
+                    {t('ui.forQuestions')}:{' '}
+                    <a
+                      href={`mailto:${settings.contact_email}`}
+                      className="text-purple-400 hover:text-pink-400"
+                    >
+                      {settings.contact_email}
+                    </a>
+                  </p>
+                </div>
               </div>
+              <Suspense
+                fallback={
+                  <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                  </div>
+                }
+              >
+                <HesapHareketleri />
+              </Suspense>
             </div>
           )}
         </>

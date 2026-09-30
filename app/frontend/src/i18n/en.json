@@ -450,7 +450,8 @@
     "tabMarketplace": "Marketplace",
     "tabIcerik": "Content",
     "tabSiteAnalizleri": "Site analyses",
-    "tabAnaliz": "Site analysis"
+    "tabAnaliz": "Site analysis",
+    "tabDenetim": "Audit log"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
