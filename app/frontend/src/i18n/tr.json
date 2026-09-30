@@ -453,7 +453,8 @@
     "tabAnaliz": "Site analizi",
     "tabDenetim": "Kayıt geçmişi",
     "tabKrediler": "Krediler",
-    "tabKredilerim": "Kredilerim"
+    "tabKredilerim": "Kredilerim",
+    "tabIslemler": "İmzalı işlemler"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

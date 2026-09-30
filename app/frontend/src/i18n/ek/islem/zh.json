@@ -1,0 +1,220 @@
+{
+  "islem": {
+    "tur": {
+      "teklif_kabul": {
+        "baslik": "报价确认",
+        "aciklama": "请查看以下报价，一键接受或拒绝。无需登录。"
+      },
+      "teslimat_onay": {
+        "baslik": "交付确认",
+        "aciklama": "请查看项目本阶段的交付成果：确认通过，或告诉我们需要修改的内容。"
+      },
+      "rapor_goruntule": {
+        "baslik": "报告",
+        "aciklama": "请确认您已查看报告。"
+      }
+    },
+    "alan": {
+      "tutar": "金额",
+      "paket": "套餐",
+      "profil": "配置",
+      "donem": "计费周期",
+      "eklentiler": "附加项",
+      "aiPm": "AI vs PM",
+      "kredi": "额度",
+      "fatura": "发票号",
+      "proje": "项目",
+      "asama": "阶段",
+      "site": "网站",
+      "puan": "评分",
+      "not": "备注",
+      "sonKullanma": "有效期至"
+    },
+    "donem": {
+      "aylik": "按月",
+      "yillik": "按年",
+      "kullandikca_ode": "按用量付费",
+      "tek_seferlik": "一次性"
+    },
+    "krediPaketi": "{{sayi}} 额度套餐",
+    "inceleBaglantisi": "查看交付内容",
+    "eylem": {
+      "kabul": "接受",
+      "red": "拒绝",
+      "onay": "确认通过",
+      "revizyon": "要求修改",
+      "goruntulendi": "已查看"
+    },
+    "onay": {
+      "kabul": {
+        "baslik": "确定接受该报价吗？",
+        "metin": "您的决定会立即通知我们的团队。此链接仅可使用一次。",
+        "dugme": "是的，我接受"
+      },
+      "red": {
+        "baslik": "确定拒绝该报价吗？",
+        "metin": "如愿意，请告诉我们原因——我们可以据此调整报价。",
+        "dugme": "拒绝",
+        "notEtiket": "原因",
+        "notYertutucu": "例如：预算、范围、时间安排……"
+      },
+      "onay": {
+        "baslik": "确认通过此次交付吗？",
+        "metin": "您的确认将记录在项目中，我们将进入下一步。",
+        "dugme": "是的，确认通过"
+      },
+      "revizyon": {
+        "baslik": "修改请求",
+        "metin": "请描述需要修改的内容。您的请求将以支持工单的形式发送给我们的团队。",
+        "dugme": "要求修改",
+        "notEtiket": "需要修改什么？",
+        "notYertutucu": "例如：首页标题再短一些，联系表单增加电话字段……"
+      },
+      "goruntulendi": {
+        "baslik": "确认吗？",
+        "metin": "我们将记录您已查看该报告。",
+        "dugme": "确认"
+      }
+    },
+    "istegeBagli": "可选",
+    "vazgec": "取消",
+    "kapat": "关闭",
+    "yenile": "刷新",
+    "anaSayfa": "返回首页",
+    "alici": "此链接已发送至 {{eposta}}。",
+    "guvenlikNotu": "此链接为您专属，仅可使用一次。请勿分享给他人。",
+    "hata": {
+      "baslik": "出现问题",
+      "genel": "操作未能完成，请稍后重试。",
+      "ag": "无法连接服务器。请检查网络连接后重试。",
+      "sinir": "尝试次数过多，请等待一分钟后重试。",
+      "bulunamadi": "未找到此链接。",
+      "kullanildi": "此链接已被使用。",
+      "iptal": "此链接已被取消。",
+      "suresi_doldu": "此链接已过期。",
+      "gecersiz_sonuc": "该选项不适用于此操作。",
+      "not_gerekli": "请填写说明。",
+      "not_uzun": "文字最多 2000 个字符。",
+      "mesgul": "另一项操作正在同时进行，请重试。",
+      "tur_gecersiz": "无效的操作类型。",
+      "hedef_yok": "未找到所选记录。",
+      "hedef_gecersiz": "所选记录与该操作类型不匹配。",
+      "gun_gecersiz": "有效期必须在 1 到 90 天之间。",
+      "alici_gecersiz": "请输入有效的收件人邮箱。",
+      "durum_kullanildi": "已使用的链接无法更改。",
+      "durum_iptal": "此链接已被取消。",
+      "durum_suresi_doldu": "此链接已过期。"
+    },
+    "durum": {
+      "bulunamadi": {
+        "baslik": "未找到链接",
+        "metin": "地址可能复制不完整，或链接已更新。请使用您最近收到的邮件中的链接。"
+      },
+      "kullanildi": {
+        "baslik": "此链接已使用",
+        "metin": "已收到您的回复：{{sonuc}}（{{tarih}}）。谢谢。",
+        "metinSonucsuz": "此链接此前已被使用。"
+      },
+      "suresi_doldu": {
+        "baslik": "链接已过期",
+        "metin": "为保障安全，链接仅在有限时间内有效。请联系我们获取新链接，或打开您的客户面板。"
+      },
+      "iptal": {
+        "baslik": "链接已取消",
+        "metin": "此链接已失效。我们会另行发送最新链接。"
+      }
+    },
+    "sonucEkrani": {
+      "kabul": {
+        "baslik": "报价已接受",
+        "metin": "谢谢！我们的团队将很快就后续步骤与您联系。"
+      },
+      "red": {
+        "baslik": "报价已拒绝",
+        "metin": "我们已收到您的决定。如您填写了原因，我们会据此重新评估报价。"
+      },
+      "onay": {
+        "baslik": "交付已确认",
+        "metin": "谢谢！您的确认已记录到项目中。"
+      },
+      "revizyon": {
+        "baslik": "已收到修改请求",
+        "metin": "您的请求已发送给我们的团队，并已创建支持工单。更新后的交付准备好时我们会通知您。"
+      },
+      "goruntulendi": {
+        "baslik": "已记录",
+        "metin": "谢谢。"
+      }
+    },
+    "sonuc": {
+      "kabul": "已接受",
+      "red": "已拒绝",
+      "onay": "已确认",
+      "revizyon": "已要求修改",
+      "goruntulendi": "已查看"
+    },
+    "durumAdi": {
+      "bekliyor": "待处理",
+      "kullanildi": "已使用",
+      "iptal": "已取消",
+      "suresi_doldu": "已过期"
+    },
+    "teklifDurumu": {
+      "bekliyor": "等待决定",
+      "kabul": "已接受",
+      "red": "已拒绝"
+    },
+    "musteri": {
+      "baslik": "等待您确认",
+      "aciklama": "等待您决定的报价和交付。您可以在这里完成与邮件链接相同的操作。"
+    },
+    "yonetim": {
+      "baslik": "签名操作",
+      "aciklama": "向客户发送一个无需登录、一键决定的链接：接受报价或确认交付。链接仅在创建时显示一次。",
+      "yeni": "新建链接",
+      "tur": "操作类型",
+      "hedef": {
+        "teklif_kabul": "报价",
+        "teslimat_onay": "项目"
+      },
+      "hedefSec": "请选择…",
+      "hedefYok": "暂无记录",
+      "alici": "收件人邮箱",
+      "gun": "有效期（天，1–90）",
+      "not": "给客户的备注",
+      "notYertutucu": "随链接显示的简短备注",
+      "teslimBaglantisi": "交付链接（预览、文件）",
+      "ilerlet": "确认后将项目推进到下一阶段",
+      "epostaGonder": "同时通过邮件将链接发送给客户",
+      "olustur": "创建链接",
+      "olusturuldu": "链接已创建。",
+      "baglantiHazir": "链接已就绪",
+      "kopyala": "复制",
+      "kopyalandi": "已复制",
+      "birKezUyari": "此链接不会再次显示：服务器只保存其哈希值。请立即复制；如丢失，可用“更新”生成新链接。",
+      "epostaGitti": "链接已通过邮件发送至 {{eposta}}。",
+      "tumTurler": "全部类型",
+      "durumSutun": "状态",
+      "tumDurumlar": "全部状态",
+      "bos": "暂无签名操作链接。",
+      "sonKullanmaKisa": "截止：{{tarih}}",
+      "kullanildiKisa": "回复：{{tarih}}",
+      "iptal": "取消链接",
+      "yenileDugme": "更新",
+      "onayBaslik": "确定吗？",
+      "devam": "继续",
+      "iptalOnay": "链接“{{baslik}}”（{{eposta}}）将被取消，之后无法再使用。",
+      "iptalEdildi": "链接已取消。",
+      "yenileOnayBekleyen": "将为“{{baslik}}”（{{eposta}}）生成新链接，旧链接将被取消。",
+      "yenileOnay": "将为“{{baslik}}”（{{eposta}}）生成新链接。"
+    },
+    "kisayol": {
+      "baslik": "请求客户确认",
+      "aciklama": "向 {{eposta}} 发送无需登录的一键确认链接。客户可以确认通过或要求修改。",
+      "dugme": "请求客户确认",
+      "notYertutucu": "交付说明（例如哪些页面已完成）",
+      "baglantiYertutucu": "预览链接（可选）— https://…",
+      "gonder": "创建链接"
+    }
+  }
+}

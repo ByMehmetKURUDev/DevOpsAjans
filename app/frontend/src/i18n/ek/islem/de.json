@@ -1,0 +1,220 @@
+{
+  "islem": {
+    "tur": {
+      "teklif_kabul": {
+        "baslik": "Angebotsfreigabe",
+        "aciklama": "Prüfen Sie das Angebot unten und nehmen Sie es mit einem Klick an oder lehnen Sie es ab. Keine Anmeldung nötig."
+      },
+      "teslimat_onay": {
+        "baslik": "Lieferfreigabe",
+        "aciklama": "Prüfen Sie die Lieferung dieser Projektphase; geben Sie sie frei oder schreiben Sie uns, was geändert werden soll."
+      },
+      "rapor_goruntule": {
+        "baslik": "Bericht",
+        "aciklama": "Bestätigen Sie, dass Sie Ihren Bericht gesehen haben."
+      }
+    },
+    "alan": {
+      "tutar": "Betrag",
+      "paket": "Paket",
+      "profil": "Profil",
+      "donem": "Abrechnungszeitraum",
+      "eklentiler": "Erweiterungen",
+      "aiPm": "AI vs PM",
+      "kredi": "Guthaben",
+      "fatura": "Rechnungsnr.",
+      "proje": "Projekt",
+      "asama": "Phase",
+      "site": "Website",
+      "puan": "Punktzahl",
+      "not": "Hinweis",
+      "sonKullanma": "Gültig bis"
+    },
+    "donem": {
+      "aylik": "Monatlich",
+      "yillik": "Jährlich",
+      "kullandikca_ode": "Nach Verbrauch",
+      "tek_seferlik": "Einmalig"
+    },
+    "krediPaketi": "Paket mit {{sayi}} Credits",
+    "inceleBaglantisi": "Lieferung ansehen",
+    "eylem": {
+      "kabul": "Annehmen",
+      "red": "Ablehnen",
+      "onay": "Freigeben",
+      "revizyon": "Änderungen anfordern",
+      "goruntulendi": "Gesehen"
+    },
+    "onay": {
+      "kabul": {
+        "baslik": "Angebot annehmen?",
+        "metin": "Ihre Entscheidung erreicht unser Team sofort. Dieser Link kann nur einmal verwendet werden.",
+        "dugme": "Ja, ich nehme an"
+      },
+      "red": {
+        "baslik": "Angebot ablehnen?",
+        "metin": "Wenn Sie möchten, nennen Sie uns den Grund – wir können das Angebot entsprechend überarbeiten.",
+        "dugme": "Ablehnen",
+        "notEtiket": "Begründung",
+        "notYertutucu": "Zum Beispiel: Budget, Umfang, Zeitplan…"
+      },
+      "onay": {
+        "baslik": "Lieferung freigeben?",
+        "metin": "Ihre Freigabe wird im Projekt gespeichert und wir gehen zum nächsten Schritt über.",
+        "dugme": "Ja, ich gebe frei"
+      },
+      "revizyon": {
+        "baslik": "Änderungen anfordern",
+        "metin": "Beschreiben Sie, was geändert werden soll. Ihre Anfrage erreicht unser Team als Support-Ticket.",
+        "dugme": "Änderungen anfordern",
+        "notEtiket": "Was soll sich ändern?",
+        "notYertutucu": "Zum Beispiel: kürzere Überschrift auf der Startseite, Telefonfeld im Kontaktformular…"
+      },
+      "goruntulendi": {
+        "baslik": "Bestätigen?",
+        "metin": "Wir speichern, dass Sie den Bericht gesehen haben.",
+        "dugme": "Bestätigen"
+      }
+    },
+    "istegeBagli": "optional",
+    "vazgec": "Abbrechen",
+    "kapat": "Schließen",
+    "yenile": "Aktualisieren",
+    "anaSayfa": "Zur Startseite",
+    "alici": "Dieser Link wurde an {{eposta}} gesendet.",
+    "guvenlikNotu": "Dieser Link ist persönlich und nur einmal verwendbar. Bitte nicht weitergeben.",
+    "hata": {
+      "baslik": "Etwas ist schiefgelaufen",
+      "genel": "Die Aktion konnte nicht ausgeführt werden. Bitte versuchen Sie es gleich noch einmal.",
+      "ag": "Der Server ist nicht erreichbar. Prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+      "sinir": "Zu viele Versuche. Bitte warten Sie eine Minute und versuchen Sie es erneut.",
+      "bulunamadi": "Dieser Link wurde nicht gefunden.",
+      "kullanildi": "Dieser Link wurde bereits verwendet.",
+      "iptal": "Dieser Link wurde storniert.",
+      "suresi_doldu": "Dieser Link ist abgelaufen.",
+      "gecersiz_sonuc": "Diese Auswahl ist für diese Aktion ungültig.",
+      "not_gerekli": "Bitte schreiben Sie eine kurze Beschreibung.",
+      "not_uzun": "Der Text darf höchstens 2000 Zeichen lang sein.",
+      "mesgul": "Gleichzeitig läuft eine andere Aktion. Bitte versuchen Sie es erneut.",
+      "tur_gecersiz": "Ungültiger Aktionstyp.",
+      "hedef_yok": "Der gewählte Datensatz wurde nicht gefunden.",
+      "hedef_gecersiz": "Der gewählte Datensatz passt nicht zu diesem Aktionstyp.",
+      "gun_gecersiz": "Die Gültigkeit muss zwischen 1 und 90 Tagen liegen.",
+      "alici_gecersiz": "Geben Sie eine gültige Empfänger-E-Mail ein.",
+      "durum_kullanildi": "Ein verwendeter Link kann nicht geändert werden.",
+      "durum_iptal": "Dieser Link ist bereits storniert.",
+      "durum_suresi_doldu": "Dieser Link ist bereits abgelaufen."
+    },
+    "durum": {
+      "bulunamadi": {
+        "baslik": "Link nicht gefunden",
+        "metin": "Die Adresse wurde möglicherweise unvollständig kopiert oder der Link wurde erneuert. Bitte verwenden Sie den Link aus der neuesten E-Mail."
+      },
+      "kullanildi": {
+        "baslik": "Dieser Link wurde verwendet",
+        "metin": "Ihre Antwort ist eingegangen: {{sonuc}} ({{tarih}}). Vielen Dank.",
+        "metinSonucsuz": "Dieser Link wurde bereits verwendet."
+      },
+      "suresi_doldu": {
+        "baslik": "Dieser Link ist abgelaufen",
+        "metin": "Zu Ihrer Sicherheit sind Links nur begrenzt gültig. Kontaktieren Sie uns für einen neuen Link oder öffnen Sie Ihr Kundenpanel."
+      },
+      "iptal": {
+        "baslik": "Dieser Link wurde storniert",
+        "metin": "Dieser Link ist nicht mehr gültig. Sie erhalten separat einen aktuellen Link."
+      }
+    },
+    "sonucEkrani": {
+      "kabul": {
+        "baslik": "Angebot angenommen",
+        "metin": "Vielen Dank! Unser Team meldet sich in Kürze wegen der nächsten Schritte."
+      },
+      "red": {
+        "baslik": "Angebot abgelehnt",
+        "metin": "Wir haben Ihre Entscheidung erhalten. Falls Sie einen Grund genannt haben, prüfen wir das Angebot entsprechend."
+      },
+      "onay": {
+        "baslik": "Lieferung freigegeben",
+        "metin": "Vielen Dank! Ihre Freigabe wurde im Projekt gespeichert."
+      },
+      "revizyon": {
+        "baslik": "Änderungswunsch erhalten",
+        "metin": "Ihre Anfrage wurde an unser Team weitergeleitet und ein Support-Ticket eröffnet. Wir melden uns, sobald die aktualisierte Lieferung bereitsteht."
+      },
+      "goruntulendi": {
+        "baslik": "Gespeichert",
+        "metin": "Vielen Dank."
+      }
+    },
+    "sonuc": {
+      "kabul": "Angenommen",
+      "red": "Abgelehnt",
+      "onay": "Freigegeben",
+      "revizyon": "Änderungen angefordert",
+      "goruntulendi": "Gesehen"
+    },
+    "durumAdi": {
+      "bekliyor": "Ausstehend",
+      "kullanildi": "Verwendet",
+      "iptal": "Storniert",
+      "suresi_doldu": "Abgelaufen"
+    },
+    "teklifDurumu": {
+      "bekliyor": "Entscheidung ausstehend",
+      "kabul": "angenommen",
+      "red": "abgelehnt"
+    },
+    "musteri": {
+      "baslik": "Warten auf Ihre Freigabe",
+      "aciklama": "Angebote und Lieferungen, die auf Ihre Entscheidung warten. Hier geht dasselbe wie mit dem Link aus der E-Mail."
+    },
+    "yonetim": {
+      "baslik": "Signierte Aktionen",
+      "aciklama": "Senden Sie dem Kunden einen Link, mit dem er ohne Anmeldung per Klick entscheidet: Angebotsannahme oder Lieferfreigabe. Der Link wird nur beim Erstellen angezeigt.",
+      "yeni": "Neuer Link",
+      "tur": "Aktionstyp",
+      "hedef": {
+        "teklif_kabul": "Angebot",
+        "teslimat_onay": "Projekt"
+      },
+      "hedefSec": "Auswählen…",
+      "hedefYok": "Keine Einträge",
+      "alici": "Empfänger-E-Mail",
+      "gun": "Gültigkeit (Tage, 1–90)",
+      "not": "Hinweis an den Kunden",
+      "notYertutucu": "Kurzer Hinweis, der mit dem Link angezeigt wird",
+      "teslimBaglantisi": "Lieferlink (Vorschau, Datei)",
+      "ilerlet": "Projekt nach Freigabe in die nächste Phase verschieben",
+      "epostaGonder": "Link zusätzlich per E-Mail an den Kunden senden",
+      "olustur": "Link erstellen",
+      "olusturuldu": "Link erstellt.",
+      "baglantiHazir": "Link bereit",
+      "kopyala": "Kopieren",
+      "kopyalandi": "Kopiert",
+      "birKezUyari": "Dieser Link wird nicht erneut angezeigt: Der Server speichert nur seinen Hash. Jetzt kopieren; falls er verloren geht, mit „Erneuern“ einen neuen erstellen.",
+      "epostaGitti": "Der Link wurde per E-Mail an {{eposta}} gesendet.",
+      "tumTurler": "Alle Typen",
+      "durumSutun": "Status",
+      "tumDurumlar": "Alle Status",
+      "bos": "Noch keine signierten Aktionslinks.",
+      "sonKullanmaKisa": "bis: {{tarih}}",
+      "kullanildiKisa": "beantwortet: {{tarih}}",
+      "iptal": "Stornieren",
+      "yenileDugme": "Erneuern",
+      "onayBaslik": "Sind Sie sicher?",
+      "devam": "Fortfahren",
+      "iptalOnay": "Der Link „{{baslik}}“ ({{eposta}}) wird storniert und kann nicht mehr verwendet werden.",
+      "iptalEdildi": "Link storniert.",
+      "yenileOnayBekleyen": "Für „{{baslik}}“ wird ein neuer Link erstellt ({{eposta}}). Der alte Link wird storniert.",
+      "yenileOnay": "Für „{{baslik}}“ wird ein neuer Link erstellt ({{eposta}})."
+    },
+    "kisayol": {
+      "baslik": "Kundenfreigabe anfordern",
+      "aciklama": "Senden Sie {{eposta}} einen Freigabelink – ein Klick, keine Anmeldung. Der Kunde kann freigeben oder Änderungen anfordern.",
+      "dugme": "Kundenfreigabe anfordern",
+      "notYertutucu": "Lieferhinweis (z. B. welche Seiten fertig sind)",
+      "baglantiYertutucu": "Vorschaulink (optional) — https://…",
+      "gonder": "Link erstellen"
+    }
+  }
+}

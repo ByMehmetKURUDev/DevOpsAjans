@@ -32,6 +32,7 @@ import {
   Gauge,
   History,
   Coins,
+  Link2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -87,6 +88,8 @@ const SiteAnalizleri = ekliLazy('siteAnalizi', () => import('@/components/admin/
 const KayitGecmisi = ekliLazy('denetim', () => import('@/components/admin/KayitGecmisi'));
 // Kredi defteri (Kullandıkça Öde): bakiye, harcama, kredi ekleme.
 const KrediDefteri = ekliLazy('kredi', () => import('@/components/admin/KrediDefteri'));
+// İmzalı işlem bağlantıları (girişsiz tek tıkla teklif kabulü / teslim onayı).
+const ImzaliIslemler = ekliLazy('islem', () => import('@/components/admin/ImzaliIslemler'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -197,6 +200,7 @@ type Tab =
   | 'siteAnalizleri'
   | 'denetim'
   | 'krediler'
+  | 'islemler'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -829,6 +833,7 @@ export default function AdminPanel() {
     { key: 'siteler', label: t('site.sekme'), icon: Globe },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
+    { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
     { key: 'denetim', label: t('ui.tabDenetim'), icon: History },
@@ -953,6 +958,18 @@ export default function AdminPanel() {
           }
         >
           <SiteAnalizleri />
+        </Suspense>
+      )}
+
+      {tab === 'islemler' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <ImzaliIslemler />
         </Suspense>
       )}
 

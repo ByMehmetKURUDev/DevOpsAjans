@@ -453,7 +453,8 @@
     "tabAnaliz": "साइट विश्लेषण",
     "tabDenetim": "बदलाव इतिहास",
     "tabKrediler": "क्रेडिट",
-    "tabKredilerim": "मेरे क्रेडिट"
+    "tabKredilerim": "मेरे क्रेडिट",
+    "tabIslemler": "हस्ताक्षरित कार्रवाइयाँ"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

@@ -42,6 +42,8 @@ const BildirimTercihleri = ekliLazy('bildirim', () => import('@/components/Bildi
 // Kredilerim (Kullandıkça Öde) ve genel görünümdeki küçük bakiye kartı.
 const Kredilerim = ekliLazy('kredi', () => import('@/components/Kredilerim'));
 const KrediOzetKarti = ekliLazy('kredi', () => import('@/components/KrediOzetKarti'));
+// Onay bekleyen imzalı işlemler (teklif kabulü, teslim onayı) — yoksa hiç çizilmez.
+const OnayBekleyenler = ekliLazy('islem', () => import('@/components/OnayBekleyenler'));
 
 interface AuthUser {
   id?: string;
@@ -324,6 +326,11 @@ export default function ClientPanel() {
           </span>
         </p>
       </div>
+
+      {/* Genel görünümün en üstü: müşterinin kararını bekleyen işler. */}
+      <Suspense fallback={null}>
+        <OnayBekleyenler onDegisti={loadData} />
+      </Suspense>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-10">
         {[

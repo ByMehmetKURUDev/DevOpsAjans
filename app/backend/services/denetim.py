@@ -138,6 +138,25 @@ def baglam_birak(jeton) -> None:
         pass
 
 
+def aktor_ata(eposta: Optional[str], rol: str = "client") -> None:
+    """Bu isteğin geri kalanındaki yazımların aktörünü elle belirler.
+
+    Oturumsuz ama kimliği başka yoldan bilinen işlemler için: imzalı işlem
+    bağlantısını (`/islem/<jeton>`) açan kişi oturum açmamış olsa da
+    bağlantının gönderildiği adres belli. Bu çağrıdan sonra düşen denetim
+    satırları "anonim" yerine o e-postayla yazılıyor. IP ve istek yolu
+    istekten çözülmeye devam ediyor.
+    """
+    baglam = _BAGLAM.get()
+    if baglam is None:
+        # İstek dışı (test, betik): bağlamı bu görev için kur.
+        baglam = DenetimBaglami()
+        _BAGLAM.set(baglam)
+    baglam.coz()
+    baglam.aktor_eposta = (eposta or "").strip().lower() or None
+    baglam.aktor_rol = rol if rol in ROLLER else "client"
+
+
 def _gecerli_baglam() -> DenetimBaglami:
     baglam = _BAGLAM.get()
     return baglam.coz() if baglam is not None else DenetimBaglami()

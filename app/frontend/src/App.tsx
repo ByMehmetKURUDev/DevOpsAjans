@@ -26,6 +26,7 @@ const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));
 const YolHaritasi = lazy(() => import('./pages/YolHaritasi'));
 const SiteAnalizi = ekliLazy('siteAnalizi', () => import('./pages/SiteAnalizi'));
 const SiteRaporu = ekliLazy('siteAnalizi', () => import('./pages/SiteRaporu'));
+const IslemSayfasi = ekliLazy('islem', () => import('./pages/IslemSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,8 @@ const AppRoutes = () => (
         <Route path="/ode/:jeton" element={<OdemeSayfasi />} />
         {/* E-postayla giden tam site analiz raporu. Oturum istemiyor, noindex. */}
         <Route path="/rapor/:jeton" element={<SiteRaporu />} />
+        {/* İmzalı işlem bağlantısı (teklif kabulü, teslim onayı). Oturum istemiyor, noindex. */}
+        <Route path="/islem/:jeton" element={<IslemSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

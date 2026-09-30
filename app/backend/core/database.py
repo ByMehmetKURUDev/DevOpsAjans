@@ -344,6 +344,26 @@ class DatabaseManager:
             "tur_pg": "VARCHAR",
             "tur_sqlite": "TEXT",
         },
+        # Faz 1E — teklife musterinin verdigi karar (imzali islem baglantisi).
+        # Eski teklifler NULL kaliyor: "karar yok" ile "bekliyor" ayni sey.
+        {
+            "tablo": "pricing_inquiries",
+            "sutun": "durum",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "pricing_inquiries",
+            "sutun": "durum_notu",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "pricing_inquiries",
+            "sutun": "durum_at",
+            "tur_pg": "TIMESTAMPTZ",
+            "tur_sqlite": "TIMESTAMP",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

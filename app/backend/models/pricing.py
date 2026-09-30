@@ -131,3 +131,10 @@ class Pricing_inquiries(Base):
     kaynak = Column(String, nullable=True, default="website")
     invoice_id = Column(Integer, ForeignKey("invoices.id"), nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
+    # Faz 1E — müşterinin teklife verdiği karar (imzalı işlem bağlantısı ya da
+    # müşteri paneli). NULL = henüz karar yok ("bekliyor" sayılıyor).
+    # bekliyor | kabul | red
+    durum = Column(String, nullable=True)
+    # Red gerekçesi (müşterinin yazdığı).
+    durum_notu = Column(Text, nullable=True)
+    durum_at = Column(DateTime(timezone=True), nullable=True)

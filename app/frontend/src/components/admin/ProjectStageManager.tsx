@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Loader2, Send, StickyNote } from 'lucide-react';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +7,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import ProjectTimeline from '@/components/ProjectTimeline';
+import { ekliLazy } from '@/i18n/ekliLazy';
 import { addProjectNote, fetchStages, setProjectStage, type Stage } from '@/lib/projectEvents';
+
+// "Müşteri onayı iste" kısa yolu ayrı parçada (islem ek paketiyle birlikte iner).
+const MusteriOnayiIste = ekliLazy('islem', () => import('@/components/admin/MusteriOnayiIste'));
+
+/** Teslimin müşteriye gösterildiği aşamalar: onay kısa yolu yalnız bunlarda. */
+const TESLIM_ASAMALARI = ['review', 'launch'];
 
 interface ProjectStageManagerProps {
   projectId: number;
@@ -171,6 +178,13 @@ export default function ProjectStageManager({
           {t('projectStages.saveStage')}
         </Button>
       </section>
+
+      {/* Teslim aşamasında: girişsiz tek tıkla müşteri onayı */}
+      {clientEmail && currentStage && TESLIM_ASAMALARI.includes(currentStage) && (
+        <Suspense fallback={null}>
+          <MusteriOnayiIste projectId={projectId} clientEmail={clientEmail} />
+        </Suspense>
+      )}
 
       {/* Not / dosya */}
       <section className="rounded-2xl border border-white/10 bg-white/[0.02] p-5">

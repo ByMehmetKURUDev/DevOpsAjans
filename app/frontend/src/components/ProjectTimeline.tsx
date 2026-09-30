@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FileText, Flag, Loader2, MessageSquare, Paperclip } from 'lucide-react';
+import { CheckCircle2, FileText, Flag, Loader2, MessageSquare, MessageSquareWarning, Paperclip } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { fetchProjectEvents, type ProjectEvent } from '@/lib/projectEvents';
 
@@ -17,6 +17,9 @@ const IKONLAR: Record<string, typeof Flag> = {
   note: MessageSquare,
   file: Paperclip,
   delivery: FileText,
+  // İmzalı işlem bağlantısından gelen müşteri kararları.
+  client_approval: CheckCircle2,
+  revision_request: MessageSquareWarning,
 };
 
 /**

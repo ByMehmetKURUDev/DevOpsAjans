@@ -453,7 +453,8 @@
     "tabAnaliz": "تحليل الموقع",
     "tabDenetim": "سجل التغييرات",
     "tabKrediler": "الأرصدة",
-    "tabKredilerim": "أرصدتي"
+    "tabKredilerim": "أرصدتي",
+    "tabIslemler": "الإجراءات الموقّعة"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

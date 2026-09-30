@@ -453,7 +453,8 @@
     "tabAnaliz": "Анализ сайта",
     "tabDenetim": "Журнал изменений",
     "tabKrediler": "Кредиты",
-    "tabKredilerim": "Мои кредиты"
+    "tabKredilerim": "Мои кредиты",
+    "tabIslemler": "Подписанные действия"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

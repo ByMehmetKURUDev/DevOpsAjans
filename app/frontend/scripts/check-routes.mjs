@@ -41,6 +41,8 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/ode/:jeton',
   // Site analiz raporu da jetona özel (e-postayla gidiyor), noindex.
   '/rapor/:jeton',
+  // İmzalı işlem bağlantısı: jetona özel, girişsiz karar sayfası, noindex.
+  '/islem/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

@@ -453,7 +453,8 @@
     "tabAnaliz": "Site analysis",
     "tabDenetim": "Audit log",
     "tabKrediler": "Credits",
-    "tabKredilerim": "My credits"
+    "tabKredilerim": "My credits",
+    "tabIslemler": "Signed actions"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

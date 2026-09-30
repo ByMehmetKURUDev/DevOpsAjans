@@ -374,6 +374,8 @@ export const NOINDEX_ROUTES = [
   '/cevrimdisi',
   // Jetonlu site analiz raporu (/rapor/<jeton>); kisiye ozel, dizine girmemeli.
   '/rapor',
+  // Imzali islem baglantisi (/islem/<jeton>): tek kisilik karar sayfasi.
+  '/islem',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

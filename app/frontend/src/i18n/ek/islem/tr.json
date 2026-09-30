@@ -1,0 +1,220 @@
+{
+  "islem": {
+    "tur": {
+      "teklif_kabul": {
+        "baslik": "Teklif onayı",
+        "aciklama": "Aşağıdaki teklifi inceleyip tek tıkla kabul edebilir ya da reddedebilirsiniz. Giriş yapmanız gerekmiyor."
+      },
+      "teslimat_onay": {
+        "baslik": "Teslim onayı",
+        "aciklama": "Projenizin bu aşamadaki teslimini inceleyin; onaylayın ya da neyin değişmesini istediğinizi yazın."
+      },
+      "rapor_goruntule": {
+        "baslik": "Rapor",
+        "aciklama": "Raporunuzu gördüğünüzü onaylayın."
+      }
+    },
+    "alan": {
+      "tutar": "Tutar",
+      "paket": "Paket",
+      "profil": "Profil",
+      "donem": "Dönem",
+      "eklentiler": "Eklentiler",
+      "aiPm": "AI vs PM",
+      "kredi": "Kredi",
+      "fatura": "Fatura no",
+      "proje": "Proje",
+      "asama": "Aşama",
+      "site": "Site",
+      "puan": "Puan",
+      "not": "Not",
+      "sonKullanma": "Son geçerlilik"
+    },
+    "donem": {
+      "aylik": "Aylık",
+      "yillik": "Yıllık",
+      "kullandikca_ode": "Kullandıkça Öde",
+      "tek_seferlik": "Tek seferlik"
+    },
+    "krediPaketi": "{{sayi}} kredi paketi",
+    "inceleBaglantisi": "Teslimi incele",
+    "eylem": {
+      "kabul": "Kabul et",
+      "red": "Reddet",
+      "onay": "Onayla",
+      "revizyon": "Revizyon iste",
+      "goruntulendi": "Gördüm"
+    },
+    "onay": {
+      "kabul": {
+        "baslik": "Teklifi kabul ediyor musunuz?",
+        "metin": "Kararınız ekibimize hemen iletilir. Bu bağlantı yalnız bir kez kullanılabilir.",
+        "dugme": "Evet, kabul ediyorum"
+      },
+      "red": {
+        "baslik": "Teklifi reddediyor musunuz?",
+        "metin": "İsterseniz nedenini yazın; teklifi buna göre yeniden düzenleyebiliriz.",
+        "dugme": "Reddet",
+        "notEtiket": "Gerekçe",
+        "notYertutucu": "Örneğin: bütçe, kapsam, zamanlama…"
+      },
+      "onay": {
+        "baslik": "Teslimi onaylıyor musunuz?",
+        "metin": "Onayınız projeye kaydedilir ve bir sonraki adıma geçilir.",
+        "dugme": "Evet, onaylıyorum"
+      },
+      "revizyon": {
+        "baslik": "Revizyon isteği",
+        "metin": "Neyin değişmesini istediğinizi yazın. İsteğiniz bir destek talebi olarak ekibimize düşer.",
+        "dugme": "Revizyon iste",
+        "notEtiket": "Ne değişsin?",
+        "notYertutucu": "Örneğin: ana sayfadaki başlık daha kısa olsun, iletişim formuna telefon alanı eklensin…"
+      },
+      "goruntulendi": {
+        "baslik": "Onaylıyor musunuz?",
+        "metin": "Raporu gördüğünüz kaydedilir.",
+        "dugme": "Onayla"
+      }
+    },
+    "istegeBagli": "isteğe bağlı",
+    "vazgec": "Vazgeç",
+    "kapat": "Kapat",
+    "yenile": "Yenile",
+    "anaSayfa": "Ana sayfaya dön",
+    "alici": "Bu bağlantı {{eposta}} adresine gönderildi.",
+    "guvenlikNotu": "Bağlantı size özeldir, yalnız bir kez kullanılabilir. Lütfen başkasıyla paylaşmayın.",
+    "hata": {
+      "baslik": "Bir sorun oluştu",
+      "genel": "İşlem yapılamadı. Lütfen biraz sonra tekrar deneyin.",
+      "ag": "Sunucuya ulaşılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.",
+      "sinir": "Çok fazla deneme yapıldı. Lütfen bir dakika bekleyip tekrar deneyin.",
+      "bulunamadi": "Bu bağlantı bulunamadı.",
+      "kullanildi": "Bu bağlantı zaten kullanılmış.",
+      "iptal": "Bu bağlantı iptal edilmiş.",
+      "suresi_doldu": "Bu bağlantının süresi dolmuş.",
+      "gecersiz_sonuc": "Bu işlem için geçersiz bir seçim.",
+      "not_gerekli": "Lütfen bir açıklama yazın.",
+      "not_uzun": "Açıklama en fazla 2000 karakter olabilir.",
+      "mesgul": "Aynı anda başka bir işlem sürüyor. Lütfen tekrar deneyin.",
+      "tur_gecersiz": "Geçersiz işlem türü.",
+      "hedef_yok": "Seçilen kayıt bulunamadı.",
+      "hedef_gecersiz": "Seçilen kayıt bu işlem türüne uymuyor.",
+      "gun_gecersiz": "Geçerlilik 1 ile 90 gün arasında olmalı.",
+      "alici_gecersiz": "Geçerli bir alıcı e-postası girin.",
+      "durum_kullanildi": "Kullanılmış bağlantı değiştirilemez.",
+      "durum_iptal": "Bu bağlantı zaten iptal edilmiş.",
+      "durum_suresi_doldu": "Bu bağlantının süresi zaten dolmuş."
+    },
+    "durum": {
+      "bulunamadi": {
+        "baslik": "Bağlantı bulunamadı",
+        "metin": "Adres eksik kopyalanmış ya da bağlantı yenilenmiş olabilir. Lütfen size gelen son e-postadaki bağlantıyı kullanın."
+      },
+      "kullanildi": {
+        "baslik": "Bu bağlantı kullanıldı",
+        "metin": "Yanıtınız alındı: {{sonuc}} ({{tarih}}). Teşekkür ederiz.",
+        "metinSonucsuz": "Bu bağlantıyla daha önce işlem yapıldı."
+      },
+      "suresi_doldu": {
+        "baslik": "Bağlantının süresi doldu",
+        "metin": "Güvenliğiniz için bağlantılar sınırlı süre geçerlidir. Yeni bir bağlantı için bizimle iletişime geçin ya da müşteri panelinizi açın."
+      },
+      "iptal": {
+        "baslik": "Bağlantı iptal edildi",
+        "metin": "Bu bağlantı artık geçerli değil. Güncel bağlantı size ayrıca iletilecektir."
+      }
+    },
+    "sonucEkrani": {
+      "kabul": {
+        "baslik": "Teklif kabul edildi",
+        "metin": "Teşekkür ederiz! Ekibimiz sonraki adımlar için kısa süre içinde sizinle iletişime geçecek."
+      },
+      "red": {
+        "baslik": "Teklif reddedildi",
+        "metin": "Kararınızı aldık. Gerekçenizi yazdıysanız teklifi buna göre gözden geçireceğiz."
+      },
+      "onay": {
+        "baslik": "Teslim onaylandı",
+        "metin": "Teşekkür ederiz! Onayınız projeye işlendi."
+      },
+      "revizyon": {
+        "baslik": "Revizyon isteğiniz alındı",
+        "metin": "İsteğiniz ekibimize iletildi ve bir destek talebi açıldı. Güncel teslim hazır olduğunda size haber vereceğiz."
+      },
+      "goruntulendi": {
+        "baslik": "Kaydedildi",
+        "metin": "Teşekkür ederiz."
+      }
+    },
+    "sonuc": {
+      "kabul": "Kabul edildi",
+      "red": "Reddedildi",
+      "onay": "Onaylandı",
+      "revizyon": "Revizyon istendi",
+      "goruntulendi": "Görüntülendi"
+    },
+    "durumAdi": {
+      "bekliyor": "Bekliyor",
+      "kullanildi": "Kullanıldı",
+      "iptal": "İptal",
+      "suresi_doldu": "Süresi doldu"
+    },
+    "teklifDurumu": {
+      "bekliyor": "karar bekleniyor",
+      "kabul": "kabul edildi",
+      "red": "reddedildi"
+    },
+    "musteri": {
+      "baslik": "Onay bekleyenler",
+      "aciklama": "Kararınızı bekleyen teklif ve teslimler. E-postadaki bağlantıyla aynı işlemi buradan da yapabilirsiniz."
+    },
+    "yonetim": {
+      "baslik": "İmzalı işlemler",
+      "aciklama": "Müşteriye girişsiz, tek tıkla karar verebileceği bir bağlantı gönderin: teklif kabulü ya da teslim onayı. Bağlantı yalnız üretildiği anda gösterilir.",
+      "yeni": "Yeni bağlantı",
+      "tur": "İşlem türü",
+      "hedef": {
+        "teklif_kabul": "Teklif",
+        "teslimat_onay": "Proje"
+      },
+      "hedefSec": "Seçin…",
+      "hedefYok": "Kayıt yok",
+      "alici": "Alıcı e-postası",
+      "gun": "Geçerlilik (gün, 1–90)",
+      "not": "Müşteriye not",
+      "notYertutucu": "Bağlantıyla birlikte gösterilecek kısa not",
+      "teslimBaglantisi": "Teslim bağlantısı (önizleme, dosya)",
+      "ilerlet": "Onaylanınca proje bir sonraki aşamaya geçsin",
+      "epostaGonder": "Bağlantıyı müşteriye e-postayla da gönder",
+      "olustur": "Bağlantı oluştur",
+      "olusturuldu": "Bağlantı oluşturuldu.",
+      "baglantiHazir": "Bağlantı hazır",
+      "kopyala": "Kopyala",
+      "kopyalandi": "Kopyalandı",
+      "birKezUyari": "Bu bağlantı bir daha gösterilmez: sunucuda yalnız özeti saklanıyor. Şimdi kopyalayın; kaybederseniz “Yenile” ile yenisini üretin.",
+      "epostaGitti": "Bağlantı {{eposta}} adresine e-postayla gönderildi.",
+      "tumTurler": "Tüm türler",
+      "durumSutun": "Durum",
+      "tumDurumlar": "Tüm durumlar",
+      "bos": "Henüz imzalı işlem bağlantısı yok.",
+      "sonKullanmaKisa": "son: {{tarih}}",
+      "kullanildiKisa": "yanıt: {{tarih}}",
+      "iptal": "İptal et",
+      "yenileDugme": "Yenile",
+      "onayBaslik": "Emin misiniz?",
+      "devam": "Devam et",
+      "iptalOnay": "“{{baslik}}” bağlantısı ({{eposta}}) iptal edilecek ve artık kullanılamayacak.",
+      "iptalEdildi": "Bağlantı iptal edildi.",
+      "yenileOnayBekleyen": "“{{baslik}}” için yeni bir bağlantı üretilecek ({{eposta}}). Eski bağlantı iptal edilir.",
+      "yenileOnay": "“{{baslik}}” için yeni bir bağlantı üretilecek ({{eposta}})."
+    },
+    "kisayol": {
+      "baslik": "Müşteri onayı iste",
+      "aciklama": "{{eposta}} adresine girişsiz, tek tıkla onay bağlantısı gönderin. Müşteri onaylayabilir ya da revizyon isteyebilir.",
+      "dugme": "Müşteri onayı iste",
+      "notYertutucu": "Teslim notu (ör. hangi sayfalar hazır)",
+      "baglantiYertutucu": "Önizleme bağlantısı (isteğe bağlı) — https://…",
+      "gonder": "Bağlantı oluştur"
+    }
+  }
+}

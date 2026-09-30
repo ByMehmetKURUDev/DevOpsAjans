@@ -1,0 +1,220 @@
+{
+  "islem": {
+    "tur": {
+      "teklif_kabul": {
+        "baslik": "Quote approval",
+        "aciklama": "Review the quote below and accept or decline it with one click. No login needed."
+      },
+      "teslimat_onay": {
+        "baslik": "Delivery approval",
+        "aciklama": "Review this stage's delivery of your project; approve it or tell us what you'd like changed."
+      },
+      "rapor_goruntule": {
+        "baslik": "Report",
+        "aciklama": "Confirm that you have seen your report."
+      }
+    },
+    "alan": {
+      "tutar": "Amount",
+      "paket": "Plan",
+      "profil": "Profile",
+      "donem": "Billing period",
+      "eklentiler": "Add-ons",
+      "aiPm": "AI vs PM",
+      "kredi": "Credits",
+      "fatura": "Invoice no.",
+      "proje": "Project",
+      "asama": "Stage",
+      "site": "Site",
+      "puan": "Score",
+      "not": "Note",
+      "sonKullanma": "Valid until"
+    },
+    "donem": {
+      "aylik": "Monthly",
+      "yillik": "Yearly",
+      "kullandikca_ode": "Pay as you go",
+      "tek_seferlik": "One-time"
+    },
+    "krediPaketi": "{{sayi}}-credit pack",
+    "inceleBaglantisi": "Review the delivery",
+    "eylem": {
+      "kabul": "Accept",
+      "red": "Decline",
+      "onay": "Approve",
+      "revizyon": "Request changes",
+      "goruntulendi": "Seen"
+    },
+    "onay": {
+      "kabul": {
+        "baslik": "Accept this quote?",
+        "metin": "Your decision reaches our team immediately. This link can be used only once.",
+        "dugme": "Yes, I accept"
+      },
+      "red": {
+        "baslik": "Decline this quote?",
+        "metin": "If you like, tell us why — we can rework the quote accordingly.",
+        "dugme": "Decline",
+        "notEtiket": "Reason",
+        "notYertutucu": "For example: budget, scope, timing…"
+      },
+      "onay": {
+        "baslik": "Approve this delivery?",
+        "metin": "Your approval is recorded on the project and we move on to the next step.",
+        "dugme": "Yes, I approve"
+      },
+      "revizyon": {
+        "baslik": "Request changes",
+        "metin": "Describe what you'd like changed. Your request reaches our team as a support ticket.",
+        "dugme": "Request changes",
+        "notEtiket": "What should change?",
+        "notYertutucu": "For example: shorter homepage headline, add a phone field to the contact form…"
+      },
+      "goruntulendi": {
+        "baslik": "Confirm?",
+        "metin": "We'll record that you have seen the report.",
+        "dugme": "Confirm"
+      }
+    },
+    "istegeBagli": "optional",
+    "vazgec": "Cancel",
+    "kapat": "Close",
+    "yenile": "Refresh",
+    "anaSayfa": "Back to homepage",
+    "alici": "This link was sent to {{eposta}}.",
+    "guvenlikNotu": "This link is personal to you and can be used only once. Please don't share it.",
+    "hata": {
+      "baslik": "Something went wrong",
+      "genel": "The action couldn't be completed. Please try again shortly.",
+      "ag": "Couldn't reach the server. Check your internet connection and try again.",
+      "sinir": "Too many attempts. Please wait a minute and try again.",
+      "bulunamadi": "This link wasn't found.",
+      "kullanildi": "This link has already been used.",
+      "iptal": "This link has been cancelled.",
+      "suresi_doldu": "This link has expired.",
+      "gecersiz_sonuc": "That choice isn't valid for this action.",
+      "not_gerekli": "Please write a short description.",
+      "not_uzun": "The text can be at most 2000 characters.",
+      "mesgul": "Another action is in progress at the same time. Please try again.",
+      "tur_gecersiz": "Invalid action type.",
+      "hedef_yok": "The selected record wasn't found.",
+      "hedef_gecersiz": "The selected record doesn't match this action type.",
+      "gun_gecersiz": "Validity must be between 1 and 90 days.",
+      "alici_gecersiz": "Enter a valid recipient email.",
+      "durum_kullanildi": "A used link can't be changed.",
+      "durum_iptal": "This link is already cancelled.",
+      "durum_suresi_doldu": "This link has already expired."
+    },
+    "durum": {
+      "bulunamadi": {
+        "baslik": "Link not found",
+        "metin": "The address may have been copied incompletely, or the link may have been renewed. Please use the link in the most recent email you received."
+      },
+      "kullanildi": {
+        "baslik": "This link has been used",
+        "metin": "Your response was received: {{sonuc}} ({{tarih}}). Thank you.",
+        "metinSonucsuz": "This link has already been used."
+      },
+      "suresi_doldu": {
+        "baslik": "This link has expired",
+        "metin": "For your security, links are valid for a limited time. Contact us for a new link or open your client panel."
+      },
+      "iptal": {
+        "baslik": "This link was cancelled",
+        "metin": "This link is no longer valid. You'll receive an up-to-date link separately."
+      }
+    },
+    "sonucEkrani": {
+      "kabul": {
+        "baslik": "Quote accepted",
+        "metin": "Thank you! Our team will contact you shortly about the next steps."
+      },
+      "red": {
+        "baslik": "Quote declined",
+        "metin": "We've received your decision. If you gave a reason, we'll review the quote accordingly."
+      },
+      "onay": {
+        "baslik": "Delivery approved",
+        "metin": "Thank you! Your approval has been recorded on the project."
+      },
+      "revizyon": {
+        "baslik": "Change request received",
+        "metin": "Your request has been sent to our team and a support ticket was opened. We'll let you know when the updated delivery is ready."
+      },
+      "goruntulendi": {
+        "baslik": "Recorded",
+        "metin": "Thank you."
+      }
+    },
+    "sonuc": {
+      "kabul": "Accepted",
+      "red": "Declined",
+      "onay": "Approved",
+      "revizyon": "Changes requested",
+      "goruntulendi": "Seen"
+    },
+    "durumAdi": {
+      "bekliyor": "Pending",
+      "kullanildi": "Used",
+      "iptal": "Cancelled",
+      "suresi_doldu": "Expired"
+    },
+    "teklifDurumu": {
+      "bekliyor": "awaiting decision",
+      "kabul": "accepted",
+      "red": "declined"
+    },
+    "musteri": {
+      "baslik": "Awaiting your approval",
+      "aciklama": "Quotes and deliveries waiting for your decision. You can do the same thing here as with the link in the email."
+    },
+    "yonetim": {
+      "baslik": "Signed actions",
+      "aciklama": "Send the client a link to decide with one click, no login: quote acceptance or delivery approval. The link is shown only at the moment it's created.",
+      "yeni": "New link",
+      "tur": "Action type",
+      "hedef": {
+        "teklif_kabul": "Quote",
+        "teslimat_onay": "Project"
+      },
+      "hedefSec": "Choose…",
+      "hedefYok": "No records",
+      "alici": "Recipient email",
+      "gun": "Validity (days, 1–90)",
+      "not": "Note to client",
+      "notYertutucu": "Short note shown with the link",
+      "teslimBaglantisi": "Delivery link (preview, file)",
+      "ilerlet": "Move the project to the next stage once approved",
+      "epostaGonder": "Also email the link to the client",
+      "olustur": "Create link",
+      "olusturuldu": "Link created.",
+      "baglantiHazir": "Link ready",
+      "kopyala": "Copy",
+      "kopyalandi": "Copied",
+      "birKezUyari": "This link won't be shown again: the server stores only its hash. Copy it now; if you lose it, use “Renew” to create a new one.",
+      "epostaGitti": "The link was emailed to {{eposta}}.",
+      "tumTurler": "All types",
+      "durumSutun": "Status",
+      "tumDurumlar": "All statuses",
+      "bos": "No signed action links yet.",
+      "sonKullanmaKisa": "until: {{tarih}}",
+      "kullanildiKisa": "answered: {{tarih}}",
+      "iptal": "Cancel",
+      "yenileDugme": "Renew",
+      "onayBaslik": "Are you sure?",
+      "devam": "Continue",
+      "iptalOnay": "The link “{{baslik}}” ({{eposta}}) will be cancelled and can no longer be used.",
+      "iptalEdildi": "Link cancelled.",
+      "yenileOnayBekleyen": "A new link will be created for “{{baslik}}” ({{eposta}}). The old link will be cancelled.",
+      "yenileOnay": "A new link will be created for “{{baslik}}” ({{eposta}})."
+    },
+    "kisayol": {
+      "baslik": "Request client approval",
+      "aciklama": "Send {{eposta}} a one-click approval link, no login needed. The client can approve or request changes.",
+      "dugme": "Request client approval",
+      "notYertutucu": "Delivery note (e.g. which pages are ready)",
+      "baglantiYertutucu": "Preview link (optional) — https://…",
+      "gonder": "Create link"
+    }
+  }
+}

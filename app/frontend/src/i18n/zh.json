@@ -453,7 +453,8 @@
     "tabAnaliz": "网站分析",
     "tabDenetim": "操作记录",
     "tabKrediler": "额度",
-    "tabKredilerim": "我的额度"
+    "tabKredilerim": "我的额度",
+    "tabIslemler": "签名操作"
   },
   "admin": {
     "loadError": "管理数据加载失败",

@@ -453,7 +453,8 @@
     "tabAnaliz": "Website-Analyse",
     "tabDenetim": "Änderungsprotokoll",
     "tabKrediler": "Credits",
-    "tabKredilerim": "Meine Credits"
+    "tabKredilerim": "Meine Credits",
+    "tabIslemler": "Signierte Aktionen"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
