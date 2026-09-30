@@ -42,6 +42,34 @@ async def initialize_mock_data():
     await asyncio.gather(*(load_file(data_file) for data_file in data_files))
 
 
+async def initialize_pricing_seed():
+    """Fiyatlandırma v5 başlangıç verisini, tablolar boşsa yükler.
+
+    ``create_tables`` (core/database.py) tabloları açılışta ``create_all``
+    ile yaratıyor ama hiçbir zaman veri yazmıyor — Alembic de yayın
+    akışından çıkarıldığı için (bkz. render.yaml) canlıda
+    ``pricing_scales`` vb. tablolar hep boş kalıyordu ve fiyatlandırma
+    bölümü kart göstermeden boş görünüyordu.
+
+    ``scripts/seed_pricing_v5.py``'deki ``seed()`` zaten var olan
+    ``kod``/``ad`` eşleşen satırları güncelleyen bir upsert, bu yüzden
+    her açılışta çağrılması güvenli — ``initialize_mock_data`` ile aynı
+    "boşsa doldur" deseni.
+    """
+    if not db_manager.async_session_maker:
+        logger.warning("DB session maker hazır değil; fiyatlandırma seed atlanıyor")
+        return
+
+    try:
+        from scripts.seed_pricing_v5 import seed as seed_pricing_v5
+
+        async with db_manager.async_session_maker() as session:
+            counts = await seed_pricing_v5(session)
+        logger.info("Fiyatlandırma v5 seed kontrolü tamamlandı: %s", counts)
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.error("Fiyatlandırma v5 seed başarısız: %s", exc, exc_info=True)
+
+
 def _prepare_records(raw_data: Any, table: Table) -> list[dict[str, Any]]:
     """Filter JSON payload to match the table definition and coerce values."""
     if isinstance(raw_data, dict):
