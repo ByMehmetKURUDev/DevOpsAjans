@@ -4,7 +4,9 @@ from typing import List, Optional
 
 from datetime import datetime, date
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+import re
+
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -79,9 +81,46 @@ class Site_settingsBatchDeleteRequest(BaseModel):
     ids: List[int]
 
 
+# ---------- Gizli ayarlar ----------
+# Ayarlar tablosu herkese açık okunuyor (sitenin metinleri, SEO, görünüm).
+# Ama bazı satırlar gizli: webhook jetonları, bildirim alan yönetici
+# adresleri ve telefonu. Bunlar yalnız yöneticiye döner; ziyaretçiye ve
+# müşteriye listede hiç görünmez, tek tek istenirse 404.
+GIZLI_ANAHTARLAR = {
+    "admin_emails",
+    "notify_admin_phone",
+    "notify_admin_email",
+    "shopier_webhook_token",
+}
+_GIZLI_DESEN = re.compile(r"(token|secret|password|sifre|parola|api_?key|apikey|webhook|jeton|private|smtp_)", re.I)
+
+
+def gizli_ayar_mi(anahtar: Optional[str]) -> bool:
+    a = (anahtar or "").strip()
+    return a in GIZLI_ANAHTARLAR or bool(_GIZLI_DESEN.search(a))
+
+
+def _yonetici(request: Request) -> bool:
+    from dependencies.kayit_sahipligi import _yonetici_mi
+
+    try:
+        return bool(_yonetici_mi(request)[1])
+    except Exception:  # pragma: no cover - savunma
+        return False
+
+
+def _suz(sonuc: dict, request: Request) -> dict:
+    if _yonetici(request):
+        return sonuc
+    ogeler = [o for o in sonuc.get("items", []) if not gizli_ayar_mi(getattr(o, "setting_key", None) if not isinstance(o, dict) else o.get("setting_key"))]
+    cikan = len(sonuc.get("items", [])) - len(ogeler)
+    return {**sonuc, "items": ogeler, "total": max(0, int(sonuc.get("total", 0)) - cikan)}
+
+
 # ---------- Routes ----------
 @router.get("", response_model=Site_settingsListResponse)
 async def query_site_settingss(
+    request: Request,
     query: str = Query(None, description='Query conditions as JSON, e.g. {"id":2} or {"id":{"$gte":2}}'),
     sort: str = Query(None, description="Sort field (prefix with '-' for descending)"),
     skip: int = Query(0, ge=0, description="Number of records to skip"),
@@ -109,7 +148,7 @@ async def query_site_settingss(
             sort=sort,
         )
         logger.debug(f"Found {result['total']} site_settingss")
-        return result
+        return _suz(result, request)
     except HTTPException:
         raise
     except ValueError as e:
@@ -122,6 +161,7 @@ async def query_site_settingss(
 
 @router.get("/all", response_model=Site_settingsListResponse)
 async def query_site_settingss_all(
+    request: Request,
     query: str = Query(None, description='Query conditions as JSON, e.g. {"id":2} or {"id":{"$gte":2}}'),
     sort: str = Query(None, description="Sort field (prefix with '-' for descending)"),
     skip: int = Query(0, ge=0, description="Number of records to skip"),
@@ -149,7 +189,7 @@ async def query_site_settingss_all(
             sort=sort
         )
         logger.debug(f"Found {result['total']} site_settingss")
-        return result
+        return _suz(result, request)
     except HTTPException:
         raise
     except ValueError as e:
@@ -163,6 +203,7 @@ async def query_site_settingss_all(
 @router.get("/{id}", response_model=Site_settingsResponse)
 async def get_site_settings(
     id: int,
+    request: Request,
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
 ):
@@ -175,7 +216,8 @@ async def get_site_settings(
         if not result:
             logger.warning(f"Site_settings with id {id} not found")
             raise HTTPException(status_code=404, detail="Site_settings not found")
-        
+        if gizli_ayar_mi(getattr(result, "setting_key", None)) and not _yonetici(request):
+            raise HTTPException(status_code=404, detail="Site_settings not found")
         return result
     except HTTPException:
         raise
