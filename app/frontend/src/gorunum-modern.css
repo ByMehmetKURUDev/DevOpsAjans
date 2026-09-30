@@ -1,0 +1,89 @@
+/*
+ * Modern görünüm — Eylül 2026, onaylı "Temel" önizleme (cam kartlar).
+ *
+ * İki sürüm: kurallar yalnız `html[data-gorunum="modern"]` altında çalışır.
+ * Seçim admin panelindeki Site Ayarları → Görünüm alanından gelir
+ * (`site_gorunum`: "klasik" varsayılan, "modern"); bkz. src/lib/gorunum.ts.
+ * Bileşenlere eklenen `cam-*` sınıflarının Klasik görünümde etkisi yok.
+ * Özelliği tamamen kaldırmak için index.css'teki import satırı silinir.
+ *
+ * Kapsam: yalnız kartların çerçevesi, zemini ve parıltısı. Arka plan,
+ * yazılar, yerleşim ve boşluklar değişmiyor.
+ *
+ * Hız: ek dosya ya da istek yok, JavaScript yok, filter/blur yok, sonsuz
+ * animasyon yok. Yalnız gölge ve degrade; ikisi de ilk çizimde bir kez
+ * hesaplanıyor.
+ *
+ * Özgüllük: `:root[data-gorunum="modern"] .cam-kart` (0,2,0). Tailwind yardımcıları (0,1,0) bu
+ * dosyadan sonra geldiği için, kuralların kazanması bu önek sayesinde.
+ */
+
+:root[data-gorunum="modern"] .cam-kart {
+  --cv: 0 220 130; /* yeşil — varsayılan ton */
+  border: 1px solid rgb(var(--cv) / 0.55);
+  background: linear-gradient(160deg, rgb(var(--cv) / 0.1), rgba(24, 12, 42, 0.42) 42%, rgba(10, 5, 20, 0.55));
+  box-shadow:
+    0 0 0 1px rgb(var(--cv) / 0.06),
+    0 0 30px -10px rgb(var(--cv) / 0.5),
+    inset 0 0 30px -16px rgb(var(--cv) / 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Tonlar: tek tek ya da bir ızgarada sırayla (yeşil, gök, mor, pembe). */
+:root[data-gorunum="modern"] .cam-kart.cam-gok,
+:root[data-gorunum="modern"] .cam-dongu > .cam-kart:nth-child(4n + 2) {
+  --cv: 56 189 248;
+}
+:root[data-gorunum="modern"] .cam-kart.cam-mor,
+:root[data-gorunum="modern"] .cam-dongu > .cam-kart:nth-child(4n + 3) {
+  --cv: 168 85 247;
+}
+:root[data-gorunum="modern"] .cam-kart.cam-pembe,
+:root[data-gorunum="modern"] .cam-dongu > .cam-kart:nth-child(4n + 4) {
+  --cv: 236 72 153;
+}
+
+/* Öne çıkan kart (Popüler paket, hesaplayıcı sonucu). */
+:root[data-gorunum="modern"] .cam-kart.cam-one {
+  border-color: rgb(var(--cv) / 0.85);
+  box-shadow:
+    0 0 0 1px rgb(var(--cv) / 0.18),
+    0 0 42px -8px rgb(var(--cv) / 0.65),
+    inset 0 0 36px -16px rgb(var(--cv) / 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+}
+
+/* Seçili kart (kredi paketi önerisi): seçim her zaman yeşil ve belirgin. */
+:root[data-gorunum="modern"] .cam-kart.cam-secili {
+  --cv: 0 220 130;
+  border-color: rgb(var(--cv));
+  box-shadow:
+    0 0 0 1px rgb(var(--cv) / 0.35),
+    0 0 36px -8px rgb(var(--cv) / 0.7),
+    inset 0 0 30px -14px rgb(var(--cv) / 0.5);
+}
+
+@media (hover: hover) {
+  :root[data-gorunum="modern"] .cam-kart:hover {
+    border-color: rgb(var(--cv) / 0.85);
+    box-shadow:
+      0 0 0 1px rgb(var(--cv) / 0.14),
+      0 0 44px -8px rgb(var(--cv) / 0.65),
+      inset 0 0 32px -14px rgb(var(--cv) / 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  }
+}
+
+/* İkon karoları: kartın tonunda hafif parıltı. */
+:root[data-gorunum="modern"] .cam-kart .cam-ikon {
+  box-shadow: 0 0 18px -4px rgb(var(--cv) / 0.85);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-gorunum="modern"] .cam-kart {
+    transition: none;
+  }
+}

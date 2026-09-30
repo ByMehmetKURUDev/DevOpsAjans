@@ -52,7 +52,7 @@ function SikSorulanlar() {
             </h2>
             <p className="mt-5 text-muted-foreground leading-relaxed">{t('sss.desc')}</p>
 
-            <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <div className="cam-kart mt-8 rounded-2xl border border-white/10 bg-white/[0.03] p-5">
               <MessageCircleQuestion className="h-5 w-5 text-primary" aria-hidden="true" />
               <p className="mt-3 text-sm font-medium">{t('sss.kalanSoru')}</p>
               <p className="mt-1 text-sm text-muted-foreground">{t('sss.kalanSoruDesc')}</p>

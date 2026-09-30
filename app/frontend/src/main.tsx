@@ -3,6 +3,10 @@ import App from './App.tsx';
 import './index.css';
 import './i18n';
 import { loadRuntimeConfig } from './lib/config.ts';
+import { gorunumUygula } from './lib/gorunum';
+
+// Yöneticinin tarayıcı seçimi ilk çizimden önce uygulanır (?gorunum=modern).
+gorunumUygula();
 
 function initializeApp() {
   // Prerendered blog pages are served as pure static HTML for SEO.

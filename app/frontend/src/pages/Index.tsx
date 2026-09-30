@@ -245,14 +245,14 @@ export default function Index() {
             </h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+          <div className="cam-dongu grid gap-6 md:grid-cols-2 lg:grid-cols-5">
             {CAPABILITIES.map((c) => (
               <div
                 key={c.title}
-                className="group relative p-6 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300"
+                className="cam-kart group relative p-6 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300"
               >
                 <div
-                  className={`w-11 h-11 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center mb-5`}
+                  className={`cam-ikon w-11 h-11 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center mb-5`}
                 >
                   <c.icon className="h-5 w-5 text-white" aria-hidden="true" />
                 </div>
@@ -366,14 +366,14 @@ export default function Index() {
               {t('portfolio.title1')} <span className="gradient-text">{t('portfolio.titleHighlight')}</span>
             </h2>
           </div>
-          <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-5">
+          <div className="cam-dongu grid gap-6 md:grid-cols-3 lg:grid-cols-5">
             {CATEGORY_CARDS.map((cat) => (
               <Link
                 key={cat.slug}
                 to={`/portfolio?category=${encodeURIComponent(cat.slug)}`}
-                className="group relative p-8 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300 text-center"
+                className="cam-kart group relative p-8 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300 text-center"
               >
-                <div className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center mb-4`}>
+                <div className={`cam-ikon w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center mb-4`}>
                   <cat.Icon className="h-7 w-7 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-semibold">{cat.label}</h3>
@@ -402,7 +402,7 @@ export default function Index() {
       {/* CTA */}
       <section className="alt-bolum relative py-24 md:py-32">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center glass border border-purple-500/30">
+          <div className="cam-kart cam-mor relative rounded-3xl overflow-hidden p-12 md:p-20 text-center glass border border-purple-500/30">
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-purple-600/20 via-pink-600/10 to-cyan-600/20" />
 
             <h2 className="text-4xl md:text-6xl font-bold mb-6">

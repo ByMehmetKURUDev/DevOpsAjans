@@ -654,7 +654,12 @@
     "fGoogleAds": "Google Ads ID (AW-…)",
     "fMetaPixel": "Meta (Facebook) Pixel ID",
     "fGoogleDogrulama": "Google Search Console verification code",
-    "fBingDogrulama": "Bing verification code"
+    "fBingDogrulama": "Bing verification code",
+    "gorunumTitle": "Appearance",
+    "gorunumDesc": "Card style of the site. Classic is the previous look; Modern is the new glass card look. Applies to all visitors once saved.",
+    "fGorunum": "Site appearance",
+    "gorunumKlasik": "Classic",
+    "gorunumModern": "Modern"
   },
   "tools": {
     "sectionTag": "Tools We Use",

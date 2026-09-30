@@ -4,6 +4,8 @@
  * src/i18n/index.ts tarafından çalışma zamanında enjekte edilir.
  */
 @import './fonts.css';
+/* Modern görünüm (Klasik / Modern seçimi: Site Ayarları → Görünüm). */
+@import './gorunum-modern.css';
 
 @tailwind base;
 @tailwind components;

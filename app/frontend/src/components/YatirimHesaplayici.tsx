@@ -93,7 +93,7 @@ function YatirimHesaplayici() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-5">
           {/* Girdiler */}
-          <div className="glass rounded-2xl p-6 sm:p-8 lg:col-span-3">
+          <div className="cam-kart cam-gok glass rounded-2xl p-6 sm:p-8 lg:col-span-3">
             <div className="space-y-7">
               {satir(
                 'yat-ziyaretci',
@@ -167,7 +167,7 @@ function YatirimHesaplayici() {
           </div>
 
           {/* Sonuç */}
-          <div className="rounded-2xl border border-primary/40 bg-primary/[0.07] p-6 sm:p-8 lg:col-span-2">
+          <div className="cam-kart cam-one rounded-2xl border border-primary/40 bg-primary/[0.07] p-6 sm:p-8 lg:col-span-2">
             <div className="flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-primary" aria-hidden="true" />
               <p className="text-xs font-semibold uppercase tracking-wider text-purple-200">

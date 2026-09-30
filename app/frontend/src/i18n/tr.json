@@ -654,7 +654,12 @@
     "fGoogleAds": "Google Ads kimliği (AW-…)",
     "fMetaPixel": "Meta (Facebook) Pixel kimliği",
     "fGoogleDogrulama": "Google Search Console doğrulama kodu",
-    "fBingDogrulama": "Bing doğrulama kodu"
+    "fBingDogrulama": "Bing doğrulama kodu",
+    "gorunumTitle": "Görünüm",
+    "gorunumDesc": "Sitenin kart görünümü. Klasik eski görünüm, Modern yeni cam kart görünümü. Kaydedince tüm ziyaretçilere uygulanır.",
+    "fGorunum": "Site görünümü",
+    "gorunumKlasik": "Klasik",
+    "gorunumModern": "Modern"
   },
   "tools": {
     "sectionTag": "Kullanılan Araçlar",

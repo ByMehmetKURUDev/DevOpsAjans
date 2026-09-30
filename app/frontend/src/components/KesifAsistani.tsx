@@ -201,7 +201,7 @@ function KesifAsistani() {
           </div>
 
           {/* Sağ: sihirbaz */}
-          <div className="glass rounded-2xl p-6 sm:p-8">
+          <div className="cam-kart glass rounded-2xl p-6 sm:p-8">
             <div className="flex items-start gap-3">
               <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl bg-primary/15">
                 <Compass className="h-5 w-5 text-primary" aria-hidden="true" />

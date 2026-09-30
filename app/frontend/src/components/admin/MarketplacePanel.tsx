@@ -179,7 +179,7 @@ export default function MarketplacePanel() {
             return (
               <div
                 key={urun.id}
-                className="flex flex-wrap items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
+                className="cam-kart flex flex-wrap items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
               >
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold">{urun.title}</p>

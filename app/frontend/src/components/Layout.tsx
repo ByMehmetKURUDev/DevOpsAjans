@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { gorunumUygula } from '@/lib/gorunum';
 import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
 import AsistanSohbeti from '@/components/AsistanSohbeti';
 import PazarlamaEtiketleri from '@/components/PazarlamaEtiketleri';
@@ -97,6 +98,10 @@ interface AuthUser {
 export default function Layout() {
   const { t, i18n } = useTranslation();
   const { settings } = useSiteSettings();
+  // Site görünümü (Klasik / Modern) — admin panelindeki Görünüm ayarı.
+  useEffect(() => {
+    gorunumUygula(settings.site_gorunum);
+  }, [settings.site_gorunum]);
   const [open, setOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

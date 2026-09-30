@@ -954,7 +954,7 @@ export default function AdminPanel() {
 
           <div className="grid gap-6 lg:grid-cols-2">
             {SETTING_GROUPS.map((group) => (
-              <div key={group.group} className="p-6 rounded-2xl glass">
+              <div key={group.group} className="cam-kart p-6 rounded-2xl glass">
                 <h3 className="text-lg font-semibold mb-1">{t(group.title)}</h3>
                 <p className="text-xs text-muted-foreground mb-5">
                   {t(group.description)}
@@ -974,7 +974,28 @@ export default function AdminPanel() {
                             </span>
                           )}
                         </Label>
-                        {field.multiline ? (
+                        {field.options ? (
+                          <div className="flex flex-wrap gap-2" role="group" aria-label={t(field.label)}>
+                            {field.options.map((opt) => {
+                              const secili = (settingDraft[fieldKey] || field.options?.[0]?.value) === opt.value;
+                              return (
+                                <button
+                                  key={opt.value}
+                                  type="button"
+                                  aria-pressed={secili}
+                                  onClick={() => setSettingDraft({ ...settingDraft, [fieldKey]: opt.value })}
+                                  className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                                    secili
+                                      ? 'bg-emerald-500/20 border-emerald-400/60 text-foreground'
+                                      : 'border-white/10 text-muted-foreground hover:text-foreground hover:bg-white/5'
+                                  }`}
+                                >
+                                  {t(opt.label)}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        ) : field.multiline ? (
                           <Textarea
                             rows={3}
                             value={settingDraft[fieldKey] ?? ''}

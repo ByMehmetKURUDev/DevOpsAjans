@@ -122,7 +122,7 @@ function MusteriPaneliOnizleme() {
 
         <div className="mt-8 grid gap-6 lg:grid-cols-5">
           {/* Panel çerçevesi */}
-          <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] lg:col-span-3">
+          <div className="cam-kart cam-gok overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] lg:col-span-3">
             {/* Sahte sekme çubuğu — panelin gerçek sekmeleri */}
             <div className="flex items-center gap-1 border-b border-white/10 px-3 py-2">
               {SEKMELER.map((s, i) => (
@@ -169,7 +169,7 @@ function MusteriPaneliOnizleme() {
           </div>
 
           {/* Panelin gerçekten yaptıkları */}
-          <div className="space-y-3 lg:col-span-2">
+          <div className="cam-dongu space-y-3 lg:col-span-2">
             {[
               { Icon: Bell, anahtar: 'bildirim' },
               { Icon: EyeOff, anahtar: 'icNot' },
@@ -177,7 +177,7 @@ function MusteriPaneliOnizleme() {
             ].map(({ Icon, anahtar }) => (
               <div
                 key={anahtar}
-                className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+                className="cam-kart flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5"
               >
                 <span className="flex h-9 w-9 flex-none items-center justify-center rounded-xl bg-primary/15">
                   <Icon className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -191,7 +191,7 @@ function MusteriPaneliOnizleme() {
               </div>
             ))}
 
-            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <div className="cam-kart cam-mor rounded-2xl border border-white/10 bg-white/[0.03] p-5">
               <p className="text-sm text-muted-foreground">{t('panel.girisNotu')}</p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link to="/contact">

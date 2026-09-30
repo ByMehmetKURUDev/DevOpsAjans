@@ -110,8 +110,8 @@ function OlcekKarti({
 
   return (
     <div
-      className={`relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300 ${
-        scale.populer ? 'glass border-purple-500/50 ring-1 ring-purple-500/40' : 'glass hover:border-purple-500/30'
+      className={`cam-kart relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300 ${
+        scale.populer ? 'cam-one glass border-purple-500/50 ring-1 ring-purple-500/40' : 'glass hover:border-purple-500/30'
       }`}
     >
       {scale.populer && (
@@ -365,12 +365,12 @@ function AiVsPmSekmesi({
 }) {
   const { t } = useTranslation();
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="cam-dongu grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {tiers.map((tier) => (
         <div
           key={tier.id}
-          className={`relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300 ${
-            tier.kod === 'kombin_ai_pm' ? 'glass border-purple-500/50 ring-1 ring-purple-500/40' : 'glass'
+          className={`cam-kart relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300 ${
+            tier.kod === 'kombin_ai_pm' ? 'cam-one glass border-purple-500/50 ring-1 ring-purple-500/40' : 'glass'
           }`}
         >
           {tier.rozet && (
@@ -508,8 +508,8 @@ function KullandikcaOdeBlok() {
             return (
               <div
                 key={p.kredi}
-                className={`rounded-2xl border bg-white/[0.03] p-4 transition-colors ${
-                  secili ? 'border-emerald-500 ring-1 ring-emerald-500/30' : 'border-white/10'
+                className={`cam-kart rounded-2xl border bg-white/[0.03] p-4 transition-colors ${
+                  secili ? 'cam-secili border-emerald-500 ring-1 ring-emerald-500/30' : 'border-white/10'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
@@ -538,7 +538,7 @@ function KullandikcaOdeBlok() {
       </div>
 
       <div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+        <div className="cam-kart cam-gok rounded-2xl border border-white/10 bg-white/[0.03] p-5">
           <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
             {t('fiyatV5.onerilen', 'Önerilen')}
           </div>
@@ -690,7 +690,7 @@ function PricingPlans({ className = '' }: { className?: string }) {
         ) : (
           <>
             {sekme === 'paketler' && (
-              <div className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
+              <div className="cam-dongu grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
                 {scales.map((s) => (
                   <OlcekKarti
                     key={s.id}

@@ -156,7 +156,7 @@ export default function Marketplace() {
 
         {/* Ürünler */}
         {gosterilen.length > 0 && (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="cam-dongu grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {gosterilen.map((urun) => {
               const Ikon =
                 KATEGORI_IKONU[urun.category as keyof typeof KATEGORI_IKONU] ?? Boxes;
@@ -166,7 +166,7 @@ export default function Marketplace() {
               return (
                 <article
                   key={urun.id}
-                  className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-colors hover:border-primary/40"
+                  className="cam-kart flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-colors hover:border-primary/40"
                 >
                   {urun.image_url && (
                     <img

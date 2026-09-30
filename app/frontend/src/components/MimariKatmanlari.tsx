@@ -87,7 +87,7 @@ function MimariKatmanlari() {
           </div>
 
           {/* Seçili katmanın ayrıntısı */}
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 lg:col-span-3">
+          <div className="cam-kart cam-gok rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8 lg:col-span-3">
             <p className="text-xs font-semibold uppercase tracking-wider text-purple-200">
               {t('mimari.detayEtiket')}
             </p>

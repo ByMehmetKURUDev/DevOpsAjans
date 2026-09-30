@@ -26,11 +26,11 @@ function Testimonials({ className = '' }: { className?: string }) {
           <h2 className="text-3xl md:text-4xl font-bold">{t('testimonials.title')}</h2>
         </div>
 
-        <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="cam-dongu grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <li
               key={`${item.name}-${item.quote.slice(0, 24)}`}
-              className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-purple-500/40"
+              className="cam-kart flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-purple-500/40"
             >
               <Quote className="h-6 w-6 text-purple-400/70" aria-hidden="true" />
 

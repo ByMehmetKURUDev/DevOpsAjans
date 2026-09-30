@@ -68,6 +68,8 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   seo_meta_title: 'Mehmet KURU Dev',
   seo_meta_description: 'Web, e-ticaret, SaaS ve mobil uygulama geliştirme ajansı.',
   admin_emails: 'by@mehmetkuru.dev',
+  // Site görünümü: 'klasik' (eski) ya da 'modern' (yeni kart görünümü).
+  site_gorunum: 'klasik',
 };
 
 /**
@@ -131,8 +133,30 @@ export const SETTING_GROUPS: {
   group: string;
   title: string;
   description: string;
-  fields: { key: string; label: string; multiline?: boolean; translatable?: boolean }[];
+  fields: {
+    key: string;
+    label: string;
+    multiline?: boolean;
+    translatable?: boolean;
+    /** Doluysa serbest metin yerine seçim düğmeleri çizilir. */
+    options?: { value: string; label: string }[];
+  }[];
 }[] = [
+  {
+    group: 'gorunum',
+    title: 'settingsForm.gorunumTitle',
+    description: 'settingsForm.gorunumDesc',
+    fields: [
+      {
+        key: 'site_gorunum',
+        label: 'settingsForm.fGorunum',
+        options: [
+          { value: 'klasik', label: 'settingsForm.gorunumKlasik' },
+          { value: 'modern', label: 'settingsForm.gorunumModern' },
+        ],
+      },
+    ],
+  },
   {
     group: 'brand',
     title: 'settingsForm.brandTitle',
