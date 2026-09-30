@@ -15,7 +15,8 @@
     "language": "Dil",
     "adminPanel": "Yönetim Paneli",
     "clientPanel": "Müşteri Panelim",
-    "marketplace": "Marketplace"
+    "marketplace": "Marketplace",
+    "roadmap": "Yol haritası"
   },
   "hero": {
     "badge": "Projeler için müsait · Q3 2026",
@@ -581,8 +582,7 @@
     "desc": "Cesur, yüksek performanslı yazılım ve unutulmaz markalar üreten butik bir geliştirme ve dijital ajans. Özel geliştirme, dijital pazarlama ve ürün tasarımı.",
     "navigate": "Gezinti",
     "contact": "İletişim",
-    "copyright": "By@MehmetKURU.Dev",
-    "roadmap": "Yol haritası"
+    "copyright": "By@MehmetKURU.Dev"
   },
   "settingsForm": {
     "brandTitle": "Marka",
@@ -1617,7 +1617,6 @@
   "fiyatV5": {
     "aiPmYok": "Yok",
     "ayKisa": "ay",
-    "yilKisa": "yıl",
     "besProfil": "5 Profil",
     "bonus": "bonus",
     "gecerlilik": "Geçerlilik",
@@ -1671,7 +1670,8 @@
     "teklifAl": "Teklif Al",
     "tumHizmetler": "Tüm hizmetler",
     "tumHizmetlerAciklama": "À la carte hizmet kataloğu. Teklif için paket kartlarını ya da kredileri kullanın.",
-    "yeni": "YENİ"
+    "yeni": "YENİ",
+    "yillikToplam": "yıllık"
   },
   "fiyatV6": {
     "girisAciklama": "Profilinizi ve ödeme şeklinizi seçin, dört ölçeğin fiyatı anında güncellensin. Modülleri ekleyin, teklif alın ya da hemen satın alın."

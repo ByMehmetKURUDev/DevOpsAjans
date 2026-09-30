@@ -41,7 +41,7 @@ const SAYFA_ADI: Record<string, string> = {
   portfolio: 'nav.portfolio',
   contact: 'nav.contact',
   marketplace: 'nav.marketplace',
-  roadmap: 'footer.roadmap',
+  roadmap: 'nav.roadmap',
   blog: 'nav.blog',
 };
 

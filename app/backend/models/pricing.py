@@ -28,6 +28,8 @@ class Pricing_scales(Base):
     revizyon_saat = Column(String, nullable=True)
     populer = Column(Boolean, nullable=True, default=False)
     karsilastirma = Column(Text, nullable=True)       # JSON: {hosting, sla, panel, devops, mulkiyet, ads, seo}
+    # Dil bazlı metinler (JSON): {"en": {"ad": ..., ...}, "de": {...}}. Boş dilde Türkçe alan kullanılır.
+    ceviriler = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)
 
@@ -44,6 +46,8 @@ class Pricing_profiles(Base):
     carpan = Column(Float, nullable=False)
     etiket = Column(String, nullable=True)
     sira = Column(Integer, nullable=False)
+    # Dil bazlı metinler (JSON): {"en": {"ad": ..., ...}, "de": {...}}. Boş dilde Türkçe alan kullanılır.
+    ceviriler = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)
 
@@ -61,6 +65,8 @@ class Pricing_services(Base):
     tek_seferlik = Column(Boolean, nullable=True, default=False)
     not_metni = Column(String, nullable=True)
     yeni = Column(Boolean, nullable=True, default=False)
+    # Dil bazlı metinler (JSON): {"en": {"ad": ..., ...}, "de": {...}}. Boş dilde Türkçe alan kullanılır.
+    ceviriler = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)
 
@@ -77,6 +83,8 @@ class Pricing_addons(Base):
     baz_fiyat_usd = Column(Float, nullable=False)
     birim = Column(String, nullable=True, default="ay")
     sira = Column(Integer, nullable=False)
+    # Dil bazlı metinler (JSON): {"en": {"ad": ..., ...}, "de": {...}}. Boş dilde Türkçe alan kullanılır.
+    ceviriler = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)
 
@@ -94,6 +102,8 @@ class Ai_pm_tiers(Base):
     rozet = Column(String, nullable=True)
     ozellikler = Column(Text, nullable=True)          # JSON: string[]
     sira = Column(Integer, nullable=False)
+    # Dil bazlı metinler (JSON): {"en": {"ad": ..., ...}, "de": {...}}. Boş dilde Türkçe alan kullanılır.
+    ceviriler = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)
 

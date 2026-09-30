@@ -15,7 +15,8 @@
     "language": "اللغة",
     "adminPanel": "لوحة الإدارة",
     "clientPanel": "لوحة العميل",
-    "marketplace": "المتجر"
+    "marketplace": "المتجر",
+    "roadmap": "خارطة الطريق"
   },
   "hero": {
     "badge": "متاحون للمشاريع · الربع الثالث 2026",
@@ -581,8 +582,7 @@
     "desc": "وكالة تطوير ورقمية متخصصة تنتج برمجيات جسورة عالية الأداء وعلامات لا تُنسى. تطوير مخصص، تسويق رقمي وتصميم منتجات.",
     "navigate": "التنقل",
     "contact": "اتصل بنا",
-    "copyright": "By@MehmetKURU.Dev",
-    "roadmap": "خارطة الطريق"
+    "copyright": "By@MehmetKURU.Dev"
   },
   "settingsForm": {
     "brandTitle": "الهوية",
@@ -1616,7 +1616,6 @@
   "fiyatV5": {
     "aiPmYok": "بدون",
     "ayKisa": "شهر",
-    "yilKisa": "سنة",
     "besProfil": "5 فئات",
     "bonus": "إضافية",
     "gecerlilik": "الصلاحية",
@@ -1670,7 +1669,8 @@
     "teklifAl": "اطلب عرض سعر",
     "tumHizmetler": "جميع الخدمات",
     "tumHizmetlerAciklama": "كتالوج الخدمات المنفردة. استخدم بطاقات الباقات أو الرصيد للحصول على عرض.",
-    "yeni": "جديد"
+    "yeni": "جديد",
+    "yillikToplam": "سنويًا"
   },
   "fiyatV6": {
     "girisAciklama": "اختر فئتك وطريقة الدفع لتتحدث أسعار المستويات الأربعة فورًا. أضف الوحدات، أو اطلب عرضًا، أو اشترِ مباشرة."

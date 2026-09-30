@@ -199,6 +199,41 @@ class DatabaseManager:
     # bir anda kaybolmasın. Bundan sonra açılan projeler taslak başlar.
     SONRADAN_EKLENEN_SUTUNLAR = (
         {
+            # Fiyat kataloğu çevirileri (JSON metni), Eylül 2026.
+            "tablo": "pricing_scales",
+            "sutun": "ceviriler",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Fiyat kataloğu çevirileri (JSON metni), Eylül 2026.
+            "tablo": "pricing_profiles",
+            "sutun": "ceviriler",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Fiyat kataloğu çevirileri (JSON metni), Eylül 2026.
+            "tablo": "pricing_services",
+            "sutun": "ceviriler",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Fiyat kataloğu çevirileri (JSON metni), Eylül 2026.
+            "tablo": "pricing_addons",
+            "sutun": "ceviriler",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Fiyat kataloğu çevirileri (JSON metni), Eylül 2026.
+            "tablo": "ai_pm_tiers",
+            "sutun": "ceviriler",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
             "tablo": "projects",
             "sutun": "published",
             "tur_pg": "BOOLEAN",

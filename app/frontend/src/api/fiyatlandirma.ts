@@ -13,6 +13,9 @@ import { getAPIBaseURL } from '../lib/config';
 
 const apiBase = () => `${getAPIBaseURL()}/api/v1`;
 
+/** Dil bazlı metinler: {"en": {"ad": ...}}; boş dilde Türkçe alan kullanılır. */
+export type Ceviriler = Record<string, Record<string, unknown>> | null;
+
 export type FiyatPeriyodu = 'aylik' | 'yillik' | 'tek_seferlik' | 'kullandikca_ode';
 
 export interface PricingProfile {
@@ -22,6 +25,7 @@ export interface PricingProfile {
   carpan: number;
   etiket: string | null;
   sira: number;
+  ceviriler?: Ceviriler;
 }
 
 export interface PricingScale {
@@ -38,6 +42,7 @@ export interface PricingScale {
   revizyon_saat: string | null;
   populer: boolean;
   karsilastirma: Record<string, string> | null;
+  ceviriler?: Ceviriler;
 }
 
 export interface PricingService {
@@ -48,6 +53,7 @@ export interface PricingService {
   tek_seferlik: boolean;
   not_metni: string | null;
   yeni: boolean;
+  ceviriler?: Ceviriler;
 }
 
 export interface PricingAddon {
@@ -57,6 +63,7 @@ export interface PricingAddon {
   baz_fiyat_usd: number;
   birim: string | null;
   sira: number;
+  ceviriler?: Ceviriler;
 }
 
 export interface AiPmTier {
@@ -67,6 +74,7 @@ export interface AiPmTier {
   rozet: string | null;
   ozellikler: string[] | null;
   sira: number;
+  ceviriler?: Ceviriler;
 }
 
 export interface FiyatHesaplaSonucu {

@@ -15,7 +15,8 @@
     "language": "Language",
     "adminPanel": "Admin Panel",
     "clientPanel": "Client Panel",
-    "marketplace": "Marketplace"
+    "marketplace": "Marketplace",
+    "roadmap": "Roadmap"
   },
   "hero": {
     "badge": "Available for projects · Q3 2026",
@@ -581,8 +582,7 @@
     "desc": "A boutique dev & digital agency crafting bold, high-performance software and unforgettable brands. Custom development, digital marketing, and product design.",
     "navigate": "Navigate",
     "contact": "Contact",
-    "copyright": "By@MehmetKURU.Dev",
-    "roadmap": "Roadmap"
+    "copyright": "By@MehmetKURU.Dev"
   },
   "settingsForm": {
     "brandTitle": "Brand",
@@ -1616,7 +1616,6 @@
   "fiyatV5": {
     "aiPmYok": "None",
     "ayKisa": "mo",
-    "yilKisa": "yr",
     "besProfil": "5 Profiles",
     "bonus": "bonus",
     "gecerlilik": "Validity",
@@ -1670,7 +1669,8 @@
     "teklifAl": "Get a quote",
     "tumHizmetler": "All services",
     "tumHizmetlerAciklama": "À la carte service catalog. Use the package cards or credits to get a quote.",
-    "yeni": "NEW"
+    "yeni": "NEW",
+    "yillikToplam": "yearly"
   },
   "fiyatV6": {
     "girisAciklama": "Choose your profile and payment option and all four tiers update instantly. Add modules, get a quote or buy right away."

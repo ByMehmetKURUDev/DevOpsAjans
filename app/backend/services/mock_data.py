@@ -69,6 +69,17 @@ async def initialize_pricing_seed():
     except Exception as exc:  # pragma: no cover - defensive
         logger.error("Fiyatlandırma v5 seed başarısız: %s", exc, exc_info=True)
 
+    # Katalog çevirileri: yalnız boş satırlar doldurulur (panelde düzeltilen
+    # çeviri ezilmez). Hata olursa site Türkçe metinle çalışmaya devam eder.
+    try:
+        from scripts.pricing_ceviri_doldur import doldur as ceviri_doldur
+
+        async with db_manager.async_session_maker() as session:
+            sayac = await ceviri_doldur(session)
+        logger.info("Fiyat kataloğu çevirileri: %s", sayac)
+    except Exception as exc:  # pragma: no cover - defensive
+        logger.error("Fiyat kataloğu çevirileri yazılamadı: %s", exc, exc_info=True)
+
 
 def _prepare_records(raw_data: Any, table: Table) -> list[dict[str, Any]]:
     """Filter JSON payload to match the table definition and coerce values."""

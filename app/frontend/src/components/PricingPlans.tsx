@@ -75,6 +75,25 @@ const KARSILASTIRMA_SATIRLARI: { anahtar: string; etiketKey: string; etiketDefau
 type Secim = Omit<FiyatTeklifIstegi, 'musteri_eposta' | 'musteri_adi'>;
 type Eylem = (secim: Secim, konu: string, fiyatMetni: string) => void;
 
+/**
+ * Katalog alanını seçili dilde döndürür. Çeviri veritabanında `ceviriler`
+ * sütununda; o dilde alan yoksa Türkçe değer gösterilir.
+ */
+function yerel<T extends { ceviriler?: Record<string, Record<string, unknown>> | null }, K extends keyof T>(
+  kayit: T,
+  alan: K,
+  dil: string,
+): T[K] {
+  if (dil === 'tr') return kayit[alan];
+  const deger = kayit.ceviriler?.[dil]?.[alan as string];
+  return deger === undefined || deger === null || deger === '' ? kayit[alan] : (deger as T[K]);
+}
+
+/** i18next dil kodunu (ör. "en-US") iki harfe indirger. */
+function dilKodu(dil: string | undefined): string {
+  return (dil || 'tr').slice(0, 2);
+}
+
 function paraFormatla(n: number): string {
   return `$${n.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 }
@@ -119,6 +138,7 @@ function OlcekKarti({
   profileKod,
   profilEtiket,
   period,
+  carpan,
   addons,
   aiPmTiers,
   onTeklifAl,
@@ -126,6 +146,8 @@ function OlcekKarti({
   onKrediHesapla,
 }: {
   scale: PricingScale;
+  /** Seçili profilin çarpanı (modül fiyatları kartta bununla gösterilir). */
+  carpan: number;
   profileKod: string;
   profilEtiket: string;
   period: FiyatPeriyodu;
@@ -135,7 +157,8 @@ function OlcekKarti({
   onSatinAl: Eylem;
   onKrediHesapla: (kredi: number) => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const dil = dilKodu(i18n.resolvedLanguage || i18n.language);
   const [seciliEklentiler, setSeciliEklentiler] = useState<string[]>([]);
   const [aiPm, setAiPm] = useState('');
   const [modullerAcik, setModullerAcik] = useState(false);
@@ -174,8 +197,17 @@ function OlcekKarti({
   const kullandikca = period === 'kullandikca_ode';
   const yillik = period === 'yillik';
   // Modül ve AI vs PM fiyatları aylık; yıllıkta sunucuyla aynı kural (× 12, %16 indirim).
-  const donemFiyati = (aylik: number) => (yillik ? Math.round(aylik * 12 * 0.84) : aylik);
-  const donemEki = yillik ? t('fiyatV5.yilKisa', 'yıl') : t('fiyatV5.ayKisa', 'ay');
+  /**
+   * Modül / AI vs PM satırındaki fiyat. Aylık ve Kullandıkça Öde'de aylık;
+   * yıllıkta aylık karşılığı + yıllık toplam (× 12, %16 indirim) — kartın
+   * toplamıyla aynı kural (core/fiyat_hesaplama.py).
+   */
+  const satirFiyati = (aylik: number) => {
+    const ayEki = t('fiyatV5.ayKisa', 'ay');
+    if (!yillik) return `+${paraFormatla(aylik)}/${ayEki}`;
+    const yillikToplam = Math.round(aylik * 12 * 0.84);
+    return `+${paraFormatla(Math.round(yillikToplam / 12))}/${ayEki} · ${t('fiyatV5.yillikToplam', 'yıllık')} ${paraFormatla(yillikToplam)}`;
+  };
   const modulSayisi = seciliEklentiler.length + (aiPm ? 1 : 0);
   const secim: Secim = {
     scale: scale.kod,
@@ -184,7 +216,7 @@ function OlcekKarti({
     addon_ids: seciliEklentiler,
     ...(aiPm ? { ai_pm_tier_kod: aiPm } : {}),
   };
-  const konu = `${scale.ad} / ${profilEtiket} / ${periyotEtiket}`;
+  const konu = `${yerel(scale, 'ad', dil)} / ${profilEtiket} / ${periyotEtiket}`;
   const fiyatMetni = sonuc
     ? kullandikca
       ? `${sonuc.kredi ?? '—'} ${t('fiyatV5.kredi', 'Kredi')} · ${paraFormatla(sonuc.toplam)}`
@@ -203,10 +235,10 @@ function OlcekKarti({
         </div>
       )}
 
-      <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-pink-300">{scale.alt_baslik}</p>
-      <h3 className="mt-1 text-xl font-bold">{scale.ad}</h3>
-      <p className="mt-1 text-xs text-muted-foreground">{scale.calisan_araligi}</p>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{scale.aciklama}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-pink-300">{yerel(scale, 'alt_baslik', dil)}</p>
+      <h3 className="mt-1 text-xl font-bold">{yerel(scale, 'ad', dil)}</h3>
+      <p className="mt-1 text-xs text-muted-foreground">{yerel(scale, 'calisan_araligi', dil)}</p>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{yerel(scale, 'aciklama', dil)}</p>
 
       {/* Canlı fiyat */}
       <div className="mt-4 min-h-[4.25rem]">
@@ -242,7 +274,7 @@ function OlcekKarti({
 
       {/* Özellik listesi */}
       <ul className="mt-4 space-y-1.5">
-        {(scale.ozellikler ?? []).map((oz) => (
+        {(yerel(scale, 'ozellikler', dil) ?? []).map((oz) => (
           <li key={oz} className="flex items-start gap-2 text-xs text-muted-foreground">
             <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" aria-hidden="true" />
             <span>{oz}</span>
@@ -271,11 +303,9 @@ function OlcekKarti({
                       onChange={() => eklentiToggle(a.ad)}
                       className="h-3.5 w-3.5 rounded border-white/30 bg-transparent accent-purple-500"
                     />
-                    {a.ad}
+                    {yerel(a, 'ad', dil)}
                   </span>
-                  <span className="text-muted-foreground">
-                    +{paraFormatla(donemFiyati(a.baz_fiyat_usd))}/{donemEki}
-                  </span>
+                  <span className="shrink-0 text-end text-muted-foreground">{satirFiyati(a.baz_fiyat_usd * carpan)}</span>
                 </label>
               ))}
             </div>
@@ -299,12 +329,10 @@ function OlcekKarti({
                             onChange={() => setAiPm(tier.kod)}
                             className="h-3.5 w-3.5 accent-purple-500"
                           />
-                          {tier.ad}
+                          {tier.kod ? yerel(tier as AiPmTier, 'ad', dil) : tier.ad}
                         </span>
                         {tier.kod && (
-                          <span className="text-muted-foreground">
-                            +{paraFormatla(donemFiyati(tier.fiyat_aylik_usd))}/{donemEki}
-                          </span>
+                          <span className="shrink-0 text-end text-muted-foreground">{satirFiyati(tier.fiyat_aylik_usd)}</span>
                         )}
                       </label>
                     ),
@@ -326,7 +354,11 @@ function OlcekKarti({
               {KARSILASTIRMA_SATIRLARI.map((satir) => (
                 <div key={satir.anahtar} className="flex justify-between gap-3">
                   <dt className="text-muted-foreground">{t(satir.etiketKey, satir.etiketDefault)}</dt>
-                  <dd className="text-end text-white/90">{scale.karsilastirma?.[satir.anahtar] ?? '—'}</dd>
+                  <dd className="text-end text-white/90">
+                    {(yerel(scale, 'karsilastirma', dil) as Record<string, string> | null)?.[satir.anahtar] ??
+                      scale.karsilastirma?.[satir.anahtar] ??
+                      '—'}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -367,16 +399,18 @@ function OlcekKarti({
 }
 
 function TumHizmetler({ services }: { services: PricingService[] }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const dil = dilKodu(i18n.resolvedLanguage || i18n.language);
   const [acik, setAcik] = useState(false);
   const kategoriler = useMemo(() => {
     const map = new Map<string, PricingService[]>();
     for (const s of services) {
-      if (!map.has(s.kategori)) map.set(s.kategori, []);
-      map.get(s.kategori)!.push(s);
+      const kategori = yerel(s, 'kategori', dil);
+      if (!map.has(kategori)) map.set(kategori, []);
+      map.get(kategori)!.push(s);
     }
     return Array.from(map.entries());
-  }, [services]);
+  }, [services, dil]);
 
   if (services.length === 0) return null;
   return (
@@ -409,8 +443,8 @@ function TumHizmetler({ services }: { services: PricingService[] }) {
                     className="flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2.5"
                   >
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-medium">{s.ad}</p>
-                      {s.not_metni && <p className="mt-0.5 text-[11px] text-muted-foreground">{s.not_metni}</p>}
+                      <p className="truncate text-sm font-medium">{yerel(s, 'ad', dil)}</p>
+                      {s.not_metni && <p className="mt-0.5 text-[11px] text-muted-foreground">{yerel(s, 'not_metni', dil)}</p>}
                       <div className="mt-1 flex gap-1">
                         {s.yeni && (
                           <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-300">
@@ -636,7 +670,8 @@ function KullandikcaOdeBlok({
 }
 
 function PricingPlans({ className = '' }: { className?: string }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const dil = dilKodu(i18n.resolvedLanguage || i18n.language);
 
   const [scales, setScales] = useState<PricingScale[]>([]);
   const [profiles, setProfiles] = useState<PricingProfile[]>([]);
@@ -689,7 +724,9 @@ function PricingPlans({ className = '' }: { className?: string }) {
     };
   }, []);
 
-  const profilEtiket = profiles.find((p) => p.kod === profileKod)?.ad ?? profileKod;
+  const seciliProfil = profiles.find((p) => p.kod === profileKod);
+  const profilEtiket = seciliProfil ? yerel(seciliProfil, 'ad', dil) : profileKod;
+  const carpan = Number(seciliProfil?.carpan ?? 1);
 
   const krediHesapla = (kredi: number) => {
     setIhtiyac(Math.min(Math.max(kredi, IHTIYAC_MIN), IHTIYAC_MAX));
@@ -731,7 +768,7 @@ function PricingPlans({ className = '' }: { className?: string }) {
                     type="button"
                     onClick={() => setProfileKod(p.kod)}
                     aria-pressed={secili}
-                    title={p.etiket ?? undefined}
+                    title={yerel(p, 'etiket', dil) ?? undefined}
                     className={`${secimDugmesi} flex items-center gap-3 rounded-xl border px-3 py-2.5 text-start ${
                       secili
                         ? 'border-emerald-400/70 bg-emerald-500/10 text-white'
@@ -746,7 +783,7 @@ function PricingPlans({ className = '' }: { className?: string }) {
                       <Ikon className="h-4 w-4" aria-hidden="true" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block truncate text-sm font-semibold">{p.ad}</span>
+                      <span className="block truncate text-sm font-semibold">{yerel(p, 'ad', dil)}</span>
                       <span className={`block text-[11px] ${secili ? 'text-emerald-300' : 'text-muted-foreground'}`}>
                         {profilOrani(Number(p.carpan), t)}
                       </span>
@@ -804,6 +841,7 @@ function PricingPlans({ className = '' }: { className?: string }) {
                   profileKod={profileKod}
                   profilEtiket={profilEtiket}
                   period={period}
+                  carpan={carpan}
                   addons={addons.filter((a) => a.scale_kod === s.kod).sort((x, y) => x.sira - y.sira)}
                   aiPmTiers={aiPmTiers}
                   onTeklifAl={(secim, konu, fiyatMetni) => setPencere({ secim, konu, fiyatMetni, mod: 'teklif' })}

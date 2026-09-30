@@ -15,7 +15,8 @@
     "language": "Sprache",
     "adminPanel": "Admin-Panel",
     "clientPanel": "Kundenpanel",
-    "marketplace": "Marketplace"
+    "marketplace": "Marketplace",
+    "roadmap": "Roadmap"
   },
   "hero": {
     "badge": "Verfügbar für Projekte · Q3 2026",
@@ -581,8 +582,7 @@
     "desc": "Eine Boutique-Entwicklungs- und Digitalagentur, die mutige, leistungsstarke Software und unvergessliche Marken erschafft. Individuelle Entwicklung, digitales Marketing und Produktdesign.",
     "navigate": "Navigation",
     "contact": "Kontakt",
-    "copyright": "By Mehmet KURU Dev. Mit Besessenheit gefertigt.",
-    "roadmap": "Roadmap"
+    "copyright": "By Mehmet KURU Dev. Mit Besessenheit gefertigt."
   },
   "settingsForm": {
     "brandTitle": "Marke",
@@ -1616,7 +1616,6 @@
   "fiyatV5": {
     "aiPmYok": "Keins",
     "ayKisa": "Mon.",
-    "yilKisa": "Jahr",
     "besProfil": "5 Profile",
     "bonus": "Bonus",
     "gecerlilik": "Gültigkeit",
@@ -1670,7 +1669,8 @@
     "teklifAl": "Angebot anfordern",
     "tumHizmetler": "Alle Leistungen",
     "tumHizmetlerAciklama": "À-la-carte-Leistungskatalog. Für ein Angebot nutzen Sie die Paketkarten oder Credits.",
-    "yeni": "NEU"
+    "yeni": "NEU",
+    "yillikToplam": "jährlich"
   },
   "fiyatV6": {
     "girisAciklama": "Wählen Sie Profil und Zahlungsart – die Preise aller vier Stufen aktualisieren sich sofort. Module hinzufügen, Angebot anfordern oder direkt kaufen."

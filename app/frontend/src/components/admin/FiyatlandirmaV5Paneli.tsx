@@ -29,7 +29,13 @@ interface AlanTanimi {
   label: string;
   tip: AlanTipi;
   zorunlu?: boolean;
+  /** Sitede ziyaretçinin dilinde gösterilen alan; `ceviriler` içinde dil başına saklanır. */
+  cevrilebilir?: boolean;
 }
+
+/** Katalog çevirisi yapılabilen diller (Türkçe ana alanlarda). */
+const CEVIRI_DILLERI = ['en', 'de', 'ru', 'zh', 'hi', 'ar'] as const;
+const CEVIRISIZ_TABLOLAR = new Set(['pricing_inquiries']);
 
 interface TabloTanimi {
   tablo: string;
@@ -46,16 +52,16 @@ const TABLOLAR: TabloTanimi[] = [
     alanlar: [
       { key: 'kod', label: 'Kod', tip: 'text', zorunlu: true },
       { key: 'sira', label: 'Sıra', tip: 'number', zorunlu: true },
-      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true },
-      { key: 'alt_baslik', label: 'Alt başlık', tip: 'text', zorunlu: true },
-      { key: 'calisan_araligi', label: 'Çalışan aralığı', tip: 'text', zorunlu: true },
-      { key: 'aciklama', label: 'Açıklama', tip: 'textarea', zorunlu: true },
+      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true, cevrilebilir: true },
+      { key: 'alt_baslik', label: 'Alt başlık', tip: 'text', zorunlu: true, cevrilebilir: true },
+      { key: 'calisan_araligi', label: 'Çalışan aralığı', tip: 'text', zorunlu: true, cevrilebilir: true },
+      { key: 'aciklama', label: 'Açıklama', tip: 'textarea', zorunlu: true, cevrilebilir: true },
       { key: 'baz_aylik_fiyat_usd', label: 'Baz aylık fiyat (USD)', tip: 'number', zorunlu: true },
-      { key: 'ozellikler', label: 'Özellikler (JSON dizi)', tip: 'json' },
-      { key: 'eklenti_limiti', label: 'Eklenti limiti', tip: 'text' },
-      { key: 'revizyon_saat', label: 'Revizyon saati', tip: 'text' },
+      { key: 'ozellikler', label: 'Özellikler (JSON dizi)', tip: 'json', cevrilebilir: true },
+      { key: 'eklenti_limiti', label: 'Eklenti limiti', tip: 'text', cevrilebilir: true },
+      { key: 'revizyon_saat', label: 'Revizyon saati', tip: 'text', cevrilebilir: true },
       { key: 'populer', label: 'Popüler rozeti', tip: 'boolean' },
-      { key: 'karsilastirma', label: 'Karşılaştırma (JSON obje)', tip: 'json' },
+      { key: 'karsilastirma', label: 'Karşılaştırma (JSON obje)', tip: 'json', cevrilebilir: true },
     ],
   },
   {
@@ -63,9 +69,9 @@ const TABLOLAR: TabloTanimi[] = [
     baslik: 'Profiller (kurumsal/startup/stk/bireysel/eğitim)',
     alanlar: [
       { key: 'kod', label: 'Kod', tip: 'text', zorunlu: true },
-      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true },
+      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true, cevrilebilir: true },
       { key: 'carpan', label: 'Çarpan', tip: 'number', zorunlu: true },
-      { key: 'etiket', label: 'Etiket', tip: 'text' },
+      { key: 'etiket', label: 'Etiket', tip: 'text', cevrilebilir: true },
       { key: 'sira', label: 'Sıra', tip: 'number', zorunlu: true },
     ],
   },
@@ -73,11 +79,11 @@ const TABLOLAR: TabloTanimi[] = [
     tablo: 'pricing_services',
     baslik: 'À la carte hizmetler',
     alanlar: [
-      { key: 'kategori', label: 'Kategori', tip: 'text', zorunlu: true },
-      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true },
+      { key: 'kategori', label: 'Kategori', tip: 'text', zorunlu: true, cevrilebilir: true },
+      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true, cevrilebilir: true },
       { key: 'baz_fiyat_usd', label: 'Baz fiyat (USD)', tip: 'number', zorunlu: true },
       { key: 'tek_seferlik', label: 'Tek seferlik', tip: 'boolean' },
-      { key: 'not_metni', label: 'Not', tip: 'text' },
+      { key: 'not_metni', label: 'Not', tip: 'text', cevrilebilir: true },
       { key: 'yeni', label: 'Yeni rozeti', tip: 'boolean' },
     ],
   },
@@ -86,7 +92,7 @@ const TABLOLAR: TabloTanimi[] = [
     baslik: 'Ölçek eklentileri',
     alanlar: [
       { key: 'scale_kod', label: 'Ölçek kodu (ALFA/BETA/OMEGA/SIGMA)', tip: 'text', zorunlu: true },
-      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true },
+      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true, cevrilebilir: true },
       { key: 'baz_fiyat_usd', label: 'Baz fiyat (USD)', tip: 'number', zorunlu: true },
       { key: 'birim', label: 'Birim', tip: 'text' },
       { key: 'sira', label: 'Sıra', tip: 'number', zorunlu: true },
@@ -97,10 +103,10 @@ const TABLOLAR: TabloTanimi[] = [
     baslik: 'AI vs PM katmanları',
     alanlar: [
       { key: 'kod', label: 'Kod', tip: 'text', zorunlu: true },
-      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true },
+      { key: 'ad', label: 'Ad', tip: 'text', zorunlu: true, cevrilebilir: true },
       { key: 'fiyat_aylik_usd', label: 'Aylık fiyat (USD)', tip: 'number', zorunlu: true },
-      { key: 'rozet', label: 'Rozet', tip: 'text' },
-      { key: 'ozellikler', label: 'Özellikler (JSON dizi)', tip: 'json' },
+      { key: 'rozet', label: 'Rozet', tip: 'text', cevrilebilir: true },
+      { key: 'ozellikler', label: 'Özellikler (JSON dizi)', tip: 'json', cevrilebilir: true },
       { key: 'sira', label: 'Sıra', tip: 'number', zorunlu: true },
     ],
   },
@@ -159,6 +165,9 @@ export default function FiyatlandirmaV5Paneli() {
   const [boolAlanlar, setBoolAlanlar] = useState<Record<string, boolean>>({});
   const [kaydediliyor, setKaydediliyor] = useState(false);
   const [silinen, setSilinen] = useState<number | null>(null);
+  // Düzenleme formunda hangi dil: 'tr' ana alanlar, diğerleri `ceviriler`.
+  const [formDili, setFormDili] = useState<string>('tr');
+  const [ceviriForm, setCeviriForm] = useState<Record<string, Record<string, string>>>({});
 
   const yukle = useCallback(async () => {
     setYukleniyor(true);
@@ -179,6 +188,17 @@ export default function FiyatlandirmaV5Paneli() {
   }, [aktifTablo]);
 
   const duzenlemeyeBasla = (satir: FiyatV5Satir | 'yeni') => {
+    setFormDili('tr');
+    const cev: Record<string, Record<string, string>> = {};
+    const kayitli = satir === 'yeni' ? null : (satir.ceviriler as Record<string, Record<string, unknown>> | null | undefined);
+    for (const d of CEVIRI_DILLERI) {
+      cev[d] = {};
+      for (const a of tanim.alanlar.filter((x) => x.cevrilebilir)) {
+        const v = kayitli?.[d]?.[a.key];
+        cev[d][a.key] = v == null ? '' : a.tip === 'json' ? JSON.stringify(v, null, 2) : String(v);
+      }
+    }
+    setCeviriForm(cev);
     if (satir === 'yeni') {
       setForm(bosForm(tanim));
       setBoolAlanlar({});
@@ -230,6 +250,30 @@ export default function FiyatlandirmaV5Paneli() {
         }
         payload[a.key] = ham;
       }
+    }
+
+    // Çeviriler: dolu alanlar dil başına; boş alan sitede Türkçeye düşer.
+    if (!CEVIRISIZ_TABLOLAR.has(aktifTablo)) {
+      const ceviriler: Record<string, Record<string, unknown>> = {};
+      for (const d of CEVIRI_DILLERI) {
+        for (const a of tanim.alanlar.filter((x) => x.cevrilebilir)) {
+          const ham = (ceviriForm[d]?.[a.key] ?? '').trim();
+          if (!ham) continue;
+          let deger: unknown = ham;
+          if (a.tip === 'json') {
+            try {
+              deger = JSON.parse(ham);
+            } catch {
+              toast.error(
+                t('fiyatV5Admin.gecersizJson', '"{{alan}}" geçerli bir JSON olmalı.', { alan: `${a.label} (${d.toUpperCase()})` }),
+              );
+              return;
+            }
+          }
+          (ceviriler[d] ??= {})[a.key] = deger;
+        }
+      }
+      payload.ceviriler = Object.keys(ceviriler).length ? ceviriler : null;
     }
 
     setKaydediliyor(true);
@@ -314,6 +358,62 @@ export default function FiyatlandirmaV5Paneli() {
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
+          {!CEVIRISIZ_TABLOLAR.has(aktifTablo) && (
+            <div className="mb-3 flex flex-wrap items-center gap-1.5" role="group" aria-label="Dil">
+              {['tr', ...CEVIRI_DILLERI].map((d) => (
+                <button
+                  key={d}
+                  type="button"
+                  onClick={() => setFormDili(d)}
+                  aria-pressed={formDili === d}
+                  className={`rounded-md px-2.5 py-1 text-xs font-semibold uppercase ${
+                    formDili === d ? 'bg-emerald-500 text-black' : 'border border-white/10 text-muted-foreground hover:text-white'
+                  }`}
+                >
+                  {d}
+                </button>
+              ))}
+              {formDili !== 'tr' && (
+                <span className="ms-2 text-[11px] text-muted-foreground">
+                  Boş bırakılan alan sitede Türkçe görünür. Soluk yazı Türkçe değerdir.
+                </span>
+              )}
+            </div>
+          )}
+          {formDili !== 'tr' ? (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {tanim.alanlar
+                .filter((a) => a.cevrilebilir)
+                .map((a) => (
+                  <div key={a.key} className={a.tip === 'json' || a.tip === 'textarea' ? 'sm:col-span-2' : ''}>
+                    <Label className="mb-1 block text-xs text-muted-foreground">
+                      {a.label} ({formDili.toUpperCase()})
+                    </Label>
+                    {a.tip === 'textarea' || a.tip === 'json' ? (
+                      <textarea
+                        value={ceviriForm[formDili]?.[a.key] ?? ''}
+                        placeholder={form[a.key] ?? ''}
+                        dir={formDili === 'ar' ? 'rtl' : undefined}
+                        onChange={(o) =>
+                          setCeviriForm((p) => ({ ...p, [formDili]: { ...p[formDili], [a.key]: o.target.value } }))
+                        }
+                        rows={a.tip === 'json' ? 5 : 3}
+                        className="w-full resize-y rounded-lg border border-white/10 bg-black/40 px-3 py-2 font-mono text-xs text-white placeholder:text-white/30 focus:border-primary focus:outline-none"
+                      />
+                    ) : (
+                      <Input
+                        value={ceviriForm[formDili]?.[a.key] ?? ''}
+                        placeholder={form[a.key] ?? ''}
+                        dir={formDili === 'ar' ? 'rtl' : undefined}
+                        onChange={(o) =>
+                          setCeviriForm((p) => ({ ...p, [formDili]: { ...p[formDili], [a.key]: o.target.value } }))
+                        }
+                      />
+                    )}
+                  </div>
+                ))}
+            </div>
+          ) : (
           <div className="grid gap-3 sm:grid-cols-2">
             {tanim.alanlar.map((a) => (
               <div key={a.key} className={a.tip === 'json' || a.tip === 'textarea' ? 'sm:col-span-2' : ''}>
@@ -348,6 +448,7 @@ export default function FiyatlandirmaV5Paneli() {
               </div>
             ))}
           </div>
+          )}
           <div className="mt-4 flex justify-end gap-2">
             <Button variant="outline" onClick={() => setDuzenlenen(null)}>
               {t('genel.iptal', 'İptal')}

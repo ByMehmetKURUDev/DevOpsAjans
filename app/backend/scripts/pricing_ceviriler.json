@@ -1,0 +1,3158 @@
+{
+ "en": {
+  "scales": {
+   "ALFA": {
+    "ad": "Alpha Series",
+    "alt_baslik": "ENTRY",
+    "calisan_araligi": "2-10 employees",
+    "aciklama": "2-10 employees. First professional site, fast go-live.",
+    "ozellikler": [
+     "Landing + Corporate 5 pages",
+     "Figma → Next.js, 90%+ PageSpeed",
+     "KVKK + contract infrastructure ready",
+     "Basic SEO & Analytics setup",
+     "100% yours, panel included"
+    ],
+    "eklenti_limiti": "6 add-ons",
+    "revizyon_saat": "2h",
+    "karsilastirma": {
+     "hosting": "Vercel Starter",
+     "sla": "Best effort",
+     "panel": "Lightweight CMS",
+     "devops": "None",
+     "mulkiyet": "✓ 100% yours",
+     "ads": "—",
+     "seo": "Basic"
+    }
+   },
+   "BETA": {
+    "ad": "Beta Series",
+    "alt_baslik": "GROWTH",
+    "calisan_araligi": "10-50 employees",
+    "aciklama": "10-50 employees. E-commerce + integrations, payment/shipping/CRM.",
+    "ozellikler": [
+     "E-Commerce (100 SKUs) + Payment/Shipping",
+     "CRM & email automation integration",
+     "Ads setup + conversion tracking",
+     "8 hours of revisions & maintenance per month",
+     "Backups, SSL, uptime monitoring"
+    ],
+    "eklenti_limiti": "7 add-ons",
+    "revizyon_saat": "8h",
+    "karsilastirma": {
+     "hosting": "Vercel Standard",
+     "sla": "99.5%",
+     "panel": "E-commerce CMS",
+     "devops": "Basic",
+     "mulkiyet": "✓ 100% yours",
+     "ads": "Setup included",
+     "seo": "Medium"
+    }
+   },
+   "OMEGA": {
+    "ad": "Omega Series",
+    "alt_baslik": "SCALE",
+    "calisan_araligi": "50+ employees",
+    "aciklama": "50+ employees. SaaS, multi-region, SLA, high traffic.",
+    "ozellikler": [
+     "SaaS / Multi-tenant architecture",
+     "Multi-region, edge cache, 99.9% SLA",
+     "Contract + KVKK + data processing package",
+     "DevOps & security hardening",
+     "16 hours of senior development per month"
+    ],
+    "eklenti_limiti": "7 add-ons",
+    "revizyon_saat": "16h",
+    "karsilastirma": {
+     "hosting": "Multi-region edge",
+     "sla": "99.9%",
+     "panel": "Custom admin",
+     "devops": "Advanced",
+     "mulkiyet": "✓ 100% yours",
+     "ads": "Management included",
+     "seo": "Advanced"
+    }
+   },
+   "SIGMA": {
+    "ad": "Sigma Series",
+    "alt_baslik": "INDEPENDENT",
+    "calisan_araligi": "Custom team size",
+    "aciklama": "Σ logic — for those who add it all up and build their own package.",
+    "ozellikler": [
+     "Custom scope, unlimited integrations",
+     "White label + panel on your own domain",
+     "Unlimited revision pool (Pay as you go)",
+     "DevOps, security, scaling consulting",
+     "100% yours + code handover"
+    ],
+    "eklenti_limiti": "8 add-ons",
+    "revizyon_saat": "Pay as you go",
+    "karsilastirma": {
+     "hosting": "Custom / your own infrastructure",
+     "sla": "Contractual SLA",
+     "panel": "White label",
+     "devops": "Consulting",
+     "mulkiyet": "✓ 100% yours + code",
+     "ads": "Consulting",
+     "seo": "Consulting"
+    }
+   }
+  },
+  "profiles": {
+   "kurumsal": {
+    "ad": "Corporate",
+    "etiket": "Invoicing, KVKK, priority support"
+   },
+   "startup": {
+    "ad": "Startup",
+    "etiket": "Deck, fast launch"
+   },
+   "stk": {
+    "ad": "NGO",
+    "etiket": "NGO/association discount"
+   },
+   "bireysel": {
+    "ad": "Individual",
+    "etiket": "Individual/freelancer discount"
+   },
+   "egitim": {
+    "ad": "Education",
+    "etiket": "LMS, certificate"
+   }
+  },
+  "tiers": {
+   "starter_ai": {
+    "ad": "Starter — AI",
+    "rozet": "FASTEST",
+    "ozellikler": [
+     "1 AI automation (n8n/Make)",
+     "1 integration (CRM/WhatsApp/Email)",
+     "Error log + monitoring",
+     "Documentation"
+    ]
+   },
+   "yonetim_pm": {
+    "ad": "Management — PM",
+    "rozet": "MOST ORGANIZED",
+    "ozellikler": [
+     "Linear/Notion setup",
+     "Weekly sprint + report",
+     "2 revision rounds",
+     "Team onboarding"
+    ]
+   },
+   "kombin_ai_pm": {
+    "ad": "Combo — AI + PM",
+    "rozet": "POPULAR ✓",
+    "ozellikler": [
+     "3 automations + management panel",
+     "CRM + Ads + Email integrated",
+     "A/B testing + analytics",
+     "12 months of support"
+    ]
+   },
+   "kurumsal_olcek": {
+    "ad": "Enterprise — Scale",
+    "rozet": "SCALE",
+    "ozellikler": [
+     "Unlimited automation",
+     "Custom API + SSO + audit",
+     "SLA + 24/7 monitoring",
+     "CTO support"
+    ]
+   }
+  },
+  "addons": {
+   "Çok Dilli (TR/EN)": "Multilingual (TR/EN)",
+   "Blog Modülü": "Blog Module",
+   "Randevu/Rezervasyon": "Appointments/Reservations",
+   "Gelişmiş SEO Paketi": "Advanced SEO Package",
+   "Hız + %95 Skor Garantisi": "Speed + 95% Score Guarantee",
+   "Ek Revizyon Saati (5s)": "Extra Revision Hours (5h)",
+   "Pazaryeri Entegrasyonu": "Marketplace Integration",
+   "Üyelik & Sadakat Sistemi": "Membership & Loyalty System",
+   "Gelişmiş Filtre & Arama": "Advanced Filter & Search",
+   "WhatsApp Sipariş Botu": "WhatsApp Order Bot",
+   "Meta + Google Ads Yönetimi": "Meta + Google Ads Management",
+   "A/B Test Altyapısı": "A/B Testing Infrastructure",
+   "Ek 20 SKU Yükleme": "Additional 20 SKU Upload",
+   "SaaS Abonelik & Faturalama": "SaaS Subscription & Billing",
+   "Rol Bazlı Yetki (RBAC)": "Role-Based Access (RBAC)",
+   "Audit Log & SSO": "Audit Log & SSO",
+   "Özel API & Webhook": "Custom API & Webhook",
+   "Yük Testi + SLO Raporu": "Load Test + SLO Report",
+   "7/24 PagerDuty Entegrasyonu": "24/7 PagerDuty Integration",
+   "KVKK Veri Haritası": "KVKK Data Map",
+   "Özel Modül Geliştirme (10 saat)": "Custom Module Development (10 hours)",
+   "AI Asistan Entegrasyonu": "AI Assistant Integration",
+   "Mobil App (Expo) Köprüsü": "Mobile App (Expo) Bridge",
+   "Kurumsal Eğitim (1 gün)": "Corporate Training (1 day)",
+   "Kaynak Kod Audit": "Source Code Audit",
+   "Özel SLA & Hukuki Çerçeve": "Custom SLA & Legal Framework",
+   "Sınırsız Eklenti Hakkı": "Unlimited Add-on Rights",
+   "CTO Office Saatliği (saat)": "CTO Office Hours (per hour)"
+  },
+  "kategoriler": {
+   "YAZILIM": "SOFTWARE",
+   "TASARIM": "DESIGN",
+   "E-TICARET/GROWTH": "E-COMMERCE/GROWTH",
+   "ALTYAPI": "INFRASTRUCTURE",
+   "SEO/BÜYÜME": "SEO/GROWTH",
+   "MARKA/İÇERIK": "BRAND/CONTENT",
+   "AI/OTOMASYON": "AI/AUTOMATION",
+   "İLERI/WEB3": "ADVANCED/WEB3"
+  },
+  "services": {
+   "Web Tasarım & Kodlama": {
+    "ad": "Web Design & Development",
+    "not_metni": null
+   },
+   "Landing Page (Tek Sayfa)": {
+    "ad": "Landing Page (Single Page)",
+    "not_metni": null
+   },
+   "Kurumsal Site (5 Sayfa)": {
+    "ad": "Corporate Site (5 Pages)",
+    "not_metni": null
+   },
+   "E-Ticaret Kurulumu": {
+    "ad": "E-Commerce Setup",
+    "not_metni": null
+   },
+   "Ödeme Entegrasyonu": {
+    "ad": "Payment Integration",
+    "not_metni": null
+   },
+   "Kargo Entegrasyonu": {
+    "ad": "Shipping Integration",
+    "not_metni": null
+   },
+   "Pazaryeri Entegrasyonu": {
+    "ad": "Marketplace Integration",
+    "not_metni": null
+   },
+   "CRM Entegrasyonu": {
+    "ad": "CRM Integration",
+    "not_metni": null
+   },
+   "E-posta Otomasyonu": {
+    "ad": "Email Automation",
+    "not_metni": null
+   },
+   "Figma → Next.js Dönüşüm": {
+    "ad": "Figma → Next.js Conversion",
+    "not_metni": null
+   },
+   "Çok Dilli Altyapı": {
+    "ad": "Multilingual Infrastructure",
+    "not_metni": null
+   },
+   "Blog / İçerik Modülü": {
+    "ad": "Blog / Content Module",
+    "not_metni": null
+   },
+   "Üyelik Sistemi": {
+    "ad": "Membership System",
+    "not_metni": null
+   },
+   "Randevu Sistemi": {
+    "ad": "Appointment System",
+    "not_metni": null
+   },
+   "Rezervasyon Modülü": {
+    "ad": "Reservation Module",
+    "not_metni": null
+   },
+   "Etkinlik / Takvim": {
+    "ad": "Events / Calendar",
+    "not_metni": null
+   },
+   "Eğitim Portalı / LMS": {
+    "ad": "Learning Portal / LMS",
+    "not_metni": null
+   },
+   "Admin Panel (Custom)": {
+    "ad": "Admin Panel (Custom)",
+    "not_metni": null
+   },
+   "API Geliştirme": {
+    "ad": "API Development",
+    "not_metni": null
+   },
+   "SEO Temel Kurulum": {
+    "ad": "SEO Basic Setup",
+    "not_metni": null
+   },
+   "SEO İleri (Teknik)": {
+    "ad": "Advanced SEO (Technical)",
+    "not_metni": null
+   },
+   "Google Ads Kurulum": {
+    "ad": "Google Ads Setup",
+    "not_metni": null
+   },
+   "Meta Ads Kurulum": {
+    "ad": "Meta Ads Setup",
+    "not_metni": null
+   },
+   "Analytics + Search Console": {
+    "ad": "Analytics + Search Console",
+    "not_metni": null
+   },
+   "Hız Optimizasyonu": {
+    "ad": "Speed Optimization",
+    "not_metni": null
+   },
+   "KVKK & Sözleşme Sayfaları": {
+    "ad": "KVKK & Contract Pages",
+    "not_metni": null
+   },
+   "SSL & Domain Yönetimi": {
+    "ad": "SSL & Domain Management",
+    "not_metni": null
+   },
+   "Yedekleme & İzleme": {
+    "ad": "Backup & Monitoring",
+    "not_metni": null
+   },
+   "Bakım / Aylık Destek": {
+    "ad": "Maintenance / Monthly Support",
+    "not_metni": "monthly"
+   },
+   "İçerik Üretimi (10 sayfa)": {
+    "ad": "Content Production (10 pages)",
+    "not_metni": null
+   },
+   "Görsel & İkon Seti": {
+    "ad": "Visual & Icon Set",
+    "not_metni": null
+   },
+   "Göç / Taşıma Hizmeti": {
+    "ad": "Migration Service",
+    "not_metni": null
+   },
+   "Eğitim & Devretme": {
+    "ad": "Training & Handover",
+    "not_metni": null
+   },
+   "Logo & Brand Kit": {
+    "ad": "Logo & Brand Kit",
+    "not_metni": "one-time"
+   },
+   "Pitch Deck Tasarım": {
+    "ad": "Pitch Deck Design",
+    "not_metni": null
+   },
+   "API Dokümantasyonu": {
+    "ad": "API Documentation",
+    "not_metni": null
+   },
+   "Web Sitesi Hız Optimizasyonu": {
+    "ad": "Website Speed Optimization",
+    "not_metni": null
+   },
+   "KVKK/GDPR Uyum Paketi": {
+    "ad": "KVKK/GDPR Compliance Package",
+    "not_metni": null
+   },
+   "E-posta & Domain Migrasyon": {
+    "ad": "Email & Domain Migration",
+    "not_metni": null
+   },
+   "A/B Test Kurulumu": {
+    "ad": "A/B Test Setup",
+    "not_metni": null
+   },
+   "Chatbot Eğitim & Fine-tuning": {
+    "ad": "Chatbot Training & Fine-tuning",
+    "not_metni": null
+   },
+   "Yedekleme & Felaket Kurtarma": {
+    "ad": "Backup & Disaster Recovery",
+    "not_metni": "monthly"
+   },
+   "Analytics & Dashboard (Looker/Plausible)": {
+    "ad": "Analytics & Dashboard (Looker/Plausible)",
+    "not_metni": null
+   },
+   "Brand Strateji Workshop": {
+    "ad": "Brand Strategy Workshop",
+    "not_metni": null
+   },
+   "Metin Yazarlığı & UX Copy": {
+    "ad": "Copywriting & UX Copy",
+    "not_metni": null
+   },
+   "E-posta Pazarlama Otomasyonu": {
+    "ad": "Email Marketing Automation",
+    "not_metni": "Mailchimp/Brevo + $99/mo"
+   },
+   "WhatsApp Business API Entegrasyonu": {
+    "ad": "WhatsApp Business API Integration",
+    "not_metni": "+$49/mo"
+   },
+   "CRM Kurulumu (HubSpot/Pipedrive)": {
+    "ad": "CRM Setup (HubSpot/Pipedrive)",
+    "not_metni": null
+   },
+   "Membership / Abonelik Sistemi": {
+    "ad": "Membership / Subscription System",
+    "not_metni": null
+   },
+   "Online Randevu Sistemi": {
+    "ad": "Online Appointment System",
+    "not_metni": null
+   },
+   "Blog & İçerik Sistemi Kurulumu": {
+    "ad": "Blog & Content System Setup",
+    "not_metni": null
+   },
+   "Çok Dilli Yapı (i18n) Kurulumu": {
+    "ad": "Multilingual Structure (i18n) Setup",
+    "not_metni": null
+   },
+   "PWA Dönüşümü": {
+    "ad": "PWA Conversion",
+    "not_metni": null
+   },
+   "Güvenlik Hardening & WAF": {
+    "ad": "Security Hardening & WAF",
+    "not_metni": null
+   },
+   "Dönüşüm Hunisi Audit": {
+    "ad": "Conversion Funnel Audit",
+    "not_metni": null
+   },
+   "Video Prodüksiyon & Kurgu": {
+    "ad": "Video Production & Editing",
+    "not_metni": "one-time landing + $299/mo clip production"
+   },
+   "Podcast Sitesi + RSS + Transkript AI": {
+    "ad": "Podcast Site + RSS + AI Transcript",
+    "not_metni": "one-time"
+   },
+   "NFT / Token Gated Erişim": {
+    "ad": "NFT / Token-Gated Access",
+    "not_metni": "Web3 wallet connect"
+   },
+   "AI Ses Klonlama & Sesli Blog": {
+    "ad": "AI Voice Cloning & Audio Blog",
+    "not_metni": "setup + $99/mo"
+   },
+   "3D / WebGL Showroom": {
+    "ad": "3D / WebGL Showroom",
+    "not_metni": "Three.js"
+   },
+   "Çok Satıcılı Marketplace": {
+    "ad": "Multi-Vendor Marketplace",
+    "not_metni": "vendor panel + commission, $1.800/mo option"
+   },
+   "IoT Dashboard (MQTT)": {
+    "ad": "IoT Dashboard (MQTT)",
+    "not_metni": "device data + $350/mo"
+   },
+   "Oyunlaştırma & Rozet Sistemi": {
+    "ad": "Gamification & Badge System",
+    "not_metni": "points, levels, badges"
+   },
+   "Affiliate / Referans Sistemi": {
+    "ad": "Affiliate / Referral System",
+    "not_metni": "referral + payout"
+   },
+   "B2B Portal (Bayi / Fiyat / Sipariş)": {
+    "ad": "B2B Portal (Dealer / Pricing / Orders)",
+    "not_metni": "dealer login, $1.200/mo option"
+   },
+   "Headless CMS Migrasyon": {
+    "ad": "Headless CMS Migration",
+    "not_metni": "Contentful/Sanity/Strapi"
+   },
+   "Web + Mobil Uygulama Paket": {
+    "ad": "Web + Mobile App Package",
+    "not_metni": "PWA + APK"
+   },
+   "AI Görsel Üretim Hattı": {
+    "ad": "AI Image Production Pipeline",
+    "not_metni": "product photo multiplication + $79/mo"
+   },
+   "Sesli Asistan Entegrasyonu": {
+    "ad": "Voice Assistant Integration",
+    "not_metni": "Alexa/Google"
+   },
+   "Abonelik & Faturalandırma": {
+    "ad": "Subscription & Billing",
+    "not_metni": "Stripe Billing"
+   },
+   "Sadakat & Puan Sistemi": {
+    "ad": "Loyalty & Points System",
+    "not_metni": null
+   },
+   "Etkinlik & Biletleme Sistemi": {
+    "ad": "Event & Ticketing System",
+    "not_metni": null
+   },
+   "Emlak İlan & Filtreleme": {
+    "ad": "Real Estate Listings & Filtering",
+    "not_metni": null
+   },
+   "İş İlanları / Kariyer Board": {
+    "ad": "Job Listings / Career Board",
+    "not_metni": null
+   },
+   "Otel / Oda Rezervasyon": {
+    "ad": "Hotel / Room Reservation",
+    "not_metni": null
+   },
+   "Restoran QR Menü & Online Sipariş": {
+    "ad": "Restaurant QR Menu & Online Ordering",
+    "not_metni": null
+   },
+   "Bağış & Fon Toplama Platformu": {
+    "ad": "Donation & Fundraising Platform",
+    "not_metni": "−40% for NGOs, i.e. $480"
+   },
+   "LMS İleri (Quiz/Sertifika/Ödeme)": {
+    "ad": "Advanced LMS (Quiz/Certificate/Payment)",
+    "not_metni": null
+   },
+   "Topluluk Platformu": {
+    "ad": "Community Platform",
+    "not_metni": "forum with Discord/Slack integration"
+   },
+   "CRO & Growth Deneyleri": {
+    "ad": "CRO & Growth Experiments",
+    "not_metni": "$650/mo, 3 experiments"
+   }
+  }
+ },
+ "de": {
+  "scales": {
+   "ALFA": {
+    "ad": "Alpha-Serie",
+    "alt_baslik": "EINSTIEG",
+    "calisan_araligi": "2-10 Mitarbeitende",
+    "aciklama": "2-10 Mitarbeitende. Erste professionelle Website, schneller Go-live.",
+    "ozellikler": [
+     "Landing + Unternehmensseite mit 5 Seiten",
+     "Figma → Next.js, 90 %+ PageSpeed",
+     "KVKK + Vertragsinfrastruktur fertig eingerichtet",
+     "Grundlegende SEO- & Analytics-Einrichtung",
+     "100 % Eigentum bei Ihnen, Panel inklusive"
+    ],
+    "eklenti_limiti": "6 Add-ons",
+    "revizyon_saat": "2 Std.",
+    "karsilastirma": {
+     "hosting": "Vercel Starter",
+     "sla": "Best Effort",
+     "panel": "Schlankes CMS",
+     "devops": "Keine",
+     "mulkiyet": "✓ 100 % bei Ihnen",
+     "ads": "—",
+     "seo": "Basis"
+    }
+   },
+   "BETA": {
+    "ad": "Beta-Serie",
+    "alt_baslik": "WACHSTUM",
+    "calisan_araligi": "10-50 Mitarbeitende",
+    "aciklama": "10-50 Mitarbeitende. E-Commerce + Integrationen, Zahlung/Versand/CRM.",
+    "ozellikler": [
+     "E-Commerce (100 SKUs) + Zahlung/Versand",
+     "CRM- & E-Mail-Automatisierung integriert",
+     "Ads-Einrichtung + Conversion-Tracking",
+     "8 Stunden Überarbeitung & Wartung pro Monat",
+     "Backups, SSL, Uptime-Überwachung"
+    ],
+    "eklenti_limiti": "7 Add-ons",
+    "revizyon_saat": "8 Std.",
+    "karsilastirma": {
+     "hosting": "Vercel Standard",
+     "sla": "99.5 %",
+     "panel": "E-Commerce-CMS",
+     "devops": "Basis",
+     "mulkiyet": "✓ 100 % bei Ihnen",
+     "ads": "Einrichtung inklusive",
+     "seo": "Mittel"
+    }
+   },
+   "OMEGA": {
+    "ad": "Omega-Serie",
+    "alt_baslik": "SKALIERUNG",
+    "calisan_araligi": "50+ Mitarbeitende",
+    "aciklama": "50+ Mitarbeitende. SaaS, Multi-Region, SLA, hohes Traffic-Aufkommen.",
+    "ozellikler": [
+     "SaaS-/Multi-Tenant-Architektur",
+     "Multi-Region, Edge-Cache, 99.9 % SLA",
+     "Vertrag + KVKK + Datenverarbeitungspaket",
+     "DevOps & Sicherheitshärtung",
+     "16 Stunden Senior-Entwicklung pro Monat"
+    ],
+    "eklenti_limiti": "7 Add-ons",
+    "revizyon_saat": "16 Std.",
+    "karsilastirma": {
+     "hosting": "Multi-Region-Edge",
+     "sla": "99.9 %",
+     "panel": "Individuelles Admin-Panel",
+     "devops": "Erweitert",
+     "mulkiyet": "✓ 100 % bei Ihnen",
+     "ads": "Verwaltung inklusive",
+     "seo": "Erweitert"
+    }
+   },
+   "SIGMA": {
+    "ad": "Sigma-Serie",
+    "alt_baslik": "UNABHÄNGIG",
+    "calisan_araligi": "Individuelle Teamgröße",
+    "aciklama": "Σ-Logik — für alle, die alles zusammenzählen und ihr eigenes Paket bauen.",
+    "ozellikler": [
+     "Individueller Umfang, unbegrenzte Integrationen",
+     "White Label + Panel auf Ihrer eigenen Domain",
+     "Unbegrenzter Revisionspool (Pay-as-you-go)",
+     "DevOps-, Sicherheits- und Skalierungsberatung",
+     "100 % Eigentum bei Ihnen + Code-Übergabe"
+    ],
+    "eklenti_limiti": "8 Add-ons",
+    "revizyon_saat": "Pay-as-you-go",
+    "karsilastirma": {
+     "hosting": "Individuell / Ihre eigene Infrastruktur",
+     "sla": "Vertraglicher SLA",
+     "panel": "White Label",
+     "devops": "Beratung",
+     "mulkiyet": "✓ 100 % bei Ihnen + Code",
+     "ads": "Beratung",
+     "seo": "Beratung"
+    }
+   }
+  },
+  "profiles": {
+   "kurumsal": {
+    "ad": "Unternehmen",
+    "etiket": "Rechnung, KVKK, priorisierter Support"
+   },
+   "startup": {
+    "ad": "Startup",
+    "etiket": "Pitch Deck, schneller Launch"
+   },
+   "stk": {
+    "ad": "NGO",
+    "etiket": "NGO-/Vereinsrabatt"
+   },
+   "bireysel": {
+    "ad": "Einzelperson",
+    "etiket": "Rabatt für Einzelpersonen/Freelancer"
+   },
+   "egitim": {
+    "ad": "Bildung",
+    "etiket": "LMS, Zertifikat"
+   }
+  },
+  "tiers": {
+   "starter_ai": {
+    "ad": "Starter — AI",
+    "rozet": "AM SCHNELLSTEN",
+    "ozellikler": [
+     "1 AI-Automatisierung (n8n/Make)",
+     "1 Integration (CRM/WhatsApp/E-Mail)",
+     "Fehlerlog + Monitoring",
+     "Dokumentation"
+    ]
+   },
+   "yonetim_pm": {
+    "ad": "Management — PM",
+    "rozet": "AM STRUKTURIERTESTEN",
+    "ozellikler": [
+     "Linear-/Notion-Einrichtung",
+     "Wöchentlicher Sprint + Bericht",
+     "2 Revisionsrunden",
+     "Team-Onboarding"
+    ]
+   },
+   "kombin_ai_pm": {
+    "ad": "Kombi — AI + PM",
+    "rozet": "BELIEBT ✓",
+    "ozellikler": [
+     "3 Automatisierungen + Management-Panel",
+     "CRM + Ads + E-Mail integriert",
+     "A/B-Tests + Analytics",
+     "12 Monate Support"
+    ]
+   },
+   "kurumsal_olcek": {
+    "ad": "Enterprise — Skalierung",
+    "rozet": "SKALIERUNG",
+    "ozellikler": [
+     "Unbegrenzte Automatisierung",
+     "Individuelle API + SSO + Audit",
+     "SLA + 24/7-Überwachung",
+     "CTO-Support"
+    ]
+   }
+  },
+  "addons": {
+   "Çok Dilli (TR/EN)": "Mehrsprachig (TR/EN)",
+   "Blog Modülü": "Blog-Modul",
+   "Randevu/Rezervasyon": "Termine/Reservierungen",
+   "Gelişmiş SEO Paketi": "Erweitertes SEO-Paket",
+   "Hız + %95 Skor Garantisi": "Speed + 95 %-Score-Garantie",
+   "Ek Revizyon Saati (5s)": "Zusätzliche Revisionsstunden (5 Std.)",
+   "Pazaryeri Entegrasyonu": "Marktplatz-Integration",
+   "Üyelik & Sadakat Sistemi": "Mitglieder- & Treuesystem",
+   "Gelişmiş Filtre & Arama": "Erweiterte Filter & Suche",
+   "WhatsApp Sipariş Botu": "WhatsApp-Bestellbot",
+   "Meta + Google Ads Yönetimi": "Meta- + Google-Ads-Management",
+   "A/B Test Altyapısı": "A/B-Test-Infrastruktur",
+   "Ek 20 SKU Yükleme": "Upload von 20 weiteren SKUs",
+   "SaaS Abonelik & Faturalama": "SaaS-Abonnement & Abrechnung",
+   "Rol Bazlı Yetki (RBAC)": "Rollenbasierte Berechtigungen (RBAC)",
+   "Audit Log & SSO": "Audit-Log & SSO",
+   "Özel API & Webhook": "Individuelle API & Webhook",
+   "Yük Testi + SLO Raporu": "Lasttest + SLO-Bericht",
+   "7/24 PagerDuty Entegrasyonu": "24/7-PagerDuty-Integration",
+   "KVKK Veri Haritası": "KVKK-Datenlandkarte",
+   "Özel Modül Geliştirme (10 saat)": "Individuelle Modulentwicklung (10 Stunden)",
+   "AI Asistan Entegrasyonu": "AI-Assistenten-Integration",
+   "Mobil App (Expo) Köprüsü": "Mobile-App-Brücke (Expo)",
+   "Kurumsal Eğitim (1 gün)": "Unternehmensschulung (1 Tag)",
+   "Kaynak Kod Audit": "Quellcode-Audit",
+   "Özel SLA & Hukuki Çerçeve": "Individueller SLA & rechtlicher Rahmen",
+   "Sınırsız Eklenti Hakkı": "Recht auf unbegrenzte Add-ons",
+   "CTO Office Saatliği (saat)": "CTO-Sprechstunde (pro Stunde)"
+  },
+  "kategoriler": {
+   "YAZILIM": "SOFTWARE",
+   "TASARIM": "DESIGN",
+   "E-TICARET/GROWTH": "E-COMMERCE/GROWTH",
+   "ALTYAPI": "INFRASTRUKTUR",
+   "SEO/BÜYÜME": "SEO/WACHSTUM",
+   "MARKA/İÇERIK": "MARKE/CONTENT",
+   "AI/OTOMASYON": "AI/AUTOMATISIERUNG",
+   "İLERI/WEB3": "ERWEITERT/WEB3"
+  },
+  "services": {
+   "Web Tasarım & Kodlama": {
+    "ad": "Webdesign & Entwicklung",
+    "not_metni": null
+   },
+   "Landing Page (Tek Sayfa)": {
+    "ad": "Landingpage (Einzelseite)",
+    "not_metni": null
+   },
+   "Kurumsal Site (5 Sayfa)": {
+    "ad": "Unternehmenswebsite (5 Seiten)",
+    "not_metni": null
+   },
+   "E-Ticaret Kurulumu": {
+    "ad": "E-Commerce-Einrichtung",
+    "not_metni": null
+   },
+   "Ödeme Entegrasyonu": {
+    "ad": "Zahlungsintegration",
+    "not_metni": null
+   },
+   "Kargo Entegrasyonu": {
+    "ad": "Versandintegration",
+    "not_metni": null
+   },
+   "Pazaryeri Entegrasyonu": {
+    "ad": "Marktplatz-Integration",
+    "not_metni": null
+   },
+   "CRM Entegrasyonu": {
+    "ad": "CRM-Integration",
+    "not_metni": null
+   },
+   "E-posta Otomasyonu": {
+    "ad": "E-Mail-Automatisierung",
+    "not_metni": null
+   },
+   "Figma → Next.js Dönüşüm": {
+    "ad": "Figma → Next.js-Umsetzung",
+    "not_metni": null
+   },
+   "Çok Dilli Altyapı": {
+    "ad": "Mehrsprachige Infrastruktur",
+    "not_metni": null
+   },
+   "Blog / İçerik Modülü": {
+    "ad": "Blog-/Content-Modul",
+    "not_metni": null
+   },
+   "Üyelik Sistemi": {
+    "ad": "Mitgliedersystem",
+    "not_metni": null
+   },
+   "Randevu Sistemi": {
+    "ad": "Terminsystem",
+    "not_metni": null
+   },
+   "Rezervasyon Modülü": {
+    "ad": "Reservierungsmodul",
+    "not_metni": null
+   },
+   "Etkinlik / Takvim": {
+    "ad": "Events / Kalender",
+    "not_metni": null
+   },
+   "Eğitim Portalı / LMS": {
+    "ad": "Lernportal / LMS",
+    "not_metni": null
+   },
+   "Admin Panel (Custom)": {
+    "ad": "Admin-Panel (individuell)",
+    "not_metni": null
+   },
+   "API Geliştirme": {
+    "ad": "API-Entwicklung",
+    "not_metni": null
+   },
+   "SEO Temel Kurulum": {
+    "ad": "SEO-Grundeinrichtung",
+    "not_metni": null
+   },
+   "SEO İleri (Teknik)": {
+    "ad": "Erweitertes SEO (technisch)",
+    "not_metni": null
+   },
+   "Google Ads Kurulum": {
+    "ad": "Google-Ads-Einrichtung",
+    "not_metni": null
+   },
+   "Meta Ads Kurulum": {
+    "ad": "Meta-Ads-Einrichtung",
+    "not_metni": null
+   },
+   "Analytics + Search Console": {
+    "ad": "Analytics + Search Console",
+    "not_metni": null
+   },
+   "Hız Optimizasyonu": {
+    "ad": "Geschwindigkeitsoptimierung",
+    "not_metni": null
+   },
+   "KVKK & Sözleşme Sayfaları": {
+    "ad": "KVKK- & Vertragsseiten",
+    "not_metni": null
+   },
+   "SSL & Domain Yönetimi": {
+    "ad": "SSL- & Domainverwaltung",
+    "not_metni": null
+   },
+   "Yedekleme & İzleme": {
+    "ad": "Backup & Überwachung",
+    "not_metni": null
+   },
+   "Bakım / Aylık Destek": {
+    "ad": "Wartung / Monatlicher Support",
+    "not_metni": "monatlich"
+   },
+   "İçerik Üretimi (10 sayfa)": {
+    "ad": "Content-Erstellung (10 Seiten)",
+    "not_metni": null
+   },
+   "Görsel & İkon Seti": {
+    "ad": "Bild- & Icon-Set",
+    "not_metni": null
+   },
+   "Göç / Taşıma Hizmeti": {
+    "ad": "Migrationsservice",
+    "not_metni": null
+   },
+   "Eğitim & Devretme": {
+    "ad": "Schulung & Übergabe",
+    "not_metni": null
+   },
+   "Logo & Brand Kit": {
+    "ad": "Logo & Brand Kit",
+    "not_metni": "einmalig"
+   },
+   "Pitch Deck Tasarım": {
+    "ad": "Pitch-Deck-Design",
+    "not_metni": null
+   },
+   "API Dokümantasyonu": {
+    "ad": "API-Dokumentation",
+    "not_metni": null
+   },
+   "Web Sitesi Hız Optimizasyonu": {
+    "ad": "Website-Geschwindigkeitsoptimierung",
+    "not_metni": null
+   },
+   "KVKK/GDPR Uyum Paketi": {
+    "ad": "KVKK-/GDPR-Compliance-Paket",
+    "not_metni": null
+   },
+   "E-posta & Domain Migrasyon": {
+    "ad": "E-Mail- & Domain-Migration",
+    "not_metni": null
+   },
+   "A/B Test Kurulumu": {
+    "ad": "A/B-Test-Einrichtung",
+    "not_metni": null
+   },
+   "Chatbot Eğitim & Fine-tuning": {
+    "ad": "Chatbot-Training & Fine-Tuning",
+    "not_metni": null
+   },
+   "Yedekleme & Felaket Kurtarma": {
+    "ad": "Backup & Disaster Recovery",
+    "not_metni": "monatlich"
+   },
+   "Analytics & Dashboard (Looker/Plausible)": {
+    "ad": "Analytics & Dashboard (Looker/Plausible)",
+    "not_metni": null
+   },
+   "Brand Strateji Workshop": {
+    "ad": "Markenstrategie-Workshop",
+    "not_metni": null
+   },
+   "Metin Yazarlığı & UX Copy": {
+    "ad": "Texterstellung & UX Copy",
+    "not_metni": null
+   },
+   "E-posta Pazarlama Otomasyonu": {
+    "ad": "E-Mail-Marketing-Automatisierung",
+    "not_metni": "Mailchimp/Brevo + $99/Monat"
+   },
+   "WhatsApp Business API Entegrasyonu": {
+    "ad": "WhatsApp-Business-API-Integration",
+    "not_metni": "+$49/Monat"
+   },
+   "CRM Kurulumu (HubSpot/Pipedrive)": {
+    "ad": "CRM-Einrichtung (HubSpot/Pipedrive)",
+    "not_metni": null
+   },
+   "Membership / Abonelik Sistemi": {
+    "ad": "Membership-/Abonnementsystem",
+    "not_metni": null
+   },
+   "Online Randevu Sistemi": {
+    "ad": "Online-Terminsystem",
+    "not_metni": null
+   },
+   "Blog & İçerik Sistemi Kurulumu": {
+    "ad": "Blog- & Content-System-Einrichtung",
+    "not_metni": null
+   },
+   "Çok Dilli Yapı (i18n) Kurulumu": {
+    "ad": "Einrichtung mehrsprachiger Struktur (i18n)",
+    "not_metni": null
+   },
+   "PWA Dönüşümü": {
+    "ad": "PWA-Umsetzung",
+    "not_metni": null
+   },
+   "Güvenlik Hardening & WAF": {
+    "ad": "Sicherheitshärtung & WAF",
+    "not_metni": null
+   },
+   "Dönüşüm Hunisi Audit": {
+    "ad": "Conversion-Funnel-Audit",
+    "not_metni": null
+   },
+   "Video Prodüksiyon & Kurgu": {
+    "ad": "Videoproduktion & Schnitt",
+    "not_metni": "einmalige Landingpage + $299/Monat Clip-Produktion"
+   },
+   "Podcast Sitesi + RSS + Transkript AI": {
+    "ad": "Podcast-Website + RSS + AI-Transkript",
+    "not_metni": "einmalig"
+   },
+   "NFT / Token Gated Erişim": {
+    "ad": "NFT-/Token-Gated-Zugang",
+    "not_metni": "Web3-Wallet-Connect"
+   },
+   "AI Ses Klonlama & Sesli Blog": {
+    "ad": "AI-Stimmklonen & Audio-Blog",
+    "not_metni": "Einrichtung + $99/Monat"
+   },
+   "3D / WebGL Showroom": {
+    "ad": "3D-/WebGL-Showroom",
+    "not_metni": "Three.js"
+   },
+   "Çok Satıcılı Marketplace": {
+    "ad": "Multi-Vendor-Marktplatz",
+    "not_metni": "Verkäufer-Panel + Provision, Option $1.800/Monat"
+   },
+   "IoT Dashboard (MQTT)": {
+    "ad": "IoT-Dashboard (MQTT)",
+    "not_metni": "Gerätedaten + $350/Monat"
+   },
+   "Oyunlaştırma & Rozet Sistemi": {
+    "ad": "Gamification- & Abzeichensystem",
+    "not_metni": "Punkte, Level, Abzeichen"
+   },
+   "Affiliate / Referans Sistemi": {
+    "ad": "Affiliate-/Empfehlungssystem",
+    "not_metni": "Empfehlung + Auszahlung"
+   },
+   "B2B Portal (Bayi / Fiyat / Sipariş)": {
+    "ad": "B2B-Portal (Händler / Preise / Bestellungen)",
+    "not_metni": "Händler-Login, Option $1.200/Monat"
+   },
+   "Headless CMS Migrasyon": {
+    "ad": "Headless-CMS-Migration",
+    "not_metni": "Contentful/Sanity/Strapi"
+   },
+   "Web + Mobil Uygulama Paket": {
+    "ad": "Web- + Mobile-App-Paket",
+    "not_metni": "PWA + APK"
+   },
+   "AI Görsel Üretim Hattı": {
+    "ad": "AI-Bildproduktions-Pipeline",
+    "not_metni": "Produktfoto-Vervielfältigung + $79/Monat"
+   },
+   "Sesli Asistan Entegrasyonu": {
+    "ad": "Sprachassistenten-Integration",
+    "not_metni": "Alexa/Google"
+   },
+   "Abonelik & Faturalandırma": {
+    "ad": "Abonnement & Abrechnung",
+    "not_metni": "Stripe Billing"
+   },
+   "Sadakat & Puan Sistemi": {
+    "ad": "Treue- & Punktesystem",
+    "not_metni": null
+   },
+   "Etkinlik & Biletleme Sistemi": {
+    "ad": "Event- & Ticketing-System",
+    "not_metni": null
+   },
+   "Emlak İlan & Filtreleme": {
+    "ad": "Immobilienanzeigen & Filterung",
+    "not_metni": null
+   },
+   "İş İlanları / Kariyer Board": {
+    "ad": "Stellenanzeigen / Karriere-Board",
+    "not_metni": null
+   },
+   "Otel / Oda Rezervasyon": {
+    "ad": "Hotel-/Zimmerreservierung",
+    "not_metni": null
+   },
+   "Restoran QR Menü & Online Sipariş": {
+    "ad": "Restaurant-QR-Menü & Online-Bestellung",
+    "not_metni": null
+   },
+   "Bağış & Fon Toplama Platformu": {
+    "ad": "Spenden- & Fundraising-Plattform",
+    "not_metni": "−40 % für NGOs, also $480"
+   },
+   "LMS İleri (Quiz/Sertifika/Ödeme)": {
+    "ad": "Erweitertes LMS (Quiz/Zertifikat/Zahlung)",
+    "not_metni": null
+   },
+   "Topluluk Platformu": {
+    "ad": "Community-Plattform",
+    "not_metni": "Forum mit Discord-/Slack-Integration"
+   },
+   "CRO & Growth Deneyleri": {
+    "ad": "CRO- & Growth-Experimente",
+    "not_metni": "$650/Monat, 3 Experimente"
+   }
+  }
+ },
+ "ru": {
+  "scales": {
+   "ALFA": {
+    "ad": "Серия Альфа",
+    "alt_baslik": "СТАРТ",
+    "calisan_araligi": "2-10 сотрудников",
+    "aciklama": "2-10 сотрудников. Первый профессиональный сайт, быстрый запуск.",
+    "ozellikler": [
+     "Лендинг + корпоративный сайт на 5 страниц",
+     "Figma → Next.js, PageSpeed 90%+",
+     "KVKK + готовая база для договоров",
+     "Базовая настройка SEO и аналитики",
+     "Вы владеете на 100%, панель включена"
+    ],
+    "eklenti_limiti": "6 дополнений",
+    "revizyon_saat": "2 ч",
+    "karsilastirma": {
+     "hosting": "Vercel Стартовый",
+     "sla": "По мере возможности",
+     "panel": "Лёгкая CMS",
+     "devops": "Нет",
+     "mulkiyet": "✓ 100% ваше",
+     "ads": "—",
+     "seo": "Базовое"
+    }
+   },
+   "BETA": {
+    "ad": "Серия Бета",
+    "alt_baslik": "РОСТ",
+    "calisan_araligi": "10-50 сотрудников",
+    "aciklama": "10-50 сотрудников. E-commerce + интеграции: оплата/доставка/CRM.",
+    "ozellikler": [
+     "E-commerce (100 SKU) + оплата/доставка",
+     "Интеграция CRM и email-автоматизации",
+     "Настройка Ads + отслеживание конверсий",
+     "8 часов правок и поддержки в месяц",
+     "Резервное копирование, SSL, мониторинг uptime"
+    ],
+    "eklenti_limiti": "7 дополнений",
+    "revizyon_saat": "8 ч",
+    "karsilastirma": {
+     "hosting": "Vercel Стандартный",
+     "sla": "99.5%",
+     "panel": "CMS для интернет-магазина",
+     "devops": "Базовый",
+     "mulkiyet": "✓ 100% ваше",
+     "ads": "Настройка включена",
+     "seo": "Среднее"
+    }
+   },
+   "OMEGA": {
+    "ad": "Серия Омега",
+    "alt_baslik": "МАСШТАБ",
+    "calisan_araligi": "50+ сотрудников",
+    "aciklama": "50+ сотрудников. SaaS, мультирегион, SLA, высокий трафик.",
+    "ozellikler": [
+     "SaaS / мультитенантная архитектура",
+     "Мультирегион, edge-кэш, SLA 99.9%",
+     "Договор + KVKK + пакет обработки данных",
+     "DevOps и усиление безопасности",
+     "16 часов senior-разработки в месяц"
+    ],
+    "eklenti_limiti": "7 дополнений",
+    "revizyon_saat": "16 ч",
+    "karsilastirma": {
+     "hosting": "Мультирегион, edge",
+     "sla": "99.9%",
+     "panel": "Кастомная админка",
+     "devops": "Продвинутый",
+     "mulkiyet": "✓ 100% ваше",
+     "ads": "Управление включено",
+     "seo": "Продвинутое"
+    }
+   },
+   "SIGMA": {
+    "ad": "Серия Сигма",
+    "alt_baslik": "НЕЗАВИСИМЫЙ",
+    "calisan_araligi": "Индивидуально",
+    "aciklama": "Логика Σ — для тех, кто складывает итог и собирает собственный пакет.",
+    "ozellikler": [
+     "Индивидуальный объём работ, неограниченные интеграции",
+     "White label + панель на вашем домене",
+     "Неограниченный пул правок (Оплата по факту)",
+     "Консалтинг по DevOps, безопасности и масштабированию",
+     "100% прав ваши + передача кода"
+    ],
+    "eklenti_limiti": "8 дополнений",
+    "revizyon_saat": "Оплата по факту",
+    "karsilastirma": {
+     "hosting": "Индивидуально / ваша собственная инфраструктура",
+     "sla": "SLA по договору",
+     "panel": "White label",
+     "devops": "Консалтинг",
+     "mulkiyet": "✓ 100% ваше + код",
+     "ads": "Консалтинг",
+     "seo": "Консалтинг"
+    }
+   }
+  },
+  "profiles": {
+   "kurumsal": {
+    "ad": "Корпоративный",
+    "etiket": "Счёт-фактура, KVKK, приоритетная поддержка"
+   },
+   "startup": {
+    "ad": "Стартап",
+    "etiket": "Deck, быстрый запуск"
+   },
+   "stk": {
+    "ad": "НКО",
+    "etiket": "Скидка для НКО/ассоциаций"
+   },
+   "bireysel": {
+    "ad": "Индивидуальный",
+    "etiket": "Скидка для частных лиц/фрилансеров"
+   },
+   "egitim": {
+    "ad": "Образование",
+    "etiket": "LMS, сертификат"
+   }
+  },
+  "tiers": {
+   "starter_ai": {
+    "ad": "Стартовый — AI",
+    "rozet": "САМЫЙ БЫСТРЫЙ",
+    "ozellikler": [
+     "1 AI-автоматизация (n8n/Make)",
+     "1 интеграция (CRM/WhatsApp/email)",
+     "Логи ошибок + мониторинг",
+     "Документация"
+    ]
+   },
+   "yonetim_pm": {
+    "ad": "Управление — PM",
+    "rozet": "САМЫЙ ОРГАНИЗОВАННЫЙ",
+    "ozellikler": [
+     "Настройка Linear/Notion",
+     "Еженедельный спринт + отчёт",
+     "2 цикла правок",
+     "Онбординг команды"
+    ]
+   },
+   "kombin_ai_pm": {
+    "ad": "Комбо — AI + PM",
+    "rozet": "ПОПУЛЯРНЫЙ ✓",
+    "ozellikler": [
+     "3 автоматизации + панель управления",
+     "Интеграция CRM + Ads + email",
+     "A/B-тесты + аналитика",
+     "Поддержка 12 месяцев"
+    ]
+   },
+   "kurumsal_olcek": {
+    "ad": "Корпоративный — Масштаб",
+    "rozet": "МАСШТАБ",
+    "ozellikler": [
+     "Неограниченная автоматизация",
+     "Кастомный API + SSO + аудит",
+     "SLA + мониторинг 24/7",
+     "Поддержка CTO"
+    ]
+   }
+  },
+  "addons": {
+   "Çok Dilli (TR/EN)": "Многоязычность (TR/EN)",
+   "Blog Modülü": "Модуль блога",
+   "Randevu/Rezervasyon": "Запись/бронирование",
+   "Gelişmiş SEO Paketi": "Расширенный пакет SEO",
+   "Hız + %95 Skor Garantisi": "Скорость + гарантия оценки 95%",
+   "Ek Revizyon Saati (5s)": "Доп. часы правок (5 ч)",
+   "Pazaryeri Entegrasyonu": "Интеграция с маркетплейсами",
+   "Üyelik & Sadakat Sistemi": "Система членства и лояльности",
+   "Gelişmiş Filtre & Arama": "Расширенные фильтры и поиск",
+   "WhatsApp Sipariş Botu": "Бот для заказов в WhatsApp",
+   "Meta + Google Ads Yönetimi": "Управление Meta + Google Ads",
+   "A/B Test Altyapısı": "Инфраструктура A/B-тестов",
+   "Ek 20 SKU Yükleme": "Загрузка ещё 20 SKU",
+   "SaaS Abonelik & Faturalama": "SaaS-подписки и биллинг",
+   "Rol Bazlı Yetki (RBAC)": "Ролевой доступ (RBAC)",
+   "Audit Log & SSO": "Журнал аудита и SSO",
+   "Özel API & Webhook": "Кастомный API и Webhook",
+   "Yük Testi + SLO Raporu": "Нагрузочное тестирование + отчёт SLO",
+   "7/24 PagerDuty Entegrasyonu": "Интеграция PagerDuty 24/7",
+   "KVKK Veri Haritası": "Карта данных KVKK",
+   "Özel Modül Geliştirme (10 saat)": "Разработка кастомного модуля (10 ч)",
+   "AI Asistan Entegrasyonu": "Интеграция AI-ассистента",
+   "Mobil App (Expo) Köprüsü": "Мост к мобильному приложению (Expo)",
+   "Kurumsal Eğitim (1 gün)": "Корпоративное обучение (1 день)",
+   "Kaynak Kod Audit": "Аудит исходного кода",
+   "Özel SLA & Hukuki Çerçeve": "Индивидуальный SLA и правовая рамка",
+   "Sınırsız Eklenti Hakkı": "Право на неограниченные дополнения",
+   "CTO Office Saatliği (saat)": "CTO Office — почасово (ч)"
+  },
+  "kategoriler": {
+   "YAZILIM": "РАЗРАБОТКА",
+   "TASARIM": "ДИЗАЙН",
+   "E-TICARET/GROWTH": "E-COMMERCE/РОСТ",
+   "ALTYAPI": "ИНФРАСТРУКТУРА",
+   "SEO/BÜYÜME": "SEO/РОСТ",
+   "MARKA/İÇERIK": "БРЕНД/КОНТЕНТ",
+   "AI/OTOMASYON": "AI/АВТОМАТИЗАЦИЯ",
+   "İLERI/WEB3": "ПЕРЕДОВЫЕ/WEB3"
+  },
+  "services": {
+   "Web Tasarım & Kodlama": {
+    "ad": "Веб-дизайн и разработка",
+    "not_metni": null
+   },
+   "Landing Page (Tek Sayfa)": {
+    "ad": "Лендинг (одна страница)",
+    "not_metni": null
+   },
+   "Kurumsal Site (5 Sayfa)": {
+    "ad": "Корпоративный сайт (5 страниц)",
+    "not_metni": null
+   },
+   "E-Ticaret Kurulumu": {
+    "ad": "Запуск интернет-магазина",
+    "not_metni": null
+   },
+   "Ödeme Entegrasyonu": {
+    "ad": "Интеграция оплаты",
+    "not_metni": null
+   },
+   "Kargo Entegrasyonu": {
+    "ad": "Интеграция доставки",
+    "not_metni": null
+   },
+   "Pazaryeri Entegrasyonu": {
+    "ad": "Интеграция с маркетплейсами",
+    "not_metni": null
+   },
+   "CRM Entegrasyonu": {
+    "ad": "Интеграция CRM",
+    "not_metni": null
+   },
+   "E-posta Otomasyonu": {
+    "ad": "Автоматизация email",
+    "not_metni": null
+   },
+   "Figma → Next.js Dönüşüm": {
+    "ad": "Конвертация Figma → Next.js",
+    "not_metni": null
+   },
+   "Çok Dilli Altyapı": {
+    "ad": "Многоязычная инфраструктура",
+    "not_metni": null
+   },
+   "Blog / İçerik Modülü": {
+    "ad": "Блог / модуль контента",
+    "not_metni": null
+   },
+   "Üyelik Sistemi": {
+    "ad": "Система членства",
+    "not_metni": null
+   },
+   "Randevu Sistemi": {
+    "ad": "Система записи",
+    "not_metni": null
+   },
+   "Rezervasyon Modülü": {
+    "ad": "Модуль бронирования",
+    "not_metni": null
+   },
+   "Etkinlik / Takvim": {
+    "ad": "События / календарь",
+    "not_metni": null
+   },
+   "Eğitim Portalı / LMS": {
+    "ad": "Образовательный портал / LMS",
+    "not_metni": null
+   },
+   "Admin Panel (Custom)": {
+    "ad": "Админ-панель (индивидуальная)",
+    "not_metni": null
+   },
+   "API Geliştirme": {
+    "ad": "Разработка API",
+    "not_metni": null
+   },
+   "SEO Temel Kurulum": {
+    "ad": "Базовая настройка SEO",
+    "not_metni": null
+   },
+   "SEO İleri (Teknik)": {
+    "ad": "Продвинутое SEO (техническое)",
+    "not_metni": null
+   },
+   "Google Ads Kurulum": {
+    "ad": "Настройка Google Ads",
+    "not_metni": null
+   },
+   "Meta Ads Kurulum": {
+    "ad": "Настройка Meta Ads",
+    "not_metni": null
+   },
+   "Analytics + Search Console": {
+    "ad": "Analytics + Search Console",
+    "not_metni": null
+   },
+   "Hız Optimizasyonu": {
+    "ad": "Оптимизация скорости",
+    "not_metni": null
+   },
+   "KVKK & Sözleşme Sayfaları": {
+    "ad": "KVKK и страницы договоров",
+    "not_metni": null
+   },
+   "SSL & Domain Yönetimi": {
+    "ad": "SSL и управление доменом",
+    "not_metni": null
+   },
+   "Yedekleme & İzleme": {
+    "ad": "Резервное копирование и мониторинг",
+    "not_metni": null
+   },
+   "Bakım / Aylık Destek": {
+    "ad": "Обслуживание / ежемесячная поддержка",
+    "not_metni": "ежемесячно"
+   },
+   "İçerik Üretimi (10 sayfa)": {
+    "ad": "Создание контента (10 страниц)",
+    "not_metni": null
+   },
+   "Görsel & İkon Seti": {
+    "ad": "Набор изображений и иконок",
+    "not_metni": null
+   },
+   "Göç / Taşıma Hizmeti": {
+    "ad": "Услуга миграции / переноса",
+    "not_metni": null
+   },
+   "Eğitim & Devretme": {
+    "ad": "Обучение и передача проекта",
+    "not_metni": null
+   },
+   "Logo & Brand Kit": {
+    "ad": "Логотип и Brand Kit",
+    "not_metni": "разово"
+   },
+   "Pitch Deck Tasarım": {
+    "ad": "Дизайн Pitch Deck",
+    "not_metni": null
+   },
+   "API Dokümantasyonu": {
+    "ad": "Документация API",
+    "not_metni": null
+   },
+   "Web Sitesi Hız Optimizasyonu": {
+    "ad": "Оптимизация скорости сайта",
+    "not_metni": null
+   },
+   "KVKK/GDPR Uyum Paketi": {
+    "ad": "Пакет соответствия KVKK/GDPR",
+    "not_metni": null
+   },
+   "E-posta & Domain Migrasyon": {
+    "ad": "Миграция почты и домена",
+    "not_metni": null
+   },
+   "A/B Test Kurulumu": {
+    "ad": "Настройка A/B-тестов",
+    "not_metni": null
+   },
+   "Chatbot Eğitim & Fine-tuning": {
+    "ad": "Обучение чат-бота и fine-tuning",
+    "not_metni": null
+   },
+   "Yedekleme & Felaket Kurtarma": {
+    "ad": "Резервное копирование и аварийное восстановление",
+    "not_metni": "ежемесячно"
+   },
+   "Analytics & Dashboard (Looker/Plausible)": {
+    "ad": "Analytics и дашборд (Looker/Plausible)",
+    "not_metni": null
+   },
+   "Brand Strateji Workshop": {
+    "ad": "Воркшоп по бренд-стратегии",
+    "not_metni": null
+   },
+   "Metin Yazarlığı & UX Copy": {
+    "ad": "Копирайтинг и UX Copy",
+    "not_metni": null
+   },
+   "E-posta Pazarlama Otomasyonu": {
+    "ad": "Автоматизация email-маркетинга",
+    "not_metni": "Mailchimp/Brevo + $99/мес."
+   },
+   "WhatsApp Business API Entegrasyonu": {
+    "ad": "Интеграция WhatsApp Business API",
+    "not_metni": "+$49/мес."
+   },
+   "CRM Kurulumu (HubSpot/Pipedrive)": {
+    "ad": "Настройка CRM (HubSpot/Pipedrive)",
+    "not_metni": null
+   },
+   "Membership / Abonelik Sistemi": {
+    "ad": "Система членства / подписок",
+    "not_metni": null
+   },
+   "Online Randevu Sistemi": {
+    "ad": "Онлайн-система записи",
+    "not_metni": null
+   },
+   "Blog & İçerik Sistemi Kurulumu": {
+    "ad": "Настройка блога и системы контента",
+    "not_metni": null
+   },
+   "Çok Dilli Yapı (i18n) Kurulumu": {
+    "ad": "Настройка многоязычной структуры (i18n)",
+    "not_metni": null
+   },
+   "PWA Dönüşümü": {
+    "ad": "Преобразование в PWA",
+    "not_metni": null
+   },
+   "Güvenlik Hardening & WAF": {
+    "ad": "Усиление безопасности и WAF",
+    "not_metni": null
+   },
+   "Dönüşüm Hunisi Audit": {
+    "ad": "Аудит воронки конверсии",
+    "not_metni": null
+   },
+   "Video Prodüksiyon & Kurgu": {
+    "ad": "Видеопроизводство и монтаж",
+    "not_metni": "разовый лендинг + $299/мес. нарезка роликов"
+   },
+   "Podcast Sitesi + RSS + Transkript AI": {
+    "ad": "Сайт подкаста + RSS + AI-транскрипция",
+    "not_metni": "разово"
+   },
+   "NFT / Token Gated Erişim": {
+    "ad": "NFT / доступ по токену (token gated)",
+    "not_metni": "Подключение кошелька Web3"
+   },
+   "AI Ses Klonlama & Sesli Blog": {
+    "ad": "AI-клонирование голоса и аудио-блог",
+    "not_metni": "настройка + $99/мес."
+   },
+   "3D / WebGL Showroom": {
+    "ad": "3D / WebGL-шоурум",
+    "not_metni": "Three.js"
+   },
+   "Çok Satıcılı Marketplace": {
+    "ad": "Маркетплейс с несколькими продавцами",
+    "not_metni": "панель продавца + комиссия, опция $1.800/мес."
+   },
+   "IoT Dashboard (MQTT)": {
+    "ad": "IoT-дашборд (MQTT)",
+    "not_metni": "данные устройств + $350/мес."
+   },
+   "Oyunlaştırma & Rozet Sistemi": {
+    "ad": "Геймификация и система бейджей",
+    "not_metni": "баллы, уровни, бейджи"
+   },
+   "Affiliate / Referans Sistemi": {
+    "ad": "Партнёрская / реферальная система",
+    "not_metni": "рефералы + выплаты"
+   },
+   "B2B Portal (Bayi / Fiyat / Sipariş)": {
+    "ad": "B2B-портал (дилеры / цены / заказы)",
+    "not_metni": "вход для дилеров, опция $1.200/мес."
+   },
+   "Headless CMS Migrasyon": {
+    "ad": "Миграция на Headless CMS",
+    "not_metni": "Contentful/Sanity/Strapi"
+   },
+   "Web + Mobil Uygulama Paket": {
+    "ad": "Пакет «Веб + мобильное приложение»",
+    "not_metni": "PWA + APK"
+   },
+   "AI Görsel Üretim Hattı": {
+    "ad": "Конвейер AI-генерации изображений",
+    "not_metni": "тиражирование фото товаров + $79/мес."
+   },
+   "Sesli Asistan Entegrasyonu": {
+    "ad": "Интеграция голосового ассистента",
+    "not_metni": "Alexa/Google"
+   },
+   "Abonelik & Faturalandırma": {
+    "ad": "Подписки и биллинг",
+    "not_metni": "Stripe Billing"
+   },
+   "Sadakat & Puan Sistemi": {
+    "ad": "Система лояльности и баллов",
+    "not_metni": null
+   },
+   "Etkinlik & Biletleme Sistemi": {
+    "ad": "Система мероприятий и билетов",
+    "not_metni": null
+   },
+   "Emlak İlan & Filtreleme": {
+    "ad": "Объявления о недвижимости и фильтрация",
+    "not_metni": null
+   },
+   "İş İlanları / Kariyer Board": {
+    "ad": "Вакансии / карьерная доска",
+    "not_metni": null
+   },
+   "Otel / Oda Rezervasyon": {
+    "ad": "Бронирование отеля / номеров",
+    "not_metni": null
+   },
+   "Restoran QR Menü & Online Sipariş": {
+    "ad": "QR-меню ресторана и онлайн-заказы",
+    "not_metni": null
+   },
+   "Bağış & Fon Toplama Platformu": {
+    "ad": "Платформа пожертвований и сбора средств",
+    "not_metni": "Для НКО −40%, то есть $480"
+   },
+   "LMS İleri (Quiz/Sertifika/Ödeme)": {
+    "ad": "LMS расширенный (квизы/сертификаты/оплата)",
+    "not_metni": null
+   },
+   "Topluluk Platformu": {
+    "ad": "Платформа сообщества",
+    "not_metni": "форум с интеграцией Discord/Slack"
+   },
+   "CRO & Growth Deneyleri": {
+    "ad": "CRO и growth-эксперименты",
+    "not_metni": "$650/мес., 3 эксперимента"
+   }
+  }
+ },
+ "zh": {
+  "scales": {
+   "ALFA": {
+    "ad": "Alpha 系列",
+    "alt_baslik": "入门",
+    "calisan_araligi": "2-10 名员工",
+    "aciklama": "2-10 名员工。首个专业网站，快速上线。",
+    "ozellikler": [
+     "落地页 + 5 页企业官网",
+     "Figma → Next.js，PageSpeed 90%+",
+     "KVKK + 合同基础设施就绪",
+     "基础 SEO 与 Analytics 配置",
+     "100% 归您所有，含管理面板"
+    ],
+    "eklenti_limiti": "6 个附加项",
+    "revizyon_saat": "2 小时",
+    "karsilastirma": {
+     "hosting": "Vercel 入门版",
+     "sla": "尽力而为",
+     "panel": "轻量 CMS",
+     "devops": "无",
+     "mulkiyet": "✓ 100% 归您所有",
+     "ads": "—",
+     "seo": "基础"
+    }
+   },
+   "BETA": {
+    "ad": "Beta 系列",
+    "alt_baslik": "成长",
+    "calisan_araligi": "10-50 名员工",
+    "aciklama": "10-50 名员工。电商 + 集成，支付/物流/CRM。",
+    "ozellikler": [
+     "电商（100 SKU）+ 支付/物流",
+     "CRM 与邮件自动化集成",
+     "Ads 设置 + 转化追踪",
+     "每月 8 小时修订与维护",
+     "备份、SSL、可用性监控"
+    ],
+    "eklenti_limiti": "7 个附加项",
+    "revizyon_saat": "8 小时",
+    "karsilastirma": {
+     "hosting": "Vercel 标准版",
+     "sla": "99.5%",
+     "panel": "电商 CMS",
+     "devops": "基础",
+     "mulkiyet": "✓ 100% 归您所有",
+     "ads": "含设置",
+     "seo": "中级"
+    }
+   },
+   "OMEGA": {
+    "ad": "Omega 系列",
+    "alt_baslik": "规模",
+    "calisan_araligi": "50+ 名员工",
+    "aciklama": "50+ 名员工。SaaS、多区域、SLA、高流量。",
+    "ozellikler": [
+     "SaaS / 多租户架构",
+     "多区域、边缘缓存、99.9% SLA",
+     "合同 + KVKK + 数据处理套餐",
+     "DevOps 与安全加固",
+     "每月 16 小时资深开发"
+    ],
+    "eklenti_limiti": "7 个附加项",
+    "revizyon_saat": "16 小时",
+    "karsilastirma": {
+     "hosting": "多区域边缘",
+     "sla": "99.9%",
+     "panel": "定制管理后台",
+     "devops": "高级",
+     "mulkiyet": "✓ 100% 归您所有",
+     "ads": "含管理",
+     "seo": "高级"
+    }
+   },
+   "SIGMA": {
+    "ad": "Sigma 系列",
+    "alt_baslik": "独立",
+    "calisan_araligi": "自定义员工规模",
+    "aciklama": "Σ 逻辑——为整合一切、自建套餐的人而设。",
+    "ozellikler": [
+     "定制范围，不限集成数量",
+     "白标 + 您自有域名下的管理面板",
+     "不限量修订池（按需付费）",
+     "DevOps、安全、扩展咨询",
+     "100% 归您所有 + 代码交付"
+    ],
+    "eklenti_limiti": "8 个附加项",
+    "revizyon_saat": "按需付费",
+    "karsilastirma": {
+     "hosting": "定制 / 您自有的基础设施",
+     "sla": "合同约定 SLA",
+     "panel": "白标",
+     "devops": "咨询",
+     "mulkiyet": "✓ 100% 归您所有 + 代码",
+     "ads": "咨询",
+     "seo": "咨询"
+    }
+   }
+  },
+  "profiles": {
+   "kurumsal": {
+    "ad": "企业",
+    "etiket": "发票、KVKK、优先支持"
+   },
+   "startup": {
+    "ad": "初创企业",
+    "etiket": "Deck、快速发布"
+   },
+   "stk": {
+    "ad": "非营利组织",
+    "etiket": "非营利组织/协会折扣"
+   },
+   "bireysel": {
+    "ad": "个人",
+    "etiket": "个人/自由职业者折扣"
+   },
+   "egitim": {
+    "ad": "教育",
+    "etiket": "LMS、证书"
+   }
+  },
+  "tiers": {
+   "starter_ai": {
+    "ad": "入门 — AI",
+    "rozet": "最快",
+    "ozellikler": [
+     "1 个 AI 自动化（n8n/Make）",
+     "1 个集成（CRM/WhatsApp/邮件）",
+     "错误日志 + 监控",
+     "文档"
+    ]
+   },
+   "yonetim_pm": {
+    "ad": "管理 — PM",
+    "rozet": "最有条理",
+    "ozellikler": [
+     "Linear/Notion 搭建",
+     "每周冲刺 + 报告",
+     "2 轮修订",
+     "团队入职培训"
+    ]
+   },
+   "kombin_ai_pm": {
+    "ad": "组合 — AI + PM",
+    "rozet": "热门 ✓",
+    "ozellikler": [
+     "3 个自动化 + 管理面板",
+     "CRM + Ads + 邮件集成",
+     "A/B 测试 + 数据分析",
+     "12 个月支持"
+    ]
+   },
+   "kurumsal_olcek": {
+    "ad": "企业 — 规模",
+    "rozet": "规模",
+    "ozellikler": [
+     "不限量自动化",
+     "定制 API + SSO + 审计",
+     "SLA + 7/24 监控",
+     "CTO 支持"
+    ]
+   }
+  },
+  "addons": {
+   "Çok Dilli (TR/EN)": "多语言（TR/EN）",
+   "Blog Modülü": "博客模块",
+   "Randevu/Rezervasyon": "预约/预订",
+   "Gelişmiş SEO Paketi": "高级 SEO 套餐",
+   "Hız + %95 Skor Garantisi": "速度 + 95% 得分保证",
+   "Ek Revizyon Saati (5s)": "额外修订工时（5 小时）",
+   "Pazaryeri Entegrasyonu": "电商平台集成",
+   "Üyelik & Sadakat Sistemi": "会员与忠诚度系统",
+   "Gelişmiş Filtre & Arama": "高级筛选与搜索",
+   "WhatsApp Sipariş Botu": "WhatsApp 订单机器人",
+   "Meta + Google Ads Yönetimi": "Meta + Google Ads 管理",
+   "A/B Test Altyapısı": "A/B 测试基础设施",
+   "Ek 20 SKU Yükleme": "额外上传 20 个 SKU",
+   "SaaS Abonelik & Faturalama": "SaaS 订阅与计费",
+   "Rol Bazlı Yetki (RBAC)": "基于角色的权限（RBAC）",
+   "Audit Log & SSO": "审计日志与 SSO",
+   "Özel API & Webhook": "定制 API 与 Webhook",
+   "Yük Testi + SLO Raporu": "压力测试 + SLO 报告",
+   "7/24 PagerDuty Entegrasyonu": "7/24 PagerDuty 集成",
+   "KVKK Veri Haritası": "KVKK 数据地图",
+   "Özel Modül Geliştirme (10 saat)": "定制模块开发（10 小时）",
+   "AI Asistan Entegrasyonu": "AI 助手集成",
+   "Mobil App (Expo) Köprüsü": "移动应用（Expo）桥接",
+   "Kurumsal Eğitim (1 gün)": "企业培训（1 天）",
+   "Kaynak Kod Audit": "源代码审计",
+   "Özel SLA & Hukuki Çerçeve": "定制 SLA 与法律框架",
+   "Sınırsız Eklenti Hakkı": "不限量附加项权益",
+   "CTO Office Saatliği (saat)": "CTO Office 工时（小时）"
+  },
+  "kategoriler": {
+   "YAZILIM": "软件",
+   "TASARIM": "设计",
+   "E-TICARET/GROWTH": "电商/增长",
+   "ALTYAPI": "基础设施",
+   "SEO/BÜYÜME": "SEO/增长",
+   "MARKA/İÇERIK": "品牌/内容",
+   "AI/OTOMASYON": "AI/自动化",
+   "İLERI/WEB3": "高级/Web3"
+  },
+  "services": {
+   "Web Tasarım & Kodlama": {
+    "ad": "网页设计与开发",
+    "not_metni": null
+   },
+   "Landing Page (Tek Sayfa)": {
+    "ad": "落地页（单页）",
+    "not_metni": null
+   },
+   "Kurumsal Site (5 Sayfa)": {
+    "ad": "企业官网（5 页）",
+    "not_metni": null
+   },
+   "E-Ticaret Kurulumu": {
+    "ad": "电商搭建",
+    "not_metni": null
+   },
+   "Ödeme Entegrasyonu": {
+    "ad": "支付集成",
+    "not_metni": null
+   },
+   "Kargo Entegrasyonu": {
+    "ad": "物流集成",
+    "not_metni": null
+   },
+   "Pazaryeri Entegrasyonu": {
+    "ad": "电商平台集成",
+    "not_metni": null
+   },
+   "CRM Entegrasyonu": {
+    "ad": "CRM 集成",
+    "not_metni": null
+   },
+   "E-posta Otomasyonu": {
+    "ad": "邮件自动化",
+    "not_metni": null
+   },
+   "Figma → Next.js Dönüşüm": {
+    "ad": "Figma → Next.js 转换",
+    "not_metni": null
+   },
+   "Çok Dilli Altyapı": {
+    "ad": "多语言架构",
+    "not_metni": null
+   },
+   "Blog / İçerik Modülü": {
+    "ad": "博客/内容模块",
+    "not_metni": null
+   },
+   "Üyelik Sistemi": {
+    "ad": "会员系统",
+    "not_metni": null
+   },
+   "Randevu Sistemi": {
+    "ad": "预约系统",
+    "not_metni": null
+   },
+   "Rezervasyon Modülü": {
+    "ad": "预订模块",
+    "not_metni": null
+   },
+   "Etkinlik / Takvim": {
+    "ad": "活动/日历",
+    "not_metni": null
+   },
+   "Eğitim Portalı / LMS": {
+    "ad": "培训门户/LMS",
+    "not_metni": null
+   },
+   "Admin Panel (Custom)": {
+    "ad": "管理后台（定制）",
+    "not_metni": null
+   },
+   "API Geliştirme": {
+    "ad": "API 开发",
+    "not_metni": null
+   },
+   "SEO Temel Kurulum": {
+    "ad": "SEO 基础设置",
+    "not_metni": null
+   },
+   "SEO İleri (Teknik)": {
+    "ad": "SEO 进阶（技术）",
+    "not_metni": null
+   },
+   "Google Ads Kurulum": {
+    "ad": "Google Ads 设置",
+    "not_metni": null
+   },
+   "Meta Ads Kurulum": {
+    "ad": "Meta Ads 设置",
+    "not_metni": null
+   },
+   "Analytics + Search Console": {
+    "ad": "Analytics + Search Console",
+    "not_metni": null
+   },
+   "Hız Optimizasyonu": {
+    "ad": "速度优化",
+    "not_metni": null
+   },
+   "KVKK & Sözleşme Sayfaları": {
+    "ad": "KVKK 与合同页面",
+    "not_metni": null
+   },
+   "SSL & Domain Yönetimi": {
+    "ad": "SSL 与域名管理",
+    "not_metni": null
+   },
+   "Yedekleme & İzleme": {
+    "ad": "备份与监控",
+    "not_metni": null
+   },
+   "Bakım / Aylık Destek": {
+    "ad": "维护/月度支持",
+    "not_metni": "每月"
+   },
+   "İçerik Üretimi (10 sayfa)": {
+    "ad": "内容制作（10 页）",
+    "not_metni": null
+   },
+   "Görsel & İkon Seti": {
+    "ad": "视觉与图标套件",
+    "not_metni": null
+   },
+   "Göç / Taşıma Hizmeti": {
+    "ad": "迁移服务",
+    "not_metni": null
+   },
+   "Eğitim & Devretme": {
+    "ad": "培训与交接",
+    "not_metni": null
+   },
+   "Logo & Brand Kit": {
+    "ad": "Logo 与品牌套件",
+    "not_metni": "一次性"
+   },
+   "Pitch Deck Tasarım": {
+    "ad": "Pitch Deck 设计",
+    "not_metni": null
+   },
+   "API Dokümantasyonu": {
+    "ad": "API 文档",
+    "not_metni": null
+   },
+   "Web Sitesi Hız Optimizasyonu": {
+    "ad": "网站速度优化",
+    "not_metni": null
+   },
+   "KVKK/GDPR Uyum Paketi": {
+    "ad": "KVKK/GDPR 合规套餐",
+    "not_metni": null
+   },
+   "E-posta & Domain Migrasyon": {
+    "ad": "邮件与域名迁移",
+    "not_metni": null
+   },
+   "A/B Test Kurulumu": {
+    "ad": "A/B 测试设置",
+    "not_metni": null
+   },
+   "Chatbot Eğitim & Fine-tuning": {
+    "ad": "聊天机器人训练与 Fine-tuning",
+    "not_metni": null
+   },
+   "Yedekleme & Felaket Kurtarma": {
+    "ad": "备份与灾难恢复",
+    "not_metni": "每月"
+   },
+   "Analytics & Dashboard (Looker/Plausible)": {
+    "ad": "数据分析与仪表盘（Looker/Plausible）",
+    "not_metni": null
+   },
+   "Brand Strateji Workshop": {
+    "ad": "品牌战略工作坊",
+    "not_metni": null
+   },
+   "Metin Yazarlığı & UX Copy": {
+    "ad": "文案撰写与 UX Copy",
+    "not_metni": null
+   },
+   "E-posta Pazarlama Otomasyonu": {
+    "ad": "邮件营销自动化",
+    "not_metni": "Mailchimp/Brevo + $99/月"
+   },
+   "WhatsApp Business API Entegrasyonu": {
+    "ad": "WhatsApp Business API 集成",
+    "not_metni": "+$49/月"
+   },
+   "CRM Kurulumu (HubSpot/Pipedrive)": {
+    "ad": "CRM 搭建（HubSpot/Pipedrive）",
+    "not_metni": null
+   },
+   "Membership / Abonelik Sistemi": {
+    "ad": "会员/订阅系统",
+    "not_metni": null
+   },
+   "Online Randevu Sistemi": {
+    "ad": "在线预约系统",
+    "not_metni": null
+   },
+   "Blog & İçerik Sistemi Kurulumu": {
+    "ad": "博客与内容系统搭建",
+    "not_metni": null
+   },
+   "Çok Dilli Yapı (i18n) Kurulumu": {
+    "ad": "多语言架构（i18n）搭建",
+    "not_metni": null
+   },
+   "PWA Dönüşümü": {
+    "ad": "PWA 转换",
+    "not_metni": null
+   },
+   "Güvenlik Hardening & WAF": {
+    "ad": "安全加固与 WAF",
+    "not_metni": null
+   },
+   "Dönüşüm Hunisi Audit": {
+    "ad": "转化漏斗审计",
+    "not_metni": null
+   },
+   "Video Prodüksiyon & Kurgu": {
+    "ad": "视频制作与剪辑",
+    "not_metni": "一次性落地页 + $299/月 片段制作"
+   },
+   "Podcast Sitesi + RSS + Transkript AI": {
+    "ad": "播客网站 + RSS + AI 转录",
+    "not_metni": "一次性"
+   },
+   "NFT / Token Gated Erişim": {
+    "ad": "NFT / 代币门控访问",
+    "not_metni": "Web3 钱包连接"
+   },
+   "AI Ses Klonlama & Sesli Blog": {
+    "ad": "AI 声音克隆与有声博客",
+    "not_metni": "搭建 + $99/月"
+   },
+   "3D / WebGL Showroom": {
+    "ad": "3D / WebGL 展厅",
+    "not_metni": "Three.js"
+   },
+   "Çok Satıcılı Marketplace": {
+    "ad": "多商家电商平台",
+    "not_metni": "商家后台 + 佣金（可选 $1.800/月）"
+   },
+   "IoT Dashboard (MQTT)": {
+    "ad": "IoT 仪表盘（MQTT）",
+    "not_metni": "设备数据 + $350/月"
+   },
+   "Oyunlaştırma & Rozet Sistemi": {
+    "ad": "游戏化与徽章系统",
+    "not_metni": "积分、等级、徽章"
+   },
+   "Affiliate / Referans Sistemi": {
+    "ad": "联盟/推荐系统",
+    "not_metni": "推荐 + 结算"
+   },
+   "B2B Portal (Bayi / Fiyat / Sipariş)": {
+    "ad": "B2B 门户（经销商/价格/订单）",
+    "not_metni": "经销商登录（可选 $1.200/月）"
+   },
+   "Headless CMS Migrasyon": {
+    "ad": "Headless CMS 迁移",
+    "not_metni": "Contentful/Sanity/Strapi"
+   },
+   "Web + Mobil Uygulama Paket": {
+    "ad": "Web + 移动应用套餐",
+    "not_metni": "PWA + APK"
+   },
+   "AI Görsel Üretim Hattı": {
+    "ad": "AI 图像生成流水线",
+    "not_metni": "产品照片扩充 + $79/月"
+   },
+   "Sesli Asistan Entegrasyonu": {
+    "ad": "语音助手集成",
+    "not_metni": "Alexa/Google"
+   },
+   "Abonelik & Faturalandırma": {
+    "ad": "订阅与计费",
+    "not_metni": "Stripe Billing"
+   },
+   "Sadakat & Puan Sistemi": {
+    "ad": "忠诚度与积分系统",
+    "not_metni": null
+   },
+   "Etkinlik & Biletleme Sistemi": {
+    "ad": "活动与票务系统",
+    "not_metni": null
+   },
+   "Emlak İlan & Filtreleme": {
+    "ad": "房产信息发布与筛选",
+    "not_metni": null
+   },
+   "İş İlanları / Kariyer Board": {
+    "ad": "招聘信息/职业看板",
+    "not_metni": null
+   },
+   "Otel / Oda Rezervasyon": {
+    "ad": "酒店/客房预订",
+    "not_metni": null
+   },
+   "Restoran QR Menü & Online Sipariş": {
+    "ad": "餐厅二维码菜单与在线点餐",
+    "not_metni": null
+   },
+   "Bağış & Fon Toplama Platformu": {
+    "ad": "捐赠与筹款平台",
+    "not_metni": "非营利组织享 −40%，即 $480"
+   },
+   "LMS İleri (Quiz/Sertifika/Ödeme)": {
+    "ad": "高级 LMS（测验/证书/支付）",
+    "not_metni": null
+   },
+   "Topluluk Platformu": {
+    "ad": "社区平台",
+    "not_metni": "集成 Discord/Slack 的论坛"
+   },
+   "CRO & Growth Deneyleri": {
+    "ad": "CRO 与增长实验",
+    "not_metni": "$650/月，3 个实验"
+   }
+  }
+ },
+ "hi": {
+  "scales": {
+   "ALFA": {
+    "ad": "अल्फ़ा सीरीज़",
+    "alt_baslik": "प्रारंभ",
+    "calisan_araligi": "2-10 कर्मचारी",
+    "aciklama": "2-10 कर्मचारी। पहली प्रोफेशनल साइट, तेज़ लॉन्च।",
+    "ozellikler": [
+     "लैंडिंग + 5 पेज की कॉर्पोरेट साइट",
+     "Figma → Next.js, 90%+ PageSpeed",
+     "KVKK + अनुबंध इन्फ्रास्ट्रक्चर तैयार",
+     "बेसिक SEO और Analytics सेटअप",
+     "100% स्वामित्व आपका, पैनल सहित"
+    ],
+    "eklenti_limiti": "6 ऐड-ऑन",
+    "revizyon_saat": "2 घंटे",
+    "karsilastirma": {
+     "hosting": "Vercel स्टार्टर",
+     "sla": "बेस्ट-एफ़र्ट",
+     "panel": "हल्का CMS",
+     "devops": "नहीं",
+     "mulkiyet": "✓ 100% आपका",
+     "ads": "—",
+     "seo": "बेसिक"
+    }
+   },
+   "BETA": {
+    "ad": "बीटा सीरीज़",
+    "alt_baslik": "विकास",
+    "calisan_araligi": "10-50 कर्मचारी",
+    "aciklama": "10-50 कर्मचारी। ई-कॉमर्स + इंटीग्रेशन, भुगतान/शिपिंग/CRM।",
+    "ozellikler": [
+     "ई-कॉमर्स (100 SKU) + भुगतान/शिपिंग",
+     "CRM और ईमेल ऑटोमेशन इंटीग्रेशन",
+     "Ads सेटअप + कन्वर्ज़न ट्रैकिंग",
+     "हर माह 8 घंटे संशोधन और रखरखाव",
+     "बैकअप, SSL, अपटाइम मॉनिटरिंग"
+    ],
+    "eklenti_limiti": "7 ऐड-ऑन",
+    "revizyon_saat": "8 घंटे",
+    "karsilastirma": {
+     "hosting": "Vercel स्टैंडर्ड",
+     "sla": "99.5%",
+     "panel": "ई-कॉमर्स CMS",
+     "devops": "बेसिक",
+     "mulkiyet": "✓ 100% आपका",
+     "ads": "सेटअप शामिल",
+     "seo": "मध्यम"
+    }
+   },
+   "OMEGA": {
+    "ad": "ओमेगा सीरीज़",
+    "alt_baslik": "स्केल",
+    "calisan_araligi": "50+ कर्मचारी",
+    "aciklama": "50+ कर्मचारी। SaaS, मल्टी-रीजन, SLA, हाई ट्रैफ़िक।",
+    "ozellikler": [
+     "SaaS / मल्टी-टेनेंट आर्किटेक्चर",
+     "मल्टी-रीजन, एज कैश, 99.9% SLA",
+     "अनुबंध + KVKK + डेटा प्रोसेसिंग पैकेज",
+     "DevOps और सुरक्षा हार्डनिंग",
+     "हर माह 16 घंटे सीनियर डेवलपमेंट"
+    ],
+    "eklenti_limiti": "7 ऐड-ऑन",
+    "revizyon_saat": "16 घंटे",
+    "karsilastirma": {
+     "hosting": "मल्टी-रीजन एज",
+     "sla": "99.9%",
+     "panel": "कस्टम एडमिन",
+     "devops": "एडवांस्ड",
+     "mulkiyet": "✓ 100% आपका",
+     "ads": "मैनेजमेंट शामिल",
+     "seo": "एडवांस्ड"
+    }
+   },
+   "SIGMA": {
+    "ad": "सिग्मा सीरीज़",
+    "alt_baslik": "स्वतंत्र",
+    "calisan_araligi": "कस्टम कर्मचारी संख्या",
+    "aciklama": "Σ की सोच — उनके लिए जो सब कुछ जोड़कर अपना पैकेज खुद बनाते हैं।",
+    "ozellikler": [
+     "कस्टम स्कोप, असीमित इंटीग्रेशन",
+     "व्हाइट-लेबल + आपके अपने डोमेन पर पैनल",
+     "असीमित संशोधन पूल (जितना उपयोग, उतना भुगतान)",
+     "DevOps, सुरक्षा, स्केल परामर्श",
+     "100% स्वामित्व आपका + कोड हैंडओवर"
+    ],
+    "eklenti_limiti": "8 ऐड-ऑन",
+    "revizyon_saat": "जितना उपयोग, उतना भुगतान",
+    "karsilastirma": {
+     "hosting": "कस्टम / आपका अपना इन्फ्रास्ट्रक्चर",
+     "sla": "अनुबंध-आधारित SLA",
+     "panel": "व्हाइट-लेबल",
+     "devops": "परामर्श",
+     "mulkiyet": "✓ 100% आपका + कोड",
+     "ads": "परामर्श",
+     "seo": "परामर्श"
+    }
+   }
+  },
+  "profiles": {
+   "kurumsal": {
+    "ad": "कॉर्पोरेट",
+    "etiket": "इनवॉइस, KVKK, प्राथमिकता सहायता"
+   },
+   "startup": {
+    "ad": "स्टार्टअप",
+    "etiket": "डेक, तेज़ लॉन्च"
+   },
+   "stk": {
+    "ad": "गैर-सरकारी संगठन (NGO)",
+    "etiket": "NGO/संस्था छूट"
+   },
+   "bireysel": {
+    "ad": "व्यक्तिगत",
+    "etiket": "व्यक्तिगत/फ्रीलांसर छूट"
+   },
+   "egitim": {
+    "ad": "शिक्षा",
+    "etiket": "LMS, प्रमाणपत्र"
+   }
+  },
+  "tiers": {
+   "starter_ai": {
+    "ad": "स्टार्टर — AI",
+    "rozet": "सबसे तेज़",
+    "ozellikler": [
+     "1 AI ऑटोमेशन (n8n/Make)",
+     "1 इंटीग्रेशन (CRM/WhatsApp/ईमेल)",
+     "एरर लॉग + मॉनिटरिंग",
+     "डॉक्यूमेंटेशन"
+    ]
+   },
+   "yonetim_pm": {
+    "ad": "प्रबंधन — PM",
+    "rozet": "सबसे व्यवस्थित",
+    "ozellikler": [
+     "Linear/Notion सेटअप",
+     "साप्ताहिक स्प्रिंट + रिपोर्ट",
+     "2 संशोधन चक्र",
+     "टीम ऑनबोर्डिंग"
+    ]
+   },
+   "kombin_ai_pm": {
+    "ad": "कॉम्बो — AI + PM",
+    "rozet": "लोकप्रिय ✓",
+    "ozellikler": [
+     "3 ऑटोमेशन + मैनेजमेंट पैनल",
+     "CRM + Ads + ईमेल इंटीग्रेटेड",
+     "A/B टेस्ट + एनालिटिक्स",
+     "12 माह सहायता"
+    ]
+   },
+   "kurumsal_olcek": {
+    "ad": "कॉर्पोरेट — स्केल",
+    "rozet": "स्केल",
+    "ozellikler": [
+     "असीमित ऑटोमेशन",
+     "कस्टम API + SSO + ऑडिट",
+     "SLA + 7/24 मॉनिटरिंग",
+     "CTO सहायता"
+    ]
+   }
+  },
+  "addons": {
+   "Çok Dilli (TR/EN)": "बहुभाषी (TR/EN)",
+   "Blog Modülü": "ब्लॉग मॉड्यूल",
+   "Randevu/Rezervasyon": "अपॉइंटमेंट/रिज़र्वेशन",
+   "Gelişmiş SEO Paketi": "एडवांस्ड SEO पैकेज",
+   "Hız + %95 Skor Garantisi": "स्पीड + 95% स्कोर गारंटी",
+   "Ek Revizyon Saati (5s)": "अतिरिक्त संशोधन घंटे (5 घंटे)",
+   "Pazaryeri Entegrasyonu": "मार्केटप्लेस इंटीग्रेशन",
+   "Üyelik & Sadakat Sistemi": "सदस्यता और लॉयल्टी सिस्टम",
+   "Gelişmiş Filtre & Arama": "एडवांस्ड फ़िल्टर और सर्च",
+   "WhatsApp Sipariş Botu": "WhatsApp ऑर्डर बॉट",
+   "Meta + Google Ads Yönetimi": "Meta + Google Ads मैनेजमेंट",
+   "A/B Test Altyapısı": "A/B टेस्ट इन्फ्रास्ट्रक्चर",
+   "Ek 20 SKU Yükleme": "अतिरिक्त 20 SKU अपलोड",
+   "SaaS Abonelik & Faturalama": "SaaS सब्सक्रिप्शन और बिलिंग",
+   "Rol Bazlı Yetki (RBAC)": "रोल-आधारित अनुमतियाँ (RBAC)",
+   "Audit Log & SSO": "ऑडिट लॉग और SSO",
+   "Özel API & Webhook": "कस्टम API और Webhook",
+   "Yük Testi + SLO Raporu": "लोड टेस्ट + SLO रिपोर्ट",
+   "7/24 PagerDuty Entegrasyonu": "7/24 PagerDuty इंटीग्रेशन",
+   "KVKK Veri Haritası": "KVKK डेटा मैप",
+   "Özel Modül Geliştirme (10 saat)": "कस्टम मॉड्यूल डेवलपमेंट (10 घंटे)",
+   "AI Asistan Entegrasyonu": "AI असिस्टेंट इंटीग्रेशन",
+   "Mobil App (Expo) Köprüsü": "मोबाइल ऐप (Expo) ब्रिज",
+   "Kurumsal Eğitim (1 gün)": "कॉर्पोरेट प्रशिक्षण (1 दिन)",
+   "Kaynak Kod Audit": "सोर्स कोड ऑडिट",
+   "Özel SLA & Hukuki Çerçeve": "कस्टम SLA और कानूनी ढाँचा",
+   "Sınırsız Eklenti Hakkı": "असीमित ऐड-ऑन अधिकार",
+   "CTO Office Saatliği (saat)": "CTO Office प्रति घंटा (घंटे)"
+  },
+  "kategoriler": {
+   "YAZILIM": "सॉफ़्टवेयर",
+   "TASARIM": "डिज़ाइन",
+   "E-TICARET/GROWTH": "ई-कॉमर्स/ग्रोथ",
+   "ALTYAPI": "इन्फ्रास्ट्रक्चर",
+   "SEO/BÜYÜME": "SEO/विकास",
+   "MARKA/İÇERIK": "ब्रांड/कंटेंट",
+   "AI/OTOMASYON": "AI/ऑटोमेशन",
+   "İLERI/WEB3": "एडवांस्ड/Web3"
+  },
+  "services": {
+   "Web Tasarım & Kodlama": {
+    "ad": "वेब डिज़ाइन और कोडिंग",
+    "not_metni": null
+   },
+   "Landing Page (Tek Sayfa)": {
+    "ad": "लैंडिंग पेज (सिंगल पेज)",
+    "not_metni": null
+   },
+   "Kurumsal Site (5 Sayfa)": {
+    "ad": "कॉर्पोरेट साइट (5 पेज)",
+    "not_metni": null
+   },
+   "E-Ticaret Kurulumu": {
+    "ad": "ई-कॉमर्स सेटअप",
+    "not_metni": null
+   },
+   "Ödeme Entegrasyonu": {
+    "ad": "भुगतान इंटीग्रेशन",
+    "not_metni": null
+   },
+   "Kargo Entegrasyonu": {
+    "ad": "शिपिंग इंटीग्रेशन",
+    "not_metni": null
+   },
+   "Pazaryeri Entegrasyonu": {
+    "ad": "मार्केटप्लेस इंटीग्रेशन",
+    "not_metni": null
+   },
+   "CRM Entegrasyonu": {
+    "ad": "CRM इंटीग्रेशन",
+    "not_metni": null
+   },
+   "E-posta Otomasyonu": {
+    "ad": "ईमेल ऑटोमेशन",
+    "not_metni": null
+   },
+   "Figma → Next.js Dönüşüm": {
+    "ad": "Figma → Next.js रूपांतरण",
+    "not_metni": null
+   },
+   "Çok Dilli Altyapı": {
+    "ad": "बहुभाषी इन्फ्रास्ट्रक्चर",
+    "not_metni": null
+   },
+   "Blog / İçerik Modülü": {
+    "ad": "ब्लॉग/कंटेंट मॉड्यूल",
+    "not_metni": null
+   },
+   "Üyelik Sistemi": {
+    "ad": "सदस्यता सिस्टम",
+    "not_metni": null
+   },
+   "Randevu Sistemi": {
+    "ad": "अपॉइंटमेंट सिस्टम",
+    "not_metni": null
+   },
+   "Rezervasyon Modülü": {
+    "ad": "रिज़र्वेशन मॉड्यूल",
+    "not_metni": null
+   },
+   "Etkinlik / Takvim": {
+    "ad": "इवेंट/कैलेंडर",
+    "not_metni": null
+   },
+   "Eğitim Portalı / LMS": {
+    "ad": "ट्रेनिंग पोर्टल/LMS",
+    "not_metni": null
+   },
+   "Admin Panel (Custom)": {
+    "ad": "एडमिन पैनल (कस्टम)",
+    "not_metni": null
+   },
+   "API Geliştirme": {
+    "ad": "API डेवलपमेंट",
+    "not_metni": null
+   },
+   "SEO Temel Kurulum": {
+    "ad": "SEO बेसिक सेटअप",
+    "not_metni": null
+   },
+   "SEO İleri (Teknik)": {
+    "ad": "SEO एडवांस्ड (टेक्निकल)",
+    "not_metni": null
+   },
+   "Google Ads Kurulum": {
+    "ad": "Google Ads सेटअप",
+    "not_metni": null
+   },
+   "Meta Ads Kurulum": {
+    "ad": "Meta Ads सेटअप",
+    "not_metni": null
+   },
+   "Analytics + Search Console": {
+    "ad": "Analytics + Search Console",
+    "not_metni": null
+   },
+   "Hız Optimizasyonu": {
+    "ad": "स्पीड ऑप्टिमाइज़ेशन",
+    "not_metni": null
+   },
+   "KVKK & Sözleşme Sayfaları": {
+    "ad": "KVKK और अनुबंध पेज",
+    "not_metni": null
+   },
+   "SSL & Domain Yönetimi": {
+    "ad": "SSL और डोमेन मैनेजमेंट",
+    "not_metni": null
+   },
+   "Yedekleme & İzleme": {
+    "ad": "बैकअप और मॉनिटरिंग",
+    "not_metni": null
+   },
+   "Bakım / Aylık Destek": {
+    "ad": "रखरखाव/मासिक सहायता",
+    "not_metni": "मासिक"
+   },
+   "İçerik Üretimi (10 sayfa)": {
+    "ad": "कंटेंट निर्माण (10 पेज)",
+    "not_metni": null
+   },
+   "Görsel & İkon Seti": {
+    "ad": "विज़ुअल और आइकन सेट",
+    "not_metni": null
+   },
+   "Göç / Taşıma Hizmeti": {
+    "ad": "माइग्रेशन सेवा",
+    "not_metni": null
+   },
+   "Eğitim & Devretme": {
+    "ad": "प्रशिक्षण और हैंडओवर",
+    "not_metni": null
+   },
+   "Logo & Brand Kit": {
+    "ad": "लोगो और ब्रांड किट",
+    "not_metni": "एकमुश्त"
+   },
+   "Pitch Deck Tasarım": {
+    "ad": "पिच डेक डिज़ाइन",
+    "not_metni": null
+   },
+   "API Dokümantasyonu": {
+    "ad": "API डॉक्यूमेंटेशन",
+    "not_metni": null
+   },
+   "Web Sitesi Hız Optimizasyonu": {
+    "ad": "वेबसाइट स्पीड ऑप्टिमाइज़ेशन",
+    "not_metni": null
+   },
+   "KVKK/GDPR Uyum Paketi": {
+    "ad": "KVKK/GDPR अनुपालन पैकेज",
+    "not_metni": null
+   },
+   "E-posta & Domain Migrasyon": {
+    "ad": "ईमेल और डोमेन माइग्रेशन",
+    "not_metni": null
+   },
+   "A/B Test Kurulumu": {
+    "ad": "A/B टेस्ट सेटअप",
+    "not_metni": null
+   },
+   "Chatbot Eğitim & Fine-tuning": {
+    "ad": "चैटबॉट ट्रेनिंग और Fine-tuning",
+    "not_metni": null
+   },
+   "Yedekleme & Felaket Kurtarma": {
+    "ad": "बैकअप और डिजास्टर रिकवरी",
+    "not_metni": "मासिक"
+   },
+   "Analytics & Dashboard (Looker/Plausible)": {
+    "ad": "एनालिटिक्स और डैशबोर्ड (Looker/Plausible)",
+    "not_metni": null
+   },
+   "Brand Strateji Workshop": {
+    "ad": "ब्रांड स्ट्रैटेजी वर्कशॉप",
+    "not_metni": null
+   },
+   "Metin Yazarlığı & UX Copy": {
+    "ad": "कॉपीराइटिंग और UX कॉपी",
+    "not_metni": null
+   },
+   "E-posta Pazarlama Otomasyonu": {
+    "ad": "ईमेल मार्केटिंग ऑटोमेशन",
+    "not_metni": "Mailchimp/Brevo + $99/माह"
+   },
+   "WhatsApp Business API Entegrasyonu": {
+    "ad": "WhatsApp Business API इंटीग्रेशन",
+    "not_metni": "+$49/माह"
+   },
+   "CRM Kurulumu (HubSpot/Pipedrive)": {
+    "ad": "CRM सेटअप (HubSpot/Pipedrive)",
+    "not_metni": null
+   },
+   "Membership / Abonelik Sistemi": {
+    "ad": "मेंबरशिप/सब्सक्रिप्शन सिस्टम",
+    "not_metni": null
+   },
+   "Online Randevu Sistemi": {
+    "ad": "ऑनलाइन अपॉइंटमेंट सिस्टम",
+    "not_metni": null
+   },
+   "Blog & İçerik Sistemi Kurulumu": {
+    "ad": "ब्लॉग और कंटेंट सिस्टम सेटअप",
+    "not_metni": null
+   },
+   "Çok Dilli Yapı (i18n) Kurulumu": {
+    "ad": "बहुभाषी संरचना (i18n) सेटअप",
+    "not_metni": null
+   },
+   "PWA Dönüşümü": {
+    "ad": "PWA रूपांतरण",
+    "not_metni": null
+   },
+   "Güvenlik Hardening & WAF": {
+    "ad": "सुरक्षा हार्डनिंग और WAF",
+    "not_metni": null
+   },
+   "Dönüşüm Hunisi Audit": {
+    "ad": "कन्वर्ज़न फ़नल ऑडिट",
+    "not_metni": null
+   },
+   "Video Prodüksiyon & Kurgu": {
+    "ad": "वीडियो प्रोडक्शन और एडिटिंग",
+    "not_metni": "एकमुश्त लैंडिंग + $299/माह क्लिप निर्माण"
+   },
+   "Podcast Sitesi + RSS + Transkript AI": {
+    "ad": "पॉडकास्ट साइट + RSS + AI ट्रांसक्रिप्ट",
+    "not_metni": "एकमुश्त"
+   },
+   "NFT / Token Gated Erişim": {
+    "ad": "NFT / टोकन-गेटेड एक्सेस",
+    "not_metni": "Web3 वॉलेट कनेक्ट"
+   },
+   "AI Ses Klonlama & Sesli Blog": {
+    "ad": "AI वॉइस क्लोनिंग और ऑडियो ब्लॉग",
+    "not_metni": "सेटअप + $99/माह"
+   },
+   "3D / WebGL Showroom": {
+    "ad": "3D / WebGL शोरूम",
+    "not_metni": "Three.js"
+   },
+   "Çok Satıcılı Marketplace": {
+    "ad": "मल्टी-वेंडर मार्केटप्लेस",
+    "not_metni": "विक्रेता पैनल + कमीशन (वैकल्पिक $1.800/माह)"
+   },
+   "IoT Dashboard (MQTT)": {
+    "ad": "IoT डैशबोर्ड (MQTT)",
+    "not_metni": "डिवाइस डेटा + $350/माह"
+   },
+   "Oyunlaştırma & Rozet Sistemi": {
+    "ad": "गेमिफ़िकेशन और बैज सिस्टम",
+    "not_metni": "पॉइंट, लेवल, बैज"
+   },
+   "Affiliate / Referans Sistemi": {
+    "ad": "एफ़िलिएट/रेफ़रल सिस्टम",
+    "not_metni": "रेफ़रल + पेआउट"
+   },
+   "B2B Portal (Bayi / Fiyat / Sipariş)": {
+    "ad": "B2B पोर्टल (डीलर / मूल्य / ऑर्डर)",
+    "not_metni": "डीलर लॉगिन (वैकल्पिक $1.200/माह)"
+   },
+   "Headless CMS Migrasyon": {
+    "ad": "Headless CMS माइग्रेशन",
+    "not_metni": "Contentful/Sanity/Strapi"
+   },
+   "Web + Mobil Uygulama Paket": {
+    "ad": "वेब + मोबाइल ऐप पैकेज",
+    "not_metni": "PWA + APK"
+   },
+   "AI Görsel Üretim Hattı": {
+    "ad": "AI इमेज जनरेशन पाइपलाइन",
+    "not_metni": "प्रोडक्ट फ़ोटो विस्तार + $79/माह"
+   },
+   "Sesli Asistan Entegrasyonu": {
+    "ad": "वॉइस असिस्टेंट इंटीग्रेशन",
+    "not_metni": "Alexa/Google"
+   },
+   "Abonelik & Faturalandırma": {
+    "ad": "सब्सक्रिप्शन और बिलिंग",
+    "not_metni": "Stripe Billing"
+   },
+   "Sadakat & Puan Sistemi": {
+    "ad": "लॉयल्टी और पॉइंट सिस्टम",
+    "not_metni": null
+   },
+   "Etkinlik & Biletleme Sistemi": {
+    "ad": "इवेंट और टिकटिंग सिस्टम",
+    "not_metni": null
+   },
+   "Emlak İlan & Filtreleme": {
+    "ad": "प्रॉपर्टी लिस्टिंग और फ़िल्टरिंग",
+    "not_metni": null
+   },
+   "İş İlanları / Kariyer Board": {
+    "ad": "जॉब लिस्टिंग/करियर बोर्ड",
+    "not_metni": null
+   },
+   "Otel / Oda Rezervasyon": {
+    "ad": "होटल/कमरा रिज़र्वेशन",
+    "not_metni": null
+   },
+   "Restoran QR Menü & Online Sipariş": {
+    "ad": "रेस्तरां QR मेन्यू और ऑनलाइन ऑर्डर",
+    "not_metni": null
+   },
+   "Bağış & Fon Toplama Platformu": {
+    "ad": "दान और फंडरेज़िंग प्लेटफ़ॉर्म",
+    "not_metni": "NGO के लिए −40%, यानी $480"
+   },
+   "LMS İleri (Quiz/Sertifika/Ödeme)": {
+    "ad": "एडवांस्ड LMS (क्विज़/प्रमाणपत्र/भुगतान)",
+    "not_metni": null
+   },
+   "Topluluk Platformu": {
+    "ad": "कम्युनिटी प्लेटफ़ॉर्म",
+    "not_metni": "Discord/Slack इंटीग्रेटेड फ़ोरम"
+   },
+   "CRO & Growth Deneyleri": {
+    "ad": "CRO और ग्रोथ एक्सपेरिमेंट",
+    "not_metni": "$650/माह, 3 एक्सपेरिमेंट"
+   }
+  }
+ },
+ "ar": {
+  "scales": {
+   "ALFA": {
+    "ad": "سلسلة ألفا",
+    "alt_baslik": "البداية",
+    "calisan_araligi": "2-10 موظفين",
+    "aciklama": "2-10 موظفين. أول موقع احترافي، وإطلاق سريع.",
+    "ozellikler": [
+     "صفحة هبوط + موقع مؤسسي من 5 صفحات",
+     "Figma → Next.js، وPageSpeed بنسبة 90%+",
+     "KVKK + بنية العقود جاهزة",
+     "إعداد SEO والتحليلات الأساسي",
+     "ملكيتك 100%، شاملة لوحة التحكم"
+    ],
+    "eklenti_limiti": "6 إضافات",
+    "revizyon_saat": "ساعتان",
+    "karsilastirma": {
+     "hosting": "Vercel الابتدائي",
+     "sla": "بأفضل جهد",
+     "panel": "CMS خفيف",
+     "devops": "لا يوجد",
+     "mulkiyet": "✓ ملكيتك 100%",
+     "ads": "—",
+     "seo": "أساسي"
+    }
+   },
+   "BETA": {
+    "ad": "سلسلة بيتا",
+    "alt_baslik": "النمو",
+    "calisan_araligi": "10-50 موظفًا",
+    "aciklama": "10-50 موظفًا. تجارة إلكترونية + تكاملات: الدفع/الشحن/CRM.",
+    "ozellikler": [
+     "تجارة إلكترونية (100 SKU) + الدفع/الشحن",
+     "تكامل CRM وأتمتة البريد الإلكتروني",
+     "إعداد Ads + تتبع التحويلات",
+     "8 ساعات شهريًا للتعديلات والصيانة",
+     "النسخ الاحتياطي وSSL ومراقبة وقت التشغيل (uptime)"
+    ],
+    "eklenti_limiti": "7 إضافات",
+    "revizyon_saat": "8 ساعات",
+    "karsilastirma": {
+     "hosting": "Vercel القياسي",
+     "sla": "99.5%",
+     "panel": "CMS للتجارة الإلكترونية",
+     "devops": "أساسي",
+     "mulkiyet": "✓ ملكيتك 100%",
+     "ads": "الإعداد مشمول",
+     "seo": "متوسط"
+    }
+   },
+   "OMEGA": {
+    "ad": "سلسلة أوميغا",
+    "alt_baslik": "التوسع",
+    "calisan_araligi": "50+ موظف",
+    "aciklama": "50+ موظف. SaaS، متعدد المناطق، SLA، حركة مرور عالية.",
+    "ozellikler": [
+     "بنية SaaS / متعددة المستأجرين",
+     "متعدد المناطق، edge cache، وSLA بنسبة 99.9%",
+     "العقد + KVKK + حزمة معالجة البيانات",
+     "DevOps وتعزيز الأمان",
+     "16 ساعة شهريًا من تطوير senior"
+    ],
+    "eklenti_limiti": "7 إضافات",
+    "revizyon_saat": "16 ساعة",
+    "karsilastirma": {
+     "hosting": "متعدد المناطق، edge",
+     "sla": "99.9%",
+     "panel": "لوحة إدارة مخصصة",
+     "devops": "متقدم",
+     "mulkiyet": "✓ ملكيتك 100%",
+     "ads": "الإدارة مشمولة",
+     "seo": "متقدم"
+    }
+   },
+   "SIGMA": {
+    "ad": "سلسلة سيغما",
+    "alt_baslik": "المستقل",
+    "calisan_araligi": "مخصص",
+    "aciklama": "منطق Σ — لمن يجمع الحصيلة ويبني باقته بنفسه.",
+    "ozellikler": [
+     "نطاق عمل مخصص، وتكاملات غير محدودة",
+     "علامة بيضاء + لوحة تحكم على نطاقك الخاص",
+     "رصيد تعديلات غير محدود (ادفع حسب الاستخدام)",
+     "استشارات DevOps والأمان والتوسع",
+     "ملكيتك 100% + تسليم الكود"
+    ],
+    "eklenti_limiti": "8 إضافات",
+    "revizyon_saat": "ادفع حسب الاستخدام",
+    "karsilastirma": {
+     "hosting": "مخصص / بنيتك التحتية الخاصة",
+     "sla": "SLA تعاقدي",
+     "panel": "علامة بيضاء",
+     "devops": "استشارات",
+     "mulkiyet": "✓ ملكيتك 100% + الكود",
+     "ads": "استشارات",
+     "seo": "استشارات"
+    }
+   }
+  },
+  "profiles": {
+   "kurumsal": {
+    "ad": "مؤسسي",
+    "etiket": "فاتورة، KVKK، دعم ذو أولوية"
+   },
+   "startup": {
+    "ad": "شركة ناشئة",
+    "etiket": "Deck، وإطلاق سريع"
+   },
+   "stk": {
+    "ad": "منظمة غير ربحية",
+    "etiket": "خصم للمنظمات غير الربحية/الجمعيات"
+   },
+   "bireysel": {
+    "ad": "فردي",
+    "etiket": "خصم للأفراد/العاملين المستقلين"
+   },
+   "egitim": {
+    "ad": "التعليم",
+    "etiket": "LMS، شهادة"
+   }
+  },
+  "tiers": {
+   "starter_ai": {
+    "ad": "البداية — AI",
+    "rozet": "الأسرع",
+    "ozellikler": [
+     "أتمتة AI واحدة (n8n/Make)",
+     "تكامل واحد (CRM/WhatsApp/البريد الإلكتروني)",
+     "سجل الأخطاء + المراقبة",
+     "التوثيق"
+    ]
+   },
+   "yonetim_pm": {
+    "ad": "الإدارة — PM",
+    "rozet": "الأكثر تنظيمًا",
+    "ozellikler": [
+     "إعداد Linear/Notion",
+     "سبرنت أسبوعي + تقرير",
+     "دورتا تعديل",
+     "تهيئة الفريق (onboarding)"
+    ]
+   },
+   "kombin_ai_pm": {
+    "ad": "المزيج — AI + PM",
+    "rozet": "الأكثر شعبية ✓",
+    "ozellikler": [
+     "3 عمليات أتمتة + لوحة إدارة",
+     "تكامل CRM + Ads + البريد الإلكتروني",
+     "اختبار A/B + التحليلات",
+     "دعم لمدة 12 شهرًا"
+    ]
+   },
+   "kurumsal_olcek": {
+    "ad": "المؤسسي — التوسع",
+    "rozet": "التوسع",
+    "ozellikler": [
+     "أتمتة غير محدودة",
+     "API مخصص + SSO + تدقيق",
+     "SLA + مراقبة 24/7",
+     "دعم CTO"
+    ]
+   }
+  },
+  "addons": {
+   "Çok Dilli (TR/EN)": "متعدد اللغات (TR/EN)",
+   "Blog Modülü": "وحدة المدونة",
+   "Randevu/Rezervasyon": "المواعيد/الحجوزات",
+   "Gelişmiş SEO Paketi": "باقة SEO المتقدمة",
+   "Hız + %95 Skor Garantisi": "السرعة + ضمان نتيجة 95%",
+   "Ek Revizyon Saati (5s)": "ساعات تعديل إضافية (5 ساعات)",
+   "Pazaryeri Entegrasyonu": "التكامل مع الأسواق الإلكترونية",
+   "Üyelik & Sadakat Sistemi": "نظام العضوية والولاء",
+   "Gelişmiş Filtre & Arama": "فلترة وبحث متقدمان",
+   "WhatsApp Sipariş Botu": "بوت الطلبات عبر WhatsApp",
+   "Meta + Google Ads Yönetimi": "إدارة Meta + Google Ads",
+   "A/B Test Altyapısı": "بنية اختبار A/B",
+   "Ek 20 SKU Yükleme": "رفع 20 SKU إضافية",
+   "SaaS Abonelik & Faturalama": "اشتراكات SaaS والفوترة",
+   "Rol Bazlı Yetki (RBAC)": "صلاحيات قائمة على الأدوار (RBAC)",
+   "Audit Log & SSO": "سجل التدقيق وSSO",
+   "Özel API & Webhook": "API وWebhook مخصصان",
+   "Yük Testi + SLO Raporu": "اختبار الحمل + تقرير SLO",
+   "7/24 PagerDuty Entegrasyonu": "تكامل PagerDuty على مدار الساعة (24/7)",
+   "KVKK Veri Haritası": "خريطة بيانات KVKK",
+   "Özel Modül Geliştirme (10 saat)": "تطوير وحدة مخصصة (10 ساعات)",
+   "AI Asistan Entegrasyonu": "تكامل مساعد AI",
+   "Mobil App (Expo) Köprüsü": "جسر التطبيق المحمول (Expo)",
+   "Kurumsal Eğitim (1 gün)": "تدريب مؤسسي (يوم واحد)",
+   "Kaynak Kod Audit": "تدقيق الكود المصدري",
+   "Özel SLA & Hukuki Çerçeve": "SLA مخصص وإطار قانوني",
+   "Sınırsız Eklenti Hakkı": "حق إضافات غير محدود",
+   "CTO Office Saatliği (saat)": "CTO Office بالساعة (ساعة)"
+  },
+  "kategoriler": {
+   "YAZILIM": "البرمجيات",
+   "TASARIM": "التصميم",
+   "E-TICARET/GROWTH": "التجارة الإلكترونية/النمو",
+   "ALTYAPI": "البنية التحتية",
+   "SEO/BÜYÜME": "SEO/النمو",
+   "MARKA/İÇERIK": "العلامة التجارية/المحتوى",
+   "AI/OTOMASYON": "AI/الأتمتة",
+   "İLERI/WEB3": "متقدم/WEB3"
+  },
+  "services": {
+   "Web Tasarım & Kodlama": {
+    "ad": "تصميم الويب والبرمجة",
+    "not_metni": null
+   },
+   "Landing Page (Tek Sayfa)": {
+    "ad": "صفحة هبوط (صفحة واحدة)",
+    "not_metni": null
+   },
+   "Kurumsal Site (5 Sayfa)": {
+    "ad": "موقع مؤسسي (5 صفحات)",
+    "not_metni": null
+   },
+   "E-Ticaret Kurulumu": {
+    "ad": "إعداد المتجر الإلكتروني",
+    "not_metni": null
+   },
+   "Ödeme Entegrasyonu": {
+    "ad": "تكامل الدفع",
+    "not_metni": null
+   },
+   "Kargo Entegrasyonu": {
+    "ad": "تكامل الشحن",
+    "not_metni": null
+   },
+   "Pazaryeri Entegrasyonu": {
+    "ad": "التكامل مع الأسواق الإلكترونية",
+    "not_metni": null
+   },
+   "CRM Entegrasyonu": {
+    "ad": "تكامل CRM",
+    "not_metni": null
+   },
+   "E-posta Otomasyonu": {
+    "ad": "أتمتة البريد الإلكتروني",
+    "not_metni": null
+   },
+   "Figma → Next.js Dönüşüm": {
+    "ad": "تحويل Figma → Next.js",
+    "not_metni": null
+   },
+   "Çok Dilli Altyapı": {
+    "ad": "بنية متعددة اللغات",
+    "not_metni": null
+   },
+   "Blog / İçerik Modülü": {
+    "ad": "المدونة / وحدة المحتوى",
+    "not_metni": null
+   },
+   "Üyelik Sistemi": {
+    "ad": "نظام العضوية",
+    "not_metni": null
+   },
+   "Randevu Sistemi": {
+    "ad": "نظام المواعيد",
+    "not_metni": null
+   },
+   "Rezervasyon Modülü": {
+    "ad": "وحدة الحجز",
+    "not_metni": null
+   },
+   "Etkinlik / Takvim": {
+    "ad": "الفعاليات / التقويم",
+    "not_metni": null
+   },
+   "Eğitim Portalı / LMS": {
+    "ad": "بوابة تعليمية / LMS",
+    "not_metni": null
+   },
+   "Admin Panel (Custom)": {
+    "ad": "لوحة إدارة (مخصصة)",
+    "not_metni": null
+   },
+   "API Geliştirme": {
+    "ad": "تطوير API",
+    "not_metni": null
+   },
+   "SEO Temel Kurulum": {
+    "ad": "إعداد SEO الأساسي",
+    "not_metni": null
+   },
+   "SEO İleri (Teknik)": {
+    "ad": "SEO المتقدم (تقني)",
+    "not_metni": null
+   },
+   "Google Ads Kurulum": {
+    "ad": "إعداد Google Ads",
+    "not_metni": null
+   },
+   "Meta Ads Kurulum": {
+    "ad": "إعداد Meta Ads",
+    "not_metni": null
+   },
+   "Analytics + Search Console": {
+    "ad": "Analytics + Search Console",
+    "not_metni": null
+   },
+   "Hız Optimizasyonu": {
+    "ad": "تحسين السرعة",
+    "not_metni": null
+   },
+   "KVKK & Sözleşme Sayfaları": {
+    "ad": "KVKK وصفحات العقود",
+    "not_metni": null
+   },
+   "SSL & Domain Yönetimi": {
+    "ad": "SSL وإدارة النطاق",
+    "not_metni": null
+   },
+   "Yedekleme & İzleme": {
+    "ad": "النسخ الاحتياطي والمراقبة",
+    "not_metni": null
+   },
+   "Bakım / Aylık Destek": {
+    "ad": "الصيانة / الدعم الشهري",
+    "not_metni": "شهريًا"
+   },
+   "İçerik Üretimi (10 sayfa)": {
+    "ad": "إنتاج المحتوى (10 صفحات)",
+    "not_metni": null
+   },
+   "Görsel & İkon Seti": {
+    "ad": "مجموعة صور وأيقونات",
+    "not_metni": null
+   },
+   "Göç / Taşıma Hizmeti": {
+    "ad": "خدمة الترحيل / النقل",
+    "not_metni": null
+   },
+   "Eğitim & Devretme": {
+    "ad": "التدريب والتسليم",
+    "not_metni": null
+   },
+   "Logo & Brand Kit": {
+    "ad": "الشعار وBrand Kit",
+    "not_metni": "لمرة واحدة"
+   },
+   "Pitch Deck Tasarım": {
+    "ad": "تصميم Pitch Deck",
+    "not_metni": null
+   },
+   "API Dokümantasyonu": {
+    "ad": "توثيق API",
+    "not_metni": null
+   },
+   "Web Sitesi Hız Optimizasyonu": {
+    "ad": "تحسين سرعة الموقع",
+    "not_metni": null
+   },
+   "KVKK/GDPR Uyum Paketi": {
+    "ad": "باقة الامتثال لـ KVKK/GDPR",
+    "not_metni": null
+   },
+   "E-posta & Domain Migrasyon": {
+    "ad": "ترحيل البريد الإلكتروني والنطاق",
+    "not_metni": null
+   },
+   "A/B Test Kurulumu": {
+    "ad": "إعداد اختبارات A/B",
+    "not_metni": null
+   },
+   "Chatbot Eğitim & Fine-tuning": {
+    "ad": "تدريب روبوت الدردشة وfine-tuning",
+    "not_metni": null
+   },
+   "Yedekleme & Felaket Kurtarma": {
+    "ad": "النسخ الاحتياطي والتعافي من الكوارث",
+    "not_metni": "شهريًا"
+   },
+   "Analytics & Dashboard (Looker/Plausible)": {
+    "ad": "Analytics ولوحة المعلومات (Looker/Plausible)",
+    "not_metni": null
+   },
+   "Brand Strateji Workshop": {
+    "ad": "ورشة استراتيجية العلامة التجارية",
+    "not_metni": null
+   },
+   "Metin Yazarlığı & UX Copy": {
+    "ad": "كتابة المحتوى وUX Copy",
+    "not_metni": null
+   },
+   "E-posta Pazarlama Otomasyonu": {
+    "ad": "أتمتة التسويق عبر البريد الإلكتروني",
+    "not_metni": "Mailchimp/Brevo + $99/شهريًا"
+   },
+   "WhatsApp Business API Entegrasyonu": {
+    "ad": "تكامل WhatsApp Business API",
+    "not_metni": "+$49/شهريًا"
+   },
+   "CRM Kurulumu (HubSpot/Pipedrive)": {
+    "ad": "إعداد CRM (HubSpot/Pipedrive)",
+    "not_metni": null
+   },
+   "Membership / Abonelik Sistemi": {
+    "ad": "نظام العضوية / الاشتراكات",
+    "not_metni": null
+   },
+   "Online Randevu Sistemi": {
+    "ad": "نظام المواعيد عبر الإنترنت",
+    "not_metni": null
+   },
+   "Blog & İçerik Sistemi Kurulumu": {
+    "ad": "إعداد المدونة ونظام المحتوى",
+    "not_metni": null
+   },
+   "Çok Dilli Yapı (i18n) Kurulumu": {
+    "ad": "إعداد البنية متعددة اللغات (i18n)",
+    "not_metni": null
+   },
+   "PWA Dönüşümü": {
+    "ad": "التحويل إلى PWA",
+    "not_metni": null
+   },
+   "Güvenlik Hardening & WAF": {
+    "ad": "تعزيز الأمان وWAF",
+    "not_metni": null
+   },
+   "Dönüşüm Hunisi Audit": {
+    "ad": "تدقيق قمع التحويل",
+    "not_metni": null
+   },
+   "Video Prodüksiyon & Kurgu": {
+    "ad": "إنتاج الفيديو والمونتاج",
+    "not_metni": "صفحة هبوط لمرة واحدة + $299/شهريًا لإنتاج المقاطع"
+   },
+   "Podcast Sitesi + RSS + Transkript AI": {
+    "ad": "موقع بودكاست + RSS + AI للتفريغ النصي",
+    "not_metni": "لمرة واحدة"
+   },
+   "NFT / Token Gated Erişim": {
+    "ad": "NFT / وصول مقيّد بالرموز (Token Gated)",
+    "not_metni": "ربط محفظة Web3"
+   },
+   "AI Ses Klonlama & Sesli Blog": {
+    "ad": "استنساخ الصوت بالـAI والمدونة الصوتية",
+    "not_metni": "إعداد + $99/شهريًا"
+   },
+   "3D / WebGL Showroom": {
+    "ad": "صالة عرض 3D / WebGL",
+    "not_metni": "Three.js"
+   },
+   "Çok Satıcılı Marketplace": {
+    "ad": "سوق إلكتروني متعدد البائعين",
+    "not_metni": "لوحة البائع + عمولة، خيار $1.800/شهريًا"
+   },
+   "IoT Dashboard (MQTT)": {
+    "ad": "لوحة معلومات IoT (MQTT)",
+    "not_metni": "بيانات الأجهزة + $350/شهريًا"
+   },
+   "Oyunlaştırma & Rozet Sistemi": {
+    "ad": "التلعيب ونظام الشارات",
+    "not_metni": "نقاط، مستويات، شارات"
+   },
+   "Affiliate / Referans Sistemi": {
+    "ad": "نظام التسويق بالعمولة / الإحالة",
+    "not_metni": "إحالات + مدفوعات"
+   },
+   "B2B Portal (Bayi / Fiyat / Sipariş)": {
+    "ad": "بوابة B2B (الموزعون / الأسعار / الطلبات)",
+    "not_metni": "دخول الموزعين، خيار $1.200/شهريًا"
+   },
+   "Headless CMS Migrasyon": {
+    "ad": "الترحيل إلى Headless CMS",
+    "not_metni": "Contentful/Sanity/Strapi"
+   },
+   "Web + Mobil Uygulama Paket": {
+    "ad": "باقة الويب + التطبيق المحمول",
+    "not_metni": "PWA + APK"
+   },
+   "AI Görsel Üretim Hattı": {
+    "ad": "خط إنتاج الصور بالـAI",
+    "not_metni": "تكثير صور المنتجات + $79/شهريًا"
+   },
+   "Sesli Asistan Entegrasyonu": {
+    "ad": "تكامل المساعد الصوتي",
+    "not_metni": "Alexa/Google"
+   },
+   "Abonelik & Faturalandırma": {
+    "ad": "الاشتراكات والفوترة",
+    "not_metni": "Stripe Billing"
+   },
+   "Sadakat & Puan Sistemi": {
+    "ad": "نظام الولاء والنقاط",
+    "not_metni": null
+   },
+   "Etkinlik & Biletleme Sistemi": {
+    "ad": "نظام الفعاليات وبيع التذاكر",
+    "not_metni": null
+   },
+   "Emlak İlan & Filtreleme": {
+    "ad": "إعلانات العقارات والتصفية",
+    "not_metni": null
+   },
+   "İş İlanları / Kariyer Board": {
+    "ad": "الوظائف / لوحة التوظيف",
+    "not_metni": null
+   },
+   "Otel / Oda Rezervasyon": {
+    "ad": "حجز الفنادق / الغرف",
+    "not_metni": null
+   },
+   "Restoran QR Menü & Online Sipariş": {
+    "ad": "قائمة QR للمطعم والطلب عبر الإنترنت",
+    "not_metni": null
+   },
+   "Bağış & Fon Toplama Platformu": {
+    "ad": "منصة التبرعات وجمع الأموال",
+    "not_metni": "للمنظمات غير الربحية −40%، أي $480"
+   },
+   "LMS İleri (Quiz/Sertifika/Ödeme)": {
+    "ad": "LMS المتقدم (اختبارات/شهادات/دفع)",
+    "not_metni": null
+   },
+   "Topluluk Platformu": {
+    "ad": "منصة المجتمع",
+    "not_metni": "منتدى متكامل مع Discord/Slack"
+   },
+   "CRO & Growth Deneyleri": {
+    "ad": "CRO وتجارب النمو",
+    "not_metni": "$650/شهريًا، 3 تجارب"
+   }
+  }
+ }
+}

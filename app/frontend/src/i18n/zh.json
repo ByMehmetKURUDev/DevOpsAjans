@@ -15,7 +15,8 @@
     "language": "语言",
     "adminPanel": "管理面板",
     "clientPanel": "客户面板",
-    "marketplace": "商城"
+    "marketplace": "商城",
+    "roadmap": "路线图"
   },
   "hero": {
     "badge": "项目档期开放 · 2026 年第三季度",
@@ -581,8 +582,7 @@
     "desc": "一家精品开发与数字代理机构，打造大胆、高性能的软件与令人难忘的品牌。定制开发、数字营销与产品设计。",
     "navigate": "导航",
     "contact": "联系",
-    "copyright": "By@MehmetKURU.Dev",
-    "roadmap": "路线图"
+    "copyright": "By@MehmetKURU.Dev"
   },
   "settingsForm": {
     "brandTitle": "品牌",
@@ -1616,7 +1616,6 @@
   "fiyatV5": {
     "aiPmYok": "无",
     "ayKisa": "月",
-    "yilKisa": "年",
     "besProfil": "5 种身份",
     "bonus": "赠送",
     "gecerlilik": "有效期",
@@ -1670,7 +1669,8 @@
     "teklifAl": "获取报价",
     "tumHizmetler": "全部服务",
     "tumHizmetlerAciklama": "单项服务目录。如需报价，请使用套餐卡片或积分。",
-    "yeni": "新"
+    "yeni": "新",
+    "yillikToplam": "全年"
   },
   "fiyatV6": {
     "girisAciklama": "选择您的身份和付款方式，四个档位的价格即时更新。添加模块、获取报价或直接购买。"

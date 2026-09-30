@@ -48,8 +48,11 @@ logger = logging.getLogger(__name__)
 # karsilastirma) — response'ta list/dict'e çözülür, create/update'te
 # tekrar metne çevrilir.
 JSON_TEXT_FIELDS: Dict[str, List[str]] = {
-    "pricing_scales": ["ozellikler", "karsilastirma"],
-    "ai_pm_tiers": ["ozellikler"],
+    "pricing_scales": ["ozellikler", "karsilastirma", "ceviriler"],
+    "pricing_profiles": ["ceviriler"],
+    "pricing_services": ["ceviriler"],
+    "pricing_addons": ["ceviriler"],
+    "ai_pm_tiers": ["ozellikler", "ceviriler"],
 }
 
 
@@ -176,6 +179,7 @@ class PricingScalesData(BaseModel):
     revizyon_saat: Optional[str] = None
     populer: Optional[bool] = False
     karsilastirma: Optional[Dict[str, Any]] = None
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class PricingScalesUpdateData(BaseModel):
@@ -191,6 +195,7 @@ class PricingScalesUpdateData(BaseModel):
     revizyon_saat: Optional[str] = None
     populer: Optional[bool] = None
     karsilastirma: Optional[Dict[str, Any]] = None
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class PricingProfilesData(BaseModel):
@@ -199,6 +204,7 @@ class PricingProfilesData(BaseModel):
     carpan: float
     etiket: Optional[str] = None
     sira: int
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class PricingProfilesUpdateData(BaseModel):
@@ -207,6 +213,7 @@ class PricingProfilesUpdateData(BaseModel):
     carpan: Optional[float] = None
     etiket: Optional[str] = None
     sira: Optional[int] = None
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class PricingServicesData(BaseModel):
@@ -216,6 +223,7 @@ class PricingServicesData(BaseModel):
     tek_seferlik: Optional[bool] = False
     not_metni: Optional[str] = None
     yeni: Optional[bool] = False
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class PricingServicesUpdateData(BaseModel):
@@ -225,6 +233,7 @@ class PricingServicesUpdateData(BaseModel):
     tek_seferlik: Optional[bool] = None
     not_metni: Optional[str] = None
     yeni: Optional[bool] = None
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class PricingAddonsData(BaseModel):
@@ -233,6 +242,7 @@ class PricingAddonsData(BaseModel):
     baz_fiyat_usd: float
     birim: Optional[str] = "ay"
     sira: int
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class PricingAddonsUpdateData(BaseModel):
@@ -241,6 +251,7 @@ class PricingAddonsUpdateData(BaseModel):
     baz_fiyat_usd: Optional[float] = None
     birim: Optional[str] = None
     sira: Optional[int] = None
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class AiPmTiersData(BaseModel):
@@ -250,6 +261,7 @@ class AiPmTiersData(BaseModel):
     rozet: Optional[str] = None
     ozellikler: Optional[List[str]] = None
     sira: int
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 class AiPmTiersUpdateData(BaseModel):
@@ -259,6 +271,7 @@ class AiPmTiersUpdateData(BaseModel):
     rozet: Optional[str] = None
     ozellikler: Optional[List[str]] = None
     sira: Optional[int] = None
+    ceviriler: Optional[Dict[str, Any]] = None
 
 
 # `pricing_inquiries` `HERKESE_ACIK_OKUMA`'da değil — bu tabloya CRUD router'ı
