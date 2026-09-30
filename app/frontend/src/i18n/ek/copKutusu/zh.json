@@ -1,0 +1,72 @@
+{
+  "copKutusu": {
+    "baslik": "回收站",
+    "aciklama": "已删除的记录在此保留 {{gun}} 天，之后将被永久删除。恢复的记录会以相同编号回到原处；与其一起删除的关联记录（例如任务的检查清单）也会一并恢复。",
+    "yenile": "刷新",
+    "hata": "无法加载回收站。",
+    "bos": "回收站为空。",
+    "dahaFazla": "加载更多",
+    "gosterilen": "{{sayi}} / {{toplam}} 条记录",
+    "filtre": {
+      "tablo": "类型",
+      "hepsi": "全部",
+      "ara": "搜索",
+      "araOrnek": "标题、邮箱或编号…",
+      "uygula": "筛选"
+    },
+    "bagli": "+{{sayi}} 条关联记录",
+    "sahip": "客户：{{eposta}}",
+    "silen": "删除者：{{kisi}}",
+    "kaliciSilinme": "永久删除时间：{{zaman}}",
+    "geriAl": "恢复",
+    "geriAlOnay": "要恢复“{{kayit}}”吗？",
+    "geriAlindi": "记录已恢复。",
+    "kaliciSil": "永久删除",
+    "kaliciSilOnay": "要永久删除“{{kayit}}”吗？此操作无法撤销。",
+    "kaliciSilindi": "记录已永久删除。",
+    "ayrinti": "显示详情",
+    "ayrintiGizle": "隐藏详情",
+    "saklama": {
+      "etiket": "保留天数",
+      "kaydet": "保存保留期限",
+      "kaydedildi": "保留期限已设为 {{gun}} 天。",
+      "gecersiz": "请输入 1 到 365 之间的天数。"
+    },
+    "rol": {
+      "admin": "管理员",
+      "client": "客户",
+      "sistem": "系统",
+      "anonim": "访客"
+    },
+    "hataKod": {
+      "cakisma": "已存在相同编号或相同唯一值的新记录，无法恢复。",
+      "zaten_geri_alindi": "该记录已被恢复。",
+      "tablo_yok": "此类记录已无法恢复。",
+      "kimlik_yok": "记录缺少编号，无法恢复。",
+      "bulunamadi": "未找到记录。",
+      "genel": "操作未能完成，请重试。"
+    },
+    "kisi": {
+      "baslik": "已删除",
+      "aciklama": "您删除的记录会在此保留 {{gun}} 天，期间可以恢复。",
+      "bos": "您没有已删除的记录。"
+    },
+    "tablo": {
+      "projects": "项目",
+      "project_tasks": "任务",
+      "files": "文件",
+      "support_tickets": "支持工单",
+      "ticket_replies": "工单消息",
+      "invoices": "发票",
+      "client_sites": "客户网站",
+      "blog_posts": "博客文章",
+      "content_posts": "内容计划条目",
+      "marketplace_items": "市场产品",
+      "bilgi_makaleleri": "知识库文章",
+      "duyurular": "公告",
+      "hazir_cevaplar": "快捷回复",
+      "task_checklist": "检查项",
+      "task_dependencies": "任务依赖"
+    }
+  }
+}

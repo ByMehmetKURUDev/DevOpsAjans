@@ -1,0 +1,72 @@
+{
+  "copKutusu": {
+    "baslik": "Papierkorb",
+    "aciklama": "Gelöschte Einträge werden hier {{gun}} Tage aufbewahrt und danach endgültig gelöscht. Ein wiederhergestellter Eintrag kehrt mit derselben Nummer zurück; mitgelöschte verknüpfte Einträge (z. B. die Checkliste einer Aufgabe) ebenfalls.",
+    "yenile": "Aktualisieren",
+    "hata": "Der Papierkorb konnte nicht geladen werden.",
+    "bos": "Der Papierkorb ist leer.",
+    "dahaFazla": "Mehr laden",
+    "gosterilen": "{{sayi}} / {{toplam}} Einträge",
+    "filtre": {
+      "tablo": "Art",
+      "hepsi": "Alle",
+      "ara": "Suche",
+      "araOrnek": "Titel, E-Mail oder Nummer…",
+      "uygula": "Filtern"
+    },
+    "bagli": "+{{sayi}} verknüpfte Einträge",
+    "sahip": "Kunde: {{eposta}}",
+    "silen": "Gelöscht von: {{kisi}}",
+    "kaliciSilinme": "Endgültige Löschung: {{zaman}}",
+    "geriAl": "Wiederherstellen",
+    "geriAlOnay": "„{{kayit}}“ wiederherstellen?",
+    "geriAlindi": "Eintrag wiederhergestellt.",
+    "kaliciSil": "Endgültig löschen",
+    "kaliciSilOnay": "„{{kayit}}“ endgültig löschen? Dies kann nicht rückgängig gemacht werden.",
+    "kaliciSilindi": "Eintrag endgültig gelöscht.",
+    "ayrinti": "Details anzeigen",
+    "ayrintiGizle": "Details ausblenden",
+    "saklama": {
+      "etiket": "Aufbewahrung (Tage)",
+      "kaydet": "Aufbewahrungsdauer speichern",
+      "kaydedildi": "Aufbewahrungsdauer auf {{gun}} Tage gesetzt.",
+      "gecersiz": "Bitte eine Anzahl von Tagen zwischen 1 und 365 eingeben."
+    },
+    "rol": {
+      "admin": "Administrator",
+      "client": "Kunde",
+      "sistem": "System",
+      "anonim": "Besucher"
+    },
+    "hataKod": {
+      "cakisma": "Es gibt bereits einen neuen Eintrag mit derselben Nummer oder demselben eindeutigen Wert; Wiederherstellung nicht möglich.",
+      "zaten_geri_alindi": "Dieser Eintrag wurde bereits wiederhergestellt.",
+      "tablo_yok": "Diese Art von Eintrag kann nicht mehr wiederhergestellt werden.",
+      "kimlik_yok": "Die Nummer des Eintrags fehlt; Wiederherstellung nicht möglich.",
+      "bulunamadi": "Eintrag nicht gefunden.",
+      "genel": "Der Vorgang konnte nicht abgeschlossen werden; bitte erneut versuchen."
+    },
+    "kisi": {
+      "baslik": "Gelöschte Einträge",
+      "aciklama": "Von Ihnen gelöschte Einträge bleiben {{gun}} Tage hier; in dieser Zeit können Sie sie wiederherstellen.",
+      "bos": "Sie haben keine gelöschten Einträge."
+    },
+    "tablo": {
+      "projects": "Projekt",
+      "project_tasks": "Aufgabe",
+      "files": "Datei",
+      "support_tickets": "Support-Ticket",
+      "ticket_replies": "Ticket-Nachricht",
+      "invoices": "Rechnung",
+      "client_sites": "Kunden-Website",
+      "blog_posts": "Blogbeitrag",
+      "content_posts": "Inhaltsplan-Eintrag",
+      "marketplace_items": "Marktplatz-Produkt",
+      "bilgi_makaleleri": "Wissensdatenbank-Artikel",
+      "duyurular": "Ankündigung",
+      "hazir_cevaplar": "Textbaustein",
+      "task_checklist": "Checklisten-Punkt",
+      "task_dependencies": "Aufgabenabhängigkeit"
+    }
+  }
+}

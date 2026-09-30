@@ -376,27 +376,30 @@ async def gorev_sil(gorev_id: int, request: Request, db: AsyncSession = _Depends
     kalır. Saat girişleri revizyon sayacı bozulmasın diye kalıyor."""
     _yonetici_iste(request)
     g = await gs.gorev_bul(db, gorev_id)
-    for k in (await db.execute(select(TaskChecklist).where(TaskChecklist.gorev_id == g.id))).scalars().all():
-        await db.delete(k)
-    for d in (
-        await db.execute(
-            select(TaskDependencies).where(
-                (TaskDependencies.gorev_id == g.id) | (TaskDependencies.bagli_oldugu_id == g.id)
+    # Faz 2D: silmeler tek flush'ta insin — çöp kutusu görevi, kontrol listesi ve
+    # bağımlılıkları aynı grupta yakalasın (ara sorgular autoflush tetiklemesin).
+    with db.no_autoflush:
+        for k in (await db.execute(select(TaskChecklist).where(TaskChecklist.gorev_id == g.id))).scalars().all():
+            await db.delete(k)
+        for d in (
+            await db.execute(
+                select(TaskDependencies).where(
+                    (TaskDependencies.gorev_id == g.id) | (TaskDependencies.bagli_oldugu_id == g.id)
+                )
             )
-        )
-    ).scalars().all():
-        await db.delete(d)
-    for alt in (await db.execute(select(ProjectTasks).where(ProjectTasks.ust_gorev_id == g.id))).scalars().all():
-        alt.ust_gorev_id = None
-    try:
-        from models.geri_bildirim import FeedbackItems
+        ).scalars().all():
+            await db.delete(d)
+        for alt in (await db.execute(select(ProjectTasks).where(ProjectTasks.ust_gorev_id == g.id))).scalars().all():
+            alt.ust_gorev_id = None
+        try:
+            from models.geri_bildirim import FeedbackItems
 
-        for fb in (await db.execute(select(FeedbackItems).where(FeedbackItems.gorev_id == g.id))).scalars().all():
-            fb.gorev_id = None
-            if fb.durum == "gorev":
-                fb.durum = "inceleniyor"
-    except Exception:  # noqa: BLE001
-        logger.exception("Geri bildirim bağı çözülemedi")
+            for fb in (await db.execute(select(FeedbackItems).where(FeedbackItems.gorev_id == g.id))).scalars().all():
+                fb.gorev_id = None
+                if fb.durum == "gorev":
+                    fb.durum = "inceleniyor"
+        except Exception:  # noqa: BLE001
+            logger.exception("Geri bildirim bağı çözülemedi")
     await db.delete(g)
     await db.commit()
     return {"silindi": gorev_id}

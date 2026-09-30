@@ -39,6 +39,8 @@ import {
   Bug,
   ListChecks,
   Megaphone,
+  ShieldCheck,
+  ArchiveRestore,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -95,6 +97,9 @@ const FiyatlandirmaV5Paneli = lazy(() => import('@/components/admin/Fiyatlandirm
 const SiteAnalizleri = ekliLazy('siteAnalizi', () => import('@/components/admin/SiteAnalizleri'));
 // Denetim kaydı: kim, ne zaman, hangi kaydı, neyi değiştirdi.
 const KayitGecmisi = ekliLazy('denetim', () => import('@/components/admin/KayitGecmisi'));
+// Faz 2D: oturum güvenliği (açık oturumlar, her yerden çıkar) ve çöp kutusu (geri alma).
+const GuvenlikPaneli = ekliLazy('guvenlik', () => import('@/components/admin/GuvenlikPaneli'));
+const CopKutusuPaneli = ekliLazy('copKutusu', () => import('@/components/admin/CopKutusu'));
 // Kredi defteri (Kullandıkça Öde): bakiye, harcama, kredi ekleme.
 const KrediDefteri = ekliLazy('kredi', () => import('@/components/admin/KrediDefteri'));
 // İmzalı işlem bağlantıları (girişsiz tek tıkla teklif kabulü / teslim onayı).
@@ -222,6 +227,8 @@ type Tab =
   | 'inquiries'
   | 'siteAnalizleri'
   | 'denetim'
+  | 'guvenlik'
+  | 'copKutusu'
   | 'krediler'
   | 'islemler'
   | 'moduller'
@@ -325,7 +332,16 @@ export default function AdminPanel() {
       : field.key;
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [tab, setTab] = useState<Tab>('analytics');
+  // Bildirim bağlantıları (`/admin?sekme=guvenlik`) doğrudan sekmeyi açsın.
+  const [tab, setTab] = useState<Tab>(() => {
+    try {
+      const istenen = new URLSearchParams(window.location.search).get('sekme');
+      if (istenen === 'guvenlik' || istenen === 'copKutusu' || istenen === 'denetim') return istenen;
+    } catch {
+      /* sunucuda çizim: pencere yok */
+    }
+    return 'analytics';
+  });
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -885,6 +901,8 @@ export default function AdminPanel() {
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
     { key: 'denetim', label: t('ui.tabDenetim'), icon: History },
+    { key: 'guvenlik', label: t('ui.tabGuvenlik'), icon: ShieldCheck },
+    { key: 'copKutusu', label: t('ui.tabCopKutusu'), icon: ArchiveRestore },
     { key: 'moduller', label: t('ui.tabModuller'), icon: Blocks },
     { key: 'geriBildirim', label: t('ui.tabGeriBildirim'), icon: Bug },
     { key: 'duyurular', label: t('ui.tabDuyurular'), icon: Megaphone },
@@ -1099,6 +1117,30 @@ export default function AdminPanel() {
           }
         >
           <KayitGecmisi />
+        </Suspense>
+      )}
+
+      {tab === 'guvenlik' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <GuvenlikPaneli />
+        </Suspense>
+      )}
+
+      {tab === 'copKutusu' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <CopKutusuPaneli />
         </Suspense>
       )}
 

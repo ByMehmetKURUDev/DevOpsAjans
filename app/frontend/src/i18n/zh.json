@@ -464,7 +464,9 @@
     "tabBilgiBankasi": "知识库",
     "tabGeriBildirim": "反馈",
     "tabDuyurular": "公告",
-    "gorevler": "任务"
+    "gorevler": "任务",
+    "tabGuvenlik": "安全",
+    "tabCopKutusu": "回收站"
   },
   "admin": {
     "loadError": "管理数据加载失败",

@@ -279,12 +279,19 @@ async def dosya_sil(dosya_id: int, request: Request, db: AsyncSession = _Depends
     _yonetici_iste(request)
     d = await _dosya(db, dosya_id)
     guncel_miydi = bool(d.guncel)
-    await dosya_deposu.sil(db, d.depo, d.depolama_anahtari)
+    depo, anahtar = d.depo, d.depolama_anahtari
     # Bağlantılar da ölü: silinen dosyanın paylaşım adresi 404 versin.
     for p in (await db.execute(select(PaylasimBaglantilari).where(PaylasimBaglantilari.dosya_id == d.id))).scalars().all():
         p.iptal = True
     await db.delete(d)
     await db.flush()
+    # Faz 2D: kayıt çöp kutusuna düştüyse içerik bekletiliyor (geri alınınca
+    # dosya içeriğiyle gelsin); çöp kaydı kalıcı silinince içerik de gidiyor.
+    # Çöpe düşmediyse (kanca hatası) içerik eskisi gibi hemen siliniyor.
+    from services.cop_kutusu import cop_kutusunda_mi
+
+    if not await cop_kutusunda_mi(db, "files", dosya_id):
+        await dosya_deposu.sil(db, depo, anahtar)
     if guncel_miydi:
         onceki = (
             await db.execute(

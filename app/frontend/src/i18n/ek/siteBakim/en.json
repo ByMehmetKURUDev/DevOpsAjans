@@ -171,7 +171,9 @@
         "sla_kontrolu": "Support SLA check and escalation",
         "belge_hatirlatmalari": "Document request reminders",
         "aylik_rapor_taslaklari": "Monthly report drafts (on the 1st)",
-        "aylik_site_analizi": "Monthly automatic site analysis"
+        "aylik_site_analizi": "Monthly automatic site analysis",
+        "oturum_temizligi": "Clean-up of old session records",
+        "cop_kutusu_temizligi": "Deletion of expired recycle bin items"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

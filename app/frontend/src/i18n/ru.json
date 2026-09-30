@@ -464,7 +464,9 @@
     "tabBilgiBankasi": "База знаний",
     "tabGeriBildirim": "Обратная связь",
     "tabDuyurular": "Объявления",
-    "gorevler": "Задачи"
+    "gorevler": "Задачи",
+    "tabGuvenlik": "Безопасность",
+    "tabCopKutusu": "Корзина"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

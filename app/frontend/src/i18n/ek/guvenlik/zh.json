@@ -1,0 +1,68 @@
+{
+  "guvenlik": {
+    "baslik": "会话与安全",
+    "aciklama": "账户从哪些设备登录以及最近一次使用时间。您可以结束可疑会话，或让某个用户在所有设备上退出；不保存原始 IP，只显示其哈希。",
+    "yenile": "刷新",
+    "hata": "无法加载会话。",
+    "bos": "没有符合筛选条件的会话。",
+    "dahaFazla": "加载更多",
+    "gosterilen": "{{sayi}} / {{toplam}} 个会话",
+    "filtre": {
+      "eposta": "邮箱",
+      "epostaOrnek": "按邮箱搜索…",
+      "yalnizEtkin": "仅显示活动会话",
+      "uygula": "筛选"
+    },
+    "sutun": {
+      "kisi": "用户",
+      "cihaz": "设备",
+      "ip": "IP 哈希",
+      "acilis": "开始时间",
+      "sonGorulme": "最近活动",
+      "durum": "状态"
+    },
+    "durum": {
+      "etkin": "活动",
+      "iptal": "已结束",
+      "bitti": "已过期"
+    },
+    "rol": {
+      "admin": "管理员",
+      "user": "客户"
+    },
+    "buCihaz": "本设备",
+    "bilinmeyenCihaz": "未知设备",
+    "kapat": "结束会话",
+    "kapatOnay": "要结束“{{cihaz}}”会话吗？该设备需要立即重新登录。",
+    "kapatildi": "会话已结束。",
+    "iptalEden": "结束者：{{kisi}}",
+    "cikar": {
+      "baslik": "让用户在所有设备上退出",
+      "aciklama": "该用户的所有打开会话都会结束，迄今签发的每个登录令牌都将失效（包括以旧方式打开的会话）。用户重新登录即可继续使用。",
+      "eposta": "用户邮箱",
+      "dugme": "全部退出",
+      "onay": "要让 {{eposta}} 在所有设备上退出吗？其所有打开的会话将立即结束。",
+      "basarili": "{{eposta}} 已在所有设备上退出（结束了 {{sayi}} 个会话）。"
+    },
+    "hataKod": {
+      "kendi_oturumun": "无法在此结束您当前正在使用的会话；请直接退出登录。",
+      "kendi_hesabin": "让自己的账户在所有设备上退出也会结束当前会话。对于其他设备，请使用个人资料中的“结束所有其他会话”。",
+      "eposta_gecersiz": "请输入有效的邮箱地址。",
+      "genel": "操作未能完成，请重试。"
+    },
+    "kisi": {
+      "baslik": "我的会话",
+      "aciklama": "您的账户已登录的设备。如果看到不认识的会话，请立即结束。",
+      "sonEtkinlik": "最近活动：{{zaman}}",
+      "acilis": "开始：{{zaman}}",
+      "digerleri": "结束所有其他会话",
+      "digerleriOnay": "要结束除本设备外的所有会话吗？",
+      "digerleriKapatildi": "已结束 {{sayi}} 个会话。",
+      "digerleriYok": "没有其他可结束的会话。",
+      "cikisYap": "在本设备退出",
+      "buCihazOnay": "结束本设备上的会话将使您退出登录。继续吗？",
+      "eskiOturum": "您在本设备上的会话是以旧方式打开的；下次登录后会显示在这里。",
+      "bos": "没有打开的会话。"
+    }
+  }
+}

@@ -103,6 +103,12 @@ app.add_middleware(
 from middlewares.denetim_baglami import DenetimBaglamiMiddleware  # noqa: E402
 
 app.add_middleware(DenetimBaglamiMiddleware)
+
+# Faz 2D: iptal edilmiş oturumun jetonunu istek başında işaretler
+# (`get_current_user` ve `_yonetici_mi` ikisi de bu karardan okuyor).
+from middlewares.oturum_bekcisi import OturumBekcisiMiddleware  # noqa: E402
+
+app.add_middleware(OturumBekcisiMiddleware)
 # MODULE_MIDDLEWARE_END
 
 
@@ -158,6 +164,24 @@ def include_routers_from_package(app: FastAPI, package_name: str = "routers") ->
 # Setup logging before router discovery
 setup_logging()
 include_routers_from_package(app, "routers")
+
+
+# Faz 2D: iptal edilmiş oturumun jetonuyla gelen istek hangi router'da 401
+# alırsa alsın ("Giriş yapmanız gerekiyor", {"kod": ...}…) gövde aynı:
+# "Oturum sonlandırıldı". Ön yüz bu yanıtı görünce jetonu silip girişe
+# yönlendiriyor. Diğer bütün HTTP hataları FastAPI'nin varsayılan işleyicisinde.
+from fastapi.exception_handlers import http_exception_handler as _varsayilan_http_isleyici  # noqa: E402
+from starlette.exceptions import HTTPException as _StarletteHTTPException  # noqa: E402
+
+
+@app.exception_handler(_StarletteHTTPException)
+async def _http_hata_isleyici(request: Request, exc: _StarletteHTTPException):
+    if exc.status_code == status.HTTP_401_UNAUTHORIZED:
+        from services.oturumlar import IPTAL_SEBEBI, istek_iptal_mi
+
+        if istek_iptal_mi(request) and exc.detail != IPTAL_SEBEBI:
+            exc = _StarletteHTTPException(status_code=401, detail=IPTAL_SEBEBI, headers=exc.headers)
+    return await _varsayilan_http_isleyici(request, exc)
 
 
 # Add exception handler for all exceptions except HTTPException

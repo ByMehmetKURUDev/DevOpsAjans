@@ -1,0 +1,68 @@
+{
+  "guvenlik": {
+    "baslik": "Oturumlar ve güvenlik",
+    "aciklama": "Hesaplara hangi cihazlardan girildiği ve en son ne zaman kullanıldığı. Şüpheli bir oturumu kapatabilir ya da bir kullanıcıyı bütün cihazlardan çıkarabilirsiniz; ham IP saklanmaz, yalnız özeti görünür.",
+    "yenile": "Yenile",
+    "hata": "Oturumlar yüklenemedi.",
+    "bos": "Bu filtrelere uyan oturum yok.",
+    "dahaFazla": "Daha fazla yükle",
+    "gosterilen": "{{sayi}} / {{toplam}} oturum",
+    "filtre": {
+      "eposta": "E-posta",
+      "epostaOrnek": "E-postada ara…",
+      "yalnizEtkin": "Yalnız etkin oturumlar",
+      "uygula": "Filtrele"
+    },
+    "sutun": {
+      "kisi": "Kişi",
+      "cihaz": "Cihaz",
+      "ip": "IP özeti",
+      "acilis": "Açılış",
+      "sonGorulme": "Son etkinlik",
+      "durum": "Durum"
+    },
+    "durum": {
+      "etkin": "Etkin",
+      "iptal": "Kapatıldı",
+      "bitti": "Süresi doldu"
+    },
+    "rol": {
+      "admin": "Yönetici",
+      "user": "Müşteri"
+    },
+    "buCihaz": "Bu cihaz",
+    "bilinmeyenCihaz": "Bilinmeyen cihaz",
+    "kapat": "Oturumu kapat",
+    "kapatOnay": "“{{cihaz}}” oturumu kapatılsın mı? O cihazda hemen yeniden giriş istenecek.",
+    "kapatildi": "Oturum kapatıldı.",
+    "iptalEden": "Kapatan: {{kisi}}",
+    "cikar": {
+      "baslik": "Kullanıcıyı her yerden çıkar",
+      "aciklama": "Kullanıcının bütün açık oturumları kapatılır ve bu ana kadar aldığı her giriş jetonu geçersiz olur (eski usul açılmış oturumlar dahil). Kullanıcı yeniden giriş yaparak devam edebilir.",
+      "eposta": "Kullanıcının e-postası",
+      "dugme": "Her yerden çıkar",
+      "onay": "{{eposta}} bütün cihazlardan çıkarılsın mı? Açık oturumlarının hepsi hemen kapanacak.",
+      "basarili": "{{eposta}} her yerden çıkarıldı ({{sayi}} oturum kapatıldı)."
+    },
+    "hataKod": {
+      "kendi_oturumun": "Şu an kullandığınız oturumu buradan kapatamazsınız; bunun için çıkış yapın.",
+      "kendi_hesabin": "Kendi hesabınızı her yerden çıkarmak bu oturumu da kapatır. Diğer cihazlar için profilinizdeki “Diğer tüm oturumları kapat”ı kullanın.",
+      "eposta_gecersiz": "Geçerli bir e-posta adresi girin.",
+      "genel": "İşlem tamamlanamadı; lütfen tekrar deneyin."
+    },
+    "kisi": {
+      "baslik": "Oturumlarım",
+      "aciklama": "Hesabınızın açık olduğu cihazlar. Tanımadığınız bir oturum görürseniz hemen kapatın.",
+      "sonEtkinlik": "Son etkinlik: {{zaman}}",
+      "acilis": "Açılış: {{zaman}}",
+      "digerleri": "Diğer tüm oturumları kapat",
+      "digerleriOnay": "Bu cihaz dışındaki bütün oturumlarınız kapatılsın mı?",
+      "digerleriKapatildi": "{{sayi}} oturum kapatıldı.",
+      "digerleriYok": "Kapatılacak başka oturum yok.",
+      "cikisYap": "Bu cihazdan çık",
+      "buCihazOnay": "Bu cihazdaki oturumu kapatırsanız çıkış yapılır. Devam edilsin mi?",
+      "eskiOturum": "Bu cihazdaki oturumunuz eski usulde açılmış; bir sonraki girişinizden sonra burada görünecek.",
+      "bos": "Açık oturum bulunamadı."
+    }
+  }
+}

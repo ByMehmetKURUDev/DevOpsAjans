@@ -19,9 +19,65 @@ let instance: SdkClient | null = null;
  */
 export function getSdkClient(): SdkClient {
   if (!instance) {
-    instance = createClient();
+    instance = createClient({ onUnauthorized: yetkisizYanitGeldi });
   }
   return instance;
+}
+
+let girisYonlendirmesiBasladi = false;
+
+/**
+ * Faz 2D: jeton varken gelen 401 — jeton artık geçersiz (süresi dolmuş ya da
+ * oturum sonlandırılmış: "Oturum sonlandırıldı"). İzi siliyoruz; yönetici /
+ * müşteri panelindeysek girişe yönlendiriyoruz. Herkese açık sayfada yalnız
+ * iz siliniyor (ziyaretçi okumaya devam etsin). Jetonsuz 401'e dokunulmuyor.
+ */
+function yetkisizYanitGeldi(): void {
+  let jetonVardi = false;
+  try {
+    jetonVardi = !!localStorage.getItem('token');
+  } catch {
+    return;
+  }
+  if (!jetonVardi) return;
+  oturumIziniTemizle();
+  try {
+    const yol = window.location.pathname.replace(/^\/(tr|en|de|ru|zh|hi|ar)(?=\/)/, '');
+    if (!girisYonlendirmesiBasladi && /^\/(admin|client)(\/|$)/.test(yol)) {
+      girisYonlendirmesiBasladi = true;
+      getSdkClient().auth.toLogin();
+    }
+  } catch {
+    /* tarayıcı dışı */
+  }
+}
+
+/**
+ * Faz 2D: çıkışta sunucudaki oturumu da kapatır (jeton kopyalanmış olsa
+ * bile işe yaramasın). SDK'nın `logout()`u jetonu istekten ÖNCE sildiği için
+ * sunucu hangi oturumun kapandığını bilemiyordu. En çok 2 sn beklenir;
+ * hata/zaman aşımı çıkışı engellemez.
+ */
+export async function sunucuOturumunuKapat(): Promise<void> {
+  let jeton: string | null = null;
+  try {
+    jeton = localStorage.getItem('token');
+  } catch {
+    return;
+  }
+  if (!jeton) return;
+  const kontrol = typeof AbortController !== 'undefined' ? new AbortController() : null;
+  const zaman = window.setTimeout(() => kontrol?.abort(), 2000);
+  try {
+    await fetch('/api/v1/auth/logout', {
+      headers: { Authorization: `Bearer ${jeton}` },
+      signal: kontrol?.signal,
+    });
+  } catch {
+    /* ağ hatası: çıkış yine yapılır */
+  } finally {
+    window.clearTimeout(zaman);
+  }
 }
 
 /**

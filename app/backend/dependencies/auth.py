@@ -24,7 +24,7 @@ async def get_bearer_token(
     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication credentials were not provided")
 
 
-async def get_current_user(token: str = Depends(get_bearer_token)) -> UserResponse:
+async def get_current_user(request: Request, token: str = Depends(get_bearer_token)) -> UserResponse:
     """Dependency to get current authenticated user via JWT token."""
     try:
         payload = decode_access_token(token)
@@ -36,6 +36,17 @@ async def get_current_user(token: str = Depends(get_bearer_token)) -> UserRespon
     user_id = payload.get("sub")
     if not user_id:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication token")
+
+    # Faz 2D: iptal edilmiş oturum / kullanıcı bazlı kesim. Karar normalde
+    # ara katmanda (middlewares/oturum_bekcisi.py) verilmiş olur; verilmemişse
+    # (ör. /api dışı yol) burada veriliyor.
+    from services import oturumlar
+
+    durum = oturumlar.istek_durumu(request)
+    if durum is None:
+        durum = await oturumlar.jeton_denetle(payload)
+    if durum.get("iptal"):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=oturumlar.IPTAL_SEBEBI)
 
     last_login_raw = payload.get("last_login")
     last_login = None

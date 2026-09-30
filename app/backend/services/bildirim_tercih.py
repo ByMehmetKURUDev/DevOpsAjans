@@ -80,6 +80,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "geri_bildirim_durumu": {"roller": ("client",), "tetikleniyor": True},
     "duyuru": {"roller": ("admin", "client"), "tetikleniyor": True},
     "oneri_durumu": {"roller": ("client",), "tetikleniyor": True},
+    # Faz 2D — hesaba daha önce görülmemiş bir cihaz/ağdan giriş yapıldı.
+    "yeni_oturum": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

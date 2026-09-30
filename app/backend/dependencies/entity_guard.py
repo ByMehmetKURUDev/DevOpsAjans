@@ -84,6 +84,14 @@ def _istekteki_kullanici(request: Request) -> Optional[UserResponse]:
     if not user_id:
         return None
 
+    # Faz 2D: oturum iptal edildiyse (ya da kullanıcı her yerden çıkarıldıysa)
+    # jeton geçersiz sayılıyor. Karar ara katmanda verildi (bu fonksiyon
+    # eşzamanlı; veritabanına gidemez) — bkz. middlewares/oturum_bekcisi.py.
+    from services.oturumlar import istek_iptal_mi
+
+    if istek_iptal_mi(request):
+        return None
+
     return UserResponse(
         id=user_id,
         email=payload.get("email", ""),
@@ -112,7 +120,12 @@ async def entity_guard(request: Request) -> None:
         return
 
     if kullanici is None:
-        _reddet(status.HTTP_401_UNAUTHORIZED, "Bu işlem için giriş yapmanız gerekiyor")
+        from services.oturumlar import IPTAL_SEBEBI, istek_iptal_mi
+
+        _reddet(
+            status.HTTP_401_UNAUTHORIZED,
+            IPTAL_SEBEBI if istek_iptal_mi(request) else "Bu işlem için giriş yapmanız gerekiyor",
+        )
 
     yonetici = kullanici.role == "admin"
 

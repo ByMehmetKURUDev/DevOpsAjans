@@ -1,0 +1,68 @@
+{
+  "guvenlik": {
+    "baslik": "Sessions & security",
+    "aciklama": "Which devices accounts are signed in from and when they were last used. You can end a suspicious session or sign a user out of every device; raw IPs are never stored, only a hash is shown.",
+    "yenile": "Refresh",
+    "hata": "Sessions could not be loaded.",
+    "bos": "No sessions match these filters.",
+    "dahaFazla": "Load more",
+    "gosterilen": "{{sayi}} / {{toplam}} sessions",
+    "filtre": {
+      "eposta": "Email",
+      "epostaOrnek": "Search by email…",
+      "yalnizEtkin": "Active sessions only",
+      "uygula": "Filter"
+    },
+    "sutun": {
+      "kisi": "Person",
+      "cihaz": "Device",
+      "ip": "IP hash",
+      "acilis": "Started",
+      "sonGorulme": "Last active",
+      "durum": "Status"
+    },
+    "durum": {
+      "etkin": "Active",
+      "iptal": "Ended",
+      "bitti": "Expired"
+    },
+    "rol": {
+      "admin": "Admin",
+      "user": "Client"
+    },
+    "buCihaz": "This device",
+    "bilinmeyenCihaz": "Unknown device",
+    "kapat": "End session",
+    "kapatOnay": "End the “{{cihaz}}” session? That device will have to sign in again right away.",
+    "kapatildi": "Session ended.",
+    "iptalEden": "Ended by: {{kisi}}",
+    "cikar": {
+      "baslik": "Sign a user out everywhere",
+      "aciklama": "All of the user's open sessions are ended and every sign-in token issued so far becomes invalid (including sessions opened the old way). The user can continue by signing in again.",
+      "eposta": "User's email",
+      "dugme": "Sign out everywhere",
+      "onay": "Sign {{eposta}} out of every device? All of their open sessions will end immediately.",
+      "basarili": "{{eposta}} was signed out everywhere ({{sayi}} sessions ended)."
+    },
+    "hataKod": {
+      "kendi_oturumun": "You can't end the session you are using right now from here; sign out instead.",
+      "kendi_hesabin": "Signing your own account out everywhere would end this session too. For your other devices, use “End all other sessions” on your profile.",
+      "eposta_gecersiz": "Enter a valid email address.",
+      "genel": "The action could not be completed; please try again."
+    },
+    "kisi": {
+      "baslik": "My sessions",
+      "aciklama": "Devices where your account is signed in. If you see a session you don't recognise, end it right away.",
+      "sonEtkinlik": "Last active: {{zaman}}",
+      "acilis": "Started: {{zaman}}",
+      "digerleri": "End all other sessions",
+      "digerleriOnay": "End all of your sessions except this device?",
+      "digerleriKapatildi": "{{sayi}} sessions ended.",
+      "digerleriYok": "There are no other sessions to end.",
+      "cikisYap": "Sign out of this device",
+      "buCihazOnay": "Ending the session on this device signs you out. Continue?",
+      "eskiOturum": "Your session on this device was opened the old way; it will appear here after your next sign-in.",
+      "bos": "No open sessions found."
+    }
+  }
+}

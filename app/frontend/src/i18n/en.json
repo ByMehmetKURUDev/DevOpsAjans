@@ -464,7 +464,9 @@
     "tabBilgiBankasi": "Knowledge base",
     "tabGeriBildirim": "Feedback",
     "tabDuyurular": "Announcements",
-    "gorevler": "Tasks"
+    "gorevler": "Tasks",
+    "tabGuvenlik": "Security",
+    "tabCopKutusu": "Recycle bin"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

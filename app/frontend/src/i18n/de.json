@@ -464,7 +464,9 @@
     "tabBilgiBankasi": "Wissensdatenbank",
     "tabGeriBildirim": "Rückmeldungen",
     "tabDuyurular": "Ankündigungen",
-    "gorevler": "Aufgaben"
+    "gorevler": "Aufgaben",
+    "tabGuvenlik": "Sicherheit",
+    "tabCopKutusu": "Papierkorb"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

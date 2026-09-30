@@ -68,6 +68,11 @@ HARIC_TABLOLAR = frozenset({
     # içeriği (geri bildirim satırı zaten kaydediliyor) ve aylık revizyon
     # uyarısının tekrar kilidi.
     "duyuru_okumalari", "oneri_oylari", "feedback_attachments", "revizyon_uyarilari",
+    # Faz 2D: oturum satırları (her girişte bir satır, son_gorulme güncellemesi;
+    # iptaller `services/oturumlar.py`de elle, sid'siz kaydediliyor) ve çöp
+    # kutusu (silinen kaydın tam kopyası; silme zaten kaydediliyor, geri alma
+    # ve kalıcı silme elle kaydediliyor).
+    "oturumlar", "oturum_kesimleri", "cop_kutusu",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
@@ -86,6 +91,12 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.
 HASSAS_PARCALAR = ("password", "sifre", "token", "jeton", "secret", "api_key", "anahtar", "kart")
+
+#: Adı tam olarak bunlardan biri olan alan da maskeli (parça olarak aranırsa
+#: "consider", "inside" gibi zararsız adları yakalardı). `sid`: oturum
+#: kimliği — elinde olan, jetonu olmadan da o oturumun iptal durumunu
+#: bilebilir; kayıtta açık görünmemeli.
+HASSAS_TAM_ADLAR = frozenset({"sid"})
 
 #: Uzun değerler (ham yanıtlar, gövdeler) bu uzunlukta kesiliyor.
 DEGER_SINIRI = 200
@@ -200,6 +211,8 @@ def hassas_mi(alan: str) -> bool:
     ad = (alan or "").lower()
     if ad in HASSAS_OLMAYAN_ALANLAR:
         return False
+    if ad in HASSAS_TAM_ADLAR:
+        return True
     return any(parca in ad for parca in HASSAS_PARCALAR)
 
 

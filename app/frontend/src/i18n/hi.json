@@ -464,7 +464,9 @@
     "tabBilgiBankasi": "ज्ञान आधार",
     "tabGeriBildirim": "प्रतिक्रियाएँ",
     "tabDuyurular": "घोषणाएँ",
-    "gorevler": "कार्य"
+    "gorevler": "कार्य",
+    "tabGuvenlik": "सुरक्षा",
+    "tabCopKutusu": "रीसायकल बिन"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

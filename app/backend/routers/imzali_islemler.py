@@ -20,11 +20,8 @@ kendisi kuruyor (site analizi deseni).
 import logging
 import os
 import re
-import threading
-import time
-from collections import deque
 from datetime import datetime
-from typing import Any, Deque, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
@@ -37,6 +34,7 @@ from services import imzali_islem as servis
 from services.imzali_islem import IslemHatasi
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from utils.hiz_siniri import HizSiniri
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -53,31 +51,8 @@ _EPOSTA = re.compile(r"^[^@\s<>,;]+@[^@\s<>,;]+\.[^@\s<>,;]{2,}$")
 # --------------------------------------------------------------------------
 # Hız sınırı (bellek içi, IP özeti başına kayan pencere)
 # --------------------------------------------------------------------------
-class _HizSiniri:
-    def __init__(self, sinir: int, pencere: float = 60.0):
-        self.sinir = sinir
-        self.pencere = pencere
-        self._kayitlar: Dict[str, Deque[float]] = {}
-        self._kilit = threading.Lock()
-
-    def izin_var_mi(self, anahtar: str) -> bool:
-        simdi = time.monotonic()
-        with self._kilit:
-            kuyruk = self._kayitlar.setdefault(anahtar, deque())
-            while kuyruk and simdi - kuyruk[0] > self.pencere:
-                kuyruk.popleft()
-            if len(kuyruk) >= self.sinir:
-                return False
-            kuyruk.append(simdi)
-            # Bellek büyümesin: çok anahtar birikince boşları at.
-            if len(self._kayitlar) > 5000:
-                for k in [k for k, v in self._kayitlar.items() if not v]:
-                    self._kayitlar.pop(k, None)
-            return True
-
-    def temizle(self) -> None:
-        with self._kilit:
-            self._kayitlar.clear()
+# Faz 2D: sınıf `utils/hiz_siniri.py`ye taşındı (giriş uçları da kullanıyor).
+_HizSiniri = HizSiniri
 
 
 hiz_siniri = _HizSiniri(DAKIKA_SINIRI)

@@ -1,0 +1,72 @@
+{
+  "copKutusu": {
+    "baslik": "Çöp kutusu",
+    "aciklama": "Silinen kayıtlar burada {{gun}} gün saklanır, sonra kalıcı olarak silinir. Geri alınan kayıt aynı numarasıyla yerine döner; birlikte silinen bağlı kayıtlar (ör. görevin kontrol listesi) da geri gelir.",
+    "yenile": "Yenile",
+    "hata": "Çöp kutusu yüklenemedi.",
+    "bos": "Çöp kutusu boş.",
+    "dahaFazla": "Daha fazla yükle",
+    "gosterilen": "{{sayi}} / {{toplam}} kayıt",
+    "filtre": {
+      "tablo": "Tür",
+      "hepsi": "Tümü",
+      "ara": "Ara",
+      "araOrnek": "Başlık, e-posta ya da numara…",
+      "uygula": "Filtrele"
+    },
+    "bagli": "+{{sayi}} bağlı kayıt",
+    "sahip": "Müşteri: {{eposta}}",
+    "silen": "Silen: {{kisi}}",
+    "kaliciSilinme": "Kalıcı silinme: {{zaman}}",
+    "geriAl": "Geri al",
+    "geriAlOnay": "“{{kayit}}” geri alınsın mı?",
+    "geriAlindi": "Kayıt geri alındı.",
+    "kaliciSil": "Kalıcı sil",
+    "kaliciSilOnay": "“{{kayit}}” kalıcı olarak silinsin mi? Bu işlem geri alınamaz.",
+    "kaliciSilindi": "Kayıt kalıcı olarak silindi.",
+    "ayrinti": "Ayrıntıyı göster",
+    "ayrintiGizle": "Ayrıntıyı gizle",
+    "saklama": {
+      "etiket": "Saklama (gün)",
+      "kaydet": "Saklama süresini kaydet",
+      "kaydedildi": "Saklama süresi {{gun}} gün olarak kaydedildi.",
+      "gecersiz": "1 ile 365 arasında bir gün sayısı girin."
+    },
+    "rol": {
+      "admin": "Yönetici",
+      "client": "Müşteri",
+      "sistem": "Sistem",
+      "anonim": "Ziyaretçi"
+    },
+    "hataKod": {
+      "cakisma": "Aynı numarayla ya da aynı benzersiz değerle yeni bir kayıt var; geri alınamadı.",
+      "zaten_geri_alindi": "Bu kayıt zaten geri alınmış.",
+      "tablo_yok": "Bu kayıt türü artık geri alınamıyor.",
+      "kimlik_yok": "Kaydın numarası eksik; geri alınamadı.",
+      "bulunamadi": "Kayıt bulunamadı.",
+      "genel": "İşlem tamamlanamadı; lütfen tekrar deneyin."
+    },
+    "kisi": {
+      "baslik": "Silinenler",
+      "aciklama": "Sildiğiniz kayıtlar {{gun}} gün boyunca burada durur; bu süre içinde geri alabilirsiniz.",
+      "bos": "Silinen kaydınız yok."
+    },
+    "tablo": {
+      "projects": "Proje",
+      "project_tasks": "Görev",
+      "files": "Dosya",
+      "support_tickets": "Destek talebi",
+      "ticket_replies": "Talep mesajı",
+      "invoices": "Fatura",
+      "client_sites": "Müşteri sitesi",
+      "blog_posts": "Blog yazısı",
+      "content_posts": "İçerik planı",
+      "marketplace_items": "Pazaryeri ürünü",
+      "bilgi_makaleleri": "Bilgi bankası makalesi",
+      "duyurular": "Duyuru",
+      "hazir_cevaplar": "Hazır cevap",
+      "task_checklist": "Kontrol maddesi",
+      "task_dependencies": "Görev bağımlılığı"
+    }
+  }
+}

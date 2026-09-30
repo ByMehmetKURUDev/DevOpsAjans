@@ -131,6 +131,18 @@ async def _aylik_site_analizi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await aylik_analizler(db)
 
 
+async def _oturum_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.oturumlar import temizle
+
+    return await temizle(db)
+
+
+async def _cop_kutusu_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.cop_kutusu import suresi_dolanlari_temizle
+
+    return await suresi_dolanlari_temizle(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -145,6 +157,9 @@ GOREVLER: List[Gorev] = [
     Gorev("kredi_sure_dolumlari", timedelta(hours=20), _kredi_sure_dolumlari),
     Gorev("uptime_temizligi", timedelta(hours=20), _uptime_temizligi),
     Gorev("analiz_temizligi", timedelta(days=6, hours=20), _analiz_temizligi),
+    # Faz 2D: 30 günden eski biten/iptal oturumlar; saklama süresi dolan çöp kutusu.
+    Gorev("oturum_temizligi", timedelta(hours=20), _oturum_temizligi),
+    Gorev("cop_kutusu_temizligi", timedelta(hours=20), _cop_kutusu_temizligi),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

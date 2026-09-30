@@ -11,7 +11,7 @@ import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
 import SocialLinks from '@/components/SocialLinks';
 import StoreBadges from '@/components/StoreBadges';
-import { client, oturumIziVarMi, oturumIziniTemizle, yetkisizHataMi } from '@/lib/sdkClient';
+import { client, oturumIziVarMi, oturumIziniTemizle, sunucuOturumunuKapat, yetkisizHataMi } from '@/lib/sdkClient';
 import MarkaLogosu from '@/components/MarkaLogosu';
 import HashKaydirma from '@/components/HashKaydirma';
 import { useTranslation } from 'react-i18next';
@@ -184,6 +184,7 @@ export default function Layout() {
   const handleRegister = () => client.auth.toLogin();
   const handleLogout = async () => {
     try {
+      await sunucuOturumunuKapat();
       await client.auth.logout();
     } finally {
       setUser(null);

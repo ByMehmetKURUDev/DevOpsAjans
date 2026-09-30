@@ -46,8 +46,17 @@ class AuthService:
     async def issue_app_token(
         self,
         user: User,
+        request: Any = None,
     ) -> Tuple[str, datetime, Dict[str, Any]]:
-        """Generate application JWT token for the authenticated user."""
+        """Generate application JWT token for the authenticated user.
+
+        Faz 2D: jetona rastgele bir `sid` ekleniyor ve `oturumlar` tablosuna
+        bir satır yazılıyor (cihaz, IP özeti, bitiş). Satır yazılamazsa giriş
+        bozulmuyor — jeton yine veriliyor (sid'li ama satırsız jeton geçerli
+        sayılıyor; bkz. services/oturumlar.py).
+        """
+        from services import oturumlar
+
         try:
             expires_minutes = int(getattr(settings, "jwt_expire_minutes", 60))
         except (TypeError, ValueError):
@@ -55,10 +64,12 @@ class AuthService:
             expires_minutes = 60
         expires_at = datetime.now(timezone.utc) + timedelta(minutes=expires_minutes)
 
+        sid = oturumlar.yeni_sid()
         claims: Dict[str, Any] = {
             "sub": user.id,
             "email": user.email,
             "role": user.role,
+            "sid": sid,
         }
 
         if user.name:
@@ -67,6 +78,14 @@ class AuthService:
             claims["last_login"] = user.last_login.isoformat()
         token = create_access_token(claims, expires_minutes=expires_minutes)
 
+        await oturumlar.oturum_ac(
+            sid=sid,
+            kullanici_id=str(user.id) if user.id is not None else None,
+            email=user.email or "",
+            rol=user.role,
+            bitis=expires_at,
+            request=request,
+        )
         return token, expires_at, claims
 
     async def store_oidc_state(self, state: str, nonce: str, code_verifier: str):

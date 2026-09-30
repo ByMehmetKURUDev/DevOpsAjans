@@ -171,7 +171,9 @@
         "sla_kontrolu": "فحص اتفاقية خدمة الدعم والتصعيد",
         "belge_hatirlatmalari": "تذكيرات طلبات المستندات",
         "aylik_rapor_taslaklari": "مسودات التقارير الشهرية (اليوم الأول)",
-        "aylik_site_analizi": "تحليل الموقع التلقائي الشهري"
+        "aylik_site_analizi": "تحليل الموقع التلقائي الشهري",
+        "oturum_temizligi": "تنظيف سجلات الجلسات القديمة",
+        "cop_kutusu_temizligi": "حذف عناصر سلة المحذوفات المنتهية"
       },
       "gunluk": "يوميًا",
       "haftalik": "أسبوعيًا"

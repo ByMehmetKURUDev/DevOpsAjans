@@ -48,7 +48,8 @@
       "geri_bildirim_yeni": "New bug report / feedback",
       "geri_bildirim_durumu": "My feedback status changed",
       "duyuru": "New announcement",
-      "oneri_durumu": "My suggestion status changed"
+      "oneri_durumu": "My suggestion status changed",
+      "yeni_oturum": "Sign-in from a new device"
     },
     "kanal": {
       "inapp": "Panel",

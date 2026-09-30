@@ -464,7 +464,9 @@
     "tabBilgiBankasi": "Bilgi bankası",
     "tabGeriBildirim": "Geri bildirimler",
     "tabDuyurular": "Duyurular",
-    "gorevler": "Görevler"
+    "gorevler": "Görevler",
+    "tabGuvenlik": "Güvenlik",
+    "tabCopKutusu": "Çöp kutusu"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

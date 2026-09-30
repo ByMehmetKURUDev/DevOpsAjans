@@ -40,6 +40,9 @@ import { modulIkonu } from '@/lib/modulIkonlari';
 const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
 // Profil altındaki "Hesap hareketleri" (denetim kaydının müşteriye açık kısmı).
 const HesapHareketleri = ekliLazy('denetim', () => import('@/components/HesapHareketleri'));
+// Faz 2D: Profil › Oturumlarım (bu cihaz, diğerlerini kapat) ve Silinenler (geri al).
+const Oturumlarim = ekliLazy('guvenlik', () => import('@/components/Oturumlarim'));
+const Silinenlerim = ekliLazy('copKutusu', () => import('@/components/Silinenlerim'));
 // Profil › Bildirim tercihleri (olay × kanal, tarayıcı bildirimi).
 const BildirimTercihleri = ekliLazy('bildirim', () => import('@/components/BildirimTercihleri'));
 // Kredilerim (Kullandıkça Öde) ve genel görünümdeki küçük bakiye kartı.
@@ -1044,6 +1047,24 @@ export default function ClientPanel() {
                 }
               >
                 <BildirimTercihleri />
+              </Suspense>
+              <Suspense
+                fallback={
+                  <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                  </div>
+                }
+              >
+                <Oturumlarim />
+              </Suspense>
+              <Suspense
+                fallback={
+                  <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                  </div>
+                }
+              >
+                <Silinenlerim />
               </Suspense>
               {modulAcik('denetim') && (
                 <Suspense

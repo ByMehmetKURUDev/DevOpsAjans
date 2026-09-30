@@ -1,0 +1,68 @@
+{
+  "guvenlik": {
+    "baslik": "Sitzungen & Sicherheit",
+    "aciklama": "Von welchen Geräten aus Konten angemeldet sind und wann sie zuletzt genutzt wurden. Sie können eine verdächtige Sitzung beenden oder einen Nutzer auf allen Geräten abmelden; rohe IP-Adressen werden nie gespeichert, nur ein Hash wird angezeigt.",
+    "yenile": "Aktualisieren",
+    "hata": "Sitzungen konnten nicht geladen werden.",
+    "bos": "Keine Sitzungen entsprechen diesen Filtern.",
+    "dahaFazla": "Mehr laden",
+    "gosterilen": "{{sayi}} / {{toplam}} Sitzungen",
+    "filtre": {
+      "eposta": "E-Mail",
+      "epostaOrnek": "Nach E-Mail suchen…",
+      "yalnizEtkin": "Nur aktive Sitzungen",
+      "uygula": "Filtern"
+    },
+    "sutun": {
+      "kisi": "Person",
+      "cihaz": "Gerät",
+      "ip": "IP-Hash",
+      "acilis": "Begonnen",
+      "sonGorulme": "Zuletzt aktiv",
+      "durum": "Status"
+    },
+    "durum": {
+      "etkin": "Aktiv",
+      "iptal": "Beendet",
+      "bitti": "Abgelaufen"
+    },
+    "rol": {
+      "admin": "Administrator",
+      "user": "Kunde"
+    },
+    "buCihaz": "Dieses Gerät",
+    "bilinmeyenCihaz": "Unbekanntes Gerät",
+    "kapat": "Sitzung beenden",
+    "kapatOnay": "Sitzung „{{cihaz}}“ beenden? Auf diesem Gerät ist sofort eine erneute Anmeldung nötig.",
+    "kapatildi": "Sitzung beendet.",
+    "iptalEden": "Beendet von: {{kisi}}",
+    "cikar": {
+      "baslik": "Nutzer überall abmelden",
+      "aciklama": "Alle offenen Sitzungen des Nutzers werden beendet und jedes bisher ausgestellte Anmelde-Token wird ungültig (auch auf die alte Art geöffnete Sitzungen). Der Nutzer kann sich einfach erneut anmelden.",
+      "eposta": "E-Mail des Nutzers",
+      "dugme": "Überall abmelden",
+      "onay": "{{eposta}} auf allen Geräten abmelden? Alle offenen Sitzungen werden sofort beendet.",
+      "basarili": "{{eposta}} wurde überall abgemeldet ({{sayi}} Sitzungen beendet)."
+    },
+    "hataKod": {
+      "kendi_oturumun": "Die gerade genutzte Sitzung können Sie hier nicht beenden; melden Sie sich stattdessen ab.",
+      "kendi_hesabin": "Ihr eigenes Konto überall abzumelden würde auch diese Sitzung beenden. Nutzen Sie für andere Geräte „Alle anderen Sitzungen beenden“ in Ihrem Profil.",
+      "eposta_gecersiz": "Bitte eine gültige E-Mail-Adresse eingeben.",
+      "genel": "Der Vorgang konnte nicht abgeschlossen werden; bitte erneut versuchen."
+    },
+    "kisi": {
+      "baslik": "Meine Sitzungen",
+      "aciklama": "Geräte, auf denen Ihr Konto angemeldet ist. Beenden Sie eine Sitzung, die Sie nicht kennen, sofort.",
+      "sonEtkinlik": "Zuletzt aktiv: {{zaman}}",
+      "acilis": "Begonnen: {{zaman}}",
+      "digerleri": "Alle anderen Sitzungen beenden",
+      "digerleriOnay": "Alle Ihre Sitzungen außer diesem Gerät beenden?",
+      "digerleriKapatildi": "{{sayi}} Sitzungen beendet.",
+      "digerleriYok": "Es gibt keine weiteren Sitzungen zum Beenden.",
+      "cikisYap": "Auf diesem Gerät abmelden",
+      "buCihazOnay": "Wenn Sie die Sitzung auf diesem Gerät beenden, werden Sie abgemeldet. Fortfahren?",
+      "eskiOturum": "Ihre Sitzung auf diesem Gerät wurde auf die alte Art geöffnet; sie erscheint hier nach Ihrer nächsten Anmeldung.",
+      "bos": "Keine offenen Sitzungen gefunden."
+    }
+  }
+}

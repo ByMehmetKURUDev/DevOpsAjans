@@ -28,9 +28,22 @@ from schemas.auth import (
 )
 from services.auth import AuthService
 from sqlalchemy.ext.asyncio import AsyncSession
+from utils.hiz_siniri import HizSiniri
+from utils.istemci_ip import ip_ozeti, istemci_ip
 
 router = APIRouter(prefix="/api/v1/auth", tags=["authentication"])
 logger = logging.getLogger(__name__)
+
+# Faz 2D: giriş uçlarında IP başına deneme sınırı (10 dakikada 30 istek;
+# login + callback + token/exchange ortak sayılıyor — bir giriş 2 istek).
+GIRIS_SINIRI = 30
+GIRIS_PENCERESI_SN = 600
+giris_hiz_siniri = HizSiniri(GIRIS_SINIRI, GIRIS_PENCERESI_SN)
+SINIR_MESAJI = "Çok fazla giriş denemesi; lütfen birkaç dakika sonra tekrar deneyin"
+
+
+def _giris_siniri_asildi_mi(request: Request) -> bool:
+    return not giris_hiz_siniri.izin_var_mi(ip_ozeti(istemci_ip(request)))
 
 
 def _local_patch(url: str) -> str:
@@ -92,6 +105,8 @@ def derive_name_from_email(email: str) -> str:
 @router.get("/login")
 async def login(request: Request, db: AsyncSession = Depends(get_db)):
     """Start OIDC login flow with PKCE."""
+    if _giris_siniri_asildi_mi(request):
+        raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail=SINIR_MESAJI)
     state = generate_state()
     nonce = generate_nonce()
     code_verifier = generate_code_verifier()
@@ -134,6 +149,9 @@ async def callback(
             url=f"{site_url}/auth/error?{fragment}",
             status_code=status.HTTP_302_FOUND,
         )
+
+    if _giris_siniri_asildi_mi(request):
+        return redirect_with_error(SINIR_MESAJI)
 
     if error:
         return redirect_with_error(f"OIDC error: {error}")
@@ -213,7 +231,7 @@ async def callback(
         user = await auth_service.get_or_create_user(platform_sub=id_claims["sub"], email=email, name=name)
 
         # Issue application JWT token encapsulating user information
-        app_token, expires_at, _ = await auth_service.issue_app_token(user=user)
+        app_token, expires_at, _ = await auth_service.issue_app_token(user=user, request=request)
 
         fragment = urlencode(
             {
@@ -247,10 +265,13 @@ async def callback(
 @router.post("/token/exchange", response_model=TokenExchangeResponse)
 async def exchange_platform_token(
     payload: PlatformTokenExchangeRequest,
+    request: Request,
     db: AsyncSession = Depends(get_db),
 ):
     """Exchange Platform token for app token. Admin gets admin role, team members get user role."""
     logger.info("[token/exchange] Received platform token exchange request")
+    if _giris_siniri_asildi_mi(request):
+        raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail=SINIR_MESAJI)
 
     verify_url = f"{settings.oidc_issuer_url}/platform/tokens/verify"
     logger.debug(f"[token/exchange] Verifying token with issuer: {verify_url}")
@@ -319,7 +340,7 @@ async def exchange_platform_token(
         f"[token/exchange] User object for token issuance: id={user.id}, email={user.email}, role={user.role}"
     )
 
-    app_token, expires_at, _ = await auth_service.issue_app_token(user=user)
+    app_token, expires_at, _ = await auth_service.issue_app_token(user=user, request=request)
     logger.info(f"[token/exchange] Token issued successfully for user_id={user.id}, expires_at={expires_at}")
 
     return TokenExchangeResponse(
@@ -334,7 +355,25 @@ async def get_current_user_info(current_user: UserResponse = Depends(get_current
 
 
 @router.get("/logout")
-async def logout():
-    """Logout user."""
+async def logout(request: Request, db: AsyncSession = Depends(get_db)):
+    """Logout user.
+
+    Faz 2D: istek geçerli, sid'li bir jetonla geldiyse o oturum da iptal
+    ediliyor — çıkış yapılan jeton kopyalanmış olsa bile artık işe yaramıyor.
+    Jetonsuz / geçersiz jetonla çağrı eskisi gibi yalnız yönlendirme adresi döner.
+    """
+    try:
+        from models.oturumlar import Oturumlar
+        from services import oturumlar
+        from sqlalchemy import select
+
+        durum = oturumlar.istek_durumu(request) or {}
+        sid = durum.get("sid") if not durum.get("iptal") else None
+        if sid:
+            satir = (await db.execute(select(Oturumlar).where(Oturumlar.sid == sid))).scalar_one_or_none()
+            if satir is not None:
+                await oturumlar.iptal_et(db, [satir], iptal_eden=satir.email, request=request)
+    except Exception:  # noqa: BLE001 - çıkış her koşulda çalışmalı
+        logger.exception("Çıkışta oturum iptal edilemedi")
     logout_url = build_logout_url()
     return {"redirect_url": logout_url}

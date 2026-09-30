@@ -464,7 +464,9 @@
     "tabBilgiBankasi": "قاعدة المعرفة",
     "tabGeriBildirim": "الملاحظات",
     "tabDuyurular": "الإعلانات",
-    "gorevler": "المهام"
+    "gorevler": "المهام",
+    "tabGuvenlik": "الأمان",
+    "tabCopKutusu": "سلة المحذوفات"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

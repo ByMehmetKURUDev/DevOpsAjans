@@ -1,0 +1,72 @@
+{
+  "copKutusu": {
+    "baslik": "Recycle bin",
+    "aciklama": "Deleted records are kept here for {{gun}} days and then deleted permanently. A restored record returns with the same number; related records deleted with it (e.g. a task's checklist) come back too.",
+    "yenile": "Refresh",
+    "hata": "The recycle bin could not be loaded.",
+    "bos": "The recycle bin is empty.",
+    "dahaFazla": "Load more",
+    "gosterilen": "{{sayi}} / {{toplam}} records",
+    "filtre": {
+      "tablo": "Type",
+      "hepsi": "All",
+      "ara": "Search",
+      "araOrnek": "Title, email or number…",
+      "uygula": "Filter"
+    },
+    "bagli": "+{{sayi}} related records",
+    "sahip": "Client: {{eposta}}",
+    "silen": "Deleted by: {{kisi}}",
+    "kaliciSilinme": "Permanently deleted on: {{zaman}}",
+    "geriAl": "Restore",
+    "geriAlOnay": "Restore “{{kayit}}”?",
+    "geriAlindi": "Record restored.",
+    "kaliciSil": "Delete permanently",
+    "kaliciSilOnay": "Delete “{{kayit}}” permanently? This cannot be undone.",
+    "kaliciSilindi": "Record deleted permanently.",
+    "ayrinti": "Show details",
+    "ayrintiGizle": "Hide details",
+    "saklama": {
+      "etiket": "Retention (days)",
+      "kaydet": "Save retention period",
+      "kaydedildi": "Retention period saved as {{gun}} days.",
+      "gecersiz": "Enter a number of days between 1 and 365."
+    },
+    "rol": {
+      "admin": "Admin",
+      "client": "Client",
+      "sistem": "System",
+      "anonim": "Visitor"
+    },
+    "hataKod": {
+      "cakisma": "A new record with the same number or unique value exists; it could not be restored.",
+      "zaten_geri_alindi": "This record has already been restored.",
+      "tablo_yok": "This type of record can no longer be restored.",
+      "kimlik_yok": "The record's number is missing; it could not be restored.",
+      "bulunamadi": "Record not found.",
+      "genel": "The action could not be completed; please try again."
+    },
+    "kisi": {
+      "baslik": "Deleted items",
+      "aciklama": "Records you delete stay here for {{gun}} days; you can restore them during that time.",
+      "bos": "You have no deleted records."
+    },
+    "tablo": {
+      "projects": "Project",
+      "project_tasks": "Task",
+      "files": "File",
+      "support_tickets": "Support ticket",
+      "ticket_replies": "Ticket message",
+      "invoices": "Invoice",
+      "client_sites": "Client site",
+      "blog_posts": "Blog post",
+      "content_posts": "Content plan item",
+      "marketplace_items": "Marketplace product",
+      "bilgi_makaleleri": "Knowledge base article",
+      "duyurular": "Announcement",
+      "hazir_cevaplar": "Canned reply",
+      "task_checklist": "Checklist item",
+      "task_dependencies": "Task dependency"
+    }
+  }
+}

@@ -171,7 +171,9 @@
         "sla_kontrolu": "Support-SLA-Prüfung und Eskalation",
         "belge_hatirlatmalari": "Erinnerungen an Dokumentanfragen",
         "aylik_rapor_taslaklari": "Monatsberichtsentwürfe (am 1.)",
-        "aylik_site_analizi": "Monatliche automatische Website-Analyse"
+        "aylik_site_analizi": "Monatliche automatische Website-Analyse",
+        "oturum_temizligi": "Bereinigung alter Sitzungsdaten",
+        "cop_kutusu_temizligi": "Löschen abgelaufener Papierkorb-Einträge"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"
