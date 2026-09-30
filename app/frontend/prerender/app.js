@@ -20,6 +20,7 @@ import Services from '../src/pages/Services';
 import Portfolio from '../src/pages/Portfolio';
 import Marketplace from '../src/pages/Marketplace';
 import Contact from '../src/pages/Contact';
+import YolHaritasi from '../src/pages/YolHaritasi';
 import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
 import { extractFaq, getBlogPost, getPostSeoMeta } from '../src/lib/blog';
@@ -80,6 +81,7 @@ function renderApp(url) {
             h(Route, { path: '/portfolio', element: h(Portfolio, null) }),
             h(Route, { path: '/marketplace', element: h(Marketplace, null) }),
             h(Route, { path: '/contact', element: h(Contact, null) }),
+            h(Route, { path: '/yol-haritasi', element: h(YolHaritasi, null) }),
             h(Route, { path: '/blog', element: h(BlogIndexPage, null) }),
             h(Route, { path: '/blog/:slug', element: h(BlogPostPage, null) }),
           ),
@@ -91,6 +93,7 @@ function renderApp(url) {
             h(Route, { path: 'portfolio', element: h(Portfolio, null) }),
             h(Route, { path: 'marketplace', element: h(Marketplace, null) }),
             h(Route, { path: 'contact', element: h(Contact, null) }),
+            h(Route, { path: 'yol-haritasi', element: h(YolHaritasi, null) }),
           ),
         ),
       ),

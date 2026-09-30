@@ -43,7 +43,7 @@ export function getLanguage(code) {
 }
 
 /** Çok dilli olarak yayınlanan sayfalar. Blog bu listede değil. */
-export const PAGE_KEYS = ['home', 'services', 'portfolio', 'marketplace', 'contact'];
+export const PAGE_KEYS = ['home', 'services', 'portfolio', 'marketplace', 'contact', 'roadmap'];
 
 /** Sayfa anahtarı → Türkçe kökteki route yolu. */
 export const PAGE_PATHS = {
@@ -52,6 +52,7 @@ export const PAGE_PATHS = {
   portfolio: '/portfolio',
   marketplace: '/marketplace',
   contact: '/contact',
+  roadmap: '/yol-haritasi',
 };
 
 export const PAGE_PRIORITY = {
@@ -60,6 +61,7 @@ export const PAGE_PRIORITY = {
   portfolio: 0.8,
   marketplace: 0.85,
   contact: 0.7,
+  roadmap: 0.6,
 };
 
 /**
@@ -102,6 +104,11 @@ export const PAGE_SEO = {
       description:
         'Projenizi konuşmak için yazın. E-posta, WhatsApp veya iletişim formu üzerinden ulaşın; 24 saat içinde dürüst bir değerlendirmeyle dönüş yapılır.',
     },
+    roadmap: {
+      title: 'Yol Haritası: Modüler Müşteri Portalı | Mehmet KURU',
+      description:
+        'Müşteri portalı, site bakımı, WhatsApp, e-Fatura ve AI modüllerinin hangi aşamada olduğunu görün; ilgilendiklerinize bekleme listesinden kaydolun.',
+    },
   },
   en: {
     home: {
@@ -128,6 +135,11 @@ export const PAGE_SEO = {
       title: 'Contact | By Mehmet KURU Dev',
       description:
         'Tell us about your project by email, WhatsApp or the contact form. You get an honest assessment back within 24 hours.',
+    },
+    roadmap: {
+      title: 'Roadmap: Modular Client Portal | Mehmet KURU',
+      description:
+        'See which modules of the client portal are live, in development or planned — site care, WhatsApp, e-invoicing, AI — and join the waitlist.',
     },
   },
   de: {
@@ -156,6 +168,11 @@ export const PAGE_SEO = {
       description:
         'Schildern Sie Ihr Projekt per E-Mail, WhatsApp oder Kontaktformular. Innerhalb von 24 Stunden erhalten Sie eine ehrliche Einschätzung.',
     },
+    roadmap: {
+      title: 'Roadmap: Modulares Kundenportal | Mehmet KURU',
+      description:
+        'Sehen Sie, welche Module des Kundenportals live, in Entwicklung oder geplant sind – Website-Pflege, WhatsApp, E-Rechnung, KI – und tragen Sie sich in die Warteliste ein.',
+    },
   },
   ar: {
     home: {
@@ -182,6 +199,11 @@ export const PAGE_SEO = {
       title: 'اتصل بنا | By Mehmet KURU Dev',
       description:
         'اشرح مشروعك عبر البريد الإلكتروني أو واتساب أو نموذج التواصل، وستصلك إجابة صريحة خلال 24 ساعة.',
+    },
+    roadmap: {
+      title: 'خارطة الطريق: بوابة عملاء معيارية | Mehmet KURU',
+      description:
+        'تعرّف على وحدات بوابة العملاء المتاحة الآن وقيد التطوير والمخطط لها — صيانة المواقع وواتساب والفوترة الإلكترونية والذكاء الاصطناعي — وانضم إلى قائمة الانتظار.',
     },
   },
   ru: {
@@ -210,6 +232,11 @@ export const PAGE_SEO = {
       description:
         'Расскажите о проекте по электронной почте, в WhatsApp или через форму. Честный ответ в течение 24 часов.',
     },
+    roadmap: {
+      title: 'Дорожная карта: модульный клиентский портал | Mehmet KURU',
+      description:
+        'Узнайте, какие модули клиентского портала уже работают, в разработке или запланированы — поддержка сайтов, WhatsApp, электронные счета, ИИ — и запишитесь в лист ожидания.',
+    },
   },
   zh: {
     home: {
@@ -235,6 +262,11 @@ export const PAGE_SEO = {
     contact: {
       title: '联系方式 | By Mehmet KURU Dev',
       description: '通过电子邮件、WhatsApp 或联系表单说明您的项目，24 小时内获得坦诚的评估。',
+    },
+    roadmap: {
+      title: '路线图：模块化客户门户 | Mehmet KURU',
+      description:
+        '查看客户门户中哪些模块已上线、正在开发或已规划——网站维护、WhatsApp、电子发票与 AI——并加入候补名单。',
     },
   },
   hi: {
@@ -263,6 +295,11 @@ export const PAGE_SEO = {
       description:
         'अपना प्रोजेक्ट ईमेल, WhatsApp या संपर्क फ़ॉर्म से बताइए। 24 घंटे के भीतर ईमानदार आकलन मिलेगा।',
     },
+    roadmap: {
+      title: 'रोडमैप: मॉड्यूलर क्लाइंट पोर्टल | Mehmet KURU',
+      description:
+        'देखें कि क्लाइंट पोर्टल के कौन से मॉड्यूल लाइव हैं, विकास में हैं या योजना में हैं — साइट रखरखाव, WhatsApp, ई-इनवॉइस और AI — और प्रतीक्षा सूची में शामिल हों।',
+    },
   },
 };
 
@@ -276,6 +313,7 @@ export const PAGE_SEO_KEYS = {
   portfolio: { title: 'seo_title_portfolio', description: 'seo_desc_portfolio' },
   marketplace: { title: 'seo_title_marketplace', description: 'seo_desc_marketplace' },
   contact: { title: 'seo_title_contact', description: 'seo_desc_contact' },
+  roadmap: { title: 'seo_title_roadmap', description: 'seo_desc_roadmap' },
   blog: { title: 'seo_title_blog', description: 'seo_desc_blog' },
 };
 

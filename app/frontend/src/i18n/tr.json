@@ -581,7 +581,8 @@
     "desc": "Cesur, yüksek performanslı yazılım ve unutulmaz markalar üreten butik bir geliştirme ve dijital ajans. Özel geliştirme, dijital pazarlama ve ürün tasarımı.",
     "navigate": "Gezinti",
     "contact": "İletişim",
-    "copyright": "By@MehmetKURU.Dev"
+    "copyright": "By@MehmetKURU.Dev",
+    "roadmap": "Yol haritası"
   },
   "settingsForm": {
     "brandTitle": "Marka",
@@ -1553,5 +1554,43 @@
     "gunlukBos": "Sitenize henüz hiçbir erişim yapılmamış.",
     "gunlukAlinamadi": "Günlük alınamadı.",
     "sonDegisiklik": "son değişiklik"
+  },
+  "yolHaritasi": {
+    "etiket": "Yol haritası",
+    "baslik1": "Modüler portal:",
+    "baslikVurgu": "sırayla geliyor.",
+    "giris": "mehmetkuru.dev'i modül modül büyüyen bir müşteri portalına dönüştürüyoruz. Hangi modülün hangi aşamada olduğunu burada görebilir, ilgilendiklerinize bekleme listesinden kaydolabilirsiniz.",
+    "asama": "Aşama",
+    "durum_yayinda": "Yayında",
+    "durum_gelistiriliyor": "Geliştiriliyor",
+    "durum_planlandi": "Planlandı",
+    "f0Baslik": "Yeni paketler ve görünüm",
+    "f0Aciklama": "Profil ve ödeme şekline göre anında hesaplanan fiyatlar, Kullandıkça Öde kredileri, modüller ve doğrudan satın alma.",
+    "f1Baslik": "Portal çekirdeği ve Site Analiz Raporu",
+    "f1Aciklama": "Roller ve yetkiler, bildirimler ve web push, güvenlik sertleştirme, tek tıkla onay bağlantıları; siteniz için ücretsiz analiz raporu.",
+    "f2Baslik": "Müşteri portalı ve site bakımı",
+    "f2Aciklama": "Proje aşamaları, teslimat onayı ve revizyon, destek; alan adı ve SSL takibi, çalışma süresi izleme ve aylık rapor.",
+    "f3Baslik": "Satış, fatura ve WhatsApp",
+    "f3Aciklama": "Resmi WhatsApp Cloud API ile gelen kutusu ve kampanyalar, İYS izin yönetimi; teklif, fatura, e-Fatura ve e-Arşiv, yerli ödeme altyapıları.",
+    "f4Baslik": "Dijital kimlik ve beyaz etiket",
+    "f4Aciklama": "Dijital kartvizit, dinamik QR ve QR menü; kendi markanız ve alan adınızla panel, API ve webhook.",
+    "f5Baslik": "AI ve pazarlama otomasyonu",
+    "f5Aciklama": "Bilgi bankasıyla çalışan AI asistan, birleşik gelen kutusu, pazarlama otomasyonu ve sosyal medya planlama.",
+    "f6Baslik": "Sektörel paketler",
+    "f6Aciklama": "İlk olarak saha servisi; ardından eğitim, randevu ve diğer sektörlere özel paketler.",
+    "bekleme": "Bekleme listesi",
+    "beklemeAciklama": "İlgilendiğiniz modülleri seçin; yayına çıktıklarında ilk siz haber alın.",
+    "ad": "Adınız / Firma (isteğe bağlı)",
+    "eposta": "E-posta *",
+    "ilgi": "İlgilendiğim modüller",
+    "gonder": "Listeye katıl",
+    "gizlilik": "E-postanızı yalnızca bu modüller yayına çıktığında haber vermek için kullanırız.",
+    "epostaGerekli": "E-posta gerekli.",
+    "alindi": "Bekleme listesine eklendiniz.",
+    "hata": "Kayıt alınamadı, lütfen tekrar deneyin.",
+    "tesekkur": "Listeye eklendiniz",
+    "tesekkurAciklama": "Seçtiğiniz modüller yayına çıktığında size e-posta ile haber vereceğiz.",
+    "talepKonusu": "Bekleme listesi",
+    "hepsi": "Tüm modüller"
   }
 }

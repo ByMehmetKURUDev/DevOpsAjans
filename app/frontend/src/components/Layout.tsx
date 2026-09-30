@@ -575,6 +575,14 @@ export default function Layout() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  to={localizedPath(activeLang, 'roadmap')}
+                  className="inline-block py-2 hover:text-foreground transition-colors"
+                >
+                  {t('footer.roadmap')}
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

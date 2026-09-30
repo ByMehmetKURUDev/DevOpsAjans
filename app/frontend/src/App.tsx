@@ -22,6 +22,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 const ClientPanel = lazy(() => import('./pages/ClientPanel'));
 const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));
+const YolHaritasi = lazy(() => import('./pages/YolHaritasi'));
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,7 @@ const AppRoutes = () => (
         <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/yol-haritasi" element={<YolHaritasi />} />
         <Route path="/client" element={<ClientPanel />} />
         <Route path="/admin" element={<AdminPanel />} />
         {/* Müşteriye giden ödeme bağlantısı. Oturum istemiyor. */}
@@ -62,6 +64,7 @@ const AppRoutes = () => (
         <Route path="portfolio" element={<Portfolio />} />
         <Route path="marketplace" element={<Marketplace />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="yol-haritasi" element={<YolHaritasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

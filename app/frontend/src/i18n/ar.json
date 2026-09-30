@@ -581,7 +581,8 @@
     "desc": "وكالة تطوير ورقمية متخصصة تنتج برمجيات جسورة عالية الأداء وعلامات لا تُنسى. تطوير مخصص، تسويق رقمي وتصميم منتجات.",
     "navigate": "التنقل",
     "contact": "اتصل بنا",
-    "copyright": "By@MehmetKURU.Dev"
+    "copyright": "By@MehmetKURU.Dev",
+    "roadmap": "Roadmap"
   },
   "settingsForm": {
     "brandTitle": "الهوية",
@@ -1552,5 +1553,43 @@
     "gunlukBos": "No one has accessed your site yet.",
     "gunlukAlinamadi": "Could not load the log.",
     "sonDegisiklik": "last change"
+  },
+  "yolHaritasi": {
+    "etiket": "Roadmap",
+    "baslik1": "Modular portal:",
+    "baslikVurgu": "arriving step by step.",
+    "giris": "We are turning mehmetkuru.dev into a client portal that grows module by module. See which module is at which stage and join the waitlist for the ones you care about.",
+    "asama": "Stage",
+    "durum_yayinda": "Live",
+    "durum_gelistiriliyor": "In development",
+    "durum_planlandi": "Planned",
+    "f0Baslik": "New packages and look",
+    "f0Aciklama": "Prices calculated instantly by profile and payment option, pay-as-you-go credits, modules and direct purchase.",
+    "f1Baslik": "Portal core and Site Analysis Report",
+    "f1Aciklama": "Roles and permissions, notifications and web push, security hardening, one-click approval links; a free analysis report for your site.",
+    "f2Baslik": "Client portal and site care",
+    "f2Aciklama": "Project stages, delivery approval and revisions, support; domain and SSL tracking, uptime monitoring and a monthly report.",
+    "f3Baslik": "Sales, invoicing and WhatsApp",
+    "f3Aciklama": "Inbox and campaigns on the official WhatsApp Cloud API with consent management; quotes, invoices, e-invoicing and local payment providers.",
+    "f4Baslik": "Digital identity and white label",
+    "f4Aciklama": "Digital business cards, dynamic QR and QR menus; a panel under your own brand and domain, API and webhooks.",
+    "f5Baslik": "AI and marketing automation",
+    "f5Aciklama": "An AI assistant grounded in your knowledge base, a unified inbox, marketing automation and social media planning.",
+    "f6Baslik": "Industry packages",
+    "f6Aciklama": "Field service first; then education, appointments and other industries.",
+    "bekleme": "Waitlist",
+    "beklemeAciklama": "Pick the modules you are interested in and hear about them first when they go live.",
+    "ad": "Name / Company (optional)",
+    "eposta": "Email *",
+    "ilgi": "Modules I'm interested in",
+    "gonder": "Join the list",
+    "gizlilik": "We only use your email to tell you when these modules go live.",
+    "epostaGerekli": "Email is required.",
+    "alindi": "You're on the waitlist.",
+    "hata": "Could not save, please try again.",
+    "tesekkur": "You're on the list",
+    "tesekkurAciklama": "We'll email you when the modules you picked go live.",
+    "talepKonusu": "Waitlist",
+    "hepsi": "All modules"
   }
 }
