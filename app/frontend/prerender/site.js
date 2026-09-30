@@ -378,6 +378,9 @@ export const NOINDEX_ROUTES = [
   '/islem',
   // Musteri durum sayfasi (/durum/<slug>): dinamik; site haritasina girmez.
   '/durum',
+  // Faz 2C: jetonlu dosya paylasimi ve aylik musteri raporu; kisiye ozel.
+  '/paylas',
+  '/rapor-aylik',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

@@ -85,7 +85,13 @@
       "pricing_inquiries": "मूल्य कोटेशन",
       "ayarlar": "परिवेश सेटिंग्स",
       "credit_ledger": "क्रेडिट लेन-देन",
-      "workspace_modules": "मॉड्यूल"
+      "workspace_modules": "मॉड्यूल",
+      "files": "फ़ाइलें",
+      "dosya_klasorleri": "फ़ाइल फ़ोल्डर",
+      "paylasim_baglantilari": "शेयर लिंक",
+      "belge_talepleri": "दस्तावेज़ अनुरोध",
+      "hazir_cevaplar": "तैयार उत्तर",
+      "bilgi_makaleleri": "ज्ञान आधार"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

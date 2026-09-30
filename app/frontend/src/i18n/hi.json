@@ -459,7 +459,9 @@
     "tabModuller": "मॉड्यूल",
     "indir": "डाउनलोड",
     "appStoreIndir": "App Store से डाउनलोड करें",
-    "googlePlayIndir": "Google Play पर पाएँ"
+    "googlePlayIndir": "Google Play पर पाएँ",
+    "tabDosyalar": "फ़ाइलें",
+    "tabBilgiBankasi": "ज्ञान आधार"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",
@@ -1439,7 +1441,8 @@
     "atanamadi": "असाइनमेंट नहीं बदला जा सका।",
     "talepSil": "अनुरोध हटाएँ",
     "talepSilOnay": "अनुरोध और बातचीत हटाएँ?",
-    "talepSilindi": "अनुरोध हटाया गया।"
+    "talepSilindi": "अनुरोध हटाया गया।",
+    "ayarlar": "SLA और तैयार उत्तर"
   },
   "ekip": {
     "yeniKisi": "टीम में जोड़ें",

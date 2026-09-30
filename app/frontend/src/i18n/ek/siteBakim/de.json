@@ -167,7 +167,11 @@
         "yenileme_hatirlatmalari": "Verlängerungserinnerungen",
         "kredi_sure_dolumlari": "Ablauf von Guthaben",
         "uptime_temizligi": "Bereinigung alter Uptime-Messungen",
-        "analiz_temizligi": "Bereinigung alter Website-Analysen"
+        "analiz_temizligi": "Bereinigung alter Website-Analysen",
+        "sla_kontrolu": "Support-SLA-Prüfung und Eskalation",
+        "belge_hatirlatmalari": "Erinnerungen an Dokumentanfragen",
+        "aylik_rapor_taslaklari": "Monatsberichtsentwürfe (am 1.)",
+        "aylik_site_analizi": "Monatliche automatische Website-Analyse"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

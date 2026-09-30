@@ -31,7 +31,7 @@ from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.service_subscriptions import Service_reports, Service_subscriptions
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = logging.getLogger(__name__)
@@ -160,6 +160,11 @@ def _rapora_cevir(kayit: Service_reports) -> RaporSatiri:
     )
 
 
+def _abonelik_raporu():
+    """Abonelik raporu koşulu: `tur` boş (eski satırlar) ya da "aylik" değil."""
+    return or_(Service_reports.tur.is_(None), Service_reports.tur != "aylik")
+
+
 def _eposta(kullanici) -> str:
     deger = getattr(kullanici, "email", None) if kullanici else None
     return str(deger).strip().lower() if deger else ""
@@ -270,7 +275,11 @@ async def abonelik_sil(
 @yonetici_router.get("/raporlar", response_model=List[RaporSatiri])
 async def rapor_listesi(request: Request, db: AsyncSession = _Depends(get_db)):
     _yonetici_iste(request)
-    sonuc = await db.execute(select(Service_reports).order_by(Service_reports.id.desc()).limit(300))
+    # Faz 2C: aylık müşteri raporları aynı tabloda ama kendi ekranında
+    # (`/api/v1/aylik-rapor`); abonelik listesine karışmıyor.
+    sonuc = await db.execute(
+        select(Service_reports).where(_abonelik_raporu()).order_by(Service_reports.id.desc()).limit(300)
+    )
     return [_rapora_cevir(r) for r in sonuc.scalars().all()]
 
 
@@ -342,7 +351,7 @@ async def rapor_yayimla(
 ):
     _yonetici_iste(request)
 
-    sonuc = await db.execute(select(Service_reports).where(Service_reports.id == rapor_id))
+    sonuc = await db.execute(select(Service_reports).where(Service_reports.id == rapor_id, _abonelik_raporu()))
     kayit = sonuc.scalar_one_or_none()
     if kayit is None:
         raise HTTPException(status_code=404, detail="Rapor bulunamadı")
@@ -376,7 +385,7 @@ async def rapor_sil(
     db: AsyncSession = _Depends(get_db),
 ):
     _yonetici_iste(request)
-    sonuc = await db.execute(select(Service_reports).where(Service_reports.id == rapor_id))
+    sonuc = await db.execute(select(Service_reports).where(Service_reports.id == rapor_id, _abonelik_raporu()))
     kayit = sonuc.scalar_one_or_none()
     if kayit is None:
         raise HTTPException(status_code=404, detail="Rapor bulunamadı")
@@ -402,7 +411,7 @@ async def kendi_raporlarim(request: Request, db: AsyncSession = _Depends(get_db)
 
     sorgu = (
         select(Service_reports)
-        .where(Service_reports.durum == "yayinlandi")
+        .where(Service_reports.durum == "yayinlandi", _abonelik_raporu())
         .order_by(Service_reports.donem.desc(), Service_reports.id.desc())
     )
     if not yonetici:

@@ -371,6 +371,32 @@ class DatabaseManager:
             "tur_pg": "TIMESTAMPTZ",
             "tur_sqlite": "TIMESTAMP",
         },
+        # Faz 2C — aylık müşteri raporu `service_reports` tablosunu
+        # genişletiyor. Eski satırlarda `tur` NULL = abonelik raporu.
+        {
+            "tablo": "service_reports",
+            "sutun": "tur",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "service_reports",
+            "sutun": "veri",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "service_reports",
+            "sutun": "yonetici_notu",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "service_reports",
+            "sutun": "eposta_gonderildi_at",
+            "tur_pg": "TIMESTAMPTZ",
+            "tur_sqlite": "TIMESTAMP",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

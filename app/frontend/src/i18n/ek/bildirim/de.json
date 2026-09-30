@@ -33,7 +33,16 @@
       "site_coktu": "Website nicht erreichbar",
       "site_duzeldi": "Website wieder erreichbar",
       "bitis_yaklasiyor": "Ablaufdatum naht",
-      "yenileme_faturasi": "Verlängerungsrechnung"
+      "yenileme_faturasi": "Verlängerungsrechnung",
+      "dosya_eklendi": "Neue Datei hinzugefügt",
+      "belge_talebi": "Ein Dokument wurde angefordert",
+      "belge_teslim": "Angefordertes Dokument geliefert",
+      "belge_hatirlatma": "Dokumentfrist naht",
+      "belge_gecikti": "Dokumentfrist überschritten",
+      "sla_yaklasiyor": "SLA-Frist läuft ab",
+      "sla_asildi": "SLA verletzt (Eskalation)",
+      "aylik_rapor": "Monatsbericht veröffentlicht",
+      "aylik_rapor_taslak": "Monatsberichtsentwürfe bereit"
     },
     "kanal": {
       "inapp": "Panel",

@@ -34,6 +34,8 @@ import {
   Coins,
   Link2,
   Blocks,
+  FolderOpen,
+  BookOpen,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -45,6 +47,7 @@ import FaturaOdemeBaglantisi from '@/components/admin/FaturaOdemeBaglantisi';
 import ElleTahsilat from '@/components/admin/ElleTahsilat';
 import TalepYazismasi from '@/components/TalepYazismasi';
 import { ekibiGetir, talebiAta, type Personel } from '@/lib/ekip';
+import { slaDurumlari, type SlaDurumu } from '@/lib/destek';
 import SiteSagligi from '@/components/admin/SiteSagligi';
 import SiteTaramasi from '@/components/admin/SiteTaramasi';
 import UzmanPromptlari from '@/components/admin/UzmanPromptlari';
@@ -95,6 +98,13 @@ const KrediDefteri = ekliLazy('kredi', () => import('@/components/admin/KrediDef
 const ImzaliIslemler = ekliLazy('islem', () => import('@/components/admin/ImzaliIslemler'));
 // Modül kaydı (Faz 1F): katalog + müşteri başına modül aç/kapa.
 const ModulYonetimi = ekliLazy('modul', () => import('@/components/admin/ModulYonetimi'));
+// Faz 2C: dosyalar + belge talebi; bilgi bankası; SLA/hazır cevap ayarları ve
+// talep kartındaki SLA rozeti; aylık müşteri raporu (Raporlar/abonelik sekmesinde).
+const DosyaYonetimi = ekliLazy('dosyalar', () => import('@/components/admin/DosyaYonetimi'));
+const BilgiBankasiYonetimi = ekliLazy('yardim', () => import('@/components/admin/BilgiBankasiYonetimi'));
+const DestekAyarlari = ekliLazy('yardim', () => import('@/components/admin/DestekAyarlari'));
+const SlaRozeti = ekliLazy('yardim', () => import('@/components/admin/SlaRozeti'));
+const AylikRaporlar = ekliLazy('aylikRapor', () => import('@/components/admin/AylikRaporlar'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -207,6 +217,8 @@ type Tab =
   | 'krediler'
   | 'islemler'
   | 'moduller'
+  | 'dosyalar'
+  | 'bilgiBankasi'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -334,7 +346,9 @@ export default function AdminPanel() {
   // her cevap ticket_replies tablosuna ayri satir olarak dusuyor.
   const [acikTalep, setAcikTalep] = useState<number | null>(null);
   // Destek sekmesinin alt bolumu: musteri talepleri / ekip / raporlar.
-  const [destekBolumu, setDestekBolumu] = useState<'kullanici' | 'calisan' | 'rapor'>('kullanici');
+  const [destekBolumu, setDestekBolumu] = useState<'kullanici' | 'calisan' | 'rapor' | 'ayarlar'>('kullanici');
+  // Faz 2C: talep başına SLA durumu (rozet). Destek sekmesi açıkken çekiliyor.
+  const [slaHaritasi, setSlaHaritasi] = useState<Record<string, SlaDurumu>>({});
   // Atama seciciyi doldurmak icin ekip listesi. Yalnizca Destek
   // sekmesine girildiginde cekiliyor: acilista gereksiz istek olmasin.
   const [ekip, setEkip] = useState<Personel[]>([]);
@@ -457,6 +471,20 @@ export default function AdminPanel() {
       loadSettings();
     }
   }, [user, isAdmin, loadAll, loadSettings]);
+
+  // Faz 2C: Destek sekmesi açılınca talep listesinin SLA durumları (rozet).
+  useEffect(() => {
+    if (tab !== 'tickets' || !tickets.length) return;
+    let iptal = false;
+    slaDurumlari(tickets.map((tk) => Number(tk.id)))
+      .then((h) => {
+        if (!iptal) setSlaHaritasi(h);
+      })
+      .catch(() => undefined);
+    return () => {
+      iptal = true;
+    };
+  }, [tab, tickets]);
 
   /* ---------------- Ayarlar ---------------- */
   const saveSettingsGroup = async (groupKey: string) => {
@@ -838,6 +866,8 @@ export default function AdminPanel() {
     { key: 'abonelik', label: t('abonelik.sekme'), icon: CalendarDays },
     { key: 'siteler', label: t('site.sekme'), icon: Globe },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
+    { key: 'dosyalar', label: t('ui.tabDosyalar'), icon: FolderOpen },
+    { key: 'bilgiBankasi', label: t('ui.tabBilgiBankasi'), icon: BookOpen },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
@@ -929,6 +959,31 @@ export default function AdminPanel() {
           }
         >
           <HizmetAbonelikleri />
+          <AylikRaporlar />
+        </Suspense>
+      )}
+
+      {tab === 'dosyalar' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <DosyaYonetimi />
+        </Suspense>
+      )}
+
+      {tab === 'bilgiBankasi' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <BilgiBankasiYonetimi />
         </Suspense>
       )}
 
@@ -1588,7 +1643,7 @@ export default function AdminPanel() {
                 cevabi hicbir yerde yoktu.
               */}
               <div className="mb-6 flex flex-wrap gap-2">
-                {(['kullanici', 'calisan', 'rapor'] as const).map((b) => (
+                {(['kullanici', 'calisan', 'rapor', 'ayarlar'] as const).map((b) => (
                   <button
                     key={b}
                     type="button"
@@ -1614,6 +1669,10 @@ export default function AdminPanel() {
                 <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
                   <MusteriRaporlari />
                 </Suspense>
+              ) : destekBolumu === 'ayarlar' ? (
+                <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
+                  <DestekAyarlari />
+                </Suspense>
               ) : (
               <div className="grid gap-3">
                 {tickets.map((tk) => (
@@ -1631,6 +1690,11 @@ export default function AdminPanel() {
                           >
                             {tk.status === 'answered' ? t('ui.status.answered') : t('ui.status.open')}
                           </span>
+                          {slaHaritasi[String(tk.id)] ? (
+                            <Suspense fallback={null}>
+                              <SlaRozeti durum={slaHaritasi[String(tk.id)]} />
+                            </Suspense>
+                          ) : null}
                           {tk.hizmet ? (
                             <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">
                               {t(`talep.hizmetler.${tk.hizmet}`, { defaultValue: tk.hizmet })}

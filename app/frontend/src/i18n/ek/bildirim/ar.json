@@ -33,7 +33,16 @@
       "site_coktu": "الموقع متوقف",
       "site_duzeldi": "عاد الموقع للعمل",
       "bitis_yaklasiyor": "اقتراب تاريخ الانتهاء",
-      "yenileme_faturasi": "فاتورة تجديد"
+      "yenileme_faturasi": "فاتورة تجديد",
+      "dosya_eklendi": "تمت إضافة ملف جديد",
+      "belge_talebi": "طُلب منك مستند",
+      "belge_teslim": "تم تسليم المستند المطلوب",
+      "belge_hatirlatma": "اقترب موعد تسليم المستند",
+      "belge_gecikti": "انقضى موعد تسليم المستند",
+      "sla_yaklasiyor": "تقترب مهلة اتفاقية الخدمة",
+      "sla_asildi": "تم تجاوز اتفاقية الخدمة (تصعيد)",
+      "aylik_rapor": "نُشر التقرير الشهري",
+      "aylik_rapor_taslak": "مسودات التقارير الشهرية جاهزة"
     },
     "kanal": {
       "inapp": "اللوحة",

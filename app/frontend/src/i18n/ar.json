@@ -459,7 +459,9 @@
     "tabModuller": "الوحدات",
     "indir": "تنزيل",
     "appStoreIndir": "حمّله من App Store",
-    "googlePlayIndir": "احصل عليه من Google Play"
+    "googlePlayIndir": "احصل عليه من Google Play",
+    "tabDosyalar": "الملفات",
+    "tabBilgiBankasi": "قاعدة المعرفة"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",
@@ -1439,7 +1441,8 @@
     "atanamadi": "تعذّر تغيير الإسناد.",
     "talepSil": "حذف الطلب",
     "talepSilOnay": "هل تحذف الطلب ومحادثته؟",
-    "talepSilindi": "تم حذف الطلب."
+    "talepSilindi": "تم حذف الطلب.",
+    "ayarlar": "اتفاقية الخدمة والردود الجاهزة"
   },
   "ekip": {
     "yeniKisi": "إضافة عضو للفريق",

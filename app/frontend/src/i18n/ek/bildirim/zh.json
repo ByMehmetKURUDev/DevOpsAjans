@@ -33,7 +33,16 @@
       "site_coktu": "网站无法访问",
       "site_duzeldi": "网站已恢复访问",
       "bitis_yaklasiyor": "即将到期",
-      "yenileme_faturasi": "续费账单"
+      "yenileme_faturasi": "续费账单",
+      "dosya_eklendi": "新增文件",
+      "belge_talebi": "有人向您索取资料",
+      "belge_teslim": "所需资料已提交",
+      "belge_hatirlatma": "资料截止日期临近",
+      "belge_gecikti": "资料已过截止日期",
+      "sla_yaklasiyor": "SLA 即将到期",
+      "sla_asildi": "SLA 已超时（升级）",
+      "aylik_rapor": "月度报告已发布",
+      "aylik_rapor_taslak": "月度报告草稿已就绪"
     },
     "kanal": {
       "inapp": "面板",

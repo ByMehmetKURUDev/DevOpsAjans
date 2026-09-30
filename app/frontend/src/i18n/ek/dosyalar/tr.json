@@ -1,0 +1,137 @@
+{
+  "dosyalar": {
+    "yukle": "Yükle",
+    "indir": "İndir",
+    "yenile": "Yenile",
+    "kaydet": "Kaydet",
+    "kapat": "Kapat",
+    "klasor": "Klasör",
+    "dosyaSec": "Dosya seç",
+    "bos": "Henüz dosya yok.",
+    "yuklendi": "{{ad}} yüklendi.",
+    "kurallar": "En fazla {{sayi}} MB. İzin verilen türler: {{turler}}.",
+    "depo": {
+      "s3": "Depo: nesne deposu (Cloudflare R2) — kalıcı",
+      "veritabani": "Depo: veritabanı — kalıcı",
+      "oneri": "Büyük dosyalar için Cloudflare R2 tanımlamanız önerilir; veritabanı kotası küçüktür."
+    },
+    "gorunurluk": {
+      "baslik": "Kimler görür",
+      "musteri": "Müşteri görür",
+      "ekip": "Yalnız ekip"
+    },
+    "yukleyen": {
+      "musteri": "müşteri yükledi",
+      "ajans": "ajans yükledi"
+    },
+    "yonetim": {
+      "baslik": "Dosyalar ve belge talepleri",
+      "aciklama": "Müşteri başına klasörler, güvenli indirme, süreli paylaşım bağlantısı ve müşteriden belge isteme.",
+      "boyutSiniri": "Boyut sınırı",
+      "sinirKaydedildi": "Boyut sınırı {{sayi}} MB olarak kaydedildi.",
+      "musteriSec": "Müşteri",
+      "musteriAra": "Ad ya da e-posta ile arayın; yeni adres de yazabilirsiniz",
+      "secimYok": "Dosyalarını görmek için bir müşteri seçin.",
+      "yetkiDegistir": "Klasörün görünürlüğünü değiştir",
+      "yetkiDegisti": "Klasör yetkisi güncellendi.",
+      "sil": "Dosyayı sil",
+      "silOnay": "{{ad}} silinsin mi? Paylaşım bağlantıları da geçersiz olur.",
+      "silindi": "Dosya silindi."
+    },
+    "paylasim": {
+      "baslik": "Paylaşım bağlantısı",
+      "gun": "Geçerlilik",
+      "gunSecenek": "{{sayi}} gün",
+      "sifre": "Parola",
+      "istegeBagli": "İsteğe bağlı",
+      "sinir": "İndirme sınırı",
+      "sinirsiz": "Sınırsız",
+      "olustur": "Bağlantı oluştur",
+      "hazir": "Bağlantı hazır. Parolayı ayrı bir kanaldan iletin.",
+      "kopyala": "Bağlantıyı kopyala",
+      "kopyalandi": "Bağlantı kopyalandı.",
+      "birKez": "Bu adres yalnız şimdi gösteriliyor; sunucuda yalnız özeti saklanıyor.",
+      "sonKullanma": "Son kullanma",
+      "sifreli": "parolalı",
+      "iptal": "İptal et",
+      "durum": {
+        "gecerli": "Geçerli",
+        "suresi_doldu": "Süresi doldu",
+        "iptal": "İptal edildi",
+        "sinir_doldu": "İndirme sınırı doldu",
+        "kilitli": "Kilitlendi (çok sayıda yanlış parola)"
+      }
+    },
+    "paylas": {
+      "sayfaBasligi": "Paylaşılan dosya",
+      "ust": "Size bir dosya paylaşıldı",
+      "boyut": "Boyut",
+      "sonKullanma": "Son geçerlilik",
+      "kalanHak": "Kalan indirme hakkı",
+      "sifreGerekli": "Bu dosya parolayla korunuyor",
+      "sifreYanlis": "Parola yanlış. Lütfen tekrar deneyin.",
+      "basladi": "İndirme başladı.",
+      "gecersizBaslik": "Bu bağlantı kullanılamıyor",
+      "anaSayfa": "Ana sayfaya dön",
+      "neden": {
+        "bulunamadi": "Bağlantı bulunamadı ya da yanlış yazılmış.",
+        "suresi_doldu": "Bağlantının süresi dolmuş. Paylaşan kişiden yenisini isteyin.",
+        "iptal": "Bu bağlantı paylaşan kişi tarafından iptal edildi.",
+        "sinir_doldu": "Bu bağlantının indirme hakkı doldu.",
+        "kilitli": "Çok sayıda yanlış parola denendiği için bağlantı kilitlendi.",
+        "genel": "Bağlantı şu anda açılamıyor. Lütfen daha sonra tekrar deneyin."
+      }
+    },
+    "talep": {
+      "baslik": "Müşteriden belge iste",
+      "aciklama": "Müşteri panelinde \"İstenen belgeler\" altında görür; teslim edince size bildirim gelir, son tarih yaklaşınca hatırlatma gider.",
+      "belgeAdi": "Belge adı (ör. Vergi levhası)",
+      "sonTarih": "Son tarih",
+      "sonTarihYok": "Son tarih yok",
+      "turler": "Kabul edilen türler (virgülle)",
+      "aciklamaYer": "Açıklama (isteğe bağlı)",
+      "iste": "Belge iste",
+      "gonderildi": "Belge talebi gönderildi.",
+      "iptalEt": "İptal et",
+      "durum": {
+        "bekliyor": "Bekleniyor",
+        "teslim_edildi": "Teslim edildi",
+        "iptal": "İptal edildi",
+        "gecikti": "Son tarih geçti"
+      }
+    },
+    "istenen": {
+      "baslik": "İstenen belgeler",
+      "bos": "Şu anda sizden istenen bir belge yok.",
+      "turler": "Kabul edilen türler",
+      "yukle": "Belgeyi yükle",
+      "yeniSurum": "Yeni sürüm yükle"
+    },
+    "musteri": {
+      "baslik": "Dosyalarım"
+    },
+    "hata": {
+      "tur_izinsiz": "Bu dosya türüne izin verilmiyor ({{uzanti}}).",
+      "tur_talepte_yok": "Bu belge için {{uzanti}} türü kabul edilmiyor.",
+      "icerik_uyusmuyor": "Dosyanın içeriği uzantısıyla uyuşmuyor ({{uzanti}}).",
+      "bos_dosya": "Dosya boş.",
+      "boyut_asildi": "Dosya çok büyük. Sınır {{sinir_mb}} MB.",
+      "gecersiz_sinir": "Sınır 1 ile 100 arasında bir tam sayı olmalı.",
+      "gecersiz_gun": "Geçerlilik 1 ile 30 gün arasında olmalı.",
+      "gecersiz_sifre": "Parola 4 ile 128 karakter arasında olmalı.",
+      "gecersiz_tarih": "Tarih geçersiz.",
+      "gecersiz_eposta": "E-posta adresi geçersiz.",
+      "gecersiz_gorunurluk": "Görünürlük seçimi geçersiz.",
+      "baslik_gerekli": "Belge adı gerekli.",
+      "bulunamadi": "Dosya bulunamadı.",
+      "klasor_yok": "Bu klasöre yükleme yapılamaz.",
+      "talep_iptal": "Bu belge talebi iptal edilmiş.",
+      "depo_hatasi": "Dosya depoya yazılamadı. Lütfen tekrar deneyin.",
+      "imza_gecersiz": "İndirme bağlantısının süresi dolmuş.",
+      "oturum_gerekli": "Oturumunuz kapanmış; lütfen yeniden giriş yapın.",
+      "yonetici_gerekli": "Bu işlem yönetici yetkisi istiyor.",
+      "modul_kapali": "Dosyalar modülü hesabınızda açık değil.",
+      "genel": "İşlem tamamlanamadı. Lütfen tekrar deneyin."
+    }
+  }
+}

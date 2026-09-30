@@ -85,7 +85,13 @@
       "pricing_inquiries": "عروض الأسعار",
       "ayarlar": "إعدادات البيئة",
       "credit_ledger": "حركات الأرصدة",
-      "workspace_modules": "الوحدات"
+      "workspace_modules": "الوحدات",
+      "files": "الملفات",
+      "dosya_klasorleri": "مجلدات الملفات",
+      "paylasim_baglantilari": "روابط المشاركة",
+      "belge_talepleri": "طلبات المستندات",
+      "hazir_cevaplar": "الردود الجاهزة",
+      "bilgi_makaleleri": "قاعدة المعرفة"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

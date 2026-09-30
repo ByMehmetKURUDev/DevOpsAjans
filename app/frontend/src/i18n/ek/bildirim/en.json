@@ -33,7 +33,16 @@
       "site_coktu": "Site is down",
       "site_duzeldi": "Site is back up",
       "bitis_yaklasiyor": "Expiry date approaching",
-      "yenileme_faturasi": "Renewal invoice"
+      "yenileme_faturasi": "Renewal invoice",
+      "dosya_eklendi": "New file added",
+      "belge_talebi": "A document was requested from you",
+      "belge_teslim": "Requested document delivered",
+      "belge_hatirlatma": "Document deadline approaching",
+      "belge_gecikti": "Document deadline passed",
+      "sla_yaklasiyor": "SLA deadline approaching",
+      "sla_asildi": "SLA breached (escalation)",
+      "aylik_rapor": "Monthly report published",
+      "aylik_rapor_taslak": "Monthly report drafts ready"
     },
     "kanal": {
       "inapp": "Panel",

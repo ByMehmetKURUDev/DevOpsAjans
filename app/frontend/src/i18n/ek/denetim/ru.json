@@ -85,7 +85,13 @@
       "pricing_inquiries": "Ценовые предложения",
       "ayarlar": "Настройки окружения",
       "credit_ledger": "Движения кредитов",
-      "workspace_modules": "Модули"
+      "workspace_modules": "Модули",
+      "files": "Файлы",
+      "dosya_klasorleri": "Папки файлов",
+      "paylasim_baglantilari": "Ссылки для доступа",
+      "belge_talepleri": "Запросы документов",
+      "hazir_cevaplar": "Шаблоны ответов",
+      "bilgi_makaleleri": "База знаний"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

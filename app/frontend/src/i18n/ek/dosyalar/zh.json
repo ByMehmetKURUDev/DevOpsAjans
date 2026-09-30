@@ -1,0 +1,137 @@
+{
+  "dosyalar": {
+    "yukle": "上传",
+    "indir": "下载",
+    "yenile": "刷新",
+    "kaydet": "保存",
+    "kapat": "关闭",
+    "klasor": "文件夹",
+    "dosyaSec": "选择文件",
+    "bos": "暂无文件。",
+    "yuklendi": "{{ad}} 已上传。",
+    "kurallar": "最大 {{sayi}} MB。允许的类型：{{turler}}。",
+    "depo": {
+      "s3": "存储：对象存储（Cloudflare R2）— 持久保存",
+      "veritabani": "存储：数据库 — 持久保存",
+      "oneri": "大文件建议配置 Cloudflare R2；数据库配额较小。"
+    },
+    "gorunurluk": {
+      "baslik": "可见范围",
+      "musteri": "客户可见",
+      "ekip": "仅团队"
+    },
+    "yukleyen": {
+      "musteri": "客户上传",
+      "ajans": "机构上传"
+    },
+    "yonetim": {
+      "baslik": "文件与资料请求",
+      "aciklama": "按客户分文件夹、安全下载、限时分享链接，以及向客户索取资料。",
+      "boyutSiniri": "大小上限",
+      "sinirKaydedildi": "大小上限已保存为 {{sayi}} MB。",
+      "musteriSec": "客户",
+      "musteriAra": "按姓名或邮箱搜索；也可以输入新地址",
+      "secimYok": "请选择客户以查看其文件。",
+      "yetkiDegistir": "更改文件夹可见范围",
+      "yetkiDegisti": "文件夹权限已更新。",
+      "sil": "删除文件",
+      "silOnay": "删除 {{ad}}？其分享链接也将失效。",
+      "silindi": "文件已删除。"
+    },
+    "paylasim": {
+      "baslik": "分享链接",
+      "gun": "有效期",
+      "gunSecenek": "{{sayi}} 天",
+      "sifre": "密码",
+      "istegeBagli": "可选",
+      "sinir": "下载次数上限",
+      "sinirsiz": "不限",
+      "olustur": "创建链接",
+      "hazir": "链接已生成。请通过其他渠道发送密码。",
+      "kopyala": "复制链接",
+      "kopyalandi": "链接已复制。",
+      "birKez": "此地址仅显示这一次；服务器只保存其哈希值。",
+      "sonKullanma": "到期时间",
+      "sifreli": "有密码",
+      "iptal": "撤销",
+      "durum": {
+        "gecerli": "有效",
+        "suresi_doldu": "已过期",
+        "iptal": "已撤销",
+        "sinir_doldu": "已达下载上限",
+        "kilitli": "已锁定（密码错误次数过多）"
+      }
+    },
+    "paylas": {
+      "sayfaBasligi": "共享文件",
+      "ust": "有人与您分享了一个文件",
+      "boyut": "大小",
+      "sonKullanma": "有效期至",
+      "kalanHak": "剩余下载次数",
+      "sifreGerekli": "此文件受密码保护",
+      "sifreYanlis": "密码错误，请重试。",
+      "basladi": "下载已开始。",
+      "gecersizBaslik": "此链接无法使用",
+      "anaSayfa": "返回首页",
+      "neden": {
+        "bulunamadi": "未找到该链接，或链接输入有误。",
+        "suresi_doldu": "链接已过期，请向分享者索取新链接。",
+        "iptal": "分享者已撤销此链接。",
+        "sinir_doldu": "此链接的下载次数已用完。",
+        "kilitli": "由于多次输入错误密码，链接已被锁定。",
+        "genel": "暂时无法打开此链接，请稍后再试。"
+      }
+    },
+    "talep": {
+      "baslik": "向客户索取资料",
+      "aciklama": "客户会在“所需资料”中看到请求；提交后您会收到通知，截止日期临近时会发送提醒。",
+      "belgeAdi": "资料名称（如：税务登记证）",
+      "sonTarih": "截止日期",
+      "sonTarihYok": "无截止日期",
+      "turler": "接受的类型（用逗号分隔）",
+      "aciklamaYer": "说明（可选）",
+      "iste": "索取资料",
+      "gonderildi": "资料请求已发送。",
+      "iptalEt": "取消",
+      "durum": {
+        "bekliyor": "等待中",
+        "teslim_edildi": "已提交",
+        "iptal": "已取消",
+        "gecikti": "已过截止日期"
+      }
+    },
+    "istenen": {
+      "baslik": "所需资料",
+      "bos": "目前没有需要您提交的资料。",
+      "turler": "接受的类型",
+      "yukle": "上传资料",
+      "yeniSurum": "上传新版本"
+    },
+    "musteri": {
+      "baslik": "我的文件"
+    },
+    "hata": {
+      "tur_izinsiz": "不允许此文件类型（{{uzanti}}）。",
+      "tur_talepte_yok": "此资料不接受 {{uzanti}} 类型。",
+      "icerik_uyusmuyor": "文件内容与扩展名不符（{{uzanti}}）。",
+      "bos_dosya": "文件为空。",
+      "boyut_asildi": "文件过大，上限为 {{sinir_mb}} MB。",
+      "gecersiz_sinir": "上限必须是 1 到 100 之间的整数。",
+      "gecersiz_gun": "有效期须在 1 到 30 天之间。",
+      "gecersiz_sifre": "密码长度须为 4 到 128 个字符。",
+      "gecersiz_tarih": "日期无效。",
+      "gecersiz_eposta": "邮箱地址无效。",
+      "gecersiz_gorunurluk": "可见范围选择无效。",
+      "baslik_gerekli": "请填写资料名称。",
+      "bulunamadi": "未找到文件。",
+      "klasor_yok": "无法上传到此文件夹。",
+      "talep_iptal": "此资料请求已取消。",
+      "depo_hatasi": "文件无法写入存储，请重试。",
+      "imza_gecersiz": "下载链接已过期。",
+      "oturum_gerekli": "您的会话已结束，请重新登录。",
+      "yonetici_gerekli": "此操作需要管理员权限。",
+      "modul_kapali": "您的账户未开通“文件”模块。",
+      "genel": "操作未能完成，请重试。"
+    }
+  }
+}

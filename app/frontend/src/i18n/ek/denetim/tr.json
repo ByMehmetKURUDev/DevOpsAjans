@@ -85,7 +85,13 @@
       "pricing_inquiries": "Fiyat teklifleri",
       "ayarlar": "Ortam ayarları",
       "credit_ledger": "Kredi hareketleri",
-      "workspace_modules": "Modüller"
+      "workspace_modules": "Modüller",
+      "files": "Dosyalar",
+      "dosya_klasorleri": "Dosya klasörleri",
+      "paylasim_baglantilari": "Paylaşım bağlantıları",
+      "belge_talepleri": "Belge talepleri",
+      "hazir_cevaplar": "Hazır cevaplar",
+      "bilgi_makaleleri": "Bilgi bankası"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

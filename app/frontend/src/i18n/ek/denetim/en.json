@@ -85,7 +85,13 @@
       "pricing_inquiries": "Price quotes",
       "ayarlar": "Environment settings",
       "credit_ledger": "Credit ledger",
-      "workspace_modules": "Modules"
+      "workspace_modules": "Modules",
+      "files": "Files",
+      "dosya_klasorleri": "File folders",
+      "paylasim_baglantilari": "Share links",
+      "belge_talepleri": "Document requests",
+      "hazir_cevaplar": "Canned replies",
+      "bilgi_makaleleri": "Knowledge base"
     },
     "hareket": {
       "baslik": "Account activity",

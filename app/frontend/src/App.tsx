@@ -29,6 +29,9 @@ const SiteRaporu = ekliLazy('siteAnalizi', () => import('./pages/SiteRaporu'));
 const IslemSayfasi = ekliLazy('islem', () => import('./pages/IslemSayfasi'));
 // Faz 2A: müşterinin açtığı herkese açık durum sayfası (dinamik, prerender yok).
 const DurumSayfasi = ekliLazy('siteBakim', () => import('./pages/DurumSayfasi'));
+// Faz 2C: girişsiz dosya paylaşımı ve yazdırmaya uygun aylık rapor (ikisi de noindex, prerender yok).
+const PaylasSayfasi = ekliLazy('dosyalar', () => import('./pages/PaylasSayfasi'));
+const AylikRaporSayfasi = ekliLazy('aylikRapor', () => import('./pages/AylikRaporSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -62,6 +65,8 @@ const AppRoutes = () => (
         <Route path="/islem/:jeton" element={<IslemSayfasi />} />
         {/* Herkese açık durum sayfası (/durum/<slug>). Varsayılan noindex; müşteri seçerse index. */}
         <Route path="/durum/:slug" element={<DurumSayfasi />} />
+        {/* Süreli, isteğe bağlı parolalı dosya paylaşımı (/paylas/<jeton>). Oturum istemiyor, noindex. */}
+        <Route path="/paylas/:jeton" element={<PaylasSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 
@@ -83,6 +88,8 @@ const AppRoutes = () => (
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 
+      {/* Aylık müşteri raporu: site düzeni dışında (yazdırınca yalnız rapor çıksın). İmzalı jeton, noindex. */}
+      <Route path="/rapor-aylik/:jeton" element={<AylikRaporSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

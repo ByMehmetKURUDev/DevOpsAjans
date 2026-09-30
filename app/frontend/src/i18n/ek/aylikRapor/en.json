@@ -1,0 +1,109 @@
+{
+  "aylikRapor": {
+    "durum": {
+      "taslak": "Draft",
+      "yayinlandi": "Published"
+    },
+    "arsiv": {
+      "baslik": "My monthly reports",
+      "aciklama": "The work we did each month, your site's health and SEO score. Open one and save it as a PDF.",
+      "bos": "No monthly reports have been published yet.",
+      "ac": "Open report"
+    },
+    "sayfa": {
+      "baslik": "Monthly report — {{donem}}",
+      "belgeBasligi": "Monthly report — {{donem}} | mehmetkuru.dev",
+      "yazdir": "Print / save as PDF",
+      "taslak": "Draft — only you can see this",
+      "bulunamadi": "Report not found",
+      "bulunamadiAciklama": "The link may be wrong or the report may not be published yet.",
+      "anaSayfa": "Back to the home page",
+      "altBilgi": "This report was prepared on {{tarih}} · mehmetkuru.dev"
+    },
+    "bolum": {
+      "ozet": "Summary: this month's work",
+      "site": "Site health",
+      "seo": "SEO and site analysis",
+      "plan": "Plan for next month",
+      "not": "A note from our team"
+    },
+    "ozet": {
+      "isler": "Work items",
+      "kredi": "Credits spent",
+      "saatDegeri": "{{sayi}} h",
+      "bakiye": "Remaining balance: {{sayi}} h",
+      "talepler": "Tickets",
+      "acilanCozulen": "opened / resolved",
+      "sla": "SLA compliance",
+      "slaYok": "no tickets to measure this month",
+      "slaAyrinti": "{{uyumlu}} on time, {{ihlal}} late",
+      "tamamlanan": "Completed projects",
+      "yapilanlar": "Work done",
+      "isYok": "No work was logged this month."
+    },
+    "site": {
+      "yok": "You have no monitored sites.",
+      "uptime": "Availability",
+      "olcum": "{{sayi}} checks",
+      "olcumYok": "no checks this month",
+      "kesinti": "Outages",
+      "kesintiSure": "{{sayi}} min in total",
+      "alan": "Domain name",
+      "ssl": "SSL certificate",
+      "hosting": "Hosting",
+      "kalan": "{{sayi}} days"
+    },
+    "seo": {
+      "yok": "No site analysis for this month.",
+      "tarih": "Latest analysis: {{tarih}}",
+      "degisim": "{{sayi}} points",
+      "bolum": {
+        "hiz": "Speed",
+        "seo": "SEO",
+        "icerik": "Content",
+        "teknik": "Technical",
+        "guvenlik": "Security",
+        "ai": "AI visibility"
+      }
+    },
+    "plan": {
+      "yok": "No open work.",
+      "projeler": "Ongoing projects",
+      "talepler": "Open tickets",
+      "belgeler": "Awaited documents"
+    },
+    "yonetim": {
+      "baslik": "Monthly client reports",
+      "aciklama": "On the 1st, a draft is opened for every client with the module enabled — or create one now. Preview, add a note, publish; the client gets one email.",
+      "yenileListe": "Refresh list",
+      "musteri": "Client email",
+      "donem": "Period",
+      "simdiOlustur": "Create now",
+      "olusturuldu": "Report draft is ready.",
+      "not": "Admin note (visible to the client)",
+      "notYer": "This month's highlights, what we will focus on next month…",
+      "notKaydet": "Save note",
+      "notKaydedildi": "Note saved.",
+      "veriYenile": "Refresh data",
+      "veriYenilendi": "Report data refreshed.",
+      "onizle": "Preview",
+      "yayinla": "Publish and send",
+      "yayinlaOnay": "Publish the report and email the client? A published report cannot be changed.",
+      "yayinlandi": "Report published.",
+      "sil": "Delete draft",
+      "silOnay": "Delete this draft?",
+      "silindi": "Draft deleted.",
+      "liste": "{{sayi}} reports · {{taslak}} drafts",
+      "bos": "No monthly reports yet."
+    },
+    "hata": {
+      "genel": "The action could not be completed. Please try again.",
+      "gecersiz_donem": "Invalid period (YYYY-MM).",
+      "gecersiz_eposta": "Invalid email address.",
+      "yayinlandi": "This period's report is published and cannot be changed.",
+      "bulunamadi": "Report not found.",
+      "yonetici_gerekli": "This action requires administrator rights.",
+      "modul_kapali": "The monthly report module is not enabled for your account."
+    }
+  }
+}

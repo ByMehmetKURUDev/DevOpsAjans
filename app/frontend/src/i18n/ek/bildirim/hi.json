@@ -33,7 +33,16 @@
       "site_coktu": "साइट उपलब्ध नहीं है",
       "site_duzeldi": "साइट फिर से उपलब्ध है",
       "bitis_yaklasiyor": "समाप्ति तिथि निकट है",
-      "yenileme_faturasi": "नवीनीकरण इनवॉइस"
+      "yenileme_faturasi": "नवीनीकरण इनवॉइस",
+      "dosya_eklendi": "नई फ़ाइल जोड़ी गई",
+      "belge_talebi": "आपसे एक दस्तावेज़ माँगा गया",
+      "belge_teslim": "माँगा गया दस्तावेज़ जमा हुआ",
+      "belge_hatirlatma": "दस्तावेज़ की अंतिम तिथि निकट",
+      "belge_gecikti": "दस्तावेज़ की अंतिम तिथि निकल गई",
+      "sla_yaklasiyor": "SLA समय-सीमा निकट",
+      "sla_asildi": "SLA टूटा (एस्केलेशन)",
+      "aylik_rapor": "मासिक रिपोर्ट प्रकाशित",
+      "aylik_rapor_taslak": "मासिक रिपोर्ट के मसौदे तैयार"
     },
     "kanal": {
       "inapp": "पैनल",

@@ -46,6 +46,9 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   // Müşterinin durum sayfası: dinamik, müşteriye ait; varsayılan noindex (Faz 2A).
   '/durum/:slug',
   'durum/:slug',
+  // Faz 2C: jetona özel dosya paylaşımı ve aylık müşteri raporu (noindex).
+  '/paylas/:jeton',
+  '/rapor-aylik/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

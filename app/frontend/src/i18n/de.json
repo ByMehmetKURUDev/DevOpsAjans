@@ -459,7 +459,9 @@
     "tabModuller": "Module",
     "indir": "Laden",
     "appStoreIndir": "Laden im App Store",
-    "googlePlayIndir": "Jetzt bei Google Play"
+    "googlePlayIndir": "Jetzt bei Google Play",
+    "tabDosyalar": "Dateien",
+    "tabBilgiBankasi": "Wissensdatenbank"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -1439,7 +1441,8 @@
     "atanamadi": "Zuweisung konnte nicht geändert werden.",
     "talepSil": "Ticket löschen",
     "talepSilOnay": "Ticket und Verlauf löschen?",
-    "talepSilindi": "Ticket gelöscht."
+    "talepSilindi": "Ticket gelöscht.",
+    "ayarlar": "SLA und Textbausteine"
   },
   "ekip": {
     "yeniKisi": "Teammitglied hinzufügen",

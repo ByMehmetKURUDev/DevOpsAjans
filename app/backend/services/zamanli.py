@@ -107,16 +107,46 @@ async def _analiz_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await eski_analizleri_temizle(db)
 
 
+async def _sla_kontrolu(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.sla import sla_kontrolu
+
+    return await sla_kontrolu(db)
+
+
+async def _belge_hatirlatmalari(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.dosyalar import belge_hatirlatmalari
+
+    return await belge_hatirlatmalari(db)
+
+
+async def _aylik_rapor_taslaklari(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.aylik_rapor import aylik_taslaklar
+
+    return await aylik_taslaklar(db)
+
+
+async def _aylik_site_analizi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.aylik_rapor import aylik_analizler
+
+    return await aylik_analizler(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
     Gorev("uptime", timedelta(0), _uptime),
     Gorev("imzali_islem_sureleri", timedelta(0), _imzali_islem_sureleri),
+    # Faz 2C: SLA her turda (ucuz sorgu; uyarı/eskalasyon dakikası kaçmasın).
+    Gorev("sla_kontrolu", timedelta(0), _sla_kontrolu),
+    Gorev("belge_hatirlatmalari", timedelta(hours=6), _belge_hatirlatmalari),
+    Gorev("aylik_rapor_taslaklari", timedelta(hours=6), _aylik_rapor_taslaklari),
     Gorev("bitis_taramasi", timedelta(minutes=30), _bitis_taramasi),
     Gorev("yenileme_hatirlatmalari", timedelta(hours=20), _yenileme_hatirlatmalari),
     Gorev("kredi_sure_dolumlari", timedelta(hours=20), _kredi_sure_dolumlari),
     Gorev("uptime_temizligi", timedelta(hours=20), _uptime_temizligi),
     Gorev("analiz_temizligi", timedelta(days=6, hours=20), _analiz_temizligi),
+    # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
+    Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]
 GOREV_ADLARI = [g.ad for g in GOREVLER]
 

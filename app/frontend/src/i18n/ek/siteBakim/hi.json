@@ -167,7 +167,11 @@
         "yenileme_hatirlatmalari": "नवीनीकरण रिमाइंडर",
         "kredi_sure_dolumlari": "क्रेडिट की समाप्ति",
         "uptime_temizligi": "पुराने अपटाइम मापों की सफ़ाई",
-        "analiz_temizligi": "पुराने साइट विश्लेषणों की सफ़ाई"
+        "analiz_temizligi": "पुराने साइट विश्लेषणों की सफ़ाई",
+        "sla_kontrolu": "सहायता SLA जाँच और एस्केलेशन",
+        "belge_hatirlatmalari": "दस्तावेज़ अनुरोध अनुस्मारक",
+        "aylik_rapor_taslaklari": "मासिक रिपोर्ट के मसौदे (हर महीने की 1 तारीख)",
+        "aylik_site_analizi": "मासिक स्वचालित साइट विश्लेषण"
       },
       "gunluk": "प्रतिदिन",
       "haftalik": "साप्ताहिक"

@@ -167,7 +167,11 @@
         "yenileme_hatirlatmalari": "Yenileme hatırlatmaları",
         "kredi_sure_dolumlari": "Kredi süre dolumları",
         "uptime_temizligi": "Eski uptime ölçümlerinin temizliği",
-        "analiz_temizligi": "Eski site analizlerinin temizliği"
+        "analiz_temizligi": "Eski site analizlerinin temizliği",
+        "sla_kontrolu": "Destek SLA kontrolü ve eskalasyon",
+        "belge_hatirlatmalari": "Belge talebi hatırlatmaları",
+        "aylik_rapor_taslaklari": "Aylık rapor taslakları (ayın 1'i)",
+        "aylik_site_analizi": "Aylık otomatik site analizi"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

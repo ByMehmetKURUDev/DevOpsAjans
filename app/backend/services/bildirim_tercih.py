@@ -63,6 +63,16 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "site_duzeldi": {"roller": ("admin", "client"), "tetikleniyor": True},
     "bitis_yaklasiyor": {"roller": ("admin", "client"), "tetikleniyor": True},
     "yenileme_faturasi": {"roller": ("client",), "tetikleniyor": True},
+    # Faz 2C — dosyalar ve belge talebi, destek SLA, aylık rapor.
+    "dosya_eklendi": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "belge_talebi": {"roller": ("client",), "tetikleniyor": True},
+    "belge_teslim": {"roller": ("admin",), "tetikleniyor": True},
+    "belge_hatirlatma": {"roller": ("client",), "tetikleniyor": True},
+    "belge_gecikti": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "sla_yaklasiyor": {"roller": ("admin",), "tetikleniyor": True},
+    "sla_asildi": {"roller": ("admin",), "tetikleniyor": True},
+    "aylik_rapor": {"roller": ("client",), "tetikleniyor": True},
+    "aylik_rapor_taslak": {"roller": ("admin",), "tetikleniyor": True},
 }
 
 

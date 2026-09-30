@@ -85,7 +85,13 @@
       "pricing_inquiries": "Preisangebote",
       "ayarlar": "Umgebungseinstellungen",
       "credit_ledger": "Guthabenbewegungen",
-      "workspace_modules": "Module"
+      "workspace_modules": "Module",
+      "files": "Dateien",
+      "dosya_klasorleri": "Dateiordner",
+      "paylasim_baglantilari": "Freigabelinks",
+      "belge_talepleri": "Dokumentanfragen",
+      "hazir_cevaplar": "Textbausteine",
+      "bilgi_makaleleri": "Wissensdatenbank"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

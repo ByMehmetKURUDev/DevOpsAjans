@@ -60,6 +60,9 @@ HARIC_TABLOLAR = frozenset({
     # ilgisi yok (kesinti geçmişi zaten kendi tablosunda).
     "uptime_olculeri", "uptime_gunluk", "uptime_kesintileri",
     "bitis_bildirimleri", "zamanli_calisma",
+    # Faz 2C: dosya içeriği (ikili, MB'larca) ve zamanlı görevin güncellediği
+    # SLA saatleri. Dosyanın kendisi (`files`) ve paylaşım bağlantısı kaydediliyor.
+    "dosya_icerikleri", "talep_sla",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.

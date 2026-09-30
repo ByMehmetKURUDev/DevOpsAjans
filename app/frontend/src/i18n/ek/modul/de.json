@@ -84,6 +84,10 @@
       "yenileme": {
         "ad": "Verlängerungsverwaltung",
         "aciklama": "Domain-, Hosting-, SSL- und Abo-Verlängerungen in einer Liste verfolgen; Erinnerungen vor Ablauf und Verlängerungsrechnung mit einem Klick."
+      },
+      "bilgi_bankasi": {
+        "ad": "Wissensdatenbank",
+        "aciklama": "FAQs und Anleitungen; beim Eröffnen eines Tickets werden passende Artikel vorgeschlagen."
       }
     },
     "kategori": {

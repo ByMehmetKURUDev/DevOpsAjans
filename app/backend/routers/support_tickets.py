@@ -235,6 +235,14 @@ async def create_support_tickets(
         
         logger.info(f"Support_tickets created successfully with id: {result.id}")
 
+        # Faz 2C: SLA saatleri talep açıldığı anda (mesai saatine göre).
+        try:
+            from services.sla import talep_icin_baslat
+
+            await talep_icin_baslat(db, result)
+        except Exception as sla_hatasi:  # noqa: BLE001 - SLA talebi düşürmesin
+            logger.error("SLA başlatılamadı: %s", sla_hatasi)
+
         try:
             baslik, govde = await render(
                 db,

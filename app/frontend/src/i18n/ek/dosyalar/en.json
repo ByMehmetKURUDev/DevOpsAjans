@@ -1,0 +1,137 @@
+{
+  "dosyalar": {
+    "yukle": "Upload",
+    "indir": "Download",
+    "yenile": "Refresh",
+    "kaydet": "Save",
+    "kapat": "Close",
+    "klasor": "Folder",
+    "dosyaSec": "Choose file",
+    "bos": "No files yet.",
+    "yuklendi": "{{ad}} uploaded.",
+    "kurallar": "Up to {{sayi}} MB. Allowed types: {{turler}}.",
+    "depo": {
+      "s3": "Storage: object storage (Cloudflare R2) — persistent",
+      "veritabani": "Storage: database — persistent",
+      "oneri": "Configuring Cloudflare R2 is recommended for large files; the database quota is small."
+    },
+    "gorunurluk": {
+      "baslik": "Who can see it",
+      "musteri": "Visible to client",
+      "ekip": "Team only"
+    },
+    "yukleyen": {
+      "musteri": "uploaded by client",
+      "ajans": "uploaded by agency"
+    },
+    "yonetim": {
+      "baslik": "Files and document requests",
+      "aciklama": "Folders per client, secure downloads, expiring share links and document requests to clients.",
+      "boyutSiniri": "Size limit",
+      "sinirKaydedildi": "Size limit saved as {{sayi}} MB.",
+      "musteriSec": "Client",
+      "musteriAra": "Search by name or email; you can also type a new address",
+      "secimYok": "Select a client to see their files.",
+      "yetkiDegistir": "Change folder visibility",
+      "yetkiDegisti": "Folder permission updated.",
+      "sil": "Delete file",
+      "silOnay": "Delete {{ad}}? Its share links will stop working too.",
+      "silindi": "File deleted."
+    },
+    "paylasim": {
+      "baslik": "Share link",
+      "gun": "Valid for",
+      "gunSecenek": "{{sayi}} days",
+      "sifre": "Password",
+      "istegeBagli": "Optional",
+      "sinir": "Download limit",
+      "sinirsiz": "Unlimited",
+      "olustur": "Create link",
+      "hazir": "The link is ready. Send the password through a separate channel.",
+      "kopyala": "Copy link",
+      "kopyalandi": "Link copied.",
+      "birKez": "This address is shown only now; the server keeps only its hash.",
+      "sonKullanma": "Expires",
+      "sifreli": "password-protected",
+      "iptal": "Revoke",
+      "durum": {
+        "gecerli": "Active",
+        "suresi_doldu": "Expired",
+        "iptal": "Revoked",
+        "sinir_doldu": "Download limit reached",
+        "kilitli": "Locked (too many wrong passwords)"
+      }
+    },
+    "paylas": {
+      "sayfaBasligi": "Shared file",
+      "ust": "A file has been shared with you",
+      "boyut": "Size",
+      "sonKullanma": "Valid until",
+      "kalanHak": "Downloads remaining",
+      "sifreGerekli": "This file is password-protected",
+      "sifreYanlis": "Wrong password. Please try again.",
+      "basladi": "Download started.",
+      "gecersizBaslik": "This link cannot be used",
+      "anaSayfa": "Back to the home page",
+      "neden": {
+        "bulunamadi": "The link was not found or was mistyped.",
+        "suresi_doldu": "The link has expired. Ask the sender for a new one.",
+        "iptal": "This link was revoked by the sender.",
+        "sinir_doldu": "This link has no downloads left.",
+        "kilitli": "The link was locked after too many wrong password attempts.",
+        "genel": "The link cannot be opened right now. Please try again later."
+      }
+    },
+    "talep": {
+      "baslik": "Request a document from the client",
+      "aciklama": "The client sees it under \"Requested documents\"; you are notified on delivery and a reminder goes out as the deadline approaches.",
+      "belgeAdi": "Document name (e.g. Tax certificate)",
+      "sonTarih": "Deadline",
+      "sonTarihYok": "No deadline",
+      "turler": "Accepted types (comma-separated)",
+      "aciklamaYer": "Description (optional)",
+      "iste": "Request document",
+      "gonderildi": "Document request sent.",
+      "iptalEt": "Cancel",
+      "durum": {
+        "bekliyor": "Waiting",
+        "teslim_edildi": "Delivered",
+        "iptal": "Cancelled",
+        "gecikti": "Deadline passed"
+      }
+    },
+    "istenen": {
+      "baslik": "Requested documents",
+      "bos": "There are no documents requested from you right now.",
+      "turler": "Accepted types",
+      "yukle": "Upload document",
+      "yeniSurum": "Upload a new version"
+    },
+    "musteri": {
+      "baslik": "My files"
+    },
+    "hata": {
+      "tur_izinsiz": "This file type is not allowed ({{uzanti}}).",
+      "tur_talepte_yok": "The {{uzanti}} type is not accepted for this document.",
+      "icerik_uyusmuyor": "The file content does not match its extension ({{uzanti}}).",
+      "bos_dosya": "The file is empty.",
+      "boyut_asildi": "The file is too large. The limit is {{sinir_mb}} MB.",
+      "gecersiz_sinir": "The limit must be a whole number between 1 and 100.",
+      "gecersiz_gun": "Validity must be between 1 and 30 days.",
+      "gecersiz_sifre": "The password must be 4 to 128 characters long.",
+      "gecersiz_tarih": "Invalid date.",
+      "gecersiz_eposta": "Invalid email address.",
+      "gecersiz_gorunurluk": "Invalid visibility choice.",
+      "baslik_gerekli": "Document name is required.",
+      "bulunamadi": "File not found.",
+      "klasor_yok": "You cannot upload to this folder.",
+      "talep_iptal": "This document request has been cancelled.",
+      "depo_hatasi": "The file could not be written to storage. Please try again.",
+      "imza_gecersiz": "The download link has expired.",
+      "oturum_gerekli": "Your session has ended; please sign in again.",
+      "yonetici_gerekli": "This action requires administrator rights.",
+      "modul_kapali": "The Files module is not enabled for your account.",
+      "genel": "The action could not be completed. Please try again."
+    }
+  }
+}

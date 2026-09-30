@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Loader2, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -6,6 +6,10 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { mesajGonder, yazismayiGetir, type TalepMesaji } from '@/lib/talepler';
+import { ekliLazy } from '@/i18n/ekliLazy';
+
+// Faz 2C: ajans tarafında hazır cevap seçicisi — ayrı parça, müşteri paneline inmez.
+const HazirCevapSecici = ekliLazy('yardim', () => import('@/components/HazirCevapSecici'));
 
 /**
  * Bir talebin altındaki yazışma. Hem müşteri panelinde hem yönetim
@@ -123,6 +127,15 @@ export default function TalepYazismasi({ ticketId, bizKimiz }: Props) {
         <div ref={sonRef} />
       </div>
 
+      {bizKimiz === 'ajans' ? (
+        <Suspense fallback={null}>
+          <HazirCevapSecici
+            ticketId={ticketId}
+            onEkle={(metin) => setTaslak((eski) => (eski.trim() ? `${eski.trimEnd()}\n\n${metin}` : metin))}
+          />
+        </Suspense>
+      ) : null}
+
       <div className="flex items-end gap-2">
         <Textarea
           value={taslak}
@@ -130,12 +143,14 @@ export default function TalepYazismasi({ ticketId, bizKimiz }: Props) {
           rows={2}
           placeholder={t('talep.yaz')}
           className="min-h-0 flex-1 text-sm"
+          data-testid={`talep-yanit-${ticketId}`}
         />
         <Button
           size="sm"
           className="gap-2"
           disabled={gonderiliyor || !taslak.trim()}
           onClick={() => void gonder()}
+          data-testid={`talep-gonder-${ticketId}`}
         >
           {gonderiliyor ? (
             <Loader2 className="h-4 w-4 animate-spin" />

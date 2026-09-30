@@ -459,7 +459,9 @@
     "tabModuller": "模块",
     "indir": "下载",
     "appStoreIndir": "在 App Store 下载",
-    "googlePlayIndir": "在 Google Play 上获取"
+    "googlePlayIndir": "在 Google Play 上获取",
+    "tabDosyalar": "文件",
+    "tabBilgiBankasi": "知识库"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -1439,7 +1441,8 @@
     "atanamadi": "无法更改分配。",
     "talepSil": "删除工单",
     "talepSilOnay": "要删除工单及其对话吗？",
-    "talepSilindi": "工单已删除。"
+    "talepSilindi": "工单已删除。",
+    "ayarlar": "SLA 与快捷回复"
   },
   "ekip": {
     "yeniKisi": "添加团队成员",

@@ -167,7 +167,11 @@
         "yenileme_hatirlatmalari": "Renewal reminders",
         "kredi_sure_dolumlari": "Credit expirations",
         "uptime_temizligi": "Old uptime measurement cleanup",
-        "analiz_temizligi": "Old site analysis cleanup"
+        "analiz_temizligi": "Old site analysis cleanup",
+        "sla_kontrolu": "Support SLA check and escalation",
+        "belge_hatirlatmalari": "Document request reminders",
+        "aylik_rapor_taslaklari": "Monthly report drafts (on the 1st)",
+        "aylik_site_analizi": "Monthly automatic site analysis"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

@@ -1,0 +1,109 @@
+{
+  "aylikRapor": {
+    "durum": {
+      "taslak": "Taslak",
+      "yayinlandi": "Yayında"
+    },
+    "arsiv": {
+      "baslik": "Aylık raporlarım",
+      "aciklama": "Her ay yaptığımız işler, sitenizin sağlığı ve SEO puanı. Açıp PDF olarak kaydedebilirsiniz.",
+      "bos": "Henüz yayınlanmış aylık rapor yok.",
+      "ac": "Raporu aç"
+    },
+    "sayfa": {
+      "baslik": "Aylık rapor — {{donem}}",
+      "belgeBasligi": "Aylık rapor — {{donem}} | mehmetkuru.dev",
+      "yazdir": "Yazdır / PDF olarak kaydet",
+      "taslak": "Taslak — yalnız siz görüyorsunuz",
+      "bulunamadi": "Rapor bulunamadı",
+      "bulunamadiAciklama": "Bağlantı hatalı ya da rapor henüz yayınlanmamış olabilir.",
+      "anaSayfa": "Ana sayfaya dön",
+      "altBilgi": "Bu rapor {{tarih}} tarihinde hazırlandı · mehmetkuru.dev"
+    },
+    "bolum": {
+      "ozet": "Özet: bu ay yapılanlar",
+      "site": "Site sağlığı",
+      "seo": "SEO ve site analizi",
+      "plan": "Gelecek ay planı",
+      "not": "Ekibimizden not"
+    },
+    "ozet": {
+      "isler": "İş kaydı",
+      "kredi": "Harcanan kredi",
+      "saatDegeri": "{{sayi}} sa",
+      "bakiye": "Kalan bakiye: {{sayi}} sa",
+      "talepler": "Talepler",
+      "acilanCozulen": "açılan / çözülen",
+      "sla": "SLA uyumu",
+      "slaYok": "bu ay ölçülecek talep yok",
+      "slaAyrinti": "{{uyumlu}} zamanında, {{ihlal}} gecikmeli",
+      "tamamlanan": "Tamamlanan projeler",
+      "yapilanlar": "Yapılan işler",
+      "isYok": "Bu ay kayda geçen bir iş yok."
+    },
+    "site": {
+      "yok": "İzlenen siteniz yok.",
+      "uptime": "Erişilebilirlik",
+      "olcum": "{{sayi}} ölçüm",
+      "olcumYok": "bu ay ölçüm yok",
+      "kesinti": "Kesinti",
+      "kesintiSure": "toplam {{sayi}} dk",
+      "alan": "Alan adı",
+      "ssl": "SSL sertifikası",
+      "hosting": "Hosting",
+      "kalan": "{{sayi}} gün"
+    },
+    "seo": {
+      "yok": "Bu ay için site analizi yok.",
+      "tarih": "Son analiz: {{tarih}}",
+      "degisim": "{{sayi}} puan",
+      "bolum": {
+        "hiz": "Hız",
+        "seo": "SEO",
+        "icerik": "İçerik",
+        "teknik": "Teknik",
+        "guvenlik": "Güvenlik",
+        "ai": "Yapay zekâ görünürlüğü"
+      }
+    },
+    "plan": {
+      "yok": "Açık iş yok.",
+      "projeler": "Süren projeler",
+      "talepler": "Açık talepler",
+      "belgeler": "Beklenen belgeler"
+    },
+    "yonetim": {
+      "baslik": "Aylık müşteri raporları",
+      "aciklama": "Ayın 1'inde modülü açık her müşteri için taslak açılır; ya da şimdi oluşturun. Önizleyin, not ekleyin, yayınlayın — müşteriye bir kez e-posta gider.",
+      "yenileListe": "Listeyi yenile",
+      "musteri": "Müşteri e-postası",
+      "donem": "Dönem",
+      "simdiOlustur": "Şimdi oluştur",
+      "olusturuldu": "Rapor taslağı hazır.",
+      "not": "Yönetici notu (müşteri görür)",
+      "notYer": "Bu ay öne çıkanlar, gelecek ay odaklanacağımız işler…",
+      "notKaydet": "Notu kaydet",
+      "notKaydedildi": "Not kaydedildi.",
+      "veriYenile": "Veriyi yenile",
+      "veriYenilendi": "Rapor verisi yenilendi.",
+      "onizle": "Önizle",
+      "yayinla": "Yayınla ve gönder",
+      "yayinlaOnay": "Rapor yayınlansın ve müşteriye e-posta gitsin mi? Yayınlanan rapor değiştirilemez.",
+      "yayinlandi": "Rapor yayınlandı.",
+      "sil": "Taslağı sil",
+      "silOnay": "Bu taslak silinsin mi?",
+      "silindi": "Taslak silindi.",
+      "liste": "{{sayi}} rapor · {{taslak}} taslak",
+      "bos": "Henüz aylık rapor yok."
+    },
+    "hata": {
+      "genel": "İşlem tamamlanamadı. Lütfen tekrar deneyin.",
+      "gecersiz_donem": "Dönem geçersiz (YYYY-AA).",
+      "gecersiz_eposta": "E-posta adresi geçersiz.",
+      "yayinlandi": "Bu dönemin raporu yayınlandı; değiştirilemez.",
+      "bulunamadi": "Rapor bulunamadı.",
+      "yonetici_gerekli": "Bu işlem yönetici yetkisi istiyor.",
+      "modul_kapali": "Aylık rapor modülü hesabınızda açık değil."
+    }
+  }
+}

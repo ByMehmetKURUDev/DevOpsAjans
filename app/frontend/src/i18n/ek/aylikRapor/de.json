@@ -1,0 +1,109 @@
+{
+  "aylikRapor": {
+    "durum": {
+      "taslak": "Entwurf",
+      "yayinlandi": "Veröffentlicht"
+    },
+    "arsiv": {
+      "baslik": "Meine Monatsberichte",
+      "aciklama": "Unsere Arbeit im jeweiligen Monat, der Zustand Ihrer Website und der SEO-Wert. Öffnen und als PDF speichern.",
+      "bos": "Noch keine Monatsberichte veröffentlicht.",
+      "ac": "Bericht öffnen"
+    },
+    "sayfa": {
+      "baslik": "Monatsbericht — {{donem}}",
+      "belgeBasligi": "Monatsbericht — {{donem}} | mehmetkuru.dev",
+      "yazdir": "Drucken / als PDF speichern",
+      "taslak": "Entwurf — nur für Sie sichtbar",
+      "bulunamadi": "Bericht nicht gefunden",
+      "bulunamadiAciklama": "Der Link ist möglicherweise falsch oder der Bericht noch nicht veröffentlicht.",
+      "anaSayfa": "Zur Startseite",
+      "altBilgi": "Dieser Bericht wurde am {{tarih}} erstellt · mehmetkuru.dev"
+    },
+    "bolum": {
+      "ozet": "Zusammenfassung: Arbeit dieses Monats",
+      "site": "Website-Zustand",
+      "seo": "SEO und Website-Analyse",
+      "plan": "Plan für den nächsten Monat",
+      "not": "Eine Notiz unseres Teams"
+    },
+    "ozet": {
+      "isler": "Arbeitseinträge",
+      "kredi": "Verbrauchte Credits",
+      "saatDegeri": "{{sayi}} Std.",
+      "bakiye": "Restguthaben: {{sayi}} Std.",
+      "talepler": "Tickets",
+      "acilanCozulen": "eröffnet / gelöst",
+      "sla": "SLA-Einhaltung",
+      "slaYok": "diesen Monat keine messbaren Tickets",
+      "slaAyrinti": "{{uyumlu}} pünktlich, {{ihlal}} verspätet",
+      "tamamlanan": "Abgeschlossene Projekte",
+      "yapilanlar": "Erledigte Arbeiten",
+      "isYok": "Diesen Monat wurde keine Arbeit erfasst."
+    },
+    "site": {
+      "yok": "Sie haben keine überwachten Websites.",
+      "uptime": "Verfügbarkeit",
+      "olcum": "{{sayi}} Prüfungen",
+      "olcumYok": "diesen Monat keine Prüfungen",
+      "kesinti": "Ausfälle",
+      "kesintiSure": "insgesamt {{sayi}} Min.",
+      "alan": "Domain",
+      "ssl": "SSL-Zertifikat",
+      "hosting": "Hosting",
+      "kalan": "{{sayi}} Tage"
+    },
+    "seo": {
+      "yok": "Für diesen Monat liegt keine Website-Analyse vor.",
+      "tarih": "Letzte Analyse: {{tarih}}",
+      "degisim": "{{sayi}} Punkte",
+      "bolum": {
+        "hiz": "Geschwindigkeit",
+        "seo": "SEO",
+        "icerik": "Inhalt",
+        "teknik": "Technik",
+        "guvenlik": "Sicherheit",
+        "ai": "KI-Sichtbarkeit"
+      }
+    },
+    "plan": {
+      "yok": "Keine offenen Arbeiten.",
+      "projeler": "Laufende Projekte",
+      "talepler": "Offene Tickets",
+      "belgeler": "Erwartete Dokumente"
+    },
+    "yonetim": {
+      "baslik": "Monatliche Kundenberichte",
+      "aciklama": "Am 1. wird für jeden Kunden mit aktivem Modul ein Entwurf erstellt — oder erstellen Sie ihn jetzt. Vorschau, Notiz hinzufügen, veröffentlichen; der Kunde erhält eine E-Mail.",
+      "yenileListe": "Liste aktualisieren",
+      "musteri": "E-Mail des Kunden",
+      "donem": "Zeitraum",
+      "simdiOlustur": "Jetzt erstellen",
+      "olusturuldu": "Berichtsentwurf ist bereit.",
+      "not": "Admin-Notiz (für den Kunden sichtbar)",
+      "notYer": "Highlights des Monats, Schwerpunkte für den nächsten Monat…",
+      "notKaydet": "Notiz speichern",
+      "notKaydedildi": "Notiz gespeichert.",
+      "veriYenile": "Daten aktualisieren",
+      "veriYenilendi": "Berichtsdaten aktualisiert.",
+      "onizle": "Vorschau",
+      "yayinla": "Veröffentlichen und senden",
+      "yayinlaOnay": "Bericht veröffentlichen und den Kunden per E-Mail informieren? Ein veröffentlichter Bericht kann nicht geändert werden.",
+      "yayinlandi": "Bericht veröffentlicht.",
+      "sil": "Entwurf löschen",
+      "silOnay": "Diesen Entwurf löschen?",
+      "silindi": "Entwurf gelöscht.",
+      "liste": "{{sayi}} Berichte · {{taslak}} Entwürfe",
+      "bos": "Noch keine Monatsberichte."
+    },
+    "hata": {
+      "genel": "Die Aktion konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
+      "gecersiz_donem": "Ungültiger Zeitraum (JJJJ-MM).",
+      "gecersiz_eposta": "Ungültige E-Mail-Adresse.",
+      "yayinlandi": "Der Bericht für diesen Zeitraum ist veröffentlicht und kann nicht geändert werden.",
+      "bulunamadi": "Bericht nicht gefunden.",
+      "yonetici_gerekli": "Diese Aktion erfordert Administratorrechte.",
+      "modul_kapali": "Das Modul Monatsbericht ist für Ihr Konto nicht aktiviert."
+    }
+  }
+}

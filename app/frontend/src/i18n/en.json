@@ -459,7 +459,9 @@
     "tabModuller": "Modules",
     "indir": "Download",
     "appStoreIndir": "Download on the App Store",
-    "googlePlayIndir": "Get it on Google Play"
+    "googlePlayIndir": "Get it on Google Play",
+    "tabDosyalar": "Files",
+    "tabBilgiBankasi": "Knowledge base"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -1439,7 +1441,8 @@
     "atanamadi": "Assignment could not be changed.",
     "talepSil": "Delete ticket",
     "talepSilOnay": "Delete the ticket and its thread?",
-    "talepSilindi": "Ticket deleted."
+    "talepSilindi": "Ticket deleted.",
+    "ayarlar": "SLA and canned replies"
   },
   "ekip": {
     "yeniKisi": "Add team member",

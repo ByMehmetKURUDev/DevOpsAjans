@@ -85,7 +85,13 @@
       "pricing_inquiries": "报价",
       "ayarlar": "环境设置",
       "credit_ledger": "额度记录",
-      "workspace_modules": "模块"
+      "workspace_modules": "模块",
+      "files": "文件",
+      "dosya_klasorleri": "文件夹",
+      "paylasim_baglantilari": "分享链接",
+      "belge_talepleri": "资料请求",
+      "hazir_cevaplar": "快捷回复",
+      "bilgi_makaleleri": "知识库"
     },
     "hareket": {
       "baslik": "账户动态",

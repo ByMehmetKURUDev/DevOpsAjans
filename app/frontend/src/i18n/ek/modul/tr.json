@@ -84,6 +84,10 @@
       "yenileme": {
         "ad": "Yenileme yöneticisi",
         "aciklama": "Alan adı, hosting, SSL ve abonelik yenilemelerini tek listede izleme; bitişten önce hatırlatma ve tek tıkla yenileme faturası."
+      },
+      "bilgi_bankasi": {
+        "ad": "Bilgi bankası",
+        "aciklama": "Sık sorulan sorular ve rehberler; talep açarken ilgili makaleler önerilir."
       }
     },
     "kategori": {

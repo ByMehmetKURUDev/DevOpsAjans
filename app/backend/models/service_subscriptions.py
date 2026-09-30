@@ -63,5 +63,14 @@ class Service_reports(Base):
     # taslak | yayinlandi
     durum = Column(String, index=True, nullable=True)
     yayin_at = Column(DateTime(timezone=True), nullable=True)
+    # Faz 2C — aylık müşteri raporu aynı tabloda (çiftleme yok):
+    # `tur` boşsa abonelik raporu, "aylik" ise müşteri başına ay kapanış raporu.
+    tur = Column(String, index=True, nullable=True)
+    # Aylık raporun toplanmış verisi (JSON metni: özet, site sağlığı, SEO, plan).
+    veri = Column(Text, nullable=True)
+    # Yöneticinin rapora eklediği not (müşteri görür).
+    yonetici_notu = Column(Text, nullable=True)
+    # Yayın e-postasının gittiği an — "bir kez" güvencesi (koşullu UPDATE).
+    eposta_gonderildi_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

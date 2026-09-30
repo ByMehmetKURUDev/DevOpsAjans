@@ -167,7 +167,11 @@
         "yenileme_hatirlatmalari": "تذكيرات التجديد",
         "kredi_sure_dolumlari": "انتهاء صلاحية الأرصدة",
         "uptime_temizligi": "تنظيف قياسات التوفّر القديمة",
-        "analiz_temizligi": "تنظيف تحليلات المواقع القديمة"
+        "analiz_temizligi": "تنظيف تحليلات المواقع القديمة",
+        "sla_kontrolu": "فحص اتفاقية خدمة الدعم والتصعيد",
+        "belge_hatirlatmalari": "تذكيرات طلبات المستندات",
+        "aylik_rapor_taslaklari": "مسودات التقارير الشهرية (اليوم الأول)",
+        "aylik_site_analizi": "تحليل الموقع التلقائي الشهري"
       },
       "gunluk": "يوميًا",
       "haftalik": "أسبوعيًا"

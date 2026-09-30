@@ -167,7 +167,11 @@
         "yenileme_hatirlatmalari": "Напоминания о продлении",
         "kredi_sure_dolumlari": "Истечение кредитов",
         "uptime_temizligi": "Очистка старых замеров доступности",
-        "analiz_temizligi": "Очистка старых анализов сайтов"
+        "analiz_temizligi": "Очистка старых анализов сайтов",
+        "sla_kontrolu": "Проверка SLA поддержки и эскалация",
+        "belge_hatirlatmalari": "Напоминания о запросах документов",
+        "aylik_rapor_taslaklari": "Черновики ежемесячных отчётов (1-го числа)",
+        "aylik_site_analizi": "Ежемесячный автоматический анализ сайта"
       },
       "gunluk": "ежедневно",
       "haftalik": "еженедельно"

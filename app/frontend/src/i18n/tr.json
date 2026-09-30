@@ -459,7 +459,9 @@
     "tabModuller": "Modüller",
     "indir": "İndir",
     "appStoreIndir": "App Store'dan indirin",
-    "googlePlayIndir": "Google Play'den indirin"
+    "googlePlayIndir": "Google Play'den indirin",
+    "tabDosyalar": "Dosyalar",
+    "tabBilgiBankasi": "Bilgi bankası"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -1440,7 +1442,8 @@
     "atanamadi": "Atama değiştirilemedi.",
     "talepSil": "Talebi sil",
     "talepSilOnay": "Talep ve yazışması silinsin mi?",
-    "talepSilindi": "Talep silindi."
+    "talepSilindi": "Talep silindi.",
+    "ayarlar": "SLA ve hazır cevaplar"
   },
   "ekip": {
     "yeniKisi": "Ekibe kişi ekle",

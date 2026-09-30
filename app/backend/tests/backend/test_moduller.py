@@ -259,7 +259,8 @@ async def test_modullerim_yalniz_musteri_modulleri_ve_gorunumler(istemci, muster
     assert "talepler" not in anahtarlar and "fiyatlandirma" not in anahtarlar
     # Sekme sırası bugünkü müşteri paneliyle aynı.
     sekmeler = [m["musteri_sekmesi"] for m in govde["moduller"] if m["musteri_sekmesi"]]
-    assert sekmeler == ["projects", "invoices", "krediler", "tickets", "raporlar", "sitem", "analiz", "profile"]
+    # Faz 2C: "dosyalar" sekmesi (paketsiz müşteride kapalı ama manifestte sırası belli).
+    assert sekmeler == ["projects", "invoices", "krediler", "tickets", "raporlar", "sitem", "analiz", "dosyalar", "profile"]
     from core import moduller as mf
 
     for m in govde["moduller"]:
@@ -395,7 +396,8 @@ async def test_kabul_edilen_teklifin_olcegi_paket_olur(istemci, yonetici_basligi
 
     musteri = (await istemci.get("/api/v1/modullerim", headers=musteri_basligi(eposta))).json()
     assert musteri["paket"] == "BETA"
-    assert _modul(musteri, "dosyalar")["gorunum"] == "yakinda" and _modul(musteri, "dosyalar")["acik"] is True
+    # Faz 2C: dosyalar yayında → paketli müşteride doğrudan açık.
+    assert _modul(musteri, "dosyalar")["gorunum"] == "acik" and _modul(musteri, "dosyalar")["acik"] is True
 
     # Elle kapatma paketi geçersiz kılar.
     yanit = await _ayarla(istemci, yonetici_basligi, eposta, "dosyalar", acik=False)

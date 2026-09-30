@@ -167,7 +167,11 @@
         "yenileme_hatirlatmalari": "续费提醒",
         "kredi_sure_dolumlari": "额度到期处理",
         "uptime_temizligi": "清理旧的可用性记录",
-        "analiz_temizligi": "清理旧的网站分析"
+        "analiz_temizligi": "清理旧的网站分析",
+        "sla_kontrolu": "支持 SLA 检查与升级",
+        "belge_hatirlatmalari": "资料请求提醒",
+        "aylik_rapor_taslaklari": "月度报告草稿（每月 1 日）",
+        "aylik_site_analizi": "每月自动网站分析"
       },
       "gunluk": "每天",
       "haftalik": "每周"

@@ -1,0 +1,137 @@
+{
+  "dosyalar": {
+    "yukle": "Hochladen",
+    "indir": "Herunterladen",
+    "yenile": "Aktualisieren",
+    "kaydet": "Speichern",
+    "kapat": "Schließen",
+    "klasor": "Ordner",
+    "dosyaSec": "Datei auswählen",
+    "bos": "Noch keine Dateien.",
+    "yuklendi": "{{ad}} wurde hochgeladen.",
+    "kurallar": "Höchstens {{sayi}} MB. Erlaubte Typen: {{turler}}.",
+    "depo": {
+      "s3": "Speicher: Objektspeicher (Cloudflare R2) — dauerhaft",
+      "veritabani": "Speicher: Datenbank — dauerhaft",
+      "oneri": "Für große Dateien empfiehlt sich Cloudflare R2; das Datenbankkontingent ist klein."
+    },
+    "gorunurluk": {
+      "baslik": "Wer sieht es",
+      "musteri": "Für Kunden sichtbar",
+      "ekip": "Nur Team"
+    },
+    "yukleyen": {
+      "musteri": "vom Kunden hochgeladen",
+      "ajans": "von der Agentur hochgeladen"
+    },
+    "yonetim": {
+      "baslik": "Dateien und Dokumentanfragen",
+      "aciklama": "Ordner pro Kunde, sichere Downloads, befristete Freigabelinks und Dokumentanfragen an Kunden.",
+      "boyutSiniri": "Größenlimit",
+      "sinirKaydedildi": "Größenlimit auf {{sayi}} MB gespeichert.",
+      "musteriSec": "Kunde",
+      "musteriAra": "Nach Name oder E-Mail suchen; Sie können auch eine neue Adresse eingeben",
+      "secimYok": "Wählen Sie einen Kunden, um seine Dateien zu sehen.",
+      "yetkiDegistir": "Sichtbarkeit des Ordners ändern",
+      "yetkiDegisti": "Ordnerberechtigung aktualisiert.",
+      "sil": "Datei löschen",
+      "silOnay": "{{ad}} löschen? Die Freigabelinks werden ebenfalls ungültig.",
+      "silindi": "Datei gelöscht."
+    },
+    "paylasim": {
+      "baslik": "Freigabelink",
+      "gun": "Gültigkeit",
+      "gunSecenek": "{{sayi}} Tage",
+      "sifre": "Passwort",
+      "istegeBagli": "Optional",
+      "sinir": "Download-Limit",
+      "sinirsiz": "Unbegrenzt",
+      "olustur": "Link erstellen",
+      "hazir": "Der Link ist bereit. Senden Sie das Passwort über einen separaten Kanal.",
+      "kopyala": "Link kopieren",
+      "kopyalandi": "Link kopiert.",
+      "birKez": "Diese Adresse wird nur jetzt angezeigt; der Server speichert nur ihren Hash.",
+      "sonKullanma": "Läuft ab",
+      "sifreli": "passwortgeschützt",
+      "iptal": "Widerrufen",
+      "durum": {
+        "gecerli": "Aktiv",
+        "suresi_doldu": "Abgelaufen",
+        "iptal": "Widerrufen",
+        "sinir_doldu": "Download-Limit erreicht",
+        "kilitli": "Gesperrt (zu viele falsche Passwörter)"
+      }
+    },
+    "paylas": {
+      "sayfaBasligi": "Freigegebene Datei",
+      "ust": "Eine Datei wurde mit Ihnen geteilt",
+      "boyut": "Größe",
+      "sonKullanma": "Gültig bis",
+      "kalanHak": "Verbleibende Downloads",
+      "sifreGerekli": "Diese Datei ist passwortgeschützt",
+      "sifreYanlis": "Falsches Passwort. Bitte versuchen Sie es erneut.",
+      "basladi": "Download gestartet.",
+      "gecersizBaslik": "Dieser Link kann nicht verwendet werden",
+      "anaSayfa": "Zur Startseite",
+      "neden": {
+        "bulunamadi": "Der Link wurde nicht gefunden oder ist falsch geschrieben.",
+        "suresi_doldu": "Der Link ist abgelaufen. Bitten Sie den Absender um einen neuen.",
+        "iptal": "Dieser Link wurde vom Absender widerrufen.",
+        "sinir_doldu": "Für diesen Link sind keine Downloads mehr übrig.",
+        "kilitli": "Der Link wurde nach zu vielen falschen Passwörtern gesperrt.",
+        "genel": "Der Link kann gerade nicht geöffnet werden. Bitte versuchen Sie es später erneut."
+      }
+    },
+    "talep": {
+      "baslik": "Dokument vom Kunden anfordern",
+      "aciklama": "Der Kunde sieht es unter \"Angeforderte Dokumente\"; bei Lieferung werden Sie benachrichtigt, vor Fristende geht eine Erinnerung raus.",
+      "belgeAdi": "Dokumentname (z. B. Steuerbescheinigung)",
+      "sonTarih": "Frist",
+      "sonTarihYok": "Keine Frist",
+      "turler": "Akzeptierte Typen (durch Kommas getrennt)",
+      "aciklamaYer": "Beschreibung (optional)",
+      "iste": "Dokument anfordern",
+      "gonderildi": "Dokumentanfrage gesendet.",
+      "iptalEt": "Abbrechen",
+      "durum": {
+        "bekliyor": "Ausstehend",
+        "teslim_edildi": "Geliefert",
+        "iptal": "Abgebrochen",
+        "gecikti": "Frist überschritten"
+      }
+    },
+    "istenen": {
+      "baslik": "Angeforderte Dokumente",
+      "bos": "Derzeit werden keine Dokumente von Ihnen angefordert.",
+      "turler": "Akzeptierte Typen",
+      "yukle": "Dokument hochladen",
+      "yeniSurum": "Neue Version hochladen"
+    },
+    "musteri": {
+      "baslik": "Meine Dateien"
+    },
+    "hata": {
+      "tur_izinsiz": "Dieser Dateityp ist nicht erlaubt ({{uzanti}}).",
+      "tur_talepte_yok": "Der Typ {{uzanti}} wird für dieses Dokument nicht akzeptiert.",
+      "icerik_uyusmuyor": "Der Dateiinhalt passt nicht zur Endung ({{uzanti}}).",
+      "bos_dosya": "Die Datei ist leer.",
+      "boyut_asildi": "Die Datei ist zu groß. Das Limit beträgt {{sinir_mb}} MB.",
+      "gecersiz_sinir": "Das Limit muss eine ganze Zahl zwischen 1 und 100 sein.",
+      "gecersiz_gun": "Die Gültigkeit muss zwischen 1 und 30 Tagen liegen.",
+      "gecersiz_sifre": "Das Passwort muss 4 bis 128 Zeichen lang sein.",
+      "gecersiz_tarih": "Ungültiges Datum.",
+      "gecersiz_eposta": "Ungültige E-Mail-Adresse.",
+      "gecersiz_gorunurluk": "Ungültige Sichtbarkeitsauswahl.",
+      "baslik_gerekli": "Der Dokumentname ist erforderlich.",
+      "bulunamadi": "Datei nicht gefunden.",
+      "klasor_yok": "In diesen Ordner kann nicht hochgeladen werden.",
+      "talep_iptal": "Diese Dokumentanfrage wurde abgebrochen.",
+      "depo_hatasi": "Die Datei konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+      "imza_gecersiz": "Der Download-Link ist abgelaufen.",
+      "oturum_gerekli": "Ihre Sitzung ist beendet; bitte melden Sie sich erneut an.",
+      "yonetici_gerekli": "Diese Aktion erfordert Administratorrechte.",
+      "modul_kapali": "Das Modul Dateien ist für Ihr Konto nicht aktiviert.",
+      "genel": "Die Aktion konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut."
+    }
+  }
+}

@@ -33,7 +33,16 @@
       "site_coktu": "Сайт недоступен",
       "site_duzeldi": "Сайт снова доступен",
       "bitis_yaklasiyor": "Приближается срок окончания",
-      "yenileme_faturasi": "Счёт на продление"
+      "yenileme_faturasi": "Счёт на продление",
+      "dosya_eklendi": "Добавлен новый файл",
+      "belge_talebi": "У вас запросили документ",
+      "belge_teslim": "Запрошенный документ получен",
+      "belge_hatirlatma": "Приближается срок сдачи документа",
+      "belge_gecikti": "Срок сдачи документа истёк",
+      "sla_yaklasiyor": "Истекает срок SLA",
+      "sla_asildi": "SLA нарушен (эскалация)",
+      "aylik_rapor": "Опубликован ежемесячный отчёт",
+      "aylik_rapor_taslak": "Черновики ежемесячных отчётов готовы"
     },
     "kanal": {
       "inapp": "Панель",

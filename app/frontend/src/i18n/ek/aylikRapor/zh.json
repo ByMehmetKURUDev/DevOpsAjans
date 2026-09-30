@@ -1,0 +1,109 @@
+{
+  "aylikRapor": {
+    "durum": {
+      "taslak": "草稿",
+      "yayinlandi": "已发布"
+    },
+    "arsiv": {
+      "baslik": "我的月度报告",
+      "aciklama": "每月完成的工作、网站健康状况和 SEO 得分。打开后可另存为 PDF。",
+      "bos": "暂无已发布的月度报告。",
+      "ac": "打开报告"
+    },
+    "sayfa": {
+      "baslik": "月度报告 — {{donem}}",
+      "belgeBasligi": "月度报告 — {{donem}} | mehmetkuru.dev",
+      "yazdir": "打印 / 另存为 PDF",
+      "taslak": "草稿 — 仅您可见",
+      "bulunamadi": "未找到报告",
+      "bulunamadiAciklama": "链接可能有误，或报告尚未发布。",
+      "anaSayfa": "返回首页",
+      "altBilgi": "本报告生成于 {{tarih}} · mehmetkuru.dev"
+    },
+    "bolum": {
+      "ozet": "摘要：本月工作",
+      "site": "网站健康",
+      "seo": "SEO 与网站分析",
+      "plan": "下月计划",
+      "not": "团队备注"
+    },
+    "ozet": {
+      "isler": "工作记录",
+      "kredi": "已用额度",
+      "saatDegeri": "{{sayi}} 小时",
+      "bakiye": "剩余余额：{{sayi}} 小时",
+      "talepler": "工单",
+      "acilanCozulen": "新建 / 已解决",
+      "sla": "SLA 达成率",
+      "slaYok": "本月没有可统计的工单",
+      "slaAyrinti": "{{uyumlu}} 个按时，{{ihlal}} 个延迟",
+      "tamamlanan": "已完成项目",
+      "yapilanlar": "已完成的工作",
+      "isYok": "本月没有记录的工作。"
+    },
+    "site": {
+      "yok": "您没有受监控的网站。",
+      "uptime": "可用性",
+      "olcum": "{{sayi}} 次检测",
+      "olcumYok": "本月无检测",
+      "kesinti": "中断",
+      "kesintiSure": "共 {{sayi}} 分钟",
+      "alan": "域名",
+      "ssl": "SSL 证书",
+      "hosting": "主机",
+      "kalan": "{{sayi}} 天"
+    },
+    "seo": {
+      "yok": "本月没有网站分析。",
+      "tarih": "最近分析：{{tarih}}",
+      "degisim": "{{sayi}} 分",
+      "bolum": {
+        "hiz": "速度",
+        "seo": "SEO",
+        "icerik": "内容",
+        "teknik": "技术",
+        "guvenlik": "安全",
+        "ai": "AI 可见度"
+      }
+    },
+    "plan": {
+      "yok": "没有进行中的工作。",
+      "projeler": "进行中的项目",
+      "talepler": "未结工单",
+      "belgeler": "待提交资料"
+    },
+    "yonetim": {
+      "baslik": "客户月度报告",
+      "aciklama": "每月 1 日为所有开通模块的客户生成草稿，也可以立即生成。预览、添加备注后发布；客户将收到一封邮件。",
+      "yenileListe": "刷新列表",
+      "musteri": "客户邮箱",
+      "donem": "期间",
+      "simdiOlustur": "立即生成",
+      "olusturuldu": "报告草稿已生成。",
+      "not": "管理员备注（客户可见）",
+      "notYer": "本月亮点、下月重点工作…",
+      "notKaydet": "保存备注",
+      "notKaydedildi": "备注已保存。",
+      "veriYenile": "刷新数据",
+      "veriYenilendi": "报告数据已刷新。",
+      "onizle": "预览",
+      "yayinla": "发布并发送",
+      "yayinlaOnay": "发布报告并向客户发送邮件？发布后的报告无法修改。",
+      "yayinlandi": "报告已发布。",
+      "sil": "删除草稿",
+      "silOnay": "删除此草稿？",
+      "silindi": "草稿已删除。",
+      "liste": "{{sayi}} 份报告 · {{taslak}} 份草稿",
+      "bos": "暂无月度报告。"
+    },
+    "hata": {
+      "genel": "操作未能完成，请重试。",
+      "gecersiz_donem": "期间无效（YYYY-MM）。",
+      "gecersiz_eposta": "邮箱地址无效。",
+      "yayinlandi": "该期间的报告已发布，无法修改。",
+      "bulunamadi": "未找到报告。",
+      "yonetici_gerekli": "此操作需要管理员权限。",
+      "modul_kapali": "您的账户未开通月度报告模块。"
+    }
+  }
+}

@@ -84,6 +84,10 @@
       "yenileme": {
         "ad": "Renewal manager",
         "aciklama": "Track domain, hosting, SSL and subscription renewals in one list; reminders before expiry and one-click renewal invoices."
+      },
+      "bilgi_bankasi": {
+        "ad": "Knowledge base",
+        "aciklama": "FAQs and guides; related articles are suggested when you open a ticket."
       }
     },
     "kategori": {

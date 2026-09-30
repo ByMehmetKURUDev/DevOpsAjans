@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   Gauge,
   Coins,
+  FolderOpen,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -50,6 +51,12 @@ const OnayBekleyenler = ekliLazy('islem', () => import('@/components/OnayBekleye
 const Modullerim = ekliLazy('modul', () => import('@/components/Modullerim'));
 // Faz 2A: "Sitem" sekmesindeki bakım/uptime kartı (ek paket `siteBakim`).
 const SitemBakim = ekliLazy('siteBakim', () => import('@/components/SitemBakim'));
+// Faz 2C: Dosyalar sekmesi; Destek'te bilgi bankası + SLA bilgisi ve talep
+// açarken makale önerisi; Raporlar'da aylık rapor arşivi.
+const Dosyalarim = ekliLazy('dosyalar', () => import('@/components/Dosyalarim'));
+const DestekYardim = ekliLazy('yardim', () => import('@/components/DestekYardim'));
+const KbOnerileri = ekliLazy('yardim', () => import('@/components/KbOnerileri'));
+const AylikRaporArsivi = ekliLazy('aylikRapor', () => import('@/components/AylikRaporArsivi'));
 
 interface AuthUser {
   id?: string;
@@ -99,13 +106,13 @@ interface Ticket {
   created_at?: string;
 }
 
-type Tab = 'projects' | 'invoices' | 'krediler' | 'tickets' | 'raporlar' | 'sitem' | 'analiz' | 'profile';
+type Tab = 'projects' | 'invoices' | 'krediler' | 'tickets' | 'raporlar' | 'sitem' | 'analiz' | 'dosyalar' | 'profile';
 
 /**
  * Bugünkü bütün sekmeler, bugünkü sırayla. Modül bilgisi (`/api/v1/modullerim`)
  * gelene kadar ya da gelmezse (hata) bu liste gösteriliyor — güvenli geri dönüş.
  */
-const SEKMELER: Tab[] = ['projects', 'invoices', 'krediler', 'tickets', 'raporlar', 'sitem', 'analiz', 'profile'];
+const SEKMELER: Tab[] = ['projects', 'invoices', 'krediler', 'tickets', 'raporlar', 'sitem', 'analiz', 'dosyalar', 'profile'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -373,6 +380,7 @@ export default function ClientPanel() {
     raporlar: { label: t('rapor.sekme'), icon: FileText },
     sitem: { label: t('sitem.sekme'), icon: ShieldCheck },
     analiz: { label: t('ui.tabAnaliz'), icon: Gauge },
+    dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
   };
   const TABS: { key: Tab; label: string; icon: typeof Briefcase }[] = gorunenSekmeler.map((s) => ({
@@ -705,6 +713,12 @@ export default function ClientPanel() {
           )}
 
           {tab === 'tickets' && (
+            <Suspense fallback={null}>
+              <DestekYardim kbAcik={modulAcik('bilgi_bankasi')} />
+            </Suspense>
+          )}
+
+          {tab === 'tickets' && (
             <div className="grid gap-8 lg:grid-cols-2">
               <div className="p-6 rounded-2xl glass h-fit">
                 <h3 className="text-lg font-semibold mb-4">
@@ -753,8 +767,14 @@ export default function ClientPanel() {
                       }
                       placeholder={t('ui.ticketSubjectPlaceholder')}
                       className="bg-white/5 border-white/10"
+                      data-testid="talep-konu"
                     />
                   </div>
+                  {modulAcik('bilgi_bankasi') && (
+                    <Suspense fallback={null}>
+                      <KbOnerileri konu={ticketForm.subject} />
+                    </Suspense>
+                  )}
                   <div>
                     <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
                       {t('ui.message')} *
@@ -770,11 +790,13 @@ export default function ClientPanel() {
                       }
                       placeholder={t('ui.ticketMessagePlaceholder')}
                       className="bg-white/5 border-white/10"
+                      data-testid="talep-mesaj"
                     />
                   </div>
                   <Button
                     onClick={submitTicket}
                     disabled={sending}
+                    data-testid="talep-gonder"
                     className="w-full h-11 gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                   >
                     {sending ? (
@@ -845,6 +867,11 @@ export default function ClientPanel() {
 
           {tab === 'raporlar' && modulAcik('raporlar') && (
             <div>
+              {modulAcik('aylik_rapor') && (
+                <Suspense fallback={null}>
+                  <AylikRaporArsivi />
+                </Suspense>
+              )}
               <h3 className="mb-4 text-lg font-semibold">{t('rapor.sekme')}</h3>
               <RaporArsivi />
             </div>
@@ -858,6 +885,18 @@ export default function ClientPanel() {
                 <SitemBakim />
               </Suspense>
             </div>
+          )}
+
+          {tab === 'dosyalar' && modulAcik('dosyalar') && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <Dosyalarim />
+            </Suspense>
           )}
 
           {tab === 'krediler' && modulAcik('krediler') && (

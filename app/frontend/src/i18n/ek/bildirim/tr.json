@@ -33,7 +33,16 @@
       "site_coktu": "Site erişilemiyor",
       "site_duzeldi": "Site yeniden erişilebilir",
       "bitis_yaklasiyor": "Bitiş tarihi yaklaşıyor",
-      "yenileme_faturasi": "Yenileme faturası"
+      "yenileme_faturasi": "Yenileme faturası",
+      "dosya_eklendi": "Yeni dosya eklendi",
+      "belge_talebi": "Sizden belge istendi",
+      "belge_teslim": "İstenen belge teslim edildi",
+      "belge_hatirlatma": "Belge son tarihi yaklaşıyor",
+      "belge_gecikti": "Belge son tarihi geçti",
+      "sla_yaklasiyor": "SLA süresi doluyor",
+      "sla_asildi": "SLA aşıldı (eskalasyon)",
+      "aylik_rapor": "Aylık rapor yayınlandı",
+      "aylik_rapor_taslak": "Aylık rapor taslakları hazır"
     },
     "kanal": {
       "inapp": "Panel",
