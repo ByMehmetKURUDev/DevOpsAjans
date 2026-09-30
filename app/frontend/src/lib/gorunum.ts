@@ -34,10 +34,28 @@ function tarayiciSecimi(): Gorunum | null {
   }
 }
 
+/**
+ * Önbellekteki site ayarı (siteSettings.ts `mk_site_settings_v2`).
+ *
+ * main.tsx görünümü React'in ilk çiziminden önce uygular; ayar isteği o
+ * sırada henüz dönmemiştir. Önbellekteki değer kullanılmazsa Modern
+ * sitede sayfa önce Klasik çiziliyor, ayar gelince bütün sayfa yeniden
+ * stillenip yerleşiyordu (fazladan iş ve kayma).
+ */
+function onbellektekiSiteAyari(): string | undefined {
+  try {
+    const ham = localStorage.getItem('mk_site_settings_v2');
+    return ham ? (JSON.parse(ham) as Record<string, string>).site_gorunum : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 /** Etkin görünümü `<html data-gorunum>` olarak uygular. */
 export function gorunumUygula(siteAyari?: string): void {
   if (typeof document === 'undefined') return;
-  const secim = tarayiciSecimi() ?? (gecerli(siteAyari) ? siteAyari : 'klasik');
+  const ayar = siteAyari ?? onbellektekiSiteAyari();
+  const secim = tarayiciSecimi() ?? (gecerli(ayar) ? ayar : 'klasik');
   if (document.documentElement.getAttribute('data-gorunum') !== secim) {
     document.documentElement.setAttribute('data-gorunum', secim);
   }

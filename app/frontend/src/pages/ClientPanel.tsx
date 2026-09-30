@@ -363,7 +363,7 @@ export default function ClientPanel() {
               <p className="text-xs uppercase tracking-widest text-muted-foreground">
                 {s.label}
               </p>
-              <p className="text-3xl font-bold">{s.value}</p>
+              <p className="cam-parla text-3xl font-bold">{s.value}</p>
             </div>
           </div>
         ))}
@@ -374,7 +374,7 @@ export default function ClientPanel() {
       </Suspense>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
+      <div className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
         {TABS.map((tItem) => (
           <button
             key={tItem.key}

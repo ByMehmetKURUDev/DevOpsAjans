@@ -226,6 +226,7 @@ function OlcekKarti({
 
   return (
     <div
+      data-olcek={scale.kod}
       className={`cam-kart relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300 ${
         scale.populer ? 'cam-one glass border-purple-500/50 ring-1 ring-purple-500/40' : 'glass hover:border-purple-500/30'
       }`}
@@ -242,7 +243,7 @@ function OlcekKarti({
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{yerel(scale, 'aciklama', dil)}</p>
 
       {/* Canlı fiyat */}
-      <div className="mt-4 min-h-[4.25rem]">
+      <div className="cam-fiyat mt-4 min-h-[4.25rem]">
         {yukleniyor && !sonuc ? (
           <div className="flex items-center gap-2 text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -588,7 +589,7 @@ function KullandikcaOdeBlok({
                     </span>
                   )}
                 </div>
-                <div className="mt-2 text-lg font-bold text-white">{paraFormatla(p.fiyat)}</div>
+                <div className="cam-parla mt-2 text-lg font-bold text-white">{paraFormatla(p.fiyat)}</div>
                 <div className="text-[11px] text-muted-foreground">
                   {saat} {t('fiyatV5.saat', 'saat')} • {saatlikFormatla(p.fiyat / saat)}/{t('fiyatV5.saat', 'saat')}
                 </div>
@@ -607,7 +608,7 @@ function KullandikcaOdeBlok({
             {oneri.saat} {t('fiyatV5.saat', 'saat')}
             {oneri.ozel ? ` ${t('fiyatV5.icinOzel', 'için özel')}` : ''}
           </div>
-          <div className="mt-4 text-3xl font-extrabold text-white">
+          <div className="cam-parla mt-4 text-3xl font-extrabold text-white">
             <span className="text-emerald-400">$</span>
             {oneri.fiyat.toLocaleString('en-US', { maximumFractionDigits: 0 })}
           </div>
@@ -822,7 +823,7 @@ function PricingPlans({ className = '' }: { className?: string }) {
           </p>
         ) : (
           <>
-            <div className="cam-dongu grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <div className="cam-dongu cam-numarali grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
               {scales.map((s) => (
                 <OlcekKarti
                   key={s.id}

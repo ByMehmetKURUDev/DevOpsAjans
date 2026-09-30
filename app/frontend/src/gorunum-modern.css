@@ -1,89 +1,551 @@
 /*
- * Modern görünüm — Eylül 2026, onaylı "Temel" önizleme (cam kartlar).
+ * Modern görünüm — "ikonik neon" (Eylül 2026, onaylı önizleme: neon kartlar,
+ * numara rozetleri, α β Ω Σ glifleri, parlayan fiyatlar, neon haplar).
  *
- * İki sürüm: kurallar yalnız `html[data-gorunum="modern"]` altında çalışır.
- * Seçim admin panelindeki Site Ayarları → Görünüm alanından gelir
+ * İki sürüm: bütün kurallar yalnız `:root[data-gorunum="modern"]` altında
+ * çalışır. Seçim admin panelindeki Site Ayarları → Görünüm alanından gelir
  * (`site_gorunum`: "klasik" varsayılan, "modern"); bkz. src/lib/gorunum.ts.
- * Bileşenlere eklenen `cam-*` sınıflarının Klasik görünümde etkisi yok.
+ * Bileşenlere eklenen `cam-*` sınıflarının ve `data-olcek` özniteliğinin
+ * Klasik görünümde hiçbir etkisi yok. Yeni DOM öğesi eklenmedi: rozetler,
+ * glifler ve hero markası `::before/::after` ile buradan üretiliyor.
  * Özelliği tamamen kaldırmak için index.css'teki import satırı silinir.
  *
- * Kapsam: yalnız kartların çerçevesi, zemini ve parıltısı. Arka plan,
- * yazılar, yerleşim ve boşluklar değişmiyor.
+ * Kapsam: sitenin tamamı. Ortak Tailwind sınıf birleşimleri (kart, düğme,
+ * sekme, üst etiket, girdi) genel seçicilerle yakalanıyor; sayfalara tek tek
+ * dokunmak gerekmiyor. Zemin (mor-siyah) değişmiyor, arka plana çizgi
+ * eklenmiyor.
  *
- * Hız: ek dosya ya da istek yok, JavaScript yok, filter/blur yok, sonsuz
- * animasyon yok. Yalnız gölge ve degrade; ikisi de ilk çizimde bir kez
- * hesaplanıyor.
+ * Hız: ek dosya/istek yok, JavaScript yok, sonsuz animasyon yok, blur yok.
+ * Parıltı = statik box-shadow / text-shadow. Kartlarda `.glass`ın
+ * backdrop-filter'ı kapatılıyor (kart zemini zaten koyu), yani Modern
+ * boyamada Klasik'ten daha az iş yapıyor.
  *
- * Özgüllük: `:root[data-gorunum="modern"] .cam-kart` (0,2,0). Tailwind yardımcıları (0,1,0) bu
- * dosyadan sonra geldiği için, kuralların kazanması bu önek sayesinde.
+ * Özgüllük: `:root[data-gorunum="modern"] .x` en az (0,3,0); Tailwind
+ * yardımcıları (0,1,0)/(0,2,0) bu dosyadan sonra gelse de kurallar kazanır.
  */
 
-:root[data-gorunum="modern"] .cam-kart {
-  --cv: 0 220 130; /* yeşil — varsayılan ton */
+:root[data-gorunum='modern'] {
+  --m-y: 16 227 154; /* neon yeşil #10e39a */
+  --m-m: 168 85 247; /* mor #a855f7 */
+  --m-g: 34 211 238; /* camgöbeği #22d3ee */
+  --m-zemin: 8 4 15;
+  /* Kart tonu: kenar/parıltı (--cv) ve koyu zeminde okunur metin (--ct). */
+  --cv: var(--m-y);
+  --ct: var(--m-y);
+}
+
+/* ---------- Tonlar: ızgarada sırayla (yeşil, mor, camgöbeği) ya da tek tek ---------- */
+/* Sıralı tonlar `:where` ile düşük özgüllükte; ardından gelen açık ton sınıfları onları ezer. */
+:root[data-gorunum='modern'] :where(.grid, .cam-dongu) > .cam-kart:where(:nth-child(3n + 2)),
+:root[data-gorunum='modern'] :where(.grid, .cam-dongu) > .glass:where(:nth-child(3n + 2)),
+:root[data-gorunum='modern'] :where(.grid, .cam-dongu) > .border-white\/10:where(:nth-child(3n + 2)) {
+  --cv: var(--m-m);
+  --ct: 196 140 255;
+}
+:root[data-gorunum='modern'] :where(.grid, .cam-dongu) > .cam-kart:where(:nth-child(3n + 3)),
+:root[data-gorunum='modern'] :where(.grid, .cam-dongu) > .glass:where(:nth-child(3n + 3)),
+:root[data-gorunum='modern'] :where(.grid, .cam-dongu) > .border-white\/10:where(:nth-child(3n + 3)) {
+  --cv: var(--m-g);
+  --ct: 103 232 249;
+}
+:root[data-gorunum='modern'] .cam-mor,
+:root[data-gorunum='modern'] .cam-pembe,
+:root[data-gorunum='modern'] [data-olcek='OMEGA'] {
+  --cv: var(--m-m);
+  --ct: 196 140 255;
+}
+:root[data-gorunum='modern'] .cam-gok,
+:root[data-gorunum='modern'] [data-olcek='BETA'] {
+  --cv: var(--m-g);
+  --ct: 103 232 249;
+}
+:root[data-gorunum='modern'] .cam-yesil,
+:root[data-gorunum='modern'] .cam-secili,
+:root[data-gorunum='modern'] [data-olcek='ALFA'],
+:root[data-gorunum='modern'] [data-olcek='SIGMA'] {
+  --cv: var(--m-y);
+  --ct: var(--m-y);
+}
+
+/* ---------- Neon kart ---------- */
+:root[data-gorunum='modern'] .cam-kart,
+:root[data-gorunum='modern'] .rounded-xl.glass,
+:root[data-gorunum='modern'] .rounded-2xl.glass,
+:root[data-gorunum='modern'] .rounded-3xl.glass,
+:root[data-gorunum='modern'] .rounded-2xl.border-white\/10,
+:root[data-gorunum='modern'] .rounded-3xl.border-white\/10 {
   border: 1px solid rgb(var(--cv) / 0.55);
-  background: linear-gradient(160deg, rgb(var(--cv) / 0.1), rgba(24, 12, 42, 0.42) 42%, rgba(10, 5, 20, 0.55));
+  background: linear-gradient(160deg, rgb(var(--cv) / 0.1), rgb(var(--m-zemin) / 0.9) 42%, rgb(var(--m-zemin) / 0.94));
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   box-shadow:
-    0 0 0 1px rgb(var(--cv) / 0.06),
-    0 0 30px -10px rgb(var(--cv) / 0.5),
-    inset 0 0 30px -16px rgb(var(--cv) / 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    0 0 0 1px rgb(var(--cv) / 0.07),
+    0 0 28px -10px rgb(var(--cv) / 0.55),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
 }
-
-/* Tonlar: tek tek ya da bir ızgarada sırayla (yeşil, gök, mor, pembe). */
-:root[data-gorunum="modern"] .cam-kart.cam-gok,
-:root[data-gorunum="modern"] .cam-dongu > .cam-kart:nth-child(4n + 2) {
-  --cv: 56 189 248;
-}
-:root[data-gorunum="modern"] .cam-kart.cam-mor,
-:root[data-gorunum="modern"] .cam-dongu > .cam-kart:nth-child(4n + 3) {
-  --cv: 168 85 247;
-}
-:root[data-gorunum="modern"] .cam-kart.cam-pembe,
-:root[data-gorunum="modern"] .cam-dongu > .cam-kart:nth-child(4n + 4) {
-  --cv: 236 72 153;
-}
-
-/* Öne çıkan kart (Popüler paket, hesaplayıcı sonucu). */
-:root[data-gorunum="modern"] .cam-kart.cam-one {
-  border-color: rgb(var(--cv) / 0.85);
+:root[data-gorunum='modern'] .cam-kart.cam-one {
+  border-color: rgb(var(--cv) / 0.9);
   box-shadow:
-    0 0 0 1px rgb(var(--cv) / 0.18),
-    0 0 42px -8px rgb(var(--cv) / 0.65),
-    inset 0 0 36px -16px rgb(var(--cv) / 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    0 0 0 1px rgb(var(--cv) / 0.2),
+    0 0 40px -8px rgb(var(--cv) / 0.7),
+    inset 0 1px 0 rgb(255 255 255 / 0.08);
 }
-
-/* Seçili kart (kredi paketi önerisi): seçim her zaman yeşil ve belirgin. */
-:root[data-gorunum="modern"] .cam-kart.cam-secili {
-  --cv: 0 220 130;
+:root[data-gorunum='modern'] .cam-kart.cam-secili {
   border-color: rgb(var(--cv));
   box-shadow:
     0 0 0 1px rgb(var(--cv) / 0.35),
-    0 0 36px -8px rgb(var(--cv) / 0.7),
-    inset 0 0 30px -14px rgb(var(--cv) / 0.5);
+    0 0 34px -6px rgb(var(--cv) / 0.75);
 }
-
 @media (hover: hover) {
-  :root[data-gorunum="modern"] .cam-kart:hover {
-    border-color: rgb(var(--cv) / 0.85);
+  :root[data-gorunum='modern'] .cam-kart:hover,
+  :root[data-gorunum='modern'] .rounded-2xl.glass:hover,
+  :root[data-gorunum='modern'] .rounded-3xl.glass:hover,
+  :root[data-gorunum='modern'] .rounded-2xl.border-white\/10:hover {
+    border-color: rgb(var(--cv) / 0.9);
     box-shadow:
-      0 0 0 1px rgb(var(--cv) / 0.14),
-      0 0 44px -8px rgb(var(--cv) / 0.65),
-      inset 0 0 32px -14px rgb(var(--cv) / 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.09);
+      0 0 0 1px rgb(var(--cv) / 0.16),
+      0 0 42px -8px rgb(var(--cv) / 0.7),
+      inset 0 1px 0 rgb(255 255 255 / 0.08);
+  }
+}
+/* Kart içi alt kutular ve ince çizgiler kartın tonunu alır. */
+:root[data-gorunum='modern'] .rounded-xl.border-white\/10,
+:root[data-gorunum='modern'] .rounded-lg.border-white\/10,
+:root[data-gorunum='modern'] .rounded-xl.border-white\/5,
+:root[data-gorunum='modern'] .rounded-lg.border-white\/5 {
+  border-color: rgb(var(--cv) / 0.26);
+}
+:root[data-gorunum='modern'] .cam-kart .border-t.border-white\/10,
+:root[data-gorunum='modern'] .cam-kart .border-b.border-white\/10,
+:root[data-gorunum='modern'] .glass .border-t.border-white\/10,
+:root[data-gorunum='modern'] .glass .border-b.border-white\/10 {
+  border-color: rgb(var(--cv) / 0.2);
+}
+/* Paket başlığının altında kartın tonunda neon çizgi. */
+:root[data-gorunum='modern'] [data-olcek] h3 {
+  position: relative;
+}
+:root[data-gorunum='modern'] [data-olcek] h3::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: -3px;
+  width: 64%;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(var(--cv)), rgb(var(--cv) / 0));
+}
+
+/* ---------- Numara rozeti ("01") ---------- */
+:root[data-gorunum='modern'] .cam-numarali {
+  counter-reset: cam-no;
+}
+:root[data-gorunum='modern'] .cam-numarali > * {
+  counter-increment: cam-no;
+}
+:root[data-gorunum='modern'] .cam-numarali > .cam-kart::before {
+  content: counter(cam-no, decimal-leading-zero);
+  display: block;
+  align-self: flex-start;
+  width: max-content;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: rgb(var(--cv));
+  color: #05010a;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  box-shadow: 0 0 18px -3px rgb(var(--cv) / 0.9);
+}
+/* Paket kartında akışta (ilk satır); glifli kartta ikon bandının solunda. */
+:root[data-gorunum='modern'] .cam-numarali > [data-olcek]::before {
+  margin-bottom: 14px;
+}
+:root[data-gorunum='modern'] .cam-numarali > .cam-glifli::before {
+  position: absolute;
+  top: 1.5rem;
+  inset-inline-start: 1.5rem;
+}
+
+/* ---------- Büyük ince çizgili glif (sağ üst) ---------- */
+:root[data-gorunum='modern'] [data-olcek]::after {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 18px;
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(var(--cv) / 0.95);
+  text-shadow: 0 0 22px rgb(var(--cv) / 0.5);
+  pointer-events: none;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans', 'DejaVu Sans', system-ui, sans-serif;
+}
+:root[data-gorunum='modern'] [data-olcek='ALFA']::after {
+  content: 'α';
+}
+:root[data-gorunum='modern'] [data-olcek='BETA']::after {
+  content: 'β';
+}
+:root[data-gorunum='modern'] [data-olcek='OMEGA']::after {
+  content: 'Ω';
+}
+:root[data-gorunum='modern'] [data-olcek='SIGMA']::after {
+  content: 'Σ';
+}
+/*
+ * Glifli kart: kartın kendi lucide ikonu sağ üste büyük ve neon taşınır.
+ * İkonun akıştaki yeri (h-11 + mb-5 = 64 px) üst dolguya eklenir; kartın
+ * yüksekliği değişmez.
+ */
+:root[data-gorunum='modern'] .cam-glifli {
+  padding-top: calc(1.5rem + 64px);
+}
+:root[data-gorunum='modern'] .cam-glifli > .cam-ikon {
+  position: absolute;
+  top: 0.75rem;
+  inset-inline-end: 0.75rem;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(var(--cv) / 0.22), rgb(var(--cv) / 0));
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--cv) / 0.5),
+    0 0 22px -6px rgb(var(--cv) / 0.85);
+}
+:root[data-gorunum='modern'] .cam-glifli > .cam-ikon > svg {
+  width: 46px;
+  height: 46px;
+  stroke-width: 1.25;
+}
+
+/* ---------- İkon karoları ---------- */
+:root[data-gorunum='modern'] .cam-ikon,
+:root[data-gorunum='modern'] .rounded-xl.bg-gradient-to-br,
+:root[data-gorunum='modern'] .rounded-lg.bg-gradient-to-br,
+:root[data-gorunum='modern'] .rounded-xl.bg-primary\/15,
+:root[data-gorunum='modern'] .rounded-lg.bg-primary\/15 {
+  background: rgb(var(--cv) / 0.1);
+  color: rgb(var(--ct));
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--cv) / 0.6),
+    0 0 16px -4px rgb(var(--cv) / 0.85);
+}
+:root[data-gorunum='modern'] .cam-ikon > svg,
+:root[data-gorunum='modern'] .rounded-xl.bg-gradient-to-br > svg,
+:root[data-gorunum='modern'] .rounded-lg.bg-gradient-to-br > svg,
+:root[data-gorunum='modern'] .rounded-xl.bg-primary\/15 > svg,
+:root[data-gorunum='modern'] .rounded-lg.bg-primary\/15 > svg {
+  color: rgb(var(--ct));
+}
+/* Özellik satırı ikonu: yer kaplamayan, gölgeyle çizilmiş küçük karo. */
+:root[data-gorunum='modern'] li > svg.lucide:first-child {
+  color: rgb(var(--ct));
+  border-radius: 5px;
+  background: rgb(var(--cv) / 0.12);
+  box-shadow:
+    0 0 0 2px rgb(var(--cv) / 0.12),
+    0 0 0 3px rgb(var(--cv) / 0.55),
+    0 0 12px 1px rgb(var(--cv) / 0.45);
+}
+
+/* ---------- Metin: üst etiket, vurgu, fiyat ---------- */
+:root[data-gorunum='modern'] .tracking-\[0\.3em\],
+:root[data-gorunum='modern'] .tracking-\[0\.25em\],
+:root[data-gorunum='modern'] .tracking-\[0\.4em\],
+:root[data-gorunum='modern'] .tracking-\[0\.2em\] {
+  color: rgb(var(--ct));
+  text-shadow: 0 0 14px rgb(var(--cv) / 0.45);
+}
+:root[data-gorunum='modern'] .gradient-text {
+  background: none;
+  color: rgb(var(--ct));
+  text-shadow: 0 0 24px rgb(var(--cv) / 0.45);
+}
+:root[data-gorunum='modern'] .cam-parla {
+  color: rgb(var(--ct));
+  text-shadow: 0 0 18px rgb(var(--cv) / 0.55);
+}
+:root[data-gorunum='modern'] .cam-fiyat {
+  border: 1px solid rgb(var(--cv) / 0.4);
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: rgb(var(--cv) / 0.05);
+}
+
+/* ---------- Düğmeler ---------- */
+/* Birincil: neon yeşil dolu hap + parıltı. */
+:root[data-gorunum='modern'] .bg-gradient-to-r.from-purple-600,
+:root[data-gorunum='modern'] .from-\[rgb\(var\(--hero-a\)\)\],
+:root[data-gorunum='modern'] button.bg-emerald-500,
+:root[data-gorunum='modern'] a.bg-emerald-500,
+:root[data-gorunum='modern'] button.bg-primary,
+:root[data-gorunum='modern'] a.bg-primary {
+  background: rgb(var(--m-y));
+  color: #03140b;
+  border-color: transparent;
+  box-shadow: 0 0 24px -4px rgb(var(--m-y) / 0.75);
+}
+:root[data-gorunum='modern'] button.bg-gradient-to-r.from-purple-600,
+:root[data-gorunum='modern'] button.from-\[rgb\(var\(--hero-a\)\)\],
+:root[data-gorunum='modern'] button.bg-emerald-500,
+:root[data-gorunum='modern'] button.bg-primary,
+:root[data-gorunum='modern'] a.bg-gradient-to-r.from-purple-600,
+:root[data-gorunum='modern'] a.from-\[rgb\(var\(--hero-a\)\)\],
+:root[data-gorunum='modern'] a.bg-emerald-500,
+:root[data-gorunum='modern'] a.bg-primary {
+  border-radius: 999px;
+  font-weight: 700;
+}
+@media (hover: hover) {
+  :root[data-gorunum='modern'] button.bg-gradient-to-r.from-purple-600:hover,
+  :root[data-gorunum='modern'] button.from-\[rgb\(var\(--hero-a\)\)\]:hover,
+  :root[data-gorunum='modern'] button.bg-emerald-500:hover,
+  :root[data-gorunum='modern'] button.bg-primary:hover,
+  :root[data-gorunum='modern'] a.bg-gradient-to-r.from-purple-600:hover,
+  :root[data-gorunum='modern'] a.from-\[rgb\(var\(--hero-a\)\)\]:hover,
+  :root[data-gorunum='modern'] a.bg-emerald-500:hover,
+  :root[data-gorunum='modern'] a.bg-primary:hover {
+    background: rgb(56 240 178);
+    box-shadow: 0 0 32px -2px rgb(var(--m-y) / 0.9);
+  }
+}
+/* İkincil: ince neon çerçeveli hap. */
+:root[data-gorunum='modern'] button.border-input,
+:root[data-gorunum='modern'] button.border-white\/25,
+:root[data-gorunum='modern'] button.border-white\/20,
+:root[data-gorunum='modern'] a.border-input,
+:root[data-gorunum='modern'] a.border-white\/25,
+:root[data-gorunum='modern'] a.border-white\/20 {
+  border-radius: 999px;
+  border-color: rgb(var(--m-y) / 0.45);
+  background: transparent;
+}
+@media (hover: hover) {
+  :root[data-gorunum='modern'] button.border-input:hover,
+  :root[data-gorunum='modern'] button.border-white\/25:hover,
+  :root[data-gorunum='modern'] button.border-white\/20:hover,
+  :root[data-gorunum='modern'] a.border-input:hover,
+  :root[data-gorunum='modern'] a.border-white\/25:hover,
+  :root[data-gorunum='modern'] a.border-white\/20:hover {
+    border-color: rgb(var(--m-y) / 0.85);
+    box-shadow: 0 0 20px -6px rgb(var(--m-y) / 0.8);
   }
 }
 
-/* İkon karoları: kartın tonunda hafif parıltı. */
-:root[data-gorunum="modern"] .cam-kart .cam-ikon {
-  box-shadow: 0 0 18px -4px rgb(var(--cv) / 0.85);
+/* ---------- Seçici hap grupları (profil, ödeme şekli, filtreler) ---------- */
+:root[data-gorunum='modern'] button[aria-pressed='true'] {
+  border-color: rgb(var(--m-y));
+  background-color: rgb(var(--m-y) / 0.1);
+  box-shadow: 0 0 20px -6px rgb(var(--m-y) / 0.9);
+}
+:root[data-gorunum='modern'] button[aria-pressed='false'].border {
+  border-color: rgb(var(--m-g) / 0.4);
+  background-color: rgb(var(--m-g) / 0.05);
+  box-shadow: 0 0 16px -10px rgb(var(--m-g) / 0.9);
+}
+:root[data-gorunum='modern'] [role='group'] > button[aria-pressed='false'] > .rounded-lg:first-child {
+  color: rgb(103 232 249);
+  background: rgb(var(--m-g) / 0.1);
+  box-shadow: inset 0 0 0 1px rgb(var(--m-g) / 0.5);
+}
+:root[data-gorunum='modern'] [role='group'] > button[aria-pressed='true'] > .rounded-lg:first-child {
+  box-shadow: 0 0 14px -2px rgb(var(--m-y) / 0.9);
+}
+:root[data-gorunum='modern'] [role='group'].p-1,
+:root[data-gorunum='modern'] [role='group'].p-1 > button {
+  border-radius: 999px;
+}
+:root[data-gorunum='modern'] [role='group'].p-1 {
+  border-color: rgb(var(--m-y) / 0.25);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  :root[data-gorunum="modern"] .cam-kart {
-    transition: none;
+/* Yönetici / müşteri paneli sekme çubuğu: neon haplar. */
+:root[data-gorunum='modern'] .cam-sekmeler {
+  gap: 8px;
+  padding: 6px 4px 12px;
+  border-bottom-color: rgb(var(--m-y) / 0.18);
+}
+:root[data-gorunum='modern'] .cam-sekmeler > button {
+  padding-block: 8px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgb(var(--m-g) / 0.28);
+}
+:root[data-gorunum='modern'] .cam-sekmeler > button.text-foreground {
+  color: rgb(var(--m-y));
+  background: rgb(var(--m-y) / 0.1);
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--m-y)),
+    0 0 18px -5px rgb(var(--m-y) / 0.9);
+}
+:root[data-gorunum='modern'] .cam-sekmeler > button > span.absolute {
+  display: none;
+}
+
+/* ---------- Rozetler ---------- */
+:root[data-gorunum='modern'] .rounded-full.glass {
+  border-color: rgb(var(--m-y) / 0.45);
+  box-shadow: 0 0 16px -8px rgb(var(--m-y));
+}
+:root[data-gorunum='modern'] span.rounded-full.bg-emerald-500,
+:root[data-gorunum='modern'] div.rounded-full.bg-gradient-to-r.from-purple-600 {
+  box-shadow: 0 0 16px -2px rgb(var(--m-y) / 0.85);
+}
+
+/* ---------- Girdiler ---------- */
+:root[data-gorunum='modern'] input:not([type='checkbox'], [type='radio'], [type='range']),
+:root[data-gorunum='modern'] textarea,
+:root[data-gorunum='modern'] select {
+  border-color: rgb(var(--m-y) / 0.22);
+}
+:root[data-gorunum='modern'] input:not([type='checkbox'], [type='radio'], [type='range']):focus,
+:root[data-gorunum='modern'] textarea:focus,
+:root[data-gorunum='modern'] select:focus {
+  border-color: rgb(var(--m-y) / 0.75);
+  box-shadow:
+    0 0 0 1px rgb(var(--m-y) / 0.35),
+    0 0 16px -6px rgb(var(--m-y) / 0.85);
+}
+
+/* ---------- Üst menü, mobil menü, alt bilgi ---------- */
+:root[data-gorunum='modern'] header.fixed.top-0 {
+  border-bottom: 1px solid rgb(var(--m-y) / 0.14);
+}
+:root[data-gorunum='modern'] header.fixed.top-0.glass {
+  border-width: 0 0 1px;
+  border-color: rgb(var(--m-y) / 0.32);
+  box-shadow: 0 10px 28px -20px rgb(var(--m-y) / 0.8);
+}
+:root[data-gorunum='modern'] header nav a.text-foreground {
+  color: rgb(var(--m-y));
+  text-shadow: 0 0 14px rgb(var(--m-y) / 0.55);
+}
+:root[data-gorunum='modern'] header nav a > span.absolute {
+  width: 28px;
+  background: rgb(var(--m-y));
+  box-shadow: 0 0 10px 1px rgb(var(--m-y) / 0.8);
+}
+/* Mobil menü ve dil menüsü içeriğin üstünde açılır: zemin opak kalmalı. */
+:root[data-gorunum='modern'] header .rounded-2xl.glass,
+:root[data-gorunum='modern'] header .rounded-xl.glass {
+  border-color: rgb(var(--m-y) / 0.4);
+  background: rgb(10 5 18);
+  box-shadow: 0 0 30px -12px rgb(var(--m-y) / 0.7);
+}
+:root[data-gorunum='modern'] header .bg-purple-500\/15,
+:root[data-gorunum='modern'] header .bg-purple-500\/20 {
+  color: rgb(var(--m-y));
+  box-shadow: inset 0 0 0 1px rgb(var(--m-y) / 0.55);
+}
+:root[data-gorunum='modern'] footer {
+  border-top-color: rgb(var(--m-y) / 0.3);
+  box-shadow: 0 -12px 30px -26px rgb(var(--m-y));
+}
+:root[data-gorunum='modern'] footer h3 {
+  color: rgb(var(--m-y));
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-shadow: 0 0 12px rgb(var(--m-y) / 0.45);
+}
+:root[data-gorunum='modern'] footer a:hover {
+  color: rgb(var(--m-y));
+}
+
+/* ---------- Ertelenmiş bölüm yer tutucusu (Index.tsx BOLUM_YUKSEKLIKLERI.modern) ---------- */
+:root[data-gorunum='modern'] .bolum-yer {
+  min-height: var(--yer-mobil-m, var(--yer-mobil, 900px));
+}
+@media (min-width: 1024px) {
+  :root[data-gorunum='modern'] .bolum-yer {
+    min-height: var(--yer-masa-m, var(--yer-masa, 850px));
   }
+}
+
+/* ---------- Hero: büyük "mehmetkuru.dev" markası ---------- */
+:root[data-gorunum='modern'] .hero-marka {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: baseline;
+  max-width: 60rem;
+}
+:root[data-gorunum='modern'] .hero-marka > * {
+  grid-column: 1 / -1;
+}
+:root[data-gorunum='modern'] .hero-marka > :first-child {
+  grid-row: 1;
+  justify-self: start;
+}
+:root[data-gorunum='modern'] .hero-marka > h1 {
+  grid-row: 3;
+  max-width: 21ch;
+  font-size: clamp(26px, 3.3vw, 46px);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+/* Başlık boyutu, hero yüksekliği Klasik ile aynı kalacak biçimde ölçüldü
+   (Modern ilk çizimden sonra açılıyor; yükseklik değişirse sayfa kayar). */
+@media (max-width: 639px) {
+  :root[data-gorunum='modern'] .hero-marka > h1 {
+    font-size: 28px;
+    line-height: 1.18;
+    margin-bottom: 1.75rem;
+  }
+}
+:root[data-gorunum='modern'] .hero-marka > h1 .gradient-text {
+  color: #f4f0f8;
+  text-shadow: none;
+}
+:root[data-gorunum='modern'] .hero-marka > p {
+  grid-row: 4;
+}
+:root[data-gorunum='modern'] .hero-marka > div:last-child {
+  grid-row: 5;
+}
+:root[data-gorunum='modern'] .hero-marka::before,
+:root[data-gorunum='modern'] .hero-marka::after {
+  grid-row: 2;
+  font-size: clamp(40px, 10.2vw, 104px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  direction: ltr;
+}
+:root[data-gorunum='modern'] .hero-marka::before {
+  content: 'mehmetkuru';
+  grid-column: 1;
+  color: #f7f3fb;
+}
+/* ".dev" + neon halka nokta (arka plan olarak çizilir, ek öğe yok). */
+:root[data-gorunum='modern'] .hero-marka::after {
+  content: '.dev';
+  grid-column: 2;
+  padding-inline-end: 0.5em;
+  color: rgb(var(--m-y));
+  text-shadow: 0 0 28px rgb(var(--m-y) / 0.55);
+  background: radial-gradient(
+      circle at calc(100% - 0.17em) 58%,
+      rgb(var(--m-y) / 0) 0.1em,
+      rgb(var(--m-y)) 0.11em,
+      rgb(var(--m-y)) 0.16em,
+      rgb(var(--m-y) / 0.35) 0.18em,
+      rgb(var(--m-y) / 0) 0.3em
+    )
+    no-repeat;
+}
+[dir='rtl'][data-gorunum='modern'] .hero-marka::before {
+  grid-column: 2;
+}
+[dir='rtl'][data-gorunum='modern'] .hero-marka::after {
+  grid-column: 1;
+}
+/* İstatistik şeridi */
+:root[data-gorunum='modern'] .hero-surface > .absolute.bottom-0 {
+  border-top-color: rgb(var(--m-y) / 0.3);
+  box-shadow: 0 -10px 30px -24px rgb(var(--m-y));
+}
+:root[data-gorunum='modern'] .hero-surface > .absolute.bottom-0 .border-r {
+  border-color: rgb(var(--m-y) / 0.14);
 }

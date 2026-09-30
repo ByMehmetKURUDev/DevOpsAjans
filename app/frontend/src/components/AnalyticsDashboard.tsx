@@ -223,7 +223,7 @@ export default function AnalyticsDashboard({
                       <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">
                         {m.metric_label || m.metric_key}
                       </p>
-                      <p className="text-2xl font-bold">
+                      <p className="cam-parla text-2xl font-bold">
                         {formatValue(m.metric_value, locale, m.unit)}
                       </p>
                       {typeof m.change_pct === 'number' && (

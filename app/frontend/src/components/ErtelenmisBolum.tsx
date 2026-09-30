@@ -99,9 +99,11 @@ interface Props {
   /** Bölüm çizilene kadar tutulacak yükseklik — mobil ve masaüstü ayrı. */
   yukseklikMobil: number;
   yukseklikMasa: number;
+  /** Modern görünümde bölüm yüksekliği farklıysa (bkz. gorunum-modern.css). */
+  yukseklikModern?: { mobil: number; masa: number };
 }
 
-export default function ErtelenmisBolum({ children, yukseklikMobil, yukseklikMasa }: Props) {
+export default function ErtelenmisBolum({ children, yukseklikMobil, yukseklikMasa, yukseklikModern }: Props) {
   const [canli, setCanli] = useState(() => SUNUCUDA || hepsiAcik);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -162,6 +164,12 @@ export default function ErtelenmisBolum({ children, yukseklikMobil, yukseklikMas
         {
           '--yer-mobil': `${yukseklikMobil}px`,
           '--yer-masa': `${yukseklikMasa}px`,
+          ...(yukseklikModern
+            ? {
+                '--yer-mobil-m': `${yukseklikModern.mobil}px`,
+                '--yer-masa-m': `${yukseklikModern.masa}px`,
+              }
+            : {}),
         } as React.CSSProperties
       }
       aria-hidden="true"

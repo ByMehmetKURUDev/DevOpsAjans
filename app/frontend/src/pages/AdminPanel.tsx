@@ -852,7 +852,7 @@ export default function AdminPanel() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
+      <div className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
         {TABS.map((tItem) => (
           <button
             key={tItem.key}

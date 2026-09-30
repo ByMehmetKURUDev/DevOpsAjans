@@ -45,14 +45,18 @@ const TECH = [
  * yuksekligi ve kaydirma cubugu bu sayede yerinden oynamiyor. Degerler
  * canli sayfadan olculdu: `mobil` 390x844, `masa` 1280x900 ekranda.
  */
-const BOLUM_YUKSEKLIKLERI: Record<string, { mobil: number; masa: number }> = {
+const BOLUM_YUKSEKLIKLERI: Record<
+  string,
+  { mobil: number; masa: number; modern?: { mobil: number; masa: number } }
+> = {
   kesif: { mobil: 1250, masa: 747 },
   capabilities: { mobil: 1767, masa: 639 },
   process: { mobil: 1481, masa: 683 },
   mimari: { mobil: 1602, masa: 847 },
   panel: { mobil: 1970, masa: 965 },
   // Paketler v6 (profil + ödeme şekli + kredi bloğu), 30 Eylül 2026 ölçümü.
-  packages: { mobil: 4418, masa: 1942 },
+  // Modern görünümde paket kartına numara rozeti ve fiyat kutusu ekleniyor.
+  packages: { mobil: 4418, masa: 1942, modern: { mobil: 4610, masa: 1990 } },
   yatirim: { mobil: 1345, masa: 808 },
   tech: { mobil: 210, masa: 620 },
   playground: { mobil: 1377, masa: 719 },
@@ -164,7 +168,7 @@ export default function Index() {
         <div className="hero-glow hero-glow-b" aria-hidden="true" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-60 md:pt-36 md:pb-44">
-          <div className="max-w-3xl">
+          <div className="hero-marka max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-6">
               <span className="relative flex h-2 w-2">
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-400" />
@@ -246,11 +250,11 @@ export default function Index() {
             </h2>
           </div>
 
-          <div className="cam-dongu grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+          <div className="cam-dongu cam-numarali grid gap-6 md:grid-cols-2 lg:grid-cols-5">
             {CAPABILITIES.map((c) => (
               <div
                 key={c.title}
-                className="cam-kart group relative p-6 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300"
+                className="cam-kart cam-glifli group relative p-6 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300"
               >
                 <div
                   className={`cam-ikon w-11 h-11 rounded-xl bg-gradient-to-br ${c.gradient} flex items-center justify-center mb-5`}
@@ -450,6 +454,7 @@ export default function Index() {
               key={key}
               yukseklikMobil={BOLUM_YUKSEKLIKLERI[key]?.mobil ?? 900}
               yukseklikMasa={BOLUM_YUKSEKLIKLERI[key]?.masa ?? 850}
+              yukseklikModern={BOLUM_YUKSEKLIKLERI[key]?.modern}
             >
               {BOLUMLER[key]}
             </ErtelenmisBolum>
