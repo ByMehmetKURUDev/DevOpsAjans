@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Mail, MapPin, MessageCircle, Send, Phone, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -17,15 +18,60 @@ export default function Contact() {
   const { t } = useTranslation();
   const { settings } = useSiteSettings();
   const whatsappNumber = (settings.whatsapp_number || '905412965878').replace(/\D/g, '');
+  /*
+   * Kesif Asistani'ndan gelindiyse hazirladigi ozet mesaj alanina dusuyor.
+   * Router state ile tasiniyor: adres cubuguna kisisel bilgi yazilmiyor ve
+   * ozet paylasilan bir baglantiyla baskasina gitmiyor.
+   */
+  const location = useLocation();
+  const kesifOzeti =
+    typeof (location.state as { kesifOzeti?: unknown } | null)?.kesifOzeti === 'string'
+      ? ((location.state as { kesifOzeti: string }).kesifOzeti)
+      : '';
+
+  /*
+   * Talep nereden geldi?
+   *
+   * Hangi sayfanın iş getirdiğini bilmeden nereye emek harcanacağına
+   * karar vermek tahmine kalıyor. Marketplace kartından gelindiyse
+   * hangi ÜRÜN olduğu da yazılıyor; "marketplace işe yarıyor mu"
+   * sorusunun cevabı ürün bazında değişiyor.
+   *
+   * Değer ziyaretçinin girdiği bir şey değil, uygulamanın kendi
+   * durumundan geliyor; kişisel veri taşımıyor.
+   */
+  const durum = location.state as { kaynak?: unknown; konu?: unknown } | null;
+  const kaynak = (() => {
+    if (durum?.kaynak === 'marketplace') {
+      const konu = typeof durum.konu === 'string' ? durum.konu.trim() : '';
+      return konu ? `marketplace: ${konu}` : 'marketplace';
+    }
+    if (kesifOzeti) return 'kesif-sihirbazi';
+    return 'iletisim-formu';
+  })();
+
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
-    subject: '',
-    message: '',
+    // Marketplace kartından gelindiyse ürün adı konuya yazılıyor:
+    // ziyaretçi hangi ürün için yazdığını baştan anlatmak zorunda kalmasın.
+    subject:
+      durum?.kaynak === 'marketplace' && typeof durum.konu === 'string' ? durum.konu : '',
+    message: kesifOzeti,
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  /*
+   * Gönderilen adres formu temizledikten sonra da lazım.
+   *
+   * Müşteri panelde projesini ancak talepteki adresle kaydolursa
+   * görüyor — panel bütün kayıtları `client_email` ile eşleştiriyor.
+   * Kayıt bu sitede değil kimlik sağlayıcıda yapıldığı için adresi
+   * forma önceden yazdıramıyoruz; elimizdeki tek koruma, adresi
+   * ekranda açıkça söylemek.
+   */
+  const [gonderilenEposta, setGonderilenEposta] = useState('');
 
   const handleChange = (field: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -47,8 +93,10 @@ export default function Contact() {
           subject: form.subject.trim(),
           message: form.message.trim(),
           status: 'new',
+          source: kaynak,
         },
       });
+      setGonderilenEposta(form.email.trim());
       setSuccess(true);
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
       toast.success(t('contact.success'));
@@ -137,9 +185,32 @@ export default function Contact() {
           <div>
             <div className="relative rounded-3xl glass p-8 md:p-10">
               <div className="absolute -inset-4 bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-cyan-600/10 blur-2xl -z-10 rounded-3xl" />
+              {/*
+                Gönderim sonrası ekran.
+
+                Eskiden yalnızca "mesajınız alındı" yazıyordu ve akış orada
+                bitiyordu: ziyaretçi projesini nereden takip edeceğini hiç
+                öğrenmiyordu. Panel zaten var (/client) ama kimse oraya
+                yönlendirilmiyordu. Şimdi bir sonraki adım burada duruyor.
+              */}
               {success && (
-                <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/30 text-sm text-green-300">
-                  {t('contact.success')}
+                <div className="mb-6 rounded-xl border border-green-500/30 bg-green-500/10 p-5">
+                  <p className="mb-3 text-sm font-semibold text-green-300">
+                    {t('contact.success')}
+                  </p>
+                  <p className="mb-2 text-sm text-muted-foreground">
+                    {t('contact.panelYonlendirme')}
+                  </p>
+                  <p className="mb-4 text-sm">
+                    <span className="text-muted-foreground">{t('contact.panelEposta')}</span>{' '}
+                    <span className="font-mono font-semibold break-all">{gonderilenEposta}</span>
+                  </p>
+                  <Button
+                    asChild
+                    className="h-11 border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+                  >
+                    <Link to="/client">{t('contact.panelBtn')}</Link>
+                  </Button>
                 </div>
               )}
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -234,7 +305,7 @@ export default function Contact() {
       </section>
 
       {/* Map Section */}
-      <section className="pb-24">
+      <section className="alt-bolum pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="rounded-3xl overflow-hidden glass border border-white/10">
             <iframe

@@ -215,7 +215,7 @@ def run_in_debug_mode(app: FastAPI):
     from dotenv import load_dotenv
 
     # Load environment variables from ../.env in debug mode
-    # If `LOCAL_DEBUG=true` is set, then MetaGPT's `ProjectBuilder.build()` will generate the `.env` file
+    # Local development only; the deployed service reads env vars from Render.
     env_path = Path(__file__).parent.parent / ".env"
     if env_path.exists():
         load_dotenv(env_path, override=True)

@@ -151,7 +151,7 @@ export default function Services() {
     values: (
       <>
       {/* Values */}
-      <section className="py-24 border-t border-white/5">
+      <section className="alt-bolum py-24 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-14">
             <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-4">
@@ -176,7 +176,7 @@ export default function Services() {
     services: (
       <>
       {/* Services header */}
-      <section className="py-24 border-t border-white/5 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="alt-bolum py-24 border-t border-white/5 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-4">{t('services.sectionTag')}</p>
         <h2 className="text-4xl md:text-6xl font-bold leading-[1.05] mb-6">
           {t('services.title')} <span className="gradient-text">{t('services.titleHighlight')}</span>.
@@ -187,7 +187,7 @@ export default function Services() {
       </section>
 
       {/* Services grid */}
-      <section className="pb-24">
+      <section className="alt-bolum pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {CORE_SERVICES.map((s) => (
             <div
@@ -222,7 +222,7 @@ export default function Services() {
     timeline: (
       <>
       {/* Timeline */}
-      <section className="py-24 border-t border-white/5">
+      <section className="alt-bolum py-24 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-14 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-cyan-400 mb-4">{t('about.journeyTag')}</p>
@@ -233,7 +233,7 @@ export default function Services() {
               <div key={item.year} className="relative mb-10 last:mb-0">
                 <div className="absolute -left-[38px] top-1 h-4 w-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 ring-4 ring-background" />
                 <div className="text-sm font-mono text-purple-400 mb-1">{item.year}</div>
-                <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
+                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
                 <p className="text-muted-foreground">{item.desc}</p>
               </div>
             ))}

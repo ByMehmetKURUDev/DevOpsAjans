@@ -1,12 +1,18 @@
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Menu, X, User, LogIn, LogOut, UserPlus } from 'lucide-react';
+import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
+import AsistanSohbeti from '@/components/AsistanSohbeti';
+import PazarlamaEtiketleri from '@/components/PazarlamaEtiketleri';
+import RizaBandi from '@/components/RizaBandi';
+import { rizayiSifirla } from '@/lib/riza';
 import { Button } from '@/components/ui/button';
 import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
 import SocialLinks from '@/components/SocialLinks';
 import StoreBadges from '@/components/StoreBadges';
-import { client } from '@/lib/sdkClient';
+import { client, oturumIziVarMi, oturumIziniTemizle, yetkisizHataMi } from '@/lib/sdkClient';
+import MarkaLogosu from '@/components/MarkaLogosu';
+import HashKaydirma from '@/components/HashKaydirma';
 import { useTranslation } from 'react-i18next';
 import {
   useSiteSettings,
@@ -27,7 +33,7 @@ import {
   PAGE_SEO,
   PAGE_SEO_KEYS,
   SITE_NAME,
-  SITE_URL,
+  absoluteUrl,
   canonicalPathFor as normalizeRoutePath,
   getLanguage as getSiteLanguage,
   localizedPath,
@@ -80,7 +86,6 @@ function getRouteMeta(path: string, settings: SettingsMap) {
   };
 }
 
-
 interface AuthUser {
   id?: string;
   email?: string;
@@ -102,22 +107,59 @@ export default function Layout() {
 
   // Gezinme bağlantıları aktif dilin ön ekini taşır; blog yalnızca Türkçe.
   const activeLang = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : DEFAULT_LANGUAGE;
+  /*
+   * Capali baglanti ("/#nasil-calisir") NavLink icin sadece "/" gorunuyor,
+   * bu yuzden Ana Sayfa ile ayni anda aktif isaretleniyordu. Aktifligi
+   * capaya gore kendimiz belirliyoruz.
+   */
+  const navAktifMi = (linkTo: string, routerAktif: boolean) => {
+    const capaBasi = linkTo.indexOf('#');
+    if (capaBasi !== -1) return location.hash === linkTo.slice(capaBasi);
+    return routerAktif && !location.hash;
+  };
+
   const NAV_LINKS = [
     { to: localizedPath(activeLang, 'home'), label: t('nav.home') },
     { to: localizedPath(activeLang, 'services'), label: t('nav.services') },
     { to: localizedPath(activeLang, 'portfolio'), label: t('nav.portfolio') },
+    { to: localizedPath(activeLang, 'marketplace'), label: t('nav.marketplace') },
     { to: BLOG_INDEX_ROUTE.routePath, label: t('nav.blog') },
     { to: localizedPath(activeLang, 'contact'), label: t('nav.contact') },
   ];
 
   useEffect(() => {
+    // Oturum izi yoksa cagri kesin 401 doner; bos yere istek atmiyoruz.
+    if (!oturumIziVarMi()) {
+      setAuthLoading(false);
+      return;
+    }
+    // Render ucretsiz plani uykudan kalkarken `me()` yarim dakika askida
+    // kalabiliyor. Eskiden bu sure boyunca header'da ne profil ne de
+    // Giris/Kayit goruluyordu -- kullanici butonlar yok saniyordu.
+    // Artik 3 saniyede vazgecip butonlari aciyoruz; yanit sonra gelirse
+    // profil yerine oturuyor.
+    let cevapGeldi = false;
+    const zamanAsimi = window.setTimeout(() => {
+      if (!cevapGeldi) setAuthLoading(false);
+    }, 3000);
+
     client.auth
       .me()
       .then((res) => {
         if (res?.data) setUser(res.data as AuthUser);
+        else oturumIziniTemizle();
       })
-      .catch(() => {})
-      .finally(() => setAuthLoading(false));
+      .catch((hata) => {
+        // Sadece 401'de siliyoruz: gecici ag hatasi oturumu dusurmesin.
+        if (yetkisizHataMi(hata)) oturumIziniTemizle();
+      })
+      .finally(() => {
+        cevapGeldi = true;
+        window.clearTimeout(zamanAsimi);
+        setAuthLoading(false);
+      });
+
+    return () => window.clearTimeout(zamanAsimi);
   }, []);
 
   useEffect(() => {
@@ -202,7 +244,7 @@ export default function Layout() {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', `${SITE_URL}${canonicalPath}`);
+    canonical.setAttribute('href', absoluteUrl(canonicalPath));
 
     upsertMeta('meta[name="description"]', { name: 'description', content: description });
     upsertMeta('meta[property="og:title"]', { property: 'og:title', content: title });
@@ -237,11 +279,11 @@ export default function Layout() {
       const alternates = [
         ...LANGUAGE_CODES.map((code) => ({
           hreflang: getSiteLanguage(code).htmlLang,
-          href: `${SITE_URL}${localizedPath(code, routeMeta.pageKey)}`,
+          href: absoluteUrl(localizedPath(code, routeMeta.pageKey)),
         })),
         {
           hreflang: 'x-default',
-          href: `${SITE_URL}${localizedPath(DEFAULT_LANGUAGE, routeMeta.pageKey)}`,
+          href: absoluteUrl(localizedPath(DEFAULT_LANGUAGE, routeMeta.pageKey)),
         },
       ];
 
@@ -265,8 +307,7 @@ export default function Layout() {
   }, [i18n]);
 
   const isAdmin = isAdminUser(user, settings);
-  const logoSrc = settings.brand_logo || '/assets/logo-mark.webp';
-  const whatsappNumber = (settings.whatsapp_number || '905412965878').replace(/\D/g, '');
+  const logoSrc = settings.brand_logo || '/assets/logo-mark-144.webp';
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -287,19 +328,7 @@ export default function Layout() {
               kaldırıldı — saydam görselin arkasında mor bir leke olarak
               görünüyorlardı. Künye doğrudan site zemininin üstünde duruyor.
             */}
-            <div className="relative">
-              <img
-                src={logoSrc}
-                alt={t('ui.logoAlt')}
-                width={48}
-                height={48}
-                decoding="async"
-                className="relative h-12 w-12 object-contain transition-transform group-hover:scale-105"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.display = 'none';
-                }}
-              />
-            </div>
+            <MarkaLogosu />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
@@ -310,7 +339,7 @@ export default function Layout() {
                 end={link.to === '/'}
                 className={({ isActive }) =>
                   `relative px-4 py-2 text-sm font-medium transition-colors rounded-md ${
-                    isActive
+                    navAktifMi(link.to, isActive)
                       ? 'text-foreground'
                       : 'text-muted-foreground hover:text-foreground'
                   }`
@@ -319,7 +348,7 @@ export default function Layout() {
                 {({ isActive }) => (
                   <>
                     {link.label}
-                    {isActive && (
+                    {navAktifMi(link.to, isActive) && (
                       <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
                     )}
                   </>
@@ -335,7 +364,7 @@ export default function Layout() {
                 onClick={() => setLangOpen((s) => !s)}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
               >
-                <span className="text-base">{currentLang.flag}</span>
+                <Languages className="h-4 w-4" aria-hidden="true" />
                 {currentLang.label}
               </button>
               {langOpen && (
@@ -354,7 +383,6 @@ export default function Layout() {
                           : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
                       }`}
                     >
-                      <span className="text-base">{lang.flag}</span>
                       <span className="font-medium">{lang.label}</span>
                       <span className="ms-auto text-xs text-muted-foreground">
                         {lang.full}
@@ -433,7 +461,7 @@ export default function Layout() {
                 end={link.to === '/'}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
+                    navAktifMi(link.to, isActive)
                       ? 'bg-purple-500/15 text-foreground'
                       : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
                   }`
@@ -458,7 +486,6 @@ export default function Layout() {
                         : 'text-muted-foreground hover:text-foreground'
                     }`}
                   >
-                    <span>{lang.flag}</span>
                     {lang.label}
                   </button>
                 ))}
@@ -512,20 +539,7 @@ export default function Layout() {
       <footer className="border-t border-white/5 bg-background/60 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <img
-                src={logoSrc}
-                alt={t('ui.logoAlt')}
-                width={48}
-                height={48}
-                loading="lazy"
-                decoding="async"
-                className="h-12 w-12 object-contain"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.display = 'none';
-                }}
-              />
-            </div>
+            <MarkaLogosu />
             <p className="text-sm text-muted-foreground max-w-md">
               {t('footer.desc')}
             </p>
@@ -537,9 +551,9 @@ export default function Layout() {
             <SocialLinks className="pt-2" />
           </div>
           <div>
-            <h4 className="text-sm font-semibold mb-4 tracking-wide">
+            <h3 className="text-sm font-semibold mb-4 tracking-wide">
               {t('footer.navigate')}
-            </h4>
+            </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               {NAV_LINKS.map((l) => (
                 <li key={l.to}>
@@ -559,9 +573,9 @@ export default function Layout() {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-semibold mb-4 tracking-wide">
+            <h3 className="text-sm font-semibold mb-4 tracking-wide">
               {t('footer.contact')}
-            </h4>
+            </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <a
@@ -588,28 +602,44 @@ export default function Layout() {
             />
           </div>
         </div>
-        <div className="border-t border-white/5 py-6 text-center text-xs text-muted-foreground">
-          &copy; 2026 {t('footer.copyright')}
+        <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t border-white/5 py-6 text-center text-xs text-muted-foreground">
+          <span>&copy; 2026 {t('footer.copyright')}</span>
+          <span aria-hidden="true">·</span>
+          {/*
+            Rızayı geri almanın bir yolu olmak zorunda: KVKK ve GDPR
+            "vazgeçmek en az onaylamak kadar kolay olsun" diyor.
+            Karar sıfırlanınca bant yeniden çıkıyor.
+          */}
+          <button
+            type="button"
+            onClick={rizayiSifirla}
+            className="underline underline-offset-2 transition-colors hover:text-foreground"
+          >
+            {t('riza.tercihler')}
+          </button>
         </div>
       </footer>
 
+      <HashKaydirma />
       <ScrollToTop />
 
-      {/* Floating WhatsApp */}
-      <a
-        href={`https://wa.me/${whatsappNumber}`}
-        target="_blank"
-        rel="noreferrer"
-        className={`fixed bottom-6 z-40 group ${isRtl ? 'left-6' : 'right-6'}`}
-        aria-label={t('contact.whatsappLabel')}
-      >
-        <div className="absolute inset-0 rounded-full bg-green-500 blur-lg opacity-60 group-hover:opacity-90 transition-opacity" />
-        <div className="relative flex items-center justify-center h-14 w-14 rounded-full bg-[#25D366] text-white shadow-xl shadow-green-500/30 group-hover:scale-110 transition-transform">
-          <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-          </svg>
-        </div>
-      </a>
+      {/*
+        Sağ alt köşe: tek tuş.
+
+        Eskiden burada AI asistanın altında ayrı bir WhatsApp balonu
+        vardı. WhatsApp artık asistan panelinin içindeki kanal satırında
+        (arama, SMS, e-posta ve toplantı ile birlikte) — iki üst üste
+        balon mobilde yer kaplıyor ve ziyaretçiye gereksiz bir seçim
+        yaptırıyordu.
+      */}
+      <AsistanSohbeti />
+
+      {/* Reklam ve dogrulama etiketleri; kimlikler panelden geliyor. */}
+      <PazarlamaEtiketleri />
+
+      {/* Olcum ve reklam rizasi; cevaplanana kadar hicbir izleme yok. */}
+      <RizaBandi />
+
     </div>
   );
 }

@@ -11,12 +11,14 @@ import ar from '../src/i18n/ar.json';
 import ru from '../src/i18n/ru.json';
 import zh from '../src/i18n/zh.json';
 import hi from '../src/i18n/hi.json';
+import tr from '../src/i18n/tr.json';
 
 import Layout from '../src/components/Layout';
 import LanguageGate from '../src/components/LanguageGate';
 import Index from '../src/pages/Index';
 import Services from '../src/pages/Services';
 import Portfolio from '../src/pages/Portfolio';
+import Marketplace from '../src/pages/Marketplace';
 import Contact from '../src/pages/Contact';
 import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
@@ -76,6 +78,7 @@ function renderApp(url) {
             h(Route, { path: '/', element: h(Index, null) }),
             h(Route, { path: '/services', element: h(Services, null) }),
             h(Route, { path: '/portfolio', element: h(Portfolio, null) }),
+            h(Route, { path: '/marketplace', element: h(Marketplace, null) }),
             h(Route, { path: '/contact', element: h(Contact, null) }),
             h(Route, { path: '/blog', element: h(BlogIndexPage, null) }),
             h(Route, { path: '/blog/:slug', element: h(BlogPostPage, null) }),
@@ -86,6 +89,7 @@ function renderApp(url) {
             h(Route, { index: true, element: h(Index, null) }),
             h(Route, { path: 'services', element: h(Services, null) }),
             h(Route, { path: 'portfolio', element: h(Portfolio, null) }),
+            h(Route, { path: 'marketplace', element: h(Marketplace, null) }),
             h(Route, { path: 'contact', element: h(Contact, null) }),
           ),
         ),
@@ -104,6 +108,30 @@ function getBlogSlug(url) {
 function meta(attribute, key, value) {
   if (!value) return null;
   return { type: 'meta', props: { [attribute]: key, content: value } };
+}
+
+/**
+ * Ana sayfadaki SSS'in FAQPage karşılığı.
+ *
+ * Sorular ekranda görünen metinlerin ta kendisi (`tr.json` → `sss`), ayrı
+ * bir liste tutulmuyor: bölümde soru değişince arama sonuçlarındaki
+ * karşılığı da değişiyor. Google yalnızca sayfada görünen içeriğin
+ * işaretlenmesini istiyor, bu yüzden tek kaynak olması önemli.
+ */
+function faqJsonLd() {
+  const sss = tr.sss || {};
+  const girisler = [];
+  for (let i = 1; i <= 12; i++) {
+    const kayit = sss[`s${i}`];
+    if (!kayit || !kayit.soru || !kayit.cevap) break;
+    girisler.push({
+      '@type': 'Question',
+      name: kayit.soru,
+      acceptedAnswer: { '@type': 'Answer', text: kayit.cevap },
+    });
+  }
+  if (girisler.length === 0) return null;
+  return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: girisler };
 }
 
 function jsonLd(data) {
@@ -327,6 +355,9 @@ function getHead(url, panelSettings = {}) {
         // Yapısal veri yalnızca Türkçe ana sayfada; aksi hâlde her sayfa
         // kendini ayrı bir "profesyonel hizmet" kaydı olarak bildiriyordu.
         ...(pageKey === 'home' && lang === DEFAULT_LANGUAGE ? [jsonLd(ORGANIZATION_JSONLD)] : []),
+        ...(pageKey === 'home' && lang === DEFAULT_LANGUAGE && faqJsonLd()
+          ? [jsonLd(faqJsonLd())]
+          : []),
       ],
     });
   }

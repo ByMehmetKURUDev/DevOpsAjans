@@ -1,6 +1,6 @@
 ---
 title: "Customer 360 ve Kimlik Çözümleme (Identity Resolution)"
-description: "Customer 360 nedir ve kimlik çözümleme nasıl yapılır? Deterministik ve olasılıksal eşleme, kimlik grafiği, veri kalitesi, gizlilik sınırları ve uygulama adımları."
+description: "Customer 360 nedir ve kimlik çözümleme nasıl yapılır? Deterministik ve olasılıksal eşleme, kimlik grafiği, veri kalitesi ve gizlilik sınırları."
 keywords: "Customer 360, kimlik çözümleme, identity resolution, müşteri birleştirme, kimlik grafiği, deterministik eşleme, tek müşteri görünümü"
 category: "Veri ve Analitik"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "SEO Otomasyonu Nedir? Tekrarlayan SEO İşlerini Otomatikleştirme"
-description: "SEO otomasyonu ile hangi işler otomatikleştirilebilir? Veri toplama, denetim, raporlama, uyarı sistemleri, içerik operasyonları ve otomasyonun sınırları üzerine pratik rehber."
+description: "SEO otomasyonu ile hangi işler otomatikleştirilebilir? Veri toplama, denetim, raporlama, uyarı sistemleri ve otomasyonun sınırları."
 keywords: "SEO otomasyonu, SEO automation, otomatik SEO denetimi, SEO raporlama otomasyonu, SEO uyarı sistemi, veri toplama otomasyonu"
 category: "SEO"
 tags:

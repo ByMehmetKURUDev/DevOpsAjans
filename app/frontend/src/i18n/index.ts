@@ -7,19 +7,27 @@ export interface LanguageMeta {
   code: string;
   label: string;
   full: string;
-  flag: string;
   dir: 'ltr' | 'rtl';
   htmlLang: string;
 }
 
+/*
+ * Dil listesinde bayrak emojisi yok.
+ *
+ * Bayraklar Windows'ta zaten hiç çizilmiyor (işletim sistemi bayrak
+ * emojilerini desteklemiyor, iki harf olarak görünüyorlardı). Ayrıca
+ * bayrak dili değil ülkeyi anlatır; İngilizce'yi tek bir bayrakla
+ * göstermek doğru da değil. Arı metin: `label` kısa kod (TR, EN),
+ * `full` dilin kendi adı.
+ */
 export const SUPPORTED_LANGUAGES: LanguageMeta[] = [
-  { code: 'tr', label: 'TR', full: 'Türkçe', flag: '🇹🇷', dir: 'ltr', htmlLang: 'tr' },
-  { code: 'en', label: 'EN', full: 'English', flag: '🇬🇧', dir: 'ltr', htmlLang: 'en' },
-  { code: 'de', label: 'DE', full: 'Deutsch', flag: '🇩🇪', dir: 'ltr', htmlLang: 'de' },
-  { code: 'ar', label: 'AR', full: 'العربية', flag: '🇸🇦', dir: 'rtl', htmlLang: 'ar' },
-  { code: 'ru', label: 'RU', full: 'Русский', flag: '🇷🇺', dir: 'ltr', htmlLang: 'ru' },
-  { code: 'zh', label: 'ZH', full: '中文', flag: '🇨🇳', dir: 'ltr', htmlLang: 'zh' },
-  { code: 'hi', label: 'HI', full: 'हिन्दी', flag: '🇮🇳', dir: 'ltr', htmlLang: 'hi' },
+  { code: 'tr', label: 'TR', full: 'Türkçe', dir: 'ltr', htmlLang: 'tr' },
+  { code: 'en', label: 'EN', full: 'English', dir: 'ltr', htmlLang: 'en' },
+  { code: 'de', label: 'DE', full: 'Deutsch', dir: 'ltr', htmlLang: 'de' },
+  { code: 'ar', label: 'AR', full: 'العربية', dir: 'rtl', htmlLang: 'ar' },
+  { code: 'ru', label: 'RU', full: 'Русский', dir: 'ltr', htmlLang: 'ru' },
+  { code: 'zh', label: 'ZH', full: '中文', dir: 'ltr', htmlLang: 'zh' },
+  { code: 'hi', label: 'HI', full: 'हिन्दी', dir: 'ltr', htmlLang: 'hi' },
 ];
 
 export const LANGUAGE_CODES = SUPPORTED_LANGUAGES.map((l) => l.code);

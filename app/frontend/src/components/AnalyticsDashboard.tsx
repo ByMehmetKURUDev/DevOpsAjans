@@ -271,12 +271,12 @@ export default function AnalyticsDashboard({
               <Tooltip
                 contentStyle={{
                   background: '#150a2b',
-                  border: '1px solid rgba(139,61,255,0.4)',
+                  border: '1px solid rgb(var(--hero-a) / 0.4)',
                   borderRadius: 12,
                   color: '#ece6ff',
                 }}
               />
-              <Bar dataKey="deger" fill="#8b3dff" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="deger" fill="rgb(var(--hero-a))" radius={[8, 8, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

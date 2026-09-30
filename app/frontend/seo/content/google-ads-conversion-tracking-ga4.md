@@ -1,6 +1,6 @@
 ---
 title: "Google Ads Dönüşüm İzleme: GA4 ile Doğru Kurulum"
-description: "Google Ads dönüşüm izleme nasıl kurulur? GA4 önemli olay içe aktarımı, doğrudan Ads etiketi, gelişmiş dönüşümler, dönüşüm değeri, çift sayım önleme ve doğrulama adımları."
+description: "Google Ads dönüşüm izleme nasıl kurulur? GA4 olay içe aktarımı, Ads etiketi, gelişmiş dönüşümler, çift sayım önleme ve doğrulama adımları."
 keywords: "Google Ads dönüşüm izleme, GA4 dönüşüm içe aktarma, gelişmiş dönüşümler, dönüşüm değeri, çift sayım, dönüşüm doğrulama"
 category: "Reklam"
 tags:

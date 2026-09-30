@@ -20,6 +20,7 @@ interface Project {
   status?: string;
   tech_stack?: string;
   featured?: boolean;
+  published?: boolean;
   date?: string;
   created_at?: string;
 }
@@ -75,7 +76,10 @@ export default function Portfolio() {
       .then((res) => {
         if (cancelled) return;
         const items = (res?.data?.items ?? []) as Project[];
-        setDbProjects(items);
+        // Bu sayfa herkese açık. Veritabanındaki projeler aynı zamanda
+        // müşteri panelinin kayıtları: devam eden bir müşteri işi burada
+        // görünmemeli. Yalnızca yönetici tarafından yayına alınanlar geçer.
+        setDbProjects(items.filter((p) => p.published === true));
       })
       .catch(() => {})
       .finally(() => {
@@ -175,7 +179,7 @@ export default function Portfolio() {
     grid: (
       <>
       {/* Grid */}
-      <section className="pb-16">
+      <section className="alt-bolum pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="py-24 flex items-center justify-center text-muted-foreground">
@@ -262,7 +266,7 @@ export default function Portfolio() {
       <>
       {/* Timeline — yatay şerit */}
       {!loading && filtered.length > 0 && (
-        <section className="pb-24 border-t border-white/5 pt-16">
+        <section className="alt-bolum pb-24 border-t border-white/5 pt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold mb-3">{t('ui.timeline')}</h2>
             <p className="text-sm text-muted-foreground mb-8">{t('ui.timelineHint')}</p>

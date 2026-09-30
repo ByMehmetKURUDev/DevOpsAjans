@@ -1,6 +1,6 @@
 ---
-title: "SEO Log Analizi Nedir? Sunucu Kayıtlarıyla Tarama Davranışını Okumak"
-description: "SEO log analizi ile arama botlarının gerçek tarama davranışını inceleme: log toplama, bot doğrulama, tarama bütçesi dağılımı, hata tespiti ve aksiyon üretme yöntemi."
+title: "SEO Log Analizi: Sunucu Kayıtlarıyla Tarama Davranışı"
+description: "SEO log analizi ile arama botlarının gerçek tarama davranışını inceleme: log toplama, bot doğrulama, tarama bütçesi dağılımı ve hata tespiti."
 keywords: "SEO log analizi, log file analysis, sunucu logları, crawl budget analizi, bot doğrulama, Googlebot logları, tarama davranışı"
 category: "SEO"
 tags:

@@ -1,6 +1,6 @@
 ---
 title: "Frontend Mimarisi Nasıl Kurulur?"
-description: "Ölçeklenebilir frontend mimarisi: klasör yapısı, katman ayrımı, durum yönetimi stratejisi, tasarım sistemi, veri katmanı, test yaklaşımı ve teknik borç yönetimi."
+description: "Ölçeklenebilir frontend mimarisi: klasör yapısı, katman ayrımı, durum yönetimi, tasarım sistemi, veri katmanı ve test yaklaşımı."
 keywords: "frontend mimarisi, klasör yapısı, katmanlı mimari, durum yönetimi, tasarım sistemi, bileşen mimarisi, feature-based yapı, teknik borç"
 category: "Web Geliştirme"
 tags:

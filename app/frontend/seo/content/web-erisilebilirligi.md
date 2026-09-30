@@ -1,6 +1,6 @@
 ---
 title: "Web Erişilebilirliği (a11y) Rehberi"
-description: "Web erişilebilirliği nasıl sağlanır? WCAG ilkeleri, semantik HTML, klavye gezinmesi, ekran okuyucu uyumu, renk kontrastı, form erişilebilirliği ve test yöntemleri."
+description: "Web erişilebilirliği nasıl sağlanır? WCAG ilkeleri, semantik HTML, klavye gezinmesi, ekran okuyucu uyumu, renk kontrastı ve test yöntemleri."
 keywords: "web erişilebilirliği, a11y, WCAG, semantik HTML, ekran okuyucu, klavye gezinmesi, renk kontrastı, ARIA, erişilebilirlik testi"
 category: "Web Geliştirme"
 tags:

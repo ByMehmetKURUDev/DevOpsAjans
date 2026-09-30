@@ -1,6 +1,6 @@
 ---
 title: "Programmatic SEO Nedir? Şablon Tabanlı Ölçekli İçerik Üretimi"
-description: "Programmatic SEO ile veri tabanlı şablonlardan binlerce sayfa üretme yöntemi: veri modeli, şablon tasarımı, kalite eşiği, indeksleme kontrolü ve thin content riskini yönetme."
+description: "Programmatic SEO ile veri tabanlı şablonlardan ölçekli sayfa üretme: veri modeli, şablon tasarımı, kalite eşiği ve thin content riskini yönetme."
 keywords: "programmatic SEO, ölçekli içerik üretimi, şablon tabanlı SEO, veri tabanlı sayfa üretimi, thin content, indeksleme yönetimi, sayfa şablonu"
 category: "SEO"
 tags:

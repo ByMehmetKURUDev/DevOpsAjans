@@ -1,6 +1,6 @@
 ---
 title: "SEO API Kullanımı: Veri Kaynaklarını Programatik Olarak Bağlamak"
-description: "SEO API'leri ile Search Console, analitik ve sıralama verilerini programatik olarak çekme, kimlik doğrulama, kota yönetimi, veri modeli tasarımı ve hata yönetimi rehberi."
+description: "SEO API'leri ile Search Console ve analitik verilerini programatik çekme: kimlik doğrulama, kota yönetimi, veri modeli ve hata yönetimi."
 keywords: "SEO API, Search Console API, analytics API, veri çekme, kota yönetimi, rate limit, API kimlik doğrulama, SEO veri entegrasyonu"
 category: "SEO"
 tags:

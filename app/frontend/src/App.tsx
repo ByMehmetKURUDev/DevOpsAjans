@@ -15,11 +15,13 @@ const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthError = lazy(() => import('./pages/AuthError'));
 const Services = lazy(() => import('./pages/Services'));
 const Portfolio = lazy(() => import('./pages/Portfolio'));
+const Marketplace = lazy(() => import('./pages/Marketplace'));
 const BlogIndexPage = lazy(() => import('./pages/blog/BlogIndexPage'));
 const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
 const Contact = lazy(() => import('./pages/Contact'));
 const ClientPanel = lazy(() => import('./pages/ClientPanel'));
 const AdminPanel = lazy(() => import('./pages/AdminPanel'));
+const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -37,11 +39,14 @@ const AppRoutes = () => (
         <Route path="/" element={<Index />} />
         <Route path="/services" element={<Services />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/blog" element={<BlogIndexPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/client" element={<ClientPanel />} />
         <Route path="/admin" element={<AdminPanel />} />
+        {/* Müşteriye giden ödeme bağlantısı. Oturum istemiyor. */}
+        <Route path="/ode/:jeton" element={<OdemeSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 
@@ -55,6 +60,7 @@ const AppRoutes = () => (
         <Route index element={<Index />} />
         <Route path="services" element={<Services />} />
         <Route path="portfolio" element={<Portfolio />} />
+        <Route path="marketplace" element={<Marketplace />} />
         <Route path="contact" element={<Contact />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

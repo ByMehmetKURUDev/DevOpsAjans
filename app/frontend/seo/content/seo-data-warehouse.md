@@ -1,6 +1,6 @@
 ---
 title: "SEO Data Warehouse Nedir? SEO Verisi İçin Veri Ambarı Mimarisi"
-description: "SEO data warehouse kurulumu: veri kaynakları, katmanlı modelleme, URL normalizasyonu, boyut tabloları, tarihsel saklama, maliyet yönetimi ve raporlama katmanı tasarımı."
+description: "SEO data warehouse kurulumu: veri kaynakları, katmanlı modelleme, URL normalizasyonu, tarihsel saklama ve raporlama katmanı tasarımı."
 keywords: "SEO data warehouse, veri ambarı, SEO veri modeli, ELT süreci, boyut tablosu, URL normalizasyonu, veri katmanı, SEO raporlama"
 category: "SEO"
 tags:

@@ -1,0 +1,22 @@
+Lemon Squeezy tahsilat yolu eklendi (Shopier duruyor)
+
+Shopier'in API'sinde odeme ucu yok; tek yol fatura basina gizli bir urun
+acmak. Sepet adimi, siteye donmeme ve dukkanda olu urun birikmesi bundan
+kaynaklaniyordu. Lemon Squeezy'de gercek checkout ucu var: tek bir
+'Hizmet bedeli' varyanti bir kez aciliyor, tutar custom_price ile
+eziliyor, odeme bitince musteri /ode/<jeton> sayfasina donuyor.
+
+- core/lemonsqueezy.py: odeme_baglantisi_ac, siparis_getir,
+  webhook_imzasi_gecerli_mi (HMAC-SHA256, onaltilik, ham govde)
+- odemeler.py: POST /{jeton}/lemon ve POST /lemon/webhook
+- Bildirimde imza ZORUNLU: eslestirme jetonu govdeden geliyor
+- payments.lemon_checkout_id / lemon_url sutunlari
+- ozet'e lemon_hazir eklendi
+
+NOT: Lemon Squeezy karti USD cekiyor (TL gosterse bile). TL musteri
+Shopier'de kaliyor, doviz musteri buraya yonleniyor.
+
+Testler: lemon 31/31, shopier 31/31, otomasyon 55/55, site 58/58
+
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01CqqeKbbh9xSetSq1QhSC2k

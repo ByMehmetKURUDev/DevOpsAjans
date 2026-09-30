@@ -180,6 +180,178 @@ class DatabaseManager:
             self.async_session_maker = None
             self._initialized = False  # Reset initialization flag
 
+
+    # Sonradan eklenen sütunlar.
+    #
+    # ``create_all`` yalnızca olmayan tabloyu yaratır; var olan bir tabloya
+    # yeni sütun eklemez. Alembic de yayın akışından çıkarıldığı için, modele
+    # sonradan eklenen alanlar aksi hâlde canlıda hiç oluşmuyor ve o tabloya
+    # yapılan her sorgu "column does not exist" ile düşüyor.
+    #
+    # Buradaki liste bu boşluğu kapatıyor: her açılışta sütun var mı diye
+    # bakılıyor, yoksa ekleniyor. Sütun zaten varsa hiçbir şey yapılmıyor,
+    # yani tekrar tekrar çalışması sorun değil.
+    #
+    # ``dolgu`` yalnızca sütun YENİ eklendiğinde çalışıyor: eski satırların
+    # o alan için ne olması gerektiğini söylüyor. Örneğin ``published``
+    # eklenmeden önce bütün projeler sitede görünüyordu; sütun eklenince
+    # hepsi ``TRUE`` işaretleniyor ki yayındaki hiçbir vaka çalışması
+    # bir anda kaybolmasın. Bundan sonra açılan projeler taslak başlar.
+    SONRADAN_EKLENEN_SUTUNLAR = (
+        {
+            "tablo": "projects",
+            "sutun": "published",
+            "tur_pg": "BOOLEAN",
+            "tur_sqlite": "BOOLEAN",
+            "dolgu": "TRUE",
+        },
+        {
+            # Talep kaynagi. Eski satirlarda bilinmiyor: "bilinmiyor"
+            # yazmak yerine NULL birakiliyor, boylece "kaynak yok" ile
+            # "kaynak olcumden once geldi" ayirt edilebiliyor.
+            "tablo": "inquiries",
+            "sutun": "source",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Panelde uretilen uzman promptlari (JSON metni). Eski
+            # taleplerde NULL; brief istendiginde uretilip yaziliyor.
+            "tablo": "inquiries",
+            "sutun": "brief",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Talepten projeye tasinan brief.
+            "tablo": "projects",
+            "sutun": "brief",
+            "tur_pg": "TEXT",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Eski Shopier V1 formunda uretilen random_nr. V1 kaldirildi;
+            # sutun eski kayitlar icin duruyor.
+            "tablo": "payments",
+            "sutun": "rastgele",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Shopier yeni API: faturaya acilan gizli urunun kimligi.
+            # Odeme bildirimi geldiginde siparisteki productId ile bu
+            # alan eslestiriliyor.
+            "tablo": "payments",
+            "sutun": "shopier_urun_id",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # O urunun satin alma linki (musteriye gosterilen adres).
+            "tablo": "payments",
+            "sutun": "shopier_url",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Lemon Squeezy: uretilen odeme sayfasinin kimligi.
+            "tablo": "payments",
+            "sutun": "lemon_checkout_id",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # O odeme sayfasinin adresi (musteriye gosterilen).
+            "tablo": "payments",
+            "sutun": "lemon_url",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            # Musteri sitesi kaydinin nasil acildigi: odeme | elle | kesif.
+            # Tahsilat sonrasi otomatik acilan kayitla elle girileni
+            # ayirt edebilmek icin.
+            "tablo": "client_sites",
+            "sutun": "kaynak",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        # Faz 1 — talep akisi. Eski talepler NULL kaliyor: hizmeti
+        # bilinmeyen talep ile "genel" talebi ayirt edebilelim.
+        {
+            "tablo": "support_tickets",
+            "sutun": "hizmet",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "support_tickets",
+            "sutun": "project_id",
+            "tur_pg": "INTEGER",
+            "tur_sqlite": "INTEGER",
+        },
+        {
+            "tablo": "support_tickets",
+            "sutun": "kaynak",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "support_tickets",
+            "sutun": "son_mesaj_at",
+            "tur_pg": "TIMESTAMPTZ",
+            "tur_sqlite": "TIMESTAMP",
+        },
+        {
+            # Faz 2 — talebin atandigi ekip uyesinin e-postasi.
+            "tablo": "support_tickets",
+            "sutun": "atanan",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+    )
+
+    async def _eksik_sutunlari_tamamla(self):
+        """Modele sonradan eklenen sütunları canlı tabloya ekler."""
+        sqlite_mi = self.engine.dialect.name == "sqlite"
+
+        for alan in self.SONRADAN_EKLENEN_SUTUNLAR:
+            tablo = alan["tablo"]
+            sutun = alan["sutun"]
+            tur = alan["tur_sqlite"] if sqlite_mi else alan["tur_pg"]
+            try:
+                # Her sütun kendi işleminde: biri patlarsa diğerleri etkilenmesin.
+                async with self.engine.begin() as conn:
+                    if sqlite_mi:
+                        satirlar = await conn.exec_driver_sql(f"PRAGMA table_info({tablo})")
+                        mevcut = {r[1] for r in satirlar.fetchall()}
+                        if not mevcut:
+                            continue  # tablo yok; create_all yaratmış olmalı
+                        var_mi = sutun in mevcut
+                    else:
+                        sonuc = await conn.execute(
+                            text(
+                                "SELECT 1 FROM information_schema.columns "
+                                "WHERE table_name = :t AND column_name = :c"
+                            ),
+                            {"t": tablo, "c": sutun},
+                        )
+                        var_mi = sonuc.first() is not None
+
+                    if var_mi:
+                        continue
+
+                    await conn.exec_driver_sql(f"ALTER TABLE {tablo} ADD COLUMN {sutun} {tur}")
+                    dolgu = alan.get("dolgu")
+                    if dolgu:
+                        await conn.exec_driver_sql(
+                            f"UPDATE {tablo} SET {sutun} = {dolgu} WHERE {sutun} IS NULL"
+                        )
+                    logger.info("Eksik sütun eklendi: %s.%s", tablo, sutun)
+            except Exception as e:
+                # Sütun tamamlama uygulamanın açılmasını engellememeli.
+                logger.warning("Sütun tamamlanamadı (%s.%s): %s", tablo, sutun, e)
+
     async def create_tables(self):
         """Create all tables with thread safety"""
         start_time = time.time()
@@ -202,9 +374,15 @@ class DatabaseManager:
                 logger.info("🔧 Starting table creation...")
                 async with self.engine.begin() as conn:
                     await conn.run_sync(Base.metadata.create_all)
-                    self._initialized = True
-                    logger.info("Tables initialized successfully")
-                    logger.debug(f"[DB_OP] Create tables completed in {time.time() - start_time:.4f}s")
+
+                # Sütun tamamlama kendi işleminde çalışıyor: Postgres'te
+                # başarısız bir DDL bulunduğu işlemi iptal ettiriyor, tablo
+                # yaratmayı da beraberinde götürmesin.
+                await self._eksik_sutunlari_tamamla()
+
+                self._initialized = True
+                logger.info("Tables initialized successfully")
+                logger.debug(f"[DB_OP] Create tables completed in {time.time() - start_time:.4f}s")
             except (UniqueViolationError, DuplicateTableError) as e:
                 self._initialized = True
                 logger.info(f"Duplicate table creation: {e}, ignored.")

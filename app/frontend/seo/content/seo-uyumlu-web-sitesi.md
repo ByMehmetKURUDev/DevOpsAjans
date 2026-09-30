@@ -1,6 +1,6 @@
 ---
 title: "SEO Uyumlu Web Sitesi Nasıl Yapılır?"
-description: "SEO uyumlu web sitesi kurmanın teknik temeli: URL yapısı, indekslenebilirlik, başlık hiyerarşisi, iç linkleme, yapılandırılmış veri, çok dilli yapı ve performans gereklilikleri."
+description: "SEO uyumlu web sitesinin teknik temeli: URL yapısı, indekslenebilirlik, başlık hiyerarşisi, iç linkleme, yapılandırılmış veri ve performans."
 keywords: "SEO uyumlu web sitesi, teknik SEO, URL yapısı, canonical, sitemap, robots.txt, yapılandırılmış veri, iç linkleme, hreflang"
 category: "Website"
 tags:

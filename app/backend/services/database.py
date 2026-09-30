@@ -1,5 +1,4 @@
 import logging
-import os
 import time
 
 from core.database import db_manager
@@ -28,9 +27,6 @@ async def check_database_health() -> bool:
 
 async def initialize_database():
     """Initialize database and create tables"""
-    if "MGX_IGNORE_INIT_DB" in os.environ:
-        logger.info("Ignore creating tables")
-        return
     start_time = time.time()
     logger.debug("[DB_OP] Starting database initialization")
     try:

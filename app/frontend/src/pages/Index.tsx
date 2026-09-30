@@ -1,9 +1,31 @@
 import { Fragment } from 'react';
+import ErtelenmisBolum from '@/components/ErtelenmisBolum';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Code2, Rocket, Target, Paintbrush, Globe, Zap, Shield, Crown, Server } from 'lucide-react';
+import {
+  ArrowRight,
+  Code2,
+  Rocket,
+  Target,
+  Paintbrush,
+  Globe,
+  Zap,
+  Shield,
+  Crown,
+  Server,
+  Monitor,
+  ShoppingCart,
+  Smartphone,
+  Megaphone,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
+import KesifAsistani from '@/components/KesifAsistani';
+import MimariKatmanlari from '@/components/MimariKatmanlari';
+import MusteriPaneliOnizleme from '@/components/MusteriPaneliOnizleme';
+import KodDenemeAlani from '@/components/KodDenemeAlani';
 import PricingPlans from '@/components/PricingPlans';
+import SikSorulanlar from '@/components/SikSorulanlar';
+import YatirimHesaplayici from '@/components/YatirimHesaplayici';
 import ProcessFlow from '@/components/ProcessFlow';
 import Testimonials from '@/components/Testimonials';
 import { DEFAULT_SETTINGS, useSiteSettings } from '@/lib/siteSettings';
@@ -15,6 +37,29 @@ const TECH = [
   'Kubernetes', 'Terraform', 'Jenkins', 'GitHub Actions',
   'Tailwind', 'GraphQL', 'Figma', 'Three.js', 'Stripe',
 ];
+
+/**
+ * Bolum basina olculen yukseklikler (piksel).
+ *
+ * Bolum cizilmeden once yerini bu kadar bosluk tutuyor; sayfanin toplam
+ * yuksekligi ve kaydirma cubugu bu sayede yerinden oynamiyor. Degerler
+ * canli sayfadan olculdu: `mobil` 390x844, `masa` 1280x900 ekranda.
+ */
+const BOLUM_YUKSEKLIKLERI: Record<string, { mobil: number; masa: number }> = {
+  kesif: { mobil: 1250, masa: 747 },
+  capabilities: { mobil: 1767, masa: 639 },
+  process: { mobil: 1481, masa: 683 },
+  mimari: { mobil: 1602, masa: 847 },
+  panel: { mobil: 1970, masa: 965 },
+  packages: { mobil: 2425, masa: 793 },
+  yatirim: { mobil: 1345, masa: 808 },
+  tech: { mobil: 210, masa: 620 },
+  playground: { mobil: 1377, masa: 719 },
+  caseCategories: { mobil: 793, masa: 674 },
+  testimonials: { mobil: 793, masa: 674 },
+  sss: { mobil: 761, masa: 701 },
+  cta: { mobil: 792, masa: 728 },
+};
 
 export default function Index() {
   const { t, i18n } = useTranslation();
@@ -88,12 +133,17 @@ export default function Index() {
   ];
 
 
+  /*
+   * Kategori kartları artık emoji yerine çizgi ikonu kullanıyor: emoji her
+   * işletim sisteminde farklı çiziliyor ve sitenin çizgi ikonlarıyla aynı
+   * dili konuşmuyordu.
+   */
   const CATEGORY_CARDS = [
-    { slug: 'Website', label: t('ui.catWebsite'), emoji: '💻', gradient: 'from-purple-600 to-pink-600' },
-    { slug: 'E-Ticaret', label: t('ui.catEcommerce'), emoji: '🛒', gradient: 'from-pink-600 to-orange-500' },
-    { slug: 'SaaS', label: t('ui.catSaas'), emoji: '🚀', gradient: 'from-cyan-500 to-purple-600' },
-    { slug: 'Mobil Uygulama', label: t('ui.catMobile'), emoji: '📱', gradient: 'from-emerald-500 to-cyan-500' },
-    { slug: 'Reklam', label: t('ui.catAds'), emoji: '📣', gradient: 'from-purple-500 to-pink-500' },
+    { slug: 'Website', label: t('ui.catWebsite'), Icon: Monitor, gradient: 'from-purple-600 to-pink-600' },
+    { slug: 'E-Ticaret', label: t('ui.catEcommerce'), Icon: ShoppingCart, gradient: 'from-pink-600 to-orange-500' },
+    { slug: 'SaaS', label: t('ui.catSaas'), Icon: Rocket, gradient: 'from-cyan-500 to-purple-600' },
+    { slug: 'Mobil Uygulama', label: t('ui.catMobile'), Icon: Smartphone, gradient: 'from-emerald-500 to-cyan-500' },
+    { slug: 'Reklam', label: t('ui.catAds'), Icon: Megaphone, gradient: 'from-purple-500 to-pink-500' },
   ];
 
 
@@ -135,7 +185,7 @@ export default function Index() {
               <Link to="/contact">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-[#8b3dff] to-[#5c27a3] hover:from-[#9b5dff] hover:to-[#7b3dc3] text-white border-0 h-12 px-6 gap-2"
+                  className="bg-gradient-to-r from-[rgb(var(--hero-a))] to-[rgb(var(--hero-b))] hover:from-[rgb(var(--hero-a-parlak))] hover:to-[rgb(var(--hero-b-parlak))] text-white border-0 h-12 px-6 gap-2"
                 >
                   {heroCta} <ArrowRight className="h-4 w-4" />
                 </Button>
@@ -178,10 +228,12 @@ export default function Index() {
 
       </>
     ),
+    kesif: <KesifAsistani />,
+
     capabilities: (
       <>
       {/* CAPABILITIES */}
-      <section className="relative py-24 md:py-32">
+      <section className="alt-bolum relative py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-16">
             <p className="text-xs uppercase tracking-[0.3em] text-purple-300 mb-4">
@@ -225,7 +277,10 @@ export default function Index() {
     process: (
       <>
       {/* PROCESS */}
-      <section className="relative py-24 md:py-32 border-t border-white/10">
+      <section
+        id="nasil-calisir"
+        className="alt-bolum relative py-24 md:py-32 border-t border-white/10"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-16 lg:grid-cols-2">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-pink-300 mb-4">{t('process.sectionTag')}</p>
@@ -251,7 +306,7 @@ export default function Index() {
                   {step.n}
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold mb-1">{step.title}</h4>
+                  <h3 className="text-lg font-semibold mb-1">{step.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>
               </div>
@@ -262,16 +317,24 @@ export default function Index() {
 
       </>
     ),
+    mimari: <MimariKatmanlari />,
+
+    panel: <MusteriPaneliOnizleme />,
+
+    playground: <KodDenemeAlani />,
+
     packages: (
       <>
       <PricingPlans />
 
       </>
     ),
+    yatirim: <YatirimHesaplayici />,
+
     tech: (
       <>
       {/* TECH MARQUEE */}
-      <section className="py-16 border-y border-white/10 overflow-hidden">
+      <section className="alt-bolum py-16 border-y border-white/10 overflow-hidden">
         <p className="text-center text-xs uppercase tracking-[0.4em] text-muted-foreground mb-8">
           {t('techMarquee')}
         </p>
@@ -295,7 +358,7 @@ export default function Index() {
     caseCategories: (
       <>
       {/* PORTFOLIO CATEGORIES */}
-      <section className="py-24 border-t border-white/10">
+      <section className="alt-bolum py-24 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-xs uppercase tracking-[0.3em] text-purple-300 mb-4">{t('portfolio.sectionTag')}</p>
@@ -311,7 +374,7 @@ export default function Index() {
                 className="group relative p-8 rounded-2xl glass hover:border-purple-500/40 transition-colors duration-300 text-center"
               >
                 <div className={`w-14 h-14 mx-auto rounded-xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center mb-4`}>
-                  <span className="text-2xl" aria-hidden="true">{cat.emoji}</span>
+                  <cat.Icon className="h-7 w-7 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="text-lg font-semibold">{cat.label}</h3>
                 <p className="text-xs text-muted-foreground mt-2 uppercase tracking-wider">
@@ -332,10 +395,12 @@ export default function Index() {
 
       </>
     ),
+    sss: <SikSorulanlar />,
+
     cta: (
       <>
       {/* CTA */}
-      <section className="relative py-24 md:py-32">
+      <section className="alt-bolum relative py-24 md:py-32">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center glass border border-purple-500/30">
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-purple-600/20 via-pink-600/10 to-cyan-600/20" />
@@ -376,7 +441,19 @@ export default function Index() {
   return (
     <div>
       {visibleSectionKeys('home', settings).map((key) =>
-        BOLUMLER[key] ? <Fragment key={key}>{BOLUMLER[key]}</Fragment> : null,
+        BOLUMLER[key] ? (
+          key === 'hero' ? (
+            <Fragment key={key}>{BOLUMLER[key]}</Fragment>
+          ) : (
+            <ErtelenmisBolum
+              key={key}
+              yukseklikMobil={BOLUM_YUKSEKLIKLERI[key]?.mobil ?? 900}
+              yukseklikMasa={BOLUM_YUKSEKLIKLERI[key]?.masa ?? 850}
+            >
+              {BOLUMLER[key]}
+            </ErtelenmisBolum>
+          )
+        ) : null,
       )}
     </div>
   );

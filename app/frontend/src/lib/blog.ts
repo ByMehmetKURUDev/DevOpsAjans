@@ -208,7 +208,7 @@ function getSiteName() {
 
 /**
  * Twitter hesabı bilinmiyorsa etiket hiç üretilmiyor. Önceki şablon
- * varsayılanı olan `@atoms` yanlış bir hesaba atıf yapıyordu.
+ * şablondan gelen varsayılan değer yanlış bir hesaba atıf yapıyordu.
  */
 function getTwitterSiteHandle() {
   return import.meta.env.VITE_TWITTER_SITE?.trim() || undefined;
@@ -232,12 +232,22 @@ function hasBlogPosts() {
   return blogPosts.length > 0;
 }
 
+/**
+ * Frontmatter'dan metin alan okur.
+ *
+ * Boş değer (`og_image: ""`) yok sayılır. Aksi halde boş bir alan, arkasındaki
+ * yedeği sessizce gölgeliyordu: taşınan üç yazıda `og_image: ""`
+ * durduğu için kendi kapak görselleri yerine sitenin genel görseli
+ * paylaşılıyordu.
+ */
 function frontmatterString(
   frontmatter: BlogFrontmatter,
   key: string,
 ): string | undefined {
   const value = frontmatter[key];
-  return typeof value === 'string' ? value : undefined;
+  if (typeof value !== 'string') return undefined;
+  const trimmed = value.trim();
+  return trimmed === '' ? undefined : value;
 }
 
 function frontmatterStringList(
@@ -287,7 +297,15 @@ function getPostSeoMeta(post?: BlogPost | null): SeoMeta {
     };
   }
 
-  const title = `${post.title} | Blog`;
+  /*
+   * Başlık, yazının kendi başlığı — sonuna " | Blog" EKLENMİYOR.
+   *
+   * O yedi karakter 20 yazıda başlığı Google'ın kestiği sınırın üstüne
+   * taşıyordu. Karşılığında da bir şey vermiyordu: "Blog" marka adı
+   * değil, arama sonucunda hiçbir şey anlatmıyor. Adres zaten /blog/
+   * altında ve breadcrumb işaretlemesi bağlamı veriyor.
+   */
+  const title = post.title;
   const description = post.description;
   const url =
     frontmatterString(post.frontmatter, 'og_url') ??

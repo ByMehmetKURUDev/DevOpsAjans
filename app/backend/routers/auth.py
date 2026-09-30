@@ -12,6 +12,7 @@ from core.auth import (
     generate_code_verifier,
     generate_nonce,
     generate_state,
+    oidc_endpoint,
     validate_id_token,
 )
 from core.config import settings
@@ -45,28 +46,43 @@ def _local_patch(url: str) -> str:
 def get_dynamic_backend_url(request: Request) -> str:
     """Get backend URL dynamically from request headers.
 
-    Priority: mgx-external-domain > x-forwarded-host > host > settings.backend_url
+    Priority: x-forwarded-host > host > settings.backend_url
+
+    The Cloudflare Pages Function in front of this service sets
+    X-Forwarded-Host to the public hostname.
     """
-    mgx_external_domain = request.headers.get("mgx-external-domain")
     x_forwarded_host = request.headers.get("x-forwarded-host")
     host = request.headers.get("host")
     scheme = request.headers.get("x-forwarded-proto", "https")
 
-    effective_host = mgx_external_domain or x_forwarded_host or host
+    effective_host = x_forwarded_host or host
     if not effective_host:
         logger.warning("[get_dynamic_backend_url] No host found, fallback to %s", settings.backend_url)
         return settings.backend_url
 
     dynamic_url = _local_patch(f"{scheme}://{effective_host}")
     logger.debug(
-        "[get_dynamic_backend_url] mgx-external-domain=%s, x-forwarded-host=%s, host=%s, scheme=%s, dynamic_url=%s",
-        mgx_external_domain,
+        "[get_dynamic_backend_url] x-forwarded-host=%s, host=%s, scheme=%s, dynamic_url=%s",
         x_forwarded_host,
         host,
         scheme,
         dynamic_url,
     )
     return dynamic_url
+
+
+def get_site_url(request: Request) -> str:
+    """Sitenin kullaniciya gorunen adresi.
+
+    Arka uc bir vekil sunucunun arkasindaysa (Cloudflare Pages -> Render)
+    istegin gordugu alan adi arka ucundur, sitenin degil. Giris bittiginde
+    kullaniciyi arka ucun adresine gondermek olmaz; orada on yuz yok.
+    FRONTEND_URL verilmisse dogru cevap odur.
+    """
+    frontend_url = getattr(settings, "frontend_url", "")
+    if frontend_url:
+        return str(frontend_url).rstrip("/")
+    return get_dynamic_backend_url(request)
 
 
 def derive_name_from_email(email: str) -> str:
@@ -107,12 +123,15 @@ async def callback(
     db: AsyncSession = Depends(get_db),
 ):
     """Handle OIDC callback."""
+    # redirect_uri arka ucun kendi adresi olmali - Google buraya donuyor.
     backend_url = get_dynamic_backend_url(request)
+    # Kullaniciyi sonunda gonderecegimiz yer ise sitenin adresi.
+    site_url = get_site_url(request)
 
     def redirect_with_error(message: str) -> RedirectResponse:
         fragment = urlencode({"msg": message})
         return RedirectResponse(
-            url=f"{backend_url}/auth/error?{fragment}",
+            url=f"{site_url}/auth/error?{fragment}",
             status_code=status.HTTP_302_FOUND,
         )
 
@@ -149,7 +168,7 @@ async def callback(
         if code_verifier:
             token_data["code_verifier"] = code_verifier
 
-        token_url = f"{settings.oidc_issuer_url}/token"
+        token_url = oidc_endpoint("oidc_token_endpoint", "/token")
         try:
             async with httpx.AsyncClient() as client:
                 token_response = await client.post(
@@ -182,7 +201,7 @@ async def callback(
         if not id_token:
             return redirect_with_error("No ID token received")
 
-        id_claims = await validate_id_token(id_token)
+        id_claims = await validate_id_token(id_token, access_token=tokens.get("access_token"))
 
         # Validate nonce
         if id_claims.get("nonce") != nonce:
@@ -204,7 +223,7 @@ async def callback(
             }
         )
 
-        redirect_url = f"{backend_url}/auth/callback?{fragment}"
+        redirect_url = f"{site_url}/auth/callback?{fragment}"
         logger.info("[callback] OIDC callback successful, redirecting to %s", redirect_url)
         redirect_response = RedirectResponse(
             url=redirect_url,

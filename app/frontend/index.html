@@ -2,10 +2,18 @@
 <html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <!-- Site ikonları: kendi domainimizden, logonun avatar kırpmasından üretilir. -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!--
+      Site ikonları: kendi domainimizden, logonun `</>` işaretinden üretilir.
+
+      Sondaki ?v=2 bilerek duruyor. Chrome favicon'ı kendi ayrı deposunda,
+      ADRESE göre saklıyor; dosyanın içeriği değişse de aynı adres için
+      yıllarca eski ikonu göstermeye devam edebiliyor (sayfa yenilemek,
+      hatta önbellek temizlemek çoğu zaman yetmiyor). Adresi değiştirmek
+      tek güvenilir yol. İkon bir daha değişirse bu sayı da artırılmalı.
+    -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2" />
 
     <!--
       viewport-fit=cover: iPhone'da çentik ve ana ekran çubuğunun altındaki
@@ -19,6 +27,17 @@
     <link rel="manifest" href="/manifest.webmanifest" />
 
     <!--
+      Ajan keşfi (Agentic Resource Discovery).
+
+      Spesifikasyon, tüketicinin rel="ard" bağlantısına uymasını ZORUNLU
+      kılıyor. Etiket olmadan ajan adresi tahmin ediyordu ve Cloudflare
+      Pages var olmayan her yolu 200 + index.html ile döndürdüğü için
+      143 kB HTML'i JSON sanıp "Unexpected token '<'" hatası veriyordu.
+      Etiket onu geçerli ve boş manifeste yönlendiriyor.
+    -->
+    <link rel="ard" href="/.well-known/ard.json" />
+
+    <!--
       iOS'ta manifest okunmuyor; ana ekrana eklenen site bu etiketlerle
       tarayıcı çubuğu olmadan, uygulama gibi açılıyor.
     -->
@@ -29,9 +48,28 @@
     <meta name="application-name" content="By Mehmet KURU Dev" />
     <meta name="format-detection" content="telephone=no" />
 
-    <!-- Font kaynaklarına erken bağlantı: yazı tipi gecikmesini azaltır -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Arayüz fontları artık /public/fonts altından, kendi sunucumuzdan
+      geliyor; Google Fonts'a preconnect gerekmiyor. Arapça ve Hintçe
+      fontları yalnızca o diller seçilince, çalışma zamanında yükleniyor.
+
+      Başlık fontu önden isteniyor: her sayfanın en büyük öğesi (LCP)
+      h1 başlığı ve Plus Jakarta Sans kullanıyor. Font geç geldiğinde
+      başlık önce yedek yazı tipiyle çiziliyor, sonra değişiyordu; ölçümde
+      ilk boyama 1,7 sn iken LCP 3,5 sn'de kalıyordu.
+
+      Tek dosya yetiyor: Plus Jakarta Sans artık değişken (variable)
+      sürümüyle geliyor, yani 200-800 arası bütün kalınlıklar ve hem
+      Latin-1 hem Türkçe'nin ğ ı İ ş harfleri aynı dosyada.
+      Yazı tiplerinde crossorigin, aynı sunucudan gelse bile zorunlu.
+    -->
+    <link
+      rel="preload"
+      href="/fonts/jakarta-degisken-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
 
     <!--
       DİKKAT: Sayfa bazlı SEO etiketleri (canonical, description, og:*,
@@ -61,6 +99,23 @@
           document.documentElement.dir = 'rtl';
           document.documentElement.lang = seg;
         }
+
+        /*
+         * GEÇİCİ: eski tema seçicisinin bıraktığı kayıt siliniyor.
+         *
+         * Site bir süre iki temalıydı (mor/yeşil) ve seçimi `mk_tema`
+         * anahtarında tutuyordu. Seçici kaldırıldı, kaydı okuyan kod da
+         * gitti; ama o dönemde siteyi açmış ziyaretçilerin tarayıcısında
+         * kayıt duruyor. Hiçbir işe yaramıyor, o yüzden siliniyor.
+         *
+         * Bu satır da kalıcı değil: birkaç ay sonra, eski ziyaretçilerin
+         * çoğu siteyi yeniden açtıktan sonra kaldırılabilir.
+         */
+        try {
+          localStorage.removeItem('mk_tema');
+        } catch (e) {
+          /* Gizli sekmede localStorage erişimi hata verebiliyor. */
+        }
       })();
     </script>
 
@@ -71,8 +126,29 @@
       (function () {
         var GA_ID = 'G-297VMX9Z6X';
         var loaded = false;
+        /*
+         * Rıza kontrolü.
+         *
+         * GA ziyaretçi verisi işliyor; KVKK ve GDPR bunun için açık rıza
+         * istiyor. Ziyaretçi bandı henüz cevaplamadıysa ya da reddettiyse
+         * betik HİÇ indirilmiyor. Onay verilince `mk-riza-verildi` olayı
+         * tetikleniyor ve yükleme o an başlıyor -- sayfayı yenilemeye
+         * gerek kalmıyor.
+         *
+         * Değer `localStorage` içinde: sunucuya gitmiyor, çerez de
+         * üretmiyor. Reddeden ziyaretçiden hiçbir ölçüm kaydı kalmıyor.
+         */
+        function rizaVarMi() {
+          try {
+            return localStorage.getItem('mk_riza_v1') === 'kabul';
+          } catch (e) {
+            // Gizli sekmede erişim hata verebiliyor; rıza yok say.
+            return false;
+          }
+        }
         function loadGa() {
           if (loaded) return;
+          if (!rizaVarMi()) return;
           loaded = true;
           cleanup();
           var s = document.createElement('script');
@@ -91,12 +167,25 @@
         events.forEach(function (e) {
           window.addEventListener(e, loadGa, { passive: true, once: true });
         });
+        // Bant "Kabul et" dediğinde beklemeden yükle.
+        window.addEventListener('mk-riza-verildi', loadGa);
+        /*
+         * Etkileşim olmazsa devreye giren yedek.
+         *
+         * Eskiden `load` olayından hemen sonra boşta çalışıyordu; sayfa
+         * daha yeni oturmuşken 187 kB'lik gtag betigi ana is parçacığını
+         * ~1,4 saniye kilitliyordu. Artık sayfa tamamen yerleştikten
+         * epey sonra yükleniyor: gerçek ziyaretçi yine sayılıyor, ama
+         * içeriğin önüne geçmiyor.
+         */
         window.addEventListener('load', function () {
-          if ('requestIdleCallback' in window) {
-            window.requestIdleCallback(loadGa, { timeout: 6000 });
-          } else {
-            setTimeout(loadGa, 4000);
-          }
+          setTimeout(function () {
+            if ('requestIdleCallback' in window) {
+              window.requestIdleCallback(loadGa, { timeout: 5000 });
+            } else {
+              loadGa();
+            }
+          }, 10000);
         });
       })();
     </script>

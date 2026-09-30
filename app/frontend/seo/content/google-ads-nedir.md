@@ -1,6 +1,6 @@
 ---
 title: "Google Ads Nedir? Temel Kavramlar ve Kampanya Türleri"
-description: "Google Ads nasıl çalışır? Açık artırma mantığı, kalite puanı, kampanya türleri, anahtar kelime eşleme türleri, bütçe ve teklif stratejileri ile temel ölçüm kavramları."
+description: "Google Ads nasıl çalışır? Açık artırma mantığı, kalite puanı, kampanya türleri, eşleme türleri, bütçe ve teklif stratejileri ile ölçüm kavramları."
 keywords: "Google Ads nedir, Google reklam, arama ağı reklamı, kampanya türleri, teklif stratejisi, kalite puanı, CPC, dönüşüm"
 category: "Reklam"
 tags:

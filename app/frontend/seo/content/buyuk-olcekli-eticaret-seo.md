@@ -1,6 +1,6 @@
 ---
-title: "Büyük Ölçekli E-Ticaret SEO: Binlerce Ürünlü Sitelerde Arama Optimizasyonu"
-description: "Büyük ölçekli e-ticaret SEO stratejisi: kategori mimarisi, faceted navigation yönetimi, ürün sayfası şablonları, stok dışı ürünler, tarama bütçesi ve ölçekli içerik üretimi."
+title: "Büyük Ölçekli E-Ticaret SEO: Binlerce Ürünlü Site Rehberi"
+description: "Büyük ölçekli e-ticaret SEO stratejisi: kategori mimarisi, faceted navigation, ürün sayfası şablonları, stok dışı ürünler ve tarama bütçesi yönetimi."
 keywords: "e-ticaret SEO, büyük ölçekli SEO, faceted navigation, kategori sayfası optimizasyonu, ürün sayfası SEO, stok dışı ürün SEO, tarama bütçesi"
 category: "SEO"
 tags:

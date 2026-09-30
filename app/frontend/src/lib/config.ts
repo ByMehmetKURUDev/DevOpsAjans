@@ -11,25 +11,16 @@ const defaultConfig = {
   API_BASE_URL: 'http://127.0.0.1:8000', // Only used if runtime config fails to load
 };
 
-// Function to load runtime configuration
+/**
+ * Çalışma zamanı yapılandırmasını hazır eder.
+ *
+ * Eskiden burada `/api/config` adresine bir istek vardı; o uç Lambda
+ * döneminden kalmaydı ve bu arka uçta hiç yok. Her sayfa yüklemesinde
+ * boşuna bir 404 alınıyor, konsola hata düşüyordu. İstek kaldırıldı:
+ * API adresi zaten aynı origin'den göreli çözülüyor.
+ */
 export async function loadRuntimeConfig(): Promise<void> {
-  try {
-    // Try to load configuration from a config endpoint with a short timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
-    const response = await fetch('/api/config', { signal: controller.signal });
-    clearTimeout(timeoutId);
-    if (response.ok) {
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        runtimeConfig = await response.json();
-      }
-    }
-  } catch {
-    // Silently fall back to defaults
-  } finally {
-    configLoading = false;
-  }
+  configLoading = false;
 }
 
 // Get current configuration

@@ -22,6 +22,12 @@
         },
         "status": {
             "type": "string"
+        },
+        "source": {
+            "type": "string"
+        },
+        "brief": {
+            "type": "string"
         }
     },
     "required": [

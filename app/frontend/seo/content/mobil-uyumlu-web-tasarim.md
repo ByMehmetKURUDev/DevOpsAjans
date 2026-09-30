@@ -1,6 +1,6 @@
 ---
 title: "Mobil Uyumlu Web Tasarım Nedir?"
-description: "Mobil uyumlu web tasarımın tanımı, responsive ile adaptive yaklaşım farkı, mobile-first tasarım pratikleri, dokunma ergonomisi ve mobil performans kontrol listesi."
+description: "Mobil uyumlu web tasarım nedir? Responsive ile adaptive farkı, mobile-first pratikleri, dokunma ergonomisi ve mobil performans kontrol listesi."
 keywords: "mobil uyumlu web tasarım, responsive web tasarım, mobile first, mobil site optimizasyonu, dokunma hedefi boyutu, viewport ayarı"
 category: "Website"
 tags:

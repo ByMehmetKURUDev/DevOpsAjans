@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /**
@@ -10,7 +11,7 @@ import { useTranslation } from 'react-i18next';
  * `role="img"` + `aria-label`: ekran okuyucu şemanın ne anlattığını
  * tek cümlede alıyor, içindeki metinler ayrıca okunmuyor.
  */
-export default function ProcessFlow({ className = '' }: { className?: string }) {
+function ProcessFlow({ className = '' }: { className?: string }) {
   const { t } = useTranslation();
 
   const steps = [
@@ -33,8 +34,9 @@ export default function ProcessFlow({ className = '' }: { className?: string }) 
     >
       <defs>
         <linearGradient id="akis" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#8b3dff" />
-          <stop offset="100%" stopColor="#ec4899" />
+          {/* Tema tuşuyla değişsin diye sabit renk değil, değişken. */}
+          <stop offset="0%" stopColor="rgb(var(--hero-a))" />
+          <stop offset="100%" stopColor="rgb(var(--yan-500))" />
         </linearGradient>
         <marker id="ok" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
           <path d="M0 0 L8 4 L0 8 z" fill="url(#akis)" />
@@ -111,3 +113,5 @@ export default function ProcessFlow({ className = '' }: { className?: string }) 
     </svg>
   );
 }
+
+export default memo(ProcessFlow);

@@ -1,6 +1,6 @@
 ---
 title: "SEO Anomaly Detection: Organik Performansta Anomali Tespiti"
-description: "SEO anomali tespiti nasıl kurulur? Temel çizgi modelleme, mevsimsellik ayrıştırma, eşik ve istatistiksel yöntemler, segment bazlı uyarılar ve kök neden analizi akışı."
+description: "SEO anomali tespiti nasıl kurulur? Temel çizgi modelleme, mevsimsellik ayrıştırma, eşik yöntemleri, segment uyarıları ve kök neden analizi."
 keywords: "SEO anomaly detection, anomali tespiti, trafik düşüşü tespiti, mevsimsellik ayrıştırma, uyarı sistemi, kök neden analizi, SEO izleme"
 category: "SEO"
 tags:

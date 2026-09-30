@@ -1,6 +1,6 @@
 ---
 title: "AI Destekli SEO: Yapay Zekayı SEO Süreçlerinde Doğru Kullanmak"
-description: "AI destekli SEO nasıl uygulanır? Yapay zekanın araştırma, içerik üretimi, sınıflandırma ve analiz aşamalarındaki kullanımı; kalite kontrolü, riskler ve insan denetimi modeli."
+description: "AI destekli SEO nasıl uygulanır? Yapay zekanın araştırma, içerik üretimi ve analizdeki kullanımı; kalite kontrolü, riskler ve insan denetimi modeli."
 keywords: "AI destekli SEO, yapay zeka SEO, AI içerik üretimi, LLM ile SEO, içerik sınıflandırma, AI kalite kontrolü, yapay zeka riskleri"
 category: "SEO"
 tags:

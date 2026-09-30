@@ -6,7 +6,8 @@
  * her boyutta tamamı çerçevenin içine küçültülerek yerleştirilir.
  *
  *   logo.webp        1024 kare, SAYDAM   → Nasıl Çalışır bölümü, genel kullanım
- *   logo-mark.webp    512 kare, SAYDAM   → header, footer
+ *   logo-mark.webp    512 kare, SAYDAM   → genel/yedek
+ *   logo-mark-144.webp 144 kare, SAYDAM  → header, altbilgi (48px gosterim)
  *   og-cover.webp    1200x630, koyu zemin → paylaşım görseli (saydamlık desteklenmez)
  *   apple-touch-icon / logo192 / logo512 / favicon-32 / favicon-16 → koyu zemin
  *
@@ -69,6 +70,9 @@ async function main() {
   // Sayfa içi kullanım — saydam, site zemininin üstünde kutu göstermez.
   await add(transparent(1024).webp({ quality: 90 }), 'assets/logo.webp');
   await add(transparent(512).webp({ quality: 92 }), 'assets/logo-mark.webp');
+  // Header ve altbilgi kunyesi 48x48 gosteriliyor; 512'lik dosya oraya
+  // 50 kB'lik bir yuk bindiriyordu. 144 kare, 3x ekranlarda bile net.
+  await add(transparent(144).webp({ quality: 92 }), 'assets/logo-mark-144.webp');
 
   // Paylaşım görseli — yatay çerçeve, künye ortada. Saydamlık desteklenmiyor.
   await add(

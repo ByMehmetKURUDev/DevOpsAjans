@@ -1,6 +1,6 @@
 ---
 title: "Google Ads Kampanyası Nasıl Kurulur? Adım Adım Rehber"
-description: "Google Ads kampanyası kurulum rehberi: hedef belirleme, hesap yapısı, anahtar kelime seçimi, reklam metni yazımı, uzantılar, bütçe planlaması ve ilk hafta optimizasyonu."
+description: "Google Ads kampanyası kurulum rehberi: hedef belirleme, hesap yapısı, anahtar kelime seçimi, reklam metni, bütçe planlaması ve ilk hafta optimizasyonu."
 keywords: "Google Ads kampanya kurulumu, arama ağı kampanyası, reklam metni yazma, reklam uzantıları, bütçe planlama, kampanya optimizasyonu"
 category: "Reklam"
 tags:

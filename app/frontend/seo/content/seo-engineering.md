@@ -1,6 +1,6 @@
 ---
 title: "SEO Engineering Nedir? Mühendislik Disipliniyle SEO Uygulaması"
-description: "SEO engineering nedir? SEO gereksinimlerinin yazılım geliştirme süreçlerine entegre edilmesi, otomatik testler, CI/CD kontrolleri, teknik borç yönetimi ve ekip iş birliği modeli."
+description: "SEO engineering nedir? SEO gereksinimlerini yazılım süreçlerine entegre etme, otomatik testler, CI/CD kontrolleri ve teknik borç yönetimi."
 keywords: "SEO engineering, teknik SEO mühendisliği, CI/CD SEO testi, SEO regresyon testi, SEO gereksinimleri, geliştirme süreci SEO, teknik borç"
 category: "SEO"
 tags:

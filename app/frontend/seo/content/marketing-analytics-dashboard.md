@@ -1,6 +1,6 @@
 ---
 title: "Pazarlama Analitiği Panosu Nasıl Kurulur?"
-description: "Pazarlama analitiği panosu tasarımı: hedef kitleye göre katmanlı raporlama, doğru metrik seçimi, veri kaynağı birleştirme, güncellik yönetimi ve karar odaklı görselleştirme."
+description: "Pazarlama analitiği panosu tasarımı: katmanlı raporlama, doğru metrik seçimi, veri kaynağı birleştirme ve karar odaklı görselleştirme."
 keywords: "pazarlama analitiği panosu, dashboard tasarımı, KPI seçimi, raporlama katmanları, veri görselleştirme, kanal performansı"
 category: "Veri ve Analitik"
 tags:

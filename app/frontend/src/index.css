@@ -3,7 +3,7 @@
  * ve Hintçe (Noto Sans Devanagari) fontları, ilgili dil seçildiğinde
  * src/i18n/index.ts tarafından çalışma zamanında enjekte edilir.
  */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
+@import './fonts.css';
 
 @tailwind base;
 @tailwind components;
@@ -11,28 +11,72 @@
 
 @layer base {
   :root {
-    /* Cyberpunk purple palette — from hero banner analysis */
+    /* Mor-siyah zemin + tek parlak yeşil vurgu (prototipin paleti). */
     --background: 270 60% 2%;
     --foreground: 270 20% 95%;
     --card: 270 40% 5%;
     --card-foreground: 270 20% 95%;
     --popover: 270 50% 4%;
     --popover-foreground: 270 20% 95%;
-    --primary: 268 100% 62%;
+    --primary: 156 100% 43%;
     --primary-foreground: 270 20% 98%;
     --secondary: 270 35% 12%;
     --secondary-foreground: 270 15% 90%;
     --muted: 270 30% 10%;
     --muted-foreground: 270 18% 72%;
-    --accent: 272 60% 40%;
+    --accent: 158 90% 26%;
     --accent-foreground: 270 20% 98%;
     --destructive: 0 72% 55%;
     --destructive-foreground: 270 20% 98%;
     --border: 270 30% 15%;
     --input: 270 30% 12%;
-    --ring: 268 100% 62%;
+    --ring: 156 100% 43%;
+    /* Marka isaretinin orta dugumu. Tema disinda ayri tutuluyor ki
+       renk denemelerinde tek satirdan degistirilebilsin. */
+    --marka-ikinci: 199 93% 60%;
     --radius: 0.75rem;
+
+    /*
+     * Vurgu paleti — Tailwind'in `purple-*` sınıfları buraya bakıyor.
+     *
+     * Sınıf adları `purple`/`pink` kaldı ama renkler yeşil ve gök mavisi:
+     * sitede 296 yerde geçtikleri için hepsini yeniden adlandırmak, tek
+     * bir yeri atlayınca fark edilmeyecek bir hata bırakırdı. Renk burada
+     * tanımlı; sınıf adı yalnızca bir kanal.
+     */
+    --vurgu-50: 230 255 245;
+    --vurgu-100: 184 255 226;
+    --vurgu-200: 124 245 203;
+    --vurgu-300: 76 233 180;
+    --vurgu-400: 31 226 154;
+    --vurgu-500: 0 220 130;
+    --vurgu-600: 0 201 117;
+    --vurgu-700: 0 166 96;
+    --vurgu-800: 0 128 74;
+    --vurgu-900: 0 92 54;
+    --vurgu-950: 0 52 30;
+
+    /* Yan palet — `pink-*` sınıfları; gök mavisi ekseni. */
+    --yan-50: 234 247 255;
+    --yan-100: 200 235 255;
+    --yan-200: 154 220 255;
+    --yan-300: 108 205 251;
+    --yan-400: 56 189 248;
+    --yan-500: 24 168 236;
+    --yan-600: 14 139 201;
+    --yan-700: 11 109 158;
+    --yan-800: 12 86 120;
+    --yan-900: 14 71 97;
+    --yan-950: 8 44 63;
+
+    /* Başlık degradesi ve hero butonu. */
+    --degrade-metin: linear-gradient(135deg, #00dc82 0%, #38bdf8 50%, #a855f7 100%);
+    --hero-a: 0 220 130;
+    --hero-b: 0 128 74;
+    --hero-a-parlak: 31 226 154;
+    --hero-b-parlak: 0 166 96;
   }
+
 }
 
 @layer base {
@@ -58,7 +102,7 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: 'cv11', 'ss01';
     /*
      * Tek bir kural yatay kaymayı kapatıyor. Tek bir geniş öğe (uzun bir
@@ -104,14 +148,14 @@
     max-width: 100%;
   }
   h1, h2, h3, h4 {
-    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
     letter-spacing: -0.02em;
   }
 }
 
 @layer utilities {
   .gradient-text {
-    background: linear-gradient(135deg, #8b3dff 0%, #d4a5ff 50%, #5c27a3 100%);
+    background: var(--degrade-metin);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -120,22 +164,57 @@
     background: rgba(5, 1, 10, 0.65);
     backdrop-filter: blur(16px) saturate(140%);
     -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid rgba(139, 61, 255, 0.2);
+    border: 1px solid rgb(var(--hero-a) / 0.2);
   }
   .glow-primary {
-    box-shadow: 0 0 40px -10px rgba(139, 61, 255, 0.6);
+    box-shadow: 0 0 40px -10px rgb(var(--hero-a) / 0.6);
   }
   .noise-bg {
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(139, 61, 255, 0.18), transparent 50%),
+      radial-gradient(circle at 20% 20%, rgb(var(--hero-a) / 0.18), transparent 50%),
       radial-gradient(circle at 80% 30%, rgba(92, 39, 163, 0.15), transparent 55%),
       radial-gradient(circle at 50% 90%, rgba(212, 165, 255, 0.08), transparent 60%);
   }
   .grid-bg {
     background-image:
-      linear-gradient(rgba(139, 61, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 61, 255, 0.06) 1px, transparent 1px);
+      linear-gradient(rgb(var(--hero-a) / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--hero-a) / 0.06) 1px, transparent 1px);
     background-size: 60px 60px;
+  }
+  /*
+   * Ekranın altında kalan bölümler.
+   *
+   * Tarayıcı normalde sayfanın tamamının stilini ve yerleşimini ilk
+   * boyamadan önce hesaplıyor. Mobilde ölçtüğümüz gecikmenin büyük
+   * kısmı buradan geliyordu — kritik ağ yolu 353 ms iken ilk boyama
+   * 3,2 saniyeydi, yani darboğaz ağ değil işlemciydi.
+   *
+   * `content-visibility: auto` bölüm görünür alana girene kadar o işi
+   * erteliyor. `contain-intrinsic-size`daki `auto`, bölüm bir kez
+   * çizildikten sonra gerçek yüksekliğini hatırlatıyor; olmazsa geri
+   * kaydırırken çubuk zıplıyor.
+   *
+   * Sayfada Ctrl+F ve bağlantı çapaları çalışmaya devam ediyor.
+   */
+  .alt-bolum {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+  /*
+   * Henuz cizilmemis bolumun yerini tutan kutu.
+   *
+   * Yukseklik bolum basina olculdu ve iki kirilimda ayri veriliyor:
+   * masaustunde bolumler mobile gore cok daha kisa, tek deger
+   * kullanilinca sayfa gereginden uzun acilip kaydirma cubugu geri
+   * kaciyordu.
+   */
+  .bolum-yer {
+    min-height: var(--yer-mobil, 900px);
+  }
+  @media (min-width: 1024px) {
+    .bolum-yer {
+      min-height: var(--yer-masa, 850px);
+    }
   }
   .marquee {
     animation: marquee 30s linear infinite;
@@ -150,14 +229,21 @@
     background-color: #05010a;
     background-image:
       linear-gradient(180deg, rgba(26, 11, 46, 0.9) 0%, rgba(5, 1, 10, 0.98) 70%, hsl(270 60% 2%) 100%),
-      linear-gradient(rgba(139, 61, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139, 61, 255, 0.05) 1px, transparent 1px);
+      linear-gradient(rgb(var(--hero-a) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--hero-a) / 0.05) 1px, transparent 1px);
     background-size: 100% 100%, 64px 64px, 64px 64px;
   }
+  /*
+   * Hero'daki mor parilti.
+   *
+   * Onceden dolu bir daire + `filter: blur(90px)` idi. ~450 piksellik bir
+   * alani 90 piksel bulanıklastirmak tarayici icin pahali bir raster isi;
+   * JavaScript'te gorunmuyor (uzun gorev yok, TBT 0) ama ekrana cizimi
+   * geciktiriyordu. Ayni gorunum, kenarlari yumusak bir radial-gradient
+   * ile elde ediliyor ve raster maliyeti neredeyse sifir.
+   */
   .hero-glow {
     position: absolute;
-    border-radius: 9999px;
-    filter: blur(90px);
     pointer-events: none;
     z-index: 0;
   }
@@ -166,14 +252,26 @@
     top: -6rem;
     width: 28rem;
     height: 28rem;
-    background: rgba(139, 61, 255, 0.28);
+    background: radial-gradient(
+      closest-side,
+      rgb(var(--hero-a) / 0.3) 0%,
+      rgb(var(--hero-a) / 0.22) 38%,
+      rgb(var(--hero-a) / 0.09) 66%,
+      rgb(var(--hero-a) / 0) 100%
+    );
   }
   .hero-glow-b {
     inset-inline-end: -10rem;
     bottom: 2rem;
     width: 24rem;
     height: 24rem;
-    background: rgba(212, 111, 255, 0.18);
+    background: radial-gradient(
+      closest-side,
+      rgba(212, 111, 255, 0.2) 0%,
+      rgba(212, 111, 255, 0.14) 40%,
+      rgba(212, 111, 255, 0.06) 68%,
+      rgba(212, 111, 255, 0) 100%
+    );
   }
 }
 
@@ -184,13 +282,13 @@
 
 /* ---------- RTL (Arapça) desteği ---------- */
 [dir='rtl'] body {
-  font-family: 'Noto Naskh Arabic', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Noto Naskh Arabic', 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 [dir='rtl'] h1,
 [dir='rtl'] h2,
 [dir='rtl'] h3,
 [dir='rtl'] h4 {
-  font-family: 'Noto Naskh Arabic', 'Space Grotesk', 'Inter', sans-serif;
+  font-family: 'Noto Naskh Arabic', 'Plus Jakarta Sans', 'Inter', sans-serif;
   letter-spacing: 0;
 }
 /* Metin hizalamalarını ayna çevir */
@@ -231,7 +329,7 @@
 [data-lang='hi'] h2,
 [data-lang='hi'] h3,
 [data-lang='hi'] h4 {
-  font-family: 'Noto Sans Devanagari', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
 @keyframes float-slow {
@@ -268,6 +366,6 @@ img {
 
 /* Klavye odak görünürlüğü */
 :focus-visible {
-  outline: 2px solid hsl(268 100% 62%);
+  outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }

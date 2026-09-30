@@ -31,12 +31,34 @@ const BASE = '/api/v1/entities/project_events';
  * Kodda iki yerde (panel ve sunucu) ayrı ayrı tanımlamak, birinin
  * değişip diğerinin kalmasıyla sonuçlanır. Tek kaynak sunucu.
  */
+/**
+ * Arka uçtaki aşama listesinin birebir kopyası.
+ *
+ * Normalde liste sunucudan geliyor; burası yalnızca istek düşerse
+ * devreye giriyor. Kopya tutmak hoşuma gitmiyor ama alternatifi daha
+ * kötü: liste boş kalınca yönetici panelindeki aşama seçicisi de boş
+ * kalıyor ve proje aşaması hiç değiştirilemiyor -- düzeltmeye
+ * çalıştığımız hatanın ta kendisi.
+ *
+ * Anahtarlar routers/project_events.py içindeki STAGES ile aynı olmak
+ * zorunda; etiketler oradaki STAGE_LABELS'tan alındı.
+ */
+export const VARSAYILAN_ASAMALAR: Stage[] = [
+  { key: 'discovery', label: 'Keşif', order: 0 },
+  { key: 'design', label: 'Tasarım', order: 1 },
+  { key: 'build', label: 'Geliştirme', order: 2 },
+  { key: 'review', label: 'İnceleme', order: 3 },
+  { key: 'launch', label: 'Yayın', order: 4 },
+  { key: 'aftercare', label: 'Lansman sonrası', order: 5 },
+];
+
 export async function fetchStages(): Promise<Stage[]> {
   const res = (await client.apiCall.invoke({
     method: 'GET',
     url: `${BASE}/stages`,
   })) as { data?: { stages?: Stage[] } };
-  return res?.data?.stages ?? [];
+  const liste = res?.data?.stages;
+  return liste && liste.length ? liste : VARSAYILAN_ASAMALAR;
 }
 
 export async function fetchProjectEvents(
@@ -103,8 +125,14 @@ export async function deleteProjectEvent(eventId: number): Promise<void> {
 let stageCache: Stage[] | null = null;
 let stagePromise: Promise<Stage[]> | null = null;
 
-export function useStageLabels(): (key: string | undefined) => string {
-  const [stages, setStages] = useState<Stage[]>(stageCache ?? []);
+/**
+ * Aşama listesini döndürür (arka uçtan, bir kez).
+ *
+ * Hem yönetici panelindeki aşama seçicisi hem etiket çevirici bunu
+ * kullanıyor; liste tek yerden geliyor, kopyası yok.
+ */
+export function useStages(): Stage[] {
+  const [stages, setStages] = useState<Stage[]>(stageCache ?? VARSAYILAN_ASAMALAR);
 
   useEffect(() => {
     if (stageCache) return;
@@ -115,7 +143,8 @@ export function useStageLabels(): (key: string | undefined) => string {
           stageCache = liste;
           return liste;
         })
-        .catch(() => []);
+        // Sunucuya ulaşılamazsa yerel kopya: seçici boş kalmasın.
+        .catch(() => VARSAYILAN_ASAMALAR);
     let iptal = false;
     void stagePromise.then((liste) => {
       if (!iptal) setStages(liste);
@@ -125,8 +154,57 @@ export function useStageLabels(): (key: string | undefined) => string {
     };
   }, []);
 
+  return stages;
+}
+
+/**
+ * Eski kayıtlardaki Türkçe aşama adlarını anahtara çevirir.
+ *
+ * Aşama alanı bir dönem serbest metindi ve yeni proje şablonu "Tasarım"
+ * ile başlıyordu. Arka uç ise anahtar bekliyor ("design"); eşleşmeyince
+ * aşama yöneticisi projenin nerede olduğunu gösteremiyordu.
+ *
+ * Veritabanını toptan güncellemek yerine okurken çeviriyoruz: eski
+ * kayıtlar da doğru görünüyor, yeni kayıtlar zaten anahtar yazıyor ve
+ * elle düzeltme gerekmiyor. Listede olmayan bir metin geldiğinde
+ * dokunmadan geçiyoruz — uydurma bir aşamaya oturtmak, yanlış yerde
+ * duran bir projeyi doğruymuş gibi göstermekten iyi değil.
+ */
+const ESKI_ASAMA_ADLARI: Record<string, string> = {
+  keşif: 'discovery',
+  kesif: 'discovery',
+  tasarım: 'design',
+  tasarim: 'design',
+  geliştirme: 'build',
+  gelistirme: 'build',
+  inceleme: 'review',
+  i̇nceleme: 'review',
+  yayın: 'launch',
+  yayin: 'launch',
+  'lansman sonrası': 'aftercare',
+  'lansman sonrasi': 'aftercare',
+};
+
+export function asamaAnahtari(deger: string | undefined): string {
+  if (!deger) return '';
+  const ham = deger.trim();
+  // Zaten anahtarsa dokunma.
+  if (/^[a-z_]+$/.test(ham)) return ham;
+  return ESKI_ASAMA_ADLARI[ham.toLocaleLowerCase('tr')] ?? ham;
+}
+
+/**
+ * Aşama anahtarını okunur etikete çevirir.
+ *
+ * Panellerde ham anahtar ("design") görünüyordu; müşteri bunu okumak
+ * zorunda değil.
+ */
+export function useStageLabels(): (key: string | undefined) => string {
+  const stages = useStages();
+
   return (key) => {
     if (!key) return '';
-    return stages.find((s) => s.key === key)?.label ?? key;
+    const anahtar = asamaAnahtari(key);
+    return stages.find((s) => s.key === anahtar)?.label ?? key;
   };
 }

@@ -1,6 +1,6 @@
 ---
-title: "Data Classification ve PII Management Nedir? Customer 360 Verilerini Sınıflandırma Rehberi"
-description: "Data Classification ve PII Management ile Customer 360 ve pazarlama verilerini sınıflandırma, maskeleme, erişim kontrolü, retention ve aktivasyon guardrail'lerini uçtan uca kurma rehberi."
+title: "Data Classification ve PII Management: Veri Sınıflandırma"
+description: "Customer 360 ve pazarlama verilerini sınıflandırma, maskeleme, erişim kontrolü, retention ve aktivasyon guardrail'lerini kurma rehberi."
 keywords: "Data Classification, PII Management, kişisel veri sınıflandırma, PII detection, customer data classification, data discovery, data masking, data catalog, Customer 360, marketing data governance"
 category: "Veri ve Analitik"
 tags:

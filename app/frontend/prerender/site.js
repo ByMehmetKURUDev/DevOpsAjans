@@ -43,13 +43,14 @@ export function getLanguage(code) {
 }
 
 /** Çok dilli olarak yayınlanan sayfalar. Blog bu listede değil. */
-export const PAGE_KEYS = ['home', 'services', 'portfolio', 'contact'];
+export const PAGE_KEYS = ['home', 'services', 'portfolio', 'marketplace', 'contact'];
 
 /** Sayfa anahtarı → Türkçe kökteki route yolu. */
 export const PAGE_PATHS = {
   home: '/',
   services: '/services',
   portfolio: '/portfolio',
+  marketplace: '/marketplace',
   contact: '/contact',
 };
 
@@ -57,6 +58,7 @@ export const PAGE_PRIORITY = {
   home: 1.0,
   services: 0.9,
   portfolio: 0.8,
+  marketplace: 0.85,
   contact: 0.7,
 };
 
@@ -88,7 +90,12 @@ export const PAGE_SEO = {
     portfolio: {
       title: 'Vaka Çalışmaları: Web, E-Ticaret ve SaaS Projeleri | Mehmet KURU',
       description:
-        'Teslim edilen web uygulamaları, e-ticaret altyapıları, SaaS platformları ve pazarlama siteleri. Her vaka çalışmasında kullanılan yaklaşım ve elde edilen sonuçlar.',
+        'Teslim edilen web uygulamaları, e-ticaret altyapıları, SaaS platformları ve pazarlama siteleri; her vakada kullanılan yaklaşım ve elde edilen sonuçlar.',
+    },
+    marketplace: {
+      title: 'Hazır Paketler, Araçlar ve Eklentiler | Mehmet KURU',
+      description:
+        'Hazır website, e-ticaret ve SaaS paketleri ile araçlar ve eklentiler. Kurulumu yapılmış, teslime hazır çözümler ve fiyatları.',
     },
     contact: {
       title: 'İletişim | By Mehmet KURU Dev',
@@ -112,6 +119,11 @@ export const PAGE_SEO = {
       description:
         'Delivered web applications, e-commerce platforms, SaaS products and marketing sites, with the approach taken and the results reached in each case study.',
     },
+    marketplace: {
+      title: 'Ready-Made Packages, Tools and Plugins | Mehmet KURU',
+      description:
+        'Ready-made website, e-commerce and SaaS packages plus tools and plugins. Configured, delivery-ready solutions with pricing.',
+    },
     contact: {
       title: 'Contact | By Mehmet KURU Dev',
       description:
@@ -134,6 +146,11 @@ export const PAGE_SEO = {
       description:
         'Umgesetzte Webanwendungen, E-Commerce-Plattformen, SaaS-Produkte und Marketing-Websites — mit Vorgehen und Ergebnissen je Fallstudie.',
     },
+    marketplace: {
+      title: 'Fertige Pakete, Tools und Plugins | Mehmet KURU',
+      description:
+        'Fertige Website-, E-Commerce- und SaaS-Pakete sowie Tools und Plugins. Eingerichtete, lieferfertige Lösungen mit Preisen.',
+    },
     contact: {
       title: 'Kontakt | By Mehmet KURU Dev',
       description:
@@ -147,14 +164,19 @@ export const PAGE_SEO = {
         'خدمات تطوير المواقع والتجارة الإلكترونية ومنصات SaaS والتسويق الرقمي. مشاريع سريعة وقابلة للقياس ومهيأة لمحركات البحث باستخدام React وTypeScript.',
     },
     services: {
-      title: 'الخدمات: تطوير المواقع والتجارة الإلكترونية وتحسين محركات البحث | Mehmet KURU',
+      title: 'الخدمات: تطوير المواقع والمتاجر الإلكترونية والسيو | Mehmet KURU',
       description:
         'تطوير مواقع مخصص، وبناء متاجر إلكترونية ومنصات SaaS، وتحسين تقني لمحركات البحث، وإعلانات Google والقياس — بإشراف مباشر من مسؤول واحد.',
     },
     portfolio: {
-      title: 'دراسات الحالة: مشاريع الويب والتجارة الإلكترونية وSaaS | Mehmet KURU',
+      title: 'دراسات الحالة: مشاريع الويب والمتاجر وSaaS | Mehmet KURU',
       description:
         'تطبيقات ويب ومتاجر إلكترونية ومنتجات SaaS ومواقع تسويقية منجزة، مع شرح المنهج والنتائج في كل دراسة حالة.',
+    },
+    marketplace: {
+      title: 'باقات جاهزة وأدوات وإضافات | Mehmet KURU',
+      description:
+        'باقات جاهزة للمواقع والتجارة الإلكترونية وSaaS، إضافة إلى أدوات وإضافات. حلول مُعدّة وجاهزة للتسليم مع الأسعار.',
     },
     contact: {
       title: 'اتصل بنا | By Mehmet KURU Dev',
@@ -178,6 +200,11 @@ export const PAGE_SEO = {
       description:
         'Реализованные веб-приложения, интернет-магазины, SaaS-продукты и маркетинговые сайты с описанием подхода и результатов в каждом кейсе.',
     },
+    marketplace: {
+      title: 'Готовые пакеты, инструменты и плагины | Mehmet KURU',
+      description:
+        'Готовые пакеты для сайтов, интернет-магазинов и SaaS, а также инструменты и плагины. Настроенные решения и цены.',
+    },
     contact: {
       title: 'Контакты | By Mehmet KURU Dev',
       description:
@@ -200,6 +227,11 @@ export const PAGE_SEO = {
       description:
         '已交付的网页应用、电商平台、SaaS 产品与营销网站，并说明每个案例的做法与成果。',
     },
+    marketplace: {
+      title: '现成套餐、工具与插件 | Mehmet KURU',
+      description:
+        '网站、电商与 SaaS 现成套餐，以及工具和插件。已配置、可直接交付的解决方案及价格。',
+    },
     contact: {
       title: '联系方式 | By Mehmet KURU Dev',
       description: '通过电子邮件、WhatsApp 或联系表单说明您的项目，24 小时内获得坦诚的评估。',
@@ -221,6 +253,11 @@ export const PAGE_SEO = {
       description:
         'पूरे किए गए वेब ऐप्लिकेशन, ई-कॉमर्स प्लेटफ़ॉर्म, SaaS उत्पाद और मार्केटिंग साइटें, हर केस स्टडी के तरीक़े और नतीजों के साथ।',
     },
+    marketplace: {
+      title: 'तैयार पैकेज, टूल और प्लगइन | Mehmet KURU',
+      description:
+        'वेबसाइट, ई-कॉमर्स और SaaS के तैयार पैकेज, साथ ही टूल और प्लगइन। सेटअप किए गए, डिलीवरी के लिए तैयार समाधान और कीमतें।',
+    },
     contact: {
       title: 'संपर्क | By Mehmet KURU Dev',
       description:
@@ -237,6 +274,7 @@ export const PAGE_SEO_KEYS = {
   home: { title: 'seo_title_home', description: 'seo_desc_home' },
   services: { title: 'seo_title_services', description: 'seo_desc_services' },
   portfolio: { title: 'seo_title_portfolio', description: 'seo_desc_portfolio' },
+  marketplace: { title: 'seo_title_marketplace', description: 'seo_desc_marketplace' },
   contact: { title: 'seo_title_contact', description: 'seo_desc_contact' },
   blog: { title: 'seo_title_blog', description: 'seo_desc_blog' },
 };
@@ -251,7 +289,14 @@ export const BLOG_INDEX_ROUTE = {
 };
 
 /** Arama motorlarına açılmaması gereken uygulama içi route'lar. */
-export const NOINDEX_ROUTES = ['/client', '/admin', '/auth/callback', '/auth/error'];
+export const NOINDEX_ROUTES = [
+  '/client',
+  '/admin',
+  '/auth/callback',
+  '/auth/error',
+  // Servis calisaninin cevrimdisi yedegi; arama sonuclarinda isi yok.
+  '/cevrimdisi',
+];
 
 /** Ana sayfada yayınlanan yapısal veri. */
 export const ORGANIZATION_JSONLD = {
@@ -285,21 +330,33 @@ export function localizedPath(lang, pageKey) {
 }
 
 /**
- * Canonical adres biçimi: kök dışında sondaki eğik çizgi yok.
+ * İç karşılaştırma biçimi: kök dışında sondaki eğik çizgi yok.
  *
- * `/services` ve `/services/` Google için iki ayrı URL. Sitemap eklentisi
- * yolları üretilen HTML'lerden eğik çizgisiz topluyor; canonical'ın da aynı
- * biçimde olması ikisinin ayrışmasını önlüyor.
+ * Route eşleştirmesi bu biçimle yapılıyor, böylece `/services` ile
+ * `/services/` aynı sayfaya çözülüyor. Dışarıya yazılan adresler için
+ * `canonicalUrlPathFor` kullanılır.
  */
 export function canonicalPathFor(pathname) {
   const trimmed = pathname.replace(/\/+$/, '');
   return trimmed === '' ? '/' : trimmed;
 }
 
+/**
+ * Yayındaki adres biçimi: kök dışında sonda eğik çizgi var.
+ *
+ * Cloudflare Pages `/blog` isteğini 308 ile `/blog/` adresine yolladığı için
+ * canonical, og:url, hreflang ve site haritası doğrudan 200 dönen adresi
+ * göstersin diye eğik çizgili biçim burada üretiliyor.
+ */
+export function canonicalUrlPathFor(pathname) {
+  const path = canonicalPathFor(pathname);
+  return path === '/' ? '/' : `${path}/`;
+}
+
 /** Verilen yola göre canonical biçiminde mutlak URL üretir. */
 export function absoluteUrl(pathname) {
   const normalized = pathname.startsWith('/') ? pathname : `/${pathname}`;
-  return `${SITE_URL}${canonicalPathFor(normalized)}`;
+  return `${SITE_URL}${canonicalUrlPathFor(normalized)}`;
 }
 
 /** Bir yolun hangi dile ve hangi sayfaya karşılık geldiğini çözer. */

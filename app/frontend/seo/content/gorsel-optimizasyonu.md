@@ -1,6 +1,6 @@
 ---
 title: "Görsel Optimizasyonu: Web Performansı İçin Görsel Stratejisi"
-description: "Web için görsel optimizasyonu: WebP ve AVIF format seçimi, responsive srcset, tembel yükleme, LCP görseli önceliklendirme, CDN kullanımı ve düzen kaymasını önleme."
+description: "Web için görsel optimizasyonu: WebP ve AVIF format seçimi, responsive srcset, tembel yükleme, LCP görseli önceliklendirme ve CDN kullanımı."
 keywords: "görsel optimizasyonu, WebP, AVIF, srcset, responsive images, lazy loading, LCP görseli, görsel sıkıştırma, CDN"
 category: "Web Geliştirme"
 tags:

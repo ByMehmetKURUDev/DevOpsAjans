@@ -4,12 +4,18 @@ from typing import List, Optional
 
 from datetime import datetime, date
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
+from dependencies.kayit_sahipligi import (
+    gorunur_proje_kosulu,
+    kendi_kaydi_mi,
+    proje_gorunur_mu,
+)
+from models.projects import Projects
 from fastapi import Depends as _Depends
 from services.projects import ProjectsService
 
@@ -34,6 +40,8 @@ class ProjectsData(BaseModel):
     progress: int = None
     tech_stack: str = None
     featured: bool = None
+    published: bool = None
+    brief: str = None
 
 
 class ProjectsUpdateData(BaseModel):
@@ -50,6 +58,8 @@ class ProjectsUpdateData(BaseModel):
     progress: Optional[int] = None
     tech_stack: Optional[str] = None
     featured: Optional[bool] = None
+    published: Optional[bool] = None
+    brief: Optional[str] = None
 
 
 class ProjectsResponse(BaseModel):
@@ -67,6 +77,8 @@ class ProjectsResponse(BaseModel):
     progress: Optional[int] = None
     tech_stack: Optional[str] = None
     featured: Optional[bool] = None
+    published: Optional[bool] = None
+    brief: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -103,6 +115,24 @@ class ProjectsBatchDeleteRequest(BaseModel):
     ids: List[int]
 
 
+def musteri_kimligini_gizle(kayitlar, request: Request):
+    """Başkasının projesinde müşteri adını ve e-postasını dışarı vermez.
+
+    Yayına alınan bir vaka çalışması herkese açık; ama o işi kimin yaptırdığı
+    kamuya açık bilgi değil. Yönetici her şeyi görüyor, müşteri kendi
+    kaydında kendi bilgisini görüyor (müşteri paneli süzgeci buna dayanıyor),
+    geri kalan herkese bu iki alan boş dönüyor.
+    """
+    gizlenmis = []
+    for kayit in kayitlar:
+        veri = ProjectsResponse.model_validate(kayit)
+        if not kendi_kaydi_mi(kayit, request, "client_email"):
+            veri.client_email = None
+            veri.client_name = None
+        gizlenmis.append(veri)
+    return gizlenmis
+
+
 # ---------- Routes ----------
 @router.get("", response_model=ProjectsListResponse)
 async def query_projectss(
@@ -111,6 +141,7 @@ async def query_projectss(
     skip: int = Query(0, ge=0, description="Number of records to skip"),
     limit: int = Query(20, ge=1, le=2000, description="Max number of records to return"),
     fields: str = Query(None, description="Comma-separated list of fields to return"),
+    request: Request = None,
     db: AsyncSession = Depends(get_db),
 ):
     """Query projectss with filtering, sorting, and pagination"""
@@ -126,12 +157,17 @@ async def query_projectss(
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
         
+        # Yayında olmayan proje yalnızca sahibine ve yöneticiye görünür.
+        kosul = gorunur_proje_kosulu(request, Projects)
+
         result = await service.get_list(
             skip=skip, 
             limit=limit,
             query_dict=query_dict,
             sort=sort,
+            ek_kosullar=[kosul] if kosul is not None else None,
         )
+        result["items"] = musteri_kimligini_gizle(result["items"], request)
         logger.debug(f"Found {result['total']} projectss")
         return result
     except HTTPException:
@@ -151,6 +187,7 @@ async def query_projectss_all(
     skip: int = Query(0, ge=0, description="Number of records to skip"),
     limit: int = Query(20, ge=1, le=2000, description="Max number of records to return"),
     fields: str = Query(None, description="Comma-separated list of fields to return"),
+    request: Request = None,
     db: AsyncSession = Depends(get_db),
 ):
     # Query projectss with filtering, sorting, and pagination without user limitation
@@ -166,12 +203,17 @@ async def query_projectss_all(
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
 
+        # Yayında olmayan proje yalnızca sahibine ve yöneticiye görünür.
+        kosul = gorunur_proje_kosulu(request, Projects)
+
         result = await service.get_list(
             skip=skip,
             limit=limit,
             query_dict=query_dict,
-            sort=sort
+            sort=sort,
+            ek_kosullar=[kosul] if kosul is not None else None,
         )
+        result["items"] = musteri_kimligini_gizle(result["items"], request)
         logger.debug(f"Found {result['total']} projectss")
         return result
     except HTTPException:
@@ -188,6 +230,7 @@ async def query_projectss_all(
 async def get_projects(
     id: int,
     fields: str = Query(None, description="Comma-separated list of fields to return"),
+    request: Request = None,
     db: AsyncSession = Depends(get_db),
 ):
     """Get a single projects by ID"""
@@ -199,8 +242,10 @@ async def get_projects(
         if not result:
             logger.warning(f"Projects with id {id} not found")
             raise HTTPException(status_code=404, detail="Projects not found")
-        
-        return result
+
+        proje_gorunur_mu(result, request)
+
+        return musteri_kimligini_gizle([result], request)[0]
     except HTTPException:
         raise
     except Exception as e:

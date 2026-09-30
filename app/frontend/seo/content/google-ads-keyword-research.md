@@ -1,6 +1,6 @@
 ---
 title: "Google Ads Anahtar Kelime Araştırması Nasıl Yapılır?"
-description: "Google Ads anahtar kelime araştırması: niyet sınıflandırması, hacim ve rekabet analizi, uzun kuyruk fırsatları, gruplama mantığı ve arama terimi verisiyle sürekli genişletme."
+description: "Google Ads anahtar kelime araştırması: niyet sınıflandırması, hacim ve rekabet analizi, uzun kuyruk fırsatları ve arama terimi verisiyle genişletme."
 keywords: "anahtar kelime araştırması, keyword research, arama niyeti, uzun kuyruk anahtar kelime, anahtar kelime gruplama, rekabet analizi"
 category: "Reklam"
 tags:

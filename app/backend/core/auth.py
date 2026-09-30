@@ -13,6 +13,30 @@ from jose.exceptions import ExpiredSignatureError, JWSSignatureError, JWTClaimsE
 logger = logging.getLogger(__name__)
 
 
+def oidc_endpoint(setting_name: str, default_path: str) -> str:
+    """Resolve an OIDC endpoint URL.
+
+    Providers do not agree on where their endpoints live. The platform this app
+    was built for serves them all under the issuer, so "{issuer}/authorize" and
+    friends were hard-coded. Google does not: authorization lives at
+    accounts.google.com/o/oauth2/v2/auth and the token endpoint is on a
+    different host altogether, so no single issuer base can produce both.
+
+    If the endpoint is given explicitly in the environment, use it verbatim;
+    otherwise fall back to the historical "{issuer}{default_path}" form, which
+    leaves every existing deployment behaving exactly as before.
+    """
+    try:
+        explicit = getattr(settings, setting_name)
+    except AttributeError:
+        explicit = None
+
+    if explicit:
+        return str(explicit).strip()
+
+    return f"{settings.oidc_issuer_url}{default_path}"
+
+
 def generate_state() -> str:
     """Generate a secure state parameter for OIDC."""
     return secrets.token_urlsafe(32)
@@ -36,7 +60,7 @@ def generate_code_challenge(code_verifier: str) -> str:
 
 async def get_jwks() -> Dict[str, Any]:
     """Get JWKS (JSON Web Key Set) from OIDC provider."""
-    jwks_url = f"{settings.oidc_issuer_url}/.well-known/jwks.json"
+    jwks_url = oidc_endpoint("oidc_jwks_uri", "/.well-known/jwks.json")
     try:
         async with httpx.AsyncClient(timeout=60.0) as client:
             logger.info(f"Fetching JWKS from: {jwks_url}")
@@ -123,7 +147,7 @@ def decode_access_token(token: str) -> Dict[str, Any]:
         raise AccessTokenError("Invalid authentication token") from exc
 
 
-async def validate_id_token(id_token: str) -> Optional[Dict[str, Any]]:
+async def validate_id_token(id_token: str, access_token: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """Validate ID token with proper JWT signature verification using JWKS."""
     try:
         # Get the header to find the key ID
@@ -188,12 +212,15 @@ async def validate_id_token(id_token: str) -> Optional[Dict[str, Any]]:
 
         # Verify and decode the JWT
         try:
+            # Google'in kimlik jetonunda at_hash var; erisim jetonu verilmezse
+            # kutuphane bu talebi dogrulayamiyor ve jetonu tumden reddediyor.
             payload = jwt.decode(
                 id_token,
                 pem_key,
                 algorithms=["RS256"],
                 issuer=settings.oidc_issuer_url,
                 audience=settings.oidc_client_id,
+                access_token=access_token,
             )
             # Log user hash instead of actual user ID to avoid exposing sensitive information
             user_id = payload.get("sub", "unknown")
@@ -250,7 +277,8 @@ def build_authorization_url(
         params["code_challenge"] = code_challenge
         params["code_challenge_method"] = "S256"
 
-    auth_url = f"{settings.oidc_issuer_url}/authorize?" + urllib.parse.urlencode(params)
+    authorization_endpoint = oidc_endpoint("oidc_authorization_endpoint", "/authorize")
+    auth_url = f"{authorization_endpoint}?" + urllib.parse.urlencode(params)
     return auth_url
 
 
@@ -258,10 +286,20 @@ def build_logout_url(id_token: Optional[str] = None) -> str:
     """Build OIDC logout URL."""
     import urllib.parse
 
-    params = {"post_logout_redirect_uri": f"{settings.frontend_url}/logout-callback"}
+    post_logout_redirect_uri = f"{settings.frontend_url}/logout-callback"
+
+    end_session_endpoint = oidc_endpoint("oidc_end_session_endpoint", "/logout")
+
+    # Not every provider offers an end-session endpoint - Google does not.
+    # Set OIDC_END_SESSION_ENDPOINT=none for those: logout then simply drops
+    # the application session and returns to the site.
+    if end_session_endpoint.lower() == "none":
+        return post_logout_redirect_uri
+
+    params = {"post_logout_redirect_uri": post_logout_redirect_uri}
 
     if id_token:
         params["id_token_hint"] = id_token
 
-    logout_url = f"{settings.oidc_issuer_url}/logout?" + urllib.parse.urlencode(params)
+    logout_url = f"{end_session_endpoint}?" + urllib.parse.urlencode(params)
     return logout_url

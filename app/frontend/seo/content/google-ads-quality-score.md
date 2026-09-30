@@ -1,6 +1,6 @@
 ---
 title: "Google Ads Kalite Puanı Nasıl Yükseltilir?"
-description: "Kalite puanı nedir, hangi bileşenlerden oluşur ve nasıl iyileştirilir? Beklenen tıklama oranı, reklam alaka düzeyi ve açılış sayfası deneyimi için uygulanabilir yöntemler."
+description: "Kalite puanı nedir, hangi bileşenlerden oluşur ve nasıl iyileştirilir? Beklenen tıklama oranı, reklam alaka düzeyi ve açılış sayfası deneyimi."
 keywords: "kalite puanı, quality score, reklam alaka düzeyi, açılış sayfası deneyimi, beklenen tıklama oranı, reklam sıralaması, TBM düşürme"
 category: "Reklam"
 tags:

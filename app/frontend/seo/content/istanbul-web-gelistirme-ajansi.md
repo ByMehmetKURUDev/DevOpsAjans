@@ -1,21 +1,16 @@
 ---
 title: "İstanbul'un En İyi Web Geliştirme Ajansı: Mehmetkuru.dev Farkı"
-description: "İstanbul merkezli Mehmetkuru.dev, 13+ yıllık tecrübesiyle KOBİ'ler ve startup'lar için özel web geliştirme, dijital pazarlama ve yazılım çözümleri sunan butik bir ajanstır. İşinizi dijitalde zirveye taşıyın!"
+description: "İstanbul merkezli Mehmetkuru.dev; KOBİ'ler ve startup'lar için özel web geliştirme, dijital pazarlama ve yazılım çözümleri sunan butik bir ajanstır."
 keywords: "web geliştirme ajansı İstanbul, kurumsal web tasarım, butik yazılım ajansı, mehmetkuru.dev"
 category: "Website"
 tags:
   - "Website"
 lang: "tr"
-hero_image: ""
-og_url: "https://atoms.template.com/blog/istanbul-web-gelistirme-ajansi"
-og_image: ""
+og_image: "https://mehmetkuru.dev/blog-covers/istanbul-web-gelistirme-ajansi.webp"
 og_image_alt: "İstanbul'un En İyi Web Geliştirme Ajansı: Mehmetkuru.dev Farkı"
 twitter_card: "summary_large_image"
-twitter_site: "https://atoms.template.com/"
-twitter_creator: "@atoms_dev"
 twitter_title: "İstanbul'un En İyi Web Geliştirme Ajansı: Mehmetkuru.dev Farkı"
 twitter_description: "İstanbul merkezli Mehmetkuru.dev, 13+ yıllık tecrübesiyle KOBİ'ler ve startup'lar için özel web geliştirme, dijital pazarlama ve yazılım çözümleri sunan butik bir ajanstır. İşinizi dijitalde zirveye taşıyın!"
-twitter_image: ""
 twitter_image_alt: "İstanbul'un En İyi Web Geliştirme Ajansı: Mehmetkuru.dev Farkı"
 ---
 ![İstanbul'un En İyi Web Geliştirme Ajansı: Mehmetkuru.dev Farkı]()

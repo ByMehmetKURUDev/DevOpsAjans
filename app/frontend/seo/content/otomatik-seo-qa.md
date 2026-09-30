@@ -1,6 +1,6 @@
 ---
 title: "Otomatik SEO QA: Yayın Öncesi SEO Kalite Kontrolü"
-description: "Otomatik SEO QA nasıl kurulur? Yayın hattına eklenen kontroller, test seviyeleri, kritik ve uyarı seviyeli kurallar, örnek kontrol listesi ve regresyonları önleme yöntemi."
+description: "Otomatik SEO QA nasıl kurulur? Yayın hattına eklenen kontroller, test seviyeleri, kritik ve uyarı kuralları ve regresyonları önleme yöntemi."
 keywords: "SEO QA, otomatik SEO testi, SEO regresyon kontrolü, CI SEO kontrolü, yayın öncesi kontrol listesi, teknik SEO testi, kalite kapısı"
 category: "SEO"
 tags:

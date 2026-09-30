@@ -1,6 +1,6 @@
 from core.database import Base
 from datetime import datetime
-from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
 
 
 class Projects(Base):
@@ -20,5 +20,13 @@ class Projects(Base):
     progress = Column(Integer, nullable=True)
     tech_stack = Column(String, nullable=True)
     featured = Column(Boolean, nullable=True)
+    # Halka acik "Vaka Calismalari" sayfasinda gorunsun mu?
+    # Musteri paneli bundan bagimsiz: musteri kendi projesini her halukarda gorur.
+    # Yeni projeler taslak baslar; is bitince yonetici yayina alir.
+    published = Column(Boolean, nullable=True, default=False)
+    # Talepten tasinan uzman promptlari (JSON metni). Proje ise
+    # basladiginda brief'in yeniden uretilmesi gerekmiyor; hangi
+    # varsayimlarla baslandigi da kayitli kaliyor.
+    brief = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

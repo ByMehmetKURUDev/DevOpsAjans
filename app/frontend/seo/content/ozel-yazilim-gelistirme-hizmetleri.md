@@ -1,21 +1,16 @@
 ---
 title: "Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın"
-description: "İşletmenize özel yazılım geliştirme hizmetleriyle rekabet avantajı sağlayın. Mehmetkuru.dev'in kurumsal yazılım çözümleri ve uzmanlığıyla dijital dönüşümünüzü hızlandırın."
+description: "İşletmenize özel yazılım geliştirme hizmetleriyle rekabet avantajı sağlayın. Mehmetkuru.dev'in kurumsal yazılım çözümleri ve uzmanlık alanları."
 keywords: "özel yazılım geliştirme, custom software development Turkey, kurumsal yazılım çözümleri, işletmeye özel yazılım"
 category: "SaaS"
 tags:
   - "SaaS"
 lang: "tr"
-hero_image: ""
-og_url: "https://atoms.template.com/blog/ozel-yazilim-gelistirme-hizmetleri"
-og_image: ""
+og_image: "https://mehmetkuru.dev/blog-covers/ozel-yazilim-gelistirme-hizmetleri.webp"
 og_image_alt: "Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın"
 twitter_card: "summary_large_image"
-twitter_site: "https://atoms.template.com/"
-twitter_creator: "@atoms_dev"
 twitter_title: "Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın"
 twitter_description: "İşletmenize özel yazılım geliştirme hizmetleriyle rekabet avantajı sağlayın. Mehmetkuru.dev'in kurumsal yazılım çözümleri ve uzmanlığıyla dijital dönüşümünüzü hızlandırın."
-twitter_image: ""
 twitter_image_alt: "Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın"
 ---
 ![Özel Yazılım Geliştirme ile İşinizi Dijitalde Zirveye Taşıyın]()

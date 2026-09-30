@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Loader2,
@@ -11,6 +12,8 @@ import {
   UserCog,
   Send,
   UserPlus,
+  FileText,
+  ShieldCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -19,8 +22,12 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
 import ProjectTimeline from '@/components/ProjectTimeline';
+import TalepYazismasi from '@/components/TalepYazismasi';
+import RaporArsivi from '@/components/RaporArsivi';
+import SiteBakimIzni from '@/components/SiteBakimIzni';
+import { HIZMETLER } from '@/lib/talepler';
 import { useStageLabels } from '@/lib/projectEvents';
-import { client } from '@/lib/sdkClient';
+import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import { useSiteSettings } from '@/lib/siteSettings';
 
 
@@ -68,10 +75,11 @@ interface Ticket {
   reply?: string;
   status?: string;
   priority?: string;
+  hizmet?: string;
   created_at?: string;
 }
 
-type Tab = 'projects' | 'invoices' | 'tickets' | 'profile';
+type Tab = 'projects' | 'invoices' | 'tickets' | 'raporlar' | 'sitem' | 'profile';
 
 
 export default function ClientPanel() {
@@ -92,12 +100,20 @@ export default function ClientPanel() {
   const [dataLoading, setDataLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const [ticketForm, setTicketForm] = useState({ subject: '', message: '' });
+  const [ticketForm, setTicketForm] = useState({ subject: '', message: '', hizmet: 'genel' });
+  // Yazismasi acik olan talep. Ayni anda tek talep aciliyor: uzun
+  // listede hepsi acik olsa ekran okunmaz hale geliyor.
+  const [acikTalep, setAcikTalep] = useState<number | null>(null);
   const [sending, setSending] = useState(false);
 
   const [profile, setProfile] = useState({ name: '', phone: '', company: '' });
 
   useEffect(() => {
+    // Oturum izi yoksa cagri kesin 401 doner; bos yere istek atmiyoruz.
+    if (!oturumIziVarMi()) {
+      setAuthLoading(false);
+      return;
+    }
     client.auth
       .me()
       .then((res) => {
@@ -182,10 +198,16 @@ export default function ClientPanel() {
           message: ticketForm.message.trim(),
           status: 'open',
           priority: 'normal',
+          hizmet: ticketForm.hizmet || 'genel',
+          kaynak: 'panel',
+          // Müşterinin tek projesi varsa talebi ona bağlıyoruz. Birden
+          // çok proje varsa boş bırakıyoruz: yanlış projeye bağlamak,
+          // hiç bağlamamaktan kötü.
+          project_id: projects.length === 1 ? Number(projects[0].id) : undefined,
         },
       });
       toast.success(t('ui.ticketSent'));
-      setTicketForm({ subject: '', message: '' });
+      setTicketForm({ subject: '', message: '', hizmet: 'genel' });
       loadData();
     } catch (e) {
       const err = e as { message?: string };
@@ -258,6 +280,8 @@ export default function ClientPanel() {
     { key: 'projects', label: t('ui.tabMyProjects'), icon: Briefcase },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
+    { key: 'raporlar', label: t('rapor.sekme'), icon: FileText },
+    { key: 'sitem', label: t('sitem.sekme'), icon: ShieldCheck },
     { key: 'profile', label: t('ui.tabProfile'), icon: UserCog },
   ];
 
@@ -363,6 +387,34 @@ export default function ClientPanel() {
         </div>
       ) : (
         <>
+          {/*
+            Hiçbir kaydı olmayan müşteriye sebebini söylüyoruz.
+            Panel kayıtları `client_email` ile eşleştiriyor; müşteri
+            projedekinden farklı bir adresle kaydolduysa üç sekme de boş
+            geliyor ve bunun sebebi ekranda hiçbir yerde yazmıyordu —
+            müşteri "panel çalışmıyor" diye arıyordu. Boş bir ekranın
+            "kaydınız yok" mu "yanlış hesap" mı demek olduğu belli olmalı.
+          */}
+          {projects.length === 0 && invoices.length === 0 && tickets.length === 0 && (
+            <div className="mb-6 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5">
+              <p className="text-sm font-medium text-amber-200">
+                {t('ui.emailMismatchTitle')}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-amber-200/80">
+                {t('ui.emailMismatchDesc', { email })}
+              </p>
+              <Link to="/contact" className="mt-4 inline-block">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="!bg-transparent border-amber-400/40 text-amber-100 hover:border-amber-300"
+                >
+                  {t('ui.emailMismatchCta')}
+                </Button>
+              </Link>
+            </div>
+          )}
+
           {tab === 'projects' && (
             <div className="grid gap-4">
               {projects.length === 0 ? (
@@ -371,7 +423,13 @@ export default function ClientPanel() {
                     {t('ui.noProjectsDesc')}
                   </p>
                   <Button
-                    onClick={() => (window.location.href = '/contact')}
+                    /*
+                      Eskiden iletişim sayfasına gidiyordu: oturumu açık
+                      müşteriyi herkese açık bir forma göndermek, zaten
+                      bildiğimiz bilgileri ona tekrar yazdırmak demekti.
+                      Artık panelin kendi talep sekmesini açıyor.
+                    */
+                    onClick={() => setTab('tickets')}
                     className="bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0"
                   >
                     {t('ui.startProject')}
@@ -538,6 +596,34 @@ export default function ClientPanel() {
                   {t('ui.newTicket')}
                 </h3>
                 <div className="space-y-4">
+                  {/*
+                    Hizmet düğmeleri. Müşteri "sitemde şunu değiştir"
+                    derken hangi iş kalemi olduğunu seçiyor; talep
+                    panele o etiketle düşüyor ve doğru kişiye gidiyor.
+                    Boş bırakılamıyor: varsayılan "genel".
+                  */}
+                  <div>
+                    <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
+                      {t('talep.hizmetSec')}
+                    </Label>
+                    <div className="flex flex-wrap gap-2">
+                      {HIZMETLER.map((h) => (
+                        <button
+                          key={h}
+                          type="button"
+                          onClick={() => setTicketForm({ ...ticketForm, hizmet: h })}
+                          aria-pressed={ticketForm.hizmet === h}
+                          className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
+                            ticketForm.hizmet === h
+                              ? 'border-purple-400/60 bg-purple-500/20 text-white'
+                              : 'border-white/10 bg-white/[0.03] text-muted-foreground hover:border-white/25'
+                          }`}
+                        >
+                          {t(`talep.hizmetler.${h}`)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   <div>
                     <Label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
                       {t('ui.subject')} *
@@ -610,24 +696,49 @@ export default function ClientPanel() {
                         >
                           {statusLabel(tk.status, 'open')}
                         </span>
+                        {tk.hizmet ? (
+                          <span className="rounded-full border border-white/10 px-2 py-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+                            {t(`talep.hizmetler.${tk.hizmet}`, { defaultValue: tk.hizmet })}
+                          </span>
+                        ) : null}
                       </div>
-                      <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                        {tk.message}
-                      </p>
-                      {tk.reply && (
-                        <div className="mt-3 pt-3 border-t border-white/10">
-                          <p className="text-xs uppercase tracking-widest text-purple-400 mb-1">
-                            {t('ui.reply')}
-                          </p>
-                          <p className="text-sm text-foreground whitespace-pre-wrap">
-                            {tk.reply}
-                          </p>
-                        </div>
-                      )}
+                      {acikTalep !== Number(tk.id) ? (
+                        <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-2">
+                          {tk.message}
+                        </p>
+                      ) : null}
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setAcikTalep(acikTalep === Number(tk.id) ? null : Number(tk.id))
+                        }
+                        className="mt-3 text-xs font-medium text-purple-300 hover:text-purple-200"
+                      >
+                        {acikTalep === Number(tk.id) ? t('talep.kapat') : t('talep.ac')}
+                      </button>
+
+                      {acikTalep === Number(tk.id) ? (
+                        <TalepYazismasi ticketId={Number(tk.id)} bizKimiz="musteri" />
+                      ) : null}
                     </div>
                   ))
                 )}
               </div>
+            </div>
+          )}
+
+          {tab === 'raporlar' && (
+            <div>
+              <h3 className="mb-4 text-lg font-semibold">{t('rapor.sekme')}</h3>
+              <RaporArsivi />
+            </div>
+          )}
+
+          {tab === 'sitem' && (
+            <div>
+              <h3 className="mb-4 text-lg font-semibold">{t('sitem.sekme')}</h3>
+              <SiteBakimIzni />
             </div>
           )}
 

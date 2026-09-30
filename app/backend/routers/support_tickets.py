@@ -4,12 +4,13 @@ from typing import List, Optional
 
 from datetime import datetime, date
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
+from dependencies.kayit_sahipligi import sahibine_daralt, sahiplik_dogrula
 from fastapi import Depends as _Depends
 from services.notify import admin_recipients, dispatch, render
 from services.support_tickets import Support_ticketsService
@@ -30,6 +31,10 @@ class Support_ticketsData(BaseModel):
     reply: str = None
     status: str = None
     priority: str = None
+    hizmet: str = None
+    project_id: int = None
+    kaynak: str = None
+    atanan: str = None
 
 
 class Support_ticketsUpdateData(BaseModel):
@@ -41,6 +46,10 @@ class Support_ticketsUpdateData(BaseModel):
     reply: Optional[str] = None
     status: Optional[str] = None
     priority: Optional[str] = None
+    hizmet: Optional[str] = None
+    project_id: Optional[int] = None
+    kaynak: Optional[str] = None
+    atanan: Optional[str] = None
 
 
 class Support_ticketsResponse(BaseModel):
@@ -53,6 +62,11 @@ class Support_ticketsResponse(BaseModel):
     reply: Optional[str] = None
     status: Optional[str] = None
     priority: Optional[str] = None
+    hizmet: Optional[str] = None
+    project_id: Optional[int] = None
+    kaynak: Optional[str] = None
+    atanan: Optional[str] = None
+    son_mesaj_at: Optional[datetime] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -98,6 +112,7 @@ async def query_support_ticketss(
     limit: int = Query(20, ge=1, le=2000, description="Max number of records to return"),
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
     """Query support_ticketss with filtering, sorting, and pagination"""
     logger.debug(f"Querying support_ticketss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
@@ -111,6 +126,9 @@ async def query_support_ticketss(
                 query_dict = json.loads(query)
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
+
+        # Yonetici degilse yalnizca kendi kayitlari
+        query_dict = sahibine_daralt(query_dict, request, "client_email")
         
         result = await service.get_list(
             skip=skip, 
@@ -138,6 +156,7 @@ async def query_support_ticketss_all(
     limit: int = Query(20, ge=1, le=2000, description="Max number of records to return"),
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
     # Query support_ticketss with filtering, sorting, and pagination without user limitation
     logger.debug(f"Querying support_ticketss: query={query}, sort={sort}, skip={skip}, limit={limit}, fields={fields}")
@@ -151,6 +170,9 @@ async def query_support_ticketss_all(
                 query_dict = json.loads(query)
             except json.JSONDecodeError:
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
+
+        # Yonetici degilse yalnizca kendi kayitlari
+        query_dict = sahibine_daralt(query_dict, request, "client_email")
 
         result = await service.get_list(
             skip=skip,
@@ -175,6 +197,7 @@ async def get_support_tickets(
     id: int,
     fields: str = Query(None, description="Comma-separated list of fields to return"),
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
     """Get a single support_tickets by ID"""
     logger.debug(f"Fetching support_tickets with id: {id}, fields={fields}")
@@ -186,6 +209,8 @@ async def get_support_tickets(
             logger.warning(f"Support_tickets with id {id} not found")
             raise HTTPException(status_code=404, detail="Support_tickets not found")
         
+        sahiplik_dogrula(result, request, "client_email")
+
         return result
     except HTTPException:
         raise

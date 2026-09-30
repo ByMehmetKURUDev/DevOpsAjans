@@ -1,6 +1,6 @@
 ---
 title: "Web Sitesi Yaptırırken Nelere Dikkat Edilmeli?"
-description: "Web sitesi yaptırırken kapsam, teknoloji, SEO, performans, içerik sahipliği, ölçümleme ve sözleşme başlıklarında dikkat edilmesi gereken kritik maddelerin pratik kontrol listesi."
+description: "Web sitesi yaptırırken kapsam, teknoloji, SEO, performans, içerik sahipliği ve sözleşme başlıklarında dikkat edilmesi gereken maddeler."
 keywords: "web sitesi yaptırma, web sitesi yaptırırken dikkat edilmesi gerekenler, web sitesi sözleşmesi, web sitesi kapsam dokümanı, kurumsal web sitesi, web tasarım ajansı seçimi"
 category: "Website"
 tags:

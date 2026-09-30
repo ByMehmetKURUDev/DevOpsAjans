@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { startTransition, useCallback, useEffect, useMemo, useState } from 'react';
 import { client } from './sdkClient';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGE_CODES } from '@/i18n';
@@ -16,7 +16,7 @@ export interface SettingRow {
 
 /** Yedek değerler — backend erişilemezse site yine tutarlı görünür. */
 export const DEFAULT_SETTINGS: SettingsMap = {
-  brand_logo: '/assets/logo-mark.webp',
+  brand_logo: '/assets/logo-mark-144.webp',
   hero_title: 'Dijital Fikirlerinizi Ölçeklenebilir Ürünlere Dönüştürüyoruz',
   hero_subtitle:
     'Website, e-ticaret, SaaS ve mobil uygulama geliştirme; uçtan uca tasarım, kod ve büyüme desteği.',
@@ -25,8 +25,18 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   contact_phone: '0541 296 58 78',
   contact_address: 'Sultan Selim Mah. Kağıthane / İstanbul',
   whatsapp_number: '905412965878',
+  // Randevu/Google Meet bağlantısı. Boşken asistan panelinde
+  // "Toplantı ayarla" tuşu hiç çıkmıyor — çalışmayan bir tuş
+  // göstermektense hiç göstermemek daha doğru.
+  meeting_link: '',
   app_store_url: '',
   google_play_url: '',
+  // Pazarlama ve dogrulama kimlikleri. Bos olan platformun betigi hic
+  // indirilmiyor; bos kimlikle kurulan bir etiket sessiz hata uretiyor.
+  google_ads_id: '',
+  meta_pixel_id: '',
+  google_site_verification: '',
+  bing_site_verification: '',
   social_facebook: '',
   social_instagram: '',
   social_twitter: '',
@@ -158,6 +168,7 @@ export const SETTING_GROUPS: {
       { key: 'contact_phone', label: 'settingsForm.fPhone' },
       { key: 'contact_address', label: 'settingsForm.fAddress', translatable: true },
       { key: 'whatsapp_number', label: 'settingsForm.fWhatsapp' },
+      { key: 'meeting_link', label: 'settingsForm.fMeetingLink' },
       { key: 'app_store_url', label: 'settingsForm.fAppStore' },
       { key: 'google_play_url', label: 'settingsForm.fGooglePlay' },
     ],
@@ -229,6 +240,17 @@ export const SETTING_GROUPS: {
     ],
   },
   {
+    group: 'entegrasyon',
+    title: 'settingsForm.entegrasyonTitle',
+    description: 'settingsForm.entegrasyonDesc',
+    fields: [
+      { key: 'google_ads_id', label: 'settingsForm.fGoogleAds' },
+      { key: 'meta_pixel_id', label: 'settingsForm.fMetaPixel' },
+      { key: 'google_site_verification', label: 'settingsForm.fGoogleDogrulama' },
+      { key: 'bing_site_verification', label: 'settingsForm.fBingDogrulama' },
+    ],
+  },
+  {
     group: 'pageSeo',
     title: 'settingsForm.pageSeoTitle',
     description: 'settingsForm.pageSeoDesc',
@@ -280,11 +302,43 @@ function writeCache(map: SettingsMap) {
   }
 }
 
-/** Tüm ayarları backend'den okur, key/value haritasına çevirir. */
+/**
+ * Önbellek tazelendiğinde haber verilecek aboneler.
+ *
+ * `useSiteSettings` buraya abone oluyor: arka planda gelen yeni ayarlar
+ * ekranda da görünsün diye.
+ */
+const aboneler = new Set<(map: SettingsMap) => void>();
+
+function haberVer(map: SettingsMap) {
+  aboneler.forEach((f) => {
+    try {
+      f(map);
+    } catch {
+      /* Bir abonenin hatası diğerlerini düşürmesin. */
+    }
+  });
+}
+
+/**
+ * Tüm ayarları backend'den okur, key/value haritasına çevirir.
+ *
+ * Önbellek "önce göster, arkadan tazele" mantığıyla çalışıyor. Eskiden
+ * önbellek varsa istek HİÇ atılmıyordu; bir ayar panelden silinse bile
+ * o tarayıcıda sonsuza kadar eski değer kalıyordu. Gerçek sonucu şuydu:
+ * `brand_logo` veritabanından kalkmasına rağmen bazı ziyaretçilerde
+ * "/assets/logo-new.jpg" denenmeye devam ediyor, dosya olmadığı için
+ * görsel yüklenemiyor ve logo kayboluyordu -- ama yalnızca o değeri
+ * önbelleğe almış tarayıcılarda, yani "bazen".
+ */
 export async function fetchSiteSettings(force = false): Promise<SettingsMap> {
   if (!force) {
     const cached = readCache();
-    if (cached) return cached;
+    if (cached) {
+      // Önbelleği hemen döndür, tazelemeyi arkada yap.
+      if (!inFlight) void fetchSiteSettings(true).catch(() => {});
+      return cached;
+    }
     if (inFlight) return inFlight;
   }
 
@@ -297,6 +351,7 @@ export async function fetchSiteSettings(force = false): Promise<SettingsMap> {
         if (row?.setting_key) map[row.setting_key] = row.setting_value ?? '';
       });
       writeCache(map);
+      haberVer(map);
       return map;
     } catch {
       return readCache() ?? { ...DEFAULT_SETTINGS };
@@ -356,6 +411,20 @@ export function clearSettingsCache() {
  * Bileşenlerde site ayarlarını okumak için hook.
  * `settings` aktif dile göre çözülmüş değerleri içerir; `rawSettings` ham haritadır.
  */
+/**
+ * Iki ayar haritasi ayni mi?
+ *
+ * `setRawSettings` her seferinde yeni bir nesne aldigi icin, sunucudan
+ * gelen degerler oncekiyle birebir ayni olsa bile tum sayfa yeniden
+ * ciziliyordu. Bu karsilastirma o gereksiz cizimi kesiyor.
+ */
+function ayniHarita(a: SettingsMap, b: SettingsMap): boolean {
+  const ak = Object.keys(a);
+  if (ak.length !== Object.keys(b).length) return false;
+  for (const k of ak) if (a[k] !== b[k]) return false;
+  return true;
+}
+
 export function useSiteSettings() {
   const { i18n } = useTranslation();
   const lang = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : 'tr';
@@ -364,16 +433,37 @@ export function useSiteSettings() {
   );
   const [loading, setLoading] = useState(true);
 
+  /*
+   * Ayarlar geldiginde sayfanin tamami yeniden ciziliyor. Bu cizim ilk
+   * etkilesim penceresine denk gelirse ana is parcacigini uzun sure
+   * kilitliyor (PageSpeed'de TBT). `startTransition` React'e "bu acil
+   * degil, aralarda nefes al" diyor: is kucuk parcalara bolunuyor,
+   * ekranda gorunen sey degismiyor.
+   */
   const load = useCallback(async (force = false) => {
     setLoading(true);
     const map = await fetchSiteSettings(force);
-    setRawSettings(map);
-    setLoading(false);
+    startTransition(() => {
+      setRawSettings((onceki) => (ayniHarita(onceki, map) ? onceki : map));
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
     load();
   }, [load]);
+
+  // Arka planda tazelenen ayarlar ekrana da yansısın.
+  useEffect(() => {
+    const dinle = (map: SettingsMap) =>
+      startTransition(() =>
+        setRawSettings((onceki) => (ayniHarita(onceki, map) ? onceki : map)),
+      );
+    aboneler.add(dinle);
+    return () => {
+      aboneler.delete(dinle);
+    };
+  }, []);
 
   const settings = useMemo(() => localizeSettings(rawSettings, lang), [rawSettings, lang]);
 
