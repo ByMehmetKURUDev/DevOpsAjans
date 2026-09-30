@@ -113,7 +113,7 @@ class Pricing_inquiries(Base):
     scale_kod = Column(String, nullable=True)
     profile_kod = Column(String, nullable=True)
     ai_pm_tier_kod = Column(String, nullable=True)
-    period = Column(String, nullable=True)            # tek_seferlik | aylik | yillik
+    period = Column(String, nullable=True)            # aylik | yillik | kullandikca_ode (eski: tek_seferlik)
     addon_ids = Column(Text, nullable=True)            # JSON: string[]
     hesaplanan_tutar = Column(Float, nullable=False)
     musteri_eposta = Column(String, index=True, nullable=False)

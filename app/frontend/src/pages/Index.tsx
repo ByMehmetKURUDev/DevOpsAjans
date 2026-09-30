@@ -51,7 +51,8 @@ const BOLUM_YUKSEKLIKLERI: Record<string, { mobil: number; masa: number }> = {
   process: { mobil: 1481, masa: 683 },
   mimari: { mobil: 1602, masa: 847 },
   panel: { mobil: 1970, masa: 965 },
-  packages: { mobil: 2425, masa: 793 },
+  // Paketler v6 (profil + ödeme şekli + kredi bloğu), 30 Eylül 2026 ölçümü.
+  packages: { mobil: 4418, masa: 1942 },
   yatirim: { mobil: 1345, masa: 808 },
   tech: { mobil: 210, masa: 620 },
   playground: { mobil: 1377, masa: 719 },

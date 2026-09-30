@@ -1,5 +1,18 @@
-import { memo, useEffect, useMemo, useState } from 'react';
-import { ArrowRight, Check, ChevronDown, Coins, Loader2 } from 'lucide-react';
+import { memo, useEffect, useMemo, useState, type ComponentType } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  ArrowRight,
+  Building2,
+  Check,
+  ChevronDown,
+  Coins,
+  GraduationCap,
+  HeartHandshake,
+  Loader2,
+  Rocket,
+  ShoppingCart,
+  User,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import FiyatTeklifModal from '@/components/FiyatTeklifModal';
@@ -8,6 +21,7 @@ import {
   type AiPmTier,
   type FiyatHesaplaSonucu,
   type FiyatPeriyodu,
+  type FiyatTeklifIstegi,
   type PricingAddon,
   type PricingProfile,
   type PricingScale,
@@ -15,28 +29,38 @@ import {
 } from '@/api/fiyatlandirma';
 
 /**
- * Fiyatlandırma v5.
+ * Fiyatlandırma v6.
  *
- * Eski 5 sabit kartlı `PricingPlans`'ın yerini alıyor. Artık her şey admin
- * panelinden yönetilen 5 tablodan geliyor (bkz. `routers/pricing_entities.py`,
- * `dependencies/entity_guard.py`): 4 ölçek (ALFA/BETA/OMEGA/SIGMA) × 5 profil
- * × à la carte 80 hizmet + ölçek başına eklentiler, ayrı sabit fiyatlı
- * "AI vs PM" 4 katman.
+ * v5'ten farkı (30 Eylül 2026, onaylı önizleme):
+ * - Paketler / Hizmetler / Karşılaştırma / AI vs PM sekmeleri kalktı. Yerine
+ *   bütün kartlara birden uygulanan **profil seçimi** geldi, altında
+ *   **ödeme şekli**: Kullandıkça Öde · Aylık · Yıllık ("Tek seferlik" adı
+ *   Kullandıkça Öde oldu; kartta paketin aylık karşılığı kaç kredi olduğu yazar).
+ * - "Eklentiler" artık **Modüller**. AI vs PM paketleri de modüllerin içinde:
+ *   kartta tek bir seviye seçilir, tutarı kartın toplamına eklenir.
+ * - **Karşılaştırma** kartın içinde, Modüllerin altında, Teklif Al'ın üstünde.
+ * - **Satın Al** Teklif Al'ın altında: fatura + ödeme bağlantısı açıp ödeme
+ *   sayfasına götürür (`POST /fiyat-satin-al`). Kullandıkça Öde'de kredi
+ *   bloğuna götürür; oradaki "Kredi Al" seçilen kredi paketini satın aldırır.
+ * - 80 hizmetlik katalog kartların altında açılır "Tüm hizmetler" listesi.
  *
  * Fiyat HER ZAMAN `/fiyat-hesapla`'dan geliyor — burada elle çarpım
  * yapılmıyor (bkz. `core/fiyat_hesaplama.py`'nin "tek doğru kaynak" notu).
- * "Teklif Al" aynı seçimi `/fiyat-teklif`'e gönderip gerçek fatura +
- * `pricing_inquiries` kaydı oluşturuyor.
- *
- * "Kullandıkça Öde" bloğu bilerek işlevsiz: bu faz yalnızca görünürlük
- * istiyor, ödeme akışı ayrı bir iş.
  */
 
 const PERIYOTLAR: { kod: FiyatPeriyodu; etiketKey: string; etiketDefault: string }[] = [
+  { kod: 'kullandikca_ode', etiketKey: 'fiyatV5.periyotKullandikca', etiketDefault: 'Kullandıkça Öde' },
   { kod: 'aylik', etiketKey: 'fiyatV5.periyotAylik', etiketDefault: 'Aylık' },
   { kod: 'yillik', etiketKey: 'fiyatV5.periyotYillik', etiketDefault: 'Yıllık (−16%)' },
-  { kod: 'tek_seferlik', etiketKey: 'fiyatV5.periyotTekSeferlik', etiketDefault: 'Tek seferlik' },
 ];
+
+const PROFIL_IKONLARI: Record<string, ComponentType<{ className?: string }>> = {
+  kurumsal: Building2,
+  startup: Rocket,
+  stk: HeartHandshake,
+  bireysel: User,
+  egitim: GraduationCap,
+};
 
 const KARSILASTIRMA_SATIRLARI: { anahtar: string; etiketKey: string; etiketDefault: string }[] = [
   { anahtar: 'hosting', etiketKey: 'fiyatV5.karsHosting', etiketDefault: 'Hosting' },
@@ -48,31 +72,74 @@ const KARSILASTIRMA_SATIRLARI: { anahtar: string; etiketKey: string; etiketDefau
   { anahtar: 'seo', etiketKey: 'fiyatV5.karsSeo', etiketDefault: 'SEO' },
 ];
 
-type SekmeKey = 'paketler' | 'hizmetler' | 'karsilastirma' | 'aivspm';
+type Secim = Omit<FiyatTeklifIstegi, 'musteri_eposta' | 'musteri_adi'>;
+type Eylem = (secim: Secim, konu: string, fiyatMetni: string) => void;
 
 function paraFormatla(n: number): string {
   return `$${n.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 }
 
-/** Tek bir ölçek (ALFA/BETA/...) kartı: profil + periyot + eklenti seçimiyle canlı fiyat. */
+/** Profil çarpanını ziyaretçinin anladığı dile çevirir: 1 → "1x", 0.85 → "%15 indirim". */
+function profilOrani(carpan: number, t: (k: string, d: string) => string): string {
+  if (carpan >= 1) return '1x';
+  return `%${Math.round((1 - carpan) * 100)} ${t('fiyatV5.indirim', 'indirim')}`;
+}
+
+/** Kart içinde açılır kapanır blok (Modüller, Karşılaştırma). */
+function AcilirBlok({
+  baslik,
+  acik,
+  degistir,
+  children,
+}: {
+  baslik: string;
+  acik: boolean;
+  degistir: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="mt-4 rounded-xl border border-white/10">
+      <button
+        type="button"
+        onClick={degistir}
+        aria-expanded={acik}
+        className="flex w-full items-center justify-between px-3 py-2 text-xs font-medium text-muted-foreground hover:text-white"
+      >
+        <span>{baslik}</span>
+        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${acik ? 'rotate-180' : ''}`} aria-hidden="true" />
+      </button>
+      {acik && <div className="px-3 pb-3">{children}</div>}
+    </div>
+  );
+}
+
+/** Tek bir ölçek (ALFA/BETA/...) kartı: üstte seçilen profil + ödeme şekliyle canlı fiyat. */
 function OlcekKarti({
   scale,
-  profiles,
+  profileKod,
+  profilEtiket,
+  period,
   addons,
+  aiPmTiers,
   onTeklifAl,
+  onSatinAl,
+  onKrediHesapla,
 }: {
   scale: PricingScale;
-  profiles: PricingProfile[];
+  profileKod: string;
+  profilEtiket: string;
+  period: FiyatPeriyodu;
   addons: PricingAddon[];
-  onTeklifAl: (args: { scale: string; profile: string; period: FiyatPeriyodu; addon_ids: string[] }, konu: string, fiyatMetni: string) => void;
+  aiPmTiers: AiPmTier[];
+  onTeklifAl: Eylem;
+  onSatinAl: Eylem;
+  onKrediHesapla: (kredi: number) => void;
 }) {
   const { t } = useTranslation();
-  const [profileKod, setProfileKod] = useState(
-    profiles.find((p) => p.kod === 'kurumsal')?.kod ?? profiles[0]?.kod ?? 'kurumsal',
-  );
-  const [period, setPeriod] = useState<FiyatPeriyodu>('aylik');
   const [seciliEklentiler, setSeciliEklentiler] = useState<string[]>([]);
-  const [eklentilerAcik, setEklentilerAcik] = useState(false);
+  const [aiPm, setAiPm] = useState('');
+  const [modullerAcik, setModullerAcik] = useState(false);
+  const [karsAcik, setKarsAcik] = useState(false);
   const [sonuc, setSonuc] = useState<FiyatHesaplaSonucu | null>(null);
   const [yukleniyor, setYukleniyor] = useState(true);
   const [hata, setHata] = useState(false);
@@ -82,7 +149,7 @@ function OlcekKarti({
     setYukleniyor(true);
     setHata(false);
     fiyatlandirmaApi
-      .hesapla({ scale: scale.kod, profile: profileKod, period, addons: seciliEklentiler })
+      .hesapla({ scale: scale.kod, profile: profileKod, period, addons: seciliEklentiler, aiPm })
       .then((r) => {
         if (!iptal) setSonuc(r);
       })
@@ -96,17 +163,29 @@ function OlcekKarti({
       iptal = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scale.kod, profileKod, period, seciliEklentiler.join(',')]);
+  }, [scale.kod, profileKod, period, seciliEklentiler.join(','), aiPm]);
 
   const eklentiToggle = (ad: string) => {
     setSeciliEklentiler((prev) => (prev.includes(ad) ? prev.filter((x) => x !== ad) : [...prev, ad]));
   };
 
-  const profilEtiket = profiles.find((p) => p.kod === profileKod)?.ad ?? profileKod;
-  const periyotEtiket = t(
-    PERIYOTLAR.find((p) => p.kod === period)?.etiketKey ?? '',
-    PERIYOTLAR.find((p) => p.kod === period)?.etiketDefault ?? period,
-  );
+  const periyot = PERIYOTLAR.find((p) => p.kod === period);
+  const periyotEtiket = t(periyot?.etiketKey ?? '', periyot?.etiketDefault ?? period);
+  const kullandikca = period === 'kullandikca_ode';
+  const modulSayisi = seciliEklentiler.length + (aiPm ? 1 : 0);
+  const secim: Secim = {
+    scale: scale.kod,
+    profile: profileKod,
+    period,
+    addon_ids: seciliEklentiler,
+    ...(aiPm ? { ai_pm_tier_kod: aiPm } : {}),
+  };
+  const konu = `${scale.ad} / ${profilEtiket} / ${periyotEtiket}`;
+  const fiyatMetni = sonuc
+    ? kullandikca
+      ? `${sonuc.kredi ?? '—'} ${t('fiyatV5.kredi', 'Kredi')} · ${paraFormatla(sonuc.toplam)}`
+      : paraFormatla(sonuc.toplam)
+    : '';
 
   return (
     <div
@@ -125,46 +204,9 @@ function OlcekKarti({
       <p className="mt-1 text-xs text-muted-foreground">{scale.calisan_araligi}</p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{scale.aciklama}</p>
 
-      {/* Profil pilleri */}
-      <div className="mt-5 flex flex-wrap gap-1.5">
-        {profiles.map((p) => (
-          <button
-            key={p.kod}
-            type="button"
-            onClick={() => setProfileKod(p.kod)}
-            className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
-              profileKod === p.kod
-                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                : 'border border-white/15 text-muted-foreground hover:border-white/30 hover:text-white'
-            }`}
-            title={p.etiket ?? undefined}
-          >
-            {p.ad}
-          </button>
-        ))}
-      </div>
-
-      {/* Periyot pilleri */}
-      <div className="mt-2 flex flex-wrap gap-1.5">
-        {PERIYOTLAR.map((per) => (
-          <button
-            key={per.kod}
-            type="button"
-            onClick={() => setPeriod(per.kod)}
-            className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
-              period === per.kod
-                ? 'bg-white/15 text-white'
-                : 'border border-white/10 text-muted-foreground hover:border-white/25 hover:text-white'
-            }`}
-          >
-            {t(per.etiketKey, per.etiketDefault)}
-          </button>
-        ))}
-      </div>
-
       {/* Canlı fiyat */}
-      <div className="mt-4 min-h-[3.5rem]">
-        {yukleniyor ? (
+      <div className="mt-4 min-h-[4.25rem]">
+        {yukleniyor && !sonuc ? (
           <div className="flex items-center gap-2 text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
             <span className="text-sm">{t('fiyatV5.hesaplaniyor', 'Fiyat hesaplanıyor…')}</span>
@@ -172,20 +214,25 @@ function OlcekKarti({
         ) : hata ? (
           <p className="text-sm text-red-400">{t('fiyatV5.hesaplamaHatasi', 'Fiyat şu an hesaplanamadı.')}</p>
         ) : sonuc ? (
-          <>
-            <p className="text-3xl font-bold gradient-text">{paraFormatla(sonuc.toplam)}</p>
-            <p className="text-xs text-muted-foreground">
-              {periyotEtiket}
-              {sonuc.eklentiler_toplami > 0
-                ? ` · ${t('fiyatV5.eklentiDahil', 'eklentiler dahil')}`
-                : ''}
-            </p>
-            {sonuc.formul_notu === 'varsayilan_aylik_x3' && (
-              <p className="mt-1 text-[10px] text-amber-300/80">
-                {t('fiyatV5.tekSeferlikNot', '* Tek seferlik fiyat varsayılan formülle (aylık × 3) hesaplandı.')}
+          kullandikca ? (
+            <>
+              <p className="text-3xl font-bold gradient-text">
+                {sonuc.kredi} {t('fiyatV5.kredi', 'Kredi')}
               </p>
-            )}
-          </>
+              <p className="text-xs text-muted-foreground">
+                {t('fiyatV5.krediKarsiligi', 'aylık karşılığı')} · {paraFormatla(sonuc.toplam)} ·{' '}
+                {t('fiyatV5.krediTanimKisa', '1 Kredi = 1 Saat Senior')}
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-3xl font-bold gradient-text">{paraFormatla(sonuc.toplam)}</p>
+              <p className="text-xs text-muted-foreground">
+                {periyotEtiket}
+                {modulSayisi > 0 ? ` · ${t('fiyatV5.modulDahil', 'modüller dahil')}` : ''}
+              </p>
+            </>
+          )
         ) : null}
       </div>
 
@@ -199,24 +246,15 @@ function OlcekKarti({
         ))}
       </ul>
 
-      {/* Eklenti akordeonu */}
-      {addons.length > 0 && (
-        <div className="mt-4 rounded-xl border border-white/10">
-          <button
-            type="button"
-            onClick={() => setEklentilerAcik((v) => !v)}
-            className="flex w-full items-center justify-between px-3 py-2 text-xs font-medium text-muted-foreground hover:text-white"
+      <div className="mt-auto">
+        {/* Modüller: ölçeğin eklentileri + AI vs PM (tek seçim) */}
+        {(addons.length > 0 || aiPmTiers.length > 0) && (
+          <AcilirBlok
+            baslik={`${t('fiyatV5.moduller', 'Modüller')} (${modulSayisi})`}
+            acik={modullerAcik}
+            degistir={() => setModullerAcik((v) => !v)}
           >
-            <span>
-              {t('fiyatV5.eklentiler', 'Eklentiler')} ({seciliEklentiler.length}/{addons.length})
-            </span>
-            <ChevronDown
-              className={`h-3.5 w-3.5 transition-transform ${eklentilerAcik ? 'rotate-180' : ''}`}
-              aria-hidden="true"
-            />
-          </button>
-          {eklentilerAcik && (
-            <div className="space-y-1 px-3 pb-3">
+            <div className="space-y-1">
               {addons.map((a) => (
                 <label
                   key={a.id}
@@ -235,38 +273,96 @@ function OlcekKarti({
                 </label>
               ))}
             </div>
-          )}
-        </div>
-      )}
+            {aiPmTiers.length > 0 && (
+              <fieldset className="mt-3 border-t border-white/10 pt-3">
+                <legend className="px-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-pink-300">
+                  {t('fiyatV5.sekmeAivsPm', 'AI vs PM')}
+                </legend>
+                <div className="space-y-1">
+                  {[{ kod: '', ad: t('fiyatV5.aiPmYok', 'Yok'), fiyat_aylik_usd: 0 } as Pick<AiPmTier, 'kod' | 'ad' | 'fiyat_aylik_usd'>, ...aiPmTiers].map(
+                    (tier) => (
+                      <label
+                        key={tier.kod || 'yok'}
+                        className="flex cursor-pointer items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-xs hover:bg-white/5"
+                      >
+                        <span className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name={`ai-pm-${scale.kod}`}
+                            checked={aiPm === tier.kod}
+                            onChange={() => setAiPm(tier.kod)}
+                            className="h-3.5 w-3.5 accent-purple-500"
+                          />
+                          {tier.ad}
+                        </span>
+                        {tier.kod && (
+                          <span className="text-muted-foreground">
+                            +{paraFormatla(tier.fiyat_aylik_usd)}/{t('fiyatV5.ayKisa', 'ay')}
+                          </span>
+                        )}
+                      </label>
+                    ),
+                  )}
+                </div>
+              </fieldset>
+            )}
+          </AcilirBlok>
+        )}
 
-      <div className="mt-5">
-        <Button
-          disabled={yukleniyor || !sonuc}
-          onClick={() =>
-            sonuc &&
-            onTeklifAl(
-              { scale: scale.kod, profile: profileKod, period, addon_ids: seciliEklentiler },
-              `${scale.ad} / ${profilEtiket} / ${periyotEtiket}`,
-              paraFormatla(sonuc.toplam),
-            )
-          }
-          className={`h-11 w-full gap-2 ${
-            scale.populer
-              ? 'border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500'
-              : '!bg-transparent border border-white/25 hover:border-white/50'
-          }`}
-          variant={scale.populer ? 'default' : 'outline'}
-        >
-          {t('fiyatV5.teklifAl', 'Teklif Al')}
-          <ArrowRight className="h-4 w-4" aria-hidden="true" />
-        </Button>
+        {/* Karşılaştırma: Modüllerin altında, Teklif Al'ın üstünde */}
+        {scale.karsilastirma && (
+          <AcilirBlok
+            baslik={t('fiyatV5.sekmeKarsilastirma', 'Karşılaştırma')}
+            acik={karsAcik}
+            degistir={() => setKarsAcik((v) => !v)}
+          >
+            <dl className="space-y-1.5 text-xs">
+              {KARSILASTIRMA_SATIRLARI.map((satir) => (
+                <div key={satir.anahtar} className="flex justify-between gap-3">
+                  <dt className="text-muted-foreground">{t(satir.etiketKey, satir.etiketDefault)}</dt>
+                  <dd className="text-end text-white/90">{scale.karsilastirma?.[satir.anahtar] ?? '—'}</dd>
+                </div>
+              ))}
+            </dl>
+          </AcilirBlok>
+        )}
+
+        <div className="mt-5 space-y-2">
+          <Button
+            disabled={yukleniyor || !sonuc}
+            onClick={() => sonuc && onTeklifAl(secim, konu, fiyatMetni)}
+            className="h-11 w-full gap-2 !bg-transparent border border-white/25 hover:border-white/50"
+            variant="outline"
+          >
+            {t('fiyatV5.teklifAl', 'Teklif Al')}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Button>
+          <Button
+            disabled={yukleniyor || !sonuc}
+            onClick={() =>
+              sonuc && (kullandikca ? onKrediHesapla(sonuc.kredi ?? 1) : onSatinAl(secim, konu, fiyatMetni))
+            }
+            className="h-11 w-full gap-2 rounded-md border-0 bg-emerald-500 font-semibold text-black hover:bg-emerald-400"
+          >
+            {kullandikca ? <Coins className="h-4 w-4" aria-hidden="true" /> : <ShoppingCart className="h-4 w-4" aria-hidden="true" />}
+            {kullandikca ? t('fiyatV5.krediSatinAl', 'Kredi satın al') : t('fiyatV5.satinAl', 'Satın Al')}
+          </Button>
+          <p className="text-center text-[10px] leading-snug text-muted-foreground">
+            {kullandikca
+              ? t('fiyatV5.satinAlNotKredi', 'Gereken krediyi aşağıdaki kredi paketlerinden alırsınız.')
+              : period === 'yillik'
+                ? t('fiyatV5.satinAlNotYillik', 'Yıllık ödeme · 12 ay, %16 indirimli.')
+                : t('fiyatV5.satinAlNotAylik', 'Aylık abonelik · ilk ay şimdi ödenir.')}
+          </p>
+        </div>
       </div>
     </div>
   );
 }
 
-function HizmetlerSekmesi({ services }: { services: PricingService[] }) {
+function TumHizmetler({ services }: { services: PricingService[] }) {
   const { t } = useTranslation();
+  const [acik, setAcik] = useState(false);
   const kategoriler = useMemo(() => {
     const map = new Map<string, PricingService[]>();
     for (const s of services) {
@@ -276,140 +372,69 @@ function HizmetlerSekmesi({ services }: { services: PricingService[] }) {
     return Array.from(map.entries());
   }, [services]);
 
+  if (services.length === 0) return null;
   return (
-    <div className="space-y-8">
-      <p className="text-center text-sm text-muted-foreground">
-        {t(
-          'fiyatV5.hizmetlerAciklama',
-          'À la carte hizmet kataloğu — vitrin amaçlı. Teklif almak için yukarıdaki paket kartlarını kullanın.',
-        )}
-      </p>
-      {kategoriler.map(([kategori, list]) => (
-        <div key={kategori}>
-          <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-pink-300">{kategori}</h4>
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {list.map((s) => (
-              <div
-                key={s.id}
-                className="flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2.5"
-              >
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">{s.ad}</p>
-                  {s.not_metni && <p className="mt-0.5 text-[11px] text-muted-foreground">{s.not_metni}</p>}
-                  <div className="mt-1 flex gap-1">
-                    {s.yeni && (
-                      <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-300">
-                        {t('fiyatV5.yeni', 'YENİ')}
-                      </span>
-                    )}
-                    {s.tek_seferlik && (
-                      <span className="rounded-full bg-white/10 px-2 py-0.5 text-[9px] font-bold text-muted-foreground">
-                        {t('fiyatV5.tekSeferlik', 'TEK SEFERLİK')}
-                      </span>
-                    )}
+    <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.02]">
+      <button
+        type="button"
+        onClick={() => setAcik((v) => !v)}
+        aria-expanded={acik}
+        className="flex w-full items-center justify-between gap-3 px-5 py-4 text-start"
+      >
+        <span>
+          <span className="block text-sm font-semibold text-white">
+            {t('fiyatV5.tumHizmetler', 'Tüm hizmetler')} ({services.length})
+          </span>
+          <span className="block text-xs text-muted-foreground">
+            {t('fiyatV5.tumHizmetlerAciklama', 'À la carte hizmet kataloğu. Teklif için paket kartlarını ya da kredileri kullanın.')}
+          </span>
+        </span>
+        <ChevronDown className={`h-4 w-4 shrink-0 transition-transform ${acik ? 'rotate-180' : ''}`} aria-hidden="true" />
+      </button>
+      {acik && (
+        <div className="space-y-8 border-t border-white/10 px-5 py-6">
+          {kategoriler.map(([kategori, list]) => (
+            <div key={kategori}>
+              <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-pink-300">{kategori}</h4>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {list.map((s) => (
+                  <div
+                    key={s.id}
+                    className="flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2.5"
+                  >
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium">{s.ad}</p>
+                      {s.not_metni && <p className="mt-0.5 text-[11px] text-muted-foreground">{s.not_metni}</p>}
+                      <div className="mt-1 flex gap-1">
+                        {s.yeni && (
+                          <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-300">
+                            {t('fiyatV5.yeni', 'YENİ')}
+                          </span>
+                        )}
+                        {s.tek_seferlik && (
+                          <span className="rounded-full bg-white/10 px-2 py-0.5 text-[9px] font-bold text-muted-foreground">
+                            {t('fiyatV5.tekSeferlik', 'TEK SEFERLİK')}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <p className="shrink-0 text-sm font-bold text-white/90">{paraFormatla(s.baz_fiyat_usd)}</p>
                   </div>
-                </div>
-                <p className="shrink-0 text-sm font-bold text-white/90">{paraFormatla(s.baz_fiyat_usd)}</p>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function KarsilastirmaSekmesi({ scales }: { scales: PricingScale[] }) {
-  const { t } = useTranslation();
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[640px] border-collapse text-sm">
-        <thead>
-          <tr>
-            <th className="border-b border-white/10 px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              {t('fiyatV5.karsOzellik', 'Özellik')}
-            </th>
-            {scales.map((s) => (
-              <th
-                key={s.id}
-                className="border-b border-white/10 px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-white"
-              >
-                {s.ad}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {KARSILASTIRMA_SATIRLARI.map((satir) => (
-            <tr key={satir.anahtar} className="border-b border-white/5">
-              <td className="px-3 py-2.5 text-muted-foreground">{t(satir.etiketKey, satir.etiketDefault)}</td>
-              {scales.map((s) => (
-                <td key={s.id} className="px-3 py-2.5">
-                  {s.karsilastirma?.[satir.anahtar] ?? '—'}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function AiVsPmSekmesi({
-  tiers,
-  onTeklifAl,
-}: {
-  tiers: AiPmTier[];
-  onTeklifAl: (args: { ai_pm_tier_kod: string }, konu: string, fiyatMetni: string) => void;
-}) {
-  const { t } = useTranslation();
-  return (
-    <div className="cam-dongu grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {tiers.map((tier) => (
-        <div
-          key={tier.id}
-          className={`cam-kart relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300 ${
-            tier.kod === 'kombin_ai_pm' ? 'cam-one glass border-purple-500/50 ring-1 ring-purple-500/40' : 'glass'
-          }`}
-        >
-          {tier.rozet && (
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">
-              {tier.rozet}
             </div>
-          )}
-          <h3 className="mt-2 text-lg font-bold">{tier.ad}</h3>
-          <p className="mt-3 text-3xl font-bold gradient-text">{paraFormatla(tier.fiyat_aylik_usd)}</p>
-          <p className="text-xs text-muted-foreground">{t('packages.perMonth', 'ay başına')}</p>
-
-          <ul className="mt-5 flex-1 space-y-1.5">
-            {(tier.ozellikler ?? []).map((oz) => (
-              <li key={oz} className="flex items-start gap-2 text-xs text-muted-foreground">
-                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" aria-hidden="true" />
-                <span>{oz}</span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-5">
-            <Button
-              onClick={() => onTeklifAl({ ai_pm_tier_kod: tier.kod }, tier.ad, paraFormatla(tier.fiyat_aylik_usd))}
-              className="h-11 w-full gap-2 border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500"
-            >
-              {t('fiyatV5.teklifAl', 'Teklif Al')}
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Button>
-          </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }
 
 /**
  * Kullandıkça Öde kredi paketleri — onaylı mockup'taki (v5) değerler birebir.
- * 1 Kredi = 1 Saat Senior, 12 ay geçerli. Satın alma bu fazda bağlı değil:
- * "Kredi Al" devre dışı ve "Yakında" etiketli (bkz. v5 spec).
+ * 1 Kredi = 1 Saat Senior, 12 ay geçerli. Tablo burada yalnız gösterim için;
+ * satın alma tutarı sunucudaki aynı tablodan gelir
+ * (`core/fiyat_hesaplama.py` → `KREDI_PAKETLERI`).
  */
 const KREDI_PAKETLERI: { kredi: number; bonus: number; fiyat: number; populer?: boolean }[] = [
   { kredi: 10, bonus: 0, fiyat: 1000 },
@@ -433,9 +458,16 @@ function saatlikFormatla(n: number): string {
   return `$${n.toLocaleString('en-US', { maximumFractionDigits: 3 })}`;
 }
 
-function KullandikcaOdeBlok() {
+function KullandikcaOdeBlok({
+  ihtiyac,
+  setIhtiyac,
+  onKrediAl,
+}: {
+  ihtiyac: number;
+  setIhtiyac: (n: number) => void;
+  onKrediAl: (kredi: number, konu: string, fiyatMetni: string) => void;
+}) {
   const { t } = useTranslation();
-  const [ihtiyac, setIhtiyac] = useState(IHTIYAC_VARSAYILAN);
 
   // İhtiyacı karşılayan en küçük paket; hiçbiri yetmiyorsa en büyük paket +
   // aşan saatler PAYG fiyatından ("… saat için özel").
@@ -566,16 +598,31 @@ function KullandikcaOdeBlok() {
               <span className="text-white">{t('fiyatV5.krediTanimKisa', '1 Kredi = 1 Saat Senior')}</span>
             </div>
           </div>
-          <Button
-            disabled
-            className="mt-6 h-11 w-full gap-2 rounded-full bg-emerald-500 font-semibold text-black opacity-70 hover:bg-emerald-500"
-          >
-            <Coins className="h-4 w-4" aria-hidden="true" />
-            {t('fiyatV5.krediAl', 'Kredi Al')} — {paraFormatla(oneri.fiyat)}
-            <span className="ms-1 rounded-full bg-black/15 px-2 py-0.5 text-[10px] font-semibold">
-              {t('fiyatV5.yakinda', 'Yakında')}
-            </span>
-          </Button>
+          {oneri.paket ? (
+            <Button
+              onClick={() =>
+                oneri.paket &&
+                onKrediAl(
+                  oneri.paket.kredi,
+                  `${oneri.paket.kredi} ${t('fiyatV5.kredi', 'Kredi')}${
+                    oneri.paket.bonus ? ` +${oneri.paket.bonus} ${t('fiyatV5.bonus', 'bonus')}` : ''
+                  } · ${oneri.saat} ${t('fiyatV5.saat', 'saat')}`,
+                  paraFormatla(oneri.fiyat),
+                )
+              }
+              className="mt-6 h-11 w-full gap-2 rounded-full bg-emerald-500 font-semibold text-black hover:bg-emerald-400"
+            >
+              <Coins className="h-4 w-4" aria-hidden="true" />
+              {t('fiyatV5.krediAl', 'Kredi Al')} — {paraFormatla(oneri.fiyat)}
+            </Button>
+          ) : (
+            <Button asChild className="mt-6 h-11 w-full gap-2 rounded-full bg-emerald-500 font-semibold text-black hover:bg-emerald-400">
+              <Link to="/contact">
+                {t('fiyatV5.ozelTeklif', 'Özel teklif iste')}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </div>
@@ -584,7 +631,6 @@ function KullandikcaOdeBlok() {
 
 function PricingPlans({ className = '' }: { className?: string }) {
   const { t } = useTranslation();
-  const [sekme, setSekme] = useState<SekmeKey>('paketler');
 
   const [scales, setScales] = useState<PricingScale[]>([]);
   const [profiles, setProfiles] = useState<PricingProfile[]>([]);
@@ -594,10 +640,15 @@ function PricingPlans({ className = '' }: { className?: string }) {
   const [yukleniyor, setYukleniyor] = useState(true);
   const [hata, setHata] = useState(false);
 
-  const [teklif, setTeklif] = useState<{
-    secim: { scale?: string; profile?: string; period?: FiyatPeriyodu; addon_ids?: string[]; ai_pm_tier_kod?: string };
+  const [profileKod, setProfileKod] = useState('kurumsal');
+  const [period, setPeriod] = useState<FiyatPeriyodu>('aylik');
+  const [ihtiyac, setIhtiyac] = useState(IHTIYAC_VARSAYILAN);
+
+  const [pencere, setPencere] = useState<{
+    secim: Secim;
     konu: string;
     fiyatMetni: string;
+    mod: 'teklif' | 'satinAl';
   } | null>(null);
 
   useEffect(() => {
@@ -609,13 +660,17 @@ function PricingPlans({ className = '' }: { className?: string }) {
       fiyatlandirmaApi.addons(),
       fiyatlandirmaApi.aiPmTiers(),
     ])
-      .then(([s, p, sv, a, t]) => {
+      .then(([s, p, sv, a, tr]) => {
         if (iptal) return;
+        const siraliProfiller = [...p].sort((x, y) => x.sira - y.sira);
         setScales([...s].sort((x, y) => x.sira - y.sira));
-        setProfiles([...p].sort((x, y) => x.sira - y.sira));
+        setProfiles(siraliProfiller);
         setServices(sv);
         setAddons(a);
-        setAiPmTiers([...t].sort((x, y) => x.sira - y.sira));
+        setAiPmTiers([...tr].sort((x, y) => x.sira - y.sira));
+        if (!siraliProfiller.some((x) => x.kod === 'kurumsal') && siraliProfiller[0]) {
+          setProfileKod(siraliProfiller[0].kod);
+        }
       })
       .catch(() => {
         if (!iptal) setHata(true);
@@ -628,15 +683,15 @@ function PricingPlans({ className = '' }: { className?: string }) {
     };
   }, []);
 
-  const sekmeler: { key: SekmeKey; labelKey: string; labelDefault: string }[] = [
-    { key: 'paketler', labelKey: 'fiyatV5.sekmePaketler', labelDefault: 'Paketler' },
-    { key: 'hizmetler', labelKey: 'fiyatV5.sekmeHizmetler', labelDefault: 'Hizmetler' },
-    { key: 'karsilastirma', labelKey: 'fiyatV5.sekmeKarsilastirma', labelDefault: 'Karşılaştırma' },
-    { key: 'aivspm', labelKey: 'fiyatV5.sekmeAivsPm', labelDefault: 'AI vs PM' },
-  ];
+  const profilEtiket = profiles.find((p) => p.kod === profileKod)?.ad ?? profileKod;
 
-  const tab =
-    'rounded-lg px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-400';
+  const krediHesapla = (kredi: number) => {
+    setIhtiyac(Math.min(Math.max(kredi, IHTIYAC_MIN), IHTIYAC_MAX));
+    document.getElementById('kullandikca-ode')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const secimDugmesi =
+    'transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-purple-400';
 
   return (
     <section className={`py-24 border-t border-white/10 ${className}`}>
@@ -648,32 +703,78 @@ function PricingPlans({ className = '' }: { className?: string }) {
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             {t(
-              'fiyatV5.girisAciklama',
-              'Ölçeğinizi ve profilinizi seçin, fiyat anında hesaplansın. À la carte hizmetleri gezin, AI vs PM sürekli desteğini karşılaştırın.',
+              'fiyatV6.girisAciklama',
+              'Profilinizi ve ödeme şeklinizi seçin, dört ölçeğin fiyatı anında güncellensin. Modülleri ekleyin, teklif alın ya da hemen satın alın.',
             )}
           </p>
         </div>
 
-        {/* Sekme çubuğu */}
-        <div className="mb-12 flex justify-center">
+        {/* Profil — sekmelerin yerinde, bütün kartlara birden uygulanır */}
+        {profiles.length > 0 && (
+          <div className="mb-6">
+            <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+              {t('fiyatV5.profil', 'Profil')}
+            </p>
+            <div className="mx-auto grid max-w-4xl grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5" role="group" aria-label={t('fiyatV5.profil', 'Profil')}>
+              {profiles.map((p) => {
+                const Ikon = PROFIL_IKONLARI[p.kod] ?? User;
+                const secili = profileKod === p.kod;
+                return (
+                  <button
+                    key={p.kod}
+                    type="button"
+                    onClick={() => setProfileKod(p.kod)}
+                    aria-pressed={secili}
+                    title={p.etiket ?? undefined}
+                    className={`${secimDugmesi} flex items-center gap-3 rounded-xl border px-3 py-2.5 text-start ${
+                      secili
+                        ? 'border-emerald-400/70 bg-emerald-500/10 text-white'
+                        : 'border-white/10 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-white'
+                    }`}
+                  >
+                    <span
+                      className={`flex h-9 w-9 flex-none items-center justify-center rounded-lg ${
+                        secili ? 'bg-emerald-500 text-black' : 'bg-white/5 text-white/80'
+                      }`}
+                    >
+                      <Ikon className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-semibold">{p.ad}</span>
+                      <span className={`block text-[11px] ${secili ? 'text-emerald-300' : 'text-muted-foreground'}`}>
+                        {profilOrani(Number(p.carpan), t)}
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Ödeme şekli — profilin altında */}
+        <div className="mb-12 flex flex-col items-center gap-3">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+            {t('fiyatV5.odemeSekli', 'Ödeme şekli')}
+          </p>
           <div
             className="inline-flex flex-wrap items-center justify-center gap-1 rounded-xl border border-white/10 bg-white/[0.03] p-1"
-            role="tablist"
+            role="group"
+            aria-label={t('fiyatV5.odemeSekli', 'Ödeme şekli')}
           >
-            {sekmeler.map((s) => (
+            {PERIYOTLAR.map((per) => (
               <button
-                key={s.key}
+                key={per.kod}
                 type="button"
-                role="tab"
-                aria-selected={sekme === s.key}
-                onClick={() => setSekme(s.key)}
-                className={`${tab} ${
-                  sekme === s.key
+                onClick={() => setPeriod(per.kod)}
+                aria-pressed={period === per.kod}
+                className={`${secimDugmesi} rounded-lg px-4 py-2 text-sm font-semibold ${
+                  period === per.kod
                     ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
                     : 'text-muted-foreground hover:text-white'
                 }`}
               >
-                {t(s.labelKey, s.labelDefault)}
+                {t(per.etiketKey, per.etiketDefault)}
               </button>
             ))}
           </div>
@@ -689,39 +790,42 @@ function PricingPlans({ className = '' }: { className?: string }) {
           </p>
         ) : (
           <>
-            {sekme === 'paketler' && (
-              <div className="cam-dongu grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
-                {scales.map((s) => (
-                  <OlcekKarti
-                    key={s.id}
-                    scale={s}
-                    profiles={profiles}
-                    addons={addons.filter((a) => a.scale_kod === s.kod).sort((x, y) => x.sira - y.sira)}
-                    onTeklifAl={(secim, konu, fiyatMetni) => setTeklif({ secim, konu, fiyatMetni })}
-                  />
-                ))}
-              </div>
-            )}
-            {sekme === 'hizmetler' && <HizmetlerSekmesi services={services} />}
-            {sekme === 'karsilastirma' && <KarsilastirmaSekmesi scales={scales} />}
-            {sekme === 'aivspm' && (
-              <AiVsPmSekmesi
-                tiers={aiPmTiers}
-                onTeklifAl={(secim, konu, fiyatMetni) => setTeklif({ secim, konu, fiyatMetni })}
-              />
-            )}
+            <div className="cam-dongu grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {scales.map((s) => (
+                <OlcekKarti
+                  key={s.id}
+                  scale={s}
+                  profileKod={profileKod}
+                  profilEtiket={profilEtiket}
+                  period={period}
+                  addons={addons.filter((a) => a.scale_kod === s.kod).sort((x, y) => x.sira - y.sira)}
+                  aiPmTiers={aiPmTiers}
+                  onTeklifAl={(secim, konu, fiyatMetni) => setPencere({ secim, konu, fiyatMetni, mod: 'teklif' })}
+                  onSatinAl={(secim, konu, fiyatMetni) => setPencere({ secim, konu, fiyatMetni, mod: 'satinAl' })}
+                  onKrediHesapla={krediHesapla}
+                />
+              ))}
+            </div>
+            <TumHizmetler services={services} />
           </>
         )}
 
-        <KullandikcaOdeBlok />
+        <KullandikcaOdeBlok
+          ihtiyac={ihtiyac}
+          setIhtiyac={setIhtiyac}
+          onKrediAl={(kredi, konu, fiyatMetni) =>
+            setPencere({ secim: { kredi_paketi: kredi }, konu, fiyatMetni, mod: 'satinAl' })
+          }
+        />
       </div>
 
       <FiyatTeklifModal
-        acik={teklif !== null}
-        kapat={() => setTeklif(null)}
-        konu={teklif?.konu ?? ''}
-        fiyatMetni={teklif?.fiyatMetni ?? ''}
-        secim={teklif?.secim ?? {}}
+        acik={pencere !== null}
+        kapat={() => setPencere(null)}
+        konu={pencere?.konu ?? ''}
+        fiyatMetni={pencere?.fiyatMetni ?? ''}
+        secim={pencere?.secim ?? {}}
+        mod={pencere?.mod ?? 'teklif'}
       />
     </section>
   );

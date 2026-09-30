@@ -5,7 +5,7 @@ uç nokta veya frontend bileşeni bu fonksiyona güvenmemeli.
 """
 import pytest
 
-from core.fiyat_hesaplama import FiyatHesaplamaHatasi, hesapla
+from core.fiyat_hesaplama import FiyatHesaplamaHatasi, hesapla, kredi_paketi
 
 SCALES = {"ALFA": 540, "BETA": 1140, "OMEGA": 2280, "SIGMA": 3360}
 PROFILES = {"kurumsal": 1.0, "startup": 0.85, "stk": 0.6, "bireysel": 0.7, "egitim": 0.75}
@@ -96,3 +96,59 @@ def test_bilinmeyen_eklenti_hata_firlatir():
             scale_kod="ALFA", profile_kod="kurumsal", period="aylik", addon_kodlari=["yok"],
             scale_baz_fiyatlari=SCALES, profile_carpanlari=PROFILES, addon_fiyatlari={},
         )
+
+
+# --- v6: Kullandıkça Öde + AI vs PM kartın içinde + kredi paketleri ---
+
+def test_kullandikca_ode_aylik_fiyat_ve_kredi():
+    sonuc = hesapla(
+        scale_kod="ALFA", profile_kod="kurumsal", period="kullandikca_ode", addon_kodlari=[],
+        scale_baz_fiyatlari=SCALES, profile_carpanlari=PROFILES, addon_fiyatlari={},
+    )
+    assert sonuc.toplam == pytest.approx(540.0, abs=0.01)
+    # 1 kredi = $100 taban birim; 540 → 6 kredi (yukarı yuvarlanır)
+    assert sonuc.kredi == 6
+    assert sonuc.formul_notu == "kredi"
+
+
+def test_kredi_yalnizca_kullandikca_odede_var():
+    sonuc = hesapla(
+        scale_kod="ALFA", profile_kod="kurumsal", period="aylik", addon_kodlari=[],
+        scale_baz_fiyatlari=SCALES, profile_carpanlari=PROFILES, addon_fiyatlari={},
+    )
+    assert sonuc.kredi is None
+
+
+@pytest.mark.parametrize(
+    "period,beklenen_ai_pm",
+    [("aylik", 300.0), ("kullandikca_ode", 300.0), ("yillik", 3024.0), ("tek_seferlik", 900.0)],
+)
+def test_ai_pm_periyoda_gore_eklenir_profil_carpani_uygulanmaz(period, beklenen_ai_pm):
+    sonuc = hesapla(
+        scale_kod="ALFA", profile_kod="stk", period=period, addon_kodlari=[],
+        scale_baz_fiyatlari=SCALES, profile_carpanlari=PROFILES, addon_fiyatlari={},
+        ai_pm_aylik=300.0,
+    )
+    assert sonuc.ai_pm_toplami == pytest.approx(beklenen_ai_pm, abs=0.01)
+    assert sonuc.toplam == pytest.approx(sonuc.paket_fiyat + beklenen_ai_pm, abs=0.01)
+
+
+def test_ai_pm_yokken_toplam_degismez():
+    sonuc = hesapla(
+        scale_kod="BETA", profile_kod="kurumsal", period="aylik", addon_kodlari=[],
+        scale_baz_fiyatlari=SCALES, profile_carpanlari=PROFILES, addon_fiyatlari={},
+    )
+    assert sonuc.ai_pm_toplami == 0
+    assert sonuc.toplam == pytest.approx(1140.0, abs=0.01)
+
+
+@pytest.mark.parametrize("paket,fiyat,saat", [(10, 1000, 10), (25, 2250, 27), (50, 4000, 55), (100, 7000, 115)])
+def test_kredi_paketleri_sunucu_tablosu(paket, fiyat, saat):
+    p = kredi_paketi(paket)
+    assert p["fiyat"] == fiyat
+    assert p["saat"] == saat
+
+
+def test_bilinmeyen_kredi_paketi_hata_firlatir():
+    with pytest.raises(FiyatHesaplamaHatasi):
+        kredi_paketi(33)

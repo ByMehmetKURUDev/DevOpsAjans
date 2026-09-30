@@ -29,9 +29,15 @@ export interface FiyatTeklifModalProps {
   fiyatMetni: string;
   /** `/fiyat-teklif`'e gidecek seçim: (scale+profile+period+addon_ids) ya da ai_pm_tier_kod. */
   secim: Omit<FiyatTeklifIstegi, 'musteri_eposta' | 'musteri_adi'>;
+  /**
+   * "teklif" (varsayılan): fatura + teklif kaydı açılır, e-posta gider.
+   * "satinAl": aynı kayıt açılır, ardından ödeme sayfasına (`/ode/<jeton>`) gidilir.
+   */
+  mod?: 'teklif' | 'satinAl';
 }
 
-export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim }: FiyatTeklifModalProps) {
+export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim, mod = 'teklif' }: FiyatTeklifModalProps) {
+  const satinAl = mod === 'satinAl';
   const { t } = useTranslation();
   const [ad, setAd] = useState('');
   const [eposta, setEposta] = useState('');
@@ -49,6 +55,17 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim 
     }
     setGonderiliyor(true);
     try {
+      if (satinAl) {
+        const sonuc = await fiyatlandirmaApi.satinAl({
+          ...secim,
+          musteri_eposta: eposta.trim(),
+          musteri_adi: ad.trim(),
+        });
+        // Ödeme sayfası aynı sitede; tam sayfa geçişi ödeme sağlayıcısına
+        // yönlendirmeyi de temiz tutuyor.
+        window.location.assign(sonuc.adres);
+        return;
+      }
       await fiyatlandirmaApi.teklifGonder({
         ...secim,
         musteri_eposta: eposta.trim(),
@@ -118,15 +135,20 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim 
           <form onSubmit={gonder} className="space-y-3">
             <div className="pr-8">
               <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                {t('fiyatTeklif.baslik', 'Teklifi onayla')}
+                {satinAl ? t('fiyatTeklif.satinAlBaslik', 'Satın al') : t('fiyatTeklif.baslik', 'Teklifi onayla')}
               </p>
               <p className="mt-1 text-lg font-semibold leading-snug">{konu}</p>
               <p className="mt-1 text-2xl font-bold gradient-text">{fiyatMetni}</p>
               <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                {t(
-                  'fiyatTeklif.aciklama',
-                  'Bilgilerinizi girin, size özel fatura ve teklif kaydı otomatik oluşsun.',
-                )}
+                {satinAl
+                  ? t(
+                      'fiyatTeklif.satinAlAciklama',
+                      'Bilgilerinizi girin; faturanız oluşsun ve güvenli ödeme sayfasına geçin.',
+                    )
+                  : t(
+                      'fiyatTeklif.aciklama',
+                      'Bilgilerinizi girin, size özel fatura ve teklif kaydı otomatik oluşsun.',
+                    )}
               </p>
             </div>
 
@@ -150,7 +172,7 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim 
 
             <Button type="submit" disabled={gonderiliyor} className="w-full gap-2">
               {gonderiliyor ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : null}
-              {t('fiyatTeklif.gonder', 'Teklifi Onayla ve Al')}
+              {satinAl ? t('fiyatTeklif.odemeyeGec', 'Ödemeye geç') : t('fiyatTeklif.gonder', 'Teklifi Onayla ve Al')}
             </Button>
             <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
               {t('fiyatTeklif.gizlilik', 'Bilgileriniz yalnızca bu teklif için kullanılır.')}

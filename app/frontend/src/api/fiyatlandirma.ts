@@ -13,7 +13,7 @@ import { getAPIBaseURL } from '../lib/config';
 
 const apiBase = () => `${getAPIBaseURL()}/api/v1`;
 
-export type FiyatPeriyodu = 'aylik' | 'yillik' | 'tek_seferlik';
+export type FiyatPeriyodu = 'aylik' | 'yillik' | 'tek_seferlik' | 'kullandikca_ode';
 
 export interface PricingProfile {
   id: number;
@@ -76,6 +76,10 @@ export interface FiyatHesaplaSonucu {
   para_birimi: string;
   formul_notu: string | null;
   eklenti_detay: { kod: string; fiyat: number }[];
+  /** Karta eklenen AI vs PM paketinin periyoda göre tutarı. */
+  ai_pm_toplami?: number;
+  /** Yalnız "kullandikca_ode": paketin aylık karşılığı kaç kredi. */
+  kredi?: number | null;
 }
 
 export interface FiyatTeklifIstegi {
@@ -84,8 +88,17 @@ export interface FiyatTeklifIstegi {
   period?: FiyatPeriyodu;
   addon_ids?: string[];
   ai_pm_tier_kod?: string;
+  /** Kullandıkça Öde kredi paketi (10/25/50/100). */
+  kredi_paketi?: number;
   musteri_eposta: string;
   musteri_adi?: string;
+}
+
+export interface FiyatSatinAlSonucu {
+  /** Ödeme sayfası: `/ode/<jeton>`. */
+  adres: string;
+  invoice_id: number;
+  toplam: number;
 }
 
 export interface FiyatTeklifSonucu {
@@ -131,16 +144,27 @@ export const fiyatlandirmaApi = {
   addons: () => entityAll<PricingAddon>('pricing_addons'),
   aiPmTiers: () => entityAll<AiPmTier>('ai_pm_tiers'),
 
-  hesapla: (args: { scale: string; profile: string; period: FiyatPeriyodu; addons: string[] }) =>
+  hesapla: (args: { scale: string; profile: string; period: FiyatPeriyodu; addons: string[]; aiPm?: string }) =>
     getJSON<FiyatHesaplaSonucu>('/fiyat-hesapla', {
       scale: args.scale,
       profile: args.profile,
       period: args.period,
       addons: args.addons.join(','),
+      ...(args.aiPm ? { ai_pm: args.aiPm } : {}),
     }),
 
   teklifGonder: async (istek: FiyatTeklifIstegi): Promise<FiyatTeklifSonucu> => {
     const response = await fetch(`${apiBase()}/fiyat-teklif`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(istek),
+    });
+    if (!response.ok) return ayikla(response);
+    return response.json();
+  },
+  /** Satın Al: fatura + ödeme bağlantısı; dönen adrese yönlendirilir. */
+  satinAl: async (istek: FiyatTeklifIstegi): Promise<FiyatSatinAlSonucu> => {
+    const response = await fetch(`${apiBase()}/fiyat-satin-al`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(istek),
