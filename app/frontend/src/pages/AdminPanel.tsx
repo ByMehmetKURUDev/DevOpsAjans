@@ -27,6 +27,7 @@ import {
   CalendarDays,
   Globe,
   Sparkles,
+  DollarSign,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -72,6 +73,9 @@ const EkipPaneli = lazy(() => import('@/components/admin/EkipPaneli'));
 const MusteriRaporlari = lazy(() => import('@/components/admin/MusteriRaporlari'));
 const HizmetAbonelikleri = lazy(() => import('@/components/admin/HizmetAbonelikleri'));
 const MusteriSiteleri = lazy(() => import('@/components/admin/MusteriSiteleri'));
+// Fiyatlandırma v5 paneli de ayrı parçada: 6 tablonun form/tablo mantığı
+// panele her girişte inmesin.
+const FiyatlandirmaV5Paneli = lazy(() => import('@/components/admin/FiyatlandirmaV5Paneli'));
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -178,7 +182,8 @@ type Tab =
   | 'abonelik'
   | 'siteler'
   | 'tickets'
-  | 'inquiries';
+  | 'inquiries'
+  | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
   title: '',
@@ -767,6 +772,7 @@ export default function AdminPanel() {
     { key: 'siteler', label: t('site.sekme'), icon: Globe },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
+    { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
   ];
 
   return (
@@ -876,6 +882,18 @@ export default function AdminPanel() {
           }
         >
           <OdemePaneli />
+        </Suspense>
+      )}
+
+      {tab === 'fiyatlandirmaV5' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <FiyatlandirmaV5Paneli />
         </Suspense>
       )}
 

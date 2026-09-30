@@ -1,53 +1,487 @@
-import { memo, useState } from 'react';
-import { ArrowRight, Crown, Rocket, Server, Shield, Zap } from 'lucide-react';
+import { memo, useEffect, useMemo, useState } from 'react';
+import { ArrowRight, Check, ChevronDown, Coins, Loader2, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { useSiteSettings } from '@/lib/siteSettings';
-import HizliTalep from '@/components/HizliTalep';
-
-/** Yıllık ödemede uygulanan indirim. Panelden `yearly_discount` ile değişir. */
-const DEFAULT_YEARLY_DISCOUNT = 20;
-
-type Billing = 'monthly' | 'yearly';
+import FiyatTeklifModal from '@/components/FiyatTeklifModal';
+import {
+  fiyatlandirmaApi,
+  type AiPmTier,
+  type FiyatHesaplaSonucu,
+  type FiyatPeriyodu,
+  type PricingAddon,
+  type PricingProfile,
+  type PricingScale,
+  type PricingService,
+} from '@/api/fiyatlandirma';
 
 /**
- * Paket kartları.
+ * Fiyatlandırma v5.
  *
- * Daha önce bu blok hem ana sayfada hem Nasıl Çalışır'da ayrı ayrı yazılıydı;
- * ikisi zamanla ayrışmıştı. Artık tek bileşen.
+ * Eski 5 sabit kartlı `PricingPlans`'ın yerini alıyor. Artık her şey admin
+ * panelinden yönetilen 5 tablodan geliyor (bkz. `routers/pricing_entities.py`,
+ * `dependencies/entity_guard.py`): 4 ölçek (ALFA/BETA/OMEGA/SIGMA) × 5 profil
+ * × à la carte 80 hizmet + ölçek başına eklentiler, ayrı sabit fiyatlı
+ * "AI vs PM" 4 katman.
  *
- * Üç düzeltme:
- *  - Aylık/Yıllık anahtarı; yıllıkta panelden gelen indirim uygulanıyor.
- *  - Kartlar `flex` kolon, açıklama `flex-1`: metin uzunluğu farklı olsa da
- *    butonlar aynı hizada kalıyor (eskiden kart yüksekliğine göre kayıyordu).
- *  - DevOps'ta fiyat yok; yerinde "Görüşelim" duruyor, kart yapısı bozulmuyor.
+ * Fiyat HER ZAMAN `/fiyat-hesapla`'dan geliyor — burada elle çarpım
+ * yapılmıyor (bkz. `core/fiyat_hesaplama.py`'nin "tek doğru kaynak" notu).
+ * "Teklif Al" aynı seçimi `/fiyat-teklif`'e gönderip gerçek fatura +
+ * `pricing_inquiries` kaydı oluşturuyor.
+ *
+ * "Kullandıkça Öde" bloğu bilerek işlevsiz: bu faz yalnızca görünürlük
+ * istiyor, ödeme akışı ayrı bir iş.
  */
-function PricingPlans({ className = '' }: { className?: string }) {
+
+const PERIYOTLAR: { kod: FiyatPeriyodu; etiketKey: string; etiketDefault: string }[] = [
+  { kod: 'aylik', etiketKey: 'fiyatV5.periyotAylik', etiketDefault: 'Aylık' },
+  { kod: 'yillik', etiketKey: 'fiyatV5.periyotYillik', etiketDefault: 'Yıllık (−16%)' },
+  { kod: 'tek_seferlik', etiketKey: 'fiyatV5.periyotTekSeferlik', etiketDefault: 'Tek seferlik' },
+];
+
+const KARSILASTIRMA_SATIRLARI: { anahtar: string; etiketKey: string; etiketDefault: string }[] = [
+  { anahtar: 'hosting', etiketKey: 'fiyatV5.karsHosting', etiketDefault: 'Hosting' },
+  { anahtar: 'sla', etiketKey: 'fiyatV5.karsSla', etiketDefault: 'SLA' },
+  { anahtar: 'panel', etiketKey: 'fiyatV5.karsPanel', etiketDefault: 'Panel' },
+  { anahtar: 'devops', etiketKey: 'fiyatV5.karsDevops', etiketDefault: 'DevOps' },
+  { anahtar: 'mulkiyet', etiketKey: 'fiyatV5.karsMulkiyet', etiketDefault: 'Mülkiyet' },
+  { anahtar: 'ads', etiketKey: 'fiyatV5.karsAds', etiketDefault: 'Reklam Yönetimi' },
+  { anahtar: 'seo', etiketKey: 'fiyatV5.karsSeo', etiketDefault: 'SEO' },
+];
+
+type SekmeKey = 'paketler' | 'hizmetler' | 'karsilastirma' | 'aivspm';
+
+function paraFormatla(n: number): string {
+  return `$${n.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+}
+
+/** Tek bir ölçek (ALFA/BETA/...) kartı: profil + periyot + eklenti seçimiyle canlı fiyat. */
+function OlcekKarti({
+  scale,
+  profiles,
+  addons,
+  onTeklifAl,
+}: {
+  scale: PricingScale;
+  profiles: PricingProfile[];
+  addons: PricingAddon[];
+  onTeklifAl: (args: { scale: string; profile: string; period: FiyatPeriyodu; addon_ids: string[] }, konu: string, fiyatMetni: string) => void;
+}) {
   const { t } = useTranslation();
-  const { settings } = useSiteSettings();
-  const [billing, setBilling] = useState<Billing>('monthly');
+  const [profileKod, setProfileKod] = useState(
+    profiles.find((p) => p.kod === 'kurumsal')?.kod ?? profiles[0]?.kod ?? 'kurumsal',
+  );
+  const [period, setPeriod] = useState<FiyatPeriyodu>('aylik');
+  const [seciliEklentiler, setSeciliEklentiler] = useState<string[]>([]);
+  const [eklentilerAcik, setEklentilerAcik] = useState(false);
+  const [sonuc, setSonuc] = useState<FiyatHesaplaSonucu | null>(null);
+  const [yukleniyor, setYukleniyor] = useState(true);
+  const [hata, setHata] = useState(false);
 
-  const discount = Number.parseInt(settings.yearly_discount ?? '', 10) || DEFAULT_YEARLY_DISCOUNT;
+  useEffect(() => {
+    let iptal = false;
+    setYukleniyor(true);
+    setHata(false);
+    fiyatlandirmaApi
+      .hesapla({ scale: scale.kod, profile: profileKod, period, addons: seciliEklentiler })
+      .then((r) => {
+        if (!iptal) setSonuc(r);
+      })
+      .catch(() => {
+        if (!iptal) setHata(true);
+      })
+      .finally(() => {
+        if (!iptal) setYukleniyor(false);
+      });
+    return () => {
+      iptal = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scale.kod, profileKod, period, seciliEklentiler.join(',')]);
 
-  const priceFor = (monthly: string, fixed = false) => {
-    const value = Number.parseInt(monthly, 10);
-    if (!Number.isFinite(value)) return `$${monthly}`;
-    // Saatlik sabit ucret: odeme donemi anahtarindan etkilenmez.
-    if (fixed || billing === 'monthly') return `$${value}`;
-    const yearly = Math.round(value * 12 * (1 - discount / 100));
-    return `$${yearly.toLocaleString('en-US')}`;
+  const eklentiToggle = (ad: string) => {
+    setSeciliEklentiler((prev) => (prev.includes(ad) ? prev.filter((x) => x !== ad) : [...prev, ad]));
   };
 
-  const [secilen, setSecilen] = useState<{ ad: string; fiyat: string | null; teklif: boolean } | null>(null);
+  const profilEtiket = profiles.find((p) => p.kod === profileKod)?.ad ?? profileKod;
+  const periyotEtiket = t(
+    PERIYOTLAR.find((p) => p.kod === period)?.etiketKey ?? '',
+    PERIYOTLAR.find((p) => p.kod === period)?.etiketDefault ?? period,
+  );
 
-  const PLANS = [
-    // Danismanlik & Analiz: 1 saatlik is, aylik/yillik degil saatlik sabit ucret.
-    { icon: Zap, name: t('packages.option1'), monthly: settings.price_starter, desc: t('packages.option1Desc'), gradient: 'from-purple-600 to-pink-600', highlight: false, isQuote: false, fixedHourly: true },
-    { icon: Rocket, name: t('packages.option2'), monthly: settings.price_business, desc: t('packages.option2Desc'), gradient: 'from-pink-600 to-orange-500', highlight: false, isQuote: false, fixedHourly: false },
-    { icon: Shield, name: t('packages.option3'), monthly: settings.price_ecommerce, desc: t('packages.option3Desc'), gradient: 'from-cyan-500 to-purple-600', highlight: true, isQuote: false, fixedHourly: false },
-    { icon: Crown, name: t('packages.option4'), monthly: settings.price_saas, desc: t('packages.option4Desc'), gradient: 'from-emerald-500 to-cyan-500', highlight: false, isQuote: false, fixedHourly: false },
-    // DevOps sürekli hizmet: kapsam projeden projeye değiştiği için fiyat yazılmıyor.
-    { icon: Server, name: t('packages.option5'), monthly: null, desc: t('packages.option5Desc'), gradient: 'from-purple-500 to-pink-500', highlight: false, isQuote: true, fixedHourly: false },
+  return (
+    <div
+      className={`relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300 ${
+        scale.populer ? 'glass border-purple-500/50 ring-1 ring-purple-500/40' : 'glass hover:border-purple-500/30'
+      }`}
+    >
+      {scale.populer && (
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">
+          {t('ui.popular', 'Popüler')}
+        </div>
+      )}
+
+      <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-pink-300">{scale.alt_baslik}</p>
+      <h3 className="mt-1 text-xl font-bold">{scale.ad}</h3>
+      <p className="mt-1 text-xs text-muted-foreground">{scale.calisan_araligi}</p>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{scale.aciklama}</p>
+
+      {/* Profil pilleri */}
+      <div className="mt-5 flex flex-wrap gap-1.5">
+        {profiles.map((p) => (
+          <button
+            key={p.kod}
+            type="button"
+            onClick={() => setProfileKod(p.kod)}
+            className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
+              profileKod === p.kod
+                ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
+                : 'border border-white/15 text-muted-foreground hover:border-white/30 hover:text-white'
+            }`}
+            title={p.etiket ?? undefined}
+          >
+            {p.ad}
+          </button>
+        ))}
+      </div>
+
+      {/* Periyot pilleri */}
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {PERIYOTLAR.map((per) => (
+          <button
+            key={per.kod}
+            type="button"
+            onClick={() => setPeriod(per.kod)}
+            className={`rounded-full px-2.5 py-1 text-[11px] font-medium transition-colors ${
+              period === per.kod
+                ? 'bg-white/15 text-white'
+                : 'border border-white/10 text-muted-foreground hover:border-white/25 hover:text-white'
+            }`}
+          >
+            {t(per.etiketKey, per.etiketDefault)}
+          </button>
+        ))}
+      </div>
+
+      {/* Canlı fiyat */}
+      <div className="mt-4 min-h-[3.5rem]">
+        {yukleniyor ? (
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+            <span className="text-sm">{t('fiyatV5.hesaplaniyor', 'Fiyat hesaplanıyor…')}</span>
+          </div>
+        ) : hata ? (
+          <p className="text-sm text-red-400">{t('fiyatV5.hesaplamaHatasi', 'Fiyat şu an hesaplanamadı.')}</p>
+        ) : sonuc ? (
+          <>
+            <p className="text-3xl font-bold gradient-text">{paraFormatla(sonuc.toplam)}</p>
+            <p className="text-xs text-muted-foreground">
+              {periyotEtiket}
+              {sonuc.eklentiler_toplami > 0
+                ? ` · ${t('fiyatV5.eklentiDahil', 'eklentiler dahil')}`
+                : ''}
+            </p>
+            {sonuc.formul_notu === 'varsayilan_aylik_x3' && (
+              <p className="mt-1 text-[10px] text-amber-300/80">
+                {t('fiyatV5.tekSeferlikNot', '* Tek seferlik fiyat varsayılan formülle (aylık × 3) hesaplandı.')}
+              </p>
+            )}
+          </>
+        ) : null}
+      </div>
+
+      {/* Özellik listesi */}
+      <ul className="mt-4 space-y-1.5">
+        {(scale.ozellikler ?? []).map((oz) => (
+          <li key={oz} className="flex items-start gap-2 text-xs text-muted-foreground">
+            <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" aria-hidden="true" />
+            <span>{oz}</span>
+          </li>
+        ))}
+      </ul>
+
+      {/* Eklenti akordeonu */}
+      {addons.length > 0 && (
+        <div className="mt-4 rounded-xl border border-white/10">
+          <button
+            type="button"
+            onClick={() => setEklentilerAcik((v) => !v)}
+            className="flex w-full items-center justify-between px-3 py-2 text-xs font-medium text-muted-foreground hover:text-white"
+          >
+            <span>
+              {t('fiyatV5.eklentiler', 'Eklentiler')} ({seciliEklentiler.length}/{addons.length})
+            </span>
+            <ChevronDown
+              className={`h-3.5 w-3.5 transition-transform ${eklentilerAcik ? 'rotate-180' : ''}`}
+              aria-hidden="true"
+            />
+          </button>
+          {eklentilerAcik && (
+            <div className="space-y-1 px-3 pb-3">
+              {addons.map((a) => (
+                <label
+                  key={a.id}
+                  className="flex cursor-pointer items-center justify-between gap-2 rounded-lg px-2 py-1.5 text-xs hover:bg-white/5"
+                >
+                  <span className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={seciliEklentiler.includes(a.ad)}
+                      onChange={() => eklentiToggle(a.ad)}
+                      className="h-3.5 w-3.5 rounded border-white/30 bg-transparent accent-purple-500"
+                    />
+                    {a.ad}
+                  </span>
+                  <span className="text-muted-foreground">+{paraFormatla(a.baz_fiyat_usd)}</span>
+                </label>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="mt-5">
+        <Button
+          disabled={yukleniyor || !sonuc}
+          onClick={() =>
+            sonuc &&
+            onTeklifAl(
+              { scale: scale.kod, profile: profileKod, period, addon_ids: seciliEklentiler },
+              `${scale.ad} / ${profilEtiket} / ${periyotEtiket}`,
+              paraFormatla(sonuc.toplam),
+            )
+          }
+          className={`h-11 w-full gap-2 ${
+            scale.populer
+              ? 'border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500'
+              : '!bg-transparent border border-white/25 hover:border-white/50'
+          }`}
+          variant={scale.populer ? 'default' : 'outline'}
+        >
+          {t('fiyatV5.teklifAl', 'Teklif Al')}
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function HizmetlerSekmesi({ services }: { services: PricingService[] }) {
+  const { t } = useTranslation();
+  const kategoriler = useMemo(() => {
+    const map = new Map<string, PricingService[]>();
+    for (const s of services) {
+      if (!map.has(s.kategori)) map.set(s.kategori, []);
+      map.get(s.kategori)!.push(s);
+    }
+    return Array.from(map.entries());
+  }, [services]);
+
+  return (
+    <div className="space-y-8">
+      <p className="text-center text-sm text-muted-foreground">
+        {t(
+          'fiyatV5.hizmetlerAciklama',
+          'À la carte hizmet kataloğu — vitrin amaçlı. Teklif almak için yukarıdaki paket kartlarını kullanın.',
+        )}
+      </p>
+      {kategoriler.map(([kategori, list]) => (
+        <div key={kategori}>
+          <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-pink-300">{kategori}</h4>
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {list.map((s) => (
+              <div
+                key={s.id}
+                className="flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2.5"
+              >
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">{s.ad}</p>
+                  {s.not_metni && <p className="mt-0.5 text-[11px] text-muted-foreground">{s.not_metni}</p>}
+                  <div className="mt-1 flex gap-1">
+                    {s.yeni && (
+                      <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-300">
+                        {t('fiyatV5.yeni', 'YENİ')}
+                      </span>
+                    )}
+                    {s.tek_seferlik && (
+                      <span className="rounded-full bg-white/10 px-2 py-0.5 text-[9px] font-bold text-muted-foreground">
+                        {t('fiyatV5.tekSeferlik', 'TEK SEFERLİK')}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <p className="shrink-0 text-sm font-bold text-white/90">{paraFormatla(s.baz_fiyat_usd)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function KarsilastirmaSekmesi({ scales }: { scales: PricingScale[] }) {
+  const { t } = useTranslation();
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[640px] border-collapse text-sm">
+        <thead>
+          <tr>
+            <th className="border-b border-white/10 px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {t('fiyatV5.karsOzellik', 'Özellik')}
+            </th>
+            {scales.map((s) => (
+              <th
+                key={s.id}
+                className="border-b border-white/10 px-3 py-3 text-left text-xs font-semibold uppercase tracking-wider text-white"
+              >
+                {s.ad}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {KARSILASTIRMA_SATIRLARI.map((satir) => (
+            <tr key={satir.anahtar} className="border-b border-white/5">
+              <td className="px-3 py-2.5 text-muted-foreground">{t(satir.etiketKey, satir.etiketDefault)}</td>
+              {scales.map((s) => (
+                <td key={s.id} className="px-3 py-2.5">
+                  {s.karsilastirma?.[satir.anahtar] ?? '—'}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function AiVsPmSekmesi({
+  tiers,
+  onTeklifAl,
+}: {
+  tiers: AiPmTier[];
+  onTeklifAl: (args: { ai_pm_tier_kod: string }, konu: string, fiyatMetni: string) => void;
+}) {
+  const { t } = useTranslation();
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {tiers.map((tier) => (
+        <div
+          key={tier.id}
+          className={`relative flex h-full flex-col rounded-2xl p-6 transition-all duration-300 ${
+            tier.kod === 'kombin_ai_pm' ? 'glass border-purple-500/50 ring-1 ring-purple-500/40' : 'glass'
+          }`}
+        >
+          {tier.rozet && (
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">
+              {tier.rozet}
+            </div>
+          )}
+          <h3 className="mt-2 text-lg font-bold">{tier.ad}</h3>
+          <p className="mt-3 text-3xl font-bold gradient-text">{paraFormatla(tier.fiyat_aylik_usd)}</p>
+          <p className="text-xs text-muted-foreground">{t('packages.perMonth', 'ay başına')}</p>
+
+          <ul className="mt-5 flex-1 space-y-1.5">
+            {(tier.ozellikler ?? []).map((oz) => (
+              <li key={oz} className="flex items-start gap-2 text-xs text-muted-foreground">
+                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" aria-hidden="true" />
+                <span>{oz}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-5">
+            <Button
+              onClick={() => onTeklifAl({ ai_pm_tier_kod: tier.kod }, tier.ad, paraFormatla(tier.fiyat_aylik_usd))}
+              className="h-11 w-full gap-2 border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500"
+            >
+              {t('fiyatV5.teklifAl', 'Teklif Al')}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function KullandikcaOdeBlok() {
+  const { t } = useTranslation();
+  return (
+    <div className="mx-auto mt-16 max-w-3xl rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-6 text-center">
+      <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-500">
+        <Coins className="h-5 w-5 text-white" aria-hidden="true" />
+      </div>
+      <h4 className="text-lg font-bold">{t('fiyatV5.kullandikcaOdeBaslik', 'Kullandıkça Öde')}</h4>
+      <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+        {t(
+          'fiyatV5.kullandikcaOdeAciklama',
+          'Kredi yükleyip yalnızca kullandığınız revizyon/geliştirme saatini harcayın. Bu özellik yakında açılıyor.',
+        )}
+      </p>
+      <Button disabled className="mt-4 gap-2 opacity-60">
+        <Sparkles className="h-4 w-4" aria-hidden="true" />
+        {t('fiyatV5.krediAl', 'Kredi Al')}
+        <span className="ms-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold">
+          {t('fiyatV5.yakinda', 'Yakında')}
+        </span>
+      </Button>
+    </div>
+  );
+}
+
+function PricingPlans({ className = '' }: { className?: string }) {
+  const { t } = useTranslation();
+  const [sekme, setSekme] = useState<SekmeKey>('paketler');
+
+  const [scales, setScales] = useState<PricingScale[]>([]);
+  const [profiles, setProfiles] = useState<PricingProfile[]>([]);
+  const [services, setServices] = useState<PricingService[]>([]);
+  const [addons, setAddons] = useState<PricingAddon[]>([]);
+  const [aiPmTiers, setAiPmTiers] = useState<AiPmTier[]>([]);
+  const [yukleniyor, setYukleniyor] = useState(true);
+  const [hata, setHata] = useState(false);
+
+  const [teklif, setTeklif] = useState<{
+    secim: { scale?: string; profile?: string; period?: FiyatPeriyodu; addon_ids?: string[]; ai_pm_tier_kod?: string };
+    konu: string;
+    fiyatMetni: string;
+  } | null>(null);
+
+  useEffect(() => {
+    let iptal = false;
+    Promise.all([
+      fiyatlandirmaApi.scales(),
+      fiyatlandirmaApi.profiles(),
+      fiyatlandirmaApi.services(),
+      fiyatlandirmaApi.addons(),
+      fiyatlandirmaApi.aiPmTiers(),
+    ])
+      .then(([s, p, sv, a, t]) => {
+        if (iptal) return;
+        setScales([...s].sort((x, y) => x.sira - y.sira));
+        setProfiles([...p].sort((x, y) => x.sira - y.sira));
+        setServices(sv);
+        setAddons(a);
+        setAiPmTiers([...t].sort((x, y) => x.sira - y.sira));
+      })
+      .catch(() => {
+        if (!iptal) setHata(true);
+      })
+      .finally(() => {
+        if (!iptal) setYukleniyor(false);
+      });
+    return () => {
+      iptal = true;
+    };
+  }, []);
+
+  const sekmeler: { key: SekmeKey; labelKey: string; labelDefault: string }[] = [
+    { key: 'paketler', labelKey: 'fiyatV5.sekmePaketler', labelDefault: 'Paketler' },
+    { key: 'hizmetler', labelKey: 'fiyatV5.sekmeHizmetler', labelDefault: 'Hizmetler' },
+    { key: 'karsilastirma', labelKey: 'fiyatV5.sekmeKarsilastirma', labelDefault: 'Karşılaştırma' },
+    { key: 'aivspm', labelKey: 'fiyatV5.sekmeAivsPm', labelDefault: 'AI vs PM' },
   ];
 
   const tab =
@@ -57,133 +491,86 @@ function PricingPlans({ className = '' }: { className?: string }) {
     <section className={`py-24 border-t border-white/10 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-pink-300 mb-4">
-            {t('packages.sectionTag')}
-          </p>
+          <p className="text-xs uppercase tracking-[0.3em] text-pink-300 mb-4">{t('packages.sectionTag', 'Paketler')}</p>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            {t('packages.title')} <span className="gradient-text">{t('packages.titleHighlight')}</span>.
+            {t('packages.title', 'Paketinizi')} <span className="gradient-text">{t('packages.titleHighlight', 'seçin')}</span>.
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">{t('packages.desc')}</p>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            {t(
+              'fiyatV5.girisAciklama',
+              'Ölçeğinizi ve profilinizi seçin, fiyat anında hesaplansın. À la carte hizmetleri gezin, AI vs PM sürekli desteğini karşılaştırın.',
+            )}
+          </p>
         </div>
 
-        {/* Ödeme dönemi anahtarı */}
+        {/* Sekme çubuğu */}
         <div className="mb-12 flex justify-center">
           <div
-            className="inline-flex items-center gap-1 rounded-xl border border-white/10 bg-white/[0.03] p-1"
-            role="group"
-            aria-label={t('packages.billingLabel')}
+            className="inline-flex flex-wrap items-center justify-center gap-1 rounded-xl border border-white/10 bg-white/[0.03] p-1"
+            role="tablist"
           >
-            <button
-              type="button"
-              onClick={() => setBilling('monthly')}
-              aria-pressed={billing === 'monthly'}
-              className={`${tab} ${
-                billing === 'monthly'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                  : 'text-muted-foreground hover:text-white'
-              }`}
-            >
-              {t('packages.monthly')}
-            </button>
-            <button
-              type="button"
-              onClick={() => setBilling('yearly')}
-              aria-pressed={billing === 'yearly'}
-              className={`${tab} ${
-                billing === 'yearly'
-                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                  : 'text-muted-foreground hover:text-white'
-              }`}
-            >
-              {t('packages.yearly')}
-              <span className="ms-2 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-bold text-emerald-300">
-                −{discount}%
-              </span>
-            </button>
+            {sekmeler.map((s) => (
+              <button
+                key={s.key}
+                type="button"
+                role="tab"
+                aria-selected={sekme === s.key}
+                onClick={() => setSekme(s.key)}
+                className={`${tab} ${
+                  sekme === s.key
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
+                    : 'text-muted-foreground hover:text-white'
+                }`}
+              >
+                {t(s.labelKey, s.labelDefault)}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* `items-stretch` + kart içi flex: bütün butonlar aynı hizada */}
-        <div className="grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {PLANS.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative flex h-full flex-col rounded-2xl p-8 transition-all duration-500 hover:-translate-y-1 ${
-                plan.highlight
-                  ? 'glass border-purple-500/50 ring-1 ring-purple-500/40'
-                  : 'glass hover:border-purple-500/30'
-              }`}
-            >
-              {plan.highlight && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-white">
-                  {t('ui.popular')}
-                </div>
-              )}
-
-              <div
-                className={`mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${plan.gradient}`}
-              >
-                <plan.icon className="h-5 w-5 text-white" aria-hidden="true" />
+        {yukleniyor ? (
+          <div className="flex justify-center py-16">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" aria-hidden="true" />
+          </div>
+        ) : hata ? (
+          <p className="py-16 text-center text-sm text-red-400">
+            {t('fiyatV5.katalogHatasi', 'Fiyat kataloğu yüklenemedi, lütfen sayfayı yenileyin.')}
+          </p>
+        ) : (
+          <>
+            {sekme === 'paketler' && (
+              <div className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">
+                {scales.map((s) => (
+                  <OlcekKarti
+                    key={s.id}
+                    scale={s}
+                    profiles={profiles}
+                    addons={addons.filter((a) => a.scale_kod === s.kod).sort((x, y) => x.sira - y.sira)}
+                    onTeklifAl={(secim, konu, fiyatMetni) => setTeklif({ secim, konu, fiyatMetni })}
+                  />
+                ))}
               </div>
+            )}
+            {sekme === 'hizmetler' && <HizmetlerSekmesi services={services} />}
+            {sekme === 'karsilastirma' && <KarsilastirmaSekmesi scales={scales} />}
+            {sekme === 'aivspm' && (
+              <AiVsPmSekmesi
+                tiers={aiPmTiers}
+                onTeklifAl={(secim, konu, fiyatMetni) => setTeklif({ secim, konu, fiyatMetni })}
+              />
+            )}
+          </>
+        )}
 
-              <h3 className="mb-2 text-xl font-bold">{plan.name}</h3>
-
-              {/* Fiyat satırı sabit yükseklikte: DevOps kartı diğerleriyle hizalı kalsın */}
-              <div className="mb-4 min-h-[3.25rem]">
-                {plan.monthly ? (
-                  <>
-                    <p className="text-3xl font-bold gradient-text">
-                      {priceFor(plan.monthly, plan.fixedHourly)}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {plan.fixedHourly
-                        ? t('packages.perHourFixed')
-                        : billing === 'monthly'
-                          ? t('packages.perMonth')
-                          : t('packages.perYear')}
-                    </p>
-                  </>
-                ) : (
-                  <p className="text-2xl font-bold gradient-text">{t('packages.customPrice')}</p>
-                )}
-              </div>
-
-              <p className="mb-8 flex-1 text-sm leading-relaxed text-muted-foreground">{plan.desc}</p>
-
-              <div className="mt-auto block">
-                <Button
-                  onClick={() => setSecilen({ ad: plan.name, fiyat: plan.monthly ? priceFor(plan.monthly, plan.fixedHourly) : null, teklif: plan.isQuote })}
-                  className={`h-11 w-full gap-2 ${
-                    plan.highlight
-                      ? 'border-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-500 hover:to-pink-500'
-                      : '!bg-transparent border border-white/25 hover:border-white/50'
-                  }`}
-                  variant={plan.highlight ? 'default' : 'outline'}
-                >
-                  {plan.isQuote ? t('packages.getQuote') : t('packages.buyNow')}
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <KullandikcaOdeBlok />
       </div>
 
-      {/*
-        Paket düğmesi eskiden iletişim sayfasına atıyordu; müşteri
-        seçtiği paketi orada baştan anlatmak zorunda kalıyordu. Artık
-        talep buradan, paket adıyla birlikte gidiyor.
-      */}
-      <HizliTalep
-        acik={secilen !== null}
-        kapat={() => setSecilen(null)}
-        konu={secilen ? `${secilen.ad}${secilen.fiyat ? ` — ${secilen.fiyat}` : ''}` : ''}
-        kaynak={secilen ? `paket:${secilen.ad}` : 'paket'}
-        aciklama={
-          secilen?.teklif
-            ? t('packages.teklifAciklama', 'Kapsamı konuşup size özel fiyat çıkaralım.')
-            : t('packages.satinAlAciklama', 'Talebinizi alıp ödeme bağlantısıyla birlikte dönüyoruz.')
-        }
+      <FiyatTeklifModal
+        acik={teklif !== null}
+        kapat={() => setTeklif(null)}
+        konu={teklif?.konu ?? ''}
+        fiyatMetni={teklif?.fiyatMetni ?? ''}
+        secim={teklif?.secim ?? {}}
       />
     </section>
   );
