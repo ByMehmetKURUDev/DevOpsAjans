@@ -58,12 +58,20 @@ services:
         sync: false
       - key: APP_AI_KEY
         sync: false
-      # S3 uyumlu depolama (Cloudflare R2 önerilir)
+      # S3 uyumlu depolama (Cloudflare R2 önerilir). Faz 2C dosyaları: dördü
+      # (+ kova adı) tanımlıysa içerik R2'ye yazılır, indirme 15 dk imzalı
+      # adresle; tanımlı değilse Postgres'te (kalıcı ama kota küçük).
+      # Render ücretsiz planında KALICI DİSK YOK — yerel diske yazılmıyor.
       - key: S3_ENDPOINT_URL
         sync: false
       - key: S3_ACCESS_KEY_ID
         sync: false
       - key: S3_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_BUCKET
+        sync: false
+      # R2 için "auto" (varsayılan); AWS S3 kullanılırsa bölge adı.
+      - key: S3_REGION
         sync: false
       # Google OIDC uç adresleri. Uygulama bunları verilmezse kökten
       # türetiyor ({issuer}/authorize gibi); Google bu düzene uymadığı için
