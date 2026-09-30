@@ -116,23 +116,38 @@ async def render(
 # --------------------------------------------------------------------------
 
 
-async def _eposta_gonder(alici: str, baslik: str, govde: str) -> tuple[str, str]:
-    """(durum, ayrıntı) döndürür."""
+async def _eposta_gonder(
+    alici: str, baslik: str, govde: str, ek: Optional[Dict[str, Any]] = None
+) -> tuple[str, str]:
+    """(durum, ayrıntı) döndürür.
+
+    `ek` (Faz 2F, isteğe bağlı): {"basliklar": {"Message-ID": .., "In-Reply-To": ..,
+    "References": ..}, "reply_to": "destek@..."} — talep e-postaları yanıtlanabilir
+    olsun diye. Verilmezse gönderim eskisiyle birebir aynı.
+    """
     resend = _env("RESEND_API_KEY")
     gonderen = _env("NOTIFY_FROM_EMAIL") or "bildirim@mehmetkuru.dev"
+    ek = ek or {}
+    ek_basliklar = {k: str(v) for k, v in (ek.get("basliklar") or {}).items() if v}
+    yanit_adresi = (ek.get("reply_to") or "").strip()
 
     if resend:
+        yuk: Dict[str, Any] = {
+            "from": gonderen,
+            "to": [alici],
+            "subject": baslik,
+            "text": govde,
+        }
+        if ek_basliklar:
+            yuk["headers"] = ek_basliklar
+        if yanit_adresi:
+            yuk["reply_to"] = yanit_adresi
         try:
             async with httpx.AsyncClient(timeout=ZAMAN_ASIMI) as istemci:
                 yanit = await istemci.post(
                     "https://api.resend.com/emails",
                     headers={"Authorization": f"Bearer {resend}"},
-                    json={
-                        "from": gonderen,
-                        "to": [alici],
-                        "subject": baslik,
-                        "text": govde,
-                    },
+                    json=yuk,
                 )
             if yanit.status_code < 300:
                 return "sent", "resend"
@@ -154,6 +169,10 @@ async def _eposta_gonder(alici: str, baslik: str, govde: str) -> tuple[str, str]
                 mesaj["From"] = gonderen
                 mesaj["To"] = alici
                 mesaj["Subject"] = baslik
+                for ad, deger in ek_basliklar.items():
+                    mesaj[ad] = deger
+                if yanit_adresi:
+                    mesaj["Reply-To"] = yanit_adresi
                 mesaj.set_content(govde)
                 port = int(_env("SMTP_PORT") or 587)
                 with smtplib.SMTP(sunucu, port, timeout=ZAMAN_ASIMI) as baglanti:
@@ -284,6 +303,7 @@ async def dispatch(
     link: Optional[str] = None,
     ref_type: Optional[str] = None,
     ref_id: Optional[int] = None,
+    eposta_ek: Optional[Dict[str, Any]] = None,
 ) -> List[Notifications]:
     """
     Bir olayı açık kanallardan dağıtır ve her kanal için kayıt yazar.
@@ -297,6 +317,9 @@ async def dispatch(
     kişi kanalı kapattıysa o kanal için SATIR YAZILMIYOR. Panel içi her
     zaman yazılıyor. Sessiz saatlerde anlık kanallar (push/SMS/WhatsApp)
     `skipped` yazılıyor.
+
+    `eposta_ek` (isteğe bağlı): e-posta kanalına ek başlıklar ve Reply-To
+    (`_eposta_gonder`). Diğer kanalları etkilemez.
 
     Dönen liste yazılan bildirim satırları. Hata fırlatmaz.
     """
@@ -352,7 +375,7 @@ async def dispatch(
 
         # 2) E-posta
         if eposta_acik and izinli("email"):
-            durum, ayrinti = await _eposta_gonder(eposta, title, body or title)
+            durum, ayrinti = await _eposta_gonder(eposta, title, body or title, eposta_ek)
             satir("email", durum, ayrinti)
 
         # 3) Tarayıcı bildirimi (Web Push)

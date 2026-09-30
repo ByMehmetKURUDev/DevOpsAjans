@@ -29,9 +29,11 @@ from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
+from models.destek_eposta import TalepEkleri
 from models.support_tickets import Support_tickets
 from models.ticket_replies import Ticket_replies
 from pydantic import BaseModel
+from services import destek_talep
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -62,13 +64,22 @@ class MesajGirdisi(BaseModel):
     mesaj: str
 
 
+class EkSatiri(BaseModel):
+    id: int
+    ad: str
+    boyut: int = 0
+
+
 class MesajSatiri(BaseModel):
     id: int
     ticket_id: int
+    #: musteri | ajans | otomatik (kural hazır cevabı)
     yazan: str
     yazan_ad: Optional[str] = None
     mesaj: str
     created_at: Optional[datetime] = None
+    #: Faz 2F — e-postayla gelen ekler
+    ekler: List[EkSatiri] = []
 
     class Config:
         from_attributes = True
@@ -79,6 +90,9 @@ class YazismaYaniti(BaseModel):
     subject: str
     hizmet: Optional[str] = None
     durum: Optional[str] = None
+    #: Faz 2F — talebin kaynağı (panel | eposta | ...) ve doğrulanmamış işareti
+    kaynak: Optional[str] = None
+    dogrulanmadi: Optional[bool] = None
     mesajlar: List[MesajSatiri]
 
 
@@ -173,6 +187,18 @@ async def yazismayi_getir(
 
     mesajlar = [acilis] + [MesajSatiri.model_validate(s) for s in satirlar]
 
+    # Faz 2F: e-postayla gelen ekler — açılış mesajınınki reply_id boş.
+    ekler = (
+        await db.execute(select(TalepEkleri).where(TalepEkleri.ticket_id == ticket_id).order_by(TalepEkleri.id.asc()))
+    ).scalars().all()
+    if ekler:
+        gruplar: dict = {}
+        for e in ekler:
+            gruplar.setdefault(e.reply_id or 0, []).append(EkSatiri(id=e.id, ad=e.ad, boyut=int(e.boyut or 0)))
+        for m in mesajlar:
+            if m.id >= 0 and m.id in gruplar:
+                m.ekler = gruplar[m.id]
+
     # Eski taleplerde tek satırlık `reply` alanı dolu olabilir; o
     # cevap yazışma tablosunda yok. Kaybolmasın diye sona ekliyoruz.
     if talep.reply and not satirlar:
@@ -192,6 +218,8 @@ async def yazismayi_getir(
         subject=talep.subject,
         hizmet=talep.hizmet,
         durum=talep.status,
+        kaynak=talep.kaynak,
+        dogrulanmadi=bool(talep.dogrulanmadi),
         mesajlar=mesajlar,
     )
 
@@ -213,21 +241,34 @@ async def mesaj_ekle(
     yazan = _yetki(request, talep)
     kullanici, _ = _yonetici_mi(request)
 
-    kayit = Ticket_replies(
-        ticket_id=talep.id,
-        yazan=yazan,
-        yazan_ad=_ad(kullanici),
-        yazan_email=_eposta(kullanici) or None,
-        mesaj=metin,
+    # Faz 2F: e-postayla gelen mesaj da aynı fonksiyondan geçiyor
+    # (durum ilerlemesi, ajans yanıtında müşteriye yanıtlanabilir e-posta).
+    kayit = await destek_talep.mesaj_ekle(
+        db, talep, yazan=yazan, yazan_ad=_ad(kullanici), yazan_email=_eposta(kullanici) or None, metin=metin
     )
-    db.add(kayit)
-
-    simdi = datetime.now()
-    talep.son_mesaj_at = simdi
-    # Durum, kimin yazdığına göre ilerliyor: müşteri yazınca top
-    # bizde, biz yazınca müşteride. Kapanmış talep yeniden açılıyor.
-    talep.status = "open" if yazan == "musteri" else "answered"
-
-    await db.commit()
-    await db.refresh(kayit)
     return kayit
+
+
+@router.post("/{ticket_id}/ekler/{ek_id}/indirme-baglantisi")
+async def ek_indirme_baglantisi(
+    ticket_id: int,
+    ek_id: int,
+    request: Request,
+    db: AsyncSession = _Depends(get_db),
+):
+    """E-postayla gelen ekin 15 dakikalık imzalı indirme adresi.
+
+    Yetki talebin yetkisi: yönetici, atanan ekip üyesi ya da talep sahibi.
+    Başka talebin eki "yok" sayılır.
+    """
+    from services.dosyalar import imzali_yol
+
+    talep = await _talebi_ac(db, ticket_id)
+    _yetki(request, talep)
+    ek = (
+        await db.execute(select(TalepEkleri).where(TalepEkleri.id == ek_id, TalepEkleri.ticket_id == ticket_id))
+    ).scalars().first()
+    if ek is None:
+        raise HTTPException(status_code=404, detail="Ek bulunamadı")
+    yol, son = imzali_yol(ek.dosya_id)
+    return {"url": yol, "son": son, "ad": ek.ad}

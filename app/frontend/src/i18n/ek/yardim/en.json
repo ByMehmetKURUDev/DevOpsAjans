@@ -113,6 +113,13 @@
       "yonetici_gerekli": "This action requires administrator rights.",
       "oturum_gerekli": "Your session has ended; please sign in again.",
       "modul_kapali": "This module is not enabled for your account."
+    },
+    "eposta": {
+      "rozet": "Email",
+      "rozetIpucu": "This request was opened by email.",
+      "dogrulanmadi": "Unverified",
+      "dogrulanmadiIpucu": "The sender is not a registered client; no automatic reply was sent.",
+      "ipucu": "You can also reply to this request by email: just reply to the notification you received ({{adres}})."
     }
   }
 }

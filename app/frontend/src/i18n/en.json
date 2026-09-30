@@ -1433,7 +1433,9 @@
       "basin_pr": "Press / radio / TV",
       "yeni_ozellik": "New feature / feedback",
       "genel": "General"
-    }
+    },
+    "otomatikYanit": "Automatic reply",
+    "ekIndir": "Download attachment: {{ad}}"
   },
   "destek": {
     "kullanici": "Clients",
@@ -1447,7 +1449,8 @@
     "talepSil": "Delete ticket",
     "talepSilOnay": "Delete the ticket and its thread?",
     "talepSilindi": "Ticket deleted.",
-    "ayarlar": "SLA and canned replies"
+    "ayarlar": "SLA and canned replies",
+    "kurallar": "Rules"
   },
   "ekip": {
     "yeniKisi": "Add team member",

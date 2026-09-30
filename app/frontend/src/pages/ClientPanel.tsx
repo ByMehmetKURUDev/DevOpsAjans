@@ -59,6 +59,9 @@ const SitemBakim = ekliLazy('siteBakim', () => import('@/components/SitemBakim')
 const Dosyalarim = ekliLazy('dosyalar', () => import('@/components/Dosyalarim'));
 const DestekYardim = ekliLazy('yardim', () => import('@/components/DestekYardim'));
 const KbOnerileri = ekliLazy('yardim', () => import('@/components/KbOnerileri'));
+// Faz 2F: e-postadan gelen talep rozeti ve "e-postayla da yanıtlayabilirsiniz" ipucu.
+const EpostaRozeti = ekliLazy('yardim', () => import('@/components/EpostaRozeti'));
+const EpostaIpucu = ekliLazy('yardim', () => import('@/components/EpostaIpucu'));
 const AylikRaporArsivi = ekliLazy('aylikRapor', () => import('@/components/AylikRaporArsivi'));
 // Faz 2B — proje görevleri, revizyon sayacı, hata bildir, duyurular, öneri kutusu.
 const ProjeGorevGorunumu = ekliLazy('gorevler', () => import('@/components/ProjeGorevGorunumu'));
@@ -113,6 +116,7 @@ interface Ticket {
   status?: string;
   priority?: string;
   hizmet?: string;
+  kaynak?: string;
   created_at?: string;
 }
 
@@ -872,6 +876,11 @@ export default function ClientPanel() {
                             {t(`talep.hizmetler.${tk.hizmet}`, { defaultValue: tk.hizmet })}
                           </span>
                         ) : null}
+                        {tk.kaynak === 'eposta' ? (
+                          <Suspense fallback={null}>
+                            <EpostaRozeti />
+                          </Suspense>
+                        ) : null}
                       </div>
                       {acikTalep !== Number(tk.id) ? (
                         <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-2">
@@ -890,7 +899,12 @@ export default function ClientPanel() {
                       </button>
 
                       {acikTalep === Number(tk.id) ? (
-                        <TalepYazismasi ticketId={Number(tk.id)} bizKimiz="musteri" />
+                        <>
+                          <TalepYazismasi ticketId={Number(tk.id)} bizKimiz="musteri" />
+                          <Suspense fallback={null}>
+                            <EpostaIpucu />
+                          </Suspense>
+                        </>
                       ) : null}
                     </div>
                   ))

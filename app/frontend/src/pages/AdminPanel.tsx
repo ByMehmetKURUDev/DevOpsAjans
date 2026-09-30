@@ -112,6 +112,9 @@ const DosyaYonetimi = ekliLazy('dosyalar', () => import('@/components/admin/Dosy
 const BilgiBankasiYonetimi = ekliLazy('yardim', () => import('@/components/admin/BilgiBankasiYonetimi'));
 const DestekAyarlari = ekliLazy('yardim', () => import('@/components/admin/DestekAyarlari'));
 const SlaRozeti = ekliLazy('yardim', () => import('@/components/admin/SlaRozeti'));
+// Faz 2F: e-postadan gelen talep rozeti; Destek › Kurallar (otomatik destek kuralları).
+const EpostaRozeti = ekliLazy('yardim', () => import('@/components/EpostaRozeti'));
+const DestekKurallari = ekliLazy(['destekKurallari', 'yardim'], () => import('@/components/admin/DestekKurallari'));
 const AylikRaporlar = ekliLazy('aylikRapor', () => import('@/components/admin/AylikRaporlar'));
 // Faz 2B — proje görevleri (Kanban), geri bildirimler, duyurular + öneri kutusu.
 const ProjeGorevleri = ekliLazy(['gorevler', 'geriBildirim'], () => import('@/components/admin/ProjeGorevleri'));
@@ -206,6 +209,9 @@ interface Ticket {
   hizmet?: string;
   project_id?: number;
   atanan?: string;
+  kaynak?: string;
+  dogrulanmadi?: boolean | null;
+  etiketler?: string | null;
   created_at?: string;
 }
 
@@ -374,7 +380,7 @@ export default function AdminPanel() {
   // her cevap ticket_replies tablosuna ayri satir olarak dusuyor.
   const [acikTalep, setAcikTalep] = useState<number | null>(null);
   // Destek sekmesinin alt bolumu: musteri talepleri / ekip / raporlar.
-  const [destekBolumu, setDestekBolumu] = useState<'kullanici' | 'calisan' | 'rapor' | 'ayarlar'>('kullanici');
+  const [destekBolumu, setDestekBolumu] = useState<'kullanici' | 'calisan' | 'rapor' | 'kurallar' | 'ayarlar'>('kullanici');
   // Faz 2C: talep başına SLA durumu (rozet). Destek sekmesi açıkken çekiliyor.
   const [slaHaritasi, setSlaHaritasi] = useState<Record<string, SlaDurumu>>({});
   // Atama seciciyi doldurmak icin ekip listesi. Yalnizca Destek
@@ -1757,7 +1763,7 @@ export default function AdminPanel() {
                 cevabi hicbir yerde yoktu.
               */}
               <div className="mb-6 flex flex-wrap gap-2">
-                {(['kullanici', 'calisan', 'rapor', 'ayarlar'] as const).map((b) => (
+                {(['kullanici', 'calisan', 'rapor', 'kurallar', 'ayarlar'] as const).map((b) => (
                   <button
                     key={b}
                     type="button"
@@ -1782,6 +1788,10 @@ export default function AdminPanel() {
               ) : destekBolumu === 'rapor' ? (
                 <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
                   <MusteriRaporlari />
+                </Suspense>
+              ) : destekBolumu === 'kurallar' ? (
+                <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
+                  <DestekKurallari />
                 </Suspense>
               ) : destekBolumu === 'ayarlar' ? (
                 <Suspense fallback={<div className="p-10 text-center text-muted-foreground">…</div>}>
@@ -1814,6 +1824,22 @@ export default function AdminPanel() {
                               {t(`talep.hizmetler.${tk.hizmet}`, { defaultValue: tk.hizmet })}
                             </span>
                           ) : null}
+                          {tk.kaynak === 'eposta' ? (
+                            <Suspense fallback={null}>
+                              <EpostaRozeti dogrulanmadi={Boolean(tk.dogrulanmadi)} />
+                            </Suspense>
+                          ) : null}
+                          {(tk.etiketler || '')
+                            .split(',')
+                            .filter(Boolean)
+                            .map((e) => (
+                              <span
+                                key={e}
+                                className="rounded-full border border-purple-400/20 bg-purple-500/10 px-2 py-0.5 text-[10px] text-purple-200"
+                              >
+                                #{e}
+                              </span>
+                            ))}
                         </div>
                         <p className="text-xs text-muted-foreground">
                           {tk.client_name} • {tk.client_email}

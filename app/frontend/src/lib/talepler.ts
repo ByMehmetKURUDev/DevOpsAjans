@@ -8,7 +8,15 @@ import { client } from '@/lib/sdkClient';
  * oturumdan belirleniyor, buradan gönderilmiyor.
  */
 
-export type Yazan = 'musteri' | 'ajans';
+/** `otomatik`: kuralın gönderdiği hazır cevap (Faz 2F). */
+export type Yazan = 'musteri' | 'ajans' | 'otomatik';
+
+/** E-postayla gelen ek (Faz 2F). */
+export interface TalepEki {
+  id: number;
+  ad: string;
+  boyut: number;
+}
 
 export interface TalepMesaji {
   id: number;
@@ -17,6 +25,7 @@ export interface TalepMesaji {
   yazan_ad?: string | null;
   mesaj: string;
   created_at?: string | null;
+  ekler?: TalepEki[];
 }
 
 export interface TalepYazismasi {
@@ -24,6 +33,8 @@ export interface TalepYazismasi {
   subject: string;
   hizmet?: string | null;
   durum?: string | null;
+  kaynak?: string | null;
+  dogrulanmadi?: boolean | null;
   mesajlar: TalepMesaji[];
 }
 
@@ -73,6 +84,8 @@ export async function yazismayiGetir(ticketId: number): Promise<TalepYazismasi> 
     subject: govde.subject || '',
     hizmet: govde.hizmet ?? null,
     durum: govde.durum ?? null,
+    kaynak: govde.kaynak ?? null,
+    dogrulanmadi: govde.dogrulanmadi ?? null,
     mesajlar: Array.isArray(govde.mesajlar) ? govde.mesajlar : [],
   };
 }
@@ -86,4 +99,15 @@ export async function mesajGonder(ticketId: number, mesaj: string): Promise<Tale
   const govde = govdeyiAc<TalepMesaji>(yanit);
   if (!govde?.mesaj) throw new Error('Mesaj gönderilemedi.');
   return govde;
+}
+
+/** E-postayla gelen ekin 15 dakikalık imzalı indirme adresi (talep yetkisiyle). */
+export async function ekIndirmeAdresi(ticketId: number, ekId: number): Promise<string> {
+  const yanit = await client.apiCall.invoke({
+    method: 'POST',
+    url: `/api/v1/talep/${ticketId}/ekler/${ekId}/indirme-baglantisi`,
+  });
+  const govde = govdeyiAc<{ url?: string }>(yanit);
+  if (!govde?.url) throw new Error('Ek bağlantısı alınamadı.');
+  return govde.url;
 }

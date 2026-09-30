@@ -91,3 +91,17 @@ services:
         sync: false
       - key: ADMIN_USER_EMAIL
         sync: false
+      # Bildirim e-postaları (Resend). Faz 2F'de gelen e-postanın gövdesini ve
+      # eklerini okumak için de kullanılıyor — anahtar "Full access" olmalı.
+      - key: RESEND_API_KEY
+        sync: false
+      # Gönderen adres, ör. "mehmetkuru.dev <destek@mehmetkuru.dev>".
+      - key: NOTIFY_FROM_EMAIL
+        sync: false
+      # Faz 2F — e-postadan destek talebi (DESTEK-EPOSTA-KURULUM.md).
+      # Resend webhook'unun imza anahtarı ("whsec_..." ile başlar).
+      - key: RESEND_GELEN_IMZA_ANAHTARI
+        sync: false
+      # İsteğe bağlı: başka bir sağlayıcıdan HMAC imzalı genel uç için gizli anahtar.
+      - key: EPOSTA_GELEN_ANAHTARI
+        sync: false

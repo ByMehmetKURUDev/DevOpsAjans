@@ -1434,7 +1434,9 @@
       "basin_pr": "Gazete / radyo / TV",
       "yeni_ozellik": "Yeni özellik / geri bildirim",
       "genel": "Genel"
-    }
+    },
+    "otomatikYanit": "Otomatik yanıt",
+    "ekIndir": "Eki indir: {{ad}}"
   },
   "destek": {
     "kullanici": "Kullanıcı",
@@ -1448,7 +1450,8 @@
     "talepSil": "Talebi sil",
     "talepSilOnay": "Talep ve yazışması silinsin mi?",
     "talepSilindi": "Talep silindi.",
-    "ayarlar": "SLA ve hazır cevaplar"
+    "ayarlar": "SLA ve hazır cevaplar",
+    "kurallar": "Kurallar"
   },
   "ekip": {
     "yeniKisi": "Ekibe kişi ekle",

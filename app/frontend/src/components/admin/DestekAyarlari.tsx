@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { Suspense, useCallback, useEffect, useState, type FormEvent } from 'react';
 import { CalendarOff, Clock, Loader2, MessageSquareText, Pencil, Save, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { ekliLazy } from '@/i18n/ekliLazy';
 import {
   DestekHatasi,
   hazirCevapEkle,
@@ -27,6 +28,9 @@ import {
  * olarak giriliyor). Hazır cevaplar: başlık + metin, {musteri_adi},
  * {talep_no}, {konu} değişkenleri.
  */
+
+// Faz 2F: "E-postadan talep" kurulum kartı (ek paket `destekKurallari`).
+const EpostaTalepKarti = ekliLazy('destekKurallari', () => import('@/components/admin/EpostaTalepKarti'));
 
 const KART = 'cam-kart rounded-2xl border border-white/10 bg-white/[0.03] p-6';
 const ONCELIKLER: Oncelik[] = ['acil', 'yuksek', 'normal', 'dusuk'];
@@ -280,6 +284,10 @@ export default function DestekAyarlari() {
           </ul>
         )}
       </section>
+
+      <Suspense fallback={null}>
+        <EpostaTalepKarti />
+      </Suspense>
     </div>
   );
 }

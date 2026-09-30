@@ -1,11 +1,12 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
-import { Loader2, Send } from 'lucide-react';
+import { Loader2, Paperclip, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { mesajGonder, yazismayiGetir, type TalepMesaji } from '@/lib/talepler';
+import { getAPIBaseURL } from '@/lib/config';
+import { ekIndirmeAdresi, mesajGonder, yazismayiGetir, type TalepMesaji } from '@/lib/talepler';
 import { ekliLazy } from '@/i18n/ekliLazy';
 
 // Faz 2C: ajans tarafında hazır cevap seçicisi — ayrı parça, müşteri paneline inmez.
@@ -70,6 +71,22 @@ export default function TalepYazismasi({ ticketId, bizKimiz }: Props) {
     sonRef.current?.scrollIntoView({ block: 'nearest' });
   }, [mesajlar.length]);
 
+  // Faz 2F: e-postayla gelen ek — imzalı, 15 dakikalık adresle indirilir.
+  async function ekiIndir(ekId: number) {
+    try {
+      const yol = await ekIndirmeAdresi(ticketId, ekId);
+      const a = document.createElement('a');
+      a.href = `${getAPIBaseURL()}${yol}`;
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (e) {
+      console.error(e);
+      toast.error(t('talep.yuklenemedi'));
+    }
+  }
+
   async function gonder() {
     const metin = taslak.trim();
     if (!metin) return;
@@ -102,7 +119,9 @@ export default function TalepYazismasi({ ticketId, bizKimiz }: Props) {
     <div className="mt-3 space-y-3">
       <div className="max-h-80 space-y-2 overflow-y-auto pr-1">
         {mesajlar.map((m) => {
-          const bizimMi = m.yazan === bizKimiz;
+          // Kuralın otomatik cevabı ajans tarafında görünür.
+          const taraf = m.yazan === 'otomatik' ? 'ajans' : m.yazan;
+          const bizimMi = taraf === bizKimiz;
           return (
             <div
               key={`${m.id}-${m.created_at || ''}`}
@@ -116,10 +135,31 @@ export default function TalepYazismasi({ ticketId, bizKimiz }: Props) {
                 }`}
               >
                 <p className="mb-1 text-[10px] uppercase tracking-wider text-muted-foreground">
-                  {m.yazan === 'ajans' ? t('talep.ajans') : m.yazan_ad || t('talep.musteri')}
+                  {m.yazan === 'otomatik'
+                    ? t('talep.otomatikYanit')
+                    : m.yazan === 'ajans'
+                      ? t('talep.ajans')
+                      : m.yazan_ad || t('talep.musteri')}
                   {m.created_at ? ` • ${saat(m.created_at)}` : ''}
                 </p>
                 <p className="whitespace-pre-wrap break-words">{m.mesaj}</p>
+                {m.ekler && m.ekler.length > 0 ? (
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {m.ekler.map((ek) => (
+                      <button
+                        key={ek.id}
+                        type="button"
+                        onClick={() => void ekiIndir(ek.id)}
+                        aria-label={t('talep.ekIndir', { ad: ek.ad })}
+                        title={t('talep.ekIndir', { ad: ek.ad })}
+                        className="inline-flex max-w-full items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[11px] text-muted-foreground hover:border-white/30 hover:text-foreground"
+                      >
+                        <Paperclip className="h-3 w-3 shrink-0" aria-hidden="true" />
+                        <span className="truncate">{ek.ad}</span>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             </div>
           );

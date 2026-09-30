@@ -1,6 +1,6 @@
 from core.database import Base
 from datetime import datetime
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
 
 class Support_tickets(Base):
@@ -30,5 +30,14 @@ class Support_tickets(Base):
     # Son mesajın zamanı. Listeyi buna göre sıralıyoruz: cevap
     # bekleyen talep, açılış tarihi eski olsa da üste çıksın.
     son_mesaj_at = Column(DateTime(timezone=True), nullable=True)
+    # Faz 2F — e-postadan gelen talep. Gönderen tanınmayan bir adresse (kayıtlı
+    # müşteri değil) talep yine açılıyor ama işaretli: yönetici bakana kadar
+    # otomatik cevap gitmiyor, kimliği doğrulanmış sayılmıyor.
+    dogrulanmadi = Column(Boolean, nullable=True, default=False)
+    # Faz 2F — otomatik kuralların eklediği etiketler (virgülle ayrılmış).
+    etiketler = Column(String, nullable=True)
+    # Faz 2F — kuralın otomatik hazır cevabı gönderildi mi (talep başına bir kez;
+    # koşullu UPDATE ile yalnız boşken doluyor).
+    otomatik_cevap_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

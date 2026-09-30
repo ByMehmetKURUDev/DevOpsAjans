@@ -113,6 +113,13 @@
       "yonetici_gerekli": "Bu işlem yönetici yetkisi istiyor.",
       "oturum_gerekli": "Oturumunuz kapanmış; lütfen yeniden giriş yapın.",
       "modul_kapali": "Bu modül hesabınızda açık değil."
+    },
+    "eposta": {
+      "rozet": "E-posta",
+      "rozetIpucu": "Bu talep e-postayla açıldı.",
+      "dogrulanmadi": "Doğrulanmadı",
+      "dogrulanmadiIpucu": "Gönderen kayıtlı bir müşteri değil; otomatik yanıt gönderilmedi.",
+      "ipucu": "Bu talebe e-postayla da yanıt verebilirsiniz: size gelen bildirimi yanıtlamanız yeterli ({{adres}})."
     }
   }
 }

@@ -1433,7 +1433,9 @@
       "basin_pr": "Presse / Radio / TV",
       "yeni_ozellik": "Neue Funktion / Feedback",
       "genel": "Allgemein"
-    }
+    },
+    "otomatikYanit": "Automatische Antwort",
+    "ekIndir": "Anhang herunterladen: {{ad}}"
   },
   "destek": {
     "kullanici": "Kunden",
@@ -1447,7 +1449,8 @@
     "talepSil": "Ticket löschen",
     "talepSilOnay": "Ticket und Verlauf löschen?",
     "talepSilindi": "Ticket gelöscht.",
-    "ayarlar": "SLA und Textbausteine"
+    "ayarlar": "SLA und Textbausteine",
+    "kurallar": "Regeln"
   },
   "ekip": {
     "yeniKisi": "Teammitglied hinzufügen",

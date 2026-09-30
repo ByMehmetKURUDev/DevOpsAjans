@@ -113,6 +113,13 @@
       "yonetici_gerekli": "此操作需要管理员权限。",
       "oturum_gerekli": "您的会话已结束，请重新登录。",
       "modul_kapali": "您的账户未开通此模块。"
+    },
+    "eposta": {
+      "rozet": "邮件",
+      "rozetIpucu": "此请求通过电子邮件创建。",
+      "dogrulanmadi": "未验证",
+      "dogrulanmadiIpucu": "发件人不是已注册客户；未发送自动回复。",
+      "ipucu": "您也可以通过电子邮件回复此请求：直接回复您收到的通知即可（{{adres}}）。"
     }
   }
 }

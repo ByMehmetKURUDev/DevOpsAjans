@@ -10,9 +10,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
-from dependencies.kayit_sahipligi import sahibine_daralt, sahiplik_dogrula
+from dependencies.kayit_sahipligi import _yonetici_mi, sahibine_daralt, sahiplik_dogrula
 from fastapi import Depends as _Depends
-from services.notify import admin_recipients, dispatch, render
+from services.destek_kurallari import kanal_bul
+from services.destek_talep import talep_acildi
 from services.support_tickets import Support_ticketsService
 
 # Set up logging
@@ -66,6 +67,8 @@ class Support_ticketsResponse(BaseModel):
     project_id: Optional[int] = None
     kaynak: Optional[str] = None
     atanan: Optional[str] = None
+    dogrulanmadi: Optional[bool] = None
+    etiketler: Optional[str] = None
     son_mesaj_at: Optional[datetime] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
@@ -223,58 +226,35 @@ async def get_support_tickets(
 async def create_support_tickets(
     data: Support_ticketsData,
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
     """Create a new support_tickets"""
     logger.debug(f"Creating new support_tickets with data: {data}")
     
     service = Support_ticketsService(db)
     try:
-        result = await service.create(data.model_dump())
+        veri = data.model_dump()
+        # Faz 2F: müşteri talebi kendi adına açar. Gövdedeki client_email'e
+        # güvenilmiyor (başkası adına talep → o adrese otomatik cevap giderdi),
+        # atamayı ve "eposta" kaynağını müşteri belirleyemez.
+        kullanici, yonetici = _yonetici_mi(request) if request is not None else (None, False)
+        if kullanici is not None and not yonetici:
+            veri["client_email"] = (kullanici.email or "").strip().lower() or veri.get("client_email")
+            veri["atanan"] = None
+            if kanal_bul(veri.get("kaynak")) == "eposta":
+                veri["kaynak"] = "panel"
+        result = await service.create(veri)
         if not result:
             raise HTTPException(status_code=400, detail="Failed to create support_tickets")
         
         logger.info(f"Support_tickets created successfully with id: {result.id}")
 
-        # Faz 2C: SLA saatleri talep açıldığı anda (mesai saatine göre).
-        try:
-            from services.sla import talep_icin_baslat
-
-            await talep_icin_baslat(db, result)
-        except Exception as sla_hatasi:  # noqa: BLE001 - SLA talebi düşürmesin
-            logger.error("SLA başlatılamadı: %s", sla_hatasi)
-
-        try:
-            baslik, govde = await render(
-                db,
-                "ticket",
-                f"Yeni destek talebi: {data.subject}",
-                (
-                    f"Müşteri: {data.client_name or data.client_email or '—'}\n"
-                    f"Öncelik: {data.priority or 'normal'}\n\n"
-                    f"{data.message}"
-                ),
-                {
-                    "musteri": data.client_name or data.client_email or "—",
-                    "eposta": data.client_email or "—",
-                    "konu": data.subject,
-                    "oncelik": data.priority or "normal",
-                    "mesaj": data.message,
-                },
-            )
-            await dispatch(
-                db,
-                event_type="ticket",
-                title=baslik,
-                body=govde,
-                recipients=await admin_recipients(db),
-                link="/admin",
-                ref_type="ticket",
-                ref_id=result.id,
-            )
-        except Exception as bildirim_hatasi:
-            logger.error("Destek bildirimi gönderilemedi: %s", bildirim_hatasi)
-
+        # Faz 2F: kurallar → SLA → yönetici bildirimi → otomatik cevap; e-postadan
+        # gelen talep de aynı yoldan geçiyor (services/destek_talep.py).
+        await talep_acildi(db, result, kanal=kanal_bul(result.kaynak))
         return result
+    except HTTPException:
+        raise
     except ValueError as e:
         logger.error(f"Validation error creating support_tickets: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))

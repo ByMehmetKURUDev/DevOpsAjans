@@ -113,6 +113,13 @@
       "yonetici_gerekli": "Diese Aktion erfordert Administratorrechte.",
       "oturum_gerekli": "Ihre Sitzung ist beendet; bitte melden Sie sich erneut an.",
       "modul_kapali": "Dieses Modul ist für Ihr Konto nicht aktiviert."
+    },
+    "eposta": {
+      "rozet": "E-Mail",
+      "rozetIpucu": "Diese Anfrage wurde per E-Mail eröffnet.",
+      "dogrulanmadi": "Nicht verifiziert",
+      "dogrulanmadiIpucu": "Der Absender ist kein registrierter Kunde; es wurde keine automatische Antwort gesendet.",
+      "ipucu": "Sie können auf diese Anfrage auch per E-Mail antworten: Antworten Sie einfach auf die erhaltene Benachrichtigung ({{adres}})."
     }
   }
 }

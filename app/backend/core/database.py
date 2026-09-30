@@ -397,6 +397,25 @@ class DatabaseManager:
             "tur_pg": "TIMESTAMPTZ",
             "tur_sqlite": "TIMESTAMP",
         },
+        # Faz 2F — e-postadan talep ve otomatik destek kuralları.
+        {
+            "tablo": "support_tickets",
+            "sutun": "dogrulanmadi",
+            "tur_pg": "BOOLEAN",
+            "tur_sqlite": "BOOLEAN",
+        },
+        {
+            "tablo": "support_tickets",
+            "sutun": "etiketler",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
+        {
+            "tablo": "support_tickets",
+            "sutun": "otomatik_cevap_at",
+            "tur_pg": "TIMESTAMPTZ",
+            "tur_sqlite": "TIMESTAMP",
+        },
         # Faz 2B — paketten bulunamazsa projeye elle girilen aylik revizyon saati.
         {
             "tablo": "projects",

@@ -43,7 +43,8 @@ ROLLER = ("admin", "client")
 OLAYLAR: Dict[str, Dict[str, Any]] = {
     "inquiry": {"roller": ("admin",), "tetikleniyor": True},
     "ticket": {"roller": ("admin",), "tetikleniyor": True},
-    "ticket_reply": {"roller": ("client",), "tetikleniyor": False},
+    # Faz 2F — ajans yanıtı (ve kural otomatik cevabı) müşteriye yanıtlanabilir e-posta.
+    "ticket_reply": {"roller": ("client",), "tetikleniyor": True},
     "project_stage": {"roller": ("admin", "client"), "tetikleniyor": True},
     "project_note": {"roller": ("client",), "tetikleniyor": True},
     "project_delivery": {"roller": ("client",), "tetikleniyor": False},

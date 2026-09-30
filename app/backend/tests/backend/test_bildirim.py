@@ -182,7 +182,8 @@ async def test_matris_varsayilani_ve_katalog(istemci, yonetici_basligi):
     ):
         assert gerekli in olaylar
     assert olaylar["inquiry"]["roller"] == ["admin"]
-    assert olaylar["ticket_reply"]["tetikleniyor"] is False
+    # Faz 2F: ajans yanıtı artık müşteriye bildiriliyor.
+    assert olaylar["ticket_reply"]["tetikleniyor"] is True
     assert all(govde["matris"][r][o][k] for r in ("admin", "client") for o in olaylar for k in govde["kanallar"])
     assert govde["push"]["yapilandirildi"] is False
 

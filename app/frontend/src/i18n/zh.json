@@ -1433,7 +1433,9 @@
       "basin_pr": "报纸 / 广播 / 电视",
       "yeni_ozellik": "新功能 / 反馈",
       "genel": "通用"
-    }
+    },
+    "otomatikYanit": "自动回复",
+    "ekIndir": "下载附件：{{ad}}"
   },
   "destek": {
     "kullanici": "客户",
@@ -1447,7 +1449,8 @@
     "talepSil": "删除工单",
     "talepSilOnay": "要删除工单及其对话吗？",
     "talepSilindi": "工单已删除。",
-    "ayarlar": "SLA 与快捷回复"
+    "ayarlar": "SLA 与快捷回复",
+    "kurallar": "规则"
   },
   "ekip": {
     "yeniKisi": "添加团队成员",
