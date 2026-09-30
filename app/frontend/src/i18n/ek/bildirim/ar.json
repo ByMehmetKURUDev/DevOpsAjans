@@ -29,7 +29,11 @@
       "bekleme_listesi": "قائمة الانتظار",
       "content_overdue": "محتوى متأخر",
       "modul_acildi": "تم تفعيل وحدة",
-      "modul_kapandi": "تم تعطيل وحدة"
+      "modul_kapandi": "تم تعطيل وحدة",
+      "site_coktu": "الموقع متوقف",
+      "site_duzeldi": "عاد الموقع للعمل",
+      "bitis_yaklasiyor": "اقتراب تاريخ الانتهاء",
+      "yenileme_faturasi": "فاتورة تجديد"
     },
     "kanal": {
       "inapp": "اللوحة",

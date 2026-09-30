@@ -48,6 +48,8 @@ const KrediOzetKarti = ekliLazy('kredi', () => import('@/components/KrediOzetKar
 const OnayBekleyenler = ekliLazy('islem', () => import('@/components/OnayBekleyenler'));
 // Profil › Modüllerim (açık / yakında / paketinize eklenebilir modüller).
 const Modullerim = ekliLazy('modul', () => import('@/components/Modullerim'));
+// Faz 2A: "Sitem" sekmesindeki bakım/uptime kartı (ek paket `siteBakim`).
+const SitemBakim = ekliLazy('siteBakim', () => import('@/components/SitemBakim'));
 
 interface AuthUser {
   id?: string;
@@ -852,6 +854,9 @@ export default function ClientPanel() {
             <div>
               <h3 className="mb-4 text-lg font-semibold">{t('sitem.sekme')}</h3>
               <SiteBakimIzni />
+              <Suspense fallback={null}>
+                <SitemBakim />
+              </Suspense>
             </div>
           )}
 

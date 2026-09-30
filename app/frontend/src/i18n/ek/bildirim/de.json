@@ -29,7 +29,11 @@
       "bekleme_listesi": "Warteliste",
       "content_overdue": "Überfällige Inhalte",
       "modul_acildi": "Modul aktiviert",
-      "modul_kapandi": "Modul deaktiviert"
+      "modul_kapandi": "Modul deaktiviert",
+      "site_coktu": "Website nicht erreichbar",
+      "site_duzeldi": "Website wieder erreichbar",
+      "bitis_yaklasiyor": "Ablaufdatum naht",
+      "yenileme_faturasi": "Verlängerungsrechnung"
     },
     "kanal": {
       "inapp": "Panel",

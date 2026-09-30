@@ -29,7 +29,11 @@
       "bekleme_listesi": "候补名单",
       "content_overdue": "逾期内容",
       "modul_acildi": "模块已启用",
-      "modul_kapandi": "模块已停用"
+      "modul_kapandi": "模块已停用",
+      "site_coktu": "网站无法访问",
+      "site_duzeldi": "网站已恢复访问",
+      "bitis_yaklasiyor": "即将到期",
+      "yenileme_faturasi": "续费账单"
     },
     "kanal": {
       "inapp": "面板",

@@ -43,6 +43,9 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/rapor/:jeton',
   // İmzalı işlem bağlantısı: jetona özel, girişsiz karar sayfası, noindex.
   '/islem/:jeton',
+  // Müşterinin durum sayfası: dinamik, müşteriye ait; varsayılan noindex (Faz 2A).
+  '/durum/:slug',
+  'durum/:slug',
 ]);
 
 const missing = [...appRoutes].filter(

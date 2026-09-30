@@ -29,7 +29,11 @@
       "bekleme_listesi": "Лист ожидания",
       "content_overdue": "Просроченный контент",
       "modul_acildi": "Модуль включён",
-      "modul_kapandi": "Модуль отключён"
+      "modul_kapandi": "Модуль отключён",
+      "site_coktu": "Сайт недоступен",
+      "site_duzeldi": "Сайт снова доступен",
+      "bitis_yaklasiyor": "Приближается срок окончания",
+      "yenileme_faturasi": "Счёт на продление"
     },
     "kanal": {
       "inapp": "Панель",

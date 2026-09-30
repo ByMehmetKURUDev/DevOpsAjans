@@ -125,6 +125,40 @@ def ip_global_mi(ip_metni: str) -> bool:
     return bool(ip.is_global)
 
 
+# --------------------------------------------------------------------------
+# Yalnız test / yerel geliştirme: iç adrese izin
+# --------------------------------------------------------------------------
+#: Bu ortam değerlerinden biri tanımlı değilse "üretim" sayılıyor. Varsayılan
+#: (ENVIRONMENT yok) üretim — unutulan bir ayar kapıyı açmasın.
+URETIM_DISI_ORTAMLAR = frozenset({"dev", "test", "yerel", "local"})
+
+
+def uretim_mi() -> bool:
+    """Üretimde miyiz? Şüphede EVET.
+
+    `ENVIRONMENT` dev/test/yerel değilse ya da Render'ın her serviste
+    tanımladığı `RENDER` değişkeni varsa üretim. İkinci koşul, birinin
+    Render paneline yanlışlıkla `ENVIRONMENT=dev` yazması hâlinde de
+    iç ağ kapısının kapalı kalması için.
+    """
+    if (os.environ.get("RENDER") or "").strip():
+        return True
+    return (os.environ.get("ENVIRONMENT") or "prod").strip().lower() not in URETIM_DISI_ORTAMLAR
+
+
+def test_izinli_hostlar() -> frozenset:
+    """`SSRF_TEST_IZINLI_HOSTLAR` (virgüllü) — YALNIZ üretim dışında.
+
+    Uçtan uca testte yerel bir HTTP sunucusunu (127.0.0.1:<port>) uptime
+    hedefi yapabilmek için. Üretimde değişken tanımlı olsa bile boş küme
+    dönüyor (bkz. `uretim_mi`); bu davranış testle bağlı.
+    """
+    if uretim_mi():
+        return frozenset()
+    ham = os.environ.get("SSRF_TEST_IZINLI_HOSTLAR") or ""
+    return frozenset(p.strip().lower().strip("[]") for p in ham.split(",") if p.strip())
+
+
 def _parcala(url: str) -> Tuple[str, str, Optional[int]]:
     """(şema, host, port). Biçim hatasında AnalizHatasi('adres_gecersiz')."""
     try:
@@ -137,10 +171,10 @@ def _parcala(url: str) -> Tuple[str, str, Optional[int]]:
         raise AnalizHatasi("adres_gecersiz")
     if parca.username is not None or parca.password is not None or "@" in parca.netloc:
         raise AnalizHatasi("adres_gecersiz")
-    if port not in (None, 80, 443):
-        raise AnalizHatasi("adres_gecersiz")
     host = (parca.hostname or "").strip().rstrip(".").lower()
     if not host:
+        raise AnalizHatasi("adres_gecersiz")
+    if port not in (None, 80, 443) and host not in test_izinli_hostlar():
         raise AnalizHatasi("adres_gecersiz")
     return sema, host, port
 
@@ -198,6 +232,9 @@ def _yasak_ad_mi(host: str) -> bool:
 
 async def _guvenli_ipler(host: str, port: int) -> List[str]:
     """Host'un çözüldüğü IP'ler; biri bile genel değilse AnalizHatasi."""
+    if host in test_izinli_hostlar():
+        # Yalnız üretim dışı + açıkça listelenmiş ad/IP (bkz. yukarı).
+        return [host] if _ip_mi(host) is not None else await _dns_cozumle(host, port)
     if _yasak_ad_mi(host):
         raise AnalizHatasi("adres_yasak")
     if _ip_mi(host) is not None:
@@ -301,21 +338,26 @@ def _varsayilan_tasiyici() -> Optional[httpx.AsyncBaseTransport]:
 _tasiyici_fabrikasi: Callable[[], Optional[httpx.AsyncBaseTransport]] = _varsayilan_tasiyici
 
 
-def _istemci() -> httpx.AsyncClient:
+def _istemci(
+    zaman_asimi: float = ISTEK_ZAMAN_ASIMI,
+    eszamanlilik: int = ESZAMANLILIK,
+    ajan: str = AJAN,
+) -> httpx.AsyncClient:
+    """SSRF korumalı istemci. Uptime ve RDAP da bunu kullanıyor."""
     decoders = list(getattr(httpx, "_decoders").SUPPORTED_DECODERS)
     kodlamalar = ", ".join(k for k in decoders if k != "identity")
     return httpx.AsyncClient(
-        timeout=httpx.Timeout(ISTEK_ZAMAN_ASIMI),
+        timeout=httpx.Timeout(zaman_asimi),
         follow_redirects=False,
         transport=_tasiyici_fabrikasi(),
         headers={
-            "user-agent": AJAN,
+            "user-agent": ajan,
             # Yalnız çözebildiğimiz sıkıştırmaları istiyoruz; br kurulu
             # değilken br isteyip gövdeyi okuyamamak olmasın.
             "accept-encoding": kodlamalar,
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         },
-        limits=httpx.Limits(max_connections=ESZAMANLILIK * 2, max_keepalive_connections=ESZAMANLILIK),
+        limits=httpx.Limits(max_connections=eszamanlilik * 2, max_keepalive_connections=eszamanlilik),
     )
 
 
@@ -340,10 +382,16 @@ _METIN_TURLERI = ("text/", "xml", "json", "javascript")
 class Gezgin:
     """Tek analiz boyunca kullanılan, her adımı denetleyen istek yapıcı."""
 
-    def __init__(self, istemci: httpx.AsyncClient):
+    def __init__(
+        self,
+        istemci: httpx.AsyncClient,
+        eszamanlilik: int = ESZAMANLILIK,
+        zaman_asimi: float = ISTEK_ZAMAN_ASIMI,
+    ):
         self.istemci = istemci
         self.onbellek: Dict[str, bool] = {}
-        self.kilit = asyncio.Semaphore(ESZAMANLILIK)
+        self.kilit = asyncio.Semaphore(eszamanlilik)
+        self.zaman_asimi = zaman_asimi
 
     async def _oku(self, yanit: httpx.Response) -> str:
         tur = (yanit.headers.get("content-type") or "").lower()
@@ -393,7 +441,7 @@ class Gezgin:
                 async with self.kilit:
                     durum, basliklar, govde, konum = await asyncio.wait_for(
                         self._tek_adim(yontem, simdiki, govde_oku, izle),
-                        ISTEK_ZAMAN_ASIMI + 1,
+                        self.zaman_asimi + 1,
                     )
             except (httpx.HTTPError, asyncio.TimeoutError, OSError, ssl.SSLError) as exc:
                 logger.info("Analiz isteği başarısız: %s (%s)", simdiki, type(exc).__name__)

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
+  CalendarClock,
   Check,
   Code2,
   Globe,
@@ -14,8 +15,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
+import SiteBakimKarti from '@/components/admin/SiteBakimKarti';
+import Yenilemeler from '@/components/admin/Yenilemeler';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { bakimKartlari, type BakimKarti } from '@/lib/siteBakim';
 import {
   erisimKaydet,
   gommeKoduGetir,
@@ -63,6 +67,9 @@ export default function MusteriSiteleri() {
   const { t } = useTranslation();
   const [siteler, setSiteler] = useState<MusteriSitesi[]>([]);
   const [yukleniyor, setYukleniyor] = useState(true);
+  // Faz 2A: "Siteler" | "Yenilemeler" alt görünümü + site başına bakım kartı.
+  const [gorunum, setGorunum] = useState<'siteler' | 'yenilemeler'>('siteler');
+  const [kartlar, setKartlar] = useState<Record<number, BakimKarti>>({});
 
   const [eposta, setEposta] = useState('');
   const [ad, setAd] = useState('');
@@ -90,7 +97,18 @@ export default function MusteriSiteleri() {
     } finally {
       setYukleniyor(false);
     }
+    // Bakım kartları ayrı uçtan; ekip üyesi (yönetici değil) 403 alır, kart çizilmez.
+    try {
+      const liste = await bakimKartlari();
+      setKartlar(Object.fromEntries(liste.map((k) => [k.site_id, k])));
+    } catch {
+      setKartlar({});
+    }
   }, [t]);
+
+  const kartGuncelle = useCallback((k: BakimKarti) => {
+    setKartlar((o) => ({ ...o, [k.site_id]: k }));
+  }, []);
 
   useEffect(() => {
     void yukle();
@@ -140,6 +158,9 @@ export default function MusteriSiteleri() {
         atanan: atanan.trim().toLowerCase() || undefined,
       });
       setSiteler((o) => [yeni, ...o]);
+      bakimKartlari()
+        .then((liste) => setKartlar(Object.fromEntries(liste.map((k) => [k.site_id, k]))))
+        .catch(() => undefined);
       setEposta('');
       setAd('');
       setAdres('');
@@ -203,8 +224,42 @@ export default function MusteriSiteleri() {
     }
   };
 
+  const altGorunumler = (
+    <div className="flex flex-wrap gap-2" role="tablist" aria-label={t('siteBakim.sekme.etiket')}>
+      {(
+        [
+          ['siteler', Globe, t('siteBakim.sekme.siteler')],
+          ['yenilemeler', CalendarClock, t('siteBakim.sekme.yenilemeler')],
+        ] as const
+      ).map(([anahtar, Ikon, etiket]) => (
+        <Button
+          key={anahtar}
+          size="sm"
+          role="tab"
+          aria-selected={gorunum === anahtar}
+          variant={gorunum === anahtar ? 'default' : 'ghost'}
+          onClick={() => setGorunum(anahtar)}
+          data-testid={`alt-gorunum-${anahtar}`}
+        >
+          <Ikon className="mr-2 h-4 w-4" />
+          {etiket}
+        </Button>
+      ))}
+    </div>
+  );
+
+  if (gorunum === 'yenilemeler') {
+    return (
+      <div className="space-y-6">
+        {altGorunumler}
+        <Yenilemeler />
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
+      {altGorunumler}
       {/* Yeni site */}
       <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
         <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold">
@@ -269,7 +324,7 @@ export default function MusteriSiteleri() {
       ) : (
         <div className="space-y-2">
           {siteler.map((site) => (
-            <div key={site.id} className="rounded-xl border border-white/10 bg-white/[0.02]">
+            <div key={site.id} className="cam-kart rounded-xl border border-white/10 bg-white/[0.02]" data-testid={`site-satiri-${site.id}`}>
               <div className="flex flex-wrap items-center gap-3 p-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
@@ -311,6 +366,8 @@ export default function MusteriSiteleri() {
                   </Button>
                 )}
               </div>
+
+              {kartlar[site.id] && <SiteBakimKarti kart={kartlar[site.id]} onGuncel={kartGuncelle} />}
 
               {acikSite === site.id && (
                 <div className="space-y-4 border-t border-white/10 p-4">

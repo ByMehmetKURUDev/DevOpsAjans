@@ -80,6 +80,10 @@
       "fiyatlandirma": {
         "ad": "Preisgestaltung",
         "aciklama": "Paketpreise aus Stufen, Profilen, Leistungen und Add-ons."
+      },
+      "yenileme": {
+        "ad": "Verlängerungsverwaltung",
+        "aciklama": "Domain-, Hosting-, SSL- und Abo-Verlängerungen in einer Liste verfolgen; Erinnerungen vor Ablauf und Verlängerungsrechnung mit einem Klick."
       }
     },
     "kategori": {

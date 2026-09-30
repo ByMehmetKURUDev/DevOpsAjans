@@ -27,6 +27,8 @@ const YolHaritasi = lazy(() => import('./pages/YolHaritasi'));
 const SiteAnalizi = ekliLazy('siteAnalizi', () => import('./pages/SiteAnalizi'));
 const SiteRaporu = ekliLazy('siteAnalizi', () => import('./pages/SiteRaporu'));
 const IslemSayfasi = ekliLazy('islem', () => import('./pages/IslemSayfasi'));
+// Faz 2A: müşterinin açtığı herkese açık durum sayfası (dinamik, prerender yok).
+const DurumSayfasi = ekliLazy('siteBakim', () => import('./pages/DurumSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -58,6 +60,8 @@ const AppRoutes = () => (
         <Route path="/rapor/:jeton" element={<SiteRaporu />} />
         {/* İmzalı işlem bağlantısı (teklif kabulü, teslim onayı). Oturum istemiyor, noindex. */}
         <Route path="/islem/:jeton" element={<IslemSayfasi />} />
+        {/* Herkese açık durum sayfası (/durum/<slug>). Varsayılan noindex; müşteri seçerse index. */}
+        <Route path="/durum/:slug" element={<DurumSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 
@@ -75,6 +79,7 @@ const AppRoutes = () => (
         <Route path="contact" element={<Contact />} />
         <Route path="yol-haritasi" element={<YolHaritasi />} />
         <Route path="site-analizi" element={<SiteAnalizi />} />
+        <Route path="durum/:slug" element={<DurumSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

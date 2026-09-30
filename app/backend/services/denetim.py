@@ -55,10 +55,23 @@ HARIC_TABLOLAR = frozenset({
     "analytics_snapshots", "oidc_states",
     # Her gönderimde sayaç/zaman güncelleniyor, anahtar malzemesi taşıyor.
     "push_subscriptions",
+    # Faz 2A: zamanlı görevin kendi yazdığı ölçüm/olay/kilit tabloları.
+    # Birkaç dakikada bir yüzlerce satır; kimin neyi değiştirdiği sorusuyla
+    # ilgisi yok (kesinti geçmişi zaten kendi tablosunda).
+    "uptime_olculeri", "uptime_gunluk", "uptime_kesintileri",
+    "bitis_bildirimleri", "zamanli_calisma",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
 GURULTU_ALANLARI = frozenset({"created_at", "updated_at"})
+
+#: Tabloya özel gürültü: zamanlı görevin her çalışmada yazdığı durum alanları.
+#: Yalnız bunlar değiştiyse satır yazılmıyor; ayar değişikliği (adres,
+#: aralık, bitiş tarihi, sağlayıcı…) yine kaydediliyor.
+TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
+    "uptime_kontrolleri": frozenset({"son_kontrol_at", "son_durum", "ardisik_hata", "ilk_hata_at"}),
+    "site_izleme": frozenset({"alan_kontrol_at", "ssl_kontrol_at", "ssl_bitis", "ssl_hata", "alan_rdap_hata"}),
+}
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.
 HASSAS_PARCALAR = ("password", "sifre", "token", "jeton", "secret", "api_key", "anahtar", "kart")
@@ -169,7 +182,7 @@ def _gecerli_baglam() -> DenetimBaglami:
 
 #: Adında hassas bir parça geçse de gizli bilgi taşımayan alanlar
 #: (`modul_anahtari` bir modül adı, "anahtar" parolası değil).
-HASSAS_OLMAYAN_ALANLAR = frozenset({"modul_anahtari"})
+HASSAS_OLMAYAN_ALANLAR = frozenset({"modul_anahtari", "anahtar_kelime"})
 
 
 def hassas_mi(alan: str) -> bool:
@@ -285,9 +298,10 @@ def _nesne_satiri(obj: Any, tur: str, baglam: DenetimBaglami) -> Optional[Dict[s
     sozluk = durum.dict  # yüklenmiş değerler; burada tembel yükleme tetiklenmiyor
 
     fark: Dict[str, List[Any]] = {}
+    tablo_gurultu = TABLO_GURULTU_ALANLARI.get(tablo, frozenset())
     for ozellik in mapper.column_attrs:
         alan = ozellik.key
-        if alan in GURULTU_ALANLARI or alan in pk_anahtarlari:
+        if alan in GURULTU_ALANLARI or alan in pk_anahtarlari or alan in tablo_gurultu:
             continue
         if tur == "olustur":
             deger = sozluk.get(alan)

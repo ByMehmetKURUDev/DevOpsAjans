@@ -29,7 +29,11 @@
       "bekleme_listesi": "प्रतीक्षा सूची",
       "content_overdue": "विलंबित सामग्री",
       "modul_acildi": "मॉड्यूल सक्रिय हुआ",
-      "modul_kapandi": "मॉड्यूल बंद हुआ"
+      "modul_kapandi": "मॉड्यूल बंद हुआ",
+      "site_coktu": "साइट उपलब्ध नहीं है",
+      "site_duzeldi": "साइट फिर से उपलब्ध है",
+      "bitis_yaklasiyor": "समाप्ति तिथि निकट है",
+      "yenileme_faturasi": "नवीनीकरण इनवॉइस"
     },
     "kanal": {
       "inapp": "पैनल",

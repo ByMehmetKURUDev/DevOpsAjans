@@ -58,6 +58,11 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Faz 1F — yönetici müşteride bir modülü açtı/kapattı.
     "modul_acildi": {"roller": ("client",), "tetikleniyor": True},
     "modul_kapandi": {"roller": ("client",), "tetikleniyor": True},
+    # Faz 2A — site bakımı: uptime kesintisi, bitiş hatırlatması, yenileme faturası.
+    "site_coktu": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "site_duzeldi": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "bitis_yaklasiyor": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "yenileme_faturasi": {"roller": ("client",), "tetikleniyor": True},
 }
 
 

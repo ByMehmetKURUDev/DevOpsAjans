@@ -29,7 +29,11 @@
       "bekleme_listesi": "Waiting list",
       "content_overdue": "Overdue content",
       "modul_acildi": "Module enabled",
-      "modul_kapandi": "Module disabled"
+      "modul_kapandi": "Module disabled",
+      "site_coktu": "Site is down",
+      "site_duzeldi": "Site is back up",
+      "bitis_yaklasiyor": "Expiry date approaching",
+      "yenileme_faturasi": "Renewal invoice"
     },
     "kanal": {
       "inapp": "Panel",

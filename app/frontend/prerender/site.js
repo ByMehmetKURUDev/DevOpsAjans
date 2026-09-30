@@ -376,6 +376,8 @@ export const NOINDEX_ROUTES = [
   '/rapor',
   // Imzali islem baglantisi (/islem/<jeton>): tek kisilik karar sayfasi.
   '/islem',
+  // Musteri durum sayfasi (/durum/<slug>): dinamik; site haritasina girmez.
+  '/durum',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

@@ -1,0 +1,50 @@
+# Zamanlanmış görevler (Faz 2A) — uptime kontrolü, bitiş taraması, yenileme
+# hatırlatmaları, kredi süre dolumları, süresi dolan işlemler, temizlik.
+#
+# Render'ın ücretsiz sunucusu 15 dakika istek gelmeyince uyuyor ve içeride
+# zamanlayıcı çalıştıramıyor. Bu iş akışı her 10 dakikada arka ucun
+# `/api/v1/zamanli/calistir` ucunu çağırıyor; istek sunucuyu da uyandırıyor.
+# Uç kendisi en çok 5 dakikada bir gerçekten iş yapıyor (fazlası `atlandi`).
+#
+# Kurulum (GitHub → Settings → Secrets and variables → Actions):
+#   * Secret  ZAMANLI_ANAHTAR — isteğe bağlı. Tanımlıysa başlıkla gönderilir;
+#     aynı değer Render'da ZAMANLI_ANAHTAR ortam değişkeni olarak girilmeli.
+#   * Variable ZAMANLI_URL    — isteğe bağlı; yoksa canlı site adresi.
+#
+# GitHub zamanlanmış iş akışlarını yoğunlukta birkaç dakika geciktirebilir ve
+# 60 gün hiç commit olmayan depoda kendiliğinden durdurur.
+name: Zamanlı görevler
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zamanli
+  cancel-in-progress: false
+
+jobs:
+  cagir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Zamanlı ucu çağır
+        env:
+          ZAMANLI_ANAHTAR: ${{ secrets.ZAMANLI_ANAHTAR }}
+          ZAMANLI_URL: ${{ vars.ZAMANLI_URL }}
+        run: |
+          ADRES="${ZAMANLI_URL:-https://mehmetkuru.dev/api/v1/zamanli/calistir}"
+          BASLIK=()
+          if [ -n "$ZAMANLI_ANAHTAR" ]; then
+            BASLIK=(-H "X-Zamanli-Anahtar: $ZAMANLI_ANAHTAR")
+          fi
+          # Hata olsa da iş akışı kırmızı olmasın (uyuyan sunucunun ilk isteği
+          # zaman aşımına düşebilir; bir sonraki tur zaten 10 dk sonra).
+          curl -sS -X POST --max-time 60 "${BASLIK[@]}" \
+            -H "Content-Type: application/json" \
+            -w '\nHTTP %{http_code} — %{time_total} sn\n' \
+            "$ADRES" || true

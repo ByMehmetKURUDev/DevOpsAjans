@@ -79,7 +79,9 @@ const OdemePaneli = lazy(() => import('@/components/admin/OdemePaneli'));
 const EkipPaneli = lazy(() => import('@/components/admin/EkipPaneli'));
 const MusteriRaporlari = lazy(() => import('@/components/admin/MusteriRaporlari'));
 const HizmetAbonelikleri = lazy(() => import('@/components/admin/HizmetAbonelikleri'));
-const MusteriSiteleri = lazy(() => import('@/components/admin/MusteriSiteleri'));
+// Faz 2A: bakım kartı, uptime, yenilemeler — metinleri `siteBakim` ek paketinde.
+const MusteriSiteleri = ekliLazy('siteBakim', () => import('@/components/admin/MusteriSiteleri'));
+const ZamanliGorevler = ekliLazy('siteBakim', () => import('@/components/admin/ZamanliGorevler'));
 // Fiyatlandırma v5 paneli de ayrı parçada: 6 tablonun form/tablo mantığı
 // panele her girişte inmesin.
 const FiyatlandirmaV5Paneli = lazy(() => import('@/components/admin/FiyatlandirmaV5Paneli'));
@@ -1053,6 +1055,16 @@ export default function AdminPanel() {
       {tab === 'settings' && (
         <div className="space-y-6">
           <SiteSagligi />
+
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center py-6 text-muted-foreground">
+                <Loader2 className="h-5 w-5 animate-spin" />
+              </div>
+            }
+          >
+            <ZamanliGorevler />
+          </Suspense>
 
           <SiteTaramasi />
 

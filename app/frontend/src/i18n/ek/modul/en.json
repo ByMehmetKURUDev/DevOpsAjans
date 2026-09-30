@@ -80,6 +80,10 @@
       "fiyatlandirma": {
         "ad": "Pricing",
         "aciklama": "Package prices built from scales, profiles, services and add-ons."
+      },
+      "yenileme": {
+        "ad": "Renewal manager",
+        "aciklama": "Track domain, hosting, SSL and subscription renewals in one list; reminders before expiry and one-click renewal invoices."
       }
     },
     "kategori": {

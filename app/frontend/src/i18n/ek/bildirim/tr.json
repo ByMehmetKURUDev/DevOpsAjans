@@ -29,7 +29,11 @@
       "bekleme_listesi": "Bekleme listesi",
       "content_overdue": "Geciken içerik",
       "modul_acildi": "Modül açıldı",
-      "modul_kapandi": "Modül kapatıldı"
+      "modul_kapandi": "Modül kapatıldı",
+      "site_coktu": "Site erişilemiyor",
+      "site_duzeldi": "Site yeniden erişilebilir",
+      "bitis_yaklasiyor": "Bitiş tarihi yaklaşıyor",
+      "yenileme_faturasi": "Yenileme faturası"
     },
     "kanal": {
       "inapp": "Panel",

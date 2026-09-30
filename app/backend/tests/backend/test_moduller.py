@@ -260,9 +260,14 @@ async def test_modullerim_yalniz_musteri_modulleri_ve_gorunumler(istemci, muster
     # Sekme sırası bugünkü müşteri paneliyle aynı.
     sekmeler = [m["musteri_sekmesi"] for m in govde["moduller"] if m["musteri_sekmesi"]]
     assert sekmeler == ["projects", "invoices", "krediler", "tickets", "raporlar", "sitem", "analiz", "profile"]
+    from core import moduller as mf
+
     for m in govde["moduller"]:
         if m["durum"] == "yakinda":
             assert m["gorunum"] == "yakinda"
+        elif not mf.modul(m["anahtar"]).varsayilan_acik:
+            # Paketsiz müşteride pakete bağlı modüller (Faz 2A: uptime, yenileme) eklenebilir.
+            assert m["acik"] is False and m["gorunum"] == "eklenebilir"
         else:
             assert m["acik"] is True and m["gorunum"] == "acik"
     # Yöneticiye özel alanlar müşteriye gitmiyor.

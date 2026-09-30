@@ -237,6 +237,38 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=True,
         paketler=TUM_PAKETLER,
     ),
+    # Faz 2A — "Sitem" sekmesine gömülü; yönetici tarafı "Siteler" sekmesinde.
+    Modul(
+        anahtar="uptime",
+        ad_varsayilan={"tr": "Uptime ve durum sayfası", "en": "Uptime and status page"},
+        ikon="Activity",
+        kategori="hizmet",
+        musteri_sekmesi=None,
+        yonetici_sekmesi=None,
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        paketler=("ALFA", "BETA", "OMEGA", "SIGMA"),
+        bagimliliklar=("sitem",),
+        # Kontrol başına aralık en az bu kadar sayılıyor (5 dk altı yok:
+        # zamanlı uç zaten en sık 5 dakikada bir çalışıyor).
+        ayarlar=(AyarAlani("kontrol_araligi_dk", "secim", "5", secenekler=("5", "15", "30", "60")),),
+        yerlesim=("sitem",),
+    ),
+    Modul(
+        anahtar="yenileme",
+        ad_varsayilan={"tr": "Yenileme yöneticisi", "en": "Renewal manager"},
+        ikon="CalendarClock",
+        kategori="hizmet",
+        musteri_sekmesi=None,
+        yonetici_sekmesi=None,
+        gerekli_rol="her_ikisi",
+        # Paketli müşteride açık: müşteriye bitiş hatırlatması gider. Paketsiz
+        # müşteride kapalı; yönetici listesi ve hatırlatmaları yine çalışır.
+        varsayilan_acik=False,
+        paketler=TUM_PAKETLER,
+        bagimliliklar=("sitem", "faturalar"),
+        yerlesim=("sitem",),
+    ),
     Modul(
         anahtar="site_analizi",
         ad_varsayilan={"tr": "Site analizi", "en": "Site analysis"},
@@ -312,20 +344,6 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=False,
         paketler=("BETA", "OMEGA", "SIGMA"),
         bagimliliklar=("projeler",),
-        durum="yakinda",
-    ),
-    Modul(
-        anahtar="uptime",
-        ad_varsayilan={"tr": "Uptime ve durum sayfası", "en": "Uptime and status page"},
-        ikon="Activity",
-        kategori="hizmet",
-        musteri_sekmesi=None,
-        yonetici_sekmesi=None,
-        gerekli_rol="her_ikisi",
-        varsayilan_acik=False,
-        paketler=("ALFA", "BETA", "OMEGA", "SIGMA"),
-        bagimliliklar=("sitem",),
-        ayarlar=(AyarAlani("kontrol_araligi_dk", "secim", "5", secenekler=("1", "5", "15")),),
         durum="yakinda",
     ),
     Modul(
