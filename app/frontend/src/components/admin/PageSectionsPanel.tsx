@@ -28,14 +28,20 @@ interface PageSectionsPanelProps {
   onSaved: () => Promise<void> | void;
 }
 
-/** Panelde listelenen sayfalar. Blog dizini yalnızca SEO metni taşıyor. */
-const SAYFALAR = [...PAGE_KEYS, 'blog'];
+/**
+ * Panelde listelenen sayfalar. Bölüm düzeni olmayan sayfalar (Marketplace,
+ * Yol haritası, Blog dizini) yalnızca SEO metni taşıyor.
+ */
+const YALNIZ_SEO = ['marketplace', 'roadmap', 'blog'];
+const SAYFALAR = [...PAGE_KEYS, ...YALNIZ_SEO];
 
 const SAYFA_ADI: Record<string, string> = {
   home: 'nav.home',
   services: 'nav.services',
   portfolio: 'nav.portfolio',
   contact: 'nav.contact',
+  marketplace: 'nav.marketplace',
+  roadmap: 'footer.roadmap',
   blog: 'nav.blog',
 };
 
@@ -62,7 +68,7 @@ export default function PageSectionsPanel({
   const [seo, setSeo] = useState<Record<string, string>>({});
   const [kaydediliyor, setKaydediliyor] = useState(false);
 
-  const bolumluMu = aktifSayfa !== 'blog';
+  const bolumluMu = !YALNIZ_SEO.includes(aktifSayfa);
 
   useEffect(() => {
     setBolumler(bolumluMu ? resolveSections(aktifSayfa, settings) : []);

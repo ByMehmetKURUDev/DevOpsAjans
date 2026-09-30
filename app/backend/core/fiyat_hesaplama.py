@@ -101,6 +101,9 @@ def hesapla(
         # eğitim indirimi burada ikinci kez uygulanmaz (hizmet notlarındaki
         # "STK için −%40" zaten stk çarpanının kendisi).
         fiyat = round(addon_fiyatlari[kod] * carpan, 2)
+        # Modül aylık fiyatlı; yıllık seçimde paketle aynı kural (× 12, %16 indirim).
+        if period == "yillik":
+            fiyat = round(fiyat * 12 * 0.84, 2)
         eklentiler_toplami += fiyat
         eklenti_detay.append({"kod": kod, "fiyat": fiyat})
     eklentiler_toplami = round(eklentiler_toplami, 2)

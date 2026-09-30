@@ -152,3 +152,17 @@ def test_kredi_paketleri_sunucu_tablosu(paket, fiyat, saat):
 def test_bilinmeyen_kredi_paketi_hata_firlatir():
     with pytest.raises(FiyatHesaplamaHatasi):
         kredi_paketi(33)
+
+
+@pytest.mark.parametrize(
+    "period,beklenen",
+    [("aylik", 60.0), ("kullandikca_ode", 60.0), ("yillik", 604.8)],
+)
+def test_modul_fiyati_odeme_sekline_uyar(period, beklenen):
+    # 80 * 0.75 = 60/ay; yıllıkta paketle aynı kural: × 12 × 0.84
+    sonuc = hesapla(
+        scale_kod="ALFA", profile_kod="egitim", period=period, addon_kodlari=["cok_dilli"],
+        scale_baz_fiyatlari=SCALES, profile_carpanlari=PROFILES, addon_fiyatlari={"cok_dilli": 80},
+    )
+    assert sonuc.eklentiler_toplami == pytest.approx(beklenen, abs=0.01)
+    assert sonuc.eklenti_detay[0]["fiyat"] == pytest.approx(beklenen, abs=0.01)

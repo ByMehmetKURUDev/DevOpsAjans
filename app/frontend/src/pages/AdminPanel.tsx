@@ -57,7 +57,8 @@ import {
   localizedSettingKey,
   type SettingRow,
 } from '@/lib/siteSettings';
-import { SUPPORTED_LANGUAGES } from '@/i18n';
+import i18n, { SUPPORTED_LANGUAGES, loadLanguage } from '@/i18n';
+import { BLOG_INDEX_ROUTE, PAGE_SEO } from '../../prerender/site.js';
 
 // Analitik panosu recharts'a bağlı olduğu için yalnızca sekme açıldığında indirilir.
 const AnalyticsDashboard = lazy(() => import('@/components/AnalyticsDashboard'));
@@ -225,10 +226,52 @@ const emptyInvoice: Partial<Invoice> = {
   due_date: '',
 };
 
+/** Panelde hero alanlarının her dildeki varsayılanı çeviri dosyasından gelir. */
+const HERO_CEVIRI_ANAHTARI: Record<string, string> = {
+  hero_title: 'hero.mainTitle',
+  hero_subtitle: 'hero.mainSubtitle',
+  hero_cta: 'hero.mainCta',
+};
+
+/**
+ * Bir ayarın seçili dilde, panelde hiçbir değer girilmemişken sitede
+ * görünen metni. Alan boşken yer tutucu olarak gösterilir; böylece her
+ * dilde sitenin gerçekte ne gösterdiği panelde görülür.
+ */
+function dilVarsayilani(key: string, dil: string): string {
+  const kod = dil === 'base' ? 'tr' : dil;
+  const seo = key.match(/^seo_(title|desc)_([a-z]+)$/);
+  if (seo) {
+    const alan = seo[1] === 'title' ? 'title' : 'description';
+    if (seo[2] === 'blog') return kod === 'tr' ? BLOG_INDEX_ROUTE[alan] : '';
+    const sayfalar = (PAGE_SEO as Record<string, Record<string, Record<string, string>>>)[kod];
+    return sayfalar?.[seo[2]]?.[alan] ?? '';
+  }
+  const ceviri = HERO_CEVIRI_ANAHTARI[key];
+  if (ceviri && i18n.hasResourceBundle(kod, 'translation')) {
+    return i18n.getFixedT(kod)(ceviri);
+  }
+  return '';
+}
+
 export default function AdminPanel() {
   const { t } = useTranslation();
   const { settings, rawSettings, reload: reloadSettings } = useSiteSettings();
   const [settingLang, setSettingLang] = useState<string>('base');
+  // Seçilen dilin çevirileri yüklenince yer tutucular o dilde görünsün.
+  const [, setDilYuklendi] = useState(0);
+  useEffect(() => {
+    if (settingLang === 'base') return;
+    let iptal = false;
+    loadLanguage(settingLang)
+      .then(() => {
+        if (!iptal) setDilYuklendi((n) => n + 1);
+      })
+      .catch(() => undefined);
+    return () => {
+      iptal = true;
+    };
+  }, [settingLang]);
 
   /** Seçili dile göre kaydedilecek/okunacak ayar anahtarını verir. */
   const effectiveSettingKey = (field: { key: string; translatable?: boolean }) =>
@@ -999,7 +1042,7 @@ export default function AdminPanel() {
                           <Textarea
                             rows={3}
                             value={settingDraft[fieldKey] ?? ''}
-                            placeholder={isLocalized ? fallback : undefined}
+                            placeholder={dilVarsayilani(field.key, settingLang) || (isLocalized ? fallback : undefined)}
                             onChange={(e) =>
                               setSettingDraft({
                                 ...settingDraft,
@@ -1011,7 +1054,7 @@ export default function AdminPanel() {
                         ) : (
                           <Input
                             value={settingDraft[fieldKey] ?? ''}
-                            placeholder={isLocalized ? fallback : undefined}
+                            placeholder={dilVarsayilani(field.key, settingLang) || (isLocalized ? fallback : undefined)}
                             onChange={(e) =>
                               setSettingDraft({
                                 ...settingDraft,

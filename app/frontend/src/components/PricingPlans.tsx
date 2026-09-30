@@ -172,6 +172,10 @@ function OlcekKarti({
   const periyot = PERIYOTLAR.find((p) => p.kod === period);
   const periyotEtiket = t(periyot?.etiketKey ?? '', periyot?.etiketDefault ?? period);
   const kullandikca = period === 'kullandikca_ode';
+  const yillik = period === 'yillik';
+  // Modül ve AI vs PM fiyatları aylık; yıllıkta sunucuyla aynı kural (× 12, %16 indirim).
+  const donemFiyati = (aylik: number) => (yillik ? Math.round(aylik * 12 * 0.84) : aylik);
+  const donemEki = yillik ? t('fiyatV5.yilKisa', 'yıl') : t('fiyatV5.ayKisa', 'ay');
   const modulSayisi = seciliEklentiler.length + (aiPm ? 1 : 0);
   const secim: Secim = {
     scale: scale.kod,
@@ -269,7 +273,9 @@ function OlcekKarti({
                     />
                     {a.ad}
                   </span>
-                  <span className="text-muted-foreground">+{paraFormatla(a.baz_fiyat_usd)}</span>
+                  <span className="text-muted-foreground">
+                    +{paraFormatla(donemFiyati(a.baz_fiyat_usd))}/{donemEki}
+                  </span>
                 </label>
               ))}
             </div>
@@ -297,7 +303,7 @@ function OlcekKarti({
                         </span>
                         {tier.kod && (
                           <span className="text-muted-foreground">
-                            +{paraFormatla(tier.fiyat_aylik_usd)}/{t('fiyatV5.ayKisa', 'ay')}
+                            +{paraFormatla(donemFiyati(tier.fiyat_aylik_usd))}/{donemEki}
                           </span>
                         )}
                       </label>
