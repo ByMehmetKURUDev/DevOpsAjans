@@ -9,7 +9,8 @@ import json
 import logging
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, status
+from dependencies.yonetici_bekcisi import yonetici_gerekli
+from fastapi import APIRouter, Depends, HTTPException, status
 from schemas.aihub import (
     AnalyzePdfRequest,
     AnalyzePdfResponse,
@@ -111,7 +112,13 @@ def extract_error_message(error: Any) -> str:
     return error_str
 
 
-router = APIRouter(prefix="/api/v1/aihub", tags=["aihub"])
+# Faz 3U: aihub YALNIZ YÖNETİCİ. Önceden kimlik doğrulaması yoktu: internetteki
+# herkes sitenin yapay zekâ anahtarıyla istediği modeli, istediği max_tokens ile
+# çalıştırabiliyordu. Herkese açık sayfaların ve panelin ihtiyacı olan işler artık
+# amaca özel uçlardan geçiyor (routers/yapay_zeka.py, routers/uzman_asistanlar.py):
+# sistem istemi, model ve sınırlar sunucuda. Bağımlılık gövde doğrulamasından önce
+# çalıştığı için yetkisiz istek 422 değil 401/403 alıyor.
+router = APIRouter(prefix="/api/v1/aihub", tags=["aihub"], dependencies=[Depends(yonetici_gerekli)])
 
 
 @router.post("/gentxt")

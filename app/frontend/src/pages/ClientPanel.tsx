@@ -19,6 +19,7 @@ import {
   Coins,
   FolderOpen,
   MessagesSquare,
+  Bot,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -80,6 +81,8 @@ const HesapSecici = ekliLazy('hesapEkibi', () => import('@/components/HesapSecic
 const HesapEkibi = ekliLazy('hesapEkibi', () => import('@/components/HesapEkibi'));
 // Faz 2G — müşteri ↔ ajans mesajlaşma (sohbet arayüzü ayrı parçada, ek paket `mesajlar`).
 const Mesajlar = ekliLazy('mesajlar', () => import('@/components/Mesajlar'));
+// Faz 3U — Uzman Asistanlar (yapay zekâ sohbetleri; ek paket `uzmanAsistanlar`).
+const UzmanAsistanlar = ekliLazy('uzmanAsistanlar', () => import('@/components/UzmanAsistanlar'));
 /** Panel açık, Mesajlar sekmesi kapalıyken yalnız okunmamış sayısı (30–60 sn). */
 const MESAJ_OZETI_ARALIGI = 45000;
 
@@ -138,6 +141,7 @@ type Tab =
   | 'krediler'
   | 'tickets'
   | 'mesajlar'
+  | 'asistanlar'
   | 'raporlar'
   | 'sitem'
   | 'analiz'
@@ -154,12 +158,20 @@ const SEKMELER: Tab[] = [
   'krediler',
   'tickets',
   'mesajlar',
+  'asistanlar',
   'raporlar',
   'sitem',
   'analiz',
   'dosyalar',
   'profile',
 ];
+
+/**
+ * Varsayılan KAPALI modüllerin sekmeleri: modül bilgisi gelmeden (ya da
+ * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
+ * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
+ */
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -398,7 +410,7 @@ export default function ClientPanel() {
   const gorunenSekmeler = useMemo<{ key: Tab; ikon?: string }[]>(() => {
     // Faz 2E: etkin hesaptaki rolün izni olmayan sekmeler gizli.
     const izinli = (key: Tab) => !SEKME_IZINLERI[key] || izinVar(SEKME_IZINLERI[key]);
-    if (!modulBilgisi) return SEKMELER.filter(izinli).map((key) => ({ key }));
+    if (!modulBilgisi) return SEKMELER.filter((k) => izinli(k) && !VARSAYILAN_KAPALI.includes(k)).map((key) => ({ key }));
     const liste: { key: Tab; ikon?: string }[] = [];
     for (const m of modulBilgisi.moduller) {
       const sekme = m.musteri_sekmesi as Tab | null;
@@ -430,8 +442,10 @@ export default function ClientPanel() {
 
   // Açık sekme kapatılmış bir modüle (ya da izni olmayan bölüme) aitse ilk görünen sekmeye dön.
   useEffect(() => {
+    // Varsayılan kapalı modülün sekmesi (`?sekme=asistanlar`): modül bilgisi gelene kadar bekle.
+    if (!modulBilgisi && !modulHatasi && VARSAYILAN_KAPALI.includes(tab)) return;
     if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(gorunenSekmeler[0]?.key ?? 'profile');
-  }, [gorunenSekmeler, tab]);
+  }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi]);
 
   const submitTicket = async () => {
     if (!ticketForm.subject.trim() || !ticketForm.message.trim()) {
@@ -538,6 +552,7 @@ export default function ClientPanel() {
     krediler: { label: t('ui.tabKredilerim'), icon: Coins },
     tickets: { label: t('ui.tabSupport'), icon: MessageSquare },
     mesajlar: { label: t('ui.tabMesajlar'), icon: MessagesSquare },
+    asistanlar: { label: t('ui.tabUzmanAsistanlar'), icon: Bot },
     raporlar: { label: t('rapor.sekme'), icon: FileText },
     sitem: { label: t('sitem.sekme'), icon: ShieldCheck },
     analiz: { label: t('ui.tabAnaliz'), icon: Gauge },
@@ -1129,6 +1144,18 @@ export default function ClientPanel() {
                 projeler={projects.map((p) => ({ id: Number(p.id), baslik: p.title }))}
                 onOkunmamis={setOkunmamisMesaj}
               />
+            </Suspense>
+          )}
+
+          {tab === 'asistanlar' && modulBilgisi !== null && modulAcik('uzman_asistanlar') && izinVar(['asistanlar']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <UzmanAsistanlar />
             </Suspense>
           )}
 

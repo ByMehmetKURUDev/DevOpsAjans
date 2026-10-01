@@ -12,10 +12,17 @@ import logging
 from pathlib import Path
 from typing import AsyncGenerator, Optional
 
-import fitz
 from core.config import settings
 import httpx
-from openai import AsyncOpenAI
+
+# Faz 3U: ağır/isteğe bağlı bağımlılıklar tembel. `fitz` (PyMuPDF) yalnız PDF
+# analizinde gerekiyor; `openai` yoksa servis "yapılandırılmamış" sayılıyor.
+# Üst düzeyde içe aktarıldıklarında, kurulu olmayan bir ortamda (testler) router
+# hiç yüklenmiyordu ve yönetici bekçisi doğrulanamıyordu.
+try:
+    from openai import AsyncOpenAI
+except ImportError:  # pragma: no cover - üretimde kurulu (requirements.txt)
+    AsyncOpenAI = None  # type: ignore[assignment,misc]
 from schemas.aihub import AnalyzePdfRequest, AnalyzePdfResponse
 from schemas.aihub import (
     GenAudioRequest,
@@ -89,17 +96,17 @@ class AIHubService:
     """AI Hub service class that wraps AI SDK calls."""
 
     def __init__(self):
-        self.client: Optional[AsyncOpenAI] = None
+        self.client: Optional["AsyncOpenAI"] = None
         # settings.__getattr__ tanimsiz anahtarda AttributeError atiyor; AI
         # yapilandirilmamisken bu 500'e donusuyordu. Eksik ayar bir hata degil,
         # yalnizca "AI kapali" demek -- asagidaki mesaj bunu net soyluyor.
-        if getattr(settings, "app_ai_base_url", None) and getattr(settings, "app_ai_key", None):
+        if AsyncOpenAI is not None and getattr(settings, "app_ai_base_url", None) and getattr(settings, "app_ai_key", None):
             self.client = AsyncOpenAI(
                 api_key=settings.app_ai_key,
                 base_url=settings.app_ai_base_url.rstrip("/"),
             )
 
-    def _require_ai_client(self) -> AsyncOpenAI:
+    def _require_ai_client(self) -> "AsyncOpenAI":
         """Return the configured AI client or raise a configuration error."""
         if not self.client:
             raise ValueError("AI service not configured. Set APP_AI_BASE_URL and APP_AI_KEY.")
@@ -521,6 +528,8 @@ User instruction:
         page_start: int = 1,
         page_end: Optional[int] = None,
     ) -> tuple[str, int, int, int]:
+        import fitz  # PyMuPDF — yalnız burada gerekiyor
+
         try:
             source_doc = fitz.open(stream=pdf_bytes, filetype="pdf")
         except Exception as exc:

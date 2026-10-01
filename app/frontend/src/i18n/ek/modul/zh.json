@@ -21,6 +21,10 @@
         "ad": "消息",
         "aciklama": "在面板中直接与我们的团队沟通，回复几秒内即可看到。"
       },
+      "uzman_asistanlar": {
+        "ad": "专家助手",
+        "aciklama": "在面板中与专注于 SEO、广告、社交媒体、品牌等领域的 AI 助手对话。"
+      },
       "raporlar": {
         "ad": "报告与订阅",
         "aciklama": "您订阅服务的月度报告。"
@@ -136,7 +140,8 @@
       "esik_saat": "余额不足提醒阈值（小时）",
       "eposta_ozeti": "报告发布时发送邮件摘要",
       "gunluk_sinir": "每日分析次数上限",
-      "kontrol_araligi_dk": "检查间隔（分钟）"
+      "kontrol_araligi_dk": "检查间隔（分钟）",
+      "gunluk_mesaj": "每日消息上限（留空则使用全局设置）"
     },
     "musteri": {
       "baslik": "我的模块",

@@ -21,6 +21,10 @@
         "ad": "Messages",
         "aciklama": "Chat with our team right in the panel; replies appear within seconds."
       },
+      "uzman_asistanlar": {
+        "ad": "Expert Assistants",
+        "aciklama": "Chat in your panel with AI assistants specialised in SEO, advertising, social media, branding and more."
+      },
       "raporlar": {
         "ad": "Reports and subscriptions",
         "aciklama": "Monthly service reports for your subscriptions."
@@ -136,7 +140,8 @@
       "esik_saat": "Low balance alert threshold (hours)",
       "eposta_ozeti": "Email a summary when a report is published",
       "gunluk_sinir": "Daily analysis limit",
-      "kontrol_araligi_dk": "Check interval (minutes)"
+      "kontrol_araligi_dk": "Check interval (minutes)",
+      "gunluk_mesaj": "Daily message limit (blank = global setting)"
     },
     "musteri": {
       "baslik": "My modules",

@@ -91,6 +91,14 @@ GIZLI_ANAHTARLAR = {
     "notify_admin_phone",
     "notify_admin_email",
     "shopier_webhook_token",
+    # Faz 3U: yapay zekâ bütçe/model ayarları — ziyaretçinin bilmesine gerek yok
+    # (günlük bütçe, hangi model). Panel bunları kendi ucundan okuyor.
+    "ai_acik_gunluk_butce",
+    "ai_acik_model",
+    "asistan_model",
+    "asistan_max_tokens",
+    "asistan_gunluk_sinir",
+    "asistan_mesaj_kredi",
 }
 _GIZLI_DESEN = re.compile(r"(token|secret|password|sifre|parola|api_?key|apikey|webhook|jeton|private|smtp_)", re.I)
 

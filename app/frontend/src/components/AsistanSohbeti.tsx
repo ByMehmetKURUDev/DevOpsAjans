@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Bot, Loader2, Send, X } from 'lucide-react';
 
 import IletisimKanallari from '@/components/IletisimKanallari';
-import { asistanaSor, type Mesaj } from '@/lib/asistanAi';
+import { AsistanHatasi, MESAJ_SINIRI, asistanaSor, type Mesaj } from '@/lib/asistanAi';
 
 /**
  * "AI Asistan ile Konuş" — sağ alttaki tuş ve açılan sohbet paneli.
@@ -14,7 +14,8 @@ import { asistanaSor, type Mesaj } from '@/lib/asistanAi';
  * de ziyaretçiye gereksiz bir seçim yaptırıyordu. WhatsApp artık panelin
  * içindeki kanal satırında (IletisimKanallari).
  *
- * Cevaplar gerçek bir dil modelinden geliyor (`/api/v1/aihub/gentxt`).
+ * Cevaplar gerçek bir dil modelinden geliyor (amaca özel `/api/v1/ai/asistan`;
+ * sistem istemi ve model sunucuda, IP başına ve günlük bütçeyle sınırlı).
  * AI yapılandırılmamışsa ya da ağ koparsa asistan uydurma bir cevap
  * üretmiyor: hatayı açıkça söylüyor ve iletişim sayfasına yönlendiriyor.
  * Sahte bir "her şeyi bilen" görüntü, ziyaretçi ilk yanlış cevabı
@@ -32,7 +33,8 @@ export default function AsistanSohbeti() {
   const [mesajlar, setMesajlar] = useState<Mesaj[]>([]);
   const [girdi, setGirdi] = useState('');
   const [bekliyor, setBekliyor] = useState(false);
-  const [hata, setHata] = useState(false);
+  /** `yogun`: hız sınırı ya da günlük bütçe doldu (429) — kibar "sonra deneyin" mesajı. */
+  const [hata, setHata] = useState<false | 'genel' | 'yogun'>(false);
 
   const listeSonu = useRef<HTMLDivElement | null>(null);
   const kutu = useRef<HTMLTextAreaElement | null>(null);
@@ -79,7 +81,7 @@ export default function AsistanSohbeti() {
       )
       .catch((e) => {
         if ((e as Error)?.name === 'AbortError') return;
-        setHata(true);
+        setHata(e instanceof AsistanHatasi && e.yogun ? 'yogun' : 'genel');
       })
       .finally(() => setBekliyor(false));
   };
@@ -206,8 +208,11 @@ export default function AsistanSohbeti() {
             )}
 
             {hata && (
-              <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3.5 py-2.5 text-sm text-amber-200">
-                {t('asistan.hata')}
+              <p
+                className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3.5 py-2.5 text-sm text-amber-200"
+                data-asistan-hata={hata}
+              >
+                {hata === 'yogun' ? t('asistan.yogun') : t('asistan.hata')}
               </p>
             )}
 
@@ -221,6 +226,7 @@ export default function AsistanSohbeti() {
                 ref={kutu}
                 rows={1}
                 value={girdi}
+                maxLength={MESAJ_SINIRI}
                 onChange={(e) => setGirdi(e.target.value)}
                 onKeyDown={tuslar}
                 placeholder={t('asistan.yerTutucu')}

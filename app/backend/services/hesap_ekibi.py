@@ -55,6 +55,8 @@ IZINLER: Tuple[str, ...] = (
     "abonelikler",
     # Faz 2G — müşteri ↔ ajans mesajlaşma.
     "mesajlar",
+    # Faz 3U — Uzman Asistanlar (yapay zekâ sohbetleri).
+    "asistanlar",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -64,19 +66,25 @@ SAHIP = "sahip"
 
 ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
-    "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar"),
+    "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
-#: Faz 2G öncesi rol varsayılanları. Üyelik satırında izinler açıkça (JSON)
+#: Eski (Faz 2G ve 3U öncesi) rol varsayılanları. Üyelik satırında izinler açıkça (JSON)
 #: saklanıyor; yeni bir izin eklenince eski üyeler onu kendiliğinden almazdı.
 #: Kayıtlı liste TAM OLARAK eski varsayılansa (kimse özelleştirmemiş) bugünkü
 #: varsayılan geçerli; özelleştirilmiş listelere dokunulmuyor.
 ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
     "yonetici": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler", "abonelikler"}),
+        # Faz 2G–3U arası varsayılan (mesajlar var, asistanlar yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar"}),
     ),
-    "uye": (frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),),
+    "uye": (
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar"}),
+    ),
 }
 
 #: Ekibi yönetebilen roller.

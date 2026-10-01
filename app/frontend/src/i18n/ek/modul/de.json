@@ -21,6 +21,10 @@
         "ad": "Nachrichten",
         "aciklama": "Schreiben Sie direkt im Portal mit unserem Team; Antworten erscheinen in Sekunden."
       },
+      "uzman_asistanlar": {
+        "ad": "Fachassistenten",
+        "aciklama": "Chatten Sie im Panel mit KI-Assistenten, die auf SEO, Werbung, Social Media, Marke und mehr spezialisiert sind."
+      },
       "raporlar": {
         "ad": "Berichte und Abonnements",
         "aciklama": "Monatliche Leistungsberichte zu Ihren Abonnements."
@@ -136,7 +140,8 @@
       "esik_saat": "Warnschwelle für niedriges Guthaben (Stunden)",
       "eposta_ozeti": "Zusammenfassung per E-Mail senden, wenn ein Bericht veröffentlicht wird",
       "gunluk_sinir": "Tägliches Analyselimit",
-      "kontrol_araligi_dk": "Prüfintervall (Minuten)"
+      "kontrol_araligi_dk": "Prüfintervall (Minuten)",
+      "gunluk_mesaj": "Tägliches Nachrichtenlimit (leer = globale Einstellung)"
     },
     "musteri": {
       "baslik": "Meine Module",

@@ -261,8 +261,10 @@ async def test_modullerim_yalniz_musteri_modulleri_ve_gorunumler(istemci, muster
     sekmeler = [m["musteri_sekmesi"] for m in govde["moduller"] if m["musteri_sekmesi"]]
     # Faz 2C: "dosyalar" sekmesi (paketsiz müşteride kapalı ama manifestte sırası belli).
     # Faz 2G: "mesajlar" sekmesi Destek'in hemen ardında.
+    # Faz 3U: "asistanlar" (Uzman Asistanlar; varsayılan kapalı) Mesajlar'ın ardında.
     assert sekmeler == [
-        "projects", "invoices", "krediler", "tickets", "mesajlar", "raporlar", "sitem", "analiz", "dosyalar", "profile",
+        "projects", "invoices", "krediler", "tickets", "mesajlar", "asistanlar", "raporlar", "sitem", "analiz",
+        "dosyalar", "profile",
     ]
     from core import moduller as mf
 

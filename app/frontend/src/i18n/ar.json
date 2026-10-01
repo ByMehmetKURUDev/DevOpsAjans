@@ -469,7 +469,8 @@
     "tabGuvenlik": "الأمان",
     "tabCopKutusu": "سلة المحذوفات",
     "tabMesajlar": "الرسائل",
-    "tabSohbetler": "محادثات العملاء"
+    "tabSohbetler": "محادثات العملاء",
+    "tabUzmanAsistanlar": "المساعدون الخبراء"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",
@@ -1087,7 +1088,8 @@
     "kanalSms": "رسالة نصية",
     "kanalEposta": "بريد إلكتروني",
     "kanalToplanti": "حجز اجتماع",
-    "epostaKonu": "استفسار عن مشروع"
+    "epostaKonu": "استفسار عن مشروع",
+    "yogun": "المساعد مشغول جدًا الآن. يُرجى المحاولة بعد قليل أو مراسلتنا من صفحة التواصل."
   },
   "marketplace": {
     "sectionTag": "المتجر",

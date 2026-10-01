@@ -15,7 +15,7 @@ Neden şablon, neden model değil
 Metinler burada SABİT şablon; dil modeline sorulmuyor. Üç sebep: her
 seferinde aynı çıktıyı veriyor (modelin havasına bağlı değil), ücretsiz
 ve anahtar gerekmiyor, ve modelin uyduracağı teknik detay riski yok.
-Model zaten `aihub` üzerinden keşif özetini yazıyor; burada üretilen
+Model zaten `/api/v1/ai/kesif` üzerinden keşif özetini yazıyor; burada üretilen
 prompt onun çıktısını da taşıyabiliyor (`ozet` alanı).
 
 Uç yalnızca yöneticiye açık: müşteriye gösterilecek bir şey değil, iç

@@ -1,11 +1,13 @@
-import { AI_MODELI } from '@/lib/aiModel';
-
 /**
  * Site asistanının dil modeli katmanı.
  *
- * İstek arka uçtaki `/api/v1/aihub/gentxt` ucuna gidiyor; anahtar sunucuda
- * duruyor, tarayıcıya hiç inmiyor. AI yapılandırılmamışsa uç hata dönüyor
- * ve arayüz bunu açıkça gösteriyor — uydurma bir cevap üretmiyor.
+ * Faz 3U: amaca özel `/api/v1/ai/asistan` ucu. Çerçeve (sistem istemi:
+ * fiyat/süre sözü yok, paket uydurma yok…), model ve `max_tokens`
+ * SUNUCUDA; buradan yalnız konuşma ve paket adları (veri) gidiyor. Uç
+ * herkese açık ama IP başına ve günlük toplam bütçeyle sınırlı (429).
+ *
+ * AI yapılandırılmamışsa ya da sınır dolmuşsa uç hata dönüyor ve arayüz
+ * bunu açıkça gösteriyor — uydurma bir cevap üretmiyor.
  */
 
 export interface Mesaj {
@@ -13,55 +15,39 @@ export interface Mesaj {
   metin: string;
 }
 
-/**
- * Modele verilen çerçeve.
- *
- * Fiyat ve süre sözü vermesi bilerek yasak: model "iki haftada biter"
- * derse bu bir taahhüt gibi okunur ve tutulamazsa güveni o bozar. Paket
- * adlarını da uydurmuyor — listede ne varsa onu söylüyor.
- */
-function sistemMetni(paketler: string[], dil: string): string {
-  return [
-    'Sen mehmetkuru.dev sitesinin proje danışmanı asistanısın.',
-    'Ziyaretçi bir yazılım, web ya da e-ticaret projesi düşünüyor; kapsamı netleştirmesine yardım et.',
-    'Kısa ve somut konuş: en fazla 4-5 cümle. Gerekiyorsa sonunda tek bir soru sor.',
-    'ASLA fiyat, süre ya da teslim tarihi sözü verme; bunların görüşmede netleştiğini söyle.',
-    'Paket önerirken yalnızca şu listeden seç, yeni paket uydurma:',
-    ...paketler.map((p, i) => `${i + 1}. ${p}`),
-    'Site ücretsiz keşif görüşmesi sunuyor; uygun düştüğünde iletişim sayfasına yönlendir.',
-    `Yanıtı şu dilde yaz: ${dil}.`,
-    'Düz metin yaz; markdown başlık, tablo ya da kod bloğu kullanma.',
-  ].join('\n');
+/** Sunucunun bir mesaj için kabul ettiği en uzun metin. */
+export const MESAJ_SINIRI = 2000;
+
+/** Sunucu hatası; `yogun` = hız sınırı ya da günlük bütçe (429). */
+export class AsistanHatasi extends Error {
+  constructor(public durum: number) {
+    super(`asistan ${durum}`);
+  }
+  get yogun(): boolean {
+    return this.durum === 429;
+  }
 }
 
 export async function asistanaSor(
   girdi: { gecmis: Mesaj[]; paketler: string[]; dil: string },
   signal?: AbortSignal,
 ): Promise<string> {
-  const yanit = await fetch('/api/v1/aihub/gentxt', {
+  const yanit = await fetch('/api/v1/ai/asistan', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     signal,
     body: JSON.stringify({
-      model: AI_MODELI,
-      stream: false,
-      temperature: 0.5,
-      max_tokens: 500,
-      messages: [
-        { role: 'system', content: sistemMetni(girdi.paketler, girdi.dil) },
-        // Son 8 tur yeterli: daha uzun geçmiş hem pahalı hem konuyu dağıtıyor.
-        ...girdi.gecmis.slice(-8).map((m) => ({
-          role: m.rol === 'kullanici' ? 'user' : 'assistant',
-          content: m.metin,
-        })),
-      ],
+      // Son 8 tur yeterli (sunucu da yalnız sonuncuları kullanıyor).
+      mesajlar: girdi.gecmis.slice(-8).map((m) => ({ rol: m.rol, metin: m.metin.slice(0, MESAJ_SINIRI) })),
+      paketler: girdi.paketler,
+      dil: girdi.dil,
     }),
   });
 
-  if (!yanit.ok) throw new Error(`aihub ${yanit.status}`);
+  if (!yanit.ok) throw new AsistanHatasi(yanit.status);
 
-  const govde = (await yanit.json()) as { content?: unknown };
-  const metin = typeof govde.content === 'string' ? govde.content.trim() : '';
+  const govde = (await yanit.json()) as { icerik?: unknown };
+  const metin = typeof govde.icerik === 'string' ? govde.icerik.trim() : '';
   if (!metin) throw new Error('Beklenmeyen yanit');
   return metin;
 }

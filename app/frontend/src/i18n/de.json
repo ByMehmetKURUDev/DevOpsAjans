@@ -469,7 +469,8 @@
     "tabGuvenlik": "Sicherheit",
     "tabCopKutusu": "Papierkorb",
     "tabMesajlar": "Nachrichten",
-    "tabSohbetler": "Kundenchats"
+    "tabSohbetler": "Kundenchats",
+    "tabUzmanAsistanlar": "Fachassistenten"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -1087,7 +1088,8 @@
     "kanalSms": "SMS",
     "kanalEposta": "E-Mail",
     "kanalToplanti": "Termin buchen",
-    "epostaKonu": "Projektanfrage"
+    "epostaKonu": "Projektanfrage",
+    "yogun": "Der Assistent ist gerade stark ausgelastet. Bitte versuchen Sie es etwas später erneut oder schreiben Sie über die Kontaktseite."
   },
   "marketplace": {
     "sectionTag": "Marktplatz",

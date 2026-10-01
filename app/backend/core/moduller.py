@@ -225,6 +225,21 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=True,
         paketler=TUM_PAKETLER,
     ),
+    # Faz 3U — konuya özel yapay zekâ asistanları (SEO, reklam, sosyal medya…).
+    # Varsayılan KAPALI ve hiçbir pakette yok: yönetici müşteri başına açıyor
+    # (maliyeti olan bir özellik). `gunluk_mesaj` boşsa site ayarı
+    # `asistan_gunluk_sinir` (varsayılan 50) geçerli.
+    Modul(
+        anahtar="uzman_asistanlar",
+        ad_varsayilan={"tr": "Uzman Asistanlar", "en": "Expert Assistants"},
+        ikon="Bot",
+        kategori="hizmet",
+        musteri_sekmesi="asistanlar",
+        yonetici_sekmesi="uzmanAsistanlar",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("gunluk_mesaj", "int", None, en_az=0, en_cok=100000, bos_olabilir=True),),
+    ),
     # --- Hizmet / analiz ---------------------------------------------------
     Modul(
         anahtar="raporlar",

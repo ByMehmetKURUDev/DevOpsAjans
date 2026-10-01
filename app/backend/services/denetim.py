@@ -82,6 +82,10 @@ HARIC_TABLOLAR = frozenset({
     # Faz 2H: SEO/hız ölçüm geçmişi ve uyarı kilidi (zamanlı görev ve "Şimdi
     # tara" yazıyor; tarama sıklığı ayarı `site_izleme`de, o kaydediliyor).
     "site_seo_gecmisi", "site_seo_uyarilari",
+    # Faz 3U: yapay zekâ sohbetleri (kişiye özel içerik — denetim kaydına
+    # kopyalanmasın; her mesajda bir satır olurdu), günlük sayaç ve tohum izi.
+    # Asistan tanımlarının yönetici düzenlemesi (`uzman_asistanlar`) kaydediliyor.
+    "asistan_sohbetleri", "asistan_mesajlari", "ai_gunluk_kullanim", "uzman_asistan_tohum_izi",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.

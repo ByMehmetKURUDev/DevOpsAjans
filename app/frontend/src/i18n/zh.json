@@ -469,7 +469,8 @@
     "tabGuvenlik": "安全",
     "tabCopKutusu": "回收站",
     "tabMesajlar": "消息",
-    "tabSohbetler": "客户聊天"
+    "tabSohbetler": "客户聊天",
+    "tabUzmanAsistanlar": "专家助手"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -1087,7 +1088,8 @@
     "kanalSms": "短信",
     "kanalEposta": "电子邮件",
     "kanalToplanti": "预约会议",
-    "epostaKonu": "项目咨询"
+    "epostaKonu": "项目咨询",
+    "yogun": "助手现在非常繁忙。请稍后再试，或通过联系页面留言。"
   },
   "marketplace": {
     "sectionTag": "商城",

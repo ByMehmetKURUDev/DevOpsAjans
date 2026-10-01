@@ -469,7 +469,8 @@
     "tabGuvenlik": "सुरक्षा",
     "tabCopKutusu": "रीसायकल बिन",
     "tabMesajlar": "संदेश",
-    "tabSohbetler": "ग्राहक चैट"
+    "tabSohbetler": "ग्राहक चैट",
+    "tabUzmanAsistanlar": "विशेषज्ञ सहायक"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",
@@ -1087,7 +1088,8 @@
     "kanalSms": "एसएमएस",
     "kanalEposta": "ई-मेल",
     "kanalToplanti": "मीटिंग बुक करें",
-    "epostaKonu": "प्रोजेक्ट पूछताछ"
+    "epostaKonu": "प्रोजेक्ट पूछताछ",
+    "yogun": "सहायक अभी बहुत व्यस्त है। कृपया थोड़ी देर बाद फिर कोशिश करें या संपर्क पृष्ठ से लिखें।"
   },
   "marketplace": {
     "sectionTag": "मार्केटप्लेस",

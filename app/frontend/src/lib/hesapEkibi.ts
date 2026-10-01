@@ -21,6 +21,7 @@ export const IZINLER = [
   'krediler',
   'abonelikler',
   'mesajlar',
+  'asistanlar',
 ] as const;
 export type Izin = (typeof IZINLER)[number];
 export type UyeRolu = 'yonetici' | 'uye' | 'fatura';
@@ -175,4 +176,5 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   analiz: ['siteler'],
   dosyalar: ['dosyalar'],
   mesajlar: ['mesajlar'],
+  asistanlar: ['asistanlar'],
 };

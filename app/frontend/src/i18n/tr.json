@@ -469,7 +469,8 @@
     "tabGuvenlik": "Güvenlik",
     "tabCopKutusu": "Çöp kutusu",
     "tabMesajlar": "Mesajlar",
-    "tabSohbetler": "Müşteri sohbetleri"
+    "tabSohbetler": "Müşteri sohbetleri",
+    "tabUzmanAsistanlar": "Uzman Asistanlar"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -1087,7 +1088,8 @@
     "kanalSms": "SMS",
     "kanalEposta": "E-posta",
     "kanalToplanti": "Toplantı ayarla",
-    "epostaKonu": "Proje hakkında görüşme talebi"
+    "epostaKonu": "Proje hakkında görüşme talebi",
+    "yogun": "Asistan şu an çok yoğun. Lütfen biraz sonra tekrar deneyin ya da iletişim sayfasından yazın."
   },
   "marketplace": {
     "sectionTag": "Pazaryeri",

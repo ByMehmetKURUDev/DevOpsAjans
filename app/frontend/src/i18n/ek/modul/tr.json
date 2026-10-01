@@ -21,6 +21,10 @@
         "ad": "Mesajlar",
         "aciklama": "Ekibimizle panel üzerinden doğrudan yazışın; yanıtlar birkaç saniyede görünür."
       },
+      "uzman_asistanlar": {
+        "ad": "Uzman Asistanlar",
+        "aciklama": "SEO, reklam, sosyal medya ve marka gibi konularda uzmanlaşmış yapay zekâ asistanlarıyla panelden sohbet edin."
+      },
       "raporlar": {
         "ad": "Raporlar ve abonelik",
         "aciklama": "Aboneliğinize ait aylık hizmet raporları."
@@ -136,7 +140,8 @@
       "esik_saat": "Düşük bakiye uyarı eşiği (saat)",
       "eposta_ozeti": "Rapor yayınlanınca e-posta özeti gönder",
       "gunluk_sinir": "Günlük analiz sınırı",
-      "kontrol_araligi_dk": "Kontrol aralığı (dakika)"
+      "kontrol_araligi_dk": "Kontrol aralığı (dakika)",
+      "gunluk_mesaj": "Günlük mesaj sınırı (boşsa genel ayar)"
     },
     "musteri": {
       "baslik": "Modüllerim",

@@ -132,3 +132,13 @@ def _dis_ag_kapali(monkeypatch):
 
     monkeypatch.setattr(motor, "_pagespeed_cagir", _pagespeed_yok)
     monkeypatch.setattr(motor, "_dns_cozumle", _dns_yok)
+
+    # Faz 3U: yapay zekâ sağlayıcısına giden TEK yer; ortamda APP_AI_* tanımlı
+    # olsa bile testler gerçek modele gitmesin. Sahte yanıt isteyen testler
+    # kendi sahtelerini bunun üstüne koyuyor.
+    from services import yapay_zeka
+
+    async def _ai_yok(mesajlar, model, max_tokens, temperature):
+        raise yapay_zeka.YapayZekaHatasi("ai_kapali", 503)
+
+    monkeypatch.setattr(yapay_zeka, "_saglayici_cagir", _ai_yok)

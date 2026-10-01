@@ -469,7 +469,8 @@
     "tabGuvenlik": "Security",
     "tabCopKutusu": "Recycle bin",
     "tabMesajlar": "Messages",
-    "tabSohbetler": "Client chats"
+    "tabSohbetler": "Client chats",
+    "tabUzmanAsistanlar": "Expert Assistants"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -1087,7 +1088,8 @@
     "kanalSms": "SMS",
     "kanalEposta": "E-mail",
     "kanalToplanti": "Book a meeting",
-    "epostaKonu": "Project enquiry"
+    "epostaKonu": "Project enquiry",
+    "yogun": "The assistant is very busy right now. Please try again a little later or write via the contact page."
   },
   "marketplace": {
     "sectionTag": "Marketplace",

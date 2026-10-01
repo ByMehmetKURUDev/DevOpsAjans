@@ -469,7 +469,8 @@
     "tabGuvenlik": "Безопасность",
     "tabCopKutusu": "Корзина",
     "tabMesajlar": "Сообщения",
-    "tabSohbetler": "Чаты с клиентами"
+    "tabSohbetler": "Чаты с клиентами",
+    "tabUzmanAsistanlar": "Эксперт-ассистенты"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",
@@ -1087,7 +1088,8 @@
     "kanalSms": "SMS",
     "kanalEposta": "E-mail",
     "kanalToplanti": "Назначить встречу",
-    "epostaKonu": "Вопрос по проекту"
+    "epostaKonu": "Вопрос по проекту",
+    "yogun": "Ассистент сейчас перегружен. Попробуйте чуть позже или напишите со страницы контактов."
   },
   "marketplace": {
     "sectionTag": "Маркетплейс",

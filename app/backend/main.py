@@ -75,6 +75,10 @@ async def lifespan(app: FastAPI):
     from services.kaynaklar import acilista_tohumla
 
     await acilista_tohumla()
+    # Faz 3U: Uzman Asistanlar tohumu — aynı düzen (iz tablosu; panel düzenlemesi ezilmez).
+    from services.uzman_asistanlar import acilista_tohumla as asistanlari_tohumla
+
+    await asistanlari_tohumla()
     # MODULE_STARTUP_END
 
     logger.info("=== Application startup completed successfully ===")

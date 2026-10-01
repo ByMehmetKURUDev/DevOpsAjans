@@ -131,8 +131,14 @@ async def ekip(db_oturumu):
                                                     yazan_rol="admin", metin="Merhaba", silindi=False))
     konusma.son_mesaj_id = konusma.son_admin_mesaj_id = ajans_mesaji.id
     await db.commit()
+    # Faz 3U: sahibin bir uzman asistan sohbeti (kişiye özel: üye 404 alır — "gecti").
+    from models.uzman_asistanlar import AsistanSohbetleri
+
+    asistan_sohbeti = await _ekle(db, AsistanSohbetleri(hesap_email=s, kisi_email=s, asistan_anahtar="seo-specialist",
+                                                        baslik="Sahibin sohbeti", silindi=False))
     k.update(P=p.id, F=f.id, T=t.id, Q=q.id, S=site.id, A=a.id, G=g.id, B=bt.id,
-             I_PROJE=islem_proje.id, I_TEKLIF=islem_teklif.id, K=konusma.id, KM=ajans_mesaji.id)
+             I_PROJE=islem_proje.id, I_TEKLIF=islem_teklif.id, K=konusma.id, KM=ajans_mesaji.id,
+             AS=asistan_sohbeti.id)
     return k
 
 
@@ -209,6 +215,13 @@ MUSTERI_UCLARI = [
     ("DELETE", "/api/v1/mesajlarim/mesajlar/{KM}", ("mesajlar",), None, "gecti"),
     ("POST", "/api/v1/mesajlarim/ekler", ("mesajlar",), GOVDE_DOSYA, "gecti"),
     ("POST", "/api/v1/mesajlarim/mesajlar/{KM}/ekler/999999/indirme-baglantisi", ("mesajlar",), None, "gecti"),
+    # Faz 3U — Uzman Asistanlar (model çağrısı conftest'te "ağ yok": mesaj ucu 503/409 → "gecti").
+    ("GET", "/api/v1/asistanlarim", ("asistanlar",), None, 200),
+    ("GET", "/api/v1/asistanlarim/sohbetler", ("asistanlar",), None, 200),
+    ("POST", "/api/v1/asistanlarim/sohbetler", ("asistanlar",), {"asistan_anahtar": "seo-specialist"}, "gecti"),
+    ("GET", "/api/v1/asistanlarim/sohbetler/{AS}", ("asistanlar",), None, 200),
+    ("POST", "/api/v1/asistanlarim/sohbetler/{AS}/mesaj", ("asistanlar",), {"icerik": "Merhaba"}, "gecti"),
+    ("DELETE", "/api/v1/asistanlarim/sohbetler/999999", ("asistanlar",), None, "gecti"),
 ]
 
 

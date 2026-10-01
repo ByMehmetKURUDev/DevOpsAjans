@@ -1,13 +1,14 @@
-import { AI_MODELI } from '@/lib/aiModel';
 /**
  * Keşif Asistanı'nın yapay zekâ katmanı.
  *
- * Backend'de hazır duran `/api/v1/aihub/gentxt` uç noktasını kullanıyor;
- * anahtar tarayıcıya hiç inmiyor, istek sunucudan geçiyor.
+ * Faz 3U: amaca özel `/api/v1/ai/kesif` ucu. Sistem istemi, model ve
+ * `max_tokens` SUNUCUDA; buradan yalnız ziyaretçinin cevapları ve paket
+ * adları (veri) gidiyor. Uç herkese açık ama IP başına ve günlük toplam
+ * bütçeyle sınırlı (429).
  *
- * AI yapılandırılmamışsa (APP_AI_BASE_URL / APP_AI_KEY tanımsız) uç nokta
- * hata döner; çağıran taraf o durumda kural tabanlı öneriye düşer. Yani
- * asistan anahtar olmadan da çalışmaya devam eder, sadece metin üretmez.
+ * AI yapılandırılmamışsa, sınır dolmuşsa ya da yanıt bozuksa istisna
+ * fırlatılır; çağıran taraf kural tabanlı öneriye düşer. Yani asistan
+ * anahtar olmadan da çalışmaya devam eder, sadece metin üretmez.
  */
 
 export interface KesifGirdisi {
@@ -66,50 +67,28 @@ export async function kesifAnaliziIste(
   girdi: KesifGirdisi,
   signal?: AbortSignal,
 ): Promise<KesifAnalizi> {
-  const sistem = [
-    'Sen bir dijital ajansin proje kesif asistanisin.',
-    'Ziyaretcinin verdigi cevaplara bakarak ihtiyacini ozetle ve listedeki paketlerden BIRINI sec.',
-    'Listede olmayan paket uydurma. Fiyat, sure veya sonuc taahhudu verme.',
-    'Emin olmadigin teknik detayi yazma; ziyaretci teknik olmayabilir, sade konus.',
-    `Yanitini ${girdi.dil} dilinde yaz.`,
-    'SADECE su bicimde JSON dondur, baska hicbir sey yazma:',
-    '{"ozet":"...","paketIndeksi":0,"gerekce":"...","adimlar":["...","..."]}',
-    'ozet: en fazla 3 cumle. gerekce: tek cumle. adimlar: en fazla 4 kisa madde.',
-  ].join('\n');
-
-  const kullanici = [
-    `Projenin amaci: ${girdi.amac || '(belirtilmedi)'}`,
-    `Kendi anlatimi: ${girdi.serbest || '(yok)'}`,
-    `Gereken ozellikler: ${girdi.kapsam.length ? girdi.kapsam.join(', ') : '(belirtilmedi)'}`,
-    `Zaman: ${girdi.zaman || '(belirtilmedi)'}`,
-    `Butce: ${girdi.butce || '(belirtilmedi)'}`,
-    '',
-    'Secilebilecek paketler (indeksleriyle):',
-    ...girdi.paketler.map((p, i) => `${i}: ${p}`),
-  ].join('\n');
-
-  const yanit = await fetch('/api/v1/aihub/gentxt', {
+  const yanit = await fetch('/api/v1/ai/kesif', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     signal,
     body: JSON.stringify({
-      model: AI_MODELI,
-      stream: false,
-      temperature: 0.4,
-      max_tokens: 700,
-      messages: [
-        { role: 'system', content: sistem },
-        { role: 'user', content: kullanici },
-      ],
+      amac: girdi.amac.slice(0, 300),
+      // Sunucu sınırı 2000 karakter; uzun anlatım kesilip gönderiliyor (422 yerine).
+      serbest: girdi.serbest.slice(0, 2000),
+      kapsam: girdi.kapsam.slice(0, 20),
+      zaman: girdi.zaman,
+      butce: girdi.butce,
+      paketler: girdi.paketler,
+      dil: girdi.dil,
     }),
   });
 
   if (!yanit.ok) {
-    throw new Error(`aihub ${yanit.status}`);
+    throw new Error(`kesif ${yanit.status}`);
   }
 
-  const govde = (await yanit.json()) as { content?: unknown };
-  if (typeof govde.content !== 'string') throw new Error('Beklenmeyen yanit');
+  const govde = (await yanit.json()) as { icerik?: unknown };
+  if (typeof govde.icerik !== 'string') throw new Error('Beklenmeyen yanit');
 
-  return analizDogrula(jsonAyikla(govde.content), girdi.paketler.length);
+  return analizDogrula(jsonAyikla(govde.icerik), girdi.paketler.length);
 }

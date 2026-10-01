@@ -46,6 +46,7 @@ import {
   ShieldCheck,
   ArchiveRestore,
   MessagesSquare,
+  Bot,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -132,10 +133,12 @@ const DuyuruSeridi = ekliLazy('duyurular', () => import('@/components/DuyuruSeri
 const MesajYonetimi = ekliLazy('mesajlar', () => import('@/components/admin/MesajYonetimi'));
 // Faz 3K — sitedeki Kaynaklar listesinin yönetimi; dil seçici metinleri marketplace çeviri paketinden.
 const KaynakYonetimi = ekliLazy(['kaynakYonetimi', 'marketplaceCeviri'], () => import('@/components/admin/KaynakYonetimi'));
+// Faz 3U — Uzman Asistanlar yönetimi; dil seçici metinleri marketplace çeviri paketinden.
+const UzmanAsistanYonetimi = ekliLazy(['uzmanAsistanlar', 'marketplaceCeviri'], () => import('@/components/admin/UzmanAsistanYonetimi'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -259,6 +262,7 @@ type Tab =
   | 'geriBildirim'
   | 'duyurular'
   | 'mesajlar'
+  | 'uzmanAsistanlar'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -942,6 +946,7 @@ export default function AdminPanel() {
     { key: 'siteler', label: t('site.sekme'), icon: Globe },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
     { key: 'mesajlar', label: t('ui.tabSohbetler'), icon: MessagesSquare },
+    { key: 'uzmanAsistanlar', label: t('ui.tabUzmanAsistanlar'), icon: Bot },
     { key: 'dosyalar', label: t('ui.tabDosyalar'), icon: FolderOpen },
     { key: 'bilgiBankasi', label: t('ui.tabBilgiBankasi'), icon: BookOpen },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
@@ -1017,6 +1022,18 @@ export default function AdminPanel() {
           }
         >
           <MesajYonetimi onOkunmamis={setOkunmamisMesaj} />
+        </Suspense>
+      )}
+
+      {tab === 'uzmanAsistanlar' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <UzmanAsistanYonetimi />
         </Suspense>
       )}
 
