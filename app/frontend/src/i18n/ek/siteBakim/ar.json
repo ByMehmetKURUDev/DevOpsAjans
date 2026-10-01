@@ -111,7 +111,8 @@
     "sekme": {
       "etiket": "عرض المواقع",
       "siteler": "المواقع",
-      "yenilemeler": "التجديدات"
+      "yenilemeler": "التجديدات",
+      "seo": "السيو والسرعة"
     },
     "yenileme": {
       "baslik": "التجديدات القادمة",
@@ -174,7 +175,8 @@
         "mesaj_bildirimleri": "إشعارات الرسائل غير المقروءة",
         "aylik_site_analizi": "تحليل الموقع التلقائي الشهري",
         "oturum_temizligi": "تنظيف سجلات الجلسات القديمة",
-        "cop_kutusu_temizligi": "حذف عناصر سلة المحذوفات المنتهية"
+        "cop_kutusu_temizligi": "حذف عناصر سلة المحذوفات المنتهية",
+        "seo_taramasi": "فحص السيو التقني والسرعة (3 مواقع في كل دورة)"
       },
       "gunluk": "يوميًا",
       "haftalik": "أسبوعيًا"

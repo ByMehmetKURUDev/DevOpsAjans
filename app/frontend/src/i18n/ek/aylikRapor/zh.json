@@ -104,6 +104,26 @@
       "bulunamadi": "未找到报告。",
       "yonetici_gerekli": "此操作需要管理员权限。",
       "modul_kapali": "您的账户未开通月度报告模块。"
+    },
+    "seoIzleme": {
+      "baslik": "SEO 与速度监测",
+      "olcum": "{{sayi}} 次检测",
+      "sonPuan": "月末评分",
+      "aralik": "最低 {{dusuk}} · 最高 {{yuksek}}",
+      "degisim": "本月变化 {{sayi}} 分",
+      "mobil": "移动端",
+      "masaustu": "桌面端",
+      "uyari": "已发送 {{sayi}} 条提醒",
+      "kritik": "严重问题：",
+      "kritikKod": {
+        "noindex": "对搜索引擎隐藏（noindex）",
+        "robots_engelli": "被 robots.txt 屏蔽",
+        "sitemap_yok": "缺少站点地图",
+        "ssl_gecersiz": "SSL 证书无效",
+        "ssl_suresi_gecmis": "SSL 证书已过期",
+        "https_yok": "未使用 HTTPS",
+        "ana_sayfa_durum": "首页返回错误"
+      }
     }
   }
 }

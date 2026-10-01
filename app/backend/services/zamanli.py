@@ -131,6 +131,14 @@ async def _aylik_site_analizi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await aylik_analizler(db)
 
 
+async def _seo_taramasi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # `zorla` (yöneticinin "Şimdi çalıştır"ı) site başına sıklığı ATLAMIYOR:
+    # her basışta 3 sitenin PageSpeed kotası harcanmasın.
+    from services.seo_izleme import zamanli_tarama
+
+    return await zamanli_tarama(db)
+
+
 async def _oturum_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     from services.oturumlar import temizle
 
@@ -168,6 +176,8 @@ GOREVLER: List[Gorev] = [
     Gorev("cop_kutusu_temizligi", timedelta(hours=20), _cop_kutusu_temizligi),
     # Faz 2G: okunmamış mesaj bildirimi her turda (ucuz sorgu; 2 dk gecikme + 30 dk toplama).
     Gorev("mesaj_bildirimleri", timedelta(0), _mesaj_bildirimleri),
+    # Faz 2H: teknik SEO + hız izleme — tur başına en çok 3 site (paralel, dış ağ).
+    Gorev("seo_taramasi", timedelta(minutes=55), _seo_taramasi),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

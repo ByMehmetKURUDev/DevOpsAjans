@@ -1,6 +1,25 @@
-import logging
+"""Nesne deposu (OSS) uçları — YALNIZ YÖNETİCİ (Faz 2H güvenlik düzeltmesi).
 
-from dependencies.auth import get_admin_user, get_current_user
+Önceden `create-bucket` dışındaki bütün uçlar giriş yapmış HER kullanıcıya
+açıktı: bir müşteri kova adını tahmin edip başkasının nesnesini
+listeleyebilir, yeniden adlandırabilir, silebilir ya da indirme bağlantısı
+alabilirdi. Kullananlar tarandı (Ekim 2026):
+
+* Ön yüz (`app/frontend/src`) bu uçların hiçbirini çağırmıyor; `client.storage`
+  / `integrations.storage` kullanımı yok. `@metagptx/web-sdk` yalnız tanımlıyor.
+* Arka uçta tek kullanıcı `services/geri_bildirim.py`; o da `StorageService`'i
+  DOĞRUDAN çağırıyor (HTTP ucu değil), bu değişiklikten etkilenmiyor.
+
+Müşteri akışı olmadığı için müşteriyi bir öneke hapsetmek yerine bütün uçlar
+yöneticiye kapatıldı. Yönetici için de anahtarda yol geçişi (`..`, mutlak yol,
+ters bölü, denetim karakteri) 400 ile reddediliyor: imzalı adres üreten
+servise "../başka-kova/x" gibi bir anahtar hiç gitmesin.
+"""
+
+import logging
+from typing import Optional
+
+from dependencies.auth import get_admin_user
 from fastapi import APIRouter, Depends, HTTPException, status
 from schemas.auth import UserResponse
 from schemas.storage import (
@@ -24,6 +43,29 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/v1/storage", tags=["storage"])
 
 
+def anahtar_gecersiz_mi(anahtar: Optional[str]) -> bool:
+    """Nesne anahtarı yol geçişi içeriyor mu?
+
+    Reddedilen: `..` parçası, `/` ya da `\\` ile başlayan (mutlak) yol, ters
+    bölü (Windows yolu), `C:` gibi sürücü öneki, denetim karakteri (NUL dahil).
+    Boş anahtar burada sorun sayılmıyor (şema ayrıca denetliyor).
+    """
+    if not anahtar:
+        return False
+    a = str(anahtar)
+    if "\\" in a or a.startswith("/") or any(ord(c) < 32 or ord(c) == 127 for c in a):
+        return True
+    if len(a) >= 2 and a[1] == ":" and a[0].isalpha():
+        return True
+    return any(parca == ".." for parca in a.split("/"))
+
+
+def _anahtar_denetle(*anahtarlar: Optional[str]) -> None:
+    for a in anahtarlar:
+        if anahtar_gecersiz_mi(a):
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail={"kod": "gecersiz_anahtar"})
+
+
 @router.post("/create-bucket", response_model=BucketResponse)
 async def create_bucket(request: BucketRequest, _current_user: UserResponse = Depends(get_admin_user)):
     """
@@ -41,7 +83,7 @@ async def create_bucket(request: BucketRequest, _current_user: UserResponse = De
 
 
 @router.get("/list-buckets", response_model=BucketListResponse)
-async def list_buckets(_current_user: UserResponse = Depends(get_current_user)):
+async def list_buckets(_current_user: UserResponse = Depends(get_admin_user)):
     """
     List buckets of the user
     """
@@ -57,7 +99,7 @@ async def list_buckets(_current_user: UserResponse = Depends(get_current_user)):
 
 
 @router.get("/list-objects", response_model=ObjectListResponse)
-async def list_objects(request: OSSBaseModel = Depends(), _current_user: UserResponse = Depends(get_current_user)):
+async def list_objects(request: OSSBaseModel = Depends(), _current_user: UserResponse = Depends(get_admin_user)):
     """
     List objects under the bucket
     """
@@ -73,10 +115,11 @@ async def list_objects(request: OSSBaseModel = Depends(), _current_user: UserRes
 
 
 @router.get("/get-object-info", response_model=ObjectInfo)
-async def get_object_info(request: ObjectRequest = Depends(), _current_user: UserResponse = Depends(get_current_user)):
+async def get_object_info(request: ObjectRequest = Depends(), _current_user: UserResponse = Depends(get_admin_user)):
     """
     Get object metadata from the bucket
     """
+    _anahtar_denetle(request.object_key)
     try:
         service = StorageService()
         return await service.get_object_info(request)
@@ -89,10 +132,11 @@ async def get_object_info(request: ObjectRequest = Depends(), _current_user: Use
 
 
 @router.post("/rename-object", response_model=RenameResponse)
-async def rename_object(request: RenameRequest, _current_user: UserResponse = Depends(get_current_user)):
+async def rename_object(request: RenameRequest, _current_user: UserResponse = Depends(get_admin_user)):
     """
     Rename object inside the bucket
     """
+    _anahtar_denetle(request.source_key, request.target_key)
     try:
         service = StorageService()
         return await service.rename_object(request)
@@ -105,10 +149,11 @@ async def rename_object(request: RenameRequest, _current_user: UserResponse = De
 
 
 @router.delete("/delete-object", response_model=DeleteResponse)
-async def delete_object(request: ObjectRequest, _current_user: UserResponse = Depends(get_current_user)):
+async def delete_object(request: ObjectRequest, _current_user: UserResponse = Depends(get_admin_user)):
     """
     Delete object inside the bucket
     """
+    _anahtar_denetle(request.object_key)
     try:
         service = StorageService()
         return await service.delete_object(request)
@@ -121,7 +166,7 @@ async def delete_object(request: ObjectRequest, _current_user: UserResponse = De
 
 
 @router.post("/upload-url", response_model=FileUpDownResponse)
-async def upload_file(request: FileUpDownRequest, _current_user: UserResponse = Depends(get_current_user)):
+async def upload_file(request: FileUpDownRequest, _current_user: UserResponse = Depends(get_admin_user)):
     """
     Get a presigned URL for uploading a file to StorageService.
 
@@ -132,6 +177,7 @@ async def upload_file(request: FileUpDownRequest, _current_user: UserResponse = 
     4. Client uploads file directly to ObjectStorage using the presigned URL
     5. File is accessible at the returned access_url
     """
+    _anahtar_denetle(request.object_key)
     try:
         service = StorageService()
         return await service.create_upload_url(request)
@@ -144,10 +190,11 @@ async def upload_file(request: FileUpDownRequest, _current_user: UserResponse = 
 
 
 @router.post("/download-url", response_model=FileUpDownResponse)
-async def download_file(request: FileUpDownRequest, _current_user: UserResponse = Depends(get_current_user)):
+async def download_file(request: FileUpDownRequest, _current_user: UserResponse = Depends(get_admin_user)):
     """
     Get a presigned URL for downloading a file to StorageService.
     """
+    _anahtar_denetle(request.object_key)
     try:
         service = StorageService()
         return await service.create_download_url(request)

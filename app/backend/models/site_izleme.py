@@ -66,6 +66,10 @@ class SiteIzleme(Base):
     #: Arama motoru dizinine açık mı? Varsayılan HAYIR (noindex).
     durum_index = Column(Boolean, nullable=True, default=False)
 
+    # --- Teknik SEO + hız izleme (Faz 2H) --------------------------------------
+    #: Kaç günde bir otomatik SEO/hız taraması; boş = varsayılan (7), 0 = kapalı.
+    seo_tarama_gun = Column(Integer, nullable=True)
+
     created_at = Column(DateTime(timezone=True), default=_simdi)
     updated_at = Column(DateTime(timezone=True), default=_simdi, onupdate=_simdi)
 

@@ -50,7 +50,8 @@
       "duyuru": "New announcement",
       "oneri_durumu": "My suggestion status changed",
       "yeni_oturum": "Sign-in from a new device",
-      "mesaj_yeni": "Unread new message"
+      "mesaj_yeni": "Unread new message",
+      "seo_dususu": "Site SEO/speed score dropped"
     },
     "kanal": {
       "inapp": "Panel",

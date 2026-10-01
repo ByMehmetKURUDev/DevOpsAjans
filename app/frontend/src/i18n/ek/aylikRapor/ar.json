@@ -104,6 +104,26 @@
       "bulunamadi": "لم يتم العثور على التقرير.",
       "yonetici_gerekli": "يتطلب هذا الإجراء صلاحيات المسؤول.",
       "modul_kapali": "وحدة التقرير الشهري غير مفعّلة في حسابك."
+    },
+    "seoIzleme": {
+      "baslik": "مراقبة السيو والسرعة",
+      "olcum": "{{sayi}} عمليات فحص",
+      "sonPuan": "تقييم نهاية الشهر",
+      "aralik": "الأدنى {{dusuk}} · الأعلى {{yuksek}}",
+      "degisim": "{{sayi}} نقطة خلال الشهر",
+      "mobil": "الجوال",
+      "masaustu": "سطح المكتب",
+      "uyari": "تم إرسال {{sayi}} تنبيهات",
+      "kritik": "مشكلات حرجة:",
+      "kritikKod": {
+        "noindex": "مخفي عن محركات البحث (noindex)",
+        "robots_engelli": "محجوب عبر robots.txt",
+        "sitemap_yok": "لا توجد خريطة موقع",
+        "ssl_gecersiz": "شهادة SSL غير صالحة",
+        "ssl_suresi_gecmis": "انتهت صلاحية شهادة SSL",
+        "https_yok": "لا يوجد HTTPS",
+        "ana_sayfa_durum": "الصفحة الرئيسية تُرجع خطأ"
+      }
     }
   }
 }

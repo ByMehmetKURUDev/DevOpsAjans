@@ -231,6 +231,11 @@
         "neden": "robots.txt 告诉搜索引擎应抓取哪些内容以及站点地图的位置。",
         "oneri": "在根目录添加 robots.txt，并写入 Sitemap: 行。"
       },
+      "robots_engelli": {
+        "baslik": "robots.txt 禁止搜索引擎抓取整个网站",
+        "neden": "全站 \"Disallow: /\" 规则会阻止 Google 抓取您的页面，网站会逐渐从搜索结果中消失。",
+        "oneri": "请在正式网站的 robots.txt 中删除 \"Disallow: /\" 这一行，只屏蔽必须保密的目录（例如 /admin）。"
+      },
       "sitemap_yok": {
         "baslik": "未找到站点地图（sitemap.xml）",
         "neden": "站点地图帮助搜索引擎快速发现所有页面。",

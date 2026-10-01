@@ -85,6 +85,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "yeni_oturum": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 2G — karşı taraf 2 dk içinde okumadıysa (30 dk'da en çok bir, toplayarak).
     "mesaj_yeni": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 2H — müşteri sitesinin SEO/hız puanı düştü ya da yeni kritik bulgu.
+    "seo_dususu": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

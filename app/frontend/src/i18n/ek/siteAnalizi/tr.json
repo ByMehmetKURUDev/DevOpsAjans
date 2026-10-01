@@ -231,6 +231,11 @@
         "neden": "robots.txt, arama motorlarına nereyi tarayacaklarını ve site haritasının yerini söyler.",
         "oneri": "Kök dizine bir robots.txt ekleyin ve içine Sitemap: satırını yazın."
       },
+      "robots_engelli": {
+        "baslik": "robots.txt siteyi arama motorlarına kapatıyor",
+        "neden": "Tüm site için \"Disallow: /\" kuralı Google'ın sayfaları taramasını engeller; site zamanla arama sonuçlarından düşer.",
+        "oneri": "Yayındaki site için robots.txt'deki \"Disallow: /\" satırını kaldırın; yalnız gizli kalması gereken klasörleri (ör. /admin) engelleyin."
+      },
       "sitemap_yok": {
         "baslik": "Site haritası (sitemap.xml) bulunamadı",
         "neden": "Site haritası, arama motorlarının bütün sayfaları hızlıca bulmasını sağlar.",

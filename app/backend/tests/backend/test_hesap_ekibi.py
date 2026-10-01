@@ -183,6 +183,9 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/sitelerim/{S}/gunluk", ("siteler",), None, 200),
     ("GET", "/api/v1/sitelerim-bakim", ("siteler",), None, 200),
     ("POST", "/api/v1/sitelerim-bakim/{S}/durum-sayfasi", ("siteler",), {"acik": False}, 200),
+    # Faz 2H — teknik SEO + hız izleme (tarama ağsız: conftest DNS'i kapatıyor → hata satırı, 200).
+    ("GET", "/api/v1/sitelerim/{S}/seo-gecmisi", ("siteler",), None, 200),
+    ("POST", "/api/v1/sitelerim/{S}/seo-tara", ("siteler",), None, "gecti"),
     ("GET", "/api/v1/geri-bildirimlerim", ("projeler", "destek"), None, 200),
     ("POST", "/api/v1/geri-bildirimlerim", ("projeler", "destek"), {"__form__": {"baslik": "Buton bozuk"}}, 200),
     ("POST", "/api/v1/geri-bildirimlerim/{G}/ek", ("projeler", "destek"), GOVDE_DOSYA, "gecti"),
@@ -340,7 +343,8 @@ KISISEL_YA_DA_ACIK = {
     ("GET", "/api/v1/destek/eposta-bilgisi"),
     ("GET", "/api/v1/entities/project_events/stages"),
 }
-TARAMA_ATLA_ONEK = ("/api/v1/auth/", "/api/v1/storage/")
+# Faz 2H: `/api/v1/storage/` artık yalnız yönetici — taramadan çıkarılmadı, taranıyor.
+TARAMA_ATLA_ONEK = ("/api/v1/auth/",)
 
 
 def _yolu_doldur(yol: str, k: dict) -> str:

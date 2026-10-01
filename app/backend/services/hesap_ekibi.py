@@ -109,6 +109,7 @@ OLAY_IZNI: Dict[str, str] = {
     "site_coktu": "siteler",
     "site_duzeldi": "siteler",
     "bitis_yaklasiyor": "siteler",
+    "seo_dususu": "siteler",
     "dosya_eklendi": "dosyalar",
     "belge_talebi": "dosyalar",
     "belge_hatirlatma": "dosyalar",

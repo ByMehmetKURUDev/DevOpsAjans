@@ -231,6 +231,11 @@
         "neden": "Die robots.txt sagt Suchmaschinen, was sie crawlen sollen und wo die Sitemap liegt.",
         "oneri": "Eine robots.txt im Stammverzeichnis anlegen und eine Sitemap:-Zeile eintragen."
       },
+      "robots_engelli": {
+        "baslik": "robots.txt sperrt Suchmaschinen für die gesamte Website",
+        "neden": "Eine seitenweite Regel \"Disallow: /\" verhindert, dass Google Ihre Seiten crawlt; die Website verschwindet nach und nach aus den Suchergebnissen.",
+        "oneri": "Entfernen Sie auf der Live-Website die Zeile \"Disallow: /\" aus der robots.txt; sperren Sie nur Ordner, die privat bleiben müssen (z. B. /admin)."
+      },
       "sitemap_yok": {
         "baslik": "Keine Sitemap (sitemap.xml) gefunden",
         "neden": "Eine Sitemap hilft Suchmaschinen, alle Seiten schnell zu finden.",

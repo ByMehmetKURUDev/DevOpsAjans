@@ -1,0 +1,80 @@
+{
+  "seoIzleme": {
+    "baslik": "SEO and speed",
+    "aciklama": "Your site's technical SEO and Google PageSpeed speed are checked regularly; we'll let you know if the score drops or a critical issue appears.",
+    "henuzYok": "There is no SEO and speed check for this site yet.",
+    "genel": "Overall score",
+    "mobil": "Mobile",
+    "masaustu": "Desktop",
+    "sonOlcum": "Last check: {{tarih}}",
+    "sonrakiTarama": "Next automatic scan: {{tarih}}",
+    "otomatikKapali": "Automatic scanning is off",
+    "degisim": "{{sayi}} points vs. previous",
+    "olculemedi": "Not measured",
+    "sonDenemeHata": "The last scan could not be completed: {{sebep}}",
+    "hataKodu": {
+      "ulasilamadi": "the site did not respond",
+      "cozumlenemedi": "the domain could not be found",
+      "adres_yasak": "this address cannot be scanned",
+      "adres_gecersiz": "the address is invalid",
+      "cok_yonlendirme": "there are too many redirects",
+      "zaman_asimi": "it timed out",
+      "yarida_kaldi": "the scan was interrupted",
+      "beklenmedik": "an unexpected error occurred"
+    },
+    "cwv": {
+      "baslik": "Core Web Vitals (lab measurement)",
+      "lcp": "LCP — largest content loaded",
+      "cls": "CLS — layout shift",
+      "tbt": "TBT — total blocking time",
+      "iyi": "Good",
+      "orta": "Needs improvement",
+      "kotu": "Poor",
+      "esik": "Google thresholds: LCP ≤2.5 s good, ≤4 s needs improvement · CLS ≤0.1 good, ≤0.25 needs improvement · TBT ≤200 ms good, ≤600 ms needs improvement."
+    },
+    "grafik": {
+      "baslik": "Scores over the last {{sayi}} days",
+      "aria": "{{olcum}} checks in the last {{sayi}} days; latest overall score {{puan}}",
+      "tekOlcum": "At least two checks are needed to draw the line."
+    },
+    "bulgular": {
+      "baslik": "Most important findings",
+      "yok": "No significant issues were found.",
+      "kritik": "Critical",
+      "hata": "Error",
+      "uyari": "Warning",
+      "bilgi": "Info"
+    },
+    "tara": {
+      "dugme": "Scan now",
+      "suruyor": "Scanning… (about 30 seconds)",
+      "tamam": "Scan completed.",
+      "hata": "The scan could not be run.",
+      "gunlukSinir": "This site was already scanned in the last 24 hours; you can scan it again after {{tarih}}.",
+      "suruyorHata": "This site is being scanned right now; please check back shortly.",
+      "sinirNotu": "Manual scans are limited to once a day per site.",
+      "adresYok": "No address is saved for this site."
+    },
+    "yonetici": {
+      "baslik": "SEO and speed overview",
+      "aciklama": "Latest technical SEO and speed score of every client site. Sites that dropped {{esik}} points or more, or have a new critical finding, are listed first.",
+      "bos": "There are no client sites yet.",
+      "site": "Site",
+      "degisim": "Change",
+      "sonOlcum": "Last check",
+      "siklik": "Automatic scan",
+      "dususte": "Dropping",
+      "gecmis": "History",
+      "kapat": "Close",
+      "hicOlcum": "Not checked yet",
+      "gunde": "Every {{sayi}} days",
+      "kapali": "Off",
+      "ayarKaydedildi": "Scan frequency saved.",
+      "yenile": "Refresh"
+    },
+    "hata": {
+      "genel": "Something went wrong.",
+      "yuklenemedi": "SEO data could not be loaded."
+    }
+  }
+}

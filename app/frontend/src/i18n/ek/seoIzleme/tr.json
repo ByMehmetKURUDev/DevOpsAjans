@@ -1,0 +1,80 @@
+{
+  "seoIzleme": {
+    "baslik": "SEO ve hız",
+    "aciklama": "Sitenizin teknik SEO'su ve Google PageSpeed hız ölçümü düzenli olarak izlenir; puan düşerse ya da kritik bir sorun çıkarsa size haber veririz.",
+    "henuzYok": "Bu site için henüz SEO ve hız ölçümü yok.",
+    "genel": "Genel puan",
+    "mobil": "Mobil",
+    "masaustu": "Masaüstü",
+    "sonOlcum": "Son ölçüm: {{tarih}}",
+    "sonrakiTarama": "Sonraki otomatik tarama: {{tarih}}",
+    "otomatikKapali": "Otomatik tarama kapalı",
+    "degisim": "Öncekine göre {{sayi}} puan",
+    "olculemedi": "Ölçülemedi",
+    "sonDenemeHata": "Son tarama tamamlanamadı: {{sebep}}",
+    "hataKodu": {
+      "ulasilamadi": "site yanıt vermedi",
+      "cozumlenemedi": "alan adı bulunamadı",
+      "adres_yasak": "bu adres taranamıyor",
+      "adres_gecersiz": "adres geçersiz",
+      "cok_yonlendirme": "çok fazla yönlendirme var",
+      "zaman_asimi": "zaman aşımına uğradı",
+      "yarida_kaldi": "tarama yarıda kaldı",
+      "beklenmedik": "beklenmeyen bir hata oluştu"
+    },
+    "cwv": {
+      "baslik": "Core Web Vitals (laboratuvar ölçümü)",
+      "lcp": "LCP — en büyük içeriğin yüklenmesi",
+      "cls": "CLS — sayfa düzeni kayması",
+      "tbt": "TBT — toplam engelleme süresi",
+      "iyi": "İyi",
+      "orta": "İyileştirilmeli",
+      "kotu": "Kötü",
+      "esik": "Google eşikleri: LCP ≤2,5 sn iyi, ≤4 sn orta · CLS ≤0,1 iyi, ≤0,25 orta · TBT ≤200 ms iyi, ≤600 ms orta."
+    },
+    "grafik": {
+      "baslik": "Son {{sayi}} günün puanları",
+      "aria": "Son {{sayi}} günde {{olcum}} ölçüm; son genel puan {{puan}}",
+      "tekOlcum": "Çizginin oluşması için en az iki ölçüm gerekiyor."
+    },
+    "bulgular": {
+      "baslik": "En önemli bulgular",
+      "yok": "Önemli bir sorun bulunmadı.",
+      "kritik": "Kritik",
+      "hata": "Hata",
+      "uyari": "Uyarı",
+      "bilgi": "Bilgi"
+    },
+    "tara": {
+      "dugme": "Şimdi tara",
+      "suruyor": "Taranıyor… (yaklaşık 30 saniye)",
+      "tamam": "Tarama tamamlandı.",
+      "hata": "Tarama yapılamadı.",
+      "gunlukSinir": "Bu site son 24 saatte zaten tarandı; {{tarih}} sonrasında tekrar tarayabilirsiniz.",
+      "suruyorHata": "Bu site şu anda taranıyor; biraz sonra tekrar bakın.",
+      "sinirNotu": "Elle tarama site başına günde bir kez yapılabilir.",
+      "adresYok": "Bu sitenin adresi kayıtlı değil."
+    },
+    "yonetici": {
+      "baslik": "SEO ve hız özeti",
+      "aciklama": "Bütün müşteri sitelerinin son teknik SEO ve hız puanı. {{esik}} puan ve üzeri düşen ya da yeni kritik bulgusu olan siteler en üstte.",
+      "bos": "Henüz müşteri sitesi yok.",
+      "site": "Site",
+      "degisim": "Değişim",
+      "sonOlcum": "Son ölçüm",
+      "siklik": "Otomatik tarama",
+      "dususte": "Düşüşte",
+      "gecmis": "Geçmiş",
+      "kapat": "Kapat",
+      "hicOlcum": "Henüz ölçülmedi",
+      "gunde": "{{sayi}} günde bir",
+      "kapali": "Kapalı",
+      "ayarKaydedildi": "Tarama sıklığı kaydedildi.",
+      "yenile": "Yenile"
+    },
+    "hata": {
+      "genel": "Bir hata oluştu.",
+      "yuklenemedi": "SEO verisi yüklenemedi."
+    }
+  }
+}

@@ -104,6 +104,26 @@
       "bulunamadi": "Rapor bulunamadı.",
       "yonetici_gerekli": "Bu işlem yönetici yetkisi istiyor.",
       "modul_kapali": "Aylık rapor modülü hesabınızda açık değil."
+    },
+    "seoIzleme": {
+      "baslik": "SEO ve hız izleme",
+      "olcum": "{{sayi}} ölçüm",
+      "sonPuan": "Ay sonu puanı",
+      "aralik": "En düşük {{dusuk}} · en yüksek {{yuksek}}",
+      "degisim": "Ay içinde {{sayi}} puan",
+      "mobil": "Mobil",
+      "masaustu": "Masaüstü",
+      "uyari": "{{sayi}} uyarı gönderildi",
+      "kritik": "Kritik bulgular:",
+      "kritikKod": {
+        "noindex": "Arama motorlarına kapalı (noindex)",
+        "robots_engelli": "robots.txt engeli",
+        "sitemap_yok": "Site haritası yok",
+        "ssl_gecersiz": "SSL sertifikası geçersiz",
+        "ssl_suresi_gecmis": "SSL sertifikasının süresi dolmuş",
+        "https_yok": "HTTPS yok",
+        "ana_sayfa_durum": "Ana sayfa hata veriyor"
+      }
     }
   }
 }

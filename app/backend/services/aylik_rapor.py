@@ -9,6 +9,9 @@ Bölümler (veri JSON'u `service_reports.veri`)
                  yüklenen kredi, açılan/çözülen talepler + SLA uyumu
     site_sagligi site başına ay içi uptime %, kesintiler, alan/SSL/hosting bitişi
     seo          son site analizi puanı ve bir öncekine göre değişim
+    seo_izleme   (Faz 2H) ay içindeki teknik SEO/hız ölçümlerinin site başına
+                 özeti: ölçüm sayısı, ilk/son/en düşük puan, son Core Web Vitals,
+                 gönderilen uyarı sayısı (ölçüm yoksa boş liste)
     plan         gelecek ay: açık projeler, açık talepler, bekleyen belgeler
     Yönetici notu ayrı alanda (`yonetici_notu`).
 
@@ -366,6 +369,18 @@ async def _seo_bolumu(db: AsyncSession, eposta: str, bit: datetime) -> List[Dict
     return sonuc
 
 
+async def _seo_izleme_bolumu(db: AsyncSession, eposta: str, bas: datetime, bit: datetime) -> List[Dict[str, Any]]:
+    """Faz 2H: ay içindeki SEO/hız izleme ölçümleri (varsa)."""
+    from services.seo_izleme import aylik_ozet
+
+    try:
+        return await aylik_ozet(db, eposta, bas, bit)
+    except Exception:  # noqa: BLE001 - rapor bu bölüm yüzünden düşmesin
+        logger.exception("Aylık rapor: SEO izleme özeti alınamadı")
+        await db.rollback()
+        return []
+
+
 async def _plan_bolumu(db: AsyncSession, eposta: str) -> Dict[str, Any]:
     from models.dosyalar import BelgeTalepleri
     from models.projects import Projects
@@ -408,6 +423,7 @@ async def veri_topla(db: AsyncSession, eposta: str, donem: str) -> Dict[str, Any
         "ozet": await _ozet_bolumu(db, eposta, bas, bit),
         "site_sagligi": await _site_bolumu(db, eposta, bas, bit, ilk, son),
         "seo": await _seo_bolumu(db, eposta, bit),
+        "seo_izleme": await _seo_izleme_bolumu(db, eposta, bas, bit),
         "plan": await _plan_bolumu(db, eposta),
     }
 
@@ -428,6 +444,11 @@ def ozet_metni(veri: Dict[str, Any]) -> str:
     puanlar = [s["puan"] for s in veri.get("seo") or [] if s.get("puan") is not None]
     if puanlar:
         parcalar.append(f"site analizi puanı {puanlar[0]}")
+    izleme = [s for s in veri.get("seo_izleme") or [] if s.get("son_puan") is not None]
+    if izleme:
+        parcalar.append(
+            f"{sum(int(s.get('olcum_sayisi') or 0) for s in izleme)} SEO/hız ölçümü, son puan {izleme[0]['son_puan']}"
+        )
     return f"{donem_adi(veri['donem'])}: " + "; ".join(parcalar) + "."
 
 

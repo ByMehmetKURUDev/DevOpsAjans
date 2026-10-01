@@ -103,6 +103,19 @@ export default function AylikRaporSayfasi() {
       ? '—'
       : x.toLocaleString(dil, { day: '2-digit', month: 'short', year: 'numeric', ...(saatli ? { hour: '2-digit', minute: '2-digit' } : {}) });
   };
+  // Faz 2H: Core Web Vitals süreleri yerel birimle (2,9 sn / 240 ms).
+  const sure = (ms: number | null | undefined) => {
+    if (ms === null || ms === undefined) return '—';
+    try {
+      return new Intl.NumberFormat(dil, {
+        style: 'unit',
+        unit: ms >= 1000 ? 'second' : 'millisecond',
+        maximumFractionDigits: ms >= 1000 ? 1 : 0,
+      }).format(ms >= 1000 ? ms / 1000 : ms);
+    } catch {
+      return `${ms} ms`;
+    }
+  };
   const kalanRenk = (k: number | null) =>
     k === null ? '' : k < 0 ? 'text-red-300 print:text-red-700' : k <= 30 ? 'text-amber-200 print:text-amber-700' : 'text-emerald-200 print:text-emerald-700';
 
@@ -131,6 +144,8 @@ export default function AylikRaporSayfasi() {
 
   const v = rapor.veri;
   const o = v.ozet;
+  const analizVar = !(v.seo.length === 0 || v.seo.every((s) => s.puan === null));
+  const izleme = v.seo_izleme ?? [];
 
   return (
     <div className="aylik-rapor min-h-screen px-4 py-10 print:p-0 print:text-black" data-testid="aylik-rapor-sayfasi">
@@ -259,8 +274,10 @@ export default function AylikRaporSayfasi() {
         </Bolum>
 
         <Bolum ikon={Gauge} baslik={t('aylikRapor.bolum.seo')} testId="bolum-seo">
-          {v.seo.length === 0 || v.seo.every((s) => s.puan === null) ? (
-            <p className="text-sm text-muted-foreground print:text-gray-600">{t('aylikRapor.seo.yok')}</p>
+          {!analizVar ? (
+            izleme.length === 0 ? (
+              <p className="text-sm text-muted-foreground print:text-gray-600">{t('aylikRapor.seo.yok')}</p>
+            ) : null
           ) : (
             <div className="space-y-3">
               {v.seo.map((s) => (
@@ -295,6 +312,67 @@ export default function AylikRaporSayfasi() {
                   )}
                 </div>
               ))}
+            </div>
+          )}
+          {izleme.length > 0 && (
+            <div className={analizVar ? 'mt-5' : ''} data-testid="seo-izleme-ozeti">
+              <h3 className="mb-3 text-sm font-semibold">{t('aylikRapor.seoIzleme.baslik')}</h3>
+              <div className="space-y-3">
+                {izleme.map((s) => (
+                  <div key={s.site_id} className="rounded-xl border border-white/10 p-4 print:border-gray-200" data-testid={`seo-izleme-${s.site_id}`}>
+                    <div className="flex flex-wrap items-center gap-4">
+                      <div className="text-4xl font-bold">{s.son_puan ?? '—'}</div>
+                      <div className="min-w-0 flex-1 text-sm">
+                        <p className="font-medium">{s.ad}</p>
+                        <p className="text-xs text-muted-foreground print:text-gray-600">
+                          {t('aylikRapor.seoIzleme.sonPuan')} · {t('aylikRapor.seoIzleme.olcum', { sayi: s.olcum_sayisi })} · {tarih(s.son_tarih)}
+                        </p>
+                        {s.en_dusuk !== null && s.en_yuksek !== null && (
+                          <p className="text-xs text-muted-foreground print:text-gray-600">
+                            {t('aylikRapor.seoIzleme.aralik', { dusuk: s.en_dusuk, yuksek: s.en_yuksek })}
+                          </p>
+                        )}
+                      </div>
+                      {s.degisim !== null && s.degisim !== 0 && (
+                        <span
+                          className={`inline-flex items-center gap-1 text-sm font-semibold ${
+                            s.degisim > 0 ? 'text-emerald-300 print:text-emerald-700' : 'text-red-300 print:text-red-700'
+                          }`}
+                        >
+                          {s.degisim > 0 ? <ArrowUpRight className="h-4 w-4" aria-hidden="true" /> : <ArrowDownRight className="h-4 w-4" aria-hidden="true" />}
+                          {t('aylikRapor.seoIzleme.degisim', { sayi: `${s.degisim > 0 ? '+' : ''}${s.degisim}` })}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2 flex flex-wrap gap-2 text-xs">
+                      {(
+                        [
+                          [t('aylikRapor.seoIzleme.mobil'), s.son_mobil ?? '—'],
+                          [t('aylikRapor.seoIzleme.masaustu'), s.son_masaustu ?? '—'],
+                          ['LCP', sure(s.son_lcp_ms)],
+                          ['CLS', s.son_cls === null ? '—' : sayi(s.son_cls, 3)],
+                          ['TBT', sure(s.son_tbt_ms)],
+                        ] as const
+                      ).map(([etiket, deger]) => (
+                        <span key={etiket} className="rounded-full border border-white/10 px-2 py-0.5 print:border-gray-300">
+                          {etiket}: {deger}
+                        </span>
+                      ))}
+                    </p>
+                    {s.son_kritik.length > 0 && (
+                      <p className="mt-2 text-xs text-red-300 print:text-red-700">
+                        {t('aylikRapor.seoIzleme.kritik')}{' '}
+                        {s.son_kritik.map((k) => t(`aylikRapor.seoIzleme.kritikKod.${k}`, { defaultValue: k })).join(', ')}
+                      </p>
+                    )}
+                    {s.uyari_sayisi > 0 && (
+                      <p className="mt-1 text-xs text-muted-foreground print:text-gray-600">
+                        {t('aylikRapor.seoIzleme.uyari', { sayi: s.uyari_sayisi })}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </Bolum>

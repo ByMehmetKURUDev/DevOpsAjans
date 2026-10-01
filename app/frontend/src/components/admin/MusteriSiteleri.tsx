@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import {
   CalendarClock,
   Check,
   Code2,
+  Gauge,
   Globe,
   Loader2,
   Lock,
@@ -19,6 +20,7 @@ import SiteBakimKarti from '@/components/admin/SiteBakimKarti';
 import Yenilemeler from '@/components/admin/Yenilemeler';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { ekliLazy } from '@/i18n/ekliLazy';
 import { bakimKartlari, type BakimKarti } from '@/lib/siteBakim';
 import {
   erisimKaydet,
@@ -47,6 +49,9 @@ import {
  * kilitlediği için panelde hiçbir yerde kullanılmıyor.
  */
 
+// Faz 2H: "SEO ve hız" alt görünümü — kodu ve ek paketleri yalnız açılınca iner.
+const SeoOzeti = ekliLazy(['siteAnalizi', 'seoIzleme'], () => import('@/components/admin/SeoOzeti'));
+
 const ISLEM_ETIKETI: Record<string, string> = {
   giris: 'Giriş',
   guncelleme: 'Güncelleme',
@@ -67,8 +72,8 @@ export default function MusteriSiteleri() {
   const { t } = useTranslation();
   const [siteler, setSiteler] = useState<MusteriSitesi[]>([]);
   const [yukleniyor, setYukleniyor] = useState(true);
-  // Faz 2A: "Siteler" | "Yenilemeler" alt görünümü + site başına bakım kartı.
-  const [gorunum, setGorunum] = useState<'siteler' | 'yenilemeler'>('siteler');
+  // Faz 2A: "Siteler" | "Yenilemeler" alt görünümü + site başına bakım kartı; Faz 2H: "SEO ve hız".
+  const [gorunum, setGorunum] = useState<'siteler' | 'yenilemeler' | 'seo'>('siteler');
   const [kartlar, setKartlar] = useState<Record<number, BakimKarti>>({});
 
   const [eposta, setEposta] = useState('');
@@ -230,6 +235,7 @@ export default function MusteriSiteleri() {
         [
           ['siteler', Globe, t('siteBakim.sekme.siteler')],
           ['yenilemeler', CalendarClock, t('siteBakim.sekme.yenilemeler')],
+          ['seo', Gauge, t('siteBakim.sekme.seo')],
         ] as const
       ).map(([anahtar, Ikon, etiket]) => (
         <Button
@@ -247,6 +253,17 @@ export default function MusteriSiteleri() {
       ))}
     </div>
   );
+
+  if (gorunum === 'seo') {
+    return (
+      <div className="space-y-6">
+        {altGorunumler}
+        <Suspense fallback={<Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}>
+          <SeoOzeti />
+        </Suspense>
+      </div>
+    );
+  }
 
   if (gorunum === 'yenilemeler') {
     return (

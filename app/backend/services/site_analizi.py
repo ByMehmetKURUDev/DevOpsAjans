@@ -463,8 +463,46 @@ class Gezgin:
 # --------------------------------------------------------------------------
 # Dış ölçümler (testlerde sahteleri konuyor)
 # --------------------------------------------------------------------------
+#: Uçtan uca test için sabit PageSpeed sonucu: strateji → (puan 0-1, LCP ms, CLS, TBT ms).
+#: Yerel hedef site (127.0.0.1) Google'dan ölçülemiyor; tarayıcı testi puanları
+#: ve Core Web Vitals renklerini bununla görüyor.
+SAHTE_PAGESPEED: Dict[str, Tuple[float, float, float, float]] = {
+    "mobile": (0.74, 2900.0, 0.08, 240.0),
+    "desktop": (0.95, 1100.0, 0.02, 40.0),
+}
+
+
+def sahte_pagespeed_acik_mi() -> bool:
+    """Sabit sahte PageSpeed yanıtı YALNIZ `ENVIRONMENT=test` iken.
+
+    Üretimde ASLA: `uretim_mi()` evet diyorsa (Render'ın `RENDER` değişkeni
+    var ya da ENVIRONMENT tanımsız/dev-test-yerel dışı) kapalı. "dev" ya da
+    "yerel" de açmıyor — gerçek ölçüm isteyen geliştirme ortamı etkilenmesin.
+    Bu davranış testle bağlı (`test_seo_izleme.py`).
+    """
+    if uretim_mi():
+        return False
+    return (os.environ.get("ENVIRONMENT") or "").strip().lower() == "test"
+
+
+def _sahte_pagespeed(strateji: str) -> Dict[str, Any]:
+    puan, lcp, cls, tbt = SAHTE_PAGESPEED.get(strateji, SAHTE_PAGESPEED["mobile"])
+    return {
+        "lighthouseResult": {
+            "categories": {"performance": {"score": puan}},
+            "audits": {
+                "largest-contentful-paint": {"numericValue": lcp},
+                "cumulative-layout-shift": {"numericValue": cls},
+                "total-blocking-time": {"numericValue": tbt},
+            },
+        }
+    }
+
+
 async def _pagespeed_cagir(url: str, strateji: str) -> Dict[str, Any]:
     """PageSpeed Insights v5 ham yanıtı. Anahtar yoksa anahtarsız (düşük kota)."""
+    if sahte_pagespeed_acik_mi():
+        return _sahte_pagespeed(strateji)
     parametreler = {"url": url, "strategy": strateji, "category": "performance"}
     anahtar = (os.environ.get("PAGESPEED_API_KEY") or "").strip()
     if anahtar:
@@ -601,7 +639,9 @@ class Sayfa:
     oz: Optional[si.SayfaOzellikleri] = None
 
 
-def _seo_bolumu(ana: Sayfa, diger: List[Sayfa], robots_var: bool, sitemap_adet: Optional[int]) -> Bolum:
+def _seo_bolumu(
+    ana: Sayfa, diger: List[Sayfa], robots_var: bool, sitemap_adet: Optional[int], robots_metni: str = ""
+) -> Bolum:
     b = Bolum("seo")
     oz = ana.oz or si.SayfaOzellikleri()
 
@@ -640,6 +680,9 @@ def _seo_bolumu(ana: Sayfa, diger: List[Sayfa], robots_var: bool, sitemap_adet: 
         b.ekle("lang_yok", "uyari", 4)
     if not robots_var:
         b.ekle("robots_txt_yok", "uyari", 8)
+    elif robots_metni and si.robots_tumden_engelli_mi(robots_metni, "Googlebot"):
+        # Faz 2H: `Disallow: /` sitenin tamamını Google'a kapatıyor (noindex kadar ağır).
+        b.ekle("robots_engelli", "hata", 30)
     if sitemap_adet is None:
         b.ekle("sitemap_yok", "uyari", 8)
     else:
@@ -991,7 +1034,10 @@ async def analiz_et(ham_url: str) -> Dict[str, Any]:
     ssl_sonuc = yardimci.get("ssl") or (None, None)
     bolum_listesi = [
         _hiz_bolumu(hiz.get("mobil"), hiz.get("masaustu")),
-        _seo_bolumu(ana_sayfa, sayfalar[1:], robots_var, None if sitemap_adresleri is None else len(sitemap_adresleri)),
+        _seo_bolumu(
+            ana_sayfa, sayfalar[1:], robots_var,
+            None if sitemap_adresleri is None else len(sitemap_adresleri), robots_metni,
+        ),
         _icerik_bolumu(ana_sayfa, sayfalar, kiriklar, denetlenen),
         _teknik_bolumu(ana, sayfalar, yardimci.get("http")),
         _guvenlik_bolumu(ana, ssl_sonuc[0], ssl_sonuc[1]),

@@ -111,7 +111,8 @@
     "sekme": {
       "etiket": "Ansicht Websites",
       "siteler": "Websites",
-      "yenilemeler": "Verlängerungen"
+      "yenilemeler": "Verlängerungen",
+      "seo": "SEO und Geschwindigkeit"
     },
     "yenileme": {
       "baslik": "Anstehende Verlängerungen",
@@ -174,7 +175,8 @@
         "mesaj_bildirimleri": "Benachrichtigungen zu ungelesenen Nachrichten",
         "aylik_site_analizi": "Monatliche automatische Website-Analyse",
         "oturum_temizligi": "Bereinigung alter Sitzungsdaten",
-        "cop_kutusu_temizligi": "Löschen abgelaufener Papierkorb-Einträge"
+        "cop_kutusu_temizligi": "Löschen abgelaufener Papierkorb-Einträge",
+        "seo_taramasi": "Technischer SEO- und Geschwindigkeitsscan (3 Websites pro Lauf)"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

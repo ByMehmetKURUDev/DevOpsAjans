@@ -111,7 +111,8 @@
     "sekme": {
       "etiket": "Siteler görünümü",
       "siteler": "Siteler",
-      "yenilemeler": "Yenilemeler"
+      "yenilemeler": "Yenilemeler",
+      "seo": "SEO ve hız"
     },
     "yenileme": {
       "baslik": "Yaklaşan yenilemeler",
@@ -174,7 +175,8 @@
         "mesaj_bildirimleri": "Okunmamış mesaj bildirimleri",
         "aylik_site_analizi": "Aylık otomatik site analizi",
         "oturum_temizligi": "Eski oturum kayıtlarının temizliği",
-        "cop_kutusu_temizligi": "Çöp kutusunda süresi dolanların silinmesi"
+        "cop_kutusu_temizligi": "Çöp kutusunda süresi dolanların silinmesi",
+        "seo_taramasi": "Teknik SEO ve hız taraması (tur başına 3 site)"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { Check, Copy, ExternalLink, Loader2, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -7,6 +7,7 @@ import BitisRozetleri from '@/components/BitisRozetleri';
 import UptimeGrafigi from '@/components/UptimeGrafigi';
 import UptimeOzetSatiri from '@/components/UptimeOzetSatiri';
 import { Button } from '@/components/ui/button';
+import { ekliLazy } from '@/i18n/ekliLazy';
 import {
   BakimHatasi,
   kendiBakimKartlarim,
@@ -15,13 +16,18 @@ import {
   type BakimKarti,
 } from '@/lib/siteBakim';
 
+// Faz 2H: "SEO ve hız" bölümü — kendi kodu ve iki ek paketi (bulgu metinleri
+// `siteAnalizi`, bölüm metinleri `seoIzleme`) yalnız bu kart açılınca iner.
+const SeoKarti = ekliLazy(['siteAnalizi', 'seoIzleme'], () => import('@/components/SeoKarti'));
+
 /**
  * Müşteri › "Sitem" sekmesi › bakım ve erişilebilirlik kartı (Faz 2A).
  *
  * Salt okunur: alan adı / SSL / hosting bitişleri, uptime özeti ve 90
  * günlük grafik, son kesintiler. Müşterinin değiştirebildiği tek şey
  * herkese açık durum sayfası (aç/kapa, arama motorlarına açık mı).
- * Uptime modülü kapalıysa grafik yerine kısa bir not.
+ * Uptime modülü kapalıysa grafik yerine kısa bir not. Faz 2H: adresi olan
+ * sitede "SEO ve hız" bölümü (tembel `SeoKarti`).
  */
 export default function SitemBakim() {
   const { t, i18n } = useTranslation();
@@ -128,6 +134,14 @@ export default function SitemBakim() {
               </div>
             )}
           </div>
+
+          {k.adres && (
+            <div className="mt-4 border-t border-white/10 pt-4">
+              <Suspense fallback={<Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}>
+                <SeoKarti siteId={k.site_id} />
+              </Suspense>
+            </div>
+          )}
 
           {k.uptime_modulu && (
             <div className="mt-4 border-t border-white/10 pt-4">

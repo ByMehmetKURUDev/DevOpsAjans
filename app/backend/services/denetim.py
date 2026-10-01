@@ -76,6 +76,9 @@ HARIC_TABLOLAR = frozenset({
     # Faz 2G: kişi başına "nereye kadar okudu" (her yoklamada ilerleyebilir).
     # Mesajın kendisi (oluşturma/düzenleme/silme) kaydediliyor.
     "konusma_okunma",
+    # Faz 2H: SEO/hız ölçüm geçmişi ve uyarı kilidi (zamanlı görev ve "Şimdi
+    # tara" yazıyor; tarama sıklığı ayarı `site_izleme`de, o kaydediliyor).
+    "site_seo_gecmisi", "site_seo_uyarilari",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.

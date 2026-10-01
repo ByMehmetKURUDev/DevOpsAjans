@@ -231,6 +231,11 @@
         "neden": "robots.txt tells search engines what to crawl and where the sitemap is.",
         "oneri": "Add a robots.txt to the root and include a Sitemap: line."
       },
+      "robots_engelli": {
+        "baslik": "robots.txt blocks search engines from the site",
+        "neden": "A site-wide \"Disallow: /\" rule stops Google from crawling your pages; the site gradually drops out of search results.",
+        "oneri": "Remove the \"Disallow: /\" line from robots.txt on the live site; block only folders that must stay private (e.g. /admin)."
+      },
       "sitemap_yok": {
         "baslik": "No sitemap (sitemap.xml) found",
         "neden": "A sitemap helps search engines find every page quickly.",

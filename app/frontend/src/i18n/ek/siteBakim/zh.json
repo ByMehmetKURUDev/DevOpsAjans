@@ -111,7 +111,8 @@
     "sekme": {
       "etiket": "网站视图",
       "siteler": "网站",
-      "yenilemeler": "续费"
+      "yenilemeler": "续费",
+      "seo": "SEO 与速度"
     },
     "yenileme": {
       "baslik": "即将到期的续费",
@@ -174,7 +175,8 @@
         "mesaj_bildirimleri": "未读消息通知",
         "aylik_site_analizi": "每月自动网站分析",
         "oturum_temizligi": "清理旧的会话记录",
-        "cop_kutusu_temizligi": "删除回收站中已过期的记录"
+        "cop_kutusu_temizligi": "删除回收站中已过期的记录",
+        "seo_taramasi": "技术 SEO 与速度扫描（每轮 3 个网站）"
       },
       "gunluk": "每天",
       "haftalik": "每周"

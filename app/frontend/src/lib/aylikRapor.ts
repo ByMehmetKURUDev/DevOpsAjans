@@ -43,6 +43,27 @@ export interface SeoSatiri {
   bolumler: { anahtar: string; puan: number | null }[];
 }
 
+/** Faz 2H: ay içindeki teknik SEO/hız izleme ölçümlerinin site başına özeti. */
+export interface SeoIzlemeSatiri {
+  site_id: number;
+  ad: string;
+  olcum_sayisi: number;
+  ilk_puan: number | null;
+  son_puan: number | null;
+  degisim: number | null;
+  en_dusuk: number | null;
+  en_yuksek: number | null;
+  ortalama: number | null;
+  son_tarih: string | null;
+  son_mobil: number | null;
+  son_masaustu: number | null;
+  son_lcp_ms: number | null;
+  son_cls: number | null;
+  son_tbt_ms: number | null;
+  son_kritik: string[];
+  uyari_sayisi: number;
+}
+
 export interface RaporVerisi {
   donem: string;
   baslangic: string;
@@ -64,6 +85,8 @@ export interface RaporVerisi {
   };
   site_sagligi: SiteSagligi[];
   seo: SeoSatiri[];
+  /** Faz 2H; eski raporlarda yok. */
+  seo_izleme?: SeoIzlemeSatiri[];
   plan: {
     acik_projeler: { baslik: string; asama: string | null; ilerleme: number | null; durum: string | null }[];
     acik_talepler: { no: number; konu: string; durum: string | null }[];

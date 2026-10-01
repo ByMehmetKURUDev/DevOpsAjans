@@ -1,0 +1,80 @@
+{
+  "seoIzleme": {
+    "baslik": "SEO 与速度",
+    "aciklama": "我们会定期检查您网站的技术 SEO 和 Google PageSpeed 速度；如果评分下降或出现严重问题，我们会通知您。",
+    "henuzYok": "该网站还没有 SEO 与速度检测记录。",
+    "genel": "总评分",
+    "mobil": "移动端",
+    "masaustu": "桌面端",
+    "sonOlcum": "最近检测：{{tarih}}",
+    "sonrakiTarama": "下次自动扫描：{{tarih}}",
+    "otomatikKapali": "自动扫描已关闭",
+    "degisim": "较上次 {{sayi}} 分",
+    "olculemedi": "未测得",
+    "sonDenemeHata": "最近一次扫描未能完成：{{sebep}}",
+    "hataKodu": {
+      "ulasilamadi": "网站没有响应",
+      "cozumlenemedi": "找不到该域名",
+      "adres_yasak": "该地址无法扫描",
+      "adres_gecersiz": "地址无效",
+      "cok_yonlendirme": "重定向次数过多",
+      "zaman_asimi": "请求超时",
+      "yarida_kaldi": "扫描被中断",
+      "beklenmedik": "发生了意外错误"
+    },
+    "cwv": {
+      "baslik": "Core Web Vitals（实验室测量）",
+      "lcp": "LCP — 最大内容绘制",
+      "cls": "CLS — 布局偏移",
+      "tbt": "TBT — 总阻塞时间",
+      "iyi": "良好",
+      "orta": "需要改进",
+      "kotu": "较差",
+      "esik": "Google 阈值：LCP ≤2.5 秒为良好，≤4 秒需改进 · CLS ≤0.1 为良好，≤0.25 需改进 · TBT ≤200 毫秒为良好，≤600 毫秒需改进。"
+    },
+    "grafik": {
+      "baslik": "最近 {{sayi}} 天的评分",
+      "aria": "最近 {{sayi}} 天共检测 {{olcum}} 次；最新总评分 {{puan}}",
+      "tekOlcum": "至少需要两次检测才能绘制曲线。"
+    },
+    "bulgular": {
+      "baslik": "最重要的问题",
+      "yok": "未发现明显问题。",
+      "kritik": "严重",
+      "hata": "错误",
+      "uyari": "警告",
+      "bilgi": "提示"
+    },
+    "tara": {
+      "dugme": "立即扫描",
+      "suruyor": "正在扫描…（约 30 秒）",
+      "tamam": "扫描完成。",
+      "hata": "无法执行扫描。",
+      "gunlukSinir": "该网站在过去 24 小时内已扫描过；{{tarih}} 之后可再次扫描。",
+      "suruyorHata": "该网站正在扫描中，请稍后再查看。",
+      "sinirNotu": "每个网站每天只能手动扫描一次。",
+      "adresYok": "该网站没有保存地址。"
+    },
+    "yonetici": {
+      "baslik": "SEO 与速度概览",
+      "aciklama": "所有客户网站最新的技术 SEO 与速度评分。下降 {{esik}} 分及以上或出现新严重问题的网站排在最前面。",
+      "bos": "暂无客户网站。",
+      "site": "网站",
+      "degisim": "变化",
+      "sonOlcum": "最近检测",
+      "siklik": "自动扫描",
+      "dususte": "下降中",
+      "gecmis": "历史",
+      "kapat": "关闭",
+      "hicOlcum": "尚未检测",
+      "gunde": "每 {{sayi}} 天一次",
+      "kapali": "关闭",
+      "ayarKaydedildi": "扫描频率已保存。",
+      "yenile": "刷新"
+    },
+    "hata": {
+      "genel": "出现错误。",
+      "yuklenemedi": "无法加载 SEO 数据。"
+    }
+  }
+}

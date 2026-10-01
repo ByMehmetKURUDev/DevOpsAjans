@@ -104,6 +104,26 @@
       "bulunamadi": "Report not found.",
       "yonetici_gerekli": "This action requires administrator rights.",
       "modul_kapali": "The monthly report module is not enabled for your account."
+    },
+    "seoIzleme": {
+      "baslik": "SEO and speed monitoring",
+      "olcum": "{{sayi}} checks",
+      "sonPuan": "End-of-month score",
+      "aralik": "Lowest {{dusuk}} · highest {{yuksek}}",
+      "degisim": "{{sayi}} points over the month",
+      "mobil": "Mobile",
+      "masaustu": "Desktop",
+      "uyari": "{{sayi}} alerts sent",
+      "kritik": "Critical findings:",
+      "kritikKod": {
+        "noindex": "Hidden from search engines (noindex)",
+        "robots_engelli": "Blocked by robots.txt",
+        "sitemap_yok": "No sitemap",
+        "ssl_gecersiz": "Invalid SSL certificate",
+        "ssl_suresi_gecmis": "SSL certificate expired",
+        "https_yok": "No HTTPS",
+        "ana_sayfa_durum": "Home page returns an error"
+      }
     }
   }
 }

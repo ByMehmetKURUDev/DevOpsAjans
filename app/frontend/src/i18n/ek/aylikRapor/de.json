@@ -104,6 +104,26 @@
       "bulunamadi": "Bericht nicht gefunden.",
       "yonetici_gerekli": "Diese Aktion erfordert Administratorrechte.",
       "modul_kapali": "Das Modul Monatsbericht ist für Ihr Konto nicht aktiviert."
+    },
+    "seoIzleme": {
+      "baslik": "SEO- und Geschwindigkeitsüberwachung",
+      "olcum": "{{sayi}} Messungen",
+      "sonPuan": "Wert am Monatsende",
+      "aralik": "Niedrigster {{dusuk}} · höchster {{yuksek}}",
+      "degisim": "{{sayi}} Punkte im Monatsverlauf",
+      "mobil": "Mobil",
+      "masaustu": "Desktop",
+      "uyari": "{{sayi}} Warnungen gesendet",
+      "kritik": "Kritische Befunde:",
+      "kritikKod": {
+        "noindex": "Für Suchmaschinen gesperrt (noindex)",
+        "robots_engelli": "Durch robots.txt gesperrt",
+        "sitemap_yok": "Keine Sitemap",
+        "ssl_gecersiz": "Ungültiges SSL-Zertifikat",
+        "ssl_suresi_gecmis": "SSL-Zertifikat abgelaufen",
+        "https_yok": "Kein HTTPS",
+        "ana_sayfa_durum": "Startseite liefert einen Fehler"
+      }
     }
   }
 }

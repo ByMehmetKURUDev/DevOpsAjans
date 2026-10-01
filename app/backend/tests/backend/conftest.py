@@ -109,3 +109,26 @@ def musteri_basligi():
         return {"Authorization": f"Bearer {jeton_uret(eposta)}"}
 
     return _uret
+
+
+@pytest.fixture(autouse=True)
+def _dis_ag_kapali(monkeypatch):
+    """Testlerde dış ağ yok (Faz 2H): PageSpeed ve DNS varsayılan olarak "ağ yok".
+
+    Zamanlı uç (`/zamanli/calistir`) bütün görevleri — SEO taraması dahil —
+    çalıştırıyor; önceki testlerin açtığı sitelere gerçek PageSpeed/DNS isteği
+    gitmesin. Ağı sahteleyen test dosyaları (site analizi, site bakımı, SEO
+    izleme) kendi sahtelerini bunun ÜSTÜNE koyuyor; o testlerde onlar geçerli.
+    """
+    import socket
+
+    from services import site_analizi as motor
+
+    async def _pagespeed_yok(url, strateji):
+        raise httpx.ConnectError("test ortamında dış ağ yok")
+
+    async def _dns_yok(host, port):
+        raise socket.gaierror("test ortamında dış ağ yok")
+
+    monkeypatch.setattr(motor, "_pagespeed_cagir", _pagespeed_yok)
+    monkeypatch.setattr(motor, "_dns_cozumle", _dns_yok)

@@ -104,6 +104,26 @@
       "bulunamadi": "रिपोर्ट नहीं मिली।",
       "yonetici_gerekli": "इस कार्रवाई के लिए व्यवस्थापक अधिकार चाहिए।",
       "modul_kapali": "आपके खाते में मासिक रिपोर्ट मॉड्यूल चालू नहीं है।"
+    },
+    "seoIzleme": {
+      "baslik": "SEO और गति निगरानी",
+      "olcum": "{{sayi}} जाँचें",
+      "sonPuan": "महीने के अंत का स्कोर",
+      "aralik": "न्यूनतम {{dusuk}} · अधिकतम {{yuksek}}",
+      "degisim": "महीने में {{sayi}} अंक",
+      "mobil": "मोबाइल",
+      "masaustu": "डेस्कटॉप",
+      "uyari": "{{sayi}} चेतावनियाँ भेजी गईं",
+      "kritik": "गंभीर समस्याएँ:",
+      "kritikKod": {
+        "noindex": "सर्च इंजनों से छिपा (noindex)",
+        "robots_engelli": "robots.txt द्वारा अवरुद्ध",
+        "sitemap_yok": "साइटमैप नहीं है",
+        "ssl_gecersiz": "SSL प्रमाणपत्र अमान्य",
+        "ssl_suresi_gecmis": "SSL प्रमाणपत्र की अवधि समाप्त",
+        "https_yok": "HTTPS नहीं है",
+        "ana_sayfa_durum": "होम पेज त्रुटि दे रहा है"
+      }
     }
   }
 }

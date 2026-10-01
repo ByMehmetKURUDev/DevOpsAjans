@@ -431,6 +431,13 @@ class DatabaseManager:
             "tur_pg": "DOUBLE PRECISION",
             "tur_sqlite": "REAL",
         },
+        # Faz 2H — site başına teknik SEO taraması sıklığı (gün; boş = 7, 0 = kapalı).
+        {
+            "tablo": "site_izleme",
+            "sutun": "seo_tarama_gun",
+            "tur_pg": "INTEGER",
+            "tur_sqlite": "INTEGER",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

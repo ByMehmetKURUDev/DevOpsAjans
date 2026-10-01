@@ -1,0 +1,80 @@
+{
+  "seoIzleme": {
+    "baslik": "SEO und Geschwindigkeit",
+    "aciklama": "Das technische SEO Ihrer Website und die Google-PageSpeed-Geschwindigkeit werden regelmäßig geprüft; sinkt der Wert oder tritt ein kritisches Problem auf, benachrichtigen wir Sie.",
+    "henuzYok": "Für diese Website gibt es noch keine SEO- und Geschwindigkeitsmessung.",
+    "genel": "Gesamtwert",
+    "mobil": "Mobil",
+    "masaustu": "Desktop",
+    "sonOlcum": "Letzte Messung: {{tarih}}",
+    "sonrakiTarama": "Nächster automatischer Scan: {{tarih}}",
+    "otomatikKapali": "Automatischer Scan ist ausgeschaltet",
+    "degisim": "{{sayi}} Punkte ggü. vorher",
+    "olculemedi": "Nicht gemessen",
+    "sonDenemeHata": "Der letzte Scan konnte nicht abgeschlossen werden: {{sebep}}",
+    "hataKodu": {
+      "ulasilamadi": "die Website hat nicht geantwortet",
+      "cozumlenemedi": "die Domain wurde nicht gefunden",
+      "adres_yasak": "diese Adresse kann nicht gescannt werden",
+      "adres_gecersiz": "die Adresse ist ungültig",
+      "cok_yonlendirme": "es gibt zu viele Weiterleitungen",
+      "zaman_asimi": "Zeitüberschreitung",
+      "yarida_kaldi": "der Scan wurde unterbrochen",
+      "beklenmedik": "ein unerwarteter Fehler ist aufgetreten"
+    },
+    "cwv": {
+      "baslik": "Core Web Vitals (Labormessung)",
+      "lcp": "LCP — größter Inhalt geladen",
+      "cls": "CLS — Layoutverschiebung",
+      "tbt": "TBT — gesamte Blockierzeit",
+      "iyi": "Gut",
+      "orta": "Verbesserungswürdig",
+      "kotu": "Schlecht",
+      "esik": "Google-Schwellenwerte: LCP ≤2,5 s gut, ≤4 s verbesserungswürdig · CLS ≤0,1 gut, ≤0,25 verbesserungswürdig · TBT ≤200 ms gut, ≤600 ms verbesserungswürdig."
+    },
+    "grafik": {
+      "baslik": "Werte der letzten {{sayi}} Tage",
+      "aria": "{{olcum}} Messungen in den letzten {{sayi}} Tagen; letzter Gesamtwert {{puan}}",
+      "tekOlcum": "Für die Linie werden mindestens zwei Messungen benötigt."
+    },
+    "bulgular": {
+      "baslik": "Wichtigste Befunde",
+      "yok": "Es wurden keine wesentlichen Probleme gefunden.",
+      "kritik": "Kritisch",
+      "hata": "Fehler",
+      "uyari": "Warnung",
+      "bilgi": "Hinweis"
+    },
+    "tara": {
+      "dugme": "Jetzt scannen",
+      "suruyor": "Wird gescannt… (etwa 30 Sekunden)",
+      "tamam": "Scan abgeschlossen.",
+      "hata": "Der Scan konnte nicht ausgeführt werden.",
+      "gunlukSinir": "Diese Website wurde in den letzten 24 Stunden bereits gescannt; nach {{tarih}} können Sie erneut scannen.",
+      "suruyorHata": "Diese Website wird gerade gescannt; schauen Sie gleich noch einmal vorbei.",
+      "sinirNotu": "Manuelle Scans sind auf einmal pro Tag und Website begrenzt.",
+      "adresYok": "Für diese Website ist keine Adresse hinterlegt."
+    },
+    "yonetici": {
+      "baslik": "SEO- und Geschwindigkeitsübersicht",
+      "aciklama": "Aktueller technischer SEO- und Geschwindigkeitswert aller Kunden-Websites. Websites mit einem Rückgang um {{esik}} Punkte oder mehr bzw. mit neuem kritischen Befund stehen oben.",
+      "bos": "Noch keine Kunden-Websites.",
+      "site": "Website",
+      "degisim": "Änderung",
+      "sonOlcum": "Letzte Messung",
+      "siklik": "Automatischer Scan",
+      "dususte": "Rückläufig",
+      "gecmis": "Verlauf",
+      "kapat": "Schließen",
+      "hicOlcum": "Noch nicht gemessen",
+      "gunde": "Alle {{sayi}} Tage",
+      "kapali": "Aus",
+      "ayarKaydedildi": "Scanhäufigkeit gespeichert.",
+      "yenile": "Aktualisieren"
+    },
+    "hata": {
+      "genel": "Ein Fehler ist aufgetreten.",
+      "yuklenemedi": "SEO-Daten konnten nicht geladen werden."
+    }
+  }
+}
