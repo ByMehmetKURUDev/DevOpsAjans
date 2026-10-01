@@ -136,9 +136,15 @@ async def ekip(db_oturumu):
 
     asistan_sohbeti = await _ekle(db, AsistanSohbetleri(hesap_email=s, kisi_email=s, asistan_anahtar="seo-specialist",
                                                         baslik="Sahibin sohbeti", silindi=False))
+    # Faz 4Q: sahibin bir dinamik QR kaydı.
+    from models.dinamik_qr import DinamikQr
+
+    qr = await _ekle(db, DinamikQr(hesap_email=s, kod=uuid.uuid4().hex[:7], ad="Sahibin QR'ı", tur="url",
+                                   alanlar=json.dumps({"url": "https://sahip.example"}), hedef="https://sahip.example",
+                                   tarama_sayisi=0))
     k.update(P=p.id, F=f.id, T=t.id, Q=q.id, S=site.id, A=a.id, G=g.id, B=bt.id,
              I_PROJE=islem_proje.id, I_TEKLIF=islem_teklif.id, K=konusma.id, KM=ajans_mesaji.id,
-             AS=asistan_sohbeti.id)
+             AS=asistan_sohbeti.id, QR=qr.id)
     return k
 
 
@@ -222,6 +228,19 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/asistanlarim/sohbetler/{AS}", ("asistanlar",), None, 200),
     ("POST", "/api/v1/asistanlarim/sohbetler/{AS}/mesaj", ("asistanlar",), {"icerik": "Merhaba"}, "gecti"),
     ("DELETE", "/api/v1/asistanlarim/sohbetler/999999", ("asistanlar",), None, "gecti"),
+    # Faz 4Q — Dinamik QR ve kısa link (`qr` izni).
+    ("GET", "/api/v1/qr-kodlarim/meta", ("qr",), None, 200),
+    ("GET", "/api/v1/qr-kodlarim", ("qr",), None, 200),
+    ("POST", "/api/v1/qr-kodlarim", ("qr",), {"ad": "Ekip QR", "tur": "url", "alanlar": {"url": "https://ornek.com"}}, 200),
+    ("POST", "/api/v1/qr-kodlarim/onizleme", ("qr",), {"tur": "url"}, 200),
+    ("POST", "/api/v1/qr-kodlarim/toplu/onizleme", ("qr",), GOVDE_DOSYA, "gecti"),
+    ("POST", "/api/v1/qr-kodlarim/toplu/olustur", ("qr",), {"satirlar": []}, "gecti"),
+    ("POST", "/api/v1/qr-kodlarim/zip", ("qr",), {"idler": [999999], "bicim": "svg"}, "gecti"),
+    ("GET", "/api/v1/qr-kodlarim/{QR}", ("qr",), None, 200),
+    ("PUT", "/api/v1/qr-kodlarim/{QR}", ("qr",), {"ad": "Yeni ad"}, 200),
+    ("GET", "/api/v1/qr-kodlarim/{QR}/analiz", ("qr",), None, 200),
+    ("GET", "/api/v1/qr-kodlarim/{QR}/gorsel?bicim=svg", ("qr",), None, 200),
+    ("DELETE", "/api/v1/qr-kodlarim/999999", ("qr",), None, "gecti"),
     # Faz 3T — faturalarım (bakiye, PDF, ödeme bağlantısı), tekliflerim, sözleşmelerim (`faturalar` izni).
     ("GET", "/api/v1/faturalarim", ("faturalar",), None, 200),
     ("GET", "/api/v1/faturalarim/{F}", ("faturalar",), None, 200),

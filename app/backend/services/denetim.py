@@ -97,6 +97,9 @@ HARIC_TABLOLAR = frozenset({
     # Faz 3T: hatırlatma ve tekrarlayan fatura dönem kilitleri (zamanlı görevin
     # teknik izi; asıl fatura/sözleşme kayıtları kaydediliyor).
     "hatirlatma_izleri", "tekrarlayan_fatura_kayitlari",
+    # Faz 4Q: QR taramaları (herkese açık, her taramada bir satır) ve logo
+    # görseli (base64; logo ekleme/kaldırma `dinamik_qr.logo_var` ile kaydediliyor).
+    "dinamik_qr_taramalari", "dinamik_qr_logolari",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
@@ -124,6 +127,8 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     # Faz 3C: puan önbelleği, hatırlatma/bildirim kilitleri ve form sayaçları.
     "crm_adaylar": frozenset({"puan", "puan_ayrinti", "hatirlatma_tarihi", "bildirim_bekliyor", "asama_degisme_at"}),
     "crm_formlar": frozenset({"gonderim_sayisi", "son_gonderim_at"}),
+    # Faz 4Q: tarama sayacı (asıl kayıt `dinamik_qr_taramalari`).
+    "dinamik_qr": frozenset({"tarama_sayisi", "son_tarama_at"}),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

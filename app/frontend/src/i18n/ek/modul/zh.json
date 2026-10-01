@@ -136,6 +136,10 @@
       "proje_sablonlari": {
         "ad": "项目模板",
         "aciklama": "项目从现成的任务计划和带日期的里程碑开始；接受的报价会直接变成已规划的项目。"
+      },
+      "dinamik_qr": {
+        "ad": "动态二维码与短链接",
+        "aciklama": "可随时更改目标地址的二维码和短链接：Google 评价、WhatsApp、vCard、Wi-Fi 等；支持标志与颜色、CSV 批量创建和扫描统计。"
       }
     },
     "kategori": {
@@ -143,7 +147,8 @@
       "hizmet": "服务",
       "icerik": "内容",
       "finans": "财务",
-      "analiz": "分析"
+      "analiz": "分析",
+      "dijital_kimlik": "数字身份"
     },
     "durum": {
       "yayinda": "已上线",
@@ -165,7 +170,8 @@
       "eposta_ozeti": "报告发布时发送邮件摘要",
       "gunluk_sinir": "每日分析次数上限",
       "kontrol_araligi_dk": "检查间隔（分钟）",
-      "gunluk_mesaj": "每日消息上限（留空则使用全局设置）"
+      "gunluk_mesaj": "每日消息上限（留空则使用全局设置）",
+      "kayit_siniri": "每个账户的二维码/短链接上限"
     },
     "musteri": {
       "baslik": "我的模块",

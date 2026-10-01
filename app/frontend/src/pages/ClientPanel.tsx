@@ -20,6 +20,7 @@ import {
   FolderOpen,
   MessagesSquare,
   Bot,
+  QrCode,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -83,6 +84,8 @@ const HesapEkibi = ekliLazy('hesapEkibi', () => import('@/components/HesapEkibi'
 const Mesajlar = ekliLazy('mesajlar', () => import('@/components/Mesajlar'));
 // Faz 3U — Uzman Asistanlar (yapay zekâ sohbetleri; ek paket `uzmanAsistanlar`).
 const UzmanAsistanlar = ekliLazy('uzmanAsistanlar', () => import('@/components/UzmanAsistanlar'));
+// Faz 4Q — dinamik QR ve kısa link (yönetici paneliyle aynı bileşen, müşteri modu; ek paket `dinamikQr`).
+const DinamikQr = ekliLazy('dinamikQr', () => import('@/components/DinamikQr'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -151,6 +154,7 @@ type Tab =
   | 'raporlar'
   | 'sitem'
   | 'analiz'
+  | 'qr'
   | 'dosyalar'
   | 'profile';
 
@@ -168,6 +172,7 @@ const SEKMELER: Tab[] = [
   'raporlar',
   'sitem',
   'analiz',
+  'qr',
   'dosyalar',
   'profile',
 ];
@@ -177,7 +182,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -584,6 +589,7 @@ export default function ClientPanel() {
     raporlar: { label: t('rapor.sekme'), icon: FileText },
     sitem: { label: t('sitem.sekme'), icon: ShieldCheck },
     analiz: { label: t('ui.tabAnaliz'), icon: Gauge },
+    qr: { label: t('ui.tabDinamikQr'), icon: QrCode },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
   };
@@ -1157,6 +1163,18 @@ export default function ClientPanel() {
               }
             >
               <UzmanAsistanlar />
+            </Suspense>
+          )}
+
+          {tab === 'qr' && modulBilgisi !== null && modulAcik('dinamik_qr') && izinVar(['qr']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <DinamikQr mod="musteri" />
             </Suspense>
           )}
 

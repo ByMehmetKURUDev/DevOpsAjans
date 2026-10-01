@@ -136,6 +136,10 @@
       "proje_sablonlari": {
         "ad": "Projektvorlagen",
         "aciklama": "Ihr Projekt startet mit einem fertigen Aufgabenplan und terminierten Meilensteinen; ein angenommenes Angebot wird direkt zum geplanten Projekt."
+      },
+      "dinamik_qr": {
+        "ad": "Dynamische QR-Codes und Kurzlinks",
+        "aciklama": "QR-Codes und Kurzlinks, deren Ziel Sie später ändern können: Google-Bewertungen, WhatsApp, vCard, WLAN und mehr; Logo und Farben, CSV-Massenimport, Scan-Statistiken."
       }
     },
     "kategori": {
@@ -143,7 +147,8 @@
       "hizmet": "Leistung",
       "icerik": "Inhalte",
       "finans": "Finanzen",
-      "analiz": "Analyse"
+      "analiz": "Analyse",
+      "dijital_kimlik": "Digitale Identität"
     },
     "durum": {
       "yayinda": "Verfügbar",
@@ -165,7 +170,8 @@
       "eposta_ozeti": "Zusammenfassung per E-Mail senden, wenn ein Bericht veröffentlicht wird",
       "gunluk_sinir": "Tägliches Analyselimit",
       "kontrol_araligi_dk": "Prüfintervall (Minuten)",
-      "gunluk_mesaj": "Tägliches Nachrichtenlimit (leer = globale Einstellung)"
+      "gunluk_mesaj": "Tägliches Nachrichtenlimit (leer = globale Einstellung)",
+      "kayit_siniri": "Maximale Anzahl QR-Codes / Kurzlinks pro Konto"
     },
     "musteri": {
       "baslik": "Meine Module",

@@ -136,6 +136,10 @@
       "proje_sablonlari": {
         "ad": "Project templates",
         "aciklama": "Your project starts with a ready task plan and dated milestones; an accepted quote turns straight into a planned project."
+      },
+      "dinamik_qr": {
+        "ad": "Dynamic QR and short links",
+        "aciklama": "QR codes and short links whose destination you can change later: Google reviews, WhatsApp, vCard, Wi-Fi and more; logo and colours, bulk CSV, scan analytics."
       }
     },
     "kategori": {
@@ -143,7 +147,8 @@
       "hizmet": "Service",
       "icerik": "Content",
       "finans": "Finance",
-      "analiz": "Analytics"
+      "analiz": "Analytics",
+      "dijital_kimlik": "Digital identity"
     },
     "durum": {
       "yayinda": "Live",
@@ -165,7 +170,8 @@
       "eposta_ozeti": "Email a summary when a report is published",
       "gunluk_sinir": "Daily analysis limit",
       "kontrol_araligi_dk": "Check interval (minutes)",
-      "gunluk_mesaj": "Daily message limit (blank = global setting)"
+      "gunluk_mesaj": "Daily message limit (blank = global setting)",
+      "kayit_siniri": "Maximum QR codes / short links per account"
     },
     "musteri": {
       "baslik": "My modules",

@@ -141,6 +141,9 @@ export default defineConfig(async ({ command }) => {
         priority: { ...sitemapPriority, '*': 0.6 } as unknown as number,
         readable: true,
         generateRobotsTxt: true,
+        // Faz 4Q: `/q/<kod>` kısa adresleri (QR / kısa link yönlendirmeleri)
+        // taranmasın; zaten noindex ve 302, ama tarama bütçesi harcanmasın.
+        robots: [{ userAgent: '*', allow: '/', disallow: ['/q/'] }],
       }),
       ...(prerenderRoutes.length > 0
         ? vitePrerenderPlugin({

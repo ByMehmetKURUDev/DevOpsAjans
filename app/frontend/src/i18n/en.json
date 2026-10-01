@@ -481,7 +481,8 @@
     "tabBaglantilar": "Connections",
     "tabCrm": "Leads (CRM)",
     "tabZaman": "Time",
-    "tabProjeSablonlari": "Project templates"
+    "tabProjeSablonlari": "Project templates",
+    "tabDinamikQr": "QR & short links"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

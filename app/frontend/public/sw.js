@@ -10,8 +10,8 @@
  * değişmeden içeriği değişemez. Bu yüzden yalnızca onlar cache-first
  * alınabilir — en hızlısı ve en güvenlisi budur.
  *
- * API çağrıları (/api/) hiç dokunulmadan geçer: oturum, panel ve form
- * istekleri önbelleğe alınmamalı.
+ * API çağrıları (/api/) ve QR kısa adresleri (/q/) hiç dokunulmadan geçer:
+ * oturum, panel ve form istekleri ile yönlendirmeler önbelleğe alınmamalı.
  *
  * Web Push: sunucu `{title, body, url}` gönderir; bildirim tıklanınca aynı
  * kökendeki adres açılır (açık bir sekme varsa ona odaklanılır).
@@ -25,7 +25,7 @@
  * buydu. Önbelleğe alınan bir varlığın davranışı değiştiğinde bu sayı
  * artırılmalı.
  */
-const SURUM = 'mk-v3';
+const SURUM = 'mk-v4';
 const KABUK = `${SURUM}-kabuk`;
 const VARLIK = `${SURUM}-varlik`;
 const CEVRIMDISI = '/cevrimdisi.html';
@@ -71,6 +71,9 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
   if (url.pathname.startsWith('/api/')) return;
+  // Faz 4Q: QR / kısa link yönlendirmeleri (`/q/<kod>`) her zaman doğrudan
+  // ağa gitsin: önbelleğe alınmasın, çevrimdışıyken eski bir yönlendirme dönmesin.
+  if (url.pathname.startsWith('/q/')) return;
 
   // 1) Sayfalar — önce ağ.
   if (request.mode === 'navigate') {

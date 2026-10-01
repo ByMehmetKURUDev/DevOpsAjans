@@ -43,3 +43,8 @@ stripe>=12.0.0
 # data/fonts (Plus Jakarta Sans, OFL). pypdf yalnız testte PDF metnini okumak için.
 reportlab>=4.0
 pypdf>=3.0
+
+# Faz 4Q — dinamik QR: SVG/PNG üretimi (saf Python). Pillow logolu PNG için
+# (reportlab'ın bağımlılığı olarak zaten kurulu; doğrudan kullanıldığı için ayrıca yazıldı).
+segno>=1.6
+Pillow>=9.0

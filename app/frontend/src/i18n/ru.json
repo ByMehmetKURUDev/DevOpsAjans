@@ -481,7 +481,8 @@
     "tabBaglantilar": "Подключения",
     "tabCrm": "Лиды (CRM)",
     "tabZaman": "Время",
-    "tabProjeSablonlari": "Шаблоны проектов"
+    "tabProjeSablonlari": "Шаблоны проектов",
+    "tabDinamikQr": "QR и короткие ссылки"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

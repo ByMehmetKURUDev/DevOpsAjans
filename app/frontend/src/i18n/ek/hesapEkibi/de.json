@@ -29,7 +29,8 @@
       "krediler": "Guthaben",
       "abonelikler": "Abonnements",
       "mesajlar": "Nachrichten",
-      "asistanlar": "Fachassistenten"
+      "asistanlar": "Fachassistenten",
+      "qr": "QR und Kurzlinks"
     },
     "durum": {
       "davet": "Einladung ausstehend",

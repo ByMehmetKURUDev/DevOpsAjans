@@ -481,7 +481,8 @@
     "tabBaglantilar": "Verbindungen",
     "tabCrm": "Leads (CRM)",
     "tabZaman": "Zeit",
-    "tabProjeSablonlari": "Projektvorlagen"
+    "tabProjeSablonlari": "Projektvorlagen",
+    "tabDinamikQr": "QR & Kurzlinks"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

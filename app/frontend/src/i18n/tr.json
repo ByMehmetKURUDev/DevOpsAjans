@@ -481,7 +481,8 @@
     "tabBaglantilar": "Bağlantılar",
     "tabCrm": "Adaylar (CRM)",
     "tabZaman": "Zaman",
-    "tabProjeSablonlari": "Proje şablonları"
+    "tabProjeSablonlari": "Proje şablonları",
+    "tabDinamikQr": "QR ve kısa link"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

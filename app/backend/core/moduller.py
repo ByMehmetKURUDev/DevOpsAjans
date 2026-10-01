@@ -36,7 +36,7 @@ Kurallar
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
-KATEGORILER: Tuple[str, ...] = ("cekirdek", "hizmet", "icerik", "finans", "analiz")
+KATEGORILER: Tuple[str, ...] = ("cekirdek", "hizmet", "icerik", "finans", "analiz", "dijital_kimlik")
 ROLLER: Tuple[str, ...] = ("admin", "client", "her_ikisi")
 DURUMLAR: Tuple[str, ...] = ("yayinda", "beta", "yakinda")
 #: `pricing_scales.kod` değerleri (scripts/seed_pricing_v5.py).
@@ -337,6 +337,23 @@ MODULLER: Tuple[Modul, ...] = (
         # Müşterinin panelden günde yapabileceği analiz sayısı
         # (`/site-analizi/benim`; routers/site_analizi.py).
         ayarlar=(AyarAlani("gunluk_sinir", "int", 10, en_az=0, en_cok=500),),
+    ),
+    # --- Dijital Kimlik (Faz 4) ----------------------------------------------
+    # Faz 4Q — dinamik QR stüdyosu + kısa link (`/q/<kod>`), tarama analitiği,
+    # toplu CSV. Varsayılan KAPALI ve pakete bağlı değil: ayrı satılan modül
+    # (önerilen fiyat: aylık 19 $ — WorkDo eklentileri 19–69 $, QR SaaS
+    # planları 15–35 $/ay bandında). Yönetici müşteri başına açıyor.
+    # `kayit_siniri`: hesap başına en çok kayıt.
+    Modul(
+        anahtar="dinamik_qr",
+        ad_varsayilan={"tr": "Dinamik QR ve kısa link", "en": "Dynamic QR and short links"},
+        ikon="QrCode",
+        kategori="dijital_kimlik",
+        musteri_sekmesi="qr",
+        yonetici_sekmesi="dinamikQr",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("kayit_siniri", "int", 100, en_az=0, en_cok=100000),),
     ),
     Modul(
         anahtar="islem",

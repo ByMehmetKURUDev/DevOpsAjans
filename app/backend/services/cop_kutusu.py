@@ -89,6 +89,16 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "teklifler": {"sahip": "hesap_email", "sira": 10},
     "sozlesmeler": {"sahip": "hesap_email", "sira": 10},
     "sozlesme_sablonlari": {"sira": 10},
+    # Faz 4Q: QR kodu / kısa link ve logosu (birlikte silinir, birlikte geri gelir).
+    # Ajansın kendi kaydında sahip boş (yalnız yönetici görür). Taramalar silinmiyor:
+    # geri alınan QR analitiğiyle birlikte döner.
+    "dinamik_qr": {"sahip": "hesap_email", "sira": 10},
+    "dinamik_qr_logolari": {
+        "sahip_sorgu": "SELECT hesap_email FROM dinamik_qr WHERE id = :v",
+        "sahip_alan": "qr_id",
+        "sira": 20,
+        "ebeveyn": "dinamik_qr",
+    },
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

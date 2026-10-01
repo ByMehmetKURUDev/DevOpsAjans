@@ -481,7 +481,8 @@
     "tabBaglantilar": "कनेक्शन",
     "tabCrm": "लीड (CRM)",
     "tabZaman": "समय",
-    "tabProjeSablonlari": "प्रोजेक्ट टेम्पलेट"
+    "tabProjeSablonlari": "प्रोजेक्ट टेम्पलेट",
+    "tabDinamikQr": "QR और छोटे लिंक"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",
