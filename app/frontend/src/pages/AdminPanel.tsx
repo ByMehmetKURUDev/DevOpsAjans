@@ -55,6 +55,7 @@ import {
   LayoutTemplate,
   QrCode,
   IdCard,
+  UtensilsCrossed,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -150,6 +151,8 @@ const UzmanAsistanYonetimi = ekliLazy(['uzmanAsistanlar', 'marketplaceCeviri'], 
 const DinamikQr = ekliLazy('dinamikQr', () => import('@/components/DinamikQr'));
 // Faz 4K — dijital kartvizit + bio link ve Google yorum sayfaları (müşteri paneliyle aynı bileşen).
 const Kartvizit = ekliLazy('kartvizit', () => import('@/components/Kartvizit'));
+// Faz 4M — QR menü ve WhatsApp katalog (müşteri paneliyle aynı bileşen, yönetici modu).
+const QrMenu = ekliLazy(['qrMenu', 'qrMenuSayfa'], () => import('@/components/QrMenu'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
@@ -166,7 +169,7 @@ const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/a
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -295,6 +298,7 @@ type Tab =
   | 'uzmanAsistanlar'
   | 'dinamikQr'
   | 'kartvizit'
+  | 'qrMenu'
   | 'baglantilar'
   | 'crm'
   | 'zaman'
@@ -994,6 +998,7 @@ export default function AdminPanel() {
     { key: 'crm', label: t('ui.tabCrm'), icon: Handshake },
     { key: 'dinamikQr', label: t('ui.tabDinamikQr'), icon: QrCode },
     { key: 'kartvizit', label: t('ui.tabKartvizit'), icon: IdCard },
+    { key: 'qrMenu', label: t('ui.tabQrMenu'), icon: UtensilsCrossed },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
@@ -1102,6 +1107,18 @@ export default function AdminPanel() {
           }
         >
           <Kartvizit mod="yonetici" />
+        </Suspense>
+      )}
+
+      {tab === 'qrMenu' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <QrMenu mod="yonetici" />
         </Suspense>
       )}
 

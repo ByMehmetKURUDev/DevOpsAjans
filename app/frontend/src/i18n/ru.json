@@ -483,7 +483,8 @@
     "tabZaman": "Время",
     "tabProjeSablonlari": "Шаблоны проектов",
     "tabDinamikQr": "QR и короткие ссылки",
-    "tabKartvizit": "Цифровая визитка"
+    "tabKartvizit": "Цифровая визитка",
+    "tabQrMenu": "QR-меню и каталог"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

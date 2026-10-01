@@ -483,7 +483,8 @@
     "tabZaman": "Zaman",
     "tabProjeSablonlari": "Proje şablonları",
     "tabDinamikQr": "QR ve kısa link",
-    "tabKartvizit": "Dijital kartvizit"
+    "tabKartvizit": "Dijital kartvizit",
+    "tabQrMenu": "QR menü ve katalog"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

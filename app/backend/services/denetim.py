@@ -105,6 +105,10 @@ HARIC_TABLOLAR = frozenset({
     # formdan; kişisel veri — kendi tablosunda, denetime kopyalanmıyor). Kartın ve
     # sayfanın kendisi ile görselleri kaydediliyor.
     "kartvizit_olaylari", "kartvizit_eski_sluglar", "kartvizit_mesajlari",
+    # Faz 4M: menü siparişleri (herkese açık, KİŞİSEL VERİ taşıyor — saklama süresi
+    # dolunca anonimleşiyor; denetim kaydına kopyası kalmamalı), analitik olayları
+    # ve görsel kayıtları (içerik dosya deposunda). Mağaza/ürün/kupon kaydediliyor.
+    "menu_siparisleri", "menu_olaylari", "menu_gorselleri",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.

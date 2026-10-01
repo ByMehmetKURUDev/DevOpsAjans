@@ -32,8 +32,10 @@ import {
   Receipt,
   ShieldCheck,
   Star,
+  ShoppingBag,
   Timer,
   UserCog,
+  UtensilsCrossed,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -78,8 +80,10 @@ export const MODUL_IKONLARI: Record<string, LucideIcon> = {
   Receipt,
   ShieldCheck,
   Star,
+  ShoppingBag,
   Timer,
   UserCog,
+  UtensilsCrossed,
 };
 
 export function modulIkonu(ad?: string | null): LucideIcon {

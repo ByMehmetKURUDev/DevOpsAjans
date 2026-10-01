@@ -62,7 +62,8 @@
       "crm_yeni_aday": "CRM: новый лид",
       "crm_hatirlatma": "CRM: напоминание о следующем шаге (ежедневно)",
       "kartvizit_mesaj": "Новое сообщение с визитки",
-      "yorum_geri_bildirim": "Личный отзыв со страницы отзывов"
+      "yorum_geri_bildirim": "Личный отзыв со страницы отзывов",
+      "menu_siparis": "QR-меню / каталог: новый заказ"
     },
     "kanal": {
       "inapp": "Панель",

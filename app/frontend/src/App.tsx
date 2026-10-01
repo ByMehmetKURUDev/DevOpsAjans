@@ -57,6 +57,9 @@ function KokAdreseYonlendir({ onek }: { onek: 'kart' | 'yorum' }) {
   const { slug = '' } = useParams<{ slug: string }>();
   return <Navigate to={`/${onek}/${encodeURIComponent(slug)}`} replace />;
 }
+// Faz 4M: herkese açık QR menü / WhatsApp katalog (/menu/<slug>) — site düzeni dışında,
+// prerender yok, site haritasında yok; og/robots Pages Function'ında (functions/menu/[slug].js).
+const MenuSayfasi = ekliLazy('qrMenuSayfa', () => import('./pages/MenuSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -137,6 +140,8 @@ const AppRoutes = () => (
       <Route path="/yorum/:slug" element={<YorumSayfasi />} />
       <Route path="/:lang/kart/:slug" element={<KokAdreseYonlendir onek="kart" />} />
       <Route path="/:lang/yorum/:slug" element={<KokAdreseYonlendir onek="yorum" />} />
+      {/* Faz 4M: QR menü / katalog — site düzeni dışında (restoranın kendi sayfası gibi). */}
+      <Route path="/menu/:slug" element={<MenuSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

@@ -156,6 +156,17 @@ async def ekip(db_oturumu):
                                                      eposta="z@ornek.com"))
     yorum_mesaji = await _ekle(db, KartvizitMesajlari(sahip_tur="yorum", sahip_id=yorum.id, hesap_email=s, mesaj="Geri bildirim"))
     k.update(KV=kart.id, YS=yorum.id, KVM=kart_mesaji.id, YSM=yorum_mesaji.id)
+    # Faz 4M: sahibin bir QR menüsü (kategori + ürün + kupon + sipariş).
+    from models.qr_menu import MenuKategorileri, MenuKuponlari, MenuMagazalari, MenuSiparisleri, MenuUrunleri
+
+    menu = await _ekle(db, MenuMagazalari(hesap_email=s, slug=f"ekip-{uuid.uuid4().hex[:8]}", duzen="menu",
+                                          ad="Sahibin menüsü", whatsapp="+905551112233"))
+    mkat = await _ekle(db, MenuKategorileri(magaza_id=menu.id, ad="İçecekler", sira=1))
+    murun = await _ekle(db, MenuUrunleri(magaza_id=menu.id, kategori_id=mkat.id, ad="Çay", fiyat=2000, sira=1))
+    mkupon = await _ekle(db, MenuKuponlari(magaza_id=menu.id, kod="EKIP10", tur="yuzde", deger=10))
+    msip = await _ekle(db, MenuSiparisleri(magaza_id=menu.id, siparis_no=uuid.uuid4().hex[:8].upper(), kalemler="[]",
+                                           musteri_ad="Ali"))
+    k.update(MM=menu.id, MK=mkat.id, MU=murun.id, MC=mkupon.id, MS=msip.id)
     return k
 
 
@@ -282,6 +293,38 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/yorum-sayfalarim/{YS}/analiz", ("kartvizit",), None, 200),
     ("GET", "/api/v1/yorum-sayfalarim/{YS}/qr?bicim=svg", ("kartvizit",), None, 200),
     ("DELETE", "/api/v1/yorum-sayfalarim/999999", ("kartvizit",), None, "gecti"),
+    # Faz 4M — QR menü ve WhatsApp katalog (`menu` izni). Sahibin zaten bir menüsü var:
+    # yeni mağaza sınırda (409) → "gecti".
+    ("GET", "/api/v1/menulerim/meta", ("menu",), None, 200),
+    ("GET", "/api/v1/menulerim/siparis-ozeti", ("menu",), None, 200),
+    ("GET", "/api/v1/menulerim", ("menu",), None, 200),
+    ("POST", "/api/v1/menulerim", ("menu",), {"ad": "Ekip menüsü", "duzen": "menu"}, "gecti"),
+    ("GET", "/api/v1/menulerim/{MM}", ("menu",), None, 200),
+    ("PUT", "/api/v1/menulerim/{MM}", ("menu",), {"aciklama": "Ekipten"}, 200),
+    ("GET", "/api/v1/menulerim/{MM}/icerik", ("menu",), None, 200),
+    ("POST", "/api/v1/menulerim/{MM}/kategoriler", ("menu",), {"ad": "Tatlılar"}, 200),
+    ("POST", "/api/v1/menulerim/{MM}/kategoriler/sirala", ("menu",), {"idler": []}, 200),
+    ("PUT", "/api/v1/menulerim/{MM}/kategoriler/{MK}", ("menu",), {"ad": "Sıcak içecekler"}, 200),
+    ("DELETE", "/api/v1/menulerim/{MM}/kategoriler/999999", ("menu",), None, "gecti"),
+    ("POST", "/api/v1/menulerim/{MM}/urunler", ("menu",), {"kategori_id": 999999, "ad": "Kahve", "fiyat": "45"}, "gecti"),
+    ("POST", "/api/v1/menulerim/{MM}/urunler/sirala", ("menu",), {"idler": []}, 200),
+    ("PUT", "/api/v1/menulerim/{MM}/urunler/{MU}", ("menu",), {"fiyat": "25,50"}, 200),
+    ("DELETE", "/api/v1/menulerim/{MM}/urunler/999999", ("menu",), None, "gecti"),
+    ("POST", "/api/v1/menulerim/{MM}/gorsel", ("menu",), GOVDE_DOSYA, "gecti"),
+    ("POST", "/api/v1/menulerim/{MM}/ceviri", ("menu",), {"tur": "magaza"}, "gecti"),
+    ("GET", "/api/v1/menulerim/{MM}/kuponlar", ("menu",), None, 200),
+    ("POST", "/api/v1/menulerim/{MM}/kuponlar", ("menu",), {"kod": "YENI5", "tur": "yuzde", "deger": 5}, "gecti"),
+    ("PUT", "/api/v1/menulerim/{MM}/kuponlar/{MC}", ("menu",), {"aktif": True}, 200),
+    ("DELETE", "/api/v1/menulerim/{MM}/kuponlar/999999", ("menu",), None, "gecti"),
+    ("GET", "/api/v1/menulerim/{MM}/siparisler", ("menu",), None, 200),
+    ("GET", "/api/v1/menulerim/{MM}/siparisler/{MS}", ("menu",), None, 200),
+    ("PUT", "/api/v1/menulerim/{MM}/siparisler/{MS}", ("menu",), {"durum": "hazirlaniyor"}, 200),
+    ("GET", "/api/v1/menulerim/{MM}/analiz", ("menu",), None, 200),
+    ("GET", "/api/v1/menulerim/{MM}/qr?bicim=svg", ("menu",), None, 200),
+    ("POST", "/api/v1/menulerim/{MM}/masa-qr", ("menu",), {"bas": 1, "bit": 2, "bicim": "svg"}, "gecti"),
+    ("POST", "/api/v1/menulerim/{MM}/ice-aktar/onizleme", ("menu",), GOVDE_DOSYA, "gecti"),
+    ("POST", "/api/v1/menulerim/{MM}/ice-aktar", ("menu",), {"satirlar": []}, "gecti"),
+    ("DELETE", "/api/v1/menulerim/999999", ("menu",), None, "gecti"),
     # Faz 3T — faturalarım (bakiye, PDF, ödeme bağlantısı), tekliflerim, sözleşmelerim (`faturalar` izni).
     ("GET", "/api/v1/faturalarim", ("faturalar",), None, 200),
     ("GET", "/api/v1/faturalarim/{F}", ("faturalar",), None, 200),

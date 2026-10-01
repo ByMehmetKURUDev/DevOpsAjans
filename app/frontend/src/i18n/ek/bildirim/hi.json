@@ -62,7 +62,8 @@
       "crm_yeni_aday": "सीआरएम: नई लीड",
       "crm_hatirlatma": "सीआरएम: अगले कदम का रिमाइंडर (दैनिक)",
       "kartvizit_mesaj": "बिज़नेस कार्ड से नया संदेश",
-      "yorum_geri_bildirim": "समीक्षा पेज से निजी प्रतिक्रिया"
+      "yorum_geri_bildirim": "समीक्षा पेज से निजी प्रतिक्रिया",
+      "menu_siparis": "QR मेन्यू / कैटलॉग: नया ऑर्डर"
     },
     "kanal": {
       "inapp": "पैनल",

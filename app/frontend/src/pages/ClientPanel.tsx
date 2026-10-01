@@ -22,6 +22,7 @@ import {
   Bot,
   QrCode,
   IdCard,
+  UtensilsCrossed,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -89,6 +90,8 @@ const UzmanAsistanlar = ekliLazy('uzmanAsistanlar', () => import('@/components/U
 const DinamikQr = ekliLazy('dinamikQr', () => import('@/components/DinamikQr'));
 // Faz 4K — dijital kartvizit + Google yorum sayfası (yönetici paneliyle aynı bileşen, müşteri modu).
 const Kartvizit = ekliLazy('kartvizit', () => import('@/components/Kartvizit'));
+// Faz 4M — QR menü ve WhatsApp katalog (yönetici paneliyle aynı bileşen, müşteri modu).
+const QrMenu = ekliLazy(['qrMenu', 'qrMenuSayfa'], () => import('@/components/QrMenu'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -159,6 +162,7 @@ type Tab =
   | 'analiz'
   | 'qr'
   | 'kartvizit'
+  | 'menu'
   | 'dosyalar'
   | 'profile';
 
@@ -178,6 +182,7 @@ const SEKMELER: Tab[] = [
   'analiz',
   'qr',
   'kartvizit',
+  'menu',
   'dosyalar',
   'profile',
 ];
@@ -187,7 +192,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -467,6 +472,17 @@ export default function ClientPanel() {
       const yer = liste.findIndex((x) => SEKMELER.indexOf(x.key) > sira);
       liste.splice(yer < 0 ? liste.length : yer, 0, { key: 'kartvizit', ikon: 'Star' });
     }
+    // Faz 4M: tek motor iki modül — yalnız WhatsApp katalog açıksa da "menu" sekmesi
+    // (katalog modülünün kendi sekmesi yok; sırası QR menünün yerinde).
+    if (!liste.some((x) => x.key === 'menu') && izinli('menu')) {
+      const katalog = modulBilgisi.moduller.find((m) => m.anahtar === 'whatsapp_katalog');
+      const menuSirasi = modulBilgisi.moduller.findIndex((m) => m.anahtar === 'qr_menu');
+      if (katalog?.acik && katalog.durum !== 'yakinda') {
+        const once = new Set(modulBilgisi.moduller.slice(0, Math.max(0, menuSirasi)).map((m) => m.musteri_sekmesi));
+        const yer = liste.filter((x) => once.has(x.key)).length;
+        liste.splice(yer, 0, { key: 'menu', ikon: katalog.ikon });
+      }
+    }
     // Projeler ve profil çekirdek: sunucu ne derse desin sekme çubuğunda kalır
     // (projeler yalnız etkin hesapta izni varsa).
     if (!liste.some((x) => x.key === 'projects') && izinli('projects')) liste.unshift({ key: 'projects' });
@@ -607,6 +623,7 @@ export default function ClientPanel() {
     analiz: { label: t('ui.tabAnaliz'), icon: Gauge },
     qr: { label: t('ui.tabDinamikQr'), icon: QrCode },
     kartvizit: { label: t('ui.tabKartvizit'), icon: IdCard },
+    menu: { label: t('ui.tabQrMenu'), icon: UtensilsCrossed },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
   };
@@ -1209,6 +1226,17 @@ export default function ClientPanel() {
                 <Kartvizit mod="musteri" kartAcik={modulAcik('dijital_kartvizit')} yorumAcik={modulAcik('google_yorum_sayfasi')} />
               </Suspense>
             )}
+          {tab === 'menu' && modulBilgisi !== null && (modulAcik('qr_menu') || modulAcik('whatsapp_katalog')) && izinVar(['menu']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <QrMenu mod="musteri" />
+            </Suspense>
+          )}
 
           {tab === 'dosyalar' && modulAcik('dosyalar') && (
             <Suspense

@@ -62,7 +62,8 @@
       "crm_yeni_aday": "CRM: yeni aday",
       "crm_hatirlatma": "CRM: sonraki adım hatırlatması (günlük)",
       "kartvizit_mesaj": "Kartvizitten yeni mesaj",
-      "yorum_geri_bildirim": "Yorum sayfasından özel geri bildirim"
+      "yorum_geri_bildirim": "Yorum sayfasından özel geri bildirim",
+      "menu_siparis": "QR menü / katalog: yeni sipariş"
     },
     "kanal": {
       "inapp": "Panel",

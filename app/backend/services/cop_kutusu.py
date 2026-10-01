@@ -106,6 +106,28 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "yorum_sayfalari": {"sahip": "hesap_email", "sira": 10},
     "kartvizit_mesajlari": {"sahip": "hesap_email", "sira": 10},
     "kartvizit_gorselleri": {"sahip": "hesap_email", "sira": 20, "ebeveyn": ("kartvizitler", "yorum_sayfalari")},
+    # Faz 4M: QR menü / katalog mağazası — kategorileri, ürünleri ve kuponlarıyla
+    # birlikte silinir, birlikte geri gelir. Görseller ve siparişler silinmiyor
+    # (siparişlerin kişisel alanları silme anında anonimleştiriliyor).
+    "menu_magazalari": {"sahip": "hesap_email", "sira": 10},
+    "menu_kategorileri": {
+        "sahip_sorgu": "SELECT hesap_email FROM menu_magazalari WHERE id = :v",
+        "sahip_alan": "magaza_id",
+        "sira": 20,
+        "ebeveyn": "menu_magazalari",
+    },
+    "menu_urunleri": {
+        "sahip_sorgu": "SELECT hesap_email FROM menu_magazalari WHERE id = :v",
+        "sahip_alan": "magaza_id",
+        "sira": 30,
+        "ebeveyn": "menu_magazalari",
+    },
+    "menu_kuponlari": {
+        "sahip_sorgu": "SELECT hesap_email FROM menu_magazalari WHERE id = :v",
+        "sahip_alan": "magaza_id",
+        "sira": 20,
+        "ebeveyn": "menu_magazalari",
+    },
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

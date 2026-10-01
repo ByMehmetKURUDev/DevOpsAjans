@@ -31,7 +31,8 @@
       "mesajlar": "Messages",
       "asistanlar": "Expert Assistants",
       "qr": "QR and short links",
-      "kartvizit": "Digital business card and review page"
+      "kartvizit": "Digital business card and review page",
+      "menu": "QR menu & catalog"
     },
     "durum": {
       "davet": "Invitation pending",

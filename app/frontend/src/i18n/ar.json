@@ -483,7 +483,8 @@
     "tabZaman": "الوقت",
     "tabProjeSablonlari": "قوالب المشاريع",
     "tabDinamikQr": "QR والروابط المختصرة",
-    "tabKartvizit": "بطاقة الأعمال الرقمية"
+    "tabKartvizit": "بطاقة الأعمال الرقمية",
+    "tabQrMenu": "قائمة QR والكتالوج"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

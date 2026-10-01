@@ -388,6 +388,42 @@ MODULLER: Tuple[Modul, ...] = (
         ayarlar=(AyarAlani("sayfa_siniri", "int", 3, en_az=0, en_cok=1000),),
         yerlesim=("kartvizit",),
     ),
+    # Faz 4M — QR menü (restoran/kafe) ve WhatsApp katalog mağazası (ürün vitrini):
+    # TEK motor, iki düzen; hangi modül açıksa o düzende mağaza kurulur, ikisi de
+    # açıksa ikisi. Herkese açık sayfa `/menu/<slug>`, sipariş wa.me bağlantısıyla.
+    # Müşteri panelinde tek sekme ("menu"): katalog modülünün kendi sekmesi yok,
+    # yalnız katalog açıksa da aynı sekme görünür (ClientPanel). Varsayılan KAPALI,
+    # ayrı satılan modüller (önerilen: QR menü aylık 15 $, katalog aylık 19 $).
+    # `magaza_siniri` hesap başına bu düzende en çok mağaza; `urun_siniri` mağaza başına.
+    Modul(
+        anahtar="qr_menu",
+        ad_varsayilan={"tr": "QR menü", "en": "QR menu"},
+        ikon="UtensilsCrossed",
+        kategori="dijital_kimlik",
+        musteri_sekmesi="menu",
+        yonetici_sekmesi="qrMenu",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("magaza_siniri", "int", 1, en_az=0, en_cok=100),
+            AyarAlani("urun_siniri", "int", 300, en_az=0, en_cok=100000),
+        ),
+    ),
+    Modul(
+        anahtar="whatsapp_katalog",
+        ad_varsayilan={"tr": "WhatsApp katalog mağazası", "en": "WhatsApp catalog store"},
+        ikon="ShoppingBag",
+        kategori="dijital_kimlik",
+        musteri_sekmesi=None,
+        yonetici_sekmesi=None,
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("magaza_siniri", "int", 1, en_az=0, en_cok=100),
+            AyarAlani("urun_siniri", "int", 300, en_az=0, en_cok=100000),
+        ),
+        yerlesim=("menu",),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

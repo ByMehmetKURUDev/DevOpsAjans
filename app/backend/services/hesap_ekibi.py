@@ -61,6 +61,8 @@ IZINLER: Tuple[str, ...] = (
     "qr",
     # Faz 4K — Dijital kartvizit ve Google yorum sayfası (ekipte her kişi kendi kartını yapabilir).
     "kartvizit",
+    # Faz 4M — QR menü ve WhatsApp katalog mağazası.
+    "menu",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -70,8 +72,9 @@ SAHIP = "sahip"
 
 ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
+    # Faz 4K/4M: üye kendi kartvizitini ve menü/katalog mağazalarını da yönetir.
     "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
-            "kartvizit"),
+            "kartvizit", "menu"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
@@ -88,7 +91,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 3U–4Q arası varsayılan (asistanlar var, qr yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar"}),
-        # Faz 4Q–4K arası varsayılan (qr var, kartvizit yok).
+        # Faz 4Q–4K/4M arası varsayılan (qr var, kartvizit ve menu yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr"}),
     ),
@@ -96,6 +99,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar"}),
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar"}),
+        # Faz 4Q–4M arası varsayılan.
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr"}),
     ),
 }
@@ -146,6 +150,8 @@ OLAY_IZNI: Dict[str, str] = {
     # Faz 4K — kartın "iletişim bırak" mesajı ve yorum sayfasının özel geri bildirimi.
     "kartvizit_mesaj": "kartvizit",
     "yorum_geri_bildirim": "kartvizit",
+    # Faz 4M — menü/katalog mağazasına yeni WhatsApp siparişi.
+    "menu_siparis": "menu",
 }
 
 DAVET_OLAYI = "hesap_davet"

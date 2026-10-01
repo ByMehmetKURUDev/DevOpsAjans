@@ -428,6 +428,9 @@ export const NOINDEX_ROUTES = [
   // Faz 4K: dijital kartvizit ve Google yorum sayfasi; site haritasina girmez.
   '/kart',
   '/yorum',
+  // Faz 4M: QR menü / katalog (/menu/<slug>); mağazaya ait, site haritasına girmez
+  // (arama motoru görünürlüğü mağaza ayarı — robots'u Pages Function yazıyor).
+  '/menu',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

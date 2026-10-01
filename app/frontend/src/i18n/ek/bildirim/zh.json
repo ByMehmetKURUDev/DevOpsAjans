@@ -62,7 +62,8 @@
       "crm_yeni_aday": "CRM：新线索",
       "crm_hatirlatma": "CRM：下一步提醒（每日）",
       "kartvizit_mesaj": "来自名片的新消息",
-      "yorum_geri_bildirim": "来自评价页面的私下反馈"
+      "yorum_geri_bildirim": "来自评价页面的私下反馈",
+      "menu_siparis": "二维码菜单 / 目录：新订单"
     },
     "kanal": {
       "inapp": "面板",

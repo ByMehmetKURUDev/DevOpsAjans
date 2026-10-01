@@ -148,6 +148,14 @@
       "google_yorum_sayfasi": {
         "ad": "Google-Bewertungsseite",
         "aciklama": "QR-Seite für Tischkarten oder Kassenbons: große Schaltfläche „Bei Google bewerten“ und optionales privates Feedbackformular; Aufruf- und Klickanalyse."
+      },
+      "qr_menu": {
+        "ad": "QR-Speisekarte",
+        "aciklama": "Mehrsprachige QR-Speisekarte für Restaurants und Cafés: Tisch-QR-Codes, Kategorien, Artikel mit Optionen, Allergene, Warenkorb, Gutscheine und Bestellung per WhatsApp."
+      },
+      "whatsapp_katalog": {
+        "ad": "WhatsApp-Katalogshop",
+        "aciklama": "Produktschaufenster mit teilbaren Produktseiten; Kunden füllen den Warenkorb, die Bestellung kommt als WhatsApp-Nachricht. Keine Zahlungsanbindung nötig."
       }
     },
     "kategori": {
@@ -181,7 +189,9 @@
       "gunluk_mesaj": "Tägliches Nachrichtenlimit (leer = globale Einstellung)",
       "kayit_siniri": "Maximale Anzahl QR-Codes / Kurzlinks pro Konto",
       "kart_siniri": "Maximale Anzahl digitaler Visitenkarten pro Konto",
-      "sayfa_siniri": "Maximale Anzahl Bewertungsseiten pro Konto"
+      "sayfa_siniri": "Maximale Anzahl Bewertungsseiten pro Konto",
+      "magaza_siniri": "Max. Shops pro Konto (dieses Layout)",
+      "urun_siniri": "Max. Artikel pro Shop"
     },
     "musteri": {
       "baslik": "Meine Module",

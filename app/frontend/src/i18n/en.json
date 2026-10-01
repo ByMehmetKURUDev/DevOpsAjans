@@ -483,7 +483,8 @@
     "tabZaman": "Time",
     "tabProjeSablonlari": "Project templates",
     "tabDinamikQr": "QR & short links",
-    "tabKartvizit": "Digital business card"
+    "tabKartvizit": "Digital business card",
+    "tabQrMenu": "QR menu & catalog"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

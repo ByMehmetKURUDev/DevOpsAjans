@@ -148,6 +148,14 @@
       "google_yorum_sayfasi": {
         "ad": "Google 评价页面",
         "aciklama": "用于桌卡或小票的二维码页面：醒目的“在 Google 上写评价”按钮和可选的私下反馈表单；浏览与点击分析。"
+      },
+      "qr_menu": {
+        "ad": "二维码菜单",
+        "aciklama": "面向餐厅和咖啡馆的多语言二维码菜单：桌台二维码、分类、带选项的商品、过敏原、购物车、优惠码以及通过 WhatsApp 下单。"
+      },
+      "whatsapp_katalog": {
+        "ad": "WhatsApp 目录商店",
+        "aciklama": "可分享商品页面的商品橱窗；顾客加入购物车后，订单以 WhatsApp 消息发送。无需支付接入。"
       }
     },
     "kategori": {
@@ -181,7 +189,9 @@
       "gunluk_mesaj": "每日消息上限（留空则使用全局设置）",
       "kayit_siniri": "每个账户的二维码/短链接上限",
       "kart_siniri": "每个账户最多电子名片数",
-      "sayfa_siniri": "每个账户最多评价页面数"
+      "sayfa_siniri": "每个账户最多评价页面数",
+      "magaza_siniri": "每个账户最多商店数（此布局）",
+      "urun_siniri": "每个商店最多商品数"
     },
     "musteri": {
       "baslik": "我的模块",

@@ -63,6 +63,9 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/yorum/:slug',
   '/:lang/kart/:slug',
   '/:lang/yorum/:slug',
+  // Faz 4M: herkese açık QR menü / katalog — dinamik, mağazaya ait; paylaşım
+  // önizlemesini Pages Function yazıyor (functions/menu/[slug].js).
+  '/menu/:slug',
 ]);
 
 const missing = [...appRoutes].filter(

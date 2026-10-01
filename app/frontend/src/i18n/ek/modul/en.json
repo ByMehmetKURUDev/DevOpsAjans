@@ -148,6 +148,14 @@
       "google_yorum_sayfasi": {
         "ad": "Google review page",
         "aciklama": "A QR page for table cards or receipts: a large \"Write a review on Google\" button and an optional private feedback form; view and click analytics."
+      },
+      "qr_menu": {
+        "ad": "QR menu",
+        "aciklama": "A multilingual QR menu for restaurants and cafés: table QR codes, categories, items with options, allergens, cart, coupons and ordering via WhatsApp."
+      },
+      "whatsapp_katalog": {
+        "ad": "WhatsApp catalog store",
+        "aciklama": "A product showcase with shareable product pages; customers fill a cart and the order arrives as a WhatsApp message. No payment setup needed."
       }
     },
     "kategori": {
@@ -181,7 +189,9 @@
       "gunluk_mesaj": "Daily message limit (blank = global setting)",
       "kayit_siniri": "Maximum QR codes / short links per account",
       "kart_siniri": "Maximum digital business cards per account",
-      "sayfa_siniri": "Maximum review pages per account"
+      "sayfa_siniri": "Maximum review pages per account",
+      "magaza_siniri": "Max stores per account (this layout)",
+      "urun_siniri": "Max items per store"
     },
     "musteri": {
       "baslik": "My modules",

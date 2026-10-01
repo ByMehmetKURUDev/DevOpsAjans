@@ -104,6 +104,9 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # CRM'e düşüyor: `crm_yeni_aday`) ve yorum sayfasının özel geri bildirimi.
     "kartvizit_mesaj": {"roller": ("client",), "tetikleniyor": True},
     "yorum_geri_bildirim": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 4M — QR menü / katalog mağazasına yeni WhatsApp siparişi (mağaza sahibine;
+    # ajansın kendi mağazasında yöneticilere).
+    "menu_siparis": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

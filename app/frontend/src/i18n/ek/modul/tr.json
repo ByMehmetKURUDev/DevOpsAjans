@@ -148,6 +148,14 @@
       "google_yorum_sayfasi": {
         "ad": "Google yorum sayfası",
         "aciklama": "Masa kartı ya da fiş için QR'lı sayfa: büyük \"Google'da yorum yaz\" düğmesi ve isteğe bağlı özel geri bildirim formu; görüntülenme ve tıklama analitiği."
+      },
+      "qr_menu": {
+        "ad": "QR menü",
+        "aciklama": "Restoran ve kafeler için çok dilli QR menü: masa QR'ları, kategoriler, seçenekli ürünler, alerjenler, sepet, kupon ve WhatsApp ile sipariş."
+      },
+      "whatsapp_katalog": {
+        "ad": "WhatsApp katalog mağazası",
+        "aciklama": "Ürün vitrini ve paylaşılabilir ürün sayfaları; müşteri sepetini doldurur, sipariş WhatsApp mesajıyla gelir. Ödeme altyapısı gerekmez."
       }
     },
     "kategori": {
@@ -181,7 +189,9 @@
       "gunluk_mesaj": "Günlük mesaj sınırı (boşsa genel ayar)",
       "kayit_siniri": "Hesap başına en çok QR / kısa link",
       "kart_siniri": "Hesap başına en çok dijital kartvizit",
-      "sayfa_siniri": "Hesap başına en çok yorum sayfası"
+      "sayfa_siniri": "Hesap başına en çok yorum sayfası",
+      "magaza_siniri": "Hesap başına en çok mağaza (bu düzende)",
+      "urun_siniri": "Mağaza başına en çok ürün"
     },
     "musteri": {
       "baslik": "Modüllerim",

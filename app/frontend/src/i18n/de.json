@@ -483,7 +483,8 @@
     "tabZaman": "Zeit",
     "tabProjeSablonlari": "Projektvorlagen",
     "tabDinamikQr": "QR & Kurzlinks",
-    "tabKartvizit": "Digitale Visitenkarte"
+    "tabKartvizit": "Digitale Visitenkarte",
+    "tabQrMenu": "QR-Speisekarte & Katalog"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
