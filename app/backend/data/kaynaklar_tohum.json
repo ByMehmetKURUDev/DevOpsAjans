@@ -7341,6 +7341,97 @@
       "one_cikan": false,
       "sira": 850,
       "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "codegraph",
+      "kategori": "mcp-eklenti",
+      "baslik": {
+        "tr": "CodeGraph: Kod Tabanınızı Kodlama Ajanları İçin Yerel Bilgi Grafiğine Çeviren MCP Sunucusu",
+        "en": "CodeGraph: An MCP Server That Turns Your Codebase into a Local Knowledge Graph for Coding Agents",
+        "de": "CodeGraph: MCP-Server, der Ihre Codebasis in einen lokalen Wissensgraphen für Coding-Agenten verwandelt",
+        "ru": "CodeGraph: MCP-сервер, превращающий кодовую базу в локальный граф знаний для ИИ-агентов",
+        "zh": "CodeGraph：把代码库变成本地知识图谱、供编码智能体使用的 MCP 服务器",
+        "hi": "CodeGraph: कोडबेस को कोडिंग एजेंटों के लिए लोकल नॉलेज ग्राफ़ में बदलने वाला MCP सर्वर",
+        "ar": "CodeGraph: خادم MCP يحوّل قاعدة الشيفرة إلى رسم معرفي محلي لوكلاء البرمجة"
+      },
+      "ozet": {
+        "tr": "Kod tabanını yerel bir bilgi grafiğine çevirip Claude Code gibi ajanlara MCP ile sunan açık kaynak araç; daha az dosya taraması, daha hızlı yanıt sağlar.",
+        "en": "Open-source tool that turns your codebase into a local knowledge graph and serves it to agents like Claude Code via MCP: less file crawling, faster answers.",
+        "de": "Open-Source-Tool: macht Ihre Codebasis zum lokalen Wissensgraphen und liefert ihn per MCP an Agenten wie Claude Code – weniger Dateisuche, schnellere Antworten.",
+        "ru": "Открытый инструмент превращает кодовую базу в локальный граф знаний и отдаёт его агентам вроде Claude Code через MCP: меньше обхода файлов, быстрее ответы.",
+        "zh": "开源工具，把代码库转换为本地知识图谱，并通过 MCP 提供给 Claude Code 等智能体：少翻文件，回答更快。",
+        "hi": "ओपन-सोर्स टूल जो कोडबेस को लोकल नॉलेज ग्राफ़ में बदलकर MCP से Claude Code जैसे एजेंटों को देता है: फ़ाइलों की कम खोज, तेज़ जवाब।",
+        "ar": "أداة مفتوحة المصدر تحوّل قاعدة الشيفرة إلى رسم معرفي محلي وتقدّمه عبر MCP لوكلاء مثل Claude Code: بحث أقل في الملفات وإجابات أسرع."
+      },
+      "aciklama": {
+        "tr": "CodeGraph, kod tabanınızdaki fonksiyonları, sınıfları, çağrıları ve bağımlılıkları yerel bir SQLite veritabanında bilgi grafiğine dönüştüren ve bunu MCP sunucusu olarak Claude Code, Cursor, Codex CLI, Gemini CLI ve GitHub Copilot gibi kodlama ajanlarına sunan açık kaynaklı bir araçtır. Ajan dosyaları tek tek arayıp okumak yerine tek bir codegraph_explore çağrısıyla ilgili kaynak kodu, aradaki çağrı yollarını ve bir değişikliğin etki alanını alır. Dosya izleyici sayesinde grafik her kayıtta kendiliğinden güncellenir. TypeScript, JavaScript, Python, PHP ve Go dahil 20'den fazla dili destekler; MIT lisanslıdır.\n\nDizinleme ve sorgular tamamen bilgisayarınızda çalışır: kaynak kod, dosya adları ve sorgular dışarı gönderilmez, API anahtarı gerekmez. Bununla birlikte varsayılan olarak açık, anonim bir kullanım telemetrisi vardır (komut ve dil adları, kaba dosya sayısı aralıkları); codegraph telemetry off ya da DO_NOT_TRACK=1 ile tamamen kapanır. MCP sunucusu ayrıca günde en fazla bir kez GitHub'da yeni sürüm olup olmadığına bakar. Kurulum sihirbazı Claude Code ayarlarına MCP kaydı, CLAUDE.md dosyasına kısa bir bölüm, araç için otomatik onay izni ve her istemde çalışan yerel bir kanca ekler; bunların hepsi sorulur ve codegraph uninstall ile geri alınır.\n\nAjans olarak Claude Code ile çalıştığımız büyük kod tabanlarında, özellikle devraldığımız eski müşteri sitelerinde, ajanın keşfe harcadığı adımları ve token'ları azaltmak için değerlendiriyoruz. Geliştiricinin kendi ölçümlerinde araç çağrısı sayısı ve maliyet belirgin biçimde düşüyor; ancak README'de uzun oturumlarda bağlam penceresinde daha fazla yer kaplayabildiği de belirtiliyor. Müşteri kodunda telemetriyi kapatmanızı ve önce küçük bir projede denemenizi öneririz. Kod dışındaki belgeler, PDF'ler ve notlar için Graphify daha uygun bir seçenek.",
+        "en": "CodeGraph is an open-source tool that turns the functions, classes, calls and dependencies in your codebase into a knowledge graph in a local SQLite database and serves it as an MCP server to coding agents such as Claude Code, Cursor, Codex CLI, Gemini CLI and GitHub Copilot. Instead of searching and reading files one by one, the agent gets the relevant source, the call paths between symbols and the blast radius of a change from a single codegraph_explore call. A file watcher keeps the graph up to date on every save. It supports more than 20 languages, including TypeScript, JavaScript, Python, PHP and Go, and is MIT-licensed.\n\nIndexing and queries run entirely on your machine: no source code, file names or queries are sent anywhere, and no API key is needed. There is, however, anonymous usage telemetry that is on by default (command and language names, coarse file-count ranges); codegraph telemetry off or DO_NOT_TRACK=1 turns it off completely. The MCP server also checks GitHub for a new release at most once a day. The installer adds an MCP entry to Claude Code's settings, a short section to CLAUDE.md, an auto-approve permission for the tool and a local hook that runs on every prompt; each one is asked about and reversed by codegraph uninstall.\n\nAt the agency we are evaluating it for large codebases we work on with Claude Code, especially older client sites we take over, to cut the steps and tokens the agent spends on discovery. In the developer's own benchmarks, tool calls and cost drop markedly, though the README also notes it can occupy more of the context window in long sessions. We recommend turning off telemetry for client code and trying it on a small project first. For documents, PDFs and notes beyond code, Graphify is a better fit.",
+        "de": "CodeGraph ist ein Open-Source-Tool, das Funktionen, Klassen, Aufrufe und Abhängigkeiten Ihrer Codebasis in einer lokalen SQLite-Datenbank zu einem Wissensgraphen verarbeitet und ihn als MCP-Server Coding-Agenten wie Claude Code, Cursor, Codex CLI, Gemini CLI und GitHub Copilot bereitstellt. Statt Dateien einzeln zu durchsuchen und zu lesen, erhält der Agent mit einem einzigen codegraph_explore-Aufruf den relevanten Quellcode, die Aufrufpfade zwischen den Symbolen und die Auswirkungen einer Änderung. Ein Datei-Watcher hält den Graphen bei jedem Speichern aktuell. Unterstützt werden mehr als 20 Sprachen, darunter TypeScript, JavaScript, Python, PHP und Go; Lizenz: MIT.\n\nIndexierung und Abfragen laufen vollständig auf Ihrem Rechner: Quellcode, Dateinamen und Abfragen werden nicht übertragen, ein API-Schlüssel ist nicht nötig. Allerdings gibt es eine standardmäßig aktive, anonyme Nutzungstelemetrie (Befehls- und Sprachnamen, grobe Bereiche der Dateianzahl); codegraph telemetry off oder DO_NOT_TRACK=1 schaltet sie vollständig ab. Zudem prüft der MCP-Server höchstens einmal täglich auf GitHub, ob es eine neue Version gibt. Der Installer trägt einen MCP-Eintrag in die Claude-Code-Einstellungen ein, ergänzt CLAUDE.md um einen kurzen Abschnitt und legt eine automatische Freigabe für das Tool sowie einen lokalen Hook an, der bei jedem Prompt läuft; all das wird abgefragt und lässt sich mit codegraph uninstall rückgängig machen.\n\nIn der Agentur prüfen wir es für große Codebasen, an denen wir mit Claude Code arbeiten – vor allem übernommene ältere Kundenwebsites –, um die Schritte und Tokens zu reduzieren, die der Agent für die Erkundung aufwendet. In den eigenen Messungen des Entwicklers sinken Tool-Aufrufe und Kosten deutlich; laut README kann es in langen Sitzungen aber mehr Platz im Kontextfenster belegen. Wir empfehlen, bei Kundencode die Telemetrie abzuschalten und es zuerst an einem kleinen Projekt zu testen. Für Dokumente, PDFs und Notizen jenseits des Codes eignet sich Graphify besser.",
+        "ru": "CodeGraph — инструмент с открытым исходным кодом, который превращает функции, классы, вызовы и зависимости вашей кодовой базы в граф знаний в локальной базе SQLite и предоставляет его как MCP-сервер ИИ-агентам для программирования: Claude Code, Cursor, Codex CLI, Gemini CLI и GitHub Copilot. Вместо того чтобы искать и читать файлы по одному, агент одним вызовом codegraph_explore получает нужный исходный код, пути вызовов между символами и зону влияния изменения. Наблюдатель за файлами обновляет граф при каждом сохранении. Поддерживается более 20 языков, включая TypeScript, JavaScript, Python, PHP и Go; лицензия MIT.\n\nИндексация и запросы выполняются полностью на вашем компьютере: исходный код, имена файлов и запросы никуда не отправляются, API-ключ не нужен. При этом по умолчанию включена анонимная телеметрия использования (названия команд и языков, грубые диапазоны числа файлов); команда codegraph telemetry off или DO_NOT_TRACK=1 полностью её отключает. Кроме того, MCP-сервер не чаще раза в день проверяет на GitHub, вышла ли новая версия. Установщик добавляет запись MCP в настройки Claude Code, короткий раздел в CLAUDE.md, автоматическое разрешение для инструмента и локальный хук, срабатывающий при каждом запросе; обо всём этом он спрашивает, а codegraph uninstall всё отменяет.\n\nВ агентстве мы оцениваем его для крупных кодовых баз, с которыми работаем в Claude Code, особенно для старых клиентских сайтов, принятых на поддержку, чтобы сократить шаги и токены, которые агент тратит на изучение кода. По собственным замерам разработчика число вызовов инструментов и стоимость заметно снижаются, хотя в README отмечено, что в длинных сессиях он может занимать больше места в контекстном окне. Для клиентского кода советуем отключить телеметрию и сначала попробовать инструмент на небольшом проекте. Для документов, PDF и заметок помимо кода лучше подходит Graphify.",
+        "zh": "CodeGraph 是一款开源工具，它把代码库中的函数、类、调用和依赖关系整理成存放在本地 SQLite 数据库中的知识图谱，并以 MCP 服务器的形式提供给 Claude Code、Cursor、Codex CLI、Gemini CLI 和 GitHub Copilot 等编码智能体。智能体无需逐个搜索和读取文件，只需一次 codegraph_explore 调用，就能拿到相关源码、符号之间的调用路径以及一次修改的影响范围。文件监视器会在每次保存时自动更新图谱。它支持 TypeScript、JavaScript、Python、PHP、Go 等 20 多种语言，采用 MIT 许可证。\n\n索引和查询完全在您的电脑上运行：源码、文件名和查询内容都不会外传，也不需要 API 密钥。不过，它默认开启匿名使用遥测（命令名和语言名、粗略的文件数量区间），可用 codegraph telemetry off 或 DO_NOT_TRACK=1 彻底关闭。此外，MCP 服务器每天最多一次到 GitHub 检查是否有新版本。安装向导会在 Claude Code 设置中写入 MCP 配置、在 CLAUDE.md 中加入一小段说明、为该工具添加自动批准权限，并添加一个在每次提问时运行的本地钩子；每一项都会先征求同意，也可用 codegraph uninstall 全部撤销。\n\n我们正在评估把它用于借助 Claude Code 处理的大型代码库，尤其是接手的客户旧网站，以减少智能体在摸索代码上花费的步骤和 token。在开发者自己的测试中，工具调用次数和成本明显下降；但 README 也指出，在长会话中它可能占用更多上下文窗口。对于客户代码，我们建议关闭遥测，并先在小项目上试用。如果要处理代码以外的文档、PDF 和笔记，Graphify 更合适。",
+        "hi": "CodeGraph एक ओपन-सोर्स टूल है जो आपके कोडबेस के फ़ंक्शन, क्लास, कॉल और डिपेंडेंसी को लोकल SQLite डेटाबेस में नॉलेज ग्राफ़ के रूप में सहेजता है और उसे MCP सर्वर के रूप में Claude Code, Cursor, Codex CLI, Gemini CLI और GitHub Copilot जैसे कोडिंग एजेंटों को उपलब्ध कराता है। एजेंट फ़ाइलों को एक-एक कर खोजने और पढ़ने के बजाय एक ही codegraph_explore कॉल से संबंधित सोर्स कोड, सिंबल के बीच कॉल पाथ और किसी बदलाव का असर-क्षेत्र पा लेता है। फ़ाइल वॉचर हर सेव पर ग्राफ़ अपने-आप अपडेट रखता है। यह TypeScript, JavaScript, Python, PHP और Go समेत 20 से ज़्यादा भाषाओं को सपोर्ट करता है और MIT लाइसेंस में है।\n\nइंडेक्सिंग और क्वेरी पूरी तरह आपके कंप्यूटर पर चलती हैं: सोर्स कोड, फ़ाइल नाम और क्वेरी कहीं नहीं भेजे जाते, और API कुंजी की ज़रूरत नहीं होती। फिर भी डिफ़ॉल्ट रूप से चालू एक अनाम उपयोग टेलीमेट्री है (कमांड और भाषा के नाम, फ़ाइल संख्या की मोटी रेंज); codegraph telemetry off या DO_NOT_TRACK=1 से इसे पूरी तरह बंद किया जा सकता है। इसके अलावा MCP सर्वर दिन में अधिकतम एक बार GitHub पर नया संस्करण जाँचता है। इंस्टॉलर Claude Code की सेटिंग में MCP एंट्री, CLAUDE.md में एक छोटा सेक्शन, टूल के लिए ऑटो-अनुमति और हर प्रॉम्प्ट पर चलने वाला एक लोकल हुक जोड़ता है; हर चीज़ पहले पूछी जाती है और codegraph uninstall से हटाई जा सकती है।\n\nएजेंसी में हम इसे Claude Code के साथ बड़े कोडबेस, ख़ासकर हमें सौंपी गई पुरानी क्लाइंट साइटों, पर एजेंट की खोजबीन में लगने वाले कदम और टोकन घटाने के लिए परख रहे हैं। डेवलपर के अपने माप में टूल कॉल और लागत काफ़ी घटती है, हालाँकि README यह भी बताता है कि लंबे सेशन में यह कॉन्टेक्स्ट विंडो में ज़्यादा जगह ले सकता है। हमारी सलाह है कि क्लाइंट कोड पर टेलीमेट्री बंद करें और पहले किसी छोटे प्रोजेक्ट पर आज़माएँ। कोड के अलावा दस्तावेज़, PDF और नोट्स के लिए Graphify बेहतर विकल्प है।",
+        "ar": "CodeGraph أداة مفتوحة المصدر تحوّل الدوال والأصناف والاستدعاءات والاعتماديات في قاعدة الشيفرة لديك إلى رسم معرفي داخل قاعدة بيانات SQLite محلية، وتقدّمه بصفتها خادم MCP لوكلاء البرمجة مثل Claude Code وCursor وCodex CLI وGemini CLI وGitHub Copilot. فبدلًا من البحث في الملفات وقراءتها واحدًا تلو الآخر، يحصل الوكيل باستدعاء واحد لـ codegraph_explore على الشيفرة المصدرية ذات الصلة ومسارات الاستدعاء بين الرموز ونطاق تأثير أي تعديل. ويُبقي مراقب الملفات الرسم محدّثًا عند كل حفظ. يدعم أكثر من 20 لغة منها TypeScript وJavaScript وPython وPHP وGo، ومرخّص بموجب MIT.\n\nتعمل الفهرسة والاستعلامات بالكامل على جهازك: لا تُرسل الشيفرة المصدرية ولا أسماء الملفات ولا الاستعلامات إلى أي مكان، ولا حاجة إلى مفتاح API. لكن هناك قياس استخدام مجهول الهوية مفعّل افتراضيًا (أسماء الأوامر واللغات ونطاقات تقريبية لعدد الملفات)، ويمكن إيقافه تمامًا بالأمر codegraph telemetry off أو بالمتغير DO_NOT_TRACK=1. كما يتحقق خادم MCP مرة واحدة يوميًا على الأكثر من وجود إصدار جديد على GitHub. ويضيف معالج التثبيت إدخال MCP إلى إعدادات Claude Code وقسمًا قصيرًا إلى CLAUDE.md وإذن موافقة تلقائية للأداة وخطّافًا محليًا يعمل مع كل طلب؛ ويُسأل المستخدم عن كل ذلك، ويمكن التراجع عنه بالأمر codegraph uninstall.\n\nنقيّمه في الوكالة لقواعد الشيفرة الكبيرة التي نعمل عليها مع Claude Code، ولا سيما مواقع العملاء القديمة التي نتسلّمها، لتقليل الخطوات والرموز التي ينفقها الوكيل على الاستكشاف. وفي قياسات المطوّر نفسه ينخفض عدد استدعاءات الأدوات والتكلفة بوضوح، وإن كان ملف README يشير إلى أنه قد يشغل مساحة أكبر من نافذة السياق في الجلسات الطويلة. ننصح بإيقاف القياس عند العمل على شيفرة العملاء وتجربته أولًا على مشروع صغير. أما للمستندات وملفات PDF والملاحظات خارج الشيفرة فإن Graphify خيار أنسب."
+      },
+      "adimlar": {
+        "tr": [
+          "Node.js kuruluysa CLI'yi kurun: npm i -g @colbymchenry/codegraph",
+          "codegraph install ile Claude Code'u bağlayın; izin ve kanca sorularını bilinçli yanıtlayın.",
+          "Müşteri projelerinde telemetriyi kapatın: codegraph telemetry off",
+          "Proje klasöründe codegraph init çalıştırıp Claude Code'u yeniden başlatın."
+        ],
+        "en": [
+          "With Node.js installed, install the CLI: npm i -g @colbymchenry/codegraph",
+          "Connect Claude Code with codegraph install, answering the permission and hook prompts deliberately.",
+          "Turn off telemetry for client projects: codegraph telemetry off",
+          "Run codegraph init in the project folder, then restart Claude Code."
+        ],
+        "de": [
+          "Bei installiertem Node.js die CLI installieren: npm i -g @colbymchenry/codegraph",
+          "Mit codegraph install Claude Code anbinden und die Fragen zu Berechtigungen und Hook bewusst beantworten.",
+          "Bei Kundenprojekten die Telemetrie abschalten: codegraph telemetry off",
+          "Im Projektordner codegraph init ausführen und Claude Code neu starten."
+        ],
+        "ru": [
+          "Если установлен Node.js, установите CLI: npm i -g @colbymchenry/codegraph",
+          "Подключите Claude Code командой codegraph install, осознанно отвечая на вопросы о разрешениях и хуке.",
+          "В клиентских проектах отключите телеметрию: codegraph telemetry off",
+          "Выполните codegraph init в папке проекта и перезапустите Claude Code."
+        ],
+        "zh": [
+          "已安装 Node.js 时安装命令行工具：npm i -g @colbymchenry/codegraph",
+          "运行 codegraph install 连接 Claude Code，认真回答关于权限和钩子的提问。",
+          "在客户项目中关闭遥测：codegraph telemetry off",
+          "在项目文件夹中运行 codegraph init，然后重启 Claude Code。"
+        ],
+        "hi": [
+          "Node.js इंस्टॉल हो तो CLI इंस्टॉल करें: npm i -g @colbymchenry/codegraph",
+          "codegraph install से Claude Code जोड़ें और अनुमति व हुक वाले सवालों का सोच-समझकर जवाब दें।",
+          "क्लाइंट प्रोजेक्ट में टेलीमेट्री बंद करें: codegraph telemetry off",
+          "प्रोजेक्ट फ़ोल्डर में codegraph init चलाएँ, फिर Claude Code रीस्टार्ट करें।"
+        ],
+        "ar": [
+          "إذا كان Node.js مثبتًا فثبّت أداة سطر الأوامر: npm i -g @colbymchenry/codegraph",
+          "اربط Claude Code بالأمر codegraph install وأجب عن أسئلة الأذونات والخطّاف بوعي.",
+          "أوقف القياس في مشاريع العملاء: codegraph telemetry off",
+          "نفّذ codegraph init في مجلد المشروع ثم أعد تشغيل Claude Code."
+        ]
+      },
+      "etiketler": [
+        "mcp",
+        "claude code",
+        "kod tabanı",
+        "bilgi grafiği",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/colbymchenry/codegraph",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 860,
+      "dogrulama_tarihi": "2026-10-01"
     }
   ]
 }
