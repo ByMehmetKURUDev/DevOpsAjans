@@ -78,7 +78,11 @@
       "crm_formlar": "CRM form",
       "crm_aktiviteler": "CRM activity",
       "zaman_kayitlari": "Time entry",
-      "proje_sablonlari": "Project template"
+      "proje_sablonlari": "Project template",
+      "kartvizitler": "Digital business card",
+      "yorum_sayfalari": "Google review page",
+      "kartvizit_gorselleri": "Business card image",
+      "kartvizit_mesajlari": "Card message / feedback"
     }
   }
 }

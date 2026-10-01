@@ -1,0 +1,96 @@
+{
+  "kartSayfasi": {
+    "rehbereKaydet": "Save contact",
+    "paylas": "Share",
+    "qr": "QR code",
+    "qrBaslik": "QR code for this card",
+    "qrAciklama": "Scan it with a phone camera to open the card.",
+    "qrIndir": "Download QR code (PNG)",
+    "kapat": "Close",
+    "baglantiKopyalandi": "Link copied",
+    "kopyalanamadi": "The link could not be copied",
+    "ara": "Call",
+    "whatsapp": "WhatsApp",
+    "eposta": "Email",
+    "web": "Website",
+    "harita": "Directions",
+    "iletisim": "Contact",
+    "telefon": "Phone",
+    "adres": "Address",
+    "sosyal": "Social media",
+    "baglantilar": "Links",
+    "hizmetler": "Services",
+    "calismaSaatleri": "Opening hours",
+    "kapali": "Closed",
+    "galeri": "Gallery",
+    "galeriGorseli": "Gallery image {{sira}}",
+    "profilFotografi": "Profile photo of {{ad}}",
+    "logo": "{{ad}} logo",
+    "kapak": "Cover image",
+    "altBilgi": "Digital business card · mehmetkuru.dev",
+    "form": {
+      "baslik": "Leave your contact details",
+      "aciklama": "Leave your details and we will get back to you.",
+      "ad": "Your name",
+      "eposta": "Your email address",
+      "telefon": "Your phone number",
+      "mesaj": "Your message (optional)",
+      "gonder": "Send",
+      "gonderiliyor": "Sending…",
+      "tesekkur": "Thank you! Your details have been sent.",
+      "iletisimGerekli": "Please enter your email address or phone number.",
+      "aydinlatma": "The information you send is processed only to get back to you. Details:",
+      "gizlilik": "Privacy policy",
+      "hata": "It could not be sent. Please try again shortly.",
+      "cokHizli": "Too many attempts. Please wait a moment and try again.",
+      "tuzak": "Leave this field empty"
+    },
+    "kilit": {
+      "baslik": "This business card is password protected",
+      "aciklama": "Enter the password the card owner gave you to view the card.",
+      "parola": "Password",
+      "ac": "Open card",
+      "yanlis": "Incorrect password.",
+      "cokDeneme": "Too many attempts. Please try again in a minute."
+    },
+    "yok": {
+      "baslik": "Business card not found",
+      "aciklama": "There is no digital business card at this address. Please check the address."
+    },
+    "pasif": {
+      "baslik": "This business card is not live right now",
+      "aciklama": "The owner may have switched the card off temporarily."
+    },
+    "hata": {
+      "baslik": "The business card could not be loaded",
+      "aciklama": "There was a connection problem. Please try again.",
+      "yenile": "Try again"
+    },
+    "yorum": {
+      "googleYaz": "Write a review on Google",
+      "googleAciklama": "Sharing your experience on Google helps the business a lot.",
+      "ozelBaslik": "Send us private feedback",
+      "ozelAciklama": "If you would like to leave a note that only the business will see, you can write it here.",
+      "mesaj": "Your feedback",
+      "ad": "Your name (optional)",
+      "iletisim": "Your email address (optional)",
+      "gonder": "Send",
+      "tesekkur": "Thank you! Your feedback has been sent to the business.",
+      "varsayilanTesekkur": "Thank you for choosing us!",
+      "yokBaslik": "Page not found",
+      "yokAciklama": "There is no review page at this address.",
+      "pasifBaslik": "This page is not live right now",
+      "pasifAciklama": "Please try again later.",
+      "altBilgi": "mehmetkuru.dev"
+    },
+    "gun": {
+      "pzt": "Monday",
+      "sal": "Tuesday",
+      "car": "Wednesday",
+      "per": "Thursday",
+      "cum": "Friday",
+      "cmt": "Saturday",
+      "paz": "Sunday"
+    }
+  }
+}

@@ -60,7 +60,9 @@
       "seo_dususu": "Sitenin SEO/hız puanı düştü",
       "baglanti_koptu": "Google bağlantısı yenilenmeli",
       "crm_yeni_aday": "CRM: yeni aday",
-      "crm_hatirlatma": "CRM: sonraki adım hatırlatması (günlük)"
+      "crm_hatirlatma": "CRM: sonraki adım hatırlatması (günlük)",
+      "kartvizit_mesaj": "Kartvizitten yeni mesaj",
+      "yorum_geri_bildirim": "Yorum sayfasından özel geri bildirim"
     },
     "kanal": {
       "inapp": "Panel",

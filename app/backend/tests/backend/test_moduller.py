@@ -263,9 +263,10 @@ async def test_modullerim_yalniz_musteri_modulleri_ve_gorunumler(istemci, muster
     # Faz 2G: "mesajlar" sekmesi Destek'in hemen ardında.
     # Faz 3U: "asistanlar" (Uzman Asistanlar; varsayılan kapalı) Mesajlar'ın ardında.
     # Faz 4Q: "qr" (Dinamik QR; varsayılan kapalı) Site analizi'nin ardında.
+    # Faz 4K: "kartvizit" (Dijital kartvizit; varsayılan kapalı) QR'ın ardında.
     assert sekmeler == [
         "projects", "invoices", "krediler", "tickets", "mesajlar", "asistanlar", "raporlar", "sitem", "analiz",
-        "qr", "dosyalar", "profile",
+        "qr", "kartvizit", "dosyalar", "profile",
     ]
     from core import moduller as mf
 

@@ -482,7 +482,8 @@
     "tabCrm": "Лиды (CRM)",
     "tabZaman": "Время",
     "tabProjeSablonlari": "Шаблоны проектов",
-    "tabDinamikQr": "QR и короткие ссылки"
+    "tabDinamikQr": "QR и короткие ссылки",
+    "tabKartvizit": "Цифровая визитка"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

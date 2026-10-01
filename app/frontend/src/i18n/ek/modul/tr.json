@@ -140,6 +140,14 @@
       "dinamik_qr": {
         "ad": "Dinamik QR ve kısa link",
         "aciklama": "Hedefi sonradan değiştirilebilen QR kodları ve kısa bağlantılar: Google yorum, WhatsApp, vCard, Wi-Fi ve daha fazlası; logo ve renk, toplu CSV, tarama analitiği."
+      },
+      "dijital_kartvizit": {
+        "ad": "Dijital kartvizit ve bio link",
+        "aciklama": "Telefonla paylaşılan dijital kartvizit ve bio link sayfası: rehbere kaydet, QR, WhatsApp/LinkedIn önizlemesi, iletişim formu, parola koruması ve ziyaret analitiği."
+      },
+      "google_yorum_sayfasi": {
+        "ad": "Google yorum sayfası",
+        "aciklama": "Masa kartı ya da fiş için QR'lı sayfa: büyük \"Google'da yorum yaz\" düğmesi ve isteğe bağlı özel geri bildirim formu; görüntülenme ve tıklama analitiği."
       }
     },
     "kategori": {
@@ -171,7 +179,9 @@
       "gunluk_sinir": "Günlük analiz sınırı",
       "kontrol_araligi_dk": "Kontrol aralığı (dakika)",
       "gunluk_mesaj": "Günlük mesaj sınırı (boşsa genel ayar)",
-      "kayit_siniri": "Hesap başına en çok QR / kısa link"
+      "kayit_siniri": "Hesap başına en çok QR / kısa link",
+      "kart_siniri": "Hesap başına en çok dijital kartvizit",
+      "sayfa_siniri": "Hesap başına en çok yorum sayfası"
     },
     "musteri": {
       "baslik": "Modüllerim",

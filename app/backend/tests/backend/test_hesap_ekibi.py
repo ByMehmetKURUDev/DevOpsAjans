@@ -145,6 +145,17 @@ async def ekip(db_oturumu):
     k.update(P=p.id, F=f.id, T=t.id, Q=q.id, S=site.id, A=a.id, G=g.id, B=bt.id,
              I_PROJE=islem_proje.id, I_TEKLIF=islem_teklif.id, K=konusma.id, KM=ajans_mesaji.id,
              AS=asistan_sohbeti.id, QR=qr.id)
+    # Faz 4K: sahibin bir dijital kartviziti, yorum sayfası ve ikisine gelmiş birer mesaj.
+    from models.kartvizit import KartvizitMesajlari, Kartvizitler, YorumSayfalari
+
+    kart = await _ekle(db, Kartvizitler(hesap_email=s, kod="K" + uuid.uuid4().hex[:6], slug="sahip-" + uuid.uuid4().hex[:8],
+                                        ad_soyad="Sahip Kişi", icerik=json.dumps({"ad_soyad": "Sahip Kişi"})))
+    yorum = await _ekle(db, YorumSayfalari(hesap_email=s, kod="Y" + uuid.uuid4().hex[:6], slug="kafe-" + uuid.uuid4().hex[:8],
+                                           isletme_adi="Sahip Kafe", place_id="ChIJN1t_tDeuEmsRUsoyG83frY4"))
+    kart_mesaji = await _ekle(db, KartvizitMesajlari(sahip_tur="kart", sahip_id=kart.id, hesap_email=s, ad="Ziyaretçi",
+                                                     eposta="z@ornek.com"))
+    yorum_mesaji = await _ekle(db, KartvizitMesajlari(sahip_tur="yorum", sahip_id=yorum.id, hesap_email=s, mesaj="Geri bildirim"))
+    k.update(KV=kart.id, YS=yorum.id, KVM=kart_mesaji.id, YSM=yorum_mesaji.id)
     return k
 
 
@@ -241,6 +252,36 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/qr-kodlarim/{QR}/analiz", ("qr",), None, 200),
     ("GET", "/api/v1/qr-kodlarim/{QR}/gorsel?bicim=svg", ("qr",), None, 200),
     ("DELETE", "/api/v1/qr-kodlarim/999999", ("qr",), None, "gecti"),
+    # Faz 4K — Dijital kartvizit ve Google yorum sayfası (`kartvizit` izni).
+    ("GET", "/api/v1/kartvizitlerim/meta", ("kartvizit",), None, 200),
+    ("GET", "/api/v1/kartvizitlerim/slug-uygun?slug=ekip-karti", ("kartvizit",), None, 200),
+    ("GET", "/api/v1/kartvizitlerim/mesajlar", ("kartvizit",), None, 200),
+    ("PUT", "/api/v1/kartvizitlerim/mesajlar/{KVM}", ("kartvizit",), {"okundu": True}, 200),
+    ("DELETE", "/api/v1/kartvizitlerim/mesajlar/999999", ("kartvizit",), None, "gecti"),
+    ("GET", "/api/v1/kartvizitlerim", ("kartvizit",), None, 200),
+    ("POST", "/api/v1/kartvizitlerim", ("kartvizit",), {"icerik": {"ad_soyad": "Ekip Kartı"}}, 200),
+    ("GET", "/api/v1/kartvizitlerim/{KV}", ("kartvizit",), None, 200),
+    ("PUT", "/api/v1/kartvizitlerim/{KV}", ("kartvizit",), {"aktif": True}, 200),
+    ("POST", "/api/v1/kartvizitlerim/{KV}/gorsel", ("kartvizit",), GOVDE_DOSYA, "gecti"),
+    ("DELETE", "/api/v1/kartvizitlerim/{KV}/gorsel/999999", ("kartvizit",), None, "gecti"),
+    ("PUT", "/api/v1/kartvizitlerim/{KV}/galeri-sira", ("kartvizit",), {"idler": []}, 200),
+    ("GET", "/api/v1/kartvizitlerim/{KV}/analiz", ("kartvizit",), None, 200),
+    ("GET", "/api/v1/kartvizitlerim/{KV}/qr?bicim=svg", ("kartvizit",), None, 200),
+    ("DELETE", "/api/v1/kartvizitlerim/999999", ("kartvizit",), None, "gecti"),
+    ("GET", "/api/v1/yorum-sayfalarim/meta", ("kartvizit",), None, 200),
+    ("GET", "/api/v1/yorum-sayfalarim/slug-uygun?slug=ekip-kafe", ("kartvizit",), None, 200),
+    ("GET", "/api/v1/yorum-sayfalarim/geri-bildirimler", ("kartvizit",), None, 200),
+    ("PUT", "/api/v1/yorum-sayfalarim/geri-bildirimler/{YSM}", ("kartvizit",), {"okundu": True}, 200),
+    ("DELETE", "/api/v1/yorum-sayfalarim/geri-bildirimler/999999", ("kartvizit",), None, "gecti"),
+    ("GET", "/api/v1/yorum-sayfalarim", ("kartvizit",), None, 200),
+    ("POST", "/api/v1/yorum-sayfalarim", ("kartvizit",), {"isletme_adi": "Ekip Kafe", "place_id": "ChIJN1t_tDeuEmsRUsoyG83frY4"}, 200),
+    ("GET", "/api/v1/yorum-sayfalarim/{YS}", ("kartvizit",), None, 200),
+    ("PUT", "/api/v1/yorum-sayfalarim/{YS}", ("kartvizit",), {"aktif": True}, 200),
+    ("POST", "/api/v1/yorum-sayfalarim/{YS}/logo", ("kartvizit",), GOVDE_DOSYA, "gecti"),
+    ("DELETE", "/api/v1/yorum-sayfalarim/{YS}/logo", ("kartvizit",), None, 200),
+    ("GET", "/api/v1/yorum-sayfalarim/{YS}/analiz", ("kartvizit",), None, 200),
+    ("GET", "/api/v1/yorum-sayfalarim/{YS}/qr?bicim=svg", ("kartvizit",), None, 200),
+    ("DELETE", "/api/v1/yorum-sayfalarim/999999", ("kartvizit",), None, "gecti"),
     # Faz 3T — faturalarım (bakiye, PDF, ödeme bağlantısı), tekliflerim, sözleşmelerim (`faturalar` izni).
     ("GET", "/api/v1/faturalarim", ("faturalar",), None, 200),
     ("GET", "/api/v1/faturalarim/{F}", ("faturalar",), None, 200),

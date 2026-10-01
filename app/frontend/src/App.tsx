@@ -2,7 +2,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { ekliLazy } from '@/i18n/ekliLazy';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Layout from './components/Layout';
 // Ana sayfa LCP kritik yolda olduğu için ayrı chunk isteği yapmadan doğrudan yüklenir.
@@ -47,6 +47,16 @@ const KaynakDetay = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/Kaynak
 // Faz 3Y: yasal sayfalar (Gizlilik/KVKK, Kullanım Koşulları, Çerez Politikası) — tek bileşen,
 // metinleri ek pakette (7 dil), prerender + SEO. Veri sorumlusu bilgileri site ayarlarından.
 const YasalSayfa = ekliLazy('yasal', () => import('./pages/yasal/YasalSayfa'));
+// Faz 4K: herkese açık dijital kartvizit ve Google yorum sayfası — site düzeni dışında, prerender
+// yok, varsayılan noindex. Metinler kartın KENDİ dilinde (i18n/kartSayfasi, sayfa kendisi yüklüyor).
+const KartSayfasi = lazy(() => import('./pages/KartSayfasi'));
+const YorumSayfasi = lazy(() => import('./pages/YorumSayfasi'));
+
+/** Faz 4K: `/en/kart/x` → `/kart/x` (kartın kendi dili var; dil öneki gerekmiyor). */
+function KokAdreseYonlendir({ onek }: { onek: 'kart' | 'yorum' }) {
+  const { slug = '' } = useParams<{ slug: string }>();
+  return <Navigate to={`/${onek}/${encodeURIComponent(slug)}`} replace />;
+}
 
 const queryClient = new QueryClient();
 
@@ -122,6 +132,11 @@ const AppRoutes = () => (
       <Route path="/rapor-aylik/:jeton" element={<AylikRaporSayfasi />} />
       {/* Faz 3C: CRM formu — site düzeni dışında (sade sayfa, çerçevede önizlenebilir). noindex. */}
       <Route path="/form/:anahtar" element={<CrmFormSayfasi />} />
+      {/* Faz 4K: dijital kartvizit / bio link ve Google yorum sayfası (değişmez kodla da açılır). */}
+      <Route path="/kart/:slug" element={<KartSayfasi />} />
+      <Route path="/yorum/:slug" element={<YorumSayfasi />} />
+      <Route path="/:lang/kart/:slug" element={<KokAdreseYonlendir onek="kart" />} />
+      <Route path="/:lang/yorum/:slug" element={<KokAdreseYonlendir onek="yorum" />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

@@ -21,6 +21,7 @@ import {
   MessagesSquare,
   Bot,
   QrCode,
+  IdCard,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -86,6 +87,8 @@ const Mesajlar = ekliLazy('mesajlar', () => import('@/components/Mesajlar'));
 const UzmanAsistanlar = ekliLazy('uzmanAsistanlar', () => import('@/components/UzmanAsistanlar'));
 // Faz 4Q — dinamik QR ve kısa link (yönetici paneliyle aynı bileşen, müşteri modu; ek paket `dinamikQr`).
 const DinamikQr = ekliLazy('dinamikQr', () => import('@/components/DinamikQr'));
+// Faz 4K — dijital kartvizit + Google yorum sayfası (yönetici paneliyle aynı bileşen, müşteri modu).
+const Kartvizit = ekliLazy('kartvizit', () => import('@/components/Kartvizit'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -155,6 +158,7 @@ type Tab =
   | 'sitem'
   | 'analiz'
   | 'qr'
+  | 'kartvizit'
   | 'dosyalar'
   | 'profile';
 
@@ -173,6 +177,7 @@ const SEKMELER: Tab[] = [
   'sitem',
   'analiz',
   'qr',
+  'kartvizit',
   'dosyalar',
   'profile',
 ];
@@ -182,7 +187,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -451,6 +456,17 @@ export default function ClientPanel() {
       if (!m.acik || m.durum === 'yakinda' || !izinli(sekme)) continue;
       liste.push({ key: sekme, ikon: m.ikon });
     }
+    // Faz 4K: Google yorum sayfası modülünün kendi sekmesi yok — yalnız o açıksa da
+    // "kartvizit" sekmesi (manifest sırasındaki yerinde) görünsün.
+    if (
+      !liste.some((x) => x.key === 'kartvizit') &&
+      izinli('kartvizit') &&
+      modulBilgisi.moduller.some((m) => m.anahtar === 'google_yorum_sayfasi' && m.acik && m.durum !== 'yakinda')
+    ) {
+      const sira = SEKMELER.indexOf('kartvizit');
+      const yer = liste.findIndex((x) => SEKMELER.indexOf(x.key) > sira);
+      liste.splice(yer < 0 ? liste.length : yer, 0, { key: 'kartvizit', ikon: 'Star' });
+    }
     // Projeler ve profil çekirdek: sunucu ne derse desin sekme çubuğunda kalır
     // (projeler yalnız etkin hesapta izni varsa).
     if (!liste.some((x) => x.key === 'projects') && izinli('projects')) liste.unshift({ key: 'projects' });
@@ -590,6 +606,7 @@ export default function ClientPanel() {
     sitem: { label: t('sitem.sekme'), icon: ShieldCheck },
     analiz: { label: t('ui.tabAnaliz'), icon: Gauge },
     qr: { label: t('ui.tabDinamikQr'), icon: QrCode },
+    kartvizit: { label: t('ui.tabKartvizit'), icon: IdCard },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
   };
@@ -1177,6 +1194,21 @@ export default function ClientPanel() {
               <DinamikQr mod="musteri" />
             </Suspense>
           )}
+
+          {tab === 'kartvizit' &&
+            modulBilgisi !== null &&
+            (modulAcik('dijital_kartvizit') || modulAcik('google_yorum_sayfasi')) &&
+            izinVar(['kartvizit']) && (
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-center py-20 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                  </div>
+                }
+              >
+                <Kartvizit mod="musteri" kartAcik={modulAcik('dijital_kartvizit')} yorumAcik={modulAcik('google_yorum_sayfasi')} />
+              </Suspense>
+            )}
 
           {tab === 'dosyalar' && modulAcik('dosyalar') && (
             <Suspense

@@ -78,7 +78,11 @@
       "crm_formlar": "CRM 表单",
       "crm_aktiviteler": "CRM 活动",
       "zaman_kayitlari": "工时记录",
-      "proje_sablonlari": "项目模板"
+      "proje_sablonlari": "项目模板",
+      "kartvizitler": "电子名片",
+      "yorum_sayfalari": "Google 评价页面",
+      "kartvizit_gorselleri": "名片图片",
+      "kartvizit_mesajlari": "名片消息 / 反馈"
     }
   }
 }

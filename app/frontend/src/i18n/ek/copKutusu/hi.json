@@ -78,7 +78,11 @@
       "crm_formlar": "सीआरएम फ़ॉर्म",
       "crm_aktiviteler": "सीआरएम गतिविधि",
       "zaman_kayitlari": "समय प्रविष्टि",
-      "proje_sablonlari": "प्रोजेक्ट टेम्पलेट"
+      "proje_sablonlari": "प्रोजेक्ट टेम्पलेट",
+      "kartvizitler": "डिजिटल बिज़नेस कार्ड",
+      "yorum_sayfalari": "Google समीक्षा पेज",
+      "kartvizit_gorselleri": "बिज़नेस कार्ड चित्र",
+      "kartvizit_mesajlari": "कार्ड संदेश / प्रतिक्रिया"
     }
   }
 }

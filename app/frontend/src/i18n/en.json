@@ -482,7 +482,8 @@
     "tabCrm": "Leads (CRM)",
     "tabZaman": "Time",
     "tabProjeSablonlari": "Project templates",
-    "tabDinamikQr": "QR & short links"
+    "tabDinamikQr": "QR & short links",
+    "tabKartvizit": "Digital business card"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

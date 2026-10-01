@@ -78,7 +78,11 @@
       "crm_formlar": "CRM formu",
       "crm_aktiviteler": "CRM aktivitesi",
       "zaman_kayitlari": "Zaman kaydı",
-      "proje_sablonlari": "Proje şablonu"
+      "proje_sablonlari": "Proje şablonu",
+      "kartvizitler": "Dijital kartvizit",
+      "yorum_sayfalari": "Google yorum sayfası",
+      "kartvizit_gorselleri": "Kartvizit görseli",
+      "kartvizit_mesajlari": "Kart mesajı / geri bildirim"
     }
   }
 }

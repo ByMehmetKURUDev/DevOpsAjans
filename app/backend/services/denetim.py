@@ -100,6 +100,11 @@ HARIC_TABLOLAR = frozenset({
     # Faz 4Q: QR taramaları (herkese açık, her taramada bir satır) ve logo
     # görseli (base64; logo ekleme/kaldırma `dinamik_qr.logo_var` ile kaydediliyor).
     "dinamik_qr_taramalari", "dinamik_qr_logolari",
+    # Faz 4K: kart/yorum sayfası olayları (herkese açık, her görüntülemede bir satır),
+    # eski slug yönlendirme kilitleri (teknik iz) ve ziyaretçi mesajları (herkese açık
+    # formdan; kişisel veri — kendi tablosunda, denetime kopyalanmıyor). Kartın ve
+    # sayfanın kendisi ile görselleri kaydediliyor.
+    "kartvizit_olaylari", "kartvizit_eski_sluglar", "kartvizit_mesajlari",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.

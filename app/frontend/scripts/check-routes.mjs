@@ -56,6 +56,13 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   // Faz 3T: girişsiz teklif ve sözleşme imza sayfaları — jetona özel (noindex).
   '/teklif/:jeton',
   '/sozlesme/:jeton',
+  // Faz 4K: dijital kartvizit ve Google yorum sayfası — kişiye/işletmeye ait, dinamik;
+  // paylaşım önizlemesini Pages Function yazıyor (functions/kart/[slug].js). Dil önekli
+  // adresler köke yönleniyor.
+  '/kart/:slug',
+  '/yorum/:slug',
+  '/:lang/kart/:slug',
+  '/:lang/yorum/:slug',
 ]);
 
 const missing = [...appRoutes].filter(

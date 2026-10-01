@@ -482,7 +482,8 @@
     "tabCrm": "Leads (CRM)",
     "tabZaman": "Zeit",
     "tabProjeSablonlari": "Projektvorlagen",
-    "tabDinamikQr": "QR & Kurzlinks"
+    "tabDinamikQr": "QR & Kurzlinks",
+    "tabKartvizit": "Digitale Visitenkarte"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

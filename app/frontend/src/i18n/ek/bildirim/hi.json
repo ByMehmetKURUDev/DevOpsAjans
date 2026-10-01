@@ -60,7 +60,9 @@
       "seo_dususu": "साइट का SEO/गति स्कोर गिरा",
       "baglanti_koptu": "Google कनेक्शन फिर से जोड़ना होगा",
       "crm_yeni_aday": "सीआरएम: नई लीड",
-      "crm_hatirlatma": "सीआरएम: अगले कदम का रिमाइंडर (दैनिक)"
+      "crm_hatirlatma": "सीआरएम: अगले कदम का रिमाइंडर (दैनिक)",
+      "kartvizit_mesaj": "बिज़नेस कार्ड से नया संदेश",
+      "yorum_geri_bildirim": "समीक्षा पेज से निजी प्रतिक्रिया"
     },
     "kanal": {
       "inapp": "पैनल",

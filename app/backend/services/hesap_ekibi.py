@@ -59,6 +59,8 @@ IZINLER: Tuple[str, ...] = (
     "asistanlar",
     # Faz 4Q — Dinamik QR ve kısa link.
     "qr",
+    # Faz 4K — Dijital kartvizit ve Google yorum sayfası (ekipte her kişi kendi kartını yapabilir).
+    "kartvizit",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -68,7 +70,8 @@ SAHIP = "sahip"
 
 ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
-    "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr"),
+    "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
+            "kartvizit"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
@@ -85,11 +88,15 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 3U–4Q arası varsayılan (asistanlar var, qr yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar"}),
+        # Faz 4Q–4K arası varsayılan (qr var, kartvizit yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar", "asistanlar", "qr"}),
     ),
     "uye": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar"}),
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar"}),
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr"}),
     ),
 }
 
@@ -136,6 +143,9 @@ OLAY_IZNI: Dict[str, str] = {
     # BİLEREK yok: bağlantı bir yetki belgesi, yalnız adı geçen alıcıya.
     "fatura_gecikti": "faturalar",
     "sozlesme_bitis": "faturalar",
+    # Faz 4K — kartın "iletişim bırak" mesajı ve yorum sayfasının özel geri bildirimi.
+    "kartvizit_mesaj": "kartvizit",
+    "yorum_geri_bildirim": "kartvizit",
 }
 
 DAVET_OLAYI = "hesap_davet"

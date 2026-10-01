@@ -1,0 +1,96 @@
+{
+  "kartSayfasi": {
+    "rehbereKaydet": "Kontakt speichern",
+    "paylas": "Teilen",
+    "qr": "QR-Code",
+    "qrBaslik": "QR-Code dieser Karte",
+    "qrAciklama": "Mit der Handykamera scannen, um die Karte zu öffnen.",
+    "qrIndir": "QR-Code herunterladen (PNG)",
+    "kapat": "Schließen",
+    "baglantiKopyalandi": "Link kopiert",
+    "kopyalanamadi": "Der Link konnte nicht kopiert werden",
+    "ara": "Anrufen",
+    "whatsapp": "WhatsApp",
+    "eposta": "E-Mail",
+    "web": "Website",
+    "harita": "Route",
+    "iletisim": "Kontakt",
+    "telefon": "Telefon",
+    "adres": "Adresse",
+    "sosyal": "Soziale Medien",
+    "baglantilar": "Links",
+    "hizmetler": "Leistungen",
+    "calismaSaatleri": "Öffnungszeiten",
+    "kapali": "Geschlossen",
+    "galeri": "Galerie",
+    "galeriGorseli": "Galeriebild {{sira}}",
+    "profilFotografi": "Profilfoto von {{ad}}",
+    "logo": "Logo von {{ad}}",
+    "kapak": "Titelbild",
+    "altBilgi": "Digitale Visitenkarte · mehmetkuru.dev",
+    "form": {
+      "baslik": "Kontaktdaten hinterlassen",
+      "aciklama": "Hinterlassen Sie Ihre Daten, wir melden uns bei Ihnen.",
+      "ad": "Ihr Name",
+      "eposta": "Ihre E-Mail-Adresse",
+      "telefon": "Ihre Telefonnummer",
+      "mesaj": "Ihre Nachricht (optional)",
+      "gonder": "Senden",
+      "gonderiliyor": "Wird gesendet…",
+      "tesekkur": "Vielen Dank! Ihre Daten wurden übermittelt.",
+      "iletisimGerekli": "Bitte geben Sie Ihre E-Mail-Adresse oder Telefonnummer ein.",
+      "aydinlatma": "Ihre Angaben werden nur verarbeitet, um Sie zu kontaktieren. Details:",
+      "gizlilik": "Datenschutz",
+      "hata": "Senden fehlgeschlagen. Bitte versuchen Sie es gleich noch einmal.",
+      "cokHizli": "Zu viele Versuche. Bitte warten Sie kurz und versuchen Sie es erneut.",
+      "tuzak": "Dieses Feld leer lassen"
+    },
+    "kilit": {
+      "baslik": "Diese Visitenkarte ist passwortgeschützt",
+      "aciklama": "Geben Sie das Passwort ein, das Sie vom Karteninhaber erhalten haben.",
+      "parola": "Passwort",
+      "ac": "Karte öffnen",
+      "yanlis": "Falsches Passwort.",
+      "cokDeneme": "Zu viele Versuche. Bitte versuchen Sie es in einer Minute erneut."
+    },
+    "yok": {
+      "baslik": "Visitenkarte nicht gefunden",
+      "aciklama": "Unter dieser Adresse gibt es keine digitale Visitenkarte. Bitte prüfen Sie die Adresse."
+    },
+    "pasif": {
+      "baslik": "Diese Visitenkarte ist derzeit nicht online",
+      "aciklama": "Der Inhaber hat die Karte möglicherweise vorübergehend deaktiviert."
+    },
+    "hata": {
+      "baslik": "Die Visitenkarte konnte nicht geladen werden",
+      "aciklama": "Es gab ein Verbindungsproblem. Bitte versuchen Sie es erneut.",
+      "yenile": "Erneut versuchen"
+    },
+    "yorum": {
+      "googleYaz": "Bei Google bewerten",
+      "googleAciklama": "Wenn Sie Ihre Erfahrung bei Google teilen, hilft das dem Unternehmen sehr.",
+      "ozelBaslik": "Privates Feedback an uns senden",
+      "ozelAciklama": "Wenn Sie eine Notiz hinterlassen möchten, die nur das Unternehmen sieht, können Sie sie hier schreiben.",
+      "mesaj": "Ihr Feedback",
+      "ad": "Ihr Name (optional)",
+      "iletisim": "Ihre E-Mail-Adresse (optional)",
+      "gonder": "Senden",
+      "tesekkur": "Vielen Dank! Ihr Feedback wurde an das Unternehmen gesendet.",
+      "varsayilanTesekkur": "Vielen Dank, dass Sie sich für uns entschieden haben!",
+      "yokBaslik": "Seite nicht gefunden",
+      "yokAciklama": "Unter dieser Adresse gibt es keine Bewertungsseite.",
+      "pasifBaslik": "Diese Seite ist derzeit nicht online",
+      "pasifAciklama": "Bitte versuchen Sie es später erneut.",
+      "altBilgi": "mehmetkuru.dev"
+    },
+    "gun": {
+      "pzt": "Montag",
+      "sal": "Dienstag",
+      "car": "Mittwoch",
+      "per": "Donnerstag",
+      "cum": "Freitag",
+      "cmt": "Samstag",
+      "paz": "Sonntag"
+    }
+  }
+}

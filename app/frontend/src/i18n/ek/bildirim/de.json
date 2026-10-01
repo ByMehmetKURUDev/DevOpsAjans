@@ -60,7 +60,9 @@
       "seo_dususu": "SEO-/Geschwindigkeitswert der Website gesunken",
       "baglanti_koptu": "Google-Verbindung muss erneuert werden",
       "crm_yeni_aday": "CRM: neuer Lead",
-      "crm_hatirlatma": "CRM: Erinnerung an den nächsten Schritt (täglich)"
+      "crm_hatirlatma": "CRM: Erinnerung an den nächsten Schritt (täglich)",
+      "kartvizit_mesaj": "Neue Nachricht von einer Visitenkarte",
+      "yorum_geri_bildirim": "Privates Feedback von einer Bewertungsseite"
     },
     "kanal": {
       "inapp": "Panel",

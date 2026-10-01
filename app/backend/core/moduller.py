@@ -355,6 +355,39 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=False,
         ayarlar=(AyarAlani("kayit_siniri", "int", 100, en_az=0, en_cok=100000),),
     ),
+    # Faz 4K — dijital kartvizit + bio link (`/kart/<slug>`): vCard, QR, paylaşım
+    # önizlemesi, iletişim formu, analitik. Varsayılan KAPALI, pakete bağlı değil
+    # (ayrı satılan modül). `kart_siniri`: hesap başına en çok kart (ekipte her
+    # kişi kendi kartını yapabilir; izin `kartvizit`).
+    Modul(
+        anahtar="dijital_kartvizit",
+        ad_varsayilan={"tr": "Dijital kartvizit ve bio link", "en": "Digital business card and bio link"},
+        ikon="IdCard",
+        kategori="dijital_kimlik",
+        musteri_sekmesi="kartvizit",
+        yonetici_sekmesi="kartvizit",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("kart_siniri", "int", 5, en_az=0, en_cok=1000),),
+    ),
+    # Faz 4K — Google yorum sayfası (`/yorum/<slug>`): ayrı modül, çünkü alıcısı
+    # farklı (kafe, klinik, mağaza gibi yerel işletme; kartvizite ihtiyaç
+    # duymayabilir) ve tek başına "masa QR'ı" olarak satılıyor. Kendi sekmesi yok:
+    # "Dijital kartvizit" sekmesine gömülü (yalnız bu modül açıksa sekme yine
+    # görünür — ClientPanel), aynı ekip izniyle (`kartvizit`).
+    # `sayfa_siniri`: hesap başına en çok sayfa.
+    Modul(
+        anahtar="google_yorum_sayfasi",
+        ad_varsayilan={"tr": "Google yorum sayfası", "en": "Google review page"},
+        ikon="Star",
+        kategori="dijital_kimlik",
+        musteri_sekmesi=None,
+        yonetici_sekmesi=None,
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("sayfa_siniri", "int", 3, en_az=0, en_cok=1000),),
+        yerlesim=("kartvizit",),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

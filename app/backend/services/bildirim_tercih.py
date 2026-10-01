@@ -100,6 +100,10 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "sozlesme_imzalandi": {"roller": ("admin", "client"), "tetikleniyor": True},
     "sozlesme_bitis": {"roller": ("admin", "client"), "tetikleniyor": True},
     "fatura_gecikti": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 4K — müşteri kartına gelen "iletişim bırak" mesajı (ajansın kendi kartı
+    # CRM'e düşüyor: `crm_yeni_aday`) ve yorum sayfasının özel geri bildirimi.
+    "kartvizit_mesaj": {"roller": ("client",), "tetikleniyor": True},
+    "yorum_geri_bildirim": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

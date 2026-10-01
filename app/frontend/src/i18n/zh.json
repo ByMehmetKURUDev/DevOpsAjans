@@ -482,7 +482,8 @@
     "tabCrm": "销售线索 (CRM)",
     "tabZaman": "工时",
     "tabProjeSablonlari": "项目模板",
-    "tabDinamikQr": "二维码与短链接"
+    "tabDinamikQr": "二维码与短链接",
+    "tabKartvizit": "电子名片"
   },
   "admin": {
     "loadError": "管理数据加载失败",

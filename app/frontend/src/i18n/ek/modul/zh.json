@@ -140,6 +140,14 @@
       "dinamik_qr": {
         "ad": "动态二维码与短链接",
         "aciklama": "可随时更改目标地址的二维码和短链接：Google 评价、WhatsApp、vCard、Wi-Fi 等；支持标志与颜色、CSV 批量创建和扫描统计。"
+      },
+      "dijital_kartvizit": {
+        "ad": "电子名片与 bio link",
+        "aciklama": "可用手机分享的电子名片和 bio link 页面：保存联系人、二维码、WhatsApp/LinkedIn 预览、联系表单、密码保护和访问分析。"
+      },
+      "google_yorum_sayfasi": {
+        "ad": "Google 评价页面",
+        "aciklama": "用于桌卡或小票的二维码页面：醒目的“在 Google 上写评价”按钮和可选的私下反馈表单；浏览与点击分析。"
       }
     },
     "kategori": {
@@ -171,7 +179,9 @@
       "gunluk_sinir": "每日分析次数上限",
       "kontrol_araligi_dk": "检查间隔（分钟）",
       "gunluk_mesaj": "每日消息上限（留空则使用全局设置）",
-      "kayit_siniri": "每个账户的二维码/短链接上限"
+      "kayit_siniri": "每个账户的二维码/短链接上限",
+      "kart_siniri": "每个账户最多电子名片数",
+      "sayfa_siniri": "每个账户最多评价页面数"
     },
     "musteri": {
       "baslik": "我的模块",

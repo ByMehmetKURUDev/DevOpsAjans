@@ -1,0 +1,96 @@
+{
+  "kartSayfasi": {
+    "rehbereKaydet": "保存联系人",
+    "paylas": "分享",
+    "qr": "二维码",
+    "qrBaslik": "本名片的二维码",
+    "qrAciklama": "用手机相机扫描即可打开名片。",
+    "qrIndir": "下载二维码（PNG）",
+    "kapat": "关闭",
+    "baglantiKopyalandi": "链接已复制",
+    "kopyalanamadi": "无法复制链接",
+    "ara": "拨打",
+    "whatsapp": "WhatsApp",
+    "eposta": "电子邮件",
+    "web": "网站",
+    "harita": "导航",
+    "iletisim": "联系方式",
+    "telefon": "电话",
+    "adres": "地址",
+    "sosyal": "社交媒体",
+    "baglantilar": "链接",
+    "hizmetler": "服务",
+    "calismaSaatleri": "营业时间",
+    "kapali": "休息",
+    "galeri": "图库",
+    "galeriGorseli": "图库图片 {{sira}}",
+    "profilFotografi": "{{ad}} 的头像",
+    "logo": "{{ad}} 的标志",
+    "kapak": "封面图片",
+    "altBilgi": "电子名片 · mehmetkuru.dev",
+    "form": {
+      "baslik": "留下您的联系方式",
+      "aciklama": "留下您的信息，我们会尽快与您联系。",
+      "ad": "您的姓名",
+      "eposta": "您的电子邮箱",
+      "telefon": "您的电话号码",
+      "mesaj": "留言（可选）",
+      "gonder": "发送",
+      "gonderiliyor": "正在发送…",
+      "tesekkur": "谢谢！您的信息已发送。",
+      "iletisimGerekli": "请填写电子邮箱或电话号码。",
+      "aydinlatma": "您提交的信息仅用于与您联系。详情：",
+      "gizlilik": "隐私政策",
+      "hata": "发送失败，请稍后再试。",
+      "cokHizli": "尝试次数过多，请稍候再试。",
+      "tuzak": "请勿填写此字段"
+    },
+    "kilit": {
+      "baslik": "此名片受密码保护",
+      "aciklama": "请输入名片主人提供给您的密码以查看名片。",
+      "parola": "密码",
+      "ac": "打开名片",
+      "yanlis": "密码错误。",
+      "cokDeneme": "尝试次数过多，请一分钟后再试。"
+    },
+    "yok": {
+      "baslik": "未找到名片",
+      "aciklama": "此地址没有电子名片，请检查地址。"
+    },
+    "pasif": {
+      "baslik": "此名片目前未发布",
+      "aciklama": "名片主人可能已暂时关闭此名片。"
+    },
+    "hata": {
+      "baslik": "名片加载失败",
+      "aciklama": "连接出现问题，请重试。",
+      "yenile": "重试"
+    },
+    "yorum": {
+      "googleYaz": "在 Google 上写评价",
+      "googleAciklama": "在 Google 上分享您的体验对商家帮助很大。",
+      "ozelBaslik": "给我们发送私下反馈",
+      "ozelAciklama": "如果您想留下只有商家能看到的意见，可以写在这里。",
+      "mesaj": "您的反馈",
+      "ad": "您的姓名（可选）",
+      "iletisim": "您的电子邮箱（可选）",
+      "gonder": "发送",
+      "tesekkur": "谢谢！您的反馈已发送给商家。",
+      "varsayilanTesekkur": "感谢您选择我们！",
+      "yokBaslik": "未找到页面",
+      "yokAciklama": "此地址没有评价页面。",
+      "pasifBaslik": "此页面目前未发布",
+      "pasifAciklama": "请稍后再试。",
+      "altBilgi": "mehmetkuru.dev"
+    },
+    "gun": {
+      "pzt": "星期一",
+      "sal": "星期二",
+      "car": "星期三",
+      "per": "星期四",
+      "cum": "星期五",
+      "cmt": "星期六",
+      "paz": "星期日"
+    }
+  }
+}

@@ -482,7 +482,8 @@
     "tabCrm": "العملاء المحتملون (CRM)",
     "tabZaman": "الوقت",
     "tabProjeSablonlari": "قوالب المشاريع",
-    "tabDinamikQr": "QR والروابط المختصرة"
+    "tabDinamikQr": "QR والروابط المختصرة",
+    "tabKartvizit": "بطاقة الأعمال الرقمية"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

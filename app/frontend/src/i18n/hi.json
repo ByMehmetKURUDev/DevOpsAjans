@@ -482,7 +482,8 @@
     "tabCrm": "लीड (CRM)",
     "tabZaman": "समय",
     "tabProjeSablonlari": "प्रोजेक्ट टेम्पलेट",
-    "tabDinamikQr": "QR और छोटे लिंक"
+    "tabDinamikQr": "QR और छोटे लिंक",
+    "tabKartvizit": "डिजिटल बिज़नेस कार्ड"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

@@ -260,6 +260,24 @@ def _web_adresi(ham: str, alan: str, zorunlu: bool = True) -> str:
     return deger
 
 
+def web_adresi_duzelt(ham: str, alan: str, zorunlu: bool = True) -> str:
+    """Faz 4K: http(s) adresini doğrula/normalleştir (şemasız → https; başka şema ret).
+
+    `_web_adresi`'nin herkese açık adı — dijital kartvizit de aynı kuralı kullanıyor.
+    """
+    return _web_adresi(ham, alan, zorunlu)
+
+
+def place_id_gecerli_mi(deger: Any) -> bool:
+    """Faz 4K: Google Place ID biçimi (yorum sayfası da kullanıyor)."""
+    return isinstance(deger, str) and bool(_PLACE_ID.match(deger))
+
+
+def google_yorum_adresi(place_id: str) -> str:
+    """Place ID → "Google'da yorum yaz" adresi (QR türü ve yorum sayfası aynı adresi üretir)."""
+    return "https://search.google.com/local/writereview?placeid=" + quote(place_id, safe="")
+
+
 def ascii_adres(adres: str) -> str:
     """Türkçe alan adı / yol → IDNA + yüzde kodlama (Location başlığı ASCII olmalı)."""
     parca = urlsplit(adres)
@@ -445,7 +463,7 @@ def hedef_uret(tur: str, a: Dict[str, Any]) -> Optional[str]:
     if tur == "url":
         hedef = _utm_ekle(a["url"], a)
     elif tur == "google_yorum":
-        hedef = "https://search.google.com/local/writereview?placeid=" + quote(a["place_id"], safe="")
+        hedef = google_yorum_adresi(a["place_id"])
     elif tur == "whatsapp":
         hedef = "https://wa.me/" + a["numara"].lstrip("+")
         if a.get("mesaj"):
@@ -578,8 +596,46 @@ def vcard_uret(a: Dict[str, Any]) -> str:
         )
     if a.get("not"):
         satirlar.append(f"NOTE:{_kacis(a['not'])}")
+    satirlar.extend(_vcard_ek_satirlari(a))
     satirlar.append("END:VCARD")
     return "\r\n".join(_katla(s) for s in satirlar) + "\r\n"
+
+
+#: vCard TEL türleri (Faz 4K ek telefon listesi).
+VCARD_TEL_TURLERI = frozenset({"CELL", "WORK", "HOME", "VOICE", "FAX"})
+
+
+def _vcard_ek_satirlari(a: Dict[str, Any]) -> List[str]:
+    """Faz 4K (dijital kartvizit) için isteğe bağlı ek alanlar — QR türünün
+    alanlarında bu anahtarlar yok, o yüzden 4Q çıktısı değişmiyor.
+
+    * `telefonlar`: [{"tip": CELL|WORK|HOME|VOICE|FAX, "numara"}]
+    * `ek_epostalar`, `ek_webler`: düz liste
+    * `sosyal`: [{"platform", "url"}] → `X-SOCIALPROFILE` (iOS/macOS okuyor)
+    * `foto_jpeg_b64`: gömülü fotoğraf (çağıran boyutu sınırlar)
+    """
+    satirlar: List[str] = []
+    for t in a.get("telefonlar") or []:
+        if not isinstance(t, dict) or not t.get("numara"):
+            continue
+        tip = str(t.get("tip") or "VOICE").upper()
+        tip = tip if tip in VCARD_TEL_TURLERI else "VOICE"
+        satirlar.append(f"TEL;TYPE={tip}:{_kacis(str(t['numara']))}")
+    for e in a.get("ek_epostalar") or []:
+        if e:
+            satirlar.append(f"EMAIL;TYPE=INTERNET:{_kacis(str(e))}")
+    for w in a.get("ek_webler") or []:
+        if w and guvenli_hedef_mi(w):
+            satirlar.append(f"URL:{w}")
+    for s in a.get("sosyal") or []:
+        if not isinstance(s, dict) or not guvenli_hedef_mi(s.get("url")):
+            continue
+        platform = re.sub(r"[^a-z0-9]", "", str(s.get("platform") or "").lower())[:20] or "web"
+        satirlar.append(f"X-SOCIALPROFILE;TYPE={platform}:{s['url']}")
+    foto = a.get("foto_jpeg_b64")
+    if isinstance(foto, str) and foto and re.match(r"^[A-Za-z0-9+/=]+$", foto):
+        satirlar.append(f"PHOTO;ENCODING=b;TYPE=JPEG:{foto}")
+    return satirlar
 
 
 def _ics_zaman(deger: str, tz_adi: str) -> str:

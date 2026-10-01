@@ -78,7 +78,11 @@
       "crm_formlar": "CRM-Formular",
       "crm_aktiviteler": "CRM-Aktivität",
       "zaman_kayitlari": "Zeiteintrag",
-      "proje_sablonlari": "Projektvorlage"
+      "proje_sablonlari": "Projektvorlage",
+      "kartvizitler": "Digitale Visitenkarte",
+      "yorum_sayfalari": "Google-Bewertungsseite",
+      "kartvizit_gorselleri": "Visitenkartenbild",
+      "kartvizit_mesajlari": "Kartennachricht / Feedback"
     }
   }
 }

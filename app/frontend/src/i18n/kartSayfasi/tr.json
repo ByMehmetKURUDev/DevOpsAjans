@@ -1,0 +1,96 @@
+{
+  "kartSayfasi": {
+    "rehbereKaydet": "Rehbere kaydet",
+    "paylas": "Paylaş",
+    "qr": "QR kod",
+    "qrBaslik": "Bu kartın QR kodu",
+    "qrAciklama": "Telefon kamerasıyla okutun, kart açılsın.",
+    "qrIndir": "QR kodu indir (PNG)",
+    "kapat": "Kapat",
+    "baglantiKopyalandi": "Bağlantı kopyalandı",
+    "kopyalanamadi": "Bağlantı kopyalanamadı",
+    "ara": "Ara",
+    "whatsapp": "WhatsApp",
+    "eposta": "E-posta",
+    "web": "Web sitesi",
+    "harita": "Yol tarifi",
+    "iletisim": "İletişim",
+    "telefon": "Telefon",
+    "adres": "Adres",
+    "sosyal": "Sosyal medya",
+    "baglantilar": "Bağlantılar",
+    "hizmetler": "Hizmetler",
+    "calismaSaatleri": "Çalışma saatleri",
+    "kapali": "Kapalı",
+    "galeri": "Galeri",
+    "galeriGorseli": "Galeri görseli {{sira}}",
+    "profilFotografi": "{{ad}} profil fotoğrafı",
+    "logo": "{{ad}} logosu",
+    "kapak": "Kapak görseli",
+    "altBilgi": "Dijital kartvizit · mehmetkuru.dev",
+    "form": {
+      "baslik": "İletişim bilgilerinizi bırakın",
+      "aciklama": "Bilgilerinizi bırakın, size dönüş yapalım.",
+      "ad": "Adınız",
+      "eposta": "E-posta adresiniz",
+      "telefon": "Telefon numaranız",
+      "mesaj": "Mesajınız (isteğe bağlı)",
+      "gonder": "Gönder",
+      "gonderiliyor": "Gönderiliyor…",
+      "tesekkur": "Teşekkürler! Bilgileriniz iletildi.",
+      "iletisimGerekli": "E-posta adresinizi ya da telefon numaranızı yazın.",
+      "aydinlatma": "Gönderdiğiniz bilgiler yalnızca size dönüş yapmak için işlenir. Ayrıntılar:",
+      "gizlilik": "Gizlilik ve KVKK",
+      "hata": "Gönderilemedi. Lütfen biraz sonra yeniden deneyin.",
+      "cokHizli": "Çok sık denediniz. Biraz bekleyip yeniden deneyin.",
+      "tuzak": "Bu alanı boş bırakın"
+    },
+    "kilit": {
+      "baslik": "Bu kartvizit parola ile korunuyor",
+      "aciklama": "Kartı görmek için kart sahibinin verdiği parolayı yazın.",
+      "parola": "Parola",
+      "ac": "Kartı aç",
+      "yanlis": "Parola yanlış.",
+      "cokDeneme": "Çok fazla deneme yapıldı. Bir dakika sonra yeniden deneyin."
+    },
+    "yok": {
+      "baslik": "Kartvizit bulunamadı",
+      "aciklama": "Bu adreste bir dijital kartvizit yok. Adresi kontrol edin."
+    },
+    "pasif": {
+      "baslik": "Bu kartvizit şu an yayında değil",
+      "aciklama": "Kartın sahibi kartı geçici olarak kapatmış olabilir."
+    },
+    "hata": {
+      "baslik": "Kartvizit yüklenemedi",
+      "aciklama": "Bağlantıda bir sorun oluştu. Lütfen yeniden deneyin.",
+      "yenile": "Yeniden dene"
+    },
+    "yorum": {
+      "googleYaz": "Google'da yorum yaz",
+      "googleAciklama": "Deneyiminizi Google'da paylaşmanız işletmeye çok yardımcı olur.",
+      "ozelBaslik": "Bize özel geri bildirim gönder",
+      "ozelAciklama": "Yalnızca işletmenin göreceği bir not bırakmak isterseniz buraya yazabilirsiniz.",
+      "mesaj": "Geri bildiriminiz",
+      "ad": "Adınız (isteğe bağlı)",
+      "iletisim": "E-posta adresiniz (isteğe bağlı)",
+      "gonder": "Gönder",
+      "tesekkur": "Teşekkürler! Geri bildiriminiz işletmeye iletildi.",
+      "varsayilanTesekkur": "Bizi tercih ettiğiniz için teşekkür ederiz!",
+      "yokBaslik": "Sayfa bulunamadı",
+      "yokAciklama": "Bu adreste bir yorum sayfası yok.",
+      "pasifBaslik": "Bu sayfa şu an yayında değil",
+      "pasifAciklama": "Lütfen daha sonra yeniden deneyin.",
+      "altBilgi": "mehmetkuru.dev"
+    },
+    "gun": {
+      "pzt": "Pazartesi",
+      "sal": "Salı",
+      "car": "Çarşamba",
+      "per": "Perşembe",
+      "cum": "Cuma",
+      "cmt": "Cumartesi",
+      "paz": "Pazar"
+    }
+  }
+}

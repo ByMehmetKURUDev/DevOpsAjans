@@ -60,7 +60,9 @@
       "seo_dususu": "SEO-оценка или скорость сайта снизилась",
       "baglanti_koptu": "Нужно переподключить Google",
       "crm_yeni_aday": "CRM: новый лид",
-      "crm_hatirlatma": "CRM: напоминание о следующем шаге (ежедневно)"
+      "crm_hatirlatma": "CRM: напоминание о следующем шаге (ежедневно)",
+      "kartvizit_mesaj": "Новое сообщение с визитки",
+      "yorum_geri_bildirim": "Личный отзыв со страницы отзывов"
     },
     "kanal": {
       "inapp": "Панель",

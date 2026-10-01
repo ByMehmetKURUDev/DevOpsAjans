@@ -99,6 +99,13 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 20,
         "ebeveyn": "dinamik_qr",
     },
+    # Faz 4K: dijital kartvizit, Google yorum sayfası ve görselleri (kart/sayfa ile
+    # birlikte silinir, birlikte geri gelir; görsel içeriği çöp kaydı kalıcı silinince
+    # siliniyor), kart mesajı / geri bildirim. Olaylar (analitik) silinmiyor.
+    "kartvizitler": {"sahip": "hesap_email", "sira": 10},
+    "yorum_sayfalari": {"sahip": "hesap_email", "sira": 10},
+    "kartvizit_mesajlari": {"sahip": "hesap_email", "sira": 10},
+    "kartvizit_gorselleri": {"sahip": "hesap_email", "sira": 20, "ebeveyn": ("kartvizitler", "yorum_sayfalari")},
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",
@@ -141,6 +148,13 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
 
 #: Yalnız ebeveyniyle birlikte yakalanan (listede ayrı satır olarak görünmeyen) tablolar.
 COCUK_TABLOLAR = frozenset(t for t, a in IZINLI_TABLOLAR.items() if a.get("ebeveyn"))
+
+
+def _ebeveyn_silindi(ebeveyn: Any, silinenler: set) -> bool:
+    """Ebeveyn tek tablo ya da (Faz 4K) birkaç olası tablodan biri."""
+    if isinstance(ebeveyn, (tuple, list, frozenset, set)):
+        return any(e in silinenler for e in ebeveyn)
+    return ebeveyn in silinenler
 
 #: Listede gösterilecek kısa ad için bakılan alanlar (ilk dolu olan).
 ETIKET_ALANLARI = (
@@ -289,7 +303,7 @@ def _flush_oncesi(session: Session, flush_context, _nesneler) -> None:
         ebeveynler = {t for _, t in adaylar} | set(session.info.get(ISLEM_TABLOLARI) or ())
         adaylar = [
             (o, t) for o, t in adaylar
-            if t not in COCUK_TABLOLAR or IZINLI_TABLOLAR[t]["ebeveyn"] in ebeveynler
+            if t not in COCUK_TABLOLAR or _ebeveyn_silindi(IZINLI_TABLOLAR[t]["ebeveyn"], ebeveynler)
         ]
         if not adaylar:
             return
@@ -536,15 +550,18 @@ async def _dosya_guncelini_duzelt(db: AsyncSession, model: Any, veri: Dict[str, 
 # Kalıcı silme ve saklama temizliği
 # ---------------------------------------------------------------------------
 async def _icerigi_sil(db: AsyncSession, kayit: CopKutusu) -> None:
-    """Çöpteki dosyanın bekletilen içeriğini siler (geri alınmamışsa)."""
-    if kayit.tablo != "files" or kayit.geri_alindi:
+    """Çöpteki dosyanın bekletilen içeriğini siler (geri alınmamışsa).
+
+    Faz 4K: kartvizit görselleri de aynı alanları taşıyor (`depo`, `depolama_anahtari`).
+    """
+    if kayit.tablo not in ("files", "kartvizit_gorselleri") or kayit.geri_alindi:
         return
     veri = veri_coz(kayit)
     anahtar = veri.get("depolama_anahtari")
     if not anahtar:
         return
     try:
-        model = model_bul("files")
+        model = model_bul(kayit.tablo)
         if model is not None:
             hala_var = (
                 await db.execute(select(func.count()).select_from(model).where(model.depolama_anahtari == anahtar))

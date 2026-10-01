@@ -78,7 +78,11 @@
       "crm_formlar": "نموذج عملاء محتملين",
       "crm_aktiviteler": "نشاط عميل محتمل",
       "zaman_kayitlari": "سجل وقت",
-      "proje_sablonlari": "قالب مشروع"
+      "proje_sablonlari": "قالب مشروع",
+      "kartvizitler": "بطاقة أعمال رقمية",
+      "yorum_sayfalari": "صفحة مراجعات Google",
+      "kartvizit_gorselleri": "صورة بطاقة الأعمال",
+      "kartvizit_mesajlari": "رسالة البطاقة / ملاحظات"
     }
   }
 }

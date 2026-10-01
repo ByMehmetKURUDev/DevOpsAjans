@@ -60,7 +60,9 @@
       "seo_dususu": "Site SEO/speed score dropped",
       "baglanti_koptu": "Google connection needs reconnecting",
       "crm_yeni_aday": "CRM: new lead",
-      "crm_hatirlatma": "CRM: next step reminder (daily)"
+      "crm_hatirlatma": "CRM: next step reminder (daily)",
+      "kartvizit_mesaj": "New message from a business card",
+      "yorum_geri_bildirim": "Private feedback from a review page"
     },
     "kanal": {
       "inapp": "Panel",

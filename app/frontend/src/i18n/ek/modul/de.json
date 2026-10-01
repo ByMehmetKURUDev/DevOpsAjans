@@ -140,6 +140,14 @@
       "dinamik_qr": {
         "ad": "Dynamische QR-Codes und Kurzlinks",
         "aciklama": "QR-Codes und Kurzlinks, deren Ziel Sie später ändern können: Google-Bewertungen, WhatsApp, vCard, WLAN und mehr; Logo und Farben, CSV-Massenimport, Scan-Statistiken."
+      },
+      "dijital_kartvizit": {
+        "ad": "Digitale Visitenkarte und Bio-Link",
+        "aciklama": "Digitale Visitenkarte und Bio-Link-Seite zum Teilen per Smartphone: Kontakt speichern, QR, WhatsApp-/LinkedIn-Vorschau, Kontaktformular, Passwortschutz und Besuchsanalyse."
+      },
+      "google_yorum_sayfasi": {
+        "ad": "Google-Bewertungsseite",
+        "aciklama": "QR-Seite für Tischkarten oder Kassenbons: große Schaltfläche „Bei Google bewerten“ und optionales privates Feedbackformular; Aufruf- und Klickanalyse."
       }
     },
     "kategori": {
@@ -171,7 +179,9 @@
       "gunluk_sinir": "Tägliches Analyselimit",
       "kontrol_araligi_dk": "Prüfintervall (Minuten)",
       "gunluk_mesaj": "Tägliches Nachrichtenlimit (leer = globale Einstellung)",
-      "kayit_siniri": "Maximale Anzahl QR-Codes / Kurzlinks pro Konto"
+      "kayit_siniri": "Maximale Anzahl QR-Codes / Kurzlinks pro Konto",
+      "kart_siniri": "Maximale Anzahl digitaler Visitenkarten pro Konto",
+      "sayfa_siniri": "Maximale Anzahl Bewertungsseiten pro Konto"
     },
     "musteri": {
       "baslik": "Meine Module",

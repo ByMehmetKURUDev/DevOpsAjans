@@ -78,7 +78,11 @@
       "crm_formlar": "Форма CRM",
       "crm_aktiviteler": "Активность CRM",
       "zaman_kayitlari": "Запись времени",
-      "proje_sablonlari": "Шаблон проекта"
+      "proje_sablonlari": "Шаблон проекта",
+      "kartvizitler": "Цифровая визитка",
+      "yorum_sayfalari": "Страница отзывов Google",
+      "kartvizit_gorselleri": "Изображение визитки",
+      "kartvizit_mesajlari": "Сообщение с визитки / отзыв"
     }
   }
 }

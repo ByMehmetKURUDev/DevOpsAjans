@@ -425,6 +425,9 @@ export const NOINDEX_ROUTES = [
   // Faz 3T: girişsiz teklif ve sözleşme imza sayfaları (jetonlu); kisiye ozel.
   '/teklif',
   '/sozlesme',
+  // Faz 4K: dijital kartvizit ve Google yorum sayfasi; site haritasina girmez.
+  '/kart',
+  '/yorum',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

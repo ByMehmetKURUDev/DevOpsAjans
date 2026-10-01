@@ -140,6 +140,14 @@
       "dinamik_qr": {
         "ad": "Dynamic QR and short links",
         "aciklama": "QR codes and short links whose destination you can change later: Google reviews, WhatsApp, vCard, Wi-Fi and more; logo and colours, bulk CSV, scan analytics."
+      },
+      "dijital_kartvizit": {
+        "ad": "Digital business card and bio link",
+        "aciklama": "A digital business card and bio link page shared from your phone: save contact, QR, WhatsApp/LinkedIn preview, contact form, password protection and visit analytics."
+      },
+      "google_yorum_sayfasi": {
+        "ad": "Google review page",
+        "aciklama": "A QR page for table cards or receipts: a large \"Write a review on Google\" button and an optional private feedback form; view and click analytics."
       }
     },
     "kategori": {
@@ -171,7 +179,9 @@
       "gunluk_sinir": "Daily analysis limit",
       "kontrol_araligi_dk": "Check interval (minutes)",
       "gunluk_mesaj": "Daily message limit (blank = global setting)",
-      "kayit_siniri": "Maximum QR codes / short links per account"
+      "kayit_siniri": "Maximum QR codes / short links per account",
+      "kart_siniri": "Maximum digital business cards per account",
+      "sayfa_siniri": "Maximum review pages per account"
     },
     "musteri": {
       "baslik": "My modules",

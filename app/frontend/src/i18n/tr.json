@@ -482,7 +482,8 @@
     "tabCrm": "Adaylar (CRM)",
     "tabZaman": "Zaman",
     "tabProjeSablonlari": "Proje şablonları",
-    "tabDinamikQr": "QR ve kısa link"
+    "tabDinamikQr": "QR ve kısa link",
+    "tabKartvizit": "Dijital kartvizit"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
