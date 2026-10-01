@@ -62,6 +62,8 @@ export const CSP_YONERGELERI = {
     'https://googleads.g.doubleclick.net',
     'https://www.google.com',
     'https://connect.facebook.net',
+    // Cloudflare Web Analytics: Pages betiği kendisi ekliyor (çerezsiz); canlıda ilk taramada yakalandı.
+    'https://static.cloudflareinsights.com',
   ],
   'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
   'font-src': ["'self'", 'data:', 'https://fonts.gstatic.com'],
@@ -79,6 +81,7 @@ export const CSP_YONERGELERI = {
     'https://ad.doubleclick.net',
     'https://connect.facebook.net',
     'https://www.facebook.com',
+    'https://cloudflareinsights.com',
   ],
   'frame-src': ["'self'", 'https://www.google.com', 'https://td.doubleclick.net', 'https://www.googletagmanager.com', 'https://www.facebook.com'],
   'worker-src': ["'self'"],

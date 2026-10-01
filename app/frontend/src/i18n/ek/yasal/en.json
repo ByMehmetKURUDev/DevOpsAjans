@@ -582,7 +582,8 @@
                 "**Google Maps:** the map on the contact page is embedded from Google only when you press “Show map” or if you have accepted cookies; once loaded, Google may use its own cookies within that frame. Without your consent, the address and a link to open it in Google Maps are shown instead.",
                 "**Google Fonts:** when you choose Arabic or Hindi, the relevant fonts are downloaded from Google's servers, and your IP address is sent to Google in the process. Fonts for the other languages come from our own server.",
                 "**Payment pages:** the Shopier and Lemon Squeezy payment pages open on their own domains and use their own cookies.",
-                "**Web Push:** if you allow notifications, your browser creates a subscription; you can remove this permission in your browser settings or in the notification preferences of the client portal."
+                "**Web Push:** if you allow notifications, your browser creates a subscription; you can remove this permission in your browser settings or in the notification preferences of the client portal.",
+                "**Cloudflare Web Analytics:** Because our site is served through Cloudflare, page view counts and page speed are measured with Cloudflare's analytics script. This script does not use cookies or browser storage and does not create an identifier that recognises you; it only produces aggregate statistics."
               ]
             }
           ]

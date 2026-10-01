@@ -582,7 +582,8 @@
                 "**Google Haritalar:** İletişim sayfasındaki harita yalnız “Haritayı göster” düğmesine bastığınızda ya da çerezlere onay verdiyseniz Google'dan gömülü olarak yüklenir; yüklendiğinde Google bu çerçevede kendi çerezlerini kullanabilir. Onay vermediyseniz harita yerine adres ve Google Haritalar'da açma bağlantısı gösterilir.",
                 "**Google Fonts:** Arapça ya da Hintçe dilini seçtiğinizde ilgili yazı tipleri Google sunucularından indirilir; bu sırada IP adresiniz Google'a iletilir. Diğer dillerin yazı tipleri kendi sunucumuzdan gelir.",
                 "**Ödeme sayfaları:** Shopier ve Lemon Squeezy ödeme sayfaları kendi alan adlarında açılır ve kendi çerezlerini kullanır.",
-                "**Web Push:** Bildirimlere izin verirseniz tarayıcınız bir abonelik oluşturur; bu izni tarayıcı ayarlarından ya da müşteri panelindeki bildirim tercihlerinden kaldırabilirsiniz."
+                "**Web Push:** Bildirimlere izin verirseniz tarayıcınız bir abonelik oluşturur; bu izni tarayıcı ayarlarından ya da müşteri panelindeki bildirim tercihlerinden kaldırabilirsiniz.",
+                "**Cloudflare Web Analytics:** Sitemiz Cloudflare üzerinden yayınlandığı için sayfa görüntüleme sayıları ve sayfa hızı Cloudflare'in analitik betiğiyle ölçülür. Bu betik çerez ya da tarayıcı depolaması kullanmaz ve sizi tanımlayan bir kimlik oluşturmaz; yalnız toplu istatistik üretir."
               ]
             }
           ]
