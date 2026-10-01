@@ -7432,6 +7432,825 @@
       "one_cikan": false,
       "sira": 860,
       "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "skillspector",
+      "kategori": "claude-beceri",
+      "baslik": {
+        "tr": "SkillSpector: Yapay Zekâ Ajan Becerilerini Kurmadan Önce Tarayan NVIDIA Güvenlik Aracı",
+        "en": "SkillSpector: NVIDIA's Security Scanner for AI Agent Skills Before You Install Them",
+        "de": "SkillSpector: NVIDIAs Sicherheitsscanner für KI-Agenten-Skills vor der Installation",
+        "ru": "SkillSpector: сканер безопасности NVIDIA для навыков ИИ-агентов перед установкой",
+        "zh": "SkillSpector：NVIDIA 推出的 AI 智能体技能安装前安全扫描工具",
+        "hi": "SkillSpector: इंस्टॉल से पहले एआई एजेंट स्किल्स जाँचने वाला NVIDIA का सुरक्षा स्कैनर",
+        "ar": "SkillSpector: أداة NVIDIA لفحص أمان مهارات وكلاء الذكاء الاصطناعي قبل تثبيتها"
+      },
+      "ozet": {
+        "tr": "NVIDIA'nın açık kaynak tarayıcısı; Claude Code ve benzeri ajanlara kuracağınız becerilerde istem enjeksiyonu, veri sızdırma ve zararlı kod arar.",
+        "en": "NVIDIA's open-source scanner checks skills before you add them to Claude Code and similar agents for prompt injection, data exfiltration and malicious code.",
+        "de": "NVIDIAs Open-Source-Scanner prüft Skills vor der Installation in Claude Code und ähnlichen Agenten auf Prompt-Injection, Datenabfluss und Schadcode.",
+        "ru": "Открытый сканер NVIDIA проверяет навыки для Claude Code и других агентов до установки: инъекции промптов, утечки данных и вредоносный код.",
+        "zh": "NVIDIA 的开源扫描器，在您为 Claude Code 等智能体安装技能前，检查其中的提示注入、数据外泄和恶意代码。",
+        "hi": "NVIDIA का ओपन-सोर्स स्कैनर, Claude Code जैसे एजेंटों में स्किल जोड़ने से पहले प्रॉम्प्ट इंजेक्शन, डेटा लीक और हानिकारक कोड खोजता है।",
+        "ar": "ماسح مفتوح المصدر من NVIDIA يفحص المهارات قبل إضافتها إلى Claude Code وغيره بحثًا عن حقن التعليمات وتسريب البيانات والشيفرة الضارة."
+      },
+      "aciklama": {
+        "tr": "SkillSpector, NVIDIA'nın Claude Code, Codex CLI ve Gemini CLI gibi ajanlar için yazılmış becerileri (Agent Skills) kurulumdan önce güvenlik açısından inceleyen açık kaynak bir tarayıcıdır. Bir Git deposunu, URL'yi, zip dosyasını, klasörü ya da tek bir SKILL.md dosyasını tarar; istem enjeksiyonu, veri sızdırma, yetki yükseltme, tedarik zinciri riskleri, tehlikeli kod ve MCP araç zehirlenmesi dahil 17 kategoride 71 örüntü arar. Önce hızlı bir statik analiz yapar, isterseniz bir dil modeliyle anlamsal değerlendirme ekler; bağımlılıklardaki bilinen açıkları OSV.dev üzerinden kontrol eder. Sonucu 0–100 arası bir risk puanı ve terminal, JSON, Markdown ya da SARIF raporu olarak verir. NVIDIA'nın kendi doğrulanmış beceri hattında da kullanılır; Apache-2.0 lisanslıdır.\n\nAjans olarak bu Kaynaklar sayfasında onlarca beceri listeliyor ve kendi işimizde de Claude Code becerileri kullanıyoruz; bu yüzden yeni bir beceriyi kurmadan önce SkillSpector ile taramanızı öneriyor, kendi iş akışımızda da standart adım olarak kullanmayı değerlendiriyoruz. Statik tarama API anahtarı gerektirmez ve --no-llm ile dil modeline hiçbir şey gönderilmez. Düşük puan bir becerinin güvenli olduğunu kanıtlamaz, araç yalnızca bilinen örüntüleri yakalar; bu nedenle beceriyi okumak ve neye izin verdiğinizi gözden geçirmek yine gerekir.",
+        "en": "SkillSpector is NVIDIA's open-source scanner that reviews skills (Agent Skills) written for agents such as Claude Code, Codex CLI and Gemini CLI for security problems before you install them. It scans a Git repository, a URL, a zip file, a folder or a single SKILL.md, and looks for 71 patterns across 17 categories, including prompt injection, data exfiltration, privilege escalation, supply-chain risks, dangerous code and MCP tool poisoning. It starts with fast static analysis and can optionally add a semantic review by a language model; known vulnerabilities in dependencies are checked against OSV.dev. Results come as a 0–100 risk score and a terminal, JSON, Markdown or SARIF report. NVIDIA also uses it in its own verified-skills pipeline; it is Apache-2.0-licensed.\n\nAs an agency we list dozens of skills on this Resources page and use Claude Code skills in our own work, so we recommend scanning any new skill with SkillSpector before you install it, and we are evaluating it as a standard step in our own workflow. Static scanning needs no API key, and with --no-llm nothing is sent to a language model. A low score does not prove a skill is safe, as the tool only catches known patterns, so reading the skill and reviewing what you allow it to do is still necessary.",
+        "de": "SkillSpector ist NVIDIAs Open-Source-Scanner, der Skills (Agent Skills) für Agenten wie Claude Code, Codex CLI und Gemini CLI vor der Installation auf Sicherheitsprobleme prüft. Er scannt ein Git-Repository, eine URL, eine ZIP-Datei, einen Ordner oder eine einzelne SKILL.md und sucht nach 71 Mustern in 17 Kategorien, darunter Prompt-Injection, Datenabfluss, Rechteausweitung, Lieferkettenrisiken, gefährlicher Code und MCP-Tool-Poisoning. Zuerst läuft eine schnelle statische Analyse, optional ergänzt durch eine semantische Bewertung per Sprachmodell; bekannte Schwachstellen in Abhängigkeiten werden über OSV.dev abgeglichen. Das Ergebnis ist ein Risikowert von 0 bis 100 und ein Bericht im Terminal oder als JSON, Markdown oder SARIF. NVIDIA setzt das Tool auch in der eigenen Pipeline für verifizierte Skills ein; Lizenz: Apache-2.0.\n\nAls Agentur listen wir auf dieser Ressourcenseite Dutzende Skills und nutzen Claude-Code-Skills auch selbst. Deshalb empfehlen wir, jeden neuen Skill vor der Installation mit SkillSpector zu prüfen, und evaluieren das Tool als festen Schritt in unserem eigenen Ablauf. Der statische Scan braucht keinen API-Schlüssel, und mit --no-llm wird nichts an ein Sprachmodell gesendet. Ein niedriger Wert beweist nicht, dass ein Skill sicher ist, denn erkannt werden nur bekannte Muster; lesen Sie den Skill daher trotzdem und prüfen Sie, was Sie ihm erlauben.",
+        "ru": "SkillSpector — открытый сканер NVIDIA, который до установки проверяет навыки (Agent Skills) для агентов вроде Claude Code, Codex CLI и Gemini CLI на проблемы безопасности. Он сканирует Git-репозиторий, URL, zip-архив, папку или отдельный файл SKILL.md и ищет 71 шаблон в 17 категориях, включая инъекции промптов, утечку данных, повышение привилегий, риски цепочки поставок, опасный код и отравление инструментов MCP. Сначала выполняется быстрый статический анализ, по желанию к нему добавляется смысловая оценка языковой моделью; известные уязвимости в зависимостях сверяются с OSV.dev. Результат — оценка риска от 0 до 100 и отчёт в терминале, в JSON, Markdown или SARIF. NVIDIA использует инструмент и в собственном конвейере проверенных навыков; лицензия Apache-2.0.\n\nКак агентство, мы перечисляем на этой странице ресурсов десятки навыков и сами работаем с навыками Claude Code, поэтому рекомендуем проверять любой новый навык через SkillSpector перед установкой и рассматриваем его как стандартный шаг в нашем собственном процессе. Статическому сканированию не нужен API-ключ, а с флагом --no-llm языковой модели ничего не отправляется. Низкая оценка не доказывает безопасность навыка, ведь инструмент ловит только известные шаблоны, поэтому навык всё равно стоит прочитать и проверить, что вы ему разрешаете.",
+        "zh": "SkillSpector 是 NVIDIA 推出的开源扫描器，可在安装前检查为 Claude Code、Codex CLI 和 Gemini CLI 等智能体编写的技能（Agent Skills）是否存在安全问题。它可以扫描 Git 仓库、URL、zip 文件、文件夹或单个 SKILL.md，覆盖 17 个类别的 71 种模式，包括提示注入、数据外泄、权限提升、供应链风险、危险代码和 MCP 工具投毒。它先进行快速静态分析，可选择再由语言模型做语义评估；依赖中的已知漏洞通过 OSV.dev 核对。结果以 0–100 的风险分数以及终端、JSON、Markdown 或 SARIF 报告呈现。NVIDIA 也在自己的已验证技能流程中使用它；采用 Apache-2.0 许可证。\n\n作为代理机构，我们在这个资源页面上列出了数十个技能，自己的工作中也在使用 Claude Code 技能，因此建议在安装任何新技能之前先用 SkillSpector 扫描，我们也在评估把它作为自身流程的标准步骤。静态扫描不需要 API 密钥，使用 --no-llm 时不会向语言模型发送任何内容。分数低并不能证明技能安全，因为它只能发现已知模式，所以仍需阅读技能内容，并检查您允许它做什么。",
+        "hi": "SkillSpector, NVIDIA का ओपन-सोर्स स्कैनर है जो Claude Code, Codex CLI और Gemini CLI जैसे एजेंटों के लिए लिखी गई स्किल्स (Agent Skills) को इंस्टॉल करने से पहले सुरक्षा समस्याओं के लिए जाँचता है। यह Git रिपॉज़िटरी, URL, zip फ़ाइल, फ़ोल्डर या एक SKILL.md फ़ाइल स्कैन करता है और 17 श्रेणियों में 71 पैटर्न खोजता है, जिनमें प्रॉम्प्ट इंजेक्शन, डेटा बाहर भेजना, अधिकार बढ़ाना, सप्लाई-चेन जोखिम, खतरनाक कोड और MCP टूल पॉइज़निंग शामिल हैं। पहले तेज़ स्टैटिक विश्लेषण होता है, और चाहें तो भाषा मॉडल से अर्थ-आधारित समीक्षा जोड़ी जा सकती है; डिपेंडेंसी की ज्ञात कमज़ोरियाँ OSV.dev से जाँची जाती हैं। नतीजा 0–100 के जोखिम स्कोर और टर्मिनल, JSON, Markdown या SARIF रिपोर्ट के रूप में मिलता है। NVIDIA इसे अपनी सत्यापित स्किल्स पाइपलाइन में भी इस्तेमाल करता है; यह Apache-2.0 लाइसेंस में है।\n\nएक एजेंसी के रूप में हम इस संसाधन पेज पर दर्जनों स्किल्स सूचीबद्ध करते हैं और अपने काम में भी Claude Code स्किल्स इस्तेमाल करते हैं, इसलिए सलाह देते हैं कि कोई भी नई स्किल इंस्टॉल करने से पहले उसे SkillSpector से स्कैन करें; हम इसे अपनी कार्यप्रणाली में मानक कदम बनाने पर भी विचार कर रहे हैं। स्टैटिक स्कैन के लिए API कुंजी नहीं चाहिए, और --no-llm के साथ भाषा मॉडल को कुछ नहीं भेजा जाता। कम स्कोर यह साबित नहीं करता कि स्किल सुरक्षित है, क्योंकि टूल केवल ज्ञात पैटर्न पकड़ता है; इसलिए स्किल को पढ़ना और यह देखना कि आप उसे क्या करने दे रहे हैं, फिर भी ज़रूरी है।",
+        "ar": "SkillSpector ماسح مفتوح المصدر من NVIDIA يفحص المهارات (Agent Skills) المكتوبة لوكلاء مثل Claude Code وCodex CLI وGemini CLI بحثًا عن مشكلات أمنية قبل تثبيتها. يفحص مستودع Git أو رابطًا أو ملف zip أو مجلدًا أو ملف SKILL.md واحدًا، ويبحث عن 71 نمطًا في 17 فئة، منها حقن التعليمات وتسريب البيانات وتصعيد الصلاحيات ومخاطر سلسلة التوريد والشيفرة الخطرة وتسميم أدوات MCP. يبدأ بتحليل ثابت سريع، ويمكن اختياريًا إضافة تقييم دلالي بنموذج لغوي؛ وتُطابَق الثغرات المعروفة في الاعتماديات مع OSV.dev. تأتي النتيجة على شكل درجة مخاطر من 0 إلى 100 وتقرير في الطرفية أو بصيغة JSON أو Markdown أو SARIF. تستخدمه NVIDIA أيضًا في مسار المهارات الموثّقة لديها، وهو مرخّص بموجب Apache-2.0.\n\nبصفتنا وكالة، ندرج عشرات المهارات في صفحة الموارد هذه ونستخدم مهارات Claude Code في عملنا أيضًا، لذلك نوصي بفحص أي مهارة جديدة باستخدام SkillSpector قبل تثبيتها، ونقيّم اعتماده خطوةً قياسية في سير عملنا. لا يحتاج الفحص الثابت إلى مفتاح API، ومع الخيار ‎--no-llm لا يُرسَل أي شيء إلى نموذج لغوي. الدرجة المنخفضة لا تثبت أن المهارة آمنة، لأن الأداة تلتقط الأنماط المعروفة فقط، لذا تبقى قراءة المهارة ومراجعة ما تسمح لها بفعله ضرورية."
+      },
+      "adimlar": {
+        "tr": [
+          "Python 3.12 ve uv kuruluysa aracı yükleyin: uv tool install git+https://github.com/NVIDIA/skillspector.git",
+          "Kurmayı düşündüğünüz beceriyi tarayın: skillspector scan https://github.com/kullanici/beceri --no-llm",
+          "Daha derin analiz için SKILLSPECTOR_PROVIDER ve ilgili API anahtarını tanımlayıp --no-llm olmadan yeniden tarayın.",
+          "Risk puanını ve bulguları okuyun; yüksek riskli becerileri kurmayın ya da kodunu elle inceleyin."
+        ],
+        "en": [
+          "With Python 3.12 and uv installed, install the tool: uv tool install git+https://github.com/NVIDIA/skillspector.git",
+          "Scan the skill you plan to install: skillspector scan https://github.com/user/skill --no-llm",
+          "For a deeper review, set SKILLSPECTOR_PROVIDER and the matching API key, then scan again without --no-llm.",
+          "Read the risk score and findings; skip high-risk skills or review their code by hand."
+        ],
+        "de": [
+          "Mit Python 3.12 und uv installieren: uv tool install git+https://github.com/NVIDIA/skillspector.git",
+          "Den geplanten Skill scannen: skillspector scan https://github.com/nutzer/skill --no-llm",
+          "Für eine tiefere Prüfung SKILLSPECTOR_PROVIDER und den passenden API-Schlüssel setzen und ohne --no-llm erneut scannen.",
+          "Risikowert und Befunde lesen; riskante Skills nicht installieren oder den Code manuell prüfen."
+        ],
+        "ru": [
+          "При установленных Python 3.12 и uv установите инструмент: uv tool install git+https://github.com/NVIDIA/skillspector.git",
+          "Просканируйте навык, который собираетесь установить: skillspector scan https://github.com/user/skill --no-llm",
+          "Для более глубокой проверки задайте SKILLSPECTOR_PROVIDER и соответствующий API-ключ и запустите сканирование без --no-llm.",
+          "Изучите оценку риска и находки; не устанавливайте рискованные навыки или проверьте их код вручную."
+        ],
+        "zh": [
+          "安装好 Python 3.12 和 uv 后安装工具：uv tool install git+https://github.com/NVIDIA/skillspector.git",
+          "扫描打算安装的技能：skillspector scan https://github.com/user/skill --no-llm",
+          "如需更深入的检查，设置 SKILLSPECTOR_PROVIDER 和相应的 API 密钥，然后去掉 --no-llm 再次扫描。",
+          "阅读风险分数和发现项；不要安装高风险技能，或手动审查其代码。"
+        ],
+        "hi": [
+          "Python 3.12 और uv इंस्टॉल हों तो टूल इंस्टॉल करें: uv tool install git+https://github.com/NVIDIA/skillspector.git",
+          "जिस स्किल को इंस्टॉल करना है उसे स्कैन करें: skillspector scan https://github.com/user/skill --no-llm",
+          "गहरी जाँच के लिए SKILLSPECTOR_PROVIDER और संबंधित API कुंजी सेट करें, फिर --no-llm के बिना दोबारा स्कैन करें।",
+          "जोखिम स्कोर और निष्कर्ष पढ़ें; उच्च-जोखिम स्किल्स इंस्टॉल न करें या उनका कोड खुद जाँचें।"
+        ],
+        "ar": [
+          "بعد تثبيت Python 3.12 وuv ثبّت الأداة: uv tool install git+https://github.com/NVIDIA/skillspector.git",
+          "افحص المهارة التي تنوي تثبيتها: skillspector scan https://github.com/user/skill --no-llm",
+          "لفحص أعمق اضبط SKILLSPECTOR_PROVIDER ومفتاح API المناسب، ثم أعد الفحص دون ‎--no-llm.",
+          "اقرأ درجة المخاطر والنتائج؛ لا تثبّت المهارات عالية الخطورة أو راجع شيفرتها يدويًا."
+        ]
+      },
+      "etiketler": [
+        "güvenlik",
+        "agent skills",
+        "beceri taraması",
+        "nvidia",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/NVIDIA/SkillSpector",
+      "baglanti_turu": "github",
+      "lisans": "Apache-2.0",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": true,
+      "sira": 870,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "impeccable",
+      "kategori": "gorsel-tasarim",
+      "baslik": {
+        "tr": "Impeccable: Yapay Zekâ Ajanlarına Ön Yüz Tasarım Disiplini Kazandıran Beceri ve Denetleyici",
+        "en": "Impeccable: A Design Skill and Detector That Gives AI Agents Frontend Design Discipline",
+        "de": "Impeccable: Design-Skill und Detektor für mehr Frontend-Designdisziplin bei KI-Agenten",
+        "ru": "Impeccable: навык и детектор, прививающие ИИ-агентам дисциплину фронтенд-дизайна",
+        "zh": "Impeccable：让 AI 智能体具备前端设计规范的技能与检测工具",
+        "hi": "Impeccable: एआई एजेंटों को फ़्रंटएंड डिज़ाइन अनुशासन सिखाने वाली स्किल और डिटेक्टर",
+        "ar": "Impeccable: مهارة وأداة كشف تمنح وكلاء الذكاء الاصطناعي انضباطًا في تصميم الواجهات"
+      },
+      "ozet": {
+        "tr": "Paul Bakaus'un açık kaynak tasarım becerisi; 24 komut ve 61 kurallı denetleyiciyle yapay zekâ arayüzlerindeki şablon görünümünü yakalayıp düzeltir.",
+        "en": "Paul Bakaus's open-source design skill uses 24 commands and a 61-rule detector to catch and fix the generic, templated look of AI-built interfaces.",
+        "de": "Open-Source-Design-Skill von Paul Bakaus: 24 Befehle und ein Detektor mit 61 Regeln erkennen und beheben den generischen Template-Look von KI-UIs.",
+        "ru": "Открытый навык дизайна от Пола Бакауса: 24 команды и детектор из 61 правила находят и исправляют шаблонный вид интерфейсов, созданных ИИ.",
+        "zh": "Paul Bakaus 的开源设计技能，用 24 个命令和含 61 条规则的检测器，找出并修正 AI 生成界面千篇一律的模板感。",
+        "hi": "Paul Bakaus की ओपन-सोर्स डिज़ाइन स्किल, 24 कमांड और 61 नियमों वाले डिटेक्टर से एआई-निर्मित इंटरफ़ेस का घिसा-पिटा टेम्पलेट लुक पकड़कर सुधारती है।",
+        "ar": "مهارة تصميم مفتوحة المصدر من Paul Bakaus تكشف بـ24 أمرًا وأداة من 61 قاعدة المظهرَ القالبي المكرر لواجهات الذكاء الاصطناعي وتصلحه."
+      },
+      "aciklama": {
+        "tr": "Impeccable, Anthropic'in frontend-design becerisinden yola çıkan ve kodlama ajanlarına ortak bir tasarım dili kazandıran açık kaynak bir beceridir. /impeccable init ile ürünün kitlesini, amacını ve tonunu PRODUCT.md dosyasına kaydeder; ardından audit, critique, polish, typeset, layout, harden ve animate gibi 24 komutla tasarımı denetler ve iyileştirir. Her yerde Inter yazı tipi, mordan maviye geçişler, iç içe kartlar ve renkli zemin üzerinde gri metin gibi yapay zekâ tasarımlarının tipik izlerini 61 deterministik kuralla yakalayan bir denetleyicisi vardır; bu denetleyici dil modeli ve API anahtarı olmadan çalışır, bir klasörü ya da canlı bir URL'yi tarayabilir. Claude Code, Cursor, Codex ve Gemini CLI dahil birçok ajanla kullanılır; Apache-2.0 lisanslıdır.\n\nAjans olarak müşteri sitelerini ve kendi portalımızın arayüzünü Claude Code ile geliştirirken teslimden önce bir tasarım denetimi ve son rötuş adımı olarak değerlendiriyoruz; npx impeccable detect ile bir müşterinin canlı sitesini taramak, yeniden tasarım teklifinden önce somut bir bulgu listesi çıkarmayı da kolaylaştırır. Kurulum sırasında ajan kancası (hook) eklemeyi önerir ve ilk çalıştırmada bir motor dosyası indirir; ekip projelerinde bu tercihleri bilinçli yapmanızı, bulguları da kesin hüküm değil yol gösterici olarak okumanızı öneririz.",
+        "en": "Impeccable is an open-source skill that grew out of Anthropic's frontend-design skill and gives coding agents a shared design vocabulary. /impeccable init records the product's audience, purpose and tone in PRODUCT.md; after that, 24 commands such as audit, critique, polish, typeset, layout, harden and animate review and improve the design. Its detector uses 61 deterministic rules to catch the usual tells of AI-generated design, such as Inter used everywhere, gradients running from purple to blue, cards stacked inside other cards and gray text on colored backgrounds; it runs without a language model or API key and can scan a folder or a live URL. It works with many agents, including Claude Code, Cursor, Codex and Gemini CLI, and is Apache-2.0-licensed.\n\nAs an agency we are evaluating it as a design review and final-polish step before delivery when we build client sites and our own portal interface with Claude Code; running npx impeccable detect against a client's live site also makes it easier to produce a concrete list of findings before a redesign proposal. During setup it offers to add an agent hook, and on first run it downloads an engine binary, so make these choices deliberately in team projects and treat the findings as guidance rather than a final verdict.",
+        "de": "Impeccable ist ein Open-Source-Skill, der aus Anthropics frontend-design-Skill hervorging und Coding-Agenten ein gemeinsames Designvokabular gibt. /impeccable init hält Zielgruppe, Zweck und Tonalität des Produkts in PRODUCT.md fest; danach prüfen und verbessern 24 Befehle wie audit, critique, polish, typeset, layout, harden und animate das Design. Der Detektor erkennt mit 61 deterministischen Regeln typische Spuren KI-generierter Gestaltung, etwa überall Inter, Lila-Blau-Verläufe, verschachtelte Karten und grauen Text auf farbigem Grund; er läuft ohne Sprachmodell und API-Schlüssel und kann einen Ordner oder eine Live-URL scannen. Der Skill funktioniert mit vielen Agenten, darunter Claude Code, Cursor, Codex und Gemini CLI; Lizenz: Apache-2.0.\n\nAls Agentur evaluieren wir Impeccable als Design-Review und Feinschliff vor der Übergabe, wenn wir Kundenwebsites und die Oberfläche unseres eigenen Portals mit Claude Code bauen; mit npx impeccable detect auf der Live-Website eines Kunden lässt sich zudem vor einem Redesign-Angebot eine konkrete Befundliste erstellen. Bei der Einrichtung bietet das Tool an, einen Agent-Hook hinzuzufügen, und beim ersten Start lädt es eine Engine-Binärdatei herunter; treffen Sie diese Entscheidungen in Teamprojekten bewusst und lesen Sie die Befunde als Orientierung, nicht als endgültiges Urteil.",
+        "ru": "Impeccable — открытый навык, выросший из навыка frontend-design от Anthropic; он даёт кодинг-агентам общий язык дизайна. Команда /impeccable init записывает аудиторию, цель и тон продукта в PRODUCT.md, а затем 24 команды — audit, critique, polish, typeset, layout, harden, animate и другие — проверяют и улучшают дизайн. Детектор из 61 детерминированного правила ловит типичные признаки дизайна, созданного ИИ: Inter повсюду, градиенты от фиолетового к синему, карточки внутри карточек, серый текст на цветном фоне. Он работает без языковой модели и API-ключа и может проверить папку или живой URL. Навык совместим со многими агентами, включая Claude Code, Cursor, Codex и Gemini CLI; лицензия Apache-2.0.\n\nКак агентство, мы рассматриваем Impeccable как этап дизайн-ревью и финальной полировки перед сдачей, когда делаем клиентские сайты и интерфейс собственного портала в Claude Code; запуск npx impeccable detect на живом сайте клиента также помогает до предложения о редизайне получить конкретный список замечаний. При установке инструмент предлагает добавить хук для агента, а при первом запуске скачивает исполняемый файл движка, поэтому в командных проектах принимайте эти решения осознанно, а находки воспринимайте как ориентир, а не окончательный вердикт.",
+        "zh": "Impeccable 是在 Anthropic 的 frontend-design 技能基础上发展而来的开源技能，为编码智能体提供一套共同的设计语言。/impeccable init 会把产品的受众、用途和语气记录到 PRODUCT.md；之后可用 audit、critique、polish、typeset、layout、harden、animate 等 24 个命令审查并改进设计。它的检测器用 61 条确定性规则识别 AI 设计的典型痕迹，例如处处使用 Inter 字体、紫到蓝的渐变、卡片套卡片、彩色背景上的灰色文字；检测器无需语言模型和 API 密钥即可运行，可扫描文件夹或在线网址。它适用于 Claude Code、Cursor、Codex、Gemini CLI 等众多智能体，采用 Apache-2.0 许可证。\n\n作为代理机构，我们在用 Claude Code 构建客户网站和自有门户界面时，正在评估把它作为交付前的设计审查和最终打磨步骤；对客户的线上网站运行 npx impeccable detect，也便于在提出改版方案前整理出具体的问题清单。安装时它会提议添加智能体钩子（hook），首次运行时会下载一个引擎二进制文件，因此在团队项目中请有意识地做出这些选择，并把检测结果视为参考，而不是最终结论。",
+        "hi": "Impeccable एक ओपन-सोर्स स्किल है जो Anthropic की frontend-design स्किल से शुरू हुई और कोडिंग एजेंटों को एक साझा डिज़ाइन भाषा देती है। /impeccable init उत्पाद के दर्शक, उद्देश्य और टोन को PRODUCT.md में दर्ज करता है; इसके बाद audit, critique, polish, typeset, layout, harden और animate जैसी 24 कमांड डिज़ाइन की जाँच और सुधार करती हैं। इसका डिटेक्टर 61 निश्चित नियमों से एआई डिज़ाइन के आम निशान पकड़ता है, जैसे हर जगह Inter फ़ॉन्ट, बैंगनी से नीले ग्रेडिएंट, कार्ड के अंदर कार्ड और रंगीन पृष्ठभूमि पर धूसर टेक्स्ट; यह बिना भाषा मॉडल या API कुंजी के चलता है और किसी फ़ोल्डर या लाइव URL को स्कैन कर सकता है। यह Claude Code, Cursor, Codex और Gemini CLI सहित कई एजेंटों के साथ काम करती है और Apache-2.0 लाइसेंस में है।\n\nएक एजेंसी के रूप में, जब हम Claude Code से क्लाइंट साइटें और अपने पोर्टल का इंटरफ़ेस बनाते हैं, तब डिलीवरी से पहले डिज़ाइन समीक्षा और अंतिम सुधार के कदम के रूप में इस पर विचार कर रहे हैं; किसी क्लाइंट की लाइव साइट पर npx impeccable detect चलाने से रीडिज़ाइन प्रस्ताव से पहले ठोस खामियों की सूची बनाना भी आसान होता है। सेटअप के दौरान यह एजेंट हुक जोड़ने का प्रस्ताव देता है और पहली बार चलने पर एक इंजन बाइनरी डाउनलोड करता है, इसलिए टीम प्रोजेक्ट में ये फ़ैसले सोच-समझकर लें और नतीजों को अंतिम फ़ैसला नहीं, मार्गदर्शन मानें।",
+        "ar": "Impeccable مهارة مفتوحة المصدر انطلقت من مهارة frontend-design لدى Anthropic، وتمنح وكلاء البرمجة لغة تصميم مشتركة. يسجّل الأمر ‎/impeccable init جمهور المنتج والغرض منه ونبرته في ملف PRODUCT.md، ثم تتولى 24 أمرًا مثل audit وcritique وpolish وtypeset وlayout وharden وanimate مراجعة التصميم وتحسينه. وتلتقط أداة الكشف فيها، بواسطة 61 قاعدة حتمية، العلامات المعتادة للتصميم المولَّد بالذكاء الاصطناعي، مثل خط Inter في كل مكان والتدرجات من البنفسجي إلى الأزرق والبطاقات المتداخلة والنص الرمادي على خلفيات ملوّنة؛ وتعمل دون نموذج لغوي أو مفتاح API على مجلد أو رابط حي. تعمل المهارة مع وكلاء كثيرين منهم Claude Code وCursor وCodex وGemini CLI، ومرخّصة بموجب Apache-2.0.\n\nبصفتنا وكالة، نقيّمها خطوةً لمراجعة التصميم واللمسات الأخيرة قبل التسليم عندما نبني مواقع العملاء وواجهة بوابتنا باستخدام Claude Code؛ كما أن تشغيل npx impeccable detect على موقع العميل الحي يسهّل إعداد قائمة ملموسة بالملاحظات قبل تقديم عرض لإعادة التصميم. أثناء الإعداد تعرض الأداة إضافة خطّاف (hook) للوكيل، وفي أول تشغيل تنزّل ملفًا تنفيذيًا للمحرّك، لذا اتخذ هذه القرارات بوعي في مشاريع الفريق، وتعامل مع النتائج على أنها إرشاد لا حكم نهائي."
+      },
+      "adimlar": {
+        "tr": [
+          "Proje klasöründe kurulumu başlatın: npx impeccable install",
+          "Ajanınızda /impeccable init çalıştırıp ürün bilgilerini PRODUCT.md dosyasına kaydedin.",
+          "Bir sayfayı denetletin: /impeccable audit ana-sayfa ya da /impeccable critique ana-sayfa",
+          "Canlı bir siteyi dil modeli olmadan tarayın: npx impeccable detect https://ornek.com"
+        ],
+        "en": [
+          "Start the installer in your project folder: npx impeccable install",
+          "Run /impeccable init in your agent to record product details in PRODUCT.md.",
+          "Review a page: /impeccable audit home or /impeccable critique home",
+          "Scan a live site without a language model: npx impeccable detect https://example.com"
+        ],
+        "de": [
+          "Installation im Projektordner starten: npx impeccable install",
+          "Im Agenten /impeccable init ausführen und Produktangaben in PRODUCT.md festhalten.",
+          "Eine Seite prüfen lassen: /impeccable audit startseite oder /impeccable critique startseite",
+          "Eine Live-Website ohne Sprachmodell scannen: npx impeccable detect https://example.com"
+        ],
+        "ru": [
+          "Запустите установку в папке проекта: npx impeccable install",
+          "Выполните в агенте /impeccable init, чтобы записать сведения о продукте в PRODUCT.md.",
+          "Проверьте страницу: /impeccable audit home или /impeccable critique home",
+          "Просканируйте живой сайт без языковой модели: npx impeccable detect https://example.com"
+        ],
+        "zh": [
+          "在项目目录中启动安装：npx impeccable install",
+          "在智能体中运行 /impeccable init，把产品信息记录到 PRODUCT.md。",
+          "审查某个页面：/impeccable audit home 或 /impeccable critique home",
+          "无需语言模型扫描线上网站：npx impeccable detect https://example.com"
+        ],
+        "hi": [
+          "प्रोजेक्ट फ़ोल्डर में इंस्टॉलर चलाएँ: npx impeccable install",
+          "एजेंट में /impeccable init चलाकर उत्पाद की जानकारी PRODUCT.md में दर्ज करें।",
+          "किसी पेज की जाँच करवाएँ: /impeccable audit home या /impeccable critique home",
+          "भाषा मॉडल के बिना लाइव साइट स्कैन करें: npx impeccable detect https://example.com"
+        ],
+        "ar": [
+          "ابدأ التثبيت في مجلد المشروع: npx impeccable install",
+          "شغّل ‎/impeccable init في وكيلك لتسجيل معلومات المنتج في PRODUCT.md.",
+          "راجع صفحة ما: ‎/impeccable audit home أو ‎/impeccable critique home",
+          "افحص موقعًا حيًّا دون نموذج لغوي: npx impeccable detect https://example.com"
+        ]
+      },
+      "etiketler": [
+        "ön yüz tasarımı",
+        "claude becerisi",
+        "tasarım denetimi",
+        "ui ux",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/pbakaus/impeccable",
+      "baglanti_turu": "github",
+      "lisans": "Apache-2.0",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": true,
+      "sira": 880,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "hyperframes",
+      "kategori": "video-ses",
+      "baslik": {
+        "tr": "HyperFrames: HTML ve CSS ile Video Üreten, Ajanlar İçin Tasarlanmış Açık Kaynak Çatı",
+        "en": "HyperFrames: An Open-Source Framework That Renders Video from HTML and CSS, Built for Agents",
+        "de": "HyperFrames: Open-Source-Framework, das aus HTML und CSS Videos rendert – gebaut für Agenten",
+        "ru": "HyperFrames: открытый фреймворк для рендеринга видео из HTML и CSS, созданный для агентов",
+        "zh": "HyperFrames：用 HTML 与 CSS 渲染视频、专为智能体打造的开源框架",
+        "hi": "HyperFrames: HTML और CSS से वीडियो रेंडर करने वाला, एजेंटों के लिए बना ओपन-सोर्स फ़्रेमवर्क",
+        "ar": "HyperFrames: إطار مفتوح المصدر يحوّل HTML وCSS إلى فيديو ومصمَّم للوكلاء"
+      },
+      "ozet": {
+        "tr": "HeyGen'in açık kaynak çatısı HyperFrames; HTML, CSS ve animasyonları MP4 videoya çevirir, Claude Code becerileriyle tanıtım videosu ve Shorts üretir.",
+        "en": "HeyGen's open-source HyperFrames turns HTML, CSS and animations into MP4 video and, with Claude Code skills, produces promo videos and Shorts.",
+        "de": "HyperFrames von HeyGen macht aus HTML, CSS und Animationen MP4-Videos und erstellt mit Claude-Code-Skills Promo-Videos und Shorts – Open Source.",
+        "ru": "Открытый HyperFrames от HeyGen превращает HTML, CSS и анимации в MP4-видео, а с навыками Claude Code делает промо-ролики и Shorts.",
+        "zh": "HeyGen 开源的 HyperFrames 把 HTML、CSS 和动画渲染成 MP4 视频，并借助 Claude Code 技能制作宣传视频和 Shorts。",
+        "hi": "HeyGen का ओपन-सोर्स HyperFrames, HTML, CSS और एनिमेशन को MP4 वीडियो में बदलता है और Claude Code स्किल्स से प्रोमो वीडियो व Shorts बनाता है।",
+        "ar": "إطار HyperFrames مفتوح المصدر من HeyGen يحوّل HTML وCSS والرسوم المتحركة إلى فيديو MP4، وينتج بمهارات Claude Code فيديوهات ترويجية وShorts."
+      },
+      "aciklama": {
+        "tr": "HyperFrames, HTML, CSS, medya dosyaları ve zamanlanabilir animasyonlardan her seferinde aynı sonucu veren (deterministik) MP4 videolar üreten, HeyGen tarafından geliştirilmiş açık kaynak bir çatıdır. Yerelde CLI ile ya da Claude Code, Cursor, Codex ve Gemini CLI gibi ajanlarda becerilerle kullanılır; ürün tanıtım videosu, konu anlatımı, konuşan kişi videolarına altyazı, müziğe senkron klip, kısa hareketli grafik ve sunum için ayrı iş akışları içerir. GSAP, Lottie ve Three.js gibi animasyon kütüphaneleriyle çalışır, mevcut Remotion projelerini taşımak için de bir beceri sunar. Node.js 22 ve FFmpeg gerektirir; Apache-2.0 lisanslıdır.\n\nAjans olarak YouTube Shorts ve müşteri tanıtım videolarını kodla üretme planımızda Remotion'ın yanında değerlendiriyoruz: React yerine düz HTML ile çalışması ve Apache-2.0 lisansı sayesinde şirket büyüklüğüne bağlı ayrı bir ticari lisans gerektirmemesi önemli farklar. CLI varsayılan olarak anonim kullanım verisi gönderir; hyperframes telemetry disable komutuyla ya da DO_NOT_TRACK=1 ile kapatabilirsiniz. HeyGen'in bulutta işleme seçeneği isteğe bağlıdır, videolar yerelde de işlenir.",
+        "en": "HyperFrames is an open-source framework from HeyGen that renders HTML, CSS, media files and timeline-controlled animations as MP4 videos that come out identical on every render. You can use it locally from the CLI or through skills in agents such as Claude Code, Cursor, Codex and Gemini CLI, with separate workflows for product launch videos, topic explainers, captions on talking-head videos, beat-synced music clips, short motion graphics and slide decks. It works with animation libraries such as GSAP, Lottie and Three.js, and includes a skill for porting existing Remotion compositions. It needs Node.js 22 and FFmpeg and is Apache-2.0-licensed.\n\nAs an agency we are evaluating it alongside Remotion for our plan to produce YouTube Shorts and client promo videos with code: the key differences are that it works with plain HTML instead of React and, under Apache-2.0, does not require a separate commercial license tied to company size. The CLI sends anonymous usage data by default; you can turn it off with hyperframes telemetry disable or DO_NOT_TRACK=1. HeyGen's cloud rendering is optional, and videos also render locally.",
+        "de": "HyperFrames ist ein Open-Source-Framework von HeyGen, das HTML, CSS, Mediendateien und zeitlich steuerbare Animationen zu deterministischen MP4-Videos rendert: Gleiche Eingabe ergibt immer das gleiche Ergebnis. Es lässt sich lokal über die CLI oder per Skills in Agenten wie Claude Code, Cursor, Codex und Gemini CLI nutzen, mit eigenen Workflows für Produktvideos, Erklärvideos, Untertitel für Talking-Head-Videos, musiksynchrone Clips, kurze Motion Graphics und Präsentationen. Es arbeitet mit Animationsbibliotheken wie GSAP, Lottie und Three.js und bringt einen Skill zum Portieren bestehender Remotion-Kompositionen mit. Voraussetzungen sind Node.js 22 und FFmpeg; Lizenz: Apache-2.0.\n\nAls Agentur evaluieren wir HyperFrames neben Remotion für unseren Plan, YouTube Shorts und Promo-Videos für Kunden per Code zu produzieren: Es arbeitet mit reinem HTML statt React und benötigt dank Apache-2.0 keine separate, von der Firmengröße abhängige kommerzielle Lizenz. Die CLI sendet standardmäßig anonyme Nutzungsdaten; abschalten lässt sich das mit hyperframes telemetry disable oder DO_NOT_TRACK=1. Das Cloud-Rendering von HeyGen ist optional, Videos werden auch lokal gerendert.",
+        "ru": "HyperFrames — открытый фреймворк от HeyGen, который рендерит HTML, CSS, медиафайлы и управляемые по времени анимации в детерминированные MP4-видео: одни и те же входные данные всегда дают один и тот же результат. Его можно использовать локально через CLI или через навыки в агентах вроде Claude Code, Cursor, Codex и Gemini CLI; есть отдельные сценарии для промо-роликов продукта, объясняющих видео, субтитров к видео с говорящим человеком, клипов под музыку, коротких моушн-графиков и презентаций. Фреймворк работает с библиотеками анимации GSAP, Lottie и Three.js и включает навык для переноса существующих композиций Remotion. Нужны Node.js 22 и FFmpeg; лицензия Apache-2.0.\n\nКак агентство, мы рассматриваем его наряду с Remotion в рамках плана производить YouTube Shorts и промо-видео для клиентов с помощью кода: главное отличие в том, что он работает с обычным HTML вместо React и по лицензии Apache-2.0 не требует отдельной коммерческой лицензии в зависимости от размера компании. CLI по умолчанию отправляет анонимные данные об использовании; отключить это можно командой hyperframes telemetry disable или переменной DO_NOT_TRACK=1. Облачный рендеринг HeyGen необязателен, видео рендерятся и локально.",
+        "zh": "HyperFrames 是 HeyGen 推出的开源框架，可把 HTML、CSS、媒体文件和可按时间定位的动画渲染成确定性的 MP4 视频，相同输入总是得到相同结果。既可以在本地通过 CLI 使用，也可以在 Claude Code、Cursor、Codex、Gemini CLI 等智能体中通过技能使用，并为产品发布视频、主题讲解、口播视频字幕、卡点音乐短片、短动态图形和演示文稿提供了独立的工作流。它支持 GSAP、Lottie、Three.js 等动画库，还提供把现有 Remotion 作品迁移过来的技能。需要 Node.js 22 和 FFmpeg，采用 Apache-2.0 许可证。\n\n作为代理机构，我们计划用代码制作 YouTube Shorts 和客户宣传视频，正在把它与 Remotion 一起评估：主要区别在于它使用普通 HTML 而非 React，并且采用 Apache-2.0 许可证，不需要按公司规模另购商业许可。CLI 默认会发送匿名使用数据，可通过 hyperframes telemetry disable 或 DO_NOT_TRACK=1 关闭。HeyGen 的云端渲染是可选的，视频也可以在本地渲染。",
+        "hi": "HyperFrames, HeyGen का ओपन-सोर्स फ़्रेमवर्क है जो HTML, CSS, मीडिया फ़ाइलों और समय के अनुसार नियंत्रित एनिमेशन को निश्चित (deterministic) MP4 वीडियो में रेंडर करता है, यानी एक ही इनपुट से हमेशा एक ही नतीजा मिलता है। इसे स्थानीय रूप से CLI से या Claude Code, Cursor, Codex और Gemini CLI जैसे एजेंटों में स्किल्स के ज़रिए इस्तेमाल किया जा सकता है; प्रोडक्ट लॉन्च वीडियो, विषय समझाने वाले वीडियो, बोलते हुए व्यक्ति वाले वीडियो पर कैप्शन, संगीत की बीट पर चलने वाले क्लिप, छोटे मोशन ग्राफ़िक्स और प्रेज़ेंटेशन के लिए अलग वर्कफ़्लो हैं। यह GSAP, Lottie और Three.js जैसी एनिमेशन लाइब्रेरी के साथ काम करता है और मौजूदा Remotion कंपोज़िशन लाने के लिए एक स्किल भी देता है। इसके लिए Node.js 22 और FFmpeg चाहिए; यह Apache-2.0 लाइसेंस में है।\n\nएक एजेंसी के रूप में, कोड से YouTube Shorts और क्लाइंट प्रोमो वीडियो बनाने की अपनी योजना में हम इसे Remotion के साथ परख रहे हैं: मुख्य अंतर यह है कि यह React की जगह साधारण HTML से काम करता है और Apache-2.0 लाइसेंस के कारण कंपनी के आकार पर निर्भर अलग व्यावसायिक लाइसेंस की ज़रूरत नहीं पड़ती। CLI डिफ़ॉल्ट रूप से गुमनाम उपयोग डेटा भेजता है; इसे hyperframes telemetry disable या DO_NOT_TRACK=1 से बंद किया जा सकता है। HeyGen की क्लाउड रेंडरिंग वैकल्पिक है, वीडियो स्थानीय रूप से भी रेंडर होते हैं।",
+        "ar": "HyperFrames إطار مفتوح المصدر من HeyGen يحوّل HTML وCSS وملفات الوسائط والرسوم المتحركة القابلة للتحكم زمنيًا إلى فيديوهات MP4 حتمية، أي أن المدخلات نفسها تعطي النتيجة نفسها دائمًا. يمكن استخدامه محليًا عبر سطر الأوامر أو عبر المهارات في وكلاء مثل Claude Code وCursor وCodex وGemini CLI، مع مسارات عمل منفصلة لفيديوهات إطلاق المنتجات وشرح المواضيع وإضافة الترجمة إلى فيديوهات المتحدثين والمقاطع المتزامنة مع الموسيقى والرسوم المتحركة القصيرة والعروض التقديمية. يعمل مع مكتبات تحريك مثل GSAP وLottie وThree.js، ويتضمن مهارة لنقل مشاريع Remotion الحالية. يتطلب Node.js 22 وFFmpeg، ومرخّص بموجب Apache-2.0.\n\nبصفتنا وكالة، نقيّمه إلى جانب Remotion ضمن خطتنا لإنتاج YouTube Shorts وفيديوهات ترويجية للعملاء بالكود؛ والفارق الأهم أنه يعمل بـHTML عادي بدل React، ولا يتطلب بفضل ترخيص Apache-2.0 رخصة تجارية منفصلة مرتبطة بحجم الشركة. ترسل أداة سطر الأوامر بيانات استخدام مجهولة افتراضيًا، ويمكن إيقافها بالأمر hyperframes telemetry disable أو بالمتغير DO_NOT_TRACK=1. والعرض السحابي لدى HeyGen اختياري، إذ تُعرض الفيديوهات محليًا أيضًا."
+      },
+      "adimlar": {
+        "tr": [
+          "Bilgisayarınızda Node.js 22+ ve FFmpeg kurulu olduğundan emin olun.",
+          "Claude Code'a ekleyin: claude plugin marketplace add heygen-com/hyperframes, ardından claude plugin install hyperframes@hyperframes",
+          "Ajanınıza /hyperframes ile kısa bir tanıtım videosu tarif edin ya da elle başlayın: npx hyperframes init video-adi",
+          "Tarayıcıda önizleyin ve MP4 alın: npx hyperframes preview, ardından npx hyperframes render"
+        ],
+        "en": [
+          "Make sure Node.js 22+ and FFmpeg are installed.",
+          "Add it to Claude Code: claude plugin marketplace add heygen-com/hyperframes, then claude plugin install hyperframes@hyperframes",
+          "Describe a short promo to your agent with /hyperframes, or start by hand: npx hyperframes init my-video",
+          "Preview in the browser and export MP4: npx hyperframes preview, then npx hyperframes render"
+        ],
+        "de": [
+          "Sicherstellen, dass Node.js 22+ und FFmpeg installiert sind.",
+          "Zu Claude Code hinzufügen: claude plugin marketplace add heygen-com/hyperframes, dann claude plugin install hyperframes@hyperframes",
+          "Dem Agenten mit /hyperframes ein kurzes Promo-Video beschreiben oder manuell starten: npx hyperframes init mein-video",
+          "Im Browser ansehen und als MP4 ausgeben: npx hyperframes preview, dann npx hyperframes render"
+        ],
+        "ru": [
+          "Убедитесь, что установлены Node.js 22+ и FFmpeg.",
+          "Добавьте в Claude Code: claude plugin marketplace add heygen-com/hyperframes, затем claude plugin install hyperframes@hyperframes",
+          "Опишите агенту короткий промо-ролик через /hyperframes или начните вручную: npx hyperframes init my-video",
+          "Посмотрите в браузере и получите MP4: npx hyperframes preview, затем npx hyperframes render"
+        ],
+        "zh": [
+          "确认已安装 Node.js 22+ 和 FFmpeg。",
+          "添加到 Claude Code：claude plugin marketplace add heygen-com/hyperframes，然后 claude plugin install hyperframes@hyperframes",
+          "用 /hyperframes 向智能体描述一段简短宣传视频，或手动开始：npx hyperframes init my-video",
+          "在浏览器中预览并导出 MP4：先 npx hyperframes preview，再 npx hyperframes render"
+        ],
+        "hi": [
+          "पक्का करें कि Node.js 22+ और FFmpeg इंस्टॉल हैं।",
+          "Claude Code में जोड़ें: claude plugin marketplace add heygen-com/hyperframes, फिर claude plugin install hyperframes@hyperframes",
+          "एजेंट को /hyperframes से एक छोटा प्रोमो वीडियो बताइए या खुद शुरू करें: npx hyperframes init my-video",
+          "ब्राउज़र में प्रीव्यू देखें और MP4 बनाएँ: npx hyperframes preview, फिर npx hyperframes render"
+        ],
+        "ar": [
+          "تأكد من تثبيت Node.js 22 أو أحدث وFFmpeg.",
+          "أضفه إلى Claude Code: claude plugin marketplace add heygen-com/hyperframes ثم claude plugin install hyperframes@hyperframes",
+          "صِف لوكيلك فيديو ترويجيًا قصيرًا عبر ‎/hyperframes أو ابدأ يدويًا: npx hyperframes init my-video",
+          "عاين في المتصفح وصدّر MP4: npx hyperframes preview ثم npx hyperframes render"
+        ]
+      },
+      "etiketler": [
+        "video üretimi",
+        "programatik video",
+        "youtube shorts",
+        "html",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/heygen-com/hyperframes",
+      "baglanti_turu": "github",
+      "lisans": "Apache-2.0",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 890,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "mattpocock-skills",
+      "kategori": "claude-beceri",
+      "baslik": {
+        "tr": "Matt Pocock Skills: Gerçek Mühendislik İçin Küçük ve Birleştirilebilir Claude Becerileri",
+        "en": "Matt Pocock's Skills: Small, Composable Agent Skills for Real Engineering",
+        "de": "Matt Pococks Skills: kleine, kombinierbare Agent-Skills für echte Softwareentwicklung",
+        "ru": "Навыки Мэтта Покока: небольшие компонуемые навыки агентов для настоящей инженерии",
+        "zh": "Matt Pocock Skills：面向真实工程的小巧、可组合的智能体技能",
+        "hi": "Matt Pocock Skills: असली इंजीनियरिंग के लिए छोटी, जोड़ी जा सकने वाली एजेंट स्किल्स",
+        "ar": "مهارات Matt Pocock: مهارات وكلاء صغيرة قابلة للتركيب للهندسة الحقيقية"
+      },
+      "ozet": {
+        "tr": "TypeScript eğitmeni Matt Pocock'un açık kaynak beceri seti; ajanınızı önce sizi sorgulayan, testle ilerleyen ve kodu düzenli tutan bir yardımcıya çevirir.",
+        "en": "TypeScript educator Matt Pocock's open-source skill set turns your agent into a teammate that questions you first, works test-first and keeps code tidy.",
+        "de": "Open-Source-Skill-Set von TypeScript-Trainer Matt Pocock: Ihr Agent fragt erst nach, arbeitet testgetrieben und hält den Code aufgeräumt.",
+        "ru": "Открытый набор навыков преподавателя TypeScript Мэтта Покока: агент сначала расспрашивает вас, работает через тесты и держит код в порядке.",
+        "zh": "TypeScript 讲师 Matt Pocock 的开源技能集，让智能体先追问需求、以测试驱动推进，并保持代码整洁。",
+        "hi": "TypeScript प्रशिक्षक Matt Pocock का ओपन-सोर्स स्किल सेट आपके एजेंट को पहले सवाल पूछने, टेस्ट से आगे बढ़ने और कोड साफ़ रखने वाला साथी बनाता है।",
+        "ar": "مجموعة مهارات مفتوحة المصدر من مدرّس TypeScript Matt Pocock تجعل وكيلك زميلًا يسألك أولًا ويعمل بالاختبارات ويحافظ على ترتيب الشيفرة."
+      },
+      "aciklama": {
+        "tr": "Matt Pocock Skills, TypeScript eğitimleriyle tanınan Matt Pocock'un her gün kullandığı ajan becerilerinin açık kaynak koleksiyonudur. Süreci bütünüyle devralan büyük çerçevelerin aksine küçük, uyarlanabilir ve birbirine eklenebilir beceriler sunar. En çok kullanılanları /grill-me ve /grill-with-docs: ajan işe başlamadan önce sizi ayrıntılı sorularla sorgular, projenin terimlerini bir sözlük dosyasında toplar ve kararları ADR olarak kaydeder. Bunların yanında test odaklı geliştirme (/tdd), hata teşhis döngüsü (/diagnosing-bugs), konuşmayı şartnameye ve işlere bölme (/to-spec, /to-tickets), kod incelemesi ve işi başka bir ajana devretme (/handoff) gibi beceriler vardır. Claude Code'un resmi eklenti pazarında yer alır, diğer ajanlara skills CLI ile kurulur; MIT lisanslıdır.\n\nAjans olarak Claude Code ile müşteri projesi geliştirirken ajanın isteği eksik ya da yanlış anlamasının sık görülen bir sorun olduğunu biliyoruz; bu yüzden işe başlamadan /grill-me ile netleştirme yapma ve ortak bir terim sözlüğü tutma yaklaşımını değerlendiriyoruz. Superpowers ya da GSD gibi süreci baştan sona yöneten setlere göre daha hafif olduğu için yalnızca ihtiyaç duyduğunuz becerileri seçebilirsiniz; eklenti ve skills CLI yollarından yalnızca birini kullanın, ikisini birden kurmak her beceriyi iki kez yükler.",
+        "en": "Matt Pocock Skills is the open-source collection of agent skills that Matt Pocock, known for his TypeScript courses, uses every day. Instead of a large framework that takes over the whole process, it offers small, adaptable skills that can be combined. The most popular are /grill-me and /grill-with-docs: before starting, the agent interviews you in detail, collects the project's terms in a glossary file and records decisions as ADRs. Other skills cover test-driven development (/tdd), a bug-diagnosis loop (/diagnosing-bugs), turning a conversation into a spec and tickets (/to-spec, /to-tickets), code review and handing work to another agent (/handoff). It is listed in Claude Code's official plugin marketplace, installs into other agents with the skills CLI, and is MIT-licensed.\n\nAs an agency we know that an agent misreading the request is a common problem when building client projects with Claude Code, so we are evaluating the approach of clarifying with /grill-me before any work starts and keeping a shared glossary of terms. Because it is lighter than sets such as Superpowers or GSD that run the whole process, you can pick only the skills you need; use either the plugin or the skills CLI, since installing both loads every skill twice.",
+        "de": "Matt Pocock Skills ist die Open-Source-Sammlung der Agent-Skills, die Matt Pocock, bekannt für seine TypeScript-Kurse, täglich nutzt. Statt eines großen Frameworks, das den ganzen Prozess übernimmt, bietet sie kleine, anpassbare und kombinierbare Skills. Am beliebtesten sind /grill-me und /grill-with-docs: Bevor der Agent loslegt, befragt er Sie ausführlich, sammelt die Fachbegriffe des Projekts in einer Glossar-Datei und hält Entscheidungen als ADRs fest. Weitere Skills decken testgetriebene Entwicklung (/tdd), eine Fehlerdiagnose-Schleife (/diagnosing-bugs), das Umwandeln eines Gesprächs in Spezifikation und Tickets (/to-spec, /to-tickets), Code-Reviews und die Übergabe an einen anderen Agenten (/handoff) ab. Die Sammlung ist im offiziellen Plugin-Marktplatz von Claude Code gelistet, lässt sich in anderen Agenten per skills-CLI installieren und steht unter MIT-Lizenz.\n\nAls Agentur wissen wir, dass ein Agent, der die Anfrage falsch versteht, bei Kundenprojekten mit Claude Code ein häufiges Problem ist; deshalb evaluieren wir den Ansatz, vor jeder Arbeit mit /grill-me Klarheit zu schaffen und ein gemeinsames Begriffsglossar zu pflegen. Da die Sammlung leichter ist als Sets wie Superpowers oder GSD, die den gesamten Prozess steuern, können Sie nur die benötigten Skills auswählen; nutzen Sie entweder das Plugin oder die skills-CLI, denn beides zusammen lädt jeden Skill doppelt.",
+        "ru": "Matt Pocock Skills — открытая коллекция навыков агентов, которыми каждый день пользуется Мэтт Покок, известный своими курсами по TypeScript. Вместо большого фреймворка, который забирает себе весь процесс, она предлагает небольшие, легко адаптируемые и сочетаемые навыки. Самые популярные — /grill-me и /grill-with-docs: перед началом работы агент подробно расспрашивает вас, собирает термины проекта в файле-глоссарии и фиксирует решения в ADR. Другие навыки охватывают разработку через тестирование (/tdd), цикл диагностики ошибок (/diagnosing-bugs), превращение разговора в спецификацию и задачи (/to-spec, /to-tickets), ревью кода и передачу работы другому агенту (/handoff). Коллекция есть в официальном маркетплейсе плагинов Claude Code, в другие агенты ставится через skills CLI; лицензия MIT.\n\nКак агентство, мы знаем, что агент, неверно понявший запрос, — частая проблема при работе над клиентскими проектами в Claude Code, поэтому рассматриваем подход, при котором до начала работы всё уточняется через /grill-me, а общий глоссарий терминов ведётся постоянно. Набор легче, чем Superpowers или GSD, которые управляют всем процессом, поэтому можно выбрать только нужные навыки; используйте либо плагин, либо skills CLI, так как при установке обоими способами каждый навык загрузится дважды.",
+        "zh": "Matt Pocock Skills 是以 TypeScript 课程闻名的 Matt Pocock 每天使用的智能体技能开源合集。它不是接管整个流程的大型框架，而是一组小巧、易于修改、可以相互组合的技能。最受欢迎的是 /grill-me 和 /grill-with-docs：开工前智能体会详细追问您，把项目术语整理进词汇表文件，并把决策记录为 ADR。其他技能包括测试驱动开发（/tdd）、缺陷诊断循环（/diagnosing-bugs）、把对话整理成规格说明和任务单（/to-spec、/to-tickets）、代码审查，以及把工作交接给另一个智能体（/handoff）。它已收录在 Claude Code 官方插件市场，其他智能体可通过 skills CLI 安装，采用 MIT 许可证。\n\n作为代理机构，我们知道在用 Claude Code 开发客户项目时，智能体误解需求是常见问题，因此正在评估“开工前先用 /grill-me 把需求问清楚，并维护一份共享术语表”的做法。它比 Superpowers、GSD 这类接管整个流程的技能集更轻量，可以只挑选需要的技能；插件和 skills CLI 两种方式请只选其一，同时安装会让每个技能加载两次。",
+        "hi": "Matt Pocock Skills उन एजेंट स्किल्स का ओपन-सोर्स संग्रह है जिन्हें TypeScript कोर्स के लिए मशहूर Matt Pocock रोज़ इस्तेमाल करते हैं। पूरी प्रक्रिया अपने हाथ में लेने वाले बड़े फ़्रेमवर्क के बजाय यह छोटी, बदलने योग्य और आपस में जोड़ी जा सकने वाली स्किल्स देता है। सबसे लोकप्रिय /grill-me और /grill-with-docs हैं: काम शुरू करने से पहले एजेंट आपसे विस्तार से सवाल पूछता है, प्रोजेक्ट के शब्दों को एक शब्दावली फ़ाइल में जमा करता है और फ़ैसलों को ADR के रूप में दर्ज करता है। अन्य स्किल्स में टेस्ट-ड्रिवन डेवलपमेंट (/tdd), बग जाँचने का चक्र (/diagnosing-bugs), बातचीत को स्पेसिफ़िकेशन और टिकट में बदलना (/to-spec, /to-tickets), कोड रिव्यू और काम दूसरे एजेंट को सौंपना (/handoff) शामिल हैं। यह Claude Code के आधिकारिक प्लगइन मार्केटप्लेस में है, दूसरे एजेंटों में skills CLI से इंस्टॉल होता है और MIT लाइसेंस में है।\n\nएक एजेंसी के रूप में हम जानते हैं कि Claude Code से क्लाइंट प्रोजेक्ट बनाते समय एजेंट का अनुरोध गलत समझ लेना एक आम समस्या है, इसलिए काम शुरू करने से पहले /grill-me से बात साफ़ करने और शब्दों की साझा शब्दावली रखने के तरीके पर हम विचार कर रहे हैं। यह Superpowers या GSD जैसे पूरी प्रक्रिया चलाने वाले सेट से हल्का है, इसलिए आप केवल ज़रूरी स्किल्स चुन सकते हैं; प्लगइन या skills CLI में से एक ही तरीका अपनाएँ, क्योंकि दोनों से इंस्टॉल करने पर हर स्किल दो बार लोड होती है।",
+        "ar": "Matt Pocock Skills مجموعة مفتوحة المصدر من مهارات الوكلاء التي يستخدمها يوميًا Matt Pocock المعروف بدوراته في TypeScript. وبدل إطار كبير يتولى العملية كلها، تقدّم مهارات صغيرة سهلة التعديل يمكن الجمع بينها. أشهرها ‎/grill-me و‎/grill-with-docs: قبل البدء يطرح عليك الوكيل أسئلة مفصّلة، ويجمع مصطلحات المشروع في ملف مسرد، ويوثّق القرارات في سجلات ADR. وتغطي مهارات أخرى التطوير الموجّه بالاختبارات (‎/tdd) وحلقة تشخيص الأخطاء (‎/diagnosing-bugs) وتحويل المحادثة إلى مواصفات ومهام (‎/to-spec و‎/to-tickets) ومراجعة الشيفرة وتسليم العمل إلى وكيل آخر (‎/handoff). المجموعة مدرجة في سوق الإضافات الرسمي لـClaude Code، وتُثبَّت في الوكلاء الآخرين عبر skills CLI، ومرخّصة بموجب MIT.\n\nبصفتنا وكالة، نعلم أن سوء فهم الوكيل للطلب مشكلة شائعة عند تطوير مشاريع العملاء باستخدام Claude Code، لذلك نقيّم نهج التوضيح عبر ‎/grill-me قبل بدء أي عمل والاحتفاظ بمسرد مشترك للمصطلحات. ولأنها أخف من مجموعات مثل Superpowers أو GSD التي تدير العملية كلها، يمكنك اختيار المهارات التي تحتاجها فقط؛ واستخدم إما الإضافة أو skills CLI، لأن التثبيت بالطريقتين يحمّل كل مهارة مرتين."
+      },
+      "adimlar": {
+        "tr": [
+          "Claude Code'da kurun: /plugin install mattpocock-skills (diğer ajanlar için: npx skills@latest add mattpocock/skills)",
+          "Her depoda bir kez /setup-matt-pocock-skills çalıştırıp iş takip aracını ve etiketleri seçin.",
+          "Yeni bir işe başlamadan önce /grill-me ya da /grill-with-docs ile ajanın sizi sorgulamasına izin verin.",
+          "Geliştirirken /tdd, takıldığınızda /diagnosing-bugs, oturum sonunda /handoff kullanın."
+        ],
+        "en": [
+          "Install in Claude Code: /plugin install mattpocock-skills (other agents: npx skills@latest add mattpocock/skills)",
+          "Run /setup-matt-pocock-skills once per repository to choose your issue tracker and labels.",
+          "Before new work, let the agent question you with /grill-me or /grill-with-docs.",
+          "Use /tdd while building, /diagnosing-bugs when stuck and /handoff at the end of a session."
+        ],
+        "de": [
+          "In Claude Code installieren: /plugin install mattpocock-skills (andere Agenten: npx skills@latest add mattpocock/skills)",
+          "Pro Repository einmal /setup-matt-pocock-skills ausführen und Issue-Tracker sowie Labels wählen.",
+          "Vor neuer Arbeit den Agenten mit /grill-me oder /grill-with-docs Fragen stellen lassen.",
+          "Beim Bauen /tdd, bei Problemen /diagnosing-bugs und am Sitzungsende /handoff nutzen."
+        ],
+        "ru": [
+          "Установите в Claude Code: /plugin install mattpocock-skills (другие агенты: npx skills@latest add mattpocock/skills)",
+          "Один раз в каждом репозитории выполните /setup-matt-pocock-skills и выберите трекер задач и метки.",
+          "Перед новой задачей дайте агенту расспросить вас через /grill-me или /grill-with-docs.",
+          "Используйте /tdd при разработке, /diagnosing-bugs при затруднениях и /handoff в конце сессии."
+        ],
+        "zh": [
+          "在 Claude Code 中安装：/plugin install mattpocock-skills（其他智能体：npx skills@latest add mattpocock/skills）",
+          "在每个仓库中运行一次 /setup-matt-pocock-skills，选择任务跟踪工具和标签。",
+          "开始新工作前，用 /grill-me 或 /grill-with-docs 让智能体先向您提问。",
+          "开发时用 /tdd，卡住时用 /diagnosing-bugs，会话结束时用 /handoff。"
+        ],
+        "hi": [
+          "Claude Code में इंस्टॉल करें: /plugin install mattpocock-skills (दूसरे एजेंट: npx skills@latest add mattpocock/skills)",
+          "हर रिपॉज़िटरी में एक बार /setup-matt-pocock-skills चलाकर इश्यू ट्रैकर और लेबल चुनें।",
+          "नया काम शुरू करने से पहले /grill-me या /grill-with-docs से एजेंट को आपसे सवाल पूछने दें।",
+          "बनाते समय /tdd, अटकने पर /diagnosing-bugs और सत्र के अंत में /handoff इस्तेमाल करें।"
+        ],
+        "ar": [
+          "ثبّتها في Claude Code: ‎/plugin install mattpocock-skills (للوكلاء الآخرين: npx skills@latest add mattpocock/skills)",
+          "شغّل ‎/setup-matt-pocock-skills مرة واحدة في كل مستودع لاختيار أداة تتبع المهام والتسميات.",
+          "قبل أي عمل جديد دع الوكيل يسألك عبر ‎/grill-me أو ‎/grill-with-docs.",
+          "استخدم ‎/tdd أثناء البناء و‎/diagnosing-bugs عند التعثر و‎/handoff في نهاية الجلسة."
+        ]
+      },
+      "etiketler": [
+        "claude becerisi",
+        "claude code",
+        "tdd",
+        "yazılım geliştirme",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/mattpocock/skills",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 900,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "context-mode",
+      "kategori": "mcp-eklenti",
+      "baslik": {
+        "tr": "Context Mode: Araç Çıktılarını Bağlam Penceresinin Dışında Tutan MCP Sunucusu ve Eklenti",
+        "en": "Context Mode: An MCP Server and Plugin That Keeps Tool Output Out of Your Context Window",
+        "de": "Context Mode: MCP-Server und Plugin, das Tool-Ausgaben aus dem Kontextfenster heraushält",
+        "ru": "Context Mode: MCP-сервер и плагин, который не пускает вывод инструментов в контекстное окно",
+        "zh": "Context Mode：让工具输出不再挤占上下文窗口的 MCP 服务器与插件",
+        "hi": "Context Mode: टूल आउटपुट को कॉन्टेक्स्ट विंडो से बाहर रखने वाला MCP सर्वर और प्लगइन",
+        "ar": "Context Mode: خادم MCP وإضافة تُبقي مخرجات الأدوات خارج نافذة السياق"
+      },
+      "ozet": {
+        "tr": "Ham araç çıktısını bağlam penceresine taşımadan işleyen, sıkıştırmadan sonra oturumu kaldığı yerden sürdüren MCP sunucusu; Claude Code eklentisi olarak kurulur.",
+        "en": "An MCP server that processes raw tool output outside the context window and resumes the session after compaction; installs as a Claude Code plugin.",
+        "de": "MCP-Server, der rohe Tool-Ausgaben außerhalb des Kontextfensters verarbeitet und Sitzungen nach der Komprimierung fortsetzt; als Claude-Code-Plugin.",
+        "ru": "MCP-сервер обрабатывает сырой вывод инструментов вне окна контекста и после сжатия продолжает сессию; ставится как плагин Claude Code.",
+        "zh": "在上下文窗口之外处理原始工具输出、压缩后从中断处继续会话的 MCP 服务器，可作为 Claude Code 插件安装。",
+        "hi": "MCP सर्वर जो कच्चे टूल आउटपुट को कॉन्टेक्स्ट विंडो के बाहर प्रोसेस करता है और कम्पैक्शन के बाद सत्र वहीं से जारी रखता है; Claude Code प्लगइन।",
+        "ar": "خادم MCP يعالج مخرجات الأدوات الخام خارج نافذة السياق ويستأنف الجلسة من حيث توقفت بعد الضغط، ويُثبَّت كإضافة لـClaude Code."
+      },
+      "aciklama": {
+        "tr": "Context Mode, kodlama ajanlarının bağlam penceresini dolduran ham verileri (Playwright anlık görüntüleri, log dosyaları, API yanıtları, uzun komut çıktıları) ayrı bir alt süreçte işleyip bağlama yalnızca sonucu alan bir MCP sunucusu ve eklentidir. Ajan 50 dosyayı tek tek okumak yerine sayımı yapan küçük bir betik yazar ve yalnızca çıktısını görür. Dosya düzenlemeleri, görevler, hatalar ve kararlar yerel bir SQLite veritabanında tutulur; konuşma sıkıştırıldığında yalnızca ilgili kısımlar arama ile geri getirilir. Claude Code'da hook'larla otomatik çalışır; Gemini CLI, Codex CLI, Cursor, GitHub Copilot ve OpenCode gibi birçok istemciyi de destekler. README'ye göre telemetri yoktur ve oturum verileri makinenizde kalır.\n\nAjans olarak Claude Code ile uzun oturumlarda tarayıcı testi ve log incelemesi yaparken bağlamın hızla dolması gerçek bir maliyet; bu yüzden token tasarrufu için değerlendiriyoruz. Lisansı Elastic License 2.0'dır: kaynak kodu açıktır ve kendi işinizde ücretsiz kullanabilirsiniz, ancak OSI onaylı bir açık kaynak lisansı değildir ve yazılımı başkalarına barındırılan hizmet olarak sunmak yasaktır. ctx_execute aracı ajanın yazdığı kodu sizin dosya erişiminizle çalıştırır, tam bir işletim sistemi sanal alanı (sandbox) değildir; çalıştırma onaylarını buna göre verin.",
+        "en": "Context Mode is an MCP server and plugin that processes the raw data filling a coding agent's context window, such as Playwright snapshots, log files, API responses and long command output, in a separate subprocess and brings only the result into context. Instead of reading 50 files one by one, the agent writes a small script that does the counting and sees only its output. File edits, tasks, errors and decisions are stored in a local SQLite database, and when the conversation is compacted only the relevant parts are retrieved by search. In Claude Code it works automatically through hooks, and it also supports many other clients such as Gemini CLI, Codex CLI, Cursor, GitHub Copilot and OpenCode. According to the README there is no telemetry and session data stays on your machine.\n\nAs an agency, context filling up quickly during long Claude Code sessions with browser tests and log reviews is a real cost for us, so we are evaluating it for token savings. It is licensed under the Elastic License 2.0: the source is open and you can use it for free in your own work, but it is not an OSI-approved open-source license, and offering the software to others as a hosted service is prohibited. ctx_execute runs the agent's code with your file access and is not a full operating-system sandbox, so approve executions accordingly.",
+        "de": "Context Mode ist ein MCP-Server und Plugin, das die Rohdaten, die das Kontextfenster eines Coding-Agenten füllen, etwa Playwright-Snapshots, Logdateien, API-Antworten und lange Befehlsausgaben, in einem separaten Unterprozess verarbeitet und nur das Ergebnis in den Kontext holt. Statt 50 Dateien einzeln zu lesen, schreibt der Agent ein kleines Skript, das zählt, und sieht nur dessen Ausgabe. Dateiänderungen, Aufgaben, Fehler und Entscheidungen werden in einer lokalen SQLite-Datenbank gespeichert; wird das Gespräch komprimiert, holt eine Suche nur die relevanten Teile zurück. In Claude Code läuft es automatisch über Hooks, außerdem unterstützt es viele weitere Clients wie Gemini CLI, Codex CLI, Cursor, GitHub Copilot und OpenCode. Laut README gibt es keine Telemetrie, und Sitzungsdaten bleiben auf Ihrem Rechner.\n\nAls Agentur erleben wir, dass sich der Kontext in langen Claude-Code-Sitzungen mit Browsertests und Log-Analysen schnell füllt, und das kostet real; deshalb evaluieren wir Context Mode zum Sparen von Tokens. Die Lizenz ist die Elastic License 2.0: Der Quellcode ist offen und für die eigene Arbeit kostenlos nutzbar, es ist aber keine OSI-anerkannte Open-Source-Lizenz, und die Software darf Dritten nicht als gehosteter Dienst angeboten werden. ctx_execute führt den Code des Agenten mit Ihren Dateirechten aus und ist keine vollständige Betriebssystem-Sandbox; erteilen Sie Ausführungsfreigaben entsprechend.",
+        "ru": "Context Mode — MCP-сервер и плагин, который обрабатывает сырые данные, заполняющие контекстное окно кодинг-агента (снимки Playwright, лог-файлы, ответы API, длинный вывод команд), в отдельном подпроцессе и передаёт в контекст только результат. Вместо того чтобы читать 50 файлов по одному, агент пишет небольшой скрипт для подсчёта и видит только его вывод. Правки файлов, задачи, ошибки и решения хранятся в локальной базе SQLite, а после сжатия разговора поиском возвращаются только нужные фрагменты. В Claude Code он работает автоматически через хуки и поддерживает многие другие клиенты — Gemini CLI, Codex CLI, Cursor, GitHub Copilot и OpenCode. По данным README, телеметрии нет, а данные сессий остаются на вашем компьютере.\n\nКак агентство, мы видим, что в долгих сессиях Claude Code с браузерными тестами и разбором логов контекст быстро заполняется, а это реальные расходы; поэтому рассматриваем инструмент ради экономии токенов. Лицензия — Elastic License 2.0: исходный код открыт и бесплатен для использования в собственной работе, но это не одобренная OSI лицензия открытого ПО, и предлагать программу другим как размещённый сервис запрещено. ctx_execute запускает код агента с вашими правами доступа к файлам и не является полноценной песочницей ОС, поэтому подтверждайте запуски с учётом этого.",
+        "zh": "Context Mode 是一个 MCP 服务器和插件，它把塞满编码智能体上下文窗口的原始数据（Playwright 快照、日志文件、API 响应、冗长的命令输出）放在独立子进程中处理，只把结果带入上下文。智能体不必逐个读取 50 个文件，而是写一个小脚本完成统计，只看脚本输出。文件修改、任务、错误和决策保存在本地 SQLite 数据库中；对话被压缩后，只通过搜索取回相关部分。在 Claude Code 中它通过钩子自动工作，也支持 Gemini CLI、Codex CLI、Cursor、GitHub Copilot、OpenCode 等众多客户端。据 README 介绍，它没有遥测，会话数据留在您的电脑上。\n\n作为代理机构，在用 Claude Code 进行长时间的浏览器测试和日志排查时，上下文很快被占满是实实在在的成本，因此我们正在评估用它节省 token。它采用 Elastic License 2.0：源代码公开，可在自己的工作中免费使用，但这不是 OSI 认可的开源许可证，也禁止把软件作为托管服务提供给他人。ctx_execute 会以您的文件访问权限运行智能体编写的代码，并不是完整的操作系统沙箱，请据此谨慎批准执行。",
+        "hi": "Context Mode एक MCP सर्वर और प्लगइन है जो कोडिंग एजेंट की कॉन्टेक्स्ट विंडो भरने वाले कच्चे डेटा (Playwright स्नैपशॉट, लॉग फ़ाइलें, API जवाब, लंबे कमांड आउटपुट) को एक अलग सबप्रोसेस में प्रोसेस करता है और कॉन्टेक्स्ट में केवल नतीजा लाता है। 50 फ़ाइलें एक-एक करके पढ़ने के बजाय एजेंट गिनती करने वाली एक छोटी स्क्रिप्ट लिखता है और सिर्फ़ उसका आउटपुट देखता है। फ़ाइल बदलाव, काम, त्रुटियाँ और फ़ैसले एक स्थानीय SQLite डेटाबेस में रखे जाते हैं; बातचीत कम्पैक्ट होने पर खोज के ज़रिए केवल ज़रूरी हिस्से वापस लाए जाते हैं। Claude Code में यह हुक के ज़रिए अपने आप चलता है और Gemini CLI, Codex CLI, Cursor, GitHub Copilot और OpenCode जैसे कई अन्य क्लाइंट भी सपोर्ट करता है। README के अनुसार इसमें टेलीमेट्री नहीं है और सत्र का डेटा आपके कंप्यूटर पर ही रहता है।\n\nएक एजेंसी के रूप में, ब्राउज़र टेस्ट और लॉग जाँच वाले लंबे Claude Code सत्रों में कॉन्टेक्स्ट का जल्दी भर जाना हमारे लिए वास्तविक खर्च है, इसलिए टोकन बचाने के लिए हम इस पर विचार कर रहे हैं। इसका लाइसेंस Elastic License 2.0 है: सोर्स कोड खुला है और अपने काम में मुफ़्त इस्तेमाल किया जा सकता है, लेकिन यह OSI-मान्य ओपन-सोर्स लाइसेंस नहीं है और सॉफ़्टवेयर को दूसरों को होस्टेड सेवा के रूप में देना मना है। ctx_execute एजेंट का लिखा कोड आपकी फ़ाइल पहुँच के साथ चलाता है और पूरा ऑपरेटिंग-सिस्टम सैंडबॉक्स नहीं है, इसलिए चलाने की अनुमति सोच-समझकर दें।",
+        "ar": "Context Mode خادم MCP وإضافة تعالج البيانات الخام التي تملأ نافذة سياق وكيل البرمجة، مثل لقطات Playwright وملفات السجلات واستجابات API ومخرجات الأوامر الطويلة، في عملية فرعية منفصلة، ولا تُدخل إلى السياق إلا النتيجة. فبدل قراءة 50 ملفًا واحدًا تلو الآخر، يكتب الوكيل نصًا برمجيًا صغيرًا يتولى العدّ ولا يرى إلا مخرجاته. تُحفظ تعديلات الملفات والمهام والأخطاء والقرارات في قاعدة بيانات SQLite محلية، وعند ضغط المحادثة لا يُسترجع بالبحث إلا الجزء المهم. يعمل تلقائيًا في Claude Code عبر الخطّافات (hooks)، ويدعم عملاء آخرين كثيرين مثل Gemini CLI وCodex CLI وCursor وGitHub Copilot وOpenCode. وبحسب ملف README لا توجد قياسات عن بُعد وتبقى بيانات الجلسات على جهازك.\n\nبصفتنا وكالة، فإن امتلاء السياق بسرعة في جلسات Claude Code الطويلة مع اختبارات المتصفح ومراجعة السجلات تكلفة حقيقية علينا، لذلك نقيّمه لتوفير الرموز (tokens). ترخيصه هو Elastic License 2.0: الشيفرة المصدرية متاحة ويمكن استخدامها مجانًا في عملك، لكنه ليس ترخيصًا مفتوح المصدر معتمدًا من OSI، ويُمنع تقديم البرنامج للآخرين كخدمة مستضافة. كما أن ctx_execute يشغّل شيفرة الوكيل بصلاحيات الوصول إلى ملفاتك وليس بيئة معزولة كاملة على مستوى نظام التشغيل، فامنح موافقات التشغيل بحذر."
+      },
+      "adimlar": {
+        "tr": [
+          "Claude Code'da pazarı ekleyin: /plugin marketplace add mksglu/context-mode",
+          "Eklentiyi kurun: /plugin install context-mode@context-mode, ardından /reload-plugins ile yenileyin.",
+          "Kurulumu doğrulayın: /context-mode:ctx-doctor",
+          "Birkaç oturum sonra tasarrufu görün: /context-mode:ctx-stats"
+        ],
+        "en": [
+          "Add the marketplace in Claude Code: /plugin marketplace add mksglu/context-mode",
+          "Install the plugin: /plugin install context-mode@context-mode, then refresh with /reload-plugins.",
+          "Verify the setup: /context-mode:ctx-doctor",
+          "After a few sessions, check the savings: /context-mode:ctx-stats"
+        ],
+        "de": [
+          "In Claude Code den Marktplatz hinzufügen: /plugin marketplace add mksglu/context-mode",
+          "Plugin installieren: /plugin install context-mode@context-mode, danach mit /reload-plugins neu laden.",
+          "Installation prüfen: /context-mode:ctx-doctor",
+          "Nach einigen Sitzungen die Ersparnis ansehen: /context-mode:ctx-stats"
+        ],
+        "ru": [
+          "Добавьте маркетплейс в Claude Code: /plugin marketplace add mksglu/context-mode",
+          "Установите плагин: /plugin install context-mode@context-mode, затем обновите через /reload-plugins.",
+          "Проверьте установку: /context-mode:ctx-doctor",
+          "Через несколько сессий посмотрите экономию: /context-mode:ctx-stats"
+        ],
+        "zh": [
+          "在 Claude Code 中添加市场：/plugin marketplace add mksglu/context-mode",
+          "安装插件：/plugin install context-mode@context-mode，然后用 /reload-plugins 刷新。",
+          "验证安装：/context-mode:ctx-doctor",
+          "用过几次会话后查看节省情况：/context-mode:ctx-stats"
+        ],
+        "hi": [
+          "Claude Code में मार्केटप्लेस जोड़ें: /plugin marketplace add mksglu/context-mode",
+          "प्लगइन इंस्टॉल करें: /plugin install context-mode@context-mode, फिर /reload-plugins से रीफ़्रेश करें।",
+          "सेटअप जाँचें: /context-mode:ctx-doctor",
+          "कुछ सत्रों के बाद बचत देखें: /context-mode:ctx-stats"
+        ],
+        "ar": [
+          "أضف السوق في Claude Code: ‎/plugin marketplace add mksglu/context-mode",
+          "ثبّت الإضافة: ‎/plugin install context-mode@context-mode ثم حدّثها بالأمر ‎/reload-plugins.",
+          "تحقق من الإعداد: ‎/context-mode:ctx-doctor",
+          "بعد بضع جلسات اطّلع على التوفير: ‎/context-mode:ctx-stats"
+        ]
+      },
+      "etiketler": [
+        "mcp",
+        "claude code",
+        "bağlam",
+        "token tasarrufu",
+        "kaynağı açık"
+      ],
+      "baglanti": "https://github.com/mksglu/context-mode",
+      "baglanti_turu": "github",
+      "lisans": "Elastic License 2.0 (ELv2)",
+      "ucretsiz": true,
+      "acik_kaynak": false,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 910,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "archify",
+      "kategori": "gorsel-tasarim",
+      "baslik": {
+        "tr": "Archify: Sistem Mimarisini ve Fikirleri Etkileşimli HTML Diyagramlara Çeviren Ajan Becerisi",
+        "en": "Archify: An Agent Skill That Turns System Architecture and Ideas into Interactive HTML Diagrams",
+        "de": "Archify: Agent-Skill, der Systemarchitekturen und Ideen in interaktive HTML-Diagramme verwandelt",
+        "ru": "Archify: навык агента, превращающий архитектуру систем и идеи в интерактивные HTML-диаграммы",
+        "zh": "Archify：把系统架构与想法转换为交互式 HTML 图表的智能体技能",
+        "hi": "Archify: सिस्टम आर्किटेक्चर और विचारों को इंटरैक्टिव HTML डायग्राम में बदलने वाली एजेंट स्किल",
+        "ar": "Archify: مهارة وكيل تحوّل بنية الأنظمة والأفكار إلى مخططات HTML تفاعلية"
+      },
+      "ozet": {
+        "tr": "Tek cümlelik bir tariften ya da bir kod deposundan etkileşimli mimari diyagramı üreten açık kaynak beceri; çıktı tek dosyalık HTML'dir, PNG olarak da alınır.",
+        "en": "Open-source skill that builds an interactive architecture diagram from a one-line description or a code repository; output is a single HTML file, also as PNG.",
+        "de": "Open-Source-Skill, der aus einem Satz oder einem Code-Repository ein interaktives Architekturdiagramm erstellt – als einzelne HTML-Datei, auch als PNG.",
+        "ru": "Открытый навык строит интерактивную схему архитектуры по одной фразе или по репозиторию кода; результат — один HTML-файл, есть экспорт в PNG.",
+        "zh": "开源技能，可根据一句话描述或代码仓库生成交互式架构图；输出为单个 HTML 文件，也可导出为 PNG。",
+        "hi": "ओपन-सोर्स स्किल जो एक वाक्य के विवरण या कोड रिपॉज़िटरी से इंटरैक्टिव आर्किटेक्चर डायग्राम बनाती है; आउटपुट एक HTML फ़ाइल है, PNG भी मिलता है।",
+        "ar": "مهارة مفتوحة المصدر تنشئ مخطط بنية تفاعليًا من وصف بجملة واحدة أو من مستودع شيفرة؛ الناتج ملف HTML واحد ويمكن تصديره PNG."
+      },
+      "aciklama": {
+        "tr": "Archify, bir fikri, soruyu ya da sistemi tarif ettiğinizde kodlama ajanınızın bunu keşfedilebilir, etkileşimli bir HTML diyagramına çevirmesini sağlayan açık kaynak bir beceridir. 'Tarayıcı API'yi çağırır, API önce Redis'e bakar, bulamazsa PostgreSQL'e gider' gibi tek bir cümleyle başlayabilir ya da ajandan bir depoyu okuyup kaynak koda bağlantılı bir mimari haritası çıkarmasını isteyebilirsiniz. Diyagramda bir düğümün ayrıntısına bakılabilir, iki nokta arasındaki yol vurgulanabilir, açık ve koyu tema arasında geçilebilir; sonuç PNG ya da paylaşım kartı olarak dışa aktarılır. Çıktı tek dosyalık HTML olduğu için görüntülemek için hiçbir kurulum gerekmez. Claude Code, Cursor, Codex CLI ve OpenCode ile çalışır; MIT lisanslıdır.\n\nAjans olarak teklif ve teslim belgelerinde portal modüllerinin, entegrasyonların ve otomasyon akışlarının nasıl çalıştığını müşteriye anlatmak için değerlendiriyoruz; teknik olmayan bir müşteriye etkileşimli bir şema göstermek uzun bir metinden daha anlaşılır. Diyagram ajanın yorumuna dayandığı için kaynak koddan üretilen haritaları yayımlamadan önce kontrol etmenizi öneririz. Beceri isteğe bağlı güncelleme bildirimi için günde bir kez kadar sabit bir adrese istek atar; ARCHIFY_UPDATE_CHECK_DISABLED=1 ile kapatılabilir.",
+        "en": "Archify is an open-source skill that lets your coding agent turn an idea, a question or a system you describe into an explorable, interactive HTML diagram. You can start with a single sentence such as 'the browser calls the API, which looks in Redis first and falls back to PostgreSQL', or ask the agent to read a repository and produce an architecture map linked to the source code. In the diagram you can inspect a node, highlight the path between two points and switch between light and dark themes; the result exports as a PNG or a share card. Because the output is a single HTML file, nothing needs to be installed to view it. It works with Claude Code, Cursor, Codex CLI and OpenCode and is MIT-licensed.\n\nAs an agency we are evaluating it for proposals and handover documents, to explain to clients how portal modules, integrations and automation flows work; showing a non-technical client an interactive diagram is clearer than a long text. Because the diagram depends on the agent's interpretation, we recommend checking maps generated from source code before publishing them. The skill sends a request to a fixed address about once a day for an optional update notice; ARCHIFY_UPDATE_CHECK_DISABLED=1 turns this off.",
+        "de": "Archify ist ein Open-Source-Skill, mit dem Ihr Coding-Agent eine Idee, eine Frage oder ein beschriebenes System in ein erkundbares, interaktives HTML-Diagramm verwandelt. Sie können mit einem einzigen Satz beginnen, etwa „Der Browser ruft die API auf, die API prüft Redis und fragt bei einem Fehltreffer PostgreSQL ab“, oder den Agenten ein Repository lesen und eine mit dem Quellcode verknüpfte Architekturkarte erstellen lassen. Im Diagramm lassen sich Knoten im Detail ansehen, Pfade zwischen zwei Punkten hervorheben und helles oder dunkles Design wählen; das Ergebnis wird als PNG oder Share-Card exportiert. Da die Ausgabe eine einzelne HTML-Datei ist, ist zum Ansehen keine Installation nötig. Funktioniert mit Claude Code, Cursor, Codex CLI und OpenCode; Lizenz: MIT.\n\nAls Agentur evaluieren wir Archify für Angebote und Übergabedokumente, um Kunden zu erklären, wie Portalmodule, Integrationen und Automatisierungsabläufe funktionieren; einem nicht technischen Kunden ein interaktives Diagramm zu zeigen ist verständlicher als ein langer Text. Weil das Diagramm auf der Interpretation des Agenten beruht, empfehlen wir, aus Quellcode erzeugte Karten vor der Veröffentlichung zu prüfen. Der Skill fragt etwa einmal täglich eine feste Adresse für einen optionalen Update-Hinweis ab; ARCHIFY_UPDATE_CHECK_DISABLED=1 schaltet das ab.",
+        "ru": "Archify — открытый навык, с которым кодинг-агент превращает описанную вами идею, вопрос или систему в интерактивную HTML-диаграмму, которую можно исследовать. Можно начать с одной фразы вроде «браузер вызывает API, API проверяет Redis, а при промахе обращается к PostgreSQL» или попросить агента прочитать репозиторий и построить карту архитектуры со ссылками на исходный код. В диаграмме можно открыть подробности узла, подсветить путь между двумя точками и переключить светлую или тёмную тему; результат экспортируется в PNG или карточку для публикации. Поскольку на выходе один HTML-файл, для просмотра ничего устанавливать не нужно. Работает с Claude Code, Cursor, Codex CLI и OpenCode; лицензия MIT.\n\nКак агентство, мы рассматриваем Archify для коммерческих предложений и документов при сдаче проекта, чтобы объяснять клиентам, как работают модули портала, интеграции и сценарии автоматизации: интерактивная схема понятнее нетехническому клиенту, чем длинный текст. Поскольку диаграмма зависит от интерпретации агента, карты, построенные по исходному коду, стоит проверять перед публикацией. Примерно раз в день навык обращается к фиксированному адресу ради необязательного уведомления об обновлении; это отключается переменной ARCHIFY_UPDATE_CHECK_DISABLED=1.",
+        "zh": "Archify 是一个开源技能，能让编码智能体把您描述的想法、问题或系统变成可探索的交互式 HTML 图表。您可以只用一句话开始，例如“浏览器调用 API，API 先查 Redis，未命中再查询 PostgreSQL”，也可以让智能体阅读某个仓库，生成链接到源代码的架构图。在图表中可以查看节点详情、高亮两点之间的路径，并在浅色和深色主题间切换；结果可导出为 PNG 或分享卡片。由于输出是单个 HTML 文件，查看时无需安装任何东西。它适用于 Claude Code、Cursor、Codex CLI 和 OpenCode，采用 MIT 许可证。\n\n作为代理机构，我们正在评估把它用于方案书和交付文档，向客户说明门户模块、集成和自动化流程如何运作；给非技术背景的客户看一张交互式图表，比一大段文字更易理解。由于图表依赖智能体的理解，建议在发布根据源代码生成的架构图之前先核对。该技能大约每天向一个固定地址发送一次请求，用于显示可选的更新提醒；设置 ARCHIFY_UPDATE_CHECK_DISABLED=1 即可关闭。",
+        "hi": "Archify एक ओपन-सोर्स स्किल है जिससे आपका कोडिंग एजेंट आपके बताए विचार, सवाल या सिस्टम को एक इंटरैक्टिव HTML डायग्राम में बदल देता है, जिसे खोलकर समझा जा सकता है। आप एक वाक्य से शुरू कर सकते हैं, जैसे 'ब्राउज़र API को कॉल करता है, API पहले Redis देखता है और न मिलने पर PostgreSQL से पूछता है', या एजेंट से किसी रिपॉज़िटरी को पढ़कर सोर्स कोड से जुड़ा आर्किटेक्चर मैप बनाने को कह सकते हैं। डायग्राम में किसी नोड का विवरण देखा जा सकता है, दो बिंदुओं के बीच का रास्ता हाइलाइट किया जा सकता है और लाइट या डार्क थीम बदली जा सकती है; नतीजा PNG या शेयर कार्ड के रूप में एक्सपोर्ट होता है। आउटपुट एक ही HTML फ़ाइल होने से उसे देखने के लिए कुछ इंस्टॉल नहीं करना पड़ता। यह Claude Code, Cursor, Codex CLI और OpenCode के साथ काम करती है और MIT लाइसेंस में है।\n\nएक एजेंसी के रूप में हम प्रस्तावों और हैंडओवर दस्तावेज़ों में क्लाइंट को यह समझाने के लिए इस पर विचार कर रहे हैं कि पोर्टल मॉड्यूल, इंटीग्रेशन और ऑटोमेशन फ़्लो कैसे काम करते हैं; गैर-तकनीकी क्लाइंट को इंटरैक्टिव डायग्राम दिखाना लंबे टेक्स्ट से ज़्यादा समझ में आता है। डायग्राम एजेंट की व्याख्या पर निर्भर होता है, इसलिए सोर्स कोड से बने मैप प्रकाशित करने से पहले जाँच लेने की सलाह देते हैं। वैकल्पिक अपडेट सूचना के लिए स्किल दिन में लगभग एक बार एक तय पते पर अनुरोध भेजती है; ARCHIFY_UPDATE_CHECK_DISABLED=1 से इसे बंद किया जा सकता है।",
+        "ar": "Archify مهارة مفتوحة المصدر تجعل وكيل البرمجة يحوّل فكرة أو سؤالًا أو نظامًا تصفه إلى مخطط HTML تفاعلي قابل للاستكشاف. يمكنك البدء بجملة واحدة مثل «المتصفح يستدعي API، وAPI يتحقق من Redis، وعند عدم العثور يستعلم من PostgreSQL»، أو أن تطلب من الوكيل قراءة مستودع وإنشاء خريطة بنية مرتبطة بالشيفرة المصدرية. في المخطط يمكنك فتح تفاصيل أي عقدة وإبراز المسار بين نقطتين والتبديل بين السمة الفاتحة والداكنة، ثم تصدير النتيجة صورة PNG أو بطاقة مشاركة. ولأن الناتج ملف HTML واحد، لا يلزم تثبيت أي شيء لعرضه. تعمل مع Claude Code وCursor وCodex CLI وOpenCode، ومرخّصة بموجب MIT.\n\nبصفتنا وكالة، نقيّمها لاستخدامها في العروض ووثائق التسليم لشرح طريقة عمل وحدات البوابة والتكاملات ومسارات الأتمتة للعملاء؛ فعرض مخطط تفاعلي على عميل غير تقني أوضح من نص طويل. ولأن المخطط يعتمد على تفسير الوكيل، ننصح بمراجعة الخرائط المولَّدة من الشيفرة المصدرية قبل نشرها. ترسل المهارة طلبًا إلى عنوان ثابت مرة يوميًا تقريبًا لعرض تنبيه تحديث اختياري، ويمكن إيقافه بالمتغير ARCHIFY_UPDATE_CHECK_DISABLED=1."
+      },
+      "adimlar": {
+        "tr": [
+          "Beceriyi kurun: npx skills add tt-a1i/archify -g",
+          "Ajanınıza bir akış tarif edin: Use Archify to draw: Browser -> API -> Redis -> PostgreSQL",
+          "Sohbetle geliştirin: 'kimlik doğrulama ekle' ya da 'önbellek ıskalama yolunu vurgula' gibi isteklerde bulunun.",
+          "Oluşan HTML dosyasını tarayıcıda açın, PNG olarak dışa aktarın ya da doğrudan paylaşın."
+        ],
+        "en": [
+          "Install the skill: npx skills add tt-a1i/archify -g",
+          "Describe a flow to your agent: Use Archify to draw: Browser -> API -> Redis -> PostgreSQL",
+          "Refine it in chat, e.g. 'add authentication' or 'highlight the cache-miss path'.",
+          "Open the generated HTML in a browser, export it as PNG or share it directly."
+        ],
+        "de": [
+          "Skill installieren: npx skills add tt-a1i/archify -g",
+          "Dem Agenten einen Ablauf beschreiben: Use Archify to draw: Browser -> API -> Redis -> PostgreSQL",
+          "Im Chat verfeinern, z. B. „Authentifizierung hinzufügen“ oder „Cache-Miss-Pfad hervorheben“.",
+          "Die erzeugte HTML-Datei im Browser öffnen, als PNG exportieren oder direkt teilen."
+        ],
+        "ru": [
+          "Установите навык: npx skills add tt-a1i/archify -g",
+          "Опишите агенту поток: Use Archify to draw: Browser -> API -> Redis -> PostgreSQL",
+          "Дорабатывайте в чате: «добавь аутентификацию», «подсвети путь при промахе кэша».",
+          "Откройте полученный HTML в браузере, экспортируйте в PNG или поделитесь напрямую."
+        ],
+        "zh": [
+          "安装技能：npx skills add tt-a1i/archify -g",
+          "向智能体描述一个流程：Use Archify to draw: Browser -> API -> Redis -> PostgreSQL",
+          "在对话中继续完善，例如“添加身份验证”“高亮缓存未命中路径”。",
+          "在浏览器中打开生成的 HTML，导出为 PNG 或直接分享。"
+        ],
+        "hi": [
+          "स्किल इंस्टॉल करें: npx skills add tt-a1i/archify -g",
+          "एजेंट को कोई फ़्लो बताएँ: Use Archify to draw: Browser -> API -> Redis -> PostgreSQL",
+          "बातचीत से सुधारें, जैसे 'ऑथेंटिकेशन जोड़ो' या 'कैश-मिस वाला रास्ता हाइलाइट करो'।",
+          "बनी हुई HTML फ़ाइल ब्राउज़र में खोलें, PNG में एक्सपोर्ट करें या सीधे साझा करें।"
+        ],
+        "ar": [
+          "ثبّت المهارة: npx skills add tt-a1i/archify -g",
+          "صِف مسارًا لوكيلك: Use Archify to draw: Browser -> API -> Redis -> PostgreSQL",
+          "طوّره بالمحادثة، مثل «أضف المصادقة» أو «أبرز مسار عدم العثور في الذاكرة المؤقتة».",
+          "افتح ملف HTML الناتج في المتصفح، أو صدّره PNG، أو شاركه مباشرة."
+        ]
+      },
+      "etiketler": [
+        "mimari",
+        "diyagram",
+        "agent skills",
+        "etkileşimli html",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/tt-a1i/archify",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 920,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "refine",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "Refine: Yönetim Paneli, Dahili Araç ve B2B Uygulamaları İçin Açık Kaynak React Çatısı",
+        "en": "Refine: An Open-Source React Framework for Admin Panels, Internal Tools and B2B Apps",
+        "de": "Refine: Open-Source-React-Framework für Admin-Panels, interne Tools und B2B-Apps",
+        "ru": "Refine: открытый React-фреймворк для админ-панелей, внутренних инструментов и B2B-приложений",
+        "zh": "Refine：面向管理后台、内部工具与 B2B 应用的开源 React 框架",
+        "hi": "Refine: एडमिन पैनल, इंटरनल टूल और B2B ऐप्स के लिए ओपन-सोर्स React फ़्रेमवर्क",
+        "ar": "Refine: إطار React مفتوح المصدر للوحات الإدارة والأدوات الداخلية وتطبيقات B2B"
+      },
+      "ozet": {
+        "tr": "Veri ağırlıklı yönetim panellerini ve dahili araçları hızla kurmak için açık kaynak React çatısı; REST, GraphQL, Supabase ve Strapi gibi arka uçlara bağlanır.",
+        "en": "Open-source React framework for quickly building data-heavy admin panels and internal tools; connects to REST, GraphQL, Supabase, Strapi and other backends.",
+        "de": "Open-Source-React-Framework für datenlastige Admin-Panels und interne Tools; verbindet sich mit REST, GraphQL, Supabase, Strapi und anderen Backends.",
+        "ru": "Открытый React-фреймворк для быстрой сборки админ-панелей и внутренних инструментов; подключается к REST, GraphQL, Supabase, Strapi и другим бэкендам.",
+        "zh": "用于快速搭建数据密集型管理后台和内部工具的开源 React 框架，可连接 REST、GraphQL、Supabase、Strapi 等后端。",
+        "hi": "डेटा-भारी एडमिन पैनल और इंटरनल टूल जल्दी बनाने के लिए ओपन-सोर्स React फ़्रेमवर्क; REST, GraphQL, Supabase और Strapi जैसे बैकएंड से जुड़ता है।",
+        "ar": "إطار React مفتوح المصدر لبناء لوحات إدارة وأدوات داخلية كثيفة البيانات بسرعة، ويتصل بواجهات REST وGraphQL وSupabase وStrapi وغيرها."
+      },
+      "aciklama": {
+        "tr": "Refine, CRUD ağırlıklı web uygulamaları (yönetim panelleri, panolar, dahili araçlar, B2B uygulamaları) için geliştirilmiş açık kaynak bir React meta-çatısıdır. Kimlik doğrulama, erişim kontrolü, yönlendirme, veri çekme, durum yönetimi ve çok dillilik gibi tekrar eden işleri hazır hook'larla çözer; iş mantığını arayüzden ayırdığı için Tailwind ile kendi tasarımınızı kullanabilir ya da Ant Design, Material UI, Mantine ve Chakra UI entegrasyonlarından birini seçebilirsiniz. REST API, GraphQL, Supabase, Strapi, Hasura, Appwrite ve Airtable dahil 15'ten fazla arka uç bağlayıcısı, gerçek zamanlı güncelleme ve denetim kaydı (audit log) desteği vardır. Next.js ve Remix ile de çalışır; MIT lisanslıdır.\n\nAjans olarak müşterilere sunduğumuz özel yönetim paneli işlerinde, FastAPI ile yazdığımız REST API'lerin üzerine hızlıca liste, form ve detay ekranları kurmak için değerlendiriyoruz; simple-rest bağlayıcısı bu tür API'ler için makul bir başlangıç noktası. Dikkat: Refine varsayılan olarak, uygulamanın açıldığı tarayıcıdan Refine sunucusuna anonim bir kullanım bildirimi (sürüm, kullanılan sağlayıcılar, kaynak sayısı) gönderir; müşteri projelerinde KVKK açısından <Refine options={{ disableTelemetry: true }}> ile kapatmanızı öneririz.",
+        "en": "Refine is an open-source React meta-framework built for apps that mostly create, list, edit and delete data (CRUD), such as admin panels, dashboards, internal tools and B2B apps. Ready-made hooks handle recurring work like authentication, access control, routing, data fetching, state management and internationalization; because business logic is separated from the UI, you can use your own design with Tailwind or pick one of the Ant Design, Material UI, Mantine and Chakra UI integrations. It ships connectors for more than 15 backends, including REST APIs, GraphQL, Supabase, Strapi, Hasura, Appwrite and Airtable, plus support for real-time updates and audit logs. It also works with Next.js and Remix and is MIT-licensed.\n\nAs an agency we are evaluating it for the custom admin panel work we offer clients, to quickly build list, form and detail screens on top of the REST APIs we write with FastAPI; the simple-rest connector is a sensible starting point for such APIs. Note: by default Refine sends an anonymous usage ping (version, providers in use, number of resources) from the browser where the app runs to Refine's server; for client projects we recommend turning it off for privacy (KVKK/GDPR) with <Refine options={{ disableTelemetry: true }}>.",
+        "de": "Refine ist ein Open-Source-React-Meta-Framework für CRUD-lastige Webanwendungen wie Admin-Panels, Dashboards, interne Tools und B2B-Apps. Fertige Hooks übernehmen wiederkehrende Aufgaben wie Authentifizierung, Zugriffskontrolle, Routing, Datenabruf, State-Management und Mehrsprachigkeit; da die Geschäftslogik von der Oberfläche getrennt ist, können Sie Ihr eigenes Design mit Tailwind nutzen oder eine der Integrationen für Ant Design, Material UI, Mantine und Chakra UI wählen. Es gibt Konnektoren für mehr als 15 Backends, darunter REST-APIs, GraphQL, Supabase, Strapi, Hasura, Appwrite und Airtable, dazu Echtzeit-Updates und Audit-Logs. Funktioniert auch mit Next.js und Remix; Lizenz: MIT.\n\nAls Agentur evaluieren wir Refine für individuelle Admin-Panels, die wir Kunden anbieten, um auf unseren mit FastAPI geschriebenen REST-APIs schnell Listen-, Formular- und Detailansichten zu bauen; der simple-rest-Konnektor ist dafür ein sinnvoller Ausgangspunkt. Achtung: Standardmäßig sendet Refine aus dem Browser, in dem die App läuft, einen anonymen Nutzungs-Ping (Version, genutzte Provider, Anzahl der Ressourcen) an den Refine-Server; für Kundenprojekte empfehlen wir aus Datenschutzgründen (DSGVO/KVKK), ihn mit <Refine options={{ disableTelemetry: true }}> abzuschalten.",
+        "ru": "Refine — открытый React-метафреймворк для CRUD-приложений: админ-панелей, дашбордов, внутренних инструментов и B2B-сервисов. Готовые хуки решают повторяющиеся задачи — аутентификацию, контроль доступа, маршрутизацию, загрузку данных, управление состоянием и локализацию; поскольку бизнес-логика отделена от интерфейса, можно использовать собственный дизайн на Tailwind или одну из интеграций с Ant Design, Material UI, Mantine и Chakra UI. Есть коннекторы к более чем 15 бэкендам, включая REST API, GraphQL, Supabase, Strapi, Hasura, Appwrite и Airtable, а также поддержка обновлений в реальном времени и журналов аудита. Работает и с Next.js и Remix; лицензия MIT.\n\nКак агентство, мы рассматриваем Refine для заказных админ-панелей, которые предлагаем клиентам, чтобы быстро собирать экраны списков, форм и карточек поверх REST API, написанных нами на FastAPI; коннектор simple-rest — разумная отправная точка для таких API. Важно: по умолчанию Refine отправляет из браузера, где запущено приложение, анонимный сигнал об использовании (версия, используемые провайдеры, число ресурсов) на сервер Refine; в клиентских проектах из соображений защиты персональных данных (KVKK/GDPR) рекомендуем отключать его через <Refine options={{ disableTelemetry: true }}>.",
+        "zh": "Refine 是面向 CRUD 密集型 Web 应用（管理后台、仪表盘、内部工具和 B2B 应用）的开源 React 元框架。它用现成的 hooks 处理身份验证、访问控制、路由、数据获取、状态管理和国际化等重复性工作；由于业务逻辑与界面分离，您既可以用 Tailwind 实现自己的设计，也可以选择 Ant Design、Material UI、Mantine 或 Chakra UI 集成。它为 REST API、GraphQL、Supabase、Strapi、Hasura、Appwrite、Airtable 等 15 种以上后端提供连接器，并支持实时更新和审计日志。它也可与 Next.js 和 Remix 配合使用，采用 MIT 许可证。\n\n作为代理机构，我们正在评估把它用于为客户提供的定制管理后台，在我们用 FastAPI 编写的 REST API 之上快速搭建列表、表单和详情页面；simple-rest 连接器是这类 API 的合适起点。注意：Refine 默认会从运行应用的浏览器向 Refine 服务器发送匿名使用信号（版本、所用 provider、资源数量）；出于个人数据保护（KVKK/GDPR）考虑，建议在客户项目中通过 <Refine options={{ disableTelemetry: true }}> 关闭。",
+        "hi": "Refine, CRUD-भारी वेब एप्लिकेशन (जैसे एडमिन पैनल, डैशबोर्ड, इंटरनल टूल और B2B ऐप्स) के लिए एक ओपन-सोर्स React मेटा-फ़्रेमवर्क है। तैयार hooks ऑथेंटिकेशन, एक्सेस कंट्रोल, रूटिंग, डेटा लाना, स्टेट मैनेजमेंट और बहुभाषी सपोर्ट जैसे बार-बार आने वाले काम संभालते हैं; बिज़नेस लॉजिक UI से अलग होने के कारण आप Tailwind के साथ अपना डिज़ाइन इस्तेमाल कर सकते हैं या Ant Design, Material UI, Mantine और Chakra UI इंटीग्रेशन में से कोई चुन सकते हैं। इसमें REST API, GraphQL, Supabase, Strapi, Hasura, Appwrite और Airtable सहित 15 से ज़्यादा बैकएंड के कनेक्टर हैं, साथ ही रियल-टाइम अपडेट और ऑडिट लॉग का सपोर्ट भी है। यह Next.js और Remix के साथ भी काम करता है और MIT लाइसेंस में है।\n\nएक एजेंसी के रूप में, क्लाइंट को दिए जाने वाले कस्टम एडमिन पैनल के काम में FastAPI से लिखी हमारी REST API के ऊपर लिस्ट, फ़ॉर्म और डिटेल स्क्रीन जल्दी बनाने के लिए हम इस पर विचार कर रहे हैं; ऐसी API के लिए simple-rest कनेक्टर अच्छा शुरुआती बिंदु है। ध्यान दें: Refine डिफ़ॉल्ट रूप से उस ब्राउज़र से, जहाँ ऐप चलता है, Refine के सर्वर को एक गुमनाम उपयोग संकेत (वर्ज़न, इस्तेमाल हो रहे प्रोवाइडर, रिसोर्स की संख्या) भेजता है; व्यक्तिगत डेटा सुरक्षा (KVKK/GDPR) के कारण क्लाइंट प्रोजेक्ट में इसे <Refine options={{ disableTelemetry: true }}> से बंद करने की सलाह देते हैं।",
+        "ar": "Refine إطار React وصفي (meta-framework) مفتوح المصدر لتطبيقات الويب الكثيفة بعمليات CRUD، مثل لوحات الإدارة ولوحات المؤشرات والأدوات الداخلية وتطبيقات B2B. تتولى خطافات (hooks) جاهزة المهام المتكررة كالمصادقة والتحكم في الوصول والتوجيه وجلب البيانات وإدارة الحالة وتعدد اللغات؛ ولأن منطق العمل منفصل عن الواجهة، يمكنك استخدام تصميمك الخاص مع Tailwind أو اختيار أحد تكاملات Ant Design أو Material UI أو Mantine أو Chakra UI. يوفّر موصلات لأكثر من 15 واجهة خلفية، منها REST API وGraphQL وSupabase وStrapi وHasura وAppwrite وAirtable، مع دعم التحديثات الفورية وسجلات التدقيق. يعمل أيضًا مع Next.js وRemix، ومرخّص بموجب MIT.\n\nبصفتنا وكالة، نقيّمه لأعمال لوحات الإدارة المخصصة التي نقدّمها للعملاء، لبناء شاشات القوائم والنماذج والتفاصيل بسرعة فوق واجهات REST التي نكتبها بـFastAPI؛ وموصل simple-rest نقطة بداية مناسبة لمثل هذه الواجهات. تنبيه: يرسل Refine افتراضيًا من المتصفح الذي يعمل فيه التطبيق إشارة استخدام مجهولة (الإصدار والمزوّدات المستخدمة وعدد الموارد) إلى خادم Refine، لذا نوصي في مشاريع العملاء بإيقافها لأسباب تتعلق بحماية البيانات الشخصية (KVKK/GDPR) عبر <Refine options={{ disableTelemetry: true }}>."
+      },
+      "adimlar": {
+        "tr": [
+          "Yeni proje oluşturun: npm create refine-app@latest panel-adi",
+          "Kurulum sihirbazında arayüz kütüphanesini ve veri sağlayıcısını (ör. REST API) seçin.",
+          "<Refine> bileşeninde kaynaklarınızı (ör. products, orders) tanımlayıp liste ve form sayfalarını ekleyin.",
+          "Yayına almadan önce options={{ disableTelemetry: true }} ekleyerek anonim bildirimi kapatın."
+        ],
+        "en": [
+          "Create a new project: npm create refine-app@latest my-panel",
+          "In the setup wizard, choose a UI library and a data provider (e.g. REST API).",
+          "Define your resources (e.g. products, orders) on the <Refine> component and add list and form pages.",
+          "Before going live, add options={{ disableTelemetry: true }} to turn off the anonymous ping."
+        ],
+        "de": [
+          "Neues Projekt anlegen: npm create refine-app@latest mein-panel",
+          "Im Einrichtungsassistenten UI-Bibliothek und Datenanbieter (z. B. REST API) wählen.",
+          "Ressourcen (z. B. products, orders) in der <Refine>-Komponente definieren und Listen- und Formularseiten hinzufügen.",
+          "Vor dem Livegang options={{ disableTelemetry: true }} setzen, um den anonymen Ping abzuschalten."
+        ],
+        "ru": [
+          "Создайте проект: npm create refine-app@latest my-panel",
+          "В мастере настройки выберите UI-библиотеку и провайдер данных (например, REST API).",
+          "Опишите ресурсы (например, products, orders) в компоненте <Refine> и добавьте страницы списков и форм.",
+          "Перед запуском добавьте options={{ disableTelemetry: true }}, чтобы отключить анонимный сигнал."
+        ],
+        "zh": [
+          "创建新项目：npm create refine-app@latest my-panel",
+          "在安装向导中选择界面库和数据提供者（如 REST API）。",
+          "在 <Refine> 组件中定义资源（如 products、orders），并添加列表和表单页面。",
+          "上线前加入 options={{ disableTelemetry: true }}，关闭匿名使用信号。"
+        ],
+        "hi": [
+          "नया प्रोजेक्ट बनाएँ: npm create refine-app@latest my-panel",
+          "सेटअप विज़ार्ड में UI लाइब्रेरी और डेटा प्रोवाइडर (जैसे REST API) चुनें।",
+          "<Refine> कंपोनेंट में अपने रिसोर्स (जैसे products, orders) परिभाषित करें और लिस्ट व फ़ॉर्म पेज जोड़ें।",
+          "लाइव करने से पहले options={{ disableTelemetry: true }} जोड़कर गुमनाम संकेत बंद करें।"
+        ],
+        "ar": [
+          "أنشئ مشروعًا جديدًا: npm create refine-app@latest my-panel",
+          "اختر في معالج الإعداد مكتبة الواجهة ومزوّد البيانات (مثل REST API).",
+          "عرّف مواردك (مثل products وorders) في المكوّن <Refine> وأضف صفحات القوائم والنماذج.",
+          "قبل الإطلاق أضف options={{ disableTelemetry: true }} لإيقاف إشارة الاستخدام المجهولة."
+        ]
+      },
+      "etiketler": [
+        "admin panel",
+        "react",
+        "yönetim paneli",
+        "dahili araç",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/refinedev/refine",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 930,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "twenty-crm",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "Twenty: Kendi Sunucunuzda Çalıştırıp Kodla Genişletebileceğiniz Açık Kaynak CRM",
+        "en": "Twenty: An Open-Source CRM You Can Self-Host and Extend as Code",
+        "de": "Twenty: Open-Source-CRM zum Selbsthosten und Erweitern per Code",
+        "ru": "Twenty: открытая CRM, которую можно развернуть у себя и расширять кодом",
+        "zh": "Twenty：可自托管并以代码扩展的开源 CRM",
+        "hi": "Twenty: ओपन-सोर्स CRM जिसे आप खुद होस्ट कर सकते हैं और कोड से बढ़ा सकते हैं",
+        "ar": "Twenty: نظام CRM مفتوح المصدر يمكن استضافته ذاتيًا وتوسيعه بالكود"
+      },
+      "ozet": {
+        "tr": "Salesforce'a açık kaynak alternatif Twenty; kişi, şirket ve fırsatları yönetir, e-posta ve takvimi eşitler, iş akışları ve API ile genişletilebilir.",
+        "en": "Twenty, an open-source Salesforce alternative, manages contacts, companies and deals, syncs email and calendars, and extends with workflows and APIs.",
+        "de": "Open-Source-Alternative zu Salesforce: Twenty verwaltet Kontakte, Firmen und Deals, synchronisiert E-Mail und Kalender und ist per Workflow und API erweiterbar.",
+        "ru": "Twenty — открытая альтернатива Salesforce: контакты, компании и сделки, синхронизация почты и календаря, расширение через сценарии и API.",
+        "zh": "开源的 Salesforce 替代品 Twenty，可管理联系人、公司和商机，同步邮件与日历，并通过工作流和 API 扩展。",
+        "hi": "Salesforce का ओपन-सोर्स विकल्प Twenty संपर्क, कंपनियाँ और डील संभालता है, ईमेल व कैलेंडर सिंक करता है और वर्कफ़्लो व API से बढ़ाया जा सकता है।",
+        "ar": "Twenty بديل مفتوح المصدر لـSalesforce يدير جهات الاتصال والشركات والصفقات، ويزامن البريد والتقويم، ويتوسع بمسارات العمل وواجهات API."
+      },
+      "aciklama": {
+        "tr": "Twenty, ekiplerin müşteri ilişkilerini yönettiği, modern arayüzlü açık kaynak bir CRM'dir. Kişiler, şirketler, satış fırsatları, görevler ve notlar gibi hazır nesnelerin yanında kendi nesnelerinizi ve alanlarınızı tanımlayabilir, tablo, kanban ve pano görünümleri oluşturabilirsiniz. Google ve Microsoft hesaplarıyla ya da IMAP ve CalDAV üzerinden e-posta ve takvim eşitlemesi, iş akışı otomasyonları, yapay zekâ ajanları, REST ve GraphQL API'leri ile webhook desteği vardır; özelleştirmeler kod olarak yazılıp sürümlenebilir. twenty.com üzerinden bulutta kullanılabilir ya da Docker Compose ile kendi sunucunuza kurulabilir. Lisansı büyük ölçüde AGPL-3.0'dır; SSO, kayıt düzeyinde yetki ve faturalama gibi Enterprise işaretli dosyalar ticari lisansa tabidir.\n\nAjans olarak CRM entegrasyonu hizmetimizde, kullanıcı başına aylık ücretli bir CRM istemeyen ya da verisini kendi sunucusunda tutmak isteyen müşteriler için bir seçenek olarak değerlendiriyoruz; site formlarından ve reklamlardan gelen adayları API ile Twenty'ye aktarmak tipik bir kurulum olur. Kendi sunucunuzda çalıştırırken varsayılan olarak açık gelen telemetriyi TELEMETRY_ENABLED=false ile kapatmayı, düzenli yedeklemeyi ve güncellemeleri ihmal etmeyin; Twenty'nin kodunu değiştirip ağ üzerinden sunarsanız AGPL gereği değişikliklerinizi paylaşmanız gerekir.",
+        "en": "Twenty is an open-source CRM with a modern interface where teams manage customer relationships. Alongside built-in objects such as people, companies, opportunities, tasks and notes, you can define your own objects and fields and build table, kanban and dashboard views. It offers email and calendar sync with Google and Microsoft accounts or via IMAP and CalDAV, workflow automations, AI agents, REST and GraphQL APIs and webhooks; customizations can be written and versioned as code. You can use it in the cloud at twenty.com or install it on your own server with Docker Compose. It is mostly licensed under AGPL-3.0; files marked Enterprise, such as SSO, record-level permissions and billing, are under a commercial license.\n\nAs an agency we are evaluating it, as part of our CRM integration service, as an option for clients who do not want a per-user monthly CRM subscription or who want to keep their data on their own server; feeding leads from website forms and ads into Twenty via its API would be a typical setup. When self-hosting, turn off the telemetry that is on by default with TELEMETRY_ENABLED=false, and do not neglect regular backups and updates; if you modify Twenty's code and offer it over a network, the AGPL requires you to share your changes.",
+        "de": "Twenty ist ein Open-Source-CRM mit moderner Oberfläche, in dem Teams ihre Kundenbeziehungen verwalten. Neben fertigen Objekten wie Personen, Unternehmen, Verkaufschancen, Aufgaben und Notizen können Sie eigene Objekte und Felder definieren sowie Tabellen-, Kanban- und Dashboard-Ansichten anlegen. Es gibt E-Mail- und Kalendersynchronisation mit Google- und Microsoft-Konten oder über IMAP und CalDAV, Workflow-Automatisierungen, KI-Agenten, REST- und GraphQL-APIs sowie Webhooks; Anpassungen lassen sich als Code schreiben und versionieren. Nutzbar ist es in der Cloud unter twenty.com oder per Docker Compose auf dem eigenen Server. Die Lizenz ist überwiegend AGPL-3.0; als Enterprise markierte Dateien wie SSO, Berechtigungen auf Datensatzebene und Abrechnung unterliegen einer kommerziellen Lizenz.\n\nAls Agentur evaluieren wir Twenty im Rahmen unseres CRM-Integrationsangebots als Option für Kunden, die kein CRM-Abo mit Monatspreis pro Nutzer möchten oder ihre Daten auf dem eigenen Server halten wollen; Leads aus Website-Formularen und Anzeigen per API in Twenty zu übertragen wäre ein typisches Setup. Beim Selbsthosten sollten Sie die standardmäßig aktive Telemetrie mit TELEMETRY_ENABLED=false abschalten und regelmäßige Backups und Updates nicht vernachlässigen; wer den Code von Twenty ändert und über ein Netzwerk anbietet, muss die Änderungen laut AGPL offenlegen.",
+        "ru": "Twenty — открытая CRM с современным интерфейсом, в которой команды ведут работу с клиентами. Помимо готовых объектов — людей, компаний, сделок, задач и заметок — можно создавать собственные объекты и поля, а также табличные, канбан- и дашборд-представления. Есть синхронизация почты и календаря с аккаунтами Google и Microsoft или через IMAP и CalDAV, автоматизация бизнес-процессов, ИИ-агенты, REST и GraphQL API и вебхуки; доработки можно писать и версионировать как код. Пользоваться можно в облаке на twenty.com или развернуть на своём сервере через Docker Compose. Лицензия в основном AGPL-3.0; файлы с пометкой Enterprise, например SSO, права на уровне записей и биллинг, распространяются по коммерческой лицензии.\n\nКак агентство, мы рассматриваем Twenty в рамках услуги интеграции CRM как вариант для клиентов, которые не хотят платить ежемесячно за каждого пользователя или хотят хранить данные на своём сервере; типичная настройка — передавать лиды с форм сайта и из рекламы в Twenty через API. При самостоятельном развёртывании отключите включённую по умолчанию телеметрию через TELEMETRY_ENABLED=false и не забывайте о регулярных резервных копиях и обновлениях; если вы измените код Twenty и предоставите его по сети, AGPL обязывает опубликовать изменения.",
+        "zh": "Twenty 是一款界面现代的开源 CRM，供团队管理客户关系。除了联系人、公司、商机、任务和笔记等内置对象外，您还可以定义自己的对象和字段，并创建表格、看板和仪表盘视图。它支持通过 Google、Microsoft 账户或 IMAP、CalDAV 同步邮件和日历，提供工作流自动化、AI 智能体、REST 和 GraphQL API 以及 Webhook；定制内容可以写成代码并进行版本管理。既可以在 twenty.com 上使用云版本，也可以用 Docker Compose 部署到自己的服务器。许可证主要为 AGPL-3.0；标有 Enterprise 的文件（如 SSO、记录级权限和计费）适用商业许可证。\n\n作为代理机构，在 CRM 集成服务中，我们正在把它评估为一个选项，适合不想按用户按月付费、或希望把数据保存在自己服务器上的客户；通过 API 把网站表单和广告带来的线索导入 Twenty 是典型的部署方式。自托管时请用 TELEMETRY_ENABLED=false 关闭默认开启的遥测，并坚持定期备份和更新；如果修改了 Twenty 的代码并通过网络提供服务，AGPL 要求您公开这些修改。",
+        "hi": "Twenty आधुनिक इंटरफ़ेस वाला एक ओपन-सोर्स CRM है, जिसमें टीमें ग्राहक संबंध संभालती हैं। लोग, कंपनियाँ, बिक्री अवसर, काम और नोट्स जैसे तैयार ऑब्जेक्ट के अलावा आप अपने ऑब्जेक्ट और फ़ील्ड बना सकते हैं और टेबल, कानबान व डैशबोर्ड व्यू तैयार कर सकते हैं। इसमें Google और Microsoft खातों से या IMAP और CalDAV के ज़रिए ईमेल व कैलेंडर सिंक, वर्कफ़्लो ऑटोमेशन, एआई एजेंट, REST और GraphQL API तथा वेबहुक हैं; बदलाव कोड के रूप में लिखे और वर्ज़न किए जा सकते हैं। इसे twenty.com पर क्लाउड में इस्तेमाल किया जा सकता है या Docker Compose से अपने सर्वर पर लगाया जा सकता है। इसका लाइसेंस मुख्यतः AGPL-3.0 है; Enterprise चिह्नित फ़ाइलें, जैसे SSO, रिकॉर्ड-स्तर अनुमतियाँ और बिलिंग, व्यावसायिक लाइसेंस के अंतर्गत हैं।\n\nएक एजेंसी के रूप में, अपनी CRM इंटीग्रेशन सेवा में हम इसे उन क्लाइंट के लिए विकल्प के रूप में परख रहे हैं जो प्रति उपयोगकर्ता मासिक शुल्क वाला CRM नहीं चाहते या अपना डेटा अपने सर्वर पर रखना चाहते हैं; वेबसाइट फ़ॉर्म और विज्ञापनों से आए लीड को API से Twenty में भेजना एक सामान्य सेटअप होगा। खुद होस्ट करते समय डिफ़ॉल्ट रूप से चालू टेलीमेट्री को TELEMETRY_ENABLED=false से बंद करें और नियमित बैकअप व अपडेट न भूलें; अगर आप Twenty का कोड बदलकर नेटवर्क पर उपलब्ध कराते हैं, तो AGPL के अनुसार बदलाव साझा करने होंगे।",
+        "ar": "Twenty نظام CRM مفتوح المصدر بواجهة حديثة تدير فيه الفرق علاقاتها مع العملاء. إلى جانب الكائنات الجاهزة مثل الأشخاص والشركات وفرص البيع والمهام والملاحظات، يمكنك تعريف كائناتك وحقولك الخاصة وإنشاء عروض الجداول وكانبان ولوحات المؤشرات. يوفّر مزامنة البريد والتقويم مع حسابات Google وMicrosoft أو عبر IMAP وCalDAV، وأتمتة مسارات العمل، ووكلاء ذكاء اصطناعي، وواجهات REST وGraphQL، وخطافات الويب (webhooks)؛ ويمكن كتابة التخصيصات كشيفرة وإدارة إصداراتها. يمكن استخدامه سحابيًا عبر twenty.com أو تثبيته على خادمك باستخدام Docker Compose. ترخيصه في معظمه AGPL-3.0، أما الملفات الموسومة Enterprise مثل SSO والصلاحيات على مستوى السجل والفوترة فتخضع لترخيص تجاري.\n\nبصفتنا وكالة، نقيّمه ضمن خدمة تكامل CRM خيارًا للعملاء الذين لا يريدون اشتراكًا شهريًا لكل مستخدم أو يريدون الاحتفاظ ببياناتهم على خوادمهم؛ ويُعد نقل العملاء المحتملين القادمين من نماذج الموقع والإعلانات إلى Twenty عبر API إعدادًا نموذجيًا. عند الاستضافة الذاتية أوقف القياس عن بُعد المفعّل افتراضيًا عبر TELEMETRY_ENABLED=false، ولا تهمل النسخ الاحتياطي والتحديثات المنتظمة؛ وإذا عدّلت شيفرة Twenty وقدّمتها عبر الشبكة فإن AGPL يلزمك بمشاركة تعديلاتك."
+      },
+      "adimlar": {
+        "tr": [
+          "Önce twenty.com üzerinde bir bulut çalışma alanı açarak deneyin.",
+          "Kendi sunucunuz için docs.twenty.com'daki Docker Compose rehberini izleyin ve TELEMETRY_ENABLED=false ayarlayın.",
+          "Ayarlar bölümünden e-posta ve takvim hesaplarınızı bağlayıp kendi nesne ve alanlarınızı tanımlayın.",
+          "Site formlarını ve reklam adaylarını REST API ya da webhook ile CRM'e aktarın."
+        ],
+        "en": [
+          "Try it first by opening a cloud workspace at twenty.com.",
+          "For your own server, follow the Docker Compose guide at docs.twenty.com and set TELEMETRY_ENABLED=false.",
+          "Connect your email and calendar accounts in Settings and define your own objects and fields.",
+          "Send website forms and ad leads to the CRM via the REST API or webhooks."
+        ],
+        "de": [
+          "Zuerst einen Cloud-Workspace auf twenty.com anlegen und testen.",
+          "Für den eigenen Server der Docker-Compose-Anleitung auf docs.twenty.com folgen und TELEMETRY_ENABLED=false setzen.",
+          "In den Einstellungen E-Mail- und Kalenderkonten verbinden und eigene Objekte und Felder definieren.",
+          "Website-Formulare und Anzeigen-Leads per REST-API oder Webhook ins CRM übertragen."
+        ],
+        "ru": [
+          "Сначала попробуйте облачное рабочее пространство на twenty.com.",
+          "Для своего сервера следуйте инструкции по Docker Compose на docs.twenty.com и задайте TELEMETRY_ENABLED=false.",
+          "Подключите почту и календарь в настройках и создайте собственные объекты и поля.",
+          "Передавайте заявки с форм сайта и из рекламы в CRM через REST API или вебхуки."
+        ],
+        "zh": [
+          "先在 twenty.com 开通云端工作区试用。",
+          "自建服务器时按照 docs.twenty.com 的 Docker Compose 指南部署，并设置 TELEMETRY_ENABLED=false。",
+          "在设置中连接邮箱和日历账户，并定义自己的对象和字段。",
+          "通过 REST API 或 Webhook 把网站表单和广告线索导入 CRM。"
+        ],
+        "hi": [
+          "पहले twenty.com पर क्लाउड वर्कस्पेस खोलकर आज़माएँ।",
+          "अपने सर्वर के लिए docs.twenty.com की Docker Compose गाइड अपनाएँ और TELEMETRY_ENABLED=false सेट करें।",
+          "सेटिंग्स में ईमेल और कैलेंडर खाते जोड़ें और अपने ऑब्जेक्ट व फ़ील्ड बनाएँ।",
+          "वेबसाइट फ़ॉर्म और विज्ञापन लीड को REST API या वेबहुक से CRM में भेजें।"
+        ],
+        "ar": [
+          "جرّبه أولًا بفتح مساحة عمل سحابية على twenty.com.",
+          "لخادمك الخاص اتبع دليل Docker Compose في docs.twenty.com واضبط TELEMETRY_ENABLED=false.",
+          "اربط حسابات البريد والتقويم من الإعدادات وعرّف كائناتك وحقولك الخاصة.",
+          "انقل نماذج الموقع والعملاء المحتملين من الإعلانات إلى CRM عبر REST API أو خطافات الويب."
+        ]
+      },
+      "etiketler": [
+        "crm",
+        "satış",
+        "salesforce alternatifi",
+        "self-host",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/twentyhq/twenty",
+      "baglanti_turu": "github",
+      "lisans": "AGPL-3.0 (Enterprise işaretli dosyalar hariç)",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 940,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "signoz",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "SigNoz: OpenTelemetry Tabanlı Açık Kaynak Uygulama İzleme, Log ve İz Platformu",
+        "en": "SigNoz: An Open-Source Observability Platform for APM, Logs and Traces Built on OpenTelemetry",
+        "de": "SigNoz: Open-Source-Observability-Plattform für APM, Logs und Traces auf Basis von OpenTelemetry",
+        "ru": "SigNoz: открытая платформа наблюдаемости для APM, логов и трассировок на базе OpenTelemetry",
+        "zh": "SigNoz：基于 OpenTelemetry 的开源 APM、日志与链路追踪可观测性平台",
+        "hi": "SigNoz: OpenTelemetry पर आधारित APM, लॉग और ट्रेस के लिए ओपन-सोर्स ऑब्ज़र्वेबिलिटी प्लेटफ़ॉर्म",
+        "ar": "SigNoz: منصة مراقبة مفتوحة المصدر لأداء التطبيقات والسجلات والتتبع مبنية على OpenTelemetry"
+      },
+      "ozet": {
+        "tr": "OpenTelemetry tabanlı açık kaynak SigNoz; uygulama performansını, logları, istek izlerini, hataları ve LLM maliyetlerini tek ekranda izler, uyarı gönderir.",
+        "en": "Open-source SigNoz, built on OpenTelemetry, tracks app performance, logs, request traces, errors and LLM costs on one screen and sends alerts.",
+        "de": "SigNoz auf Basis von OpenTelemetry überwacht App-Performance, Logs, Request-Traces, Fehler und LLM-Kosten in einer Oberfläche und sendet Alarme.",
+        "ru": "Открытый SigNoz на базе OpenTelemetry показывает производительность приложений, логи, трассировки, ошибки и расходы на LLM в одном окне и шлёт оповещения.",
+        "zh": "基于 OpenTelemetry 的开源 SigNoz，在一个界面中监控应用性能、日志、请求链路、错误和 LLM 成本，并发送告警。",
+        "hi": "OpenTelemetry पर बना ओपन-सोर्स SigNoz ऐप परफ़ॉर्मेंस, लॉग, रिक्वेस्ट ट्रेस, त्रुटियाँ और LLM लागत एक स्क्रीन पर दिखाता है और अलर्ट भेजता है।",
+        "ar": "منصة SigNoz مفتوحة المصدر المبنية على OpenTelemetry تراقب أداء التطبيقات والسجلات والطلبات والأخطاء وتكاليف LLM في شاشة واحدة وترسل التنبيهات."
+      },
+      "aciklama": {
+        "tr": "SigNoz, OpenTelemetry standardı üzerine kurulu açık kaynak bir gözlemlenebilirlik (observability) platformudur. Uygulama performans izleme (APM: gecikme, hata oranı, en yavaş uç noktalar, veritabanı ve dış servis çağrıları), log yönetimi, metrik panoları, dağıtık istek izleme (trace), istisna takibi ve uyarıları tek arayüzde birleştirir; bir isteğin yavaşladığı noktadan ilgili loglara tek tıkla geçilebilir. LLM uygulamalarında istem, araç çağrısı, token ve maliyet takibi de sunar; telemetri verisini kodlama ajanlarına taşıyan bir MCP sunucusu vardır. Veriler ClickHouse üzerinde tutulur. Bulut sürümü ücretlidir (30 gün deneme), topluluk sürümü kendi sunucunuzda ücretsizdir; çekirdek MIT lisanslıdır, ee/ klasörü ayrı bir ticari lisansa tabidir.\n\nAjans olarak Grafana kaydında anlattığımız sunucu metriklerinin ötesine geçmek için değerlendiriyoruz: FastAPI ile yazdığımız portal ve otomasyonlarda hangi uç noktanın yavaşladığını, hangi hatanın hangi isteğe ait olduğunu ve yapay zekâ çağrılarının müşteri başına maliyetini görmek istiyoruz; OpenTelemetry'nin Python araçlarıyla FastAPI uygulamaları çok az kod değişikliğiyle izlenebilir. Kendi sunucunuza kurarken Docker'a en az 4 GB bellek ayırmanız gerekir; küçük projelerde Grafana ya da yalnızca hata takibi yetebilir, bu yüzden önce ihtiyacı netleştirmenizi öneririz.",
+        "en": "Built on the OpenTelemetry standard, SigNoz is an open-source platform for observability. It brings application performance monitoring (APM: latency, error rate, slowest endpoints, database and external calls), log management, metrics dashboards, distributed tracing, exception tracking and alerts into one interface, so you can jump from the point where a request slowed down to the related logs in one click. For LLM apps it also tracks prompts, tool calls, tokens and cost, and it has an MCP server that brings telemetry into coding agents. Data is stored in ClickHouse. The cloud edition is paid (with a 30-day trial), while the community edition is free on your own server; the core is MIT-licensed, and the ee/ folder is under a separate commercial license.\n\nAs an agency we are evaluating it to go beyond the server metrics described in our Grafana entry: we want to see which endpoint slows down in the portal and automations we write with FastAPI, which error belongs to which request, and what AI calls cost per client; with OpenTelemetry's Python tooling, FastAPI apps can be instrumented with very few code changes. Self-hosting requires allocating at least 4 GB of memory to Docker; for small projects Grafana or plain error tracking may be enough, so we recommend clarifying the need first.",
+        "de": "SigNoz ist eine Open-Source-Observability-Plattform auf Basis des OpenTelemetry-Standards. Sie vereint Application Performance Monitoring (APM: Latenz, Fehlerrate, langsamste Endpunkte, Datenbank- und externe Aufrufe), Log-Management, Metrik-Dashboards, verteiltes Tracing, Exception-Tracking und Alarme in einer Oberfläche; vom Punkt, an dem eine Anfrage langsam wurde, gelangen Sie mit einem Klick zu den zugehörigen Logs. Für LLM-Anwendungen erfasst sie außerdem Prompts, Tool-Aufrufe, Tokens und Kosten, und ein MCP-Server bringt Telemetriedaten in Coding-Agenten. Die Daten liegen in ClickHouse. Die Cloud-Version ist kostenpflichtig (mit 30-tägiger Testphase), die Community-Edition ist auf dem eigenen Server kostenlos; der Kern steht unter MIT-Lizenz, der Ordner ee/ unter einer separaten kommerziellen Lizenz.\n\nAls Agentur evaluieren wir SigNoz, um über die im Grafana-Eintrag beschriebenen Servermetriken hinauszugehen: Wir wollen sehen, welcher Endpunkt in unserem mit FastAPI geschriebenen Portal und unseren Automatisierungen langsam wird, welcher Fehler zu welcher Anfrage gehört und was KI-Aufrufe pro Kunde kosten; mit den Python-Werkzeugen von OpenTelemetry lassen sich FastAPI-Apps mit sehr wenigen Codeänderungen instrumentieren. Beim Selbsthosten müssen Docker mindestens 4 GB Arbeitsspeicher zugewiesen werden; für kleine Projekte genügt oft Grafana oder reines Fehler-Tracking, daher empfehlen wir, den Bedarf zuerst zu klären.",
+        "ru": "SigNoz — открытая платформа наблюдаемости, построенная на стандарте OpenTelemetry. Она объединяет в одном интерфейсе мониторинг производительности приложений (APM: задержки, доля ошибок, самые медленные эндпоинты, обращения к базе данных и внешним сервисам), управление логами, дашборды метрик, распределённую трассировку, отслеживание исключений и оповещения; от места, где запрос замедлился, можно одним кликом перейти к связанным логам. Для LLM-приложений она также отслеживает промпты, вызовы инструментов, токены и стоимость, а MCP-сервер передаёт телеметрию кодинг-агентам. Данные хранятся в ClickHouse. Облачная версия платная (с 30-дневным пробным периодом), community-версия на своём сервере бесплатна; ядро распространяется по лицензии MIT, папка ee/ — по отдельной коммерческой лицензии.\n\nКак агентство, мы рассматриваем SigNoz, чтобы выйти за рамки серверных метрик из нашей записи о Grafana: мы хотим видеть, какой эндпоинт замедляется в портале и автоматизациях, написанных нами на FastAPI, какая ошибка относится к какому запросу и во сколько обходятся вызовы ИИ для каждого клиента; с Python-инструментами OpenTelemetry приложения FastAPI можно инструментировать минимальными изменениями кода. Для самостоятельного развёртывания Docker нужно выделить не меньше 4 ГБ памяти; для небольших проектов может хватить Grafana или простого отслеживания ошибок, поэтому сначала стоит уточнить потребность.",
+        "zh": "SigNoz 是基于 OpenTelemetry 标准构建的开源可观测性平台。它把应用性能监控（APM：延迟、错误率、最慢的接口、数据库和外部调用）、日志管理、指标仪表盘、分布式链路追踪、异常跟踪和告警整合在一个界面中，可以从请求变慢的位置一键跳转到相关日志。对于 LLM 应用，它还能跟踪提示词、工具调用、token 和成本，并提供把遥测数据带入编码智能体的 MCP 服务器。数据存储在 ClickHouse 中。云版本收费（提供 30 天试用），社区版可免费部署在自己的服务器上；核心采用 MIT 许可证，ee/ 目录适用单独的商业许可证。\n\n作为代理机构，我们正在评估它，以补充 Grafana 条目中介绍的服务器指标：我们希望看到自己用 FastAPI 编写的门户和自动化中哪个接口变慢、哪个错误对应哪个请求，以及每个客户的 AI 调用成本；借助 OpenTelemetry 的 Python 工具，只需极少的代码改动即可为 FastAPI 应用接入监控。自托管时需要为 Docker 分配至少 4 GB 内存；小型项目使用 Grafana 或单纯的错误跟踪可能就足够了，因此建议先明确需求。",
+        "hi": "SigNoz, OpenTelemetry मानक पर बना एक ओपन-सोर्स ऑब्ज़र्वेबिलिटी प्लेटफ़ॉर्म है। यह एप्लिकेशन परफ़ॉर्मेंस मॉनिटरिंग (APM: लेटेंसी, त्रुटि दर, सबसे धीमे एंडपॉइंट, डेटाबेस और बाहरी कॉल), लॉग प्रबंधन, मेट्रिक डैशबोर्ड, डिस्ट्रिब्यूटेड ट्रेसिंग, एक्सेप्शन ट्रैकिंग और अलर्ट को एक इंटरफ़ेस में लाता है; जहाँ कोई रिक्वेस्ट धीमी हुई, वहाँ से एक क्लिक में संबंधित लॉग तक पहुँचा जा सकता है। LLM ऐप्स के लिए यह प्रॉम्प्ट, टूल कॉल, टोकन और लागत भी ट्रैक करता है, और इसमें कोडिंग एजेंटों तक टेलीमेट्री पहुँचाने वाला MCP सर्वर है। डेटा ClickHouse में रखा जाता है। क्लाउड संस्करण सशुल्क है (30 दिन के ट्रायल के साथ), जबकि कम्युनिटी संस्करण अपने सर्वर पर मुफ़्त है; कोर MIT लाइसेंस में है और ee/ फ़ोल्डर अलग व्यावसायिक लाइसेंस में है।\n\nएक एजेंसी के रूप में हम Grafana वाली प्रविष्टि में बताए सर्वर मेट्रिक्स से आगे जाने के लिए इस पर विचार कर रहे हैं: हम देखना चाहते हैं कि FastAPI से लिखे हमारे पोर्टल और ऑटोमेशन में कौन-सा एंडपॉइंट धीमा हो रहा है, कौन-सी त्रुटि किस रिक्वेस्ट से जुड़ी है और हर क्लाइंट के लिए एआई कॉल की लागत क्या है; OpenTelemetry के Python टूल से FastAPI ऐप्स को बहुत कम कोड बदलाव के साथ मॉनिटर किया जा सकता है। खुद होस्ट करने के लिए Docker को कम से कम 4 GB मेमोरी देनी होती है; छोटे प्रोजेक्ट में Grafana या सिर्फ़ त्रुटि ट्रैकिंग काफ़ी हो सकती है, इसलिए पहले ज़रूरत स्पष्ट करने की सलाह देते हैं।",
+        "ar": "SigNoz منصة مراقبة (observability) مفتوحة المصدر مبنية على معيار OpenTelemetry. تجمع في واجهة واحدة مراقبة أداء التطبيقات (APM: زمن الاستجابة ونسبة الأخطاء وأبطأ نقاط النهاية واستدعاءات قواعد البيانات والخدمات الخارجية) وإدارة السجلات ولوحات المقاييس والتتبع الموزّع وتتبع الاستثناءات والتنبيهات، ويمكن الانتقال بنقرة واحدة من النقطة التي تباطأ فيها الطلب إلى السجلات المرتبطة به. وفي تطبيقات LLM تتتبع أيضًا التعليمات واستدعاءات الأدوات والرموز والتكلفة، ولها خادم MCP ينقل بيانات المراقبة إلى وكلاء البرمجة. تُخزَّن البيانات في ClickHouse. النسخة السحابية مدفوعة (مع تجربة لمدة 30 يومًا)، ونسخة المجتمع مجانية على خادمك؛ النواة مرخّصة بموجب MIT، ومجلد ee/ يخضع لترخيص تجاري منفصل.\n\nبصفتنا وكالة، نقيّمها لتجاوز مقاييس الخوادم التي شرحناها في سجل Grafana: نريد أن نعرف أي نقطة نهاية تتباطأ في البوابة والأتمتة التي نكتبها بـFastAPI، وأي خطأ يرتبط بأي طلب، وكم تكلّف استدعاءات الذكاء الاصطناعي لكل عميل؛ ومع أدوات OpenTelemetry الخاصة بـPython يمكن مراقبة تطبيقات FastAPI بتعديلات قليلة جدًا على الشيفرة. تتطلب الاستضافة الذاتية تخصيص 4 غيغابايت من الذاكرة على الأقل لـDocker؛ وقد يكفي Grafana أو تتبع الأخطاء وحده في المشاريع الصغيرة، لذا ننصح بتحديد الحاجة أولًا."
+      },
+      "adimlar": {
+        "tr": [
+          "SigNoz Cloud'da deneme hesabı açın ya da kendi sunucunuz için Foundry betiğini inceleyip çalıştırın: curl -fsSL https://signoz.io/foundry.sh | bash",
+          "flavor: compose ve mode: docker içeren bir casting.yaml oluşturup foundryctl cast -f casting.yaml ile başlatın.",
+          "FastAPI uygulamanızı Python OpenTelemetry paketleriyle donatıp verileri SigNoz'a gönderin.",
+          "Gecikme ve hata oranı için uyarılar tanımlayıp panoları ekibinizle paylaşın."
+        ],
+        "en": [
+          "Open a SigNoz Cloud trial, or for your own server review and run the Foundry script: curl -fsSL https://signoz.io/foundry.sh | bash",
+          "Create a casting.yaml with flavor: compose and mode: docker, then start it with foundryctl cast -f casting.yaml.",
+          "Instrument your FastAPI app with the Python OpenTelemetry packages and send the data to SigNoz.",
+          "Set alerts for latency and error rate and share dashboards with your team."
+        ],
+        "de": [
+          "SigNoz Cloud testen oder für den eigenen Server das Foundry-Skript prüfen und ausführen: curl -fsSL https://signoz.io/foundry.sh | bash",
+          "Eine casting.yaml mit flavor: compose und mode: docker anlegen und mit foundryctl cast -f casting.yaml starten.",
+          "Die FastAPI-App mit den Python-Paketen von OpenTelemetry instrumentieren und Daten an SigNoz senden.",
+          "Alarme für Latenz und Fehlerrate festlegen und Dashboards mit dem Team teilen."
+        ],
+        "ru": [
+          "Откройте пробный аккаунт SigNoz Cloud или для своего сервера изучите и запустите скрипт Foundry: curl -fsSL https://signoz.io/foundry.sh | bash",
+          "Создайте casting.yaml с flavor: compose и mode: docker и запустите командой foundryctl cast -f casting.yaml.",
+          "Подключите к приложению FastAPI Python-пакеты OpenTelemetry и отправляйте данные в SigNoz.",
+          "Настройте оповещения по задержке и доле ошибок и поделитесь дашбордами с командой."
+        ],
+        "zh": [
+          "开通 SigNoz Cloud 试用，或在自己的服务器上先审阅再运行 Foundry 脚本：curl -fsSL https://signoz.io/foundry.sh | bash",
+          "创建包含 flavor: compose 和 mode: docker 的 casting.yaml，然后用 foundryctl cast -f casting.yaml 启动。",
+          "用 Python OpenTelemetry 包为 FastAPI 应用接入监控，并把数据发送到 SigNoz。",
+          "为延迟和错误率设置告警，并与团队共享仪表盘。"
+        ],
+        "hi": [
+          "SigNoz Cloud का ट्रायल खोलें, या अपने सर्वर के लिए Foundry स्क्रिप्ट जाँचकर चलाएँ: curl -fsSL https://signoz.io/foundry.sh | bash",
+          "flavor: compose और mode: docker वाली casting.yaml बनाएँ और foundryctl cast -f casting.yaml से शुरू करें।",
+          "FastAPI ऐप में Python OpenTelemetry पैकेज जोड़ें और डेटा SigNoz को भेजें।",
+          "लेटेंसी और त्रुटि दर के लिए अलर्ट बनाएँ और डैशबोर्ड टीम के साथ साझा करें।"
+        ],
+        "ar": [
+          "افتح تجربة SigNoz Cloud، أو لخادمك الخاص راجع سكربت Foundry ثم شغّله: curl -fsSL https://signoz.io/foundry.sh | bash",
+          "أنشئ ملف casting.yaml يتضمن flavor: compose وmode: docker، ثم شغّله بالأمر foundryctl cast -f casting.yaml.",
+          "أضف حزم OpenTelemetry الخاصة بـPython إلى تطبيق FastAPI وأرسل البيانات إلى SigNoz.",
+          "اضبط تنبيهات لزمن الاستجابة ونسبة الأخطاء وشارك لوحات المؤشرات مع فريقك."
+        ]
+      },
+      "etiketler": [
+        "izleme",
+        "opentelemetry",
+        "apm",
+        "log yönetimi",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/SigNoz/signoz",
+      "baglanti_turu": "github",
+      "lisans": "MIT (ee/ klasörü hariç)",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 950,
+      "dogrulama_tarihi": "2026-10-01"
     }
   ]
 }
