@@ -855,6 +855,8 @@ async def _tarama_yaz(veri: Dict[str, Any]) -> None:
                     .where(DinamikQr.id == veri["qr_id"])
                     .values(tarama_sayisi=DinamikQr.tarama_sayisi + 1, son_tarama_at=veri["zaman"])
                 )
+                from services.webhook import qr_tarama_yayinla  # Faz 4A: `qr.tarama` webhook (abone yoksa sorgu yok)
+                await qr_tarama_yayinla(oturum, veri)
             await oturum.commit()
     except Exception:  # noqa: BLE001 - analitik yönlendirmeyi asla bozmasın
         logger.exception("QR taraması kaydedilemedi")

@@ -484,7 +484,8 @@
     "tabProjeSablonlari": "Proje şablonları",
     "tabDinamikQr": "QR ve kısa link",
     "tabKartvizit": "Dijital kartvizit",
-    "tabQrMenu": "QR menü ve katalog"
+    "tabQrMenu": "QR menü ve katalog",
+    "tabApi": "API ve webhook"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

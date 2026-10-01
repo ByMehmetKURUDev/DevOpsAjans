@@ -32,7 +32,8 @@
       "asistanlar": "Expert Assistants",
       "qr": "QR and short links",
       "kartvizit": "Digital business card and review page",
-      "menu": "QR menu & catalog"
+      "menu": "QR menu & catalog",
+      "api": "API and webhooks"
     },
     "durum": {
       "davet": "Invitation pending",

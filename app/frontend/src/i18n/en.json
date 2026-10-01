@@ -484,7 +484,8 @@
     "tabProjeSablonlari": "Project templates",
     "tabDinamikQr": "QR & short links",
     "tabKartvizit": "Digital business card",
-    "tabQrMenu": "QR menu & catalog"
+    "tabQrMenu": "QR menu & catalog",
+    "tabApi": "API & webhooks"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

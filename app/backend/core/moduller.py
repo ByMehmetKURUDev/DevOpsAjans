@@ -465,6 +465,26 @@ MODULLER: Tuple[Modul, ...] = (
         paketler=("BETA", "OMEGA", "SIGMA"),
         bagimliliklar=("projeler",),
     ),
+    # Faz 4A — API anahtarları, imzalı webhook'lar ve uzak MCP sunucusu (Claude ile bağlama).
+    # Varsayılan KAPALI, pakete bağlı değil (ayrı satılan modül; önerilen aylık 29 $ — Zapier/Make
+    # entegrasyonu ve yapay zekâ asistanı bağlantısı isteyen müşteriye). Ekip izni `api`.
+    # `anahtar_siniri` / `webhook_siniri`: hesap başına en çok etkin anahtar / uç noktası;
+    # `dakika_siniri`: anahtar başına dakikalık istek tavanı.
+    Modul(
+        anahtar="api_erisimi",
+        ad_varsayilan={"tr": "API ve webhook", "en": "API and webhooks"},
+        ikon="KeyRound",
+        kategori="hizmet",
+        musteri_sekmesi="api",
+        yonetici_sekmesi="api",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("anahtar_siniri", "int", 5, en_az=0, en_cok=100),
+            AyarAlani("webhook_siniri", "int", 5, en_az=0, en_cok=100),
+            AyarAlani("dakika_siniri", "int", 60, en_az=1, en_cok=6000),
+        ),
+    ),
     # Faz 2C — Raporlar sekmesine gömülü (müşteri arşivi) ve yöneticide
     # Raporlar/abonelik sekmesinde oluştur/önizle/yayınla.
     Modul(

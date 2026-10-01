@@ -661,6 +661,9 @@ def kayittan_aday_sync(c: Connection, g: TalepGirdisi) -> Optional[Dict[str, Any
         )
     )
     aday_id = int(sonuc.inserted_primary_key[0])
+    if g.zaman is None:  # Faz 4A: webhook `aday.olusturuldu` (canlı kayıt; geçmiş içe aktarma değil). Hata fırlatmaz.
+        from services.webhook import aday_verisi, olay_yaz_sync
+        olay_yaz_sync(c, "aday.olusturuldu", None, aday_verisi(aday_id, kaynak, asama, g.deger_tahmini, g.para_birimi or ("USD" if g.deger_tahmini else "TRY")), musteri_gorur=False)
     if g.tablo and g.kayit_id is not None:
         c.execute(bag.insert().values(aday_id=aday_id, tablo=g.tablo, kayit_id=int(g.kayit_id), created_at=an))
     c.execute(akt.insert().values(

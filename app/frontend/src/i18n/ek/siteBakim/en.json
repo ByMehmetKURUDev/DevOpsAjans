@@ -183,7 +183,9 @@
         "crm_hatirlatma": "CRM: next step reminders (daily digest)",
         "tekrarlayan_faturalar": "Issuing recurring invoices",
         "fatura_hatirlatmalari": "Overdue invoice reminders (+1/+7/+14 days)",
-        "teklif_ve_sozlesme": "Quote expiry and contract end reminders"
+        "teklif_ve_sozlesme": "Quote expiry and contract end reminders",
+        "webhook_teslimatlari": "Webhook delivery retries",
+        "webhook_temizligi": "Cleanup of old webhook logs (30 days)"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

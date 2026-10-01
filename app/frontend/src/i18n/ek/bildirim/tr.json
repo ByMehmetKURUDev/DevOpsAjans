@@ -63,7 +63,8 @@
       "crm_hatirlatma": "CRM: sonraki adım hatırlatması (günlük)",
       "kartvizit_mesaj": "Kartvizitten yeni mesaj",
       "yorum_geri_bildirim": "Yorum sayfasından özel geri bildirim",
-      "menu_siparis": "QR menü / katalog: yeni sipariş"
+      "menu_siparis": "QR menü / katalog: yeni sipariş",
+      "webhook_pasiflesti": "Webhook uç noktası durduruldu"
     },
     "kanal": {
       "inapp": "Panel",

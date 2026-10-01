@@ -183,7 +183,9 @@
         "crm_hatirlatma": "CRM: sonraki adım hatırlatması (günlük özet)",
         "tekrarlayan_faturalar": "Tekrarlayan faturaların kesilmesi",
         "fatura_hatirlatmalari": "Vadesi geçen fatura hatırlatmaları (+1/+7/+14 gün)",
-        "teklif_ve_sozlesme": "Teklif süreleri ve sözleşme bitiş hatırlatmaları"
+        "teklif_ve_sozlesme": "Teklif süreleri ve sözleşme bitiş hatırlatmaları",
+        "webhook_teslimatlari": "Webhook yeniden denemeleri",
+        "webhook_temizligi": "Eski webhook kayıtlarının temizliği (30 gün)"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

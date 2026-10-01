@@ -167,6 +167,19 @@ async def ekip(db_oturumu):
     msip = await _ekle(db, MenuSiparisleri(magaza_id=menu.id, siparis_no=uuid.uuid4().hex[:8].upper(), kalemler="[]",
                                            musteri_ad="Ali"))
     k.update(MM=menu.id, MK=mkat.id, MU=murun.id, MC=mkupon.id, MS=msip.id)
+    # Faz 4A: `api` izni yalnız hesap yöneticisinin varsayılanında — izinli üye ayrıca; sahibin
+    # bir API anahtarı ve (pasif: başka testlerin kayıtlarından olay üretmesin) bir webhook uç noktası.
+    from models.api_erisimi import ApiAnahtarlari, WebhookUcNoktalari
+
+    k["apici"] = _e("apici")
+    await _uye_ekle(db, s, k["apici"], "uye", izinler=["projeler", "api"])
+    ak = await _ekle(db, ApiAnahtarlari(sahip_tur="musteri", hesap_email=s, ad="Ekip anahtarı", onek=uuid.uuid4().hex[:8],
+                                        anahtar_ozeti=uuid.uuid4().hex + uuid.uuid4().hex, kapsamlar='["projeler:oku"]',
+                                        dakika_siniri=60, olusturan=s))
+    wh = await _ekle(db, WebhookUcNoktalari(sahip_tur="musteri", hesap_email=s, url="https://ekip.ornek.com/kanca",
+                                            olaylar='["fatura.odendi"]', aktif=False, gizli_anahtar="d1:whsec_ekip",
+                                            ardisik_hata=0))
+    k.update(AK=ak.id, WH=wh.id)
     return k
 
 
@@ -341,6 +354,20 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/sozlesmelerim/999999/pdf", ("faturalar",), None, "gecti"),
     # Faz 3Z — projenin harcanan süre özeti (`projeler` izni; modül + proje ayarı kapalıysa 403/404 → "gecti").
     ("GET", "/api/v1/zamanim/proje/{P}", ("projeler",), None, "gecti"),
+    # Faz 4A — API anahtarları ve webhook'lar (`api` izni). Webhook adresi DNS'siz test ortamında
+    # çözülemiyor (400) → "gecti"; test gönderimi 200 (teslimat başarısız kaydedilir).
+    ("GET", "/api/v1/api-erisimim/meta", ("api",), None, 200),
+    ("GET", "/api/v1/api-erisimim/anahtarlar", ("api",), None, 200),
+    ("POST", "/api/v1/api-erisimim/anahtarlar", ("api",), {"ad": "Ekip", "kapsamlar": ["projeler:oku"]}, 200),
+    ("POST", "/api/v1/api-erisimim/anahtarlar/{AK}/iptal", ("api",), None, 200),
+    ("GET", "/api/v1/api-erisimim/webhooklar", ("api",), None, 200),
+    ("POST", "/api/v1/api-erisimim/webhooklar", ("api",), {"url": "https://x.ornek.com/k", "olaylar": ["fatura.odendi"]}, "gecti"),
+    ("PUT", "/api/v1/api-erisimim/webhooklar/{WH}", ("api",), {"aciklama": "Ekip"}, 200),
+    ("POST", "/api/v1/api-erisimim/webhooklar/{WH}/gizli-yenile", ("api",), None, 200),
+    ("POST", "/api/v1/api-erisimim/webhooklar/{WH}/test", ("api",), None, 200),
+    ("GET", "/api/v1/api-erisimim/webhooklar/{WH}/teslimatlar", ("api",), None, 200),
+    ("POST", "/api/v1/api-erisimim/webhooklar/{WH}/teslimatlar/999999/yeniden-gonder", ("api",), None, "gecti"),
+    ("DELETE", "/api/v1/api-erisimim/webhooklar/999999", ("api",), None, "gecti"),
 ]
 
 
@@ -378,6 +405,8 @@ def _izinli_uye(k, izinler):
 
     if izinler is None:
         return k["kisitli"]
+    if izinler == ("api",):  # Faz 4A: üye/fatura rolünün varsayılanında yok
+        return k["apici"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):
             return kisi
@@ -742,7 +771,8 @@ async def test_yonetici_basligi_yok_sayar_ve_musteri_adina_yonetir(istemci, ekip
     y = await istemci.get("/api/v1/entities/invoices/all", headers=b)
     assert y.status_code == 200 and y.json()["total"] >= 1
     y = await istemci.get(f"/api/v1/musteri-hesaplari/{k['sahip']}/uyeler", headers=yonetici_basligi)
-    assert y.status_code == 200 and len(y.json()["uyeler"]) == 3
+    # Faz 4A: fikstürde `api` izinli dördüncü üye (apici) var.
+    assert y.status_code == 200 and len(y.json()["uyeler"]) == 4
     y = await istemci.post(
         f"/api/v1/musteri-hesaplari/{k['sahip']}/uyeler", json={"email": _e("ajans"), "rol": "uye"}, headers=yonetici_basligi
     )

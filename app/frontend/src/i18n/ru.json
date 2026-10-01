@@ -484,7 +484,8 @@
     "tabProjeSablonlari": "Шаблоны проектов",
     "tabDinamikQr": "QR и короткие ссылки",
     "tabKartvizit": "Цифровая визитка",
-    "tabQrMenu": "QR-меню и каталог"
+    "tabQrMenu": "QR-меню и каталог",
+    "tabApi": "API и вебхуки"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

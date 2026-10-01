@@ -63,7 +63,8 @@
       "crm_hatirlatma": "CRM: Erinnerung an den nächsten Schritt (täglich)",
       "kartvizit_mesaj": "Neue Nachricht von einer Visitenkarte",
       "yorum_geri_bildirim": "Privates Feedback von einer Bewertungsseite",
-      "menu_siparis": "QR-Speisekarte / Katalog: neue Bestellung"
+      "menu_siparis": "QR-Speisekarte / Katalog: neue Bestellung",
+      "webhook_pasiflesti": "Webhook-Endpunkt deaktiviert"
     },
     "kanal": {
       "inapp": "Panel",

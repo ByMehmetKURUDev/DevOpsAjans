@@ -183,7 +183,9 @@
         "crm_hatirlatma": "CRM：下一步提醒（每日汇总）",
         "tekrarlayan_faturalar": "开具定期发票",
         "fatura_hatirlatmalari": "逾期发票提醒（+1/+7/+14 天）",
-        "teklif_ve_sozlesme": "报价到期与合同到期提醒"
+        "teklif_ve_sozlesme": "报价到期与合同到期提醒",
+        "webhook_teslimatlari": "Webhook 重试投递",
+        "webhook_temizligi": "清理旧的 Webhook 日志（30 天）"
       },
       "gunluk": "每天",
       "haftalik": "每周"

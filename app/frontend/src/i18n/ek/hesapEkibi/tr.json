@@ -32,7 +32,8 @@
       "asistanlar": "Uzman Asistanlar",
       "qr": "QR ve kısa link",
       "kartvizit": "Dijital kartvizit ve yorum sayfası",
-      "menu": "QR menü ve katalog"
+      "menu": "QR menü ve katalog",
+      "api": "API ve webhook"
     },
     "durum": {
       "davet": "Davet bekliyor",

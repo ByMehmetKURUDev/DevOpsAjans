@@ -107,6 +107,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Faz 4M — QR menü / katalog mağazasına yeni WhatsApp siparişi (mağaza sahibine;
     # ajansın kendi mağazasında yöneticilere).
     "menu_siparis": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 4A — webhook uç noktası art arda başarısız teslimat yüzünden otomatik durduruldu.
+    "webhook_pasiflesti": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

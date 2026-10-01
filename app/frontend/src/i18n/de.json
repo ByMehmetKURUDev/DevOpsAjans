@@ -484,7 +484,8 @@
     "tabProjeSablonlari": "Projektvorlagen",
     "tabDinamikQr": "QR & Kurzlinks",
     "tabKartvizit": "Digitale Visitenkarte",
-    "tabQrMenu": "QR-Speisekarte & Katalog"
+    "tabQrMenu": "QR-Speisekarte & Katalog",
+    "tabApi": "API & Webhooks"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

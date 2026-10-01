@@ -32,7 +32,8 @@
       "asistanlar": "Fachassistenten",
       "qr": "QR und Kurzlinks",
       "kartvizit": "Digitale Visitenkarte und Bewertungsseite",
-      "menu": "QR-Speisekarte & Katalog"
+      "menu": "QR-Speisekarte & Katalog",
+      "api": "API und Webhooks"
     },
     "durum": {
       "davet": "Einladung ausstehend",

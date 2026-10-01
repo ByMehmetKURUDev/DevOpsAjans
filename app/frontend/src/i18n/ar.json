@@ -484,7 +484,8 @@
     "tabProjeSablonlari": "قوالب المشاريع",
     "tabDinamikQr": "QR والروابط المختصرة",
     "tabKartvizit": "بطاقة الأعمال الرقمية",
-    "tabQrMenu": "قائمة QR والكتالوج"
+    "tabQrMenu": "قائمة QR والكتالوج",
+    "tabApi": "API والويب هوك"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

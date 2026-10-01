@@ -48,3 +48,6 @@ pypdf>=3.0
 # (reportlab'ın bağımlılığı olarak zaten kurulu; doğrudan kullanıldığı için ayrıca yazıldı).
 segno>=1.6
 Pillow>=9.0
+# Faz 4A — MCP: sunucu tarafı JSON-RPC elle (services/mcp_sunucu.py); SDK'nın istemcisi
+# uyumluluk testinde kullanılıyor (sürüm 1.27 ile doğrulandı).
+mcp>=1.27.0

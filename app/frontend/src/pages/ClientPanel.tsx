@@ -23,6 +23,7 @@ import {
   QrCode,
   IdCard,
   UtensilsCrossed,
+  KeyRound,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -92,6 +93,8 @@ const DinamikQr = ekliLazy('dinamikQr', () => import('@/components/DinamikQr'));
 const Kartvizit = ekliLazy('kartvizit', () => import('@/components/Kartvizit'));
 // Faz 4M — QR menü ve WhatsApp katalog (yönetici paneliyle aynı bileşen, müşteri modu).
 const QrMenu = ekliLazy(['qrMenu', 'qrMenuSayfa'], () => import('@/components/QrMenu'));
+// Faz 4A — API anahtarları, webhook'lar, API belgeleri ve MCP (yönetici paneliyle aynı bileşen, müşteri modu).
+const ApiErisimi = ekliLazy('apiErisimi', () => import('@/components/ApiErisimi'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -164,6 +167,7 @@ type Tab =
   | 'kartvizit'
   | 'menu'
   | 'dosyalar'
+  | 'api'
   | 'profile';
 
 /**
@@ -184,6 +188,7 @@ const SEKMELER: Tab[] = [
   'kartvizit',
   'menu',
   'dosyalar',
+  'api',
   'profile',
 ];
 
@@ -192,7 +197,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -625,6 +630,7 @@ export default function ClientPanel() {
     kartvizit: { label: t('ui.tabKartvizit'), icon: IdCard },
     menu: { label: t('ui.tabQrMenu'), icon: UtensilsCrossed },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
+    api: { label: t('ui.tabApi'), icon: KeyRound },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
   };
   const TABS: { key: Tab; label: string; icon: typeof Briefcase }[] = gorunenSekmeler.map((s) => ({
@@ -1235,6 +1241,18 @@ export default function ClientPanel() {
               }
             >
               <QrMenu mod="musteri" />
+            </Suspense>
+          )}
+
+          {tab === 'api' && modulBilgisi !== null && modulAcik('api_erisimi') && izinVar(['api']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <ApiErisimi mod="musteri" />
             </Suspense>
           )}
 

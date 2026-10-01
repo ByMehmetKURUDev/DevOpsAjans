@@ -205,6 +205,20 @@ async def _crm_hatirlatma(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await hatirlatmalari_gonder(db)
 
 
+async def _webhook_teslimatlari(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 4A: zamanı gelen webhook yeniden denemeleri (üstel geri çekilme; 3 gün sonra vazgeçilir).
+    from services.webhook import bekleyenleri_isle
+
+    return await bekleyenleri_isle(db)
+
+
+async def _webhook_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 4A: 30 günden eski teslimat/deneme kayıtları ve 24 saati geçen idempotency kayıtları.
+    from services.webhook import temizle
+
+    return await temizle(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -236,6 +250,9 @@ GOREVLER: List[Gorev] = [
     Gorev("tekrarlayan_faturalar", timedelta(hours=6), _tekrarlayan_faturalar),
     Gorev("fatura_hatirlatmalari", timedelta(hours=6), _fatura_hatirlatmalari),
     Gorev("teklif_ve_sozlesme", timedelta(hours=6), _teklif_ve_sozlesme),
+    # Faz 4A: webhook yeniden denemeleri her turda (ucuz sorgu; tur başına süre bütçeli), temizlik günde bir.
+    Gorev("webhook_teslimatlari", timedelta(0), _webhook_teslimatlari),
+    Gorev("webhook_temizligi", timedelta(hours=20), _webhook_temizligi),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

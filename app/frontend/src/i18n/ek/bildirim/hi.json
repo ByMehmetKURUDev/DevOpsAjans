@@ -63,7 +63,8 @@
       "crm_hatirlatma": "सीआरएम: अगले कदम का रिमाइंडर (दैनिक)",
       "kartvizit_mesaj": "बिज़नेस कार्ड से नया संदेश",
       "yorum_geri_bildirim": "समीक्षा पेज से निजी प्रतिक्रिया",
-      "menu_siparis": "QR मेन्यू / कैटलॉग: नया ऑर्डर"
+      "menu_siparis": "QR मेन्यू / कैटलॉग: नया ऑर्डर",
+      "webhook_pasiflesti": "वेबहुक एंडपॉइंट बंद किया गया"
     },
     "kanal": {
       "inapp": "पैनल",

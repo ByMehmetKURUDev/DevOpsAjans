@@ -63,7 +63,8 @@
       "crm_hatirlatma": "CRM: напоминание о следующем шаге (ежедневно)",
       "kartvizit_mesaj": "Новое сообщение с визитки",
       "yorum_geri_bildirim": "Личный отзыв со страницы отзывов",
-      "menu_siparis": "QR-меню / каталог: новый заказ"
+      "menu_siparis": "QR-меню / каталог: новый заказ",
+      "webhook_pasiflesti": "Вебхук-адрес отключён"
     },
     "kanal": {
       "inapp": "Панель",

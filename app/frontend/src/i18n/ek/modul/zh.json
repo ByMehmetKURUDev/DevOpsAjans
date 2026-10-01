@@ -156,6 +156,10 @@
       "whatsapp_katalog": {
         "ad": "WhatsApp 目录商店",
         "aciklama": "可分享商品页面的商品橱窗；顾客加入购物车后，订单以 WhatsApp 消息发送。无需支付接入。"
+      },
+      "api_erisimi": {
+        "ad": "API 与 Webhook",
+        "aciklama": "将您自己的软件和自动化工具（Zapier、Make、n8n）连接到门户：可限定权限、可随时撤销的 API 密钥，带签名的 Webhook 通知，以及供 Claude 等 AI 助手使用的 MCP 连接。"
       }
     },
     "kategori": {
@@ -191,7 +195,10 @@
       "kart_siniri": "每个账户最多电子名片数",
       "sayfa_siniri": "每个账户最多评价页面数",
       "magaza_siniri": "每个账户最多商店数（此布局）",
-      "urun_siniri": "每个商店最多商品数"
+      "urun_siniri": "每个商店最多商品数",
+      "anahtar_siniri": "每个账户最多有效 API 密钥数",
+      "webhook_siniri": "每个账户最多 Webhook 端点数",
+      "dakika_siniri": "每个密钥每分钟请求数上限"
     },
     "musteri": {
       "baslik": "我的模块",

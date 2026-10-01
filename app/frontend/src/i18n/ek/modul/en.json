@@ -156,6 +156,10 @@
       "whatsapp_katalog": {
         "ad": "WhatsApp catalog store",
         "aciklama": "A product showcase with shareable product pages; customers fill a cart and the order arrives as a WhatsApp message. No payment setup needed."
+      },
+      "api_erisimi": {
+        "ad": "API and webhooks",
+        "aciklama": "Connect your own software and automation tools (Zapier, Make, n8n) to the portal: scoped, revocable API keys, signed webhook notifications and an MCP connection for AI assistants like Claude."
       }
     },
     "kategori": {
@@ -191,7 +195,10 @@
       "kart_siniri": "Maximum digital business cards per account",
       "sayfa_siniri": "Maximum review pages per account",
       "magaza_siniri": "Max stores per account (this layout)",
-      "urun_siniri": "Max items per store"
+      "urun_siniri": "Max items per store",
+      "anahtar_siniri": "Max active API keys per account",
+      "webhook_siniri": "Max webhook endpoints per account",
+      "dakika_siniri": "Requests per minute per key"
     },
     "musteri": {
       "baslik": "My modules",

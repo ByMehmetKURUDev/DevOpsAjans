@@ -484,7 +484,8 @@
     "tabProjeSablonlari": "项目模板",
     "tabDinamikQr": "二维码与短链接",
     "tabKartvizit": "电子名片",
-    "tabQrMenu": "二维码菜单与目录"
+    "tabQrMenu": "二维码菜单与目录",
+    "tabApi": "API 与 Webhook"
   },
   "admin": {
     "loadError": "管理数据加载失败",

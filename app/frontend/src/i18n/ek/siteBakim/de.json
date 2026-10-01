@@ -183,7 +183,9 @@
         "crm_hatirlatma": "CRM: Erinnerungen an nächste Schritte (tägliche Übersicht)",
         "tekrarlayan_faturalar": "Ausstellung wiederkehrender Rechnungen",
         "fatura_hatirlatmalari": "Erinnerungen an überfällige Rechnungen (+1/+7/+14 Tage)",
-        "teklif_ve_sozlesme": "Angebotsabläufe und Erinnerungen an Vertragsenden"
+        "teklif_ve_sozlesme": "Angebotsabläufe und Erinnerungen an Vertragsenden",
+        "webhook_teslimatlari": "Webhook-Zustellungswiederholungen",
+        "webhook_temizligi": "Bereinigung alter Webhook-Protokolle (30 Tage)"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

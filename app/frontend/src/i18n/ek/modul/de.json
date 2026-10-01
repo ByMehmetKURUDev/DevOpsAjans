@@ -156,6 +156,10 @@
       "whatsapp_katalog": {
         "ad": "WhatsApp-Katalogshop",
         "aciklama": "Produktschaufenster mit teilbaren Produktseiten; Kunden füllen den Warenkorb, die Bestellung kommt als WhatsApp-Nachricht. Keine Zahlungsanbindung nötig."
+      },
+      "api_erisimi": {
+        "ad": "API und Webhooks",
+        "aciklama": "Verbinden Sie eigene Software und Automatisierungstools (Zapier, Make, n8n) mit dem Portal: eingeschränkte, widerrufbare API-Schlüssel, signierte Webhook-Benachrichtigungen und eine MCP-Verbindung für KI-Assistenten wie Claude."
       }
     },
     "kategori": {
@@ -191,7 +195,10 @@
       "kart_siniri": "Maximale Anzahl digitaler Visitenkarten pro Konto",
       "sayfa_siniri": "Maximale Anzahl Bewertungsseiten pro Konto",
       "magaza_siniri": "Max. Shops pro Konto (dieses Layout)",
-      "urun_siniri": "Max. Artikel pro Shop"
+      "urun_siniri": "Max. Artikel pro Shop",
+      "anahtar_siniri": "Max. aktive API-Schlüssel pro Konto",
+      "webhook_siniri": "Max. Webhook-Endpunkte pro Konto",
+      "dakika_siniri": "Anfragen pro Minute je Schlüssel"
     },
     "musteri": {
       "baslik": "Meine Module",

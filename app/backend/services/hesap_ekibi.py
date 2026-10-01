@@ -63,6 +63,9 @@ IZINLER: Tuple[str, ...] = (
     "kartvizit",
     # Faz 4M — QR menü ve WhatsApp katalog mağazası.
     "menu",
+    # Faz 4A — API anahtarları ve webhook'lar (yalnız sahip/hesap yöneticisi verebilir; üye ve
+    # fatura rolünün varsayılanında yok).
+    "api",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -94,6 +97,9 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 4Q–4K/4M arası varsayılan (qr var, kartvizit ve menu yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr"}),
+        # Faz 4K/4M–4A arası varsayılan (kartvizit ve menu var, api yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu"}),
     ),
     "uye": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
@@ -152,6 +158,8 @@ OLAY_IZNI: Dict[str, str] = {
     "yorum_geri_bildirim": "kartvizit",
     # Faz 4M — menü/katalog mağazasına yeni WhatsApp siparişi.
     "menu_siparis": "menu",
+    # Faz 4A — art arda başarısız teslimat: webhook uç noktası otomatik durduruldu.
+    "webhook_pasiflesti": "api",
 }
 
 DAVET_OLAYI = "hesap_davet"
