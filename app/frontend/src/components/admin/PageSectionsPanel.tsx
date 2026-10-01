@@ -21,6 +21,7 @@ import {
   type SettingsMap,
 } from '@/lib/siteSettings';
 import { PAGE_SEO, PAGE_SEO_KEYS } from '../../../prerender/site.js';
+import { KAYNAKLAR_SEO } from '../../../prerender/kaynaklar-seo.js';
 
 interface PageSectionsPanelProps {
   settings: SettingsMap;
@@ -32,7 +33,7 @@ interface PageSectionsPanelProps {
  * Panelde listelenen sayfalar. Bölüm düzeni olmayan sayfalar (Marketplace,
  * Yol haritası, Site analizi, Blog dizini) yalnızca SEO metni taşıyor.
  */
-const YALNIZ_SEO = ['marketplace', 'roadmap', 'siteAnalysis', 'blog'];
+const YALNIZ_SEO = ['marketplace', 'roadmap', 'siteAnalysis', 'kaynaklar', 'blog'];
 const SAYFALAR = [...PAGE_KEYS, ...YALNIZ_SEO];
 
 const SAYFA_ADI: Record<string, string> = {
@@ -43,6 +44,7 @@ const SAYFA_ADI: Record<string, string> = {
   marketplace: 'nav.marketplace',
   roadmap: 'nav.roadmap',
   siteAnalysis: 'footer.siteAnalizi',
+  kaynaklar: 'nav.kaynaklar',
   blog: 'nav.blog',
 };
 
@@ -139,8 +141,9 @@ export default function PageSectionsPanel({
     }
   };
 
+  // Kaynaklar'ın varsayılan metni ana pakete girmesin diye ayrı dosyada (prerender/kaynaklar-seo.js).
   const varsayilanSeo = (alan: 'title' | 'description') =>
-    PAGE_SEO[aktifDil]?.[aktifSayfa]?.[alan] ?? '';
+    (aktifSayfa === 'kaynaklar' ? KAYNAKLAR_SEO[aktifDil]?.[alan] : PAGE_SEO[aktifDil]?.[aktifSayfa]?.[alan]) ?? '';
 
   return (
     <div className="space-y-8">

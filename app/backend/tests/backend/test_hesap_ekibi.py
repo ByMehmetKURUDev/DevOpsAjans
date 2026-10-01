@@ -338,6 +338,9 @@ KISISEL_YA_DA_ACIK = {
     # Herkese açık katalog / içerik.
     ("GET", "/api/v1/moduller"),
     ("GET", "/api/v1/marketplace"),
+    # Faz 3K: sitedeki Kaynaklar listesi ve ayrıntısı (yalnız yayındakiler).
+    ("GET", "/api/v1/kaynaklar"),
+    ("GET", "/api/v1/kaynaklar/{slug}"),
     ("GET", "/api/v1/fiyat-hesapla"),
     ("GET", "/api/v1/talep/hizmetler"),
     ("GET", "/api/v1/destek/eposta-bilgisi"),

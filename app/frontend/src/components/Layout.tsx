@@ -46,6 +46,9 @@ function isBlogPostPath(path: string): boolean {
   return path.startsWith('/blog/') && path.length > '/blog/'.length;
 }
 
+/** Kaynaklar (liste + ayrıntı): başlığını sayfa kendisi yazıyor. Eşleşmede [, dil?, slug?]. */
+const KAYNAK_YOLU = /^(?:\/([a-z]{2}))?\/kaynaklar(?:\/([^/]+))?$/;
+
 /**
  * Yola karşılık gelen başlık/açıklama.
  *
@@ -125,13 +128,25 @@ export default function Layout() {
     return routerAktif && !location.hash;
   };
 
+  // Ana sayfa bağlantısı yalnız tam eşleşmede etkin: `/de` önekli her sayfayı (ör. /de/kaynaklar) kapsamasın.
+  const anaSayfaYolu = localizedPath(activeLang, 'home');
   const NAV_LINKS = [
-    { to: localizedPath(activeLang, 'home'), label: t('nav.home') },
+    { to: anaSayfaYolu, label: t('nav.home') },
     { to: localizedPath(activeLang, 'services'), label: t('nav.services') },
     { to: localizedPath(activeLang, 'portfolio'), label: t('nav.portfolio') },
     { to: localizedPath(activeLang, 'marketplace'), label: t('nav.marketplace') },
     { to: BLOG_INDEX_ROUTE.routePath, label: t('nav.blog') },
     { to: localizedPath(activeLang, 'contact'), label: t('nav.contact') },
+  ];
+  /*
+   * Kaynaklar (Faz 3K) masaüstü üst menüde YOK: 1280 px ve üstünde (xl dolgusu)
+   * yedinci bağlantı tr/en/de/ru'da sağdaki giriş düğmelerini kabın dışına
+   * itiyordu (ölçüm: 3–40 px). Mobil menüde ve alt bilgide Blog'un hemen yanında.
+   */
+  const ALT_LINKS = [
+    ...NAV_LINKS.slice(0, 5),
+    { to: localizedPath(activeLang, 'kaynaklar'), label: t('nav.kaynaklar') },
+    ...NAV_LINKS.slice(5),
   ];
 
   useEffect(() => {
@@ -209,7 +224,13 @@ export default function Layout() {
     // `/en`, `/de`… önekli yollarda). Yalnız adres değiştiğinde /en'den
     // Türkçeye geçen ziyaretçi Türkçe adreste İngilizce sayfa görüyordu.
     void changeAppLanguage(code);
-    if (pageKey) navigate(localizedPath(code, pageKey));
+    if (pageKey) {
+      navigate(localizedPath(code, pageKey));
+      return;
+    }
+    // Kaynak ayrıntısı: aynı kaynağın o dildeki adresi.
+    const kaynak = normalizeRoutePath(location.pathname).match(KAYNAK_YOLU);
+    if (kaynak?.[2]) navigate(`${localizedPath(code, 'kaynaklar')}/${kaynak[2]}`);
   };
 
   const currentLang = getLanguageMeta(i18n.language);
@@ -227,8 +248,8 @@ export default function Layout() {
   useEffect(() => {
     const currentPath = normalizeRoutePath(location.pathname);
 
-    // Tekil blog yazısı kendi başlığını BlogPostPage içinde yönetiyor.
-    if (isBlogPostPath(currentPath)) return;
+    // Tekil blog yazısı ve Kaynaklar sayfaları başlığını kendisi yönetiyor.
+    if (isBlogPostPath(currentPath) || KAYNAK_YOLU.test(currentPath)) return;
 
     const routeMeta = getRouteMeta(currentPath, settings);
     const title = routeMeta?.title || SITE_NAME;
@@ -349,7 +370,7 @@ export default function Layout() {
               <NavLink
                 key={link.to}
                 to={link.to}
-                end={link.to === '/'}
+                end={link.to === anaSayfaYolu}
                 className={({ isActive }) =>
                   `relative px-2 xl:px-4 py-2 text-[13px] xl:text-sm whitespace-nowrap font-medium transition-colors rounded-md ${
                     navAktifMi(link.to, isActive)
@@ -473,11 +494,11 @@ export default function Layout() {
         {/* Mobile menu */}
         {open && (
           <div className="lg:hidden mt-3 mx-4 rounded-2xl glass p-4 space-y-1 animate-in slide-in-from-top-4 duration-200">
-            {NAV_LINKS.map((link) => (
+            {ALT_LINKS.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
-                end={link.to === '/'}
+                end={link.to === anaSayfaYolu}
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                     navAktifMi(link.to, isActive)
@@ -574,7 +595,7 @@ export default function Layout() {
               {t('footer.navigate')}
             </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              {NAV_LINKS.map((l) => (
+              {ALT_LINKS.map((l) => (
                 <li key={l.to}>
                   {/*
                     `inline-block` + dikey dolgu: bağlantı metni 16 piksel

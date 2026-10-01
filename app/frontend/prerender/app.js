@@ -24,7 +24,14 @@ import YolHaritasi from '../src/pages/YolHaritasi';
 import SiteAnalizi from '../src/pages/SiteAnalizi';
 import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
+import KaynaklarListesi from '../src/pages/kaynaklar/KaynaklarListesi';
+import KaynakDetay from '../src/pages/kaynaklar/KaynakDetay';
+import { gomuluVeriyiAyarla } from '../src/lib/kaynaklar';
 import { extractFaq, getBlogPost, getPostSeoMeta } from '../src/lib/blog';
+// Derleme verisi (canlı API ya da tohum dosyası) — vite.config `kaynakVeriEklentisi` sağlıyor.
+import KAYNAK_VERISI from 'virtual:kaynaklar-veri';
+import { KAYNAKLAR_SEO, kaynakBasligi, metaAciklama } from './kaynaklar-seo.js';
+import { KAYNAK_DILLERI, detayVerisi, kaynakYolu, kaynakYolunuCoz, listeVerisi } from './kaynaklar-veri.js';
 import { loadPanelSettings, resolvePanelValue } from './settings.js';
 import {
   BLOG_INDEX_ROUTE,
@@ -93,6 +100,8 @@ function renderApp(url) {
             h(Route, { path: '/site-analizi', element: h(SiteAnalizi, null) }),
             h(Route, { path: '/blog', element: h(BlogIndexPage, null) }),
             h(Route, { path: '/blog/:slug', element: h(BlogPostPage, null) }),
+            h(Route, { path: '/kaynaklar', element: h(KaynaklarListesi, null) }),
+            h(Route, { path: '/kaynaklar/:slug', element: h(KaynakDetay, null) }),
           ),
           h(
             Route,
@@ -104,6 +113,8 @@ function renderApp(url) {
             h(Route, { path: 'contact', element: h(Contact, null) }),
             h(Route, { path: 'yol-haritasi', element: h(YolHaritasi, null) }),
             h(Route, { path: 'site-analizi', element: h(SiteAnalizi, null) }),
+            h(Route, { path: 'kaynaklar', element: h(KaynaklarListesi, null) }),
+            h(Route, { path: 'kaynaklar/:slug', element: h(KaynakDetay, null) }),
           ),
         ),
       ),
@@ -152,6 +163,139 @@ function jsonLd(data) {
     type: 'script',
     props: { type: 'application/ld+json', children: JSON.stringify(data) },
   };
+}
+
+/** `</script>` gövdeyi kapatmasın: JSON içinde `<` kaçışlı (JSON olarak hâlâ geçerli). */
+function guvenliJson(data) {
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
+const YAYINCI = {
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: `${SITE_URL}/`,
+  logo: { '@type': 'ImageObject', url: SITE_OG_IMAGE },
+};
+
+/** Kaynak sayfasının verisi: hem HTML bununla çiziliyor hem sayfaya gömülüyor. */
+function kaynakGomuluVerisi(url, { dil, slug }) {
+  const yol = canonicalPathFor(url.split('?')[0].split('#')[0]);
+  return slug
+    ? { yol, dil, detay: detayVerisi(KAYNAK_VERISI, slug, dil) }
+    : { yol, dil, liste: listeVerisi(KAYNAK_VERISI, dil) };
+}
+
+/**
+ * Kaynaklar liste ve ayrıntı sayfalarının <head>'i.
+ *
+ * Liste: CollectionPage + ItemList; ayrıntı: TechArticle + BreadcrumbList.
+ * Sayfa verisi `<script id="kaynak-verisi">` olarak da basılıyor: istemci
+ * ilk çizimi ağ beklemeden bu veriyle yapıyor (src/lib/kaynaklar.ts).
+ */
+function kaynakHead(gomulu, panelSettings) {
+  const { dil } = gomulu;
+  const seo = KAYNAKLAR_SEO[dil] ?? KAYNAKLAR_SEO[DEFAULT_LANGUAGE];
+  const htmlLang = getLanguage(dil).htmlLang;
+  const veriBetigi = {
+    type: 'script',
+    props: { type: 'application/json', id: 'kaynak-verisi', children: guvenliJson(gomulu) },
+  };
+  const ldBetigi = (data) => ({
+    type: 'script',
+    props: { type: 'application/ld+json', children: guvenliJson({ '@context': 'https://schema.org', ...data }) },
+  });
+  const anaSayfa = { '@type': 'ListItem', position: 1, name: seo.anaSayfa, item: absoluteUrl(localizedPath(dil, 'home')) };
+  const listeOgesi = { '@type': 'ListItem', position: 2, name: seo.kaynaklar, item: absoluteUrl(kaynakYolu(dil)) };
+
+  if (!('detay' in gomulu)) {
+    const liste = gomulu.liste;
+    const title = resolvePanelValue(panelSettings, PAGE_SEO_KEYS.kaynaklar.title, dil, seo.title);
+    const description = resolvePanelValue(panelSettings, PAGE_SEO_KEYS.kaynaklar.description, dil, seo.description);
+    return buildHead({
+      title,
+      description,
+      canonicalPath: kaynakYolu(dil),
+      ogType: 'website',
+      lang: dil,
+      extra: [
+        ...hreflangElements('kaynaklar'),
+        ldBetigi({
+          '@type': 'CollectionPage',
+          name: title,
+          description,
+          url: absoluteUrl(kaynakYolu(dil)),
+          inLanguage: htmlLang,
+          isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: `${SITE_URL}/` },
+          publisher: YAYINCI,
+          mainEntity: {
+            '@type': 'ItemList',
+            numberOfItems: liste.kaynaklar.length,
+            itemListElement: liste.kaynaklar.map((k, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              url: absoluteUrl(kaynakYolu(dil, k.slug)),
+              name: k.baslik,
+            })),
+          },
+        }),
+        ldBetigi({ '@type': 'BreadcrumbList', itemListElement: [anaSayfa, listeOgesi] }),
+        veriBetigi,
+      ],
+    });
+  }
+
+  const k = gomulu.detay?.kaynak;
+  if (!k) {
+    return buildHead({
+      title: seo.title,
+      description: seo.description,
+      canonicalPath: kaynakYolu(dil),
+      ogType: 'website',
+      lang: dil,
+      noindex: true,
+      extra: [veriBetigi],
+    });
+  }
+  const adres = absoluteUrl(kaynakYolu(dil, k.slug));
+  const hreflang = [
+    ...KAYNAK_DILLERI.map((d) => ({
+      type: 'link',
+      props: { rel: 'alternate', hreflang: getLanguage(d).htmlLang, href: absoluteUrl(kaynakYolu(d, k.slug)) },
+    })),
+    {
+      type: 'link',
+      props: { rel: 'alternate', hreflang: 'x-default', href: absoluteUrl(kaynakYolu(DEFAULT_LANGUAGE, k.slug)) },
+    },
+  ];
+  return buildHead({
+    title: kaynakBasligi(k.baslik, dil),
+    description: metaAciklama(k.ozet),
+    canonicalPath: kaynakYolu(dil, k.slug),
+    ogType: 'article',
+    lang: dil,
+    extra: [
+      ...hreflang,
+      ldBetigi({
+        '@type': 'TechArticle',
+        headline: k.baslik,
+        description: k.ozet,
+        url: adres,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': adres },
+        inLanguage: htmlLang,
+        articleSection: k.kategori_adi,
+        ...(k.etiketler.length ? { keywords: k.etiketler.join(', ') } : {}),
+        ...(k.dogrulama_tarihi ? { dateModified: k.dogrulama_tarihi } : {}),
+        about: { '@type': 'Thing', name: k.baslik, url: k.baglanti },
+        author: { '@type': 'Person', name: 'Mehmet KURU', url: `${SITE_URL}/` },
+        publisher: YAYINCI,
+      }),
+      ldBetigi({
+        '@type': 'BreadcrumbList',
+        itemListElement: [anaSayfa, listeOgesi, { '@type': 'ListItem', position: 3, name: k.baslik, item: adres }],
+      }),
+      veriBetigi,
+    ],
+  });
 }
 
 /**
@@ -223,7 +367,10 @@ function buildHead({
   return { title, lang: language.htmlLang, elements: new Set(elements) };
 }
 
-function getHead(url, panelSettings = {}) {
+function getHead(url, panelSettings = {}, kaynakVerisi = null) {
+  // Kaynaklar (liste + ayrıntı, 7 dil) — PAGE_SEO yerine kendi metinleri.
+  if (kaynakVerisi) return kaynakHead(kaynakVerisi, panelSettings);
+
   const slug = getBlogSlug(url);
 
   // Tekil blog yazısı — meta verisi markdown frontmatter'ından geliyor.
@@ -391,15 +538,22 @@ export async function prerender({ url }) {
   const slug = getBlogSlug(url);
   const isBlog = canonicalPathFor(url).startsWith('/blog');
 
+  // Kaynaklar: sayfa bu veriyle çiziliyor ve aynısı <head>'e gömülüyor.
+  // Diğer sayfalarda null — bir önceki sayfanın verisi sızmasın.
+  const kaynakEslesmesi = kaynakYolunuCoz(url);
+  const kaynakVerisi = kaynakEslesmesi ? kaynakGomuluVerisi(url, kaynakEslesmesi) : null;
+  gomuluVeriyiAyarla(kaynakVerisi);
+
   // Blog Türkçe; statik sayfalar kendi dilinde render edilir.
   await i18n.changeLanguage(isBlog ? DEFAULT_LANGUAGE : lang);
 
   const html = renderApp(url);
-  const is404 = Boolean(slug) && !getBlogPost(slug);
+  const is404 =
+    (Boolean(slug) && !getBlogPost(slug)) || Boolean(kaynakVerisi && 'detay' in kaynakVerisi && !kaynakVerisi.detay);
 
   return {
     html,
-    head: getHead(url, panelSettings),
+    head: getHead(url, panelSettings, kaynakVerisi),
     ...(is404 ? { statusCode: 404 } : {}),
   };
 }

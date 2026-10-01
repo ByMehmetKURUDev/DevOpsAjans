@@ -10,6 +10,8 @@ import { getAllPrerenderRoutes } from './prerender/blog-routes.js';
 import { getSitemapLastmod } from './prerender/blog-sitemap.js';
 import { blogIndexPlugin } from './prerender/blog-index-plugin.js';
 import { gorunumOzniteligi } from './prerender/gorunum-plugin.js';
+import { kaynakVeriEklentisi, kaynakVerisiniYukle } from './prerender/kaynaklar-yukle.js';
+import { kaynakDetayYollari } from './prerender/kaynaklar-veri.js';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
@@ -95,8 +97,13 @@ function ensureBuildOutDir() {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
-  const prerenderRoutes = command === 'build' ? getAllPrerenderRoutes() : [];
+export default defineConfig(async ({ command }) => {
+  // Faz 3K: Kaynaklar verisi (canlı API, 5 sn; olmazsa depodaki tohum dosyası).
+  // Ayrıntı sayfaları (7 dil × yayındaki kaynaklar) buradan prerender listesine giriyor.
+  const kaynakVerisi =
+    command === 'build' ? await kaynakVerisiniYukle() : { kategoriler: [], kaynaklar: [] };
+  const prerenderRoutes =
+    command === 'build' ? [...getAllPrerenderRoutes(), ...kaynakDetayYollari(kaynakVerisi)] : [];
   // Sitemap eklentisi yolları üretilen HTML'lerden eğik çizgisiz topluyor;
   // priority anahtarları da o biçimde olmalı. Türkçe sayfalar tam ağırlıkta,
   // dil varyantları bir kademe düşük.
@@ -117,6 +124,8 @@ export default defineConfig(({ command }) => {
       atoms(),
       ensureBuildOutDir(),
       blogIndexPlugin(),
+      // Yalnız prerender betiğine `virtual:kaynaklar-veri` (istemci paketine girmez).
+      kaynakVeriEklentisi(kaynakVerisi),
       // Site ayarı Modern ise prerender HTML'ine <html data-gorunum="modern">.
       gorunumOzniteligi(),
       ...(process.env.STATS === '1' ? [bundleStats()] : []),

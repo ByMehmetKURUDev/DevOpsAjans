@@ -71,6 +71,10 @@ async def lifespan(app: FastAPI):
     await initialize_mock_data()
     await initialize_pricing_seed()
     await initialize_admin_user()
+    # Faz 3K: Kaynaklar tohumu — yalnız daha önce eklenmemiş slug'lar; hata açılışı düşürmez.
+    from services.kaynaklar import acilista_tohumla
+
+    await acilista_tohumla()
     # MODULE_STARTUP_END
 
     logger.info("=== Application startup completed successfully ===")

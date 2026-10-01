@@ -1,0 +1,54 @@
+{
+  "kaynaklar": {
+    "etiket": "Werkzeugkasten",
+    "baslik": "Ressourcen rund um",
+    "baslikVurgu": "KI",
+    "giris": "KI-Tools, Claude-Skills, MCP-Plugins und Open-Source-Projekte, die Mehmet KURU täglich nutzt und empfiehlt – jeweils mit einer kurzen Erklärung, wofür sie gut sind und wie der Einstieg gelingt.",
+    "araEtiket": "Ressourcen durchsuchen",
+    "araYerTutucu": "Tool, Skill oder Schlagwort suchen…",
+    "tumu": "Alle",
+    "kategoriSecimi": "Nach Kategorie filtern",
+    "sonucSayisi": "{{sayi}} Ressourcen",
+    "sonucYok": "Keine Ressource passt zu Ihrer Suche.",
+    "temizle": "Filter zurücksetzen",
+    "yukleniyor": "Ressourcen werden geladen…",
+    "hata": "Die Ressourcen konnten gerade nicht geladen werden.",
+    "tekrarDene": "Erneut versuchen",
+    "bos": "Noch keine Ressourcen veröffentlicht.",
+    "oneCikan": "Empfohlen",
+    "ucretsiz": "Kostenlos",
+    "acikKaynak": "Open Source",
+    "youtubeVar": "Mit YouTube-Short",
+    "detay": {
+      "geri": "Alle Ressourcen",
+      "kirinti": "Brotkrümelnavigation",
+      "git": {
+        "github": "Auf GitHub öffnen",
+        "site": "Website besuchen",
+        "belge": "Dokumentation öffnen",
+        "video": "Video ansehen"
+      },
+      "yeniSekme": "(öffnet in neuem Tab)",
+      "nedir": "Wofür ist es gut?",
+      "nasilBaslanir": "So starten Sie",
+      "bilgiler": "Auf einen Blick",
+      "kategori": "Kategorie",
+      "lisans": "Lizenz",
+      "lisansYok": "Nicht angegeben",
+      "dogrulama": "Zuletzt geprüft",
+      "short": "Im Kurzvideo ansehen",
+      "shortAciklama": "Öffnet YouTube Shorts in einem neuen Tab.",
+      "ilgili": "Ähnliche Ressourcen",
+      "bulunamadi": "Ressource nicht gefunden",
+      "bulunamadiAciklama": "Sie wurde möglicherweise entfernt oder ihre Adresse hat sich geändert.",
+      "yukleniyor": "Ressource wird geladen…"
+    },
+    "cta": {
+      "baslik": "Wir richten diese Tools für Sie ein",
+      "metin": "Gemeinsam wählen wir die passenden Tools aus; Einrichtung, Integration und Schulung Ihres Teams übernehmen wir.",
+      "dugme": "Einrichtung anfragen",
+      "konu": "Einrichtungsanfrage: {{baslik}}",
+      "konuGenel": "Einrichtung von KI-Tools"
+    }
+  }
+}

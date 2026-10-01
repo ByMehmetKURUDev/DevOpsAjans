@@ -73,6 +73,8 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "bilgi_makaleleri": {"sira": 10},
     "duyurular": {"sira": 10},
     "hazir_cevaplar": {"sira": 10},
+    # Faz 3K: sitedeki Kaynaklar listesi (etiket: Türkçe başlık).
+    "kaynaklar": {"sira": 10},
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

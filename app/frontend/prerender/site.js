@@ -42,8 +42,24 @@ export function getLanguage(code) {
   return LANGUAGES.find((l) => l.code === code) ?? LANGUAGES[0];
 }
 
-/** Çok dilli olarak yayınlanan sayfalar. Blog bu listede değil. */
-export const PAGE_KEYS = ['home', 'services', 'portfolio', 'marketplace', 'contact', 'roadmap', 'siteAnalysis'];
+/**
+ * Çok dilli olarak yayınlanan sayfalar. Blog bu listede değil.
+ *
+ * `kaynaklar` (Faz 3K): liste sayfası burada; ayrıntı sayfaları
+ * (`/kaynaklar/<slug>`) veriden üretiliyor (prerender/kaynaklar-veri.js).
+ * Varsayılan başlık/açıklaması PAGE_SEO'da DEĞİL, `kaynaklar-seo.js`'te —
+ * bu dosya ana pakete giriyor, yedi dillik metin oraya taşınmasın.
+ */
+export const PAGE_KEYS = [
+  'home',
+  'services',
+  'portfolio',
+  'marketplace',
+  'contact',
+  'roadmap',
+  'siteAnalysis',
+  'kaynaklar',
+];
 
 /** Sayfa anahtarı → Türkçe kökteki route yolu. */
 export const PAGE_PATHS = {
@@ -54,6 +70,7 @@ export const PAGE_PATHS = {
   contact: '/contact',
   roadmap: '/yol-haritasi',
   siteAnalysis: '/site-analizi',
+  kaynaklar: '/kaynaklar',
 };
 
 export const PAGE_PRIORITY = {
@@ -64,6 +81,7 @@ export const PAGE_PRIORITY = {
   contact: 0.7,
   roadmap: 0.6,
   siteAnalysis: 0.7,
+  kaynaklar: 0.75,
 };
 
 /**
@@ -352,6 +370,7 @@ export const PAGE_SEO_KEYS = {
   contact: { title: 'seo_title_contact', description: 'seo_desc_contact' },
   roadmap: { title: 'seo_title_roadmap', description: 'seo_desc_roadmap' },
   siteAnalysis: { title: 'seo_title_site_analysis', description: 'seo_desc_site_analysis' },
+  kaynaklar: { title: 'seo_title_kaynaklar', description: 'seo_desc_kaynaklar' },
   blog: { title: 'seo_title_blog', description: 'seo_desc_blog' },
 };
 

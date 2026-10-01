@@ -1,0 +1,54 @@
+{
+  "kaynaklar": {
+    "etiket": "Toolbox",
+    "baslik": "AI",
+    "baslikVurgu": "resources",
+    "giris": "AI tools, Claude skills, MCP plugins and open-source projects that Mehmet KURU uses every day and recommends — with a short note on what each one does and how to get started.",
+    "araEtiket": "Search resources",
+    "araYerTutucu": "Search tools, skills or tags…",
+    "tumu": "All",
+    "kategoriSecimi": "Filter by category",
+    "sonucSayisi": "{{sayi}} resources",
+    "sonucYok": "No resources match your search.",
+    "temizle": "Clear filters",
+    "yukleniyor": "Loading resources…",
+    "hata": "Resources could not be loaded right now.",
+    "tekrarDene": "Try again",
+    "bos": "No resources published yet.",
+    "oneCikan": "Featured",
+    "ucretsiz": "Free",
+    "acikKaynak": "Open source",
+    "youtubeVar": "Has a YouTube Short",
+    "detay": {
+      "geri": "All resources",
+      "kirinti": "Breadcrumb",
+      "git": {
+        "github": "Open on GitHub",
+        "site": "Visit website",
+        "belge": "Open docs",
+        "video": "Watch video"
+      },
+      "yeniSekme": "(opens in a new tab)",
+      "nedir": "What is it for?",
+      "nasilBaslanir": "How to get started",
+      "bilgiler": "At a glance",
+      "kategori": "Category",
+      "lisans": "License",
+      "lisansYok": "Not specified",
+      "dogrulama": "Last verified",
+      "short": "Watch the short video",
+      "shortAciklama": "Opens on YouTube Shorts in a new tab.",
+      "ilgili": "Related resources",
+      "bulunamadi": "Resource not found",
+      "bulunamadiAciklama": "It may have been removed or its address may have changed.",
+      "yukleniyor": "Loading resource…"
+    },
+    "cta": {
+      "baslik": "Let us set these tools up for your business",
+      "metin": "We'll help you pick the tools that fit your work and take care of setup, integration and training your team.",
+      "dugme": "Ask about setup",
+      "konu": "Setup request: {{baslik}}",
+      "konuGenel": "AI tools setup"
+    }
+  }
+}

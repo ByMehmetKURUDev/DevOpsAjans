@@ -69,7 +69,8 @@
       "task_dependencies": "Aufgabenabhängigkeit",
       "konusmalar": "Nachrichten-Unterhaltung",
       "konusma_mesajlari": "Nachricht einer Unterhaltung",
-      "konusma_okunma": "Lesemarkierung"
+      "konusma_okunma": "Lesemarkierung",
+      "kaynaklar": "Ressource"
     }
   }
 }

@@ -69,7 +69,8 @@
       "task_dependencies": "任务依赖",
       "konusmalar": "消息会话",
       "konusma_mesajlari": "会话消息",
-      "konusma_okunma": "已读标记"
+      "konusma_okunma": "已读标记",
+      "kaynaklar": "资源"
     }
   }
 }

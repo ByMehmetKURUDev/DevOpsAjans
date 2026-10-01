@@ -1,0 +1,54 @@
+{
+  "kaynaklar": {
+    "etiket": "Araç kutusu",
+    "baslik": "Yapay zekâ",
+    "baslikVurgu": "kaynakları",
+    "giris": "Mehmet KURU'nun her gün kullandığı ve önerdiği yapay zekâ araçları, Claude becerileri, MCP eklentileri ve açık kaynak projeler. Her birinin ne işe yaradığını ve nasıl başlanacağını kısaca anlattık.",
+    "araEtiket": "Kaynaklarda ara",
+    "araYerTutucu": "Araç, beceri ya da etiket ara…",
+    "tumu": "Tümü",
+    "kategoriSecimi": "Kategoriye göre süz",
+    "sonucSayisi": "{{sayi}} kaynak",
+    "sonucYok": "Aramanızla eşleşen kaynak yok.",
+    "temizle": "Filtreleri temizle",
+    "yukleniyor": "Kaynaklar yükleniyor…",
+    "hata": "Kaynaklar şu an yüklenemedi.",
+    "tekrarDene": "Tekrar dene",
+    "bos": "Henüz yayında kaynak yok.",
+    "oneCikan": "Öne çıkan",
+    "ucretsiz": "Ücretsiz",
+    "acikKaynak": "Açık kaynak",
+    "youtubeVar": "YouTube Short videosu var",
+    "detay": {
+      "geri": "Tüm kaynaklar",
+      "kirinti": "Konum",
+      "git": {
+        "github": "GitHub'da aç",
+        "site": "Siteye git",
+        "belge": "Belgeleri aç",
+        "video": "Videoyu izle"
+      },
+      "yeniSekme": "(yeni sekmede açılır)",
+      "nedir": "Ne işe yarar?",
+      "nasilBaslanir": "Nasıl başlanır",
+      "bilgiler": "Kısa bilgi",
+      "kategori": "Kategori",
+      "lisans": "Lisans",
+      "lisansYok": "Belirtilmemiş",
+      "dogrulama": "Son doğrulama",
+      "short": "Kısa videoda izleyin",
+      "shortAciklama": "YouTube Shorts'ta yeni sekmede açılır.",
+      "ilgili": "İlgili kaynaklar",
+      "bulunamadi": "Bu kaynak bulunamadı",
+      "bulunamadiAciklama": "Kaynak kaldırılmış ya da adresi değişmiş olabilir.",
+      "yukleniyor": "Kaynak yükleniyor…"
+    },
+    "cta": {
+      "baslik": "Bu araçları işinize kuralım",
+      "metin": "Hangi aracın işinize yarayacağını birlikte seçelim; kurulumu, entegrasyonu ve ekibinizin eğitimini biz üstlenelim.",
+      "dugme": "Kurulum için yazın",
+      "konu": "Kurulum talebi: {{baslik}}",
+      "konuGenel": "Yapay zekâ araçları kurulumu"
+    }
+  }
+}

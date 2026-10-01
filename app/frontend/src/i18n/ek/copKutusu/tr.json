@@ -69,7 +69,8 @@
       "task_dependencies": "Görev bağımlılığı",
       "konusmalar": "Mesaj konuşması",
       "konusma_mesajlari": "Konuşma mesajı",
-      "konusma_okunma": "Okunma kaydı"
+      "konusma_okunma": "Okunma kaydı",
+      "kaynaklar": "Kaynak"
     }
   }
 }

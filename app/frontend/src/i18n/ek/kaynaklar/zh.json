@@ -1,0 +1,54 @@
+{
+  "kaynaklar": {
+    "etiket": "工具箱",
+    "baslik": "AI",
+    "baslikVurgu": "资源",
+    "giris": "Mehmet KURU 每天使用并推荐的 AI 工具、Claude 技能、MCP 插件和开源项目，并简要说明每一项的用途以及如何上手。",
+    "araEtiket": "搜索资源",
+    "araYerTutucu": "搜索工具、技能或标签…",
+    "tumu": "全部",
+    "kategoriSecimi": "按类别筛选",
+    "sonucSayisi": "共 {{sayi}} 项资源",
+    "sonucYok": "没有符合搜索条件的资源。",
+    "temizle": "清除筛选",
+    "yukleniyor": "正在加载资源…",
+    "hata": "暂时无法加载资源。",
+    "tekrarDene": "重试",
+    "bos": "暂无已发布的资源。",
+    "oneCikan": "精选",
+    "ucretsiz": "免费",
+    "acikKaynak": "开源",
+    "youtubeVar": "附有 YouTube Shorts 短视频",
+    "detay": {
+      "geri": "全部资源",
+      "kirinti": "面包屑导航",
+      "git": {
+        "github": "在 GitHub 上打开",
+        "site": "访问网站",
+        "belge": "打开文档",
+        "video": "观看视频"
+      },
+      "yeniSekme": "（在新标签页中打开）",
+      "nedir": "它能做什么？",
+      "nasilBaslanir": "如何上手",
+      "bilgiler": "概览",
+      "kategori": "类别",
+      "lisans": "许可证",
+      "lisansYok": "未注明",
+      "dogrulama": "最近核实",
+      "short": "观看短视频",
+      "shortAciklama": "在新标签页中打开 YouTube Shorts。",
+      "ilgili": "相关资源",
+      "bulunamadi": "未找到该资源",
+      "bulunamadiAciklama": "该资源可能已被移除或地址已更改。",
+      "yukleniyor": "正在加载资源…"
+    },
+    "cta": {
+      "baslik": "让我们为您的业务部署这些工具",
+      "metin": "我们一起挑选适合您的工具，安装、集成和团队培训都由我们负责。",
+      "dugme": "咨询部署",
+      "konu": "部署需求：{{baslik}}",
+      "konuGenel": "AI 工具部署"
+    }
+  }
+}

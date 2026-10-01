@@ -69,7 +69,8 @@
       "task_dependencies": "Task dependency",
       "konusmalar": "Message conversation",
       "konusma_mesajlari": "Conversation message",
-      "konusma_okunma": "Read marker"
+      "konusma_okunma": "Read marker",
+      "kaynaklar": "Resource"
     }
   }
 }

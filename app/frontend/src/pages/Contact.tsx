@@ -49,6 +49,11 @@ export default function Contact() {
       const konu = typeof ham === 'string' ? ham.trim() : '';
       return konu ? `marketplace: ${konu}` : 'marketplace';
     }
+    // Faz 3K: Kaynaklar › "Bu araçları işinize kuralım" — kaynağın slug'ı (dilden bağımsız).
+    if (durum?.kaynak === 'kaynaklar') {
+      const ham = typeof durum.kaynakKonu === 'string' ? durum.kaynakKonu.trim() : '';
+      return ham ? `kaynaklar: ${ham}`.slice(0, 120) : 'kaynaklar';
+    }
     // Müşteri paneli › Modüllerim › "Teklif iste" (kapalı modül).
     if (durum?.kaynak === 'modul') {
       const konu = typeof durum.konu === 'string' ? durum.konu.trim() : '';
@@ -65,7 +70,8 @@ export default function Contact() {
     // Marketplace kartından gelindiyse ürün adı konuya yazılıyor:
     // ziyaretçi hangi ürün için yazdığını baştan anlatmak zorunda kalmasın.
     subject:
-      (durum?.kaynak === 'marketplace' || durum?.kaynak === 'modul') && typeof durum.konu === 'string'
+      (durum?.kaynak === 'marketplace' || durum?.kaynak === 'modul' || durum?.kaynak === 'kaynaklar') &&
+      typeof durum.konu === 'string'
         ? durum.konu
         : '',
     message: kesifOzeti,

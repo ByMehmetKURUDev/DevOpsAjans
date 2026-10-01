@@ -69,7 +69,8 @@
       "task_dependencies": "Зависимость задачи",
       "konusmalar": "Беседа",
       "konusma_mesajlari": "Сообщение беседы",
-      "konusma_okunma": "Отметка о прочтении"
+      "konusma_okunma": "Отметка о прочтении",
+      "kaynaklar": "Ресурс"
     }
   }
 }

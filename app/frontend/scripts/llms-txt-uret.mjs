@@ -16,6 +16,8 @@ import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 
 import { SITE_URL, SITE_NAME, canonicalUrlPathFor } from '../prerender/site.js';
+import { kaynakVerisiniYukle } from '../prerender/kaynaklar-yukle.js';
+import { kaynakYolu, listeVerisi } from '../prerender/kaynaklar-veri.js';
 
 const kok = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const icerikDizini = path.join(kok, 'seo', 'content');
@@ -47,6 +49,7 @@ const SAYFALAR = [
   ['Hizmetler', '/services', 'Web geliştirme, özel yazılım, dijital pazarlama ve altyapı hizmetleri.'],
   ['Portfolyo', '/portfolio', 'Tamamlanmış projeler ve vaka çalışmaları.'],
   ['Blog', '/blog', 'SEO, Google Ads, ölçümleme ve web geliştirme rehberleri.'],
+  ['Kaynaklar', '/kaynaklar', 'Kullandığımız ve önerdiğimiz yapay zekâ araçları, Claude becerileri ve açık kaynak projeler (7 dilde).'],
   ['İletişim', '/contact', 'İletişim bilgileri ve teklif formu.'],
 ];
 
@@ -77,6 +80,18 @@ for (const [ad, yol, aciklama] of SAYFALAR) {
 }
 satirlar.push('');
 
+// Faz 3K: Kaynaklar — derlemeyle aynı veri (canlı API, olmazsa tohum dosyası).
+const kaynaklar = listeVerisi(await kaynakVerisiniYukle(), 'tr');
+if (kaynaklar.kaynaklar.length > 0) {
+  satirlar.push('## Kaynaklar — yapay zekâ araçları ve açık kaynak projeler');
+  satirlar.push('');
+  for (const k of kaynaklar.kaynaklar) {
+    const ac = k.ozet.length > 160 ? k.ozet.slice(0, 157) + '...' : k.ozet;
+    satirlar.push(`- [${k.baslik}](${adres(kaynakYolu('tr', k.slug))})${ac ? ': ' + ac : ''}`);
+  }
+  satirlar.push('');
+}
+
 for (const [kategori, liste] of [...gruplar].sort((a, b) => a[0].localeCompare(b[0], 'tr'))) {
   satirlar.push(`## Blog — ${kategori}`);
   satirlar.push('');
@@ -93,6 +108,6 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), cikti);
 
 const yaziSayisi = [...gruplar.values()].reduce((t, l) => t + l.length, 0);
 console.log(
-  `✓ llms.txt üretildi: ${SAYFALAR.length} sayfa, ${yaziSayisi} blog yazısı, ` +
+  `✓ llms.txt üretildi: ${SAYFALAR.length} sayfa, ${kaynaklar.kaynaklar.length} kaynak, ${yaziSayisi} blog yazısı, ` +
     `${(Buffer.byteLength(cikti) / 1024).toFixed(1)} kB`,
 );

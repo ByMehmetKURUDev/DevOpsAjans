@@ -34,6 +34,9 @@ const PaylasSayfasi = ekliLazy('dosyalar', () => import('./pages/PaylasSayfasi')
 const AylikRaporSayfasi = ekliLazy('aylikRapor', () => import('./pages/AylikRaporSayfasi'));
 // Faz 2E: hesap ekibi daveti (jetonlu, noindex, prerender yok).
 const HesapDavetSayfasi = ekliLazy('hesapEkibi', () => import('./pages/HesapDavetSayfasi'));
+// Faz 3K: herkese açık Kaynaklar (7 dil, prerender). Metinleri ek pakette, verisi API'de/gömülü.
+const KaynaklarListesi = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynaklarListesi'));
+const KaynakDetay = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynakDetay'));
 
 const queryClient = new QueryClient();
 
@@ -57,6 +60,8 @@ const AppRoutes = () => (
         <Route path="/contact" element={<Contact />} />
         <Route path="/yol-haritasi" element={<YolHaritasi />} />
         <Route path="/site-analizi" element={<SiteAnalizi />} />
+        <Route path="/kaynaklar" element={<KaynaklarListesi />} />
+        <Route path="/kaynaklar/:slug" element={<KaynakDetay />} />
         <Route path="/client" element={<ClientPanel />} />
         <Route path="/admin" element={<AdminPanel />} />
         {/* Müşteriye giden ödeme bağlantısı. Oturum istemiyor. */}
@@ -88,6 +93,8 @@ const AppRoutes = () => (
         <Route path="contact" element={<Contact />} />
         <Route path="yol-haritasi" element={<YolHaritasi />} />
         <Route path="site-analizi" element={<SiteAnalizi />} />
+        <Route path="kaynaklar" element={<KaynaklarListesi />} />
+        <Route path="kaynaklar/:slug" element={<KaynakDetay />} />
         <Route path="durum/:slug" element={<DurumSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

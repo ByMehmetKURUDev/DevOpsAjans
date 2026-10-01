@@ -39,6 +39,7 @@ import {
   Blocks,
   FolderOpen,
   BookOpen,
+  Library,
   Bug,
   ListChecks,
   Megaphone,
@@ -129,10 +130,12 @@ const DuyuruYonetimi = ekliLazy('duyurular', () => import('@/components/admin/Du
 const DuyuruSeridi = ekliLazy('duyurular', () => import('@/components/DuyuruSeridi'));
 // Faz 2G — müşteri sohbetleri (bütün hesaplar); ek paket `mesajlar`.
 const MesajYonetimi = ekliLazy('mesajlar', () => import('@/components/admin/MesajYonetimi'));
+// Faz 3K — sitedeki Kaynaklar listesinin yönetimi; dil seçici metinleri marketplace çeviri paketinden.
+const KaynakYonetimi = ekliLazy(['kaynakYonetimi', 'marketplaceCeviri'], () => import('@/components/admin/KaynakYonetimi'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -230,6 +233,7 @@ interface Ticket {
 type Tab =
   | 'analytics'
   | 'marketplace'
+  | 'kaynaklar'
   | 'icerik'
   | 'settings'
   | 'pages'
@@ -927,6 +931,7 @@ export default function AdminPanel() {
     { key: 'notify', label: t('ui.tabNotify'), icon: BellRing },
     { key: 'projects', label: t('ui.tabProjects'), icon: FolderKanban },
     { key: 'marketplace', label: t('ui.tabMarketplace'), icon: Boxes },
+    { key: 'kaynaklar', label: t('nav.kaynaklar'), icon: Library },
     { key: 'icerik', label: t('ui.tabIcerik'), icon: CalendarDays },
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
@@ -1024,6 +1029,18 @@ export default function AdminPanel() {
           }
         >
           <IcerikPlani />
+        </Suspense>
+      )}
+
+      {tab === 'kaynaklar' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <KaynakYonetimi />
         </Suspense>
       )}
 

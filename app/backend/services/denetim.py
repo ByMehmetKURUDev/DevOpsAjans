@@ -73,6 +73,9 @@ HARIC_TABLOLAR = frozenset({
     # kutusu (silinen kaydın tam kopyası; silme zaten kaydediliyor, geri alma
     # ve kalıcı silme elle kaydediliyor).
     "oturumlar", "oturum_kesimleri", "cop_kutusu",
+    # Faz 3K: hangi tohum kaynağının bir kez eklendiği (teknik iz; kaynağın
+    # kendisi `kaynaklar` tablosunda kaydediliyor).
+    "kaynak_tohum_izi",
     # Faz 2G: kişi başına "nereye kadar okudu" (her yoklamada ilerleyebilir).
     # Mesajın kendisi (oluşturma/düzenleme/silme) kaydediliyor.
     "konusma_okunma",
