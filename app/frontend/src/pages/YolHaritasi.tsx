@@ -3,6 +3,7 @@ import { CheckCircle2, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
+import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 import { Button } from '@/components/ui/button';
 import { ekliLazy } from '@/i18n/ekliLazy';
 import { getAPIBaseURL } from '@/lib/config';
@@ -31,9 +32,9 @@ type Durum = 'yayinda' | 'gelistiriliyor' | 'planlandi';
 
 const FAZLAR: { no: number; durum: Durum }[] = [
   { no: 0, durum: 'yayinda' },
-  { no: 1, durum: 'gelistiriliyor' },
-  { no: 2, durum: 'planlandi' },
-  { no: 3, durum: 'planlandi' },
+  { no: 1, durum: 'yayinda' },
+  { no: 2, durum: 'yayinda' },
+  { no: 3, durum: 'gelistiriliyor' },
   { no: 4, durum: 'planlandi' },
   { no: 5, durum: 'planlandi' },
   { no: 6, durum: 'planlandi' },
@@ -118,6 +119,8 @@ export default function YolHaritasi() {
           {FAZLAR.map((f, i) => (
             <li
               key={f.no}
+              data-faz={f.no}
+              data-durum={f.durum}
               className={`cam-kart ${TONLAR[i % TONLAR.length]} rounded-2xl border border-white/10 bg-white/[0.03] p-6 ${
                 i === 0 ? 'md:col-span-2' : ''
               }`}
@@ -209,9 +212,10 @@ export default function YolHaritasi() {
                   {gonderiliyor ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : null}
                   {t('yolHaritasi.gonder')}
                 </Button>
-                <p className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground">
-                  {t('yolHaritasi.gizlilik')}
-                </p>
+                <AydinlatmaSatiri
+                  metin={t('yolHaritasi.gizlilik')}
+                  className="mt-3 text-center text-[11px] leading-relaxed text-muted-foreground"
+                />
               </div>
             </form>
           )}

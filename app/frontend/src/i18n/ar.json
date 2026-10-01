@@ -615,7 +615,10 @@
     "contact": "اتصل بنا",
     "copyright": "By@MehmetKURU.Dev",
     "siteAnalizi": "تحليل مجاني للموقع",
-    "roadmap": "خارطة الطريق"
+    "roadmap": "خارطة الطريق",
+    "gizlilik": "الخصوصية وKVKK",
+    "kullanimKosullari": "شروط الاستخدام",
+    "cerezPolitikasi": "سياسة ملفات تعريف الارتباط"
   },
   "settingsForm": {
     "brandTitle": "الهوية",
@@ -1299,7 +1302,6 @@
   "riza": {
     "baslik": "تفضيلات ملفات تعريف الارتباط والقياس",
     "metin": "نودّ استخدام Google Analytics وGoogle Ads وأدوات Meta لقياس كيفية استخدامك للموقع وتقييم الإعلانات. إذا رفضت، لن يتم تحميل أيّ منها؛ والموقع يعمل كما هو.",
-    "detay": "راسلنا لأي استفسار",
     "kabul": "موافق",
     "reddet": "رفض",
     "tercihler": "تفضيلات ملفات الارتباط"

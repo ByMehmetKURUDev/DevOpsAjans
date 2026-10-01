@@ -19,12 +19,13 @@ const Portfolio = lazy(() => import('./pages/Portfolio'));
 const Marketplace = lazy(() => import('./pages/Marketplace'));
 const BlogIndexPage = lazy(() => import('./pages/blog/BlogIndexPage'));
 const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
-const Contact = lazy(() => import('./pages/Contact'));
+// Faz 3Y: iletişim formunun altındaki kısa aydınlatma satırı (ek paket 'aydinlatma').
+const Contact = ekliLazy('aydinlatma', () => import('./pages/Contact'));
 const ClientPanel = lazy(() => import('./pages/ClientPanel'));
 const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));
 const YolHaritasi = lazy(() => import('./pages/YolHaritasi'));
-const SiteAnalizi = ekliLazy('siteAnalizi', () => import('./pages/SiteAnalizi'));
+const SiteAnalizi = ekliLazy(['siteAnalizi', 'aydinlatma'], () => import('./pages/SiteAnalizi'));
 const SiteRaporu = ekliLazy('siteAnalizi', () => import('./pages/SiteRaporu'));
 const IslemSayfasi = ekliLazy('islem', () => import('./pages/IslemSayfasi'));
 // Faz 2A: müşterinin açtığı herkese açık durum sayfası (dinamik, prerender yok).
@@ -43,6 +44,9 @@ const SozlesmeSayfasi = ekliLazy(['sozlesme', 'teklif'], () => import('./pages/S
 // Faz 3K: herkese açık Kaynaklar (7 dil, prerender). Metinleri ek pakette, verisi API'de/gömülü.
 const KaynaklarListesi = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynaklarListesi'));
 const KaynakDetay = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynakDetay'));
+// Faz 3Y: yasal sayfalar (Gizlilik/KVKK, Kullanım Koşulları, Çerez Politikası) — tek bileşen,
+// metinleri ek pakette (7 dil), prerender + SEO. Veri sorumlusu bilgileri site ayarlarından.
+const YasalSayfa = ekliLazy('yasal', () => import('./pages/yasal/YasalSayfa'));
 
 const queryClient = new QueryClient();
 
@@ -68,6 +72,9 @@ const AppRoutes = () => (
         <Route path="/site-analizi" element={<SiteAnalizi />} />
         <Route path="/kaynaklar" element={<KaynaklarListesi />} />
         <Route path="/kaynaklar/:slug" element={<KaynakDetay />} />
+        <Route path="/gizlilik" element={<YasalSayfa sayfa="gizlilik" />} />
+        <Route path="/kullanim-kosullari" element={<YasalSayfa sayfa="kullanimKosullari" />} />
+        <Route path="/cerez-politikasi" element={<YasalSayfa sayfa="cerezPolitikasi" />} />
         <Route path="/client" element={<ClientPanel />} />
         <Route path="/admin" element={<AdminPanel />} />
         {/* Müşteriye giden ödeme bağlantısı. Oturum istemiyor. */}
@@ -104,6 +111,9 @@ const AppRoutes = () => (
         <Route path="site-analizi" element={<SiteAnalizi />} />
         <Route path="kaynaklar" element={<KaynaklarListesi />} />
         <Route path="kaynaklar/:slug" element={<KaynakDetay />} />
+        <Route path="gizlilik" element={<YasalSayfa sayfa="gizlilik" />} />
+        <Route path="kullanim-kosullari" element={<YasalSayfa sayfa="kullanimKosullari" />} />
+        <Route path="cerez-politikasi" element={<YasalSayfa sayfa="cerezPolitikasi" />} />
         <Route path="durum/:slug" element={<DurumSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

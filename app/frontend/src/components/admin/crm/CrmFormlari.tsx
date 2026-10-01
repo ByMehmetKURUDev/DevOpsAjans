@@ -357,7 +357,8 @@ function FormPenceresi({
             {form && <span className="block text-[11px] text-muted-foreground">{t('crm.form.kvkkSurumIpucu', { sayi: form.kvkk_surum })}</span>}
           </AlanEtiketi>
           <AlanEtiketi ad={t('crm.form.aydinlatma')} tam>
-            <Input type="url" value={taslak.aydinlatma_baglantisi} onChange={yaz('aydinlatma_baglantisi')} placeholder="https://" dir="ltr" />
+            {/* Faz 3Y: boşsa formda sitenin Gizlilik ve KVKK Aydınlatma Metni gösterilir (sunucu varsayılanı). */}
+            <Input type="url" value={taslak.aydinlatma_baglantisi} onChange={yaz('aydinlatma_baglantisi')} placeholder="https://mehmetkuru.dev/gizlilik" dir="ltr" />
           </AlanEtiketi>
           <label className="inline-flex items-center gap-2 text-sm sm:col-span-2">
             <input

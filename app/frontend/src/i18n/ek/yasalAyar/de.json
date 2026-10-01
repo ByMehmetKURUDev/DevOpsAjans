@@ -1,0 +1,23 @@
+{
+  "yasalAyar": {
+    "baslik": "Rechtliche Angaben",
+    "aciklama": "Angaben zum Verantwortlichen auf den Seiten Datenschutz/KVKK, Nutzungsbedingungen und Cookie-Richtlinie. Leer gelassene Anschrift, KEP, Steuernummer und MERSIS werden gar nicht angezeigt.",
+    "alan": {
+      "unvan": "Name",
+      "eposta": "Kontakt-E-Mail",
+      "adres": "Anschrift (optional)",
+      "kep": "KEP-Adresse (optional)",
+      "vkn": "Steuernummer (optional)",
+      "mersis": "MERSIS-Nummer (optional)",
+      "sonGuncelleme": "Datum der letzten Aktualisierung"
+    },
+    "varsayilan": "Wenn leer: {{deger}}",
+    "kaydet": "Speichern",
+    "kaydedildi": "Rechtliche Angaben gespeichert.",
+    "hata": "Speichern fehlgeschlagen.",
+    "tarihHatasi": "Das Datum muss im Format JJJJ-MM-TT sein.",
+    "epostaHatasi": "Bitte eine gültige E-Mail-Adresse eingeben.",
+    "sayfalar": "Seiten ansehen",
+    "not": "Änderungen sind sofort auf der Website sichtbar; die Seite, die Suchmaschinen sehen, wird mit der nächsten Veröffentlichung aktualisiert."
+  }
+}

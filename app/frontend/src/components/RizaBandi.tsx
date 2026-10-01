@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { RIZA_OLAYI, rizayiOku, rizayiYaz } from '@/lib/riza';
+import { DEFAULT_LANGUAGE, LANGUAGE_CODES, localizedPath } from '../../prerender/site.js';
 
 /**
  * Ölçüm ve reklam rızası bandı.
@@ -19,8 +20,10 @@ import { RIZA_OLAYI, rizayiOku, rizayiYaz } from '@/lib/riza';
  * alt kenarda duruyor.
  */
 export default function RizaBandi() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [gorunur, setGorunur] = useState(false);
+  // Faz 3Y: bağlantı Çerez Politikası'na, etkin dilin adresine gider.
+  const dil = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : DEFAULT_LANGUAGE;
 
   useEffect(() => {
     const tazele = () => setGorunur(rizayiOku() === 'sorulmadi');
@@ -46,8 +49,12 @@ export default function RizaBandi() {
 
         <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
           {t('riza.metin')}{' '}
-          <Link to="/contact" className="text-primary underline underline-offset-2">
-            {t('riza.detay')}
+          <Link
+            to={localizedPath(dil, 'cerezPolitikasi')}
+            className="text-primary underline underline-offset-2"
+            data-riza-politika
+          >
+            {t('footer.cerezPolitikasi')}
           </Link>
         </p>
 

@@ -150,6 +150,8 @@ const TeklifYonetimi = ekliLazy('teklif', () => import('@/components/admin/Tekli
 const SozlesmeYonetimi = ekliLazy('sozlesme', () => import('@/components/admin/SozlesmeYonetimi'));
 const FaturaAraclari = ekliLazy(['fatura', 'teklif'], () => import('@/components/admin/FaturaAraclari'));
 const FaturaAyrinti = ekliLazy(['fatura', 'teklif'], () => import('@/components/admin/FaturaAyrinti'));
+// Faz 3Y: Site Ayarları › Yasal bilgiler (veri sorumlusu; etiketler ek pakette).
+const YasalBilgilerAyari = ekliLazy('yasalAyar', () => import('@/components/admin/YasalBilgilerAyari'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
@@ -1471,6 +1473,22 @@ export default function AdminPanel() {
                 </Button>
               </div>
             ))}
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center rounded-2xl glass p-6 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <YasalBilgilerAyari
+                settingRows={settingRows}
+                settings={rawSettings}
+                onSaved={async () => {
+                  await loadSettings();
+                  await reloadSettings();
+                }}
+              />
+            </Suspense>
           </div>
         </div>
       )}

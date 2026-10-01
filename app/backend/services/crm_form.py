@@ -401,6 +401,21 @@ def kvkk_ozeti(f: Any) -> str:
     return hashlib.sha256(f"{f.kvkk_metni or ''}\n{f.aydinlatma_baglantisi or ''}".encode("utf-8")).hexdigest()
 
 
+#: Faz 3Y: formda aydınlatma bağlantısı boşsa sitenin Gizlilik ve KVKK
+#: Aydınlatma Metni gösterilir (Türkçe kökte, diğer diller /<dil>/ önekiyle).
+#: Gömülen form başka sitelerde de çalıştığı için mutlak adres.
+VARSAYILAN_AYDINLATMA = "https://mehmetkuru.dev/gizlilik"
+
+
+def aydinlatma_adresi(f: Any, dil: str) -> str:
+    """Formun aydınlatma bağlantısı; boşsa seçili dildeki /gizlilik sayfası."""
+    kayitli = (getattr(f, "aydinlatma_baglantisi", None) or "").strip()
+    if kayitli:
+        return kayitli
+    d = dil_sec(dil)
+    return VARSAYILAN_AYDINLATMA if d == "tr" else VARSAYILAN_AYDINLATMA.replace("/gizlilik", f"/{d}/gizlilik")
+
+
 def acik_tanim(f: Any, dil: str) -> Dict[str, Any]:
     d = dil_sec(dil)
     e = ETIKETLER[d]
@@ -414,7 +429,7 @@ def acik_tanim(f: Any, dil: str) -> Dict[str, Any]:
             {"ad": ad, "zorunlu": alanlar[ad]["zorunlu"], "etiket": e["alan"][ad], "en_cok": ALAN_SINIRLARI[ad]}
             for ad in ALAN_ADLARI if alanlar[ad]["acik"]
         ],
-        "kvkk": {"metin": f.kvkk_metni, "baglanti": f.aydinlatma_baglantisi, "surum": f.kvkk_surum},
+        "kvkk": {"metin": f.kvkk_metni, "baglanti": aydinlatma_adresi(f, d), "surum": f.kvkk_surum},
         "metinler": {
             "gonder": e["gonder"], "gonderiliyor": e["gonderiliyor"], "aydinlatma": e["aydinlatma"],
             "istege_bagli": e["istege_bagli"], "hata": e["hata"],

@@ -1,0 +1,23 @@
+{
+  "yasalAyar": {
+    "baslik": "Yasal bilgiler",
+    "aciklama": "Gizlilik/KVKK, Kullanım Koşulları ve Çerez Politikası sayfalarındaki veri sorumlusu bilgileri. Boş bırakılan adres, KEP, VKN ve MERSİS sayfada hiç gösterilmez.",
+    "alan": {
+      "unvan": "Unvan",
+      "eposta": "İletişim e-postası",
+      "adres": "Adres (isteğe bağlı)",
+      "kep": "KEP adresi (isteğe bağlı)",
+      "vkn": "Vergi kimlik numarası (isteğe bağlı)",
+      "mersis": "MERSİS numarası (isteğe bağlı)",
+      "sonGuncelleme": "Son güncelleme tarihi"
+    },
+    "varsayilan": "Boşsa: {{deger}}",
+    "kaydet": "Kaydet",
+    "kaydedildi": "Yasal bilgiler kaydedildi.",
+    "hata": "Kaydedilemedi.",
+    "tarihHatasi": "Tarih YYYY-AA-GG biçiminde olmalı.",
+    "epostaHatasi": "Geçerli bir e-posta adresi yazın.",
+    "sayfalar": "Sayfaları görüntüle",
+    "not": "Değişiklik sitede hemen görünür; arama motorlarının gördüğü sayfa bir sonraki yayında güncellenir."
+  }
+}

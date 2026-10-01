@@ -51,6 +51,9 @@ const SAYFALAR = [
   ['Blog', '/blog', 'SEO, Google Ads, ölçümleme ve web geliştirme rehberleri.'],
   ['Kaynaklar', '/kaynaklar', 'Kullandığımız ve önerdiğimiz yapay zekâ araçları, Claude becerileri ve açık kaynak projeler (7 dilde).'],
   ['İletişim', '/contact', 'İletişim bilgileri ve teklif formu.'],
+  ['Gizlilik Politikası ve KVKK Aydınlatma Metni', '/gizlilik', 'Hangi kişisel verilerin, hangi amaç ve hukuki sebeple işlendiği; aktarım, saklama ve KVKK hakları.'],
+  ['Kullanım Koşulları', '/kullanim-kosullari', 'Site, müşteri paneli ve hizmetlerin kullanım koşulları.'],
+  ['Çerez Politikası', '/cerez-politikasi', 'Kullanılan çerez ve tarayıcı depolama öğeleri; analitik ve pazarlama yalnız onayla.'],
 ];
 
 const gruplar = new Map();

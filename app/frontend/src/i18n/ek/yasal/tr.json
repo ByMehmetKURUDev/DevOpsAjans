@@ -1,0 +1,618 @@
+{
+  "yasal": {
+    "ortak": {
+      "etiket": "Yasal",
+      "sonGuncelleme": "Son güncelleme",
+      "icindekiler": "İçindekiler",
+      "basaDon": "Başa dön",
+      "digerBelgeler": "Diğer yasal metinler",
+      "alanlar": {
+        "unvan": "Unvan",
+        "eposta": "E-posta",
+        "adres": "Adres",
+        "kep": "KEP adresi",
+        "vkn": "Vergi kimlik numarası",
+        "mersis": "MERSİS numarası",
+        "site": "Web sitesi"
+      },
+      "belgeler": {
+        "gizlilik": "Gizlilik Politikası ve KVKK Aydınlatma Metni",
+        "kullanimKosullari": "Kullanım Koşulları",
+        "cerezPolitikasi": "Çerez Politikası"
+      },
+      "tercihDugmesi": "Çerez tercihlerimi değiştir",
+      "tercihSifirlandi": "Tercihiniz sıfırlandı. Sayfanın altında açılan banttan yeniden seçim yapabilirsiniz.",
+      "ozgunMetin": "Özgün metin (İngilizce)"
+    },
+    "gizlilik": {
+      "baslik": "Gizlilik Politikası ve KVKK Aydınlatma Metni",
+      "ozet": "Bu metin, mehmetkuru.dev sitesini, müşteri panelini ve sunduğumuz hizmetleri kullanırken kişisel verilerinizin nasıl işlendiğini 6698 sayılı Kişisel Verilerin Korunması Kanunu'nun (KVKK) 10. maddesi uyarınca açıklar.",
+      "limitedUse": "mehmetkuru.dev'in Google API'lerinden aldığı bilgileri kullanması ve başka herhangi bir uygulamaya aktarması, Sınırlı Kullanım (Limited Use) gereklilikleri dahil olmak üzere Google API Hizmetleri Kullanıcı Verileri Politikası'na (Google API Services User Data Policy) uygun olacaktır.",
+      "bolumler": [
+        {
+          "id": "veri-sorumlusu",
+          "baslik": "1. Veri sorumlusu",
+          "bloklar": [
+            "Kişisel verileriniz, veri sorumlusu sıfatıyla aşağıda bilgileri yer alan {{unvan}} tarafından işlenir. Bu metinde geçen “biz” ifadesi veri sorumlusunu anlatır.",
+            {
+              "ozel": "veriSorumlusu"
+            },
+            "Bu metin; mehmetkuru.dev alan adı altındaki sayfaları, müşteri panelini, başka sitelere gömülebilen formlarımızı ve bunlar üzerinden sunulan hizmetleri kapsar. Başka sitelere verilen bağlantılar o sitelerin kendi politikalarına tabidir."
+          ]
+        },
+        {
+          "id": "islenen-veriler",
+          "baslik": "2. İşlediğimiz kişisel veriler",
+          "bloklar": [
+            "Hangi verilerin işlendiği, kullandığınız özelliğe bağlıdır. Yalnızca o özelliğin çalışması için gereken verileri isteriz.",
+            {
+              "liste": [
+                "**Kimlik:** adınız ve soyadınız (formlarda ve hesabınızda); bir teklifi kabul ederken ya da sözleşme imzalarken yazdığınız ad ve isterseniz ekrana çizdiğiniz imza görseli.",
+                "**İletişim:** e-posta adresiniz; isteğe bağlı olarak telefon numaranız ve firma adınız.",
+                "**Müşteri işlem:** iletişim ve teklif talepleriniz; mesajlar, destek talepleri ve destek adresine gönderdiğiniz e-postalar; proje ve görev bilgileri; paylaştığınız dosyalar; teklif, sözleşme ve fatura kayıtları; bekleme listesinde seçtiğiniz modüller; analiz edilmesini istediğiniz site adresi ve analiz sonuçları; size ait sitelerin erişilebilirlik ve SEO ölçümleri; Uzman Asistanlar ile yaptığınız sohbetler; hata bildirimleri ve geri bildirimleriniz (sayfa adresi, tarayıcı bilgisi ve isterseniz ekran görüntüsü); bildirim tercihleriniz.",
+                "**Finans:** fatura tutarları, ödeme durumu, ödeme yöntemi ve ödeme sağlayıcısının sipariş numarası. Kart bilgileriniz bize ulaşmaz; yalnızca ödeme sağlayıcısının sayfasında girilir.",
+                "**İşlem güvenliği:** Google hesabınızın kimlik numarası; oturum kayıtları (açılış ve son görülme zamanı, “Chrome · macOS” gibi cihaz özeti, tarayıcı tanımlayıcısı); IP adresinizin tuzlanmış tek yönlü özeti; onay ve işlem kayıtları (zaman, IP özeti, tarayıcı bilgisi, onaylanan metnin özet değeri); Web Push bildirimine izin verdiyseniz tarayıcınızın oluşturduğu abonelik adresi.",
+                "**Pazarlama:** yalnızca açık rızanızla, Google Analytics, Google Ads ve Meta Pixel çerezleri ile bunların topladığı kullanım ve reklam etkileşimi verileri."
+              ]
+            },
+            "Ham IP adresinizi veritabanımızda saklamayız; kötüye kullanımı önlemek ve kayıtların kanıt değerini korumak için yalnızca geri döndürülemeyen özetini tutarız. Sağlık ya da biyometrik veri gibi özel nitelikli kişisel veri istemeyiz; formlara ve mesajlara bu tür bilgileri yazmamanızı rica ederiz."
+          ]
+        },
+        {
+          "id": "amaclar",
+          "baslik": "3. İşleme amaçları",
+          "bloklar": [
+            {
+              "liste": [
+                "İletişim formu, hızlı talep, teklif ve satın alma pencerelerinden gelen taleplerinizi yanıtlamak; teklif ve fatura hazırlamak.",
+                "Müşteri hesabınızı oluşturmak, Google ile oturum açmanızı sağlamak ve oturumlarınızı yönetmek.",
+                "Sözleşme konusu hizmetleri sunmak: proje takibi, destek, mesajlaşma, dosya paylaşımı, site bakımı ve izleme, raporlar.",
+                "Teklif ve sözleşmelerin elektronik ortamda kabul edilmesini ve imzalanmasını sağlamak, bunun kanıtını saklamak.",
+                "Faturalama, ödeme tahsilatı, muhasebe ve vergi yükümlülüklerini yerine getirmek.",
+                "Ücretsiz site analizini yapmak ve istediğinizde tam raporu e-posta adresinize göndermek.",
+                "Bekleme listesine kaydolduğunuzda, seçtiğiniz modüller yayına çıktığında size haber vermek.",
+                "Uygulama içi bildirim, e-posta ve izin verdiyseniz Web Push bildirimi göndermek.",
+                "Yapay zekâ asistanlarıyla sorularınızı yanıtlamak ve size uygun paketi önermek.",
+                "Bilgi güvenliğini sağlamak: kötüye kullanımı ve otomatik saldırıları önlemek, istek sınırlarını uygulamak, işlem ve denetim kayıtlarını tutmak.",
+                "Hataları gidermek ve hizmetlerimizi geliştirmek.",
+                "Yalnızca açık rızanızla: site kullanımını ölçmek ve reklamların etkisini değerlendirmek.",
+                "Uyuşmazlıklarda haklarımızı korumak ve yetkili mercilerin taleplerini karşılamak."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hukuki-sebepler",
+          "baslik": "4. Toplama yöntemi ve hukuki sebepler",
+          "bloklar": [
+            "Kişisel verilerinizi elektronik ortamda; sitedeki formlar ve müşteri paneli aracılığıyla, bize gönderdiğiniz e-postalarla, Google ile oturum açtığınızda Google'dan, ödeme yaptığınızda ödeme sağlayıcısından (ödeme sonucu ve sipariş bilgisi) ve sitenin çalışması sırasında otomatik yollarla (oturum ve güvenlik kayıtları, tarayıcı depolaması ve onay verdiyseniz çerezler) toplarız.",
+            "Verilerinizi KVKK'nın 5. maddesinin 2. fıkrasındaki şu hukuki sebeplere dayanarak işleriz:",
+            {
+              "liste": [
+                "**(c) Sözleşmenin kurulması veya ifası:** hesap, teklif, sözleşme, proje, destek, mesajlaşma, dosya, fatura ve ödeme işlemleri; satın alma öncesindeki talep ve teklif yazışmaları.",
+                "**(ç) Hukuki yükümlülüğün yerine getirilmesi:** fatura ve muhasebe kayıtları, vergi mevzuatı ve yetkili mercilerin talepleri.",
+                "**(e) Bir hakkın tesisi, kullanılması veya korunması:** teklif kabulü, sözleşme imzası ve onay kayıtları, işlem ve denetim kayıtları.",
+                "**(f) Meşru menfaat** (temel hak ve özgürlüklerinize zarar vermemek kaydıyla): bilgi güvenliği, kötüye kullanımın önlenmesi, istek sınırları, hata giderme ve hizmetlerin geliştirilmesi, ücretsiz site analizi ve iletişim taleplerinin yanıtlanması."
+              ]
+            },
+            "**Açık rızanız** yalnızca analitik ve pazarlama çerezleri (Google Analytics, Google Ads, Meta Pixel) ile ticari elektronik ileti gönderimi için istenir. Rıza vermemeniz hiçbir hizmetten yararlanmanızı engellemez ve rızanızı dilediğiniz an geri alabilirsiniz. Ayrıntılar: [Çerez Politikası](sayfa:cerezPolitikasi)."
+          ]
+        },
+        {
+          "id": "aktarim",
+          "baslik": "5. Kişisel verilerin aktarılması",
+          "bloklar": [
+            "Kişisel verilerinizi satmayız ve reklam amacıyla üçüncü kişilerle paylaşmayız. Hizmeti sunabilmek için verileriniz, yalnızca ilgili işin gerektirdiği ölçüde ve KVKK'nın 8. ve 9. maddelerindeki şartlara uygun olarak aşağıdaki alıcı gruplarına aktarılabilir. Bu sağlayıcıların bir kısmının sunucuları yurt dışındadır.",
+            {
+              "tablo": {
+                "basliklar": [
+                  "Alıcı",
+                  "Amaç",
+                  "Konum"
+                ],
+                "satirlar": [
+                  [
+                    "Cloudflare, Inc.",
+                    "Sitenin barındırılması ve dağıtımı (CDN), alan adı (DNS), güvenlik ve API vekili; yapılandırılmışsa dosya depolama (R2)",
+                    "Küresel ağ; ABD"
+                  ],
+                  [
+                    "Render Services, Inc.",
+                    "Uygulama sunucusu ve veritabanı barındırma",
+                    "Almanya (Frankfurt); ABD"
+                  ],
+                  [
+                    "Resend, Inc.",
+                    "Bildirim, rapor, teklif ve fatura e-postalarının gönderilmesi; destek adresine gelen e-postaların alınması",
+                    "ABD"
+                  ],
+                  [
+                    "Google LLC / Google Ireland Ltd.",
+                    "Google ile oturum açma; yapay zekâ özellikleri (Gemini API); site analizinde PageSpeed Insights; onayınızla Google Analytics ve Google Ads; Arapça ve Hintçe yazı tipleri (Google Fonts); iletişim sayfasındaki harita (Google Haritalar)",
+                    "ABD; AB"
+                  ],
+                  [
+                    "Lemon Squeezy, LLC",
+                    "Döviz cinsinden kartlı ödemelerin tahsilatı (ödeme sayfasına adınız ve e-posta adresiniz önceden doldurulur)",
+                    "ABD"
+                  ],
+                  [
+                    "Shopier",
+                    "Türk lirası cinsinden kartlı ödemelerin tahsilatı",
+                    "Türkiye"
+                  ],
+                  [
+                    "Meta Platforms, Inc. / Meta Platforms Ireland Ltd.",
+                    "Onayınızla ve etkinleştirilmişse Meta Pixel reklam ölçümü; etkinleştirilmişse yöneticiye giden WhatsApp bildirimleri",
+                    "ABD; AB"
+                  ],
+                  [
+                    "SMS sağlayıcısı (Netgsm ya da Twilio)",
+                    "Etkinleştirilmişse yöneticiye giden kısa bildirim mesajları (talebin kısa özetini içerebilir)",
+                    "Türkiye (Netgsm); ABD (Twilio)"
+                  ],
+                  [
+                    "Tarayıcı bildirim servisleri (ör. Google, Mozilla, Apple)",
+                    "İzin verdiyseniz Web Push bildirimlerinin cihazınıza iletilmesi",
+                    "Tarayıcı üreticisine göre"
+                  ],
+                  [
+                    "Yetkili kamu kurum ve kuruluşları, yargı mercileri",
+                    "Hukuki yükümlülükler ve resmî talepler",
+                    "Türkiye"
+                  ]
+                ]
+              }
+            },
+            "Yapay zekâ özelliklerinde yazdığınız mesajlar, yanıt üretilebilmesi için yapay zekâ sağlayıcısına (şu anda Google Gemini API) iletilir. Sitedeki herkese açık asistan sohbetleri sunucumuzda saklanmaz. Müşteri panelindeki Uzman Asistan sohbetleri hesabınızda saklanır; sildiğiniz sohbetler görünümünüzden kaldırılır, tamamen silinmelerini başvuru yoluyla isteyebilirsiniz. Asistanlara kişisel ya da gizli bilgi yazmamanızı öneririz."
+          ]
+        },
+        {
+          "id": "saklama",
+          "baslik": "6. Saklama süreleri ve imha",
+          "bloklar": [
+            "Kişisel verilerinizi işleme amacının gerektirdiği süre ve ilgili mevzuattaki saklama süreleri boyunca saklarız. Süre dolduğunda veriler silinir, yok edilir ya da anonim hâle getirilir. Sistemimizde tanımlı başlıca süreler:",
+            {
+              "liste": [
+                "Oturum: giriş jetonu en çok 7 gün geçerlidir; sona eren ya da sonlandırılan oturum kayıtları 30 gün sonra silinir.",
+                "Silinen kayıtlar (varsayılan olarak) 30 gün çöp kutusunda bekler, ardından kalıcı olarak silinir.",
+                "Ücretsiz site analizi: talebe dönüşmeyen analizler, e-posta adresiyle birlikte 90 gün sonra silinir; müşteri hesaplarındaki analizlerin ayrıntılı raporu 365 gün sonra silinir, puan ve özet kalır.",
+                "İşlem ve denetim kayıtları 365 gün saklanır.",
+                "Dosya paylaşım bağlantıları en çok 30 gün, onay bağlantıları varsayılan olarak 14 gün (en çok 90 gün), site analizi rapor bağlantıları 30 gün geçerlidir.",
+                "Site izleme ölçümleri 90 gün, bunların günlük özetleri 400 gün saklanır.",
+                "Sitedeki herkese açık yapay zekâ sohbetleri sunucuda saklanmaz.",
+                "Fatura, sözleşme ve muhasebe kayıtları, Vergi Usul Kanunu ve Türk Ticaret Kanunu'ndaki defter ve belge saklama süreleri boyunca saklanır.",
+                "Diğer veriler (talepler, mesajlar, destek kayıtları, hesap bilgileri) amaç için gereken süre ve ilgili mevzuattaki zamanaşımı süreleri boyunca saklanır.",
+                "Tarayıcınızdaki yerel kayıtlar, siz silene ya da oturumu kapatana kadar tarayıcınızda kalır (bkz. [Çerez Politikası](sayfa:cerezPolitikasi))."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "guvenlik",
+          "baslik": "7. Güvenlik önlemleri",
+          "bloklar": [
+            "Verilerinizi korumak için makul teknik ve idari tedbirler alırız. Başlıcaları:",
+            {
+              "liste": [
+                "Bütün bağlantılar HTTPS ile şifrelenir; tarayıcı güvenlik başlıkları uygulanır.",
+                "Yetkilendirme: müşteriler yalnızca kendi hesaplarına ait kayıtları görebilir; yönetim işlemleri yalnızca yöneticiye açıktır.",
+                "Oturumlar kayıt altındadır; açık oturumlarınızı müşteri panelinden görebilir ve sonlandırabilirsiniz.",
+                "Giriş, form ve yapay zekâ uçlarında istek sınırları ve otomatik gönderim (bot) korumaları uygulanır.",
+                "IP adresleri tuzlanmış tek yönlü özet olarak tutulur; tek kullanımlık onay bağlantılarının jetonları veritabanında yalnızca özet değer olarak saklanır; paylaşım, rapor ve onay bağlantıları süreyle sınırlıdır.",
+                "Google bağlantısının yenileme jetonu şifrelenerek saklanır; erişim jetonları yalnızca kısa süre bellekte tutulur.",
+                "Dosyalar yalnızca yetkili kullanıcılara ya da süreli paylaşım bağlantısıyla indirilir.",
+                "Kart bilgileri sistemimizde işlenmez ve saklanmaz.",
+                "Önemli işlemler denetim kaydına yazılır."
+              ]
+            },
+            "Hiçbir sistem tamamen risksiz değildir. Bir veri ihlali fark edersek KVKK'nın 12. maddesi uyarınca Kişisel Verileri Koruma Kurulu'na ve gerekirse ilgili kişilere bildirimde bulunuruz."
+          ]
+        },
+        {
+          "id": "google-api",
+          "baslik": "8. Google API kullanıcı verileri",
+          "bloklar": [
+            "**Google ile oturum açma:** Google hesabınızla giriş yaptığınızda Google'dan yalnızca adınızı, e-posta adresinizi ve hesap kimlik numaranızı (OpenID Connect) alırız. Bu bilgiler yalnızca hesabınızı oluşturmak, sizi tanımak ve oturum açmanızı sağlamak için kullanılır.",
+            "**Google bağlantıları (Analytics, Search Console, YouTube):** Yönetici panelindeki performans panosu için yalnızca ajans yöneticisinin kendi Google hesabı, salt okunur izinlerle (Google Analytics, Search Console, YouTube ve YouTube Analytics için “readonly” kapsamları) bağlanır. Bu bağlantı ziyaretçilerin ya da müşterilerin Google hesaplarına erişmez. Alınan veriler ziyaret, gösterim, tıklama, abone ve izlenme sayısı gibi toplu istatistiklerdir ve yalnızca panoda göstermek için kullanılır.",
+            "Yenileme jetonu şifreli saklanır; erişim jetonu yalnızca bellekte, yaklaşık bir saat tutulur. Bağlantı kesildiğinde jeton Google'da iptal edilir ve şifreli kayıt silinir; daha önce alınmış toplu istatistikler en çok 400 gün saklanır. Google hesabınıza verdiğiniz erişimleri [Google hesap izinleri](https://myaccount.google.com/permissions) sayfasından dilediğiniz an kaldırabilirsiniz.",
+            "Google API'lerinden alınan verileri satmayız; reklam amacıyla kullanmayız ya da aktarmayız; yapay zekâ modeli eğitmek için kullanmayız. Güvenlik, yasal yükümlülük ya da sizin açık izniniz dışında bu verilerin insanlar tarafından okunmasına izin vermeyiz.",
+            {
+              "ozel": "limitedUse"
+            }
+          ]
+        },
+        {
+          "id": "cerezler",
+          "baslik": "9. Çerezler ve benzeri teknolojiler",
+          "bloklar": [
+            "Kendi sunucumuz çerez yerleştirmez; oturumunuz ve tercihleriniz tarayıcınızın yerel depolamasında tutulur. Google Analytics, Google Ads ve Meta Pixel yalnızca çerez bandında “Kabul et”i seçerseniz yüklenir. Ayrıntılı liste ve tercihlerinizi değiştirme yolu [Çerez Politikası](sayfa:cerezPolitikasi) sayfasındadır."
+          ]
+        },
+        {
+          "id": "haklariniz",
+          "baslik": "10. KVKK kapsamındaki haklarınız",
+          "bloklar": [
+            "KVKK'nın 11. maddesi uyarınca veri sorumlusuna başvurarak aşağıdaki haklarınızı kullanabilirsiniz:",
+            {
+              "liste": [
+                "Kişisel verilerinizin işlenip işlenmediğini öğrenme.",
+                "İşlenmişse buna ilişkin bilgi talep etme.",
+                "İşlenme amacını ve verilerin amacına uygun kullanılıp kullanılmadığını öğrenme.",
+                "Yurt içinde veya yurt dışında verilerin aktarıldığı üçüncü kişileri bilme.",
+                "Eksik veya yanlış işlenmişse düzeltilmesini isteme.",
+                "KVKK'nın 7. maddesindeki şartlar çerçevesinde silinmesini veya yok edilmesini isteme.",
+                "Düzeltme, silme ve yok etme işlemlerinin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme.",
+                "İşlenen verilerin münhasıran otomatik sistemlerle analiz edilmesi sonucu aleyhinize bir sonuç çıkmasına itiraz etme.",
+                "Kanuna aykırı işleme nedeniyle zarara uğramanız hâlinde zararın giderilmesini talep etme."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "basvuru",
+          "baslik": "11. Başvuru yolu",
+          "bloklar": [
+            "Haklarınızı kullanmak için, Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ'e uygun olarak aşağıdaki yollardan biriyle başvurabilirsiniz:",
+            {
+              "liste": [
+                "E-posta: [{{eposta}}](mailto:{{eposta}}). Bizde kayıtlı e-posta adresinizden yazmanız kimliğinizi doğrulamamızı kolaylaştırır.",
+                {
+                  "metin": "Kayıtlı elektronik posta (KEP): {{kep}}",
+                  "kosul": "kep"
+                },
+                {
+                  "metin": "Yazılı başvuru: ıslak imzalı dilekçenizi {{adres}} adresine elden ya da noter aracılığıyla iletebilirsiniz.",
+                  "kosul": "adres"
+                }
+              ]
+            },
+            "Başvurunuzda adınız ve soyadınız, Türk vatandaşıysanız T.C. kimlik numaranız (yabancıysanız uyruğunuz ile pasaport ya da kimlik numaranız), tebligata esas adresiniz, varsa e-posta adresiniz ve telefon numaranız ile talebinizin açık konusu yer almalıdır.",
+            "Başvurunuzu, talebin niteliğine göre en kısa sürede ve en geç 30 gün içinde ücretsiz olarak sonuçlandırırız. İşlemin ayrıca bir maliyet gerektirmesi hâlinde Kişisel Verileri Koruma Kurulu'nca belirlenen tarifedeki ücret alınabilir. Kimliğinizi doğrulamak için ek bilgi isteyebiliriz.",
+            "Başvurunuz reddedilirse, yanıtı yetersiz bulursanız ya da süresinde yanıt verilmezse; yanıtı öğrendiğiniz tarihten itibaren 30 gün ve her hâlde başvuru tarihinden itibaren 60 gün içinde Kişisel Verileri Koruma Kurulu'na şikâyette bulunabilirsiniz (KVKK m.14)."
+          ]
+        },
+        {
+          "id": "cocuklar",
+          "baslik": "12. Çocukların verileri",
+          "bloklar": [
+            "Sitemiz ve hizmetlerimiz 18 yaşından küçüklere yönelik değildir. 18 yaşından küçükseniz formları veliniz ya da vasiniz olmadan doldurmayın. Bir çocuğa ait veriyi istemeden topladığımızı fark edersek o veriyi siler ya da anonim hâle getiririz."
+          ]
+        },
+        {
+          "id": "degisiklikler",
+          "baslik": "13. Değişiklikler",
+          "bloklar": [
+            "Bu metni mevzuat, hizmetlerimiz ya da çalıştığımız sağlayıcılar değiştikçe güncelleyebiliriz. Güncel sürüm her zaman bu sayfadadır; son değişiklik tarihi sayfanın başında yer alır. Önemli değişiklikleri sitede ve gerektiğinde e-postayla duyururuz."
+          ]
+        },
+        {
+          "id": "iletisim",
+          "baslik": "14. İletişim",
+          "bloklar": [
+            "Bu metinle ya da kişisel verilerinizle ilgili her sorunuz için [{{eposta}}](mailto:{{eposta}}) adresine yazabilirsiniz."
+          ]
+        }
+      ]
+    },
+    "kullanimKosullari": {
+      "baslik": "Kullanım Koşulları",
+      "ozet": "mehmetkuru.dev sitesini, müşteri panelini ve sunduğumuz hizmetleri kullanırken geçerli olan kurallar.",
+      "bolumler": [
+        {
+          "id": "taraflar",
+          "baslik": "1. Taraflar ve kapsam",
+          "bloklar": [
+            "Bu koşullar, mehmetkuru.dev sitesini ve müşteri panelini işleten {{unvan}} (“biz”) ile siteyi ziyaret eden, hesap açan ya da hizmet satın alan kişi (“siz”) arasındaki ilişkiyi düzenler. İletişim bilgilerimiz [Gizlilik ve KVKK Aydınlatma Metni](sayfa:gizlilik#veri-sorumlusu) sayfasındadır.",
+            "Siteyi kullanarak bu koşulları kabul etmiş olursunuz. Sizinle ayrıca bir teklif, sözleşme ya da sipariş onayı yapılmışsa, o belgedeki özel hükümler bu koşullardan önce uygulanır. Tüketici mevzuatından doğan haklarınız her durumda saklıdır."
+          ]
+        },
+        {
+          "id": "hizmet",
+          "baslik": "2. Hizmetin tanımı",
+          "bloklar": [
+            "Web sitesi, e-ticaret ve SaaS geliştirme, teknik SEO, reklam yönetimi ve ölçümleme, sosyal medya ve içerik hizmetleri, site bakımı ve izleme ile hazır paketler ve modüller sunarız. Ayrıca ücretsiz site analizi, yapay zekâ asistanları, Kaynaklar sayfası ve müşteri paneli (proje takibi, destek, mesajlaşma, dosyalar, teklif, sözleşme ve faturalar) gibi araçlar sağlarız.",
+            "Ücretli hizmetlerin kapsamı, teslim süresi, ücreti ve revizyon hakları teklifte, sözleşmede ya da sitedeki paket açıklamasında belirtilir. Sitedeki tanıtım metinleri bilgilendirme amaçlıdır; bağlayıcı kapsam ilgili teklif ya da sözleşmedir.",
+            "Ücretsiz site analizinin ve yapay zekâ asistanlarının yanıtları otomatik olarak üretilir ve yalnızca bilgilendirme amaçlıdır; hatalı ya da eksik olabilir. Önemli kararlar vermeden önce sonuçları doğrulamanızı öneririz."
+          ]
+        },
+        {
+          "id": "hesap",
+          "baslik": "3. Hesap ve güvenlik",
+          "bloklar": [
+            "Müşteri paneline Google hesabınızla giriş yaparsınız. Hesabınızdaki işlemlerden ve giriş yaptığınız cihazların güvenliğinden siz sorumlusunuz. Hesabınıza yetkisiz erişimden şüphelenirseniz açık oturumlarınızı sonlandırın ve bize hemen haber verin.",
+            "Hesabınıza ekip üyesi davet edebilirsiniz; davet ettiğiniz kişilerin hesabınızdaki işlemlerinden de siz sorumlusunuz. Hesap bilgilerinizin doğru ve güncel olmasını sağlamalısınız."
+          ]
+        },
+        {
+          "id": "yukumlulukler",
+          "baslik": "4. Kullanıcı yükümlülükleri",
+          "bloklar": [
+            {
+              "liste": [
+                "Formlarda ve panelde doğru bilgi vermek; başkası adına onun izni olmadan işlem yapmamak.",
+                "Bize ilettiğiniz metin, görsel, logo, yazılım ve verilerin kullanım haklarına sahip olmak ve bunların hukuka uygun olmasını sağlamak.",
+                "Sitelerinize bakım ya da izleme için erişim veriyorsanız buna yetkili olmak.",
+                "Kişisel verilerini bize ilettiğiniz üçüncü kişileri (ör. kendi müşterileriniz ve ekip üyeleriniz) mevzuata uygun şekilde bilgilendirmek.",
+                "Ödeme yükümlülüklerinizi zamanında yerine getirmek."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "yasak",
+          "baslik": "5. Yasak kullanımlar",
+          "bloklar": [
+            "Aşağıdakiler yasaktır:",
+            {
+              "liste": [
+                "Siteyi ya da hizmetleri hukuka aykırı amaçlarla veya başkalarının haklarını ihlal edecek şekilde kullanmak.",
+                "Zararlı yazılım yüklemek, güvenlik önlemlerini aşmaya ya da başka kullanıcıların verilerine erişmeye çalışmak.",
+                "Otomatik araçlarla aşırı istek göndermek, istek sınırlarını aşmaya çalışmak ya da içerikleri izinsiz olarak toplu kopyalamak.",
+                "Formları ve analiz aracını istenmeyen ileti (spam) göndermek ya da başkalarının sitelerine saldırmak için kullanmak.",
+                "Yapay zekâ asistanlarını hukuka aykırı, yanıltıcı ya da zararlı içerik üretmek için kullanmak veya kurallarını aşmaya çalışmak.",
+                "Kişisel verileri hukuka aykırı biçimde paylaşmak."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ucretler",
+          "baslik": "6. Ücretler ve ödeme",
+          "bloklar": [
+            "Paketlerin, modüllerin ve hizmetlerin güncel fiyatları sitede ya da size özel teklifte yer alır. Vergiler ve ödenecek toplam tutar teklifte ve faturada açıkça gösterilir.",
+            "“Kullandıkça Öde” kredileri satın alındıkları tarihten itibaren 12 ay geçerlidir; bu sürenin sonunda kullanılmayan krediler düşer. Abonelik ve yenileme koşulları ilgili paket açıklamasında ya da teklifte belirtilir.",
+            "Ödemeler, kart bilgilerinizi kendi güvenli sayfalarında alan ödeme sağlayıcıları üzerinden yapılır: Türk lirası ödemelerde Shopier, döviz ödemelerinde Lemon Squeezy. Havale ya da EFT ile de ödeme yapabilirsiniz. Kart bilgileriniz bize ulaşmaz. Ödeme sağlayıcılarının kendi koşulları da geçerlidir; Lemon Squeezy ile yapılan ödemelerde tahsilatın kartınızın para biriminden farklı bir para biriminde yapılabileceğini ve bankanızın ek masraf uygulayabileceğini dikkate alın.",
+            "Ödemesi zamanında yapılmayan işlerde, ödeme yapılana kadar teslimatı ya da hizmeti durdurabiliriz."
+          ]
+        },
+        {
+          "id": "cayma",
+          "baslik": "7. Cayma hakkı ve iade",
+          "bloklar": [
+            "Tüketiciyseniz 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği'nden doğan haklarınız saklıdır. Kural olarak, sözleşmenin kurulduğu tarihten itibaren 14 gün içinde gerekçe göstermeden ve cezai şart ödemeden cayma hakkınız vardır.",
+            "Yönetmeliğin 15. maddesindeki istisnalar uygulanır. Örneğin cayma süresi dolmadan sizin onayınızla ifasına başlanan hizmetlerde, elektronik ortamda anında ifa edilen hizmetlerde, anında teslim edilen dijital içerikte ve sizin istekleriniz ya da kişisel ihtiyaçlarınız doğrultusunda hazırlanan işlerde cayma hakkı kullanılamaz.",
+            "Cayma bildiriminizi [{{eposta}}](mailto:{{eposta}}) adresine iletebilirsiniz. Cayma hakkınızı kullandığınızda ödediğiniz tutar, bildiriminizin bize ulaşmasından itibaren 14 gün içinde ödemede kullandığınız araçla iade edilir.",
+            "Tüketici sıfatı taşımayan, yani ticari ya da mesleki amaçla hareket eden müşteriler için iade ve iptal koşulları teklifte ya da sözleşmede belirlenir."
+          ]
+        },
+        {
+          "id": "fikri-mulkiyet",
+          "baslik": "8. Fikri mülkiyet",
+          "bloklar": [
+            "Sitedeki tasarım, metinler, logo, “By Mehmet KURU Dev” markası ve yazılım bize ya da lisans verenlerimize aittir; yazılı izin olmadan kopyalanamaz, çoğaltılamaz ya da ticari amaçla kullanılamaz. Blog yazılarından kaynak göstererek kısa alıntı yapabilirsiniz.",
+            "Size teslim edilen işlerin (tasarım, kaynak kod, içerik vb.) mülkiyeti ve kullanım hakları ile bunların kapsamı ve devir zamanı ilgili teklifte ya da sözleşmede belirlenir. Teslim edilen işlerde kullanılan üçüncü taraf bileşenler (açık kaynak kütüphaneler, yazı tipleri, temalar, görseller) kendi lisanslarına tabidir.",
+            "Bize ilettiğiniz içeriklerin hakları sizde kalır; hizmeti sunabilmemiz için gereken ölçüde bunları kullanmamıza izin vermiş olursunuz."
+          ]
+        },
+        {
+          "id": "ucuncu-taraf",
+          "baslik": "9. Üçüncü taraf hizmetler",
+          "bloklar": [
+            "Site ve hizmetler; barındırma, e-posta, ödeme, oturum açma, analitik ve yapay zekâ için üçüncü taraf hizmetlerden yararlanır (liste: [Gizlilik ve KVKK Aydınlatma Metni](sayfa:gizlilik#aktarim)). Bu hizmetlerin kullanımı ilgili sağlayıcının kendi koşullarına da tabidir. Sağlayıcılardan kaynaklanan kesinti ve değişiklikler hizmeti etkileyebilir; bunları en kısa sürede gidermek için çalışırız.",
+            "Siteden verilen dış bağlantıların içeriğinden sorumlu değiliz."
+          ]
+        },
+        {
+          "id": "sorumluluk",
+          "baslik": "10. Sorumluluğun sınırı",
+          "bloklar": [
+            "Siteyi ve ücretsiz araçları “olduğu gibi” sunarız; kesintisiz ve hatasız çalışacaklarını garanti etmeyiz. Bakım, güncelleme ya da altyapı sağlayıcılarından kaynaklanan kısa süreli kesintiler olabilir.",
+            "Mevzuatın izin verdiği ölçüde; dolaylı zararlardan, kâr kaybından ve sizin ya da üçüncü kişilerin kusurundan doğan zararlardan sorumlu değiliz. Ücretli hizmetlerden doğan sorumluluğumuz, sözleşmede aksi kararlaştırılmadıkça ilgili hizmet için ödediğiniz bedelle sınırlıdır. Kast ve ağır ihmal hâlleri ile tüketici mevzuatının sınırlandırılmasına izin vermediği sorumluluklar bu sınırlamanın dışındadır."
+          ]
+        },
+        {
+          "id": "degisiklik",
+          "baslik": "11. Hizmetin değiştirilmesi ve askıya alınması",
+          "bloklar": [
+            "Site özelliklerini, ücretsiz araçları ve bu koşulları geliştirme, güvenlik ya da mevzuat nedeniyle değiştirebiliriz. Güncel koşullar bu sayfada yayımlanır; son değişiklik tarihi sayfanın başındadır. Ücretli hizmetlerde sözleşme süresince aleyhinize esaslı bir değişiklik yapmayız.",
+            "Bu koşullara aykırı kullanım, güvenlik tehdidi ya da ödenmemiş borç hâlinde hesabınıza erişimi geçici olarak kısıtlayabilir ya da askıya alabiliriz. Mümkün olduğunda sizi önceden bilgilendiririz."
+          ]
+        },
+        {
+          "id": "hukuk",
+          "baslik": "12. Uygulanacak hukuk ve uyuşmazlıklar",
+          "bloklar": [
+            "Bu koşullar Türkiye Cumhuriyeti hukukuna tabidir.",
+            "Tüketiciler, Ticaret Bakanlığınca her yıl ilan edilen parasal sınırlar dahilinde yerleşim yerlerindeki ya da işlemi yaptıkları yerdeki Tüketici Hakem Heyetlerine, bu sınırları aşan uyuşmazlıklarda Tüketici Mahkemelerine başvurabilir. Tüketici sıfatı taşımayanlarla doğan uyuşmazlıklarda İstanbul Mahkemeleri ve İcra Daireleri yetkilidir.",
+            "Uyuşmazlıkları önce dostane yoldan çözmeyi öneririz; bunun için [{{eposta}}](mailto:{{eposta}}) adresine yazmanız yeterlidir."
+          ]
+        },
+        {
+          "id": "iletisim",
+          "baslik": "13. İletişim",
+          "bloklar": [
+            "Bu koşullarla ilgili sorularınız için [{{eposta}}](mailto:{{eposta}}) adresine yazabilirsiniz.",
+            {
+              "p": "Posta adresimiz: {{adres}}",
+              "kosul": "adres"
+            }
+          ]
+        }
+      ]
+    },
+    "cerezPolitikasi": {
+      "baslik": "Çerez Politikası",
+      "ozet": "mehmetkuru.dev'in tarayıcınızda hangi çerezleri ve benzeri depolama öğelerini, hangi amaçla ve ne kadar süreyle kullandığını açıklar.",
+      "bolumler": [
+        {
+          "id": "nedir",
+          "baslik": "1. Çerez ve benzeri teknolojiler",
+          "bloklar": [
+            "Çerezler, ziyaret ettiğiniz sitenin tarayıcınıza kaydettiği küçük metin dosyalarıdır. Benzer amaçla tarayıcının yerel depolaması (localStorage), oturum depolaması (sessionStorage) ve servis çalışanı önbelleği de kullanılabilir. Bu politikada hepsini kısaca “çerez” olarak anıyoruz."
+          ]
+        },
+        {
+          "id": "yaklasim",
+          "baslik": "2. Yaklaşımımız",
+          "bloklar": [
+            {
+              "liste": [
+                "Kendi sunucumuz çerez yerleştirmez. Oturumunuz ve tercihleriniz tarayıcınızın yerel depolamasında tutulur ve yalnızca site çalışırken okunur.",
+                "Google Analytics, Google Ads ve Meta Pixel, çerez bandında “Kabul et”i seçmediğiniz sürece hiç yüklenmez. “Reddet” düğmesi “Kabul et” kadar görünürdür ve reddetmeniz sitenin çalışmasını etkilemez.",
+                "Google Ads ve Meta Pixel ayrıca yalnızca yönetici panelinde etkinleştirilmişlerse çalışır."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "liste",
+          "baslik": "3. Kullandığımız çerezler",
+          "bloklar": [
+            {
+              "tablo": {
+                "basliklar": [
+                  "Ad",
+                  "Sağlayıcı",
+                  "Amaç",
+                  "Tür",
+                  "Süre"
+                ],
+                "satirlar": [
+                  [
+                    "token",
+                    "mehmetkuru.dev (yerel depolama)",
+                    "Giriş yaptığınızda oturum jetonunu tutar.",
+                    "Zorunlu",
+                    "Oturumu kapatana kadar; jeton en çok 7 gün geçerli"
+                  ],
+                  [
+                    "isLougOutManual",
+                    "mehmetkuru.dev (yerel depolama)",
+                    "Oturum kitaplığının, oturumu kendiniz kapattığınızı hatırlaması.",
+                    "Zorunlu",
+                    "Silinene kadar"
+                  ],
+                  [
+                    "mk_riza_v1",
+                    "mehmetkuru.dev (yerel depolama)",
+                    "Çerez bandındaki kabul ya da ret tercihinizi hatırlar.",
+                    "Zorunlu",
+                    "Tercihinizi değiştirene ya da silene kadar"
+                  ],
+                  [
+                    "mk_hesap",
+                    "mehmetkuru.dev (yerel depolama)",
+                    "Birden çok müşteri hesabına erişiminiz varsa panelde seçtiğiniz hesabı hatırlar.",
+                    "Zorunlu",
+                    "Silinene kadar"
+                  ],
+                  [
+                    "mk_kesif_ozeti",
+                    "mehmetkuru.dev (oturum depolaması)",
+                    "Keşif Asistanı özetini aynı sekmede iletişim kanallarına taşır.",
+                    "Zorunlu",
+                    "Sekme kapanınca silinir"
+                  ],
+                  [
+                    "mk-v3-kabuk, mk-v3-varlik",
+                    "mehmetkuru.dev (servis çalışanı önbelleği)",
+                    "Sayfaların ve dosyaların hızlı ve çevrimdışı açılabilmesi.",
+                    "Zorunlu",
+                    "Site sürümü değişene kadar"
+                  ],
+                  [
+                    "__cf_bm",
+                    "Cloudflare (çerez)",
+                    "Kötü amaçlı otomatik trafiği ayırt etmek; yalnızca ilgili Cloudflare güvenlik özelliği etkinse yerleştirilir.",
+                    "Zorunlu",
+                    "30 dakika"
+                  ],
+                  [
+                    "lang",
+                    "mehmetkuru.dev (yerel depolama)",
+                    "Seçtiğiniz dili hatırlar.",
+                    "Tercih",
+                    "Silinene kadar"
+                  ],
+                  [
+                    "mk_site_settings_v2",
+                    "mehmetkuru.dev (yerel depolama)",
+                    "Site metinleri ve görünüm ayarlarının önbelleği; kişisel veri içermez.",
+                    "Tercih",
+                    "Silinene kadar (her ziyarette yenilenir)"
+                  ],
+                  [
+                    "gorunum-onizleme",
+                    "mehmetkuru.dev (yerel depolama)",
+                    "Klasik ya da Modern görünüm önizleme seçiminiz.",
+                    "Tercih",
+                    "Silinene kadar"
+                  ],
+                  [
+                    "mk_profile_<e-posta>",
+                    "mehmetkuru.dev (yerel depolama)",
+                    "Müşteri panelinde kaydettiğiniz profil bilgileri (ad, telefon, firma); yalnızca bu tarayıcıda tutulur.",
+                    "Tercih",
+                    "Silinene kadar"
+                  ],
+                  [
+                    "_ga, _ga_<kimlik>",
+                    "Google Analytics 4 (çerez)",
+                    "Ziyaretleri ayırt ederek site kullanım istatistiği üretmek.",
+                    "Analitik (onayla)",
+                    "2 yıl"
+                  ],
+                  [
+                    "_gcl_au",
+                    "Google Ads (çerez)",
+                    "Reklam tıklamalarından gelen dönüşümleri ölçmek.",
+                    "Pazarlama (onayla)",
+                    "90 gün"
+                  ],
+                  [
+                    "_fbp",
+                    "Meta Pixel (çerez)",
+                    "Meta reklamlarının etkisini ölçmek.",
+                    "Pazarlama (onayla)",
+                    "90 gün"
+                  ]
+                ]
+              }
+            },
+            "Google ve Meta, kendi alan adlarında oturum açtığınız hesaplara bağlı ek çerezler de kullanabilir; bunlar ilgili şirketin politikasına tabidir. Üçüncü taraf çerezlerinin süreleri, sağlayıcıların belirlediği en uzun sürelerdir."
+          ]
+        },
+        {
+          "id": "ucuncu-taraf",
+          "baslik": "4. Üçüncü taraf içerikler",
+          "bloklar": [
+            {
+              "liste": [
+                "**Google Haritalar:** İletişim sayfasındaki harita Google'dan gömülü olarak yüklenir; Google bu çerçevede kendi çerezlerini kullanabilir.",
+                "**Google Fonts:** Arapça ya da Hintçe dilini seçtiğinizde ilgili yazı tipleri Google sunucularından indirilir; bu sırada IP adresiniz Google'a iletilir. Diğer dillerin yazı tipleri kendi sunucumuzdan gelir.",
+                "**Ödeme sayfaları:** Shopier ve Lemon Squeezy ödeme sayfaları kendi alan adlarında açılır ve kendi çerezlerini kullanır.",
+                "**Web Push:** Bildirimlere izin verirseniz tarayıcınız bir abonelik oluşturur; bu izni tarayıcı ayarlarından ya da müşteri panelindeki bildirim tercihlerinden kaldırabilirsiniz."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "yonetim",
+          "baslik": "5. Tercihlerinizi yönetme",
+          "bloklar": [
+            "Tercihinizi istediğiniz zaman değiştirebilirsiniz. Aşağıdaki düğme kararınızı sıfırlar ve çerez bandını yeniden açar; sitenin alt bilgisindeki “Çerez tercihleri” bağlantısı da aynı işi görür.",
+            {
+              "ozel": "cerezTercihi"
+            },
+            "Onayınızı geri aldığınızda analitik ve pazarlama araçları bir sonraki sayfa yüklemesinden itibaren yüklenmez. Daha önce yerleştirilmiş çerezleri tarayıcınızın ayarlarından silebilirsiniz. Tarayıcınızda çerezleri ya da site verilerini tamamen engellerseniz oturum açma gibi bazı özellikler çalışmayabilir."
+          ]
+        },
+        {
+          "id": "hukuki-sebep",
+          "baslik": "6. Hukuki sebep",
+          "bloklar": [
+            "Zorunlu ve tercih çerezleri, hizmetin sunulması ve sitenin güvenli çalışması için KVKK'nın 5. maddesinin 2. fıkrasının (c) ve (f) bentleri kapsamında kullanılır. Analitik ve pazarlama çerezleri yalnızca açık rızanıza dayanır. Bu çerezlerle toplanan verilerin yurt dışındaki sağlayıcılara aktarımı KVKK'nın 9. maddesine uygun olarak yapılır. Kişisel verilerinizle ilgili ayrıntılar ve haklarınız için: [Gizlilik ve KVKK Aydınlatma Metni](sayfa:gizlilik)."
+          ]
+        },
+        {
+          "id": "degisiklikler",
+          "baslik": "7. Değişiklikler ve iletişim",
+          "bloklar": [
+            "Kullandığımız çerezler değiştiğinde bu sayfayı güncelleriz; son güncelleme tarihi sayfanın başındadır. Sorularınız için: [{{eposta}}](mailto:{{eposta}})."
+          ]
+        }
+      ]
+    }
+  }
+}

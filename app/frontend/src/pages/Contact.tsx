@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import SocialLinks from '@/components/SocialLinks';
 import StoreBadges from '@/components/StoreBadges';
 import { useSiteSettings } from '@/lib/siteSettings';
+import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 
 
 
@@ -314,6 +315,7 @@ export default function Contact() {
                     </>
                   )}
                 </Button>
+                <AydinlatmaSatiri className="text-center text-xs leading-relaxed text-muted-foreground" />
               </form>
             </div>
           </div>

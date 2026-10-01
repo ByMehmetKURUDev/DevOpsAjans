@@ -3,6 +3,7 @@ import { CheckCircle2, Loader2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
+import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 import { Button } from '@/components/ui/button';
 import { ekYukle } from '@/i18n';
 import { client } from '@/lib/sdkClient';
@@ -186,9 +187,7 @@ export default function HizliTalep({
               {gonderiliyor ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : null}
               {t('hizliTalep.gonder', 'Gönder')}
             </Button>
-            <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
-              {t('hizliTalep.gizlilik', 'Bilgileriniz yalnızca bu talep için kullanılır.')}
-            </p>
+            <AydinlatmaSatiri metin={t('hizliTalep.gizlilik', 'Bilgileriniz yalnızca bu talep için kullanılır.')} />
           </form>
         )}
       </div>

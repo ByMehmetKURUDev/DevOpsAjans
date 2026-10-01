@@ -615,7 +615,10 @@
     "contact": "Контакты",
     "copyright": "By@MehmetKURU.Dev",
     "siteAnalizi": "Бесплатный анализ сайта",
-    "roadmap": "Дорожная карта"
+    "roadmap": "Дорожная карта",
+    "gizlilik": "Конфиденциальность и KVKK",
+    "kullanimKosullari": "Условия использования",
+    "cerezPolitikasi": "Политика cookie"
   },
   "settingsForm": {
     "brandTitle": "Бренд",
@@ -1299,7 +1302,6 @@
   "riza": {
     "baslik": "Выбор по cookie и аналитике",
     "metin": "Мы хотели бы использовать Google Analytics, Google Ads и инструменты Meta, чтобы измерять использование сайта и оценивать рекламу. Если вы откажетесь, ничего из этого не загрузится; сайт работает так же.",
-    "detay": "Напишите нам, если есть вопросы",
     "kabul": "Принять",
     "reddet": "Отклонить",
     "tercihler": "Настройки cookie"

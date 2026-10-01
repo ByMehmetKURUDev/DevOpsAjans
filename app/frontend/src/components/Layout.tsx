@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { gorunumUygula } from '@/lib/gorunum';
 import { Menu, X, User, LogIn, LogOut, UserPlus, Languages } from 'lucide-react';
 import AsistanSohbeti from '@/components/AsistanSohbeti';
@@ -34,6 +34,7 @@ import {
   PAGE_SEO,
   PAGE_SEO_KEYS,
   SITE_NAME,
+  YASAL_SAYFALAR,
   absoluteUrl,
   canonicalPathFor as normalizeRoutePath,
   getLanguage as getSiteLanguage,
@@ -248,8 +249,9 @@ export default function Layout() {
   useEffect(() => {
     const currentPath = normalizeRoutePath(location.pathname);
 
-    // Tekil blog yazısı ve Kaynaklar sayfaları başlığını kendisi yönetiyor.
+    // Tekil blog yazısı, Kaynaklar ve yasal sayfalar (Faz 3Y) başlığını kendisi yönetiyor.
     if (isBlogPostPath(currentPath) || KAYNAK_YOLU.test(currentPath)) return;
+    if (YASAL_SAYFALAR.includes(resolveRoute(currentPath).pageKey ?? '')) return;
 
     const routeMeta = getRouteMeta(currentPath, settings);
     const title = routeMeta?.title || SITE_NAME;
@@ -660,6 +662,19 @@ export default function Layout() {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t border-white/5 py-6 text-center text-xs text-muted-foreground">
           <span>&copy; 2026 {t('footer.copyright')}</span>
+          {/* Faz 3Y: yasal sayfalar (dile göre adres). */}
+          {(YASAL_SAYFALAR as string[]).map((sayfa) => (
+            <Fragment key={sayfa}>
+              <span aria-hidden="true">·</span>
+              <Link
+                to={localizedPath(activeLang, sayfa)}
+                className="inline-block py-1 underline-offset-2 transition-colors hover:text-foreground hover:underline"
+                data-yasal-baglanti={sayfa}
+              >
+                {t(`footer.${sayfa}`)}
+              </Link>
+            </Fragment>
+          ))}
           <span aria-hidden="true">·</span>
           {/*
             Rızayı geri almanın bir yolu olmak zorunda: KVKK ve GDPR

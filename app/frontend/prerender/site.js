@@ -49,6 +49,9 @@ export function getLanguage(code) {
  * (`/kaynaklar/<slug>`) veriden üretiliyor (prerender/kaynaklar-veri.js).
  * Varsayılan başlık/açıklaması PAGE_SEO'da DEĞİL, `kaynaklar-seo.js`'te —
  * bu dosya ana pakete giriyor, yedi dillik metin oraya taşınmasın.
+ *
+ * Yasal sayfalar (Faz 3Y): `gizlilik`, `kullanimKosullari`, `cerezPolitikasi`.
+ * Aynı gerekçeyle varsayılan başlık/açıklamaları `yasal-seo.js`'te.
  */
 export const PAGE_KEYS = [
   'home',
@@ -59,7 +62,13 @@ export const PAGE_KEYS = [
   'roadmap',
   'siteAnalysis',
   'kaynaklar',
+  'gizlilik',
+  'kullanimKosullari',
+  'cerezPolitikasi',
 ];
+
+/** PAGE_SEO'da metni olmayan, başlığını kendi dosyasından alan yasal sayfalar. */
+export const YASAL_SAYFALAR = ['gizlilik', 'kullanimKosullari', 'cerezPolitikasi'];
 
 /** Sayfa anahtarı → Türkçe kökteki route yolu. */
 export const PAGE_PATHS = {
@@ -71,6 +80,9 @@ export const PAGE_PATHS = {
   roadmap: '/yol-haritasi',
   siteAnalysis: '/site-analizi',
   kaynaklar: '/kaynaklar',
+  gizlilik: '/gizlilik',
+  kullanimKosullari: '/kullanim-kosullari',
+  cerezPolitikasi: '/cerez-politikasi',
 };
 
 export const PAGE_PRIORITY = {
@@ -82,6 +94,9 @@ export const PAGE_PRIORITY = {
   roadmap: 0.6,
   siteAnalysis: 0.7,
   kaynaklar: 0.75,
+  gizlilik: 0.3,
+  kullanimKosullari: 0.3,
+  cerezPolitikasi: 0.3,
 };
 
 /**
@@ -371,6 +386,9 @@ export const PAGE_SEO_KEYS = {
   roadmap: { title: 'seo_title_roadmap', description: 'seo_desc_roadmap' },
   siteAnalysis: { title: 'seo_title_site_analysis', description: 'seo_desc_site_analysis' },
   kaynaklar: { title: 'seo_title_kaynaklar', description: 'seo_desc_kaynaklar' },
+  gizlilik: { title: 'seo_title_gizlilik', description: 'seo_desc_gizlilik' },
+  kullanimKosullari: { title: 'seo_title_kullanim_kosullari', description: 'seo_desc_kullanim_kosullari' },
+  cerezPolitikasi: { title: 'seo_title_cerez_politikasi', description: 'seo_desc_cerez_politikasi' },
   blog: { title: 'seo_title_blog', description: 'seo_desc_blog' },
 };
 

@@ -1,0 +1,23 @@
+{
+  "yasalAyar": {
+    "baslik": "Legal information",
+    "aciklama": "Data controller details shown on the Privacy/KVKK, Terms of Use and Cookie Policy pages. Address, KEP, tax ID and MERSIS are not shown at all when left empty.",
+    "alan": {
+      "unvan": "Name",
+      "eposta": "Contact email",
+      "adres": "Address (optional)",
+      "kep": "KEP address (optional)",
+      "vkn": "Tax ID number (optional)",
+      "mersis": "MERSIS number (optional)",
+      "sonGuncelleme": "Last updated date"
+    },
+    "varsayilan": "If empty: {{deger}}",
+    "kaydet": "Save",
+    "kaydedildi": "Legal information saved.",
+    "hata": "Could not save.",
+    "tarihHatasi": "The date must be in YYYY-MM-DD format.",
+    "epostaHatasi": "Enter a valid email address.",
+    "sayfalar": "View pages",
+    "not": "Changes appear on the website immediately; the page search engines see is updated with the next deployment."
+  }
+}

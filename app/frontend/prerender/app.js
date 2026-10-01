@@ -26,13 +26,17 @@ import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
 import KaynaklarListesi from '../src/pages/kaynaklar/KaynaklarListesi';
 import KaynakDetay from '../src/pages/kaynaklar/KaynakDetay';
+import YasalSayfa from '../src/pages/yasal/YasalSayfa';
 import { gomuluVeriyiAyarla } from '../src/lib/kaynaklar';
+import { yasalVeriyiAyarla } from '../src/lib/yasal';
 import { extractFaq, getBlogPost, getPostSeoMeta } from '../src/lib/blog';
 // Derleme verisi (canlı API ya da tohum dosyası) — vite.config `kaynakVeriEklentisi` sağlıyor.
 import KAYNAK_VERISI from 'virtual:kaynaklar-veri';
 import { KAYNAKLAR_SEO, kaynakBasligi, metaAciklama } from './kaynaklar-seo.js';
 import { KAYNAK_DILLERI, detayVerisi, kaynakYolu, kaynakYolunuCoz, listeVerisi } from './kaynaklar-veri.js';
 import { loadPanelSettings, resolvePanelValue } from './settings.js';
+import { yasalSeo } from './yasal-seo.js';
+import { yasalAyarlariniYukle } from './yasal-yukle.js';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
@@ -42,6 +46,7 @@ import {
   SITE_NAME,
   SITE_OG_IMAGE,
   SITE_URL,
+  YASAL_SAYFALAR,
   absoluteUrl,
   canonicalPathFor,
   getLanguage,
@@ -102,6 +107,9 @@ function renderApp(url) {
             h(Route, { path: '/blog/:slug', element: h(BlogPostPage, null) }),
             h(Route, { path: '/kaynaklar', element: h(KaynaklarListesi, null) }),
             h(Route, { path: '/kaynaklar/:slug', element: h(KaynakDetay, null) }),
+            h(Route, { path: '/gizlilik', element: h(YasalSayfa, { sayfa: 'gizlilik' }) }),
+            h(Route, { path: '/kullanim-kosullari', element: h(YasalSayfa, { sayfa: 'kullanimKosullari' }) }),
+            h(Route, { path: '/cerez-politikasi', element: h(YasalSayfa, { sayfa: 'cerezPolitikasi' }) }),
           ),
           h(
             Route,
@@ -115,6 +123,9 @@ function renderApp(url) {
             h(Route, { path: 'site-analizi', element: h(SiteAnalizi, null) }),
             h(Route, { path: 'kaynaklar', element: h(KaynaklarListesi, null) }),
             h(Route, { path: 'kaynaklar/:slug', element: h(KaynakDetay, null) }),
+            h(Route, { path: 'gizlilik', element: h(YasalSayfa, { sayfa: 'gizlilik' }) }),
+            h(Route, { path: 'kullanim-kosullari', element: h(YasalSayfa, { sayfa: 'kullanimKosullari' }) }),
+            h(Route, { path: 'cerez-politikasi', element: h(YasalSayfa, { sayfa: 'cerezPolitikasi' }) }),
           ),
         ),
       ),
@@ -367,7 +378,7 @@ function buildHead({
   return { title, lang: language.htmlLang, elements: new Set(elements) };
 }
 
-function getHead(url, panelSettings = {}, kaynakVerisi = null) {
+function getHead(url, panelSettings = {}, kaynakVerisi = null, yasalVerisi = null) {
   // Kaynaklar (liste + ayrıntı, 7 dil) — PAGE_SEO yerine kendi metinleri.
   if (kaynakVerisi) return kaynakHead(kaynakVerisi, panelSettings);
 
@@ -497,6 +508,28 @@ function getHead(url, panelSettings = {}, kaynakVerisi = null) {
     });
   }
 
+  // Yasal sayfalar (Faz 3Y): varsayılan metin yasal-seo.js'te (ana pakete girmesin diye),
+  // panelden girilen SEO metni yine kazanır. Veri sorumlusu bilgileri sayfaya gömülüyor:
+  // istemci ilk çizimi prerender'la aynı değerlerle yapıyor (src/lib/yasal.ts).
+  if (pageKey && YASAL_SAYFALAR.includes(pageKey)) {
+    const seo = yasalSeo(lang, pageKey);
+    const keys = PAGE_SEO_KEYS[pageKey];
+    return buildHead({
+      title: resolvePanelValue(panelSettings, keys.title, lang, seo.title),
+      description: resolvePanelValue(panelSettings, keys.description, lang, seo.description),
+      canonicalPath: localizedPath(lang, pageKey),
+      ogType: 'website',
+      lang,
+      extra: [
+        ...hreflangElements(pageKey),
+        {
+          type: 'script',
+          props: { type: 'application/json', id: 'yasal-verisi', children: guvenliJson(yasalVerisi ?? {}) },
+        },
+      ],
+    });
+  }
+
   // Çok dilli statik sayfalar.
   if (pageKey) {
     const seo = PAGE_SEO[lang][pageKey];
@@ -544,6 +577,11 @@ export async function prerender({ url }) {
   const kaynakVerisi = kaynakEslesmesi ? kaynakGomuluVerisi(url, kaynakEslesmesi) : null;
   gomuluVeriyiAyarla(kaynakVerisi);
 
+  // Yasal sayfalar: veri sorumlusu bilgileri canlı API'den (5 sn; olmazsa varsayılanlar).
+  const yasalMi = YASAL_SAYFALAR.includes(resolveRoute(url).pageKey ?? '');
+  const yasalVerisi = yasalMi ? await yasalAyarlariniYukle() : null;
+  yasalVeriyiAyarla(yasalVerisi);
+
   // Blog Türkçe; statik sayfalar kendi dilinde render edilir.
   await i18n.changeLanguage(isBlog ? DEFAULT_LANGUAGE : lang);
 
@@ -553,7 +591,7 @@ export async function prerender({ url }) {
 
   return {
     html,
-    head: getHead(url, panelSettings, kaynakVerisi),
+    head: getHead(url, panelSettings, kaynakVerisi, yasalVerisi),
     ...(is404 ? { statusCode: 404 } : {}),
   };
 }

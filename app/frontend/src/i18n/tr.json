@@ -615,7 +615,10 @@
     "contact": "İletişim",
     "copyright": "By@MehmetKURU.Dev",
     "siteAnalizi": "Ücretsiz site analizi",
-    "roadmap": "Yol haritası"
+    "roadmap": "Yol haritası",
+    "gizlilik": "Gizlilik ve KVKK",
+    "kullanimKosullari": "Kullanım Koşulları",
+    "cerezPolitikasi": "Çerez Politikası"
   },
   "settingsForm": {
     "brandTitle": "Marka",
@@ -1300,7 +1303,6 @@
   "riza": {
     "baslik": "Çerez ve ölçüm tercihi",
     "metin": "Siteyi nasıl kullandığınızı ölçmek ve reklamları değerlendirmek için Google Analytics, Google Ads ve Meta araçlarını kullanmak istiyoruz. Reddederseniz bu araçların hiçbiri yüklenmez; site aynı şekilde çalışır.",
-    "detay": "Sorularınız için bize yazın",
     "kabul": "Kabul et",
     "reddet": "Reddet",
     "tercihler": "Çerez tercihleri"

@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, Loader2, Mail, Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
+import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 import { BolumKarti, PuanHalkasi } from '@/components/SiteRaporGorunumu';
 import {
   BOLUM_SIRASI,
@@ -252,6 +253,7 @@ export default function SiteAnalizi() {
                       {gonderiliyor ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : null}
                       {t('siteAnalizi.tamRapor.gonder')}
                     </Button>
+                    <AydinlatmaSatiri />
                   </div>
                 </form>
               )}

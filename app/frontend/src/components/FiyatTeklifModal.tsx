@@ -3,6 +3,7 @@ import { CheckCircle2, Loader2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
+import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 import { Button } from '@/components/ui/button';
 import { fiyatlandirmaApi, type FiyatTeklifIstegi } from '@/api/fiyatlandirma';
 
@@ -174,9 +175,7 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim,
               {gonderiliyor ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : null}
               {satinAl ? t('fiyatTeklif.odemeyeGec', 'Ödemeye geç') : t('fiyatTeklif.gonder', 'Teklifi Onayla ve Al')}
             </Button>
-            <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
-              {t('fiyatTeklif.gizlilik', 'Bilgileriniz yalnızca bu teklif için kullanılır.')}
-            </p>
+            <AydinlatmaSatiri metin={t('fiyatTeklif.gizlilik', 'Bilgileriniz yalnızca bu teklif için kullanılır.')} />
           </form>
         )}
       </div>

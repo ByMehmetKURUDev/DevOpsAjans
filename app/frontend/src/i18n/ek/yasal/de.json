@@ -1,0 +1,618 @@
+{
+  "yasal": {
+    "ortak": {
+      "etiket": "Rechtliches",
+      "sonGuncelleme": "Zuletzt aktualisiert",
+      "icindekiler": "Inhalt",
+      "basaDon": "Nach oben",
+      "digerBelgeler": "Weitere rechtliche Dokumente",
+      "alanlar": {
+        "unvan": "Name",
+        "eposta": "E-Mail",
+        "adres": "Anschrift",
+        "kep": "Registrierte E-Mail (KEP)",
+        "vkn": "Steuernummer",
+        "mersis": "MERSIS-Nummer",
+        "site": "Website"
+      },
+      "belgeler": {
+        "gizlilik": "Datenschutzerklärung und KVKK-Hinweise",
+        "kullanimKosullari": "Nutzungsbedingungen",
+        "cerezPolitikasi": "Cookie-Richtlinie"
+      },
+      "tercihDugmesi": "Cookie-Einstellungen ändern",
+      "tercihSifirlandi": "Ihre Auswahl wurde zurückgesetzt. Sie können im Banner, das sich unten auf der Seite geöffnet hat, neu wählen.",
+      "ozgunMetin": "Originaltext (Englisch)"
+    },
+    "gizlilik": {
+      "baslik": "Datenschutzerklärung und KVKK-Hinweise",
+      "ozet": "Diese Hinweise erklären gemäß Artikel 10 des türkischen Datenschutzgesetzes Nr. 6698 (KVKK), wie Ihre personenbezogenen Daten verarbeitet werden, wenn Sie die Website mehmetkuru.dev, das Kundenportal und unsere Leistungen nutzen.",
+      "limitedUse": "Die Nutzung von Informationen, die mehmetkuru.dev von Google-APIs erhält, und deren Übertragung an andere Apps erfolgen gemäß der Google API Services User Data Policy, einschließlich der Anforderungen zur eingeschränkten Nutzung (Limited Use).",
+      "bolumler": [
+        {
+          "id": "veri-sorumlusu",
+          "baslik": "1. Verantwortlicher",
+          "bloklar": [
+            "Ihre personenbezogenen Daten werden von {{unvan}}, dessen Angaben unten aufgeführt sind, als Verantwortlicher verarbeitet. „Wir“ bezeichnet in diesen Hinweisen den Verantwortlichen.",
+            {
+              "ozel": "veriSorumlusu"
+            },
+            "Diese Hinweise gelten für die Seiten unter der Domain mehmetkuru.dev, das Kundenportal, unsere auf anderen Websites einbettbaren Formulare und die darüber erbrachten Leistungen. Für Links zu anderen Websites gelten deren eigene Richtlinien."
+          ]
+        },
+        {
+          "id": "islenen-veriler",
+          "baslik": "2. Welche personenbezogenen Daten wir verarbeiten",
+          "bloklar": [
+            "Welche Daten verarbeitet werden, hängt von der genutzten Funktion ab. Wir fragen nur die Daten ab, die die jeweilige Funktion benötigt.",
+            {
+              "liste": [
+                "**Identität:** Ihr Vor- und Nachname (in Formularen und in Ihrem Konto); der Name, den Sie beim Annehmen eines Angebots oder beim Unterzeichnen eines Vertrags eingeben, und auf Wunsch das Unterschriftsbild, das Sie auf dem Bildschirm zeichnen.",
+                "**Kontakt:** Ihre E-Mail-Adresse und optional Ihre Telefonnummer und Ihr Firmenname.",
+                "**Kundenvorgänge:** Ihre Kontakt- und Angebotsanfragen; Nachrichten, Support-Tickets und E-Mails an die Support-Adresse; Projekt- und Aufgabendaten; von Ihnen geteilte Dateien; Angebots-, Vertrags- und Rechnungsdaten; die auf der Warteliste ausgewählten Module; die Adresse der zu analysierenden Website und die Analyseergebnisse; Erreichbarkeits- und SEO-Messungen Ihrer Websites; Ihre Gespräche mit den Fachassistenten; Fehlermeldungen und Feedback (Seitenadresse, Browserangaben und auf Wunsch ein Screenshot); Ihre Benachrichtigungseinstellungen.",
+                "**Finanzen:** Rechnungsbeträge, Zahlungsstatus, Zahlungsart und die Bestellnummer des Zahlungsanbieters. Ihre Kartendaten erreichen uns nicht; sie werden ausschließlich auf der Seite des Zahlungsanbieters eingegeben.",
+                "**Vorgangssicherheit:** die ID Ihres Google-Kontos; Sitzungsdaten (Beginn und zuletzt gesehen, eine Gerätezusammenfassung wie „Chrome · macOS“, die Browserkennung); ein gesalzener Einweg-Hash Ihrer IP-Adresse; Bestätigungs- und Vorgangsprotokolle (Zeitpunkt, IP-Hash, Browserangaben, Hashwert des bestätigten Textes); und, falls Sie Web-Push-Benachrichtigungen erlauben, die von Ihrem Browser erzeugte Abonnementadresse.",
+                "**Marketing:** nur mit Ihrer ausdrücklichen Einwilligung Cookies von Google Analytics, Google Ads und Meta Pixel sowie die damit erfassten Nutzungs- und Werbeinteraktionsdaten."
+              ]
+            },
+            "Ihre vollständige IP-Adresse speichern wir nicht in unserer Datenbank; um Missbrauch zu verhindern und die Beweiskraft von Protokollen zu wahren, speichern wir nur einen nicht umkehrbaren Hash. Besondere Kategorien personenbezogener Daten wie Gesundheits- oder biometrische Daten fragen wir nicht ab; bitte geben Sie solche Angaben nicht in Formulare oder Nachrichten ein."
+          ]
+        },
+        {
+          "id": "amaclar",
+          "baslik": "3. Zwecke der Verarbeitung",
+          "bloklar": [
+            {
+              "liste": [
+                "Beantwortung von Anfragen über das Kontaktformular, die Schnellanfrage sowie die Angebots- und Kauffenster; Erstellung von Angeboten und Rechnungen.",
+                "Anlegen Ihres Kundenkontos, Anmeldung mit Google und Verwaltung Ihrer Sitzungen.",
+                "Erbringung der vertraglich vereinbarten Leistungen: Projektverfolgung, Support, Nachrichten, Dateiaustausch, Website-Pflege und -Überwachung, Berichte.",
+                "Elektronische Annahme und Unterzeichnung von Angeboten und Verträgen sowie Aufbewahrung des Nachweises darüber.",
+                "Rechnungsstellung, Zahlungseinzug sowie Erfüllung buchhalterischer und steuerlicher Pflichten.",
+                "Durchführung der kostenlosen Website-Analyse und auf Wunsch Versand des vollständigen Berichts per E-Mail.",
+                "Benachrichtigung, sobald die ausgewählten Module verfügbar sind, wenn Sie sich auf die Warteliste setzen.",
+                "Versand von In-App-Benachrichtigungen, E-Mails und, falls erlaubt, Web-Push-Benachrichtigungen.",
+                "Beantwortung Ihrer Fragen durch KI-Assistenten und Empfehlung eines passenden Pakets.",
+                "Informationssicherheit: Verhinderung von Missbrauch und automatisierten Angriffen, Durchsetzung von Anfragelimits, Führung von Vorgangs- und Prüfprotokollen.",
+                "Fehlerbehebung und Weiterentwicklung unserer Leistungen.",
+                "Nur mit Ihrer ausdrücklichen Einwilligung: Messung der Website-Nutzung und Bewertung der Werbewirkung.",
+                "Wahrung unserer Rechte bei Streitigkeiten und Beantwortung von Anfragen zuständiger Behörden."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "hukuki-sebepler",
+          "baslik": "4. Erhebung der Daten und Rechtsgrundlagen",
+          "bloklar": [
+            "Wir erheben Ihre personenbezogenen Daten elektronisch: über die Formulare der Website und das Kundenportal, über E-Mails, die Sie uns senden, von Google bei der Anmeldung mit Google, vom Zahlungsanbieter bei einer Zahlung (Zahlungsergebnis und Bestelldaten) sowie automatisch beim Betrieb der Website (Sitzungs- und Sicherheitsprotokolle, Browserspeicher und, falls Sie eingewilligt haben, Cookies).",
+            "Wir verarbeiten Ihre Daten auf Grundlage der folgenden in Artikel 5 Absatz 2 KVKK genannten Rechtsgründe:",
+            {
+              "liste": [
+                "**(c) Abschluss oder Erfüllung eines Vertrags:** Konto, Angebot, Vertrag, Projekt, Support, Nachrichten, Dateien, Rechnungen und Zahlungen; Anfrage- und Angebotskorrespondenz vor dem Kauf.",
+                "**(ç) Erfüllung einer rechtlichen Verpflichtung:** Rechnungs- und Buchhaltungsunterlagen, Steuerrecht und Anfragen zuständiger Behörden.",
+                "**(e) Begründung, Ausübung oder Verteidigung eines Rechts:** Angebotsannahme, Vertragsunterzeichnung und Bestätigungsnachweise, Vorgangs- und Prüfprotokolle.",
+                "**(f) Berechtigtes Interesse** (sofern Ihre Grundrechte und Grundfreiheiten nicht beeinträchtigt werden): Informationssicherheit, Missbrauchsverhinderung, Anfragelimits, Fehlerbehebung und Weiterentwicklung der Leistungen, die kostenlose Website-Analyse und die Beantwortung von Kontaktanfragen."
+              ]
+            },
+            "**Ihre ausdrückliche Einwilligung** wird nur für Analyse- und Marketing-Cookies (Google Analytics, Google Ads, Meta Pixel) und für den Versand kommerzieller elektronischer Nachrichten eingeholt. Ohne Einwilligung können Sie trotzdem alle Leistungen nutzen, und Sie können Ihre Einwilligung jederzeit widerrufen. Einzelheiten: [Cookie-Richtlinie](sayfa:cerezPolitikasi)."
+          ]
+        },
+        {
+          "id": "aktarim",
+          "baslik": "5. Übermittlung personenbezogener Daten",
+          "bloklar": [
+            "Wir verkaufen Ihre personenbezogenen Daten nicht und geben sie nicht zu Werbezwecken an Dritte weiter. Zur Erbringung der Leistung können Ihre Daten nur im jeweils erforderlichen Umfang und gemäß Artikel 8 und 9 KVKK an die folgenden Empfängergruppen übermittelt werden. Ein Teil dieser Anbieter betreibt Server außerhalb der Türkei.",
+            {
+              "tablo": {
+                "basliklar": [
+                  "Empfänger",
+                  "Zweck",
+                  "Standort"
+                ],
+                "satirlar": [
+                  [
+                    "Cloudflare, Inc.",
+                    "Hosting und Auslieferung der Website (CDN), Domain-Namensdienst (DNS), Sicherheit und API-Proxy; falls eingerichtet, Dateispeicher (R2)",
+                    "Globales Netzwerk; USA"
+                  ],
+                  [
+                    "Render Services, Inc.",
+                    "Anwendungsserver und Datenbank-Hosting",
+                    "Deutschland (Frankfurt); USA"
+                  ],
+                  [
+                    "Resend, Inc.",
+                    "Versand von Benachrichtigungs-, Berichts-, Angebots- und Rechnungs-E-Mails; Empfang von E-Mails an die Support-Adresse",
+                    "USA"
+                  ],
+                  [
+                    "Google LLC / Google Ireland Ltd.",
+                    "Anmeldung mit Google; KI-Funktionen (Gemini API); PageSpeed Insights für die Website-Analyse; mit Ihrer Einwilligung Google Analytics und Google Ads; Schriftarten für Arabisch und Hindi (Google Fonts); die Karte auf der Kontaktseite (Google Maps)",
+                    "USA; EU"
+                  ],
+                  [
+                    "Lemon Squeezy, LLC",
+                    "Einzug von Kartenzahlungen in Fremdwährung (Ihr Name und Ihre E-Mail-Adresse werden auf der Zahlungsseite vorausgefüllt)",
+                    "USA"
+                  ],
+                  [
+                    "Shopier",
+                    "Einzug von Kartenzahlungen in türkischer Lira",
+                    "Türkei"
+                  ],
+                  [
+                    "Meta Platforms, Inc. / Meta Platforms Ireland Ltd.",
+                    "Mit Ihrer Einwilligung und falls aktiviert Werbemessung per Meta Pixel; falls aktiviert WhatsApp-Benachrichtigungen an den Administrator",
+                    "USA; EU"
+                  ],
+                  [
+                    "SMS-Anbieter (Netgsm oder Twilio)",
+                    "Falls aktiviert kurze Benachrichtigungen an den Administrator (können eine kurze Zusammenfassung einer Anfrage enthalten)",
+                    "Türkei (Netgsm); USA (Twilio)"
+                  ],
+                  [
+                    "Push-Dienste der Browser (z. B. Google, Mozilla, Apple)",
+                    "Zustellung von Web-Push-Benachrichtigungen an Ihr Gerät, falls Sie diese erlaubt haben",
+                    "Je nach Browserhersteller"
+                  ],
+                  [
+                    "Zuständige Behörden und Gerichte",
+                    "Rechtliche Verpflichtungen und behördliche Anfragen",
+                    "Türkei"
+                  ]
+                ]
+              }
+            },
+            "Nachrichten, die Sie an die KI-Funktionen schreiben, werden zur Erzeugung einer Antwort an den KI-Anbieter (derzeit Google Gemini API) übermittelt. Öffentliche Assistenten-Chats auf der Website werden auf unseren Servern nicht gespeichert. Gespräche mit den Fachassistenten im Kundenportal werden in Ihrem Konto gespeichert; gelöschte Chats werden aus Ihrer Ansicht entfernt, ihre endgültige Löschung können Sie bei uns beantragen. Wir empfehlen, in Assistenten-Chats keine persönlichen oder vertraulichen Angaben zu machen."
+          ]
+        },
+        {
+          "id": "saklama",
+          "baslik": "6. Speicherdauer und Löschung",
+          "bloklar": [
+            "Wir speichern Ihre personenbezogenen Daten so lange, wie es der Zweck der Verarbeitung erfordert, und für die gesetzlich vorgeschriebenen Aufbewahrungsfristen. Nach Ablauf werden die Daten gelöscht, vernichtet oder anonymisiert. Die wichtigsten in unserem System festgelegten Fristen:",
+            {
+              "liste": [
+                "Sitzungen: Ein Anmelde-Token ist höchstens 7 Tage gültig; Einträge beendeter oder abgemeldeter Sitzungen werden nach 30 Tagen gelöscht.",
+                "Gelöschte Datensätze bleiben (standardmäßig) 30 Tage im Papierkorb und werden dann endgültig gelöscht.",
+                "Kostenlose Website-Analyse: Analysen, aus denen keine Anfrage wird, werden samt E-Mail-Adresse nach 90 Tagen gelöscht; der ausführliche Bericht von Analysen in Kundenkonten wird nach 365 Tagen gelöscht, Punktzahl und Zusammenfassung bleiben erhalten.",
+                "Vorgangs- und Prüfprotokolle werden 365 Tage aufbewahrt.",
+                "Links zum Teilen von Dateien gelten höchstens 30 Tage, Bestätigungslinks standardmäßig 14 Tage (höchstens 90 Tage) und Berichtslinks der Website-Analyse 30 Tage.",
+                "Messwerte der Website-Überwachung werden 90 Tage, deren Tageszusammenfassungen 400 Tage aufbewahrt.",
+                "Öffentliche KI-Chats auf der Website werden auf dem Server nicht gespeichert.",
+                "Rechnungs-, Vertrags- und Buchhaltungsunterlagen werden für die im türkischen Steuerverfahrensgesetz und im türkischen Handelsgesetzbuch festgelegten Aufbewahrungsfristen für Bücher und Belege gespeichert.",
+                "Sonstige Daten (Anfragen, Nachrichten, Support-Vorgänge, Kontodaten) werden so lange gespeichert, wie es der Zweck erfordert, und für die gesetzlichen Verjährungsfristen.",
+                "Lokale Einträge in Ihrem Browser bleiben dort, bis Sie sie löschen oder sich abmelden (siehe [Cookie-Richtlinie](sayfa:cerezPolitikasi))."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "guvenlik",
+          "baslik": "7. Sicherheitsmaßnahmen",
+          "bloklar": [
+            "Wir treffen angemessene technische und organisatorische Maßnahmen zum Schutz Ihrer Daten. Die wichtigsten:",
+            {
+              "liste": [
+                "Alle Verbindungen sind per HTTPS verschlüsselt; Browser-Sicherheitsheader werden gesetzt.",
+                "Berechtigungen: Kunden sehen nur Datensätze ihres eigenen Kontos; Verwaltungsfunktionen stehen nur dem Administrator offen.",
+                "Sitzungen werden protokolliert; Sie können Ihre offenen Sitzungen im Kundenportal einsehen und beenden.",
+                "Für Anmeldung, Formulare und KI-Endpunkte gelten Anfragelimits und Schutzmaßnahmen gegen automatisierte (Bot-)Übermittlungen.",
+                "IP-Adressen werden als gesalzene Einweg-Hashes gespeichert; Tokens von Einmal-Bestätigungslinks werden in der Datenbank nur als Hashwert gespeichert; Freigabe-, Berichts- und Bestätigungslinks sind zeitlich begrenzt.",
+                "Das Aktualisierungstoken der Google-Verbindung wird verschlüsselt gespeichert; Zugriffstokens werden nur kurz im Arbeitsspeicher gehalten.",
+                "Dateien können nur von berechtigten Nutzern oder über zeitlich begrenzte Freigabelinks heruntergeladen werden.",
+                "Kartendaten werden in unserem System weder verarbeitet noch gespeichert.",
+                "Wichtige Vorgänge werden in einem Prüfprotokoll festgehalten."
+              ]
+            },
+            "Kein System ist völlig risikofrei. Erfahren wir von einer Datenpanne, informieren wir gemäß Artikel 12 KVKK die Datenschutzbehörde (Kişisel Verileri Koruma Kurulu) und, falls erforderlich, die betroffenen Personen."
+          ]
+        },
+        {
+          "id": "google-api",
+          "baslik": "8. Nutzerdaten aus Google-APIs",
+          "bloklar": [
+            "**Anmeldung mit Google:** Wenn Sie sich mit Ihrem Google-Konto anmelden, erhalten wir von Google nur Ihren Namen, Ihre E-Mail-Adresse und Ihre Konto-ID (OpenID Connect). Diese Angaben dienen ausschließlich dazu, Ihr Konto anzulegen, Sie zu erkennen und Ihnen die Anmeldung zu ermöglichen.",
+            "**Google-Verbindungen (Analytics, Search Console, YouTube):** Für das Leistungs-Dashboard im Verwaltungsbereich wird ausschließlich das eigene Google-Konto des Agentur-Administrators mit Nur-Lese-Berechtigungen verbunden (die „readonly“-Bereiche für Google Analytics, Search Console, YouTube und YouTube Analytics). Diese Verbindung greift nicht auf Google-Konten von Besuchern oder Kunden zu. Die abgerufenen Daten sind zusammengefasste Statistiken wie Besuche, Impressionen, Klicks, Abonnenten und Aufrufe und werden nur zur Anzeige im Dashboard verwendet.",
+            "Das Aktualisierungstoken wird verschlüsselt gespeichert; das Zugriffstoken wird nur etwa eine Stunde im Arbeitsspeicher gehalten. Wird die Verbindung getrennt, wird das Token bei Google widerrufen und der verschlüsselte Eintrag gelöscht; zuvor abgerufene zusammengefasste Statistiken werden höchstens 400 Tage aufbewahrt. Zugriffe, die Sie Ihrem Google-Konto erteilt haben, können Sie jederzeit auf der Seite [Google-Kontoberechtigungen](https://myaccount.google.com/permissions) entfernen.",
+            "Daten aus Google-APIs verkaufen wir nicht; wir verwenden oder übermitteln sie nicht zu Werbezwecken und nutzen sie nicht zum Training von KI-Modellen. Außer zu Sicherheitszwecken, zur Erfüllung gesetzlicher Pflichten oder mit Ihrer ausdrücklichen Erlaubnis lassen wir nicht zu, dass Menschen diese Daten lesen.",
+            {
+              "ozel": "limitedUse"
+            }
+          ]
+        },
+        {
+          "id": "cerezler",
+          "baslik": "9. Cookies und ähnliche Technologien",
+          "bloklar": [
+            "Unser eigener Server setzt keine Cookies; Ihre Sitzung und Einstellungen werden im lokalen Speicher Ihres Browsers gehalten. Google Analytics, Google Ads und Meta Pixel werden nur geladen, wenn Sie im Cookie-Banner „Akzeptieren“ wählen. Die ausführliche Liste und wie Sie Ihre Einstellungen ändern, finden Sie in der [Cookie-Richtlinie](sayfa:cerezPolitikasi)."
+          ]
+        },
+        {
+          "id": "haklariniz",
+          "baslik": "10. Ihre Rechte nach dem KVKK",
+          "bloklar": [
+            "Nach Artikel 11 KVKK können Sie gegenüber dem Verantwortlichen folgende Rechte geltend machen:",
+            {
+              "liste": [
+                "Auskunft darüber, ob Ihre personenbezogenen Daten verarbeitet werden.",
+                "Wenn ja, Informationen darüber anfordern.",
+                "Den Zweck der Verarbeitung erfahren und ob die Daten zweckentsprechend verwendet werden.",
+                "Die Dritten im In- und Ausland kennen, an die die Daten übermittelt wurden.",
+                "Die Berichtigung unvollständiger oder unrichtiger Daten verlangen.",
+                "Die Löschung oder Vernichtung der Daten unter den Voraussetzungen von Artikel 7 KVKK verlangen.",
+                "Verlangen, dass Berichtigungen, Löschungen und Vernichtungen den Dritten mitgeteilt werden, an die die Daten übermittelt wurden.",
+                "Einem für Sie nachteiligen Ergebnis widersprechen, das ausschließlich durch automatisierte Analyse der verarbeiteten Daten entsteht.",
+                "Ersatz des Schadens verlangen, der Ihnen durch rechtswidrige Verarbeitung entstanden ist."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "basvuru",
+          "baslik": "11. So stellen Sie einen Antrag",
+          "bloklar": [
+            "Zur Ausübung Ihrer Rechte können Sie sich gemäß der Verordnung über Verfahren und Grundsätze für Anträge an den Verantwortlichen auf einem der folgenden Wege an uns wenden:",
+            {
+              "liste": [
+                "E-Mail: [{{eposta}}](mailto:{{eposta}}). Wenn Sie von der bei uns hinterlegten E-Mail-Adresse schreiben, können wir Ihre Identität leichter prüfen.",
+                {
+                  "metin": "Registrierte elektronische Post (KEP): {{kep}}",
+                  "kosul": "kep"
+                },
+                {
+                  "metin": "Schriftlich: Sie können einen eigenhändig unterschriebenen Antrag persönlich oder über einen Notar an {{adres}} richten.",
+                  "kosul": "adres"
+                }
+              ]
+            },
+            "Ihr Antrag sollte Ihren Vor- und Nachnamen, bei türkischer Staatsangehörigkeit Ihre türkische Identitätsnummer (andernfalls Ihre Staatsangehörigkeit und Pass- oder Ausweisnummer), Ihre Zustellanschrift, gegebenenfalls Ihre E-Mail-Adresse und Telefonnummer sowie eine klare Beschreibung Ihres Anliegens enthalten.",
+            "Wir bearbeiten Ihren Antrag je nach Art des Anliegens so schnell wie möglich, spätestens innerhalb von 30 Tagen, und kostenlos. Verursacht die Bearbeitung zusätzliche Kosten, kann eine Gebühr nach dem von der Datenschutzbehörde festgelegten Tarif erhoben werden. Zur Identitätsprüfung können wir zusätzliche Angaben anfordern.",
+            "Wird Ihr Antrag abgelehnt, halten Sie die Antwort für unzureichend oder erhalten Sie nicht fristgerecht eine Antwort, können Sie innerhalb von 30 Tagen ab Kenntnis der Antwort, in jedem Fall aber innerhalb von 60 Tagen ab Antragstellung, Beschwerde bei der Datenschutzbehörde (Kişisel Verileri Koruma Kurulu) einlegen (Artikel 14 KVKK)."
+          ]
+        },
+        {
+          "id": "cocuklar",
+          "baslik": "12. Daten von Kindern",
+          "bloklar": [
+            "Unsere Website und Leistungen richten sich nicht an Personen unter 18 Jahren. Wenn Sie jünger als 18 sind, füllen Sie die Formulare bitte nicht ohne Ihre Eltern oder Ihren Vormund aus. Stellen wir fest, dass wir unbeabsichtigt Daten eines Kindes erhoben haben, löschen oder anonymisieren wir sie."
+          ]
+        },
+        {
+          "id": "degisiklikler",
+          "baslik": "13. Änderungen",
+          "bloklar": [
+            "Wir können diese Hinweise aktualisieren, wenn sich Gesetze, unsere Leistungen oder unsere Dienstleister ändern. Die aktuelle Fassung finden Sie immer auf dieser Seite; das Datum der letzten Änderung steht oben. Wesentliche Änderungen kündigen wir auf der Website und gegebenenfalls per E-Mail an."
+          ]
+        },
+        {
+          "id": "iletisim",
+          "baslik": "14. Kontakt",
+          "bloklar": [
+            "Bei Fragen zu diesen Hinweisen oder zu Ihren personenbezogenen Daten schreiben Sie uns an [{{eposta}}](mailto:{{eposta}})."
+          ]
+        }
+      ]
+    },
+    "kullanimKosullari": {
+      "baslik": "Nutzungsbedingungen",
+      "ozet": "Die Regeln, die bei der Nutzung der Website mehmetkuru.dev, des Kundenportals und unserer Leistungen gelten.",
+      "bolumler": [
+        {
+          "id": "taraflar",
+          "baslik": "1. Vertragsparteien und Geltungsbereich",
+          "bloklar": [
+            "Diese Bedingungen regeln das Verhältnis zwischen {{unvan}} („wir“), Betreiber der Website mehmetkuru.dev und des Kundenportals, und der Person, die die Website besucht, ein Konto eröffnet oder eine Leistung kauft („Sie“). Unsere Kontaktdaten finden Sie auf der Seite [Datenschutzerklärung und KVKK-Hinweise](sayfa:gizlilik#veri-sorumlusu).",
+            "Mit der Nutzung der Website akzeptieren Sie diese Bedingungen. Wurde mit Ihnen zusätzlich ein Angebot, ein Vertrag oder eine Auftragsbestätigung vereinbart, gehen die besonderen Bestimmungen dieses Dokuments diesen Bedingungen vor. Ihre Rechte aus dem Verbraucherrecht bleiben in jedem Fall unberührt."
+          ]
+        },
+        {
+          "id": "hizmet",
+          "baslik": "2. Beschreibung der Leistungen",
+          "bloklar": [
+            "Wir bieten Website-, E-Commerce- und SaaS-Entwicklung, technisches SEO, Anzeigenverwaltung und Messung, Social-Media- und Content-Leistungen, Website-Pflege und -Überwachung sowie fertige Pakete und Module an. Außerdem stellen wir Werkzeuge wie die kostenlose Website-Analyse, KI-Assistenten, die Seite Ressourcen und das Kundenportal (Projektverfolgung, Support, Nachrichten, Dateien, Angebote, Verträge und Rechnungen) bereit.",
+            "Umfang, Lieferzeit, Vergütung und Korrekturrunden kostenpflichtiger Leistungen sind im Angebot, im Vertrag oder in der Paketbeschreibung auf der Website festgelegt. Werbetexte auf der Website dienen nur der Information; maßgeblich ist das jeweilige Angebot bzw. der Vertrag.",
+            "Ergebnisse der kostenlosen Website-Analyse und Antworten der KI-Assistenten werden automatisch erzeugt und dienen nur der Information; sie können fehlerhaft oder unvollständig sein. Wir empfehlen, sie vor wichtigen Entscheidungen zu überprüfen."
+          ]
+        },
+        {
+          "id": "hesap",
+          "baslik": "3. Konto und Sicherheit",
+          "bloklar": [
+            "Sie melden sich mit Ihrem Google-Konto im Kundenportal an. Sie sind für die Vorgänge in Ihrem Konto und für die Sicherheit der Geräte verantwortlich, auf denen Sie angemeldet sind. Bei Verdacht auf unbefugten Zugriff beenden Sie Ihre offenen Sitzungen und informieren Sie uns umgehend.",
+            "Sie können Teammitglieder in Ihr Konto einladen; für deren Handlungen in Ihrem Konto sind ebenfalls Sie verantwortlich. Halten Sie Ihre Kontodaten korrekt und aktuell."
+          ]
+        },
+        {
+          "id": "yukumlulukler",
+          "baslik": "4. Ihre Pflichten",
+          "bloklar": [
+            {
+              "liste": [
+                "In Formularen und im Portal wahrheitsgemäße Angaben machen und nicht ohne Erlaubnis im Namen anderer handeln.",
+                "Die Nutzungsrechte an Texten, Bildern, Logos, Software und Daten besitzen, die Sie uns übermitteln, und für deren Rechtmäßigkeit sorgen.",
+                "Zur Erteilung des Zugriffs berechtigt sein, wenn Sie uns Zugang zu Ihren Websites für Pflege oder Überwachung gewähren.",
+                "Dritte, deren personenbezogene Daten Sie uns übermitteln (z. B. Ihre eigenen Kunden und Teammitglieder), gesetzeskonform informieren.",
+                "Ihren Zahlungsverpflichtungen fristgerecht nachkommen."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "yasak",
+          "baslik": "5. Verbotene Nutzungen",
+          "bloklar": [
+            "Folgendes ist untersagt:",
+            {
+              "liste": [
+                "Die Website oder Leistungen für rechtswidrige Zwecke oder unter Verletzung der Rechte anderer nutzen.",
+                "Schadsoftware hochladen oder versuchen, Sicherheitsmaßnahmen zu umgehen oder auf Daten anderer Nutzer zuzugreifen.",
+                "Mit automatisierten Werkzeugen übermäßig viele Anfragen senden, Anfragelimits zu umgehen versuchen oder Inhalte ohne Erlaubnis massenhaft kopieren.",
+                "Die Formulare oder das Analysewerkzeug für unerwünschte Nachrichten (Spam) oder Angriffe auf fremde Websites verwenden.",
+                "Die KI-Assistenten zur Erzeugung rechtswidriger, irreführender oder schädlicher Inhalte nutzen oder versuchen, ihre Regeln zu umgehen.",
+                "Personenbezogene Daten rechtswidrig weitergeben."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ucretler",
+          "baslik": "6. Preise und Zahlung",
+          "bloklar": [
+            "Die aktuellen Preise für Pakete, Module und Leistungen finden Sie auf der Website oder in einem für Sie erstellten Angebot. Steuern und der zu zahlende Gesamtbetrag sind im Angebot und auf der Rechnung klar ausgewiesen.",
+            "„Pay as you go“-Guthaben ist 12 Monate ab Kaufdatum gültig; nicht genutztes Guthaben verfällt am Ende dieses Zeitraums. Abonnement- und Verlängerungsbedingungen sind in der jeweiligen Paketbeschreibung oder im Angebot angegeben.",
+            "Zahlungen erfolgen über Zahlungsanbieter, die Ihre Kartendaten auf ihren eigenen sicheren Seiten entgegennehmen: Shopier für Zahlungen in türkischer Lira und Lemon Squeezy für Zahlungen in Fremdwährung. Sie können auch per Überweisung zahlen. Ihre Kartendaten erreichen uns nicht. Es gelten auch die Bedingungen der Zahlungsanbieter; beachten Sie bei Zahlungen über Lemon Squeezy, dass die Belastung in einer anderen Währung als der Ihrer Karte erfolgen kann und Ihre Bank zusätzliche Gebühren erheben kann.",
+            "Wird eine Leistung nicht fristgerecht bezahlt, können wir die Lieferung oder Leistung bis zur Zahlung aussetzen."
+          ]
+        },
+        {
+          "id": "cayma",
+          "baslik": "7. Widerrufsrecht und Erstattung",
+          "bloklar": [
+            "Wenn Sie Verbraucher sind, bleiben Ihre Rechte nach dem türkischen Verbraucherschutzgesetz Nr. 6502 und der Verordnung über Fernabsatzverträge unberührt. Grundsätzlich können Sie innerhalb von 14 Tagen ab Vertragsschluss ohne Angabe von Gründen und ohne Vertragsstrafe widerrufen.",
+            "Es gelten die Ausnahmen nach Artikel 15 der Verordnung. Das Widerrufsrecht besteht zum Beispiel nicht bei Leistungen, mit deren Ausführung vor Ablauf der Widerrufsfrist mit Ihrer Zustimmung begonnen wurde, bei elektronisch sofort erbrachten Leistungen, bei sofort gelieferten digitalen Inhalten sowie bei Arbeiten, die nach Ihren Wünschen oder persönlichen Bedürfnissen angefertigt werden.",
+            "Ihren Widerruf können Sie an [{{eposta}}](mailto:{{eposta}}) senden. Bei einem Widerruf erstatten wir den gezahlten Betrag innerhalb von 14 Tagen nach Eingang Ihrer Erklärung über das von Ihnen verwendete Zahlungsmittel.",
+            "Für Kunden, die keine Verbraucher sind, also zu gewerblichen oder beruflichen Zwecken handeln, werden Erstattungs- und Stornierungsbedingungen im Angebot oder Vertrag festgelegt."
+          ]
+        },
+        {
+          "id": "fikri-mulkiyet",
+          "baslik": "8. Geistiges Eigentum",
+          "bloklar": [
+            "Design, Texte, Logo, die Marke „By Mehmet KURU Dev“ und die Software der Website gehören uns oder unseren Lizenzgebern; sie dürfen ohne schriftliche Erlaubnis nicht kopiert, vervielfältigt oder kommerziell genutzt werden. Kurze Zitate aus Blogbeiträgen mit Quellenangabe sind erlaubt.",
+            "Eigentum und Nutzungsrechte an den an Sie gelieferten Arbeiten (Design, Quellcode, Inhalte usw.) sowie deren Umfang und Zeitpunkt der Übertragung werden im jeweiligen Angebot oder Vertrag festgelegt. Komponenten Dritter in gelieferten Arbeiten (Open-Source-Bibliotheken, Schriftarten, Themes, Bilder) unterliegen ihren eigenen Lizenzen.",
+            "Die Rechte an Inhalten, die Sie uns übermitteln, verbleiben bei Ihnen; Sie gestatten uns deren Nutzung in dem Umfang, der zur Erbringung der Leistung erforderlich ist."
+          ]
+        },
+        {
+          "id": "ucuncu-taraf",
+          "baslik": "9. Dienste Dritter",
+          "bloklar": [
+            "Website und Leistungen nutzen Dienste Dritter für Hosting, E-Mail, Zahlungen, Anmeldung, Analyse und KI (Liste: [Datenschutzerklärung und KVKK-Hinweise](sayfa:gizlilik#aktarim)). Für deren Nutzung gelten auch die Bedingungen des jeweiligen Anbieters. Störungen und Änderungen bei Anbietern können die Leistung beeinträchtigen; wir arbeiten daran, sie so schnell wie möglich zu beheben.",
+            "Für den Inhalt externer Links auf der Website sind wir nicht verantwortlich."
+          ]
+        },
+        {
+          "id": "sorumluluk",
+          "baslik": "10. Haftungsbeschränkung",
+          "bloklar": [
+            "Wir stellen die Website und die kostenlosen Werkzeuge „wie besehen“ bereit; wir garantieren nicht, dass sie unterbrechungs- und fehlerfrei funktionieren. Durch Wartung, Aktualisierungen oder Infrastrukturanbieter kann es zu kurzen Unterbrechungen kommen.",
+            "Soweit gesetzlich zulässig, haften wir nicht für mittelbare Schäden, entgangenen Gewinn oder Schäden, die durch Ihr Verschulden oder das Verschulden Dritter entstehen. Sofern vertraglich nichts anderes vereinbart ist, ist unsere Haftung aus kostenpflichtigen Leistungen auf die für die betreffende Leistung gezahlte Vergütung begrenzt. Vorsatz und grobe Fahrlässigkeit sowie Haftungen, deren Beschränkung das Verbraucherrecht nicht zulässt, sind von dieser Begrenzung ausgenommen."
+          ]
+        },
+        {
+          "id": "degisiklik",
+          "baslik": "11. Änderung und Aussetzung der Leistung",
+          "bloklar": [
+            "Wir können Funktionen der Website, kostenlose Werkzeuge und diese Bedingungen aus Gründen der Weiterentwicklung, Sicherheit oder Rechtslage ändern. Die aktuellen Bedingungen werden auf dieser Seite veröffentlicht; das Datum der letzten Änderung steht oben. Bei kostenpflichtigen Leistungen nehmen wir während der Vertragslaufzeit keine wesentlichen Änderungen zu Ihrem Nachteil vor.",
+            "Bei einer Nutzung entgegen diesen Bedingungen, einer Sicherheitsbedrohung oder offenen Forderungen können wir den Zugang zu Ihrem Konto vorübergehend einschränken oder sperren. Wenn möglich, informieren wir Sie vorher."
+          ]
+        },
+        {
+          "id": "hukuk",
+          "baslik": "12. Anwendbares Recht und Streitigkeiten",
+          "bloklar": [
+            "Diese Bedingungen unterliegen dem Recht der Republik Türkei.",
+            "Verbraucher können sich innerhalb der jährlich vom Handelsministerium bekanntgegebenen Wertgrenzen an die Verbraucherschiedsstellen (Tüketici Hakem Heyeti) an ihrem Wohnort oder am Ort des Geschäfts und bei höheren Streitwerten an die Verbrauchergerichte wenden. Für Streitigkeiten mit Nicht-Verbrauchern sind die Gerichte und Vollstreckungsämter in Istanbul zuständig.",
+            "Wir empfehlen, Streitigkeiten zunächst einvernehmlich zu lösen; schreiben Sie dazu einfach an [{{eposta}}](mailto:{{eposta}})."
+          ]
+        },
+        {
+          "id": "iletisim",
+          "baslik": "13. Kontakt",
+          "bloklar": [
+            "Bei Fragen zu diesen Bedingungen schreiben Sie uns an [{{eposta}}](mailto:{{eposta}}).",
+            {
+              "p": "Unsere Postanschrift: {{adres}}",
+              "kosul": "adres"
+            }
+          ]
+        }
+      ]
+    },
+    "cerezPolitikasi": {
+      "baslik": "Cookie-Richtlinie",
+      "ozet": "Erklärt, welche Cookies und ähnlichen Speicherelemente mehmetkuru.dev in Ihrem Browser zu welchem Zweck und wie lange verwendet.",
+      "bolumler": [
+        {
+          "id": "nedir",
+          "baslik": "1. Cookies und ähnliche Technologien",
+          "bloklar": [
+            "Cookies sind kleine Textdateien, die eine besuchte Website in Ihrem Browser speichert. Zu ähnlichen Zwecken können auch der lokale Speicher (localStorage), der Sitzungsspeicher (sessionStorage) und der Service-Worker-Cache des Browsers genutzt werden. In dieser Richtlinie bezeichnen wir all das kurz als „Cookies“."
+          ]
+        },
+        {
+          "id": "yaklasim",
+          "baslik": "2. Unser Ansatz",
+          "bloklar": [
+            {
+              "liste": [
+                "Unser eigener Server setzt keine Cookies. Ihre Sitzung und Ihre Einstellungen werden im lokalen Speicher Ihres Browsers gehalten und nur gelesen, während die Website läuft.",
+                "Google Analytics, Google Ads und Meta Pixel werden überhaupt nicht geladen, solange Sie im Cookie-Banner nicht „Akzeptieren“ wählen. Die Schaltfläche „Ablehnen“ ist genauso sichtbar wie „Akzeptieren“, und eine Ablehnung beeinträchtigt die Website nicht.",
+                "Google Ads und Meta Pixel laufen zusätzlich nur, wenn sie im Verwaltungsbereich aktiviert wurden."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "liste",
+          "baslik": "3. Welche Cookies wir verwenden",
+          "bloklar": [
+            {
+              "tablo": {
+                "basliklar": [
+                  "Name",
+                  "Anbieter",
+                  "Zweck",
+                  "Art",
+                  "Dauer"
+                ],
+                "satirlar": [
+                  [
+                    "token",
+                    "mehmetkuru.dev (lokaler Speicher)",
+                    "Speichert das Sitzungstoken, wenn Sie angemeldet sind.",
+                    "Notwendig",
+                    "Bis zur Abmeldung; das Token ist höchstens 7 Tage gültig"
+                  ],
+                  [
+                    "isLougOutManual",
+                    "mehmetkuru.dev (lokaler Speicher)",
+                    "Lässt die Anmeldebibliothek wissen, dass Sie sich selbst abgemeldet haben.",
+                    "Notwendig",
+                    "Bis zur Löschung"
+                  ],
+                  [
+                    "mk_riza_v1",
+                    "mehmetkuru.dev (lokaler Speicher)",
+                    "Speichert, ob Sie im Cookie-Banner zugestimmt oder abgelehnt haben.",
+                    "Notwendig",
+                    "Bis Sie Ihre Auswahl ändern oder löschen"
+                  ],
+                  [
+                    "mk_hesap",
+                    "mehmetkuru.dev (lokaler Speicher)",
+                    "Merkt sich bei Zugriff auf mehrere Kundenkonten das im Portal ausgewählte Konto.",
+                    "Notwendig",
+                    "Bis zur Löschung"
+                  ],
+                  [
+                    "mk_kesif_ozeti",
+                    "mehmetkuru.dev (Sitzungsspeicher)",
+                    "Überträgt die Zusammenfassung des Entdeckungsassistenten im selben Tab an die Kontaktkanäle.",
+                    "Notwendig",
+                    "Wird beim Schließen des Tabs gelöscht"
+                  ],
+                  [
+                    "mk-v3-kabuk, mk-v3-varlik",
+                    "mehmetkuru.dev (Service-Worker-Cache)",
+                    "Ermöglicht schnelles und Offline-Öffnen von Seiten und Dateien.",
+                    "Notwendig",
+                    "Bis sich die Website-Version ändert"
+                  ],
+                  [
+                    "__cf_bm",
+                    "Cloudflare (Cookie)",
+                    "Erkennt schädlichen automatisierten Verkehr; wird nur gesetzt, wenn die entsprechende Cloudflare-Sicherheitsfunktion aktiv ist.",
+                    "Notwendig",
+                    "30 Minuten"
+                  ],
+                  [
+                    "lang",
+                    "mehmetkuru.dev (lokaler Speicher)",
+                    "Merkt sich die gewählte Sprache.",
+                    "Präferenz",
+                    "Bis zur Löschung"
+                  ],
+                  [
+                    "mk_site_settings_v2",
+                    "mehmetkuru.dev (lokaler Speicher)",
+                    "Zwischenspeicher für Website-Texte und Darstellungseinstellungen; enthält keine personenbezogenen Daten.",
+                    "Präferenz",
+                    "Bis zur Löschung (bei jedem Besuch aktualisiert)"
+                  ],
+                  [
+                    "gorunum-onizleme",
+                    "mehmetkuru.dev (lokaler Speicher)",
+                    "Ihre Wahl der Vorschau „Klassisch“ oder „Modern“.",
+                    "Präferenz",
+                    "Bis zur Löschung"
+                  ],
+                  [
+                    "mk_profile_<E-Mail>",
+                    "mehmetkuru.dev (lokaler Speicher)",
+                    "Im Kundenportal gespeicherte Profilangaben (Name, Telefon, Firma); nur in diesem Browser.",
+                    "Präferenz",
+                    "Bis zur Löschung"
+                  ],
+                  [
+                    "_ga, _ga_<ID>",
+                    "Google Analytics 4 (Cookie)",
+                    "Unterscheidet Besuche, um Nutzungsstatistiken zu erstellen.",
+                    "Analyse (mit Einwilligung)",
+                    "2 Jahre"
+                  ],
+                  [
+                    "_gcl_au",
+                    "Google Ads (Cookie)",
+                    "Misst Conversions aus Anzeigenklicks.",
+                    "Marketing (mit Einwilligung)",
+                    "90 Tage"
+                  ],
+                  [
+                    "_fbp",
+                    "Meta Pixel (Cookie)",
+                    "Misst die Wirkung von Meta-Anzeigen.",
+                    "Marketing (mit Einwilligung)",
+                    "90 Tage"
+                  ]
+                ]
+              }
+            },
+            "Google und Meta können auf ihren eigenen Domains zusätzliche Cookies verwenden, die mit Konten verknüpft sind, in denen Sie angemeldet sind; dafür gelten die Richtlinien des jeweiligen Unternehmens. Die Laufzeiten von Drittanbieter-Cookies sind die von den Anbietern festgelegten Höchstdauern."
+          ]
+        },
+        {
+          "id": "ucuncu-taraf",
+          "baslik": "4. Inhalte Dritter",
+          "bloklar": [
+            {
+              "liste": [
+                "**Google Maps:** Die Karte auf der Kontaktseite wird von Google eingebettet; Google kann in diesem Rahmen eigene Cookies verwenden.",
+                "**Google Fonts:** Wenn Sie Arabisch oder Hindi wählen, werden die passenden Schriftarten von Google-Servern geladen; dabei wird Ihre IP-Adresse an Google übermittelt. Die Schriftarten der anderen Sprachen kommen von unserem eigenen Server.",
+                "**Zahlungsseiten:** Die Zahlungsseiten von Shopier und Lemon Squeezy öffnen sich auf deren eigenen Domains und verwenden eigene Cookies.",
+                "**Web Push:** Wenn Sie Benachrichtigungen erlauben, legt Ihr Browser ein Abonnement an; Sie können diese Erlaubnis in den Browsereinstellungen oder in den Benachrichtigungseinstellungen des Kundenportals entfernen."
+              ]
+            }
+          ]
+        },
+        {
+          "id": "yonetim",
+          "baslik": "5. Einstellungen verwalten",
+          "bloklar": [
+            "Sie können Ihre Auswahl jederzeit ändern. Die Schaltfläche unten setzt Ihre Entscheidung zurück und öffnet das Cookie-Banner erneut; der Link „Cookie-Einstellungen“ in der Fußzeile der Website bewirkt dasselbe.",
+            {
+              "ozel": "cerezTercihi"
+            },
+            "Wenn Sie Ihre Einwilligung widerrufen, werden Analyse- und Marketing-Werkzeuge ab dem nächsten Seitenaufruf nicht mehr geladen. Bereits gesetzte Cookies können Sie in den Einstellungen Ihres Browsers löschen. Wenn Sie Cookies oder Websitedaten im Browser vollständig blockieren, funktionieren einige Funktionen wie die Anmeldung möglicherweise nicht."
+          ]
+        },
+        {
+          "id": "hukuki-sebep",
+          "baslik": "6. Rechtsgrundlage",
+          "bloklar": [
+            "Notwendige und Präferenz-Cookies werden zur Erbringung der Leistung und zum sicheren Betrieb der Website auf Grundlage von Artikel 5 Absatz 2 Buchstaben (c) und (f) KVKK verwendet. Analyse- und Marketing-Cookies beruhen ausschließlich auf Ihrer ausdrücklichen Einwilligung. Die mit diesen Cookies erhobenen Daten werden gemäß Artikel 9 KVKK an Anbieter im Ausland übermittelt. Einzelheiten zu Ihren personenbezogenen Daten und Ihren Rechten: [Datenschutzerklärung und KVKK-Hinweise](sayfa:gizlilik)."
+          ]
+        },
+        {
+          "id": "degisiklikler",
+          "baslik": "7. Änderungen und Kontakt",
+          "bloklar": [
+            "Wir aktualisieren diese Seite, wenn sich die verwendeten Cookies ändern; das Datum der letzten Aktualisierung steht oben auf der Seite. Bei Fragen: [{{eposta}}](mailto:{{eposta}})."
+          ]
+        }
+      ]
+    }
+  }
+}

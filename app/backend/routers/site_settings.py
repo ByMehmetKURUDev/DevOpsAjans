@@ -102,6 +102,21 @@ GIZLI_ANAHTARLAR = {
 }
 _GIZLI_DESEN = re.compile(r"(token|secret|password|sifre|parola|api_?key|apikey|webhook|jeton|private|smtp_)", re.I)
 
+# Faz 3Y: yasal sayfalardaki veri sorumlusu bilgileri (Gizlilik/KVKK, Kullanım
+# Koşulları, Çerez Politikası). Sayfada herkese gösterildikleri için bilerek
+# AÇIK: kara listeye girmiyorlar ve desene takılmayan adlar seçildi
+# (tests/backend/test_yasal_ayarlar.py bunu doğruluyor). Yazma yine yalnız
+# yöneticide (entity_guard). Boş adres/KEP/VKN/MERSİS sayfada hiç basılmıyor.
+YASAL_ANAHTARLAR = (
+    "yasal_unvan",
+    "yasal_eposta",
+    "yasal_adres",
+    "yasal_kep",
+    "yasal_vkn",
+    "yasal_mersis",
+    "yasal_son_guncelleme",
+)
+
 
 def gizli_ayar_mi(anahtar: Optional[str]) -> bool:
     a = (anahtar or "").strip()

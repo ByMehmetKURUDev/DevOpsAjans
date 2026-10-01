@@ -615,7 +615,10 @@
     "contact": "Kontakt",
     "copyright": "By Mehmet KURU Dev. Mit Besessenheit gefertigt.",
     "siteAnalizi": "Kostenlose Website-Analyse",
-    "roadmap": "Roadmap"
+    "roadmap": "Roadmap",
+    "gizlilik": "Datenschutz und KVKK",
+    "kullanimKosullari": "Nutzungsbedingungen",
+    "cerezPolitikasi": "Cookie-Richtlinie"
   },
   "settingsForm": {
     "brandTitle": "Marke",
@@ -1299,7 +1302,6 @@
   "riza": {
     "baslik": "Cookie- und Messeinstellung",
     "metin": "Wir möchten Google Analytics, Google Ads und Meta-Tools einsetzen, um die Nutzung der Website zu messen und Anzeigen auszuwerten. Bei Ablehnung wird keines davon geladen; die Website funktioniert unverändert.",
-    "detay": "Schreiben Sie uns bei Fragen",
     "kabul": "Akzeptieren",
     "reddet": "Ablehnen",
     "tercihler": "Cookie-Einstellungen"

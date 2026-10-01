@@ -1,0 +1,23 @@
+{
+  "yasalAyar": {
+    "baslik": "法律信息",
+    "aciklama": "隐私/KVKK、使用条款和 Cookie 政策页面中显示的数据控制者信息。地址、KEP、税号和 MERSIS 留空时不会在页面上显示。",
+    "alan": {
+      "unvan": "名称",
+      "eposta": "联系邮箱",
+      "adres": "地址（选填）",
+      "kep": "KEP 地址（选填）",
+      "vkn": "税号（选填）",
+      "mersis": "MERSIS 编号（选填）",
+      "sonGuncelleme": "最后更新日期"
+    },
+    "varsayilan": "留空时：{{deger}}",
+    "kaydet": "保存",
+    "kaydedildi": "法律信息已保存。",
+    "hata": "保存失败。",
+    "tarihHatasi": "日期格式应为 YYYY-MM-DD。",
+    "epostaHatasi": "请输入有效的电子邮箱地址。",
+    "sayfalar": "查看页面",
+    "not": "更改会立即在网站上显示；搜索引擎看到的页面将在下次发布时更新。"
+  }
+}
