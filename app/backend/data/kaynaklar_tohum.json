@@ -8251,6 +8251,372 @@
       "one_cikan": false,
       "sira": 950,
       "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "chrome-devtools-mcp",
+      "kategori": "mcp-eklenti",
+      "baslik": {
+        "tr": "Chrome DevTools MCP: Kodlama Ajanınıza Gerçek Chrome'da Performans Ölçümü ve Hata Ayıklama Yaptıran Resmi Sunucu",
+        "en": "Chrome DevTools MCP: The Official Server That Lets Your Coding Agent Measure and Debug Pages in a Real Chrome",
+        "de": "Chrome DevTools MCP: Offizieller Server, mit dem Ihr Coding-Agent Seiten in einem echten Chrome misst und debuggt",
+        "ru": "Chrome DevTools MCP: официальный сервер, через который кодинг-агент измеряет и отлаживает страницы в настоящем Chrome",
+        "zh": "Chrome DevTools MCP：让编码智能体在真实 Chrome 中测量和调试页面的官方服务器",
+        "hi": "Chrome DevTools MCP: आधिकारिक सर्वर जिससे आपका कोडिंग एजेंट असली Chrome में पेज मापता और डिबग करता है",
+        "ar": "Chrome DevTools MCP: الخادم الرسمي الذي يتيح لوكيل البرمجة قياس الصفحات وتصحيح أخطائها في متصفح Chrome حقيقي"
+      },
+      "ozet": {
+        "tr": "Chrome ekibinin resmi MCP sunucusu; Claude Code gibi ajanlar gerçek bir Chrome açıp performans izi kaydeder, ağ isteklerini ve konsol hatalarını inceler.",
+        "en": "The Chrome team's official MCP server: agents such as Claude Code open a real Chrome, record performance traces and inspect network requests and console errors.",
+        "de": "Offizieller MCP-Server des Chrome-Teams: Agenten wie Claude Code öffnen einen echten Chrome, zeichnen Performance-Traces auf, prüfen Netzwerk und Konsole.",
+        "ru": "Официальный MCP-сервер команды Chrome: агенты вроде Claude Code открывают настоящий Chrome, записывают трассы производительности, смотрят сеть и консоль.",
+        "zh": "Chrome 团队的官方 MCP 服务器：Claude Code 等智能体可打开真实的 Chrome，录制性能跟踪，检查网络请求和控制台错误。",
+        "hi": "Chrome टीम का आधिकारिक MCP सर्वर: Claude Code जैसे एजेंट असली Chrome खोलते हैं, परफ़ॉर्मेंस ट्रेस रिकॉर्ड करते हैं, नेटवर्क और कंसोल एरर जाँचते हैं।",
+        "ar": "خادم MCP الرسمي من فريق Chrome: يفتح وكلاء مثل Claude Code متصفح Chrome حقيقيًا ويسجّلون تتبّع الأداء ويفحصون طلبات الشبكة وأخطاء وحدة التحكم."
+      },
+      "aciklama": {
+        "tr": "Chrome DevTools MCP, Google'ın Chrome DevTools ekibinin geliştirdiği açık kaynak bir MCP sunucusudur ve Claude Code, Cursor ya da Copilot gibi kodlama ajanlarına gerçek bir Chrome tarayıcısını kullanma imkânı verir. Ajan bir sayfayı açıp tıklayabilir, form doldurabilir, ekran görüntüsü alabilir; ağ isteklerini ve kaynak eşlemeli (source map) çağrı yığınlarıyla konsol hatalarını okuyabilir. Performans izi kaydedip LCP gibi metriklerin nedenlerini çıkarabilir, ağ hızını ve işlemciyi yavaşlatıp mobil görünüme geçebilir, erişilebilirlik, SEO ve en iyi uygulama denetimleri için Lighthouse çalıştırabilir (performans ise izlerle ölçülür). Tarayıcı otomasyonu Puppeteer üzerine kuruludur; MCP olmadan kullanmak için bir komut satırı aracı da vardır. Claude Code'a, LCP iyileştirme ve erişilebilirlik hata ayıklama gibi beceriler içeren bir eklenti olarak da kurulabilir. Apache-2.0 lisanslıdır.\n\nAjans olarak müşteri sitelerinde 'bu sayfa neden yavaş açılıyor?' ya da 'bu form neden gönderilmiyor?' gibi soruları ajana doğrudan tarayıcıda ölçtürüp kanıtıyla yanıtlamak için öneriyor, kendi iş akışımıza eklemeyi değerlendiriyoruz; bu sayfadaki Web Quality Skills becerileri de bu sunucu bağlıyken canlı ölçüm yapar. Varsayılan olarak Google'a kullanım istatistiği gönderir (--no-usage-statistics ile kapanır) ve performans izindeki adresleri gerçek kullanıcı verisi için CrUX API'sine sorar (--no-performance-crux ile kapanır). Ajan tarayıcıdaki her şeyi görebildiği için kişisel profilinizle değil, --isolated ile açılan geçici bir profille ve test hesaplarıyla çalışmanızı öneririz.",
+        "en": "Chrome DevTools MCP is an open-source MCP server built by Google's Chrome DevTools team that lets coding agents such as Claude Code, Cursor or Copilot work with a real Chrome browser. The agent can open a page, click, fill in forms and take screenshots, and it can read network requests and console errors with source-mapped stack traces. It can record a performance trace and explain what drives metrics such as LCP, slow down the network and CPU, switch to a mobile viewport, and run Lighthouse for accessibility, SEO and best-practice checks (performance is measured with traces instead). Browser automation is built on Puppeteer, and a command-line tool is available for use without MCP. For Claude Code it can also be installed as a plugin that adds skills such as LCP optimisation and accessibility debugging. It is Apache-2.0-licensed.\n\nAs an agency we recommend it for answering questions like 'why is this page slow?' or 'why does this form not submit?' on client sites with measurements the agent takes directly in the browser, and we are evaluating it for our own workflow; the Web Quality Skills on this page also take live measurements when this server is connected. By default it sends usage statistics to Google (turn off with --no-usage-statistics) and looks up URLs from performance traces in the CrUX API for real-user data (turn off with --no-performance-crux). Because the agent can see everything in the browser, we recommend working with a temporary profile via --isolated and with test accounts rather than your personal profile.",
+        "de": "Chrome DevTools MCP ist ein Open-Source-MCP-Server des Chrome-DevTools-Teams von Google, mit dem Coding-Agenten wie Claude Code, Cursor oder Copilot einen echten Chrome-Browser bedienen. Der Agent kann Seiten öffnen, klicken, Formulare ausfüllen und Screenshots erstellen sowie Netzwerkanfragen und Konsolenfehler mit Source-Map-Stacktraces lesen. Er zeichnet Performance-Traces auf und erklärt, was Metriken wie LCP verursacht, drosselt Netzwerk und CPU, wechselt in eine mobile Ansicht und führt Lighthouse für Barrierefreiheit, SEO und Best Practices aus (die Performance wird über Traces gemessen). Die Browsersteuerung basiert auf Puppeteer; für die Nutzung ohne MCP gibt es ein Kommandozeilen-Tool. Für Claude Code lässt er sich auch als Plugin mit Skills etwa zur LCP-Optimierung und zum Barrierefreiheits-Debugging installieren. Lizenz: Apache-2.0.\n\nAls Agentur empfehlen wir ihn, um Fragen wie „Warum lädt diese Seite langsam?“ oder „Warum wird dieses Formular nicht gesendet?“ auf Kundenwebsites mit Messungen zu beantworten, die der Agent direkt im Browser vornimmt, und evaluieren ihn für unseren eigenen Ablauf; auch die Web Quality Skills auf dieser Seite messen live, wenn dieser Server verbunden ist. Standardmäßig sendet er Nutzungsstatistiken an Google (abschaltbar mit --no-usage-statistics) und fragt URLs aus Performance-Traces bei der CrUX-API nach echten Nutzerdaten ab (abschaltbar mit --no-performance-crux). Da der Agent alles im Browser sehen kann, empfehlen wir statt Ihres persönlichen Profils ein temporäres Profil über --isolated und Testkonten.",
+        "ru": "Chrome DevTools MCP — открытый MCP-сервер от команды Chrome DevTools в Google, который позволяет кодинг-агентам вроде Claude Code, Cursor или Copilot работать с настоящим браузером Chrome. Агент может открывать страницы, нажимать кнопки, заполнять формы и делать скриншоты, а также читать сетевые запросы и ошибки консоли со стеком вызовов по source map. Он записывает трассу производительности и объясняет, что влияет на метрики вроде LCP, замедляет сеть и процессор, переключается в мобильный вид и запускает Lighthouse для проверки доступности, SEO и лучших практик (производительность измеряется трассами). Управление браузером построено на Puppeteer; для работы без MCP есть консольная утилита. Для Claude Code сервер можно поставить и как плагин с навыками, например для оптимизации LCP и отладки доступности. Лицензия Apache-2.0.\n\nКак агентство, мы рекомендуем его, чтобы отвечать на вопросы вроде «почему страница медленно грузится?» или «почему форма не отправляется?» на сайтах клиентов с измерениями, которые агент делает прямо в браузере, и рассматриваем его для собственной работы; навыки Web Quality Skills с этой страницы тоже измеряют вживую, когда сервер подключён. По умолчанию он отправляет в Google статистику использования (отключается флагом --no-usage-statistics) и запрашивает URL из трасс в CrUX API ради данных реальных пользователей (отключается флагом --no-performance-crux). Агент видит всё, что есть в браузере, поэтому советуем работать не в личном профиле, а во временном через --isolated и с тестовыми аккаунтами.",
+        "zh": "Chrome DevTools MCP 是 Google Chrome DevTools 团队开发的开源 MCP 服务器，让 Claude Code、Cursor、Copilot 等编码智能体能够操作真实的 Chrome 浏览器。智能体可以打开页面、点击、填写表单、截图，还能读取网络请求以及带源码映射调用栈的控制台错误。它可以录制性能跟踪并分析 LCP 等指标的成因，模拟慢速网络和 CPU、切换到移动端视口，并运行 Lighthouse 检查无障碍、SEO 和最佳实践（性能则通过跟踪来测量）。浏览器自动化基于 Puppeteer；不用 MCP 时也可以使用其命令行工具。在 Claude Code 中还可以作为插件安装，附带 LCP 优化、无障碍调试等技能。采用 Apache-2.0 许可证。\n\n作为代理机构，我们推荐用它来回答客户网站上“页面为什么慢”“表单为什么提交不了”这类问题，由智能体直接在浏览器里测量并给出依据，我们也在评估把它纳入自己的工作流程；本页的 Web Quality Skills 在连接此服务器时同样可以实时测量。它默认会向 Google 发送使用统计（可用 --no-usage-statistics 关闭），并把性能跟踪中的网址发送到 CrUX API 以获取真实用户数据（可用 --no-performance-crux 关闭）。由于智能体能看到浏览器里的所有内容，建议不要使用个人配置文件，而是通过 --isolated 使用临时配置文件并配合测试账号。",
+        "hi": "Chrome DevTools MCP, Google की Chrome DevTools टीम का बनाया ओपन-सोर्स MCP सर्वर है, जिससे Claude Code, Cursor या Copilot जैसे कोडिंग एजेंट असली Chrome ब्राउज़र के साथ काम कर पाते हैं। एजेंट पेज खोल सकता है, क्लिक कर सकता है, फ़ॉर्म भर सकता है और स्क्रीनशॉट ले सकता है; वह नेटवर्क अनुरोध और source map वाले स्टैक ट्रेस के साथ कंसोल एरर भी पढ़ सकता है। वह परफ़ॉर्मेंस ट्रेस रिकॉर्ड करके बताता है कि LCP जैसे मेट्रिक किस वजह से बिगड़ रहे हैं, नेटवर्क और CPU को धीमा कर सकता है, मोबाइल व्यूपोर्ट पर जा सकता है और एक्सेसिबिलिटी, SEO व बेस्ट प्रैक्टिस के लिए Lighthouse चला सकता है (परफ़ॉर्मेंस ट्रेस से मापी जाती है)। ब्राउज़र ऑटोमेशन Puppeteer पर बना है; MCP के बिना इस्तेमाल के लिए एक कमांड-लाइन टूल भी है। Claude Code में इसे प्लगइन के रूप में भी इंस्टॉल किया जा सकता है, जिसमें LCP सुधार और एक्सेसिबिलिटी डिबगिंग जैसी स्किल्स आती हैं। यह Apache-2.0 लाइसेंस में है।\n\nएक एजेंसी के रूप में हम क्लाइंट साइटों पर 'यह पेज धीमा क्यों है?' या 'यह फ़ॉर्म सबमिट क्यों नहीं होता?' जैसे सवालों का जवाब एजेंट से सीधे ब्राउज़र में माप करवाकर देने के लिए इसकी सलाह देते हैं, और अपने वर्कफ़्लो में इसे शामिल करने पर विचार कर रहे हैं; इस पेज की Web Quality Skills भी यह सर्वर जुड़ा होने पर लाइव माप करती हैं। डिफ़ॉल्ट रूप से यह Google को उपयोग के आँकड़े भेजता है (--no-usage-statistics से बंद होता है) और असली उपयोगकर्ताओं के डेटा के लिए परफ़ॉर्मेंस ट्रेस के URL CrUX API से पूछता है (--no-performance-crux से बंद होता है)। एजेंट ब्राउज़र की हर चीज़ देख सकता है, इसलिए निजी प्रोफ़ाइल के बजाय --isolated वाली अस्थायी प्रोफ़ाइल और टेस्ट अकाउंट के साथ काम करने की सलाह देते हैं।",
+        "ar": "Chrome DevTools MCP خادم MCP مفتوح المصدر طوّره فريق Chrome DevTools في Google، ويتيح لوكلاء البرمجة مثل Claude Code وCursor وCopilot العمل مع متصفح Chrome حقيقي. يستطيع الوكيل فتح الصفحات والنقر وملء النماذج والتقاط لقطات الشاشة، وقراءة طلبات الشبكة وأخطاء وحدة التحكم مع مسارات الاستدعاء المرتبطة بخرائط المصدر. ويسجّل تتبّعًا للأداء ويشرح أسباب مقاييس مثل LCP، ويبطئ الشبكة والمعالج، وينتقل إلى عرض الجوال، ويشغّل Lighthouse لفحوص سهولة الوصول وSEO وأفضل الممارسات (أما الأداء فيُقاس بالتتبّع). تعتمد أتمتة المتصفح على Puppeteer، وتتوفر أداة سطر أوامر للاستخدام دون MCP. ويمكن تثبيته في Claude Code أيضًا كإضافة تضم مهارات مثل تحسين LCP وتصحيح مشكلات سهولة الوصول. مرخّص بموجب Apache-2.0.\n\nبصفتنا وكالة، نوصي به للإجابة عن أسئلة مثل «لماذا تبطئ هذه الصفحة؟» أو «لماذا لا يُرسَل هذا النموذج؟» في مواقع العملاء بقياسات يجريها الوكيل مباشرة في المتصفح، ونقيّم إدخاله في سير عملنا؛ كما أن مهارات Web Quality Skills في هذه الصفحة تقيس مباشرة عند ربط هذا الخادم. يرسل افتراضيًا إحصاءات استخدام إلى Google (تُوقف بالخيار --no-usage-statistics)، ويستعلم عن عناوين تتبّع الأداء في واجهة CrUX للحصول على بيانات المستخدمين الحقيقيين (تُوقف بالخيار --no-performance-crux). ولأن الوكيل يرى كل ما في المتصفح، ننصح بالعمل بملف تعريف مؤقت عبر --isolated وبحسابات اختبار بدل ملفك الشخصي."
+      },
+      "adimlar": {
+        "tr": [
+          "Node.js LTS ve güncel Chrome kuruluyken Claude Code'a ekleyin: claude mcp add chrome-devtools --scope user -- npx chrome-devtools-mcp@latest --isolated --no-usage-statistics",
+          "Becerileriyle birlikte isterseniz bunun yerine eklenti olarak kurun: /plugin marketplace add ChromeDevTools/chrome-devtools-mcp, ardından /plugin install chrome-devtools-mcp@chrome-devtools-plugins (istatistiği kapatmak için CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS ortam değişkenini tanımlayın).",
+          "İlk deneme için ajana şunu yazın: \"https://siteniz.com performansını ölç ve LCP'yi düşürmek için öneri ver.\"",
+          "Giriş gerektiren sayfaları yalnız test hesaplarıyla inceletin; adreslerin CrUX'a gönderilmesini istemiyorsanız --no-performance-crux ekleyin."
+        ],
+        "en": [
+          "With Node.js LTS and a current Chrome installed, add it to Claude Code: claude mcp add chrome-devtools --scope user -- npx chrome-devtools-mcp@latest --isolated --no-usage-statistics",
+          "To get the skills too, install it as a plugin instead: /plugin marketplace add ChromeDevTools/chrome-devtools-mcp, then /plugin install chrome-devtools-mcp@chrome-devtools-plugins (set the CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS environment variable to opt out of statistics).",
+          "For a first test, ask the agent: \"Measure the performance of https://yoursite.com and suggest how to reduce LCP.\"",
+          "Let it inspect logged-in pages only with test accounts; add --no-performance-crux if you do not want URLs sent to CrUX."
+        ],
+        "de": [
+          "Mit Node.js LTS und aktuellem Chrome in Claude Code hinzufügen: claude mcp add chrome-devtools --scope user -- npx chrome-devtools-mcp@latest --isolated --no-usage-statistics",
+          "Mit Skills stattdessen als Plugin installieren: /plugin marketplace add ChromeDevTools/chrome-devtools-mcp, dann /plugin install chrome-devtools-mcp@chrome-devtools-plugins (Statistiken über die Umgebungsvariable CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS abschalten).",
+          "Zum ersten Test den Agenten bitten: „Miss die Performance von https://ihreseite.de und schlage vor, wie sich LCP senken lässt.“",
+          "Seiten mit Login nur mit Testkonten prüfen lassen; --no-performance-crux ergänzen, wenn keine URLs an CrUX gehen sollen."
+        ],
+        "ru": [
+          "Установив Node.js LTS и свежий Chrome, добавьте сервер в Claude Code: claude mcp add chrome-devtools --scope user -- npx chrome-devtools-mcp@latest --isolated --no-usage-statistics",
+          "Чтобы получить и навыки, поставьте его вместо этого как плагин: /plugin marketplace add ChromeDevTools/chrome-devtools-mcp, затем /plugin install chrome-devtools-mcp@chrome-devtools-plugins (статистику отключает переменная окружения CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS).",
+          "Для первой проверки попросите агента: «Измерь производительность https://ваш-сайт.ru и предложи, как снизить LCP».",
+          "Страницы со входом проверяйте только под тестовыми аккаунтами; добавьте --no-performance-crux, если не хотите отправлять URL в CrUX."
+        ],
+        "zh": [
+          "安装 Node.js LTS 和最新版 Chrome 后，添加到 Claude Code：claude mcp add chrome-devtools --scope user -- npx chrome-devtools-mcp@latest --isolated --no-usage-statistics",
+          "如需同时获得技能，可改为以插件方式安装：/plugin marketplace add ChromeDevTools/chrome-devtools-mcp，然后 /plugin install chrome-devtools-mcp@chrome-devtools-plugins（设置环境变量 CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS 可关闭统计）。",
+          "首次测试时对智能体说：“测量 https://你的网站.com 的性能，并给出降低 LCP 的建议。”",
+          "需要登录的页面只用测试账号检查；如不希望网址被发送到 CrUX，请加上 --no-performance-crux。"
+        ],
+        "hi": [
+          "Node.js LTS और नया Chrome इंस्टॉल होने पर Claude Code में जोड़ें: claude mcp add chrome-devtools --scope user -- npx chrome-devtools-mcp@latest --isolated --no-usage-statistics",
+          "स्किल्स भी चाहिए तो इसके बजाय प्लगइन के रूप में इंस्टॉल करें: /plugin marketplace add ChromeDevTools/chrome-devtools-mcp, फिर /plugin install chrome-devtools-mcp@chrome-devtools-plugins (आँकड़े बंद करने के लिए CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS एनवायरनमेंट वेरिएबल सेट करें)।",
+          "पहले टेस्ट में एजेंट से कहें: \"https://आपकी-साइट.com की परफ़ॉर्मेंस मापो और LCP घटाने के सुझाव दो।\"",
+          "लॉगिन वाले पेज केवल टेस्ट अकाउंट से जँचवाएँ; अगर URL CrUX को नहीं भेजने हैं तो --no-performance-crux जोड़ें।"
+        ],
+        "ar": [
+          "بعد تثبيت Node.js LTS وإصدار حديث من Chrome، أضفه إلى Claude Code: claude mcp add chrome-devtools --scope user -- npx chrome-devtools-mcp@latest --isolated --no-usage-statistics",
+          "للحصول على المهارات أيضًا ثبّته بدلًا من ذلك كإضافة: /plugin marketplace add ChromeDevTools/chrome-devtools-mcp ثم /plugin install chrome-devtools-mcp@chrome-devtools-plugins (عرّف متغير البيئة CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS لإيقاف الإحصاءات).",
+          "في التجربة الأولى اطلب من الوكيل: «قِس أداء https://موقعك.com واقترح طرقًا لخفض LCP».",
+          "لا تدعه يفحص الصفحات التي تتطلب تسجيل الدخول إلا بحسابات اختبار؛ أضف --no-performance-crux إن لم ترغب في إرسال العناوين إلى CrUX."
+        ]
+      },
+      "etiketler": [
+        "mcp",
+        "chrome",
+        "performans",
+        "hata ayıklama",
+        "claude code",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+      "baglanti_turu": "github",
+      "lisans": "Apache-2.0",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": true,
+      "sira": 960,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "singlefile",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "SingleFile: Bir Web Sayfasını Görselleri ve Stilleriyle Tek HTML Dosyası Olarak Kaydeden Tarayıcı Eklentisi",
+        "en": "SingleFile: A Browser Extension That Saves a Web Page with Its Images and Styles as One HTML File",
+        "de": "SingleFile: Browser-Erweiterung, die eine Webseite mit Bildern und Styles als eine einzige HTML-Datei speichert",
+        "ru": "SingleFile: расширение браузера, сохраняющее веб-страницу с изображениями и стилями в один HTML-файл",
+        "zh": "SingleFile：把网页连同图片和样式保存为单个 HTML 文件的浏览器扩展",
+        "hi": "SingleFile: वेब पेज को इमेज और स्टाइल समेत एक ही HTML फ़ाइल में सहेजने वाला ब्राउज़र एक्सटेंशन",
+        "ar": "SingleFile: إضافة متصفح تحفظ صفحة الويب مع صورها وأنماطها في ملف HTML واحد"
+      },
+      "ozet": {
+        "tr": "Açık kaynak SingleFile, açık sayfayı görselleri ve stilleriyle tek bir HTML dosyasına kaydeder; üzerine not ekleyip arşivleyebilir ya da paylaşabilirsiniz.",
+        "en": "Open-source SingleFile saves the page you are viewing, images and styles included, into one HTML file that you can annotate, archive or share.",
+        "de": "Die Open-Source-Erweiterung SingleFile speichert die geöffnete Seite samt Bildern und Styles in einer HTML-Datei – zum Kommentieren, Archivieren oder Teilen.",
+        "ru": "Открытое расширение SingleFile сохраняет открытую страницу с изображениями и стилями в один HTML-файл, который можно комментировать, хранить и пересылать.",
+        "zh": "开源扩展 SingleFile 可将当前页面连同图片和样式保存为单个 HTML 文件，方便批注、归档或分享。",
+        "hi": "ओपन-सोर्स SingleFile खुले पेज को इमेज और स्टाइल समेत एक HTML फ़ाइल में सहेजता है, जिस पर नोट जोड़कर आप उसे संग्रहित या साझा कर सकते हैं।",
+        "ar": "إضافة SingleFile مفتوحة المصدر تحفظ الصفحة المفتوحة مع صورها وأنماطها في ملف HTML واحد يمكنك التعليق عليه أو أرشفته أو مشاركته."
+      },
+      "aciklama": {
+        "tr": "SingleFile, tarayıcıda açık olan bir sayfayı görselleri, stilleri ve yazı tipleriyle birlikte tek bir HTML dosyasına dönüştüren açık kaynak bir eklentidir; Chrome, Edge, Firefox ve Safari mağazalarında bulunur. Kaydedilen dosya ek bir eklenti gerektirmeden herhangi bir tarayıcıda açılır ve JavaScript çalıştırmadan da görüntülenebilir. Yalnız seçili bölümü ya da birden çok sekmeyi aynı anda kaydedebilir, kaydetmeden önce metni vurgulayıp not ekleyebilir ya da istemediğiniz bölümleri çıkarabilirsiniz. İsterseniz kayıtlar doğrudan Google Drive, Dropbox ya da GitHub'a yüklenir; komut satırından çalışan ayrı bir sürümü (single-file-cli) de vardır. Gizlilik politikasına göre eklenti veri toplamaz; siz bir hedef seçmedikçe dosyalar cihazınızda kalır. AGPL-3.0 lisanslıdır.\n\nAjans olarak bir siteyi yeniden tasarlamadan ya da taşımadan önce müşterinin mevcut sayfalarının o günkü halini tarihli olarak saklamak, onaylanan kampanya sayfalarının kaydını tutmak ve müşteriye üzerinde vurgu ve notlar bulunan tek bir dosyayla geri bildirim göndermek için değerlendiriyoruz. Kaydedilen sayfanın metni, görselleri ve tasarımı sahibine aittir; bu dosyalar arşiv ve referans içindir, yeniden yayımlamak ya da başka bir siteye kopyalamak için değil. Oturum açılmış sayfaları kaydederken dosyaya kişisel verilerin de girebileceğini unutmayın. Eklentinin kodunu kendi ticari ürününüze gömmek isterseniz AGPL koşulları geçerlidir.",
+        "en": "SingleFile is an open-source extension that turns the page open in your browser into a single HTML file, with its images, styles and fonts embedded; it is available in the Chrome, Edge, Firefox and Safari stores. The saved file opens in any browser without an extra extension and can be viewed even without running JavaScript. You can save just a selection or several tabs at once, and before saving you can highlight text, add notes or remove parts you do not need. Saved pages can optionally go straight to Google Drive, Dropbox or GitHub, and there is a separate command-line version (single-file-cli). According to its privacy policy the extension collects no data, and files stay on your device unless you choose a destination. It is AGPL-3.0-licensed.\n\nAs an agency we are evaluating it to keep a dated copy of a client's current pages before a redesign or migration, to keep a record of approved campaign pages, and to send clients feedback as one file with highlights and notes on the page. The text, images and design of a saved page belong to its owner; these files are for archiving and reference, not for republishing or copying to another site. Keep in mind that pages saved while logged in may include personal data. If you want to embed the extension's code in your own commercial product, the AGPL terms apply.",
+        "de": "SingleFile ist eine Open-Source-Erweiterung, die die im Browser geöffnete Seite mit eingebetteten Bildern, Styles und Schriften in eine einzige HTML-Datei verwandelt; sie ist in den Stores von Chrome, Edge, Firefox und Safari erhältlich. Die gespeicherte Datei öffnet sich in jedem Browser ohne zusätzliche Erweiterung und lässt sich auch ohne JavaScript anzeigen. Sie können nur eine Auswahl oder mehrere Tabs gleichzeitig speichern und vor dem Speichern Text markieren, Notizen ergänzen oder unnötige Teile entfernen. Gespeicherte Seiten lassen sich optional direkt zu Google Drive, Dropbox oder GitHub hochladen; außerdem gibt es eine eigene Kommandozeilenversion (single-file-cli). Laut Datenschutzerklärung erhebt die Erweiterung keine Daten, und Dateien bleiben auf Ihrem Gerät, solange Sie kein Ziel wählen. Lizenz: AGPL-3.0.\n\nAls Agentur evaluieren wir SingleFile, um vor einem Redesign oder Umzug eine datierte Kopie der aktuellen Seiten eines Kunden aufzubewahren, freigegebene Kampagnenseiten zu dokumentieren und Kunden Feedback als eine Datei mit Markierungen und Notizen zu schicken. Text, Bilder und Design einer gespeicherten Seite gehören ihrem Inhaber; diese Dateien dienen Archiv und Referenz, nicht der Neuveröffentlichung oder dem Kopieren auf eine andere Website. Beachten Sie, dass eingeloggt gespeicherte Seiten personenbezogene Daten enthalten können. Wer den Code der Erweiterung in ein eigenes kommerzielles Produkt einbauen will, muss die AGPL-Bedingungen einhalten.",
+        "ru": "SingleFile — открытое расширение, которое превращает открытую в браузере страницу в один HTML-файл со встроенными изображениями, стилями и шрифтами; оно есть в магазинах Chrome, Edge, Firefox и Safari. Сохранённый файл открывается в любом браузере без дополнительных расширений и отображается даже без выполнения JavaScript. Можно сохранить только выделенный фрагмент или сразу несколько вкладок, а перед сохранением — выделить текст, добавить заметки или убрать лишние части. По желанию страницы сразу загружаются в Google Drive, Dropbox или GitHub; есть и отдельная консольная версия (single-file-cli). Согласно политике конфиденциальности, расширение не собирает данные, и файлы остаются на устройстве, пока вы сами не выберете место назначения. Лицензия AGPL-3.0.\n\nКак агентство, мы рассматриваем SingleFile, чтобы перед редизайном или переносом сайта сохранять датированную копию текущих страниц клиента, фиксировать согласованные страницы кампаний и отправлять клиенту замечания одним файлом с выделениями и заметками прямо на странице. Тексты, изображения и дизайн сохранённой страницы принадлежат её владельцу; такие файлы нужны для архива и справки, а не для повторной публикации или копирования на другой сайт. Помните, что страницы, сохранённые после входа в аккаунт, могут содержать персональные данные. Если хотите встроить код расширения в собственный коммерческий продукт, действуют условия AGPL.",
+        "zh": "SingleFile 是一款开源浏览器扩展，可把浏览器中打开的页面连同内嵌的图片、样式和字体转换为单个 HTML 文件，可在 Chrome、Edge、Firefox 和 Safari 的扩展商店安装。保存的文件无需额外扩展即可在任何浏览器中打开，即使不运行 JavaScript 也能正常显示。您可以只保存选中的部分，或一次保存多个标签页；保存前还可以高亮文字、添加笔记或删除不需要的部分。保存的页面可以选择直接上传到 Google Drive、Dropbox 或 GitHub；另有独立的命令行版本（single-file-cli）。根据其隐私政策，该扩展不收集任何数据，除非您选择上传目的地，文件只保存在您的设备上。采用 AGPL-3.0 许可证。\n\n作为代理机构，我们正在评估用它在改版或迁移网站之前为客户现有页面保存带日期的副本、记录已确认的活动页面，以及把带高亮和批注的页面作为单个文件发给客户反馈。所保存页面的文字、图片和设计归其所有者所有；这些文件仅用于存档和参考，不能用于重新发布或复制到其他网站。请注意，登录状态下保存的页面可能包含个人数据。如果想把该扩展的代码嵌入自己的商业产品，需要遵守 AGPL 条款。",
+        "hi": "SingleFile एक ओपन-सोर्स एक्सटेंशन है जो ब्राउज़र में खुले पेज को उसकी इमेज, स्टाइल और फ़ॉन्ट समेत एक ही HTML फ़ाइल में बदल देता है; यह Chrome, Edge, Firefox और Safari के स्टोर में उपलब्ध है। सहेजी गई फ़ाइल किसी भी ब्राउज़र में बिना अतिरिक्त एक्सटेंशन के खुलती है और JavaScript चलाए बिना भी दिखती है। आप सिर्फ़ चुना हुआ हिस्सा या एक साथ कई टैब सहेज सकते हैं, और सहेजने से पहले टेक्स्ट हाइलाइट कर सकते हैं, नोट जोड़ सकते हैं या ग़ैरज़रूरी हिस्से हटा सकते हैं। चाहें तो सहेजे गए पेज सीधे Google Drive, Dropbox या GitHub पर अपलोड हो जाते हैं; कमांड लाइन से चलने वाला एक अलग संस्करण (single-file-cli) भी है। इसकी प्राइवेसी पॉलिसी के अनुसार एक्सटेंशन कोई डेटा इकट्ठा नहीं करता, और जब तक आप कोई गंतव्य न चुनें, फ़ाइलें आपके डिवाइस पर ही रहती हैं। यह AGPL-3.0 लाइसेंस में है।\n\nएक एजेंसी के रूप में हम इस पर विचार कर रहे हैं कि साइट के रीडिज़ाइन या माइग्रेशन से पहले क्लाइंट के मौजूदा पेजों की तारीख़ वाली कॉपी रखी जाए, मंज़ूर किए गए कैंपेन पेजों का रिकॉर्ड रखा जाए और क्लाइंट को हाइलाइट व नोट वाले पेज की एक फ़ाइल भेजकर फ़ीडबैक दिया जाए। सहेजे गए पेज का टेक्स्ट, इमेज और डिज़ाइन उसके मालिक का है; ये फ़ाइलें संग्रह और संदर्भ के लिए हैं, दोबारा प्रकाशित करने या किसी दूसरी साइट पर कॉपी करने के लिए नहीं। ध्यान रखें कि लॉग-इन करके सहेजे गए पेजों में निजी डेटा भी आ सकता है। अगर आप एक्सटेंशन का कोड अपने व्यावसायिक प्रोडक्ट में जोड़ना चाहते हैं, तो AGPL की शर्तें लागू होती हैं।",
+        "ar": "SingleFile إضافة مفتوحة المصدر تحوّل الصفحة المفتوحة في المتصفح إلى ملف HTML واحد تُضمَّن فيه الصور والأنماط والخطوط، وهي متاحة في متاجر Chrome وEdge وFirefox وSafari. يُفتح الملف المحفوظ في أي متصفح دون إضافة أخرى، ويُعرض حتى دون تشغيل JavaScript. يمكنك حفظ جزء محدد فقط أو عدة علامات تبويب دفعة واحدة، وقبل الحفظ يمكنك تمييز النص وإضافة ملاحظات أو حذف الأجزاء غير المطلوبة. ويمكن اختياريًا رفع الصفحات المحفوظة مباشرة إلى Google Drive أو Dropbox أو GitHub، كما توجد نسخة منفصلة تعمل من سطر الأوامر (single-file-cli). وبحسب سياسة الخصوصية لا تجمع الإضافة أي بيانات، وتبقى الملفات على جهازك ما لم تختر وجهة لها. مرخّصة بموجب AGPL-3.0.\n\nبصفتنا وكالة، نقيّمها للاحتفاظ بنسخة مؤرخة من صفحات العميل الحالية قبل إعادة التصميم أو النقل، ولتوثيق صفحات الحملات المعتمدة، ولإرسال الملاحظات إلى العميل في ملف واحد يحمل التمييزات والتعليقات على الصفحة نفسها. نصوص الصفحة المحفوظة وصورها وتصميمها ملك لصاحبها؛ هذه الملفات للأرشفة والرجوع إليها، لا لإعادة النشر أو النسخ إلى موقع آخر. وتذكّر أن الصفحات المحفوظة بعد تسجيل الدخول قد تتضمن بيانات شخصية. وإذا أردت تضمين شيفرة الإضافة في منتج تجاري خاص بك فإن شروط AGPL تنطبق."
+      },
+      "adimlar": {
+        "tr": [
+          "Tarayıcınızın eklenti mağazasından SingleFile'ı kurun (Chrome, Edge, Firefox ya da Safari).",
+          "Kaydetmek istediğiniz sayfayı açıp araç çubuğundaki SingleFile düğmesine basın; dosya indirilenler klasörüne kaydedilir.",
+          "Not eklemek için düğmeye sağ tıklayıp sayfaya not ekleyerek kaydetme seçeneğini kullanın; metni vurgulayın, not yazın, gereksiz bölümleri çıkarın.",
+          "Ayarlarda hedef olarak Google Drive ya da GitHub'ı seçip kayıtları ortak bir klasörde toplayın."
+        ],
+        "en": [
+          "Install SingleFile from your browser's extension store (Chrome, Edge, Firefox or Safari).",
+          "Open the page you want to keep and click the SingleFile button in the toolbar; the file is saved to your downloads folder.",
+          "To add notes, right-click the button and use the option to annotate and save the page; highlight text, write notes and remove unneeded parts.",
+          "In the options, choose Google Drive or GitHub as the destination to collect saved pages in a shared place."
+        ],
+        "de": [
+          "SingleFile aus dem Erweiterungs-Store Ihres Browsers installieren (Chrome, Edge, Firefox oder Safari).",
+          "Die gewünschte Seite öffnen und in der Symbolleiste auf SingleFile klicken; die Datei landet im Download-Ordner.",
+          "Für Notizen per Rechtsklick auf die Schaltfläche die Option zum Kommentieren und Speichern wählen; Text markieren, Notizen schreiben, Unnötiges entfernen.",
+          "In den Optionen Google Drive oder GitHub als Ziel wählen, um gespeicherte Seiten an einem gemeinsamen Ort zu sammeln."
+        ],
+        "ru": [
+          "Установите SingleFile из магазина расширений вашего браузера (Chrome, Edge, Firefox или Safari).",
+          "Откройте нужную страницу и нажмите кнопку SingleFile на панели; файл сохранится в папку загрузок.",
+          "Чтобы добавить заметки, щёлкните по кнопке правой кнопкой мыши и выберите сохранение с аннотациями; выделите текст, напишите заметки, уберите лишнее.",
+          "В настройках выберите Google Drive или GitHub как место назначения, чтобы собирать сохранённые страницы в общей папке."
+        ],
+        "zh": [
+          "从浏览器的扩展商店安装 SingleFile（Chrome、Edge、Firefox 或 Safari）。",
+          "打开要保存的页面，点击工具栏上的 SingleFile 按钮；文件会保存到下载文件夹。",
+          "如需批注，右键点击按钮，选择批注后保存页面的选项；高亮文字、写笔记、删除多余部分。",
+          "在设置中选择 Google Drive 或 GitHub 作为保存目的地，把页面集中保存在共享位置。"
+        ],
+        "hi": [
+          "अपने ब्राउज़र के एक्सटेंशन स्टोर से SingleFile इंस्टॉल करें (Chrome, Edge, Firefox या Safari)।",
+          "जिस पेज को रखना है उसे खोलें और टूलबार में SingleFile बटन दबाएँ; फ़ाइल डाउनलोड फ़ोल्डर में सहेजी जाती है।",
+          "नोट जोड़ने के लिए बटन पर राइट-क्लिक करके नोट जोड़कर सहेजने वाला विकल्प चुनें; टेक्स्ट हाइलाइट करें, नोट लिखें, ग़ैरज़रूरी हिस्से हटाएँ।",
+          "सेटिंग्स में गंतव्य के रूप में Google Drive या GitHub चुनें ताकि सहेजे गए पेज एक साझा जगह पर जमा हों।"
+        ],
+        "ar": [
+          "ثبّت SingleFile من متجر إضافات متصفحك (Chrome أو Edge أو Firefox أو Safari).",
+          "افتح الصفحة التي تريد حفظها واضغط زر SingleFile في شريط الأدوات؛ يُحفظ الملف في مجلد التنزيلات.",
+          "لإضافة ملاحظات انقر بزر الفأرة الأيمن على الزر واختر خيار الحفظ مع التعليقات؛ ميّز النص واكتب ملاحظاتك واحذف ما لا تحتاجه.",
+          "في الإعدادات اختر Google Drive أو GitHub وجهةً للحفظ لتجميع الصفحات في مكان مشترك."
+        ]
+      },
+      "etiketler": [
+        "tarayıcı eklentisi",
+        "sayfa arşivi",
+        "web arşivleme",
+        "müşteri geri bildirimi",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/gildas-lormeau/SingleFile",
+      "baglanti_turu": "github",
+      "lisans": "AGPL-3.0",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 970,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "gowitness",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "gowitness: Yetkili Olduğunuz Sitelerin Toplu Ekran Görüntüsünü ve Durum Raporunu Çıkaran Komut Satırı Aracı",
+        "en": "gowitness: A Command-Line Tool for Bulk Screenshots and Status Reports of Sites You Are Authorized to Check",
+        "de": "gowitness: Kommandozeilen-Tool für Massen-Screenshots und Statusberichte von Websites, die Sie prüfen dürfen",
+        "ru": "gowitness: консольный инструмент для массовых скриншотов и отчётов о состоянии сайтов, которые вам разрешено проверять",
+        "zh": "gowitness：为您有权检查的网站批量截图并生成状态报告的命令行工具",
+        "hi": "gowitness: जिन साइटों की जाँच का आपको अधिकार है, उनके बल्क स्क्रीनशॉट और स्टेटस रिपोर्ट बनाने वाला कमांड-लाइन टूल",
+        "ar": "gowitness: أداة سطر أوامر لالتقاط صور جماعية وتقارير حالة للمواقع المصرّح لك بفحصها"
+      },
+      "ozet": {
+        "tr": "Bir adres listesindeki sitelerin ekran görüntüsünü alır; HTTP durumunu, SSL bitiş tarihini ve konsol hatalarını tek galeride toplar. Yalnız yetkili sitelerde.",
+        "en": "Screenshots every site in a URL list and gathers HTTP status, SSL expiry dates and console errors in one gallery. For sites you own or may test only.",
+        "de": "Erstellt Screenshots aller Websites einer URL-Liste und sammelt HTTP-Status, SSL-Ablaufdatum und Konsolenfehler in einer Galerie. Nur für autorisierte Sites.",
+        "ru": "Делает скриншоты всех сайтов из списка URL и собирает в одной галерее HTTP-статус, срок действия SSL и ошибки консоли. Только для разрешённых вам сайтов.",
+        "zh": "为网址列表中的每个网站截图，并在一个图库中汇总 HTTP 状态、SSL 到期日和控制台错误。仅限您拥有或获授权检查的网站。",
+        "hi": "URL सूची की हर साइट का स्क्रीनशॉट लेकर HTTP स्टेटस, SSL समाप्ति तिथि और कंसोल एरर एक गैलरी में जुटाता है। केवल अधिकृत साइटों के लिए।",
+        "ar": "تلتقط صورة لكل موقع في قائمة عناوين وتجمع حالة HTTP وتاريخ انتهاء SSL وأخطاء وحدة التحكم في معرض واحد. للمواقع المصرّح لك بفحصها فقط."
+      },
+      "aciklama": {
+        "tr": "gowitness, güvenlik firması SensePost'un Go diliyle yazdığı, arayüzsüz Chrome ile web sayfalarının ekran görüntüsünü alan açık kaynak bir komut satırı aracıdır. Bir metin dosyasındaki adresleri sırayla açar ve her sayfa için ekran görüntüsünün yanında HTTP durum kodunu, yönlendirme sonrası adresi, sayfa başlığını, SSL sertifikasının geçerlilik tarihlerini, yanıt başlıklarını, tarayıcı konsolundaki hataları ve sayfada algılanan teknolojileri kaydeder. Sonuçları SQLite, PostgreSQL ya da MySQL veritabanına, CSV ya da JSON Lines dosyasına yazar; yerel bir web arayüzünde galeri halinde gösterir ve birbirine benzeyen ekranları gruplar. Aslen yetkili sızma testlerinde keşif için geliştirildiğinden IP aralığı ve Nmap/Nessus sonuçlarını tarama seçenekleri de içerir. GPL-3.0 lisanslıdır.\n\nAjans olarak bakımını üstlendiğimiz müşteri sitelerinin sayfalarını haftalık toplu kontrol etmek için değerlendiriyoruz: hangi sayfa hata veriyor, hangisinin görünümü bozulmuş, hangi sitenin sertifikası dolmak üzere, tek ekranda görülür. Aracı yalnız sahip olduğunuz ya da yazılı izin aldığınız sistemlerde kullanın; başkalarının sistemlerini taramak hukuka aykırı olabilir, bu yüzden IP aralığı ve Nmap/Nessus seçeneklerini önermiyoruz. Sonuç arayüzünde kimlik doğrulama yoktur ve tarama başlatıp kayıt silebilen uçlar içerir; varsayılan 127.0.0.1 adresinde bırakın, internete açmayın.",
+        "en": "gowitness is an open-source command-line tool written in Go by the security firm SensePost that takes screenshots of web pages with headless Chrome. It opens the addresses in a text file one by one and, alongside each screenshot, records the HTTP status code, the final URL after redirects, the page title, the SSL certificate's validity dates, response headers, browser console errors and the technologies detected on the page. Results are written to a SQLite, PostgreSQL or MySQL database or to CSV or JSON Lines files and shown as a gallery in a local web interface, where visually similar screens are grouped together. Because it was originally built for reconnaissance in authorized penetration tests, it also has options for scanning IP ranges and Nmap/Nessus results. It is GPL-3.0-licensed.\n\nAs an agency we are evaluating it for weekly bulk checks of the pages of client sites we maintain: which page returns an error, whose layout is broken and which site's certificate is about to expire all become visible on one screen. Use it only on systems you own or have written permission to test; scanning other people's systems may be illegal, which is why we do not recommend the IP-range and Nmap/Nessus options. The results interface has no authentication and includes endpoints that can start scans and delete records, so keep it on the default 127.0.0.1 address and do not expose it to the internet.",
+        "de": "gowitness ist ein in Go geschriebenes Open-Source-Kommandozeilen-Tool der Sicherheitsfirma SensePost, das mit Headless Chrome Screenshots von Webseiten erstellt. Es öffnet die Adressen aus einer Textdatei nacheinander und speichert zu jedem Screenshot den HTTP-Statuscode, die Ziel-URL nach Weiterleitungen, den Seitentitel, die Gültigkeitsdaten des SSL-Zertifikats, Antwort-Header, Fehler aus der Browserkonsole und die auf der Seite erkannten Technologien. Die Ergebnisse landen in einer SQLite-, PostgreSQL- oder MySQL-Datenbank oder in CSV- bzw. JSON-Lines-Dateien und erscheinen als Galerie in einer lokalen Weboberfläche, die optisch ähnliche Seiten gruppiert. Da es ursprünglich für die Aufklärung in autorisierten Penetrationstests entwickelt wurde, kann es auch IP-Bereiche und Nmap/Nessus-Ergebnisse scannen. Lizenz: GPL-3.0.\n\nAls Agentur evaluieren wir gowitness für wöchentliche Sammelprüfungen der Seiten von Kundenwebsites, die wir betreuen: Welche Seite einen Fehler liefert, wessen Layout kaputt ist und welches Zertifikat bald abläuft, ist auf einen Blick sichtbar. Setzen Sie das Tool nur auf Systemen ein, die Ihnen gehören oder für die Sie eine schriftliche Erlaubnis haben; fremde Systeme zu scannen kann rechtswidrig sein, deshalb empfehlen wir die IP-Bereichs- und Nmap/Nessus-Optionen nicht. Die Ergebnisoberfläche hat keine Authentifizierung und enthält Endpunkte, die Scans starten und Einträge löschen können; lassen Sie sie auf der Standardadresse 127.0.0.1 und machen Sie sie nicht im Internet erreichbar.",
+        "ru": "gowitness — открытый консольный инструмент на Go от компании по безопасности SensePost, который делает скриншоты веб-страниц с помощью Chrome в режиме headless. Он по очереди открывает адреса из текстового файла и для каждой страницы, кроме скриншота, сохраняет HTTP-код ответа, итоговый адрес после перенаправлений, заголовок страницы, сроки действия SSL-сертификата, заголовки ответа, ошибки консоли браузера и обнаруженные на странице технологии. Результаты записываются в базу SQLite, PostgreSQL или MySQL либо в файлы CSV или JSON Lines и показываются галереей в локальном веб-интерфейсе, где визуально похожие страницы группируются. Поскольку изначально он создан для разведки при санкционированных тестах на проникновение, в нём есть и режимы сканирования диапазонов IP и результатов Nmap/Nessus. Лицензия GPL-3.0.\n\nКак агентство, мы рассматриваем gowitness для еженедельной массовой проверки страниц клиентских сайтов, которые обслуживаем: на одном экране видно, какая страница отдаёт ошибку, где сломалась вёрстка и у какого сайта скоро истекает сертификат. Используйте инструмент только на системах, которые принадлежат вам или на проверку которых есть письменное разрешение; сканирование чужих систем может быть незаконным, поэтому режимы диапазонов IP и Nmap/Nessus мы не рекомендуем. В интерфейсе результатов нет аутентификации, а его конечные точки могут запускать сканирование и удалять записи; оставьте его на адресе 127.0.0.1 по умолчанию и не открывайте в интернет.",
+        "zh": "gowitness 是安全公司 SensePost 用 Go 语言编写的开源命令行工具，借助无头 Chrome 为网页截图。它会依次打开文本文件中的网址，为每个页面在截图之外记录 HTTP 状态码、重定向后的最终网址、页面标题、SSL 证书有效期、响应头、浏览器控制台错误以及页面上检测到的技术。结果可写入 SQLite、PostgreSQL 或 MySQL 数据库，或 CSV、JSON Lines 文件，并在本地网页界面中以图库形式展示，外观相似的页面会被归为一组。由于它最初是为经授权的渗透测试中的侦察而开发，因此还提供扫描 IP 段和 Nmap/Nessus 结果的选项。采用 GPL-3.0 许可证。\n\n作为代理机构，我们正在评估用它每周批量检查由我们维护的客户网站页面：哪个页面报错、哪个页面布局错乱、哪个网站的证书即将到期，一屏就能看清。请只在您拥有或已获得书面授权的系统上使用；扫描他人的系统可能违法，因此我们不推荐 IP 段和 Nmap/Nessus 扫描选项。结果界面没有身份验证，并包含可以启动扫描和删除记录的接口；请保持默认的 127.0.0.1 地址，不要暴露到互联网。",
+        "hi": "gowitness सुरक्षा कंपनी SensePost का Go में लिखा ओपन-सोर्स कमांड-लाइन टूल है, जो हेडलेस Chrome से वेब पेजों के स्क्रीनशॉट लेता है। यह एक टेक्स्ट फ़ाइल के पते एक-एक करके खोलता है और हर पेज के स्क्रीनशॉट के साथ HTTP स्टेटस कोड, रीडायरेक्ट के बाद का अंतिम पता, पेज का शीर्षक, SSL सर्टिफ़िकेट की वैधता तिथियाँ, रिस्पॉन्स हेडर, ब्राउज़र कंसोल के एरर और पेज पर पहचानी गई तकनीकें दर्ज करता है। नतीजे SQLite, PostgreSQL या MySQL डेटाबेस अथवा CSV या JSON Lines फ़ाइलों में लिखे जाते हैं और एक लोकल वेब इंटरफ़ेस में गैलरी की तरह दिखते हैं, जहाँ दिखने में मिलते-जुलते पेज एक समूह में रखे जाते हैं। मूल रूप से यह अधिकृत पेनिट्रेशन टेस्ट में जानकारी जुटाने के लिए बना था, इसलिए इसमें IP रेंज और Nmap/Nessus नतीजों को स्कैन करने के विकल्प भी हैं। यह GPL-3.0 लाइसेंस में है।\n\nएक एजेंसी के रूप में हम जिन क्लाइंट साइटों का रखरखाव करते हैं, उनके पेजों की साप्ताहिक बल्क जाँच के लिए इस पर विचार कर रहे हैं: कौन-सा पेज एरर दे रहा है, किसका लेआउट बिगड़ा है और किस साइट का सर्टिफ़िकेट ख़त्म होने वाला है, यह एक ही स्क्रीन पर दिखता है। इस टूल का इस्तेमाल केवल उन सिस्टमों पर करें जो आपके हैं या जिनकी जाँच की आपके पास लिखित अनुमति है; दूसरों के सिस्टम स्कैन करना ग़ैरक़ानूनी हो सकता है, इसलिए हम IP रेंज और Nmap/Nessus विकल्पों की सलाह नहीं देते। नतीजों वाले इंटरफ़ेस में कोई ऑथेंटिकेशन नहीं है और उसमें स्कैन शुरू करने व रिकॉर्ड मिटाने वाले एंडपॉइंट हैं; इसे डिफ़ॉल्ट 127.0.0.1 पते पर ही रखें, इंटरनेट पर न खोलें।",
+        "ar": "gowitness أداة سطر أوامر مفتوحة المصدر كتبتها شركة الأمن SensePost بلغة Go، وتلتقط صورًا لصفحات الويب باستخدام Chrome دون واجهة. تفتح العناوين الواردة في ملف نصي واحدًا تلو الآخر، وتسجّل لكل صفحة إلى جانب الصورة رمز حالة HTTP والعنوان النهائي بعد إعادة التوجيه وعنوان الصفحة وتواريخ صلاحية شهادة SSL وترويسات الاستجابة وأخطاء وحدة تحكم المتصفح والتقنيات المكتشفة في الصفحة. تُكتب النتائج في قاعدة بيانات SQLite أو PostgreSQL أو MySQL أو في ملفات CSV أو JSON Lines، وتُعرض كمعرض في واجهة ويب محلية تجمع الصفحات المتشابهة شكلًا معًا. ولأنها صُممت أصلًا للاستطلاع في اختبارات الاختراق المصرّح بها، فهي تتضمن أيضًا خيارات لفحص نطاقات IP ونتائج Nmap/Nessus. مرخّصة بموجب GPL-3.0.\n\nبصفتنا وكالة، نقيّمها للفحص الجماعي الأسبوعي لصفحات مواقع العملاء التي نتولى صيانتها: أي صفحة تعرض خطأ، وأي تخطيط تعطّل، وأي موقع توشك شهادته على الانتهاء، كل ذلك يظهر في شاشة واحدة. استخدم الأداة فقط على الأنظمة التي تملكها أو لديك إذن كتابي بفحصها؛ ففحص أنظمة الآخرين قد يكون مخالفًا للقانون، ولذلك لا نوصي بخيارات نطاقات IP وNmap/Nessus. لا تحتوي واجهة النتائج على مصادقة، وفيها نقاط وصول يمكنها بدء الفحص وحذف السجلات؛ أبقها على العنوان الافتراضي 127.0.0.1 ولا تعرضها على الإنترنت."
+      },
+      "adimlar": {
+        "tr": [
+          "Go kuruluysa: go install github.com/sensepost/gowitness@latest (ya da Releases sayfasından hazır dosyayı indirin); Chrome bulunamazsa araç uygun bir sürümü kendisi indirir.",
+          "Yalnız size ait ya da yazılı izin aldığınız sitelerin adreslerini siteler.txt dosyasına satır satır yazın.",
+          "Taramayı başlatın: gowitness scan file -f siteler.txt --write-db --screenshot-fullpage",
+          "Sonuçları gowitness report server komutuyla http://127.0.0.1:7171 adresinde inceleyin; bu arayüzü internete açmayın."
+        ],
+        "en": [
+          "With Go installed: go install github.com/sensepost/gowitness@latest (or download a ready binary from Releases); if Chrome is not found, the tool downloads a suitable build itself.",
+          "List the addresses of sites you own or have written permission to check, one per line, in sites.txt.",
+          "Start the scan: gowitness scan file -f sites.txt --write-db --screenshot-fullpage",
+          "Review the results with gowitness report server at http://127.0.0.1:7171; do not expose this interface to the internet."
+        ],
+        "de": [
+          "Mit installiertem Go: go install github.com/sensepost/gowitness@latest (oder ein fertiges Binary unter Releases laden); findet es kein Chrome, lädt das Tool selbst eine passende Version.",
+          "Adressen von Websites, die Ihnen gehören oder für die Sie eine schriftliche Erlaubnis haben, zeilenweise in sites.txt eintragen.",
+          "Scan starten: gowitness scan file -f sites.txt --write-db --screenshot-fullpage",
+          "Ergebnisse mit gowitness report server unter http://127.0.0.1:7171 ansehen; diese Oberfläche nicht im Internet erreichbar machen."
+        ],
+        "ru": [
+          "Если установлен Go: go install github.com/sensepost/gowitness@latest (или скачайте готовый файл из Releases); если Chrome не найден, инструмент сам скачает подходящую сборку.",
+          "Запишите в sites.txt по одному адресу на строку — только сайты, которые принадлежат вам или на проверку которых есть письменное разрешение.",
+          "Запустите сканирование: gowitness scan file -f sites.txt --write-db --screenshot-fullpage",
+          "Смотрите результаты через gowitness report server по адресу http://127.0.0.1:7171; не открывайте этот интерфейс в интернет."
+        ],
+        "zh": [
+          "已安装 Go 时运行：go install github.com/sensepost/gowitness@latest（或从 Releases 下载现成文件）；若找不到 Chrome，工具会自行下载合适的版本。",
+          "把您拥有或已获书面授权检查的网站地址逐行写入 sites.txt。",
+          "开始扫描：gowitness scan file -f sites.txt --write-db --screenshot-fullpage",
+          "用 gowitness report server 在 http://127.0.0.1:7171 查看结果；不要把这个界面暴露到互联网。"
+        ],
+        "hi": [
+          "Go इंस्टॉल हो तो: go install github.com/sensepost/gowitness@latest (या Releases से तैयार फ़ाइल डाउनलोड करें); Chrome न मिलने पर टूल ख़ुद सही संस्करण डाउनलोड कर लेता है।",
+          "sites.txt में हर पंक्ति में एक पता लिखें, सिर्फ़ उन साइटों के जो आपकी हैं या जिनकी जाँच की लिखित अनुमति है।",
+          "स्कैन शुरू करें: gowitness scan file -f sites.txt --write-db --screenshot-fullpage",
+          "gowitness report server से http://127.0.0.1:7171 पर नतीजे देखें; इस इंटरफ़ेस को इंटरनेट पर न खोलें।"
+        ],
+        "ar": [
+          "إذا كان Go مثبتًا: go install github.com/sensepost/gowitness@latest (أو نزّل ملفًا جاهزًا من صفحة Releases)؛ وإن لم تجد الأداة Chrome فإنها تنزّل نسخة مناسبة بنفسها.",
+          "اكتب في الملف sites.txt عنوانًا في كل سطر للمواقع التي تملكها أو لديك إذن كتابي بفحصها فقط.",
+          "ابدأ الفحص: gowitness scan file -f sites.txt --write-db --screenshot-fullpage",
+          "راجع النتائج عبر gowitness report server على http://127.0.0.1:7171، ولا تعرض هذه الواجهة على الإنترنت."
+        ]
+      },
+      "etiketler": [
+        "ekran görüntüsü",
+        "site bakımı",
+        "toplu denetim",
+        "ssl sertifikası",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/sensepost/gowitness",
+      "baglanti_turu": "github",
+      "lisans": "GPL-3.0",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 980,
+      "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "kestra",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "Kestra: Zamanlanmış ve Olayla Tetiklenen İş Akışları İçin Açık Kaynak Otomasyon ve Orkestrasyon Platformu",
+        "en": "Kestra: An Open-Source Automation and Orchestration Platform for Scheduled and Event-Driven Workflows",
+        "de": "Kestra: Open-Source-Plattform für Automatisierung und Orchestrierung geplanter und ereignisgesteuerter Workflows",
+        "ru": "Kestra: открытая платформа автоматизации и оркестрации рабочих процессов по расписанию и по событиям",
+        "zh": "Kestra：面向定时与事件驱动工作流的开源自动化与编排平台",
+        "hi": "Kestra: शेड्यूल और इवेंट से चलने वाले वर्कफ़्लो के लिए ओपन-सोर्स ऑटोमेशन और ऑर्केस्ट्रेशन प्लेटफ़ॉर्म",
+        "ar": "Kestra: منصة أتمتة وتنسيق مفتوحة المصدر لمسارات العمل المجدولة والمدفوعة بالأحداث"
+      },
+      "ozet": {
+        "tr": "Açık kaynak Kestra; YAML ya da kodsuz editörle yazılan iş akışlarını zamanlayıcı ve webhook ile çalıştırır, betikleri yeniden deneme ve kayıtlarla yönetir.",
+        "en": "Open-source Kestra runs workflows written in YAML or a no-code editor on schedules, webhooks and events, and manages scripts with retries and logs.",
+        "de": "Die Open-Source-Plattform Kestra startet in YAML oder im No-Code-Editor erstellte Workflows per Zeitplan, Webhook oder Ereignis – mit Wiederholungen und Logs.",
+        "ru": "Открытая платформа Kestra запускает процессы, описанные в YAML или no-code-редакторе, по расписанию, вебхуку или событию и ведёт повторы и журналы.",
+        "zh": "开源平台 Kestra 可按计划、Webhook 或事件运行用 YAML 或无代码编辑器编写的工作流，并以重试和日志管理脚本任务。",
+        "hi": "ओपन-सोर्स Kestra YAML या नो-कोड एडिटर में लिखे वर्कफ़्लो को शेड्यूल, वेबहुक या इवेंट से चलाता है और स्क्रिप्ट को रीट्राई व लॉग के साथ संभालता है।",
+        "ar": "تشغّل منصة Kestra مفتوحة المصدر مسارات عمل مكتوبة بـYAML أو بمحرر دون شيفرة وفق جدول أو Webhook أو حدث، وتدير البرامج النصية بإعادة المحاولة والسجلات."
+      },
+      "aciklama": {
+        "tr": "Kestra, zamanlanmış ve olaylarla tetiklenen iş akışlarını tek yerden yöneten açık kaynak bir orkestrasyon platformudur. Akışlar birkaç satırlık YAML ile, kodsuz editörle ya da yerleşik yapay zekâ yardımcısıyla yazılır; üçü de aynı tanımı düzenler ve tanımlar Git'te sürümlenebilir. Bir akış belirli bir saatte, bir webhook çağrısıyla ya da başka bir olayla başlar; içinde Python, Node.js veya kabuk betikleri çalıştırabilir, veritabanlarına SQL sorgusu gönderebilir, HTTP ile API'lere bağlanabilir. Yeniden deneme, zaman aşımı, hata yönetimi ve her çalışmanın kayıtları hazır gelir. Akışlar MCP sunucusu üzerinden yapay zekâ ajanlarına araç olarak açılabilir; Claude Code gibi kodlama ajanları da Agent Skills ile akış yazabilir. Apache-2.0 lisanslıdır; ayrıntılı rol tabanlı yetkilendirme (RBAC) gibi ekip özellikleri ücretli Enterprise sürümündedir.\n\nAjans olarak reklam ve analitik API'lerinden düzenli veri çekip tek panoda birleştirmek, müşteri sitelerinin yedekleme ve sağlık kontrollerini zamanlamak gibi tekrarlayan işler için değerlendiriyoruz; basit uygulama bağlantılarından çok, kod çalıştıran ve hataları izlenmesi gereken zamanlanmış işlere uygundur. Java tabanlıdır ve PostgreSQL ile çalışır; küçük bir sunucuda bellek kullanımını izleyin. Sunucu ve arayüz varsayılan olarak Kestra'ya anonim kullanım istatistiği gönderir, yapılandırmadan kapatılabilir. Örnek Docker Compose dosyası geliştirme içindir (root kullanıcıyla ve Docker soketine erişerek çalışır); ilk açılışta yönetici hesabını hemen oluşturun, kimlik doğrulamasız 8081 yönetim portunu ve korumasız bir arayüzü internete açmayın.",
+        "en": "Kestra is an open-source orchestration platform that manages scheduled and event-triggered workflows in one place. Flows are written in a few lines of YAML, in a no-code editor or with the built-in AI assistant; all three edit the same definition, which can be versioned in Git. A flow starts at a set time, on a webhook call or on another event, and can run Python, Node.js or shell scripts, send SQL queries to databases and call APIs over HTTP. Retries, timeouts, error handling and logs for every run come built in. Flows can be exposed to AI agents as tools through an MCP server, and coding agents such as Claude Code can write flows using Agent Skills. It is Apache-2.0-licensed; team features such as fine-grained role-based access control (RBAC) are in the paid Enterprise edition.\n\nAs an agency we are evaluating it for recurring jobs such as regularly pulling data from advertising and analytics APIs into a single dashboard and scheduling backups and health checks for client sites; it suits scheduled jobs that run code and whose failures need tracking better than simple app-to-app connections. It is Java-based and runs with PostgreSQL, so watch memory use on a small server. By default the server and the interface send anonymous usage statistics to Kestra; this can be turned off in the configuration. The sample Docker Compose file is meant for development (it runs as root with access to the Docker socket); create the admin account right after the first start, and do not expose the unauthenticated 8081 management port or an unprotected interface to the internet.",
+        "de": "Kestra ist eine Open-Source-Orchestrierungsplattform, die geplante und ereignisgesteuerte Workflows an einem Ort verwaltet. Abläufe entstehen mit wenigen Zeilen YAML, im No-Code-Editor oder mit dem integrierten KI-Assistenten; alle drei bearbeiten dieselbe Definition, die sich in Git versionieren lässt. Ein Ablauf startet zu einer festen Zeit, durch einen Webhook-Aufruf oder ein anderes Ereignis und kann Python-, Node.js- oder Shell-Skripte ausführen, SQL-Abfragen an Datenbanken senden und APIs per HTTP aufrufen. Wiederholungen, Timeouts, Fehlerbehandlung und Logs für jeden Lauf sind eingebaut. Über einen MCP-Server lassen sich Abläufe KI-Agenten als Werkzeuge bereitstellen, und Coding-Agenten wie Claude Code können sie mit Agent Skills schreiben. Lizenz: Apache-2.0; Teamfunktionen wie feingranulare rollenbasierte Zugriffskontrolle (RBAC) gibt es in der kostenpflichtigen Enterprise-Edition.\n\nAls Agentur evaluieren wir Kestra für wiederkehrende Aufgaben, etwa regelmäßig Daten aus Werbe- und Analyse-APIs in ein gemeinsames Dashboard zu holen oder Backups und Statusprüfungen für Kundenwebsites zu planen; es eignet sich eher für geplante Jobs, die Code ausführen und deren Fehler nachverfolgt werden müssen, als für einfache App-zu-App-Verbindungen. Es basiert auf Java und läuft mit PostgreSQL; behalten Sie auf kleinen Servern den Speicherverbrauch im Blick. Server und Oberfläche senden standardmäßig anonyme Nutzungsstatistiken an Kestra, was sich in der Konfiguration abschalten lässt. Die Beispiel-Docker-Compose-Datei ist für die Entwicklung gedacht (sie läuft als root mit Zugriff auf den Docker-Socket); legen Sie das Admin-Konto direkt nach dem ersten Start an und machen Sie weder den nicht authentifizierten Management-Port 8081 noch eine ungeschützte Oberfläche im Internet erreichbar.",
+        "ru": "Kestra — открытая платформа оркестрации, которая управляет рабочими процессами по расписанию и по событиям в одном месте. Процессы описываются несколькими строками YAML, в no-code-редакторе или с помощью встроенного ИИ-помощника; все три способа редактируют одно и то же определение, которое можно версионировать в Git. Процесс запускается в заданное время, по вызову вебхука или по другому событию и может выполнять скрипты на Python, Node.js или shell, отправлять SQL-запросы в базы данных и обращаться к API по HTTP. Повторные попытки, тайм-ауты, обработка ошибок и журнал каждого запуска встроены. Через MCP-сервер процессы можно открыть ИИ-агентам как инструменты, а кодинг-агенты вроде Claude Code могут писать их с помощью Agent Skills. Лицензия Apache-2.0; командные функции вроде детальной ролевой модели доступа (RBAC) есть в платной редакции Enterprise.\n\nКак агентство, мы рассматриваем Kestra для повторяющихся задач: регулярно забирать данные из рекламных и аналитических API в общую панель, планировать резервные копии и проверки состояния клиентских сайтов. Она лучше подходит для задач по расписанию, которые выполняют код и сбои которых нужно отслеживать, чем для простых связок между приложениями. Платформа написана на Java и работает с PostgreSQL, поэтому на небольшом сервере следите за расходом памяти. Сервер и интерфейс по умолчанию отправляют в Kestra анонимную статистику использования; это отключается в конфигурации. Пример файла Docker Compose предназначен для разработки (запуск от root с доступом к сокету Docker); создайте учётную запись администратора сразу после первого запуска и не открывайте в интернет порт управления 8081 без аутентификации и незащищённый интерфейс.",
+        "zh": "Kestra 是一个开源编排平台，可在同一处管理定时触发和事件触发的工作流。工作流可以用几行 YAML、无代码编辑器或内置 AI 助手编写；三种方式编辑的是同一个定义，并可在 Git 中进行版本管理。工作流可在指定时间、通过 Webhook 调用或其他事件启动，能运行 Python、Node.js 或 Shell 脚本，向数据库发送 SQL 查询，并通过 HTTP 调用 API。重试、超时、错误处理以及每次运行的日志均为内置功能。工作流可通过 MCP 服务器作为工具开放给 AI 智能体，Claude Code 等编码智能体也能借助 Agent Skills 编写工作流。采用 Apache-2.0 许可证；细粒度的基于角色的访问控制（RBAC）等团队功能属于付费的企业版。\n\n作为代理机构，我们正在评估用它处理重复性任务，例如定期从广告和分析 API 拉取数据汇总到同一个看板，以及为客户网站安排备份和健康检查；与简单的应用间连接相比，它更适合需要运行代码并跟踪失败情况的定时任务。它基于 Java，并与 PostgreSQL 一起运行，在小型服务器上请留意内存占用。服务器和界面默认会向 Kestra 发送匿名使用统计，可在配置中关闭。示例 Docker Compose 文件用于开发（以 root 用户运行并可访问 Docker 套接字）；首次启动后请立即创建管理员账号，不要把未经身份验证的 8081 管理端口或未加保护的界面暴露到互联网。",
+        "hi": "Kestra एक ओपन-सोर्स ऑर्केस्ट्रेशन प्लेटफ़ॉर्म है जो शेड्यूल से और इवेंट से चलने वाले वर्कफ़्लो को एक ही जगह से संभालता है। फ़्लो कुछ पंक्तियों के YAML, नो-कोड एडिटर या बिल्ट-इन AI सहायक से लिखे जाते हैं; तीनों एक ही परिभाषा को बदलते हैं, जिसे Git में वर्ज़न किया जा सकता है। कोई फ़्लो तय समय पर, वेबहुक कॉल से या किसी दूसरे इवेंट से शुरू होता है और Python, Node.js या शेल स्क्रिप्ट चला सकता है, डेटाबेस को SQL क्वेरी भेज सकता है और HTTP से API कॉल कर सकता है। रीट्राई, टाइमआउट, एरर हैंडलिंग और हर रन के लॉग पहले से मौजूद हैं। फ़्लो को MCP सर्वर के ज़रिए AI एजेंटों के लिए टूल की तरह खोला जा सकता है, और Claude Code जैसे कोडिंग एजेंट Agent Skills से फ़्लो लिख सकते हैं। यह Apache-2.0 लाइसेंस में है; विस्तृत रोल-आधारित एक्सेस कंट्रोल (RBAC) जैसी टीम सुविधाएँ पेड Enterprise संस्करण में हैं।\n\nएक एजेंसी के रूप में हम दोहराए जाने वाले कामों के लिए इस पर विचार कर रहे हैं, जैसे विज्ञापन और एनालिटिक्स API से नियमित रूप से डेटा खींचकर एक डैशबोर्ड में जोड़ना और क्लाइंट साइटों के बैकअप व हेल्थ चेक शेड्यूल करना; यह साधारण ऐप-से-ऐप कनेक्शन से ज़्यादा उन शेड्यूल्ड कामों के लिए सही है जो कोड चलाते हैं और जिनकी विफलताओं पर नज़र रखनी होती है। यह Java पर आधारित है और PostgreSQL के साथ चलता है, इसलिए छोटे सर्वर पर मेमोरी उपयोग पर नज़र रखें। सर्वर और इंटरफ़ेस डिफ़ॉल्ट रूप से Kestra को गुमनाम उपयोग आँकड़े भेजते हैं; इसे कॉन्फ़िगरेशन में बंद किया जा सकता है। नमूना Docker Compose फ़ाइल डेवलपमेंट के लिए है (यह root यूज़र और Docker सॉकेट की पहुँच के साथ चलती है); पहली बार शुरू करते ही एडमिन अकाउंट बनाएँ, और बिना ऑथेंटिकेशन वाले 8081 मैनेजमेंट पोर्ट या असुरक्षित इंटरफ़ेस को इंटरनेट पर न खोलें।",
+        "ar": "Kestra منصة تنسيق مفتوحة المصدر تدير مسارات العمل المجدولة والمدفوعة بالأحداث من مكان واحد. تُكتب المسارات ببضعة أسطر من YAML أو بمحرر دون شيفرة أو بمساعد الذكاء الاصطناعي المدمج، وكلها تعدّل التعريف نفسه الذي يمكن إدارة إصداراته في Git. يبدأ المسار في وقت محدد أو عند استدعاء Webhook أو عند حدث آخر، ويمكنه تشغيل برامج Python أو Node.js أو Shell النصية، وإرسال استعلامات SQL إلى قواعد البيانات، واستدعاء واجهات API عبر HTTP. وتأتي إعادة المحاولة ومهلات التنفيذ ومعالجة الأخطاء وسجلات كل تشغيل مدمجة. يمكن إتاحة المسارات لوكلاء الذكاء الاصطناعي كأدوات عبر خادم MCP، كما يستطيع وكلاء البرمجة مثل Claude Code كتابتها باستخدام Agent Skills. مرخّصة بموجب Apache-2.0، أما ميزات الفرق مثل التحكم الدقيق في الوصول القائم على الأدوار (RBAC) فهي في إصدار Enterprise المدفوع.\n\nبصفتنا وكالة، نقيّمها للمهام المتكررة مثل سحب البيانات بانتظام من واجهات الإعلانات والتحليلات وجمعها في لوحة واحدة، وجدولة النسخ الاحتياطي وفحوص سلامة مواقع العملاء؛ فهي أنسب للمهام المجدولة التي تشغّل شيفرة ويجب تتبّع إخفاقاتها منها للربط البسيط بين التطبيقات. تعتمد على Java وتعمل مع PostgreSQL، لذا راقب استهلاك الذاكرة على الخوادم الصغيرة. يرسل الخادم والواجهة افتراضيًا إحصاءات استخدام مجهولة إلى Kestra، ويمكن إيقافها من الإعدادات. ملف Docker Compose النموذجي مخصص للتطوير (يعمل بمستخدم root مع وصول إلى مقبس Docker)؛ أنشئ حساب المسؤول فور التشغيل الأول، ولا تعرض منفذ الإدارة 8081 غير المحمي بمصادقة ولا واجهة غير محمية على الإنترنت."
+      },
+      "adimlar": {
+        "tr": [
+          "Denemek için Docker açıkken README'deki tek satırlık docker run komutunu (server local) çalıştırıp http://localhost:8080 adresini açın.",
+          "İlk ekranda yönetici e-postasını ve güçlü bir şifre belirleyin; sunucu kurulumunda resmi docker-compose.yml'deki varsayılan veritabanı şifresini değiştirin.",
+          "İstatistikleri kapatmak için yapılandırmaya kestra.anonymous-usage-report.enabled: false ve kestra.ui-anonymous-usage-report.enabled: false ekleyin.",
+          "Zamanlayıcı tetikleyicili, tek Python görevli küçük bir akışla başlayın ve çalışma kayıtlarını arayüzden izleyin."
+        ],
+        "en": [
+          "To try it, with Docker running, start the one-line docker run command (server local) from the README and open http://localhost:8080.",
+          "On the first screen set an admin email and a strong password; on a server install, change the default database password in the official docker-compose.yml.",
+          "To turn off statistics, add kestra.anonymous-usage-report.enabled: false and kestra.ui-anonymous-usage-report.enabled: false to the configuration.",
+          "Start with a small flow that has a schedule trigger and a single Python task, and follow the run logs in the interface."
+        ],
+        "de": [
+          "Zum Ausprobieren bei laufendem Docker den einzeiligen docker-run-Befehl (server local) aus der README starten und http://localhost:8080 öffnen.",
+          "Auf dem ersten Bildschirm eine Admin-E-Mail und ein starkes Passwort festlegen; bei einer Serverinstallation das Standard-Datenbankpasswort in der offiziellen docker-compose.yml ändern.",
+          "Statistiken abschalten: kestra.anonymous-usage-report.enabled: false und kestra.ui-anonymous-usage-report.enabled: false in die Konfiguration eintragen.",
+          "Mit einem kleinen Ablauf aus Zeitplan-Trigger und einer Python-Aufgabe beginnen und die Lauf-Logs in der Oberfläche verfolgen."
+        ],
+        "ru": [
+          "Для пробы при запущенном Docker выполните однострочную команду docker run (server local) из README и откройте http://localhost:8080.",
+          "На первом экране задайте e-mail администратора и надёжный пароль; при установке на сервер смените пароль базы данных по умолчанию в официальном docker-compose.yml.",
+          "Чтобы отключить статистику, добавьте в конфигурацию kestra.anonymous-usage-report.enabled: false и kestra.ui-anonymous-usage-report.enabled: false.",
+          "Начните с небольшого процесса с триггером по расписанию и одной задачей на Python и следите за журналами запусков в интерфейсе."
+        ],
+        "zh": [
+          "试用时在 Docker 运行状态下执行 README 中的单行 docker run 命令（server local），然后打开 http://localhost:8080。",
+          "在首个界面设置管理员邮箱和强密码；在服务器上安装时，请修改官方 docker-compose.yml 中的默认数据库密码。",
+          "如需关闭统计，在配置中加入 kestra.anonymous-usage-report.enabled: false 和 kestra.ui-anonymous-usage-report.enabled: false。",
+          "从一个带定时触发器和单个 Python 任务的小工作流开始，并在界面中查看运行日志。"
+        ],
+        "hi": [
+          "आज़माने के लिए Docker चालू रखकर README का एक-पंक्ति वाला docker run कमांड (server local) चलाएँ और http://localhost:8080 खोलें।",
+          "पहली स्क्रीन पर एडमिन ईमेल और मज़बूत पासवर्ड सेट करें; सर्वर इंस्टॉलेशन में आधिकारिक docker-compose.yml का डिफ़ॉल्ट डेटाबेस पासवर्ड बदलें।",
+          "आँकड़े बंद करने के लिए कॉन्फ़िगरेशन में kestra.anonymous-usage-report.enabled: false और kestra.ui-anonymous-usage-report.enabled: false जोड़ें।",
+          "शेड्यूल ट्रिगर और एक Python टास्क वाले छोटे फ़्लो से शुरू करें और इंटरफ़ेस में रन लॉग देखें।"
+        ],
+        "ar": [
+          "للتجربة، ومع تشغيل Docker، نفّذ أمر docker run المكوّن من سطر واحد (server local) الوارد في README ثم افتح http://localhost:8080.",
+          "في الشاشة الأولى عيّن بريد المسؤول وكلمة مرور قوية؛ وعند التثبيت على خادم غيّر كلمة مرور قاعدة البيانات الافتراضية في ملف docker-compose.yml الرسمي.",
+          "لإيقاف الإحصاءات أضف إلى الإعدادات kestra.anonymous-usage-report.enabled: false و kestra.ui-anonymous-usage-report.enabled: false.",
+          "ابدأ بمسار صغير فيه مشغّل مجدول ومهمة Python واحدة، وتابع سجلات التشغيل من الواجهة."
+        ]
+      },
+      "etiketler": [
+        "iş akışı",
+        "otomasyon",
+        "zamanlanmış görevler",
+        "self-host",
+        "yaml",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/kestra-io/kestra",
+      "baglanti_turu": "github",
+      "lisans": "Apache-2.0",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 990,
+      "dogrulama_tarihi": "2026-10-01"
     }
   ]
 }
