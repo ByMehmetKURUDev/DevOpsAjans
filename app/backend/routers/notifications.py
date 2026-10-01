@@ -12,7 +12,7 @@ from typing import List, Optional
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
 from fastapi import Depends as _Depends
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from models.notifications import Notifications
 from pydantic import BaseModel
 from services.notify import send_test
@@ -86,6 +86,19 @@ class MarkReadRequest(BaseModel):
     ids: Optional[List[int]] = None
 
 
+def _kisiye_daralt(request: Optional[Request], istenen: str) -> str:
+    """Yönetici her adrese bakabilir; diğerleri yalnız kendi (jetondaki) adresine."""
+    from dependencies.kayit_sahipligi import _yonetici_mi
+
+    eposta = (istenen or "").strip().lower()
+    if request is None:
+        return eposta
+    kullanici, yonetici = _yonetici_mi(request)
+    if yonetici or kullanici is None:
+        return eposta
+    return (kullanici.email or "").strip().lower()
+
+
 @router.get("", response_model=NotificationListResponse)
 async def list_notifications(
     recipient_email: str = Query(..., description="Bildirimleri istenen kişinin e-postası"),
@@ -94,6 +107,7 @@ async def list_notifications(
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=200),
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
     """
     Bir kişinin bildirimleri, en yeniden eskiye.
@@ -101,8 +115,12 @@ async def list_notifications(
     Varsayılan olarak yalnızca panel içi (`inapp`) kayıtlar dönüyor: çanda
     aynı olayın e-posta ve SMS kopyaları da görünmesin diye. Gönderim
     kayıtlarını görmek için `channel=all`.
+
+    Faz 2E güvenlik incelemesi: bildirimler KİŞİYE ait (hesaba değil).
+    Yönetici olmayan için `recipient_email` jetondaki kişiyle değiştiriliyor —
+    eskiden sorgu parametresine başkasının adresi yazılıp okunabiliyordu.
     """
-    eposta = recipient_email.strip().lower()
+    eposta = _kisiye_daralt(request, recipient_email)
     if not eposta:
         raise HTTPException(status_code=400, detail="recipient_email boş olamaz")
 

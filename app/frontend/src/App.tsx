@@ -32,6 +32,8 @@ const DurumSayfasi = ekliLazy('siteBakim', () => import('./pages/DurumSayfasi'))
 // Faz 2C: girişsiz dosya paylaşımı ve yazdırmaya uygun aylık rapor (ikisi de noindex, prerender yok).
 const PaylasSayfasi = ekliLazy('dosyalar', () => import('./pages/PaylasSayfasi'));
 const AylikRaporSayfasi = ekliLazy('aylikRapor', () => import('./pages/AylikRaporSayfasi'));
+// Faz 2E: hesap ekibi daveti (jetonlu, noindex, prerender yok).
+const HesapDavetSayfasi = ekliLazy('hesapEkibi', () => import('./pages/HesapDavetSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -67,6 +69,8 @@ const AppRoutes = () => (
         <Route path="/durum/:slug" element={<DurumSayfasi />} />
         {/* Süreli, isteğe bağlı parolalı dosya paylaşımı (/paylas/<jeton>). Oturum istemiyor, noindex. */}
         <Route path="/paylas/:jeton" element={<PaylasSayfasi />} />
+        {/* Faz 2E: müşteri hesabına ekip daveti (/hesap-davet/<jeton>). Bilgi girişsiz, kabul girişli; noindex. */}
+        <Route path="/hesap-davet/:jeton" element={<HesapDavetSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

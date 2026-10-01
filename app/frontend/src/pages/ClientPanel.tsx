@@ -35,6 +35,8 @@ import { client, oturumIziVarMi } from '@/lib/sdkClient';
 import { useSiteSettings } from '@/lib/siteSettings';
 import { modullerimiGetir, type Modullerim as ModulBilgisi } from '@/lib/moduller';
 import { modulIkonu } from '@/lib/modulIkonlari';
+import { IZINLER, SEKME_IZINLERI, hesaplarimiGetir, type Hesap } from '@/lib/hesapEkibi';
+import { hesapSec, seciliHesap } from '@/lib/hesapSecimi';
 
 // Site analizi sekmesi ayrı parçada: rapor görünümü panele her girişte inmesin.
 const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
@@ -70,6 +72,9 @@ const HataBildir = ekliLazy('geriBildirim', () => import('@/components/HataBildi
 const GeriBildirimlerim = ekliLazy('geriBildirim', () => import('@/components/GeriBildirimlerim'));
 const DuyuruSeridi = ekliLazy('duyurular', () => import('@/components/DuyuruSeridi'));
 const OneriKutusu = ekliLazy('duyurular', () => import('@/components/OneriKutusu'));
+// Faz 2E — hesap seçici + "başka hesapta çalışıyorsunuz" şeridi ve Profil › Ekip.
+const HesapSecici = ekliLazy('hesapEkibi', () => import('@/components/HesapSecici'));
+const HesapEkibi = ekliLazy('hesapEkibi', () => import('@/components/HesapEkibi'));
 
 interface AuthUser {
   id?: string;
@@ -186,6 +191,63 @@ export default function ClientPanel() {
 
   const email = (user?.email || '').toLowerCase();
 
+  // Faz 2E — erişilebilen hesaplar ve etkin hesap. `null` = henüz bilinmiyor:
+  // veriler etkin hesap belli olmadan çekilmiyor (yanlış hesaba istek gitmesin).
+  const [hesaplar, setHesaplar] = useState<Hesap[] | null>(null);
+  const [etkinEmail, setEtkinEmail] = useState('');
+
+  useEffect(() => {
+    if (!email) return;
+    let iptal = false;
+    const sec = (liste: Hesap[]) => {
+      let istenen = '';
+      try {
+        istenen = (new URLSearchParams(window.location.search).get('hesap') || '').trim().toLowerCase();
+      } catch {
+        /* tarayıcı dışı */
+      }
+      const aday = istenen || seciliHesap(email) || email;
+      const secilen = liste.some((h) => h.hesap_email === aday) ? aday : email;
+      hesapSec(email, secilen); // geçersiz (silinmiş üyelik) seçim de burada temizleniyor
+      if (!iptal) {
+        setHesaplar(liste);
+        setEtkinEmail(secilen);
+      }
+    };
+    hesaplarimiGetir()
+      .then((g) => sec(g.hesaplar))
+      .catch(() => sec([]));
+    return () => {
+      iptal = true;
+    };
+  }, [email]);
+
+  const etkin = useMemo<Hesap>(
+    () =>
+      hesaplar?.find((h) => h.hesap_email === etkinEmail) ?? {
+        hesap_email: email,
+        rol: 'sahip',
+        izinler: [...IZINLER],
+        kendi: true,
+      },
+    [hesaplar, etkinEmail, email]
+  );
+  /** Etkin hesapta izinlerden biri var mı? Sunucu zaten 403 veriyor; bu yalnız düzen için. */
+  const izinVar = useCallback(
+    (izinler: string[]) => etkin.kendi || izinler.some((i) => (etkin.izinler as string[]).includes(i)),
+    [etkin]
+  );
+  const hesapHazir = hesaplar !== null && !!etkinEmail;
+
+  const hesapDegistir = useCallback(
+    (yeni: string) => {
+      hesapSec(email, yeni);
+      setModulBilgisi(null);
+      setEtkinEmail(yeni);
+    },
+    [email]
+  );
+
   useEffect(() => {
     if (!user) return;
     try {
@@ -203,17 +265,22 @@ export default function ClientPanel() {
   }, [user, email]);
 
   const loadData = useCallback(async () => {
-    if (!email) return;
+    if (!email || !hesapHazir) return;
     setDataLoading(true);
     setError('');
+    // Faz 2E: veriler etkin hesabın; izni olmayan bölüm hiç istenmiyor.
+    const hesap = etkinEmail;
     try {
+      const bos = Promise.resolve(null);
       const [pRes, iRes, tRes] = await Promise.all([
-        client.entities.projects.query({ sort: '-created_at', limit: 100 }),
-        client.entities.invoices.query({ sort: '-created_at', limit: 100 }),
-        client.entities.support_tickets.query({
-          sort: '-created_at',
-          limit: 100,
-        }),
+        izinVar(['projeler']) ? client.entities.projects.query({ sort: '-created_at', limit: 100 }) : bos,
+        izinVar(['faturalar']) ? client.entities.invoices.query({ sort: '-created_at', limit: 100 }) : bos,
+        izinVar(['destek'])
+          ? client.entities.support_tickets.query({
+              sort: '-created_at',
+              limit: 100,
+            })
+          : bos,
       ]);
       const allProjects = (pRes?.data?.items ?? []) as Project[];
       const allInvoices = (iRes?.data?.items ?? []) as Invoice[];
@@ -221,16 +288,16 @@ export default function ClientPanel() {
 
       setProjects(
         allProjects.filter(
-          (p) => (p.client_email || '').toLowerCase() === email
+          (p) => (p.client_email || '').toLowerCase() === hesap
         )
       );
       setInvoices(
         allInvoices.filter(
-          (i) => (i.client_email || '').toLowerCase() === email
+          (i) => (i.client_email || '').toLowerCase() === hesap
         )
       );
       setTickets(
-        allTickets.filter((t) => (t.client_email || '').toLowerCase() === email)
+        allTickets.filter((t) => (t.client_email || '').toLowerCase() === hesap)
       );
     } catch (e) {
       const err = e as { message?: string };
@@ -238,14 +305,14 @@ export default function ClientPanel() {
     } finally {
       setDataLoading(false);
     }
-  }, [email]);
+  }, [email, hesapHazir, etkinEmail, izinVar]);
 
   useEffect(() => {
     if (user) loadData();
   }, [user, loadData]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || !hesapHazir) return;
     let iptal = false;
     modullerimiGetir()
       .then((b) => {
@@ -260,7 +327,7 @@ export default function ClientPanel() {
     return () => {
       iptal = true;
     };
-  }, [user]);
+  }, [user, hesapHazir, etkinEmail]);
 
   /** Modül açık mı? Bilgi yoksa (yükleniyor/hata) açık say: bugünkü davranış. */
   const modulAcik = useCallback(
@@ -274,23 +341,26 @@ export default function ClientPanel() {
 
   /** Görünen sekmeler: sunucu sırası + açık olanlar; bilgi yoksa hepsi. */
   const gorunenSekmeler = useMemo<{ key: Tab; ikon?: string }[]>(() => {
-    if (!modulBilgisi) return SEKMELER.map((key) => ({ key }));
+    // Faz 2E: etkin hesaptaki rolün izni olmayan sekmeler gizli.
+    const izinli = (key: Tab) => !SEKME_IZINLERI[key] || izinVar(SEKME_IZINLERI[key]);
+    if (!modulBilgisi) return SEKMELER.filter(izinli).map((key) => ({ key }));
     const liste: { key: Tab; ikon?: string }[] = [];
     for (const m of modulBilgisi.moduller) {
       const sekme = m.musteri_sekmesi as Tab | null;
       if (!sekme || !SEKMELER.includes(sekme) || liste.some((x) => x.key === sekme)) continue;
-      if (!m.acik || m.durum === 'yakinda') continue;
+      if (!m.acik || m.durum === 'yakinda' || !izinli(sekme)) continue;
       liste.push({ key: sekme, ikon: m.ikon });
     }
-    // Projeler ve profil çekirdek: sunucu ne derse desin sekme çubuğunda kalır.
-    if (!liste.some((x) => x.key === 'projects')) liste.unshift({ key: 'projects' });
+    // Projeler ve profil çekirdek: sunucu ne derse desin sekme çubuğunda kalır
+    // (projeler yalnız etkin hesapta izni varsa).
+    if (!liste.some((x) => x.key === 'projects') && izinli('projects')) liste.unshift({ key: 'projects' });
     if (!liste.some((x) => x.key === 'profile')) liste.push({ key: 'profile' });
     return liste;
-  }, [modulBilgisi]);
+  }, [modulBilgisi, izinVar]);
 
-  // Açık sekme kapatılmış bir modüle aitse (ör. `?sekme=krediler`) projelere dön.
+  // Açık sekme kapatılmış bir modüle (ya da izni olmayan bölüme) aitse ilk görünen sekmeye dön.
   useEffect(() => {
-    if (!gorunenSekmeler.some((x) => x.key === tab)) setTab('projects');
+    if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(gorunenSekmeler[0]?.key ?? 'profile');
   }, [gorunenSekmeler, tab]);
 
   const submitTicket = async () => {
@@ -302,7 +372,8 @@ export default function ClientPanel() {
     try {
       await client.entities.support_tickets.create({
         data: {
-          client_email: email,
+          // Sunucu sahipliği etkin hesaptan kendisi yazıyor; bu yalnız tutarlılık için.
+          client_email: etkinEmail || email,
           client_name: profile.name || user?.name || email,
           subject: ticketForm.subject.trim(),
           message: ticketForm.message.trim(),
@@ -425,6 +496,20 @@ export default function ClientPanel() {
         </p>
       </div>
 
+      {/* Faz 2E: birden çok hesaba erişim varsa hesap seçici; başka hesaptaysa şerit. */}
+      {hesapHazir && ((hesaplar?.length ?? 0) > 1 || !etkin.kendi) && (
+        <Suspense fallback={null}>
+          <HesapSecici hesaplar={hesaplar ?? []} etkin={etkin} ben={email} onSec={hesapDegistir} />
+        </Suspense>
+      )}
+
+      {!hesapHazir ? (
+        <div className="py-16 flex items-center justify-center text-muted-foreground">
+          <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('ui.loading')}
+        </div>
+      ) : (
+      // Hesap değişince bütün alt bileşenler yeniden kurulsun (kendi verilerini yeniden çeksinler).
+      <div key={etkinEmail}>
       {/* Duyurular: kapatılabilir şerit + "Tüm duyurular" listesi. */}
       {modulAcik('duyurular') && (
         <Suspense fallback={null}>
@@ -433,7 +518,7 @@ export default function ClientPanel() {
       )}
 
       {/* Genel görünümün en üstü: müşterinin kararını bekleyen işler. */}
-      {modulAcik('islem') && (
+      {modulAcik('islem') && izinVar(['faturalar', 'projeler', 'raporlar']) && (
         <Suspense fallback={null}>
           <OnayBekleyenler onDegisti={loadData} />
         </Suspense>
@@ -465,7 +550,10 @@ export default function ClientPanel() {
             icon: Receipt,
             color: 'from-orange-500 to-pink-500',
           },
-        ].map((s) => (
+        ]
+          // Faz 2E: izni olmayan bölümün sayacı (hep 0) gösterilmiyor.
+          .filter((s) => (s.label === t('ui.statUnpaidInvoices') ? izinVar(['faturalar']) : izinVar(['projeler'])))
+          .map((s) => (
           <div
             key={s.label}
             className="p-6 rounded-2xl glass flex items-center gap-4"
@@ -485,7 +573,7 @@ export default function ClientPanel() {
         ))}
       </div>
 
-      {modulAcik('krediler') && (
+      {modulAcik('krediler') && izinVar(['krediler']) && (
         <Suspense fallback={null}>
           <KrediOzetKarti onAc={() => setTab('krediler')} />
         </Suspense>
@@ -544,7 +632,7 @@ export default function ClientPanel() {
             müşteri "panel çalışmıyor" diye arıyordu. Boş bir ekranın
             "kaydınız yok" mu "yanlış hesap" mı demek olduğu belli olmalı.
           */}
-          {projects.length === 0 && invoices.length === 0 && tickets.length === 0 && (
+          {etkin.kendi && projects.length === 0 && invoices.length === 0 && tickets.length === 0 && (
             <div className="mb-6 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5">
               <p className="text-sm font-medium text-amber-200">
                 {t('ui.emailMismatchTitle')}
@@ -564,7 +652,7 @@ export default function ClientPanel() {
             </div>
           )}
 
-          {tab === 'projects' && modulAcik('gorevler') && projects.length > 0 && (
+          {tab === 'projects' && modulAcik('gorevler') && izinVar(['gorevler']) && projects.length > 0 && (
             <Suspense fallback={null}>
               <RevizyonGostergesi />
             </Suspense>
@@ -656,7 +744,7 @@ export default function ClientPanel() {
                         projeye sahipse liste açıkken okunmaz oluyordu.
                         `details` içeriği HTML'de duruyor, tıklayınca açılıyor.
                       */}
-                      {modulAcik('gorevler') && (
+                      {modulAcik('gorevler') && izinVar(['gorevler']) && (
                         <Suspense fallback={null}>
                           <ProjeGorevGorunumu projeId={Number(p.id)} />
                         </Suspense>
@@ -969,7 +1057,7 @@ export default function ClientPanel() {
                 </div>
               }
             >
-              <Kredilerim eposta={user.email} ad={user.name} />
+              <Kredilerim eposta={etkinEmail || user.email} ad={etkin.kendi ? user.name : etkin.ad || undefined} />
             </Suspense>
           )}
 
@@ -1056,6 +1144,15 @@ export default function ClientPanel() {
               <Suspense
                 fallback={
                   <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                  </div>
+                }
+              >
+                <HesapEkibi />
+              </Suspense>
+              <Suspense
+                fallback={
+                  <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
                     <Loader2 className="h-5 w-5 animate-spin" />
                   </div>
                 }
@@ -1106,13 +1203,15 @@ export default function ClientPanel() {
       )}
 
       {/* "Hata bildir": her sekmede sağ altta küçük düğme. */}
-      {modulAcik('geri_bildirim') && (
+      {modulAcik('geri_bildirim') && izinVar(['projeler', 'destek']) && (
         <Suspense fallback={null}>
           <HataBildir
             projeler={hataProjeleri}
             onGonderildi={() => setGeriBildirimSayaci((s) => s + 1)}
           />
         </Suspense>
+      )}
+      </div>
       )}
     </div>
   );

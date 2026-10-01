@@ -16,6 +16,7 @@ from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
 from dependencies.yonetici_bekcisi import yonetici_gerekli
+from dependencies.hesap_baglami import izin_gerekli, izin_iste, musteri_eposta
 from fastapi import APIRouter, Body, File, Form, HTTPException, Request, Response, UploadFile, status
 from fastapi import Depends as _Depends
 from models.geri_bildirim import GERI_BILDIRIM_DURUMLARI, GERI_BILDIRIM_TURLERI, FeedbackAttachments, FeedbackItems
@@ -33,7 +34,8 @@ logger = logging.getLogger(__name__)
 musteri_router = APIRouter(
     prefix="/api/v1/geri-bildirimlerim",
     tags=["geri-bildirim"],
-    dependencies=[_Depends(modul_gerekli("geri_bildirim"))],
+    # Faz 2E: ekip üyesinde `projeler` ya da `destek` izni (hata bildirimi ikisine de girer).
+    dependencies=[_Depends(izin_gerekli("projeler", "destek")), _Depends(modul_gerekli("geri_bildirim"))],
 )
 yonetici_router = APIRouter(
     prefix="/api/v1/geri-bildirim", tags=["geri-bildirim"], dependencies=[_Depends(yonetici_gerekli)]
@@ -56,11 +58,11 @@ class DonusturGirdisi(BaseModel):
 
 
 def _musteri_iste(request: Request) -> str:
+    """Etkin hesabın e-postası (Faz 2E)."""
     kullanici, _ = _yonetici_mi(request)
-    eposta = gs.eposta_duzelt(getattr(kullanici, "email", None))
-    if not eposta:
+    if not gs.eposta_duzelt(getattr(kullanici, "email", None)):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Oturum gerekli")
-    return eposta
+    return musteri_eposta(request)
 
 
 def _yonetici_iste(request: Request) -> str:
@@ -195,9 +197,10 @@ async def ek_ekle(fb_id: int, request: Request, ekran: UploadFile = File(...), d
 @ek_router.get("/{ek_id}")
 async def ek_goster(ek_id: int, request: Request, db: AsyncSession = _Depends(get_db)):
     kullanici, yonetici = _yonetici_mi(request)
-    eposta = gs.eposta_duzelt(getattr(kullanici, "email", None))
-    if not eposta:
+    if not gs.eposta_duzelt(getattr(kullanici, "email", None)):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Oturum gerekli")
+    # Faz 2E: ek etkin hesaba ait olmalı; ekip üyesinde projeler/destek izni.
+    eposta = musteri_eposta(request) if yonetici else izin_iste(request, "projeler", "destek").hesap_email
     ek = (await db.execute(select(FeedbackAttachments).where(FeedbackAttachments.id == ek_id))).scalar_one_or_none()
     if ek is None or (not yonetici and ek.musteri_eposta != eposta):
         raise GorevHatasi(404, "ek_yok")

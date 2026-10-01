@@ -22,6 +22,7 @@ from datetime import date, datetime, time, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
 from core.database import get_db
+from dependencies.hesap_baglami import musteri_baglami
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
 from fastapi import APIRouter, HTTPException, Query, Request, status
@@ -48,6 +49,8 @@ MUSTERI_TABLOLARI = (
     "projects", "invoices", "support_tickets", "payments",
     "client_sites", "service_subscriptions", "users", "credit_ledger",
     "workspace_modules",
+    # Faz 2E — hesap ekibi değişiklikleri (üye eklendi/çıkarıldı, rol değişti).
+    "hesap_uyeleri",
 )
 
 _son_temizlik_gunu: Optional[date] = None
@@ -279,18 +282,25 @@ async def hesap_hareketlerim(request: Request, db: AsyncSession = _Depends(get_d
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Giriş yapmanız gerekiyor")
-    eposta = (kullanici.email or "").strip().lower()
-    if not eposta:
+    if not (kullanici.email or "").strip():
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Hesabınızda e-posta adresi yok")
+    # Faz 2E: sahip ve hesap yöneticisi hesabın bütün hareketlerini görüyor;
+    # diğer üyeler yalnız bu hesapta KENDİ yaptıklarını.
+    baglam = musteri_baglami(request)
+    eposta, hesap = baglam.kisi_email, baglam.hesap_email
+    if baglam.kendi_hesabi:
+        kosul = or_(
+            AuditLog.aktor_eposta == eposta,
+            and_(AuditLog.ilgili_eposta == hesap, AuditLog.tablo.in_(MUSTERI_TABLOLARI)),
+        )
+    elif baglam.ekibi_yonetebilir:
+        kosul = and_(AuditLog.ilgili_eposta == hesap, AuditLog.tablo.in_(MUSTERI_TABLOLARI))
+    else:
+        kosul = and_(AuditLog.aktor_eposta == eposta, AuditLog.ilgili_eposta == hesap)
 
     sonuc = await db.execute(
         select(AuditLog)
-        .where(
-            or_(
-                AuditLog.aktor_eposta == eposta,
-                and_(AuditLog.ilgili_eposta == eposta, AuditLog.tablo.in_(MUSTERI_TABLOLARI)),
-            )
-        )
+        .where(kosul)
         .order_by(AuditLog.created_at.desc(), AuditLog.id.desc())
         .limit(MUSTERI_SINIRI)
     )

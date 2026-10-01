@@ -1,0 +1,110 @@
+{
+  "hesapEkibi": {
+    "secici": {
+      "etiket": "当前账户",
+      "kendiHesabim": "我自己的账户",
+      "serit": "您正在 {{hesap}} 账户中工作（您的角色：{{rol}}）",
+      "donus": "返回我的账户",
+      "degisti": "已切换到 {{hesap}}"
+    },
+    "rol": {
+      "sahip": "账户所有者",
+      "yonetici": "账户管理员",
+      "uye": "成员",
+      "fatura": "账单负责人"
+    },
+    "rolAciklama": {
+      "yonetici": "可查看所有模块并管理团队。",
+      "uye": "项目、任务、支持、文件、网站和报告；不含发票。",
+      "fatura": "仅发票、额度和订阅。"
+    },
+    "izin": {
+      "projeler": "项目",
+      "gorevler": "任务",
+      "destek": "支持",
+      "dosyalar": "文件",
+      "faturalar": "发票",
+      "siteler": "网站",
+      "raporlar": "报告",
+      "krediler": "额度",
+      "abonelikler": "订阅"
+    },
+    "durum": {
+      "davet": "等待接受邀请",
+      "aktif": "已启用",
+      "pasif": "已停用",
+      "suresi_doldu": "邀请已过期"
+    },
+    "ekip": {
+      "baslik": "团队",
+      "aciklama": "将同事添加到您的账户；每个人使用自己的邮箱登录，只能看到您允许的部分。",
+      "yoneticiAciklama": "该客户账户中的成员。您可以代表客户添加或移除成员。",
+      "saltOkunur": "只有账户所有者和账户管理员可以编辑团队。",
+      "bos": "暂无团队成员。",
+      "sahipSatiri": "账户所有者",
+      "davetEt": "邀请成员",
+      "eposta": "邮箱",
+      "epostaOrnek": "name@company.com",
+      "rol": "角色",
+      "izinler": "权限",
+      "gonder": "发送邀请",
+      "davetGonderildi": "邀请已创建。",
+      "baglantiAciklama": "邀请链接（7 天内有效，仅可使用一次）。接受时须使用受邀邮箱登录：",
+      "baglantiKopyala": "复制链接",
+      "kopyalandi": "已复制",
+      "epostaGitmedi": "邮件未能发送，请您自行转发此链接。",
+      "kaydet": "保存",
+      "pasifYap": "停用",
+      "aktifYap": "启用",
+      "sil": "移除",
+      "silOnay": "确定将 {{eposta}} 移出此账户吗？其访问权限将立即终止。",
+      "davetYenile": "续发邀请",
+      "yenilendi": "邀请已续发。",
+      "guncellendi": "成员已更新。",
+      "silindi": "成员已移除。",
+      "sonKullanim": "最近活动：{{tarih}}",
+      "davetBitis": "邀请到期：{{tarih}}",
+      "hicKullanmadi": "尚未使用",
+      "sen": "您",
+      "yukleniyor": "加载中…",
+      "yenile": "刷新",
+      "uyeSayisi": "{{sayi}} 名成员"
+    },
+    "hata": {
+      "genel": "操作未能完成，请重试。",
+      "ekip_yetkisi_yok": "您无权编辑团队。",
+      "yetki_yukseltilemez": "您不能授予自己没有的权限，也不能修改权限比您更大的成员。",
+      "kendini_duzenleyemez": "您不能修改自己的成员身份。",
+      "zaten_uye": "此人已在团队中或已被邀请。",
+      "sahip_eklenemez": "不能将账户所有者添加为成员，其已拥有全部权限。",
+      "eposta_gecersiz": "请输入有效的邮箱地址。",
+      "izin_gecersiz": "未知权限。",
+      "rol_gecersiz": "无效的角色。",
+      "uye_siniri": "此账户的成员数量已达上限。",
+      "davet_degil": "该成员没有待处理的邀请。",
+      "davet_bekliyor": "邀请被接受前无法更改状态。",
+      "uye_yok": "未找到成员。",
+      "hesap_uyesi_degil": "您无权访问此账户，或访问权限已终止。",
+      "hesap_izni_yok": "您没有此部分的权限。",
+      "oturum_gerekli": "请先登录。",
+      "cok_istek": "尝试次数过多，请稍后再试。"
+    },
+    "davet": {
+      "baslik": "团队邀请",
+      "aciklama": "您已受邀以“{{rol}}”身份加入 {{hesap}} 账户。",
+      "davetEdilen": "受邀邮箱：{{eposta}}",
+      "gecerlilik": "有效期至：{{tarih}}",
+      "izinler": "您将看到的部分",
+      "kabulEt": "接受邀请",
+      "girisYap": "登录并接受",
+      "girisAciklama": "请使用受邀邮箱登录后接受邀请。",
+      "kabulEdildi": "已接受邀请。您现在可以在 {{hesap}} 账户中工作。",
+      "panelGit": "前往面板",
+      "gecersiz": "此邀请链接无效或已被使用。",
+      "suresiDoldu": "此邀请已过期，请联系邀请人重新发送。",
+      "epostaUyusmuyor": "此邀请发送至 {{beklenen}}，但您当前登录的是其他账户。请使用正确的邮箱登录。",
+      "anaSayfa": "首页",
+      "bilinmeyenHesap": "某客户"
+    }
+  }
+}

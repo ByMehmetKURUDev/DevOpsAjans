@@ -363,6 +363,9 @@ def _nesne_satiri(obj: Any, tur: str, baglam: DenetimBaglami) -> Optional[Dict[s
     elif ilgili is None and "musteri_eposta" in sozluk:
         # Kredi defteri gibi sahibini `musteri_eposta` ile tutan tablolar.
         ilgili = sozluk.get("musteri_eposta")
+    elif ilgili is None and "hesap_email" in sozluk:
+        # Faz 2E — hesap ekibi: değişiklik hesabın sahibini ilgilendiriyor.
+        ilgili = sozluk.get("hesap_email")
     ilgili = (str(ilgili).strip().lower() or None) if ilgili else None
 
     maskeli = _maskele(fark)

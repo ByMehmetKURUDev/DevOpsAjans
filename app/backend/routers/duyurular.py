@@ -21,6 +21,7 @@ from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
 from dependencies.yonetici_bekcisi import yonetici_gerekli
+from dependencies.hesap_baglami import musteri_eposta
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.duyurular import DUYURU_HEDEFLERI, DUYURU_ONEMLERI, DuyuruOkumalari, Duyurular
@@ -95,11 +96,14 @@ def _yonetici_iste(request: Request) -> str:
 
 
 def _kisi_iste(request: Request):
+    """(kişi, yönetici_mi, etkin hesap). Okundu/kapattı KİŞİYE ait; hedefleme
+    kişiye ya da etkin hesaba yapılmış olabilir (Faz 2E: ekip üyesi, sahibin
+    hesabında çalışırken o hesaba gönderilen duyuruyu da görür)."""
     kullanici, yonetici = _yonetici_mi(request)
     eposta = gs.eposta_duzelt(getattr(kullanici, "email", None))
     if not eposta:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Oturum gerekli")
-    return eposta, yonetici
+    return eposta, yonetici, musteri_eposta(request)
 
 
 def _bitis_coz(ham: Optional[str]) -> Optional[datetime]:
@@ -330,13 +334,21 @@ async def duyuru_sil(duyuru_id: int, request: Request, db: AsyncSession = _Depen
 # --------------------------------------------------------------------------
 # Kişi (müşteri / ekip)
 # --------------------------------------------------------------------------
-async def _gorunur_duyurular(db: AsyncSession, eposta: str, yonetici: bool) -> List[Duyurular]:
+async def _gorunur_duyurular(
+    db: AsyncSession, eposta: str, yonetici: bool, hesap: Optional[str] = None
+) -> List[Duyurular]:
     simdi = _simdi()
     ekipten = await _ekipten_mi(db, eposta)
     adaylar = (
         await db.execute(select(Duyurular).where(Duyurular.yayinda.is_(True)).order_by(Duyurular.id.desc()).limit(200))
     ).scalars().all()
-    return [d for d in adaylar if _etkin_mi(d, simdi) and hedefte_mi(d, eposta, yonetici=yonetici, ekipten=ekipten)]
+
+    def _hedefte(d: Duyurular) -> bool:
+        if hedefte_mi(d, eposta, yonetici=yonetici, ekipten=ekipten):
+            return True
+        return bool(hesap and hesap != eposta and hedefte_mi(d, hesap, yonetici=False, ekipten=False))
+
+    return [d for d in adaylar if _etkin_mi(d, simdi) and _hedefte(d)]
 
 
 async def _okuma(db: AsyncSession, duyuru_id: int, eposta: str) -> DuyuruOkumalari:
@@ -357,8 +369,10 @@ async def _okuma(db: AsyncSession, duyuru_id: int, eposta: str) -> DuyuruOkumala
     return o
 
 
-async def _hedefli_bul(db: AsyncSession, duyuru_id: int, eposta: str, yonetici: bool) -> Duyurular:
-    for d in await _gorunur_duyurular(db, eposta, yonetici):
+async def _hedefli_bul(
+    db: AsyncSession, duyuru_id: int, eposta: str, yonetici: bool, hesap: Optional[str] = None
+) -> Duyurular:
+    for d in await _gorunur_duyurular(db, eposta, yonetici, hesap):
         if d.id == duyuru_id:
             return d
     raise GorevHatasi(404, "duyuru_yok")
@@ -366,8 +380,8 @@ async def _hedefli_bul(db: AsyncSession, duyuru_id: int, eposta: str, yonetici: 
 
 @kisi_router.get("")
 async def duyurularim(request: Request, db: AsyncSession = _Depends(get_db)):
-    eposta, yonetici = _kisi_iste(request)
-    duyurular = await _gorunur_duyurular(db, eposta, yonetici)
+    eposta, yonetici, hesap = _kisi_iste(request)
+    duyurular = await _gorunur_duyurular(db, eposta, yonetici, hesap)
     okumalar: Dict[int, DuyuruOkumalari] = {}
     if duyurular:
         for o in (
@@ -384,8 +398,8 @@ async def duyurularim(request: Request, db: AsyncSession = _Depends(get_db)):
 
 @kisi_router.post("/{duyuru_id}/okundu")
 async def okundu_isaretle(duyuru_id: int, request: Request, db: AsyncSession = _Depends(get_db)):
-    eposta, yonetici = _kisi_iste(request)
-    d = await _hedefli_bul(db, duyuru_id, eposta, yonetici)
+    eposta, yonetici, hesap = _kisi_iste(request)
+    d = await _hedefli_bul(db, duyuru_id, eposta, yonetici, hesap)
     o = await _okuma(db, d.id, eposta)
     if o.okundu_at is None:
         o.okundu_at = _simdi()
@@ -396,8 +410,8 @@ async def okundu_isaretle(duyuru_id: int, request: Request, db: AsyncSession = _
 @kisi_router.post("/{duyuru_id}/kapat")
 async def seritten_kapat(duyuru_id: int, request: Request, db: AsyncSession = _Depends(get_db)):
     """Şeritten kaldırır (okundu da sayılır); "Duyurular" listesinde kalır."""
-    eposta, yonetici = _kisi_iste(request)
-    d = await _hedefli_bul(db, duyuru_id, eposta, yonetici)
+    eposta, yonetici, hesap = _kisi_iste(request)
+    d = await _hedefli_bul(db, duyuru_id, eposta, yonetici, hesap)
     o = await _okuma(db, d.id, eposta)
     o.kapatildi = True
     if o.okundu_at is None:

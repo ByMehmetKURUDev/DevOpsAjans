@@ -1,0 +1,110 @@
+{
+  "hesapEkibi": {
+    "secici": {
+      "etiket": "Working account",
+      "kendiHesabim": "My own account",
+      "serit": "You are working in the {{hesap}} account (your role: {{rol}})",
+      "donus": "Back to my account",
+      "degisti": "Switched to {{hesap}}"
+    },
+    "rol": {
+      "sahip": "Account owner",
+      "yonetici": "Account admin",
+      "uye": "Member",
+      "fatura": "Billing contact"
+    },
+    "rolAciklama": {
+      "yonetici": "Sees every module and manages the team.",
+      "uye": "Projects, tasks, support, files, sites and reports; no invoices.",
+      "fatura": "Only invoices, credits and subscriptions."
+    },
+    "izin": {
+      "projeler": "Projects",
+      "gorevler": "Tasks",
+      "destek": "Support",
+      "dosyalar": "Files",
+      "faturalar": "Invoices",
+      "siteler": "Sites",
+      "raporlar": "Reports",
+      "krediler": "Credits",
+      "abonelikler": "Subscriptions"
+    },
+    "durum": {
+      "davet": "Invitation pending",
+      "aktif": "Active",
+      "pasif": "Inactive",
+      "suresi_doldu": "Invitation expired"
+    },
+    "ekip": {
+      "baslik": "Team",
+      "aciklama": "Add your teammates to your account; everyone signs in with their own email and sees only the sections you allow.",
+      "yoneticiAciklama": "People in this client's account. You can add or remove members on the client's behalf.",
+      "saltOkunur": "Only the account owner and account admins can edit the team.",
+      "bos": "No team members yet.",
+      "sahipSatiri": "Account owner",
+      "davetEt": "Invite someone",
+      "eposta": "Email",
+      "epostaOrnek": "name@company.com",
+      "rol": "Role",
+      "izinler": "Permissions",
+      "gonder": "Send invitation",
+      "davetGonderildi": "Invitation created.",
+      "baglantiAciklama": "Invitation link (valid for 7 days, single use). To accept, sign in with the invited email:",
+      "baglantiKopyala": "Copy link",
+      "kopyalandi": "Copied",
+      "epostaGitmedi": "The email could not be sent; please share the link yourself.",
+      "kaydet": "Save",
+      "pasifYap": "Deactivate",
+      "aktifYap": "Activate",
+      "sil": "Remove",
+      "silOnay": "Remove {{eposta}} from this account? Their access ends immediately.",
+      "davetYenile": "Renew invitation",
+      "yenilendi": "Invitation renewed.",
+      "guncellendi": "Member updated.",
+      "silindi": "Member removed.",
+      "sonKullanim": "Last active: {{tarih}}",
+      "davetBitis": "Invitation expires: {{tarih}}",
+      "hicKullanmadi": "Not used yet",
+      "sen": "you",
+      "yukleniyor": "Loading…",
+      "yenile": "Refresh",
+      "uyeSayisi": "{{sayi}} members"
+    },
+    "hata": {
+      "genel": "The action could not be completed. Please try again.",
+      "ekip_yetkisi_yok": "You are not allowed to edit the team.",
+      "yetki_yukseltilemez": "You cannot grant a permission you do not have or change someone with wider permissions than yours.",
+      "kendini_duzenleyemez": "You cannot change your own membership.",
+      "zaten_uye": "This person is already on the team or has been invited.",
+      "sahip_eklenemez": "The account owner cannot be added to the team; they already have full access.",
+      "eposta_gecersiz": "Enter a valid email address.",
+      "izin_gecersiz": "Unknown permission.",
+      "rol_gecersiz": "Invalid role.",
+      "uye_siniri": "This account has reached its member limit.",
+      "davet_degil": "This member has no pending invitation.",
+      "davet_bekliyor": "The status cannot change until the invitation is accepted.",
+      "uye_yok": "Member not found.",
+      "hesap_uyesi_degil": "You do not have access to this account, or your access has ended.",
+      "hesap_izni_yok": "You do not have permission for this section.",
+      "oturum_gerekli": "Please sign in.",
+      "cok_istek": "Too many attempts; please try again shortly."
+    },
+    "davet": {
+      "baslik": "Team invitation",
+      "aciklama": "You have been invited to the {{hesap}} account as {{rol}}.",
+      "davetEdilen": "Invited email: {{eposta}}",
+      "gecerlilik": "Valid until: {{tarih}}",
+      "izinler": "Sections you will see",
+      "kabulEt": "Accept invitation",
+      "girisYap": "Sign in and accept",
+      "girisAciklama": "Sign in with the invited email address to accept.",
+      "kabulEdildi": "Invitation accepted. You can now work in the {{hesap}} account.",
+      "panelGit": "Go to panel",
+      "gecersiz": "This invitation link is invalid or has already been used.",
+      "suresiDoldu": "This invitation has expired. Ask the person who invited you to renew it.",
+      "epostaUyusmuyor": "This invitation was sent to {{beklenen}}, but you are signed in with a different account. Please sign in with the right address.",
+      "anaSayfa": "Home",
+      "bilinmeyenHesap": "a client"
+    }
+  }
+}

@@ -39,5 +39,8 @@ class Support_tickets(Base):
     # Faz 2F — kuralın otomatik hazır cevabı gönderildi mi (talep başına bir kez;
     # koşullu UPDATE ile yalnız boşken doluyor).
     otomatik_cevap_at = Column(DateTime(timezone=True), nullable=True)
+    # Faz 2E — talebi açan kişi (hesap ekibinden biri). Sahiplik `client_email`
+    # (hesap sahibi); bu alan yalnız "ekipte kim açtı" bilgisini taşıyor.
+    acan_email = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

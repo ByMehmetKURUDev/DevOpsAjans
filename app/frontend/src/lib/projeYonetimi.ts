@@ -1,4 +1,5 @@
 import { client } from '@/lib/sdkClient';
+import { hesapBasliklari } from '@/lib/hesapSecimi';
 import { getAPIBaseURL } from '@/lib/config';
 
 /**
@@ -255,6 +256,8 @@ async function oturumluFetch(yol: string, init: RequestInit = {}): Promise<Respo
   const j = jeton();
   const basliklar = new Headers(init.headers || {});
   if (j) basliklar.set('Authorization', `Bearer ${j}`);
+  // Faz 2E: etkin müşteri hesabı (ekip üyesi başka hesapta çalışıyorsa).
+  for (const [ad, deger] of Object.entries(hesapBasliklari())) basliklar.set(ad, deger);
   return fetch(`${getAPIBaseURL()}${yol}`, { ...init, headers: basliklar });
 }
 

@@ -27,6 +27,7 @@ from typing import List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.hesap_baglami import izin_iste
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.destek_eposta import TalepEkleri
@@ -136,8 +137,11 @@ def _yetki(request: Request, talep: Support_tickets) -> str:
     if eposta and atanan and eposta == atanan:
         return "ajans"
 
+    # Faz 2E: müşteri tarafı etkin hesap üzerinden (ekip üyesinde `destek` izni);
+    # mesajın yazarı yine kişinin kendisi (yazan_email).
+    hesap = izin_iste(request, "destek").hesap_email if eposta else ""
     sahibi = (talep.client_email or "").strip().lower()
-    if not eposta or not sahibi or eposta != sahibi:
+    if not hesap or not sahibi or hesap != sahibi:
         # 404 değil 403: talebin var olduğunu zaten biliyor olabilir.
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,

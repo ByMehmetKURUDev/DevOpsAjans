@@ -119,7 +119,7 @@ async def query_inquiriess(
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
 
         # Yonetici degilse yalnizca kendi kayitlari
-        query_dict = sahibine_daralt(query_dict, request, "email")
+        query_dict = sahibine_daralt(query_dict, request, "email", izin="projeler")
         
         result = await service.get_list(
             skip=skip, 
@@ -163,7 +163,7 @@ async def query_inquiriess_all(
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
 
         # Yonetici degilse yalnizca kendi kayitlari
-        query_dict = sahibine_daralt(query_dict, request, "email")
+        query_dict = sahibine_daralt(query_dict, request, "email", izin="projeler")
 
         result = await service.get_list(
             skip=skip,
@@ -200,7 +200,7 @@ async def get_inquiries(
             logger.warning(f"Inquiries with id {id} not found")
             raise HTTPException(status_code=404, detail="Inquiries not found")
         
-        sahiplik_dogrula(result, request, "email")
+        sahiplik_dogrula(result, request, "email", izin="projeler")
 
         return result
     except HTTPException:

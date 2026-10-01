@@ -29,6 +29,7 @@ from typing import Any, Dict, List, Optional
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
+from dependencies.hesap_baglami import izin_gerekli, musteri_eposta
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.access_log import Access_log
@@ -47,7 +48,12 @@ logger = logging.getLogger(__name__)
 
 yonetici_router = APIRouter(prefix="/api/v1/musteri-sitesi", tags=["musteri-sitesi"])
 # Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
-musteri_router = APIRouter(prefix="/api/v1/sitelerim", tags=["musteri-sitesi"], dependencies=[_Depends(modul_gerekli("sitem"))])
+# Faz 2E: ekip üyesinde `siteler` izni.
+musteri_router = APIRouter(
+    prefix="/api/v1/sitelerim",
+    tags=["musteri-sitesi"],
+    dependencies=[_Depends(izin_gerekli("siteler")), _Depends(modul_gerekli("sitem"))],
+)
 acik_router = APIRouter(prefix="/api/v1/geri-bildirim", tags=["geri-bildirim"])
 
 PLATFORMLAR = {"wordpress", "custom", "shopify", "wix", "webflow", "diger"}
@@ -409,9 +415,9 @@ async def kendi_sitelerim(request: Request, db: AsyncSession = _Depends(get_db))
     başkasının adresini yazıp onun sitelerini görebilirdi.
     """
     kullanici, yonetici = _yonetici_mi(request)
-    eposta = _eposta(kullanici)
-    if not eposta:
+    if not _eposta(kullanici):
         raise HTTPException(status_code=403, detail="Oturum gerekli")
+    eposta = musteri_eposta(request)
 
     sorgu = select(Client_sites).order_by(Client_sites.id.desc())
     if not yonetici:
@@ -434,9 +440,9 @@ async def bakim_izni_degistir(
     zaman geri alınmış — sonradan tartışma çıkmasın.
     """
     kullanici, yonetici = _yonetici_mi(request)
-    eposta = _eposta(kullanici)
-    if not eposta:
+    if not _eposta(kullanici):
         raise HTTPException(status_code=403, detail="Oturum gerekli")
+    eposta = musteri_eposta(request)
 
     site = await _site_bul(db, site_id)
     if not yonetici and (site.client_email or "").lower() != eposta:
@@ -449,7 +455,8 @@ async def bakim_izni_degistir(
     await _gunluge_yaz(
         db,
         site=site,
-        kim=eposta,
+        # Faz 2E: günlükte izni değiştiren KİŞİ (ekip üyesi olabilir).
+        kim=_eposta(kullanici),
         islem="izin_acildi" if site.bakim_izni else "izin_kapandi",
         aciklama=site.izin_notu,
     )
@@ -469,9 +476,9 @@ async def kendi_site_gunlugum(
     bir söz olurdu.
     """
     kullanici, yonetici = _yonetici_mi(request)
-    eposta = _eposta(kullanici)
-    if not eposta:
+    if not _eposta(kullanici):
         raise HTTPException(status_code=403, detail="Oturum gerekli")
+    eposta = musteri_eposta(request)
 
     site = await _site_bul(db, site_id)
     if not yonetici and (site.client_email or "").lower() != eposta:

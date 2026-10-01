@@ -20,6 +20,7 @@ from typing import Any, Dict, List, Optional
 from core import moduller as manifest
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.hesap_baglami import musteri_eposta
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.workspace_modules import WorkspaceModules  # noqa: F401 - tablo oluşsun
@@ -52,13 +53,13 @@ def _yonetici_iste(request: Request) -> str:
 
 
 def _musteri_iste(request: Request) -> str:
+    """Etkin hesap (Faz 2E): modüller hesaba ait; her aktif üye görebilir."""
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Giriş yapmanız gerekiyor")
-    eposta = (kullanici.email or "").strip().lower()
-    if not eposta:
+    if not (kullanici.email or "").strip():
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Hesabınızda e-posta adresi yok")
-    return eposta
+    return musteri_eposta(request)
 
 
 def _eposta_dogrula(eposta: str) -> str:

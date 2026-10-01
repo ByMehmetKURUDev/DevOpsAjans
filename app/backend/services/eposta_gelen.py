@@ -608,7 +608,15 @@ async def isle(
         )
         talep = await _talep_eslestir(db, konu, kimlikler)
         uyari: Optional[str] = None
-        if talep is not None and (talep.client_email or "").strip().lower() != gonderen:
+        # Faz 2E: talep sahibinin hesabında `destek` izni olan aktif ekip üyesi
+        # de (yanıt bildirimi ona da gidiyor) e-postayla yanıtlayabiliyor.
+        talep_sahibi = (talep.client_email or "").strip().lower() if talep is not None else ""
+        ekip_uyesi = False
+        if talep is not None and talep_sahibi != gonderen:
+            from services.hesap_ekibi import hesapta_izinli_mi
+
+            ekip_uyesi = await hesapta_izinli_mi(db, gonderen, talep_sahibi, "destek")
+        if talep is not None and talep_sahibi != gonderen and not ekip_uyesi:
             uyari = (
                 f"Gönderen {gonderen}, #{talep.id} numaralı talebe yazmaya çalıştı ama talebin sahibi değil; "
                 "mesaj o talebe EKLENMEDİ, ayrı talep açıldı."
@@ -622,7 +630,9 @@ async def isle(
 
         # --- Mevcut talebe mesaj -------------------------------------------------
         if talep is not None:
-            dosyalar, atlanan = await ekleri_hazirla(db, ekler, sahip=gonderen, gonderen=gonderen, indirici=indirici)
+            dosyalar, atlanan = await ekleri_hazirla(
+                db, ekler, sahip=talep_sahibi if ekip_uyesi else gonderen, gonderen=gonderen, indirici=indirici
+            )
             govde = _govdeye_not_ekle(metin, atlanan, bool(dosyalar))
             yanit = await destek_talep.mesaj_ekle(
                 db, talep, yazan="musteri", yazan_ad=gonderen_ad or talep.client_name,

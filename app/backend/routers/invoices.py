@@ -144,7 +144,7 @@ async def query_invoicess(
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
 
         # Yonetici degilse yalnizca kendi kayitlari
-        query_dict = sahibine_daralt(query_dict, request, "client_email")
+        query_dict = sahibine_daralt(query_dict, request, "client_email", izin="faturalar")
         
         result = await service.get_list(
             skip=skip, 
@@ -188,7 +188,7 @@ async def query_invoicess_all(
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
 
         # Yonetici degilse yalnizca kendi kayitlari
-        query_dict = sahibine_daralt(query_dict, request, "client_email")
+        query_dict = sahibine_daralt(query_dict, request, "client_email", izin="faturalar")
 
         result = await service.get_list(
             skip=skip,
@@ -225,7 +225,7 @@ async def get_invoices(
             logger.warning(f"Invoices with id {id} not found")
             raise HTTPException(status_code=404, detail="Invoices not found")
         
-        sahiplik_dogrula(result, request, "client_email")
+        sahiplik_dogrula(result, request, "client_email", izin="faturalar")
 
         return result
     except HTTPException:

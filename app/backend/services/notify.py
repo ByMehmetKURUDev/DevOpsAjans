@@ -331,6 +331,16 @@ async def dispatch(
     if not alicilar:
         return []
 
+    # Faz 2E: müşteri alıcısının hesabında, olayın modülüne izni olan aktif
+    # ekip üyeleri de alıcı (fatura olayları yalnız `faturalar` iznine). Her
+    # kişi aşağıda kendi tercihine tabi. Tek yerden: çağıranlar değişmedi.
+    try:
+        from services.hesap_ekibi import alicilari_genislet
+
+        alicilar = await alicilari_genislet(db, event_type, alicilar, link)
+    except Exception as hata:  # genişletme asıl gönderimi bozmasın
+        logger.warning("Hesap ekibi alıcıları eklenemedi: %s", hata)
+
     eposta_acik = _acik(await _ayar(db, "notify_email", "1"))
     sms_acik = _acik(await _ayar(db, "notify_sms", "0"))
     whatsapp_acik = _acik(await _ayar(db, "notify_whatsapp", "0"))
@@ -348,6 +358,8 @@ async def dispatch(
         telefon = (alici.get("phone") or "").strip()
         kisi = tercihler.get(bt.eposta_duzelt(eposta))
         sessizde = bool(kisi and bt.sessiz_saatte_mi(kisi.sessiz))
+        # Ekip üyesine giden kopyada bağlantı hesabı da taşıyor (`?hesap=`).
+        alici_link = alici.get("link") or link
 
         def izinli(kanal: str) -> bool:
             return bt.izinli_mi(matris, kisi, rol, event_type, kanal)
@@ -360,7 +372,7 @@ async def dispatch(
                     event_type=event_type,
                     title=title,
                     body=body,
-                    link=link,
+                    link=alici_link,
                     channel=kanal,
                     delivery_status=durum,
                     delivery_detail=ayrinti,
@@ -384,7 +396,7 @@ async def dispatch(
                 durum, ayrinti = "skipped", "sessiz saatler"
             else:
                 try:
-                    durum, ayrinti = await push_gonder(db, eposta, title, body or "", link)
+                    durum, ayrinti = await push_gonder(db, eposta, title, body or "", alici_link)
                 except Exception as hata:
                     durum, ayrinti = "failed", f"push: {hata}"[:300]
             satir("push", durum, ayrinti)

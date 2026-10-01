@@ -104,6 +104,13 @@ from middlewares.denetim_baglami import DenetimBaglamiMiddleware  # noqa: E402
 
 app.add_middleware(DenetimBaglamiMiddleware)
 
+# Faz 2E: `X-MK-Hesap` başlığından etkin müşteri hesabı (üyelik kararı).
+# Oturum bekçisinden SONRA çalışmalı (iptal edilmiş jetona bakmasın):
+# Starlette'te son eklenen en dışta çalıştığı için oturum bekçisinden önce ekleniyor.
+from middlewares.hesap_baglami import HesapBaglamiMiddleware  # noqa: E402
+
+app.add_middleware(HesapBaglamiMiddleware)
+
 # Faz 2D: iptal edilmiş oturumun jetonunu istek başında işaretler
 # (`get_current_user` ve `_yonetici_mi` ikisi de bu karardan okuyor).
 from middlewares.oturum_bekcisi import OturumBekcisiMiddleware  # noqa: E402

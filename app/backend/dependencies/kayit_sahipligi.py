@@ -17,6 +17,10 @@ sahibi olmadığı kayıt "bulunamadı" sayılıyor (403 yerine 404 — kaydın 
 olup olmadığı da sızmasın diye).
 
 Yönetici için hiçbir şey değişmiyor.
+
+Faz 2E: "kendi e-postası" artık etkin hesap (`X-MK-Hesap` ile seçilen ve
+kişinin üyesi olduğu hesap; bkz. `dependencies/hesap_baglami.py`). Başlıksız
+istekte davranış aynı. Üyede rolün ilgili izni de aranıyor.
 """
 
 import logging
@@ -42,15 +46,38 @@ def _alan_degeri(kayit: Any, alan: str) -> Any:
     return getattr(kayit, alan, None)
 
 
+def _baglam(request: Request):
+    """Faz 2E: etkin hesap (başlık geçersizse 403). Döngüsel içe aktarma olmasın diye içeride."""
+    from dependencies.hesap_baglami import hesap_baglami
+
+    return hesap_baglami(request)
+
+
+def _izin_denetle(baglam, izin: Optional[str]) -> None:
+    if izin and baglam is not None and not baglam.izin_var(izin):
+        from dependencies.hesap_baglami import izin_hatasi
+
+        raise izin_hatasi(izin)
+
+
+def _sahip_degeri(kullanici, baglam) -> str:
+    """Kendi hesabında jetondaki e-posta (eski davranış, harf duyarlı); üyede hesap e-postası."""
+    if baglam is None or baglam.kendi_hesabi:
+        return kullanici.email
+    return baglam.hesap_email
+
+
 def sahibine_daralt(
     query_dict: Optional[Dict[str, Any]],
     request: Request,
     alan: str,
+    izin: Optional[str] = None,
 ) -> Optional[Dict[str, Any]]:
-    """Liste sorgusunu, yönetici değilse kullanıcının kendi kayıtlarına daraltır.
+    """Liste sorgusunu, yönetici değilse etkin hesabın kayıtlarına daraltır.
 
     `alan` tabloya göre değişiyor: faturalarda ve destek taleplerinde
-    `client_email`, iletişim mesajlarında `email`.
+    `client_email`, iletişim mesajlarında `email`. Faz 2E: `izin` verilmişse
+    (ör. "faturalar") etkin hesaptaki rolün o izni olmalı, yoksa 403.
     """
     kullanici, yonetici = _yonetici_mi(request)
     if yonetici:
@@ -64,34 +91,51 @@ def sahibine_daralt(
             detail="Bu kayıtları görmek için hesabınızda e-posta adresi tanımlı olmalı",
         )
 
+    baglam = _baglam(request)
+    _izin_denetle(baglam, izin)
+
     daraltilmis = dict(query_dict or {})
-    # Kullanıcının gönderdiği koşulun üzerine yazıyoruz: kendi e-postasından
+    # Kullanıcının gönderdiği koşulun üzerine yazıyoruz: etkin hesaptan
     # başka bir değer vermesi mümkün olmasın.
-    daraltilmis[alan] = kullanici.email
+    daraltilmis[alan] = _sahip_degeri(kullanici, baglam)
     return daraltilmis
 
 
-def sahiplik_dogrula(kayit: Any, request: Request, alan: str) -> None:
-    """Tekil kayıt uçları için: kayıt kullanıcıya ait değilse 404."""
+def _ayni_sahip_mi(sahip: Any, kullanici, baglam) -> bool:
+    if baglam is None or baglam.kendi_hesabi:
+        return sahip == kullanici.email
+    return isinstance(sahip, str) and sahip.strip().lower() == baglam.hesap_email
+
+
+def sahiplik_dogrula(kayit: Any, request: Request, alan: str, izin: Optional[str] = None) -> None:
+    """Tekil kayıt uçları için: kayıt etkin hesaba ait değilse 404 (izin yoksa 403)."""
     _, yonetici = _yonetici_mi(request)
     if yonetici:
         return
 
     kullanici = istekteki_kullanici(request)
-    sahip = _alan_degeri(kayit, alan)
-
-    if not kullanici or not kullanici.email or sahip != kullanici.email:
+    if not kullanici or not kullanici.email:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Kayıt bulunamadı")
+    baglam = _baglam(request)
+    _izin_denetle(baglam, izin)
+    if not _ayni_sahip_mi(_alan_degeri(kayit, alan), kullanici, baglam):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Kayıt bulunamadı")
 
 
-def kendi_kaydi_mi(kayit: Any, request: Request, alan: str) -> bool:
-    """Kayıt isteği yapana mı ait? Yönetici için her zaman doğru sayılıyor."""
+def kendi_kaydi_mi(kayit: Any, request: Request, alan: str, izin: Optional[str] = None) -> bool:
+    """Kayıt etkin hesaba mı ait? Yönetici için her zaman doğru. Hata fırlatmaz."""
     kullanici, yonetici = _yonetici_mi(request)
     if yonetici:
         return True
     if kullanici is None or not kullanici.email:
         return False
-    return _alan_degeri(kayit, alan) == kullanici.email
+    try:
+        baglam = _baglam(request)
+    except HTTPException:
+        return False
+    if izin and baglam is not None and not baglam.izin_var(izin):
+        return False
+    return _ayni_sahip_mi(_alan_degeri(kayit, alan), kullanici, baglam)
 
 
 def gorunur_proje_kosulu(request: Request, model: Any):
@@ -103,7 +147,8 @@ def gorunur_proje_kosulu(request: Request, model: Any):
     başlığı, aşaması ve müşteri e-postası herkese açık olmamalı.
 
     Kural: yayında olan her kayıt herkese görünür; yayında olmayan kayıt
-    yalnızca sahibine ve yöneticiye görünür.
+    yalnızca sahibine (etkin hesap) ve yöneticiye görünür. Faz 2E: başka
+    bir hesapta çalışan üyenin `projeler` izni yoksa 403.
     """
     _, yonetici = _yonetici_mi(request)
     if yonetici:
@@ -112,7 +157,9 @@ def gorunur_proje_kosulu(request: Request, model: Any):
     kullanici = istekteki_kullanici(request)
     eposta = kullanici.email if kullanici and kullanici.email else None
     if eposta:
-        return or_(model.published.is_(True), model.client_email == eposta)
+        baglam = _baglam(request)
+        _izin_denetle(baglam, "projeler")
+        return or_(model.published.is_(True), model.client_email == _sahip_degeri(kullanici, baglam))
     return model.published.is_(True)
 
 
@@ -121,6 +168,9 @@ def proje_gorunur_mu(kayit: Any, request: Request) -> None:
     _, yonetici = _yonetici_mi(request)
     if yonetici:
         return
+    kullanici = istekteki_kullanici(request)
+    if kullanici is not None and kullanici.email:
+        _izin_denetle(_baglam(request), "projeler")
     if _alan_degeri(kayit, "published") is True:
         return
     if kendi_kaydi_mi(kayit, request, "client_email"):

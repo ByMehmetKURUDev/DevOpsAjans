@@ -1,0 +1,110 @@
+{
+  "hesapEkibi": {
+    "secici": {
+      "etiket": "Çalışılan hesap",
+      "kendiHesabim": "Kendi hesabım",
+      "serit": "{{hesap}} hesabında çalışıyorsunuz (rolünüz: {{rol}})",
+      "donus": "Kendi hesabıma dön",
+      "degisti": "{{hesap}} hesabına geçildi"
+    },
+    "rol": {
+      "sahip": "Hesap sahibi",
+      "yonetici": "Hesap yöneticisi",
+      "uye": "Üye",
+      "fatura": "Fatura sorumlusu"
+    },
+    "rolAciklama": {
+      "yonetici": "Her modülü görür, ekibi yönetir.",
+      "uye": "Proje, görev, destek, dosya, site ve raporlar; faturalar hariç.",
+      "fatura": "Yalnız faturalar, krediler ve abonelikler."
+    },
+    "izin": {
+      "projeler": "Projeler",
+      "gorevler": "Görevler",
+      "destek": "Destek",
+      "dosyalar": "Dosyalar",
+      "faturalar": "Faturalar",
+      "siteler": "Siteler",
+      "raporlar": "Raporlar",
+      "krediler": "Krediler",
+      "abonelikler": "Abonelikler"
+    },
+    "durum": {
+      "davet": "Davet bekliyor",
+      "aktif": "Aktif",
+      "pasif": "Pasif",
+      "suresi_doldu": "Davetin süresi doldu"
+    },
+    "ekip": {
+      "baslik": "Ekip",
+      "aciklama": "Hesabınıza ekip arkadaşlarınızı ekleyin; her kişi kendi e-postasıyla giriş yapar ve yalnız izin verdiğiniz bölümleri görür.",
+      "yoneticiAciklama": "Müşterinin hesabındaki kişiler. Müşteri adına üye ekleyip çıkarabilirsiniz.",
+      "saltOkunur": "Ekibi yalnız hesap sahibi ve hesap yöneticileri düzenleyebilir.",
+      "bos": "Henüz ekip üyesi yok.",
+      "sahipSatiri": "Hesap sahibi",
+      "davetEt": "Kişi davet et",
+      "eposta": "E-posta",
+      "epostaOrnek": "ad@sirket.com",
+      "rol": "Rol",
+      "izinler": "İzinler",
+      "gonder": "Davet gönder",
+      "davetGonderildi": "Davet oluşturuldu.",
+      "baglantiAciklama": "Davet bağlantısı (7 gün geçerli, tek kullanımlık). Kabul için davet edilen e-postayla giriş yapılmalı:",
+      "baglantiKopyala": "Bağlantıyı kopyala",
+      "kopyalandi": "Kopyalandı",
+      "epostaGitmedi": "E-posta gönderilemedi; bağlantıyı kişiye kendiniz iletin.",
+      "kaydet": "Kaydet",
+      "pasifYap": "Pasif yap",
+      "aktifYap": "Etkinleştir",
+      "sil": "Çıkar",
+      "silOnay": "{{eposta}} bu hesaptan çıkarılsın mı? Erişimi hemen biter.",
+      "davetYenile": "Daveti yenile",
+      "yenilendi": "Davet yenilendi.",
+      "guncellendi": "Üye güncellendi.",
+      "silindi": "Üye çıkarıldı.",
+      "sonKullanim": "Son kullanım: {{tarih}}",
+      "davetBitis": "Davet bitişi: {{tarih}}",
+      "hicKullanmadi": "Henüz kullanmadı",
+      "sen": "siz",
+      "yukleniyor": "Yükleniyor…",
+      "yenile": "Yenile",
+      "uyeSayisi": "{{sayi}} üye"
+    },
+    "hata": {
+      "genel": "İşlem tamamlanamadı. Lütfen tekrar deneyin.",
+      "ekip_yetkisi_yok": "Ekibi düzenleme yetkiniz yok.",
+      "yetki_yukseltilemez": "Kendinizde olmayan bir yetkiyi veremez, sizden geniş yetkili birini değiştiremezsiniz.",
+      "kendini_duzenleyemez": "Kendi üyeliğinizi değiştiremezsiniz.",
+      "zaten_uye": "Bu kişi zaten ekipte ya da davet edilmiş.",
+      "sahip_eklenemez": "Hesap sahibi ekibe eklenemez; zaten tam yetkili.",
+      "eposta_gecersiz": "Geçerli bir e-posta girin.",
+      "izin_gecersiz": "Tanınmayan izin.",
+      "rol_gecersiz": "Geçersiz rol.",
+      "uye_siniri": "Bu hesapta üye sınırına ulaşıldı.",
+      "davet_degil": "Bu üyenin bekleyen daveti yok.",
+      "davet_bekliyor": "Davet kabul edilmeden durum değiştirilemez.",
+      "uye_yok": "Üye bulunamadı.",
+      "hesap_uyesi_degil": "Bu hesaba erişiminiz yok ya da sona erdi.",
+      "hesap_izni_yok": "Bu bölüm için izniniz yok.",
+      "oturum_gerekli": "Lütfen giriş yapın.",
+      "cok_istek": "Çok fazla deneme; biraz sonra tekrar deneyin."
+    },
+    "davet": {
+      "baslik": "Ekip daveti",
+      "aciklama": "{{hesap}} hesabına {{rol}} olarak davet edildiniz.",
+      "davetEdilen": "Davet edilen e-posta: {{eposta}}",
+      "gecerlilik": "Son geçerlilik: {{tarih}}",
+      "izinler": "Göreceğiniz bölümler",
+      "kabulEt": "Daveti kabul et",
+      "girisYap": "Giriş yap ve kabul et",
+      "girisAciklama": "Kabul etmek için davet edilen e-posta adresiyle giriş yapın.",
+      "kabulEdildi": "Davet kabul edildi. Artık {{hesap}} hesabında çalışabilirsiniz.",
+      "panelGit": "Panele git",
+      "gecersiz": "Bu davet bağlantısı geçersiz ya da daha önce kullanılmış.",
+      "suresiDoldu": "Bu davetin süresi dolmuş. Sizi davet eden kişiden yenilemesini isteyin.",
+      "epostaUyusmuyor": "Bu davet {{beklenen}} adresine gönderildi; şu an başka bir hesapla giriş yaptınız. Doğru adresle giriş yapın.",
+      "anaSayfa": "Ana sayfa",
+      "bilinmeyenHesap": "bir müşteri"
+    }
+  }
+}

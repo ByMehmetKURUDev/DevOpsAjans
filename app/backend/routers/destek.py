@@ -15,6 +15,7 @@ from typing import Any, Dict, List, Optional
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.hesap_baglami import izin_iste
 from fastapi import APIRouter, Body, HTTPException, Query, Request, status
 from fastapi import Depends as _Depends
 from models.destek_sla import HazirCevaplar
@@ -111,7 +112,8 @@ async def sla_bilgisi(request: Request, db: AsyncSession = _Depends(get_db)):
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail={"kod": "oturum_gerekli"})
-    eposta = (kullanici.email or "").strip().lower()
+    # Faz 2E: etkin hesabın talepleri; ekip üyesinde `destek` izni.
+    eposta = izin_iste(request, "destek").hesap_email if (kullanici.email or "").strip() else ""
     ayar = await servis.ayarlari_oku(db)
     talepler = []
     if eposta:

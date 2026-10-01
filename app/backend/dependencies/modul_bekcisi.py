@@ -32,7 +32,12 @@ def modul_gerekli(anahtar: str):
         kullanici, yonetici = _yonetici_mi(request)
         if kullanici is None or yonetici:
             return
-        eposta = (kullanici.email or "").strip().lower()
+        # Faz 2E: modüller hesaba ait — ekip üyesi başka hesapta çalışıyorsa o
+        # hesabın modülleri geçerli (başlık geçersizse burada 403).
+        from dependencies.hesap_baglami import hesap_baglami
+
+        baglam = hesap_baglami(request)
+        eposta = baglam.hesap_email if baglam is not None else ""
         if not eposta:
             return  # uç kendi 403'ünü veriyor
         from services.moduller import modul_acik_mi

@@ -594,7 +594,8 @@
     "projeFiltreMusteri": "Client projects",
     "projeFiltreVaka": "Case studies",
     "projeFiltreHepsi": "All",
-    "projeMusteriBos": "No project is linked to a client yet. Edit a project and fill in the client e-mail; it will show up here and stage tracking opens."
+    "projeMusteriBos": "No project is linked to a client yet. Edit a project and fill in the client e-mail; it will show up here and stage tracking opens.",
+    "musteriEkibi": "टीम सदस्य"
   },
   "footer": {
     "desc": "एक बुटीक डेवलपमेंट और डिजिटल एजेंसी जो साहसी, उच्च-प्रदर्शन सॉफ़्टवेयर और यादगार ब्रांड बनाती है। कस्टम डेवलपमेंट, डिजिटल मार्केटिंग और प्रोडक्ट डिज़ाइन।",

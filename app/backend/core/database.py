@@ -416,6 +416,14 @@ class DatabaseManager:
             "tur_pg": "TIMESTAMPTZ",
             "tur_sqlite": "TIMESTAMP",
         },
+        # Faz 2E — talebi açan kişi (hesap ekibinden biri olabilir; sahiplik
+        # hâlâ client_email = hesap sahibi).
+        {
+            "tablo": "support_tickets",
+            "sutun": "acan_email",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
         # Faz 2B — paketten bulunamazsa projeye elle girilen aylik revizyon saati.
         {
             "tablo": "projects",

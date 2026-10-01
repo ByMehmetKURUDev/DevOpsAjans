@@ -594,7 +594,8 @@
     "projeFiltreMusteri": "Müşteri projeleri",
     "projeFiltreVaka": "Vaka çalışmaları",
     "projeFiltreHepsi": "Hepsi",
-    "projeMusteriBos": "Henüz müşteriye bağlı proje yok. Bir projeyi düzenleyip müşteri e-postasını yazdığınızda burada görünür ve aşama takibi açılır."
+    "projeMusteriBos": "Henüz müşteriye bağlı proje yok. Bir projeyi düzenleyip müşteri e-postasını yazdığınızda burada görünür ve aşama takibi açılır.",
+    "musteriEkibi": "Ekip üyeleri"
   },
   "footer": {
     "desc": "Cesur, yüksek performanslı yazılım ve unutulmaz markalar üreten butik bir geliştirme ve dijital ajans. Özel geliştirme, dijital pazarlama ve ürün tasarımı.",

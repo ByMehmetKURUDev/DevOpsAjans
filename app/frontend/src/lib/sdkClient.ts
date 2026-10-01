@@ -1,4 +1,5 @@
 import { createClient } from '@metagptx/web-sdk';
+import { hesapBasliklari } from '@/lib/hesapSecimi';
 
 type SdkClient = ReturnType<typeof createClient>;
 
@@ -19,9 +20,43 @@ let instance: SdkClient | null = null;
  */
 export function getSdkClient(): SdkClient {
   if (!instance) {
-    instance = createClient({ onUnauthorized: yetkisizYanitGeldi });
+    instance = createClient({ onUnauthorized: yetkisizYanitGeldi, transformRequest: [istegiHazirla] });
   }
   return instance;
+}
+
+type BaslikNesnesi = { set?: (ad: string, deger: string, ustune?: boolean) => unknown; [ad: string]: unknown };
+
+/**
+ * Faz 2E: her isteğe etkin müşteri hesabı başlığı (`X-MK-Hesap`).
+ *
+ * SDK'nın axios örneğine dışarıdan erişim yok (kesici eklenemiyor) ve SDK'ya
+ * dokunmuyoruz; axios'un istek başına çalışan `transformRequest` kancası
+ * kullanılıyor. Kanca verilince axios'un varsayılan dönüştürücüsü devre
+ * dışı kaldığı için gövdeyi de onun yaptığı gibi hazırlıyoruz: düz nesne →
+ * JSON (SDK `Content-Type: application/json` başlığını zaten koyuyor),
+ * URLSearchParams → form kodlu metin; FormData/Blob/ArrayBuffer olduğu gibi.
+ * (axios'u ayrıca içe aktarmak ana pakete ikinci bir axios eklerdi.)
+ */
+function istegiHazirla(data: unknown, headers: BaslikNesnesi): unknown {
+  for (const [ad, deger] of Object.entries(hesapBasliklari())) {
+    if (typeof headers?.set === 'function') headers.set(ad, deger);
+    else if (headers) headers[ad] = deger;
+  }
+  if (data === undefined || data === null || typeof data !== 'object') return data;
+  if (typeof URLSearchParams !== 'undefined' && data instanceof URLSearchParams) {
+    if (typeof headers?.set === 'function') headers.set('Content-Type', 'application/x-www-form-urlencoded;charset=utf-8');
+    return data.toString();
+  }
+  if (
+    (typeof FormData !== 'undefined' && data instanceof FormData) ||
+    (typeof Blob !== 'undefined' && data instanceof Blob) ||
+    data instanceof ArrayBuffer ||
+    ArrayBuffer.isView(data)
+  ) {
+    return data;
+  }
+  return JSON.stringify(data);
 }
 
 let girisYonlendirmesiBasladi = false;

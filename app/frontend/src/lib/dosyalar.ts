@@ -1,4 +1,5 @@
 import { client } from '@/lib/sdkClient';
+import { hesapBasliklari } from '@/lib/hesapSecimi';
 import { getAPIBaseURL } from '@/lib/config';
 
 /**
@@ -134,7 +135,8 @@ function jeton(): string | null {
 }
 
 async function formGonder<T>(url: string, form: FormData): Promise<T> {
-  const basliklar: Record<string, string> = {};
+  // Faz 2E: ekip üyesi başka hesapta çalışıyorsa o hesabın başlığı da gider.
+  const basliklar: Record<string, string> = { ...hesapBasliklari() };
   const j = jeton();
   if (j) basliklar.Authorization = `Bearer ${j}`;
   const yanit = await fetch(`${getAPIBaseURL()}${url}`, { method: 'POST', body: form, headers: basliklar });

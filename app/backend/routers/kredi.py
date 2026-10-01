@@ -18,6 +18,7 @@ from datetime import datetime
 from typing import List, Optional
 
 from core.database import get_db
+from dependencies.hesap_baglami import izin_gerekli, musteri_eposta
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
 from fastapi import APIRouter, Body, HTTPException, Request, status
@@ -32,7 +33,12 @@ logger = logging.getLogger(__name__)
 
 yonetici_router = APIRouter(prefix="/api/v1/kredi/yonetim", tags=["kredi"])
 # Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
-musteri_router = APIRouter(prefix="/api/v1/kredilerim", tags=["kredi"], dependencies=[_Depends(modul_gerekli("krediler"))])
+# Faz 2E: ekip üyesinde `krediler` izni (hesap_baglami.izin_gerekli).
+musteri_router = APIRouter(
+    prefix="/api/v1/kredilerim",
+    tags=["kredi"],
+    dependencies=[_Depends(izin_gerekli("krediler")), _Depends(modul_gerekli("krediler"))],
+)
 
 
 # --------------------------------------------------------------------------
@@ -257,9 +263,9 @@ async def kredilerim(request: Request, db: AsyncSession = _Depends(get_db)):
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Giriş yapmanız gerekiyor")
-    eposta = (kullanici.email or "").strip().lower()
-    if not eposta:
+    if not (kullanici.email or "").strip():
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Hesabınızda e-posta adresi yok")
+    eposta = musteri_eposta(request)
 
     await kredi.sure_dolumlarini_isle(db, eposta)
     d = await kredi.durum(db, eposta)

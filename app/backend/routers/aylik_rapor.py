@@ -17,6 +17,7 @@ from typing import Optional
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
+from dependencies.hesap_baglami import izin_gerekli, musteri_eposta
 from fastapi import APIRouter, Body, HTTPException, Query, Request, status
 from fastapi import Depends as _Depends
 from models.service_subscriptions import Service_reports
@@ -30,7 +31,10 @@ logger = logging.getLogger(__name__)
 
 yonetici_router = APIRouter(prefix="/api/v1/aylik-rapor", tags=["aylik_rapor"])
 musteri_router = APIRouter(
-    prefix="/api/v1/raporlarim/aylik", tags=["aylik_rapor"], dependencies=[_Depends(modul_gerekli("aylik_rapor"))]
+    prefix="/api/v1/raporlarim/aylik",
+    tags=["aylik_rapor"],
+    # Faz 2E: ekip üyesinde `raporlar` izni.
+    dependencies=[_Depends(izin_gerekli("raporlar")), _Depends(modul_gerekli("aylik_rapor"))],
 )
 acik_router = APIRouter(prefix="/api/v1/rapor-aylik", tags=["aylik_rapor"])
 
@@ -155,9 +159,9 @@ async def kendi_aylik_raporlarim(request: Request, db: AsyncSession = _Depends(g
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail={"kod": "oturum_gerekli"})
-    eposta = servis.eposta_duzelt(kullanici.email)
-    if not eposta:
+    if not servis.eposta_duzelt(kullanici.email):
         raise HTTPException(status_code=403, detail={"kod": "eposta_gerekli"})
+    eposta = musteri_eposta(request)
     satirlar = (
         await db.execute(
             select(Service_reports)

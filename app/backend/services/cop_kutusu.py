@@ -375,13 +375,15 @@ async def geri_al(
     geri_alan: Optional[str],
     request: Any = None,
     yalniz_sahip: Optional[str] = None,
+    yalniz_silen: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Kaydı ve aynı gruptaki (henüz geri alınmamış) kayıtları geri getirir.
 
     Ebeveyn → çocuk sırasıyla (IZINLI_TABLOLAR["sira"]) aynı kimlikle ekler.
     Kimliklerden biri doluysa HİÇBİRİ eklenmez: 409 `cakisma`.
     `yalniz_sahip`: müşteri geri alırken grup yalnız kendi sildiği, kendi
-    kayıtlarıyla sınırlanıyor.
+    kayıtlarıyla sınırlanıyor. Faz 2E: `yalniz_silen` (ekip üyesi) verilirse
+    "kendi sildiği" o kişi, "kendi kaydı" hesap (`yalniz_sahip`).
     """
     from services.denetim import denetim_yaz
 
@@ -389,7 +391,9 @@ async def geri_al(
         raise CopHatasi(409, "zaten_geri_alindi")
     sorgu = select(CopKutusu).where(CopKutusu.grup == kayit.grup, CopKutusu.geri_alindi.is_(False))
     if yalniz_sahip:
-        sorgu = sorgu.where(CopKutusu.sahip_email == yalniz_sahip, CopKutusu.silen_email == yalniz_sahip)
+        sorgu = sorgu.where(
+            CopKutusu.sahip_email == yalniz_sahip, CopKutusu.silen_email == (yalniz_silen or yalniz_sahip)
+        )
     grup = list((await db.execute(sorgu)).scalars().all())
     if kayit.id not in {g.id for g in grup}:
         grup.append(kayit)

@@ -106,6 +106,8 @@ const KrediDefteri = ekliLazy('kredi', () => import('@/components/admin/KrediDef
 const ImzaliIslemler = ekliLazy('islem', () => import('@/components/admin/ImzaliIslemler'));
 // Modül kaydı (Faz 1F): katalog + müşteri başına modül aç/kapa.
 const ModulYonetimi = ekliLazy('modul', () => import('@/components/admin/ModulYonetimi'));
+// Faz 2E: müşteri kartında "Ekip üyeleri" (müşteri adına üye ekle/çıkar).
+const HesapEkibi = ekliLazy('hesapEkibi', () => import('@/components/HesapEkibi'));
 // Faz 2C: dosyalar + belge talebi; bilgi bankası; SLA/hazır cevap ayarları ve
 // talep kartındaki SLA rozeti; aylık müşteri raporu (Raporlar/abonelik sekmesinde).
 const DosyaYonetimi = ekliLazy('dosyalar', () => import('@/components/admin/DosyaYonetimi'));
@@ -380,6 +382,8 @@ export default function AdminPanel() {
   // her cevap ticket_replies tablosuna ayri satir olarak dusuyor.
   const [acikTalep, setAcikTalep] = useState<number | null>(null);
   // Destek sekmesinin alt bolumu: musteri talepleri / ekip / raporlar.
+  // Faz 2E: ekibi açık olan müşteri kartı (tek seferde bir tane).
+  const [ekipAcik, setEkipAcik] = useState<string | null>(null);
   const [destekBolumu, setDestekBolumu] = useState<'kullanici' | 'calisan' | 'rapor' | 'kurallar' | 'ayarlar'>('kullanici');
   // Faz 2C: talep başına SLA durumu (rozet). Destek sekmesi açıkken çekiliyor.
   const [slaHaritasi, setSlaHaritasi] = useState<Record<string, SlaDurumu>>({});
@@ -1656,8 +1660,25 @@ export default function AdminPanel() {
                               {unpaid.length}
                             </p>
                           </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            data-ekip-ac={c.email}
+                            aria-expanded={ekipAcik === c.email}
+                            onClick={() => setEkipAcik(ekipAcik === c.email ? null : c.email)}
+                            className="self-center gap-1.5 !bg-transparent border-white/20"
+                          >
+                            <Users className="h-3.5 w-3.5" /> {t('admin.musteriEkibi')}
+                          </Button>
                         </div>
                       </div>
+                      {ekipAcik === c.email && (
+                        <div className="mt-4 border-t border-white/10 pt-4">
+                          <Suspense fallback={<Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}>
+                            <HesapEkibi hesapEmail={c.email} />
+                          </Suspense>
+                        </div>
+                      )}
                     </div>
                   );
                 })}

@@ -14,7 +14,7 @@ from typing import List, Optional
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
 from fastapi import Depends as _Depends
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from models.project_events import Project_events
 from models.projects import Projects
 from pydantic import BaseModel, Field
@@ -110,8 +110,24 @@ async def list_events(
     project_id: int = Query(...),
     client_view: bool = Query(False, description="True ise yalnızca müşteriye açık kayıtlar"),
     db: AsyncSession = Depends(get_db),
+    request: Request = None,
 ):
-    """Bir projenin zaman çizelgesi, en yeniden eskiye."""
+    """Bir projenin zaman çizelgesi, en yeniden eskiye.
+
+    Faz 2E güvenlik incelemesi: eskiden oturum açmış HERKES herhangi bir
+    projenin zaman çizelgesini — iç notlar dahil — okuyabiliyordu. Artık
+    yönetici olmayan yalnız etkin hesabının projesini (ekip üyesinde
+    `projeler` izniyle) ve yalnız müşteriye açık kayıtları görüyor.
+    """
+    from dependencies.kayit_sahipligi import _yonetici_mi, sahiplik_dogrula
+
+    _, yonetici = _yonetici_mi(request) if request is not None else (None, True)
+    if not yonetici:
+        proje = (await db.execute(select(Projects).where(Projects.id == project_id))).scalar_one_or_none()
+        if proje is None:
+            raise HTTPException(status_code=404, detail="Kayıt bulunamadı")
+        sahiplik_dogrula(proje, request, "client_email", izin="projeler")
+        client_view = True
     kosullar = [Project_events.project_id == project_id]
     if client_view:
         kosullar.append(Project_events.visible_to_client == "1")

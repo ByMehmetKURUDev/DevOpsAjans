@@ -27,6 +27,7 @@ from typing import Any, Dict, List, Optional
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
+from dependencies.hesap_baglami import izin_gerekli, musteri_eposta
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.service_subscriptions import Service_reports, Service_subscriptions
@@ -38,7 +39,12 @@ logger = logging.getLogger(__name__)
 
 yonetici_router = APIRouter(prefix="/api/v1/abonelik", tags=["abonelik"])
 # Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
-musteri_router = APIRouter(prefix="/api/v1/raporlarim", tags=["abonelik"], dependencies=[_Depends(modul_gerekli("raporlar"))])
+# Faz 2E: ekip üyesinde `raporlar` ya da `abonelikler` izni (abonelik raporu ikisine de girer).
+musteri_router = APIRouter(
+    prefix="/api/v1/raporlarim",
+    tags=["abonelik"],
+    dependencies=[_Depends(izin_gerekli("raporlar", "abonelikler")), _Depends(modul_gerekli("raporlar"))],
+)
 
 PERIYOTLAR = {"aylik", "yillik"}
 DURUMLAR = {"aktif", "duraklatildi", "iptal"}
@@ -405,9 +411,9 @@ async def kendi_raporlarim(request: Request, db: AsyncSession = _Depends(get_db)
     e-postasını yazıp raporlarını okuyabilirdi.
     """
     kullanici, yonetici = _yonetici_mi(request)
-    eposta = _eposta(kullanici)
-    if not eposta:
+    if not _eposta(kullanici):
         raise HTTPException(status_code=403, detail="Oturum gerekli")
+    eposta = musteri_eposta(request)
 
     sorgu = (
         select(Service_reports)

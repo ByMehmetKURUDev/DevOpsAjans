@@ -19,6 +19,7 @@ from typing import Any, Dict, List, Optional
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
+from dependencies.hesap_baglami import izin_gerekli, kisi_eposta, musteri_eposta
 from fastapi import APIRouter, Body, File, Form, HTTPException, Query, Request, UploadFile, status
 from fastapi import Depends as _Depends
 from fastapi.responses import RedirectResponse, Response
@@ -35,7 +36,9 @@ logger = logging.getLogger(__name__)
 yonetici_router = APIRouter(prefix="/api/v1/dosyalar", tags=["dosyalar"])
 talep_router = APIRouter(prefix="/api/v1/belge-talepleri", tags=["dosyalar"])
 musteri_router = APIRouter(
-    prefix="/api/v1/dosyalarim", tags=["dosyalar"], dependencies=[_Depends(modul_gerekli("dosyalar"))]
+    prefix="/api/v1/dosyalarim",
+    tags=["dosyalar"],
+    dependencies=[_Depends(izin_gerekli("dosyalar")), _Depends(modul_gerekli("dosyalar"))],
 )
 acik_router = APIRouter(prefix="/api/v1", tags=["dosyalar"])
 
@@ -43,6 +46,11 @@ acik_router = APIRouter(prefix="/api/v1", tags=["dosyalar"])
 # ---------------------------------------------------------------------------
 # Yardımcılar
 # ---------------------------------------------------------------------------
+def _kim(kisi: str, hesap: str) -> str:
+    """Bildirim metni: ekip üyesi yazdıysa "kişi (hesap)"."""
+    return kisi if kisi == hesap else f"{kisi} ({hesap})"
+
+
 def _hata(h: DosyaHatasi) -> HTTPException:
     return HTTPException(status_code=h.durum, detail=h.detay())
 
@@ -57,13 +65,13 @@ def _yonetici_iste(request: Request) -> str:
 
 
 def _musteri(request: Request) -> str:
+    """Etkin hesabın e-postası (Faz 2E: ekip üyesi sahibin hesabında çalışabilir)."""
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail={"kod": "oturum_gerekli"})
-    eposta = servis.eposta_duzelt(kullanici.email)
-    if not eposta:
+    if not servis.eposta_duzelt(kullanici.email):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail={"kod": "eposta_gerekli"})
-    return eposta
+    return musteri_eposta(request)
 
 
 def _eposta_dogrula(ham: Optional[str]) -> str:
@@ -463,6 +471,7 @@ async def musteri_yukle(
     db: AsyncSession = _Depends(get_db),
 ):
     eposta = _musteri(request)
+    kisi = kisi_eposta(request)
     klasor_adi = servis.klasor_temizle(klasor, servis.MUSTERI_KLASORU)
     mevcut = await servis.klasor_getir(db, eposta, klasor_adi)
     if mevcut is not None and mevcut.gorunurluk != "musteri":
@@ -473,7 +482,7 @@ async def musteri_yukle(
         await servis.klasor_hazirla(db, eposta, klasor_adi, "musteri")
         kayit = await servis.dosya_kaydet(
             db, eposta=eposta, klasor=klasor_adi, ad_ham=dosya.filename or "", veri=veri,
-            yukleyen=eposta, yukleyen_rol="client",
+            yukleyen=kisi, yukleyen_rol="client",
         )
         await db.commit()
         await db.refresh(kayit)
@@ -484,7 +493,7 @@ async def musteri_yukle(
         db,
         event_type="dosya_eklendi",
         title=f"Müşteri dosya yükledi: {kayit.ad}",
-        body=f"{eposta} → {klasor_adi}/{kayit.ad} ({_boyut_metni(kayit.boyut)})",
+        body=f"{_kim(kisi, eposta)} → {klasor_adi}/{kayit.ad} ({_boyut_metni(kayit.boyut)})",
         recipients=await _yoneticiler(db),
         link="/admin",
         ref_type="dosya",
@@ -524,6 +533,7 @@ async def talebe_yukle(
     db: AsyncSession = _Depends(get_db),
 ):
     eposta = _musteri(request)
+    kisi = kisi_eposta(request)
     t = (await db.execute(select(BelgeTalepleri).where(BelgeTalepleri.id == talep_id))).scalars().first()
     if t is None or t.client_email != eposta:
         raise HTTPException(status_code=404, detail={"kod": "bulunamadi"})
@@ -535,7 +545,7 @@ async def talebe_yukle(
         await servis.klasor_hazirla(db, eposta, servis.BELGE_KLASORU, "musteri")
         kayit = await servis.dosya_kaydet(
             db, eposta=eposta, klasor=servis.BELGE_KLASORU, ad_ham=dosya.filename or "", veri=veri,
-            yukleyen=eposta, yukleyen_rol="client", proje_id=t.proje_id, belge_talebi_id=t.id,
+            yukleyen=kisi, yukleyen_rol="client", proje_id=t.proje_id, belge_talebi_id=t.id,
             izinli=turler or None,
         )
         ilk_teslim = t.durum != "teslim_edildi"
@@ -552,7 +562,7 @@ async def talebe_yukle(
         db,
         event_type="belge_teslim",
         title=f"Belge teslim edildi: {t.baslik}" + ("" if ilk_teslim else " (yeni sürüm)"),
-        body=f"{eposta} istenen belgeyi yükledi: {kayit.ad} ({_boyut_metni(kayit.boyut)}).",
+        body=f"{_kim(kisi, eposta)} istenen belgeyi yükledi: {kayit.ad} ({_boyut_metni(kayit.boyut)}).",
         recipients=await _yoneticiler(db),
         link="/admin",
         ref_type="belge_talebi",

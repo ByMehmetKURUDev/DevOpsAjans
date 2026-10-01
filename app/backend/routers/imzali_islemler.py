@@ -26,6 +26,7 @@ from typing import Any, Dict, List, Optional
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
+from dependencies.hesap_baglami import izin_gerekli, izin_hatasi, musteri_baglami
 from fastapi import APIRouter, Body, HTTPException, Query, Request, status
 from fastapi import Depends as _Depends
 from models.signed_actions import SignedActions
@@ -42,7 +43,16 @@ logger = logging.getLogger(__name__)
 acik_router = APIRouter(prefix="/api/v1/islem", tags=["imzali-islem"])
 yonetici_router = APIRouter(prefix="/api/v1/islem-yonetim", tags=["imzali-islem"])
 # Faz 1F: müşterinin bu modülü kapalıysa 403 `modul_kapali` (yönetici etkilenmez).
-musteri_router = APIRouter(prefix="/api/v1/islemlerim", tags=["imzali-islem"], dependencies=[_Depends(modul_gerekli("islem"))])
+# Faz 2E: ekip üyesi yalnız izni olan türdeki işlemleri görür/karara bağlar
+# (teklif → faturalar, teslim onayı → projeler); ikisi de yoksa 403.
+musteri_router = APIRouter(
+    prefix="/api/v1/islemlerim",
+    tags=["imzali-islem"],
+    dependencies=[_Depends(izin_gerekli("faturalar", "projeler", "raporlar")), _Depends(modul_gerekli("islem"))],
+)
+
+#: İşlem türü → ekip üyesinde gereken hesap izni.
+TUR_IZNI = {"teklif_kabul": "faturalar", "teslimat_onay": "projeler", "rapor_goruntule": "raporlar"}
 
 DAKIKA_SINIRI = 20
 _EPOSTA = re.compile(r"^[^@\s<>,;]+@[^@\s<>,;]+\.[^@\s<>,;]{2,}$")
@@ -183,14 +193,14 @@ def _yonetici_iste(request: Request) -> str:
     return _eposta(kullanici)
 
 
-def _musteri_iste(request: Request) -> str:
+def _musteri_iste(request: Request):
+    """Etkin hesap bağlamı (Faz 2E): işlemler hesabın e-postasına (alıcı) bağlı."""
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Giriş yapmanız gerekiyor")
-    eposta = _eposta(kullanici)
-    if not eposta:
+    if not _eposta(kullanici):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Hesabınızda e-posta adresi yok")
-    return eposta
+    return musteri_baglami(request)
 
 
 def _site_adresi() -> str:
@@ -448,7 +458,9 @@ async def yenile(
 @musteri_router.get("", response_model=List[MusteriSatiri])
 async def islemlerim(request: Request, db: AsyncSession = _Depends(get_db)):
     """Müşterinin onay bekleyen işlemleri (bağlantı DÖNMEZ)."""
-    eposta = _musteri_iste(request)
+    baglam = _musteri_iste(request)
+    eposta = baglam.hesap_email
+    izinli_turler = [tur for tur, izin in TUR_IZNI.items() if baglam.izin_var(izin)]
     simdi = servis._simdi()
     satirlar = (
         await db.execute(
@@ -457,6 +469,7 @@ async def islemlerim(request: Request, db: AsyncSession = _Depends(get_db)):
                 SignedActions.alici_eposta == eposta,
                 SignedActions.durum == "bekliyor",
                 SignedActions.son_kullanma > simdi,
+                SignedActions.tur.in_(izinli_turler),
             )
             .order_by(SignedActions.son_kullanma.asc())
         )
@@ -484,7 +497,15 @@ async def islemlerim(request: Request, db: AsyncSession = _Depends(get_db)):
 async def islemlerim_karar(
     islem_id: int, request: Request, govde: KararGirdisi = Body(...), db: AsyncSession = _Depends(get_db)
 ):
-    eposta = _musteri_iste(request)
+    baglam = _musteri_iste(request)
+    eposta = baglam.hesap_email
+    tur = (
+        await db.execute(
+            select(SignedActions.tur).where(SignedActions.id == islem_id, SignedActions.alici_eposta == eposta)
+        )
+    ).scalar_one_or_none()
+    if tur is not None and not baglam.izin_var(TUR_IZNI.get(tur, "faturalar")):
+        raise izin_hatasi(TUR_IZNI.get(tur, "faturalar"))
     try:
         sonuc = await servis.kullan_id(
             db, islem_id, eposta, govde.sonuc, govde.not_, ip_ozeti=ip_ozeti(istemci_ip(request))

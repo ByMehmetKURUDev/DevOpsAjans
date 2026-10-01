@@ -47,6 +47,15 @@ HERKESE_ACIK_OLUSTURMA = {"inquiries"}
 #: Oturum açmış herhangi bir kullanıcının kayıt oluşturabildiği tablolar.
 OTURUMLA_OLUSTURMA = {"support_tickets"}
 
+#: Faz 2E güvenlik incelemesi: oturum açmış olmak bile okumaya yetmeyen
+#: tablolar/yollar. Fiyat teklifleri başka müşterilerin e-postasını ve
+#: tutarlarını taşıyor; gönderim günlüğü bütün alıcıları listeliyor; içerik
+#: planı, analitik görüntüleri ve pazaryeri taslakları ajansın iç verisi
+#: (vitrin `/api/v1/marketplace` ayrı, açık uçtan). Müşteri paneli bunların
+#: hiçbirini kullanmıyor (teklif kararı imzalı bağlantıyla veriliyor).
+YALNIZ_YONETICI_OKUMA = {"pricing_inquiries", "content_posts", "analytics_snapshots", "marketplace_items"}
+YALNIZ_YONETICI_YOLLAR = {"/api/v1/entities/notifications/log"}
+
 OKUMA_METOTLARI = {"GET", "HEAD", "OPTIONS"}
 OLUSTURMA_METOTLARI = {"POST"}
 
@@ -58,6 +67,19 @@ def _tablo_adi(path: str) -> str:
         return parcalar[parcalar.index("entities") + 1]
     except (ValueError, IndexError):
         return ""
+
+
+def _koleksiyon_koku_mu(path: str) -> bool:
+    """`/api/v1/entities/<tablo>` (sonunda başka parça yok) mu?
+
+    Açık/oturumlu oluşturma izni yalnız tek kayıt içindir: `/batch` ile
+    toplu ekleme (ve müşterinin başkası adına talep açması) yöneticiye kalıyor.
+    """
+    parcalar = [p for p in path.split("/") if p]
+    try:
+        return len(parcalar) == parcalar.index("entities") + 2
+    except ValueError:
+        return False
 
 
 def _istekteki_kullanici(request: Request) -> Optional[UserResponse]:
@@ -115,8 +137,8 @@ async def entity_guard(request: Request) -> None:
     if metot in OKUMA_METOTLARI and tablo in HERKESE_ACIK_OKUMA:
         return
 
-    # 2) İletişim formu: ziyaretçi mesaj bırakabilmeli
-    if metot in OLUSTURMA_METOTLARI and tablo in HERKESE_ACIK_OLUSTURMA:
+    # 2) İletişim formu: ziyaretçi mesaj bırakabilmeli (tek kayıt)
+    if metot in OLUSTURMA_METOTLARI and tablo in HERKESE_ACIK_OLUSTURMA and _koleksiyon_koku_mu(request.url.path):
         return
 
     if kullanici is None:
@@ -129,12 +151,16 @@ async def entity_guard(request: Request) -> None:
 
     yonetici = kullanici.role == "admin"
 
-    # 3) Oturum açmış kullanıcının kendi kaydını oluşturabildiği yerler
-    if metot in OLUSTURMA_METOTLARI and tablo in OTURUMLA_OLUSTURMA:
+    # 3) Oturum açmış kullanıcının kendi kaydını oluşturabildiği yerler (tek kayıt;
+    #    sahiplik alanını uç kendisi etkin hesaptan yazıyor)
+    if metot in OLUSTURMA_METOTLARI and tablo in OTURUMLA_OLUSTURMA and _koleksiyon_koku_mu(request.url.path):
         return
 
-    # 4) Okumalar: oturum yeterli (müşteri paneli kendi kayıtlarını çekiyor)
+    # 4) Okumalar: oturum yeterli (müşteri paneli kendi kayıtlarını çekiyor;
+    #    sahiplik süzgeci uçta — bkz. kayit_sahipligi.py). İstisnalar yönetici.
     if metot in OKUMA_METOTLARI:
+        if not yonetici and (tablo in YALNIZ_YONETICI_OKUMA or request.url.path.rstrip("/") in YALNIZ_YONETICI_YOLLAR):
+            _reddet(status.HTTP_403_FORBIDDEN, "Bu işlem için yönetici yetkisi gerekiyor")
         return
 
     # 5) Geri kalan her yazma işlemi yönetici yetkisi istiyor

@@ -49,6 +49,8 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   // Faz 2C: jetona özel dosya paylaşımı ve aylık müşteri raporu (noindex).
   '/paylas/:jeton',
   '/rapor-aylik/:jeton',
+  // Faz 2E: hesap ekibi daveti — jetona özel, kişiye özel (noindex).
+  '/hesap-davet/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

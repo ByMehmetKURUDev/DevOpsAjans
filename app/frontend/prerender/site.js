@@ -381,6 +381,8 @@ export const NOINDEX_ROUTES = [
   // Faz 2C: jetonlu dosya paylasimi ve aylik musteri raporu; kisiye ozel.
   '/paylas',
   '/rapor-aylik',
+  // Faz 2E: hesap ekibi daveti (/hesap-davet/<jeton>); kisiye ozel.
+  '/hesap-davet',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

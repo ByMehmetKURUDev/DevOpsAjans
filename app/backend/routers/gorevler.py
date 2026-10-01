@@ -15,6 +15,7 @@ from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
 from dependencies.yonetici_bekcisi import yonetici_gerekli
+from dependencies.hesap_baglami import izin_gerekli, musteri_eposta
 from fastapi import APIRouter, Body, HTTPException, Request, status
 from fastapi import Depends as _Depends
 from models.proje_gorevleri import (
@@ -41,7 +42,8 @@ yonetici_router = APIRouter(
 musteri_router = APIRouter(
     prefix="/api/v1/gorevlerim",
     tags=["gorevler"],
-    dependencies=[_Depends(modul_gerekli("gorevler"))],
+    # Faz 2E: ekip üyesinde `gorevler` izni.
+    dependencies=[_Depends(izin_gerekli("gorevler")), _Depends(modul_gerekli("gorevler"))],
 )
 
 BASLIK_SINIRI = 200
@@ -137,11 +139,11 @@ def _yonetici_iste(request: Request) -> str:
 
 
 def _musteri_iste(request: Request) -> str:
+    """Etkin hesabın e-postası (Faz 2E)."""
     kullanici, _ = _yonetici_mi(request)
-    eposta = gs.eposta_duzelt(getattr(kullanici, "email", None))
-    if not eposta:
+    if not gs.eposta_duzelt(getattr(kullanici, "email", None)):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Oturum gerekli")
-    return eposta
+    return musteri_eposta(request)
 
 
 def _metin(deger: Optional[str], sinir: int, *, zorunlu: bool = False, kod: str = "baslik_gerekli") -> Optional[str]:

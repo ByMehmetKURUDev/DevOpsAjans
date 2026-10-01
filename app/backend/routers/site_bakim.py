@@ -17,6 +17,7 @@ from typing import Any, Dict, List, Optional
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
 from dependencies.modul_bekcisi import modul_gerekli
+from dependencies.hesap_baglami import izin_gerekli, musteri_eposta
 from fastapi import APIRouter, Body, HTTPException, Request, Response, status
 from fastapi import Depends as _Depends
 from models.client_sites import Client_sites
@@ -35,7 +36,8 @@ yonetici_router = APIRouter(prefix="/api/v1/site-bakim", tags=["site-bakim"])
 musteri_router = APIRouter(
     prefix="/api/v1/sitelerim-bakim",
     tags=["site-bakim"],
-    dependencies=[_Depends(modul_gerekli("sitem"))],
+    # Faz 2E: ekip üyesinde `siteler` izni.
+    dependencies=[_Depends(izin_gerekli("siteler")), _Depends(modul_gerekli("sitem"))],
 )
 acik_router = APIRouter(prefix="/api/v1/durum", tags=["durum-sayfasi"])
 
@@ -94,11 +96,11 @@ def _yonetici_iste(request: Request) -> str:
 
 
 def _musteri_iste(request: Request) -> str:
+    """Etkin hesabın e-postası (Faz 2E)."""
     kullanici, _ = _yonetici_mi(request)
-    eposta = _eposta(kullanici)
-    if not eposta:
+    if not _eposta(kullanici):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Oturum gerekli")
-    return eposta
+    return musteri_eposta(request)
 
 
 def _hata(kod: int, anahtar: str) -> HTTPException:

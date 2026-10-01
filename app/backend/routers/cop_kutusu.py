@@ -13,10 +13,11 @@ yazılıyor; bu dosyanın import edilmesi kancayı da kaydediyor.
 
 import logging
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from core.database import get_db
 from dependencies.kayit_sahipligi import _yonetici_mi
+from dependencies.hesap_baglami import musteri_baglami
 from fastapi import APIRouter, Body, HTTPException, Query, Request, status
 from fastapi import Depends as _Depends
 from models.cop_kutusu import CopKutusu
@@ -83,14 +84,15 @@ def _yonetici_iste(request: Request) -> str:
     return (kullanici.email or "").strip().lower()
 
 
-def _musteri_iste(request: Request) -> str:
+def _musteri_iste(request: Request) -> Tuple[str, str]:
+    """(hesap, kişi). Faz 2E: müşteri çöp kutusu = bu hesapta BU KİŞİNİN sildikleri."""
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Giriş yapmanız gerekiyor")
-    eposta = (kullanici.email or "").strip().lower()
-    if not eposta:
+    if not (kullanici.email or "").strip():
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail={"kod": "eposta_yok"})
-    return eposta
+    baglam = musteri_baglami(request)
+    return baglam.hesap_email, baglam.kisi_email
 
 
 def _hata(exc: servis.CopHatasi) -> HTTPException:
@@ -253,10 +255,10 @@ async def saklama_ayari(request: Request, govde: AyarGirdisi = Body(...), db: As
 # --------------------------------------------------------------------------
 # Müşteri: yalnız kendi sildiği, kendi kayıtları
 # --------------------------------------------------------------------------
-def _musteri_kosullari(eposta: str) -> list:
+def _musteri_kosullari(hesap: str, kisi: str) -> list:
     return [
-        CopKutusu.sahip_email == eposta,
-        CopKutusu.silen_email == eposta,
+        CopKutusu.sahip_email == hesap,
+        CopKutusu.silen_email == kisi,
         CopKutusu.geri_alindi.is_(False),
     ]
 
@@ -270,8 +272,8 @@ async def musteri_listesi(
     adet: int = Query(50, ge=1, le=EN_COK_ADET),
     db: AsyncSession = _Depends(get_db),
 ):
-    eposta = _musteri_iste(request)
-    liste = await _liste(db, _musteri_kosullari(eposta), tablo=tablo, q=q, sayfa=sayfa, adet=adet)
+    hesap, kisi = _musteri_iste(request)
+    liste = await _liste(db, _musteri_kosullari(hesap, kisi), tablo=tablo, q=q, sayfa=sayfa, adet=adet)
     # Müşteriye silenin/sahibin e-postası gerekmiyor (ikisi de kendisi).
     for s in liste.items:
         s.silen_email = None
@@ -281,15 +283,15 @@ async def musteri_listesi(
 
 @musteri_router.post("/{kayit_id}/geri-al")
 async def musteri_geri_al(kayit_id: int, request: Request, db: AsyncSession = _Depends(get_db)):
-    eposta = _musteri_iste(request)
+    hesap, kisi = _musteri_iste(request)
     k = (
-        await db.execute(select(CopKutusu).where(CopKutusu.id == kayit_id, *_musteri_kosullari(eposta)))
+        await db.execute(select(CopKutusu).where(CopKutusu.id == kayit_id, *_musteri_kosullari(hesap, kisi)))
     ).scalar_one_or_none()
     if k is None:
         # Başkasının kaydı da "yok": varlığı sızmasın.
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail={"kod": "bulunamadi"})
     try:
-        return await servis.geri_al(db, k, geri_alan=eposta, request=request, yalniz_sahip=eposta)
+        return await servis.geri_al(db, k, geri_alan=kisi, request=request, yalniz_sahip=hesap, yalniz_silen=kisi)
     except servis.CopHatasi as exc:
         raise _hata(exc) from exc
 

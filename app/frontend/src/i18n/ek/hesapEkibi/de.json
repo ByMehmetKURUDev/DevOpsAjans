@@ -1,0 +1,110 @@
+{
+  "hesapEkibi": {
+    "secici": {
+      "etiket": "Aktives Konto",
+      "kendiHesabim": "Mein eigenes Konto",
+      "serit": "Sie arbeiten im Konto {{hesap}} (Ihre Rolle: {{rol}})",
+      "donus": "Zurück zu meinem Konto",
+      "degisti": "Zu {{hesap}} gewechselt"
+    },
+    "rol": {
+      "sahip": "Kontoinhaber",
+      "yonetici": "Kontoadministrator",
+      "uye": "Mitglied",
+      "fatura": "Rechnungsverantwortlicher"
+    },
+    "rolAciklama": {
+      "yonetici": "Sieht alle Module und verwaltet das Team.",
+      "uye": "Projekte, Aufgaben, Support, Dateien, Websites und Berichte; keine Rechnungen.",
+      "fatura": "Nur Rechnungen, Guthaben und Abonnements."
+    },
+    "izin": {
+      "projeler": "Projekte",
+      "gorevler": "Aufgaben",
+      "destek": "Support",
+      "dosyalar": "Dateien",
+      "faturalar": "Rechnungen",
+      "siteler": "Websites",
+      "raporlar": "Berichte",
+      "krediler": "Guthaben",
+      "abonelikler": "Abonnements"
+    },
+    "durum": {
+      "davet": "Einladung ausstehend",
+      "aktif": "Aktiv",
+      "pasif": "Inaktiv",
+      "suresi_doldu": "Einladung abgelaufen"
+    },
+    "ekip": {
+      "baslik": "Team",
+      "aciklama": "Fügen Sie Ihrem Konto Teammitglieder hinzu; jede Person meldet sich mit ihrer eigenen E-Mail an und sieht nur die freigegebenen Bereiche.",
+      "yoneticiAciklama": "Personen im Konto dieses Kunden. Sie können im Namen des Kunden Mitglieder hinzufügen oder entfernen.",
+      "saltOkunur": "Nur der Kontoinhaber und Kontoadministratoren können das Team bearbeiten.",
+      "bos": "Noch keine Teammitglieder.",
+      "sahipSatiri": "Kontoinhaber",
+      "davetEt": "Person einladen",
+      "eposta": "E-Mail",
+      "epostaOrnek": "name@firma.de",
+      "rol": "Rolle",
+      "izinler": "Berechtigungen",
+      "gonder": "Einladung senden",
+      "davetGonderildi": "Einladung erstellt.",
+      "baglantiAciklama": "Einladungslink (7 Tage gültig, einmalig nutzbar). Zum Annehmen mit der eingeladenen E-Mail anmelden:",
+      "baglantiKopyala": "Link kopieren",
+      "kopyalandi": "Kopiert",
+      "epostaGitmedi": "Die E-Mail konnte nicht gesendet werden; bitte leiten Sie den Link selbst weiter.",
+      "kaydet": "Speichern",
+      "pasifYap": "Deaktivieren",
+      "aktifYap": "Aktivieren",
+      "sil": "Entfernen",
+      "silOnay": "{{eposta}} aus diesem Konto entfernen? Der Zugriff endet sofort.",
+      "davetYenile": "Einladung erneuern",
+      "yenilendi": "Einladung erneuert.",
+      "guncellendi": "Mitglied aktualisiert.",
+      "silindi": "Mitglied entfernt.",
+      "sonKullanim": "Zuletzt aktiv: {{tarih}}",
+      "davetBitis": "Einladung läuft ab: {{tarih}}",
+      "hicKullanmadi": "Noch nicht genutzt",
+      "sen": "Sie",
+      "yukleniyor": "Wird geladen…",
+      "yenile": "Aktualisieren",
+      "uyeSayisi": "{{sayi}} Mitglieder"
+    },
+    "hata": {
+      "genel": "Der Vorgang konnte nicht abgeschlossen werden. Bitte erneut versuchen.",
+      "ekip_yetkisi_yok": "Sie dürfen das Team nicht bearbeiten.",
+      "yetki_yukseltilemez": "Sie können keine Berechtigung vergeben, die Sie selbst nicht haben, und niemanden mit weiteren Rechten ändern.",
+      "kendini_duzenleyemez": "Sie können Ihre eigene Mitgliedschaft nicht ändern.",
+      "zaten_uye": "Diese Person ist bereits im Team oder wurde eingeladen.",
+      "sahip_eklenemez": "Der Kontoinhaber kann nicht hinzugefügt werden; er hat bereits vollen Zugriff.",
+      "eposta_gecersiz": "Bitte eine gültige E-Mail-Adresse eingeben.",
+      "izin_gecersiz": "Unbekannte Berechtigung.",
+      "rol_gecersiz": "Ungültige Rolle.",
+      "uye_siniri": "Dieses Konto hat die Mitgliedergrenze erreicht.",
+      "davet_degil": "Für dieses Mitglied gibt es keine offene Einladung.",
+      "davet_bekliyor": "Der Status kann erst nach Annahme der Einladung geändert werden.",
+      "uye_yok": "Mitglied nicht gefunden.",
+      "hesap_uyesi_degil": "Sie haben keinen Zugriff auf dieses Konto oder er ist abgelaufen.",
+      "hesap_izni_yok": "Für diesen Bereich fehlt Ihnen die Berechtigung.",
+      "oturum_gerekli": "Bitte melden Sie sich an.",
+      "cok_istek": "Zu viele Versuche; bitte gleich noch einmal versuchen."
+    },
+    "davet": {
+      "baslik": "Team-Einladung",
+      "aciklama": "Sie wurden als {{rol}} in das Konto {{hesap}} eingeladen.",
+      "davetEdilen": "Eingeladene E-Mail: {{eposta}}",
+      "gecerlilik": "Gültig bis: {{tarih}}",
+      "izinler": "Bereiche, die Sie sehen werden",
+      "kabulEt": "Einladung annehmen",
+      "girisYap": "Anmelden und annehmen",
+      "girisAciklama": "Melden Sie sich zum Annehmen mit der eingeladenen E-Mail-Adresse an.",
+      "kabulEdildi": "Einladung angenommen. Sie können jetzt im Konto {{hesap}} arbeiten.",
+      "panelGit": "Zum Panel",
+      "gecersiz": "Dieser Einladungslink ist ungültig oder wurde bereits verwendet.",
+      "suresiDoldu": "Diese Einladung ist abgelaufen. Bitten Sie die einladende Person, sie zu erneuern.",
+      "epostaUyusmuyor": "Diese Einladung ging an {{beklenen}}, Sie sind aber mit einem anderen Konto angemeldet. Bitte mit der richtigen Adresse anmelden.",
+      "anaSayfa": "Startseite",
+      "bilinmeyenHesap": "einem Kunden"
+    }
+  }
+}

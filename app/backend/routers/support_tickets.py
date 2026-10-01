@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
 from dependencies.entity_guard import entity_guard
+from dependencies.hesap_baglami import izin_iste
 from dependencies.kayit_sahipligi import _yonetici_mi, sahibine_daralt, sahiplik_dogrula
 from fastapi import Depends as _Depends
 from services.destek_kurallari import kanal_bul
@@ -70,6 +71,7 @@ class Support_ticketsResponse(BaseModel):
     dogrulanmadi: Optional[bool] = None
     etiketler: Optional[str] = None
     son_mesaj_at: Optional[datetime] = None
+    acan_email: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -131,7 +133,7 @@ async def query_support_ticketss(
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
 
         # Yonetici degilse yalnizca kendi kayitlari
-        query_dict = sahibine_daralt(query_dict, request, "client_email")
+        query_dict = sahibine_daralt(query_dict, request, "client_email", izin="destek")
         
         result = await service.get_list(
             skip=skip, 
@@ -175,7 +177,7 @@ async def query_support_ticketss_all(
                 raise HTTPException(status_code=400, detail="Invalid query JSON format")
 
         # Yonetici degilse yalnizca kendi kayitlari
-        query_dict = sahibine_daralt(query_dict, request, "client_email")
+        query_dict = sahibine_daralt(query_dict, request, "client_email", izin="destek")
 
         result = await service.get_list(
             skip=skip,
@@ -212,7 +214,7 @@ async def get_support_tickets(
             logger.warning(f"Support_tickets with id {id} not found")
             raise HTTPException(status_code=404, detail="Support_tickets not found")
         
-        sahiplik_dogrula(result, request, "client_email")
+        sahiplik_dogrula(result, request, "client_email", izin="destek")
 
         return result
     except HTTPException:
@@ -239,7 +241,11 @@ async def create_support_tickets(
         # atamayı ve "eposta" kaynağını müşteri belirleyemez.
         kullanici, yonetici = _yonetici_mi(request) if request is not None else (None, False)
         if kullanici is not None and not yonetici:
-            veri["client_email"] = (kullanici.email or "").strip().lower() or veri.get("client_email")
+            # Faz 2E: sahiplik etkin hesap (ekip üyesi sahibin hesabına açar),
+            # açan kişi ayrıca yazılıyor. Üyenin `destek` izni yoksa 403.
+            baglam = izin_iste(request, "destek")
+            veri["client_email"] = baglam.hesap_email or veri.get("client_email")
+            veri["acan_email"] = baglam.kisi_email
             veri["atanan"] = None
             if kanal_bul(veri.get("kaynak")) == "eposta":
                 veri["kaynak"] = "panel"
