@@ -37,7 +37,7 @@ from routers.teklifler import pdf_yaniti
 from services import faturalar as servis
 from services.belge_hesap import HesapHatasi, belge_hesapla, kayitli_kalemler, para_birimi_duzelt
 from services.faturalar import FaturaHatasi
-from sqlalchemy import func, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = logging.getLogger(__name__)
@@ -419,10 +419,15 @@ async def yonetici_pdf(fatura_id: int, request: Request, dil: str = Query("tr"),
 # --------------------------------------------------------------------------
 # Müşteri
 # --------------------------------------------------------------------------
+def _taslak_degil():
+    """Faz 3Z: taslak fatura (zamandan aktarılıyor, henüz kesilmedi) müşteriye görünmez."""
+    return or_(Invoices.status.is_(None), Invoices.status.notin_(servis.TASLAK_DURUMLARI))
+
+
 async def _musteri_faturasi(db: AsyncSession, fatura_id: int, eposta: str) -> Invoices:
     fatura = (
         await db.execute(
-            select(Invoices).where(Invoices.id == fatura_id, func.lower(Invoices.client_email) == eposta)
+            select(Invoices).where(Invoices.id == fatura_id, func.lower(Invoices.client_email) == eposta, _taslak_degil())
         )
     ).scalar_one_or_none()
     if fatura is None:
@@ -435,7 +440,10 @@ async def faturalarim(request: Request, db: AsyncSession = _Depends(get_db)):
     eposta = musteri_baglami(request).hesap_email
     satirlar = (
         await db.execute(
-            select(Invoices).where(func.lower(Invoices.client_email) == eposta).order_by(Invoices.id.desc()).limit(300)
+            select(Invoices)
+            .where(func.lower(Invoices.client_email) == eposta, _taslak_degil())
+            .order_by(Invoices.id.desc())
+            .limit(300)
         )
     ).scalars().all()
     if not satirlar:

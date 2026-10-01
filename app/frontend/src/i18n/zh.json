@@ -424,7 +424,8 @@
       "iade": "已冲销",
       "open": "待处理",
       "answered": "已回复",
-      "closed": "已关闭"
+      "closed": "已关闭",
+      "draft": "草稿"
     },
     "blog": "博客",
     "logoAlt": "By Mehmet KURU Dev — 网站开发与数字营销工作室标识",
@@ -478,7 +479,9 @@
     "tabSohbetler": "客户聊天",
     "tabUzmanAsistanlar": "专家助手",
     "tabBaglantilar": "连接",
-    "tabCrm": "销售线索 (CRM)"
+    "tabCrm": "销售线索 (CRM)",
+    "tabZaman": "工时",
+    "tabProjeSablonlari": "项目模板"
   },
   "admin": {
     "loadError": "管理数据加载失败",

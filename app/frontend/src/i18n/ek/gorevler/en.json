@@ -133,7 +133,8 @@
       "kontrol_siniri": "A task can have at most 50 checklist items.",
       "proje_yok": "Project not found.",
       "gorev_yok": "Task not found.",
-      "zaten_gorev": "This feedback has already been turned into a task."
+      "zaten_gorev": "This feedback has already been turned into a task.",
+      "zaman_kaydindan": "These hours come from a time entry: undo its approval in the Time tab."
     }
   }
 }

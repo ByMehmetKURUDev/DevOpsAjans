@@ -76,7 +76,9 @@
       "kaynaklar": "Ресурс",
       "crm_adaylar": "Лид CRM",
       "crm_formlar": "Форма CRM",
-      "crm_aktiviteler": "Активность CRM"
+      "crm_aktiviteler": "Активность CRM",
+      "zaman_kayitlari": "Запись времени",
+      "proje_sablonlari": "Шаблон проекта"
     }
   }
 }

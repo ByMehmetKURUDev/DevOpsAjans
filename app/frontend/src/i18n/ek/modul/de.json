@@ -128,6 +128,14 @@
       "crm": {
         "ad": "CRM und Lead-Pipeline",
         "aciklama": "Die Vertriebspipeline der Agentur: Leads aus Anfragen, Preisangeboten und eingebetteten Formularen; Kanban, Bewertung, Erinnerungen und Umwandlung in Kunden."
+      },
+      "zaman_takibi": {
+        "ad": "Zeiterfassung und Auslastung",
+        "aciklama": "Die Zeit, die das Team in Ihre Projekte investiert: Timer, freigegebene Stundenzettel, abrechenbare Stunden und eine Zeitübersicht auf der Projektkarte."
+      },
+      "proje_sablonlari": {
+        "ad": "Projektvorlagen",
+        "aciklama": "Ihr Projekt startet mit einem fertigen Aufgabenplan und terminierten Meilensteinen; ein angenommenes Angebot wird direkt zum geplanten Projekt."
       }
     },
     "kategori": {

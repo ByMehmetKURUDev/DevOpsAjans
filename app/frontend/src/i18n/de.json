@@ -424,7 +424,8 @@
       "iade": "Gutgeschrieben",
       "open": "Offen",
       "answered": "Beantwortet",
-      "closed": "Geschlossen"
+      "closed": "Geschlossen",
+      "draft": "Entwurf"
     },
     "blog": "Blog",
     "logoAlt": "By Mehmet KURU Dev — Logo für Webentwicklung und digitales Marketing",
@@ -478,7 +479,9 @@
     "tabSohbetler": "Kundenchats",
     "tabUzmanAsistanlar": "Fachassistenten",
     "tabBaglantilar": "Verbindungen",
-    "tabCrm": "Leads (CRM)"
+    "tabCrm": "Leads (CRM)",
+    "tabZaman": "Zeit",
+    "tabProjeSablonlari": "Projektvorlagen"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

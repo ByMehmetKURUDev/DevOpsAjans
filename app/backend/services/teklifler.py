@@ -151,6 +151,19 @@ async def alanlari_uygula(db: AsyncSession, teklif: Teklifler, govde: Dict[str, 
             if not await _sablon_var_mi(db, sablon_id):
                 raise TeklifHatasi(400, "sablon_yok")
         teklif.sozlesme_sablon_id = sablon_id
+    if "proje_sablon_id" in govde or yeni:
+        # Faz 3Z: kabulde otomatik oluşan projeye uygulanacak proje şablonu.
+        sablon_id = govde.get("proje_sablon_id") or None
+        if sablon_id is not None:
+            try:
+                sablon_id = int(sablon_id)
+            except (TypeError, ValueError):
+                raise TeklifHatasi(400, "proje_sablonu_yok")
+            from models.zaman_takibi import ProjeSablonlari
+
+            if (await db.execute(select(ProjeSablonlari.id).where(ProjeSablonlari.id == sablon_id))).scalar() is None:
+                raise TeklifHatasi(400, "proje_sablonu_yok")
+        teklif.proje_sablon_id = sablon_id
     if "pesinat_yuzde" in govde or yeni:
         ham = govde.get("pesinat_yuzde")
         if ham in (None, ""):
@@ -340,6 +353,7 @@ async def revize_et(db: AsyncSession, teklif: Teklifler, olusturan: Optional[str
         notlar=teklif.notlar, sartlar=teklif.sartlar, durum="taslak", goruntulenme_sayisi=0,
         otomatik_sozlesme=teklif.otomatik_sozlesme, sozlesme_sablon_id=teklif.sozlesme_sablon_id,
         otomatik_fatura=teklif.otomatik_fatura, pesinat_yuzde=teklif.pesinat_yuzde, otomatik_proje=teklif.otomatik_proje,
+        proje_sablon_id=teklif.proje_sablon_id,
         pricing_inquiry_id=teklif.pricing_inquiry_id, fatura_id=None,
         kok_id=kok_id, onceki_id=teklif.id, surum=son_surum + 1,
         olusturan_eposta=bo.eposta_duzelt(olusturan) or None,
@@ -536,7 +550,33 @@ async def _kabul_otomasyonu(db: AsyncSession, teklif: Teklifler) -> List[str]:
         await db.flush()
         teklif.proje_id = proje.id
         olusanlar.append(f"proje #{proje.id}")
+        if teklif.proje_sablon_id:
+            olusanlar.extend(await _sablonu_uygula(db, teklif, proje))
     return olusanlar
+
+
+async def _sablonu_uygula(db: AsyncSession, teklif: Teklifler, proje) -> List[str]:
+    """Faz 3Z: teklifte seçilen proje şablonunun görevleri (başlangıç = kabul günü).
+
+    Aynı işlemde (commit ETMEZ). Şablon bu arada silinmişse kabul düşmesin:
+    proje görevsiz açılır, durum kaydına yazılır.
+    """
+    from models.zaman_takibi import ProjeSablonlari
+    from services import proje_sablonlari
+
+    sablon = (
+        await db.execute(select(ProjeSablonlari).where(ProjeSablonlari.id == teklif.proje_sablon_id))
+    ).scalar_one_or_none()
+    if sablon is None:
+        logger.warning("Teklif %s: proje şablonu %s bulunamadı", teklif.no, teklif.proje_sablon_id)
+        return []
+    try:
+        async with db.begin_nested():
+            gorevler = await proje_sablonlari.uygula(db, sablon, proje, bo.tr_bugun(), teklif.olusturan_eposta)
+    except Exception:  # noqa: BLE001
+        logger.exception("Teklif %s: şablon görevleri oluşturulamadı", teklif.no)
+        return []
+    return [f"şablon «{sablon.ad}» ({len(gorevler)} görev)"]
 
 
 async def _ilk_fatura(db: AsyncSession, teklif: Teklifler):
@@ -693,6 +733,7 @@ def sozluk(teklif: Teklifler, *, yonetici: bool = False) -> Dict[str, Any]:
             "otomatik_fatura": bool(teklif.otomatik_fatura),
             "pesinat_yuzde": _decimal_float(teklif.pesinat_yuzde),
             "otomatik_proje": bool(teklif.otomatik_proje),
+            "proje_sablon_id": teklif.proje_sablon_id,
             "pricing_inquiry_id": teklif.pricing_inquiry_id,
             "islem_id": teklif.islem_id,
             "kok_id": teklif.kok_id,

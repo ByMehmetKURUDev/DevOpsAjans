@@ -236,6 +236,8 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/sozlesmelerim/999999", ("faturalar",), None, "gecti"),
     ("POST", "/api/v1/sozlesmelerim/999999/imza", ("faturalar",), {"ad_soyad": "Ekip Üyesi", "onay": True}, "gecti"),
     ("GET", "/api/v1/sozlesmelerim/999999/pdf", ("faturalar",), None, "gecti"),
+    # Faz 3Z — projenin harcanan süre özeti (`projeler` izni; modül + proje ayarı kapalıysa 403/404 → "gecti").
+    ("GET", "/api/v1/zamanim/proje/{P}", ("projeler",), None, "gecti"),
 ]
 
 
@@ -357,6 +359,8 @@ KISISEL_YA_DA_ACIK = {
     ("POST", "/api/v1/bildirim/push/dene"),
     # Ajans personeli: kendine atanmış siteler (müşteri hesabıyla ilgisi yok; müşteriye boş liste).
     ("GET", "/api/v1/musteri-sitesi"),
+    # Faz 3Z: "personel miyim?" — kişiye ait (hesaptan bağımsız); veri yok, yalnız bayrak.
+    ("GET", "/api/v1/zaman/ben"),
     ("GET", "/api/v1/bildirim/push/anahtar"),
     ("DELETE", "/api/v1/bildirim/push/abone"),
     ("GET", "/api/v1/entities/notifications"),

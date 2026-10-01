@@ -68,7 +68,9 @@
       "otomatikSozlesme": "准备合同草稿",
       "sablon": "合同模板",
       "varsayilanSablon": "默认模板",
-      "otomatikProje": "创建项目"
+      "otomatikProje": "创建项目",
+      "projeSablonu": "项目模板（任务将加入项目）",
+      "sablonsuz": "不使用模板"
     },
     "yonetim": {
       "baslik": "报价",
@@ -169,7 +171,8 @@
       "modul_kapali": "您的账户已关闭此模块。",
       "hesap_izni_yok": "您无权查看此账户中的报价。",
       "tur_gecersiz": "无效的操作类型。",
-      "sayi_gecersiz": "数字无效。"
+      "sayi_gecersiz": "数字无效。",
+      "proje_sablonu_yok": "未找到所选的项目模板。"
     }
   }
 }

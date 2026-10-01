@@ -76,7 +76,9 @@
       "kaynaklar": "مورد",
       "crm_adaylar": "عميل محتمل",
       "crm_formlar": "نموذج عملاء محتملين",
-      "crm_aktiviteler": "نشاط عميل محتمل"
+      "crm_aktiviteler": "نشاط عميل محتمل",
+      "zaman_kayitlari": "سجل وقت",
+      "proje_sablonlari": "قالب مشروع"
     }
   }
 }

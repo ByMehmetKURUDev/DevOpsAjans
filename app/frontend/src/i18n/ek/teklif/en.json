@@ -68,7 +68,9 @@
       "otomatikSozlesme": "Prepare a contract draft",
       "sablon": "Contract template",
       "varsayilanSablon": "Default template",
-      "otomatikProje": "Open a project"
+      "otomatikProje": "Open a project",
+      "projeSablonu": "Project template (tasks are added to the project)",
+      "sablonsuz": "No template"
     },
     "yonetim": {
       "baslik": "Quotes",
@@ -169,7 +171,8 @@
       "modul_kapali": "This module is turned off for your account.",
       "hesap_izni_yok": "You are not allowed to see quotes in this account.",
       "tur_gecersiz": "Invalid action type.",
-      "sayi_gecersiz": "Invalid number."
+      "sayi_gecersiz": "Invalid number.",
+      "proje_sablonu_yok": "The selected project template was not found."
     }
   }
 }

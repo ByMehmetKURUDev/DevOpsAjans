@@ -236,6 +236,9 @@ async def baglanti_hazirla(db: AsyncSession, fatura: Invoices) -> Payments:
     """Faturanın bekleyen ödeme bağlantısı; yoksa kalan bakiyeyle açar (commit EDER)."""
     if fatura.tur == "iade" or (fatura.status or "") in ("paid", "cancelled", "iade"):
         raise FaturaHatasi(409, "fatura_kapali")
+    if (fatura.status or "") in ("draft", "taslak"):
+        # Faz 3Z: taslak fatura henüz kesilmedi — ödeme istenmez.
+        raise FaturaHatasi(409, "fatura_taslak")
     b = await bakiye(db, fatura)
     if b.kalan <= EPS:
         raise FaturaHatasi(409, "fatura_kapali")
@@ -866,6 +869,105 @@ async def tekrarlayan_kes(db: AsyncSession, abonelik: Any, donem: str, bugun: da
     ))
     await db.flush()
     return fatura
+
+
+# ---------------------------------------------------------------------------
+# Taslak fatura (Faz 3Z — zamandan faturaya aktarım)
+# ---------------------------------------------------------------------------
+#: Taslak durumu: müşteriye görünmüyor, bakiye/yaşlandırma/hatırlatma dışı.
+TASLAK_DURUMLARI = ("draft", "taslak")
+#: Bu durumlara geçen (ya da silinen) faturanın bağlı zaman kayıtları açılıyor.
+IPTAL_DURUMLARI = ("cancelled", "iptal")
+KALEM_ALANLARI = ("aciklama", "adet", "birim_fiyat", "kdv_orani", "indirim")
+
+
+def _ham_kalemler(fatura: Invoices) -> List[Dict[str, Any]]:
+    return [{k: v for k, v in kalem.items() if k in KALEM_ALANLARI} for kalem in kayitli_kalemler(fatura.kalemler)]
+
+
+async def taslak_fatura_bul_ya_da_ac(
+    db: AsyncSession,
+    *,
+    client_email: str,
+    client_name: Optional[str],
+    para_birimi: str,
+    aciklama: str,
+    fatura_id: Optional[int] = None,
+    onek: str = "FTR",
+) -> Tuple[Invoices, bool]:
+    """Müşterinin bu para birimindeki açık TASLAK faturası; yoksa yenisi (commit ETMEZ).
+
+    → (fatura, yeni_mi). `fatura_id` verilirse o fatura kullanılır (taslak,
+    aynı müşteri ve para birimi olmalı; değilse 409). Tek tutarlı (kalemsiz,
+    tutarı dolu) eski taslaklara satır eklenmiyor: kalem eklemek tutarı
+    ezerdi — o durumda yeni taslak açılıyor.
+    """
+    eposta = eposta_duzelt(client_email)
+    para = (para_birimi or "TRY").upper()
+    if fatura_id:
+        fatura = await fatura_getir(db, fatura_id)
+        if (fatura.status or "") not in TASLAK_DURUMLARI:
+            raise FaturaHatasi(409, "fatura_taslak_degil")
+        if eposta_duzelt(fatura.client_email) != eposta:
+            raise FaturaHatasi(409, "fatura_baska_musteri")
+        if (fatura.currency or "TRY").upper() != para:
+            raise FaturaHatasi(409, "para_birimi_uyusmuyor")
+        if not fatura.kalemler and D(fatura.amount) != SIFIR:
+            raise FaturaHatasi(409, "fatura_kalemsiz")
+        return fatura, False
+    adaylar = (
+        await db.execute(
+            select(Invoices)
+            .where(Invoices.status.in_(TASLAK_DURUMLARI))
+            .where(or_(Invoices.tur.is_(None), Invoices.tur == "normal"))
+            .order_by(Invoices.id.desc())
+        )
+    ).scalars().all()
+    for f in adaylar:
+        if eposta_duzelt(f.client_email) != eposta or (f.currency or "TRY").upper() != para:
+            continue
+        if not f.kalemler and D(f.amount) != SIFIR:
+            continue
+        return f, False
+    bugun = tr_bugun()
+    fatura = Invoices(
+        invoice_no=yeni_fatura_no(onek),
+        client_name=client_name,
+        client_email=eposta or None,
+        description=(aciklama or "")[:300] or None,
+        amount=0.0,
+        currency=para,
+        status="draft",
+        issue_date=bugun.isoformat(),
+        due_date=(bugun + timedelta(days=VARSAYILAN_VADE_GUN)).isoformat(),
+        kalemler=json.dumps([], ensure_ascii=False),
+        ara_toplam=0.0,
+        kdv_toplam=0.0,
+    )
+    db.add(fatura)
+    await db.flush()
+    return fatura, True
+
+
+async def faturaya_kalem_ekle(db: AsyncSession, fatura: Invoices, kalemler: List[Dict[str, Any]]) -> int:
+    """Kalemleri faturanın sonuna ekler, toplamları yeniden hesaplar (commit ETMEZ).
+
+    → eklenen ilk kalemin sırası. Yalnız taslak faturaya eklenir.
+    """
+    if (fatura.status or "") not in TASLAK_DURUMLARI:
+        raise FaturaHatasi(409, "fatura_taslak_degil")
+    mevcut = _ham_kalemler(fatura)
+    ilk_sira = len(mevcut)
+    try:
+        belge = belge_hesapla(mevcut + [{k: v for k, v in kalem.items() if k in KALEM_ALANLARI} for kalem in kalemler])
+    except HesapHatasi as h:
+        raise FaturaHatasi(400, h.kod)
+    fatura.kalemler = json.dumps(belge.kalem_listesi(), ensure_ascii=False)
+    fatura.ara_toplam = float(belge.ara_toplam)
+    fatura.kdv_toplam = float(belge.kdv_toplam)
+    fatura.amount = float(belge.genel_toplam)
+    await db.flush()
+    return ilk_sira
 
 
 async def fatura_bildir(db: AsyncSession, fatura: Invoices, neden: str = "tekrarlayan") -> None:

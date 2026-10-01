@@ -69,6 +69,8 @@ class Teklifler(Base):
     #: İlk faturanın oranı (yüzde; boş = %100).
     pesinat_yuzde = Column(Numeric(6, 2), nullable=True)
     otomatik_proje = Column(Boolean, nullable=False, default=False)
+    #: Faz 3Z — kabulde oluşan projeye uygulanacak proje şablonu (proje_sablonlari.id).
+    proje_sablon_id = Column(Integer, nullable=True)
 
     #: Bağlar.
     pricing_inquiry_id = Column(Integer, index=True, nullable=True)

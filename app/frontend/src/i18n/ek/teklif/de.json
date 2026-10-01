@@ -68,7 +68,9 @@
       "otomatikSozlesme": "Vertragsentwurf vorbereiten",
       "sablon": "Vertragsvorlage",
       "varsayilanSablon": "Standardvorlage",
-      "otomatikProje": "Projekt anlegen"
+      "otomatikProje": "Projekt anlegen",
+      "projeSablonu": "Projektvorlage (Aufgaben werden zum Projekt hinzugefügt)",
+      "sablonsuz": "Ohne Vorlage"
     },
     "yonetim": {
       "baslik": "Angebote",
@@ -169,7 +171,8 @@
       "modul_kapali": "Dieses Modul ist für Ihr Konto deaktiviert.",
       "hesap_izni_yok": "Sie dürfen in diesem Konto keine Angebote sehen.",
       "tur_gecersiz": "Ungültiger Vorgangstyp.",
-      "sayi_gecersiz": "Ungültige Zahl."
+      "sayi_gecersiz": "Ungültige Zahl.",
+      "proje_sablonu_yok": "Die gewählte Projektvorlage wurde nicht gefunden."
     }
   }
 }

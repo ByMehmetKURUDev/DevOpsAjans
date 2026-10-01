@@ -17,6 +17,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
+import GorevSayacDugmesi from '@/components/admin/GorevSayacDugmesi';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -418,6 +419,8 @@ export default function ProjeGorevleri({ projeId, projeBasligi, onKapat }: Props
                         >
                           <span className="break-words">{g.baslik}</span>
                         </button>
+                        {/* Faz 3Z: bu görev için zaman sayacını başlat. */}
+                        {g.durum !== 'tamam' && <GorevSayacDugmesi projeId={projeId} gorevId={g.id} baslik={g.baslik} />}
                       </div>
                       <GorevRozetleri g={g} adlar={adlar} dil={dil} />
                       <label className="mt-2 flex items-center gap-2 text-[11px] text-muted-foreground">

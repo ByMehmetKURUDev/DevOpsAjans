@@ -34,6 +34,7 @@ import {
   type Kalem,
 } from '@/lib/belge';
 import { sablonlar as sablonlariGetir, type Sablon } from '@/lib/sozlesmeler';
+import { sablonlariGetir as projeSablonlariGetir, type ProjeSablonu } from '@/lib/zamanTakibi';
 import {
   TEKLIF_DURUMLARI,
   fiyatTalebindenTeklif,
@@ -81,6 +82,8 @@ interface Form {
   otomatik_fatura: boolean;
   pesinat_yuzde: string;
   otomatik_proje: boolean;
+  /** Faz 3Z: kabulde oluşan projeye uygulanacak proje şablonu. */
+  proje_sablon_id: string;
 }
 
 const bosForm = (): Form => ({
@@ -99,6 +102,7 @@ const bosForm = (): Form => ({
   otomatik_fatura: true,
   pesinat_yuzde: '100',
   otomatik_proje: false,
+  proje_sablon_id: '',
 });
 
 function formdan(t: Teklif): Form {
@@ -119,6 +123,7 @@ function formdan(t: Teklif): Form {
     otomatik_fatura: !!t.otomatik_fatura,
     pesinat_yuzde: t.pesinat_yuzde != null ? String(t.pesinat_yuzde) : '100',
     otomatik_proje: !!t.otomatik_proje,
+    proje_sablon_id: t.proje_sablon_id ? String(t.proje_sablon_id) : '',
   };
 }
 
@@ -132,6 +137,7 @@ export default function TeklifYonetimi() {
   const [form, setForm] = useState<Form | null>(null);
   const [kaydediliyor, setKaydediliyor] = useState(false);
   const [sablonlar, setSablonlar] = useState<Sablon[]>([]);
+  const [projeSablonlari, setProjeSablonlari] = useState<ProjeSablonu[]>([]);
   const [talepler, setTalepler] = useState<FiyatTalebi[] | null>(null);
   const [baglanti, setBaglanti] = useState<{ teklif: Teklif; adres: string; eposta: boolean } | null>(null);
   const [epostaGonder, setEpostaGonder] = useState(true);
@@ -165,6 +171,9 @@ export default function TeklifYonetimi() {
     sablonlariGetir()
       .then((s) => setSablonlar(s.sablonlar.filter((x) => x.aktif)))
       .catch(() => setSablonlar([]));
+    projeSablonlariGetir()
+      .then(setProjeSablonlari)
+      .catch(() => setProjeSablonlari([]));
   }, [form]);
 
   const alan = <K extends keyof Form>(k: K, v: Form[K]) => setForm((f) => (f ? { ...f, [k]: v } : f));
@@ -188,6 +197,7 @@ export default function TeklifYonetimi() {
       otomatik_fatura: form.otomatik_fatura,
       pesinat_yuzde: form.otomatik_fatura ? form.pesinat_yuzde : null,
       otomatik_proje: form.otomatik_proje,
+      proje_sablon_id: form.otomatik_proje && form.proje_sablon_id ? Number(form.proje_sablon_id) : null,
     };
     try {
       if (form.id) await teklifGuncelle(form.id, girdi);
@@ -413,10 +423,17 @@ export default function TeklifYonetimi() {
                 </select>
               )}
             </label>
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex flex-wrap items-center gap-2 text-sm">
               <input type="checkbox" name="otomatik_proje" checked={form.otomatik_proje} className="h-4 w-4 accent-purple-500"
                 onChange={(e) => alan('otomatik_proje', e.target.checked)} />
               {t('teklif.alan.otomatikProje')}
+              {form.otomatik_proje && projeSablonlari.length > 0 && (
+                <select name="proje_sablon_id" value={form.proje_sablon_id} className={`${SECIM} !w-auto max-w-full`} style={{ height: '2rem' }}
+                  aria-label={t('teklif.alan.projeSablonu')} title={t('teklif.alan.projeSablonu')} onChange={(e) => alan('proje_sablon_id', e.target.value)}>
+                  <option value="" className="bg-[#150a2b]">{t('teklif.alan.sablonsuz')}</option>
+                  {projeSablonlari.map((s) => <option key={s.id} value={s.id} className="bg-[#150a2b]">{s.ad}</option>)}
+                </select>
+              )}
             </label>
           </fieldset>
           <div className="md:col-span-2">

@@ -99,6 +99,10 @@ GIZLI_ANAHTARLAR = {
     "asistan_max_tokens",
     "asistan_gunluk_sinir",
     "asistan_mesaj_kredi",
+    # Faz 3Z: iç saatlik ücret (ziyaretçinin bilmesine gerek yok) ve tohum işareti.
+    "zaman_saatlik_ucret",
+    "zaman_para_birimi",
+    "proje_sablonlari_tohum",
 }
 _GIZLI_DESEN = re.compile(r"(token|secret|password|sifre|parola|api_?key|apikey|webhook|jeton|private|smtp_)", re.I)
 

@@ -424,7 +424,8 @@
       "iade": "İade",
       "open": "Açık",
       "answered": "Yanıtlandı",
-      "closed": "Kapandı"
+      "closed": "Kapandı",
+      "draft": "Taslak"
     },
     "blog": "Blog",
     "logoAlt": "By Mehmet KURU Dev — web geliştirme ve dijital pazarlama ajansı logosu",
@@ -478,7 +479,9 @@
     "tabSohbetler": "Müşteri sohbetleri",
     "tabUzmanAsistanlar": "Uzman Asistanlar",
     "tabBaglantilar": "Bağlantılar",
-    "tabCrm": "Adaylar (CRM)"
+    "tabCrm": "Adaylar (CRM)",
+    "tabZaman": "Zaman",
+    "tabProjeSablonlari": "Proje şablonları"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

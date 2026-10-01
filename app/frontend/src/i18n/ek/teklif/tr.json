@@ -68,7 +68,9 @@
       "otomatikSozlesme": "Sözleşme taslağı hazırla",
       "sablon": "Sözleşme şablonu",
       "varsayilanSablon": "Varsayılan şablon",
-      "otomatikProje": "Proje aç"
+      "otomatikProje": "Proje aç",
+      "projeSablonu": "Proje şablonu (görevler projeye eklenir)",
+      "sablonsuz": "Şablonsuz"
     },
     "yonetim": {
       "baslik": "Teklifler",
@@ -169,7 +171,8 @@
       "modul_kapali": "Bu modül hesabınızda kapalı.",
       "hesap_izni_yok": "Bu hesapta teklifleri görme izniniz yok.",
       "tur_gecersiz": "Geçersiz işlem türü.",
-      "sayi_gecersiz": "Sayı geçersiz."
+      "sayi_gecersiz": "Sayı geçersiz.",
+      "proje_sablonu_yok": "Seçilen proje şablonu bulunamadı."
     }
   }
 }

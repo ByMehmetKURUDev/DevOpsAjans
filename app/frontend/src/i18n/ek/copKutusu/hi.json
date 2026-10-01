@@ -76,7 +76,9 @@
       "kaynaklar": "संसाधन",
       "crm_adaylar": "सीआरएम लीड",
       "crm_formlar": "सीआरएम फ़ॉर्म",
-      "crm_aktiviteler": "सीआरएम गतिविधि"
+      "crm_aktiviteler": "सीआरएम गतिविधि",
+      "zaman_kayitlari": "समय प्रविष्टि",
+      "proje_sablonlari": "प्रोजेक्ट टेम्पलेट"
     }
   }
 }

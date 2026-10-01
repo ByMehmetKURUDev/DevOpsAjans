@@ -85,6 +85,10 @@ const Mesajlar = ekliLazy('mesajlar', () => import('@/components/Mesajlar'));
 const UzmanAsistanlar = ekliLazy('uzmanAsistanlar', () => import('@/components/UzmanAsistanlar'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
+// Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
+// personelinin kendi zaman kayıtları (yalnız personele; ek paket `zamanTakibi`).
+const HarcananSureKarti = ekliLazy('zamanTakibi', () => import('@/components/HarcananSureKarti'));
+const PersonelZaman = ekliLazy('zamanTakibi', () => import('@/components/PersonelZaman'));
 /** Panel açık, Mesajlar sekmesi kapalıyken yalnız okunmamış sayısı (30–60 sn). */
 const MESAJ_OZETI_ARALIGI = 45000;
 
@@ -244,6 +248,28 @@ export default function ClientPanel() {
   }, []);
 
   const email = (user?.email || '').toLowerCase();
+
+  // Faz 3Z — ajans personeli mi? (yönetici değil, ekip listesinde aktif). Tek
+  // küçük istek; personelse zaman bölümü (ayrı parça + ek paket) iner.
+  const [personel, setPersonel] = useState(false);
+  useEffect(() => {
+    if (!email) return;
+    let iptal = false;
+    client.apiCall
+      .invoke({ method: 'GET', url: '/api/v1/zaman/ben' })
+      .then((y: unknown) => {
+        const g = (y && typeof y === 'object' && 'data' in (y as Record<string, unknown>) ? (y as { data: unknown }).data : y) as
+          | { personel?: boolean; yonetici?: boolean }
+          | undefined;
+        if (!iptal) setPersonel(!!g?.personel && !g?.yonetici);
+      })
+      .catch(() => {
+        if (!iptal) setPersonel(false);
+      });
+    return () => {
+      iptal = true;
+    };
+  }, [email]);
 
   // Faz 2E — erişilebilen hesaplar ve etkin hesap. `null` = henüz bilinmiyor:
   // veriler etkin hesap belli olmadan çekilmiyor (yanlış hesaba istek gitmesin).
@@ -598,6 +624,11 @@ export default function ClientPanel() {
       ) : (
       // Hesap değişince bütün alt bileşenler yeniden kurulsun (kendi verilerini yeniden çeksinler).
       <div key={etkinEmail}>
+      {personel && (
+        <Suspense fallback={null}>
+          <PersonelZaman />
+        </Suspense>
+      )}
       {/* Duyurular: kapatılabilir şerit + "Tüm duyurular" listesi. */}
       {modulAcik('duyurular') && (
         <Suspense fallback={null}>
@@ -844,6 +875,13 @@ export default function ClientPanel() {
                       {modulAcik('gorevler') && izinVar(['gorevler']) && (
                         <Suspense fallback={null}>
                           <ProjeGorevGorunumu projeId={Number(p.id)} />
+                        </Suspense>
+                      )}
+
+                      {/* Varsayılan kapalı modül: bilgi gelmeden parça indirilmesin. */}
+                      {modulBilgisi && modulAcik('zaman_takibi') && izinVar(['projeler']) && (
+                        <Suspense fallback={null}>
+                          <HarcananSureKarti projeId={Number(p.id)} />
                         </Suspense>
                       )}
 

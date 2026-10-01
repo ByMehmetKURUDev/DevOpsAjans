@@ -31,5 +31,11 @@ class Projects(Base):
     # Faz 2B — paketten revizyon hakkı bulunamazsa elle girilen aylık
     # revizyon saati (bkz. services/gorevler.revizyon_sayaci).
     aylik_revizyon_saati = Column(Float, nullable=True)
+    # Faz 3Z — zaman takibi: projenin saatlik ücreti (boşsa site ayarı
+    # `zaman_saatlik_ucret`) ve müşteri panelinde harcanan süre görünürlüğü.
+    saatlik_ucret = Column(Float, nullable=True)
+    ucret_para_birimi = Column(String, nullable=True)
+    sure_musteriye_gorunur = Column(Boolean, nullable=True, default=False)
+    faturalanabilir_musteriye_gorunur = Column(Boolean, nullable=True, default=False)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

@@ -76,7 +76,9 @@
       "kaynaklar": "Kaynak",
       "crm_adaylar": "CRM adayı",
       "crm_formlar": "CRM formu",
-      "crm_aktiviteler": "CRM aktivitesi"
+      "crm_aktiviteler": "CRM aktivitesi",
+      "zaman_kayitlari": "Zaman kaydı",
+      "proje_sablonlari": "Proje şablonu"
     }
   }
 }

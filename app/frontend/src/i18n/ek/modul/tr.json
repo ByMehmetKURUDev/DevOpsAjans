@@ -128,6 +128,14 @@
       "crm": {
         "ad": "CRM ve aday hunisi",
         "aciklama": "Ajansın satış hunisi: talepler, fiyat teklifleri ve gömülü formlardan gelen adaylar; kanban, puanlama, hatırlatma ve müşteriye dönüştürme."
+      },
+      "zaman_takibi": {
+        "ad": "Zaman takibi ve iş yükü",
+        "aciklama": "Ekibin projelerinize harcadığı süre: sayaç, onaylı çizelge, faturalanabilir saat ve proje kartında harcanan süre özeti."
+      },
+      "proje_sablonlari": {
+        "ad": "Proje şablonları",
+        "aciklama": "Projeniz hazır bir görev planı ve tarihli kilometre taşlarıyla başlar; kabul ettiğiniz teklif doğrudan planlı projeye dönüşür."
       }
     },
     "kategori": {

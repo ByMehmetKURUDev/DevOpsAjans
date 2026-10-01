@@ -44,6 +44,15 @@ async def _odendiyse_kredi_yukle(db: AsyncSession, fatura) -> None:
         logger.exception("Elle ödendi işaretlenen faturanın kredisi yüklenemedi: fatura=%s", getattr(fatura, "id", None))
 
 
+def _musteriden_gizli(request: Request) -> Optional[tuple]:
+    """Faz 3Z: yönetici değilse taslak faturalar listelenmez/gösterilmez."""
+    from dependencies.kayit_sahipligi import _yonetici_mi
+    from services.faturalar import TASLAK_DURUMLARI
+
+    _, yonetici = _yonetici_mi(request)
+    return None if yonetici else TASLAK_DURUMLARI
+
+
 # ---------- Faz 3T: kalemler (sunucu hesaplar) ----------
 #: Faturanın türü: boş/normal ya da iade (eksi tutarlı alacak faturası).
 FATURA_TURLERI = (None, "normal", "iade")
@@ -242,6 +251,7 @@ async def query_invoicess(
             limit=limit,
             query_dict=query_dict,
             sort=sort,
+            haric_durumlar=_musteriden_gizli(request),
         )
         logger.debug(f"Found {result['total']} invoicess")
         return result
@@ -285,7 +295,8 @@ async def query_invoicess_all(
             skip=skip,
             limit=limit,
             query_dict=query_dict,
-            sort=sort
+            sort=sort,
+            haric_durumlar=_musteriden_gizli(request),
         )
         logger.debug(f"Found {result['total']} invoicess")
         return result
@@ -317,6 +328,9 @@ async def get_invoices(
             raise HTTPException(status_code=404, detail="Invoices not found")
         
         sahiplik_dogrula(result, request, "client_email", izin="faturalar")
+        if _musteriden_gizli(request) and (result.status or "") in _musteriden_gizli(request):
+            # Faz 3Z: taslak fatura müşteriye "yok" (kesilmeden görünmesin).
+            raise HTTPException(status_code=404, detail="Invoices not found")
 
         return result
     except HTTPException:

@@ -424,7 +424,8 @@
       "iade": "Возврат",
       "open": "Открыт",
       "answered": "Отвечено",
-      "closed": "Закрыт"
+      "closed": "Закрыт",
+      "draft": "Черновик"
     },
     "blog": "Блог",
     "logoAlt": "By Mehmet KURU Dev — логотип студии веб-разработки и цифрового маркетинга",
@@ -478,7 +479,9 @@
     "tabSohbetler": "Чаты с клиентами",
     "tabUzmanAsistanlar": "Эксперт-ассистенты",
     "tabBaglantilar": "Подключения",
-    "tabCrm": "Лиды (CRM)"
+    "tabCrm": "Лиды (CRM)",
+    "tabZaman": "Время",
+    "tabProjeSablonlari": "Шаблоны проектов"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

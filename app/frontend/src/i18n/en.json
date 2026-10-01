@@ -424,7 +424,8 @@
       "iade": "Credited",
       "open": "Open",
       "answered": "Answered",
-      "closed": "Closed"
+      "closed": "Closed",
+      "draft": "Draft"
     },
     "blog": "Blog",
     "logoAlt": "By Mehmet KURU Dev — web development and digital marketing studio logo",
@@ -478,7 +479,9 @@
     "tabSohbetler": "Client chats",
     "tabUzmanAsistanlar": "Expert Assistants",
     "tabBaglantilar": "Connections",
-    "tabCrm": "Leads (CRM)"
+    "tabCrm": "Leads (CRM)",
+    "tabZaman": "Time",
+    "tabProjeSablonlari": "Project templates"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

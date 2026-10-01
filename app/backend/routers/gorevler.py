@@ -630,6 +630,11 @@ async def saat_sil(giris_id: int, request: Request, db: AsyncSession = _Depends(
     if giris.kredi_saat:
         # Krediden düşülmüş giriş silinemez: önce kredi defterinde düzeltme yapılmalı.
         raise GorevHatasi(409, "kredide_dusulmus")
+    from models.zaman_takibi import ZamanKayitlari
+
+    if (await db.execute(select(ZamanKayitlari.id).where(ZamanKayitlari.gorev_saat_id == giris.id).limit(1))).first():
+        # Faz 3Z: onaylı zaman kaydının aynası — Zaman sekmesinden "onayı geri al".
+        raise GorevHatasi(409, "zaman_kaydindan")
     gorev_id = giris.gorev_id
     await db.delete(giris)
     await db.flush()

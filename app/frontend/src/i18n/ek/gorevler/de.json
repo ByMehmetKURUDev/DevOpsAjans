@@ -133,7 +133,8 @@
       "kontrol_siniri": "Eine Aufgabe kann höchstens 50 Checklistenpunkte haben.",
       "proje_yok": "Projekt nicht gefunden.",
       "gorev_yok": "Aufgabe nicht gefunden.",
-      "zaten_gorev": "Diese Rückmeldung wurde bereits in eine Aufgabe umgewandelt."
+      "zaten_gorev": "Diese Rückmeldung wurde bereits in eine Aufgabe umgewandelt.",
+      "zaman_kaydindan": "Diese Stunden stammen aus einem Zeiteintrag: Nehmen Sie die Freigabe im Tab „Zeit“ zurück."
     }
   }
 }

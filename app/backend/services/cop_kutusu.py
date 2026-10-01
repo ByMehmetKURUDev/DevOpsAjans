@@ -79,6 +79,10 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "crm_adaylar": {"sira": 10},
     "crm_formlar": {"sira": 10},
     "crm_aktiviteler": {"sira": 20, "ebeveyn": "crm_adaylar"},
+    # Faz 3Z: zaman kaydı (yalnız taslak/reddedilen silinebiliyor) ve proje
+    # şablonu. Sahip YOK: iç kayıt — müşterinin "Silinenler"inde görünmez.
+    "zaman_kayitlari": {"sira": 10},
+    "proje_sablonlari": {"sira": 10},
     # Faz 3T: teklif (kabul edilmişse silinmez), sözleşme (imzalıysa silinmez)
     # ve şablon. İmzalı sözleşme hiç silinemediği için imza görseli/IP özeti
     # çöp kutusuna kopyalanmıyor.

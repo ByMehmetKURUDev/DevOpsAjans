@@ -79,6 +79,8 @@ class TeklifGirdisi(BaseModel):
     otomatik_fatura: Optional[bool] = None
     pesinat_yuzde: Optional[Any] = None
     otomatik_proje: Optional[bool] = None
+    #: Faz 3Z: kabulde oluşan projeye uygulanacak proje şablonu.
+    proje_sablon_id: Optional[int] = None
 
 
 class HesapGirdisi(BaseModel):

@@ -76,7 +76,9 @@
       "kaynaklar": "Resource",
       "crm_adaylar": "CRM lead",
       "crm_formlar": "CRM form",
-      "crm_aktiviteler": "CRM activity"
+      "crm_aktiviteler": "CRM activity",
+      "zaman_kayitlari": "Time entry",
+      "proje_sablonlari": "Project template"
     }
   }
 }

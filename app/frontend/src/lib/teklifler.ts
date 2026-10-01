@@ -45,6 +45,7 @@ export interface Teklif {
   otomatik_fatura?: boolean;
   pesinat_yuzde?: number | null;
   otomatik_proje?: boolean;
+  proje_sablon_id?: number | null;
   pricing_inquiry_id?: number | null;
   onceki_id?: number | null;
   // girişsiz / müşteri
@@ -69,6 +70,7 @@ export interface TeklifGirdisi {
   otomatik_fatura?: boolean;
   pesinat_yuzde?: number | string | null;
   otomatik_proje?: boolean;
+  proje_sablon_id?: number | null;
 }
 
 export interface FiyatTalebi {

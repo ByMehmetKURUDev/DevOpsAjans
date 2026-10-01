@@ -133,7 +133,8 @@
       "kontrol_siniri": "每个任务最多可有 50 个检查项。",
       "proje_yok": "未找到项目。",
       "gorev_yok": "未找到任务。",
-      "zaten_gorev": "此反馈已转为任务。"
+      "zaten_gorev": "此反馈已转为任务。",
+      "zaman_kaydindan": "这些工时来自工时记录：请在“工时”选项卡中撤销其批准。"
     }
   }
 }

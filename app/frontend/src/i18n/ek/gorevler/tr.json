@@ -133,7 +133,8 @@
       "kontrol_siniri": "Bir göreve en çok 50 madde eklenebilir.",
       "proje_yok": "Proje bulunamadı.",
       "gorev_yok": "Görev bulunamadı.",
-      "zaten_gorev": "Bu geri bildirim zaten göreve dönüştürüldü."
+      "zaten_gorev": "Bu geri bildirim zaten göreve dönüştürüldü.",
+      "zaman_kaydindan": "Bu saat bir zaman kaydından geliyor: Zaman sekmesinde onayı geri alın."
     }
   }
 }

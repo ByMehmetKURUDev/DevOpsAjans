@@ -4,7 +4,7 @@ from decimal import Decimal
 from typing import Optional, Dict, Any, List
 from uuid import UUID as PythonUUID
 
-from sqlalchemy import select, func
+from sqlalchemy import func, or_, select
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.types import Boolean, Date, DateTime, Float, Integer, Numeric
@@ -187,13 +187,20 @@ class InvoicesService:
         limit: int = 20, 
         query_dict: Optional[Dict[str, Any]] = None,
         sort: Optional[str] = None,
+        haric_durumlar: Optional[tuple] = None,
     ) -> Dict[str, Any]:
-        """Get paginated list of invoicess"""
+        """Get paginated list of invoicess
+
+        `haric_durumlar` (Faz 3Z): bu durumlardaki faturalar listelenmez
+        (müşteriye taslak fatura gösterilmiyor). Durumu boş olan eski kayıtlar kalır.
+        """
         try:
             # Collect filter conditions once and reuse them for both the windowed
             # page query and the empty-page fallback count, so a list call costs a
             # single DB round-trip in the common (non-empty) case.
             conditions = []
+            if haric_durumlar:
+                conditions.append(or_(Invoices.status.is_(None), Invoices.status.notin_(haric_durumlar)))
             if query_dict:
                 for field, value in query_dict.items():
                     if hasattr(Invoices, field):

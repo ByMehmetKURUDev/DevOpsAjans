@@ -215,6 +215,7 @@ def gorev_sozlugu(
         "oncelik": g.oncelik,
         "atanan": g.atanan,
         "bitis_tarihi": iso(g.bitis_tarihi),
+        "baslangic_tarihi": iso(g.baslangic_tarihi),
         "sira": g.sira,
         "musteriye_gorunur": bool(g.musteriye_gorunur),
         "ust_gorev_id": g.ust_gorev_id,
@@ -511,6 +512,15 @@ async def revizyon_sayaci(db: AsyncSession, eposta: str, gun: Optional[date] = N
             )
         ).one()
         kullanilan, kredi = round(float(satir[0] or 0), 2), round(float(satir[1] or 0), 2)
+    if proje_idler:
+        # Faz 3Z: görevli onaylı zaman kayıtları yukarıdaki girişlere ayna satır
+        # olarak zaten yazılıyor; görevsiz "revizyon" kayıtları burada ekleniyor.
+        try:
+            from services.zaman_takibi import gorevsiz_revizyon_saati
+
+            kullanilan = round(kullanilan + await gorevsiz_revizyon_saati(db, proje_idler, bas, bit), 2)
+        except Exception:  # noqa: BLE001
+            logger.exception("Görevsiz revizyon zaman kayıtları sayaca eklenemedi")
     istek = 0
     if proje_idler:
         from models.project_events import Project_events

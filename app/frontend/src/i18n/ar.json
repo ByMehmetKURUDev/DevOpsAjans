@@ -424,7 +424,8 @@
       "iade": "مُستردَّة",
       "open": "مفتوح",
       "answered": "تم الرد",
-      "closed": "مغلق"
+      "closed": "مغلق",
+      "draft": "مسودة"
     },
     "blog": "المدونة",
     "logoAlt": "By Mehmet KURU Dev — شعار استوديو تطوير المواقع والتسويق الرقمي",
@@ -478,7 +479,9 @@
     "tabSohbetler": "محادثات العملاء",
     "tabUzmanAsistanlar": "المساعدون الخبراء",
     "tabBaglantilar": "الاتصالات",
-    "tabCrm": "العملاء المحتملون (CRM)"
+    "tabCrm": "العملاء المحتملون (CRM)",
+    "tabZaman": "الوقت",
+    "tabProjeSablonlari": "قوالب المشاريع"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

@@ -450,6 +450,41 @@ MODULLER: Tuple[Modul, ...] = (
         durum="beta",
         yerlesim=("destek",),
     ),
+    # Faz 3Z — zaman takibi + iş yükü: sayaç, faturalanabilir saat, çizelge
+    # onayı, faturaya aktarım. Ajans tarafı yönetici sekmesinde (personel de
+    # kendi kaydını girer); müşteride proje kartına gömülü "harcanan süre"
+    # (proje ayarı açıksa). Ücretli paketlerde (BETA/OMEGA/SIGMA) açık.
+    Modul(
+        anahtar="zaman_takibi",
+        ad_varsayilan={"tr": "Zaman takibi ve iş yükü", "en": "Time tracking and workload"},
+        ikon="Timer",
+        kategori="hizmet",
+        musteri_sekmesi=None,
+        yonetici_sekmesi="zaman",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        paketler=("BETA", "OMEGA", "SIGMA"),
+        bagimliliklar=("projeler",),
+        yerlesim=("projeler",),
+    ),
+    # Faz 3Z — proje şablonları: hazır görev planı, şablondan proje, kabul
+    # edilen tekliften şablonlu proje. Müşteri tarafında ayrı ekranı yok
+    # (şablonun müşteriye görünür görevleri proje görünümüne düşüyor):
+    # ücretsiz, bütün paketlerde açık (Görevler gibi).
+    Modul(
+        anahtar="proje_sablonlari",
+        ad_varsayilan={"tr": "Proje şablonları", "en": "Project templates"},
+        ikon="LayoutTemplate",
+        kategori="hizmet",
+        musteri_sekmesi=None,
+        yonetici_sekmesi="projeSablonlari",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=True,
+        paketler=TUM_PAKETLER,
+        # Yalnız "projeler": müşteride Görevler kapatılabilsin (şablon yönetici aracı).
+        bagimliliklar=("projeler",),
+        yerlesim=("projeler",),
+    ),
     Modul(
         anahtar="denetim",
         ad_varsayilan={"tr": "Hesap hareketleri", "en": "Account activity"},

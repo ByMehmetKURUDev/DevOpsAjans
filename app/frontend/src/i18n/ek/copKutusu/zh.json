@@ -76,7 +76,9 @@
       "kaynaklar": "资源",
       "crm_adaylar": "CRM 线索",
       "crm_formlar": "CRM 表单",
-      "crm_aktiviteler": "CRM 活动"
+      "crm_aktiviteler": "CRM 活动",
+      "zaman_kayitlari": "工时记录",
+      "proje_sablonlari": "项目模板"
     }
   }
 }

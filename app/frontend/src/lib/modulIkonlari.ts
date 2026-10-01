@@ -19,6 +19,7 @@ import {
   Gauge,
   Handshake,
   History,
+  LayoutTemplate,
   Lightbulb,
   Link2,
   ListChecks,
@@ -28,6 +29,7 @@ import {
   MessagesSquare,
   Receipt,
   ShieldCheck,
+  Timer,
   UserCog,
   type LucideIcon,
 } from 'lucide-react';
@@ -60,6 +62,7 @@ export const MODUL_IKONLARI: Record<string, LucideIcon> = {
   Gauge,
   Handshake,
   History,
+  LayoutTemplate,
   Lightbulb,
   Link2,
   ListChecks,
@@ -69,6 +72,7 @@ export const MODUL_IKONLARI: Record<string, LucideIcon> = {
   MessagesSquare,
   Receipt,
   ShieldCheck,
+  Timer,
   UserCog,
 };
 

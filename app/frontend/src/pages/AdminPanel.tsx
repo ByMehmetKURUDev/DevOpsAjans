@@ -51,6 +51,8 @@ import {
   Handshake,
   FileCheck2,
   FileSignature,
+  Timer,
+  LayoutTemplate,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -132,7 +134,7 @@ const EpostaRozeti = ekliLazy('yardim', () => import('@/components/EpostaRozeti'
 const DestekKurallari = ekliLazy(['destekKurallari', 'yardim'], () => import('@/components/admin/DestekKurallari'));
 const AylikRaporlar = ekliLazy('aylikRapor', () => import('@/components/admin/AylikRaporlar'));
 // Faz 2B — proje görevleri (Kanban), geri bildirimler, duyurular + öneri kutusu.
-const ProjeGorevleri = ekliLazy(['gorevler', 'geriBildirim'], () => import('@/components/admin/ProjeGorevleri'));
+const ProjeGorevleri = ekliLazy(['gorevler', 'geriBildirim', 'zamanTakibi'], () => import('@/components/admin/ProjeGorevleri'));
 const GeriBildirimler = ekliLazy('geriBildirim', () => import('@/components/admin/GeriBildirimler'));
 const DuyuruYonetimi = ekliLazy('duyurular', () => import('@/components/admin/DuyuruYonetimi'));
 const DuyuruSeridi = ekliLazy('duyurular', () => import('@/components/DuyuruSeridi'));
@@ -152,10 +154,13 @@ const FaturaAraclari = ekliLazy(['fatura', 'teklif'], () => import('@/components
 const FaturaAyrinti = ekliLazy(['fatura', 'teklif'], () => import('@/components/admin/FaturaAyrinti'));
 // Faz 3Y: Site Ayarları › Yasal bilgiler (veri sorumlusu; etiketler ek pakette).
 const YasalBilgilerAyari = ekliLazy('yasalAyar', () => import('@/components/admin/YasalBilgilerAyari'));
+// Faz 3Z — Zaman (sayaç, kayıtlar, çizelge, iş yükü, onay, faturaya aktar) ve Proje şablonları.
+const ZamanTakibi = ekliLazy('zamanTakibi', () => import('@/components/admin/ZamanTakibi'));
+const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/admin/ProjeSablonlari'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -284,6 +289,8 @@ type Tab =
   | 'uzmanAsistanlar'
   | 'baglantilar'
   | 'crm'
+  | 'zaman'
+  | 'projeSablonlari'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -956,6 +963,8 @@ export default function AdminPanel() {
     { key: 'pages', label: t('ui.tabPages'), icon: LayoutList },
     { key: 'notify', label: t('ui.tabNotify'), icon: BellRing },
     { key: 'projects', label: t('ui.tabProjects'), icon: FolderKanban },
+    { key: 'zaman', label: t('ui.tabZaman'), icon: Timer },
+    { key: 'projeSablonlari', label: t('ui.tabProjeSablonlari'), icon: LayoutTemplate },
     { key: 'marketplace', label: t('ui.tabMarketplace'), icon: Boxes },
     { key: 'kaynaklar', label: t('nav.kaynaklar'), icon: Library },
     { key: 'icerik', label: t('ui.tabIcerik'), icon: CalendarDays },
@@ -1204,6 +1213,18 @@ export default function AdminPanel() {
           }
         >
           <SiteAnalizleri />
+        </Suspense>
+      )}
+
+      {tab === 'zaman' && (
+        <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
+          <ZamanTakibi onFaturaOlustu={() => void loadAll()} />
+        </Suspense>
+      )}
+
+      {tab === 'projeSablonlari' && (
+        <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
+          <ProjeSablonlari onProjeOlustu={() => void loadAll()} />
         </Suspense>
       )}
 
@@ -1885,7 +1906,9 @@ export default function AdminPanel() {
                           className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full ${
                             inv.status === 'paid'
                               ? 'bg-emerald-500/15 text-emerald-300'
-                              : 'bg-orange-500/15 text-orange-300'
+                              : inv.status === 'draft'
+                                ? 'bg-white/10 text-muted-foreground'
+                                : 'bg-orange-500/15 text-orange-300'
                           }`}
                         >
                           {t(`ui.status.${inv.status || 'unpaid'}`, { defaultValue: t('ui.status.unpaid') })}
@@ -1898,7 +1921,7 @@ export default function AdminPanel() {
                     <p className="text-lg font-bold gradient-text">
                       {inv.amount} {inv.currency || 'USD'}
                     </p>
-                    {!['paid', 'cancelled', 'iade'].includes(inv.status || '') ? (
+                    {!['paid', 'cancelled', 'iade', 'draft'].includes(inv.status || '') ? (
                       <>
                         <FaturaOdemeBaglantisi invoiceId={Number(inv.id)} />
                         <ElleTahsilat
@@ -2768,6 +2791,10 @@ export default function AdminPanel() {
                     }
                     className="w-full h-10 rounded-md bg-white/5 border border-white/10 px-3 text-sm"
                   >
+                    {/* Faz 3Z: zamandan aktarılan taslak fatura — müşteriye görünmez; "Ödenmedi" ile kesilir. */}
+                    <option value="draft" className="bg-[#150a2b]">
+                      {t('ui.status.draft')}
+                    </option>
                     <option value="unpaid" className="bg-[#150a2b]">
                       {t('ui.status.unpaid')}
                     </option>

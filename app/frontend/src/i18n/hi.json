@@ -424,7 +424,8 @@
       "iade": "क्रेडिट किया गया",
       "open": "खुला",
       "answered": "उत्तर दिया",
-      "closed": "बंद"
+      "closed": "बंद",
+      "draft": "ड्राफ़्ट"
     },
     "blog": "ब्लॉग",
     "logoAlt": "By Mehmet KURU Dev — वेब डेवलपमेंट और डिजिटल मार्केटिंग स्टूडियो लोगो",
@@ -478,7 +479,9 @@
     "tabSohbetler": "ग्राहक चैट",
     "tabUzmanAsistanlar": "विशेषज्ञ सहायक",
     "tabBaglantilar": "कनेक्शन",
-    "tabCrm": "लीड (CRM)"
+    "tabCrm": "लीड (CRM)",
+    "tabZaman": "समय",
+    "tabProjeSablonlari": "प्रोजेक्ट टेम्पलेट"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

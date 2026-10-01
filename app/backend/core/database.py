@@ -477,6 +477,15 @@ class DatabaseManager:
         {"tablo": "service_subscriptions", "sutun": "fatura_baslangic", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
         {"tablo": "service_subscriptions", "sutun": "vade_gun", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
         {"tablo": "service_subscriptions", "sutun": "son_fatura_donemi", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        # Faz 3Z — zaman takibi: proje saatlik ücreti + para birimi (boşsa site
+        # ayarı), müşteriye harcanan süre / faturalanabilir süre gösterimi;
+        # görevin planlanan başlangıcı (şablon ofseti); teklifte proje şablonu.
+        {"tablo": "projects", "sutun": "saatlik_ucret", "tur_pg": "DOUBLE PRECISION", "tur_sqlite": "REAL"},
+        {"tablo": "projects", "sutun": "ucret_para_birimi", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "projects", "sutun": "sure_musteriye_gorunur", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
+        {"tablo": "projects", "sutun": "faturalanabilir_musteriye_gorunur", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
+        {"tablo": "project_tasks", "sutun": "baslangic_tarihi", "tur_pg": "DATE", "tur_sqlite": "DATE"},
+        {"tablo": "teklifler", "sutun": "proje_sablon_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
     )
 
     async def _eksik_sutunlari_tamamla(self):

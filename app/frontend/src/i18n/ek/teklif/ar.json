@@ -68,7 +68,9 @@
       "otomatikSozlesme": "إعداد مسودة عقد",
       "sablon": "قالب العقد",
       "varsayilanSablon": "القالب الافتراضي",
-      "otomatikProje": "فتح مشروع"
+      "otomatikProje": "فتح مشروع",
+      "projeSablonu": "قالب المشروع (تُضاف المهام إلى المشروع)",
+      "sablonsuz": "بدون قالب"
     },
     "yonetim": {
       "baslik": "عروض الأسعار",
@@ -169,7 +171,8 @@
       "modul_kapali": "هذه الوحدة معطّلة لحسابك.",
       "hesap_izni_yok": "ليس لديك إذن لعرض عروض الأسعار في هذا الحساب.",
       "tur_gecersiz": "نوع عملية غير صالح.",
-      "sayi_gecersiz": "رقم غير صالح."
+      "sayi_gecersiz": "رقم غير صالح.",
+      "proje_sablonu_yok": "لم يُعثر على قالب المشروع المحدد."
     }
   }
 }

@@ -38,6 +38,8 @@ class ProjectTasks(Base):
     #: staff.email (küçük harf); boş = atanmamış.
     atanan = Column(String, nullable=True, index=True)
     bitis_tarihi = Column(Date, nullable=True)
+    #: Faz 3Z — planlanan başlangıç (şablondan oluşturulan görevde ofsetle hesaplanıyor).
+    baslangic_tarihi = Column(Date, nullable=True)
     #: Sütun içindeki sıra (0'dan).
     sira = Column(Integer, nullable=False, default=0)
     musteriye_gorunur = Column(Boolean, nullable=False, default=False)
