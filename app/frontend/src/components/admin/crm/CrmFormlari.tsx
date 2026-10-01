@@ -32,8 +32,9 @@ type Taslak = {
   tesekkur_metni: string;
   yonlendirme_adresi: string;
   izinli_alanlar: string;
-  kvkk_metni: string;
+  aydinlatma_metni: string;
   aydinlatma_baglantisi: string;
+  pazarlama_izni_sor: boolean;
   aktif: boolean;
 };
 
@@ -46,7 +47,7 @@ const BOS_ALANLAR: Taslak['alanlar'] = {
   butce: { acik: false, zorunlu: false },
 };
 
-function taslakYap(f: CrmFormu | null, kvkkVarsayilan: string): Taslak {
+function taslakYap(f: CrmFormu | null): Taslak {
   return {
     ad: f?.ad ?? '',
     baslik: f?.baslik ?? '',
@@ -56,17 +57,20 @@ function taslakYap(f: CrmFormu | null, kvkkVarsayilan: string): Taslak {
     tesekkur_metni: f?.tesekkur_metni ?? '',
     yonlendirme_adresi: f?.yonlendirme_adresi ?? '',
     izinli_alanlar: (f?.izinli_alanlar ?? []).join('\n'),
-    kvkk_metni: f?.kvkk_metni ?? kvkkVarsayilan,
+    aydinlatma_metni: f?.aydinlatma_metni ?? '',
     aydinlatma_baglantisi: f?.aydinlatma_baglantisi ?? '',
+    pazarlama_izni_sor: f?.pazarlama_izni_sor ?? false,
     aktif: f?.aktif ?? true,
   };
 }
 
 /**
  * Gömülebilir formlar: oluştur/düzenle (alanlar aç-kapa, zorunluluk, varsayılan
- * aşama/etiket, teşekkür metni, https yönlendirme, izinli alan adları, KVKK
- * metni + aydınlatma bağlantısı), gömme kodunu kopyala, doğrudan bağlantı ve
- * önizleme (aynı sitedeki /form/<anahtar> sayfası bir çerçevede).
+ * aşama/etiket, teşekkür metni, https yönlendirme, izinli alan adları,
+ * aydınlatma satırı + bağlantısı, isteğe bağlı pazarlama izni kutusu), gömme
+ * kodunu kopyala, doğrudan bağlantı ve önizleme (aynı sitedeki
+ * /form/<anahtar> sayfası bir çerçevede). Faz 4G: zorunlu KVKK onay kutusu
+ * kaldırıldı (aydınlatma ile açık rıza ayrıldı).
  */
 export default function CrmFormlari({ asamalar }: { asamalar: Asama[] }) {
   const { t, i18n } = useTranslation();
@@ -137,6 +141,9 @@ export default function CrmFormlari({ asamalar }: { asamalar: Asama[] }) {
                   <span className={`rounded px-1.5 py-0.5 text-[11px] ${f.aktif ? 'bg-emerald-500/15 text-emerald-200' : 'bg-white/10 text-muted-foreground'}`}>
                     {f.aktif ? t('crm.form.aktif') : t('crm.form.pasif')}
                   </span>
+                  {f.pazarlama_izni_sor && (
+                    <span className="rounded bg-sky-500/15 px-1.5 py-0.5 text-[11px] text-sky-200">{t('crm.form.pazarlamaRozet')}</span>
+                  )}
                 </h3>
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {t('crm.form.istatistik', { sayi: f.gonderim_sayisi, surum: f.kvkk_surum })}
@@ -224,7 +231,7 @@ function FormPenceresi({
 }) {
   const { t, i18n } = useTranslation();
   const dil = i18n.language;
-  const [taslak, setTaslak] = useState<Taslak>(() => taslakYap(form, t('crm.form.kvkkVarsayilan')));
+  const [taslak, setTaslak] = useState<Taslak>(() => taslakYap(form));
   const [mesgul, setMesgul] = useState(false);
   const yaz = (k: keyof Taslak) => (e: { target: { value: string } }) => setTaslak((x) => ({ ...x, [k]: e.target.value }));
   const alanDegistir = (ad: FormAlani, k: 'acik' | 'zorunlu', v: boolean) =>
@@ -352,14 +359,38 @@ function FormPenceresi({
             />
             <span className="block text-[11px] text-muted-foreground">{t('crm.form.izinliIpucu', { liste: sinirlar.join(', ') })}</span>
           </AlanEtiketi>
-          <AlanEtiketi ad={t('crm.form.kvkkMetni')} zorunlu tam>
-            <textarea className={METIN_ALANI} rows={3} value={taslak.kvkk_metni} onChange={yaz('kvkk_metni')} maxLength={2000} required data-testid="crm-form-kvkk" />
-            {form && <span className="block text-[11px] text-muted-foreground">{t('crm.form.kvkkSurumIpucu', { sayi: form.kvkk_surum })}</span>}
+          <AlanEtiketi ad={t('crm.form.aydinlatmaMetni')} tam>
+            <textarea
+              className={METIN_ALANI}
+              rows={2}
+              value={taslak.aydinlatma_metni}
+              onChange={yaz('aydinlatma_metni')}
+              maxLength={600}
+              placeholder={t('crm.form.aydinlatmaMetniIpucu')}
+              data-testid="crm-form-aydinlatma-metni"
+            />
+            <span className="block text-[11px] text-muted-foreground">
+              {t('crm.form.aydinlatmaAciklama')}
+              {form ? ` ${t('crm.form.kvkkSurumIpucu', { sayi: form.kvkk_surum })}` : ''}
+            </span>
           </AlanEtiketi>
           <AlanEtiketi ad={t('crm.form.aydinlatma')} tam>
             {/* Faz 3Y: boşsa formda sitenin Gizlilik ve KVKK Aydınlatma Metni gösterilir (sunucu varsayılanı). */}
             <Input type="url" value={taslak.aydinlatma_baglantisi} onChange={yaz('aydinlatma_baglantisi')} placeholder="https://mehmetkuru.dev/gizlilik" dir="ltr" />
           </AlanEtiketi>
+          <label className="flex items-start gap-2 rounded-xl border border-white/10 bg-white/[0.03] p-3 text-sm sm:col-span-2">
+            <input
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 flex-none accent-purple-500"
+              checked={taslak.pazarlama_izni_sor}
+              onChange={(e) => setTaslak((x) => ({ ...x, pazarlama_izni_sor: e.target.checked }))}
+              data-testid="crm-form-pazarlama-sor"
+            />
+            <span>
+              {t('crm.form.pazarlamaSor')}
+              <span className="mt-0.5 block text-[11px] text-muted-foreground">{t('crm.form.pazarlamaSorIpucu')}</span>
+            </span>
+          </label>
           <label className="inline-flex items-center gap-2 text-sm sm:col-span-2">
             <input
               type="checkbox"
@@ -373,7 +404,7 @@ function FormPenceresi({
             <Button type="button" variant="ghost" onClick={onKapat}>
               {t('crm.vazgec')}
             </Button>
-            <Button type="submit" disabled={mesgul || !taslak.ad.trim() || taslak.kvkk_metni.trim().length < 10} className="gap-1" data-testid="crm-form-kaydet">
+            <Button type="submit" disabled={mesgul || !taslak.ad.trim()} className="gap-1" data-testid="crm-form-kaydet">
               {mesgul ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               {t('crm.kaydet')}
             </Button>

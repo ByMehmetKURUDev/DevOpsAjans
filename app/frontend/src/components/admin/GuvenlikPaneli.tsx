@@ -3,6 +3,7 @@ import { Filter, Loader2, LogOut, RefreshCw, ShieldAlert, ShieldCheck, XCircle }
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
+import CspRaporlari from '@/components/admin/CspRaporlari';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { goreliZaman, tamZaman } from '@/lib/denetim';
@@ -294,6 +295,9 @@ export default function GuvenlikPaneli() {
           </div>
         )}
       </div>
+
+      {/* Faz 4G: CSP ihlal raporları */}
+      <CspRaporlari />
     </div>
   );
 }

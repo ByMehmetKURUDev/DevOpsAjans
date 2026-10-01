@@ -128,7 +128,7 @@
                   ],
                   [
                     "Google LLC / Google Ireland Ltd.",
-                    "Google ile oturum açma; yapay zekâ özellikleri (Gemini API); site analizinde PageSpeed Insights; onayınızla Google Analytics ve Google Ads; Arapça ve Hintçe yazı tipleri (Google Fonts); iletişim sayfasındaki harita (Google Haritalar)",
+                    "Google ile oturum açma; yapay zekâ özellikleri (Gemini API); site analizinde PageSpeed Insights; onayınızla Google Analytics ve Google Ads; Arapça ve Hintçe yazı tipleri (Google Fonts); iletişim sayfasındaki harita (Google Haritalar; yalnız siz açtığınızda ya da onayınızla)",
                     "ABD; AB"
                   ],
                   [
@@ -579,7 +579,7 @@
           "bloklar": [
             {
               "liste": [
-                "**Google Haritalar:** İletişim sayfasındaki harita Google'dan gömülü olarak yüklenir; Google bu çerçevede kendi çerezlerini kullanabilir.",
+                "**Google Haritalar:** İletişim sayfasındaki harita yalnız “Haritayı göster” düğmesine bastığınızda ya da çerezlere onay verdiyseniz Google'dan gömülü olarak yüklenir; yüklendiğinde Google bu çerçevede kendi çerezlerini kullanabilir. Onay vermediyseniz harita yerine adres ve Google Haritalar'da açma bağlantısı gösterilir.",
                 "**Google Fonts:** Arapça ya da Hintçe dilini seçtiğinizde ilgili yazı tipleri Google sunucularından indirilir; bu sırada IP adresiniz Google'a iletilir. Diğer dillerin yazı tipleri kendi sunucumuzdan gelir.",
                 "**Ödeme sayfaları:** Shopier ve Lemon Squeezy ödeme sayfaları kendi alan adlarında açılır ve kendi çerezlerini kullanır.",
                 "**Web Push:** Bildirimlere izin verirseniz tarayıcınız bir abonelik oluşturur; bu izni tarayıcı ayarlarından ya da müşteri panelindeki bildirim tercihlerinden kaldırabilirsiniz."

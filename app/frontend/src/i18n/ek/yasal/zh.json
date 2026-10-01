@@ -128,7 +128,7 @@
                   ],
                   [
                     "Google LLC / Google Ireland Ltd.",
-                    "使用 Google 登录；AI 功能（Gemini API）；网站分析使用的 PageSpeed Insights；经您同意的 Google Analytics 和 Google Ads；阿拉伯语和印地语字体（Google Fonts）；联系页面中的地图（Google 地图）",
+                    "使用 Google 登录；AI 功能（Gemini API）；网站分析使用的 PageSpeed Insights；经您同意的 Google Analytics 和 Google Ads；阿拉伯语和印地语字体（Google Fonts）；联系页面中的地图（Google 地图；仅在您打开或经您同意时）",
                     "美国；欧盟"
                   ],
                   [
@@ -579,7 +579,7 @@
           "bloklar": [
             {
               "liste": [
-                "**Google 地图：**联系页面中的地图从 Google 嵌入；Google 可能在该框架中使用自己的 Cookie。",
+                "**Google 地图：**联系页面中的地图仅在您点击“显示地图”或已接受 Cookie 时才从 Google 嵌入；加载后 Google 可能在该框架中使用自己的 Cookie。未经您同意时，改为显示地址和在 Google 地图中打开的链接。",
                 "**Google Fonts：**当您选择阿拉伯语或印地语时，相应字体会从 Google 服务器下载，在此过程中您的 IP 地址会发送给 Google。其他语言的字体来自我们自己的服务器。",
                 "**付款页面：**Shopier 和 Lemon Squeezy 的付款页面在其自身域名上打开，并使用它们自己的 Cookie。",
                 "**Web Push：**如您允许通知，浏览器会创建一个订阅；您可以在浏览器设置或客户门户的通知偏好中撤销此权限。"

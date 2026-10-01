@@ -103,3 +103,28 @@ export async function oturumuKapat(id: number): Promise<{ kapatilan: number }> {
 export async function kullaniciyiCikar(email: string): Promise<{ kapatilan: number }> {
   return istek('POST', '/api/v1/oturumlar/kullanici-cikis', { email });
 }
+
+// --- Faz 4G: CSP ihlal raporları (yalnız yönetici) ------------------------------
+export interface CspRaporu {
+  id: number;
+  belge: string;
+  yonerge: string;
+  engellenen: string;
+  kaynak_dosya: string | null;
+  satir: number | null;
+  sutun: number | null;
+  mod: 'enforce' | 'report' | string;
+  ornek: string | null;
+  sayi: number;
+  ilk_at: string | null;
+  son_at: string | null;
+}
+
+export async function cspRaporlari(adet = 100): Promise<{ items: CspRaporu[]; toplam: number; sinir: number }> {
+  const g = await istek<{ items: CspRaporu[]; toplam: number; sinir: number }>('GET', `/api/v1/csp-rapor/yonetim?adet=${adet}`);
+  return { items: Array.isArray(g?.items) ? g.items : [], toplam: g?.toplam ?? 0, sinir: g?.sinir ?? 500 };
+}
+
+export async function cspRaporlariniTemizle(): Promise<{ silinen: number }> {
+  return istek('DELETE', '/api/v1/csp-rapor/yonetim');
+}

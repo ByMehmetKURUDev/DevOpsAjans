@@ -23,10 +23,15 @@
  * Arka uç uykuda / hata veriyorsa (Render ücretsiz plan) kabuk OLDUĞU GİBİ
  * dönüyor: sayfa yine açılır, yalnız önizleme genel kalır. Bekleme sınırı 4 sn.
  *
- * Ek ayar gerekmez: `/api` vekilinin kullandığı `API_ORIGIN` yetiyor.
+ * Ek ayar gerekmez: `/api` vekilinin kullandığı `API_ORIGIN` yetiyor. Faz 4G:
+ * arka uç isteği vekil imzalı (`_ortak/vekil.js`); HTML yanıtına sitenin CSP'si
+ * ekleniyor (`_ortak/csp.js` — `_headers` Function yanıtlarına uygulanmıyor).
  * Dosya tabanlı yönlendirme: yalnız TEK parçalı `/kart/<slug>` (değişmez kod da
  * buradan geçer: `/kart/AbC2xyz`).
  */
+
+import { cspBasliklari } from '../_ortak/csp.js';
+import { vekilBasliklari } from '../_ortak/vekil.js';
 
 const GUVENLIK_BASLIKLARI = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -153,12 +158,13 @@ export function metinIle(html, e) {
   return h;
 }
 
-async function ozetAl(origin, adres, istek) {
+async function ozetAl(origin, adres, istek, env) {
   const hedef = origin.replace(/\/$/, '') + '/api/v1/kart/' + encodeURIComponent(adres) + '/ozet';
   const basliklar = new Headers({ Accept: 'application/json' });
   const dil = istek.headers.get('accept-language');
   if (dil) basliklar.set('Accept-Language', dil);
   basliklar.set('X-Forwarded-Host', new URL(istek.url).host);
+  vekilBasliklari(basliklar, istek, env);
   const yanit = await fetch(hedef, {
     method: 'GET',
     headers: basliklar,
@@ -186,13 +192,15 @@ export async function onRequest({ request, env, params }) {
   const kabuk = await env.ASSETS.fetch(new Request(new URL('/', url), { method: 'GET' }));
   if (request.method !== 'GET' && request.method !== 'HEAD') return kabuk;
   const adres = Array.isArray(params?.slug) ? params.slug.join('/') : String(params?.slug ?? '');
-  if (!kabuk.ok || !env.API_ORIGIN || !ADRES_DESENI.test(adres)) return kabuk;
+  if (!kabuk.ok) return kabuk;
+  if (!env.API_ORIGIN || !ADRES_DESENI.test(adres)) return guvenlikEkle(kabuk, cspBasliklari());
 
   let ozet;
   try {
-    ozet = await ozetAl(env.API_ORIGIN, adres, request);
+    ozet = await ozetAl(env.API_ORIGIN, adres, request, env);
   } catch {
-    return kabuk; // arka uç kapalı / yavaş: sayfa yine açılsın, önizleme genel kalsın
+    // arka uç kapalı / yavaş: sayfa yine açılsın, önizleme genel kalsın
+    return guvenlikEkle(kabuk, cspBasliklari());
   }
 
   if (ozet.durum === 'yonlendir' && typeof ozet.yonlendir === 'string' && ADRES_DESENI.test(ozet.yonlendir)) {
@@ -222,5 +230,6 @@ export async function onRequest({ request, env, params }) {
   for (const [ad, deger] of Object.entries(GUVENLIK_BASLIKLARI)) {
     if (!basliklar.has(ad)) basliklar.set(ad, deger);
   }
+  for (const [ad, deger] of Object.entries(cspBasliklari())) basliklar.set(ad, deger);
   return new Response(request.method === 'HEAD' ? null : yazilmis.body, { status: durum, headers: basliklar });
 }

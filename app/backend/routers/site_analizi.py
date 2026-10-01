@@ -9,8 +9,9 @@ Akış
 ----
 1. `POST /api/v1/site-analizi` — herkese açık. Yalnızca ÖZET döner: bölüm
    puanları ve bölüm başına en çok 3 bulgu. Tam ayrıntı bilerek yok.
-2. `POST /api/v1/site-analizi/{id}/tam-rapor` — e-posta + KVKK onayı.
-   Kayda e-posta yazılıyor, `inquiries` tablosuna aday düşüyor, müşteriye
+2. `POST /api/v1/site-analizi/{id}/tam-rapor` — e-posta (Faz 4G: onay
+   kutusu yok; talep aydınlatmayla işleniyor, isteğe bağlı pazarlama izni
+   site ayarı açıksa ayrıca soruluyor). Kayda e-posta yazılıyor, `inquiries` tablosuna aday düşüyor, müşteriye
    rapor bağlantısı e-postayla gidiyor. Jeton yanıtta DÖNMÜYOR: bağlantıya
    yalnızca e-postanın sahibi ulaşıyor, yani e-posta doğrulaması gibi
    çalışıyor.
@@ -41,6 +42,7 @@ from fastapi import Depends as _Depends
 from models.inquiries import Inquiries
 from models.site_analyses import Site_analyses
 from pydantic import BaseModel
+from services import pazarlama_izni
 from services import site_analizi as motor
 from services.notify import admin_recipients, dispatch, render
 from sqlalchemy import func, select
@@ -89,7 +91,12 @@ class AnalizGirdisi(BaseModel):
 class TamRaporGirdisi(BaseModel):
     eposta: str
     ad: Optional[str] = None
+    #: Eski istemci (Faz 4G öncesi zorunlu kutu) gönderebilir; artık şart değil.
     kvkk_onay: bool = False
+    #: İsteğe bağlı pazarlama izni — yalnız JSON true sayılır (dönüştürme yok).
+    pazarlama_izni: Any = None
+    #: Sayfanın dili: izin metninin hangi dilde gösterildiği kayda yazılıyor.
+    dil: Optional[str] = None
 
 
 # --------------------------------------------------------------------------
@@ -235,6 +242,9 @@ def _tam_rapor(kayit: Site_analyses, *, yonetici: bool = False, sahip: bool = Fa
                 "eposta": kayit.eposta,
                 "ad": kayit.ad,
                 "kvkk_onay": bool(kayit.kvkk_onay),
+                "pazarlama_izni": bool(kayit.pazarlama_izni),
+                "pazarlama_izni_at": _iso(kayit.pazarlama_izni_at),
+                "pazarlama_metin_surumu": kayit.pazarlama_metin_surumu,
                 "inquiry_id": kayit.inquiry_id,
                 "kaynak": kayit.kaynak,
                 "gonderildi_at": _iso(kayit.gonderildi_at),
@@ -311,7 +321,10 @@ async def analiz_baslat(
     await db.refresh(kayit)
 
     await _calistir(db, kayit)
-    return _ozet_yaniti(kayit)
+    yanit = _ozet_yaniti(kayit)
+    # Faz 4G: tam rapor formunda pazarlama izni kutusu gösterilsin mi (site ayarı).
+    yanit["pazarlama_izni_sor"] = await pazarlama_izni.site_analizi_soruyor_mu(db)
+    return yanit
 
 
 @acik_router.post("/{analiz_id}/tam-rapor")
@@ -327,8 +340,6 @@ async def tam_rapor_iste(
     başkasının bıraktığı adrese giden raporu biri kendi adresine
     çeviremesin.
     """
-    if govde.kvkk_onay is not True:
-        raise _hata(400, "kvkk_gerekli")
     eposta = (govde.eposta or "").strip().lower()
     if len(eposta) > 254 or not _EPOSTA.match(eposta):
         raise _hata(400, "eposta_gecersiz")
@@ -342,14 +353,26 @@ async def tam_rapor_iste(
 
     simdi = _simdi()
     ilk_kez = kayit.inquiry_id is None
+    # Faz 4G: pazarlama izni ayrı ve isteğe bağlı; yalnız site ayarı açıksa kaydedilir.
+    pazarlama = pazarlama_izni.izin_verildi_mi(govde.pazarlama_izni) and await pazarlama_izni.site_analizi_soruyor_mu(db)
+    surum = pazarlama_izni.surum_etiketi(govde.dil) if pazarlama else None
+    if pazarlama:
+        kayit.pazarlama_izni = True
+        kayit.pazarlama_izni_at = simdi
+        kayit.pazarlama_metin_surumu = surum
     son_gonderim = _utc(kayit.gonderildi_at)
     if not ilk_kez and son_gonderim and simdi - son_gonderim < timedelta(minutes=YENIDEN_GONDERIM_DK):
-        # Az önce gönderildi; yeniden e-posta atmadan aynı yanıt.
+        # Az önce gönderildi; yeniden e-posta atmadan aynı yanıt (izin verildiyse yine kaydedilir).
+        if pazarlama:
+            aday_id = await pazarlama_izni.bagli_adayi_bul(db, "inquiries", kayit.inquiry_id)
+            await pazarlama_izni.adaya_isle(db, aday_id, simdi, f"site_analizi:{kayit.id}", surum)
+            await db.commit()
         return {"gonderildi": True}
 
     kayit.eposta = eposta
     kayit.ad = ad or kayit.ad
-    kayit.kvkk_onay = True
+    # Eski istemcinin onay işareti korunuyor; yenisi göndermiyor (onay şart değil).
+    kayit.kvkk_onay = bool(govde.kvkk_onay or kayit.kvkk_onay)
     _yeni_jeton(kayit)
 
     ozet = _json(kayit.ozet_json, {}).get("bolumler", [])
@@ -375,6 +398,11 @@ async def tam_rapor_iste(
         db.add(aday)
         await db.flush()
         kayit.inquiry_id = aday.id
+
+    if pazarlama:
+        # CRM kancası talebi flush'ta adaya bağladı; izni adayda da göster.
+        aday_id = await pazarlama_izni.bagli_adayi_bul(db, "inquiries", kayit.inquiry_id)
+        await pazarlama_izni.adaya_isle(db, aday_id, simdi, f"site_analizi:{kayit.id}", surum)
 
     kayit.gonderildi_at = simdi
     await db.commit()

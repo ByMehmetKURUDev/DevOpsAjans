@@ -352,15 +352,80 @@ async def test_ham_ip_saklanmaz(istemci, ag, db_oturumu):
 # --------------------------------------------------------------------------
 # Tam rapor + aday
 # --------------------------------------------------------------------------
-async def test_tam_rapor_kvkk_onaysiz_400(istemci, ag):
+async def test_tam_rapor_kvkk_kutusu_artik_zorunlu_degil(istemci, ag, db_oturumu):
+    """Faz 4G: rapor isteği aydınlatmayla işleniyor; onay kutusu ön koşul değil."""
     kimlik = (await _analiz(istemci)).json()["id"]
     yanit = await istemci.post(f"{UC}/{kimlik}/tam-rapor", json={"eposta": "a@ornek.com"})
-    assert yanit.status_code == 400
-    assert yanit.json()["detail"]["kod"] == "kvkk_gerekli"
+    assert yanit.status_code == 200, yanit.text
+    kayit = (await db_oturumu.execute(select(Site_analyses))).scalar_one()
+    assert kayit.eposta == "a@ornek.com" and kayit.kvkk_onay is False
+    # Ayar kapalıyken (varsayılan) pazarlama izni gönderilse de kaydedilmez.
+    assert not kayit.pazarlama_izni and kayit.pazarlama_izni_at is None
+    # Eski istemci `kvkk_onay: false` gönderse de çalışır (geriye uyumlu).
     yanit = await istemci.post(
         f"{UC}/{kimlik}/tam-rapor", json={"eposta": "a@ornek.com", "kvkk_onay": False}
     )
-    assert yanit.status_code == 400
+    assert yanit.status_code == 200
+
+
+async def _pazarlama_ayari(db, deger):
+    from models.site_settings import Site_settings
+    from services.pazarlama_izni import SITE_ANALIZI_AYARI
+
+    await db.execute(delete(Site_settings).where(Site_settings.setting_key == SITE_ANALIZI_AYARI))
+    if deger is not None:
+        db.add(Site_settings(setting_key=SITE_ANALIZI_AYARI, setting_value=deger, group_name="kvkk", label=SITE_ANALIZI_AYARI))
+    await db.commit()
+
+
+async def test_tam_rapor_pazarlama_izni_ayar_aciksa_kaydedilir(istemci, ag, db_oturumu, yonetici_basligi):
+    from models.crm import CrmAdaylari, CrmBagliKayitlar
+
+    # `ag` talepleri siliyor; SQLite kimlikleri yeniden kullanınca eski CRM bağı
+    # "zaten işlendi" sanılmasın (üretimde kimlik tekrar etmiyor).
+    await db_oturumu.execute(delete(CrmBagliKayitlar).where(CrmBagliKayitlar.tablo == "inquiries"))
+    await db_oturumu.execute(delete(CrmAdaylari).where(CrmAdaylari.email == "izinli@ornek-firma.com"))
+    await db_oturumu.commit()
+    try:
+        # Ayar kapalı: analiz yanıtı kutuyu istemiyor.
+        await _pazarlama_ayari(db_oturumu, None)
+        assert (await _analiz(istemci)).json()["pazarlama_izni_sor"] is False
+
+        await _pazarlama_ayari(db_oturumu, "1")
+        ozet = (await _analiz(istemci, url="ornek.com", ip="198.51.100.8")).json()
+        assert ozet["pazarlama_izni_sor"] is True
+
+        # "true" (metin) izin sayılmaz; yalnız JSON true.
+        yanit = await istemci.post(
+            f"{UC}/{ozet['id']}/tam-rapor",
+            json={"eposta": "izinli@ornek-firma.com", "pazarlama_izni": "true", "dil": "en"},
+        )
+        assert yanit.status_code == 200
+        kayit = (await db_oturumu.execute(select(Site_analyses).where(Site_analyses.id == ozet["id"]))).scalar_one()
+        assert not kayit.pazarlama_izni
+
+        # Az sonra (yeniden e-posta göndermeden) izin verilirse yine kaydedilir.
+        yanit = await istemci.post(
+            f"{UC}/{ozet['id']}/tam-rapor",
+            json={"eposta": "izinli@ornek-firma.com", "pazarlama_izni": True, "dil": "en"},
+        )
+        assert yanit.status_code == 200
+        db_oturumu.expire_all()
+        kayit = (await db_oturumu.execute(select(Site_analyses).where(Site_analyses.id == ozet["id"]))).scalar_one()
+        assert kayit.pazarlama_izni is True and kayit.pazarlama_izni_at is not None
+        assert kayit.pazarlama_metin_surumu == "1/en"
+
+        # CRM adayında da görünür (kaynak: site analizi).
+        aday = (await db_oturumu.execute(select(CrmAdaylari).where(CrmAdaylari.email == "izinli@ornek-firma.com"))).scalar_one()
+        assert aday.pazarlama_izni_kaynak == f"site_analizi:{ozet['id']}" and aday.pazarlama_metin_surumu == "1/en"
+        d = (await istemci.get(f"/api/v1/crm/adaylar/{aday.id}", headers=yonetici_basligi)).json()["aday"]
+        assert d["pazarlama_izni"] is True and d["pazarlama_izni_kaynak"] == f"site_analizi:{ozet['id']}"
+
+        # Yönetici raporunda izin alanları var.
+        r = (await istemci.get(f"{UC}/yonetim/{ozet['id']}", headers=yonetici_basligi)).json()
+        assert r["pazarlama_izni"] is True and r["pazarlama_metin_surumu"] == "1/en"
+    finally:
+        await _pazarlama_ayari(db_oturumu, None)
 
 
 async def test_tam_rapor_eposta_bicimi(istemci, ag):

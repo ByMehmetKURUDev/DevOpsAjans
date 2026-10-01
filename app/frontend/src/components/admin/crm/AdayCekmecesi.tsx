@@ -8,6 +8,8 @@ import {
   ExternalLink,
   Loader2,
   Mail,
+  MailCheck,
+  MailX,
   MessageSquareText,
   Phone,
   Save,
@@ -150,6 +152,22 @@ export default function AdayCekmecesi({ adayId, meta, onKapat, onDegisti, onSekm
       onDegisti();
     });
 
+  // Faz 4G: kişi vazgeçtiğini bildirdiğinde pazarlama iznini geri al (vermek panelden mümkün değil).
+  const izniGeriAl = () =>
+    islem(async () => {
+      if (!window.confirm(t('crm.pazarlama.geriAlOnay'))) return;
+      const a = await adayGuncelle(adayId, { pazarlama_izni: false });
+      setVeri((v) => (v ? { ...v, aday: a } : v));
+      toast.success(t('crm.pazarlama.geriAlindi'));
+      onDegisti();
+    });
+
+  const izinKaynagi = (k?: string | null) => {
+    if (!k) return null;
+    const [tur, no] = k.split(':');
+    return tur === 'form' ? t('crm.pazarlama.kaynakForm', { no }) : tur === 'site_analizi' ? t('crm.pazarlama.kaynakSiteAnalizi') : k;
+  };
+
   const tasi = (asama: string, neden?: string) =>
     islem(async () => {
       await asamaTasi(adayId, asama, neden);
@@ -230,6 +248,48 @@ export default function AdayCekmecesi({ adayId, meta, onKapat, onDegisti, onSekm
                 <X className="h-4 w-4" />
               </button>
             </header>
+
+            {/* Faz 4G: pazarlama (ticari elektronik ileti) izni — yalnız kişinin kendisi verir; panelden geri alınabilir. */}
+            <div
+              className={`flex flex-wrap items-center gap-2 rounded-xl border px-3 py-2 text-xs ${
+                a.pazarlama_izni ? 'border-emerald-400/30 bg-emerald-500/10' : 'border-white/10 bg-white/[0.03]'
+              }`}
+              data-testid="crm-pazarlama-izni"
+              data-izin={a.pazarlama_izni ? 'var' : 'yok'}
+            >
+              {a.pazarlama_izni ? (
+                <MailCheck className="h-4 w-4 flex-none text-emerald-300" aria-hidden="true" />
+              ) : (
+                <MailX className="h-4 w-4 flex-none text-muted-foreground" aria-hidden="true" />
+              )}
+              <span className="min-w-0 flex-1">
+                <span className="font-medium">{a.pazarlama_izni ? t('crm.pazarlama.var') : t('crm.pazarlama.yok')}</span>
+                {a.pazarlama_izni && (
+                  <span className="block text-muted-foreground">
+                    {[
+                      a.pazarlama_izni_at ? tarihGoster(a.pazarlama_izni_at, dil, true) : null,
+                      izinKaynagi(a.pazarlama_izni_kaynak),
+                      a.pazarlama_metin_surumu ? t('crm.pazarlama.surum', { surum: a.pazarlama_metin_surumu }) : null,
+                    ]
+                      .filter(Boolean)
+                      .join(' · ')}
+                  </span>
+                )}
+              </span>
+              {a.pazarlama_izni && (
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="ghost"
+                  className="h-7 px-2 text-xs"
+                  disabled={mesgul}
+                  onClick={() => void izniGeriAl()}
+                  data-testid="crm-pazarlama-geri-al"
+                >
+                  {t('crm.pazarlama.geriAl')}
+                </Button>
+              )}
+            </div>
 
             {/* Aşama */}
             <div className={`cam-kart rounded-2xl border bg-white/[0.03] p-3 ${renk(asama?.renk).kenar}`}>
@@ -441,6 +501,11 @@ export default function AdayCekmecesi({ adayId, meta, onKapat, onDegisti, onSekm
                         {b.tutar ? ` · ${paraGoster(b.tutar, b.para_birimi || 'USD', dil)}` : ''}
                         {b.kvkk_surum ? ` · ${t('crm.kvkkSurumu', { sayi: b.kvkk_surum })}` : ''}
                       </span>
+                      {b.pazarlama_izni && (
+                        <span className="rounded bg-emerald-500/15 px-1.5 py-0.5 text-[11px] text-emerald-200" data-testid="crm-bagli-pazarlama">
+                          {t('crm.pazarlama.rozet')}
+                        </span>
+                      )}
                       {b.zaman && <span className="text-[11px] text-muted-foreground">{tarihGoster(b.zaman, dil)}</span>}
                       {!b.silinmis && (
                         <button

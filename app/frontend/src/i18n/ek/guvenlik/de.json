@@ -63,6 +63,19 @@
       "buCihazOnay": "Wenn Sie die Sitzung auf diesem Gerät beenden, werden Sie abgemeldet. Fortfahren?",
       "eskiOturum": "Ihre Sitzung auf diesem Gerät wurde auf die alte Art geöffnet; sie erscheint hier nach Ihrer nächsten Anmeldung.",
       "bos": "Keine offenen Sitzungen gefunden."
+    },
+    "csp": {
+      "baslik": "CSP-Verstoßberichte",
+      "aciklama": "Die Content Security Policy (CSP) der Website wird erzwungen. Browser melden hier jede Ressource, die die Richtlinie blockiert; die letzten 500 unterschiedlichen Verstöße werden gespeichert, eine Wiederholung innerhalb einer Stunde erhöht den Zähler. Eine leere Liste bedeutet, dass alles in Ordnung ist; eine neue Analyse- oder Werbedomain oder ein geändertes Inline-Skript erscheint hier.",
+      "bos": "Noch keine Verstoßberichte.",
+      "hata": "CSP-Berichte konnten nicht geladen werden.",
+      "temizle": "Liste leeren",
+      "temizleOnay": "Alle CSP-Berichte löschen?",
+      "temizlendi": "CSP-Berichte gelöscht.",
+      "modEngel": "blockiert",
+      "modRapor": "nur gemeldet",
+      "son": "zuletzt: {{zaman}}",
+      "gosterilen": "{{sayi}} von {{toplam}} Berichten angezeigt."
     }
   }
 }

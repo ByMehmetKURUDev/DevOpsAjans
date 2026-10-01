@@ -667,7 +667,7 @@ async def test_form_tanimi_dogrulama(istemci, yonetici_basligi):
         ({"yonlendirme_adresi": "http://musteri-sitesi.com/tesekkur"}, "yonlendirme_https"),
         ({"yonlendirme_adresi": "javascript:alert(1)"}, "yonlendirme_https"),
         ({"izinli_alanlar": ["bozuk alan adı"]}, "alan_adi_gecersiz"),
-        ({"kvkk_metni": "kısa"}, "kvkk_metni_gerekli"),
+        ({"aydinlatma_metni": "x" * 601}, "aydinlatma_metni_uzun"),
         ({"aydinlatma_baglantisi": "ftp://x.com/k"}, "aydinlatma_https"),
         ({"varsayilan_asama": "olmayan"}, "asama_yok"),
     ):
@@ -677,7 +677,11 @@ async def test_form_tanimi_dogrulama(istemci, yonetici_basligi):
                             headers=yonetici_basligi)
     assert y.status_code == 200 and y.json()["yonlendirme_adresi"] == "https://musteri-sitesi.com/tesekkur"
     assert y.json()["kvkk_surum"] == 1
+    # Faz 4G: eski `kvkk_metni` artık sürümü değiştirmiyor; aydınlatma satırı değiştiriyor.
     y = await istemci.patch(f"{K}/formlar/{f['id']}", json={"kvkk_metni": KVKK + " (güncel)"}, headers=yonetici_basligi)
+    assert y.json()["kvkk_surum"] == 1
+    y = await istemci.patch(f"{K}/formlar/{f['id']}", json={"aydinlatma_metni": "Bilgileriniz dönüş için işlenir."},
+                            headers=yonetici_basligi)
     assert y.json()["kvkk_surum"] == 2
 
     liste = (await istemci.get(f"{K}/formlar", headers=yonetici_basligi)).json()
@@ -692,7 +696,10 @@ async def test_form_acik_tanim_dilde(istemci, yonetici_basligi):
     assert d["dil"] == "ar" and d["yon"] == "rtl" and d["baslik"] == "Bize yazın"
     assert [a["ad"] for a in d["alanlar"]] == ["ad", "email", "telefon", "mesaj", "butce"]
     assert d["alanlar"][0]["etiket"] == "اسمك" and d["metinler"]["gonder"] == "إرسال"
-    assert d["kvkk"] == {"metin": KVKK, "baglanti": "https://mehmetkuru.dev/kvkk", "surum": 1}
+    # Faz 4G: onay kutusu metni değil, dildeki aydınlatma satırı (+ eski adıyla aynı nesne).
+    assert d["aydinlatma"] == {"metin": "تُعالَج المعلومات التي ترسلها فقط للرد على طلبك. التفاصيل:",
+                               "baglanti": "https://mehmetkuru.dev/kvkk", "surum": 1}
+    assert d["kvkk"] == d["aydinlatma"] and d["pazarlama"] is None
     assert d["jeton"].startswith(f"{f['id']}.") and d["bal_kupu"] == "web_adresi"
     assert "izinli_alanlar" not in d and "genel_anahtar" not in d  # iç ayar sızmıyor
     en = (await istemci.get(f"/api/v1/crm/form/{f['genel_anahtar']}", params={"dil": "xx"})).json()
@@ -726,8 +733,10 @@ async def test_form_gonderimi_aday_kvkk_kaydi_ve_bildirim(istemci, yonetici_basl
     ))).scalars().all()
     assert len(bildirim) == 1 and "Yeni aday" in bildirim[0].title
 
-    # Aynı kişi ikinci kez: aynı aday, yeni aktivite, KVKK sürümü güncel.
-    await istemci.patch(f"{K}/formlar/{f['id']}", json={"kvkk_metni": KVKK + " v2"}, headers=yonetici_basligi)
+    # Aynı kişi ikinci kez: aynı aday, yeni aktivite, aydınlatma sürümü güncel
+    # (Faz 4G: sürüm aydınlatma satırı/bağlantısı değişince artıyor).
+    await istemci.patch(f"{K}/formlar/{f['id']}", json={"aydinlatma_metni": "Bilgileriniz yalnız dönüş için işlenir."},
+                        headers=yonetici_basligi)
     y, _ = await _gonder(istemci, f, {"email": email, "mesaj": "Ek bilgi"})
     assert y.status_code == 200
     assert len(await _adaylar(db_oturumu, email)) == 1
@@ -743,13 +752,99 @@ async def test_form_gonderimi_aday_kvkk_kaydi_ve_bildirim(istemci, yonetici_basl
     assert next(x for x in formlar_ if x["id"] == f["id"])["gonderim_sayisi"] == 2
 
 
-async def test_form_kvkk_onayi_zorunlu(istemci, yonetici_basligi, db_oturumu):
+async def test_form_kvkk_kutusu_artik_zorunlu_degil(istemci, yonetici_basligi, db_oturumu):
+    """Faz 4G: aydınlatma ile açık rıza ayrıldı — onay kutusu yok, gönderim onaysız da kabul.
+
+    Eski istemci (önbellekteki eski betik) `kvkk_onay` gönderirse yok sayılır.
+    """
+    from models.crm import CrmFormGonderimleri
+
     f = await _form(istemci, yonetici_basligi)
-    email = _e("kvkk")
-    for i, onay in enumerate((None, False, "true", 1)):
-        y, _ = await _gonder(istemci, f, {"email": email, "kvkk_onay": onay}, **{"x-mk-istemci-ip": f"192.0.2.{100 + i}"})
-        assert y.status_code == 400 and y.json()["detail"]["kod"] == "kvkk_gerekli", onay
-    assert await _adaylar(db_oturumu, email) == []
+    for i, onay in enumerate((None, False, "true", 1, True)):
+        email = _e(f"kvkk{i}")
+        govde = {"email": email}
+        if onay is not None:
+            govde["kvkk_onay"] = onay
+        else:
+            govde["kvkk_onay"] = None
+        y, _ = await _gonder(istemci, f, govde, **{"x-mk-istemci-ip": f"192.0.2.{100 + i}"})
+        assert y.status_code == 200, (onay, y.text)
+        a = await _adaylar(db_oturumu, email)
+        assert len(a) == 1
+        g = (await db_oturumu.execute(select(CrmFormGonderimleri).where(CrmFormGonderimleri.aday_id == a[0].id))).scalar_one()
+        # Gösterilen aydınlatmanın sürümü ve özeti yine saklanıyor; pazarlama izni yok.
+        assert g.kvkk_surum == 1 and len(g.kvkk_metin_ozeti) == 64 and not g.pazarlama_izni
+
+
+async def test_form_tanimi_kvkk_metni_zorunlu_degil_aydinlatma_satiri(istemci, yonetici_basligi):
+    # Yeni form KVKK metni olmadan oluşturulabiliyor.
+    y = await istemci.post(f"{K}/formlar", json={"ad": "Sade form"}, headers=yonetici_basligi)
+    assert y.status_code == 201, y.text
+    f = y.json()
+    assert f["aydinlatma_metni"] == "" and f["pazarlama_izni_sor"] is False and "kvkk_metni" not in f
+    t = (await istemci.get(f"/api/v1/crm/form/{f['genel_anahtar']}?dil=en")).json()
+    # Onay kutusu metni yok; dildeki hazır aydınlatma satırı + /en/gizlilik.
+    assert t["aydinlatma"]["metin"].startswith("The information you send is processed only")
+    assert t["aydinlatma"]["baglanti"] == "https://mehmetkuru.dev/en/gizlilik"
+    assert t["kvkk"] == t["aydinlatma"]  # eski betik için eski ad
+    assert t["pazarlama"] is None
+    # Formun kendi satırı + uzunluk sınırı; satır değişince sürüm artar.
+    y = await istemci.patch(f"{K}/formlar/{f['id']}", json={"aydinlatma_metni": "x" * 601}, headers=yonetici_basligi)
+    assert y.status_code == 400 and y.json()["detail"]["kod"] == "aydinlatma_metni_uzun"
+    y = await istemci.patch(f"{K}/formlar/{f['id']}", json={"aydinlatma_metni": "  Özel   satır. "}, headers=yonetici_basligi)
+    assert y.json()["aydinlatma_metni"] == "Özel satır." and y.json()["kvkk_surum"] == 2
+    t = (await istemci.get(f"/api/v1/crm/form/{f['genel_anahtar']}?dil=ar")).json()
+    assert t["aydinlatma"]["metin"] == "Özel satır." and t["aydinlatma"]["surum"] == 2
+    # Eski panel `kvkk_metni` gönderirse kabul (zorunlu değil, sürüm değişmez).
+    y = await istemci.patch(f"{K}/formlar/{f['id']}", json={"kvkk_metni": ""}, headers=yonetici_basligi)
+    assert y.status_code == 200 and y.json()["kvkk_surum"] == 2
+
+
+async def test_form_pazarlama_izni_isteğe_bagli_ve_kaydedilir(istemci, yonetici_basligi, db_oturumu):
+    from models.crm import CrmFormGonderimleri
+
+    f = await _form(istemci, yonetici_basligi, pazarlama_izni_sor=True)
+    assert f["pazarlama_izni_sor"] is True
+    t = (await istemci.get(f"/api/v1/crm/form/{f['genel_anahtar']}?dil=de")).json()
+    assert t["pazarlama"] == {"metin": "Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden.", "surum": "1/de"}
+
+    # İşaretsiz: form yine gönderilir, izin yok.
+    bos = _e("izinsiz")
+    y, _ = await _gonder(istemci, f, {"email": bos})
+    assert y.status_code == 200
+    a = (await _adaylar(db_oturumu, bos))[0]
+    assert a.pazarlama_izni_at is None
+
+    # İşaretli (JSON true): gönderimde ve adayda izin + zaman + metin sürümü.
+    eposta = _e("izinli")
+    y, _ = await _gonder(istemci, f, {"email": eposta, "pazarlama_izni": True, "dil": "de"},
+                         **{"x-mk-istemci-ip": "192.0.2.150"})
+    assert y.status_code == 200
+    a = (await _adaylar(db_oturumu, eposta))[0]
+    g = (await db_oturumu.execute(select(CrmFormGonderimleri).where(CrmFormGonderimleri.aday_id == a.id))).scalar_one()
+    assert g.pazarlama_izni is True and g.pazarlama_izni_at is not None and g.pazarlama_metin_surumu == "1/de"
+    d = (await istemci.get(f"{K}/adaylar/{a.id}", headers=yonetici_basligi)).json()
+    assert d["aday"]["pazarlama_izni"] is True
+    assert d["aday"]["pazarlama_izni_kaynak"] == f"form:{f['id']}" and d["aday"]["pazarlama_metin_surumu"] == "1/de"
+    assert d["bagli_kayitlar"][0]["pazarlama_izni"] is True
+
+    # Panelden izin VERİLEMEZ, yalnız geri alınır (kişinin talebi).
+    y = await istemci.patch(f"{K}/adaylar/{a.id}", json={"pazarlama_izni": True}, headers=yonetici_basligi)
+    assert y.status_code == 400
+    y = await istemci.patch(f"{K}/adaylar/{a.id}", json={"pazarlama_izni": False}, headers=yonetici_basligi)
+    assert y.status_code == 200 and y.json()["pazarlama_izni"] is False and y.json()["pazarlama_izni_at"] is None
+    # Gönderim kaydındaki kanıt duruyor.
+    gid = g.id
+    db_oturumu.expire_all()
+    g = (await db_oturumu.execute(select(CrmFormGonderimleri).where(CrmFormGonderimleri.id == gid))).scalar_one()
+    assert g.pazarlama_izni is True
+
+    # Form sormuyorsa gönderilen izin yok sayılır.
+    f2 = await _form(istemci, yonetici_basligi)
+    e2 = _e("sormayan")
+    y, _ = await _gonder(istemci, f2, {"email": e2, "pazarlama_izni": True}, **{"x-mk-istemci-ip": "192.0.2.151"})
+    assert y.status_code == 200
+    assert (await _adaylar(db_oturumu, e2))[0].pazarlama_izni_at is None
 
 
 async def test_form_bal_kupu_sessizce_yok_sayar(istemci, yonetici_basligi, db_oturumu):

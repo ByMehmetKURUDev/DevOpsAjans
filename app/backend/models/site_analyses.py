@@ -42,7 +42,14 @@ class Site_analyses(Base):
     rapor_json = Column(Text, nullable=True)
     eposta = Column(String, nullable=True, index=True)
     ad = Column(String, nullable=True)
+    #: Eski istemcilerin gönderdiği onay işareti (Faz 4G'den beri sorulmuyor:
+    #: rapor isteği aydınlatmayla işleniyor, rıza ön koşulu değil).
     kvkk_onay = Column(Boolean, nullable=False, default=False)
+    #: Faz 4G — isteğe bağlı pazarlama izni (site ayarı açıksa sorulur): izin,
+    #: zamanı ve gösterilen metnin sürümü (`services/pazarlama_izni.py`, "1/tr").
+    pazarlama_izni = Column(Boolean, nullable=True, default=False)
+    pazarlama_izni_at = Column(DateTime(timezone=True), nullable=True)
+    pazarlama_metin_surumu = Column(String, nullable=True)
     #: Tam rapor bağlantısının jetonu (secrets.token_urlsafe(16)).
     jeton = Column(String, nullable=True, unique=True, index=True)
     jeton_son = Column(DateTime(timezone=True), nullable=True)

@@ -22,8 +22,12 @@
  * kendisi yükler.
  *
  * Dosya tabanlı yönlendirme yalnız TEK parçalı `/menu/<slug>`i karşılıyor.
- * `public/_headers` Function yanıtlarına uygulanmadığı için temel başlıklar burada.
+ * `public/_headers` Function yanıtlarına uygulanmadığı için temel başlıklar (Faz 4G:
+ * ve sitenin CSP'si, `_ortak/csp.js`) burada; arka uç isteği vekil imzalı.
  */
+
+import { cspBasliklari } from '../_ortak/csp.js';
+import { vekilBasliklari } from '../_ortak/vekil.js';
 
 const GUVENLIK_BASLIKLARI = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -64,12 +68,16 @@ function basliklariEkle(yanit, ek = {}) {
   for (const [ad, deger] of Object.entries(GUVENLIK_BASLIKLARI)) {
     if (!kopya.headers.has(ad)) kopya.headers.set(ad, deger);
   }
+  for (const [ad, deger] of Object.entries(cspBasliklari())) kopya.headers.set(ad, deger);
   for (const [ad, deger] of Object.entries(ek)) kopya.headers.set(ad, deger);
   return kopya;
 }
 
-/** Menünün özeti: `{durum, veri}`; ağ hatası / zaman aşımı / 5xx → `{durum: 0}`. */
-export async function ozetAl(origin, slug, urun, dil) {
+/**
+ * Menünün özeti: `{durum, veri}`; ağ hatası / zaman aşımı / 5xx → `{durum: 0}`.
+ * `istek`/`env` verilirse arka uç isteği vekil imzalı (Faz 4G).
+ */
+export async function ozetAl(origin, slug, urun, dil, istek = null, env = null) {
   const p = new URLSearchParams();
   if (urun && /^\d{1,10}$/.test(urun)) p.set('urun', urun);
   if (dil && DILLER.includes(dil)) p.set('dil', dil);
@@ -79,7 +87,7 @@ export async function ozetAl(origin, slug, urun, dil) {
   const zaman = setTimeout(() => iptal.abort(), ZAMAN_ASIMI_MS);
   try {
     const y = await fetch(adres, {
-      headers: { accept: 'application/json' },
+      headers: vekilBasliklari(new Headers({ accept: 'application/json' }), istek, env),
       signal: iptal.signal,
       // Kenarda kısa süre önbellek: aynı menü art arda paylaşılınca arka uç yorulmasın.
       cf: { cacheTtl: 60, cacheEverything: true },
@@ -217,7 +225,7 @@ export async function onRequest({ request, env, params }) {
 
   let sonuc = { durum: 404 };
   if (SLUG.test(slug) && env.API_ORIGIN) {
-    sonuc = await ozetAl(env.API_ORIGIN, slug, urun, dilParam);
+    sonuc = await ozetAl(env.API_ORIGIN, slug, urun, dilParam, request, env);
   } else if (SLUG.test(slug)) {
     sonuc = { durum: 0 };
   }

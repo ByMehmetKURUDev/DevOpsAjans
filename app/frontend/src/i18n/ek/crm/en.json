@@ -70,7 +70,7 @@
     "ilkMesaj": "First message",
     "bagliKayitlar": "Linked records",
     "kayitSilinmis": "Record deleted",
-    "kvkkSurumu": "privacy text v{{sayi}}",
+    "kvkkSurumu": "notice v{{sayi}}",
     "ac": "Open",
     "sistem": "System",
     "asamaSilindiSebep": "because the stage was deleted",
@@ -216,14 +216,14 @@
       "kural": "At least one stage of each type (open, won, lost) must remain. If a form's default stage is deleted, the first open stage is used."
     },
     "form": {
-      "aciklama": "Lead forms to paste into your own site or your clients' sites. Submissions become leads with the “Embedded form” source; privacy consent is required and recorded.",
+      "aciklama": "Lead forms to paste into your own site or your clients' sites. Submissions become leads with the “Embedded form” source. There is no consent checkbox: a privacy notice line and link appear below the send button; if you want marketing permission, it is asked separately and optionally.",
       "yeni": "New form",
       "duzenle": "Edit form",
       "bos": "No forms yet.",
       "aktif": "Live",
       "pasif": "Off",
       "aktifEt": "Form is live (a disabled form accepts no submissions)",
-      "istatistik": "{{sayi}} submissions · privacy text v{{surum}}",
+      "istatistik": "{{sayi}} submissions · notice v{{surum}}",
       "sonGonderim": "last: {{tarih}}",
       "izinli": "Allowed domains",
       "gommeKopyala": "Copy embed code",
@@ -248,10 +248,14 @@
       "yonlendirme": "Redirect after submission (optional, https only)",
       "izinliAlanlar": "Allowed domains (one per line)",
       "izinliIpucu": "Subdomains are allowed too. Always allowed: {{liste}}",
-      "kvkkMetni": "Privacy consent checkbox text",
-      "kvkkVarsayilan": "I agree that my personal data is processed as described in the privacy notice so that my request can be answered.",
-      "kvkkSurumIpucu": "Current version: {{sayi}}. Changing the text or the link raises the version; every consent is stored with the version it was given to.",
-      "aydinlatma": "Privacy notice link (https)"
+      "kvkkSurumIpucu": "Current version: {{sayi}}. Changing the line or the link raises the version; every submission is stored with the version it saw.",
+      "aydinlatma": "Privacy notice link (https)",
+      "aydinlatmaMetni": "Privacy notice line (optional)",
+      "aydinlatmaMetniIpucu": "Leave empty to show a ready-made sentence in the visitor's language.",
+      "aydinlatmaAciklama": "Shown below the send button together with the privacy notice link, as information only; no consent is requested.",
+      "pazarlamaSor": "Ask for marketing permission",
+      "pazarlamaSorIpucu": "The form shows an unticked “I would like to hear about campaigns and announcements by email” box. If ticked, the permission, its time and the text version are recorded; the form is sent either way.",
+      "pazarlamaRozet": "Asks for marketing permission"
     },
     "hata": {
       "genel": "The action could not be completed; please try again.",
@@ -284,7 +288,19 @@
       "baslik_uzun": "The title is too long.",
       "tesekkur_uzun": "The thank-you text is too long.",
       "kvkk_metni_gerekli": "The consent text is required (at least 10 characters).",
-      "kvkk_metni_uzun": "The consent text is too long."
+      "kvkk_metni_uzun": "The consent text is too long.",
+      "aydinlatma_metni_uzun": "The privacy notice line is too long (600 characters at most)."
+    },
+    "pazarlama": {
+      "var": "Marketing email permission given",
+      "yok": "No marketing email permission",
+      "surum": "text v{{surum}}",
+      "geriAl": "Withdraw permission",
+      "geriAlOnay": "Withdraw the marketing permission? Use this when the person has told you they opted out; it cannot be given again from the panel, only by the person ticking the box in a form again.",
+      "geriAlindi": "Marketing permission withdrawn.",
+      "kaynakForm": "form #{{no}}",
+      "kaynakSiteAnalizi": "site analysis",
+      "rozet": "marketing permission"
     }
   }
 }

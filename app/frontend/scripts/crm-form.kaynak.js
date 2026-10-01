@@ -3,6 +3,8 @@
  * <div data-mk-form="ANAHTAR"></div>   (isteğe bağlı: data-mk-dil="en")
  * Bağımlılıksız; shadow DOM içinde (sitenin CSS'i karışmaz, yazı tipi/renk
  * siteden miras). Kurallar sunucuda: /api/v1/crm/form/<anahtar>.
+ * KVKK (Faz 4G): onay kutusu yok — gönder düğmesinin altında aydınlatma satırı
+ * + bağlantı. Pazarlama izni ayrı, isteğe bağlı, işaretsiz kutu (form soruyorsa).
  */
 (function (w, d) {
   'use strict';
@@ -14,11 +16,11 @@
     'input,textarea{font:inherit;font-weight:400;color:inherit;background:rgba(127,127,127,.08);border:1px solid rgba(127,127,127,.45);border-radius:10px;padding:10px 12px;width:100%;box-sizing:border-box}' +
     'input:focus,textarea:focus{outline:2px solid #8b5cf6;outline-offset:1px}' +
     '.k{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:.85em;line-height:1.45}.k input{width:auto;margin:3px 0 0}' +
-    '.k a{color:inherit;margin-inline-start:4px}' +
+    '.k a,.a a{color:inherit;margin-inline-start:4px}.a{margin:0;font-size:.8em;opacity:.75;line-height:1.45}' +
     'button{font:inherit;font-weight:700;color:#fff;background:linear-gradient(90deg,#7c3aed,#db2777);border:0;border-radius:10px;padding:11px 20px;cursor:pointer;justify-self:start}' +
     'button:disabled{opacity:.6;cursor:wait}.h{margin:0;font-size:.9em;color:#f43f5e;min-height:1.2em}' +
     '.t{margin:0;padding:14px;border-radius:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.4)}' +
-    '.b{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}i{font-weight:400;opacity:.7}';
+    '.b{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);opacity:0}i{font-weight:400;opacity:.7}';
   var OTO = { ad: 'name', email: 'email', telefon: 'tel', firma: 'organization' };
 
   function el(ad, oz, cocuklar) {
@@ -51,23 +53,23 @@
       f.appendChild(el('label', null, [el('span', null, [a.etiket, a.zorunlu ? ' *' : el('i', { text: ' (' + m.istege_bagli + ')' })]), g]));
     });
     var bal = el('input', { name: t.bal_kupu, tabindex: '-1', autocomplete: 'off', 'aria-hidden': 'true', class: 'b' });
-    var onay = el('input', { type: 'checkbox', required: '' });
-    var k = el('label', { class: 'k' }, [onay, el('span', { text: t.kvkk.metin })]);
-    if (t.kvkk.baglanti) k.appendChild(el('a', { href: t.kvkk.baglanti, target: '_blank', rel: 'noopener', text: m.aydinlatma }));
+    var pz = t.pazarlama && el('input', { type: 'checkbox', name: 'pazarlama_izni' });
+    var ay = t.aydinlatma || t.kvkk || {};
+    var a = el('p', { class: 'a', 'data-aydinlatma': '' }, [ay.metin || '']);
+    if (ay.baglanti) a.appendChild(el('a', { href: ay.baglanti, target: '_blank', rel: 'noopener', text: m.aydinlatma }));
     var ileti = el('p', { class: 'h', role: 'alert', 'aria-live': 'polite' });
     var btn = el('button', { type: 'submit', text: m.gonder });
-    [bal, k, ileti, btn].forEach(function (x) {
-      f.appendChild(x);
+    [bal, pz && el('label', { class: 'k' }, [pz, el('span', null, [t.pazarlama.metin, el('i', { text: ' (' + m.istege_bagli + ')' })])]), ileti, btn, a].forEach(function (x) {
+      if (x) f.appendChild(x);
     });
     f.addEventListener('submit', function (e) {
       e.preventDefault();
       ileti.textContent = '';
-      if (!onay.checked) return (ileti.textContent = m.hata.kvkk_gerekli);
       if (!f.checkValidity()) {
         ileti.textContent = m.hata.alan_gerekli;
         return f.reportValidity && f.reportValidity();
       }
-      var v = { jeton: t.jeton, kvkk_onay: true, dil: t.dil };
+      var v = { jeton: t.jeton, dil: t.dil, pazarlama_izni: !!(pz && pz.checked) };
       v[t.bal_kupu] = bal.value;
       t.alanlar.forEach(function (a) {
         v[a.ad] = f.elements.namedItem(a.ad).value;

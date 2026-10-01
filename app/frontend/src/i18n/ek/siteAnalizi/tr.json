@@ -40,7 +40,8 @@
       "aciklama": "Bütün bulgular, her biri için neden önemli olduğu ve ne yapılması gerektiği, taranan sayfalar ve kırık bağlantıların listesiyle yazdırılabilir tam rapor. Bağlantı 30 gün geçerli.",
       "ad": "Adınız (isteğe bağlı)",
       "eposta": "E-posta adresiniz",
-      "kvkk": "Raporun gönderilmesi ve bu analizle ilgili bana dönüş yapılması için ad ve e-posta bilgilerimin KVKK kapsamında işlenmesini kabul ediyorum.",
+      "pazarlama": "Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum.",
+      "istegeBagli": "isteğe bağlı",
       "gonder": "Tam raporu gönder",
       "basarili": "Tam rapor bağlantısı e-posta adresinize gönderildi.",
       "basariliAciklama": "Gelen kutunuzu (ve istenmeyen klasörünü) kontrol edin. Bağlantı 30 gün geçerli."
@@ -116,7 +117,12 @@
         "acik": "Herkese açık form",
         "musteri": "Müşteri paneli",
         "yonetici": "Yönetici"
-      }
+      },
+      "pazarlamaSor": "Tam rapor formunda pazarlama izni sor",
+      "pazarlamaSorIpucu": "Açıkken formda varsayılan olarak işaretsiz “Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum” kutusu çıkar. Rapor isteği bu kutudan bağımsızdır; işaretlenirse izin, zamanı ve metin sürümü kaydedilir.",
+      "pazarlamaKaydedildi": "Pazarlama izni ayarı kaydedildi.",
+      "pazarlamaVar": "Pazarlama izni var ({{tarih}}, metin s.{{surum}})",
+      "pazarlamaYok": "Pazarlama izni yok"
     },
     "musteri": {
       "baslik": "Sitemi analiz et",

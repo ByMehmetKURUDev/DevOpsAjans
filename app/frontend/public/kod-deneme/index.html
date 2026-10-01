@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--
+  Faz 4G — ana sayfadaki kod deneme alanının çalıştırıcısı.
+
+  Ziyaretçinin yazdığı satır içi betik ve stil burada çalışıyor. Eskiden
+  `srcdoc` ile çiziliyordu; srcdoc belgesi sitenin CSP'sini miras aldığı için
+  CSP zorunlu olunca ziyaretçinin betiği engellenirdi. Artık ayrı bir belge:
+    * sitenin CSP'si bu yolda ayrılıyor (`public/_headers`, `!` satırları),
+    * bu meta CSP her ağ erişimini kapatıyor (default-src 'none'),
+    * çerçeve `sandbox="allow-scripts"` ile, allow-same-origin OLMADAN açılıyor
+      (kökeni opak: siteye, çerezlere, depolamaya erişemez).
+  Kod üst pencereden postMessage ile geliyor; belge her çalıştırmada yeniden
+  yükleniyor (önceki kodun kalıntısı kalmasın).
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:">
+<meta name="robots" content="noindex, nofollow">
+<title>Kod deneme</title>
+</head>
+<body>
+<script>
+(function () {
+  window.addEventListener('message', function (e) {
+    if (e.source !== window.parent || !e.data || e.data.tur !== 'mk-kod') return;
+    document.open();
+    document.write(String(e.data.kod || ''));
+    document.close();
+  });
+  window.parent.postMessage({ tur: 'mk-kod-hazir' }, '*');
+})();
+</script>
+</body>
+</html>

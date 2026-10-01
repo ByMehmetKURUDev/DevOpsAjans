@@ -70,7 +70,7 @@
     "ilkMesaj": "首条留言",
     "bagliKayitlar": "关联记录",
     "kayitSilinmis": "记录已删除",
-    "kvkkSurumu": "隐私条款 v{{sayi}}",
+    "kvkkSurumu": "告知第 {{sayi}} 版",
     "ac": "打开",
     "sistem": "系统",
     "asamaSilindiSebep": "因阶段被删除",
@@ -216,14 +216,14 @@
       "kural": "每种类型（进行中、已成交、已流失）至少保留一个阶段。若表单的默认阶段被删除，将使用第一个进行中阶段。"
     },
     "form": {
-      "aciklama": "可粘贴到自己网站或客户网站上的线索表单。提交内容会以“嵌入式表单”来源成为线索；必须勾选隐私同意，且会被记录。",
+      "aciklama": "可粘贴到您自己网站或客户网站的潜在客户表单。提交内容会以“嵌入式表单”来源成为潜在客户。表单没有同意勾选框：提交按钮下方显示隐私告知语句和链接；如需营销许可，会单独且可选地询问。",
       "yeni": "新建表单",
       "duzenle": "编辑表单",
       "bos": "暂无表单。",
       "aktif": "已启用",
       "pasif": "已关闭",
       "aktifEt": "表单已启用（关闭的表单不接受提交）",
-      "istatistik": "{{sayi}} 次提交 · 隐私条款 v{{surum}}",
+      "istatistik": "{{sayi}} 次提交 · 告知第 {{surum}} 版",
       "sonGonderim": "最近：{{tarih}}",
       "izinli": "允许的域名",
       "gommeKopyala": "复制嵌入代码",
@@ -248,10 +248,14 @@
       "yonlendirme": "提交后跳转（可选，仅限 https）",
       "izinliAlanlar": "允许的域名（每行一个）",
       "izinliIpucu": "子域名同样允许。始终允许：{{liste}}",
-      "kvkkMetni": "隐私同意复选框文字",
-      "kvkkVarsayilan": "我同意按照隐私说明处理我的个人数据，以便回复我的咨询。",
-      "kvkkSurumIpucu": "当前版本：{{sayi}}。修改文字或链接会提升版本；每次同意都会连同版本号一起保存。",
-      "aydinlatma": "隐私说明链接（https）"
+      "kvkkSurumIpucu": "当前版本：{{sayi}}。修改语句或链接会提高版本；每次提交都会连同访客看到的版本一起保存。",
+      "aydinlatma": "隐私说明链接（https）",
+      "aydinlatmaMetni": "隐私告知语句（可选）",
+      "aydinlatmaMetniIpucu": "留空则以访客的语言显示预设语句。",
+      "aydinlatmaAciklama": "与隐私告知链接一起显示在提交按钮下方，仅作告知，不要求同意。",
+      "pazarlamaSor": "询问营销许可",
+      "pazarlamaSorIpucu": "表单中会出现默认未勾选的“我希望通过电子邮件接收优惠活动和公告”复选框。勾选后会记录许可、时间和文本版本；不勾选也能提交表单。",
+      "pazarlamaRozet": "询问营销许可"
     },
     "hata": {
       "genel": "操作未能完成，请重试。",
@@ -284,7 +288,19 @@
       "baslik_uzun": "标题过长。",
       "tesekkur_uzun": "感谢语过长。",
       "kvkk_metni_gerekli": "必须填写同意文字（至少 10 个字符）。",
-      "kvkk_metni_uzun": "同意文字过长。"
+      "kvkk_metni_uzun": "同意文字过长。",
+      "aydinlatma_metni_uzun": "隐私告知语句过长（最多 600 个字符）。"
+    },
+    "pazarlama": {
+      "var": "已获营销邮件许可",
+      "yok": "未获营销邮件许可",
+      "surum": "文本第 {{surum}} 版",
+      "geriAl": "撤回许可",
+      "geriAlOnay": "要撤回营销许可吗？请在对方告知拒收时使用；面板中无法重新授予，只能由本人在表单中再次勾选。",
+      "geriAlindi": "营销许可已撤回。",
+      "kaynakForm": "表单 #{{no}}",
+      "kaynakSiteAnalizi": "网站分析",
+      "rozet": "营销许可"
     }
   }
 }

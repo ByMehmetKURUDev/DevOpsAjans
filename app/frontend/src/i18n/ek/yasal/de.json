@@ -128,7 +128,7 @@
                   ],
                   [
                     "Google LLC / Google Ireland Ltd.",
-                    "Anmeldung mit Google; KI-Funktionen (Gemini API); PageSpeed Insights für die Website-Analyse; mit Ihrer Einwilligung Google Analytics und Google Ads; Schriftarten für Arabisch und Hindi (Google Fonts); die Karte auf der Kontaktseite (Google Maps)",
+                    "Anmeldung mit Google; KI-Funktionen (Gemini API); PageSpeed Insights für die Website-Analyse; mit Ihrer Einwilligung Google Analytics und Google Ads; Schriftarten für Arabisch und Hindi (Google Fonts); die Karte auf der Kontaktseite (Google Maps; nur wenn Sie sie öffnen oder mit Ihrer Einwilligung)",
                     "USA; EU"
                   ],
                   [
@@ -579,7 +579,7 @@
           "bloklar": [
             {
               "liste": [
-                "**Google Maps:** Die Karte auf der Kontaktseite wird von Google eingebettet; Google kann in diesem Rahmen eigene Cookies verwenden.",
+                "**Google Maps:** Die Karte auf der Kontaktseite wird nur dann von Google eingebettet, wenn Sie auf „Karte anzeigen“ klicken oder Cookies akzeptiert haben; nach dem Laden kann Google in diesem Rahmen eigene Cookies verwenden. Ohne Ihre Einwilligung werden stattdessen die Adresse und ein Link zum Öffnen in Google Maps angezeigt.",
                 "**Google Fonts:** Wenn Sie Arabisch oder Hindi wählen, werden die passenden Schriftarten von Google-Servern geladen; dabei wird Ihre IP-Adresse an Google übermittelt. Die Schriftarten der anderen Sprachen kommen von unserem eigenen Server.",
                 "**Zahlungsseiten:** Die Zahlungsseiten von Shopier und Lemon Squeezy öffnen sich auf deren eigenen Domains und verwenden eigene Cookies.",
                 "**Web Push:** Wenn Sie Benachrichtigungen erlauben, legt Ihr Browser ein Abonnement an; Sie können diese Erlaubnis in den Browsereinstellungen oder in den Benachrichtigungseinstellungen des Kundenportals entfernen."

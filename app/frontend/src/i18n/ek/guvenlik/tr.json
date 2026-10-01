@@ -63,6 +63,19 @@
       "buCihazOnay": "Bu cihazdaki oturumu kapatırsanız çıkış yapılır. Devam edilsin mi?",
       "eskiOturum": "Bu cihazdaki oturumunuz eski usulde açılmış; bir sonraki girişinizden sonra burada görünecek.",
       "bos": "Açık oturum bulunamadı."
+    },
+    "csp": {
+      "baslik": "CSP ihlal raporları",
+      "aciklama": "Sitenin İçerik Güvenliği Politikası (CSP) zorunlu modda. Tarayıcılar politikaya takılan her kaynağı buraya bildirir; son 500 farklı ihlal tutulur, aynı ihlal bir saat içinde tekrarlanırsa sayaç artar. Liste boşsa sorun yok; yeni bir analitik ya da reklam alan adı, değişen bir satır içi betik burada görünür.",
+      "bos": "Henüz ihlal raporu yok.",
+      "hata": "CSP raporları yüklenemedi.",
+      "temizle": "Listeyi temizle",
+      "temizleOnay": "Bütün CSP raporları silinsin mi?",
+      "temizlendi": "CSP raporları temizlendi.",
+      "modEngel": "engellendi",
+      "modRapor": "yalnız raporlandı",
+      "son": "son: {{zaman}}",
+      "gosterilen": "{{toplam}} rapordan {{sayi}} tanesi gösteriliyor."
     }
   }
 }

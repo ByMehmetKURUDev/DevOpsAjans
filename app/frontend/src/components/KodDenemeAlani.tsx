@@ -23,6 +23,14 @@ import { Button } from '@/components/ui/button';
  *    bağlantı yüklenemiyor. Böylece deneme alanı başkasının sunucusuna
  *    istek atmak için kullanılamıyor.
  *  - Kod hiçbir yere gönderilmiyor, kaydedilmiyor; yalnızca bu sekmede.
+ *  - Faz 4G: çerçeve `srcdoc` DEĞİL, ayrı bir belge (`/kod-deneme/`,
+ *    `public/kod-deneme/index.html`). srcdoc belgesi sitenin CSP'sini miras
+ *    alıyor; CSP zorunlu olunca ziyaretçinin satır içi betiği engellenirdi.
+ *    O yolda sitenin CSP'si ayrılıyor (`public/_headers`), belge kendi meta
+ *    CSP'sini taşıyor. Kod `postMessage` ile gidiyor: çerçeve "hazırım"
+ *    deyince (kaynağı bu çerçeve olan ileti) kod yollanıyor; her çalıştırmada
+ *    çerçeve yeniden yükleniyor (`key`). Çerçeve yalnız istemcide çiziliyor:
+ *    prerender HTML'inde yok, başka sayfaların açılışında boşuna yüklenmesin.
  *
  * Çalıştırma gecikmeli (600 ms): her tuşa basışta yeniden kurmak hem
  * yarım yazılmış kodu sürekli hata ekranına çeviriyor hem de boşuna
@@ -131,6 +139,30 @@ function KodDenemeAlani() {
 
   const belge = useMemo(() => belgeyiKur(calisan), [calisan]);
 
+  // Çalıştırıcı çerçeve: istemcide çizilir; her yeni kodda yeniden yüklenir.
+  const [istemcide, setIstemcide] = useState(false);
+  const [surum, setSurum] = useState(0);
+  const cerceve = useRef<HTMLIFrameElement | null>(null);
+  const sonBelge = useRef(belge);
+  useEffect(() => setIstemcide(true), []);
+  useEffect(() => {
+    if (sonBelge.current === belge) return; // ilk çizim: çerçeve zaten bu kodu isteyecek
+    sonBelge.current = belge;
+    setSurum((s) => s + 1);
+  }, [belge]);
+  useEffect(() => {
+    const dinle = (e: MessageEvent) => {
+      const pencere = cerceve.current?.contentWindow;
+      if (!pencere || e.source !== pencere) return;
+      if ((e.data as { tur?: string } | null)?.tur !== 'mk-kod-hazir') return;
+      // Kum havuzundaki çerçevenin kökeni opak ("null"): hedef '*' olmak zorunda;
+      // giden yalnız ziyaretçinin kendi yazdığı kod.
+      pencere.postMessage({ tur: 'mk-kod', kod: sonBelge.current }, '*');
+    };
+    window.addEventListener('message', dinle);
+    return () => window.removeEventListener('message', dinle);
+  }, []);
+
   return (
     <section
       id="playground"
@@ -188,16 +220,23 @@ function KodDenemeAlani() {
             <span className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
               {t('playground.sonuc')}
             </span>
-            <iframe
-              title={t('playground.sonuc')}
-              srcDoc={belge}
-              /*
-                allow-same-origin BİLEREK yok: sandbox'tan çıkıp ana
-                sayfaya erişmesini engelleyen şey tam olarak bu.
-              */
-              sandbox="allow-scripts"
-              className="h-[420px] w-full rounded-2xl border border-white/10 bg-background"
-            />
+            {istemcide ? (
+              <iframe
+                key={surum}
+                ref={cerceve}
+                title={t('playground.sonuc')}
+                src="/kod-deneme/"
+                /*
+                  allow-same-origin BİLEREK yok: sandbox'tan çıkıp ana
+                  sayfaya erişmesini engelleyen şey tam olarak bu.
+                */
+                sandbox="allow-scripts"
+                data-kod-deneme
+                className="h-[420px] w-full rounded-2xl border border-white/10 bg-background"
+              />
+            ) : (
+              <div className="h-[420px] w-full rounded-2xl border border-white/10 bg-background" aria-hidden="true" />
+            )}
           </div>
         </div>
 

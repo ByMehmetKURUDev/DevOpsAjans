@@ -14,6 +14,15 @@
  *     bakıyor. index.html'deki bir betik değişip hash güncellenmezse:
  *       - CSP yalnız rapor modundaysa UYARI (derleme sürer),
  *       - CSP zorunluysa HATA (derleme durur; yoksa site betiksiz kalır).
+ *     CSP'si `! Content-Security-Policy` ile ayrılan yollar (kod deneme alanı:
+ *     kendi meta CSP'si var) bu denetimin dışında; onlarda meta CSP aranıyor.
+ *
+ * Faz 4G: CSP'nin TEK KAYNAĞI `functions/_ortak/csp.js`. `public/_headers`
+ * içindeki `Content-Security-Policy: {{CSP}}` satırı burada o politikayla
+ * dolduruluyor ve `dist/_headers`'a yazılıyor (+ `Reporting-Endpoints`).
+ * `CSP_ZORUNLU = false` ise başlık adları (ayırma satırları dahil)
+ * `Content-Security-Policy-Report-Only` olur. Böylece zorunlu/rapor modu tek
+ * sabitle değişiyor ve kart/menü Function'ları aynı politikayı kullanıyor.
  *
  * Kullanım: `node scripts/guvenlik-basliklari.mjs [--json]`
  * Sözdizimi hatasında çıkış kodu 1.
@@ -22,6 +31,8 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { CSP_BASLIK_ADI, CSP_POLITIKASI, CSP_ZORUNLU, RAPORLAMA_UCLARI } from '../functions/_ortak/csp.js';
 
 const kok = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dosya = fs.existsSync(path.join(kok, 'dist', '_headers'))
@@ -56,6 +67,12 @@ export function ayristir(metin) {
       hatalar.push(`${no}. satır: yol satırından önce başlık`);
       return;
     }
+    // Ayırma (detach) satırı: `! Başlık-Adı` (iki nokta yok) — Cloudflare biçimi.
+    const ayir = satir.trim().match(/^!\s*([A-Za-z0-9-]+):?\s*$/);
+    if (ayir) {
+      simdiki.basliklar.push([`!${ayir[1].toLowerCase()}`, '']);
+      return;
+    }
     const m = satir.trim().match(/^(!?)([A-Za-z0-9-]+):\s*(.*)$/);
     if (!m) {
       hatalar.push(`${no}. satır: "Ad: değer" biçiminde değil: ${satir.trim().slice(0, 60)}`);
@@ -69,6 +86,36 @@ export function ayristir(metin) {
   });
   if (kurallar.length > 100) hatalar.push(`kural sayısı ${kurallar.length} > 100`);
   return { kurallar, hatalar };
+}
+
+export const YER_TUTUCU = '{{CSP}}';
+
+/**
+ * `public/_headers` metnindeki CSP yer tutucusunu `functions/_ortak/csp.js`'teki
+ * politikayla doldurur; rapor modunda başlık adlarını (ayırma `!` satırları
+ * dahil) `-Report-Only` yapar. Yer tutucu satırının hemen altına
+ * `Reporting-Endpoints` ekler. Yer tutucu yoksa metin değişmeden döner.
+ */
+export function cspYaz(metin, { ad = CSP_BASLIK_ADI, politika = CSP_POLITIKASI, raporlama = RAPORLAMA_UCLARI } = {}) {
+  const satirlar = metin.split(/\r?\n/);
+  const cikti = [];
+  for (const satir of satirlar) {
+    const m = satir.match(/^(\s+)(!\s*)?Content-Security-Policy(?:-Report-Only)?:?\s*(.*)$/i);
+    if (!m) {
+      cikti.push(satir);
+      continue;
+    }
+    const [, girinti, ayir, deger] = m;
+    if (ayir) {
+      cikti.push(`${girinti}! ${ad}`);
+    } else if (deger.trim() === YER_TUTUCU) {
+      cikti.push(`${girinti}${ad}: ${politika}`);
+      if (raporlama) cikti.push(`${girinti}Reporting-Endpoints: ${raporlama}`);
+    } else {
+      cikti.push(`${girinti}${ad}: ${deger}`);
+    }
+  }
+  return cikti.join('\n');
 }
 
 /** CSP metnini { yönerge: [değerler] } haritasına çevirir. */
@@ -111,8 +158,14 @@ export function satirIciHashler(html) {
 }
 
 function calistir() {
-  const metin = fs.readFileSync(dosya, 'utf8');
+  const ham = fs.readFileSync(dosya, 'utf8');
+  const metin = cspYaz(ham);
+  // dist'e yazılmış hâli yayına gider; public'teki yer tutucu kaynak olarak kalır.
+  if (dosya.includes(`${path.sep}dist${path.sep}`) && metin !== ham) fs.writeFileSync(dosya, metin);
   const { kurallar, hatalar } = ayristir(metin);
+  if (metin.split(/\r?\n/).some((s) => !s.trim().startsWith('#') && s.includes(YER_TUTUCU))) {
+    hatalar.push('CSP yer tutucusu doldurulamadı');
+  }
   const uyarilar = [];
 
   const genel = kurallar.find((k) => k.yol === '/*');
@@ -127,6 +180,7 @@ function calistir() {
       ? 'content-security-policy-report-only'
       : null;
   const zorunlu = cspAdi === 'content-security-policy';
+  if (cspAdi && zorunlu !== CSP_ZORUNLU) hatalar.push(`CSP modu functions/_ortak/csp.js ile uyuşmuyor (${cspAdi})`);
   let csp = {};
   if (!cspAdi) hatalar.push('CSP başlığı yok');
   else {
@@ -137,12 +191,24 @@ function calistir() {
     if (!zorunlu && csp['upgrade-insecure-requests']) uyarilar.push('upgrade-insecure-requests rapor modunda yok sayılır');
   }
 
+  // CSP'si ayrılan yollar (kendi meta CSP'sini taşıyan kod deneme alanı gibi).
+  const ayrilanlar = new Set(
+    kurallar.filter((k) => k.basliklar.some(([a]) => a === `!${cspAdi}`)).map((k) => k.yol)
+  );
+  const yolu = (f) => '/' + path.relative(path.join(kok, 'dist'), f).split(path.sep).join('/');
+
   // Derlenen HTML'deki satır içi kodlar CSP'de izinli mi?
   const izinli = new Set(csp['script-src'] ?? []);
   const eksik = new Map();
   const sayfalar = htmlDosyalari(path.join(kok, 'dist'));
   for (const f of sayfalar) {
-    const { betikler, isleyiciler } = satirIciHashler(fs.readFileSync(f, 'utf8'));
+    const html = fs.readFileSync(f, 'utf8');
+    const y = yolu(f);
+    if (ayrilanlar.has(y) || ayrilanlar.has(y.replace(/index\.html$/, ''))) {
+      if (!/<meta\s+http-equiv="Content-Security-Policy"/i.test(html)) hatalar.push(`${y}: CSP'si ayrılmış ama kendi meta CSP'si yok`);
+      continue;
+    }
+    const { betikler, isleyiciler } = satirIciHashler(html);
     for (const [h, ozet] of betikler) if (!izinli.has(h)) eksik.set(h, `betik: ${ozet}`);
     for (const [h, kod] of isleyiciler) {
       if (!izinli.has(h) || !izinli.has("'unsafe-hashes'")) eksik.set(h, `olay işleyici: ${kod}`);

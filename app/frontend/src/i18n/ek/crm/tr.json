@@ -70,7 +70,7 @@
     "ilkMesaj": "İlk mesaj",
     "bagliKayitlar": "Bağlı kayıtlar",
     "kayitSilinmis": "Kayıt silinmiş",
-    "kvkkSurumu": "KVKK metni s.{{sayi}}",
+    "kvkkSurumu": "aydınlatma s.{{sayi}}",
     "ac": "Aç",
     "sistem": "Sistem",
     "asamaSilindiSebep": "aşama silindiği için",
@@ -216,14 +216,14 @@
       "kural": "Her türden (açık, kazanıldı, kaybedildi) en az bir aşama kalmalı. Formların varsayılan aşaması silinirse ilk açık aşama kullanılır."
     },
     "form": {
-      "aciklama": "Kendi sitenize ya da müşteri sitelerine yapıştıracağınız aday formları. Gönderimler “Gömülü form” kaynağıyla aday olur; KVKK onayı zorunludur ve kaydedilir.",
+      "aciklama": "Kendi sitenize ya da müşteri sitelerine yapıştıracağınız aday formları. Gönderimler “Gömülü form” kaynağıyla aday olur. Onay kutusu yoktur: gönder düğmesinin altında aydınlatma satırı ve bağlantısı gösterilir; pazarlama izni isterseniz ayrı ve isteğe bağlı sorulur.",
       "yeni": "Yeni form",
       "duzenle": "Formu düzenle",
       "bos": "Henüz form yok.",
       "aktif": "Yayında",
       "pasif": "Kapalı",
       "aktifEt": "Form yayında (kapalı form gönderim kabul etmez)",
-      "istatistik": "{{sayi}} gönderim · KVKK metni s.{{surum}}",
+      "istatistik": "{{sayi}} gönderim · aydınlatma s.{{surum}}",
       "sonGonderim": "son: {{tarih}}",
       "izinli": "İzinli alan adları",
       "gommeKopyala": "Gömme kodunu kopyala",
@@ -248,10 +248,14 @@
       "yonlendirme": "Gönderimden sonra yönlendir (isteğe bağlı, yalnız https)",
       "izinliAlanlar": "İzinli alan adları (her satıra bir tane)",
       "izinliIpucu": "Alt alan adları da izinli. Her zaman izinli: {{liste}}",
-      "kvkkMetni": "KVKK onay kutusu metni",
-      "kvkkVarsayilan": "Kişisel verilerimin, talebime dönüş yapılması amacıyla aydınlatma metninde belirtilen şekilde işlenmesini kabul ediyorum.",
-      "kvkkSurumIpucu": "Şu anki sürüm: {{sayi}}. Metni ya da bağlantıyı değiştirmek sürümü artırır; her onay hangi sürüme verildiğiyle saklanır.",
-      "aydinlatma": "Aydınlatma metni bağlantısı (https)"
+      "kvkkSurumIpucu": "Şu anki sürüm: {{sayi}}. Satırı ya da bağlantıyı değiştirmek sürümü artırır; her gönderim hangi sürümü gördüğüyle saklanır.",
+      "aydinlatma": "Aydınlatma metni bağlantısı (https)",
+      "aydinlatmaMetni": "Aydınlatma satırı (isteğe bağlı)",
+      "aydinlatmaMetniIpucu": "Boş bırakırsanız ziyaretçinin dilinde hazır cümle gösterilir.",
+      "aydinlatmaAciklama": "Gönder düğmesinin altında, aydınlatma bağlantısıyla birlikte bilgilendirme olarak gösterilir; onay istenmez.",
+      "pazarlamaSor": "Pazarlama izni sor",
+      "pazarlamaSorIpucu": "Formda varsayılan olarak işaretsiz “Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum” kutusu çıkar. İşaretlenirse izin, zamanı ve metnin sürümü kaydedilir; işaretlenmese de form gönderilir.",
+      "pazarlamaRozet": "Pazarlama izni soruluyor"
     },
     "hata": {
       "genel": "İşlem tamamlanamadı; lütfen tekrar deneyin.",
@@ -284,7 +288,19 @@
       "baslik_uzun": "Başlık çok uzun.",
       "tesekkur_uzun": "Teşekkür metni çok uzun.",
       "kvkk_metni_gerekli": "KVKK onay metni zorunlu (en az 10 karakter).",
-      "kvkk_metni_uzun": "KVKK onay metni çok uzun."
+      "kvkk_metni_uzun": "KVKK onay metni çok uzun.",
+      "aydinlatma_metni_uzun": "Aydınlatma satırı çok uzun (en çok 600 karakter)."
+    },
+    "pazarlama": {
+      "var": "Pazarlama e-postası izni var",
+      "yok": "Pazarlama e-postası izni yok",
+      "surum": "metin s.{{surum}}",
+      "geriAl": "İzni geri al",
+      "geriAlOnay": "Pazarlama izni geri alınsın mı? Kişi vazgeçtiğini bildirdiyse kullanın; izin panelden yeniden verilemez, yalnız kişi formda yeniden işaretleyebilir.",
+      "geriAlindi": "Pazarlama izni geri alındı.",
+      "kaynakForm": "form #{{no}}",
+      "kaynakSiteAnalizi": "site analizi",
+      "rozet": "pazarlama izni"
     }
   }
 }

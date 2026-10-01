@@ -41,6 +41,11 @@ services:
         value: HS256
       - key: JWT_EXPIRE_MINUTES
         value: "10080"
+      # Faz 4G — Pages Function'ları ile arka uç arasındaki ortak gizli. Cloudflare
+      # Pages'te de AYNI değerle tanımlı olmalı (önce Pages'e, sonra buraya girin).
+      # Yokken X-MK-Istemci-IP başlığına imzasız güvenilir (utils/istemci_ip.py).
+      - key: VEKIL_ANAHTARI
+        sync: false
       # Kimlik sağlayıcı — Google OIDC
       - key: OIDC_ISSUER_URL
         sync: false

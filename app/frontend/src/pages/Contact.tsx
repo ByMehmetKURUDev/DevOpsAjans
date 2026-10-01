@@ -12,6 +12,7 @@ import SocialLinks from '@/components/SocialLinks';
 import StoreBadges from '@/components/StoreBadges';
 import { useSiteSettings } from '@/lib/siteSettings';
 import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
+import IletisimHaritasi from '@/components/IletisimHaritasi';
 
 
 
@@ -322,22 +323,10 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Map Section */}
+      {/* Harita — Faz 4G: Google çerçevesi yalnız rızayla ya da "Haritayı göster" ile yüklenir. */}
       <section className="alt-bolum pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl overflow-hidden glass border border-white/10">
-            <iframe
-              title="Office Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.5!2d28.98!3d41.08!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDA0JzQ4LjAiTiAyOMKwNTgnNDguMCJF!5e0!3m2!1str!2str!4v1"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full"
-            />
-          </div>
+          <IletisimHaritasi adres={settings.contact_address} />
         </div>
       </section>
     </div>

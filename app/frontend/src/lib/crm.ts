@@ -73,6 +73,11 @@ export interface AdayAyrintisi extends Aday {
   puan_ayrinti: PuanSatiri[];
   kaynak_tablo: string | null;
   kaynak_id: number | null;
+  /** Faz 4G: pazarlama (ticari ileti) izni — en son verildiği an, kaynağı ("form:3" | "site_analizi:12"), metin sürümü ("1/tr"). */
+  pazarlama_izni?: boolean;
+  pazarlama_izni_at?: string | null;
+  pazarlama_izni_kaynak?: string | null;
+  pazarlama_metin_surumu?: string | null;
 }
 
 export interface Aktivite {
@@ -99,6 +104,10 @@ export interface BagliKayit {
   kvkk_surum?: number;
   kvkk_onay_at?: string | null;
   koken?: string | null;
+  /** Faz 4G: bu gönderimde isteğe bağlı pazarlama izni verildi mi. */
+  pazarlama_izni?: boolean;
+  pazarlama_izni_at?: string | null;
+  pazarlama_metin_surumu?: string | null;
   zaman?: string | null;
 }
 
@@ -150,9 +159,13 @@ export interface CrmFormu {
   tesekkur_metni: string | null;
   yonlendirme_adresi: string | null;
   izinli_alanlar: string[];
-  kvkk_metni: string;
+  /** Faz 4G: gönder düğmesinin altındaki aydınlatma satırı (boşsa hazır metin). */
+  aydinlatma_metni: string;
   aydinlatma_baglantisi: string | null;
+  /** Aydınlatma metni/bağlantısı sürümü (eski adıyla KVKK sürümü). */
   kvkk_surum: number;
+  /** Faz 4G: isteğe bağlı pazarlama izni kutusu gösterilsin mi. */
+  pazarlama_izni_sor: boolean;
   aktif: boolean;
   gonderim_sayisi: number;
   son_gonderim_at: string | null;

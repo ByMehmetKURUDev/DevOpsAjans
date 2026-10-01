@@ -14,7 +14,8 @@
  *
  * Arka uca giden başlıklar (analitik ve dil için; çerez ve oturum GİTMİYOR):
  *   * `X-MK-Istemci-IP` ← `CF-Connecting-IP` (arka uç ham IP saklamıyor,
- *     günlük tuzlu özet alıyor — `/api` vekiliyle aynı düzen),
+ *     günlük tuzlu özet alıyor — `/api` vekiliyle aynı düzen) ve Faz 4G'den
+ *     beri `X-MK-Vekil-Anahtari` (`functions/_ortak/vekil.js`),
  *   * `X-MK-Ulke` ← `request.cf.country`,
  *   * `User-Agent`, `Referer`, `Accept-Language` (+ önden yükleme işaretleri).
  *
@@ -26,6 +27,8 @@
  * Ek ayar gerekmez: `/api` vekilinin kullandığı `API_ORIGIN` ortam
  * değişkeni burada da kullanılıyor.
  */
+
+import { vekilBasliklari } from '../_ortak/vekil.js';
 
 /* `public/_headers` Function yanıtlarına uygulanmadığı için temel başlıklar burada. */
 const GUVENLIK_BASLIKLARI = {
@@ -88,9 +91,9 @@ export async function onRequest({ request, env, params }) {
   basliklar.set('X-Forwarded-Host', url.host);
   basliklar.set('X-Forwarded-Proto', url.protocol.replace(':', ''));
   // Worker alt isteğinde arka uca varan CF-Connecting-IP Worker'ın adresi olur;
-  // ziyaretçinin adresini ayrıca taşıyoruz (tekil sayım ve hız sınırı için).
-  const ziyaretciIp = request.headers.get('CF-Connecting-IP');
-  if (ziyaretciIp) basliklar.set('X-MK-Istemci-IP', ziyaretciIp);
+  // ziyaretçinin adresini ayrıca taşıyoruz (tekil sayım ve hız sınırı için) —
+  // Faz 4G: ortak gizliyle (VEKIL_ANAHTARI) imzalı.
+  vekilBasliklari(basliklar, request, env);
   const ulke = request.cf && request.cf.country;
   if (ulke) basliklar.set('X-MK-Ulke', String(ulke));
 

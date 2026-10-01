@@ -1,0 +1,9 @@
+{
+  "iletisimHarita": {
+    "baslik": "我们的位置",
+    "not": "地图从 Google 地图加载；打开后 Google 可能会使用其自己的 Cookie。如果您已接受 Cookie，地图会自动显示。",
+    "goster": "显示地图",
+    "disAc": "在 Google 地图中打开",
+    "cerceveBaslik": "办公室位置（Google 地图）"
+  }
+}

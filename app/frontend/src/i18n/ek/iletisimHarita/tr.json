@@ -1,0 +1,9 @@
+{
+  "iletisimHarita": {
+    "baslik": "Konumumuz",
+    "not": "Harita Google Haritalar'dan yüklenir; açtığınızda Google kendi çerezlerini kullanabilir. Çerezlere onay verdiyseniz harita kendiliğinden görünür.",
+    "goster": "Haritayı göster",
+    "disAc": "Google Haritalar'da aç",
+    "cerceveBaslik": "Ofis konumu (Google Haritalar)"
+  }
+}

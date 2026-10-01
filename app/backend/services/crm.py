@@ -479,6 +479,9 @@ def aday_sozlugu(a: CrmAdaylari, ayrintili: bool = False) -> Dict[str, Any]:
             "notlar": a.notlar, "ilk_mesaj": a.ilk_mesaj, "butce": a.butce,
             "kaybedilme_nedeni": a.kaybedilme_nedeni, "puan_ayrinti": json_liste(a.puan_ayrinti),
             "kaynak_tablo": a.kaynak_tablo, "kaynak_id": a.kaynak_id,
+            # Faz 4G: pazarlama (ticari ileti) izni — boşsa yok.
+            "pazarlama_izni": a.pazarlama_izni_at is not None, "pazarlama_izni_at": iso(a.pazarlama_izni_at),
+            "pazarlama_izni_kaynak": a.pazarlama_izni_kaynak, "pazarlama_metin_surumu": a.pazarlama_metin_surumu,
         })
     return d
 

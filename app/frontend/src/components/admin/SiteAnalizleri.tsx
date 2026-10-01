@@ -5,7 +5,9 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import SiteRaporGorunumu from '@/components/SiteRaporGorunumu';
+import { fetchSettingRows, saveSiteSetting } from '@/lib/siteSettings';
 import {
+  PAZARLAMA_AYARI,
   puanRengi,
   yonetimListesi,
   yonetimRaporu,
@@ -20,6 +22,11 @@ import {
  * burada. E-posta bırakanlar aynı zamanda Talepler'e `site_analizi`
  * kaynağıyla aday olarak düşüyor; satırdaki "Talep #" o kayda işaret ediyor.
  * Satıra tıklayınca tam rapor, müşterinin gördüğü görünümle açılıyor.
+ *
+ * Faz 4G: "Pazarlama izni sor" anahtarı (site ayarı `site_analizi_pazarlama_izni`)
+ * açıkken herkese açık tam rapor formunda isteğe bağlı, işaretsiz bir
+ * "kampanya ve duyurular" kutusu çıkar; işaretlenirse izin kaydedilir ve
+ * raporun ayrıntısında görünür.
  */
 
 const ADET = 20;
@@ -40,6 +47,29 @@ export default function SiteAnalizleri() {
   const [yukleniyor, setYukleniyor] = useState(true);
   const [secili, setSecili] = useState<TamRapor | null>(null);
   const [aciliyor, setAciliyor] = useState<number | null>(null);
+  const [pazarlamaSor, setPazarlamaSor] = useState<boolean | null>(null);
+  const [ayarKaydediliyor, setAyarKaydediliyor] = useState(false);
+
+  useEffect(() => {
+    fetchSettingRows()
+      .then((satir) => setPazarlamaSor(satir.find((r) => r.setting_key === PAZARLAMA_AYARI)?.setting_value === '1'))
+      .catch(() => setPazarlamaSor(false));
+  }, []);
+
+  const pazarlamaDegistir = async (acik: boolean) => {
+    // İyimser: kutu hemen değişir, kayıt düşerse geri alınır.
+    setPazarlamaSor(acik);
+    setAyarKaydediliyor(true);
+    try {
+      await saveSiteSetting(await fetchSettingRows(), PAZARLAMA_AYARI, acik ? '1' : '0', 'kvkk', PAZARLAMA_AYARI);
+      toast.success(t('siteAnalizi.yonetim.pazarlamaKaydedildi'));
+    } catch {
+      setPazarlamaSor(!acik);
+      toast.error(t('siteAnalizi.yonetim.hata'));
+    } finally {
+      setAyarKaydediliyor(false);
+    }
+  };
 
   const yukle = useCallback(async () => {
     setYukleniyor(true);
@@ -83,6 +113,12 @@ export default function SiteAnalizleri() {
                   {secili.eposta}
                 </a>
                 {secili.inquiry_id ? ` · ${t('siteAnalizi.yonetim.adayNo', { sayi: secili.inquiry_id })}` : ''}
+                {' · '}
+                <span data-testid="site-analizi-pazarlama-durumu">
+                  {secili.pazarlama_izni
+                    ? t('siteAnalizi.yonetim.pazarlamaVar', { tarih: tarih(secili.pazarlama_izni_at, i18n.language), surum: secili.pazarlama_metin_surumu || '—' })
+                    : t('siteAnalizi.yonetim.pazarlamaYok')}
+                </span>
               </span>
             ) : (
               <span>{t('siteAnalizi.yonetim.epostaYok')}</span>
@@ -110,6 +146,20 @@ export default function SiteAnalizleri() {
         <div>
           <h3 className="text-lg font-semibold">{t('siteAnalizi.yonetim.baslik')}</h3>
           <p className="mt-1 text-xs text-muted-foreground">{t('siteAnalizi.yonetim.aciklama', { sayi: toplam })}</p>
+          <label className="mt-3 flex max-w-xl cursor-pointer items-start gap-2 text-sm">
+            <input
+              type="checkbox"
+              checked={Boolean(pazarlamaSor)}
+              disabled={pazarlamaSor === null || ayarKaydediliyor}
+              onChange={(o) => void pazarlamaDegistir(o.target.checked)}
+              className="mt-0.5 h-4 w-4 flex-none accent-purple-500"
+              data-testid="site-analizi-pazarlama-sor"
+            />
+            <span>
+              {t('siteAnalizi.yonetim.pazarlamaSor')}
+              <span className="block text-[11px] text-muted-foreground">{t('siteAnalizi.yonetim.pazarlamaSorIpucu')}</span>
+            </span>
+          </label>
         </div>
         <div className="flex items-center gap-3">
           <label className="flex cursor-pointer items-center gap-2 text-sm">

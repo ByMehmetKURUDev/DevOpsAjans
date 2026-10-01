@@ -63,6 +63,19 @@
       "buCihazOnay": "Ending the session on this device signs you out. Continue?",
       "eskiOturum": "Your session on this device was opened the old way; it will appear here after your next sign-in.",
       "bos": "No open sessions found."
+    },
+    "csp": {
+      "baslik": "CSP violation reports",
+      "aciklama": "The site's Content Security Policy (CSP) is enforced. Browsers report every resource the policy blocks here; the latest 500 distinct violations are kept and a repeat within an hour increases the counter. An empty list means all is well; a new analytics or ad domain, or a changed inline script, shows up here.",
+      "bos": "No violation reports yet.",
+      "hata": "CSP reports could not be loaded.",
+      "temizle": "Clear list",
+      "temizleOnay": "Delete all CSP reports?",
+      "temizlendi": "CSP reports cleared.",
+      "modEngel": "blocked",
+      "modRapor": "reported only",
+      "son": "last: {{zaman}}",
+      "gosterilen": "Showing {{sayi}} of {{toplam}} reports."
     }
   }
 }

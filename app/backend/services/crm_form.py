@@ -9,7 +9,7 @@ Yönetici panelde form tanımlıyor; siteye iki satır yapıştırılıyor::
     <div data-mk-form="<genel_anahtar>"></div>
 
 Betik (`public/crm-form.js`, bağımlılıksız) `GET /api/v1/crm/form/<anahtar>`
-ile tanımı (alanlar, seçili dilde etiketler, KVKK metni, süre jetonu) alıp
+ile tanımı (alanlar, seçili dilde etiketler, aydınlatma satırı, süre jetonu) alıp
 formu çiziyor; gönderim `POST` ile aynı adrese. Aynı formun doğrudan
 bağlantısı: `/form/<anahtar>` (noindex, aynı betiği kullanıyor).
 
@@ -26,8 +26,21 @@ Kötüye kullanım önlemleri
   `jeton_suresi_doldu`.
 * Bal küpü: görünmeyen `web_adresi` alanı doluysa yanıt "başarılı" görünür
   ama HİÇBİR şey kaydedilmez (bot bunu anlamasın).
-* IP başına hız sınırı (10 dakikada 5 gönderim), alan uzunluk sınırları,
-  KVKK onayı zorunlu ve kaydı: metin sürümü + metnin özeti + zaman + IP özeti.
+* IP başına hız sınırı (10 dakikada 5 gönderim), alan uzunluk sınırları.
+
+KVKK (Faz 4G)
+-------------
+Faz 4G'ye kadar formda ZORUNLU bir "KVKK onay" kutusu vardı; bu aydınlatmayı
+açık rızayla birleştiriyor ve talebe yanıt vermek için gereken işlemeyi
+rızaya bağlıyordu. Artık:
+
+* Onay kutusu yok. Gönder düğmesinin altında aydınlatma satırı (formun
+  `aydinlatma_metni`, boşsa ziyaretçinin dilinde hazır cümle) + aydınlatma
+  bağlantısı (boşsa /gizlilik). Gönderim kaydında gösterilen metnin sürümü ve
+  özeti saklanıyor (sütun adları eski: `kvkk_surum`, `kvkk_metin_ozeti`).
+  Eski istemci `kvkk_onay` gönderirse yok sayılıyor (geriye uyumlu).
+* Pazarlama izni AYRI, isteğe bağlı, varsayılan işaretsiz kutu; yalnız formun
+  `pazarlama_izni_sor` seçeneği açıksa görünüyor (`services/pazarlama_izni.py`).
 """
 
 import hashlib
@@ -40,6 +53,7 @@ import time
 from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
 
+from services import pazarlama_izni
 from services.crm import eposta_duzelt, eposta_gecerli, etiketleri_duzelt, json_liste, json_sozluk
 
 ALAN_ADLARI: Tuple[str, ...] = ("ad", "email", "telefon", "firma", "mesaj", "butce")
@@ -57,6 +71,7 @@ EN_AZ_SURE_SN = 2.0
 JETON_OMRU_SN = 24 * 3600
 GOVDE_SINIRI = 20_000
 IZINLI_ALAN_SAYISI = 20
+AYDINLATMA_METNI_SINIRI = 600
 DILLER = ("tr", "en", "de", "ru", "zh", "hi", "ar")
 
 _ALAN_ADI = re.compile(r"^(?:\*\.)?(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$|^localhost$")
@@ -67,6 +82,7 @@ ETIKETLER: Dict[str, Dict[str, Any]] = {
         "alan": {"ad": "Adınız", "email": "E-posta", "telefon": "Telefon", "firma": "Firma", "mesaj": "Mesajınız", "butce": "Bütçe"},
         "gonder": "Gönder", "gonderiliyor": "Gönderiliyor…", "aydinlatma": "Aydınlatma metni",
         "tesekkur": "Teşekkürler! Mesajınız bize ulaştı, en kısa sürede dönüş yapacağız.", "istege_bagli": "isteğe bağlı",
+        "aydinlatma_satiri": "Gönderdiğiniz bilgiler yalnızca talebinizi yanıtlamak için işlenir. Ayrıntılar:",
         "hata": {
             "kvkk_gerekli": "Devam etmek için onay kutusunu işaretleyin.", "alan_gerekli": "Lütfen zorunlu alanları doldurun.",
             "alan_uzun": "Bir alan çok uzun; lütfen kısaltın.", "eposta_gecersiz": "Geçerli bir e-posta adresi yazın.",
@@ -81,6 +97,7 @@ ETIKETLER: Dict[str, Dict[str, Any]] = {
         "alan": {"ad": "Your name", "email": "Email", "telefon": "Phone", "firma": "Company", "mesaj": "Your message", "butce": "Budget"},
         "gonder": "Send", "gonderiliyor": "Sending…", "aydinlatma": "Privacy notice",
         "tesekkur": "Thank you! Your message has reached us and we will get back to you shortly.", "istege_bagli": "optional",
+        "aydinlatma_satiri": "The information you send is processed only to respond to your request. Details:",
         "hata": {
             "kvkk_gerekli": "Please tick the consent box to continue.", "alan_gerekli": "Please fill in the required fields.",
             "alan_uzun": "A field is too long; please shorten it.", "eposta_gecersiz": "Please enter a valid email address.",
@@ -95,6 +112,7 @@ ETIKETLER: Dict[str, Dict[str, Any]] = {
         "alan": {"ad": "Ihr Name", "email": "E-Mail", "telefon": "Telefon", "firma": "Firma", "mesaj": "Ihre Nachricht", "butce": "Budget"},
         "gonder": "Senden", "gonderiliyor": "Wird gesendet…", "aydinlatma": "Datenschutzhinweis",
         "tesekkur": "Vielen Dank! Ihre Nachricht ist bei uns eingegangen, wir melden uns in Kürze.", "istege_bagli": "optional",
+        "aydinlatma_satiri": "Ihre Angaben werden nur zur Bearbeitung Ihrer Anfrage verarbeitet. Einzelheiten:",
         "hata": {
             "kvkk_gerekli": "Bitte setzen Sie das Häkchen zur Einwilligung.", "alan_gerekli": "Bitte füllen Sie die Pflichtfelder aus.",
             "alan_uzun": "Ein Feld ist zu lang; bitte kürzen Sie es.", "eposta_gecersiz": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
@@ -109,6 +127,7 @@ ETIKETLER: Dict[str, Dict[str, Any]] = {
         "alan": {"ad": "Ваше имя", "email": "Эл. почта", "telefon": "Телефон", "firma": "Компания", "mesaj": "Ваше сообщение", "butce": "Бюджет"},
         "gonder": "Отправить", "gonderiliyor": "Отправка…", "aydinlatma": "Уведомление о конфиденциальности",
         "tesekkur": "Спасибо! Ваше сообщение получено, мы скоро свяжемся с вами.", "istege_bagli": "необязательно",
+        "aydinlatma_satiri": "Отправленные вами данные обрабатываются только для ответа на ваш запрос. Подробнее:",
         "hata": {
             "kvkk_gerekli": "Чтобы продолжить, отметьте согласие.", "alan_gerekli": "Заполните обязательные поля.",
             "alan_uzun": "Одно из полей слишком длинное; сократите его.", "eposta_gecersiz": "Укажите корректный адрес эл. почты.",
@@ -123,6 +142,7 @@ ETIKETLER: Dict[str, Dict[str, Any]] = {
         "alan": {"ad": "您的姓名", "email": "电子邮箱", "telefon": "电话", "firma": "公司", "mesaj": "留言内容", "butce": "预算"},
         "gonder": "提交", "gonderiliyor": "正在提交…", "aydinlatma": "隐私说明",
         "tesekkur": "谢谢！我们已收到您的留言，会尽快与您联系。", "istege_bagli": "选填",
+        "aydinlatma_satiri": "您提交的信息仅用于回复您的请求。详情：",
         "hata": {
             "kvkk_gerekli": "请勾选同意框后继续。", "alan_gerekli": "请填写必填项。",
             "alan_uzun": "有字段内容过长，请缩短。", "eposta_gecersiz": "请输入有效的电子邮箱地址。",
@@ -136,6 +156,7 @@ ETIKETLER: Dict[str, Dict[str, Any]] = {
         "alan": {"ad": "आपका नाम", "email": "ईमेल", "telefon": "फ़ोन", "firma": "कंपनी", "mesaj": "आपका संदेश", "butce": "बजट"},
         "gonder": "भेजें", "gonderiliyor": "भेजा जा रहा है…", "aydinlatma": "गोपनीयता सूचना",
         "tesekkur": "धन्यवाद! आपका संदेश हमें मिल गया है, हम जल्द ही आपसे संपर्क करेंगे।", "istege_bagli": "वैकल्पिक",
+        "aydinlatma_satiri": "आपकी भेजी गई जानकारी केवल आपके अनुरोध का उत्तर देने के लिए संसाधित की जाती है। विवरण:",
         "hata": {
             "kvkk_gerekli": "आगे बढ़ने के लिए सहमति बॉक्स पर टिक करें।", "alan_gerekli": "कृपया आवश्यक फ़ील्ड भरें।",
             "alan_uzun": "एक फ़ील्ड बहुत लंबा है; कृपया छोटा करें।", "eposta_gecersiz": "कृपया मान्य ईमेल पता लिखें।",
@@ -150,6 +171,7 @@ ETIKETLER: Dict[str, Dict[str, Any]] = {
         "alan": {"ad": "اسمك", "email": "البريد الإلكتروني", "telefon": "الهاتف", "firma": "الشركة", "mesaj": "رسالتك", "butce": "الميزانية"},
         "gonder": "إرسال", "gonderiliyor": "جارٍ الإرسال…", "aydinlatma": "إشعار الخصوصية",
         "tesekkur": "شكرًا لك! وصلتنا رسالتك وسنتواصل معك قريبًا.", "istege_bagli": "اختياري",
+        "aydinlatma_satiri": "تُعالَج المعلومات التي ترسلها فقط للرد على طلبك. التفاصيل:",
         "hata": {
             "kvkk_gerekli": "يرجى تحديد مربع الموافقة للمتابعة.", "alan_gerekli": "يرجى ملء الحقول المطلوبة.",
             "alan_uzun": "أحد الحقول طويل جدًا؛ يرجى اختصاره.", "eposta_gecersiz": "يرجى كتابة بريد إلكتروني صالح.",
@@ -278,22 +300,35 @@ def tanimi_dogrula(veri: Dict[str, Any], mevcut: Optional[Any], asama_anahtarlar
         sonuc["yonlendirme_adresi"] = https_adresi(veri.get("yonlendirme_adresi"), "yonlendirme_https")
     if "izinli_alanlar" in veri:
         sonuc["izinli_alanlar"] = json.dumps(izinli_alanlari_duzelt(veri.get("izinli_alanlar")))
-    if "kvkk_metni" in veri or yeni:
+    # Eski panel/istemci `kvkk_metni` gönderebilir (Faz 4G öncesi zorunlu onay
+    # kutusunun metni): kabul edilip saklanıyor ama artık zorunlu değil ve
+    # ziyaretçiye gösterilmiyor. Yeni formlarda boş.
+    if "kvkk_metni" in veri:
         k = str(veri.get("kvkk_metni") or "").strip()
-        if len(k) < 10:
-            raise FormHatasi("kvkk_metni_gerekli")
         if len(k) > 2000:
             raise FormHatasi("kvkk_metni_uzun")
         sonuc["kvkk_metni"] = k
+    elif yeni:
+        sonuc["kvkk_metni"] = ""
+    if "aydinlatma_metni" in veri:
+        a = " ".join(str(veri.get("aydinlatma_metni") or "").split())
+        if len(a) > AYDINLATMA_METNI_SINIRI:
+            raise FormHatasi("aydinlatma_metni_uzun")
+        sonuc["aydinlatma_metni"] = a or None
     if "aydinlatma_baglantisi" in veri:
         sonuc["aydinlatma_baglantisi"] = https_adresi(veri.get("aydinlatma_baglantisi"), "aydinlatma_https")
+    if "pazarlama_izni_sor" in veri:
+        sonuc["pazarlama_izni_sor"] = veri.get("pazarlama_izni_sor") is True
+    elif yeni:
+        sonuc["pazarlama_izni_sor"] = False
     if "aktif" in veri:
         sonuc["aktif"] = bool(veri.get("aktif"))
 
-    # KVKK metni ya da bağlantısı değiştiyse onay sürümü artar.
+    # Aydınlatma metni ya da bağlantısı değiştiyse sürüm artar (her gönderim
+    # hangi sürümü gördüğüyle saklanıyor).
     if not yeni:
         degisti = (
-            ("kvkk_metni" in sonuc and sonuc["kvkk_metni"] != mevcut.kvkk_metni)
+            ("aydinlatma_metni" in sonuc and (sonuc["aydinlatma_metni"] or None) != (mevcut.aydinlatma_metni or None))
             or ("aydinlatma_baglantisi" in sonuc and (sonuc["aydinlatma_baglantisi"] or None) != (mevcut.aydinlatma_baglantisi or None))
         )
         if degisti:
@@ -313,7 +348,8 @@ def form_sozlugu(f: Any) -> Dict[str, Any]:
         "alanlar": alanlari_duzelt(f.alanlar), "varsayilan_asama": f.varsayilan_asama,
         "varsayilan_etiketler": json_liste(f.varsayilan_etiketler), "tesekkur_metni": f.tesekkur_metni,
         "yonlendirme_adresi": f.yonlendirme_adresi, "izinli_alanlar": json_liste(f.izinli_alanlar),
-        "kvkk_metni": f.kvkk_metni, "aydinlatma_baglantisi": f.aydinlatma_baglantisi, "kvkk_surum": f.kvkk_surum,
+        "aydinlatma_metni": f.aydinlatma_metni or "", "aydinlatma_baglantisi": f.aydinlatma_baglantisi,
+        "kvkk_surum": f.kvkk_surum, "pazarlama_izni_sor": bool(f.pazarlama_izni_sor),
         "aktif": bool(f.aktif), "gonderim_sayisi": f.gonderim_sayisi or 0, "son_gonderim_at": iso(f.son_gonderim_at),
         "created_at": iso(f.created_at), "updated_at": iso(f.updated_at),
     }
@@ -397,8 +433,15 @@ def jeton_dogrula(jeton: Any, form_id: int, an: Optional[float] = None) -> None:
 # ---------------------------------------------------------------------------
 # Herkese açık tanım ve gönderim
 # ---------------------------------------------------------------------------
-def kvkk_ozeti(f: Any) -> str:
-    return hashlib.sha256(f"{f.kvkk_metni or ''}\n{f.aydinlatma_baglantisi or ''}".encode("utf-8")).hexdigest()
+def aydinlatma_metni(f: Any, dil: str) -> str:
+    """Ziyaretçiye gösterilen aydınlatma satırı: formun kendi metni ya da dildeki hazır cümle."""
+    return (getattr(f, "aydinlatma_metni", None) or "").strip() or ETIKETLER[dil_sec(dil)]["aydinlatma_satiri"]
+
+
+def kvkk_ozeti(f: Any, dil: str = "tr") -> str:
+    """Gönderim anında gösterilen aydınlatma satırı + bağlantının özeti (kanıt)."""
+    metin = aydinlatma_metni(f, dil)
+    return hashlib.sha256(f"{metin}\n{aydinlatma_adresi(f, dil)}".encode("utf-8")).hexdigest()
 
 
 #: Faz 3Y: formda aydınlatma bağlantısı boşsa sitenin Gizlilik ve KVKK
@@ -420,6 +463,7 @@ def acik_tanim(f: Any, dil: str) -> Dict[str, Any]:
     d = dil_sec(dil)
     e = ETIKETLER[d]
     alanlar = alanlari_duzelt(f.alanlar)
+    aydinlatma = {"metin": aydinlatma_metni(f, d), "baglanti": aydinlatma_adresi(f, d), "surum": f.kvkk_surum}
     return {
         "anahtar": f.genel_anahtar,
         "baslik": f.baslik or None,
@@ -429,7 +473,14 @@ def acik_tanim(f: Any, dil: str) -> Dict[str, Any]:
             {"ad": ad, "zorunlu": alanlar[ad]["zorunlu"], "etiket": e["alan"][ad], "en_cok": ALAN_SINIRLARI[ad]}
             for ad in ALAN_ADLARI if alanlar[ad]["acik"]
         ],
-        "kvkk": {"metin": f.kvkk_metni, "baglanti": aydinlatma_adresi(f, d), "surum": f.kvkk_surum},
+        # Onay kutusu yok: bilgilendirme satırı. `kvkk` aynı nesnenin eski adı —
+        # önbellekte kalmış eski betik (Faz 4G öncesi) kırılmasın diye duruyor.
+        "aydinlatma": aydinlatma,
+        "kvkk": aydinlatma,
+        "pazarlama": (
+            {"metin": pazarlama_izni.metin(d), "surum": pazarlama_izni.surum_etiketi(d)}
+            if f.pazarlama_izni_sor else None
+        ),
         "metinler": {
             "gonder": e["gonder"], "gonderiliyor": e["gonderiliyor"], "aydinlatma": e["aydinlatma"],
             "istege_bagli": e["istege_bagli"], "hata": e["hata"],
@@ -442,9 +493,10 @@ def acik_tanim(f: Any, dil: str) -> Dict[str, Any]:
 
 
 def gonderimi_dogrula(f: Any, govde: Dict[str, Any]) -> Dict[str, str]:
-    """Açık alanların temiz değerleri; hata → FormHatasi (alan bilgisiyle)."""
-    if govde.get("kvkk_onay") is not True:
-        raise FormHatasi("kvkk_gerekli")
+    """Açık alanların temiz değerleri; hata → FormHatasi (alan bilgisiyle).
+
+    `kvkk_onay` artık istenmiyor (Faz 4G); eski istemci gönderirse yok sayılır.
+    """
     alanlar = alanlari_duzelt(f.alanlar)
     degerler: Dict[str, str] = {}
     for ad in ALAN_ADLARI:

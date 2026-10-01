@@ -40,7 +40,8 @@
       "aciklama": "A printable full report with every finding, why it matters and what to do, plus the crawled pages and broken links. The link is valid for 30 days.",
       "ad": "Your name (optional)",
       "eposta": "Your email address",
-      "kvkk": "I agree that my name and email may be processed to send me the report and to follow up on this analysis, in line with data protection law (KVKK/GDPR).",
+      "pazarlama": "I would like to hear about campaigns and announcements by email.",
+      "istegeBagli": "optional",
       "gonder": "Send the full report",
       "basarili": "The full report link has been sent to your email address.",
       "basariliAciklama": "Check your inbox (and spam folder). The link is valid for 30 days."
@@ -116,7 +117,12 @@
         "acik": "Public form",
         "musteri": "Client panel",
         "yonetici": "Admin"
-      }
+      },
+      "pazarlamaSor": "Ask for marketing permission on the full report form",
+      "pazarlamaSorIpucu": "When on, the form shows an unticked “I would like to hear about campaigns and announcements by email” box. The report request does not depend on it; if ticked, the permission, its time and the text version are recorded.",
+      "pazarlamaKaydedildi": "Marketing permission setting saved.",
+      "pazarlamaVar": "Marketing permission given ({{tarih}}, text v{{surum}})",
+      "pazarlamaYok": "No marketing permission"
     },
     "musteri": {
       "baslik": "Analyse my site",

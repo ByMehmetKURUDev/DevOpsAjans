@@ -40,7 +40,8 @@
       "aciklama": "Ein druckbarer Bericht mit allen Befunden, warum sie wichtig sind und was zu tun ist, dazu die geprüften Seiten und defekten Links. Der Link ist 30 Tage gültig.",
       "ad": "Ihr Name (optional)",
       "eposta": "Ihre E-Mail-Adresse",
-      "kvkk": "Ich willige ein, dass mein Name und meine E-Mail-Adresse zum Versand des Berichts und für eine Rückmeldung zu dieser Analyse gemäß Datenschutzrecht (KVKK/DSGVO) verarbeitet werden.",
+      "pazarlama": "Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden.",
+      "istegeBagli": "optional",
       "gonder": "Vollständigen Bericht senden",
       "basarili": "Der Link zum vollständigen Bericht wurde an Ihre E-Mail-Adresse gesendet.",
       "basariliAciklama": "Prüfen Sie Ihren Posteingang (und den Spam-Ordner). Der Link ist 30 Tage gültig."
@@ -116,7 +117,12 @@
         "acik": "Öffentliches Formular",
         "musteri": "Kundenbereich",
         "yonetici": "Admin"
-      }
+      },
+      "pazarlamaSor": "Im Formular für den vollständigen Bericht nach Marketing-Einwilligung fragen",
+      "pazarlamaSorIpucu": "Wenn aktiv, zeigt das Formular ein nicht angekreuztes Kästchen „Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden“. Die Berichtsanfrage hängt nicht davon ab; wird es angekreuzt, werden Einwilligung, Zeitpunkt und Textversion gespeichert.",
+      "pazarlamaKaydedildi": "Einstellung zur Marketing-Einwilligung gespeichert.",
+      "pazarlamaVar": "Marketing-Einwilligung liegt vor ({{tarih}}, Text v{{surum}})",
+      "pazarlamaYok": "Keine Marketing-Einwilligung"
     },
     "musteri": {
       "baslik": "Meine Website analysieren",

@@ -70,7 +70,7 @@
     "ilkMesaj": "Erste Nachricht",
     "bagliKayitlar": "Verknüpfte Einträge",
     "kayitSilinmis": "Eintrag gelöscht",
-    "kvkkSurumu": "Datenschutztext v{{sayi}}",
+    "kvkkSurumu": "Hinweis v{{sayi}}",
     "ac": "Öffnen",
     "sistem": "System",
     "asamaSilindiSebep": "weil die Phase gelöscht wurde",
@@ -216,14 +216,14 @@
       "kural": "Von jedem Typ (offen, gewonnen, verloren) muss mindestens eine Phase bleiben. Wird die Standardphase eines Formulars gelöscht, gilt die erste offene Phase."
     },
     "form": {
-      "aciklama": "Lead-Formulare zum Einfügen in Ihre eigene Website oder die Ihrer Kunden. Einsendungen werden zu Leads mit der Quelle „Eingebettetes Formular“; die Datenschutz-Einwilligung ist Pflicht und wird gespeichert.",
+      "aciklama": "Lead-Formulare zum Einfügen in Ihre eigene Website oder die Ihrer Kunden. Einsendungen werden zu Leads mit der Quelle „Eingebettetes Formular“. Es gibt kein Einwilligungskästchen: Unter dem Senden-Button stehen ein Datenschutzhinweis und ein Link; eine Marketing-Einwilligung wird auf Wunsch separat und freiwillig abgefragt.",
       "yeni": "Neues Formular",
       "duzenle": "Formular bearbeiten",
       "bos": "Noch keine Formulare.",
       "aktif": "Aktiv",
       "pasif": "Aus",
       "aktifEt": "Formular ist aktiv (ein deaktiviertes Formular nimmt nichts an)",
-      "istatistik": "{{sayi}} Einsendungen · Datenschutztext v{{surum}}",
+      "istatistik": "{{sayi}} Einsendungen · Hinweis v{{surum}}",
       "sonGonderim": "zuletzt: {{tarih}}",
       "izinli": "Erlaubte Domains",
       "gommeKopyala": "Einbettungscode kopieren",
@@ -248,10 +248,14 @@
       "yonlendirme": "Nach dem Absenden weiterleiten (optional, nur https)",
       "izinliAlanlar": "Erlaubte Domains (eine pro Zeile)",
       "izinliIpucu": "Subdomains sind ebenfalls erlaubt. Immer erlaubt: {{liste}}",
-      "kvkkMetni": "Text des Einwilligungskästchens",
-      "kvkkVarsayilan": "Ich willige ein, dass meine personenbezogenen Daten zur Beantwortung meiner Anfrage wie im Datenschutzhinweis beschrieben verarbeitet werden.",
-      "kvkkSurumIpucu": "Aktuelle Version: {{sayi}}. Eine Änderung von Text oder Link erhöht die Version; jede Einwilligung wird mit ihrer Version gespeichert.",
-      "aydinlatma": "Link zum Datenschutzhinweis (https)"
+      "kvkkSurumIpucu": "Aktuelle Version: {{sayi}}. Eine Änderung von Zeile oder Link erhöht die Version; jede Einsendung wird mit der gesehenen Version gespeichert.",
+      "aydinlatma": "Link zum Datenschutzhinweis (https)",
+      "aydinlatmaMetni": "Datenschutzhinweis-Zeile (optional)",
+      "aydinlatmaMetniIpucu": "Leer lassen, um einen fertigen Satz in der Sprache des Besuchers anzuzeigen.",
+      "aydinlatmaAciklama": "Wird unter dem Senden-Button zusammen mit dem Link zum Datenschutzhinweis nur zur Information angezeigt; eine Einwilligung wird nicht abgefragt.",
+      "pazarlamaSor": "Marketing-Einwilligung abfragen",
+      "pazarlamaSorIpucu": "Das Formular zeigt ein nicht angekreuztes Kästchen „Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden“. Wird es angekreuzt, werden Einwilligung, Zeitpunkt und Textversion gespeichert; gesendet wird das Formular in jedem Fall.",
+      "pazarlamaRozet": "Fragt Marketing-Einwilligung ab"
     },
     "hata": {
       "genel": "Der Vorgang konnte nicht abgeschlossen werden; bitte erneut versuchen.",
@@ -284,7 +288,19 @@
       "baslik_uzun": "Der Titel ist zu lang.",
       "tesekkur_uzun": "Der Danke-Text ist zu lang.",
       "kvkk_metni_gerekli": "Der Einwilligungstext ist Pflicht (mindestens 10 Zeichen).",
-      "kvkk_metni_uzun": "Der Einwilligungstext ist zu lang."
+      "kvkk_metni_uzun": "Der Einwilligungstext ist zu lang.",
+      "aydinlatma_metni_uzun": "Die Datenschutzhinweis-Zeile ist zu lang (höchstens 600 Zeichen)."
+    },
+    "pazarlama": {
+      "var": "Einwilligung in Marketing-E-Mails liegt vor",
+      "yok": "Keine Einwilligung in Marketing-E-Mails",
+      "surum": "Text v{{surum}}",
+      "geriAl": "Einwilligung widerrufen",
+      "geriAlOnay": "Marketing-Einwilligung widerrufen? Verwenden Sie dies, wenn die Person ihren Widerruf mitgeteilt hat; im Panel kann sie nicht erneut erteilt werden, nur durch die Person selbst in einem Formular.",
+      "geriAlindi": "Marketing-Einwilligung widerrufen.",
+      "kaynakForm": "Formular #{{no}}",
+      "kaynakSiteAnalizi": "Website-Analyse",
+      "rozet": "Marketing-Einwilligung"
     }
   }
 }

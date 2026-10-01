@@ -44,6 +44,7 @@ from models.crm import (
 )
 from services import crm as servis
 from services import crm_form as formlar
+from services import pazarlama_izni
 from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from utils.hiz_siniri import HizSiniri
@@ -169,6 +170,13 @@ def _aday_alanlari(veri: Dict[str, Any], yeni: bool) -> Dict[str, Any]:
         if k not in servis.KAYNAKLAR:
             raise _hata(400, "alan_gecersiz", alan="kaynak")
         sonuc["kaynak"] = k
+    # Faz 4G: pazarlama izni panelden VERİLEMEZ (açık rıza kişinin kendisinden
+    # gelir: form ya da site analizi kutusu); yalnız geri alınabilir — kişi
+    # vazgeçtiğini bildirdiğinde. Gönderim kayıtlarındaki izin kanıtı kalıyor.
+    if "pazarlama_izni" in veri:
+        if veri.get("pazarlama_izni") is not False:
+            raise _hata(400, "alan_gecersiz", alan="pazarlama_izni")
+        sonuc.update(pazarlama_izni_at=None, pazarlama_izni_kaynak=None, pazarlama_metin_surumu=None)
     return sonuc
 
 
@@ -380,6 +388,8 @@ async def _bagli_kayitlar(db: AsyncSession, aday_id: int) -> List[Dict[str, Any]
             d.update({"silinmis": True} if g is None else {
                 "baslik": form_adlari.get(g.form_id) or f"#{g.form_id}", "form_id": g.form_id,
                 "kvkk_surum": g.kvkk_surum, "kvkk_onay_at": servis.iso(g.kvkk_onay_at), "koken": g.koken,
+                "pazarlama_izni": bool(g.pazarlama_izni), "pazarlama_izni_at": servis.iso(g.pazarlama_izni_at),
+                "pazarlama_metin_surumu": g.pazarlama_metin_surumu,
                 "zaman": servis.iso(g.created_at),
             })
         sonuc.append(d)
@@ -749,9 +759,13 @@ async def acik_form_gonder(anahtar: str, request: Request, db: AsyncSession = De
 
     await servis.asamalari_hazirla(db)
     an = servis.simdi()
+    # Faz 4G: pazarlama izni yalnız form soruyorsa ve kutu işaretliyse (JSON true).
+    pazarlama = bool(f.pazarlama_izni_sor) and pazarlama_izni.izin_verildi_mi(govde.get("pazarlama_izni"))
     gonderim = CrmFormGonderimleri(
-        form_id=f.id, kvkk_surum=int(f.kvkk_surum or 1), kvkk_metin_ozeti=formlar.kvkk_ozeti(f), kvkk_onay_at=an,
-        ip_ozeti=ip, koken=koken, created_at=an,
+        form_id=f.id, kvkk_surum=int(f.kvkk_surum or 1), kvkk_metin_ozeti=formlar.kvkk_ozeti(f, dil), kvkk_onay_at=an,
+        ip_ozeti=ip, koken=koken, created_at=an, pazarlama_izni=pazarlama,
+        pazarlama_izni_at=an if pazarlama else None,
+        pazarlama_metin_surumu=pazarlama_izni.surum_etiketi(dil) if pazarlama else None,
     )
     db.add(gonderim)
     await db.flush()
@@ -763,6 +777,8 @@ async def acik_form_gonder(anahtar: str, request: Request, db: AsyncSession = De
         ek_veri={"form": f.ad, "form_id": f.id},
     ))
     gonderim.aday_id = sonuc["aday_id"] if sonuc else None
+    if pazarlama:
+        await pazarlama_izni.adaya_isle(db, gonderim.aday_id, an, f"form:{f.id}", gonderim.pazarlama_metin_surumu)
     f.gonderim_sayisi = int(f.gonderim_sayisi or 0) + 1
     f.son_gonderim_at = an
     await db.commit()

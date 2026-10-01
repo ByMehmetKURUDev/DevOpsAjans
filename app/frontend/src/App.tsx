@@ -19,8 +19,9 @@ const Portfolio = lazy(() => import('./pages/Portfolio'));
 const Marketplace = lazy(() => import('./pages/Marketplace'));
 const BlogIndexPage = lazy(() => import('./pages/blog/BlogIndexPage'));
 const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
-// Faz 3Y: iletişim formunun altındaki kısa aydınlatma satırı (ek paket 'aydinlatma').
-const Contact = ekliLazy('aydinlatma', () => import('./pages/Contact'));
+// Faz 3Y: iletişim formunun altındaki kısa aydınlatma satırı (ek paket 'aydinlatma');
+// Faz 4G: rızaya bağlı harita yer tutucusu (ek paket 'iletisimHarita').
+const Contact = ekliLazy(['aydinlatma', 'iletisimHarita'], () => import('./pages/Contact'));
 const ClientPanel = lazy(() => import('./pages/ClientPanel'));
 const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));

@@ -19,9 +19,11 @@ Tablolar
   adayı geri getirmiyor; çöp kutusundan geri alınan aday aynı kimlikle
   döndüğü için bağlar yeniden geçerli oluyor.
 * `crm_formlar`    — gömülebilir aday formu tanımları (genel anahtar ile).
-* `crm_form_gonderimleri` — her gönderimin KVKK onay kaydı (metin sürümü,
-  metnin özeti, zaman, IP özeti, köken). Aday silinse de saklanıyor (onayın
-  kanıtı); ham IP hiçbir yerde tutulmuyor.
+* `crm_form_gonderimleri` — her gönderimin kaydı: gösterilen aydınlatma
+  metninin sürümü ve özeti, zaman, IP özeti, köken; Faz 4G'den beri ayrıca
+  isteğe bağlı pazarlama izni (izin + zaman + metin sürümü). Aday silinse de
+  saklanıyor (kanıt); ham IP hiçbir yerde tutulmuyor. `kvkk_*` sütun adları
+  eski: Faz 4G'ye kadar zorunlu onay kutusuydu, artık yalnız bilgilendirme.
 
 Liste/JSON alanları metin sütununda (SQLite ile Postgres aynı davransın).
 """
@@ -102,6 +104,12 @@ class CrmAdaylari(Base):
     created_at = Column(DateTime(timezone=True), default=_simdi, nullable=False)
     updated_at = Column(DateTime(timezone=True), default=_simdi, onupdate=_simdi, nullable=True)
     asama_degisme_at = Column(DateTime(timezone=True), default=_simdi, nullable=True)
+    #: Faz 4G — pazarlama (ticari elektronik ileti) izni: en son verildiği an,
+    #: kaynağı ("form:<id>" | "site_analizi:<id>") ve metin sürümü. Boşsa izin
+    #: yok; yönetici geri alınca (kişinin talebi) boşalıyor.
+    pazarlama_izni_at = Column(DateTime(timezone=True), nullable=True)
+    pazarlama_izni_kaynak = Column(String, nullable=True)
+    pazarlama_metin_surumu = Column(String, nullable=True)
 
 
 class CrmAktiviteler(Base):
@@ -159,11 +167,18 @@ class CrmFormlari(Base):
     yonlendirme_adresi = Column(String, nullable=True)
     #: JSON listesi: formun gömülebileceği alan adları (mehmetkuru.dev her zaman izinli).
     izinli_alanlar = Column(Text, nullable=True)
-    #: KVKK onay kutusunun metni ve aydınlatma metni bağlantısı. Onay zorunlu.
-    kvkk_metni = Column(Text, nullable=False)
+    #: ESKİ (Faz 4G öncesi): zorunlu KVKK onay kutusunun metni. Artık
+    #: gösterilmiyor (aydınlatma ile açık rıza ayrıldı); yeni formlarda boş.
+    kvkk_metni = Column(Text, nullable=False, default="")
+    #: Gönder düğmesinin altındaki aydınlatma satırı (isteğe bağlı, tek dil).
+    #: Boşsa ziyaretçinin dilinde hazır cümle (`services/crm_form.py`).
+    aydinlatma_metni = Column(Text, nullable=True)
     aydinlatma_baglantisi = Column(String, nullable=True)
-    #: KVKK metni ya da bağlantısı her değiştiğinde 1 artıyor (onay kaydı sürümü).
+    #: Aydınlatma metni ya da bağlantısı her değiştiğinde 1 artıyor (gönderim kaydı sürümü).
     kvkk_surum = Column(Integer, nullable=False, default=1)
+    #: Faz 4G: "Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum"
+    #: kutusu (isteğe bağlı, varsayılan işaretsiz) gösterilsin mi.
+    pazarlama_izni_sor = Column(Boolean, nullable=True, default=False)
     aktif = Column(Boolean, nullable=False, default=True)
     gonderim_sayisi = Column(Integer, nullable=False, default=0)
     son_gonderim_at = Column(DateTime(timezone=True), nullable=True)
@@ -179,10 +194,17 @@ class CrmFormGonderimleri(Base):
     form_id = Column(Integer, index=True, nullable=False)
     aday_id = Column(Integer, index=True, nullable=True)
     kvkk_surum = Column(Integer, nullable=False)
-    #: sha256(kvkk_metni + "\n" + aydınlatma bağlantısı) — o anki metnin kanıtı.
+    #: sha256(gösterilen metin + "\n" + aydınlatma bağlantısı) — o anki metnin
+    #: kanıtı (Faz 4G öncesi: onay kutusu metni; sonrası: aydınlatma satırı).
     kvkk_metin_ozeti = Column(String, nullable=False)
+    #: Gönderim anı (eski adıyla "onay" zamanı).
     kvkk_onay_at = Column(DateTime(timezone=True), nullable=False)
     ip_ozeti = Column(String, nullable=True)
+    #: Faz 4G — isteğe bağlı pazarlama izni: verildi mi, ne zaman, hangi metin
+    #: sürümüyle (`services/pazarlama_izni.py`, ör. "1/tr").
+    pazarlama_izni = Column(Boolean, nullable=True, default=False)
+    pazarlama_izni_at = Column(DateTime(timezone=True), nullable=True)
+    pazarlama_metin_surumu = Column(String, nullable=True)
     #: İsteğin Origin başlığı (gömüldüğü site) — yoksa boş.
     koken = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=_simdi, nullable=False)

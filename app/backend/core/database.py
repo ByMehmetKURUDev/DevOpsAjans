@@ -463,6 +463,20 @@ class DatabaseManager:
         {"tablo": "invoices", "sutun": "tekrarlayan_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
         {"tablo": "invoices", "sutun": "donem", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
         {"tablo": "invoices", "sutun": "notlar", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        # Faz 4G — KVKK: aydınlatma (bilgilendirme) ile açık rıza ayrıldı. Formda
+        # zorunlu onay kutusu yok; isteğe bağlı pazarlama izni ayrı kaydediliyor
+        # (izin + zaman + gösterilen metnin sürümü). Eski satırlarda NULL = izin yok.
+        {"tablo": "crm_formlar", "sutun": "aydinlatma_metni", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "crm_formlar", "sutun": "pazarlama_izni_sor", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
+        {"tablo": "crm_form_gonderimleri", "sutun": "pazarlama_izni", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
+        {"tablo": "crm_form_gonderimleri", "sutun": "pazarlama_izni_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        {"tablo": "crm_form_gonderimleri", "sutun": "pazarlama_metin_surumu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "crm_adaylar", "sutun": "pazarlama_izni_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        {"tablo": "crm_adaylar", "sutun": "pazarlama_izni_kaynak", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "crm_adaylar", "sutun": "pazarlama_metin_surumu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "site_analyses", "sutun": "pazarlama_izni", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
+        {"tablo": "site_analyses", "sutun": "pazarlama_izni_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        {"tablo": "site_analyses", "sutun": "pazarlama_metin_surumu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
         # Faz 3T — kısmi ödeme: tahsilat `payments` tablosunda kalıyor (ikinci
         # bir ödeme tablosu açılmadı); elle girilen ödemenin tarihi, notu,
         # dekontu (dosya deposu → `files.id`) ve ekleyen yönetici.

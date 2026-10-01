@@ -8,6 +8,8 @@
  * değişkeni olarak veriliyor. Böylece geçici adresten gerçek adrese
  * geçerken tek bir yer değişiyor.
  */
+import { vekilBasliklari } from '../_ortak/vekil.js';
+
 /*
  * Temel güvenlik başlıkları. `public/_headers` Pages Function yanıtlarına
  * uygulanmıyor (Cloudflare kuralı), bu yüzden `/api/*` yanıtlarına burada
@@ -54,9 +56,8 @@ export async function onRequest({ request, env }) {
   istek.headers.set('X-Forwarded-Proto', url.protocol.replace(':', ''));
   // Arka uca Worker alt isteğiyle gidildiği için oradaki CF-Connecting-IP
   // Worker'ın adresi olur; ziyaretçinin adresini ayrıca taşıyoruz (IP sınırları).
-  const ziyaretciIp = request.headers.get('CF-Connecting-IP');
-  if (ziyaretciIp) istek.headers.set('X-MK-Istemci-IP', ziyaretciIp);
-  else istek.headers.delete('X-MK-Istemci-IP');
+  // Faz 4G: + ortak gizli (VEKIL_ANAHTARI); ziyaretçinin uydurduğu ikisi de silinir.
+  vekilBasliklari(istek.headers, request, env);
 
   try {
     return basliklariEkle(await fetch(istek));

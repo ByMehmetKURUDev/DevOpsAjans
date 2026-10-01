@@ -20,8 +20,11 @@ import { DEFAULT_LANGUAGE, LANGUAGE_CODES, localizedPath } from '../../prerender
  *
  * Ziyaretçi alan adını yazıyor; sunucu siteyi dışarıdan inceleyip altı
  * bölümde puanlıyor. Burada yalnız ÖZET görünüyor (bölüm başına en çok 3
- * bulgu). Tam rapor e-postayla geliyor: e-posta + KVKK onayı bırakan
- * ziyaretçi `inquiries`'e aday olarak düşüyor.
+ * bulgu). Tam rapor e-postayla geliyor: e-posta bırakan ziyaretçi
+ * `inquiries`'e aday olarak düşüyor. Faz 4G: onay kutusu yok — talep
+ * aydınlatmayla işleniyor (gönder düğmesinin altındaki satır + /gizlilik).
+ * Pazarlama izni AYRI, isteğe bağlı, varsayılan işaretsiz; yalnız site ayarı
+ * açıksa (sunucu analiz yanıtında `pazarlama_izni_sor` ile bildiriyor).
  *
  * Analiz ~30 saniye sürebiliyor (PageSpeed ölçümü dahil); bekleme
  * sırasında bölüm iskeletleri gösteriliyor ki sayfa donmuş görünmesin.
@@ -41,7 +44,7 @@ export default function SiteAnalizi() {
 
   const [ad, setAd] = useState('');
   const [eposta, setEposta] = useState('');
-  const [kvkk, setKvkk] = useState(false);
+  const [pazarlama, setPazarlama] = useState(false);
   const [gonderiliyor, setGonderiliyor] = useState(false);
   const [gonderildi, setGonderildi] = useState(false);
   const [formHatasi, setFormHatasi] = useState<string | null>(null);
@@ -72,14 +75,15 @@ export default function SiteAnalizi() {
   const tamRaporGonder = async (olay: FormEvent) => {
     olay.preventDefault();
     if (!ozet || gonderiliyor) return;
-    if (!kvkk) {
-      setFormHatasi('kvkk_gerekli');
-      return;
-    }
     setGonderiliyor(true);
     setFormHatasi(null);
     try {
-      await tamRaporIste(ozet.id, { eposta: eposta.trim(), ad: ad.trim() || undefined, kvkk_onay: true });
+      await tamRaporIste(ozet.id, {
+        eposta: eposta.trim(),
+        ad: ad.trim() || undefined,
+        pazarlama_izni: Boolean(ozet.pazarlama_izni_sor && pazarlama),
+        dil,
+      });
       setGonderildi(true);
     } catch (hata) {
       setFormHatasi(hata instanceof SiteAnaliziHatasi ? hata.kod : 'genel');
@@ -89,6 +93,7 @@ export default function SiteAnalizi() {
   };
 
   const yeniAnaliz = () => {
+    setPazarlama(false);
     setOzet(null);
     setAdres('');
     setGonderildi(false);
@@ -235,15 +240,21 @@ export default function SiteAnalizi() {
                       autoComplete="email"
                       className={GIRDI}
                     />
-                    <label className="flex cursor-pointer items-start gap-2 text-xs leading-relaxed text-muted-foreground">
-                      <input
-                        type="checkbox"
-                        checked={kvkk}
-                        onChange={(o) => setKvkk(o.target.checked)}
-                        className="mt-0.5 h-4 w-4 flex-none accent-emerald-500"
-                      />
-                      <span>{t('siteAnalizi.tamRapor.kvkk')}</span>
-                    </label>
+                    {ozet.pazarlama_izni_sor && (
+                      <label className="flex cursor-pointer items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+                        <input
+                          type="checkbox"
+                          checked={pazarlama}
+                          onChange={(o) => setPazarlama(o.target.checked)}
+                          className="mt-0.5 h-4 w-4 flex-none accent-emerald-500"
+                          data-pazarlama-izni
+                        />
+                        <span>
+                          {t('siteAnalizi.tamRapor.pazarlama')}{' '}
+                          <span className="opacity-70">({t('siteAnalizi.tamRapor.istegeBagli')})</span>
+                        </span>
+                      </label>
+                    )}
                     {formHatasi && (
                       <p role="alert" className="text-sm text-red-300">
                         {hataMetni(formHatasi)}

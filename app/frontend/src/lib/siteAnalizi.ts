@@ -40,6 +40,8 @@ export interface AnalizOzeti {
   durum: string;
   bolumler: Bolum[];
   tam_rapor_icin_eposta: boolean;
+  /** Faz 4G: tam rapor formunda isteğe bağlı pazarlama izni kutusu gösterilsin mi (site ayarı). */
+  pazarlama_izni_sor?: boolean;
   created_at?: string | null;
 }
 
@@ -82,6 +84,9 @@ export interface TamRapor {
   eposta?: string | null;
   ad?: string | null;
   kvkk_onay?: boolean;
+  pazarlama_izni?: boolean;
+  pazarlama_izni_at?: string | null;
+  pazarlama_metin_surumu?: string | null;
   inquiry_id?: number | null;
   kaynak?: string | null;
   gonderildi_at?: string | null;
@@ -185,7 +190,8 @@ export function analizBaslat(url: string): Promise<AnalizOzeti> {
 
 export function tamRaporIste(
   id: number,
-  girdi: { eposta: string; ad?: string; kvkk_onay: boolean },
+  // Faz 4G: onay kutusu yok (aydınlatma); pazarlama izni ayrı ve isteğe bağlı.
+  girdi: { eposta: string; ad?: string; pazarlama_izni?: boolean; dil?: string },
 ): Promise<{ gonderildi: boolean }> {
   return acikIstek(`/${id}/tam-rapor`, { method: 'POST', govde: girdi });
 }
@@ -193,6 +199,9 @@ export function tamRaporIste(
 export function raporGetir(jeton: string): Promise<TamRapor> {
   return acikIstek<TamRapor>(`/rapor/${encodeURIComponent(jeton)}`);
 }
+
+/** Faz 4G: site ayarı — tam rapor formunda pazarlama izni sorulsun mu ("1" / "0"). */
+export const PAZARLAMA_AYARI = 'site_analizi_pazarlama_izni';
 
 // ---------------------------------------------------------------------------
 // Yönetici

@@ -1,0 +1,9 @@
+{
+  "iletisimHarita": {
+    "baslik": "Our location",
+    "not": "The map loads from Google Maps; when you open it, Google may use its own cookies. If you have accepted cookies, the map appears automatically.",
+    "goster": "Show map",
+    "disAc": "Open in Google Maps",
+    "cerceveBaslik": "Office location (Google Maps)"
+  }
+}
