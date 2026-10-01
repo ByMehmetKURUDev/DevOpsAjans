@@ -49,7 +49,8 @@
       "site_yok": "Website nicht gefunden.",
       "kontrol_yok": "Prüfung nicht gefunden.",
       "modul_kapali": "Diese Funktion ist für Ihr Konto deaktiviert.",
-      "site_sizin_degil": "Diese Website gehört nicht zu Ihrem Konto."
+      "site_sizin_degil": "Diese Website gehört nicht zu Ihrem Konto.",
+      "otomatik_faturali": "Für dieses Abonnement ist die wiederkehrende Rechnung aktiv; die Periodenrechnung wird automatisch ausgestellt."
     },
     "bilgi": {
       "baslik": "Ablaufdaten und Anbieter",
@@ -179,7 +180,10 @@
         "seo_taramasi": "Technischer SEO- und Geschwindigkeitsscan (3 Websites pro Lauf)",
         "google_esitleme": "Google-Datensynchronisierung (Analytics, Search Console, YouTube)",
         "crm_bildirimleri": "CRM: Benachrichtigungen zu neuen Leads aus Preisangeboten",
-        "crm_hatirlatma": "CRM: Erinnerungen an nächste Schritte (tägliche Übersicht)"
+        "crm_hatirlatma": "CRM: Erinnerungen an nächste Schritte (tägliche Übersicht)",
+        "tekrarlayan_faturalar": "Ausstellung wiederkehrender Rechnungen",
+        "fatura_hatirlatmalari": "Erinnerungen an überfällige Rechnungen (+1/+7/+14 Tage)",
+        "teklif_ve_sozlesme": "Angebotsabläufe und Erinnerungen an Vertragsenden"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

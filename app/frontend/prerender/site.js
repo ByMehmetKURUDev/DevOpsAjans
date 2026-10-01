@@ -404,6 +404,9 @@ export const NOINDEX_ROUTES = [
   '/hesap-davet',
   // Faz 3C: CRM formunun doğrudan bağlantısı (/form/<anahtar>); dizine girmemeli.
   '/form',
+  // Faz 3T: girişsiz teklif ve sözleşme imza sayfaları (jetonlu); kisiye ozel.
+  '/teklif',
+  '/sozlesme',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

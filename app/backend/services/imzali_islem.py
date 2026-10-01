@@ -76,6 +76,11 @@ class TurTanimi:
     #: Not (gerekçe/revizyon metni) zorunlu olan sonuçlar.
     not_zorunlu: Tuple[str, ...] = ()
     tek_kullanimlik: bool = True
+    #: Faz 3T: kendi sayfası/akışı olan türler (`/teklif/<jeton>`, `/sozlesme/<jeton>`).
+    #: Genel `/islem` uçları ve "Onay bekleyenler" bunları göstermiyor/üretmiyor:
+    #: karar ek bilgi istiyor (kabul edenin adı, imza) ve bağlantıyı kendi
+    #: modülleri üretiyor (`services/teklifler.py`, `services/sozlesmeler.py`).
+    ozel: bool = False
 
 
 #: Yeni tür eklemek: buraya bir satır + `_etkiyi_uygula` içinde bir dal +
@@ -86,6 +91,10 @@ TURLER: Dict[str, TurTanimi] = {
     # 1A'nın /rapor/<jeton> akışı kendi jetonunu kullanıyor; bu tür yalnız
     # genel desen için tanımlı (ör. "raporu gördüm" onayı). Etkisi yok.
     "rapor_goruntule": TurTanimi("site_analyses", ("goruntulendi",), tek_kullanimlik=False),
+    # Faz 3T — biçimli teklif (görüntüleme çoklu: jeton çözülür, sayaç artar;
+    # karar tek: kabul ya da gerekçeli ret) ve sözleşme imzası (tek: "onay").
+    "teklif_onay": TurTanimi("teklifler", ("kabul", "red"), not_zorunlu=("red",), ozel=True),
+    "sozlesme_imza": TurTanimi("sozlesmeler", ("onay",), ozel=True),
 }
 
 
@@ -249,7 +258,8 @@ async def hedef_ozeti_kur(
     bağlantı elden ele gidebilir.
     """
     tanim = TURLER.get(tur)
-    if tanim is None:
+    if tanim is None or tanim.ozel:
+        # Özel türlerin bağlantısını kendi modülü üretiyor (teklif, sözleşme).
         raise IslemHatasi(400, "tur_gecersiz")
     not_ = _not_duzelt(not_)
 
@@ -395,12 +405,13 @@ async def kullan(
     not_: Optional[str] = None,
     *,
     ip_ozeti: Optional[str] = None,
+    ek: Optional[Dict[str, Any]] = None,
 ) -> KullanimSonucu:
-    """Bağlantıyı kullanır (girişsiz sayfa)."""
+    """Bağlantıyı kullanır (girişsiz sayfa). `ek`: türe özel bilgi (ad soyad, imza…)."""
     kayit = await coz(db, jeton)
     if kayit is None:
         raise IslemHatasi(404, "bulunamadi")
-    return await _kullan_kayit(db, kayit, sonuc, not_, ip_ozeti=ip_ozeti)
+    return await _kullan_kayit(db, kayit, sonuc, not_, ip_ozeti=ip_ozeti, ek=ek)
 
 
 async def kullan_id(
@@ -411,6 +422,7 @@ async def kullan_id(
     not_: Optional[str] = None,
     *,
     ip_ozeti: Optional[str] = None,
+    ek: Optional[Dict[str, Any]] = None,
 ) -> KullanimSonucu:
     """Aynı işlemi müşteri panelinden, oturumla yapar. Yalnız kendi kaydı."""
     kayit = (
@@ -424,7 +436,7 @@ async def kullan_id(
     if kayit is None:
         raise IslemHatasi(404, "bulunamadi")
     kayit = await _sureyi_isle(db, kayit)
-    return await _kullan_kayit(db, kayit, sonuc, not_, ip_ozeti=ip_ozeti)
+    return await _kullan_kayit(db, kayit, sonuc, not_, ip_ozeti=ip_ozeti, ek=ek)
 
 
 async def _kullan_kayit(
@@ -434,6 +446,7 @@ async def _kullan_kayit(
     not_: Optional[str],
     *,
     ip_ozeti: Optional[str],
+    ek: Optional[Dict[str, Any]] = None,
 ) -> KullanimSonucu:
     from services import denetim
 
@@ -488,7 +501,7 @@ async def _kullan_kayit(
         raise _durum_hatasi(taze) if gecerli_durum(taze) != "bekliyor" else IslemHatasi(409, "mesgul")
 
     try:
-        bildirimler = await _etkiyi_uygula(db, kayit, sonuc, temiz_not)
+        bildirimler = await _etkiyi_uygula(db, kayit, sonuc, temiz_not, {**(ek or {}), "ip_ozeti": ip_ozeti})
         await denetim.denetim_yaz(
             db,
             aktor={"email": kayit.alici_eposta, "rol": "client"},
@@ -514,13 +527,21 @@ async def _kullan_kayit(
 
 
 async def _etkiyi_uygula(
-    db: AsyncSession, kayit: SignedActions, sonuc: str, not_: Optional[str]
+    db: AsyncSession, kayit: SignedActions, sonuc: str, not_: Optional[str], ek: Optional[Dict[str, Any]] = None
 ) -> List[Dict[str, Any]]:
     """Kararı hedef kayda işler (commit ETMEZ). Bildirim listesini döndürür."""
     if kayit.tur == "teklif_kabul":
         return await _teklif_etkisi(db, kayit, sonuc, not_)
     if kayit.tur == "teslimat_onay":
         return await _teslimat_etkisi(db, kayit, sonuc, not_)
+    if kayit.tur == "teklif_onay":
+        from services.teklifler import karar_etkisi
+
+        return await karar_etkisi(db, kayit, sonuc, not_, ek or {})
+    if kayit.tur == "sozlesme_imza":
+        from services.sozlesmeler import imza_etkisi
+
+        return await imza_etkisi(db, kayit, ek or {})
     return []
 
 
@@ -744,6 +765,9 @@ async def yenile(
     eski = (await db.execute(select(SignedActions).where(SignedActions.id == islem_id))).scalar_one_or_none()
     if eski is None:
         raise IslemHatasi(404, "bulunamadi")
+    if (TURLER.get(eski.tur) or TurTanimi(eski.hedef_tablo, ())).ozel:
+        # Teklif/sözleşme bağlantısı kendi modülünden yeniden gönderiliyor.
+        raise IslemHatasi(400, "tur_gecersiz")
     if eski.durum == "kullanildi" and eski.tek_kullanimlik:
         raise IslemHatasi(409, "durum_kullanildi")
     if gun is None:

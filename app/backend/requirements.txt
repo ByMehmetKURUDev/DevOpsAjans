@@ -38,3 +38,8 @@ pywebpush>=2.0.0
 
 # payment module dependencies
 stripe>=12.0.0
+
+# Faz 3T — fatura/teklif/sözleşme PDF'i (saf Python; Chromium yok). Yazı tipi
+# data/fonts (Plus Jakarta Sans, OFL). pypdf yalnız testte PDF metnini okumak için.
+reportlab>=4.0
+pypdf>=3.0

@@ -49,6 +49,8 @@ import {
   Bot,
   Plug,
   Handshake,
+  FileCheck2,
+  FileSignature,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -142,10 +144,16 @@ const KaynakYonetimi = ekliLazy(['kaynakYonetimi', 'marketplaceCeviri'], () => i
 const UzmanAsistanYonetimi = ekliLazy(['uzmanAsistanlar', 'marketplaceCeviri'], () => import('@/components/admin/UzmanAsistanYonetimi'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
+// Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
+// (tekrarlayan, yaşlandırma, ajans bilgileri) + satır ayrıntısı (kalemler, ödemeler, iade, PDF).
+const TeklifYonetimi = ekliLazy('teklif', () => import('@/components/admin/TeklifYonetimi'));
+const SozlesmeYonetimi = ekliLazy('sozlesme', () => import('@/components/admin/SozlesmeYonetimi'));
+const FaturaAraclari = ekliLazy(['fatura', 'teklif'], () => import('@/components/admin/FaturaAraclari'));
+const FaturaAyrinti = ekliLazy(['fatura', 'teklif'], () => import('@/components/admin/FaturaAyrinti'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'crm'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -252,6 +260,8 @@ type Tab =
   | 'blog'
   | 'clients'
   | 'invoices'
+  | 'teklifler'
+  | 'sozlesmeler'
   | 'odeme'
   | 'abonelik'
   | 'siteler'
@@ -950,6 +960,8 @@ export default function AdminPanel() {
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
+    { key: 'teklifler', label: t('ui.tabTeklifler'), icon: FileCheck2 },
+    { key: 'sozlesmeler', label: t('ui.tabSozlesmeler'), icon: FileSignature },
     { key: 'odeme', label: t('ui.tabOdeme'), icon: CreditCard },
     { key: 'krediler', label: t('ui.tabKrediler'), icon: Coins },
     { key: 'abonelik', label: t('abonelik.sekme'), icon: CalendarDays },
@@ -1190,6 +1202,12 @@ export default function AdminPanel() {
           }
         >
           <SiteAnalizleri />
+        </Suspense>
+      )}
+
+      {(tab === 'teklifler' || tab === 'sozlesmeler') && (
+        <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
+          {tab === 'teklifler' ? <TeklifYonetimi /> : <SozlesmeYonetimi />}
         </Suspense>
       )}
 
@@ -1833,6 +1851,9 @@ export default function AdminPanel() {
                   <Plus className="h-4 w-4" /> {t('admin.newInvoiceBtn')}
                 </Button>
               </div>
+              <Suspense fallback={null}>
+                <FaturaAraclari onDegisti={() => void loadAll()} />
+              </Suspense>
               <div className="grid gap-3">
                 {invoices.map((inv) => (
                   <div
@@ -1849,7 +1870,7 @@ export default function AdminPanel() {
                               : 'bg-orange-500/15 text-orange-300'
                           }`}
                         >
-                          {inv.status === 'paid' ? t('ui.status.paid') : t('ui.status.unpaid')}
+                          {t(`ui.status.${inv.status || 'unpaid'}`, { defaultValue: t('ui.status.unpaid') })}
                         </span>
                       </div>
                       <p className="text-xs text-muted-foreground">
@@ -1859,7 +1880,7 @@ export default function AdminPanel() {
                     <p className="text-lg font-bold gradient-text">
                       {inv.amount} {inv.currency || 'USD'}
                     </p>
-                    {inv.status !== 'paid' ? (
+                    {!['paid', 'cancelled', 'iade'].includes(inv.status || '') ? (
                       <>
                         <FaturaOdemeBaglantisi invoiceId={Number(inv.id)} />
                         <ElleTahsilat
@@ -1886,6 +1907,9 @@ export default function AdminPanel() {
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
+                    <Suspense fallback={null}>
+                      <FaturaAyrinti faturaId={Number(inv.id)} onDegisti={() => void loadAll()} />
+                    </Suspense>
                   </div>
                 ))}
                 {invoices.length === 0 && (

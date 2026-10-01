@@ -83,6 +83,8 @@ const HesapEkibi = ekliLazy('hesapEkibi', () => import('@/components/HesapEkibi'
 const Mesajlar = ekliLazy('mesajlar', () => import('@/components/Mesajlar'));
 // Faz 3U — Uzman Asistanlar (yapay zekâ sohbetleri; ek paket `uzmanAsistanlar`).
 const UzmanAsistanlar = ekliLazy('uzmanAsistanlar', () => import('@/components/UzmanAsistanlar'));
+// Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
+const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 /** Panel açık, Mesajlar sekmesi kapalıyken yalnız okunmamış sayısı (30–60 sn). */
 const MESAJ_OZETI_ARALIGI = 45000;
 
@@ -502,7 +504,7 @@ export default function ClientPanel() {
       total: projects.length,
       active: projects.filter((p) => p.status === 'in_progress').length,
       done: projects.filter((p) => p.status === 'completed').length,
-      openInvoices: invoices.filter((i) => i.status !== 'paid').length,
+      openInvoices: invoices.filter((i) => !['paid', 'cancelled', 'iade'].includes(i.status || '')).length,
     }),
     [projects, invoices]
   );
@@ -888,49 +890,10 @@ export default function ClientPanel() {
           )}
 
           {tab === 'invoices' && (
-            <div className="grid gap-3">
-              {invoices.length === 0 ? (
-                <div className="p-10 rounded-2xl glass text-center text-muted-foreground">
-                  {t('ui.noInvoices')}
-                </div>
-              ) : (
-                invoices.map((inv) => (
-                  <div
-                    key={inv.id}
-                    className="p-5 rounded-2xl glass flex flex-wrap items-center gap-4"
-                  >
-                    <div className="flex-1 min-w-[200px]">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-semibold">{inv.invoice_no}</span>
-                        <span
-                          className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full ${
-                            inv.status === 'paid'
-                              ? 'bg-emerald-500/15 text-emerald-300'
-                              : inv.status === 'overdue'
-                                ? 'bg-destructive/15 text-destructive'
-                                : 'bg-orange-500/15 text-orange-300'
-                          }`}
-                        >
-                          {statusLabel(inv.status, 'unpaid')}
-                        </span>
-                      </div>
-                      <p className="text-sm text-muted-foreground">
-                        {inv.description}
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {t('ui.issued')}: {inv.issue_date || '—'} • {t('ui.due')}:{' '}
-                        {inv.due_date || '—'}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-2xl font-bold gradient-text">
-                        {inv.amount} {inv.currency || 'USD'}
-                      </p>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+            // Faz 3T: teklifler + sözleşmeler (imza) + faturalar (bakiye, ödemeler, PDF, öde).
+            <Suspense fallback={<div className="flex justify-center py-16"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>}>
+              <Faturalarim key={etkinEmail || email} />
+            </Suspense>
           )}
 
           {tab === 'tickets' && (

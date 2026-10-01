@@ -48,7 +48,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "project_stage": {"roller": ("admin", "client"), "tetikleniyor": True},
     "project_note": {"roller": ("client",), "tetikleniyor": True},
     "project_delivery": {"roller": ("client",), "tetikleniyor": False},
-    "invoice": {"roller": ("client",), "tetikleniyor": False},
+    # Faz 3T: tekrarlayan fatura ve teklif kabulündeki ilk fatura müşteriye bildiriliyor.
+    "invoice": {"roller": ("client",), "tetikleniyor": True},
     "invoice_paid": {"roller": ("admin", "client"), "tetikleniyor": False},
     "kredi_yuklendi": {"roller": ("client",), "tetikleniyor": True},
     "kredi_azaldi": {"roller": ("admin", "client"), "tetikleniyor": True},
@@ -92,6 +93,13 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Faz 3C — CRM: yeni aday (form / fiyat teklifi) ve günlük "sonraki adım" özeti.
     "crm_yeni_aday": {"roller": ("admin",), "tetikleniyor": True},
     "crm_hatirlatma": {"roller": ("admin",), "tetikleniyor": True},
+    # Faz 3T — teklif, sözleşme + basit e-imza, vadesi geçen fatura.
+    "teklif_gonderildi": {"roller": ("client",), "tetikleniyor": True},
+    "teklif_karar": {"roller": ("admin",), "tetikleniyor": True},
+    "sozlesme_imza_bekliyor": {"roller": ("client",), "tetikleniyor": True},
+    "sozlesme_imzalandi": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "sozlesme_bitis": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "fatura_gecikti": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

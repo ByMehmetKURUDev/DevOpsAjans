@@ -115,6 +115,13 @@ async def yenileme_listesi(
     kalemler = [k for k in await si.kalemler(db) if alt <= k.bitis <= ust]
     faturalar = await _faturalar(db)
     mm = await toplu_durumlar(db, [k.client_email for k in kalemler])
+    # Faz 3T: otomatik faturalı abonelik (tekrarlayan fatura) bu listeden
+    # faturalanmıyor — tek kaynak abonelik; işaretiyle gösteriliyor.
+    otomatik = {
+        a_id for (a_id,) in (
+            await db.execute(select(Service_subscriptions.id).where(Service_subscriptions.fatura_otomatik.is_(True)))
+        ).all()
+    }
     liste: List[Dict[str, Any]] = []
     for k in kalemler:
         m = mm.get(k.client_email)
@@ -134,6 +141,7 @@ async def yenileme_listesi(
             "periyot": k.periyot,
             "modul_acik": bool(d and d.acik),
             "fatura": faturalar.get((k.tur, k.ref_id, k.bitis.isoformat())),
+            "otomatik_fatura": k.tur == "abonelik" and k.ref_id in otomatik,
         })
     return {"gun": gun, "bugun": bugun.isoformat(), "kalemler": liste}
 
@@ -176,6 +184,14 @@ async def yenileme_faturasi_kes(
         raise _hata(400, "para_birimi_gecersiz")
 
     kalem = await _kalem_bul(db, tur, govde.ref_id)
+    if tur == "abonelik":
+        abonelik = (
+            await db.execute(select(Service_subscriptions).where(Service_subscriptions.id == kalem.ref_id))
+        ).scalar_one_or_none()
+        if abonelik is not None and abonelik.fatura_otomatik:
+            # Faz 3T: tekrarlayan fatura açık — dönem faturası zamanlı görevle kesiliyor;
+            # buradan ikinci bir fatura açılmasın (çift faturalama).
+            raise _hata(409, "otomatik_faturali")
     if "@" not in kalem.client_email:
         raise _hata(409, "musteri_epostasi_yok")
     bitis = kalem.bitis.isoformat()

@@ -37,6 +37,9 @@ const HesapDavetSayfasi = ekliLazy('hesapEkibi', () => import('./pages/HesapDave
 // Faz 3C: gömülebilir CRM formunun doğrudan bağlantısı (/form/<anahtar>; prerender yok, noindex).
 // Formu `public/crm-form.js` çiziyor (etiketler sunucudan, 7 dil): ek paket gerekmiyor.
 const CrmFormSayfasi = lazy(() => import('./pages/CrmFormSayfasi'));
+// Faz 3T: girişsiz teklif ve sözleşme imza sayfaları (jetonlu, noindex, prerender yok).
+const TeklifSayfasi = ekliLazy('teklif', () => import('./pages/TeklifSayfasi'));
+const SozlesmeSayfasi = ekliLazy(['sozlesme', 'teklif'], () => import('./pages/SozlesmeSayfasi'));
 // Faz 3K: herkese açık Kaynaklar (7 dil, prerender). Metinleri ek pakette, verisi API'de/gömülü.
 const KaynaklarListesi = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynaklarListesi'));
 const KaynakDetay = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynakDetay'));
@@ -79,6 +82,9 @@ const AppRoutes = () => (
         <Route path="/paylas/:jeton" element={<PaylasSayfasi />} />
         {/* Faz 2E: müşteri hesabına ekip daveti (/hesap-davet/<jeton>). Bilgi girişsiz, kabul girişli; noindex. */}
         <Route path="/hesap-davet/:jeton" element={<HesapDavetSayfasi />} />
+        {/* Faz 3T: teklif (görüntüle, kabul/ret, PDF) ve sözleşme imzası. Oturum istemiyor, noindex. */}
+        <Route path="/teklif/:jeton" element={<TeklifSayfasi />} />
+        <Route path="/sozlesme/:jeton" element={<SozlesmeSayfasi />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

@@ -13,6 +13,14 @@
         "ad": "Krediler",
         "aciklama": "Kullandıkça Öde bakiyeniz: yüklemeler, harcanan saatler ve son kullanma tarihleri."
       },
+      "teklifler": {
+        "ad": "Teklifler",
+        "aciklama": "Kalemli teklifler: giriş yapmadan inceleme, kabul ya da ret, PDF ve kabulde otomatik fatura/sözleşme."
+      },
+      "sozlesmeler": {
+        "ad": "Sözleşmeler ve e-imza",
+        "aciklama": "Şablondan sözleşme, bağlantıyla basit elektronik imza, imzalı PDF ve bitiş hatırlatması."
+      },
       "destek": {
         "ad": "Destek",
         "aciklama": "Talep açın, ekibimizle yazışın, durumunu takip edin."

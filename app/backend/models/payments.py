@@ -65,6 +65,15 @@ class Payments(Base):
 
     ham_yanit = Column(Text, nullable=True)
 
+    # Faz 3T — kısmi ödeme: yöneticinin elle girdiği ödemenin tarihi
+    # (YYYY-MM-DD), notu, dekontu (`files.id`, dosya deposu) ve ekleyen.
+    # Kanal (`saglayici`) değerleri: shopier | lemonsqueezy | havale | eft |
+    # elden (nakit) | diger. `durum="iade"` satırı müşteriye geri ödenen para.
+    odeme_tarihi = Column(String, nullable=True)
+    notu = Column(Text, nullable=True)
+    dekont_dosya_id = Column(Integer, nullable=True)
+    ekleyen_eposta = Column(String, nullable=True)
+
     odendi_at = Column(DateTime(timezone=True), nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

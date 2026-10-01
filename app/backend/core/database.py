@@ -449,6 +449,34 @@ class DatabaseManager:
             "tur_pg": "VARCHAR",
             "tur_sqlite": "TEXT",
         },
+        # Faz 3T — fatura kalemleri + KDV dökümü, iade (alacak) faturası,
+        # tekrarlayan fatura bağı. Eski (tek tutarlı) faturalarda hepsi NULL:
+        # `amount` tek gerçek kaynak olarak kalıyor; kalemli faturada `amount`
+        # sunucunun hesapladığı genel toplam (services/belge_hesap.py).
+        {"tablo": "invoices", "sutun": "kalemler", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "invoices", "sutun": "ara_toplam", "tur_pg": "DOUBLE PRECISION", "tur_sqlite": "REAL"},
+        {"tablo": "invoices", "sutun": "kdv_toplam", "tur_pg": "DOUBLE PRECISION", "tur_sqlite": "REAL"},
+        # normal (NULL) | iade — iade faturası eksi tutarlı, `bagli_fatura_id` asıl fatura.
+        {"tablo": "invoices", "sutun": "tur", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "invoices", "sutun": "bagli_fatura_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "invoices", "sutun": "teklif_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "invoices", "sutun": "tekrarlayan_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "invoices", "sutun": "donem", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "invoices", "sutun": "notlar", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        # Faz 3T — kısmi ödeme: tahsilat `payments` tablosunda kalıyor (ikinci
+        # bir ödeme tablosu açılmadı); elle girilen ödemenin tarihi, notu,
+        # dekontu (dosya deposu → `files.id`) ve ekleyen yönetici.
+        {"tablo": "payments", "sutun": "odeme_tarihi", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "payments", "sutun": "notu", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "payments", "sutun": "dekont_dosya_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "payments", "sutun": "ekleyen_eposta", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        # Faz 3T — tekrarlayan fatura şablonu = aboneliğin fatura alanları (tek
+        # kaynak: abonelik). Eski aboneliklerde NULL = otomatik fatura kapalı.
+        {"tablo": "service_subscriptions", "sutun": "fatura_otomatik", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
+        {"tablo": "service_subscriptions", "sutun": "fatura_kalemleri", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "service_subscriptions", "sutun": "fatura_baslangic", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "service_subscriptions", "sutun": "vade_gun", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "service_subscriptions", "sutun": "son_fatura_donemi", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
     )
 
     async def _eksik_sutunlari_tamamla(self):

@@ -304,7 +304,8 @@ async def _eposta_gonder(db: AsyncSession, kayit: SignedActions, baglanti: str) 
 async def islem_ozeti(jeton: str, request: Request, db: AsyncSession = _Depends(get_db)):
     _sinir_denetle(request)
     kayit = await servis.coz(db, jeton)
-    if kayit is None:
+    if kayit is None or _tanim(kayit).ozel:
+        # Faz 3T: teklif/sözleşme bağlantısı kendi sayfasından (`/teklif`, `/sozlesme`).
         raise HTTPException(status_code=404, detail={"kod": "bulunamadi"})
     tanim = _tanim(kayit)
     return AcikIslem(
@@ -326,6 +327,9 @@ async def islem_karari(
     jeton: str, request: Request, govde: KararGirdisi = Body(...), db: AsyncSession = _Depends(get_db)
 ):
     ip = _sinir_denetle(request)
+    kayit = await servis.coz(db, jeton)
+    if kayit is None or _tanim(kayit).ozel:
+        raise HTTPException(status_code=404, detail={"kod": "bulunamadi"})
     try:
         sonuc = await servis.kullan(db, jeton, govde.sonuc, govde.not_, ip_ozeti=ip)
     except IslemHatasi as h:
@@ -372,6 +376,10 @@ async def liste(
     sorgu = select(SignedActions)
     if tur:
         sorgu = sorgu.where(SignedActions.tur == tur)
+    else:
+        # Faz 3T: teklif/sözleşme bağlantıları kendi sekmelerinde yönetiliyor.
+        ozel = [k for k, v in servis.TURLER.items() if v.ozel]
+        sorgu = sorgu.where(SignedActions.tur.notin_(ozel))
     if durum:
         sorgu = sorgu.where(SignedActions.durum == durum)
     if hedef_tablo:
@@ -504,6 +512,9 @@ async def islemlerim_karar(
             select(SignedActions.tur).where(SignedActions.id == islem_id, SignedActions.alici_eposta == eposta)
         )
     ).scalar_one_or_none()
+    if tur is not None and tur not in TUR_IZNI:
+        # Faz 3T: teklif/sözleşme kararı kendi uçlarından (`/tekliflerim`, `/sozlesmelerim`).
+        raise HTTPException(status_code=404, detail={"kod": "bulunamadi"})
     if tur is not None and not baglam.izin_var(TUR_IZNI.get(tur, "faturalar")):
         raise izin_hatasi(TUR_IZNI.get(tur, "faturalar"))
     try:

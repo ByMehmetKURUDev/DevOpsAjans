@@ -49,7 +49,8 @@
       "site_yok": "未找到网站。",
       "kontrol_yok": "未找到检查项。",
       "modul_kapali": "您的账户未启用此功能。",
-      "site_sizin_degil": "该网站不属于您的账户。"
+      "site_sizin_degil": "该网站不属于您的账户。",
+      "otomatik_faturali": "此订阅已开启定期开票；周期发票会自动开具。"
     },
     "bilgi": {
       "baslik": "到期日期与服务商",
@@ -179,7 +180,10 @@
         "seo_taramasi": "技术 SEO 与速度扫描（每轮 3 个网站）",
         "google_esitleme": "Google 数据同步（Analytics、Search Console、YouTube）",
         "crm_bildirimleri": "CRM：报价请求带来的新线索通知",
-        "crm_hatirlatma": "CRM：下一步提醒（每日汇总）"
+        "crm_hatirlatma": "CRM：下一步提醒（每日汇总）",
+        "tekrarlayan_faturalar": "开具定期发票",
+        "fatura_hatirlatmalari": "逾期发票提醒（+1/+7/+14 天）",
+        "teklif_ve_sozlesme": "报价到期与合同到期提醒"
       },
       "gunluk": "每天",
       "haftalik": "每周"

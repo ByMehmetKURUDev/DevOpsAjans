@@ -94,6 +94,9 @@ HARIC_TABLOLAR = frozenset({
     # form gönderimlerinin KVKK onay kayıtları (kendi tablosunda saklanıyor). Aday,
     # aşama ve form tanımı değişiklikleri kaydediliyor.
     "crm_aktiviteler", "crm_bagli_kayitlar", "crm_form_gonderimleri",
+    # Faz 3T: hatırlatma ve tekrarlayan fatura dönem kilitleri (zamanlı görevin
+    # teknik izi; asıl fatura/sözleşme kayıtları kaydediliyor).
+    "hatirlatma_izleri", "tekrarlayan_fatura_kayitlari",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.

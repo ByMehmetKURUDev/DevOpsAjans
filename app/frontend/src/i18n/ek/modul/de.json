@@ -13,6 +13,14 @@
         "ad": "Guthaben",
         "aciklama": "Ihr Pay-as-you-go-Guthaben: Aufladungen, verbrauchte Stunden und Ablaufdaten."
       },
+      "teklifler": {
+        "ad": "Angebote",
+        "aciklama": "Positionsgenaue Angebote: ohne Anmeldung prüfen, annehmen oder ablehnen, PDF und automatische Rechnung/Vertrag bei Annahme."
+      },
+      "sozlesmeler": {
+        "ad": "Verträge und E-Signatur",
+        "aciklama": "Verträge aus Vorlagen, einfache elektronische Signatur per Link, signiertes PDF und Erinnerung vor Vertragsende."
+      },
       "destek": {
         "ad": "Support",
         "aciklama": "Anfragen stellen, mit unserem Team schreiben und den Status verfolgen."

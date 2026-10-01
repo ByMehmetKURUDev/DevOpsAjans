@@ -125,6 +125,11 @@ OLAY_IZNI: Dict[str, str] = {
     "aylik_rapor": "raporlar",
     # Faz 2G — karşı taraf okumadıysa toplu mesaj bildirimi.
     "mesaj_yeni": "mesajlar",
+    # Faz 3T — vadesi geçen fatura ve sözleşme bitişi faturalar iznine. Teklif/
+    # sözleşme bağlantı e-postaları (`teklif_gonderildi`, `sozlesme_imza_bekliyor`)
+    # BİLEREK yok: bağlantı bir yetki belgesi, yalnız adı geçen alıcıya.
+    "fatura_gecikti": "faturalar",
+    "sozlesme_bitis": "faturalar",
 }
 
 DAVET_OLAYI = "hesap_davet"

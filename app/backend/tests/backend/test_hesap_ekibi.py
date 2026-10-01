@@ -222,6 +222,20 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/asistanlarim/sohbetler/{AS}", ("asistanlar",), None, 200),
     ("POST", "/api/v1/asistanlarim/sohbetler/{AS}/mesaj", ("asistanlar",), {"icerik": "Merhaba"}, "gecti"),
     ("DELETE", "/api/v1/asistanlarim/sohbetler/999999", ("asistanlar",), None, "gecti"),
+    # Faz 3T — faturalarım (bakiye, PDF, ödeme bağlantısı), tekliflerim, sözleşmelerim (`faturalar` izni).
+    ("GET", "/api/v1/faturalarim", ("faturalar",), None, 200),
+    ("GET", "/api/v1/faturalarim/{F}", ("faturalar",), None, 200),
+    ("GET", "/api/v1/faturalarim/{F}/pdf", ("faturalar",), None, 200),
+    ("POST", "/api/v1/faturalarim/{F}/odeme-baglantisi", ("faturalar",), None, 200),
+    ("GET", "/api/v1/faturalarim/{F}/odemeler/999999/dekont", ("faturalar",), None, "gecti"),
+    ("GET", "/api/v1/tekliflerim", ("faturalar",), None, 200),
+    ("GET", "/api/v1/tekliflerim/999999", ("faturalar",), None, "gecti"),
+    ("POST", "/api/v1/tekliflerim/999999/karar", ("faturalar",), {"sonuc": "kabul", "ad_soyad": "Ekip Üyesi"}, "gecti"),
+    ("GET", "/api/v1/tekliflerim/999999/pdf", ("faturalar",), None, "gecti"),
+    ("GET", "/api/v1/sozlesmelerim", ("faturalar",), None, 200),
+    ("GET", "/api/v1/sozlesmelerim/999999", ("faturalar",), None, "gecti"),
+    ("POST", "/api/v1/sozlesmelerim/999999/imza", ("faturalar",), {"ad_soyad": "Ekip Üyesi", "onay": True}, "gecti"),
+    ("GET", "/api/v1/sozlesmelerim/999999/pdf", ("faturalar",), None, "gecti"),
 ]
 
 

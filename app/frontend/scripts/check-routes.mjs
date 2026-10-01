@@ -53,6 +53,9 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/hesap-davet/:jeton',
   // Faz 3C: gömülebilir CRM formunun doğrudan bağlantısı — dinamik, noindex.
   '/form/:anahtar',
+  // Faz 3T: girişsiz teklif ve sözleşme imza sayfaları — jetona özel (noindex).
+  '/teklif/:jeton',
+  '/sozlesme/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

@@ -79,6 +79,12 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "crm_adaylar": {"sira": 10},
     "crm_formlar": {"sira": 10},
     "crm_aktiviteler": {"sira": 20, "ebeveyn": "crm_adaylar"},
+    # Faz 3T: teklif (kabul edilmişse silinmez), sözleşme (imzalıysa silinmez)
+    # ve şablon. İmzalı sözleşme hiç silinemediği için imza görseli/IP özeti
+    # çöp kutusuna kopyalanmıyor.
+    "teklifler": {"sahip": "hesap_email", "sira": 10},
+    "sozlesmeler": {"sahip": "hesap_email", "sira": 10},
+    "sozlesme_sablonlari": {"sira": 10},
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

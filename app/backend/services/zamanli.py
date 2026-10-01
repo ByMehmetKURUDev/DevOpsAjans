@@ -157,6 +157,28 @@ async def _mesaj_bildirimleri(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await bildirimleri_isle(db)
 
 
+async def _tekrarlayan_faturalar(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 3T: dönem kilidi benzersiz — "Şimdi çalıştır" da aynı dönemi ikinci kez kesmez.
+    from services.faturalar import tekrarlayan_faturalari_uret
+
+    return await tekrarlayan_faturalari_uret(db)
+
+
+async def _fatura_hatirlatmalari(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.faturalar import vade_hatirlatmalari
+
+    return await vade_hatirlatmalari(db)
+
+
+async def _teklif_ve_sozlesme(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.sozlesmeler import bitis_hatirlatmalari
+    from services.teklifler import sureleri_isle
+
+    teklif = await sureleri_isle(db)
+    sozlesme = await bitis_hatirlatmalari(db)
+    return {"teklif": teklif, "sozlesme": sozlesme}
+
+
 async def _google_esitleme(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     # Faz 3B: GA4 + Search Console + YouTube → analytics_snapshots. Her Google
     # isteği 10 sn, kaynak başına 20 sn (paralel) — tur kısa kalıyor. `zorla`
@@ -209,6 +231,11 @@ GOREVLER: List[Gorev] = [
     # Faz 3C: CRM — yeni aday bildirimi her turda (ucuz sorgu), hatırlatma günde bir.
     Gorev("crm_bildirimleri", timedelta(0), _crm_bildirimleri),
     Gorev("crm_hatirlatma", timedelta(hours=20), _crm_hatirlatma),
+    # Faz 3T: tekrarlayan fatura (dönem başına bir kez), vade +1/+7/+14 hatırlatması,
+    # süresi dolan teklifler ve sözleşme bitişi (30/7 gün).
+    Gorev("tekrarlayan_faturalar", timedelta(hours=6), _tekrarlayan_faturalar),
+    Gorev("fatura_hatirlatmalari", timedelta(hours=6), _fatura_hatirlatmalari),
+    Gorev("teklif_ve_sozlesme", timedelta(hours=6), _teklif_ve_sozlesme),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

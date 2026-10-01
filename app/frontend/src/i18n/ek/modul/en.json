@@ -13,6 +13,14 @@
         "ad": "Credits",
         "aciklama": "Your pay-as-you-go balance: top-ups, hours spent and expiry dates."
       },
+      "teklifler": {
+        "ad": "Quotes",
+        "aciklama": "Itemised quotes: review, accept or decline without logging in, PDF, and automatic invoice/contract on acceptance."
+      },
+      "sozlesmeler": {
+        "ad": "Contracts and e-signature",
+        "aciklama": "Contracts from templates, simple electronic signature via link, signed PDF and end-date reminders."
+      },
       "destek": {
         "ad": "Support",
         "aciklama": "Open requests, message our team and follow their status."

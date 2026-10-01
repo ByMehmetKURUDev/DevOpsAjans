@@ -49,7 +49,8 @@
       "site_yok": "Site not found.",
       "kontrol_yok": "Check not found.",
       "modul_kapali": "This feature is disabled for your account.",
-      "site_sizin_degil": "This site does not belong to your account."
+      "site_sizin_degil": "This site does not belong to your account.",
+      "otomatik_faturali": "Recurring invoicing is on for this subscription; the period invoice is issued automatically."
     },
     "bilgi": {
       "baslik": "Expiry dates and providers",
@@ -179,7 +180,10 @@
         "seo_taramasi": "Technical SEO and speed scan (3 sites per run)",
         "google_esitleme": "Google data sync (Analytics, Search Console, YouTube)",
         "crm_bildirimleri": "CRM: new lead notifications from price quotes",
-        "crm_hatirlatma": "CRM: next step reminders (daily digest)"
+        "crm_hatirlatma": "CRM: next step reminders (daily digest)",
+        "tekrarlayan_faturalar": "Issuing recurring invoices",
+        "fatura_hatirlatmalari": "Overdue invoice reminders (+1/+7/+14 days)",
+        "teklif_ve_sozlesme": "Quote expiry and contract end reminders"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

@@ -177,14 +177,13 @@ async def _faturayi_kapat(db: AsyncSession, kayit: Payments) -> bool:
     if fatura is None or fatura.amount is None:
         return False
 
-    satirlar = await db.execute(
-        select(Payments).where(Payments.invoice_id == fatura.id)
-    )
-    toplam = _fatura_tahsilati(list(satirlar.scalars().all()))
-    if toplam + 0.001 >= fatura.amount:
-        fatura.status = "paid"
-        return True
-    return False
+    # Faz 3T: durum tek yerden (iade faturaları ve geri ödemeler dâhil);
+    # kısmen ödenen fatura `kismi_odendi` oluyor, bekleyen bağlantı kalana uyuyor.
+    from services.faturalar import bekleyen_baglantiyi_esitle, durumu_guncelle
+
+    durum, bakiye = await durumu_guncelle(db, fatura)
+    await bekleyen_baglantiyi_esitle(db, fatura, bakiye)
+    return durum == "paid"
 
 
 async def _musteri_sitesini_ac(db: AsyncSession, kayit: Payments) -> Optional[int]:
@@ -270,27 +269,14 @@ async def baglanti_uret(
     _yonetici_iste(request)
     fatura = await _fatura_getir(db, govde.invoice_id)
 
-    mevcut = await db.execute(
-        select(Payments)
-        .where(Payments.invoice_id == fatura.id)
-        .where(Payments.durum == "bekliyor")
-        .order_by(Payments.id.desc())
-    )
-    kayit = mevcut.scalars().first()
+    # Faz 3T: bağlantının tutarı KALAN bakiye (kısmi ödeme/iade sonrası);
+    # var olan bekleyen bağlantı kalana uyduruluyor.
+    from services.faturalar import FaturaHatasi, baglanti_hazirla
 
-    if kayit is None:
-        kayit = Payments(
-            invoice_id=fatura.id,
-            invoice_no=fatura.invoice_no,
-            client_email=fatura.client_email,
-            jeton=_yeni_jeton(),
-            tutar=fatura.amount,
-            para_birimi=fatura.currency or "TRY",
-            durum="bekliyor",
-        )
-        db.add(kayit)
-        await db.commit()
-        await db.refresh(kayit)
+    try:
+        kayit = await baglanti_hazirla(db, fatura)
+    except FaturaHatasi as h:
+        raise HTTPException(status_code=h.durum, detail=h.detay())
 
     return BaglantiYaniti(
         jeton=kayit.jeton,
@@ -316,7 +302,14 @@ async def elle_tahsilat(
         )
 
     fatura = await _fatura_getir(db, govde.invoice_id)
-    tutar = govde.tutar if govde.tutar is not None else fatura.amount
+    if govde.tutar is None:
+        # Faz 3T: tutar verilmediyse kalan bakiye (kısmi ödemeden sonra tamamı değil).
+        from services.faturalar import bakiye as _bakiye
+
+        _b = await _bakiye(db, fatura)
+        tutar = float(_b.kalan) if _b.kalan > 0 else fatura.amount
+    else:
+        tutar = govde.tutar
 
     kayit = Payments(
         invoice_id=fatura.id,
@@ -336,15 +329,19 @@ async def elle_tahsilat(
     # bağlantısı iptal ediliyor. Yoksa iki şey bozuluyor: özet aynı
     # parayı hem "tahsil edildi" hem "bekliyor" sayıyor, ve müşteriye
     # gönderilmiş bağlantı ödenmiş bir faturayı istemeye devam ediyor.
-    if fatura.amount is not None and tutar is not None and tutar + 0.001 >= fatura.amount:
-        fatura.status = "paid"
+    # Faz 3T: kısmi tahsilatta fatura `kismi_odendi`, bağlantı kalana iniyor.
+    from services.faturalar import bekleyen_baglantiyi_esitle, durumu_guncelle
+
+    _durum, _bakiye_son = await durumu_guncelle(db, fatura)
+    await bekleyen_baglantiyi_esitle(db, fatura, _bakiye_son)
+    if _durum == "paid":
         bekleyenler = await db.execute(
             select(Payments)
             .where(Payments.invoice_id == fatura.id)
-            .where(Payments.durum == "bekliyor")
+            .where(Payments.durum == "iptal")
+            .where(Payments.hata_mesaji == "Fatura kapandı")
         )
         for eski in bekleyenler.scalars().all():
-            eski.durum = "iptal"
             eski.hata_mesaji = f"{kanal} ile tahsil edildi"
 
     # Tahsilat alındı: müşteri sitesi kaydı ve geri bildirim düğmesinin
@@ -379,22 +376,11 @@ async def kayit_sil(
     if kayit is None:
         raise HTTPException(status_code=404, detail="Kayıt bulunamadı")
 
-    invoice_id = kayit.invoice_id
-    odenmisti = kayit.durum == "odendi"
-    await db.delete(kayit)
-    await db.flush()
+    # Faz 3T: durum tek yerden yeniden hesaplanıyor (kısmi ödendi / ödenmedi),
+    # bekleyen bağlantı kalana uyuyor, silme denetim kaydına düşüyor.
+    from services.faturalar import odeme_sil
 
-    if odenmisti and invoice_id:
-        fatura = await db.execute(select(Invoices).where(Invoices.id == invoice_id))
-        fatura = fatura.scalar_one_or_none()
-        if fatura is not None and fatura.amount is not None:
-            kalanlar = await db.execute(
-                select(Payments).where(Payments.invoice_id == invoice_id)
-            )
-            toplam = _fatura_tahsilati(list(kalanlar.scalars().all()))
-            if toplam + 0.001 < fatura.amount:
-                fatura.status = "unpaid"
-
+    await odeme_sil(db, kayit)
     await db.commit()
     return {"silindi": payment_id}
 

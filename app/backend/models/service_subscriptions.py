@@ -1,6 +1,6 @@
 from core.database import Base
 from datetime import datetime
-from sqlalchemy import Column, DateTime, Float, Integer, String, Text
+from sqlalchemy import Boolean, Column, DateTime, Float, Integer, String, Text
 
 
 class Service_subscriptions(Base):
@@ -32,6 +32,16 @@ class Service_subscriptions(Base):
     baslangic = Column(String, nullable=True)        # YYYY-MM
     sonraki_rapor = Column(String, nullable=True)     # YYYY-MM
     notlar = Column(Text, nullable=True)
+    # Faz 3T — tekrarlayan fatura şablonu (tek kaynak: abonelik). Açıksa
+    # zamanlı görev her dönem (aylık: YYYY-MM, yıllık: YYYY) bir fatura
+    # kesiyor; dönem kilidi `tekrarlayan_fatura_kayitlari` (benzersiz).
+    fatura_otomatik = Column(Boolean, nullable=True)
+    #: JSON kalem listesi (services/belge_hesap.py biçimi)
+    fatura_kalemleri = Column(Text, nullable=True)
+    #: İlk faturalanacak dönem (YYYY-MM); öncesi geriye dönük kesilmez.
+    fatura_baslangic = Column(String, nullable=True)
+    vade_gun = Column(Integer, nullable=True)
+    son_fatura_donemi = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)
 

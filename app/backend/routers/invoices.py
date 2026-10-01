@@ -1,11 +1,11 @@
 import json
 import logging
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from datetime import datetime, date
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.database import get_db
@@ -44,6 +44,54 @@ async def _odendiyse_kredi_yukle(db: AsyncSession, fatura) -> None:
         logger.exception("Elle ödendi işaretlenen faturanın kredisi yüklenemedi: fatura=%s", getattr(fatura, "id", None))
 
 
+# ---------- Faz 3T: kalemler (sunucu hesaplar) ----------
+#: Faturanın türü: boş/normal ya da iade (eksi tutarlı alacak faturası).
+FATURA_TURLERI = (None, "normal", "iade")
+
+
+def _kalemleri_isle(veri: Dict[str, Any], mevcut: Any = None) -> Dict[str, Any]:
+    """Kalemli faturada toplamları sunucuda hesaplar; istemci toplamı yok sayılır.
+
+    * `kalemler` dolu liste → `amount`, `ara_toplam`, `kdv_toplam` buradan
+      (services/belge_hesap.py, Decimal, kuruş). İstemcinin gönderdiği
+      `amount`/`ara_toplam`/`kdv_toplam` atılıyor.
+    * `kalemler: []` → kalemler temizleniyor, fatura tek tutarlı moda dönüyor
+      (o zaman `amount` istemciden gelmeli ya da eskisi kalıyor).
+    * `kalemler` gönderilmediyse ve kayıt zaten kalemliyse `amount` değişmiyor
+      (toplam kalemlerden geliyor; tek başına tutar yazılamaz).
+    * Eski tek tutarlı faturalar: hiçbir şey değişmiyor.
+    """
+    from services.belge_hesap import HesapHatasi, belge_hesapla
+
+    veri = dict(veri)
+    # Toplamlar hiçbir zaman istemciden alınmıyor.
+    veri.pop("ara_toplam", None)
+    veri.pop("kdv_toplam", None)
+    tur = veri.get("tur", getattr(mevcut, "tur", None))
+    if "tur" in veri and veri["tur"] not in FATURA_TURLERI:
+        raise HTTPException(status_code=400, detail={"kod": "tur_gecersiz"})
+    if "kalemler" in veri and veri["kalemler"] is not None:
+        kalemler = veri["kalemler"]
+        if isinstance(kalemler, list) and not kalemler:
+            veri["kalemler"] = None
+            veri["ara_toplam"] = None
+            veri["kdv_toplam"] = None
+            return veri
+        try:
+            belge = belge_hesapla(kalemler, eksi_olabilir=(tur == "iade"))
+        except HesapHatasi as h:
+            raise HTTPException(status_code=400, detail=h.detay())
+        veri["kalemler"] = json.dumps(belge.kalem_listesi(), ensure_ascii=False)
+        veri["ara_toplam"] = float(belge.ara_toplam)
+        veri["kdv_toplam"] = float(belge.kdv_toplam)
+        veri["amount"] = float(belge.genel_toplam)
+        return veri
+    veri.pop("kalemler", None)
+    if mevcut is not None and getattr(mevcut, "kalemler", None):
+        veri.pop("amount", None)
+    return veri
+
+
 # ---------- Pydantic Schemas ----------
 class InvoicesData(BaseModel):
     """Entity data schema (for create/update)"""
@@ -51,11 +99,22 @@ class InvoicesData(BaseModel):
     client_name: str = None
     client_email: str = None
     description: str = None
-    amount: float
+    # Faz 3T: kalemli faturada tutar sunucuda hesaplanır (gönderilmeyebilir).
+    amount: Optional[float] = None
     currency: str = None
     status: str = None
     issue_date: str = None
     due_date: str = None
+    # Faz 3T — kalemler + KDV; toplamlar (ara/KDV) istemciden gelse de yok sayılır.
+    kalemler: Optional[List[Dict[str, Any]]] = None
+    ara_toplam: Optional[float] = None
+    kdv_toplam: Optional[float] = None
+    tur: Optional[str] = None
+    bagli_fatura_id: Optional[int] = None
+    teklif_id: Optional[int] = None
+    tekrarlayan_id: Optional[int] = None
+    donem: Optional[str] = None
+    notlar: Optional[str] = None
 
 
 class InvoicesUpdateData(BaseModel):
@@ -69,6 +128,16 @@ class InvoicesUpdateData(BaseModel):
     status: Optional[str] = None
     issue_date: Optional[str] = None
     due_date: Optional[str] = None
+    # Faz 3T — `kalemler: []` faturayı tek tutarlı moda döndürür.
+    kalemler: Optional[List[Dict[str, Any]]] = None
+    ara_toplam: Optional[float] = None
+    kdv_toplam: Optional[float] = None
+    tur: Optional[str] = None
+    bagli_fatura_id: Optional[int] = None
+    teklif_id: Optional[int] = None
+    tekrarlayan_id: Optional[int] = None
+    donem: Optional[str] = None
+    notlar: Optional[str] = None
 
 
 class InvoicesResponse(BaseModel):
@@ -83,8 +152,30 @@ class InvoicesResponse(BaseModel):
     status: Optional[str] = None
     issue_date: Optional[str] = None
     due_date: Optional[str] = None
+    # Faz 3T
+    kalemler: Optional[List[Dict[str, Any]]] = None
+    ara_toplam: Optional[float] = None
+    kdv_toplam: Optional[float] = None
+    tur: Optional[str] = None
+    bagli_fatura_id: Optional[int] = None
+    teklif_id: Optional[int] = None
+    tekrarlayan_id: Optional[int] = None
+    donem: Optional[str] = None
+    notlar: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
+
+    @field_validator("kalemler", mode="before")
+    @classmethod
+    def _kalemleri_coz(cls, deger):
+        # Kayıtta JSON metni; yanıtta liste. Bozuk metin faturayı düşürmesin.
+        if deger is None or isinstance(deger, list):
+            return deger
+        try:
+            sonuc = json.loads(deger)
+        except (TypeError, ValueError):
+            return None
+        return sonuc if isinstance(sonuc, list) else None
 
     class Config:
         from_attributes = True
@@ -245,12 +336,17 @@ async def create_invoices(
     
     service = InvoicesService(db)
     try:
-        result = await service.create(data.model_dump())
+        veri = _kalemleri_isle(data.model_dump())
+        if veri.get("amount") is None:
+            raise HTTPException(status_code=400, detail={"kod": "tutar_gerekli"})
+        result = await service.create(veri)
         if not result:
             raise HTTPException(status_code=400, detail="Failed to create invoices")
         
         logger.info(f"Invoices created successfully with id: {result.id}")
         return result
+    except HTTPException:
+        raise
     except ValueError as e:
         logger.error(f"Validation error creating invoices: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
@@ -272,12 +368,18 @@ async def create_invoicess_batch(
     
     try:
         for item_data in request.items:
-            result = await service.create(item_data.model_dump())
+            veri = _kalemleri_isle(item_data.model_dump())
+            if veri.get("amount") is None:
+                raise HTTPException(status_code=400, detail={"kod": "tutar_gerekli"})
+            result = await service.create(veri)
             if result:
                 results.append(result)
         
         logger.info(f"Batch created {len(results)} invoicess successfully")
         return results
+    except HTTPException:
+        await db.rollback()
+        raise
     except Exception as e:
         await db.rollback()
         logger.error(f"Error in batch create: {str(e)}", exc_info=True)
@@ -299,6 +401,7 @@ async def update_invoicess_batch(
         for item in request.items:
             # Only include non-None values for partial updates
             update_dict = {k: v for k, v in item.updates.model_dump().items() if v is not None}
+            update_dict = _kalemleri_isle(update_dict, await service.get_by_id(item.id))
             result = await service.update(item.id, update_dict)
             if result:
                 await _odendiyse_kredi_yukle(db, result)
@@ -306,6 +409,9 @@ async def update_invoicess_batch(
         
         logger.info(f"Batch updated {len(results)} invoicess successfully")
         return results
+    except HTTPException:
+        await db.rollback()
+        raise
     except Exception as e:
         await db.rollback()
         logger.error(f"Error in batch update: {str(e)}", exc_info=True)
@@ -325,6 +431,7 @@ async def update_invoices(
     try:
         # Only include non-None values for partial updates
         update_dict = {k: v for k, v in data.model_dump().items() if v is not None}
+        update_dict = _kalemleri_isle(update_dict, await service.get_by_id(id))
         result = await service.update(id, update_dict)
         if not result:
             logger.warning(f"Invoices with id {id} not found for update")
