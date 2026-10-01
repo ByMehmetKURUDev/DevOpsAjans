@@ -216,7 +216,9 @@ test('gömülü pencere: çerçeve izni (frame-ancestors *), X-Frame-Options yok
   const y = await cagir('/randevu/ayse-danismanlik?gomulu=1');
   await y.text();
   assert.equal(y.headers.get('x-frame-options'), null);
-  assert.equal(y.headers.get('content-security-policy'), 'frame-ancestors *');
+  const csp = y.headers.get('content-security-policy') || '';
+  assert.match(csp, /frame-ancestors \*(;|$)/);
+  assert.match(csp, /script-src 'self'/); // sitenin politikası korunuyor, yalnız çerçeve izni gevşiyor
   assert.equal(y.headers.get('x-robots-tag'), 'noindex, nofollow');
 });
 

@@ -25,6 +25,8 @@
  * `public/_headers` Function yanıtlarına uygulanmadığı için temel başlıklar burada.
  */
 
+import { cspBasliklari } from '../_ortak/csp.js';
+
 const GUVENLIK_BASLIKLARI = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
   'X-Content-Type-Options': 'nosniff',
@@ -75,11 +77,9 @@ function basliklariEkle(yanit, ek = {}, gomulu = false) {
   for (const [ad, deger] of Object.entries(GUVENLIK_BASLIKLARI)) {
     if (!kopya.headers.has(ad)) kopya.headers.set(ad, deger);
   }
-  if (gomulu) {
-    kopya.headers.set('Content-Security-Policy', 'frame-ancestors *');
-  } else {
-    kopya.headers.set('X-Frame-Options', 'SAMEORIGIN');
-  }
+  // Faz 4G CSP'si (tek kaynak `_ortak/csp.js`); gömülü pencerede yalnız frame-ancestors gevşer.
+  for (const [ad, deger] of Object.entries(cspBasliklari(gomulu ? { cerceveIzni: '*' } : {}))) kopya.headers.set(ad, deger);
+  if (!gomulu) kopya.headers.set('X-Frame-Options', 'SAMEORIGIN');
   for (const [ad, deger] of Object.entries(ek)) kopya.headers.set(ad, deger);
   return kopya;
 }

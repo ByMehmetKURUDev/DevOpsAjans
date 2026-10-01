@@ -101,7 +101,16 @@ export const CSP_BASLIK_ADI = CSP_ZORUNLU ? 'Content-Security-Policy' : 'Content
 /** `report-to` grubunun adresi (göreli: önizleme dağıtımlarında da kendi kökenine gider). */
 export const RAPORLAMA_UCLARI = `${RAPOR_GRUBU}="${CSP_RAPOR_UCU}"`;
 
-/** HTML yanıtına eklenecek başlıklar (Function'lar için). */
-export function cspBasliklari() {
-  return { [CSP_BASLIK_ADI]: CSP_POLITIKASI, 'Reporting-Endpoints': RAPORLAMA_UCLARI };
+/**
+ * HTML yanıtına eklenecek başlıklar (Function'lar için).
+ * `cerceveIzni: '*'` → yalnız `frame-ancestors` değişir (Faz 5R: başka sitelere
+ * gömülen randevu penceresi `?gomulu=1`); politikanın geri kalanı aynı kalır.
+ */
+export function cspBasliklari({ cerceveIzni } = {}) {
+  const politika = cerceveIzni
+    ? Object.entries({ ...CSP_YONERGELERI, 'frame-ancestors': [cerceveIzni] })
+        .map(([ad, degerler]) => `${ad} ${degerler.join(' ')}`)
+        .join('; ')
+    : CSP_POLITIKASI;
+  return { [CSP_BASLIK_ADI]: politika, 'Reporting-Endpoints': RAPORLAMA_UCLARI };
 }
