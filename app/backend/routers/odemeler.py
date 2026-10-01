@@ -448,7 +448,11 @@ async def _webhook_sirri(db: AsyncSession) -> str:
 
 
 @yonetici_router.post("/shopier/webhook-kur")
-async def shopier_webhook_kur(request: Request, db: AsyncSession = _Depends(get_db)):
+async def shopier_webhook_kur(
+    request: Request,
+    yenile: bool = False,
+    db: AsyncSession = _Depends(get_db),
+):
     """Shopier'e "ödeme olduğunda bize haber ver" aboneliğini kurar.
 
     Webhook ucunu yazmak yetmiyordu: ilk canlı denemede ödeme alındı
@@ -472,19 +476,30 @@ async def shopier_webhook_kur(request: Request, db: AsyncSession = _Depends(get_
     adres = f"{_site_adresi()}/api/v1/odeme/shopier/webhook"
 
     mevcutlar = await shopier.webhook_abonelikleri()
-    for abonelik in mevcutlar:
-        if not isinstance(abonelik, dict):
-            continue
-        if (
-            str(abonelik.get("url") or "").strip() == adres
-            and str(abonelik.get("event") or "").strip() == shopier.ODEME_OLAYI
-        ):
-            return {
-                "ok": True,
-                "yeni": False,
-                "adres": adres,
-                "mesaj": "Abonelik zaten kurulu.",
-            }
+    bizimkiler = [
+        abonelik
+        for abonelik in mevcutlar
+        if isinstance(abonelik, dict)
+        and str(abonelik.get("url") or "").strip() == adres
+        and str(abonelik.get("event") or "").strip() == shopier.ODEME_OLAYI
+    ]
+    if bizimkiler and not yenile:
+        return {
+            "ok": True,
+            "yeni": False,
+            "adres": adres,
+            "mesaj": "Abonelik zaten kurulu.",
+        }
+
+    # `yenile`: imza token'ını değiştirmenin tek yolu aboneliği silip
+    # yeniden açmak (Shopier token'ı yalnız açılışta veriyor). Eski token
+    # sızdıysa bu düğme yeterli; kimsenin token'ı elle taşıması gerekmiyor.
+    # Silme ile yeniden açma arasındaki kısa boşlukta gelen bildirim
+    # kaçarsa "Shopier mutabakatı" onu yakalıyor.
+    for abonelik in bizimkiler:
+        abonelik_id = str(abonelik.get("id") or "").strip()
+        if abonelik_id and not await shopier.webhook_aboneligi_sil(abonelik_id):
+            raise HTTPException(status_code=502, detail="Eski Shopier aboneliği silinemedi")
 
     try:
         cevap = await shopier.webhook_aboneligi_olustur(
@@ -495,6 +510,19 @@ async def shopier_webhook_kur(request: Request, db: AsyncSession = _Depends(get_
         raise HTTPException(status_code=502, detail=str(hata))
 
     jeton = str(cevap.get("token") or "").strip()
+    if not jeton and bizimkiler:
+        # Yenilemede yeni token gelmediyse eski (artık geçersiz) token'ı
+        # tutmak her bildirimi reddettirir; temizlenir. İmza yoksa bile
+        # bildirim siparişi Shopier'den yeniden çektiği için güvenli.
+        sonuc = await db.execute(
+            select(Site_settings).where(
+                Site_settings.setting_key == WEBHOOK_TOKEN_ANAHTARI
+            )
+        )
+        eski_kayit = sonuc.scalars().first()
+        if eski_kayit is not None:
+            eski_kayit.setting_value = ""
+            await db.commit()
     if jeton:
         sonuc = await db.execute(
             select(Site_settings).where(
@@ -521,7 +549,11 @@ async def shopier_webhook_kur(request: Request, db: AsyncSession = _Depends(get_
         "yeni": True,
         "adres": adres,
         "imza_saklandi": bool(jeton),
-        "mesaj": "Abonelik kuruldu. Bundan sonra ödemeler kendiliğinden düşecek.",
+        "mesaj": (
+            "İmza yenilendi; eski token artık geçersiz."
+            if yenile and bizimkiler
+            else "Abonelik kuruldu. Bundan sonra ödemeler kendiliğinden düşecek."
+        ),
     }
 
 

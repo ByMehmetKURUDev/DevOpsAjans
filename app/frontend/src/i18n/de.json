@@ -1411,7 +1411,10 @@
     "mutabakatHata": "Reconciliation failed.",
     "webhookKur": "Set up notifications",
     "webhookKuruldu": "Subscription created.",
-    "webhookHata": "Could not create the subscription."
+    "webhookHata": "Could not create the subscription.",
+    "imzaYenile": "Signatur erneuern",
+    "imzaYenileOnay": "Sicher? Erneut klicken",
+    "imzaYenilendi": "Shopier-Signatur erneuert; das alte Token ist ungültig."
   },
   "talep": {
     "hizmetSec": "Für welche Leistung?",

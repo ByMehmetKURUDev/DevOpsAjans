@@ -4,6 +4,7 @@ import {
   ArrowLeftRight,
   Banknote,
   Clock,
+  KeyRound,
   Percent,
   RefreshCw,
   Trash2,
@@ -140,6 +141,36 @@ export default function OdemePaneli() {
   }, [t]);
 
   /**
+   * Shopier imza token'ını yeniler (eski token sızdıysa).
+   *
+   * İki adımlı: ilk basış onay ister, 5 sn içinde ikinci basış yeniler.
+   * Tarayıcı onay penceresi kullanılmıyor.
+   */
+  const [yenileOnay, setYenileOnay] = useState(false);
+  const [yenileniyor, setYenileniyor] = useState(false);
+  useEffect(() => {
+    if (!yenileOnay) return;
+    const zamanlayici = window.setTimeout(() => setYenileOnay(false), 5000);
+    return () => window.clearTimeout(zamanlayici);
+  }, [yenileOnay]);
+  const imzaYenile = useCallback(async () => {
+    if (!yenileOnay) {
+      setYenileOnay(true);
+      return;
+    }
+    setYenileOnay(false);
+    setYenileniyor(true);
+    try {
+      await shopierWebhookKur(true);
+      toast.success(t('odeme.imzaYenilendi'));
+    } catch {
+      toast.error(t('odeme.webhookHata'));
+    } finally {
+      setYenileniyor(false);
+    }
+  }, [t, yenileOnay]);
+
+  /**
    * Shopier'deki siparişlerle kayıtları karşılaştırır.
    *
    * Webhook'un yedeği. Bildirim kaybolursa ödeme alınmış ama fatura
@@ -181,6 +212,19 @@ export default function OdemePaneli() {
             >
               <Webhook className={`h-4 w-4 ${kuruluyor ? 'animate-pulse' : ''}`} />
               {t('odeme.webhookKur')}
+            </Button>
+          ) : null}
+          {ozet?.shopier_hazir ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`gap-2 ${yenileOnay ? 'text-amber-300' : ''}`}
+              disabled={yenileniyor}
+              data-testid="shopier-imza-yenile"
+              onClick={() => void imzaYenile()}
+            >
+              <KeyRound className={`h-4 w-4 ${yenileniyor ? 'animate-pulse' : ''}`} />
+              {yenileOnay ? t('odeme.imzaYenileOnay') : t('odeme.imzaYenile')}
             </Button>
           ) : null}
           {ozet?.shopier_hazir ? (

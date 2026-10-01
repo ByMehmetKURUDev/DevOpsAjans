@@ -1412,7 +1412,10 @@
     "mutabakatHata": "Mutabakat yapılamadı.",
     "webhookKur": "Bildirimi kur",
     "webhookKuruldu": "Abonelik kuruldu.",
-    "webhookHata": "Abonelik kurulamadı."
+    "webhookHata": "Abonelik kurulamadı.",
+    "imzaYenile": "İmzayı yenile",
+    "imzaYenileOnay": "Emin misiniz? Tekrar basın",
+    "imzaYenilendi": "Shopier imzası yenilendi; eski token geçersiz."
   },
   "talep": {
     "hizmetSec": "Hangi hizmet için?",

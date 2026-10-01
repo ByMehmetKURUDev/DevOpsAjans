@@ -1411,7 +1411,10 @@
     "mutabakatHata": "Reconciliation failed.",
     "webhookKur": "Set up notifications",
     "webhookKuruldu": "Subscription created.",
-    "webhookHata": "Could not create the subscription."
+    "webhookHata": "Could not create the subscription.",
+    "imzaYenile": "更新签名",
+    "imzaYenileOnay": "确定吗？再点一次",
+    "imzaYenilendi": "Shopier 签名已更新，旧令牌已失效。"
   },
   "talep": {
     "hizmetSec": "哪项服务？",

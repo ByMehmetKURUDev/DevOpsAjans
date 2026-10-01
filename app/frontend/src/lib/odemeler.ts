@@ -151,10 +151,11 @@ export async function shopierBaglantisiIste(jeton: string): Promise<string> {
 }
 
 /** Yönetici: Shopier'e "ödeme olunca haber ver" aboneliğini kurar. */
-export async function shopierWebhookKur(): Promise<{ yeni: boolean; mesaj: string }> {
+export async function shopierWebhookKur(yenile = false): Promise<{ yeni: boolean; mesaj: string }> {
+  // yenile: aboneliği silip yeniden açar → Shopier yeni imza token'ı verir.
   const yanit = await client.apiCall.invoke({
     method: 'POST',
-    url: '/api/v1/odeme/shopier/webhook-kur',
+    url: `/api/v1/odeme/shopier/webhook-kur${yenile ? '?yenile=true' : ''}`,
   });
   const govde = govdeyiAc<{ yeni?: boolean; mesaj?: string }>(yanit);
   return { yeni: Boolean(govde?.yeni), mesaj: govde?.mesaj ?? '' };
