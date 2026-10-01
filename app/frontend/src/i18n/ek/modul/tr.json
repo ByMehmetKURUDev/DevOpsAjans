@@ -112,6 +112,10 @@
       "oneri_kutusu": {
         "ad": "Öneri kutusu",
         "aciklama": "Geliştirme önerileri gönderme ve diğer müşterilerin önerilerini anonim olarak oylama."
+      },
+      "baglantilar": {
+        "ad": "Bağlantılar",
+        "aciklama": "Ajansın Google hesapları (Analytics 4, Search Console, YouTube): analitik panosuna gerçek veri."
       }
     },
     "kategori": {

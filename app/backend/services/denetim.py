@@ -86,6 +86,10 @@ HARIC_TABLOLAR = frozenset({
     # kopyalanmasın; her mesajda bir satır olurdu), günlük sayaç ve tohum izi.
     # Asistan tanımlarının yönetici düzenlemesi (`uzman_asistanlar`) kaydediliyor.
     "asistan_sohbetleri", "asistan_mesajlari", "ai_gunluk_kullanim", "uzman_asistan_tohum_izi",
+    # Faz 3B: OAuth state satırları (her "Google ile bağlan" tıklamasında bir
+    # satır; teknik iz, oidc_states gibi) ve eşitlemenin yazdığı sorgu/sayfa
+    # listeleri. Bağlantının kendisi (`baglantilar`) kaydediliyor — jeton maskeli.
+    "baglanti_durumlari", "analitik_listeleri",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
@@ -107,6 +111,9 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
         "son_client_mesaj_id", "son_admin_mesaj_id", "degisiklik",
         "bildirilen_admin_mesaj_id", "bildirilen_client_mesaj_id", "bildirim_admin_at", "bildirim_client_at",
     }),
+    # Faz 3B: eşitlemenin her turda yazdığı zaman/hata alanları (bağlanma,
+    # seçim değişikliği, durum değişikliği ve kaldırma yine kaydediliyor).
+    "baglantilar": frozenset({"son_esitleme", "son_deneme", "son_hata"}),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

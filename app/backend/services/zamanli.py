@@ -157,6 +157,16 @@ async def _mesaj_bildirimleri(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await bildirimleri_isle(db)
 
 
+async def _google_esitleme(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 3B: GA4 + Search Console + YouTube → analytics_snapshots. Her Google
+    # isteği 10 sn, kaynak başına 20 sn (paralel) — tur kısa kalıyor. `zorla`
+    # (yöneticinin "Şimdi çalıştır"ı) 6 saatlik sıklığı atlıyor; Google kotası
+    # bunu rahat kaldırıyor (bağlantı başına ~7 istek).
+    from services.google_esitleme import zamanli_esitleme
+
+    return await zamanli_esitleme(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -178,6 +188,8 @@ GOREVLER: List[Gorev] = [
     Gorev("mesaj_bildirimleri", timedelta(0), _mesaj_bildirimleri),
     # Faz 2H: teknik SEO + hız izleme — tur başına en çok 3 site (paralel, dış ağ).
     Gorev("seo_taramasi", timedelta(minutes=55), _seo_taramasi),
+    # Faz 3B: Google bağlantısı (ajans) — GA4 / Search Console / YouTube eşitlemesi.
+    Gorev("google_esitleme", timedelta(hours=6), _google_esitleme),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

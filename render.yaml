@@ -105,3 +105,14 @@ services:
       # İsteğe bağlı: başka bir sağlayıcıdan HMAC imzalı genel uç için gizli anahtar.
       - key: EPOSTA_GELEN_ANAHTARI
         sync: false
+      # Faz 3B — Bağlantılar: Google (Analytics 4 + Search Console + YouTube).
+      # Ayrıntı GOOGLE-BAGLANTI-KURULUM.md. Giriş (OIDC_*) istemcisinden AYRI bir
+      # OAuth istemcisi; yönlendirme adresi …/api/v1/baglantilar/google/geri-donus.
+      - key: GOOGLE_OAUTH_CLIENT_ID
+        sync: false
+      - key: GOOGLE_OAUTH_CLIENT_SECRET
+        sync: false
+      # Yenileme jetonunu şifreleyen Fernet anahtarı:
+      # `python scripts/baglanti_anahtari_uret.py` (yalnız ekrana basar).
+      - key: BAGLANTI_SIFRE_ANAHTARI
+        sync: false

@@ -470,7 +470,8 @@
     "tabCopKutusu": "Papierkorb",
     "tabMesajlar": "Nachrichten",
     "tabSohbetler": "Kundenchats",
-    "tabUzmanAsistanlar": "Fachassistenten"
+    "tabUzmanAsistanlar": "Fachassistenten",
+    "tabBaglantilar": "Verbindungen"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

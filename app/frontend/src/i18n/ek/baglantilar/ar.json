@@ -1,0 +1,154 @@
+{
+  "baglantilar": {
+    "baslik": "الاتصالات",
+    "aciklama": "اربط حسابات Google الخاصة بالوكالة ليعرض لوح التحليلات المباشرة بيانات حقيقية بدلًا من الأرقام التجريبية. يطلب الاتصال صلاحية القراءة فقط، ويمكنك إزالته في أي وقت.",
+    "testModu": "وضع الاختبار: لا تُرسل طلبات حقيقية إلى Google، وتُستخدم بيانات تجريبية.",
+    "sonuc": {
+      "baglandi": "تم ربط حساب Google. اختر الآن الموقع والخاصية والقناة أدناه ثم احفظ.",
+      "reddedildi": "لم يُمنح الإذن في شاشة موافقة Google؛ لم يتم الاتصال.",
+      "durum_gecersiz": "انتهت صلاحية طلب الاتصال أو استُخدم من قبل. يُرجى المحاولة مرة أخرى.",
+      "kurulmadi": "اتصال Google غير مُعدّ على الخادم (متغيرات البيئة ناقصة).",
+      "kod_hatasi": "تعذّر التحقق من رمز التفويض من Google. حاول مرة أخرى؛ وإذا استمر الخطأ فتحقق من عنوان إعادة التوجيه وبيانات العميل.",
+      "yenileme_yok": "لم يمنح Google صلاحية الوصول الدائم. أزل وصول التطبيق من myaccount.google.com/permissions ثم اربط مجددًا.",
+      "google_hatasi": "تعذّر إكمال الاتصال بـ Google. يُرجى المحاولة مرة أخرى."
+    },
+    "google": {
+      "ad": "Google",
+      "altBaslik": "Analytics 4 · Search Console · YouTube",
+      "durum": {
+        "kurulmadi": "غير مُعدّ",
+        "bagli_degil": "غير متصل",
+        "bagli": "متصل",
+        "yeniden_baglan": "يلزم إعادة الربط"
+      },
+      "kurulumBaslik": "الإعداد غير مكتمل",
+      "kurulumAciklama": "متغيرات البيئة المطلوبة غير معرّفة على الخادم. أدخل القيم بنفسك في Render › Environment، ولا تكتبها هنا أو في المحادثة.",
+      "eksik": "ناقص",
+      "gecersiz": "غير صالح",
+      "rehber": "دليل خطوة بخطوة: ملف GOOGLE-BAGLANTI-KURULUM.md في جذر المستودع.",
+      "yonlendirme": "عنوان إعادة التوجيه المعتمد الذي يُضاف إلى عميل OAuth في Google Cloud:",
+      "kopyala": "نسخ",
+      "kopyalandi": "تم النسخ.",
+      "baglanAciklama": "ستنتقل إلى شاشة موافقة Google. تُطلب صلاحيات القراءة فقط: إحصاءات Analytics وSearch Console وYouTube.",
+      "baglan": "الربط مع Google",
+      "yenidenAciklama": "لم يعد إذن Google صالحًا (تغيير كلمة المرور أو إزالة الوصول أو انتهاء الصلاحية). البيانات لا تُحدَّث؛ يُرجى إعادة الربط.",
+      "yenidenBaglan": "إعادة الربط",
+      "hesap": "حساب Google المرتبط",
+      "baglanmaTarihi": "تاريخ الربط",
+      "secimBaslik": "ما البيانات التي تُجلب؟",
+      "ga4": "خاصية Google Analytics 4",
+      "sc": "موقع Search Console",
+      "yt": "قناة YouTube",
+      "secilmedi": "— لم يُحدَّد —",
+      "kapsamYok": "لم يُمنح هذا الإذن في شاشة الموافقة. أعد الربط لاستخدامه.",
+      "kaynaklarYukleniyor": "جارٍ تحميل خصائص الحساب ومواقعه وقنواته…",
+      "secimKaydet": "حفظ الاختيار",
+      "secimKaydedildi": "تم حفظ الاختيار.",
+      "esitle": "مزامنة الآن",
+      "esitleniyor": "جارٍ المزامنة…",
+      "esitlendi": "تمت المزامنة: تم تحديث {{sayi}} من المقاييس.",
+      "kismenEsitlendi": "اكتملت المزامنة جزئيًا؛ الأخطاء معروضة أدناه.",
+      "bekle": "تتاح المزامنة التالية بعد {{sayi}} دقيقة.",
+      "onceSecin": "للمزامنة، اختر مصدرًا واحدًا على الأقل واحفظه أولًا.",
+      "sonEsitleme": "آخر مزامنة",
+      "hic": "لم تتم بعد",
+      "kaldir": "إزالة الاتصال",
+      "kaldirOnay": "هل تريد إزالة اتصال Google؟ سيُلغى إذن الوصول لدى Google أيضًا، وتبقى البيانات التي جُلبت حتى الآن في اللوحة.",
+      "kaldirildi": "أُزيل الاتصال وأُلغي الإذن لدى Google.",
+      "iptalEdilemedi": "أُزيل الاتصال لكن تعذّر إلغاء الإذن لدى Google. أزله يدويًا من myaccount.google.com/permissions."
+    },
+    "kaynak": {
+      "ga4": "Analytics",
+      "sc": "Search Console",
+      "yt": "YouTube",
+      "genel": "عام"
+    },
+    "yakinda": {
+      "rozet": "قريبًا",
+      "google_business": {
+        "ad": "الملف التجاري على Google",
+        "aciklama": "مرات الظهور في الخرائط والبحث والمكالمات وطلبات الاتجاهات وإحصاءات المراجعات.",
+        "not": "يتطلب تقديم طلب للوصول إلى الواجهة البرمجية؛ سيُفعَّل بعد موافقة Google."
+      },
+      "meta": {
+        "ad": "Meta (Facebook · Instagram)",
+        "aciklama": "وصول الصفحات والحسابات، وإحصاءات المتابعين والتفاعل."
+      }
+    },
+    "hata": {
+      "genel": "تعذّر تنفيذ العملية.",
+      "kurulmadi": "اتصال Google غير مُعدّ على الخادم.",
+      "bagli_degil": "لا يوجد حساب Google مرتبط.",
+      "yeniden_baglan": "إذن Google غير صالح؛ يُرجى إعادة الربط.",
+      "secim_yok": "اختر مصدرًا واحدًا على الأقل أولًا.",
+      "secim_gecersiz": "اختيار غير صالح.",
+      "cok_sik": "المزامنة اليدوية مرة واحدة كل 10 دقائق كحد أقصى.",
+      "api_kapali": "هذه الواجهة البرمجية غير مفعّلة في مشروع Google Cloud.",
+      "erisim_yok": "لا يملك حساب Google هذا صلاحية الوصول إلى المصدر المحدد.",
+      "kapsam_yok": "لم يُمنح هذا الإذن؛ يُرجى إعادة الربط.",
+      "bulunamadi": "لم يُعثر على المصدر المحدد.",
+      "kota": "نفدت حصة Google؛ ستُعاد المحاولة لاحقًا.",
+      "yetki_yok": "تعذّر على Google تفويض الطلب.",
+      "zaman_asimi": "لم يستجب Google في الوقت المحدد.",
+      "ag_hatasi": "تعذّر الوصول إلى Google.",
+      "google_hatasi": "أعاد Google خطأً.",
+      "gecersiz_istek": "رفض Google الطلب.",
+      "jeton_alinamadi": "تعذّر الحصول على رمز وصول من Google (تحقق من بيانات العميل).",
+      "sifre_cozulemedi": "تعذّرت قراءة الإذن المحفوظ (ربما تغيّر مفتاح التشفير)؛ يُرجى إعادة الربط.",
+      "invalid_grant": "أصبح إذن Google غير صالح؛ يُرجى إعادة الربط."
+    },
+    "pano": {
+      "ornekBaslik": "بيانات تجريبية",
+      "ornekSerit": "هذه الأرقام ليست حقيقية. اربط حساب Google من قسم الاتصالات لعرض بيانات حقيقية.",
+      "ornekSeritKanal": "الأرقام في هذه القناة تجريبية؛ لا يوجد مصدر بيانات حقيقي بعد.",
+      "ornekRozet": "تجريبي",
+      "baglan": "الاتصالات",
+      "youtubeBaslik": "YouTube",
+      "kaynak": {
+        "google_analytics": "Google Analytics",
+        "search_console": "Search Console",
+        "youtube": "YouTube",
+        "elle": "مُدخل يدويًا"
+      },
+      "donem": "آخر 28 يومًا مقارنةً بالـ28 يومًا السابقة",
+      "sonGuncelleme": "آخر تحديث",
+      "enCokSorgu": "أكثر 10 استعلامات نقرًا",
+      "enCokSayfa": "أكثر 10 صفحات نقرًا",
+      "sutun": {
+        "sorgu": "الاستعلام",
+        "sayfa": "الصفحة",
+        "tiklama": "النقرات",
+        "gosterim": "مرات الظهور",
+        "to": "نسبة النقر",
+        "sira": "الترتيب"
+      }
+    },
+    "metrik": {
+      "sessions": "الجلسات",
+      "users": "المستخدمون",
+      "pageviews": "مشاهدات الصفحات",
+      "bounce_rate": "معدل الارتداد",
+      "avg_engagement_time": "متوسط مدة التفاعل",
+      "organic_clicks": "النقرات العضوية",
+      "impressions": "مرات الظهور",
+      "ctr": "نسبة النقر إلى الظهور",
+      "avg_position": "متوسط الترتيب",
+      "indexed_pages": "الصفحات المفهرسة",
+      "subscribers": "المشتركون",
+      "views": "المشاهدات",
+      "watch_time": "مدة المشاهدة",
+      "subscribers_gained": "مشتركون جدد",
+      "spend": "الإنفاق الإعلاني",
+      "clicks": "النقرات",
+      "conversions": "التحويلات",
+      "followers": "المتابعون",
+      "engagement": "معدل التفاعل",
+      "reach": "الوصول",
+      "new_leads": "عملاء محتملون جدد"
+    },
+    "birim": {
+      "sn": "ث",
+      "dk": "د"
+    }
+  }
+}

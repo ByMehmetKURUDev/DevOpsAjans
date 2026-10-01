@@ -47,6 +47,7 @@ import {
   ArchiveRestore,
   MessagesSquare,
   Bot,
+  Plug,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -81,7 +82,10 @@ import i18n, { SUPPORTED_LANGUAGES, loadLanguage } from '@/i18n';
 import { BLOG_INDEX_ROUTE, PAGE_SEO } from '../../prerender/site.js';
 
 // Analitik panosu recharts'a bağlı olduğu için yalnızca sekme açıldığında indirilir.
-const AnalyticsDashboard = lazy(() => import('@/components/AnalyticsDashboard'));
+// Faz 3B: pano "örnek veri" şeridi ve metrik adları Bağlantılar ek paketinde.
+const AnalyticsDashboard = ekliLazy('baglantilar', () => import('@/components/AnalyticsDashboard'));
+// Faz 3B — Bağlantılar (Google: Analytics 4 + Search Console + YouTube).
+const Baglantilar = ekliLazy('baglantilar', () => import('@/components/admin/Baglantilar'));
 // Marketplace yonetimi ayri bir parcada: sekme acilmadan indirilmiyor.
 const MarketplacePanel = ekliLazy('marketplaceCeviri', () => import('@/components/admin/MarketplacePanel'));
 // Icerik takvimi de ayri parcada: AI katmani ve form yalnizca sekme
@@ -138,7 +142,7 @@ const UzmanAsistanYonetimi = ekliLazy(['uzmanAsistanlar', 'marketplaceCeviri'], 
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -263,6 +267,7 @@ type Tab =
   | 'duyurular'
   | 'mesajlar'
   | 'uzmanAsistanlar'
+  | 'baglantilar'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -930,6 +935,7 @@ export default function AdminPanel() {
 
   const TABS: { key: Tab; label: string; icon: typeof BarChart3 }[] = [
     { key: 'analytics', label: t('ui.tabAnalytics'), icon: BarChart3 },
+    { key: 'baglantilar', label: t('ui.tabBaglantilar'), icon: Plug },
     { key: 'settings', label: t('ui.tabSettings'), icon: Settings2 },
     { key: 'pages', label: t('ui.tabPages'), icon: LayoutList },
     { key: 'notify', label: t('ui.tabNotify'), icon: BellRing },
@@ -1081,7 +1087,19 @@ export default function AdminPanel() {
             </div>
           }
         >
-          <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} />
+          <AnalyticsDashboard ga4Id={settings.ga4_measurement_id} onBaglantilaraGit={() => setTab('baglantilar')} />
+        </Suspense>
+      )}
+
+      {tab === 'baglantilar' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <Baglantilar />
         </Suspense>
       )}
 

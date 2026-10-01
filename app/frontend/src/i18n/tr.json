@@ -470,7 +470,8 @@
     "tabCopKutusu": "Çöp kutusu",
     "tabMesajlar": "Mesajlar",
     "tabSohbetler": "Müşteri sohbetleri",
-    "tabUzmanAsistanlar": "Uzman Asistanlar"
+    "tabUzmanAsistanlar": "Uzman Asistanlar",
+    "tabBaglantilar": "Bağlantılar"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

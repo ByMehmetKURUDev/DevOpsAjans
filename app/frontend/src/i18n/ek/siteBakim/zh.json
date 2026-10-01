@@ -176,7 +176,8 @@
         "aylik_site_analizi": "每月自动网站分析",
         "oturum_temizligi": "清理旧的会话记录",
         "cop_kutusu_temizligi": "删除回收站中已过期的记录",
-        "seo_taramasi": "技术 SEO 与速度扫描（每轮 3 个网站）"
+        "seo_taramasi": "技术 SEO 与速度扫描（每轮 3 个网站）",
+        "google_esitleme": "Google 数据同步（Analytics、Search Console、YouTube）"
       },
       "gunluk": "每天",
       "haftalik": "每周"

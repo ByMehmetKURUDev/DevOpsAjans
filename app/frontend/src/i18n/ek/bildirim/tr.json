@@ -51,7 +51,8 @@
       "oneri_durumu": "Önerimin durumu değişti",
       "yeni_oturum": "Yeni bir cihazdan giriş yapıldı",
       "mesaj_yeni": "Okunmamış yeni mesaj",
-      "seo_dususu": "Sitenin SEO/hız puanı düştü"
+      "seo_dususu": "Sitenin SEO/hız puanı düştü",
+      "baglanti_koptu": "Google bağlantısı yenilenmeli"
     },
     "kanal": {
       "inapp": "Panel",

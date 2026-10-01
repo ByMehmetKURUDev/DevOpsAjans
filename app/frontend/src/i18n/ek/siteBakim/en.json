@@ -176,7 +176,8 @@
         "aylik_site_analizi": "Monthly automatic site analysis",
         "oturum_temizligi": "Clean-up of old session records",
         "cop_kutusu_temizligi": "Deletion of expired recycle bin items",
-        "seo_taramasi": "Technical SEO and speed scan (3 sites per run)"
+        "seo_taramasi": "Technical SEO and speed scan (3 sites per run)",
+        "google_esitleme": "Google data sync (Analytics, Search Console, YouTube)"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

@@ -438,6 +438,17 @@ class DatabaseManager:
             "tur_pg": "INTEGER",
             "tur_sqlite": "INTEGER",
         },
+        # Faz 3B — analitik satırının kaynağı (ornek | google_analytics |
+        # search_console | youtube). Dolgu YOK: eski satırların hepsini "ornek"
+        # yazmak elle girilmiş gerçek veriyi de örnek gösterirdi. Mock satırları
+        # açılışta mock_data ile eşleşerek işaretleniyor
+        # (`services/mock_data.analitik_orneklerini_isaretle`).
+        {
+            "tablo": "analytics_snapshots",
+            "sutun": "kaynak",
+            "tur_pg": "VARCHAR",
+            "tur_sqlite": "TEXT",
+        },
     )
 
     async def _eksik_sutunlari_tamamla(self):

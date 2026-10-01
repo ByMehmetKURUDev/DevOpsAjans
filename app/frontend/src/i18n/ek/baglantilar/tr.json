@@ -1,0 +1,154 @@
+{
+  "baglantilar": {
+    "baslik": "Bağlantılar",
+    "aciklama": "Ajansın kendi Google hesaplarını bağlayın; Anlık Analitik panosu örnek sayılar yerine gerçek veriyi gösterir. Bağlantı yalnız okuma izni ister; istediğiniz an kaldırabilirsiniz.",
+    "testModu": "Test modu: Google'a gerçek istek gitmiyor, sahte veri kullanılıyor.",
+    "sonuc": {
+      "baglandi": "Google hesabı bağlandı. Şimdi aşağıdan mülk, site ve kanalı seçip kaydedin.",
+      "reddedildi": "Google onay ekranında izin verilmedi; bağlantı kurulmadı.",
+      "durum_gecersiz": "Bağlantı isteğinin süresi doldu ya da daha önce kullanıldı. Lütfen yeniden deneyin.",
+      "kurulmadi": "Google bağlantısı sunucuda kurulmamış (ortam değişkenleri eksik).",
+      "kod_hatasi": "Google onay kodu doğrulanamadı. Yeniden deneyin; sürerse yönlendirme adresini ve istemci bilgilerini kontrol edin.",
+      "yenileme_yok": "Google kalıcı erişim izni vermedi. myaccount.google.com/permissions adresinden uygulamanın erişimini kaldırıp yeniden bağlanın.",
+      "google_hatasi": "Google bağlantısı tamamlanamadı. Lütfen yeniden deneyin."
+    },
+    "google": {
+      "ad": "Google",
+      "altBaslik": "Analytics 4 · Search Console · YouTube",
+      "durum": {
+        "kurulmadi": "Kurulmadı",
+        "bagli_degil": "Bağlı değil",
+        "bagli": "Bağlı",
+        "yeniden_baglan": "Yeniden bağlanmalı"
+      },
+      "kurulumBaslik": "Kurulum tamamlanmadı",
+      "kurulumAciklama": "Sunucuda gerekli ortam değişkenleri tanımlı değil. Değerleri Render › Environment bölümüne kendiniz girin; buraya ya da sohbete yazmayın.",
+      "eksik": "Eksik",
+      "gecersiz": "Geçersiz",
+      "rehber": "Adım adım anlatım: depo kökündeki GOOGLE-BAGLANTI-KURULUM.md dosyası.",
+      "yonlendirme": "Google Cloud'daki OAuth istemcisine eklenecek yetkili yönlendirme adresi:",
+      "kopyala": "Kopyala",
+      "kopyalandi": "Kopyalandı.",
+      "baglanAciklama": "Google onay ekranına gideceksiniz. Yalnız okuma izinleri istenir: Analytics, Search Console ve YouTube istatistikleri.",
+      "baglan": "Google ile bağlan",
+      "yenidenAciklama": "Google izni artık geçerli değil (parola değişikliği, erişimin kaldırılması ya da süre dolumu). Veriler güncellenmiyor; yeniden bağlanın.",
+      "yenidenBaglan": "Yeniden bağlan",
+      "hesap": "Bağlı Google hesabı",
+      "baglanmaTarihi": "Bağlantı tarihi",
+      "secimBaslik": "Hangi veriler gelsin?",
+      "ga4": "Google Analytics 4 mülkü",
+      "sc": "Search Console sitesi",
+      "yt": "YouTube kanalı",
+      "secilmedi": "— Seçilmedi —",
+      "kapsamYok": "Bu izin onay ekranında verilmedi. Kullanmak için yeniden bağlanın.",
+      "kaynaklarYukleniyor": "Hesaptaki mülkler, siteler ve kanallar yükleniyor…",
+      "secimKaydet": "Seçimi kaydet",
+      "secimKaydedildi": "Seçim kaydedildi.",
+      "esitle": "Şimdi eşitle",
+      "esitleniyor": "Eşitleniyor…",
+      "esitlendi": "Eşitlendi: {{sayi}} metrik güncellendi.",
+      "kismenEsitlendi": "Eşitleme kısmen tamamlandı; hataları aşağıda görebilirsiniz.",
+      "bekle": "Yeniden eşitleme {{sayi}} dk sonra.",
+      "onceSecin": "Eşitlemek için önce en az bir kaynak seçip kaydedin.",
+      "sonEsitleme": "Son eşitleme",
+      "hic": "henüz yok",
+      "kaldir": "Bağlantıyı kaldır",
+      "kaldirOnay": "Google bağlantısı kaldırılsın mı? Google'daki erişim izni de iptal edilir; şimdiye kadar çekilen veriler panoda kalır.",
+      "kaldirildi": "Bağlantı kaldırıldı ve Google'daki izin iptal edildi.",
+      "iptalEdilemedi": "Bağlantı kaldırıldı ama Google'daki izin iptal edilemedi. myaccount.google.com/permissions adresinden elle kaldırın."
+    },
+    "kaynak": {
+      "ga4": "Analytics",
+      "sc": "Search Console",
+      "yt": "YouTube",
+      "genel": "Genel"
+    },
+    "yakinda": {
+      "rozet": "Yakında",
+      "google_business": {
+        "ad": "Google İşletme Profili",
+        "aciklama": "Haritalar ve aramadaki görüntülenme, arama, yol tarifi ve yorum istatistikleri.",
+        "not": "API erişimi başvurusu gerekiyor; Google onayladığında açılacak."
+      },
+      "meta": {
+        "ad": "Meta (Facebook · Instagram)",
+        "aciklama": "Sayfa ve hesap erişimi, takipçi ve etkileşim istatistikleri."
+      }
+    },
+    "hata": {
+      "genel": "İşlem yapılamadı.",
+      "kurulmadi": "Google bağlantısı sunucuda kurulmamış.",
+      "bagli_degil": "Google hesabı bağlı değil.",
+      "yeniden_baglan": "Google izni geçersiz; yeniden bağlanın.",
+      "secim_yok": "Önce en az bir kaynak seçin.",
+      "secim_gecersiz": "Seçim geçersiz.",
+      "cok_sik": "Elle eşitleme en çok 10 dakikada bir yapılabilir.",
+      "api_kapali": "Bu API, Google Cloud projesinde etkin değil.",
+      "erisim_yok": "Bu Google hesabının seçilen kaynağa erişimi yok.",
+      "kapsam_yok": "Bu izin verilmedi; yeniden bağlanın.",
+      "bulunamadi": "Seçilen kaynak bulunamadı.",
+      "kota": "Google kotası doldu; daha sonra yeniden denenecek.",
+      "yetki_yok": "Google isteği yetkilendiremedi.",
+      "zaman_asimi": "Google zamanında yanıt vermedi.",
+      "ag_hatasi": "Google'a ulaşılamadı.",
+      "google_hatasi": "Google bir hata döndürdü.",
+      "gecersiz_istek": "Google isteği reddetti.",
+      "jeton_alinamadi": "Google erişim jetonu alınamadı (istemci bilgilerini kontrol edin).",
+      "sifre_cozulemedi": "Saklanan izin okunamadı (şifreleme anahtarı değişmiş olabilir); yeniden bağlanın.",
+      "invalid_grant": "Google izni geçersiz oldu; yeniden bağlanın."
+    },
+    "pano": {
+      "ornekBaslik": "Örnek veri",
+      "ornekSerit": "Bu sayılar gerçek değil. Gerçek veri için Bağlantılar'dan Google hesabınızı bağlayın.",
+      "ornekSeritKanal": "Bu kanaldaki sayılar örnektir; henüz gerçek bir veri kaynağı yok.",
+      "ornekRozet": "örnek",
+      "baglan": "Bağlantılar",
+      "youtubeBaslik": "YouTube",
+      "kaynak": {
+        "google_analytics": "Google Analytics",
+        "search_console": "Search Console",
+        "youtube": "YouTube",
+        "elle": "Elle girildi"
+      },
+      "donem": "son 28 gün, önceki 28 güne göre",
+      "sonGuncelleme": "güncelleme",
+      "enCokSorgu": "En çok tıklanan 10 sorgu",
+      "enCokSayfa": "En çok tıklanan 10 sayfa",
+      "sutun": {
+        "sorgu": "Sorgu",
+        "sayfa": "Sayfa",
+        "tiklama": "Tıklama",
+        "gosterim": "Gösterim",
+        "to": "TO",
+        "sira": "Sıra"
+      }
+    },
+    "metrik": {
+      "sessions": "Oturum",
+      "users": "Kullanıcı",
+      "pageviews": "Sayfa görüntüleme",
+      "bounce_rate": "Hemen çıkma oranı",
+      "avg_engagement_time": "Ort. etkileşim süresi",
+      "organic_clicks": "Organik tıklama",
+      "impressions": "Gösterim",
+      "ctr": "Tıklama oranı (TO)",
+      "avg_position": "Ortalama sıra",
+      "indexed_pages": "İndekslenen sayfa",
+      "subscribers": "Abone",
+      "views": "Görüntülenme",
+      "watch_time": "İzlenme süresi",
+      "subscribers_gained": "Yeni abone",
+      "spend": "Reklam harcaması",
+      "clicks": "Tıklama",
+      "conversions": "Dönüşüm",
+      "followers": "Takipçi",
+      "engagement": "Etkileşim oranı",
+      "reach": "Erişim",
+      "new_leads": "Yeni potansiyel müşteri"
+    },
+    "birim": {
+      "sn": "sn",
+      "dk": "dk"
+    }
+  }
+}

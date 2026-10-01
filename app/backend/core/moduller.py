@@ -514,6 +514,17 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=True,
     ),
     Modul(
+        anahtar="baglantilar",
+        ad_varsayilan={"tr": "Bağlantılar", "en": "Connections"},
+        ikon="Link2",
+        kategori="analiz",
+        musteri_sekmesi=None,
+        yonetici_sekmesi="baglantilar",
+        gerekli_rol="admin",
+        varsayilan_acik=True,
+        bagimliliklar=("analitik",),
+    ),
+    Modul(
         anahtar="fiyatlandirma",
         ad_varsayilan={"tr": "Fiyatlandırma", "en": "Pricing"},
         ikon="DollarSign",

@@ -1,0 +1,154 @@
+{
+  "baglantilar": {
+    "baslik": "कनेक्शन",
+    "aciklama": "एजेंसी के अपने Google खाते जोड़ें, ताकि लाइव एनालिटिक्स डैशबोर्ड नमूना संख्याओं की जगह असली डेटा दिखाए। कनेक्शन केवल पढ़ने की अनुमति माँगता है और आप इसे कभी भी हटा सकते हैं।",
+    "testModu": "टेस्ट मोड: Google को कोई असली अनुरोध नहीं जाता, नकली डेटा उपयोग होता है।",
+    "sonuc": {
+      "baglandi": "Google खाता जुड़ गया। अब नीचे प्रॉपर्टी, साइट और चैनल चुनकर सहेजें।",
+      "reddedildi": "Google सहमति स्क्रीन पर अनुमति नहीं दी गई; कनेक्शन नहीं बना।",
+      "durum_gecersiz": "कनेक्शन अनुरोध की समय-सीमा समाप्त हो गई या वह पहले ही उपयोग हो चुका है। कृपया फिर से प्रयास करें।",
+      "kurulmadi": "सर्वर पर Google कनेक्शन सेट नहीं है (एनवायरनमेंट वेरिएबल नहीं हैं)।",
+      "kod_hatasi": "Google का ऑथराइज़ेशन कोड सत्यापित नहीं हो सका। फिर से प्रयास करें; समस्या बनी रहे तो रीडायरेक्ट URI और क्लाइंट विवरण जाँचें।",
+      "yenileme_yok": "Google ने ऑफ़लाइन एक्सेस नहीं दिया। myaccount.google.com/permissions पर ऐप की पहुँच हटाकर फिर से जोड़ें।",
+      "google_hatasi": "Google कनेक्शन पूरा नहीं हो सका। कृपया फिर से प्रयास करें।"
+    },
+    "google": {
+      "ad": "Google",
+      "altBaslik": "Analytics 4 · Search Console · YouTube",
+      "durum": {
+        "kurulmadi": "सेट नहीं",
+        "bagli_degil": "जुड़ा नहीं",
+        "bagli": "जुड़ा हुआ",
+        "yeniden_baglan": "फिर से जोड़ें"
+      },
+      "kurulumBaslik": "सेटअप पूरा नहीं हुआ",
+      "kurulumAciklama": "सर्वर पर ज़रूरी एनवायरनमेंट वेरिएबल परिभाषित नहीं हैं। मान स्वयं Render › Environment में डालें; उन्हें यहाँ या चैट में न लिखें।",
+      "eksik": "अनुपस्थित",
+      "gecersiz": "अमान्य",
+      "rehber": "चरण-दर-चरण गाइड: रिपॉज़िटरी के मूल में GOOGLE-BAGLANTI-KURULUM.md फ़ाइल।",
+      "yonlendirme": "Google Cloud में OAuth क्लाइंट में जोड़ा जाने वाला अधिकृत रीडायरेक्ट URI:",
+      "kopyala": "कॉपी करें",
+      "kopyalandi": "कॉपी हो गया।",
+      "baglanAciklama": "आपको Google सहमति स्क्रीन पर ले जाया जाएगा। केवल पढ़ने की अनुमतियाँ माँगी जाती हैं: Analytics, Search Console और YouTube आँकड़े।",
+      "baglan": "Google से जोड़ें",
+      "yenidenAciklama": "Google अनुमति अब मान्य नहीं है (पासवर्ड बदलना, पहुँच हटाना या समय-सीमा समाप्त होना)। डेटा अपडेट नहीं हो रहा; कृपया फिर से जोड़ें।",
+      "yenidenBaglan": "फिर से जोड़ें",
+      "hesap": "जुड़ा हुआ Google खाता",
+      "baglanmaTarihi": "जुड़ने की तारीख",
+      "secimBaslik": "कौन-सा डेटा आए?",
+      "ga4": "Google Analytics 4 प्रॉपर्टी",
+      "sc": "Search Console साइट",
+      "yt": "YouTube चैनल",
+      "secilmedi": "— चुना नहीं गया —",
+      "kapsamYok": "यह अनुमति सहमति स्क्रीन पर नहीं दी गई। उपयोग करने के लिए फिर से जोड़ें।",
+      "kaynaklarYukleniyor": "खाते की प्रॉपर्टी, साइटें और चैनल लोड हो रहे हैं…",
+      "secimKaydet": "चयन सहेजें",
+      "secimKaydedildi": "चयन सहेजा गया।",
+      "esitle": "अभी सिंक करें",
+      "esitleniyor": "सिंक हो रहा है…",
+      "esitlendi": "सिंक पूरा: {{sayi}} मीट्रिक अपडेट हुए।",
+      "kismenEsitlendi": "सिंक आंशिक रूप से पूरा हुआ; त्रुटियाँ नीचे देखें।",
+      "bekle": "अगला सिंक {{sayi}} मिनट बाद।",
+      "onceSecin": "सिंक करने के लिए पहले कम से कम एक स्रोत चुनकर सहेजें।",
+      "sonEsitleme": "पिछला सिंक",
+      "hic": "अभी तक नहीं",
+      "kaldir": "कनेक्शन हटाएँ",
+      "kaldirOnay": "Google कनेक्शन हटाएँ? Google पर पहुँच की अनुमति भी रद्द हो जाएगी; अब तक लाया गया डेटा डैशबोर्ड पर बना रहेगा।",
+      "kaldirildi": "कनेक्शन हटाया गया और Google पर अनुमति रद्द की गई।",
+      "iptalEdilemedi": "कनेक्शन हटाया गया, लेकिन Google पर अनुमति रद्द नहीं हो सकी। इसे myaccount.google.com/permissions पर स्वयं हटाएँ।"
+    },
+    "kaynak": {
+      "ga4": "Analytics",
+      "sc": "Search Console",
+      "yt": "YouTube",
+      "genel": "सामान्य"
+    },
+    "yakinda": {
+      "rozet": "जल्द आ रहा है",
+      "google_business": {
+        "ad": "Google बिज़नेस प्रोफ़ाइल",
+        "aciklama": "Maps और Search में व्यू, कॉल, दिशा-निर्देश अनुरोध और समीक्षा आँकड़े।",
+        "not": "API एक्सेस के लिए आवेदन ज़रूरी है; Google की मंज़ूरी मिलने पर चालू होगा।"
+      },
+      "meta": {
+        "ad": "Meta (Facebook · Instagram)",
+        "aciklama": "पेज और खाते की पहुँच, फ़ॉलोअर और एंगेजमेंट आँकड़े।"
+      }
+    },
+    "hata": {
+      "genel": "कार्य पूरा नहीं हो सका।",
+      "kurulmadi": "सर्वर पर Google कनेक्शन सेट नहीं है।",
+      "bagli_degil": "कोई Google खाता जुड़ा नहीं है।",
+      "yeniden_baglan": "Google अनुमति अमान्य है; कृपया फिर से जोड़ें।",
+      "secim_yok": "पहले कम से कम एक स्रोत चुनें।",
+      "secim_gecersiz": "अमान्य चयन।",
+      "cok_sik": "मैन्युअल सिंक हर 10 मिनट में अधिकतम एक बार हो सकता है।",
+      "api_kapali": "यह API Google Cloud प्रोजेक्ट में सक्षम नहीं है।",
+      "erisim_yok": "इस Google खाते की चुने गए स्रोत तक पहुँच नहीं है।",
+      "kapsam_yok": "यह अनुमति नहीं दी गई; कृपया फिर से जोड़ें।",
+      "bulunamadi": "चुना गया स्रोत नहीं मिला।",
+      "kota": "Google कोटा समाप्त; बाद में फिर से प्रयास होगा।",
+      "yetki_yok": "Google अनुरोध को अधिकृत नहीं कर सका।",
+      "zaman_asimi": "Google ने समय पर जवाब नहीं दिया।",
+      "ag_hatasi": "Google तक नहीं पहुँचा जा सका।",
+      "google_hatasi": "Google ने एक त्रुटि लौटाई।",
+      "gecersiz_istek": "Google ने अनुरोध अस्वीकार कर दिया।",
+      "jeton_alinamadi": "Google एक्सेस टोकन नहीं मिल सका (क्लाइंट विवरण जाँचें)।",
+      "sifre_cozulemedi": "सहेजी गई अनुमति पढ़ी नहीं जा सकी (एन्क्रिप्शन कुंजी बदली हो सकती है); कृपया फिर से जोड़ें।",
+      "invalid_grant": "Google अनुमति अमान्य हो गई; कृपया फिर से जोड़ें।"
+    },
+    "pano": {
+      "ornekBaslik": "नमूना डेटा",
+      "ornekSerit": "ये संख्याएँ असली नहीं हैं। असली डेटा देखने के लिए कनेक्शन में जाकर अपना Google खाता जोड़ें।",
+      "ornekSeritKanal": "इस चैनल की संख्याएँ नमूना हैं; अभी कोई असली डेटा स्रोत नहीं है।",
+      "ornekRozet": "नमूना",
+      "baglan": "कनेक्शन",
+      "youtubeBaslik": "YouTube",
+      "kaynak": {
+        "google_analytics": "Google Analytics",
+        "search_console": "Search Console",
+        "youtube": "YouTube",
+        "elle": "हाथ से दर्ज"
+      },
+      "donem": "पिछले 28 दिन, उससे पहले के 28 दिनों की तुलना में",
+      "sonGuncelleme": "अपडेट",
+      "enCokSorgu": "सबसे ज़्यादा क्लिक वाली 10 क्वेरी",
+      "enCokSayfa": "सबसे ज़्यादा क्लिक वाले 10 पेज",
+      "sutun": {
+        "sorgu": "क्वेरी",
+        "sayfa": "पेज",
+        "tiklama": "क्लिक",
+        "gosterim": "इंप्रेशन",
+        "to": "CTR",
+        "sira": "स्थान"
+      }
+    },
+    "metrik": {
+      "sessions": "सत्र",
+      "users": "उपयोगकर्ता",
+      "pageviews": "पेज व्यू",
+      "bounce_rate": "बाउंस दर",
+      "avg_engagement_time": "औसत एंगेजमेंट समय",
+      "organic_clicks": "ऑर्गेनिक क्लिक",
+      "impressions": "इंप्रेशन",
+      "ctr": "क्लिक-थ्रू दर (CTR)",
+      "avg_position": "औसत स्थान",
+      "indexed_pages": "इंडेक्स किए गए पेज",
+      "subscribers": "सब्सक्राइबर",
+      "views": "व्यू",
+      "watch_time": "देखने का समय",
+      "subscribers_gained": "नए सब्सक्राइबर",
+      "spend": "विज्ञापन ख़र्च",
+      "clicks": "क्लिक",
+      "conversions": "कन्वर्ज़न",
+      "followers": "फ़ॉलोअर",
+      "engagement": "एंगेजमेंट दर",
+      "reach": "पहुँच",
+      "new_leads": "नए लीड"
+    },
+    "birim": {
+      "sn": "से.",
+      "dk": "मि."
+    }
+  }
+}

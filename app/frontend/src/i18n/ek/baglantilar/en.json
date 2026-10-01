@@ -1,0 +1,154 @@
+{
+  "baglantilar": {
+    "baslik": "Connections",
+    "aciklama": "Connect the agency's own Google accounts so the Live Analytics dashboard shows real data instead of sample numbers. The connection only asks for read access, and you can remove it at any time.",
+    "testModu": "Test mode: no real requests go to Google; sample data is used.",
+    "sonuc": {
+      "baglandi": "Google account connected. Now choose the property, site and channel below and save.",
+      "reddedildi": "Permission was not granted on the Google consent screen; no connection was made.",
+      "durum_gecersiz": "The connection request expired or was already used. Please try again.",
+      "kurulmadi": "The Google connection is not set up on the server (environment variables missing).",
+      "kod_hatasi": "Google's authorization code could not be verified. Try again; if it persists, check the redirect URI and client details.",
+      "yenileme_yok": "Google did not grant offline access. Remove the app's access at myaccount.google.com/permissions and connect again.",
+      "google_hatasi": "The Google connection could not be completed. Please try again."
+    },
+    "google": {
+      "ad": "Google",
+      "altBaslik": "Analytics 4 · Search Console · YouTube",
+      "durum": {
+        "kurulmadi": "Not set up",
+        "bagli_degil": "Not connected",
+        "bagli": "Connected",
+        "yeniden_baglan": "Reconnect needed"
+      },
+      "kurulumBaslik": "Setup not complete",
+      "kurulumAciklama": "The required environment variables are not defined on the server. Enter the values yourself under Render › Environment; do not type them here or in chat.",
+      "eksik": "Missing",
+      "gecersiz": "Invalid",
+      "rehber": "Step-by-step guide: GOOGLE-BAGLANTI-KURULUM.md in the repository root.",
+      "yonlendirme": "Authorized redirect URI to add to the OAuth client in Google Cloud:",
+      "kopyala": "Copy",
+      "kopyalandi": "Copied.",
+      "baglanAciklama": "You will be taken to Google's consent screen. Only read-only permissions are requested: Analytics, Search Console and YouTube statistics.",
+      "baglan": "Connect with Google",
+      "yenidenAciklama": "The Google permission is no longer valid (password change, access removed or expiry). Data is not being updated; please reconnect.",
+      "yenidenBaglan": "Reconnect",
+      "hesap": "Connected Google account",
+      "baglanmaTarihi": "Connected on",
+      "secimBaslik": "Which data should come in?",
+      "ga4": "Google Analytics 4 property",
+      "sc": "Search Console site",
+      "yt": "YouTube channel",
+      "secilmedi": "— Not selected —",
+      "kapsamYok": "This permission was not granted on the consent screen. Reconnect to use it.",
+      "kaynaklarYukleniyor": "Loading the account's properties, sites and channels…",
+      "secimKaydet": "Save selection",
+      "secimKaydedildi": "Selection saved.",
+      "esitle": "Sync now",
+      "esitleniyor": "Syncing…",
+      "esitlendi": "Synced: {{sayi}} metrics updated.",
+      "kismenEsitlendi": "Sync partly completed; see the errors below.",
+      "bekle": "Next sync possible in {{sayi}} min.",
+      "onceSecin": "To sync, first select and save at least one source.",
+      "sonEsitleme": "Last sync",
+      "hic": "not yet",
+      "kaldir": "Remove connection",
+      "kaldirOnay": "Remove the Google connection? The access permission at Google is revoked as well; data fetched so far stays on the dashboard.",
+      "kaldirildi": "Connection removed and the permission at Google revoked.",
+      "iptalEdilemedi": "Connection removed, but the permission at Google could not be revoked. Remove it manually at myaccount.google.com/permissions."
+    },
+    "kaynak": {
+      "ga4": "Analytics",
+      "sc": "Search Console",
+      "yt": "YouTube",
+      "genel": "General"
+    },
+    "yakinda": {
+      "rozet": "Coming soon",
+      "google_business": {
+        "ad": "Google Business Profile",
+        "aciklama": "Views in Maps and Search, calls, direction requests and review statistics.",
+        "not": "Requires an API access application; it will be enabled once Google approves it."
+      },
+      "meta": {
+        "ad": "Meta (Facebook · Instagram)",
+        "aciklama": "Page and account reach, follower and engagement statistics."
+      }
+    },
+    "hata": {
+      "genel": "The action could not be completed.",
+      "kurulmadi": "The Google connection is not set up on the server.",
+      "bagli_degil": "No Google account is connected.",
+      "yeniden_baglan": "The Google permission is invalid; please reconnect.",
+      "secim_yok": "Select at least one source first.",
+      "secim_gecersiz": "Invalid selection.",
+      "cok_sik": "Manual sync is limited to once every 10 minutes.",
+      "api_kapali": "This API is not enabled in the Google Cloud project.",
+      "erisim_yok": "This Google account has no access to the selected source.",
+      "kapsam_yok": "This permission was not granted; please reconnect.",
+      "bulunamadi": "The selected source was not found.",
+      "kota": "Google quota exceeded; it will be retried later.",
+      "yetki_yok": "Google could not authorize the request.",
+      "zaman_asimi": "Google did not respond in time.",
+      "ag_hatasi": "Google could not be reached.",
+      "google_hatasi": "Google returned an error.",
+      "gecersiz_istek": "Google rejected the request.",
+      "jeton_alinamadi": "Could not obtain a Google access token (check the client details).",
+      "sifre_cozulemedi": "The stored permission could not be read (the encryption key may have changed); please reconnect.",
+      "invalid_grant": "The Google permission became invalid; please reconnect."
+    },
+    "pano": {
+      "ornekBaslik": "Sample data",
+      "ornekSerit": "These numbers are not real. Connect your Google account under Connections to see real data.",
+      "ornekSeritKanal": "The numbers in this channel are samples; there is no real data source yet.",
+      "ornekRozet": "sample",
+      "baglan": "Connections",
+      "youtubeBaslik": "YouTube",
+      "kaynak": {
+        "google_analytics": "Google Analytics",
+        "search_console": "Search Console",
+        "youtube": "YouTube",
+        "elle": "Entered manually"
+      },
+      "donem": "last 28 days vs the previous 28 days",
+      "sonGuncelleme": "updated",
+      "enCokSorgu": "Top 10 queries by clicks",
+      "enCokSayfa": "Top 10 pages by clicks",
+      "sutun": {
+        "sorgu": "Query",
+        "sayfa": "Page",
+        "tiklama": "Clicks",
+        "gosterim": "Impressions",
+        "to": "CTR",
+        "sira": "Position"
+      }
+    },
+    "metrik": {
+      "sessions": "Sessions",
+      "users": "Users",
+      "pageviews": "Page views",
+      "bounce_rate": "Bounce rate",
+      "avg_engagement_time": "Avg. engagement time",
+      "organic_clicks": "Organic clicks",
+      "impressions": "Impressions",
+      "ctr": "Click-through rate (CTR)",
+      "avg_position": "Average position",
+      "indexed_pages": "Indexed pages",
+      "subscribers": "Subscribers",
+      "views": "Views",
+      "watch_time": "Watch time",
+      "subscribers_gained": "New subscribers",
+      "spend": "Ad spend",
+      "clicks": "Clicks",
+      "conversions": "Conversions",
+      "followers": "Followers",
+      "engagement": "Engagement rate",
+      "reach": "Reach",
+      "new_leads": "New leads"
+    },
+    "birim": {
+      "sn": "s",
+      "dk": "min"
+    }
+  }
+}

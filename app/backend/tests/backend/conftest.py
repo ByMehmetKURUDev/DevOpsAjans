@@ -36,6 +36,10 @@ for _ad in (
     "WHATSAPP_TOKEN",
     "PAGESPEED_API_KEY",
     "NOTIFY_ADMIN_EMAIL",
+    # Faz 3B: Google bağlantısı — testler kendi değerlerini koyuyor ("kurulmadı" varsayılan).
+    "GOOGLE_OAUTH_CLIENT_ID",
+    "GOOGLE_OAUTH_CLIENT_SECRET",
+    "BAGLANTI_SIFRE_ANAHTARI",
 ):
     os.environ.pop(_ad, None)
 os.environ["NOTIFY_ADMIN_EMAIL"] = "yonetici@test.dev"
@@ -142,3 +146,13 @@ def _dis_ag_kapali(monkeypatch):
         raise yapay_zeka.YapayZekaHatasi("ai_kapali", 503)
 
     monkeypatch.setattr(yapay_zeka, "_saglayici_cagir", _ai_yok)
+
+    # Faz 3B: Google'a giden TEK ağ çağrısı. Sahte Google isteyen testler
+    # (test_baglantilar.py) kendi sahtesini bunun üstüne koyuyor.
+    from services import baglantilar
+
+    async def _google_yok(*a, **k):
+        raise httpx.ConnectError("test ortamında dış ağ yok")
+
+    monkeypatch.setattr(baglantilar, "_ag_istegi", _google_yok)
+    baglantilar.bellegi_temizle()

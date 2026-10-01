@@ -69,6 +69,11 @@ async def lifespan(app: FastAPI):
     # MODULE_STARTUP_START
     await initialize_database()
     await initialize_mock_data()
+    # Faz 3B: daha önce yüklenmiş örnek analitik satırlarını "ornek" işaretle
+    # (idempotent; Google'dan gelen ya da elle girilen gerçek veriye dokunmaz).
+    from services.mock_data import analitik_orneklerini_isaretle
+
+    await analitik_orneklerini_isaretle()
     await initialize_pricing_seed()
     await initialize_admin_user()
     # Faz 3K: Kaynaklar tohumu — yalnız daha önce eklenmemiş slug'lar; hata açılışı düşürmez.

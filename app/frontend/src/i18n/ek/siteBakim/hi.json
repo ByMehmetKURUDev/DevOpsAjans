@@ -176,7 +176,8 @@
         "aylik_site_analizi": "मासिक स्वचालित साइट विश्लेषण",
         "oturum_temizligi": "पुराने सत्र रिकॉर्ड की सफ़ाई",
         "cop_kutusu_temizligi": "रीसायकल बिन के समाप्त रिकॉर्ड हटाना",
-        "seo_taramasi": "तकनीकी SEO और गति स्कैन (हर बार 3 साइटें)"
+        "seo_taramasi": "तकनीकी SEO और गति स्कैन (हर बार 3 साइटें)",
+        "google_esitleme": "Google डेटा सिंक (Analytics, Search Console, YouTube)"
       },
       "gunluk": "प्रतिदिन",
       "haftalik": "साप्ताहिक"

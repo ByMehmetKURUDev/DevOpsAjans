@@ -97,6 +97,79 @@ async def initialize_pricing_seed():
         logger.error("Marketplace çevirileri yazılamadı: %s", exc, exc_info=True)
 
 
+#: Faz 3B — örnek (mock) analitik satırlarının kaynak etiketi.
+ORNEK_KAYNAK = "ornek"
+
+
+def _analitik_ornek_kayitlari() -> list[dict[str, Any]]:
+    """`mock_data/analytics_snapshots.json` içindeki örnek kayıtlar."""
+    dosya = MOCK_DATA_DIR / "analytics_snapshots.json"
+    try:
+        ham = json.loads(dosya.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        logger.warning("Örnek analitik dosyası okunamadı: %s", exc)
+        return []
+    return [k for k in ham if isinstance(k, dict)] if isinstance(ham, list) else []
+
+
+async def analitik_orneklerini_isaretle(engine=None) -> int:
+    """Canlı veritabanındaki örnek analitik satırlarını `kaynak='ornek'` yapar.
+
+    `kaynak` sütunu sonradan eklendi; daha önce mock_data'dan yüklenmiş
+    satırlar NULL kaldı ve panoda gerçek veri gibi görünüyordu (18.432 oturum…).
+    Yalnız mock dosyasındaki bir kayıtla birebir eşleşen (kanal, metrik,
+    değer, tarih) VE kaynağı boş satırlar işaretleniyor:
+
+    * Kaynağı dolu satırlara (Google'dan gelen gerçek veri) dokunulmuyor.
+    * Elle girilmiş gerçek bir satır mock değerleriyle birebir aynı olmadıkça
+      işaretlenmiyor.
+    * İdempotent: ikinci çalışmada eşleşen NULL satır kalmadığı için 0.
+
+    Dönen değer: işaretlenen satır sayısı.
+    """
+    from sqlalchemy import text
+
+    motor = engine or db_manager.engine
+    if motor is None:
+        return 0
+    kayitlar = _analitik_ornek_kayitlari()
+    if not kayitlar:
+        return 0
+    toplam = 0
+    try:
+        async with motor.begin() as conn:
+            for k in kayitlar:
+                try:
+                    deger = float(k.get("metric_value"))
+                except (TypeError, ValueError):
+                    continue
+                kosul = (
+                    "kaynak IS NULL AND channel = :c AND metric_key = :m AND metric_value = :v"
+                )
+                parametreler: dict[str, Any] = {
+                    "k": ORNEK_KAYNAK,
+                    "c": k.get("channel"),
+                    "m": k.get("metric_key"),
+                    "v": deger,
+                }
+                if k.get("snapshot_date") is None:
+                    kosul += " AND snapshot_date IS NULL"
+                else:
+                    kosul += " AND snapshot_date = :d"
+                    parametreler["d"] = k.get("snapshot_date")
+                sonuc = await conn.execute(
+                    text(f"UPDATE analytics_snapshots SET kaynak = :k WHERE {kosul}"), parametreler
+                )
+                toplam += int(sonuc.rowcount or 0)
+    except SQLAlchemyError as exc:
+        # Tablo/sütun yoksa açılış düşmesin.
+        logger.warning("Örnek analitik satırları işaretlenemedi: %s", exc)
+        return 0
+    if toplam:
+        logger.info("Örnek analitik satırı işaretlendi: %d", toplam)
+    return toplam
+
+
 def _prepare_records(raw_data: Any, table: Table) -> list[dict[str, Any]]:
     """Filter JSON payload to match the table definition and coerce values."""
     if isinstance(raw_data, dict):

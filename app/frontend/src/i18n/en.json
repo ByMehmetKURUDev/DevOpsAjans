@@ -470,7 +470,8 @@
     "tabCopKutusu": "Recycle bin",
     "tabMesajlar": "Messages",
     "tabSohbetler": "Client chats",
-    "tabUzmanAsistanlar": "Expert Assistants"
+    "tabUzmanAsistanlar": "Expert Assistants",
+    "tabBaglantilar": "Connections"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

@@ -176,7 +176,8 @@
         "aylik_site_analizi": "Monatliche automatische Website-Analyse",
         "oturum_temizligi": "Bereinigung alter Sitzungsdaten",
         "cop_kutusu_temizligi": "Löschen abgelaufener Papierkorb-Einträge",
-        "seo_taramasi": "Technischer SEO- und Geschwindigkeitsscan (3 Websites pro Lauf)"
+        "seo_taramasi": "Technischer SEO- und Geschwindigkeitsscan (3 Websites pro Lauf)",
+        "google_esitleme": "Google-Datensynchronisierung (Analytics, Search Console, YouTube)"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

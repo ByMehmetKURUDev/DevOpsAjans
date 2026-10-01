@@ -29,6 +29,7 @@ class Analytics_snapshotsData(BaseModel):
     change_pct: float = None
     unit: str = None
     snapshot_date: str = None
+    kaynak: str = None
 
 
 class Analytics_snapshotsUpdateData(BaseModel):
@@ -40,6 +41,7 @@ class Analytics_snapshotsUpdateData(BaseModel):
     change_pct: Optional[float] = None
     unit: Optional[str] = None
     snapshot_date: Optional[str] = None
+    kaynak: Optional[str] = None
 
 
 class Analytics_snapshotsResponse(BaseModel):
@@ -52,6 +54,7 @@ class Analytics_snapshotsResponse(BaseModel):
     change_pct: Optional[float] = None
     unit: Optional[str] = None
     snapshot_date: Optional[str] = None
+    kaynak: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 

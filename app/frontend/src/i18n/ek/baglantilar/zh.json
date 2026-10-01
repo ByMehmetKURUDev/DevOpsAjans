@@ -1,0 +1,154 @@
+{
+  "baglantilar": {
+    "baslik": "连接",
+    "aciklama": "连接代理机构自己的 Google 账号，实时分析面板将显示真实数据而不是示例数字。连接只请求只读权限，可随时移除。",
+    "testModu": "测试模式：不会向 Google 发送真实请求，使用的是模拟数据。",
+    "sonuc": {
+      "baglandi": "Google 账号已连接。请在下方选择媒体资源、网站和频道并保存。",
+      "reddedildi": "未在 Google 授权页面授予权限，未建立连接。",
+      "durum_gecersiz": "连接请求已过期或已被使用，请重试。",
+      "kurulmadi": "服务器上尚未配置 Google 连接（缺少环境变量）。",
+      "kod_hatasi": "无法验证 Google 授权码。请重试；如仍失败，请检查重定向 URI 和客户端信息。",
+      "yenileme_yok": "Google 未授予离线访问权限。请在 myaccount.google.com/permissions 移除该应用的访问权限后重新连接。",
+      "google_hatasi": "无法完成 Google 连接，请重试。"
+    },
+    "google": {
+      "ad": "Google",
+      "altBaslik": "Analytics 4 · Search Console · YouTube",
+      "durum": {
+        "kurulmadi": "未配置",
+        "bagli_degil": "未连接",
+        "bagli": "已连接",
+        "yeniden_baglan": "需要重新连接"
+      },
+      "kurulumBaslik": "配置未完成",
+      "kurulumAciklama": "服务器上未定义所需的环境变量。请您自己在 Render › Environment 中填写这些值，不要写在这里或聊天中。",
+      "eksik": "缺少",
+      "gecersiz": "无效",
+      "rehber": "分步说明：仓库根目录下的 GOOGLE-BAGLANTI-KURULUM.md 文件。",
+      "yonlendirme": "需要添加到 Google Cloud OAuth 客户端的已授权重定向 URI：",
+      "kopyala": "复制",
+      "kopyalandi": "已复制。",
+      "baglanAciklama": "您将被带到 Google 授权页面。只请求只读权限：Analytics、Search Console 和 YouTube 统计数据。",
+      "baglan": "使用 Google 连接",
+      "yenidenAciklama": "Google 授权已失效（更改密码、撤销访问或过期）。数据不再更新，请重新连接。",
+      "yenidenBaglan": "重新连接",
+      "hesap": "已连接的 Google 账号",
+      "baglanmaTarihi": "连接时间",
+      "secimBaslik": "需要获取哪些数据？",
+      "ga4": "Google Analytics 4 媒体资源",
+      "sc": "Search Console 网站",
+      "yt": "YouTube 频道",
+      "secilmedi": "— 未选择 —",
+      "kapsamYok": "授权页面未授予此权限。如需使用，请重新连接。",
+      "kaynaklarYukleniyor": "正在加载账号中的媒体资源、网站和频道…",
+      "secimKaydet": "保存选择",
+      "secimKaydedildi": "选择已保存。",
+      "esitle": "立即同步",
+      "esitleniyor": "正在同步…",
+      "esitlendi": "同步完成：已更新 {{sayi}} 项指标。",
+      "kismenEsitlendi": "同步部分完成；错误见下方。",
+      "bekle": "{{sayi}} 分钟后可再次同步。",
+      "onceSecin": "同步前请先选择并保存至少一个来源。",
+      "sonEsitleme": "上次同步",
+      "hic": "尚无",
+      "kaldir": "移除连接",
+      "kaldirOnay": "要移除 Google 连接吗？Google 上的访问授权也会被撤销；已获取的数据将保留在面板中。",
+      "kaldirildi": "连接已移除，Google 上的授权已撤销。",
+      "iptalEdilemedi": "连接已移除，但未能撤销 Google 上的授权。请在 myaccount.google.com/permissions 手动移除。"
+    },
+    "kaynak": {
+      "ga4": "Analytics",
+      "sc": "Search Console",
+      "yt": "YouTube",
+      "genel": "常规"
+    },
+    "yakinda": {
+      "rozet": "即将推出",
+      "google_business": {
+        "ad": "Google 商家资料",
+        "aciklama": "地图和搜索中的浏览量、电话、路线请求及评价统计。",
+        "not": "需要申请 API 访问权限；Google 批准后将开放。"
+      },
+      "meta": {
+        "ad": "Meta（Facebook · Instagram）",
+        "aciklama": "主页和账号的覆盖人数、粉丝及互动统计。"
+      }
+    },
+    "hata": {
+      "genel": "无法完成操作。",
+      "kurulmadi": "服务器上尚未配置 Google 连接。",
+      "bagli_degil": "未连接 Google 账号。",
+      "yeniden_baglan": "Google 授权无效，请重新连接。",
+      "secim_yok": "请先至少选择一个来源。",
+      "secim_gecersiz": "选择无效。",
+      "cok_sik": "手动同步最多每 10 分钟一次。",
+      "api_kapali": "此 API 未在 Google Cloud 项目中启用。",
+      "erisim_yok": "该 Google 账号无权访问所选来源。",
+      "kapsam_yok": "未授予此权限，请重新连接。",
+      "bulunamadi": "未找到所选来源。",
+      "kota": "Google 配额已用完，稍后将重试。",
+      "yetki_yok": "Google 无法授权该请求。",
+      "zaman_asimi": "Google 未及时响应。",
+      "ag_hatasi": "无法连接到 Google。",
+      "google_hatasi": "Google 返回了错误。",
+      "gecersiz_istek": "Google 拒绝了该请求。",
+      "jeton_alinamadi": "无法获取 Google 访问令牌（请检查客户端信息）。",
+      "sifre_cozulemedi": "无法读取已保存的授权（加密密钥可能已更改），请重新连接。",
+      "invalid_grant": "Google 授权已失效，请重新连接。"
+    },
+    "pano": {
+      "ornekBaslik": "示例数据",
+      "ornekSerit": "这些数字不是真实数据。请在“连接”中连接您的 Google 账号以查看真实数据。",
+      "ornekSeritKanal": "此渠道的数字为示例；尚无真实数据来源。",
+      "ornekRozet": "示例",
+      "baglan": "连接",
+      "youtubeBaslik": "YouTube",
+      "kaynak": {
+        "google_analytics": "Google Analytics",
+        "search_console": "Search Console",
+        "youtube": "YouTube",
+        "elle": "手动输入"
+      },
+      "donem": "最近 28 天，与之前 28 天相比",
+      "sonGuncelleme": "更新于",
+      "enCokSorgu": "点击量最高的 10 个查询",
+      "enCokSayfa": "点击量最高的 10 个页面",
+      "sutun": {
+        "sorgu": "查询",
+        "sayfa": "页面",
+        "tiklama": "点击",
+        "gosterim": "展示",
+        "to": "点击率",
+        "sira": "排名"
+      }
+    },
+    "metrik": {
+      "sessions": "会话",
+      "users": "用户",
+      "pageviews": "页面浏览量",
+      "bounce_rate": "跳出率",
+      "avg_engagement_time": "平均互动时长",
+      "organic_clicks": "自然点击",
+      "impressions": "展示次数",
+      "ctr": "点击率（CTR）",
+      "avg_position": "平均排名",
+      "indexed_pages": "已编入索引的页面",
+      "subscribers": "订阅者",
+      "views": "观看次数",
+      "watch_time": "观看时长",
+      "subscribers_gained": "新增订阅者",
+      "spend": "广告支出",
+      "clicks": "点击",
+      "conversions": "转化",
+      "followers": "粉丝",
+      "engagement": "互动率",
+      "reach": "覆盖人数",
+      "new_leads": "新潜在客户"
+    },
+    "birim": {
+      "sn": "秒",
+      "dk": "分钟"
+    }
+  }
+}

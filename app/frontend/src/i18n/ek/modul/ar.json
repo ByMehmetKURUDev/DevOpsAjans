@@ -112,6 +112,10 @@
       "oneri_kutusu": {
         "ad": "صندوق الاقتراحات",
         "aciklama": "أرسل أفكار التحسين وصوّت بشكل مجهول على اقتراحات العملاء الآخرين."
+      },
+      "baglantilar": {
+        "ad": "الاتصالات",
+        "aciklama": "حسابات Google الخاصة بالوكالة (Analytics 4 وSearch Console وYouTube): بيانات حقيقية للوحة التحليلات."
       }
     },
     "kategori": {

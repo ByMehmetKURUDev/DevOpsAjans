@@ -51,7 +51,8 @@
       "oneri_durumu": "Status meines Vorschlags geändert",
       "yeni_oturum": "Anmeldung von einem neuen Gerät",
       "mesaj_yeni": "Ungelesene neue Nachricht",
-      "seo_dususu": "SEO-/Geschwindigkeitswert der Website gesunken"
+      "seo_dususu": "SEO-/Geschwindigkeitswert der Website gesunken",
+      "baglanti_koptu": "Google-Verbindung muss erneuert werden"
     },
     "kanal": {
       "inapp": "Panel",

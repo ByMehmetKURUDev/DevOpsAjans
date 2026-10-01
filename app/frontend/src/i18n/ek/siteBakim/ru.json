@@ -176,7 +176,8 @@
         "aylik_site_analizi": "Ежемесячный автоматический анализ сайта",
         "oturum_temizligi": "Очистка старых записей о сеансах",
         "cop_kutusu_temizligi": "Удаление просроченных записей корзины",
-        "seo_taramasi": "Технический SEO-аудит и проверка скорости (3 сайта за запуск)"
+        "seo_taramasi": "Технический SEO-аудит и проверка скорости (3 сайта за запуск)",
+        "google_esitleme": "Синхронизация данных Google (Analytics, Search Console, YouTube)"
       },
       "gunluk": "ежедневно",
       "haftalik": "еженедельно"

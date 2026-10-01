@@ -87,6 +87,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "mesaj_yeni": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 2H — müşteri sitesinin SEO/hız puanı düştü ya da yeni kritik bulgu.
     "seo_dususu": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 3B — Google bağlantısının izni geçersiz (invalid_grant): yeniden bağlanmalı.
+    "baglanti_koptu": {"roller": ("admin",), "tetikleniyor": True},
 }
 
 

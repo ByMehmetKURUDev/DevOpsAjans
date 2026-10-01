@@ -112,6 +112,10 @@
       "oneri_kutusu": {
         "ad": "建议箱",
         "aciklama": "提交改进建议，并匿名为其他客户的建议投票。"
+      },
+      "baglantilar": {
+        "ad": "连接",
+        "aciklama": "代理机构的 Google 账号（Analytics 4、Search Console、YouTube）：为分析面板提供真实数据。"
       }
     },
     "kategori": {

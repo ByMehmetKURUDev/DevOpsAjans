@@ -176,7 +176,8 @@
         "aylik_site_analizi": "تحليل الموقع التلقائي الشهري",
         "oturum_temizligi": "تنظيف سجلات الجلسات القديمة",
         "cop_kutusu_temizligi": "حذف عناصر سلة المحذوفات المنتهية",
-        "seo_taramasi": "فحص السيو التقني والسرعة (3 مواقع في كل دورة)"
+        "seo_taramasi": "فحص السيو التقني والسرعة (3 مواقع في كل دورة)",
+        "google_esitleme": "مزامنة بيانات Google (Analytics وSearch Console وYouTube)"
       },
       "gunluk": "يوميًا",
       "haftalik": "أسبوعيًا"

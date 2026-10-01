@@ -112,6 +112,10 @@
       "oneri_kutusu": {
         "ad": "सुझाव पेटी",
         "aciklama": "सुधार के सुझाव भेजें और अन्य ग्राहकों के सुझावों पर गुमनाम रूप से वोट करें।"
+      },
+      "baglantilar": {
+        "ad": "कनेक्शन",
+        "aciklama": "एजेंसी के Google खाते (Analytics 4, Search Console, YouTube): एनालिटिक्स डैशबोर्ड के लिए असली डेटा।"
       }
     },
     "kategori": {

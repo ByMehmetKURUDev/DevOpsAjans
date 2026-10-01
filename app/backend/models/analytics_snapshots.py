@@ -15,5 +15,8 @@ class Analytics_snapshots(Base):
     change_pct = Column(Float, nullable=True)
     unit = Column(String, nullable=True)
     snapshot_date = Column(String, nullable=True)
+    #: Faz 3B — verinin kaynağı: ornek (mock_data) | google_analytics |
+    #: search_console | youtube. NULL = elle girilmiş (gerçek sayılır).
+    kaynak = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

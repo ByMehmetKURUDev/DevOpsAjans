@@ -112,6 +112,10 @@
       "oneri_kutusu": {
         "ad": "Suggestion box",
         "aciklama": "Send improvement ideas and vote anonymously on other clients' suggestions."
+      },
+      "baglantilar": {
+        "ad": "Connections",
+        "aciklama": "The agency's Google accounts (Analytics 4, Search Console, YouTube): real data for the analytics dashboard."
       }
     },
     "kategori": {

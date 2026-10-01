@@ -470,7 +470,8 @@
     "tabCopKutusu": "سلة المحذوفات",
     "tabMesajlar": "الرسائل",
     "tabSohbetler": "محادثات العملاء",
-    "tabUzmanAsistanlar": "المساعدون الخبراء"
+    "tabUzmanAsistanlar": "المساعدون الخبراء",
+    "tabBaglantilar": "الاتصالات"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

@@ -1,0 +1,154 @@
+{
+  "baglantilar": {
+    "baslik": "Verbindungen",
+    "aciklama": "Verbinden Sie die eigenen Google-Konten der Agentur, damit das Live-Analytics-Dashboard echte Daten statt Beispielzahlen zeigt. Die Verbindung verlangt nur Lesezugriff und lässt sich jederzeit entfernen.",
+    "testModu": "Testmodus: Es gehen keine echten Anfragen an Google; es werden Beispieldaten verwendet.",
+    "sonuc": {
+      "baglandi": "Google-Konto verbunden. Wählen Sie jetzt unten Property, Website und Kanal aus und speichern Sie.",
+      "reddedildi": "Auf dem Google-Zustimmungsbildschirm wurde keine Berechtigung erteilt; es wurde keine Verbindung hergestellt.",
+      "durum_gecersiz": "Die Verbindungsanfrage ist abgelaufen oder wurde bereits verwendet. Bitte erneut versuchen.",
+      "kurulmadi": "Die Google-Verbindung ist auf dem Server nicht eingerichtet (Umgebungsvariablen fehlen).",
+      "kod_hatasi": "Der Autorisierungscode von Google konnte nicht bestätigt werden. Erneut versuchen; falls es weiter auftritt, Weiterleitungs-URI und Client-Daten prüfen.",
+      "yenileme_yok": "Google hat keinen dauerhaften Zugriff gewährt. Entfernen Sie den Zugriff der App unter myaccount.google.com/permissions und verbinden Sie erneut.",
+      "google_hatasi": "Die Google-Verbindung konnte nicht abgeschlossen werden. Bitte erneut versuchen."
+    },
+    "google": {
+      "ad": "Google",
+      "altBaslik": "Analytics 4 · Search Console · YouTube",
+      "durum": {
+        "kurulmadi": "Nicht eingerichtet",
+        "bagli_degil": "Nicht verbunden",
+        "bagli": "Verbunden",
+        "yeniden_baglan": "Neu verbinden"
+      },
+      "kurulumBaslik": "Einrichtung nicht abgeschlossen",
+      "kurulumAciklama": "Die nötigen Umgebungsvariablen sind auf dem Server nicht definiert. Tragen Sie die Werte selbst unter Render › Environment ein – nicht hier und nicht im Chat.",
+      "eksik": "Fehlt",
+      "gecersiz": "Ungültig",
+      "rehber": "Schritt-für-Schritt-Anleitung: GOOGLE-BAGLANTI-KURULUM.md im Stammverzeichnis des Repositorys.",
+      "yonlendirme": "Autorisierte Weiterleitungs-URI für den OAuth-Client in Google Cloud:",
+      "kopyala": "Kopieren",
+      "kopyalandi": "Kopiert.",
+      "baglanAciklama": "Sie werden zum Google-Zustimmungsbildschirm weitergeleitet. Es werden nur Leseberechtigungen angefragt: Statistiken aus Analytics, Search Console und YouTube.",
+      "baglan": "Mit Google verbinden",
+      "yenidenAciklama": "Die Google-Berechtigung ist nicht mehr gültig (Passwortänderung, entzogener Zugriff oder Ablauf). Die Daten werden nicht aktualisiert; bitte neu verbinden.",
+      "yenidenBaglan": "Neu verbinden",
+      "hesap": "Verbundenes Google-Konto",
+      "baglanmaTarihi": "Verbunden am",
+      "secimBaslik": "Welche Daten sollen übernommen werden?",
+      "ga4": "Google-Analytics-4-Property",
+      "sc": "Search-Console-Website",
+      "yt": "YouTube-Kanal",
+      "secilmedi": "— Nicht ausgewählt —",
+      "kapsamYok": "Diese Berechtigung wurde auf dem Zustimmungsbildschirm nicht erteilt. Zum Verwenden neu verbinden.",
+      "kaynaklarYukleniyor": "Properties, Websites und Kanäle des Kontos werden geladen…",
+      "secimKaydet": "Auswahl speichern",
+      "secimKaydedildi": "Auswahl gespeichert.",
+      "esitle": "Jetzt synchronisieren",
+      "esitleniyor": "Wird synchronisiert…",
+      "esitlendi": "Synchronisiert: {{sayi}} Kennzahlen aktualisiert.",
+      "kismenEsitlendi": "Synchronisierung teilweise abgeschlossen; die Fehler sehen Sie unten.",
+      "bekle": "Nächste Synchronisierung in {{sayi}} Min. möglich.",
+      "onceSecin": "Zum Synchronisieren zuerst mindestens eine Quelle auswählen und speichern.",
+      "sonEsitleme": "Letzte Synchronisierung",
+      "hic": "noch keine",
+      "kaldir": "Verbindung entfernen",
+      "kaldirOnay": "Google-Verbindung entfernen? Die Zugriffsberechtigung bei Google wird ebenfalls widerrufen; bisher abgerufene Daten bleiben im Dashboard.",
+      "kaldirildi": "Verbindung entfernt und Berechtigung bei Google widerrufen.",
+      "iptalEdilemedi": "Verbindung entfernt, aber die Berechtigung bei Google konnte nicht widerrufen werden. Entfernen Sie sie manuell unter myaccount.google.com/permissions."
+    },
+    "kaynak": {
+      "ga4": "Analytics",
+      "sc": "Search Console",
+      "yt": "YouTube",
+      "genel": "Allgemein"
+    },
+    "yakinda": {
+      "rozet": "Demnächst",
+      "google_business": {
+        "ad": "Google Unternehmensprofil",
+        "aciklama": "Aufrufe in Maps und Suche, Anrufe, Routenanfragen und Bewertungsstatistiken.",
+        "not": "Erfordert einen Antrag auf API-Zugriff; wird freigeschaltet, sobald Google zustimmt."
+      },
+      "meta": {
+        "ad": "Meta (Facebook · Instagram)",
+        "aciklama": "Reichweite von Seiten und Konten, Follower- und Interaktionsstatistiken."
+      }
+    },
+    "hata": {
+      "genel": "Die Aktion konnte nicht ausgeführt werden.",
+      "kurulmadi": "Die Google-Verbindung ist auf dem Server nicht eingerichtet.",
+      "bagli_degil": "Kein Google-Konto verbunden.",
+      "yeniden_baglan": "Die Google-Berechtigung ist ungültig; bitte neu verbinden.",
+      "secim_yok": "Wählen Sie zuerst mindestens eine Quelle aus.",
+      "secim_gecersiz": "Ungültige Auswahl.",
+      "cok_sik": "Manuelle Synchronisierung ist höchstens alle 10 Minuten möglich.",
+      "api_kapali": "Diese API ist im Google-Cloud-Projekt nicht aktiviert.",
+      "erisim_yok": "Dieses Google-Konto hat keinen Zugriff auf die ausgewählte Quelle.",
+      "kapsam_yok": "Diese Berechtigung wurde nicht erteilt; bitte neu verbinden.",
+      "bulunamadi": "Die ausgewählte Quelle wurde nicht gefunden.",
+      "kota": "Google-Kontingent ausgeschöpft; es wird später erneut versucht.",
+      "yetki_yok": "Google konnte die Anfrage nicht autorisieren.",
+      "zaman_asimi": "Google hat nicht rechtzeitig geantwortet.",
+      "ag_hatasi": "Google ist nicht erreichbar.",
+      "google_hatasi": "Google hat einen Fehler zurückgegeben.",
+      "gecersiz_istek": "Google hat die Anfrage abgelehnt.",
+      "jeton_alinamadi": "Es konnte kein Google-Zugriffstoken abgerufen werden (Client-Daten prüfen).",
+      "sifre_cozulemedi": "Die gespeicherte Berechtigung ist nicht lesbar (der Verschlüsselungsschlüssel hat sich evtl. geändert); bitte neu verbinden.",
+      "invalid_grant": "Die Google-Berechtigung ist ungültig geworden; bitte neu verbinden."
+    },
+    "pano": {
+      "ornekBaslik": "Beispieldaten",
+      "ornekSerit": "Diese Zahlen sind nicht echt. Verbinden Sie unter Verbindungen Ihr Google-Konto, um echte Daten zu sehen.",
+      "ornekSeritKanal": "Die Zahlen in diesem Kanal sind Beispiele; es gibt noch keine echte Datenquelle.",
+      "ornekRozet": "Beispiel",
+      "baglan": "Verbindungen",
+      "youtubeBaslik": "YouTube",
+      "kaynak": {
+        "google_analytics": "Google Analytics",
+        "search_console": "Search Console",
+        "youtube": "YouTube",
+        "elle": "Manuell eingegeben"
+      },
+      "donem": "letzte 28 Tage im Vergleich zu den 28 Tagen davor",
+      "sonGuncelleme": "Stand",
+      "enCokSorgu": "Top 10 Suchanfragen nach Klicks",
+      "enCokSayfa": "Top 10 Seiten nach Klicks",
+      "sutun": {
+        "sorgu": "Suchanfrage",
+        "sayfa": "Seite",
+        "tiklama": "Klicks",
+        "gosterim": "Impressionen",
+        "to": "CTR",
+        "sira": "Position"
+      }
+    },
+    "metrik": {
+      "sessions": "Sitzungen",
+      "users": "Nutzer",
+      "pageviews": "Seitenaufrufe",
+      "bounce_rate": "Absprungrate",
+      "avg_engagement_time": "Ø Interaktionszeit",
+      "organic_clicks": "Organische Klicks",
+      "impressions": "Impressionen",
+      "ctr": "Klickrate (CTR)",
+      "avg_position": "Durchschnittliche Position",
+      "indexed_pages": "Indexierte Seiten",
+      "subscribers": "Abonnenten",
+      "views": "Aufrufe",
+      "watch_time": "Wiedergabezeit",
+      "subscribers_gained": "Neue Abonnenten",
+      "spend": "Werbeausgaben",
+      "clicks": "Klicks",
+      "conversions": "Conversions",
+      "followers": "Follower",
+      "engagement": "Interaktionsrate",
+      "reach": "Reichweite",
+      "new_leads": "Neue Leads"
+    },
+    "birim": {
+      "sn": "Sek.",
+      "dk": "Min."
+    }
+  }
+}

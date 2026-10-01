@@ -6,7 +6,8 @@
         "metric_value": 18432,
         "change_pct": 12.4,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "traffic",
@@ -15,7 +16,8 @@
         "metric_value": 13205,
         "change_pct": 9.1,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "traffic",
@@ -24,7 +26,8 @@
         "metric_value": 46810,
         "change_pct": 15.6,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "traffic",
@@ -33,7 +36,8 @@
         "metric_value": 38.7,
         "change_pct": -4.2,
         "unit": "%",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "seo",
@@ -42,7 +46,8 @@
         "metric_value": 7842,
         "change_pct": 21.3,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "seo",
@@ -51,7 +56,8 @@
         "metric_value": 214300,
         "change_pct": 18.9,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "seo",
@@ -60,7 +66,8 @@
         "metric_value": 8.4,
         "change_pct": -2.1,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "seo",
@@ -69,7 +76,8 @@
         "metric_value": 128,
         "change_pct": 6.7,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "ads",
@@ -78,7 +86,8 @@
         "metric_value": 4250,
         "change_pct": 7.8,
         "unit": "$",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "ads",
@@ -87,7 +96,8 @@
         "metric_value": 9120,
         "change_pct": 11.2,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "ads",
@@ -96,7 +106,8 @@
         "metric_value": 4.6,
         "change_pct": 3.4,
         "unit": "%",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "ads",
@@ -105,7 +116,8 @@
         "metric_value": 312,
         "change_pct": 14.5,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "social",
@@ -114,7 +126,8 @@
         "metric_value": 24800,
         "change_pct": 5.9,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "social",
@@ -123,7 +136,8 @@
         "metric_value": 6.3,
         "change_pct": 1.8,
         "unit": "%",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "social",
@@ -132,7 +146,8 @@
         "metric_value": 187400,
         "change_pct": 23.1,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     },
     {
         "channel": "social",
@@ -141,6 +156,7 @@
         "metric_value": 96,
         "change_pct": 10.4,
         "unit": "",
-        "snapshot_date": "2026-09-01"
+        "snapshot_date": "2026-09-01",
+        "kaynak": "ornek"
     }
 ]

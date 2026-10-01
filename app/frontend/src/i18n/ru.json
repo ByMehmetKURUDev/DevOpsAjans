@@ -470,7 +470,8 @@
     "tabCopKutusu": "Корзина",
     "tabMesajlar": "Сообщения",
     "tabSohbetler": "Чаты с клиентами",
-    "tabUzmanAsistanlar": "Эксперт-ассистенты"
+    "tabUzmanAsistanlar": "Эксперт-ассистенты",
+    "tabBaglantilar": "Подключения"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

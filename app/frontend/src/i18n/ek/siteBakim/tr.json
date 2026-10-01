@@ -176,7 +176,8 @@
         "aylik_site_analizi": "Aylık otomatik site analizi",
         "oturum_temizligi": "Eski oturum kayıtlarının temizliği",
         "cop_kutusu_temizligi": "Çöp kutusunda süresi dolanların silinmesi",
-        "seo_taramasi": "Teknik SEO ve hız taraması (tur başına 3 site)"
+        "seo_taramasi": "Teknik SEO ve hız taraması (tur başına 3 site)",
+        "google_esitleme": "Google verisi eşitleme (Analytics, Search Console, YouTube)"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

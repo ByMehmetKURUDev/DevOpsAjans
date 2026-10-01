@@ -51,7 +51,8 @@
       "oneri_durumu": "我的建议状态已变化",
       "yeni_oturum": "新设备登录",
       "mesaj_yeni": "未读新消息",
-      "seo_dususu": "网站 SEO/速度评分下降"
+      "seo_dususu": "网站 SEO/速度评分下降",
+      "baglanti_koptu": "需要重新连接 Google"
     },
     "kanal": {
       "inapp": "面板",

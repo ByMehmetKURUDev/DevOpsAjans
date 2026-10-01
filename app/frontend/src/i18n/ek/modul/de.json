@@ -112,6 +112,10 @@
       "oneri_kutusu": {
         "ad": "Ideenbox",
         "aciklama": "Verbesserungsideen senden und anonym über Vorschläge anderer Kunden abstimmen."
+      },
+      "baglantilar": {
+        "ad": "Verbindungen",
+        "aciklama": "Google-Konten der Agentur (Analytics 4, Search Console, YouTube): echte Daten für das Analytics-Dashboard."
       }
     },
     "kategori": {

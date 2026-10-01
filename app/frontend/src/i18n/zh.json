@@ -470,7 +470,8 @@
     "tabCopKutusu": "回收站",
     "tabMesajlar": "消息",
     "tabSohbetler": "客户聊天",
-    "tabUzmanAsistanlar": "专家助手"
+    "tabUzmanAsistanlar": "专家助手",
+    "tabBaglantilar": "连接"
   },
   "admin": {
     "loadError": "管理数据加载失败",
