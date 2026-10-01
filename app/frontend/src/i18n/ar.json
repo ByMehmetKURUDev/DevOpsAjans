@@ -485,7 +485,8 @@
     "tabDinamikQr": "QR والروابط المختصرة",
     "tabKartvizit": "بطاقة الأعمال الرقمية",
     "tabQrMenu": "قائمة QR والكتالوج",
-    "tabApi": "API والويب هوك"
+    "tabApi": "API والويب هوك",
+    "tabRandevu": "المواعيد"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

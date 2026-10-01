@@ -160,6 +160,10 @@
       "api_erisimi": {
         "ad": "API 与 Webhook",
         "aciklama": "将您自己的软件和自动化工具（Zapier、Make、n8n）连接到门户：可限定权限、可随时撤销的 API 密钥，带签名的 Webhook 通知，以及供 Claude 等 AI 助手使用的 MCP 连接。"
+      },
+      "randevu": {
+        "ad": "预约与会议",
+        "aciklama": "类似 Calendly 的预约页面：活动类型、每周可预约时间与例外、团队（轮流分配）、无冲突预约、.ics 邀请、提醒邮件、取消/改期链接、日历订阅以及可嵌入您网站的小组件。"
       }
     },
     "kategori": {
@@ -168,7 +172,8 @@
       "icerik": "内容",
       "finans": "财务",
       "analiz": "分析",
-      "dijital_kimlik": "数字身份"
+      "dijital_kimlik": "数字身份",
+      "is_araclari": "业务工具"
     },
     "durum": {
       "yayinda": "已上线",
@@ -198,7 +203,8 @@
       "urun_siniri": "每个商店最多商品数",
       "anahtar_siniri": "每个账户最多有效 API 密钥数",
       "webhook_siniri": "每个账户最多 Webhook 端点数",
-      "dakika_siniri": "每个密钥每分钟请求数上限"
+      "dakika_siniri": "每个密钥每分钟请求数上限",
+      "tur_siniri": "每个账户最多活动类型数"
     },
     "musteri": {
       "baslik": "我的模块",

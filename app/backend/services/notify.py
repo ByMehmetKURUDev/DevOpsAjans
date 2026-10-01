@@ -124,12 +124,21 @@ async def _eposta_gonder(
     `ek` (Faz 2F, isteğe bağlı): {"basliklar": {"Message-ID": .., "In-Reply-To": ..,
     "References": ..}, "reply_to": "destek@..."} — talep e-postaları yanıtlanabilir
     olsun diye. Verilmezse gönderim eskisiyle birebir aynı.
+
+    `ek["ekler"]` (Faz 5R, isteğe bağlı): [{"dosya_adi", "icerik" (str|bytes), "tur"}]
+    — ör. randevu daveti `.ics` (`text/calendar; method=REQUEST`).
     """
     resend = _env("RESEND_API_KEY")
     gonderen = _env("NOTIFY_FROM_EMAIL") or "bildirim@mehmetkuru.dev"
     ek = ek or {}
     ek_basliklar = {k: str(v) for k, v in (ek.get("basliklar") or {}).items() if v}
     yanit_adresi = (ek.get("reply_to") or "").strip()
+    ekler = [
+        (str(e.get("dosya_adi") or "ek"),
+         e["icerik"].encode("utf-8") if isinstance(e["icerik"], str) else bytes(e["icerik"]),
+         str(e.get("tur") or "application/octet-stream"))
+        for e in (ek.get("ekler") or []) if isinstance(e, dict) and e.get("icerik")
+    ]
 
     if resend:
         yuk: Dict[str, Any] = {
@@ -142,6 +151,13 @@ async def _eposta_gonder(
             yuk["headers"] = ek_basliklar
         if yanit_adresi:
             yuk["reply_to"] = yanit_adresi
+        if ekler:
+            import base64
+
+            yuk["attachments"] = [
+                {"filename": ad, "content": base64.b64encode(veri).decode("ascii"), "content_type": tur}
+                for ad, veri, tur in ekler
+            ]
         try:
             async with httpx.AsyncClient(timeout=ZAMAN_ASIMI) as istemci:
                 yanit = await istemci.post(
@@ -174,6 +190,14 @@ async def _eposta_gonder(
                 if yanit_adresi:
                     mesaj["Reply-To"] = yanit_adresi
                 mesaj.set_content(govde)
+                for ad, veri, tur in ekler:
+                    ana, _, alt = tur.split(";", 1)[0].strip().partition("/")
+                    parametreler = {
+                        p.split("=", 1)[0].strip(): p.split("=", 1)[1].strip()
+                        for p in tur.split(";")[1:] if "=" in p and not p.strip().lower().startswith("charset")
+                    }
+                    mesaj.add_attachment(veri, maintype=ana or "application", subtype=alt or "octet-stream",
+                                         filename=ad, params=parametreler)
                 port = int(_env("SMTP_PORT") or 587)
                 with smtplib.SMTP(sunucu, port, timeout=ZAMAN_ASIMI) as baglanti:
                     baglanti.starttls()

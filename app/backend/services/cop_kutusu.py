@@ -128,6 +128,27 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 20,
         "ebeveyn": "menu_magazalari",
     },
+    # Faz 5R: randevu sayfası — türleri, ekibi ve istisnalarıyla birlikte silinir, birlikte
+    # geri gelir. Randevular silinmiyor (kişisel alanları silme anında anonimleşiyor).
+    "randevu_sayfalari": {"sahip": "hesap_email", "sira": 10},
+    "randevu_turleri": {
+        "sahip_sorgu": "SELECT hesap_email FROM randevu_sayfalari WHERE id = :v",
+        "sahip_alan": "sayfa_id",
+        "sira": 30,
+        "ebeveyn": "randevu_sayfalari",
+    },
+    "randevu_kisileri": {
+        "sahip_sorgu": "SELECT hesap_email FROM randevu_sayfalari WHERE id = :v",
+        "sahip_alan": "sayfa_id",
+        "sira": 20,
+        "ebeveyn": "randevu_sayfalari",
+    },
+    "randevu_istisnalari": {
+        "sahip_sorgu": "SELECT hesap_email FROM randevu_sayfalari WHERE id = :v",
+        "sahip_alan": "sayfa_id",
+        "sira": 30,
+        "ebeveyn": "randevu_sayfalari",
+    },
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

@@ -160,6 +160,10 @@
       "api_erisimi": {
         "ad": "API und Webhooks",
         "aciklama": "Verbinden Sie eigene Software und Automatisierungstools (Zapier, Make, n8n) mit dem Portal: eingeschränkte, widerrufbare API-Schlüssel, signierte Webhook-Benachrichtigungen und eine MCP-Verbindung für KI-Assistenten wie Claude."
+      },
+      "randevu": {
+        "ad": "Termine und Meetings",
+        "aciklama": "Buchungsseite wie Calendly: Terminarten, wöchentliche Verfügbarkeit und Ausnahmen, Team (Rundum-Verteilung), kollisionsfreie Buchung, .ics-Einladungen, Erinnerungs-E-Mails, Links zum Absagen/Verschieben, Kalenderabo und ein einbettbares Widget für Ihre Website."
       }
     },
     "kategori": {
@@ -168,7 +172,8 @@
       "icerik": "Inhalte",
       "finans": "Finanzen",
       "analiz": "Analyse",
-      "dijital_kimlik": "Digitale Identität"
+      "dijital_kimlik": "Digitale Identität",
+      "is_araclari": "Business-Werkzeuge"
     },
     "durum": {
       "yayinda": "Verfügbar",
@@ -198,7 +203,8 @@
       "urun_siniri": "Max. Artikel pro Shop",
       "anahtar_siniri": "Max. aktive API-Schlüssel pro Konto",
       "webhook_siniri": "Max. Webhook-Endpunkte pro Konto",
-      "dakika_siniri": "Anfragen pro Minute je Schlüssel"
+      "dakika_siniri": "Anfragen pro Minute je Schlüssel",
+      "tur_siniri": "Max. Terminarten pro Konto"
     },
     "musteri": {
       "baslik": "Meine Module",

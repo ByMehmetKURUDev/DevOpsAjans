@@ -33,7 +33,8 @@
       "qr": "QR ve kısa link",
       "kartvizit": "Dijital kartvizit ve yorum sayfası",
       "menu": "QR menü ve katalog",
-      "api": "API ve webhook"
+      "api": "API ve webhook",
+      "randevu": "Randevu ve toplantılar"
     },
     "durum": {
       "davet": "Davet bekliyor",

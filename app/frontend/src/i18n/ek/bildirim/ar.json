@@ -64,7 +64,10 @@
       "kartvizit_mesaj": "رسالة جديدة من بطاقة أعمال",
       "yorum_geri_bildirim": "ملاحظات خاصة من صفحة مراجعات",
       "menu_siparis": "قائمة QR / كتالوج: طلب جديد",
-      "webhook_pasiflesti": "تم إيقاف نقطة نهاية الويب هوك"
+      "webhook_pasiflesti": "تم إيقاف نقطة نهاية الويب هوك",
+      "randevu_yeni": "المواعيد: حجز جديد",
+      "randevu_degisti": "المواعيد: أعيدت جدولته",
+      "randevu_iptal": "المواعيد: أُلغي"
     },
     "kanal": {
       "inapp": "اللوحة",

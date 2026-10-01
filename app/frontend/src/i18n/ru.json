@@ -485,7 +485,8 @@
     "tabDinamikQr": "QR и короткие ссылки",
     "tabKartvizit": "Цифровая визитка",
     "tabQrMenu": "QR-меню и каталог",
-    "tabApi": "API и вебхуки"
+    "tabApi": "API и вебхуки",
+    "tabRandevu": "Записи"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

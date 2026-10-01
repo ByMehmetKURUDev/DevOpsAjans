@@ -9,12 +9,12 @@ import { client } from '@/lib/sdkClient';
  * çiziyor; yanıt gelmezse bugünkü bütün sekmeler gösteriliyor.
  */
 
-export type ModulKategorisi = 'cekirdek' | 'hizmet' | 'icerik' | 'finans' | 'analiz' | 'dijital_kimlik';
+export type ModulKategorisi = 'cekirdek' | 'hizmet' | 'icerik' | 'finans' | 'analiz' | 'dijital_kimlik' | 'is_araclari';
 export type ModulDurumu = 'yayinda' | 'beta' | 'yakinda';
 export type ModulKaynagi = 'varsayilan' | 'paket' | 'elle';
 export type ModulGorunumu = 'acik' | 'yakinda' | 'eklenebilir';
 
-export const KATEGORILER: ModulKategorisi[] = ['cekirdek', 'hizmet', 'icerik', 'finans', 'analiz', 'dijital_kimlik'];
+export const KATEGORILER: ModulKategorisi[] = ['cekirdek', 'hizmet', 'icerik', 'finans', 'analiz', 'dijital_kimlik', 'is_araclari'];
 
 export interface AyarAlani {
   anahtar: string;

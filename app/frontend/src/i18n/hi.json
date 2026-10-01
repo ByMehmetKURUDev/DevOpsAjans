@@ -485,7 +485,8 @@
     "tabDinamikQr": "QR और छोटे लिंक",
     "tabKartvizit": "डिजिटल बिज़नेस कार्ड",
     "tabQrMenu": "QR मेन्यू और कैटलॉग",
-    "tabApi": "API और वेबहुक"
+    "tabApi": "API और वेबहुक",
+    "tabRandevu": "अपॉइंटमेंट"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

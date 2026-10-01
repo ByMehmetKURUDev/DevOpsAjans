@@ -82,7 +82,11 @@
       "kartvizitler": "Digital business card",
       "yorum_sayfalari": "Google review page",
       "kartvizit_gorselleri": "Business card image",
-      "kartvizit_mesajlari": "Card message / feedback"
+      "kartvizit_mesajlari": "Card message / feedback",
+      "randevu_sayfalari": "Booking page",
+      "randevu_turleri": "Event type (appointments)",
+      "randevu_kisileri": "Booking team member",
+      "randevu_istisnalari": "Availability exception"
     }
   }
 }

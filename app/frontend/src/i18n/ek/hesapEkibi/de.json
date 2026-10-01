@@ -33,7 +33,8 @@
       "qr": "QR und Kurzlinks",
       "kartvizit": "Digitale Visitenkarte und Bewertungsseite",
       "menu": "QR-Speisekarte & Katalog",
-      "api": "API und Webhooks"
+      "api": "API und Webhooks",
+      "randevu": "Termine und Meetings"
     },
     "durum": {
       "davet": "Einladung ausstehend",

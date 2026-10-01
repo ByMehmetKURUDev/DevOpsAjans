@@ -27,6 +27,7 @@ export const IZINLER = [
   'menu',
   // Faz 4A — API anahtarları ve webhook'lar.
   'api',
+  'randevu',
 ] as const;
 export type Izin = (typeof IZINLER)[number];
 export type UyeRolu = 'yonetici' | 'uye' | 'fatura';
@@ -186,4 +187,5 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   kartvizit: ['kartvizit'],
   menu: ['menu'],
   api: ['api'],
+  randevu: ['randevu'],
 };

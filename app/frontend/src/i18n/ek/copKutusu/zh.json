@@ -82,7 +82,11 @@
       "kartvizitler": "电子名片",
       "yorum_sayfalari": "Google 评价页面",
       "kartvizit_gorselleri": "名片图片",
-      "kartvizit_mesajlari": "名片消息 / 反馈"
+      "kartvizit_mesajlari": "名片消息 / 反馈",
+      "randevu_sayfalari": "预约页面",
+      "randevu_turleri": "活动类型（预约）",
+      "randevu_kisileri": "预约团队成员",
+      "randevu_istisnalari": "可预约时间例外"
     }
   }
 }

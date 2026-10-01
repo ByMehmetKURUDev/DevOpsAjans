@@ -66,6 +66,8 @@ IZINLER: Tuple[str, ...] = (
     # Faz 4A — API anahtarları ve webhook'lar (yalnız sahip/hesap yöneticisi verebilir; üye ve
     # fatura rolünün varsayılanında yok).
     "api",
+    # Faz 5R — randevu ve toplantılar (ekipte her kişi kendi uygunluğunu yönetir).
+    "randevu",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -77,7 +79,7 @@ ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
     # Faz 4K/4M: üye kendi kartvizitini ve menü/katalog mağazalarını da yönetir.
     "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
-            "kartvizit", "menu"),
+            "kartvizit", "menu", "randevu"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
@@ -97,7 +99,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 4Q–4K/4M arası varsayılan (qr var, kartvizit ve menu yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr"}),
-        # Faz 4K/4M–4A arası varsayılan (kartvizit ve menu var, api yok).
+        # Faz 4K/4M–4A/5R arası varsayılan (kartvizit ve menu var; api ve randevu yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu"}),
     ),
@@ -107,6 +109,9 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar"}),
         # Faz 4Q–4M arası varsayılan.
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr"}),
+        # Faz 4M–5R arası varsayılan.
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
+                   "kartvizit", "menu"}),
     ),
 }
 
@@ -160,6 +165,10 @@ OLAY_IZNI: Dict[str, str] = {
     "menu_siparis": "menu",
     # Faz 4A — art arda başarısız teslimat: webhook uç noktası otomatik durduruldu.
     "webhook_pasiflesti": "api",
+    # Faz 5R — yeni / yeniden planlanan / iptal edilen randevu (sahibine).
+    "randevu_yeni": "randevu",
+    "randevu_degisti": "randevu",
+    "randevu_iptal": "randevu",
 }
 
 DAVET_OLAYI = "hesap_davet"

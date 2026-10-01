@@ -64,7 +64,10 @@
       "kartvizit_mesaj": "Новое сообщение с визитки",
       "yorum_geri_bildirim": "Личный отзыв со страницы отзывов",
       "menu_siparis": "QR-меню / каталог: новый заказ",
-      "webhook_pasiflesti": "Вебхук-адрес отключён"
+      "webhook_pasiflesti": "Вебхук-адрес отключён",
+      "randevu_yeni": "Записи: новая запись",
+      "randevu_degisti": "Записи: перенесена",
+      "randevu_iptal": "Записи: отменена"
     },
     "kanal": {
       "inapp": "Панель",

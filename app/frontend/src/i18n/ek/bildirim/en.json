@@ -64,7 +64,10 @@
       "kartvizit_mesaj": "New message from a business card",
       "yorum_geri_bildirim": "Private feedback from a review page",
       "menu_siparis": "QR menu / catalog: new order",
-      "webhook_pasiflesti": "Webhook endpoint disabled"
+      "webhook_pasiflesti": "Webhook endpoint disabled",
+      "randevu_yeni": "Appointments: new booking",
+      "randevu_degisti": "Appointments: rescheduled",
+      "randevu_iptal": "Appointments: cancelled"
     },
     "kanal": {
       "inapp": "Panel",

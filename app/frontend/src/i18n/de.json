@@ -485,7 +485,8 @@
     "tabDinamikQr": "QR & Kurzlinks",
     "tabKartvizit": "Digitale Visitenkarte",
     "tabQrMenu": "QR-Speisekarte & Katalog",
-    "tabApi": "API & Webhooks"
+    "tabApi": "API & Webhooks",
+    "tabRandevu": "Termine"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

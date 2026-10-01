@@ -66,6 +66,11 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   // Faz 4M: herkese açık QR menü / katalog — dinamik, mağazaya ait; paylaşım
   // önizlemesini Pages Function yazıyor (functions/menu/[slug].js).
   '/menu/:slug',
+  // Faz 5R: herkese açık randevu sayfası ve imzalı yönetim bağlantısı — dinamik,
+  // sahibine ait; paylaşım önizlemesini Pages Function yazıyor (functions/randevu/[[yol]].js).
+  '/randevu/:slug',
+  '/randevu/:slug/:tur',
+  '/randevu/yonet/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

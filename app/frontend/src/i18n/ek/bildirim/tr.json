@@ -64,7 +64,10 @@
       "kartvizit_mesaj": "Kartvizitten yeni mesaj",
       "yorum_geri_bildirim": "Yorum sayfasından özel geri bildirim",
       "menu_siparis": "QR menü / katalog: yeni sipariş",
-      "webhook_pasiflesti": "Webhook uç noktası durduruldu"
+      "webhook_pasiflesti": "Webhook uç noktası durduruldu",
+      "randevu_yeni": "Randevu: yeni rezervasyon",
+      "randevu_degisti": "Randevu: yeniden planlandı",
+      "randevu_iptal": "Randevu: iptal edildi"
     },
     "kanal": {
       "inapp": "Panel",

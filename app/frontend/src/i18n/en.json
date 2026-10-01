@@ -485,7 +485,8 @@
     "tabDinamikQr": "QR & short links",
     "tabKartvizit": "Digital business card",
     "tabQrMenu": "QR menu & catalog",
-    "tabApi": "API & webhooks"
+    "tabApi": "API & webhooks",
+    "tabRandevu": "Appointments"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

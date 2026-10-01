@@ -180,6 +180,20 @@ async def ekip(db_oturumu):
                                             olaylar='["fatura.odendi"]', aktif=False, gizli_anahtar="d1:whsec_ekip",
                                             ardisik_hata=0))
     k.update(AK=ak.id, WH=wh.id)
+    # Faz 5R: sahibin randevu sayfası (kişi + tür + gelecekte bir randevu).
+    from datetime import datetime as _dt
+    from datetime import timezone as _tz
+
+    from models.randevu import Randevular, RandevuKisileri, RandevuSayfalari, RandevuTurleri
+
+    rs = await _ekle(db, RandevuSayfalari(hesap_email=s, slug=f"ekip-{uuid.uuid4().hex[:8]}", baslik="Sahibin randevuları"))
+    rk_ = await _ekle(db, RandevuKisileri(sayfa_id=rs.id, eposta=s, ad="Sahip", haftalik="{}"))
+    rt = await _ekle(db, RandevuTurleri(sayfa_id=rs.id, slug="tanisma", ad="Tanışma", kisiler=f"[{rk_.id}]"))
+    rbas = _dt(2030, 1, 7, 9, 0, tzinfo=_tz.utc)
+    rr = await _ekle(db, Randevular(uid=uuid.uuid4().hex, sayfa_id=rs.id, tur_id=rt.id, kisi_id=rk_.id, hesap_email=s,
+                                    baslangic=rbas, bitis=rbas + timedelta(minutes=30), dolu_bas=rbas,
+                                    dolu_bit=rbas + timedelta(minutes=30), koltuk=0, ad="Ziyaretçi", eposta="z@ornek.com"))
+    k.update(RS=rs.id, RK=rk_.id, RT=rt.id, RR=rr.id)
     return k
 
 
@@ -338,6 +352,33 @@ MUSTERI_UCLARI = [
     ("POST", "/api/v1/menulerim/{MM}/ice-aktar/onizleme", ("menu",), GOVDE_DOSYA, "gecti"),
     ("POST", "/api/v1/menulerim/{MM}/ice-aktar", ("menu",), {"satirlar": []}, "gecti"),
     ("DELETE", "/api/v1/menulerim/999999", ("menu",), None, "gecti"),
+    # Faz 5R — randevu ve toplantılar (`randevu` izni). Sahibin zaten bir sayfası var: yeni sayfa 409 → "gecti".
+    ("GET", "/api/v1/randevularim/meta", ("randevu",), None, 200),
+    ("GET", "/api/v1/randevularim", ("randevu",), None, 200),
+    ("POST", "/api/v1/randevularim", ("randevu",), {"baslik": "Ekip sayfası"}, "gecti"),
+    ("GET", "/api/v1/randevularim/{RS}", ("randevu",), None, 200),
+    ("PUT", "/api/v1/randevularim/{RS}", ("randevu",), {"karsilama": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/randevularim/999999", ("randevu",), None, "gecti"),
+    ("POST", "/api/v1/randevularim/{RS}/logo", ("randevu",), GOVDE_DOSYA, "gecti"),
+    ("DELETE", "/api/v1/randevularim/{RS}/logo", ("randevu",), None, 200),
+    ("POST", "/api/v1/randevularim/{RS}/besleme/yenile", ("randevu",), None, 200),
+    ("GET", "/api/v1/randevularim/{RS}/qr?bicim=svg", ("randevu",), None, 200),
+    ("GET", "/api/v1/randevularim/{RS}/analiz", ("randevu",), None, 200),
+    ("GET", "/api/v1/randevularim/{RS}/turler", ("randevu",), None, 200),
+    ("POST", "/api/v1/randevularim/{RS}/turler", ("randevu",), {"ad": "Ekip türü"}, "gecti"),
+    ("PUT", "/api/v1/randevularim/{RS}/turler/{RT}", ("randevu",), {"aciklama": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/randevularim/{RS}/turler/999999", ("randevu",), None, "gecti"),
+    ("GET", "/api/v1/randevularim/{RS}/kisiler", ("randevu",), None, 200),
+    ("POST", "/api/v1/randevularim/{RS}/kisiler", ("randevu",), {"eposta": "aday-degil@ornek.com"}, "gecti"),
+    ("PUT", "/api/v1/randevularim/{RS}/kisiler/{RK}", ("randevu",), {"ad": "Sahip"}, 200),
+    ("DELETE", "/api/v1/randevularim/{RS}/kisiler/999999", ("randevu",), None, "gecti"),
+    ("GET", "/api/v1/randevularim/{RS}/istisnalar", ("randevu",), None, 200),
+    ("POST", "/api/v1/randevularim/{RS}/istisnalar", ("randevu",), {"tarih": "2030-01-02", "araliklar": []}, 200),
+    ("DELETE", "/api/v1/randevularim/{RS}/istisnalar/999999", ("randevu",), None, "gecti"),
+    ("GET", "/api/v1/randevularim/{RS}/randevular", ("randevu",), None, 200),
+    ("GET", "/api/v1/randevularim/{RS}/randevular/{RR}", ("randevu",), None, 200),
+    ("POST", "/api/v1/randevularim/{RS}/randevular/999999/iptal", ("randevu",), {}, "gecti"),
+    ("PUT", "/api/v1/randevularim/{RS}/randevular/{RR}/katilim", ("randevu",), {"katilim": "geldi"}, "gecti"),
     # Faz 3T — faturalarım (bakiye, PDF, ödeme bağlantısı), tekliflerim, sözleşmelerim (`faturalar` izni).
     ("GET", "/api/v1/faturalarim", ("faturalar",), None, 200),
     ("GET", "/api/v1/faturalarim/{F}", ("faturalar",), None, 200),

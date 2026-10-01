@@ -82,7 +82,11 @@
       "kartvizitler": "Digitale Visitenkarte",
       "yorum_sayfalari": "Google-Bewertungsseite",
       "kartvizit_gorselleri": "Visitenkartenbild",
-      "kartvizit_mesajlari": "Kartennachricht / Feedback"
+      "kartvizit_mesajlari": "Kartennachricht / Feedback",
+      "randevu_sayfalari": "Buchungsseite",
+      "randevu_turleri": "Terminart",
+      "randevu_kisileri": "Teammitglied (Termine)",
+      "randevu_istisnalari": "Verfügbarkeitsausnahme"
     }
   }
 }

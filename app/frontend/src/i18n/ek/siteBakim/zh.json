@@ -185,7 +185,8 @@
         "fatura_hatirlatmalari": "逾期发票提醒（+1/+7/+14 天）",
         "teklif_ve_sozlesme": "报价到期与合同到期提醒",
         "webhook_teslimatlari": "Webhook 重试投递",
-        "webhook_temizligi": "清理旧的 Webhook 日志（30 天）"
+        "webhook_temizligi": "清理旧的 Webhook 日志（30 天）",
+        "randevu_hatirlatmalari": "预约提醒（提前 24 小时和 1 小时）"
       },
       "gunluk": "每天",
       "haftalik": "每周"

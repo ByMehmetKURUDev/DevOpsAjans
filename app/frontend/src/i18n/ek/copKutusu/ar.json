@@ -82,7 +82,11 @@
       "kartvizitler": "بطاقة أعمال رقمية",
       "yorum_sayfalari": "صفحة مراجعات Google",
       "kartvizit_gorselleri": "صورة بطاقة الأعمال",
-      "kartvizit_mesajlari": "رسالة البطاقة / ملاحظات"
+      "kartvizit_mesajlari": "رسالة البطاقة / ملاحظات",
+      "randevu_sayfalari": "صفحة الحجز",
+      "randevu_turleri": "نوع الموعد",
+      "randevu_kisileri": "عضو فريق الحجز",
+      "randevu_istisnalari": "استثناء في التوفر"
     }
   }
 }

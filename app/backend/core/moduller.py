@@ -36,7 +36,7 @@ Kurallar
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
-KATEGORILER: Tuple[str, ...] = ("cekirdek", "hizmet", "icerik", "finans", "analiz", "dijital_kimlik")
+KATEGORILER: Tuple[str, ...] = ("cekirdek", "hizmet", "icerik", "finans", "analiz", "dijital_kimlik", "is_araclari")
 ROLLER: Tuple[str, ...] = ("admin", "client", "her_ikisi")
 DURUMLAR: Tuple[str, ...] = ("yayinda", "beta", "yakinda")
 #: `pricing_scales.kod` değerleri (scripts/seed_pricing_v5.py).
@@ -423,6 +423,24 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("urun_siniri", "int", 300, en_az=0, en_cok=100000),
         ),
         yerlesim=("menu",),
+    ),
+    # --- İş araçları (Faz 5) ------------------------------------------------
+    # Faz 5R — takvim ve randevu + toplantılar (Calendly benzeri): herkese açık
+    # `/randevu/<slug>`, etkinlik türleri, haftalık uygunluk + istisnalar, ekip
+    # (kişiye özel / sırayla / ilk müsait), .ics davet, hatırlatma, ICS besleme,
+    # gömülebilir pencere. Varsayılan KAPALI, pakete bağlı değil (ayrı satılan
+    # modül; önerilen fiyat aylık 12 $ — Calendly Standard 10–12 $/kişi).
+    # `tur_siniri`: hesap başına en çok etkinlik türü. Ekip izni `randevu`.
+    Modul(
+        anahtar="randevu",
+        ad_varsayilan={"tr": "Randevu ve toplantılar", "en": "Appointments and meetings"},
+        ikon="CalendarCheck",
+        kategori="is_araclari",
+        musteri_sekmesi="randevu",
+        yonetici_sekmesi="randevu",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("tur_siniri", "int", 5, en_az=0, en_cok=200),),
     ),
     Modul(
         anahtar="islem",

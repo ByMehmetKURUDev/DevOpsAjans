@@ -109,6 +109,10 @@ HARIC_TABLOLAR = frozenset({
     # dolunca anonimleşiyor; denetim kaydına kopyası kalmamalı), analitik olayları
     # ve görsel kayıtları (içerik dosya deposunda). Mağaza/ürün/kupon kaydediliyor.
     "menu_siparisleri", "menu_olaylari", "menu_gorselleri",
+    # Faz 5R: randevular (herkese açık formdan, KİŞİSEL VERİ — saklama süresi dolunca
+    # anonimleşiyor), hatırlatma kayıtları, analitik olayları ve logo kayıtları.
+    # Sayfa/tür/kişi/istisna kaydediliyor.
+    "randevular", "randevu_hatirlatmalari", "randevu_olaylari", "randevu_gorselleri",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.

@@ -160,6 +160,10 @@
       "api_erisimi": {
         "ad": "API and webhooks",
         "aciklama": "Connect your own software and automation tools (Zapier, Make, n8n) to the portal: scoped, revocable API keys, signed webhook notifications and an MCP connection for AI assistants like Claude."
+      },
+      "randevu": {
+        "ad": "Appointments and meetings",
+        "aciklama": "A Calendly-style booking page: event types, weekly availability and exceptions, team (round-robin), conflict-free booking, .ics invites, reminder emails, cancel/reschedule links, calendar subscription and an embeddable widget for your site."
       }
     },
     "kategori": {
@@ -168,7 +172,8 @@
       "icerik": "Content",
       "finans": "Finance",
       "analiz": "Analytics",
-      "dijital_kimlik": "Digital identity"
+      "dijital_kimlik": "Digital identity",
+      "is_araclari": "Business tools"
     },
     "durum": {
       "yayinda": "Live",
@@ -198,7 +203,8 @@
       "urun_siniri": "Max items per store",
       "anahtar_siniri": "Max active API keys per account",
       "webhook_siniri": "Max webhook endpoints per account",
-      "dakika_siniri": "Requests per minute per key"
+      "dakika_siniri": "Requests per minute per key",
+      "tur_siniri": "Max event types per account"
     },
     "musteri": {
       "baslik": "My modules",

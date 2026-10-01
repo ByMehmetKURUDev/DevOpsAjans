@@ -82,7 +82,11 @@
       "kartvizitler": "डिजिटल बिज़नेस कार्ड",
       "yorum_sayfalari": "Google समीक्षा पेज",
       "kartvizit_gorselleri": "बिज़नेस कार्ड चित्र",
-      "kartvizit_mesajlari": "कार्ड संदेश / प्रतिक्रिया"
+      "kartvizit_mesajlari": "कार्ड संदेश / प्रतिक्रिया",
+      "randevu_sayfalari": "बुकिंग पेज",
+      "randevu_turleri": "इवेंट प्रकार (अपॉइंटमेंट)",
+      "randevu_kisileri": "बुकिंग टीम सदस्य",
+      "randevu_istisnalari": "उपलब्धता अपवाद"
     }
   }
 }

@@ -185,7 +185,8 @@
         "fatura_hatirlatmalari": "Erinnerungen an überfällige Rechnungen (+1/+7/+14 Tage)",
         "teklif_ve_sozlesme": "Angebotsabläufe und Erinnerungen an Vertragsenden",
         "webhook_teslimatlari": "Webhook-Zustellungswiederholungen",
-        "webhook_temizligi": "Bereinigung alter Webhook-Protokolle (30 Tage)"
+        "webhook_temizligi": "Bereinigung alter Webhook-Protokolle (30 Tage)",
+        "randevu_hatirlatmalari": "Terminerinnerungen (24 Stunden und 1 Stunde vorher)"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

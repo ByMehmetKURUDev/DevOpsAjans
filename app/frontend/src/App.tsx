@@ -61,6 +61,9 @@ function KokAdreseYonlendir({ onek }: { onek: 'kart' | 'yorum' }) {
 // Faz 4M: herkese açık QR menü / WhatsApp katalog (/menu/<slug>) — site düzeni dışında,
 // prerender yok, site haritasında yok; og/robots Pages Function'ında (functions/menu/[slug].js).
 const MenuSayfasi = ekliLazy('qrMenuSayfa', () => import('./pages/MenuSayfasi'));
+// Faz 5R: herkese açık randevu sayfası (/randevu/<slug>[/<tür>], /randevu/yonet/<jeton>) — site düzeni
+// dışında, prerender yok, site haritasında yok; og/robots Pages Function'ında (functions/randevu/[[yol]].js).
+const RandevuSayfasi = ekliLazy('randevuSayfa', () => import('./pages/RandevuSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -143,6 +146,10 @@ const AppRoutes = () => (
       <Route path="/:lang/yorum/:slug" element={<KokAdreseYonlendir onek="yorum" />} />
       {/* Faz 4M: QR menü / katalog — site düzeni dışında (restoranın kendi sayfası gibi). */}
       <Route path="/menu/:slug" element={<MenuSayfasi />} />
+      {/* Faz 5R: randevu — site düzeni dışında; yönetim bağlantısı girişsiz (imzalı jeton). */}
+      <Route path="/randevu/yonet/:jeton" element={<RandevuSayfasi />} />
+      <Route path="/randevu/:slug" element={<RandevuSayfasi />} />
+      <Route path="/randevu/:slug/:tur" element={<RandevuSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

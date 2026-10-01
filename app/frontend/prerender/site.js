@@ -431,6 +431,9 @@ export const NOINDEX_ROUTES = [
   // Faz 4M: QR menü / katalog (/menu/<slug>); mağazaya ait, site haritasına girmez
   // (arama motoru görünürlüğü mağaza ayarı — robots'u Pages Function yazıyor).
   '/menu',
+  // Faz 5R: randevu sayfası ve imzalı yönetim bağlantısı (/randevu/...); site haritasına
+  // girmez (görünürlük sayfa ayarı — robots'u Pages Function yazıyor).
+  '/randevu',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

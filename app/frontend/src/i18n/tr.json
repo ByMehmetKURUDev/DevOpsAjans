@@ -485,7 +485,8 @@
     "tabDinamikQr": "QR ve kısa link",
     "tabKartvizit": "Dijital kartvizit",
     "tabQrMenu": "QR menü ve katalog",
-    "tabApi": "API ve webhook"
+    "tabApi": "API ve webhook",
+    "tabRandevu": "Randevular"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

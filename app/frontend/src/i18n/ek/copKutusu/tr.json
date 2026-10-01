@@ -82,7 +82,11 @@
       "kartvizitler": "Dijital kartvizit",
       "yorum_sayfalari": "Google yorum sayfası",
       "kartvizit_gorselleri": "Kartvizit görseli",
-      "kartvizit_mesajlari": "Kart mesajı / geri bildirim"
+      "kartvizit_mesajlari": "Kart mesajı / geri bildirim",
+      "randevu_sayfalari": "Randevu sayfası",
+      "randevu_turleri": "Etkinlik türü (randevu)",
+      "randevu_kisileri": "Randevu ekibi kişisi",
+      "randevu_istisnalari": "Uygunluk istisnası"
     }
   }
 }

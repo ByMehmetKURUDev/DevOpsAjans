@@ -51,3 +51,8 @@ Pillow>=9.0
 # Faz 4A — MCP: sunucu tarafı JSON-RPC elle (services/mcp_sunucu.py); SDK'nın istemcisi
 # uyumluluk testinde kullanılıyor (sürüm 1.27 ile doğrulandı).
 mcp>=1.27.0
+
+# Faz 5R — randevu: ziyaretçi e-postalarında yerelleştirilmiş tarih (7 dil) ve IANA saat
+# dilimi verisi (sistemde tz veritabanı yoksa zoneinfo bunu kullanır).
+Babel>=2.12
+tzdata>=2024.1

@@ -64,7 +64,10 @@
       "kartvizit_mesaj": "Neue Nachricht von einer Visitenkarte",
       "yorum_geri_bildirim": "Privates Feedback von einer Bewertungsseite",
       "menu_siparis": "QR-Speisekarte / Katalog: neue Bestellung",
-      "webhook_pasiflesti": "Webhook-Endpunkt deaktiviert"
+      "webhook_pasiflesti": "Webhook-Endpunkt deaktiviert",
+      "randevu_yeni": "Termine: neue Buchung",
+      "randevu_degisti": "Termine: verschoben",
+      "randevu_iptal": "Termine: abgesagt"
     },
     "kanal": {
       "inapp": "Panel",

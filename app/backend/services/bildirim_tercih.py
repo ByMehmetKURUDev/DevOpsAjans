@@ -109,6 +109,11 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "menu_siparis": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 4A — webhook uç noktası art arda başarısız teslimat yüzünden otomatik durduruldu.
     "webhook_pasiflesti": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 5R — randevu: yeni, yeniden planlandı, iptal (sayfa sahibine / ajans sayfasında
+    # yöneticilere). Ziyaretçi e-postaları katalog dışı (`randevu_ziyaretci`: yalnız e-posta).
+    "randevu_yeni": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "randevu_degisti": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "randevu_iptal": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

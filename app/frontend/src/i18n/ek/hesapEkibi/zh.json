@@ -33,7 +33,8 @@
       "qr": "二维码与短链接",
       "kartvizit": "电子名片与评价页面",
       "menu": "二维码菜单与目录",
-      "api": "API 与 Webhook"
+      "api": "API 与 Webhook",
+      "randevu": "预约与会议"
     },
     "durum": {
       "davet": "等待接受邀请",

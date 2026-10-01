@@ -217,6 +217,14 @@ async def _webhook_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     from services.webhook import temizle
 
     return await temizle(db)
+async def _randevu_hatirlatmalari(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 5R: randevu hatırlatmaları (ör. 24 saat ve 1 saat önce) — her turda (ucuz
+    # sorgu). `randevu_hatirlatmalari` benzersizliği her hatırlatmanın tek kez gitmesini
+    # sağlıyor ("Şimdi çalıştır" da ikinci kez göndermez). Saklama süresi dolan
+    # randevuların kişisel alanları da burada anonimleşiyor.
+    from services.randevu_kayit import hatirlatmalari_gonder
+
+    return await hatirlatmalari_gonder(db)
 
 
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
@@ -253,6 +261,7 @@ GOREVLER: List[Gorev] = [
     # Faz 4A: webhook yeniden denemeleri her turda (ucuz sorgu; tur başına süre bütçeli), temizlik günde bir.
     Gorev("webhook_teslimatlari", timedelta(0), _webhook_teslimatlari),
     Gorev("webhook_temizligi", timedelta(hours=20), _webhook_temizligi),
+    Gorev("randevu_hatirlatmalari", timedelta(0), _randevu_hatirlatmalari),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

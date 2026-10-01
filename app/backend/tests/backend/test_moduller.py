@@ -265,10 +265,11 @@ async def test_modullerim_yalniz_musteri_modulleri_ve_gorunumler(istemci, muster
     # Faz 4Q: "qr" (Dinamik QR; varsayılan kapalı) Site analizi'nin ardında.
     # Faz 4K/4M: "kartvizit" (Dijital kartvizit) ve "menu" (QR menü / WhatsApp katalog);
     # ikisi de varsayılan kapalı, QR'ın ardında.
-    # Faz 4A: "api" (API ve webhook; varsayılan kapalı) Dosyalar'ın ardında, Profil'den önce.
+    # Faz 4A/5R: "randevu" (Randevu ve toplantılar) menünün ardında; "api" (API ve webhook)
+    # Dosyalar'ın ardında, Profil'den önce. İkisi de varsayılan kapalı.
     assert sekmeler == [
         "projects", "invoices", "krediler", "tickets", "mesajlar", "asistanlar", "raporlar", "sitem", "analiz",
-        "qr", "kartvizit", "menu", "dosyalar", "api", "profile",
+        "qr", "kartvizit", "menu", "randevu", "dosyalar", "api", "profile",
     ]
     from core import moduller as mf
 
