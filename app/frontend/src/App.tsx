@@ -34,6 +34,9 @@ const PaylasSayfasi = ekliLazy('dosyalar', () => import('./pages/PaylasSayfasi')
 const AylikRaporSayfasi = ekliLazy('aylikRapor', () => import('./pages/AylikRaporSayfasi'));
 // Faz 2E: hesap ekibi daveti (jetonlu, noindex, prerender yok).
 const HesapDavetSayfasi = ekliLazy('hesapEkibi', () => import('./pages/HesapDavetSayfasi'));
+// Faz 3C: gömülebilir CRM formunun doğrudan bağlantısı (/form/<anahtar>; prerender yok, noindex).
+// Formu `public/crm-form.js` çiziyor (etiketler sunucudan, 7 dil): ek paket gerekmiyor.
+const CrmFormSayfasi = lazy(() => import('./pages/CrmFormSayfasi'));
 // Faz 3K: herkese açık Kaynaklar (7 dil, prerender). Metinleri ek pakette, verisi API'de/gömülü.
 const KaynaklarListesi = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynaklarListesi'));
 const KaynakDetay = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynakDetay'));
@@ -101,6 +104,8 @@ const AppRoutes = () => (
 
       {/* Aylık müşteri raporu: site düzeni dışında (yazdırınca yalnız rapor çıksın). İmzalı jeton, noindex. */}
       <Route path="/rapor-aylik/:jeton" element={<AylikRaporSayfasi />} />
+      {/* Faz 3C: CRM formu — site düzeni dışında (sade sayfa, çerçevede önizlenebilir). noindex. */}
+      <Route path="/form/:anahtar" element={<CrmFormSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

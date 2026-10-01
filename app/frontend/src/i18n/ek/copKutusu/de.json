@@ -70,7 +70,10 @@
       "konusmalar": "Nachrichten-Unterhaltung",
       "konusma_mesajlari": "Nachricht einer Unterhaltung",
       "konusma_okunma": "Lesemarkierung",
-      "kaynaklar": "Ressource"
+      "kaynaklar": "Ressource",
+      "crm_adaylar": "CRM-Lead",
+      "crm_formlar": "CRM-Formular",
+      "crm_aktiviteler": "CRM-Aktivität"
     }
   }
 }

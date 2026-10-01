@@ -70,7 +70,10 @@
       "konusmalar": "Mesaj konuşması",
       "konusma_mesajlari": "Konuşma mesajı",
       "konusma_okunma": "Okunma kaydı",
-      "kaynaklar": "Kaynak"
+      "kaynaklar": "Kaynak",
+      "crm_adaylar": "CRM adayı",
+      "crm_formlar": "CRM formu",
+      "crm_aktiviteler": "CRM aktivitesi"
     }
   }
 }

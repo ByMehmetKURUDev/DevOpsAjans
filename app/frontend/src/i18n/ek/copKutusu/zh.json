@@ -70,7 +70,10 @@
       "konusmalar": "消息会话",
       "konusma_mesajlari": "会话消息",
       "konusma_okunma": "已读标记",
-      "kaynaklar": "资源"
+      "kaynaklar": "资源",
+      "crm_adaylar": "CRM 线索",
+      "crm_formlar": "CRM 表单",
+      "crm_aktiviteler": "CRM 活动"
     }
   }
 }

@@ -70,7 +70,10 @@
       "konusmalar": "محادثة رسائل",
       "konusma_mesajlari": "رسالة محادثة",
       "konusma_okunma": "علامة القراءة",
-      "kaynaklar": "مورد"
+      "kaynaklar": "مورد",
+      "crm_adaylar": "عميل محتمل",
+      "crm_formlar": "نموذج عملاء محتملين",
+      "crm_aktiviteler": "نشاط عميل محتمل"
     }
   }
 }

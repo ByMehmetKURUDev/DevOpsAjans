@@ -52,7 +52,9 @@
       "yeni_oturum": "Anmeldung von einem neuen Gerät",
       "mesaj_yeni": "Ungelesene neue Nachricht",
       "seo_dususu": "SEO-/Geschwindigkeitswert der Website gesunken",
-      "baglanti_koptu": "Google-Verbindung muss erneuert werden"
+      "baglanti_koptu": "Google-Verbindung muss erneuert werden",
+      "crm_yeni_aday": "CRM: neuer Lead",
+      "crm_hatirlatma": "CRM: Erinnerung an den nächsten Schritt (täglich)"
     },
     "kanal": {
       "inapp": "Panel",

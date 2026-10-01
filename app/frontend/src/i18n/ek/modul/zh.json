@@ -116,6 +116,10 @@
       "baglantilar": {
         "ad": "连接",
         "aciklama": "代理机构的 Google 账号（Analytics 4、Search Console、YouTube）：为分析面板提供真实数据。"
+      },
+      "crm": {
+        "ad": "客户管理与销售漏斗",
+        "aciklama": "代理机构的销售漏斗：来自咨询、报价请求和嵌入式表单的线索；看板、评分、提醒以及转为客户。"
       }
     },
     "kategori": {

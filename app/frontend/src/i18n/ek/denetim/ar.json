@@ -91,7 +91,10 @@
       "paylasim_baglantilari": "روابط المشاركة",
       "belge_talepleri": "طلبات المستندات",
       "hazir_cevaplar": "الردود الجاهزة",
-      "bilgi_makaleleri": "قاعدة المعرفة"
+      "bilgi_makaleleri": "قاعدة المعرفة",
+      "crm_adaylar": "العملاء المحتملون",
+      "crm_asamalar": "مراحل المسار",
+      "crm_formlar": "نماذج العملاء المحتملين"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

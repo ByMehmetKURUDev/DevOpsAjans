@@ -89,6 +89,9 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "seo_dususu": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 3B — Google bağlantısının izni geçersiz (invalid_grant): yeniden bağlanmalı.
     "baglanti_koptu": {"roller": ("admin",), "tetikleniyor": True},
+    # Faz 3C — CRM: yeni aday (form / fiyat teklifi) ve günlük "sonraki adım" özeti.
+    "crm_yeni_aday": {"roller": ("admin",), "tetikleniyor": True},
+    "crm_hatirlatma": {"roller": ("admin",), "tetikleniyor": True},
 }
 
 

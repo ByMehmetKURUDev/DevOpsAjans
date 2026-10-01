@@ -177,7 +177,9 @@
         "oturum_temizligi": "Очистка старых записей о сеансах",
         "cop_kutusu_temizligi": "Удаление просроченных записей корзины",
         "seo_taramasi": "Технический SEO-аудит и проверка скорости (3 сайта за запуск)",
-        "google_esitleme": "Синхронизация данных Google (Analytics, Search Console, YouTube)"
+        "google_esitleme": "Синхронизация данных Google (Analytics, Search Console, YouTube)",
+        "crm_bildirimleri": "CRM: уведомления о новых лидах из ценовых предложений",
+        "crm_hatirlatma": "CRM: напоминания о следующих шагах (ежедневная сводка)"
       },
       "gunluk": "ежедневно",
       "haftalik": "еженедельно"

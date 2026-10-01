@@ -70,7 +70,10 @@
       "konusmalar": "Беседа",
       "konusma_mesajlari": "Сообщение беседы",
       "konusma_okunma": "Отметка о прочтении",
-      "kaynaklar": "Ресурс"
+      "kaynaklar": "Ресурс",
+      "crm_adaylar": "Лид CRM",
+      "crm_formlar": "Форма CRM",
+      "crm_aktiviteler": "Активность CRM"
     }
   }
 }

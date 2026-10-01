@@ -471,7 +471,8 @@
     "tabMesajlar": "Mesajlar",
     "tabSohbetler": "Müşteri sohbetleri",
     "tabUzmanAsistanlar": "Uzman Asistanlar",
-    "tabBaglantilar": "Bağlantılar"
+    "tabBaglantilar": "Bağlantılar",
+    "tabCrm": "Adaylar (CRM)"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

@@ -471,7 +471,8 @@
     "tabMesajlar": "Messages",
     "tabSohbetler": "Client chats",
     "tabUzmanAsistanlar": "Expert Assistants",
-    "tabBaglantilar": "Connections"
+    "tabBaglantilar": "Connections",
+    "tabCrm": "Leads (CRM)"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

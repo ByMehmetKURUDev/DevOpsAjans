@@ -90,6 +90,10 @@ HARIC_TABLOLAR = frozenset({
     # satır; teknik iz, oidc_states gibi) ve eşitlemenin yazdığı sorgu/sayfa
     # listeleri. Bağlantının kendisi (`baglantilar`) kaydediliyor — jeton maskeli.
     "baglanti_durumlari", "analitik_listeleri",
+    # Faz 3C: CRM zaman çizelgesi (kendisi bir kayıt), işlenmiş kayıt işaretleri ve
+    # form gönderimlerinin KVKK onay kayıtları (kendi tablosunda saklanıyor). Aday,
+    # aşama ve form tanımı değişiklikleri kaydediliyor.
+    "crm_aktiviteler", "crm_bagli_kayitlar", "crm_form_gonderimleri",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
@@ -114,6 +118,9 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     # Faz 3B: eşitlemenin her turda yazdığı zaman/hata alanları (bağlanma,
     # seçim değişikliği, durum değişikliği ve kaldırma yine kaydediliyor).
     "baglantilar": frozenset({"son_esitleme", "son_deneme", "son_hata"}),
+    # Faz 3C: puan önbelleği, hatırlatma/bildirim kilitleri ve form sayaçları.
+    "crm_adaylar": frozenset({"puan", "puan_ayrinti", "hatirlatma_tarihi", "bildirim_bekliyor", "asama_degisme_at"}),
+    "crm_formlar": frozenset({"gonderim_sayisi", "son_gonderim_at"}),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

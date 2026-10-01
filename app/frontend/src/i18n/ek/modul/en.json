@@ -116,6 +116,10 @@
       "baglantilar": {
         "ad": "Connections",
         "aciklama": "The agency's Google accounts (Analytics 4, Search Console, YouTube): real data for the analytics dashboard."
+      },
+      "crm": {
+        "ad": "CRM and lead pipeline",
+        "aciklama": "The agency's sales pipeline: leads from requests, price quotes and embedded forms; kanban, scoring, reminders and conversion to clients."
       }
     },
     "kategori": {

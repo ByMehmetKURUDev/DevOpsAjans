@@ -84,6 +84,10 @@ async def lifespan(app: FastAPI):
     from services.uzman_asistanlar import acilista_tohumla as asistanlari_tohumla
 
     await asistanlari_tohumla()
+    # Faz 3C: CRM aşamaları — tablo boşsa varsayılan yedi aşama (hata açılışı düşürmez).
+    from services.crm import acilista_tohumla as crm_asamalarini_tohumla
+
+    await crm_asamalarini_tohumla()
     # MODULE_STARTUP_END
 
     logger.info("=== Application startup completed successfully ===")
@@ -110,6 +114,13 @@ app.add_middleware(
     allow_headers=["*"],
     expose_headers=["*"],
 )
+
+# Faz 3C: gömülebilir CRM formu (`/api/v1/crm/form/...`) — CORS yalnız formun
+# izinli alan adlarına. Genel CORS'tan SONRA eklendiği için onun DIŞINDA
+# çalışıyor (ön kontrolü kendisi yanıtlıyor, reddedilen yanıttan CORS'u siliyor).
+from middlewares.crm_form_cors import CrmFormCorsMiddleware  # noqa: E402
+
+app.add_middleware(CrmFormCorsMiddleware)
 
 # Denetim kaydı: her istekte "kim yapıyor" bağlamını kurar; kaydın kendisi
 # SQLAlchemy flush olayında yazılıyor (services/denetim.py).

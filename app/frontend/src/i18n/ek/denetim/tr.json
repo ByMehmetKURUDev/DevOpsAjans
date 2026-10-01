@@ -91,7 +91,10 @@
       "paylasim_baglantilari": "Paylaşım bağlantıları",
       "belge_talepleri": "Belge talepleri",
       "hazir_cevaplar": "Hazır cevaplar",
-      "bilgi_makaleleri": "Bilgi bankası"
+      "bilgi_makaleleri": "Bilgi bankası",
+      "crm_adaylar": "CRM adayları",
+      "crm_asamalar": "CRM aşamaları",
+      "crm_formlar": "CRM formları"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

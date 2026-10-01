@@ -177,7 +177,9 @@
         "oturum_temizligi": "Clean-up of old session records",
         "cop_kutusu_temizligi": "Deletion of expired recycle bin items",
         "seo_taramasi": "Technical SEO and speed scan (3 sites per run)",
-        "google_esitleme": "Google data sync (Analytics, Search Console, YouTube)"
+        "google_esitleme": "Google data sync (Analytics, Search Console, YouTube)",
+        "crm_bildirimleri": "CRM: new lead notifications from price quotes",
+        "crm_hatirlatma": "CRM: next step reminders (daily digest)"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

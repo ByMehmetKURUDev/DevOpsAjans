@@ -471,7 +471,8 @@
     "tabMesajlar": "Nachrichten",
     "tabSohbetler": "Kundenchats",
     "tabUzmanAsistanlar": "Fachassistenten",
-    "tabBaglantilar": "Verbindungen"
+    "tabBaglantilar": "Verbindungen",
+    "tabCrm": "Leads (CRM)"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

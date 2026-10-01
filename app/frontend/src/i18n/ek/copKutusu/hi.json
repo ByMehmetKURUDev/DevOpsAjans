@@ -70,7 +70,10 @@
       "konusmalar": "संदेश बातचीत",
       "konusma_mesajlari": "बातचीत का संदेश",
       "konusma_okunma": "पठन चिह्न",
-      "kaynaklar": "संसाधन"
+      "kaynaklar": "संसाधन",
+      "crm_adaylar": "सीआरएम लीड",
+      "crm_formlar": "सीआरएम फ़ॉर्म",
+      "crm_aktiviteler": "सीआरएम गतिविधि"
     }
   }
 }

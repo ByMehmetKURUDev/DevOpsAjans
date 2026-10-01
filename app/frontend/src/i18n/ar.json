@@ -471,7 +471,8 @@
     "tabMesajlar": "الرسائل",
     "tabSohbetler": "محادثات العملاء",
     "tabUzmanAsistanlar": "المساعدون الخبراء",
-    "tabBaglantilar": "الاتصالات"
+    "tabBaglantilar": "الاتصالات",
+    "tabCrm": "العملاء المحتملون (CRM)"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

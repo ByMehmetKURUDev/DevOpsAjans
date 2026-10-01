@@ -91,7 +91,10 @@
       "paylasim_baglantilari": "Share links",
       "belge_talepleri": "Document requests",
       "hazir_cevaplar": "Canned replies",
-      "bilgi_makaleleri": "Knowledge base"
+      "bilgi_makaleleri": "Knowledge base",
+      "crm_adaylar": "CRM leads",
+      "crm_asamalar": "CRM stages",
+      "crm_formlar": "CRM forms"
     },
     "hareket": {
       "baslik": "Account activity",

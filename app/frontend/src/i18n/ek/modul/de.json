@@ -116,6 +116,10 @@
       "baglantilar": {
         "ad": "Verbindungen",
         "aciklama": "Google-Konten der Agentur (Analytics 4, Search Console, YouTube): echte Daten für das Analytics-Dashboard."
+      },
+      "crm": {
+        "ad": "CRM und Lead-Pipeline",
+        "aciklama": "Die Vertriebspipeline der Agentur: Leads aus Anfragen, Preisangeboten und eingebetteten Formularen; Kanban, Bewertung, Erinnerungen und Umwandlung in Kunden."
       }
     },
     "kategori": {

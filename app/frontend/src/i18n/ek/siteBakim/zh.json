@@ -177,7 +177,9 @@
         "oturum_temizligi": "清理旧的会话记录",
         "cop_kutusu_temizligi": "删除回收站中已过期的记录",
         "seo_taramasi": "技术 SEO 与速度扫描（每轮 3 个网站）",
-        "google_esitleme": "Google 数据同步（Analytics、Search Console、YouTube）"
+        "google_esitleme": "Google 数据同步（Analytics、Search Console、YouTube）",
+        "crm_bildirimleri": "CRM：报价请求带来的新线索通知",
+        "crm_hatirlatma": "CRM：下一步提醒（每日汇总）"
       },
       "gunluk": "每天",
       "haftalik": "每周"

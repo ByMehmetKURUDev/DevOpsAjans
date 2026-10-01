@@ -177,7 +177,9 @@
         "oturum_temizligi": "Eski oturum kayıtlarının temizliği",
         "cop_kutusu_temizligi": "Çöp kutusunda süresi dolanların silinmesi",
         "seo_taramasi": "Teknik SEO ve hız taraması (tur başına 3 site)",
-        "google_esitleme": "Google verisi eşitleme (Analytics, Search Console, YouTube)"
+        "google_esitleme": "Google verisi eşitleme (Analytics, Search Console, YouTube)",
+        "crm_bildirimleri": "CRM: fiyat tekliflerinden gelen yeni aday bildirimleri",
+        "crm_hatirlatma": "CRM: sonraki adım hatırlatması (günlük özet)"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

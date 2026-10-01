@@ -177,7 +177,9 @@
         "oturum_temizligi": "पुराने सत्र रिकॉर्ड की सफ़ाई",
         "cop_kutusu_temizligi": "रीसायकल बिन के समाप्त रिकॉर्ड हटाना",
         "seo_taramasi": "तकनीकी SEO और गति स्कैन (हर बार 3 साइटें)",
-        "google_esitleme": "Google डेटा सिंक (Analytics, Search Console, YouTube)"
+        "google_esitleme": "Google डेटा सिंक (Analytics, Search Console, YouTube)",
+        "crm_bildirimleri": "सीआरएम: मूल्य कोटेशन से आई नई लीड की सूचनाएँ",
+        "crm_hatirlatma": "सीआरएम: अगले कदम के रिमाइंडर (दैनिक सारांश)"
       },
       "gunluk": "प्रतिदिन",
       "haftalik": "साप्ताहिक"

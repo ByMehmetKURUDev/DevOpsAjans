@@ -167,6 +167,22 @@ async def _google_esitleme(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_esitleme(db)
 
 
+async def _crm_bildirimleri(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 3C: kendi bildirimi olmayan kaynaktan (fiyat teklifi) açılan yeni adaylar.
+    from services.crm import bekleyen_bildirimleri_gonder
+
+    return await bekleyen_bildirimleri_gonder(db)
+
+
+async def _crm_hatirlatma(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 3C: sonraki adım tarihi gelen açık adaylar — alıcı başına günlük özet.
+    # Aday başına `hatirlatma_tarihi` aynı gün ikinci gönderimi engelliyor
+    # ("Şimdi çalıştır" da aynı adayı ikinci kez göndermez).
+    from services.crm import hatirlatmalari_gonder
+
+    return await hatirlatmalari_gonder(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -190,6 +206,9 @@ GOREVLER: List[Gorev] = [
     Gorev("seo_taramasi", timedelta(minutes=55), _seo_taramasi),
     # Faz 3B: Google bağlantısı (ajans) — GA4 / Search Console / YouTube eşitlemesi.
     Gorev("google_esitleme", timedelta(hours=6), _google_esitleme),
+    # Faz 3C: CRM — yeni aday bildirimi her turda (ucuz sorgu), hatırlatma günde bir.
+    Gorev("crm_bildirimleri", timedelta(0), _crm_bildirimleri),
+    Gorev("crm_hatirlatma", timedelta(hours=20), _crm_hatirlatma),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

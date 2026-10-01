@@ -52,7 +52,9 @@
       "yeni_oturum": "Вход с нового устройства",
       "mesaj_yeni": "Новое непрочитанное сообщение",
       "seo_dususu": "SEO-оценка или скорость сайта снизилась",
-      "baglanti_koptu": "Нужно переподключить Google"
+      "baglanti_koptu": "Нужно переподключить Google",
+      "crm_yeni_aday": "CRM: новый лид",
+      "crm_hatirlatma": "CRM: напоминание о следующем шаге (ежедневно)"
     },
     "kanal": {
       "inapp": "Панель",

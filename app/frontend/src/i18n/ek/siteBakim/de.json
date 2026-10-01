@@ -177,7 +177,9 @@
         "oturum_temizligi": "Bereinigung alter Sitzungsdaten",
         "cop_kutusu_temizligi": "Löschen abgelaufener Papierkorb-Einträge",
         "seo_taramasi": "Technischer SEO- und Geschwindigkeitsscan (3 Websites pro Lauf)",
-        "google_esitleme": "Google-Datensynchronisierung (Analytics, Search Console, YouTube)"
+        "google_esitleme": "Google-Datensynchronisierung (Analytics, Search Console, YouTube)",
+        "crm_bildirimleri": "CRM: Benachrichtigungen zu neuen Leads aus Preisangeboten",
+        "crm_hatirlatma": "CRM: Erinnerungen an nächste Schritte (tägliche Übersicht)"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

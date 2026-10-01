@@ -177,7 +177,9 @@
         "oturum_temizligi": "تنظيف سجلات الجلسات القديمة",
         "cop_kutusu_temizligi": "حذف عناصر سلة المحذوفات المنتهية",
         "seo_taramasi": "فحص السيو التقني والسرعة (3 مواقع في كل دورة)",
-        "google_esitleme": "مزامنة بيانات Google (Analytics وSearch Console وYouTube)"
+        "google_esitleme": "مزامنة بيانات Google (Analytics وSearch Console وYouTube)",
+        "crm_bildirimleri": "إدارة العملاء: إشعارات العملاء المحتملين الجدد من عروض الأسعار",
+        "crm_hatirlatma": "إدارة العملاء: تذكيرات الخطوة التالية (ملخص يومي)"
       },
       "gunluk": "يوميًا",
       "haftalik": "أسبوعيًا"

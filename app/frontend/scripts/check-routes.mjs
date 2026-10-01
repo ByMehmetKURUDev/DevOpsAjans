@@ -51,6 +51,8 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/rapor-aylik/:jeton',
   // Faz 2E: hesap ekibi daveti — jetona özel, kişiye özel (noindex).
   '/hesap-davet/:jeton',
+  // Faz 3C: gömülebilir CRM formunun doğrudan bağlantısı — dinamik, noindex.
+  '/form/:anahtar',
 ]);
 
 const missing = [...appRoutes].filter(

@@ -116,6 +116,10 @@
       "baglantilar": {
         "ad": "Bağlantılar",
         "aciklama": "Ajansın Google hesapları (Analytics 4, Search Console, YouTube): analitik panosuna gerçek veri."
+      },
+      "crm": {
+        "ad": "CRM ve aday hunisi",
+        "aciklama": "Ajansın satış hunisi: talepler, fiyat teklifleri ve gömülü formlardan gelen adaylar; kanban, puanlama, hatırlatma ve müşteriye dönüştürme."
       }
     },
     "kategori": {

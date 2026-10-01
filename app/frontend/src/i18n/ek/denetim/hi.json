@@ -91,7 +91,10 @@
       "paylasim_baglantilari": "शेयर लिंक",
       "belge_talepleri": "दस्तावेज़ अनुरोध",
       "hazir_cevaplar": "तैयार उत्तर",
-      "bilgi_makaleleri": "ज्ञान आधार"
+      "bilgi_makaleleri": "ज्ञान आधार",
+      "crm_adaylar": "सीआरएम लीड",
+      "crm_asamalar": "सीआरएम चरण",
+      "crm_formlar": "सीआरएम फ़ॉर्म"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

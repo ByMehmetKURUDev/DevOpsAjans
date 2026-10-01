@@ -471,7 +471,8 @@
     "tabMesajlar": "Сообщения",
     "tabSohbetler": "Чаты с клиентами",
     "tabUzmanAsistanlar": "Эксперт-ассистенты",
-    "tabBaglantilar": "Подключения"
+    "tabBaglantilar": "Подключения",
+    "tabCrm": "Лиды (CRM)"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

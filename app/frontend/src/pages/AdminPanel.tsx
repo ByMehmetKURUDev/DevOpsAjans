@@ -48,6 +48,7 @@ import {
   MessagesSquare,
   Bot,
   Plug,
+  Handshake,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -139,10 +140,12 @@ const MesajYonetimi = ekliLazy('mesajlar', () => import('@/components/admin/Mesa
 const KaynakYonetimi = ekliLazy(['kaynakYonetimi', 'marketplaceCeviri'], () => import('@/components/admin/KaynakYonetimi'));
 // Faz 3U — Uzman Asistanlar yönetimi; dil seçici metinleri marketplace çeviri paketinden.
 const UzmanAsistanYonetimi = ekliLazy(['uzmanAsistanlar', 'marketplaceCeviri'], () => import('@/components/admin/UzmanAsistanYonetimi'));
+// Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
+const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'crm'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -268,6 +271,7 @@ type Tab =
   | 'mesajlar'
   | 'uzmanAsistanlar'
   | 'baglantilar'
+  | 'crm'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -956,6 +960,7 @@ export default function AdminPanel() {
     { key: 'dosyalar', label: t('ui.tabDosyalar'), icon: FolderOpen },
     { key: 'bilgiBankasi', label: t('ui.tabBilgiBankasi'), icon: BookOpen },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
+    { key: 'crm', label: t('ui.tabCrm'), icon: Handshake },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
@@ -1100,6 +1105,18 @@ export default function AdminPanel() {
           }
         >
           <Baglantilar />
+        </Suspense>
+      )}
+
+      {tab === 'crm' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <CrmPaneli onSekmeGit={(s) => setTab(s as Tab)} />
         </Suspense>
       )}
 

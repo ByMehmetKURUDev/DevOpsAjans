@@ -471,7 +471,8 @@
     "tabMesajlar": "消息",
     "tabSohbetler": "客户聊天",
     "tabUzmanAsistanlar": "专家助手",
-    "tabBaglantilar": "连接"
+    "tabBaglantilar": "连接",
+    "tabCrm": "销售线索 (CRM)"
   },
   "admin": {
     "loadError": "管理数据加载失败",

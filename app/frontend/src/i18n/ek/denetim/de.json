@@ -91,7 +91,10 @@
       "paylasim_baglantilari": "Freigabelinks",
       "belge_talepleri": "Dokumentanfragen",
       "hazir_cevaplar": "Textbausteine",
-      "bilgi_makaleleri": "Wissensdatenbank"
+      "bilgi_makaleleri": "Wissensdatenbank",
+      "crm_adaylar": "CRM-Leads",
+      "crm_asamalar": "CRM-Phasen",
+      "crm_formlar": "CRM-Formulare"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

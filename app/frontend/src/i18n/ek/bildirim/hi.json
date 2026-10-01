@@ -52,7 +52,9 @@
       "yeni_oturum": "नए उपकरण से साइन इन",
       "mesaj_yeni": "नया अपठित संदेश",
       "seo_dususu": "साइट का SEO/गति स्कोर गिरा",
-      "baglanti_koptu": "Google कनेक्शन फिर से जोड़ना होगा"
+      "baglanti_koptu": "Google कनेक्शन फिर से जोड़ना होगा",
+      "crm_yeni_aday": "सीआरएम: नई लीड",
+      "crm_hatirlatma": "सीआरएम: अगले कदम का रिमाइंडर (दैनिक)"
     },
     "kanal": {
       "inapp": "पैनल",

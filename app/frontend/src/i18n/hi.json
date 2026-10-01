@@ -471,7 +471,8 @@
     "tabMesajlar": "संदेश",
     "tabSohbetler": "ग्राहक चैट",
     "tabUzmanAsistanlar": "विशेषज्ञ सहायक",
-    "tabBaglantilar": "कनेक्शन"
+    "tabBaglantilar": "कनेक्शन",
+    "tabCrm": "लीड (CRM)"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

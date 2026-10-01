@@ -52,7 +52,9 @@
       "yeni_oturum": "Sign-in from a new device",
       "mesaj_yeni": "Unread new message",
       "seo_dususu": "Site SEO/speed score dropped",
-      "baglanti_koptu": "Google connection needs reconnecting"
+      "baglanti_koptu": "Google connection needs reconnecting",
+      "crm_yeni_aday": "CRM: new lead",
+      "crm_hatirlatma": "CRM: next step reminder (daily)"
     },
     "kanal": {
       "inapp": "Panel",

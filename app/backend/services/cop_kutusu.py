@@ -75,6 +75,10 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "hazir_cevaplar": {"sira": 10},
     # Faz 3K: sitedeki Kaynaklar listesi (etiket: Türkçe başlık).
     "kaynaklar": {"sira": 10},
+    # Faz 3C: CRM adayı (aktiviteleriyle birlikte geri gelir) ve form tanımı.
+    "crm_adaylar": {"sira": 10},
+    "crm_formlar": {"sira": 10},
+    "crm_aktiviteler": {"sira": 20, "ebeveyn": "crm_adaylar"},
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

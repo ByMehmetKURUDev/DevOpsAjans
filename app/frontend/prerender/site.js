@@ -402,6 +402,8 @@ export const NOINDEX_ROUTES = [
   '/rapor-aylik',
   // Faz 2E: hesap ekibi daveti (/hesap-davet/<jeton>); kisiye ozel.
   '/hesap-davet',
+  // Faz 3C: CRM formunun doğrudan bağlantısı (/form/<anahtar>); dizine girmemeli.
+  '/form',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

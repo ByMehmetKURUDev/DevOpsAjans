@@ -52,7 +52,9 @@
       "yeni_oturum": "新设备登录",
       "mesaj_yeni": "未读新消息",
       "seo_dususu": "网站 SEO/速度评分下降",
-      "baglanti_koptu": "需要重新连接 Google"
+      "baglanti_koptu": "需要重新连接 Google",
+      "crm_yeni_aday": "CRM：新线索",
+      "crm_hatirlatma": "CRM：下一步提醒（每日）"
     },
     "kanal": {
       "inapp": "面板",

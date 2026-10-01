@@ -524,6 +524,19 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=True,
         bagimliliklar=("analitik",),
     ),
+    # Faz 3C — ajansın kendi satış hunisi: adaylar, kanban, gömülebilir form.
+    # Yalnız yönetici; müşteri portalında karşılığı yok.
+    Modul(
+        anahtar="crm",
+        ad_varsayilan={"tr": "CRM ve aday hunisi", "en": "CRM and lead pipeline"},
+        ikon="Handshake",
+        kategori="hizmet",
+        musteri_sekmesi=None,
+        yonetici_sekmesi="crm",
+        gerekli_rol="admin",
+        varsayilan_acik=True,
+        bagimliliklar=("talepler",),
+    ),
     Modul(
         anahtar="fiyatlandirma",
         ad_varsayilan={"tr": "Fiyatlandırma", "en": "Pricing"},

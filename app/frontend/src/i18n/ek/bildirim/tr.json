@@ -52,7 +52,9 @@
       "yeni_oturum": "Yeni bir cihazdan giriş yapıldı",
       "mesaj_yeni": "Okunmamış yeni mesaj",
       "seo_dususu": "Sitenin SEO/hız puanı düştü",
-      "baglanti_koptu": "Google bağlantısı yenilenmeli"
+      "baglanti_koptu": "Google bağlantısı yenilenmeli",
+      "crm_yeni_aday": "CRM: yeni aday",
+      "crm_hatirlatma": "CRM: sonraki adım hatırlatması (günlük)"
     },
     "kanal": {
       "inapp": "Panel",

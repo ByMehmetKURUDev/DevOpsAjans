@@ -91,7 +91,10 @@
       "paylasim_baglantilari": "分享链接",
       "belge_talepleri": "资料请求",
       "hazir_cevaplar": "快捷回复",
-      "bilgi_makaleleri": "知识库"
+      "bilgi_makaleleri": "知识库",
+      "crm_adaylar": "CRM 线索",
+      "crm_asamalar": "CRM 阶段",
+      "crm_formlar": "CRM 表单"
     },
     "hareket": {
       "baslik": "账户动态",

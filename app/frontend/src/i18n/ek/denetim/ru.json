@@ -91,7 +91,10 @@
       "paylasim_baglantilari": "Ссылки для доступа",
       "belge_talepleri": "Запросы документов",
       "hazir_cevaplar": "Шаблоны ответов",
-      "bilgi_makaleleri": "База знаний"
+      "bilgi_makaleleri": "База знаний",
+      "crm_adaylar": "Лиды CRM",
+      "crm_asamalar": "Этапы CRM",
+      "crm_formlar": "Формы CRM"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

@@ -70,7 +70,10 @@
       "konusmalar": "Message conversation",
       "konusma_mesajlari": "Conversation message",
       "konusma_okunma": "Read marker",
-      "kaynaklar": "Resource"
+      "kaynaklar": "Resource",
+      "crm_adaylar": "CRM lead",
+      "crm_formlar": "CRM form",
+      "crm_aktiviteler": "CRM activity"
     }
   }
 }

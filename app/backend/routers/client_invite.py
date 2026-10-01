@@ -75,11 +75,19 @@ async def invite_client(
             detail="Bu işlem için yönetici olmanız gerekiyor",
         )
 
-    eposta = str(payload.email).strip().lower()
+    return await musteri_davet_et(db, str(payload.email), payload.name or "", payload.project_title or "")
+
+
+async def musteri_davet_et(db: AsyncSession, email: str, name: str = "", project_title: str = "") -> InviteResponse:
+    """Davet e-postasını gönderir (yetki kontrolü çağırana ait).
+
+    Faz 3C: CRM'deki "müşteriye dönüştür" de aynı akışı kullanıyor.
+    """
+    eposta = str(email).strip().lower()
     yol = "/client"
 
-    ad = payload.name or eposta
-    proje = payload.project_title or "Projeniz"
+    ad = name or eposta
+    proje = project_title or "Projeniz"
 
     # DİKKAT: varsayılan gövdenin yer tutucuları BURADA doldurulmalı.
     # `render` yalnızca panelde yazılmış şablona `{{anahtar}}` değişimi
