@@ -466,7 +466,9 @@
     "tabDuyurular": "घोषणाएँ",
     "gorevler": "कार्य",
     "tabGuvenlik": "सुरक्षा",
-    "tabCopKutusu": "रीसायकल बिन"
+    "tabCopKutusu": "रीसायकल बिन",
+    "tabMesajlar": "संदेश",
+    "tabSohbetler": "ग्राहक चैट"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

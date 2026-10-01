@@ -123,8 +123,16 @@ async def ekip(db_oturumu):
                                                hesaplanan_tutar=100.0, musteri_eposta=s, kaynak="website"))
     _, islem_proje = await imzali_islem.olustur(db, "teslimat_onay", ("projects", p.id), s, "Teslim onayı")
     _, islem_teklif = await imzali_islem.olustur(db, "teklif_kabul", ("pricing_inquiries", teklif.id), s, "Teklif")
+    # Faz 2G: sahibin konuşması ve ajansın bir mesajı.
+    from models.mesajlar import KonusmaMesajlari, Konusmalar
+
+    konusma = await _ekle(db, Konusmalar(hesap_email=s, konu="Ekip konuşması", durum="acik", degisiklik=0))
+    ajans_mesaji = await _ekle(db, KonusmaMesajlari(konusma_id=konusma.id, yazan_email="yonetici@test.dev",
+                                                    yazan_rol="admin", metin="Merhaba", silindi=False))
+    konusma.son_mesaj_id = konusma.son_admin_mesaj_id = ajans_mesaji.id
+    await db.commit()
     k.update(P=p.id, F=f.id, T=t.id, Q=q.id, S=site.id, A=a.id, G=g.id, B=bt.id,
-             I_PROJE=islem_proje.id, I_TEKLIF=islem_teklif.id)
+             I_PROJE=islem_proje.id, I_TEKLIF=islem_teklif.id, K=konusma.id, KM=ajans_mesaji.id)
     return k
 
 
@@ -187,6 +195,17 @@ MUSTERI_UCLARI = [
     ("POST", "/api/v1/duyurularim/999999/okundu", None, None, "gecti"),
     ("POST", "/api/v1/duyurularim/999999/kapat", None, None, "gecti"),
     ("GET", "/api/v1/hesabim/uyeler", None, None, 200),
+    # Faz 2G — mesajlaşma (`mesajlar` izni).
+    ("GET", "/api/v1/mesajlarim/ozet", ("mesajlar",), None, 200),
+    ("GET", "/api/v1/mesajlarim/konusmalar", ("mesajlar",), None, 200),
+    ("POST", "/api/v1/mesajlarim/konusmalar", ("mesajlar",), {"konu": "Ekipten konu"}, 200),
+    ("GET", "/api/v1/mesajlarim/konusmalar/{K}/mesajlar", ("mesajlar",), None, 200),
+    ("POST", "/api/v1/mesajlarim/konusmalar/{K}/mesajlar", ("mesajlar",), {"metin": "Ekipten mesaj"}, 200),
+    ("POST", "/api/v1/mesajlarim/konusmalar/{K}/okundu", ("mesajlar",), {"mesaj_id": 1}, 200),
+    ("PUT", "/api/v1/mesajlarim/mesajlar/{KM}", ("mesajlar",), {"metin": "değiştir"}, "gecti"),
+    ("DELETE", "/api/v1/mesajlarim/mesajlar/{KM}", ("mesajlar",), None, "gecti"),
+    ("POST", "/api/v1/mesajlarim/ekler", ("mesajlar",), GOVDE_DOSYA, "gecti"),
+    ("POST", "/api/v1/mesajlarim/mesajlar/{KM}/ekler/999999/indirme-baglantisi", ("mesajlar",), None, "gecti"),
 ]
 
 

@@ -49,7 +49,8 @@
       "geri_bildirim_durumu": "Status meiner Rückmeldung geändert",
       "duyuru": "Neue Ankündigung",
       "oneri_durumu": "Status meines Vorschlags geändert",
-      "yeni_oturum": "Anmeldung von einem neuen Gerät"
+      "yeni_oturum": "Anmeldung von einem neuen Gerät",
+      "mesaj_yeni": "Ungelesene neue Nachricht"
     },
     "kanal": {
       "inapp": "Panel",

@@ -27,7 +27,8 @@
       "siteler": "Sites",
       "raporlar": "Reports",
       "krediler": "Credits",
-      "abonelikler": "Subscriptions"
+      "abonelikler": "Subscriptions",
+      "mesajlar": "Messages"
     },
     "durum": {
       "davet": "Invitation pending",

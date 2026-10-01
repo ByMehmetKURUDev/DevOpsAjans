@@ -466,7 +466,9 @@
     "tabDuyurular": "Announcements",
     "gorevler": "Tasks",
     "tabGuvenlik": "Security",
-    "tabCopKutusu": "Recycle bin"
+    "tabCopKutusu": "Recycle bin",
+    "tabMesajlar": "Messages",
+    "tabSohbetler": "Client chats"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

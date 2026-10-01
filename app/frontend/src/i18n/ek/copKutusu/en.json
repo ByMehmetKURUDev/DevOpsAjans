@@ -66,7 +66,10 @@
       "duyurular": "Announcement",
       "hazir_cevaplar": "Canned reply",
       "task_checklist": "Checklist item",
-      "task_dependencies": "Task dependency"
+      "task_dependencies": "Task dependency",
+      "konusmalar": "Message conversation",
+      "konusma_mesajlari": "Conversation message",
+      "konusma_okunma": "Read marker"
     }
   }
 }

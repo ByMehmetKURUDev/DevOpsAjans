@@ -143,6 +143,12 @@ async def _cop_kutusu_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]
     return await suresi_dolanlari_temizle(db)
 
 
+async def _mesaj_bildirimleri(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    from services.mesajlar import bildirimleri_isle
+
+    return await bildirimleri_isle(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -160,6 +166,8 @@ GOREVLER: List[Gorev] = [
     # Faz 2D: 30 günden eski biten/iptal oturumlar; saklama süresi dolan çöp kutusu.
     Gorev("oturum_temizligi", timedelta(hours=20), _oturum_temizligi),
     Gorev("cop_kutusu_temizligi", timedelta(hours=20), _cop_kutusu_temizligi),
+    # Faz 2G: okunmamış mesaj bildirimi her turda (ucuz sorgu; 2 dk gecikme + 30 dk toplama).
+    Gorev("mesaj_bildirimleri", timedelta(0), _mesaj_bildirimleri),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

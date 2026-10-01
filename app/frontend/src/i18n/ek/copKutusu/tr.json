@@ -66,7 +66,10 @@
       "duyurular": "Duyuru",
       "hazir_cevaplar": "Hazır cevap",
       "task_checklist": "Kontrol maddesi",
-      "task_dependencies": "Görev bağımlılığı"
+      "task_dependencies": "Görev bağımlılığı",
+      "konusmalar": "Mesaj konuşması",
+      "konusma_mesajlari": "Konuşma mesajı",
+      "konusma_okunma": "Okunma kaydı"
     }
   }
 }

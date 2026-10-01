@@ -466,7 +466,9 @@
     "tabDuyurular": "Объявления",
     "gorevler": "Задачи",
     "tabGuvenlik": "Безопасность",
-    "tabCopKutusu": "Корзина"
+    "tabCopKutusu": "Корзина",
+    "tabMesajlar": "Сообщения",
+    "tabSohbetler": "Чаты с клиентами"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

@@ -96,6 +96,21 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 30,
         "ebeveyn": "project_tasks",
     },
+    # Faz 2G: konuşmayı yalnız yönetici siler; mesajları ve okunma satırları
+    # onunla birlikte yakalanıyor (tek mesaj silme yumuşak, çöpe düşmüyor).
+    "konusmalar": {"sahip": "hesap_email", "sira": 10},
+    "konusma_mesajlari": {
+        "sahip_sorgu": "SELECT hesap_email FROM konusmalar WHERE id = :v",
+        "sahip_alan": "konusma_id",
+        "sira": 20,
+        "ebeveyn": "konusmalar",
+    },
+    "konusma_okunma": {
+        "sahip_sorgu": "SELECT hesap_email FROM konusmalar WHERE id = :v",
+        "sahip_alan": "konusma_id",
+        "sira": 30,
+        "ebeveyn": "konusmalar",
+    },
 }
 
 #: Yalnız ebeveyniyle birlikte yakalanan (listede ayrı satır olarak görünmeyen) tablolar.

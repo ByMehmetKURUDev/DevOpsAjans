@@ -49,7 +49,8 @@
       "geri_bildirim_durumu": "Geri bildirimimin durumu değişti",
       "duyuru": "Yeni duyuru",
       "oneri_durumu": "Önerimin durumu değişti",
-      "yeni_oturum": "Yeni bir cihazdan giriş yapıldı"
+      "yeni_oturum": "Yeni bir cihazdan giriş yapıldı",
+      "mesaj_yeni": "Okunmamış yeni mesaj"
     },
     "kanal": {
       "inapp": "Panel",

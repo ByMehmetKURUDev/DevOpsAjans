@@ -171,6 +171,7 @@
         "sla_kontrolu": "Destek SLA kontrolü ve eskalasyon",
         "belge_hatirlatmalari": "Belge talebi hatırlatmaları",
         "aylik_rapor_taslaklari": "Aylık rapor taslakları (ayın 1'i)",
+        "mesaj_bildirimleri": "Okunmamış mesaj bildirimleri",
         "aylik_site_analizi": "Aylık otomatik site analizi",
         "oturum_temizligi": "Eski oturum kayıtlarının temizliği",
         "cop_kutusu_temizligi": "Çöp kutusunda süresi dolanların silinmesi"

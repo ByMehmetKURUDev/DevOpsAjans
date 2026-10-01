@@ -66,7 +66,10 @@
       "duyurular": "Объявление",
       "hazir_cevaplar": "Шаблон ответа",
       "task_checklist": "Пункт чек-листа",
-      "task_dependencies": "Зависимость задачи"
+      "task_dependencies": "Зависимость задачи",
+      "konusmalar": "Беседа",
+      "konusma_mesajlari": "Сообщение беседы",
+      "konusma_okunma": "Отметка о прочтении"
     }
   }
 }

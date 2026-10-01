@@ -83,6 +83,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "oneri_durumu": {"roller": ("client",), "tetikleniyor": True},
     # Faz 2D — hesaba daha önce görülmemiş bir cihaz/ağdan giriş yapıldı.
     "yeni_oturum": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 2G — karşı taraf 2 dk içinde okumadıysa (30 dk'da en çok bir, toplayarak).
+    "mesaj_yeni": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

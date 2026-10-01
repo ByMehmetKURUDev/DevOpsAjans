@@ -73,6 +73,9 @@ HARIC_TABLOLAR = frozenset({
     # kutusu (silinen kaydın tam kopyası; silme zaten kaydediliyor, geri alma
     # ve kalıcı silme elle kaydediliyor).
     "oturumlar", "oturum_kesimleri", "cop_kutusu",
+    # Faz 2G: kişi başına "nereye kadar okudu" (her yoklamada ilerleyebilir).
+    # Mesajın kendisi (oluşturma/düzenleme/silme) kaydediliyor.
+    "konusma_okunma",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
@@ -87,6 +90,13 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     # Faz 2B: Kanban'da sürükle-bırak yalnız sırayı değiştiriyorsa satır yok;
     # harcanan saat önbellek (asıl kayıt task_time_entries).
     "project_tasks": frozenset({"sira", "harcanan_saat"}),
+    # Faz 2G: her mesajda güncellenen önbellek ve bildirim toplama alanları
+    # (durum/konu değişikliği yine kaydediliyor).
+    "konusmalar": frozenset({
+        "son_mesaj_at", "son_mesaj_id", "son_mesaj_ozet", "son_mesaj_rol",
+        "son_client_mesaj_id", "son_admin_mesaj_id", "degisiklik",
+        "bildirilen_admin_mesaj_id", "bildirilen_client_mesaj_id", "bildirim_admin_at", "bildirim_client_at",
+    }),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

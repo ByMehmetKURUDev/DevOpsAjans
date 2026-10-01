@@ -49,7 +49,8 @@
       "geri_bildirim_durumu": "我的反馈状态已变化",
       "duyuru": "新公告",
       "oneri_durumu": "我的建议状态已变化",
-      "yeni_oturum": "新设备登录"
+      "yeni_oturum": "新设备登录",
+      "mesaj_yeni": "未读新消息"
     },
     "kanal": {
       "inapp": "面板",

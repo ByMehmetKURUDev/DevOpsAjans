@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ekliLazy } from '@/i18n/ekliLazy';
 import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -18,6 +18,7 @@ import {
   Gauge,
   Coins,
   FolderOpen,
+  MessagesSquare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -37,6 +38,8 @@ import { modullerimiGetir, type Modullerim as ModulBilgisi } from '@/lib/modulle
 import { modulIkonu } from '@/lib/modulIkonlari';
 import { IZINLER, SEKME_IZINLERI, hesaplarimiGetir, type Hesap } from '@/lib/hesapEkibi';
 import { hesapSec, seciliHesap } from '@/lib/hesapSecimi';
+import { ozetGetir as mesajOzeti } from '@/lib/mesajlar';
+import { useYoklama } from '@/hooks/useYoklama';
 
 // Site analizi sekmesi ayrı parçada: rapor görünümü panele her girişte inmesin.
 const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
@@ -75,6 +78,10 @@ const OneriKutusu = ekliLazy('duyurular', () => import('@/components/OneriKutusu
 // Faz 2E — hesap seçici + "başka hesapta çalışıyorsunuz" şeridi ve Profil › Ekip.
 const HesapSecici = ekliLazy('hesapEkibi', () => import('@/components/HesapSecici'));
 const HesapEkibi = ekliLazy('hesapEkibi', () => import('@/components/HesapEkibi'));
+// Faz 2G — müşteri ↔ ajans mesajlaşma (sohbet arayüzü ayrı parçada, ek paket `mesajlar`).
+const Mesajlar = ekliLazy('mesajlar', () => import('@/components/Mesajlar'));
+/** Panel açık, Mesajlar sekmesi kapalıyken yalnız okunmamış sayısı (30–60 sn). */
+const MESAJ_OZETI_ARALIGI = 45000;
 
 interface AuthUser {
   id?: string;
@@ -125,13 +132,34 @@ interface Ticket {
   created_at?: string;
 }
 
-type Tab = 'projects' | 'invoices' | 'krediler' | 'tickets' | 'raporlar' | 'sitem' | 'analiz' | 'dosyalar' | 'profile';
+type Tab =
+  | 'projects'
+  | 'invoices'
+  | 'krediler'
+  | 'tickets'
+  | 'mesajlar'
+  | 'raporlar'
+  | 'sitem'
+  | 'analiz'
+  | 'dosyalar'
+  | 'profile';
 
 /**
  * Bugünkü bütün sekmeler, bugünkü sırayla. Modül bilgisi (`/api/v1/modullerim`)
  * gelene kadar ya da gelmezse (hata) bu liste gösteriliyor — güvenli geri dönüş.
  */
-const SEKMELER: Tab[] = ['projects', 'invoices', 'krediler', 'tickets', 'raporlar', 'sitem', 'analiz', 'dosyalar', 'profile'];
+const SEKMELER: Tab[] = [
+  'projects',
+  'invoices',
+  'krediler',
+  'tickets',
+  'mesajlar',
+  'raporlar',
+  'sitem',
+  'analiz',
+  'dosyalar',
+  'profile',
+];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -152,6 +180,18 @@ export default function ClientPanel() {
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [tab, setTab] = useState<Tab>(ilkSekme);
+  const location = useLocation();
+  // Bildirim bağlantısı panel açıkken tıklanırsa (aynı rota, yeni `?sekme=`) sekmeye geç.
+  useEffect(() => {
+    try {
+      const istenen = new URLSearchParams(location.search).get('sekme') as Tab | null;
+      if (istenen && SEKMELER.includes(istenen)) setTab(istenen);
+    } catch {
+      /* tarayıcı dışı */
+    }
+  }, [location.search]);
+  // Faz 2G — Mesajlar sekmesindeki okunmamış rozeti.
+  const [okunmamisMesaj, setOkunmamisMesaj] = useState(0);
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
@@ -247,6 +287,21 @@ export default function ClientPanel() {
     },
     [email]
   );
+
+  // Faz 2G: panel açıkken başka hesabın bildirim bağlantısına (`&hesap=`) tıklanırsa
+  // o hesaba geç (yalnız erişebildiği hesaplardan biriyse).
+  useEffect(() => {
+    if (!hesaplar) return;
+    let istenen = '';
+    try {
+      istenen = (new URLSearchParams(location.search).get('hesap') || '').trim().toLowerCase();
+    } catch {
+      return;
+    }
+    if (istenen && istenen !== etkinEmail && hesaplar.some((h) => h.hesap_email === istenen)) hesapDegistir(istenen);
+    // Yalnız adres değişince; hesap listesi ilk geldiğinde seçim zaten URL'yi okuyor.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search]);
 
   useEffect(() => {
     if (!user) return;
@@ -358,6 +413,21 @@ export default function ClientPanel() {
     return liste;
   }, [modulBilgisi, izinVar]);
 
+  // Faz 2G: okunmamış rozeti — sohbet kapalıyken 45 sn'de bir özet (sohbet açıkken
+  // Mesajlar bileşeni kendi yoklamasıyla bildiriyor). Sekme gizliyken durur.
+  const mesajlarAcik =
+    hesapHazir && (modulBilgisi !== null || modulHatasi) && modulAcik('mesajlar') && izinVar(['mesajlar']);
+  useEffect(() => {
+    setOkunmamisMesaj(0);
+  }, [etkinEmail]);
+  useYoklama(
+    async () => {
+      const o = await mesajOzeti('client');
+      setOkunmamisMesaj(o.okunmamis);
+    },
+    { aralik: MESAJ_OZETI_ARALIGI, etkin: mesajlarAcik && tab !== 'mesajlar', anahtar: etkinEmail }
+  );
+
   // Açık sekme kapatılmış bir modüle (ya da izni olmayan bölüme) aitse ilk görünen sekmeye dön.
   useEffect(() => {
     if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(gorunenSekmeler[0]?.key ?? 'profile');
@@ -467,6 +537,7 @@ export default function ClientPanel() {
     invoices: { label: t('ui.tabInvoices'), icon: Receipt },
     krediler: { label: t('ui.tabKredilerim'), icon: Coins },
     tickets: { label: t('ui.tabSupport'), icon: MessageSquare },
+    mesajlar: { label: t('ui.tabMesajlar'), icon: MessagesSquare },
     raporlar: { label: t('rapor.sekme'), icon: FileText },
     sitem: { label: t('sitem.sekme'), icon: ShieldCheck },
     analiz: { label: t('ui.tabAnaliz'), icon: Gauge },
@@ -599,6 +670,15 @@ export default function ClientPanel() {
           >
             <tItem.icon className="h-4 w-4" />
             {tItem.label}
+            {tItem.key === 'mesajlar' && okunmamisMesaj > 0 && (
+              <span
+                className="inline-flex min-w-[1.25rem] items-center justify-center rounded-full bg-pink-600 px-1.5 text-[11px] font-semibold leading-5 text-white"
+                data-rozet={okunmamisMesaj}
+                aria-label={t('ui.tabMesajlar') + ': ' + okunmamisMesaj}
+              >
+                {okunmamisMesaj > 99 ? '99+' : okunmamisMesaj}
+              </span>
+            )}
             {tab === tItem.key && (
               <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500" />
             )}
@@ -1035,6 +1115,21 @@ export default function ClientPanel() {
                 <SitemBakim />
               </Suspense>
             </div>
+          )}
+
+          {tab === 'mesajlar' && modulAcik('mesajlar') && (
+            <Suspense
+              fallback={
+                <div className="py-16 flex items-center justify-center text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <Mesajlar
+                projeler={projects.map((p) => ({ id: Number(p.id), baslik: p.title }))}
+                onOkunmamis={setOkunmamisMesaj}
+              />
+            </Suspense>
           )}
 
           {tab === 'dosyalar' && modulAcik('dosyalar') && (

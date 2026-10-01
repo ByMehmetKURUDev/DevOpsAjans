@@ -17,6 +17,10 @@
         "ad": "Destek",
         "aciklama": "Talep açın, ekibimizle yazışın, durumunu takip edin."
       },
+      "mesajlar": {
+        "ad": "Mesajlar",
+        "aciklama": "Ekibimizle panel üzerinden doğrudan yazışın; yanıtlar birkaç saniyede görünür."
+      },
       "raporlar": {
         "ad": "Raporlar ve abonelik",
         "aciklama": "Aboneliğinize ait aylık hizmet raporları."

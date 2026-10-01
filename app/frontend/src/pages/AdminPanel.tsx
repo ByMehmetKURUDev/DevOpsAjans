@@ -1,5 +1,8 @@
 import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ekliLazy } from '@/i18n/ekliLazy';
+import { useYoklama } from '@/hooks/useYoklama';
+import { ozetGetir as mesajOzeti } from '@/lib/mesajlar';
 import {
   Loader2,
   LogIn,
@@ -41,6 +44,7 @@ import {
   Megaphone,
   ShieldCheck,
   ArchiveRestore,
+  MessagesSquare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -123,6 +127,12 @@ const ProjeGorevleri = ekliLazy(['gorevler', 'geriBildirim'], () => import('@/co
 const GeriBildirimler = ekliLazy('geriBildirim', () => import('@/components/admin/GeriBildirimler'));
 const DuyuruYonetimi = ekliLazy('duyurular', () => import('@/components/admin/DuyuruYonetimi'));
 const DuyuruSeridi = ekliLazy('duyurular', () => import('@/components/DuyuruSeridi'));
+// Faz 2G — müşteri sohbetleri (bütün hesaplar); ek paket `mesajlar`.
+const MesajYonetimi = ekliLazy('mesajlar', () => import('@/components/admin/MesajYonetimi'));
+/** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
+const MESAJ_OZETI_ARALIGI = 45000;
+/** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -244,6 +254,7 @@ type Tab =
   | 'bilgiBankasi'
   | 'geriBildirim'
   | 'duyurular'
+  | 'mesajlar'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -344,12 +355,24 @@ export default function AdminPanel() {
   const [tab, setTab] = useState<Tab>(() => {
     try {
       const istenen = new URLSearchParams(window.location.search).get('sekme');
-      if (istenen === 'guvenlik' || istenen === 'copKutusu' || istenen === 'denetim') return istenen;
+      if ((BAGLANTI_SEKMELERI as readonly string[]).includes(istenen || '')) return istenen as Tab;
     } catch {
       /* sunucuda çizim: pencere yok */
     }
     return 'analytics';
   });
+  const location = useLocation();
+  // Panel açıkken bildirim bağlantısına tıklanırsa (aynı rota, yeni `?sekme=`).
+  useEffect(() => {
+    try {
+      const istenen = new URLSearchParams(location.search).get('sekme');
+      if ((BAGLANTI_SEKMELERI as readonly string[]).includes(istenen || '')) setTab(istenen as Tab);
+    } catch {
+      /* tarayıcı dışı */
+    }
+  }, [location.search]);
+  // Faz 2G — "Müşteri sohbetleri" sekmesindeki okunmamış rozeti.
+  const [okunmamisMesaj, setOkunmamisMesaj] = useState(0);
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -411,6 +434,15 @@ export default function AdminPanel() {
   }, []);
 
   const isAdmin = isAdminUser(user, settings);
+
+  // Faz 2G: sohbet sekmesi kapalıyken 45 sn'de bir okunmamış özeti (sekme gizliyken durur).
+  useYoklama(
+    async () => {
+      const o = await mesajOzeti('admin');
+      setOkunmamisMesaj(o.okunmamis);
+    },
+    { aralik: MESAJ_OZETI_ARALIGI, etkin: !!user && isAdmin && tab !== 'mesajlar' }
+  );
 
   // Atama secicisini doldurmak icin ekip listesi. Destek sekmesine
   // girilene kadar cekilmiyor; acilistaki toplu istege eklenmedi
@@ -904,6 +936,7 @@ export default function AdminPanel() {
     { key: 'abonelik', label: t('abonelik.sekme'), icon: CalendarDays },
     { key: 'siteler', label: t('site.sekme'), icon: Globe },
     { key: 'tickets', label: t('ui.tabSupport'), icon: MessageSquare },
+    { key: 'mesajlar', label: t('ui.tabSohbetler'), icon: MessagesSquare },
     { key: 'dosyalar', label: t('ui.tabDosyalar'), icon: FolderOpen },
     { key: 'bilgiBankasi', label: t('ui.tabBilgiBankasi'), icon: BookOpen },
     { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
@@ -945,6 +978,7 @@ export default function AdminPanel() {
         {TABS.map((tItem) => (
           <button
             key={tItem.key}
+            data-sekme={tItem.key}
             onClick={() => setTab(tItem.key)}
             className={`px-4 py-3 text-sm font-medium transition-colors relative inline-flex items-center gap-2 whitespace-nowrap ${
               tab === tItem.key
@@ -954,12 +988,32 @@ export default function AdminPanel() {
           >
             <tItem.icon className="h-4 w-4" />
             {tItem.label}
+            {tItem.key === 'mesajlar' && okunmamisMesaj > 0 && (
+              <span
+                className="inline-flex min-w-[1.25rem] items-center justify-center rounded-full bg-pink-600 px-1.5 text-[11px] font-semibold leading-5 text-white"
+                data-rozet={okunmamisMesaj}
+              >
+                {okunmamisMesaj > 99 ? '99+' : okunmamisMesaj}
+              </span>
+            )}
             {tab === tItem.key && (
               <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500" />
             )}
           </button>
         ))}
       </div>
+
+      {tab === 'mesajlar' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <MesajYonetimi onOkunmamis={setOkunmamisMesaj} />
+        </Suspense>
+      )}
 
       {tab === 'icerik' && (
         <Suspense

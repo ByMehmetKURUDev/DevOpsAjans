@@ -260,7 +260,10 @@ async def test_modullerim_yalniz_musteri_modulleri_ve_gorunumler(istemci, muster
     # Sekme sırası bugünkü müşteri paneliyle aynı.
     sekmeler = [m["musteri_sekmesi"] for m in govde["moduller"] if m["musteri_sekmesi"]]
     # Faz 2C: "dosyalar" sekmesi (paketsiz müşteride kapalı ama manifestte sırası belli).
-    assert sekmeler == ["projects", "invoices", "krediler", "tickets", "raporlar", "sitem", "analiz", "dosyalar", "profile"]
+    # Faz 2G: "mesajlar" sekmesi Destek'in hemen ardında.
+    assert sekmeler == [
+        "projects", "invoices", "krediler", "tickets", "mesajlar", "raporlar", "sitem", "analiz", "dosyalar", "profile",
+    ]
     from core import moduller as mf
 
     for m in govde["moduller"]:

@@ -66,7 +66,10 @@
       "duyurular": "घोषणा",
       "hazir_cevaplar": "तैयार उत्तर",
       "task_checklist": "चेकलिस्ट आइटम",
-      "task_dependencies": "कार्य निर्भरता"
+      "task_dependencies": "कार्य निर्भरता",
+      "konusmalar": "संदेश बातचीत",
+      "konusma_mesajlari": "बातचीत का संदेश",
+      "konusma_okunma": "पठन चिह्न"
     }
   }
 }

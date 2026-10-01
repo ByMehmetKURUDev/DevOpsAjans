@@ -466,7 +466,9 @@
     "tabDuyurular": "الإعلانات",
     "gorevler": "المهام",
     "tabGuvenlik": "الأمان",
-    "tabCopKutusu": "سلة المحذوفات"
+    "tabCopKutusu": "سلة المحذوفات",
+    "tabMesajlar": "الرسائل",
+    "tabSohbetler": "محادثات العملاء"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

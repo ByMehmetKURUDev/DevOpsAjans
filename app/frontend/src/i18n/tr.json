@@ -466,7 +466,9 @@
     "tabDuyurular": "Duyurular",
     "gorevler": "Görevler",
     "tabGuvenlik": "Güvenlik",
-    "tabCopKutusu": "Çöp kutusu"
+    "tabCopKutusu": "Çöp kutusu",
+    "tabMesajlar": "Mesajlar",
+    "tabSohbetler": "Müşteri sohbetleri"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

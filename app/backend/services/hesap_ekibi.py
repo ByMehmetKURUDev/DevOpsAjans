@@ -53,6 +53,8 @@ IZINLER: Tuple[str, ...] = (
     "raporlar",
     "krediler",
     "abonelikler",
+    # Faz 2G — müşteri ↔ ajans mesajlaşma.
+    "mesajlar",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -62,8 +64,19 @@ SAHIP = "sahip"
 
 ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
-    "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"),
+    "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
+}
+
+#: Faz 2G öncesi rol varsayılanları. Üyelik satırında izinler açıkça (JSON)
+#: saklanıyor; yeni bir izin eklenince eski üyeler onu kendiliğinden almazdı.
+#: Kayıtlı liste TAM OLARAK eski varsayılansa (kimse özelleştirmemiş) bugünkü
+#: varsayılan geçerli; özelleştirilmiş listelere dokunulmuyor.
+ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
+    "yonetici": (
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler", "abonelikler"}),
+    ),
+    "uye": (frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),),
 }
 
 #: Ekibi yönetebilen roller.
@@ -101,6 +114,8 @@ OLAY_IZNI: Dict[str, str] = {
     "belge_hatirlatma": "dosyalar",
     "belge_gecikti": "dosyalar",
     "aylik_rapor": "raporlar",
+    # Faz 2G — karşı taraf okumadıysa toplu mesaj bildirimi.
+    "mesaj_yeni": "mesajlar",
 }
 
 DAVET_OLAYI = "hesap_davet"
@@ -205,6 +220,8 @@ def izinleri_coz(ham: Optional[str], rol: str) -> Tuple[str, ...]:
     if not isinstance(deger, list):
         return tuple(ROL_VARSAYILAN.get(rol, ()))
     secili = {str(x) for x in deger}
+    if any(secili == eski for eski in ESKI_VARSAYILANLAR.get(rol, ())):
+        return tuple(ROL_VARSAYILAN[rol])
     return tuple(i for i in IZINLER if i in secili)
 
 

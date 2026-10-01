@@ -213,6 +213,18 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=True,
         paketler=TUM_PAKETLER,
     ),
+    # Faz 2G — müşteri ↔ ajans mesajlaşma (kısa yoklamayla neredeyse gerçek zamanlı).
+    Modul(
+        anahtar="mesajlar",
+        ad_varsayilan={"tr": "Mesajlar", "en": "Messages"},
+        ikon="MessagesSquare",
+        kategori="hizmet",
+        musteri_sekmesi="mesajlar",
+        yonetici_sekmesi="mesajlar",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=True,
+        paketler=TUM_PAKETLER,
+    ),
     # --- Hizmet / analiz ---------------------------------------------------
     Modul(
         anahtar="raporlar",

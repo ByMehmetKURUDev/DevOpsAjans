@@ -17,6 +17,10 @@
         "ad": "Support",
         "aciklama": "Open requests, message our team and follow their status."
       },
+      "mesajlar": {
+        "ad": "Messages",
+        "aciklama": "Chat with our team right in the panel; replies appear within seconds."
+      },
       "raporlar": {
         "ad": "Reports and subscriptions",
         "aciklama": "Monthly service reports for your subscriptions."

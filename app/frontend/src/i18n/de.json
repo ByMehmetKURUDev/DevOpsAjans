@@ -466,7 +466,9 @@
     "tabDuyurular": "Ankündigungen",
     "gorevler": "Aufgaben",
     "tabGuvenlik": "Sicherheit",
-    "tabCopKutusu": "Papierkorb"
+    "tabCopKutusu": "Papierkorb",
+    "tabMesajlar": "Nachrichten",
+    "tabSohbetler": "Kundenchats"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

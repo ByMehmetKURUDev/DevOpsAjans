@@ -466,7 +466,9 @@
     "tabDuyurular": "公告",
     "gorevler": "任务",
     "tabGuvenlik": "安全",
-    "tabCopKutusu": "回收站"
+    "tabCopKutusu": "回收站",
+    "tabMesajlar": "消息",
+    "tabSohbetler": "客户聊天"
   },
   "admin": {
     "loadError": "管理数据加载失败",
