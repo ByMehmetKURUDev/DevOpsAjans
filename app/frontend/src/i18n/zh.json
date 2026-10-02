@@ -488,7 +488,8 @@
     "tabApi": "API 与 Webhook",
     "tabRandevu": "预约",
     "tabOtomasyon": "自动化",
-    "tabAiAsistan": "AI 助手"
+    "tabAiAsistan": "AI 助手",
+    "tabEpostaPazarlama": "邮件营销"
   },
   "admin": {
     "loadError": "管理数据加载失败",

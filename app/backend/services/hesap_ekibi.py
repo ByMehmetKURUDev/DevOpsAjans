@@ -73,6 +73,9 @@ IZINLER: Tuple[str, ...] = (
     "otomasyon",
     # Faz 5A — AI asistan ve bilgi bankası (sohbet kayıtları ziyaretçi kişisel verisi taşır).
     "asistan",
+    # Faz 5M — e-posta pazarlama (kişi listesi, kampanya gönderimi: yalnız sahip/hesap yöneticisi
+    # verebilir; üye ve fatura rolünün varsayılanında yok — `api` gibi).
+    "pazarlama",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -107,7 +110,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 4K/4M–4A/5R arası varsayılan (kartvizit ve menu var; api ve randevu yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu"}),
-        # Faz 5R–5A arası varsayılan (api ve randevu var, asistan yok).
+        # Faz 5R–5A/5M arası varsayılan (api ve randevu var; asistan ve pazarlama yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu"}),
     ),
@@ -184,6 +187,8 @@ OLAY_IZNI: Dict[str, str] = {
     "otomasyon_bildirimi": "otomasyon",
     # Faz 5A — AI asistan ziyaretçiyi insana devretti.
     "asistan_devir": "asistan",
+    # Faz 5M — pazarlama gönderimleri askıya alındı.
+    "pazarlama_askiya_alindi": "pazarlama",
 }
 
 DAVET_OLAYI = "hesap_davet"

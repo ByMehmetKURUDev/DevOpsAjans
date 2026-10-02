@@ -106,6 +106,8 @@ const Otomasyon = ekliLazy(['otomasyon', 'ozelAlanlar'], () => import('@/compone
 const OzelAlanlarBolumu = ekliLazy('ozelAlanlar', () => import('@/components/OzelAlanlarBolumu'));
 // Faz 5A — AI asistan + bilgi bankası (yönetici paneliyle aynı bileşen, müşteri modu).
 const AiAsistan = ekliLazy(['aiAsistan', 'asistanSayfa'], () => import('@/components/AiAsistan'));
+// Faz 5M — e-posta pazarlama (yönetici paneliyle aynı bileşen, müşteri modu).
+const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/EpostaPazarlama'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -180,6 +182,7 @@ type Tab =
   | 'randevu'
   | 'otomasyon'
   | 'aiAsistan'
+  | 'epostaPazarlama'
   | 'dosyalar'
   | 'api'
   | 'profile';
@@ -204,6 +207,7 @@ const SEKMELER: Tab[] = [
   'randevu',
   'otomasyon',
   'aiAsistan',
+  'epostaPazarlama',
   'dosyalar',
   'api',
   'profile',
@@ -214,7 +218,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'epostaPazarlama'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -649,6 +653,7 @@ export default function ClientPanel() {
     randevu: { label: t('ui.tabRandevu'), icon: CalendarCheck },
     otomasyon: { label: t('ui.tabOtomasyon'), icon: Workflow },
     aiAsistan: { label: t('ui.tabAiAsistan'), icon: BotMessageSquare },
+    epostaPazarlama: { label: t('ui.tabEpostaPazarlama'), icon: Send },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
@@ -1301,6 +1306,18 @@ export default function ClientPanel() {
               }
             >
               <AiAsistan mod="musteri" />
+            </Suspense>
+          )}
+
+          {tab === 'epostaPazarlama' && modulBilgisi !== null && modulAcik('eposta_pazarlama') && izinVar(['pazarlama']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <EpostaPazarlama mod="musteri" />
             </Suspense>
           )}
 

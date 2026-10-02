@@ -36,7 +36,8 @@
       "api": "API ve webhook",
       "randevu": "Randevu ve toplantılar",
       "otomasyon": "Otomasyon kuralları",
-      "asistan": "AI asistan ve bilgi bankası"
+      "asistan": "AI asistan ve bilgi bankası",
+      "pazarlama": "E-posta pazarlama"
     },
     "durum": {
       "davet": "Davet bekliyor",

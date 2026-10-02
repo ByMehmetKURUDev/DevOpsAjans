@@ -488,7 +488,8 @@
     "tabApi": "API & webhooks",
     "tabRandevu": "Appointments",
     "tabOtomasyon": "Automation",
-    "tabAiAsistan": "AI assistant"
+    "tabAiAsistan": "AI assistant",
+    "tabEpostaPazarlama": "Email marketing"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

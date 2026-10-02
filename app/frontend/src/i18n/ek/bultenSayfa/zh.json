@@ -1,0 +1,32 @@
+{
+  "bultenSayfa": {
+    "onay": {
+      "baslik": "确认您的订阅",
+      "aciklama": "点击下方按钮，将 {{eposta}} 加入 {{gonderen}} 的邮件列表（{{liste}}）。",
+      "dugme": "确认订阅",
+      "not": "如果这不是您提出的请求，请直接关闭此页面；未经确认，您不会收到任何邮件。",
+      "tamam": "订阅已确认",
+      "tamamAciklama": "谢谢！您可以随时通过每封邮件底部的链接退订。",
+      "gecersiz": "链接无效",
+      "gecersizAciklama": "请确认您从邮件中完整复制了链接。",
+      "kullanildi": "此链接已被使用",
+      "kullanildiAciklama": "您的订阅此前已确认或已结束。",
+      "suresi_doldu": "链接已过期",
+      "suresi_dolduAciklama": "确认链接的有效期为 72 小时。重新填写表单即可获取新链接。",
+      "hata": "出现问题",
+      "hataAciklama": "请稍后再试。"
+    },
+    "tercih": {
+      "baslik": "邮件偏好",
+      "retBaslik": "您已退订",
+      "adres": "{{eposta}} · {{gonderen}}",
+      "listeler": "我希望接收的列表",
+      "retDugme": "退订所有邮件",
+      "retTamam": "您的订阅已结束。今后您将不会再收到营销邮件。",
+      "zatenRet": "此地址已退订。",
+      "not": "如需重新订阅，请使用订阅表单。",
+      "gecersiz": "链接无效。",
+      "hata": "出现问题，请重试。"
+    }
+  }
+}

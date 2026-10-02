@@ -36,7 +36,8 @@
       "api": "API and webhooks",
       "randevu": "Appointments and meetings",
       "otomasyon": "Automation rules",
-      "asistan": "AI assistant and knowledge base"
+      "asistan": "AI assistant and knowledge base",
+      "pazarlama": "Email marketing"
     },
     "durum": {
       "davet": "Invitation pending",

@@ -488,7 +488,8 @@
     "tabApi": "API ve webhook",
     "tabRandevu": "Randevular",
     "tabOtomasyon": "Otomasyon",
-    "tabAiAsistan": "AI asistan"
+    "tabAiAsistan": "AI asistan",
+    "tabEpostaPazarlama": "E-posta pazarlama"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

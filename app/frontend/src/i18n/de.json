@@ -488,7 +488,8 @@
     "tabApi": "API & Webhooks",
     "tabRandevu": "Termine",
     "tabOtomasyon": "Automatisierung",
-    "tabAiAsistan": "KI-Assistent"
+    "tabAiAsistan": "KI-Assistent",
+    "tabEpostaPazarlama": "E-Mail-Marketing"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

@@ -67,6 +67,9 @@ const RandevuSayfasi = ekliLazy('randevuSayfa', () => import('./pages/RandevuSay
 // Faz 5A: herkese açık AI asistan (/asistan/<anahtar>, gömülü ?gomulu=1) — site düzeni dışında, prerender yok,
 // her zaman noindex; metinleri sayfa kendisi yüklüyor (i18n/ek/asistanSayfa); CSP/frame-ancestors Pages Function'ında.
 const AsistanSayfasi = lazy(() => import('./pages/AsistanSayfasi'));
+// Faz 5M: bülten — barındırılan abonelik formu, çift onay ve ret/tercih sayfası (site düzeni
+// dışında, prerender yok, noindex). Metinleri sayfanın kendisi yüklüyor (ek paket `bultenSayfa`).
+const BultenSayfasi = lazy(() => import('./pages/BultenSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -155,6 +158,10 @@ const AppRoutes = () => (
       <Route path="/randevu/:slug/:tur" element={<RandevuSayfasi />} />
       {/* Faz 5A: AI asistan — site düzeni dışında (paylaşılabilir tam sayfa ve gömülü pencere). */}
       <Route path="/asistan/:anahtar" element={<AsistanSayfasi />} />
+      {/* Faz 5M: bülten — abonelik formu, çift onay, ret/tercih (imzalı jeton; girişsiz). */}
+      <Route path="/bulten/onay/:jeton" element={<BultenSayfasi />} />
+      <Route path="/bulten/tercih/:jeton" element={<BultenSayfasi />} />
+      <Route path="/bulten/:anahtar" element={<BultenSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

@@ -436,6 +436,8 @@ export const NOINDEX_ROUTES = [
   '/randevu',
   // Faz 5A: AI asistan sayfası (/asistan/<anahtar>); her zaman noindex.
   '/asistan',
+  // Faz 5M: bülten abonelik formu, çift onay ve ret/tercih sayfası (/bulten/...); noindex.
+  '/bulten',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

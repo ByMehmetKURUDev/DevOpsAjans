@@ -1,0 +1,32 @@
+{
+  "bultenSayfa": {
+    "onay": {
+      "baslik": "Confirm your subscription",
+      "aciklama": "Click the button below to add {{eposta}} to the {{gonderen}} mailing list ({{liste}}).",
+      "dugme": "Confirm my subscription",
+      "not": "If you did not make this request, just close this page; you won't receive any email unless you confirm.",
+      "tamam": "Your subscription is confirmed",
+      "tamamAciklama": "Thank you! You can leave at any time using the link at the bottom of every email.",
+      "gecersiz": "Invalid link",
+      "gecersizAciklama": "Make sure you copied the full link from the email.",
+      "kullanildi": "This link has already been used",
+      "kullanildiAciklama": "Your subscription was already confirmed or ended.",
+      "suresi_doldu": "This link has expired",
+      "suresi_dolduAciklama": "Confirmation links are valid for 72 hours. Fill in the form again to get a new link.",
+      "hata": "Something went wrong",
+      "hataAciklama": "Please try again a little later."
+    },
+    "tercih": {
+      "baslik": "Email preferences",
+      "retBaslik": "You have unsubscribed",
+      "adres": "{{eposta}} · {{gonderen}}",
+      "listeler": "Lists I want to receive",
+      "retDugme": "Unsubscribe from all emails",
+      "retTamam": "Your subscription has ended. You will not receive marketing emails from now on.",
+      "zatenRet": "This address has already been unsubscribed.",
+      "not": "If you want to subscribe again, you can use the signup form.",
+      "gecersiz": "Invalid link.",
+      "hata": "Something went wrong; please try again."
+    }
+  }
+}

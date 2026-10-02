@@ -38,6 +38,7 @@
               "ozel": "veriSorumlusu"
             },
             "This notice covers the pages under the mehmetkuru.dev domain, the client portal, our forms that can be embedded on other websites and the services provided through them. Links to other websites are governed by those websites' own policies.",
+            "**Emails sent on behalf of our clients:** Our clients can use the email marketing tool in our panel to send newsletters and campaign emails to their own subscribers. For the data of the recipients of these messages, the data controller is the business that sends the message and whose legal name appears in its footer; we process this data only on its behalf and under its instructions, as a data processor. You can direct requests about these messages primarily to the sending business; you can end your subscription directly using the link in every message.",
             "**AI assistant on our clients' websites:** Our clients can place the AI assistant they set up in our panel on their own websites. For conversations with this assistant and for the name and contact details left in its handover form, the data controller is the client using the assistant on their site; please direct requests about this data to that website first. We process this data only on our client's instructions and as a data processor in order to provide the service: to answer a question, the message is sent to our AI provider (Google Gemini API); IP addresses are kept only as salted hashes; conversations are deleted at the end of the period chosen by our client. We don't use this data for our own purposes."
           ]
         },
@@ -56,7 +57,8 @@
                 "**Marketing:** only with your explicit consent, Google Analytics, Google Ads and Meta Pixel cookies and the usage and ad interaction data they collect."
               ]
             },
-            "We do not store your raw IP address in our database; to prevent abuse and preserve the evidential value of records, we keep only an irreversible hash of it. We do not ask for special categories of personal data such as health or biometric data; please do not enter such information in forms or messages."
+            "We do not store your raw IP address in our database; to prevent abuse and preserve the evidential value of records, we keep only an irreversible hash of it. We do not ask for special categories of personal data such as health or biometric data; please do not enter such information in forms or messages.",
+            "**Email newsletter:** When you subscribe to our newsletter, we record your email address, optionally your name and language preference, and evidence of your consent (the version of the consent text shown, the time of confirmation and an irreversible hash of your IP address). Subscription is double opt-in: you receive no newsletter until you click the link sent to your email. We receive information from the sending provider on whether a message was delivered, bounced or reported as spam. Open and click measurement is off by default; if the sender has enabled it, an invisible pixel and redirected links are used in the message. You can unsubscribe with one click using the link in every message; your request is applied immediately and permanently."
           ]
         },
         {
@@ -77,7 +79,8 @@
                 "Keeping information secure: preventing abuse and automated attacks, enforcing request limits, keeping activity and audit records.",
                 "Fixing errors and improving our services.",
                 "Only with your explicit consent: measuring website usage and evaluating the effectiveness of ads.",
-                "Protecting our rights in disputes and responding to requests from competent authorities."
+                "Protecting our rights in disputes and responding to requests from competent authorities.",
+                "Sending the newsletter and announcement emails you subscribed to with your explicit consent, applying your unsubscribe request and monitoring sending quality (delivery, bounces, complaints)."
               ]
             }
           ]
@@ -124,7 +127,7 @@
                   ],
                   [
                     "Resend, Inc.",
-                    "Sending notification, report, quote and invoice emails; receiving emails sent to the support address",
+                    "Sending notification, report, quote and invoice emails; receiving emails sent to the support address; sending newsletters and marketing emails on behalf of our clients and reporting their delivery status",
                     "USA"
                   ],
                   [
@@ -185,7 +188,8 @@
                 "AI assistant conversations on our clients' websites are deleted, together with handover details, at the end of the period chosen by the client (90 days by default).",
                 "Invoice, contract and accounting records are kept for the book and document retention periods set by the Turkish Tax Procedure Law and the Turkish Commercial Code.",
                 "Other data (requests, messages, support records, account details) is kept for as long as the purpose requires and for the limitation periods under the applicable legislation.",
-                "Local records in your browser stay there until you delete them or sign out (see the [Cookie Policy](sayfa:cerezPolitikasi))."
+                "Local records in your browser stay there until you delete them or sign out (see the [Cookie Policy](sayfa:cerezPolitikasi)).",
+                "Email newsletter: subscription and consent records are kept while the subscription lasts and, after it ends, for the evidence period required by the applicable legislation; addresses that unsubscribe or complain are kept on a suppression list so that they are not sent messages again."
               ]
             }
           ]

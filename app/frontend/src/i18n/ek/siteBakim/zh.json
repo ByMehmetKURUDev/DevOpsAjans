@@ -189,7 +189,8 @@
         "randevu_hatirlatmalari": "预约提醒（提前 24 小时和 1 小时）",
         "otomasyon": "自动化规则（待处理运行、“等待”之后、逾期发票）",
         "otomasyon_temizligi": "清理旧的自动化运行日志（30 天）",
-        "ai_asistan_bakimi": "AI 助手：每周网站更新与对话保存清理"
+        "ai_asistan_bakimi": "AI 助手：每周网站更新与对话保存清理",
+        "eposta_pazarlama": "邮件营销发送（定时活动、A/B 判定、自动邮件序列）"
       },
       "gunluk": "每天",
       "haftalik": "每周"

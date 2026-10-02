@@ -60,6 +60,7 @@ import {
   CalendarCheck,
   Workflow,
   BotMessageSquare,
+  Send,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -167,6 +168,8 @@ const Otomasyon = ekliLazy(['otomasyon', 'ozelAlanlar'], () => import('@/compone
 const OzelAlanlarBolumu = ekliLazy('ozelAlanlar', () => import('@/components/OzelAlanlarBolumu'));
 // Faz 5A — AI asistan + bilgi bankası (müşteri paneliyle aynı bileşen, yönetici modu; önizleme penceresi `asistanSayfa`).
 const AiAsistan = ekliLazy(['aiAsistan', 'asistanSayfa'], () => import('@/components/AiAsistan'));
+// Faz 5M — e-posta pazarlama: bülten, kampanya, damla dizileri (müşteri paneliyle aynı bileşen, yönetici modu).
+const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/EpostaPazarlama'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
@@ -183,7 +186,7 @@ const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/a
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu', 'otomasyon', 'aiAsistan'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'epostaPazarlama'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -317,6 +320,7 @@ type Tab =
   | 'randevu'
   | 'otomasyon'
   | 'aiAsistan'
+  | 'epostaPazarlama'
   | 'baglantilar'
   | 'crm'
   | 'zaman'
@@ -1021,6 +1025,7 @@ export default function AdminPanel() {
     { key: 'randevu', label: t('ui.tabRandevu'), icon: CalendarCheck },
     { key: 'otomasyon', label: t('ui.tabOtomasyon'), icon: Workflow },
     { key: 'aiAsistan', label: t('ui.tabAiAsistan'), icon: BotMessageSquare },
+    { key: 'epostaPazarlama', label: t('ui.tabEpostaPazarlama'), icon: Send },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
@@ -1189,6 +1194,18 @@ export default function AdminPanel() {
           }
         >
           <AiAsistan mod="yonetici" />
+        </Suspense>
+      )}
+
+      {tab === 'epostaPazarlama' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <EpostaPazarlama mod="yonetici" />
         </Suspense>
       )}
 

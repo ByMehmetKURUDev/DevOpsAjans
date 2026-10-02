@@ -488,7 +488,8 @@
     "tabApi": "API والويب هوك",
     "tabRandevu": "المواعيد",
     "tabOtomasyon": "الأتمتة",
-    "tabAiAsistan": "مساعد الذكاء الاصطناعي"
+    "tabAiAsistan": "مساعد الذكاء الاصطناعي",
+    "tabEpostaPazarlama": "التسويق عبر البريد"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

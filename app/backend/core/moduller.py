@@ -486,6 +486,25 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("kredi_ile_asim", "bool", True),
         ),
     ),
+    # Faz 5M — e-posta pazarlama: listeler + çift onaylı abonelik formu, segmentler, blok
+    # düzenleyicili kampanya (test, zamanlama, A/B konu), damla dizileri, ret/tercih sayfası,
+    # teslimat raporu. Gönderim ajansın doğrulanmış alan adından ("Müşteri via mehmetkuru.dev",
+    # Reply-To müşteri). Varsayılan KAPALI, pakete bağlı değil (ayrı satılan modül; önerilen
+    # aylık 15 $ — 2.000 kişi / 10.000 ileti; aşımı kredi defterinden). Ekip izni `pazarlama`.
+    Modul(
+        anahtar="eposta_pazarlama",
+        ad_varsayilan={"tr": "E-posta pazarlama", "en": "Email marketing"},
+        ikon="Send",
+        kategori="is_araclari",
+        musteri_sekmesi="epostaPazarlama",
+        yonetici_sekmesi="epostaPazarlama",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("aylik_gonderim_siniri", "int", 10000, en_az=0, en_cok=1000000),
+            AyarAlani("kisi_siniri", "int", 2000, en_az=0, en_cok=1000000),
+        ),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

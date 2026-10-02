@@ -119,6 +119,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,
     # ajansın kendi asistanında yöneticilere).
     "asistan_devir": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 5M — e-posta pazarlama gönderimleri otomatik askıya alındı (şikâyet / sert geri dönüş oranı).
+    "pazarlama_askiya_alindi": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

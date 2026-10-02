@@ -217,6 +217,22 @@ async def ekip(db_oturumu):
                                               durum="hazir"))
     ais = await _ekle(db, AiAsistanSohbetleri(asistan_id=aia.id, hesap_email=s, oturum_ozeti=uuid.uuid4().hex, kaynak="sayfa"))
     k.update(AIA=aia.id, AIK=aik.id, AIS=ais.id)
+    # Faz 5M: `pazarlama` izni yalnız hesap yöneticisinin varsayılanında — izinli üye ayrıca; sahibin
+    # e-posta pazarlama kayıtları (liste, kişi, form, segment, taslak kampanya, dizi).
+    from models.eposta_pazarlama import EpDiziler, EpFormlar, EpKampanyalar, EpKisiler, EpListeler, EpSegmentler
+
+    k["pazarlamaci"] = _e("pazarlamaci")
+    await _uye_ekle(db, s, k["pazarlamaci"], "uye", izinler=["projeler", "pazarlama"])
+    el = await _ekle(db, EpListeler(hesap_email=s, ad="Sahibin bülteni"))
+    ek_ = await _ekle(db, EpKisiler(kapsam=s, hesap_email=s, eposta=f"abone-{uuid.uuid4().hex[:6]}@ornek.com", alici_turu="bireysel",
+                                    izin_durumu="izinsiz", kaynak="manuel", etiketler="[]", ozel_alanlar="{}", dil="tr"))
+    ef = await _ekle(db, EpFormlar(hesap_email=s, liste_id=el.id, ad="Sahibin formu", genel_anahtar="ekip" + uuid.uuid4().hex[:10]))
+    es = await _ekle(db, EpSegmentler(hesap_email=s, ad="Sahibin segmenti",
+                                      kurallar=json.dumps({"birlesim": "ve", "kurallar": [{"alan": "kaynak", "op": "esit", "deger": "manuel"}]})))
+    ekp = await _ekle(db, EpKampanyalar(hesap_email=s, ad="Sahibin kampanyası", durum="taslak", konu="Merhaba",
+                                        bloklar=json.dumps([{"tur": "metin", "metin": "Merhaba"}])))
+    ed = await _ekle(db, EpDiziler(hesap_email=s, ad="Sahibin dizisi", tetik="abonelik_onaylandi", liste_id=el.id, aktif=False))
+    k.update(EL=el.id, EK=ek_.id, EF=ef.id, ES=es.id, EKP=ekp.id, ED=ed.id)
     return k
 
 
@@ -472,6 +488,60 @@ MUSTERI_UCLARI = [
     ("POST", "/api/v1/ai-asistanim/{AIA}/sohbetler/{AIS}/anonimlestir", ("asistan",), None, 200),
     ("DELETE", "/api/v1/ai-asistanim/{AIA}/sohbetler/999999", ("asistan",), None, "gecti"),
     ("GET", "/api/v1/ai-asistanim/{AIA}/kullanim", ("asistan",), None, 200),
+    # Faz 5M — e-posta pazarlama (`pazarlama` izni). Gönderim/test Resend kurulu değil → 409 → "gecti".
+    ("GET", "/api/v1/eposta-pazarlamam/meta", ("pazarlama",), None, 200),
+    ("GET", "/api/v1/eposta-pazarlamam/ozet", ("pazarlama",), None, 200),
+    ("GET", "/api/v1/eposta-pazarlamam/ayarlar", ("pazarlama",), None, 200),
+    ("PUT", "/api/v1/eposta-pazarlamam/ayarlar", ("pazarlama",), {"gonderen_adi": "Ekip"}, 200),
+    ("GET", "/api/v1/eposta-pazarlamam/kisiler", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/kisiler", ("pazarlama",), {"eposta": "yeni-abone@ornek.com"}, "gecti"),
+    ("GET", "/api/v1/eposta-pazarlamam/kisiler/{EK}", ("pazarlama",), None, 200),
+    ("PUT", "/api/v1/eposta-pazarlamam/kisiler/{EK}", ("pazarlama",), {"ad": "Abone"}, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/kisiler/999999/ret", ("pazarlama",), None, "gecti"),
+    ("DELETE", "/api/v1/eposta-pazarlamam/kisiler/999999", ("pazarlama",), None, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/kisiler/ice-aktar/onizleme", ("pazarlama",), GOVDE_DOSYA, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/kisiler/ice-aktar", ("pazarlama",), GOVDE_DOSYA, "gecti"),
+    ("GET", "/api/v1/eposta-pazarlamam/bastirma", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/bastirma", ("pazarlama",), {"eposta": "istemiyor@ornek.com"}, 200),
+    ("DELETE", "/api/v1/eposta-pazarlamam/bastirma/999999", ("pazarlama",), None, "gecti"),
+    ("GET", "/api/v1/eposta-pazarlamam/listeler", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/listeler", ("pazarlama",), {"ad": "Ekip listesi"}, 200),
+    ("PUT", "/api/v1/eposta-pazarlamam/listeler/{EL}", ("pazarlama",), {"aciklama": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/eposta-pazarlamam/listeler/999999", ("pazarlama",), None, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/listeler/{EL}/uyeler", ("pazarlama",), {"kisi_idleri": []}, 200),
+    ("DELETE", "/api/v1/eposta-pazarlamam/listeler/{EL}/uyeler/999999", ("pazarlama",), None, "gecti"),
+    ("GET", "/api/v1/eposta-pazarlamam/formlar", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/formlar", ("pazarlama",), {"ad": "Ekip formu", "liste_id": 999999}, "gecti"),
+    ("PUT", "/api/v1/eposta-pazarlamam/formlar/{EF}", ("pazarlama",), {"baslik": "Bültene katılın"}, 200),
+    ("DELETE", "/api/v1/eposta-pazarlamam/formlar/999999", ("pazarlama",), None, "gecti"),
+    ("GET", "/api/v1/eposta-pazarlamam/segmentler", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/segmentler", ("pazarlama",),
+     {"ad": "Ekip segmenti", "kurallar": {"kurallar": [{"alan": "alici_turu", "op": "esit", "deger": "kurumsal"}]}}, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/segmentler/onizleme", ("pazarlama",),
+     {"kurallar": {"kurallar": [{"alan": "kaynak", "op": "esit", "deger": "manuel"}]}}, 200),
+    ("PUT", "/api/v1/eposta-pazarlamam/segmentler/{ES}", ("pazarlama",), {"ad": "Yeni ad"}, 200),
+    ("DELETE", "/api/v1/eposta-pazarlamam/segmentler/999999", ("pazarlama",), None, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/gorseller", ("pazarlama",), GOVDE_DOSYA, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/onizleme", ("pazarlama",), {"bloklar": [{"tur": "metin", "metin": "Merhaba"}]}, 200),
+    ("GET", "/api/v1/eposta-pazarlamam/kampanyalar", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/kampanyalar", ("pazarlama",), {"ad": "Ekip kampanyası"}, 200),
+    ("GET", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}", ("pazarlama",), None, 200),
+    ("PUT", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}", ("pazarlama",), {"onizleme_metni": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/eposta-pazarlamam/kampanyalar/999999", ("pazarlama",), None, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}/kopyala", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}/onizleme", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}/kitle", ("pazarlama",), {}, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}/test", ("pazarlama",), {"adresler": ["test@ornek.com"]}, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}/gonder", ("pazarlama",), {}, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}/durdur", ("pazarlama",), None, "gecti"),
+    ("POST", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}/devam", ("pazarlama",), None, "gecti"),
+    ("GET", "/api/v1/eposta-pazarlamam/kampanyalar/{EKP}/rapor", ("pazarlama",), None, 200),
+    ("GET", "/api/v1/eposta-pazarlamam/diziler", ("pazarlama",), None, 200),
+    ("POST", "/api/v1/eposta-pazarlamam/diziler", ("pazarlama",), {"ad": "Ekip dizisi", "liste_id": "{EL}"}, "gecti"),
+    ("GET", "/api/v1/eposta-pazarlamam/diziler/{ED}", ("pazarlama",), None, 200),
+    ("PUT", "/api/v1/eposta-pazarlamam/diziler/{ED}", ("pazarlama",), {"ad": "Yeni dizi adı"}, 200),
+    ("DELETE", "/api/v1/eposta-pazarlamam/diziler/999999", ("pazarlama",), None, "gecti"),
+    ("GET", "/api/v1/eposta-pazarlamam/diziler/{ED}/rapor", ("pazarlama",), None, 200),
 ]
 
 
@@ -513,6 +583,8 @@ def _izinli_uye(k, izinler):
         return k["apici"]
     if izinler == ("otomasyon",):  # Faz 4W: üye/fatura rolünün varsayılanında yok (apici'ye ayrıca verildi)
         return k["apici"]
+    if izinler == ("pazarlama",):  # Faz 5M: üye/fatura rolünün varsayılanında yok
+        return k["pazarlamaci"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):
             return kisi
@@ -877,8 +949,8 @@ async def test_yonetici_basligi_yok_sayar_ve_musteri_adina_yonetir(istemci, ekip
     y = await istemci.get("/api/v1/entities/invoices/all", headers=b)
     assert y.status_code == 200 and y.json()["total"] >= 1
     y = await istemci.get(f"/api/v1/musteri-hesaplari/{k['sahip']}/uyeler", headers=yonetici_basligi)
-    # Faz 4A: fikstürde `api` izinli dördüncü üye (apici) var.
-    assert y.status_code == 200 and len(y.json()["uyeler"]) == 4
+    # Faz 4A: fikstürde `api` izinli dördüncü üye (apici) var; Faz 5M: `pazarlama` izinli beşinci (pazarlamaci).
+    assert y.status_code == 200 and len(y.json()["uyeler"]) == 5
     y = await istemci.post(
         f"/api/v1/musteri-hesaplari/{k['sahip']}/uyeler", json={"email": _e("ajans"), "rol": "uye"}, headers=yonetici_basligi
     )

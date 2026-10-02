@@ -1,0 +1,32 @@
+{
+  "bultenSayfa": {
+    "onay": {
+      "baslik": "Aboneliğinizi onaylayın",
+      "aciklama": "{{eposta}} adresini {{gonderen}} e-posta listesine ({{liste}}) eklemek için aşağıdaki düğmeye tıklayın.",
+      "dugme": "Aboneliğimi onayla",
+      "not": "Bu isteği siz yapmadıysanız bu sayfayı kapatın; onaylamadığınız sürece size e-posta gönderilmez.",
+      "tamam": "Aboneliğiniz onaylandı",
+      "tamamAciklama": "Teşekkürler! Her e-postanın altındaki bağlantıyla dilediğiniz an ayrılabilirsiniz.",
+      "gecersiz": "Bağlantı geçersiz",
+      "gecersizAciklama": "Bağlantıyı e-postadan eksiksiz kopyaladığınızdan emin olun.",
+      "kullanildi": "Bu bağlantı zaten kullanıldı",
+      "kullanildiAciklama": "Aboneliğiniz daha önce onaylanmış ya da sonlandırılmış.",
+      "suresi_doldu": "Bağlantının süresi doldu",
+      "suresi_dolduAciklama": "Onay bağlantıları 72 saat geçerlidir. Formu yeniden doldurarak yeni bağlantı isteyebilirsiniz.",
+      "hata": "Bir sorun oluştu",
+      "hataAciklama": "Lütfen biraz sonra tekrar deneyin."
+    },
+    "tercih": {
+      "baslik": "E-posta tercihleri",
+      "retBaslik": "Abonelikten çıktınız",
+      "adres": "{{eposta}} · {{gonderen}}",
+      "listeler": "Almak istediğim listeler",
+      "retDugme": "Tüm e-postalardan çık",
+      "retTamam": "Aboneliğiniz sonlandırıldı. Bundan sonra size pazarlama e-postası gönderilmeyecek.",
+      "zatenRet": "Bu adres için abonelik zaten sonlandırılmış.",
+      "not": "Yeniden abone olmak isterseniz abonelik formunu kullanabilirsiniz.",
+      "gecersiz": "Bağlantı geçersiz.",
+      "hata": "Bir sorun oluştu; lütfen tekrar deneyin."
+    }
+  }
+}

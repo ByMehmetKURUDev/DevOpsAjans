@@ -36,7 +36,8 @@
       "api": "API und Webhooks",
       "randevu": "Termine und Meetings",
       "otomasyon": "Automatisierungsregeln",
-      "asistan": "KI-Assistent und Wissensdatenbank"
+      "asistan": "KI-Assistent und Wissensdatenbank",
+      "pazarlama": "E-Mail-Marketing"
     },
     "durum": {
       "davet": "Einladung ausstehend",

@@ -38,6 +38,7 @@
               "ozel": "veriSorumlusu"
             },
             "Bu metin; mehmetkuru.dev alan adı altındaki sayfaları, müşteri panelini, başka sitelere gömülebilen formlarımızı ve bunlar üzerinden sunulan hizmetleri kapsar. Başka sitelere verilen bağlantılar o sitelerin kendi politikalarına tabidir.",
+            "**Müşterilerimiz adına gönderilen e-postalar:** Müşterilerimiz, panelimizdeki e-posta pazarlama aracıyla kendi abonelerine bülten ve kampanya e-postası gönderebilir. Bu iletilerin alıcılarına ait veriler bakımından veri sorumlusu, iletiyi gönderen ve alt bilgisinde unvanı yer alan işletmedir; biz bu verileri yalnızca onun adına ve talimatıyla, veri işleyen sıfatıyla işleriz. Bu iletilerle ilgili taleplerinizi öncelikle iletiyi gönderen işletmeye yöneltebilirsiniz; aboneliğinizi her iletideki bağlantıyla doğrudan sonlandırabilirsiniz.",
             "**Müşterilerimizin sitelerindeki yapay zekâ asistanı:** Müşterilerimiz, panelimizden kurdukları yapay zekâ asistanını kendi sitelerine yerleştirebilir. Bu asistanla yapılan sohbetlerde ve insana devir formunda bırakılan ad ile iletişim bilgilerinde veri sorumlusu, asistanı sitesinde kullanan müşterimizdir; bu verilerle ilgili başvurularınızı öncelikle o siteye yapmanızı rica ederiz. Biz bu verileri yalnızca müşterimizin talimatıyla ve hizmeti sunmak için veri işleyen sıfatıyla işleriz: soruyu yanıtlamak için mesaj, yapay zekâ sağlayıcımıza (Google Gemini API) iletilir; IP adresi yalnızca tuzlanmış özet olarak tutulur; sohbetler müşterimizin seçtiği süre sonunda silinir. Bu verileri kendi amaçlarımız için kullanmayız."
           ]
         },
@@ -56,7 +57,8 @@
                 "**Pazarlama:** yalnızca açık rızanızla, Google Analytics, Google Ads ve Meta Pixel çerezleri ile bunların topladığı kullanım ve reklam etkileşimi verileri."
               ]
             },
-            "Ham IP adresinizi veritabanımızda saklamayız; kötüye kullanımı önlemek ve kayıtların kanıt değerini korumak için yalnızca geri döndürülemeyen özetini tutarız. Sağlık ya da biyometrik veri gibi özel nitelikli kişisel veri istemeyiz; formlara ve mesajlara bu tür bilgileri yazmamanızı rica ederiz."
+            "Ham IP adresinizi veritabanımızda saklamayız; kötüye kullanımı önlemek ve kayıtların kanıt değerini korumak için yalnızca geri döndürülemeyen özetini tutarız. Sağlık ya da biyometrik veri gibi özel nitelikli kişisel veri istemeyiz; formlara ve mesajlara bu tür bilgileri yazmamanızı rica ederiz.",
+            "**E-posta bülteni:** Bültenimize abone olduğunuzda e-posta adresiniz, isteğe bağlı olarak adınız ve dil tercihiniz ile onayınızın kanıtı (gösterilen izin metninin sürümü, onay zamanı ve IP adresinizin geri döndürülemeyen özeti) kaydedilir. Abonelik çift onaylıdır: e-postanıza gelen bağlantıya tıklamadıkça size bülten gönderilmez. Gönderim sağlayıcısından iletinin teslim edilip edilmediği, geri dönüp dönmediği ve istenmeyen ileti olarak bildirilip bildirilmediği bilgisi alınır. Açılma ve tıklama ölçümü varsayılan olarak kapalıdır; gönderen etkinleştirmişse iletide görünmez bir piksel ve yönlendirmeli bağlantılar kullanılır. Her iletideki bağlantıyla tek tıkla abonelikten çıkabilirsiniz; ret talebiniz anında ve kalıcı olarak uygulanır."
           ]
         },
         {
@@ -77,7 +79,8 @@
                 "Bilgi güvenliğini sağlamak: kötüye kullanımı ve otomatik saldırıları önlemek, istek sınırlarını uygulamak, işlem ve denetim kayıtlarını tutmak.",
                 "Hataları gidermek ve hizmetlerimizi geliştirmek.",
                 "Yalnızca açık rızanızla: site kullanımını ölçmek ve reklamların etkisini değerlendirmek.",
-                "Uyuşmazlıklarda haklarımızı korumak ve yetkili mercilerin taleplerini karşılamak."
+                "Uyuşmazlıklarda haklarımızı korumak ve yetkili mercilerin taleplerini karşılamak.",
+                "Açık rızanızla abone olduğunuz bülten ve duyuru e-postalarını göndermek, ret talebinizi uygulamak ve gönderim kalitesini (teslim, geri dönme, şikâyet) izlemek."
               ]
             }
           ]
@@ -124,7 +127,7 @@
                   ],
                   [
                     "Resend, Inc.",
-                    "Bildirim, rapor, teklif ve fatura e-postalarının gönderilmesi; destek adresine gelen e-postaların alınması",
+                    "Bildirim, rapor, teklif ve fatura e-postalarının gönderilmesi; destek adresine gelen e-postaların alınması; bülten ve müşterilerimiz adına gönderilen pazarlama e-postalarının gönderilmesi ve teslim durumlarının bildirilmesi",
                     "ABD"
                   ],
                   [
@@ -185,7 +188,8 @@
                 "Müşterilerimizin sitelerindeki yapay zekâ asistanı sohbetleri, müşterimizin seçtiği süre (varsayılan 90 gün) sonunda devir bilgileriyle birlikte silinir.",
                 "Fatura, sözleşme ve muhasebe kayıtları, Vergi Usul Kanunu ve Türk Ticaret Kanunu'ndaki defter ve belge saklama süreleri boyunca saklanır.",
                 "Diğer veriler (talepler, mesajlar, destek kayıtları, hesap bilgileri) amaç için gereken süre ve ilgili mevzuattaki zamanaşımı süreleri boyunca saklanır.",
-                "Tarayıcınızdaki yerel kayıtlar, siz silene ya da oturumu kapatana kadar tarayıcınızda kalır (bkz. [Çerez Politikası](sayfa:cerezPolitikasi))."
+                "Tarayıcınızdaki yerel kayıtlar, siz silene ya da oturumu kapatana kadar tarayıcınızda kalır (bkz. [Çerez Politikası](sayfa:cerezPolitikasi)).",
+                "E-posta bülteni: abonelik ve onay kayıtları abonelik sürdükçe ve sona ermesinden sonra ilgili mevzuatın öngördüğü ispat süresi boyunca saklanır; abonelikten çıkan ya da şikâyette bulunan adresler, kendilerine yeniden ileti gönderilmemesi için bastırma listesinde tutulur."
               ]
             }
           ]

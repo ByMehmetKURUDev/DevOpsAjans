@@ -120,6 +120,12 @@ HARIC_TABLOLAR = frozenset({
     # dolunca siliniyor), bilgi bankası parçaları (kaynaktan türetilmiş, her işlemede yeniden
     # yazılıyor) ve günlük sayaç. Asistan ayarları ve kaynaklar kaydediliyor.
     "ai_asistan_sohbetleri", "ai_asistan_mesajlari", "ai_asistan_parcalari", "ai_asistan_kullanimi",
+    # Faz 5M: e-posta pazarlama alıcıları (herkese açık formdan ve CSV'den, KİŞİSEL VERİ; izin
+    # kanıtı kendi satırında), liste üyelikleri, ileti/teslimat satırları, dizi kayıtları,
+    # bastırma listesi, tıklama/webhook olayları ve görsel kayıtları — yüksek hacimli ya da
+    # kişisel. Ayarlar, listeler, formlar, segmentler, kampanyalar ve diziler kaydediliyor.
+    "ep_kisiler", "ep_liste_uyelikleri", "ep_gonderimler", "ep_dizi_kayitlari", "ep_bastirma",
+    "ep_tiklamalar", "ep_webhook_olaylari", "ep_gorseller",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.

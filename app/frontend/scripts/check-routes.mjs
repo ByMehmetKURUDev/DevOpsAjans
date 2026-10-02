@@ -74,6 +74,11 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   // Faz 5A: herkese açık AI asistan (tam sayfa ve gömülü pencere) — dinamik, noindex; CSP'yi
   // ve gömülüde frame-ancestors iznini Pages Function yazıyor (functions/asistan/[[yol]].js).
   '/asistan/:anahtar',
+  // Faz 5M: bülten abonelik formu, çift onay ve ret/tercih sayfası — dinamik, jetona/
+  // forma özel; prerender yok, noindex (sayfa + `_headers` X-Robots-Tag).
+  '/bulten/:anahtar',
+  '/bulten/onay/:jeton',
+  '/bulten/tercih/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

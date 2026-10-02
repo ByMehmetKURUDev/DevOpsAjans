@@ -172,6 +172,10 @@
       "ai_asistan": {
         "ad": "KI-Assistent und Wissensdatenbank",
         "aciklama": "Ein Chat-Assistent, der anhand Ihrer Dokumente, Website und FAQ antwortet und sich mit einer Zeile auf Ihrer Website einbetten lässt: nennt Quellen, erfindet nichts und übergibt Besucher per Support-Ticket an Ihr Team; mit Gesprächsprotokollen, Nutzungs- und Credit-Übersicht."
+      },
+      "eposta_pazarlama": {
+        "ad": "E-Mail-Marketing",
+        "aciklama": "Newsletter, Kampagnen und Drip-Sequenzen: Anmeldeformular mit Double-Opt-in, Listen und Segmente, mobilfreundliche E-Mails mit Block-Editor, Testversand, Zeitplanung, A/B-Betrefftests, Zustellberichte, Abmeldung mit einem Klick und Einwilligungsnachweis."
       }
     },
     "kategori": {
@@ -220,7 +224,9 @@
       "url_sayfa_siniri": "Maximal von Websites gelesene Seiten",
       "aylik_mesaj": "Im Monat enthaltene KI-Antworten",
       "gunluk_yanit": "Maximale Antworten pro Tag",
-      "kredi_ile_asim": "Nach den enthaltenen Antworten mit Credit-Blöcken fortfahren"
+      "kredi_ile_asim": "Nach den enthaltenen Antworten mit Credit-Blöcken fortfahren",
+      "aylik_gonderim_siniri": "Max. Versand pro Monat (Nachrichten)",
+      "kisi_siniri": "Max. Kontakte"
     },
     "musteri": {
       "baslik": "Meine Module",

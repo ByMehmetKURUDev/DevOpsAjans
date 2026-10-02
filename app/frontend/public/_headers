@@ -40,3 +40,10 @@
 /kod-deneme/index.html
   ! Content-Security-Policy
   ! Reporting-Endpoints
+
+# Faz 5M: bülten sayfaları (abonelik formu, çift onay, ret/tercih) — dizine girmez; adres
+# jeton taşıdığı için yönlendiren (Referer) hiç gönderilmez.
+/bulten/*
+  ! Referrer-Policy
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex, nofollow

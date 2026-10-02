@@ -488,7 +488,8 @@
     "tabApi": "API и вебхуки",
     "tabRandevu": "Записи",
     "tabOtomasyon": "Автоматизация",
-    "tabAiAsistan": "ИИ-ассистент"
+    "tabAiAsistan": "ИИ-ассистент",
+    "tabEpostaPazarlama": "Email-маркетинг"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

@@ -172,6 +172,10 @@
       "ai_asistan": {
         "ad": "AI asistan ve bilgi bankası",
         "aciklama": "Belgeleriniz, siteniz ve SSS'niz üzerinden yanıt veren, sitenize tek satırla gömülen sohbet asistanı: kaynak gösterir, bilmediğini uydurmaz, ziyaretçiyi destek talebiyle ekibinize devreder; sohbet kayıtları, kullanım ve kredi takibi."
+      },
+      "eposta_pazarlama": {
+        "ad": "E-posta pazarlama",
+        "aciklama": "Bülten, kampanya ve damla dizileri: çift onaylı abonelik formu, listeler ve segmentler, blok düzenleyiciyle mobil uyumlu e-posta, test gönderimi, zamanlama, A/B konu testi, teslimat raporu, tek tıkla ret ve izin kaydı (6563 sayılı Kanun)."
       }
     },
     "kategori": {
@@ -220,7 +224,9 @@
       "url_sayfa_siniri": "Web sitesinden en çok okunacak sayfa",
       "aylik_mesaj": "Aya dahil yapay zekâ yanıtı",
       "gunluk_yanit": "Günlük en çok yanıt",
-      "kredi_ile_asim": "Dahil hak bitince kredi bloğuyla devam et"
+      "kredi_ile_asim": "Dahil hak bitince kredi bloğuyla devam et",
+      "aylik_gonderim_siniri": "Aylık en çok gönderim (ileti)",
+      "kisi_siniri": "En çok kişi (alıcı)"
     },
     "musteri": {
       "baslik": "Modüllerim",

@@ -152,6 +152,19 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     # Faz 4W: otomasyon kuralı (müşteride hesabın) ve özel alan tanımı (ajans; değerler kalıyor).
     "otomasyon_kurallari": {"sahip": "hesap_email", "sira": 10},
     "ozel_alanlar": {"sira": 10},
+    # Faz 5M: e-posta pazarlama — liste, form, segment, taslak kampanya ve damla dizisi (adımlarıyla
+    # birlikte). Kişiler çöpe düşmüyor: kişi silme KVKK silme talebidir (kalıcı; bastırma kaydı kalır).
+    "ep_listeler": {"sahip": "hesap_email", "sira": 10},
+    "ep_formlar": {"sahip": "hesap_email", "sira": 20},
+    "ep_segmentler": {"sahip": "hesap_email", "sira": 10},
+    "ep_kampanyalar": {"sahip": "hesap_email", "sira": 10},
+    "ep_diziler": {"sahip": "hesap_email", "sira": 10},
+    "ep_dizi_adimlari": {
+        "sahip_sorgu": "SELECT hesap_email FROM ep_diziler WHERE id = :v",
+        "sahip_alan": "dizi_id",
+        "sira": 20,
+        "ebeveyn": "ep_diziler",
+    },
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

@@ -38,6 +38,7 @@
               "ozel": "veriSorumlusu"
             },
             "Diese Hinweise gelten für die Seiten unter der Domain mehmetkuru.dev, das Kundenportal, unsere auf anderen Websites einbettbaren Formulare und die darüber erbrachten Leistungen. Für Links zu anderen Websites gelten deren eigene Richtlinien.",
+            "**Im Auftrag unserer Kunden gesendete E-Mails:** Unsere Kunden können mit dem E-Mail-Marketing-Werkzeug in unserem Panel Newsletter und Kampagnen-E-Mails an ihre eigenen Abonnenten senden. Verantwortlicher für die Daten der Empfänger dieser Nachrichten ist das Unternehmen, das die Nachricht sendet und dessen Firmenname in der Fußzeile steht; wir verarbeiten diese Daten nur in dessen Auftrag und nach dessen Weisung als Auftragsverarbeiter. Anfragen zu diesen Nachrichten richten Sie bitte in erster Linie an das sendende Unternehmen; Ihr Abonnement können Sie über den Link in jeder Nachricht direkt beenden.",
             "**KI-Assistent auf den Websites unserer Kunden:** Unsere Kunden können den KI-Assistenten, den sie in unserem Panel einrichten, auf ihren eigenen Websites einbinden. Für Gespräche mit diesem Assistenten sowie für Namen und Kontaktdaten, die im Übergabeformular hinterlassen werden, ist der Kunde, der den Assistenten auf seiner Website einsetzt, der Verantwortliche; bitte richten Sie Anfragen zu diesen Daten zunächst an diese Website. Wir verarbeiten diese Daten ausschließlich auf Weisung unseres Kunden und als Auftragsverarbeiter, um den Dienst zu erbringen: Zur Beantwortung einer Frage wird die Nachricht an unseren KI-Anbieter (Google Gemini API) übermittelt; IP-Adressen werden nur als gesalzene Hashwerte gespeichert; Gespräche werden nach Ablauf der von unserem Kunden gewählten Frist gelöscht. Wir nutzen diese Daten nicht für eigene Zwecke."
           ]
         },
@@ -56,7 +57,8 @@
                 "**Marketing:** nur mit Ihrer ausdrücklichen Einwilligung Cookies von Google Analytics, Google Ads und Meta Pixel sowie die damit erfassten Nutzungs- und Werbeinteraktionsdaten."
               ]
             },
-            "Ihre vollständige IP-Adresse speichern wir nicht in unserer Datenbank; um Missbrauch zu verhindern und die Beweiskraft von Protokollen zu wahren, speichern wir nur einen nicht umkehrbaren Hash. Besondere Kategorien personenbezogener Daten wie Gesundheits- oder biometrische Daten fragen wir nicht ab; bitte geben Sie solche Angaben nicht in Formulare oder Nachrichten ein."
+            "Ihre vollständige IP-Adresse speichern wir nicht in unserer Datenbank; um Missbrauch zu verhindern und die Beweiskraft von Protokollen zu wahren, speichern wir nur einen nicht umkehrbaren Hash. Besondere Kategorien personenbezogener Daten wie Gesundheits- oder biometrische Daten fragen wir nicht ab; bitte geben Sie solche Angaben nicht in Formulare oder Nachrichten ein.",
+            "**E-Mail-Newsletter:** Wenn Sie unseren Newsletter abonnieren, speichern wir Ihre E-Mail-Adresse, optional Ihren Namen und Ihre Sprache sowie einen Nachweis Ihrer Einwilligung (Version des angezeigten Einwilligungstextes, Zeitpunkt der Bestätigung und einen nicht umkehrbaren Hash Ihrer IP-Adresse). Das Abonnement erfolgt per Double-Opt-in: Sie erhalten keinen Newsletter, bevor Sie auf den Link in der E-Mail klicken. Vom Versanddienst erhalten wir Informationen darüber, ob eine Nachricht zugestellt wurde, unzustellbar war oder als Spam gemeldet wurde. Die Messung von Öffnungen und Klicks ist standardmäßig deaktiviert; hat der Absender sie aktiviert, werden ein unsichtbares Pixel und umgeleitete Links verwendet. Über den Link in jeder Nachricht können Sie sich mit einem Klick abmelden; Ihre Abmeldung wird sofort und dauerhaft umgesetzt."
           ]
         },
         {
@@ -77,7 +79,8 @@
                 "Informationssicherheit: Verhinderung von Missbrauch und automatisierten Angriffen, Durchsetzung von Anfragelimits, Führung von Vorgangs- und Prüfprotokollen.",
                 "Fehlerbehebung und Weiterentwicklung unserer Leistungen.",
                 "Nur mit Ihrer ausdrücklichen Einwilligung: Messung der Website-Nutzung und Bewertung der Werbewirkung.",
-                "Wahrung unserer Rechte bei Streitigkeiten und Beantwortung von Anfragen zuständiger Behörden."
+                "Wahrung unserer Rechte bei Streitigkeiten und Beantwortung von Anfragen zuständiger Behörden.",
+                "Versand der Newsletter- und Ankündigungs-E-Mails, die Sie mit Ihrer ausdrücklichen Einwilligung abonniert haben, Umsetzung Ihrer Abmeldung und Überwachung der Versandqualität (Zustellung, Bounces, Beschwerden)."
               ]
             }
           ]
@@ -124,7 +127,7 @@
                   ],
                   [
                     "Resend, Inc.",
-                    "Versand von Benachrichtigungs-, Berichts-, Angebots- und Rechnungs-E-Mails; Empfang von E-Mails an die Support-Adresse",
+                    "Versand von Benachrichtigungs-, Berichts-, Angebots- und Rechnungs-E-Mails; Empfang von E-Mails an die Support-Adresse; Versand von Newslettern und Marketing-E-Mails im Auftrag unserer Kunden sowie Meldung ihres Zustellstatus",
                     "USA"
                   ],
                   [
@@ -185,7 +188,8 @@
                 "Gespräche mit dem KI-Assistenten auf den Websites unserer Kunden werden samt Übergabedaten nach Ablauf der vom Kunden gewählten Frist (standardmäßig 90 Tage) gelöscht.",
                 "Rechnungs-, Vertrags- und Buchhaltungsunterlagen werden für die im türkischen Steuerverfahrensgesetz und im türkischen Handelsgesetzbuch festgelegten Aufbewahrungsfristen für Bücher und Belege gespeichert.",
                 "Sonstige Daten (Anfragen, Nachrichten, Support-Vorgänge, Kontodaten) werden so lange gespeichert, wie es der Zweck erfordert, und für die gesetzlichen Verjährungsfristen.",
-                "Lokale Einträge in Ihrem Browser bleiben dort, bis Sie sie löschen oder sich abmelden (siehe [Cookie-Richtlinie](sayfa:cerezPolitikasi))."
+                "Lokale Einträge in Ihrem Browser bleiben dort, bis Sie sie löschen oder sich abmelden (siehe [Cookie-Richtlinie](sayfa:cerezPolitikasi)).",
+                "E-Mail-Newsletter: Abonnement- und Einwilligungsnachweise werden für die Dauer des Abonnements und nach dessen Ende für die gesetzlich vorgesehene Nachweisfrist gespeichert; Adressen, die sich abmelden oder beschweren, werden auf einer Sperrliste geführt, damit sie keine Nachrichten mehr erhalten."
               ]
             }
           ]

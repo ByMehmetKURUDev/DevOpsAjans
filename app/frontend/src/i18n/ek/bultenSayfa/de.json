@@ -1,0 +1,32 @@
+{
+  "bultenSayfa": {
+    "onay": {
+      "baslik": "Bestätigen Sie Ihr Abonnement",
+      "aciklama": "Klicken Sie auf den Button unten, um {{eposta}} zur E-Mail-Liste von {{gonderen}} ({{liste}}) hinzuzufügen.",
+      "dugme": "Abonnement bestätigen",
+      "not": "Wenn Sie das nicht angefordert haben, schließen Sie diese Seite einfach; ohne Bestätigung erhalten Sie keine E-Mails.",
+      "tamam": "Ihr Abonnement ist bestätigt",
+      "tamamAciklama": "Vielen Dank! Über den Link am Ende jeder E-Mail können Sie sich jederzeit abmelden.",
+      "gecersiz": "Ungültiger Link",
+      "gecersizAciklama": "Prüfen Sie, ob Sie den Link vollständig aus der E-Mail kopiert haben.",
+      "kullanildi": "Dieser Link wurde bereits verwendet",
+      "kullanildiAciklama": "Ihr Abonnement wurde bereits bestätigt oder beendet.",
+      "suresi_doldu": "Dieser Link ist abgelaufen",
+      "suresi_dolduAciklama": "Bestätigungslinks sind 72 Stunden gültig. Füllen Sie das Formular erneut aus, um einen neuen Link zu erhalten.",
+      "hata": "Etwas ist schiefgelaufen",
+      "hataAciklama": "Bitte versuchen Sie es etwas später erneut."
+    },
+    "tercih": {
+      "baslik": "E-Mail-Einstellungen",
+      "retBaslik": "Sie haben sich abgemeldet",
+      "adres": "{{eposta}} · {{gonderen}}",
+      "listeler": "Listen, die ich erhalten möchte",
+      "retDugme": "Von allen E-Mails abmelden",
+      "retTamam": "Ihr Abonnement wurde beendet. Sie erhalten ab sofort keine Marketing-E-Mails mehr.",
+      "zatenRet": "Diese Adresse ist bereits abgemeldet.",
+      "not": "Wenn Sie sich erneut anmelden möchten, nutzen Sie das Anmeldeformular.",
+      "gecersiz": "Ungültiger Link.",
+      "hata": "Etwas ist schiefgelaufen; bitte erneut versuchen."
+    }
+  }
+}
