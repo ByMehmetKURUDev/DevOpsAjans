@@ -68,7 +68,8 @@
       "randevu_yeni": "Appointments: new booking",
       "randevu_degisti": "Appointments: rescheduled",
       "randevu_iptal": "Appointments: cancelled",
-      "otomasyon_bildirimi": "Automation rule notification"
+      "otomasyon_bildirimi": "Automation rule notification",
+      "asistan_devir": "AI assistant: visitor handed over to a human"
     },
     "kanal": {
       "inapp": "Panel",

@@ -80,7 +80,8 @@
       "kapsam": {
         "acik": "öffentlich",
         "asistan": "Fachassistent",
-        "yonetici": "Admin"
+        "yonetici": "Admin",
+        "ai_asistan": "KI-Assistent (Websites)"
       },
       "kapat": "Schließen",
       "duzenleBaslik": "Assistent bearbeiten",

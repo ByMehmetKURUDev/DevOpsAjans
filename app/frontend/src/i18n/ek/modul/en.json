@@ -168,6 +168,10 @@
       "otomasyon": {
         "ad": "Automation rules",
         "aciklama": "\"When this happens, do that\": conditional email, panel notification, task, webhook and wait steps on events (tickets, invoices, tasks, bookings…); ready-made templates, dry runs and a 30-day run log."
+      },
+      "ai_asistan": {
+        "ad": "AI assistant and knowledge base",
+        "aciklama": "A chat assistant that answers from your documents, site and FAQ and embeds on your website with one line: it cites sources, doesn't make things up, and hands visitors over to your team with a support ticket; conversation records, usage and credit tracking."
       }
     },
     "kategori": {
@@ -211,7 +215,12 @@
       "tur_siniri": "Max event types per account",
       "kural_siniri": "Maximum automation rules per account",
       "calisma_dakika_siniri": "Maximum automation runs per minute",
-      "calisma_saat_siniri": "Maximum automation runs per hour"
+      "calisma_saat_siniri": "Maximum automation runs per hour",
+      "kaynak_siniri": "Maximum knowledge base sources per account",
+      "url_sayfa_siniri": "Maximum pages read from websites",
+      "aylik_mesaj": "AI replies included per month",
+      "gunluk_yanit": "Maximum replies per day",
+      "kredi_ile_asim": "Continue with credit blocks after the included replies"
     },
     "musteri": {
       "baslik": "My modules",

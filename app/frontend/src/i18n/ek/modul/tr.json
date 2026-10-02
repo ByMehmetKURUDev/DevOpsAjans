@@ -168,6 +168,10 @@
       "otomasyon": {
         "ad": "Otomasyon kuralları",
         "aciklama": "\"Şu olunca bunu yap\": olaylarda (talep, fatura, görev, randevu…) koşullu e-posta, panel bildirimi, görev, webhook ve bekleme; hazır şablonlar, kuru çalıştırma ve 30 günlük çalıştırma günlüğü."
+      },
+      "ai_asistan": {
+        "ad": "AI asistan ve bilgi bankası",
+        "aciklama": "Belgeleriniz, siteniz ve SSS'niz üzerinden yanıt veren, sitenize tek satırla gömülen sohbet asistanı: kaynak gösterir, bilmediğini uydurmaz, ziyaretçiyi destek talebiyle ekibinize devreder; sohbet kayıtları, kullanım ve kredi takibi."
       }
     },
     "kategori": {
@@ -211,7 +215,12 @@
       "tur_siniri": "Hesap başına en çok etkinlik türü",
       "kural_siniri": "Hesap başına en çok otomasyon kuralı",
       "calisma_dakika_siniri": "Dakikada en çok otomasyon çalıştırması",
-      "calisma_saat_siniri": "Saatte en çok otomasyon çalıştırması"
+      "calisma_saat_siniri": "Saatte en çok otomasyon çalıştırması",
+      "kaynak_siniri": "Hesap başına en çok bilgi bankası kaynağı",
+      "url_sayfa_siniri": "Web sitesinden en çok okunacak sayfa",
+      "aylik_mesaj": "Aya dahil yapay zekâ yanıtı",
+      "gunluk_yanit": "Günlük en çok yanıt",
+      "kredi_ile_asim": "Dahil hak bitince kredi bloğuyla devam et"
     },
     "musteri": {
       "baslik": "Modüllerim",

@@ -68,7 +68,8 @@
       "randevu_yeni": "预约：新预约",
       "randevu_degisti": "预约：已改期",
       "randevu_iptal": "预约：已取消",
-      "otomasyon_bildirimi": "自动化规则通知"
+      "otomasyon_bildirimi": "自动化规则通知",
+      "asistan_devir": "AI 助手：访客已转人工"
     },
     "kanal": {
       "inapp": "面板",

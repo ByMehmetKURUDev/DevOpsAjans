@@ -487,7 +487,8 @@
     "tabQrMenu": "QR-Speisekarte & Katalog",
     "tabApi": "API & Webhooks",
     "tabRandevu": "Termine",
-    "tabOtomasyon": "Automatisierung"
+    "tabOtomasyon": "Automatisierung",
+    "tabAiAsistan": "KI-Assistent"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

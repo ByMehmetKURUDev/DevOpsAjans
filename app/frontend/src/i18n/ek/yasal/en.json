@@ -37,7 +37,8 @@
             {
               "ozel": "veriSorumlusu"
             },
-            "This notice covers the pages under the mehmetkuru.dev domain, the client portal, our forms that can be embedded on other websites and the services provided through them. Links to other websites are governed by those websites' own policies."
+            "This notice covers the pages under the mehmetkuru.dev domain, the client portal, our forms that can be embedded on other websites and the services provided through them. Links to other websites are governed by those websites' own policies.",
+            "**AI assistant on our clients' websites:** Our clients can place the AI assistant they set up in our panel on their own websites. For conversations with this assistant and for the name and contact details left in its handover form, the data controller is the client using the assistant on their site; please direct requests about this data to that website first. We process this data only on our client's instructions and as a data processor in order to provide the service: to answer a question, the message is sent to our AI provider (Google Gemini API); IP addresses are kept only as salted hashes; conversations are deleted at the end of the period chosen by our client. We don't use this data for our own purposes."
           ]
         },
         {
@@ -181,6 +182,7 @@
                 "File sharing links are valid for at most 30 days, approval links for 14 days by default (at most 90 days), and website analysis report links for 30 days.",
                 "Website monitoring measurements are kept for 90 days and their daily summaries for 400 days.",
                 "Public AI chats on the website are not stored on the server.",
+                "AI assistant conversations on our clients' websites are deleted, together with handover details, at the end of the period chosen by the client (90 days by default).",
                 "Invoice, contract and accounting records are kept for the book and document retention periods set by the Turkish Tax Procedure Law and the Turkish Commercial Code.",
                 "Other data (requests, messages, support records, account details) is kept for as long as the purpose requires and for the limitation periods under the applicable legislation.",
                 "Local records in your browser stay there until you delete them or sign out (see the [Cookie Policy](sayfa:cerezPolitikasi))."

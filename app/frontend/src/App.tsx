@@ -64,6 +64,9 @@ const MenuSayfasi = ekliLazy('qrMenuSayfa', () => import('./pages/MenuSayfasi'))
 // Faz 5R: herkese açık randevu sayfası (/randevu/<slug>[/<tür>], /randevu/yonet/<jeton>) — site düzeni
 // dışında, prerender yok, site haritasında yok; og/robots Pages Function'ında (functions/randevu/[[yol]].js).
 const RandevuSayfasi = ekliLazy('randevuSayfa', () => import('./pages/RandevuSayfasi'));
+// Faz 5A: herkese açık AI asistan (/asistan/<anahtar>, gömülü ?gomulu=1) — site düzeni dışında, prerender yok,
+// her zaman noindex; metinleri sayfa kendisi yüklüyor (i18n/ek/asistanSayfa); CSP/frame-ancestors Pages Function'ında.
+const AsistanSayfasi = lazy(() => import('./pages/AsistanSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -150,6 +153,8 @@ const AppRoutes = () => (
       <Route path="/randevu/yonet/:jeton" element={<RandevuSayfasi />} />
       <Route path="/randevu/:slug" element={<RandevuSayfasi />} />
       <Route path="/randevu/:slug/:tur" element={<RandevuSayfasi />} />
+      {/* Faz 5A: AI asistan — site düzeni dışında (paylaşılabilir tam sayfa ve gömülü pencere). */}
+      <Route path="/asistan/:anahtar" element={<AsistanSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

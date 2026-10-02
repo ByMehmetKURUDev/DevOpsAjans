@@ -35,7 +35,8 @@
       "menu": "QR menu & catalog",
       "api": "API and webhooks",
       "randevu": "Appointments and meetings",
-      "otomasyon": "Automation rules"
+      "otomasyon": "Automation rules",
+      "asistan": "AI assistant and knowledge base"
     },
     "durum": {
       "davet": "Invitation pending",

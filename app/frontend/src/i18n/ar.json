@@ -487,7 +487,8 @@
     "tabQrMenu": "قائمة QR والكتالوج",
     "tabApi": "API والويب هوك",
     "tabRandevu": "المواعيد",
-    "tabOtomasyon": "الأتمتة"
+    "tabOtomasyon": "الأتمتة",
+    "tabAiAsistan": "مساعد الذكاء الاصطناعي"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

@@ -487,7 +487,8 @@
     "tabQrMenu": "QR-меню и каталог",
     "tabApi": "API и вебхуки",
     "tabRandevu": "Записи",
-    "tabOtomasyon": "Автоматизация"
+    "tabOtomasyon": "Автоматизация",
+    "tabAiAsistan": "ИИ-ассистент"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

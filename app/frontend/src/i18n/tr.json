@@ -487,7 +487,8 @@
     "tabQrMenu": "QR menü ve katalog",
     "tabApi": "API ve webhook",
     "tabRandevu": "Randevular",
-    "tabOtomasyon": "Otomasyon"
+    "tabOtomasyon": "Otomasyon",
+    "tabAiAsistan": "AI asistan"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

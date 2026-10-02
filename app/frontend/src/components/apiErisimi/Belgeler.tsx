@@ -77,7 +77,7 @@ const ORNEK_GOVDE = `{
 const OLAYLAR = [
   'aday.olusturuldu', 'teklif.kabul_edildi', 'teklif.reddedildi', 'sozlesme.imzalandi', 'fatura.olusturuldu',
   'fatura.odendi', 'destek.olusturuldu', 'destek.yanitlandi', 'gorev.olusturuldu', 'gorev.tamamlandi',
-  'proje.asama_degisti', 'menu.siparis', 'kart.mesaj', 'qr.tarama', 'ping',
+  'proje.asama_degisti', 'menu.siparis', 'kart.mesaj', 'qr.tarama', 'asistan.devredildi', 'ping',
 ];
 
 /** "GET /api/public/v1/projeler/{proje_id}" → "get_projeler_proje_id" (ek paketteki açıklama anahtarı). */

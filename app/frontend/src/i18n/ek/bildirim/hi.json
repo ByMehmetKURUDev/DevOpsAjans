@@ -68,7 +68,8 @@
       "randevu_yeni": "अपॉइंटमेंट: नई बुकिंग",
       "randevu_degisti": "अपॉइंटमेंट: समय बदला गया",
       "randevu_iptal": "अपॉइंटमेंट: रद्द",
-      "otomasyon_bildirimi": "ऑटोमेशन नियम की सूचना"
+      "otomasyon_bildirimi": "ऑटोमेशन नियम की सूचना",
+      "asistan_devir": "AI सहायक: विज़िटर व्यक्ति को सौंपा गया"
     },
     "kanal": {
       "inapp": "पैनल",

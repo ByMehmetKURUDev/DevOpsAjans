@@ -116,6 +116,9 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "randevu_iptal": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (yöneticilere / müşteri hesabına).
     "otomasyon_bildirimi": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,
+    # ajansın kendi asistanında yöneticilere).
+    "asistan_devir": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

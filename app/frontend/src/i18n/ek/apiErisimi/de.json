@@ -56,7 +56,8 @@
       "menu_siparis": "Menü- / Katalogbestellung",
       "kart_mesaj": "Nachricht über die Visitenkarte",
       "qr_tarama": "QR-Scan",
-      "ping": "Testereignis"
+      "ping": "Testereignis",
+      "asistan_devredildi": "KI-Assistent hat einen Besucher an einen Menschen übergeben"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

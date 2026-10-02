@@ -487,7 +487,8 @@
     "tabQrMenu": "QR menu & catalog",
     "tabApi": "API & webhooks",
     "tabRandevu": "Appointments",
-    "tabOtomasyon": "Automation"
+    "tabOtomasyon": "Automation",
+    "tabAiAsistan": "AI assistant"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

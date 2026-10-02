@@ -37,7 +37,8 @@
             {
               "ozel": "veriSorumlusu"
             },
-            "Diese Hinweise gelten für die Seiten unter der Domain mehmetkuru.dev, das Kundenportal, unsere auf anderen Websites einbettbaren Formulare und die darüber erbrachten Leistungen. Für Links zu anderen Websites gelten deren eigene Richtlinien."
+            "Diese Hinweise gelten für die Seiten unter der Domain mehmetkuru.dev, das Kundenportal, unsere auf anderen Websites einbettbaren Formulare und die darüber erbrachten Leistungen. Für Links zu anderen Websites gelten deren eigene Richtlinien.",
+            "**KI-Assistent auf den Websites unserer Kunden:** Unsere Kunden können den KI-Assistenten, den sie in unserem Panel einrichten, auf ihren eigenen Websites einbinden. Für Gespräche mit diesem Assistenten sowie für Namen und Kontaktdaten, die im Übergabeformular hinterlassen werden, ist der Kunde, der den Assistenten auf seiner Website einsetzt, der Verantwortliche; bitte richten Sie Anfragen zu diesen Daten zunächst an diese Website. Wir verarbeiten diese Daten ausschließlich auf Weisung unseres Kunden und als Auftragsverarbeiter, um den Dienst zu erbringen: Zur Beantwortung einer Frage wird die Nachricht an unseren KI-Anbieter (Google Gemini API) übermittelt; IP-Adressen werden nur als gesalzene Hashwerte gespeichert; Gespräche werden nach Ablauf der von unserem Kunden gewählten Frist gelöscht. Wir nutzen diese Daten nicht für eigene Zwecke."
           ]
         },
         {
@@ -181,6 +182,7 @@
                 "Links zum Teilen von Dateien gelten höchstens 30 Tage, Bestätigungslinks standardmäßig 14 Tage (höchstens 90 Tage) und Berichtslinks der Website-Analyse 30 Tage.",
                 "Messwerte der Website-Überwachung werden 90 Tage, deren Tageszusammenfassungen 400 Tage aufbewahrt.",
                 "Öffentliche KI-Chats auf der Website werden auf dem Server nicht gespeichert.",
+                "Gespräche mit dem KI-Assistenten auf den Websites unserer Kunden werden samt Übergabedaten nach Ablauf der vom Kunden gewählten Frist (standardmäßig 90 Tage) gelöscht.",
                 "Rechnungs-, Vertrags- und Buchhaltungsunterlagen werden für die im türkischen Steuerverfahrensgesetz und im türkischen Handelsgesetzbuch festgelegten Aufbewahrungsfristen für Bücher und Belege gespeichert.",
                 "Sonstige Daten (Anfragen, Nachrichten, Support-Vorgänge, Kontodaten) werden so lange gespeichert, wie es der Zweck erfordert, und für die gesetzlichen Verjährungsfristen.",
                 "Lokale Einträge in Ihrem Browser bleiben dort, bis Sie sie löschen oder sich abmelden (siehe [Cookie-Richtlinie](sayfa:cerezPolitikasi))."

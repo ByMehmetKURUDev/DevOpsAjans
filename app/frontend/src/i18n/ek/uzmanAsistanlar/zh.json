@@ -80,7 +80,8 @@
       "kapsam": {
         "acik": "公开",
         "asistan": "专家助手",
-        "yonetici": "管理员"
+        "yonetici": "管理员",
+        "ai_asistan": "AI 助手（网站）"
       },
       "kapat": "关闭",
       "duzenleBaslik": "编辑助手",

@@ -35,7 +35,8 @@
       "menu": "二维码菜单与目录",
       "api": "API 与 Webhook",
       "randevu": "预约与会议",
-      "otomasyon": "自动化规则"
+      "otomasyon": "自动化规则",
+      "asistan": "AI 助手与知识库"
     },
     "durum": {
       "davet": "等待接受邀请",

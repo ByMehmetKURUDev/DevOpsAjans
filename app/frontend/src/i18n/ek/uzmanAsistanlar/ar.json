@@ -80,7 +80,8 @@
       "kapsam": {
         "acik": "عام",
         "asistan": "مساعد خبير",
-        "yonetici": "المسؤول"
+        "yonetici": "المسؤول",
+        "ai_asistan": "مساعد الذكاء الاصطناعي (المواقع)"
       },
       "kapat": "إغلاق",
       "duzenleBaslik": "تعديل المساعد",

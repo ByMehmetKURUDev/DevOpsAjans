@@ -116,6 +116,10 @@ HARIC_TABLOLAR = frozenset({
     # Faz 4W: otomasyon kuyruğu/günlüğü (her olayda satır; kendi 30 günlük günlüğü var).
     # Kurallar, özel alan tanımları ve değerleri kaydediliyor.
     "otomasyon_calismalari",
+    # Faz 5A: AI asistan sohbetleri ve mesajları (herkese açık, KİŞİSEL VERİ — saklama süresi
+    # dolunca siliniyor), bilgi bankası parçaları (kaynaktan türetilmiş, her işlemede yeniden
+    # yazılıyor) ve günlük sayaç. Asistan ayarları ve kaynaklar kaydediliyor.
+    "ai_asistan_sohbetleri", "ai_asistan_mesajlari", "ai_asistan_parcalari", "ai_asistan_kullanimi",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
@@ -145,6 +149,10 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     "crm_formlar": frozenset({"gonderim_sayisi", "son_gonderim_at"}),
     # Faz 4Q: tarama sayacı (asıl kayıt `dinamik_qr_taramalari`).
     "dinamik_qr": frozenset({"tarama_sayisi", "son_tarama_at"}),
+    # Faz 5A: dizin önbelleği sürümü ve kaynak işleme durumu (kaynağın içeriği/ayarı kaydediliyor).
+    "ai_asistanlar": frozenset({"dizin_surumu"}),
+    "ai_asistan_kaynaklari": frozenset({"durum", "hata", "parca_sayisi", "karakter", "sayfa_sayisi", "son_isleme_at",
+                                        "sonraki_yenileme_at"}),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

@@ -35,7 +35,8 @@
       "menu": "QR menü ve katalog",
       "api": "API ve webhook",
       "randevu": "Randevu ve toplantılar",
-      "otomasyon": "Otomasyon kuralları"
+      "otomasyon": "Otomasyon kuralları",
+      "asistan": "AI asistan ve bilgi bankası"
     },
     "durum": {
       "davet": "Davet bekliyor",

@@ -30,6 +30,8 @@ export const IZINLER = [
   'randevu',
   // Faz 4W — otomasyon kuralları.
   'otomasyon',
+  // Faz 5A — AI asistan ve bilgi bankası.
+  'asistan',
 ] as const;
 export type Izin = (typeof IZINLER)[number];
 export type UyeRolu = 'yonetici' | 'uye' | 'fatura';
@@ -191,4 +193,5 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   api: ['api'],
   randevu: ['randevu'],
   otomasyon: ['otomasyon'],
+  aiAsistan: ['asistan'],
 };

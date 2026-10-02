@@ -56,7 +56,8 @@
       "menu_siparis": "菜单 / 目录订单",
       "kart_mesaj": "来自名片的消息",
       "qr_tarama": "二维码扫描",
-      "ping": "测试事件"
+      "ping": "测试事件",
+      "asistan_devredildi": "AI 助手已将访客转给人工"
     },
     "anahtar": {
       "yeni": "新建密钥",

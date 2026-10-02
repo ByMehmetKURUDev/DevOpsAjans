@@ -487,7 +487,8 @@
     "tabQrMenu": "QR मेन्यू और कैटलॉग",
     "tabApi": "API और वेबहुक",
     "tabRandevu": "अपॉइंटमेंट",
-    "tabOtomasyon": "ऑटोमेशन"
+    "tabOtomasyon": "ऑटोमेशन",
+    "tabAiAsistan": "AI सहायक"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

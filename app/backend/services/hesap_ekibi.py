@@ -71,6 +71,8 @@ IZINLER: Tuple[str, ...] = (
     # Faz 4W — otomasyon kuralları ve günlüğü (e-posta gönderebildiği için yalnız sahip/hesap
     # yöneticisinin varsayılanında; üye ve fatura rolüne ayrıca verilir).
     "otomasyon",
+    # Faz 5A — AI asistan ve bilgi bankası (sohbet kayıtları ziyaretçi kişisel verisi taşır).
+    "asistan",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -82,7 +84,7 @@ ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
     # Faz 4K/4M: üye kendi kartvizitini ve menü/katalog mağazalarını da yönetir.
     "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
-            "kartvizit", "menu", "randevu"),
+            "kartvizit", "menu", "randevu", "asistan"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
@@ -105,6 +107,9 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 4K/4M–4A/5R arası varsayılan (kartvizit ve menu var; api ve randevu yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu"}),
+        # Faz 5R–5A arası varsayılan (api ve randevu var, asistan yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu"}),
     ),
     "uye": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
@@ -115,6 +120,9 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 4M–5R arası varsayılan.
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
                    "kartvizit", "menu"}),
+        # Faz 5R–5A arası varsayılan.
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
+                   "kartvizit", "menu", "randevu"}),
     ),
 }
 
@@ -174,6 +182,8 @@ OLAY_IZNI: Dict[str, str] = {
     "randevu_iptal": "randevu",
     # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (hesaba).
     "otomasyon_bildirimi": "otomasyon",
+    # Faz 5A — AI asistan ziyaretçiyi insana devretti.
+    "asistan_devir": "asistan",
 }
 
 DAVET_OLAYI = "hesap_davet"

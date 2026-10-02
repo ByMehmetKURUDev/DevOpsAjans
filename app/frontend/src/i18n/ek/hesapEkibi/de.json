@@ -35,7 +35,8 @@
       "menu": "QR-Speisekarte & Katalog",
       "api": "API und Webhooks",
       "randevu": "Termine und Meetings",
-      "otomasyon": "Automatisierungsregeln"
+      "otomasyon": "Automatisierungsregeln",
+      "asistan": "KI-Assistent und Wissensdatenbank"
     },
     "durum": {
       "davet": "Einladung ausstehend",

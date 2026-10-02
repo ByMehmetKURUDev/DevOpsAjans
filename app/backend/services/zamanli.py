@@ -240,6 +240,12 @@ async def _otomasyon_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     from services.otomasyon import temizle
 
     return await temizle(db)
+async def _ai_asistan_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 5A: AI asistan — "haftalık yenile" işaretli URL kaynakları (tur başına en çok 2) ve
+    # saklama süresi dolan sohbetlerin silinmesi.
+    from services.ai_asistan import bakim_calistir
+
+    return await bakim_calistir(db)
 
 
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
@@ -279,6 +285,7 @@ GOREVLER: List[Gorev] = [
     Gorev("randevu_hatirlatmalari", timedelta(0), _randevu_hatirlatmalari),
     Gorev("otomasyon", timedelta(0), _otomasyon),
     Gorev("otomasyon_temizligi", timedelta(hours=20), _otomasyon_temizligi),
+    Gorev("ai_asistan_bakimi", timedelta(hours=1), _ai_asistan_bakimi),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

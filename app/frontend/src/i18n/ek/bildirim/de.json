@@ -68,7 +68,8 @@
       "randevu_yeni": "Termine: neue Buchung",
       "randevu_degisti": "Termine: verschoben",
       "randevu_iptal": "Termine: abgesagt",
-      "otomasyon_bildirimi": "Benachrichtigung einer Automatisierungsregel"
+      "otomasyon_bildirimi": "Benachrichtigung einer Automatisierungsregel",
+      "asistan_devir": "KI-Assistent: Besucher an einen Menschen übergeben"
     },
     "kanal": {
       "inapp": "Panel",

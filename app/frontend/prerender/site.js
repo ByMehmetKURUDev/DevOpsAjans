@@ -434,6 +434,8 @@ export const NOINDEX_ROUTES = [
   // Faz 5R: randevu sayfası ve imzalı yönetim bağlantısı (/randevu/...); site haritasına
   // girmez (görünürlük sayfa ayarı — robots'u Pages Function yazıyor).
   '/randevu',
+  // Faz 5A: AI asistan sayfası (/asistan/<anahtar>); her zaman noindex.
+  '/asistan',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

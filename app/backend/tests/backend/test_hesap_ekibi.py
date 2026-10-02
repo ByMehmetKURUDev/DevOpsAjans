@@ -208,6 +208,15 @@ async def ekip(db_oturumu):
     ok = await _ekle(db, OtomasyonKurallari(sahip_tur="musteri", hesap_email=s, ad="Sahibin kuralı", aktif=False,
                                             tetik="destek.olusturuldu", eylemler='[{"tur": "bildirim", "alici": "hesap", "baslik": "x"}]'))
     k.update(OK=ok.id)
+    # Faz 5A: sahibin AI asistanı (bir metin kaynağı + bir ziyaretçi sohbeti).
+    from models.ai_asistan import AiAsistanKaynaklari, AiAsistanlar, AiAsistanSohbetleri
+    from services.ai_asistan import yeni_anahtar
+
+    aia = await _ekle(db, AiAsistanlar(hesap_email=s, anahtar=yeni_anahtar(), ad="Sahibin asistanı", dizin_surumu=0))
+    aik = await _ekle(db, AiAsistanKaynaklari(asistan_id=aia.id, hesap_email=s, tur="metin", baslik="Not", metin="Sahibin notu.",
+                                              durum="hazir"))
+    ais = await _ekle(db, AiAsistanSohbetleri(asistan_id=aia.id, hesap_email=s, oturum_ozeti=uuid.uuid4().hex, kaynak="sayfa"))
+    k.update(AIA=aia.id, AIK=aik.id, AIS=ais.id)
     return k
 
 
@@ -440,6 +449,29 @@ MUSTERI_UCLARI = [
     ("DELETE", "/api/v1/otomasyonlarim/kurallar/999999", ("otomasyon",), None, "gecti"),
     ("GET", "/api/v1/ozel-alanlarim/proje/{P}", ("projeler",), None, 200),
     ("GET", "/api/v1/ozel-alanlarim/destek/{T}", ("destek",), None, 200),
+    # Faz 5A — AI asistan ve bilgi bankası (`asistan` izni). Sahibin zaten bir asistanı var: yeni asistan 409 → "gecti".
+    ("GET", "/api/v1/ai-asistanim/meta", ("asistan",), None, 200),
+    ("GET", "/api/v1/ai-asistanim", ("asistan",), None, 200),
+    ("POST", "/api/v1/ai-asistanim", ("asistan",), {"ad": "Ekip asistanı"}, "gecti"),
+    ("GET", "/api/v1/ai-asistanim/{AIA}", ("asistan",), None, 200),
+    ("PUT", "/api/v1/ai-asistanim/{AIA}", ("asistan",), {"karsilama": "Ekipten merhaba"}, 200),
+    ("DELETE", "/api/v1/ai-asistanim/999999", ("asistan",), None, "gecti"),
+    ("POST", "/api/v1/ai-asistanim/{AIA}/anahtar", ("asistan",), None, 200),
+    ("POST", "/api/v1/ai-asistanim/{AIA}/avatar", ("asistan",), GOVDE_DOSYA, "gecti"),
+    ("DELETE", "/api/v1/ai-asistanim/{AIA}/avatar", ("asistan",), None, 200),
+    ("GET", "/api/v1/ai-asistanim/{AIA}/ice-aktarim", ("asistan",), None, 200),
+    ("GET", "/api/v1/ai-asistanim/{AIA}/kaynaklar", ("asistan",), None, 200),
+    ("POST", "/api/v1/ai-asistanim/{AIA}/kaynaklar", ("asistan",), {"tur": "metin", "baslik": "Ekip", "metin": "Ekip notu."}, 200),
+    ("POST", "/api/v1/ai-asistanim/{AIA}/kaynaklar/belge", ("asistan",), GOVDE_DOSYA, 200),
+    ("GET", "/api/v1/ai-asistanim/{AIA}/kaynaklar/{AIK}", ("asistan",), None, 200),
+    ("PUT", "/api/v1/ai-asistanim/{AIA}/kaynaklar/{AIK}", ("asistan",), {"baslik": "Ekipten"}, 200),
+    ("POST", "/api/v1/ai-asistanim/{AIA}/kaynaklar/{AIK}/isle", ("asistan",), None, 200),
+    ("DELETE", "/api/v1/ai-asistanim/{AIA}/kaynaklar/999999", ("asistan",), None, "gecti"),
+    ("GET", "/api/v1/ai-asistanim/{AIA}/sohbetler", ("asistan",), None, 200),
+    ("GET", "/api/v1/ai-asistanim/{AIA}/sohbetler/{AIS}", ("asistan",), None, 200),
+    ("POST", "/api/v1/ai-asistanim/{AIA}/sohbetler/{AIS}/anonimlestir", ("asistan",), None, 200),
+    ("DELETE", "/api/v1/ai-asistanim/{AIA}/sohbetler/999999", ("asistan",), None, "gecti"),
+    ("GET", "/api/v1/ai-asistanim/{AIA}/kullanim", ("asistan",), None, 200),
 ]
 
 

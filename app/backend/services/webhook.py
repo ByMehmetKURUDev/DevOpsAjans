@@ -139,6 +139,8 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     OlayTuru("menu.siparis"),
     OlayTuru("kart.mesaj"),
     OlayTuru("qr.tarama", varsayilan=False, yuksek_hacim=True),
+    # Faz 5A — AI asistan ziyaretçiyi insana devretti (sohbet durumu "devredildi").
+    OlayTuru("asistan.devredildi"),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.
@@ -648,6 +650,8 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
         elif tablo == "randevular":
             # Faz 4W: yalnız otomasyon (webhook kataloğunda yok).
             olaylar.append(("randevu.olusturuldu", obj.hesap_email, {"randevu_id": obj.id, "tur_id": obj.tur_id}, True))
+        elif tablo == "ai_asistan_sohbetleri" and obj.durum == "devredildi":
+            olaylar.append(("asistan.devredildi", obj.hesap_email, _devir_verisi(obj), True))
 
     for obj in list(session.dirty):
         tablo = getattr(type(obj), "__tablename__", "")
@@ -684,6 +688,10 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
                      "para_birimi": obj.para_birimi, "durum": yeni},
                     True,
                 ))
+        elif tablo == "ai_asistan_sohbetleri":
+            degisti, eski, yeni = _gecmis(obj, "durum")
+            if degisti and yeni == "devredildi" and eski != "devredildi":
+                olaylar.append(("asistan.devredildi", obj.hesap_email, _devir_verisi(obj), True))
         elif tablo == "sozlesmeler":
             degisti, eski, yeni = _gecmis(obj, "durum")
             if degisti and yeni == "imzalandi" and eski != "imzalandi":
@@ -700,6 +708,12 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
     return olaylar
 
 
+def _devir_verisi(obj: Any) -> Dict[str, Any]:
+    """Faz 5A — AI asistan devri: kimlikler ve sayılar (ziyaretçinin adı/iletişimi YOK)."""
+    return {"sohbet_id": obj.id, "asistan_id": obj.asistan_id, "talep_id": obj.talep_id, "aday_id": obj.aday_id,
+            "mesaj_sayisi": obj.mesaj_sayisi, "kaynak": obj.kaynak, "koken": obj.koken, "zaman": iso(obj.devir_at)}
+
+
 def aday_verisi(aday_id: Any, kaynak: Any, asama: Any, deger: Any, para: Any) -> Dict[str, Any]:
     """CRM adayı olay verisi — ad/e-posta/telefon YOK (API'den `crm:oku` kapsamıyla alınır)."""
     return {"aday_id": aday_id, "kaynak": kaynak, "asama": asama, "deger_tahmini": _sayi(deger), "para_birimi": para}
@@ -707,7 +721,7 @@ def aday_verisi(aday_id: Any, kaynak: Any, asama: Any, deger: Any, para: Any) ->
 
 IZLENEN_TABLOLAR = frozenset({
     "invoices", "support_tickets", "ticket_replies", "project_tasks", "crm_adaylar", "menu_siparisleri",
-    "kartvizit_mesajlari", "projects", "teklifler", "sozlesmeler",
+    "kartvizit_mesajlari", "projects", "teklifler", "sozlesmeler", "ai_asistan_sohbetleri",
 })
 
 

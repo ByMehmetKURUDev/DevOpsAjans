@@ -462,6 +462,30 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("calisma_saat_siniri", "int", 200, en_az=1, en_cok=20000),
         ),
     ),
+    # Faz 5A — AI asistan + bilgi bankası: müşterinin belgeleri/sitesi/SSS'si üzerinden yanıt veren,
+    # müşterinin sitesine gömülebilen sohbet asistanı; bilmediğinde insana devreder (destek talebi).
+    # Varsayılan KAPALI, pakete bağlı değil (ayrı satılan modül; önerilen fiyat aylık 29 $ — Chatbase/
+    # Tidio Lyro bandı 19–49 $). Ekip izni `asistan`. `kaynak_siniri`: hesap başına en çok bilgi bankası
+    # kaynağı; `url_sayfa_siniri`: URL/site haritasından en çok sayfa; `aylik_mesaj`: aya dahil yapay zekâ
+    # yanıtı; `gunluk_yanit`: günlük üst sınır; `kredi_ile_asim`: dahil hak bitince kredi bloğuyla sürsün mü.
+    # (Ayar adları bütün modüllerde ortak etiket anahtarı: `sayfa_siniri`/`gunluk_mesaj` başka modüllerde var.)
+    Modul(
+        anahtar="ai_asistan",
+        ad_varsayilan={"tr": "AI asistan ve bilgi bankası", "en": "AI assistant and knowledge base"},
+        ikon="BotMessageSquare",
+        kategori="is_araclari",
+        musteri_sekmesi="aiAsistan",
+        yonetici_sekmesi="aiAsistan",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("kaynak_siniri", "int", 20, en_az=0, en_cok=1000),
+            AyarAlani("url_sayfa_siniri", "int", 50, en_az=0, en_cok=2000),
+            AyarAlani("aylik_mesaj", "int", 500, en_az=0, en_cok=1_000_000),
+            AyarAlani("gunluk_yanit", "int", 300, en_az=0, en_cok=100_000),
+            AyarAlani("kredi_ile_asim", "bool", True),
+        ),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

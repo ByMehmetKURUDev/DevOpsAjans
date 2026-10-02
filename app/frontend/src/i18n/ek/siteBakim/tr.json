@@ -188,7 +188,8 @@
         "webhook_temizligi": "Eski webhook kayıtlarının temizliği (30 gün)",
         "randevu_hatirlatmalari": "Randevu hatırlatmaları (24 saat ve 1 saat önce)",
         "otomasyon": "Otomasyon kuralları (bekleyenler, \"bekle\" sonrası, fatura gecikmesi)",
-        "otomasyon_temizligi": "Eski otomasyon çalıştırma kayıtlarının temizliği (30 gün)"
+        "otomasyon_temizligi": "Eski otomasyon çalıştırma kayıtlarının temizliği (30 gün)",
+        "ai_asistan_bakimi": "AI asistan: haftalık site yenileme ve sohbet saklama temizliği"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

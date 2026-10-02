@@ -37,7 +37,8 @@
             {
               "ozel": "veriSorumlusu"
             },
-            "Bu metin; mehmetkuru.dev alan adı altındaki sayfaları, müşteri panelini, başka sitelere gömülebilen formlarımızı ve bunlar üzerinden sunulan hizmetleri kapsar. Başka sitelere verilen bağlantılar o sitelerin kendi politikalarına tabidir."
+            "Bu metin; mehmetkuru.dev alan adı altındaki sayfaları, müşteri panelini, başka sitelere gömülebilen formlarımızı ve bunlar üzerinden sunulan hizmetleri kapsar. Başka sitelere verilen bağlantılar o sitelerin kendi politikalarına tabidir.",
+            "**Müşterilerimizin sitelerindeki yapay zekâ asistanı:** Müşterilerimiz, panelimizden kurdukları yapay zekâ asistanını kendi sitelerine yerleştirebilir. Bu asistanla yapılan sohbetlerde ve insana devir formunda bırakılan ad ile iletişim bilgilerinde veri sorumlusu, asistanı sitesinde kullanan müşterimizdir; bu verilerle ilgili başvurularınızı öncelikle o siteye yapmanızı rica ederiz. Biz bu verileri yalnızca müşterimizin talimatıyla ve hizmeti sunmak için veri işleyen sıfatıyla işleriz: soruyu yanıtlamak için mesaj, yapay zekâ sağlayıcımıza (Google Gemini API) iletilir; IP adresi yalnızca tuzlanmış özet olarak tutulur; sohbetler müşterimizin seçtiği süre sonunda silinir. Bu verileri kendi amaçlarımız için kullanmayız."
           ]
         },
         {
@@ -181,6 +182,7 @@
                 "Dosya paylaşım bağlantıları en çok 30 gün, onay bağlantıları varsayılan olarak 14 gün (en çok 90 gün), site analizi rapor bağlantıları 30 gün geçerlidir.",
                 "Site izleme ölçümleri 90 gün, bunların günlük özetleri 400 gün saklanır.",
                 "Sitedeki herkese açık yapay zekâ sohbetleri sunucuda saklanmaz.",
+                "Müşterilerimizin sitelerindeki yapay zekâ asistanı sohbetleri, müşterimizin seçtiği süre (varsayılan 90 gün) sonunda devir bilgileriyle birlikte silinir.",
                 "Fatura, sözleşme ve muhasebe kayıtları, Vergi Usul Kanunu ve Türk Ticaret Kanunu'ndaki defter ve belge saklama süreleri boyunca saklanır.",
                 "Diğer veriler (talepler, mesajlar, destek kayıtları, hesap bilgileri) amaç için gereken süre ve ilgili mevzuattaki zamanaşımı süreleri boyunca saklanır.",
                 "Tarayıcınızdaki yerel kayıtlar, siz silene ya da oturumu kapatana kadar tarayıcınızda kalır (bkz. [Çerez Politikası](sayfa:cerezPolitikasi))."

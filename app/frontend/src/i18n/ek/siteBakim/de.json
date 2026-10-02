@@ -188,7 +188,8 @@
         "webhook_temizligi": "Bereinigung alter Webhook-Protokolle (30 Tage)",
         "randevu_hatirlatmalari": "Terminerinnerungen (24 Stunden und 1 Stunde vorher)",
         "otomasyon": "Automatisierungsregeln (ausstehende Läufe, nach „Warten“, überfällige Rechnungen)",
-        "otomasyon_temizligi": "Bereinigung alter Automatisierungsprotokolle (30 Tage)"
+        "otomasyon_temizligi": "Bereinigung alter Automatisierungsprotokolle (30 Tage)",
+        "ai_asistan_bakimi": "KI-Assistent: wöchentliche Website-Aktualisierung und Bereinigung der Gesprächsaufbewahrung"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

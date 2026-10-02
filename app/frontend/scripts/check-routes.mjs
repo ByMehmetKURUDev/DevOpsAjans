@@ -71,6 +71,9 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/randevu/:slug',
   '/randevu/:slug/:tur',
   '/randevu/yonet/:jeton',
+  // Faz 5A: herkese açık AI asistan (tam sayfa ve gömülü pencere) — dinamik, noindex; CSP'yi
+  // ve gömülüde frame-ancestors iznini Pages Function yazıyor (functions/asistan/[[yol]].js).
+  '/asistan/:anahtar',
 ]);
 
 const missing = [...appRoutes].filter(

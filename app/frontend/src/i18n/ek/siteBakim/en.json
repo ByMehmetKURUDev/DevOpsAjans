@@ -188,7 +188,8 @@
         "webhook_temizligi": "Cleanup of old webhook logs (30 days)",
         "randevu_hatirlatmalari": "Appointment reminders (24 hours and 1 hour before)",
         "otomasyon": "Automation rules (pending runs, after \"wait\", overdue invoices)",
-        "otomasyon_temizligi": "Cleanup of old automation run logs (30 days)"
+        "otomasyon_temizligi": "Cleanup of old automation run logs (30 days)",
+        "ai_asistan_bakimi": "AI assistant: weekly site refresh and conversation retention clean-up"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

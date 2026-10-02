@@ -487,7 +487,8 @@
     "tabQrMenu": "二维码菜单与目录",
     "tabApi": "API 与 Webhook",
     "tabRandevu": "预约",
-    "tabOtomasyon": "自动化"
+    "tabOtomasyon": "自动化",
+    "tabAiAsistan": "AI 助手"
   },
   "admin": {
     "loadError": "管理数据加载失败",

@@ -168,6 +168,10 @@
       "otomasyon": {
         "ad": "Automatisierungsregeln",
         "aciklama": "„Wenn dies passiert, tu das“: bedingte E-Mails, Panel-Benachrichtigungen, Aufgaben, Webhooks und Wartezeiten bei Ereignissen (Tickets, Rechnungen, Aufgaben, Termine…); fertige Vorlagen, Probeläufe und ein 30-Tage-Ausführungsprotokoll."
+      },
+      "ai_asistan": {
+        "ad": "KI-Assistent und Wissensdatenbank",
+        "aciklama": "Ein Chat-Assistent, der anhand Ihrer Dokumente, Website und FAQ antwortet und sich mit einer Zeile auf Ihrer Website einbetten lässt: nennt Quellen, erfindet nichts und übergibt Besucher per Support-Ticket an Ihr Team; mit Gesprächsprotokollen, Nutzungs- und Credit-Übersicht."
       }
     },
     "kategori": {
@@ -211,7 +215,12 @@
       "tur_siniri": "Max. Terminarten pro Konto",
       "kural_siniri": "Höchstzahl an Automatisierungsregeln pro Konto",
       "calisma_dakika_siniri": "Höchstzahl an Automatisierungsläufen pro Minute",
-      "calisma_saat_siniri": "Höchstzahl an Automatisierungsläufen pro Stunde"
+      "calisma_saat_siniri": "Höchstzahl an Automatisierungsläufen pro Stunde",
+      "kaynak_siniri": "Maximale Wissensquellen pro Konto",
+      "url_sayfa_siniri": "Maximal von Websites gelesene Seiten",
+      "aylik_mesaj": "Im Monat enthaltene KI-Antworten",
+      "gunluk_yanit": "Maximale Antworten pro Tag",
+      "kredi_ile_asim": "Nach den enthaltenen Antworten mit Credit-Blöcken fortfahren"
     },
     "musteri": {
       "baslik": "Meine Module",

@@ -168,6 +168,10 @@
       "otomasyon": {
         "ad": "自动化规则",
         "aciklama": "“发生这件事时就做那件事”：在事件（工单、发票、任务、预约等）上按条件发送邮件、面板通知、创建任务、发送 Webhook 和等待；提供现成模板、试运行和 30 天运行日志。"
+      },
+      "ai_asistan": {
+        "ad": "AI 助手与知识库",
+        "aciklama": "依据您的文档、网站和常见问题作答的聊天助手，一行代码即可嵌入您的网站：标注来源、不编造答案，并通过支持工单把访客转给您的团队；提供对话记录、用量和积分统计。"
       }
     },
     "kategori": {
@@ -211,7 +215,12 @@
       "tur_siniri": "每个账户最多活动类型数",
       "kural_siniri": "每个账户的自动化规则上限",
       "calisma_dakika_siniri": "每分钟自动化运行上限",
-      "calisma_saat_siniri": "每小时自动化运行上限"
+      "calisma_saat_siniri": "每小时自动化运行上限",
+      "kaynak_siniri": "每个账户的知识库来源上限",
+      "url_sayfa_siniri": "从网站读取的页面上限",
+      "aylik_mesaj": "每月包含的 AI 回复数",
+      "gunluk_yanit": "每日回复上限",
+      "kredi_ile_asim": "包含额度用完后以积分块继续"
     },
     "musteri": {
       "baslik": "我的模块",

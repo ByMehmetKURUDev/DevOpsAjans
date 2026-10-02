@@ -56,7 +56,8 @@
       "menu_siparis": "Menu / catalog order",
       "kart_mesaj": "Message from a business card",
       "qr_tarama": "QR scan",
-      "ping": "Test event"
+      "ping": "Test event",
+      "asistan_devredildi": "AI assistant handed a visitor over to a human"
     },
     "anahtar": {
       "yeni": "New key",

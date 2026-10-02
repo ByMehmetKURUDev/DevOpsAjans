@@ -80,7 +80,8 @@
       "kapsam": {
         "acik": "herkese açık",
         "asistan": "uzman asistan",
-        "yonetici": "yönetici"
+        "yonetici": "yönetici",
+        "ai_asistan": "AI asistan (siteler)"
       },
       "kapat": "Kapat",
       "duzenleBaslik": "Asistanı düzenle",
