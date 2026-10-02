@@ -442,6 +442,26 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=False,
         ayarlar=(AyarAlani("tur_siniri", "int", 5, en_az=0, en_cok=200),),
     ),
+    # Faz 4W — otomasyon kuralları ("şu olunca bunu yap": e-posta, bildirim, görev, webhook,
+    # bekle) + çalıştırma günlüğü. Varsayılan KAPALI, pakete bağlı değil (ayrı satılan modül;
+    # önerilen aylık 19 $). Ekip izni `otomasyon`. `kural_siniri`: hesap başına kural;
+    # `calisma_dakika_siniri` / `calisma_saat_siniri`: hesap başına çalıştırma tavanı. Özel alanlar ajansın
+    # yönetici aracı (modül değil); müşteri yalnız görünür alanları salt okunur görür.
+    Modul(
+        anahtar="otomasyon",
+        ad_varsayilan={"tr": "Otomasyon kuralları", "en": "Automation rules"},
+        ikon="Workflow",
+        kategori="is_araclari",
+        musteri_sekmesi="otomasyon",
+        yonetici_sekmesi="otomasyon",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("kural_siniri", "int", 20, en_az=0, en_cok=500),
+            AyarAlani("calisma_dakika_siniri", "int", 20, en_az=1, en_cok=1000),
+            AyarAlani("calisma_saat_siniri", "int", 200, en_az=1, en_cok=20000),
+        ),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

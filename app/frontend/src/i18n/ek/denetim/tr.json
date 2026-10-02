@@ -97,7 +97,10 @@
       "bilgi_makaleleri": "Bilgi bankası",
       "crm_adaylar": "CRM adayları",
       "crm_asamalar": "CRM aşamaları",
-      "crm_formlar": "CRM formları"
+      "crm_formlar": "CRM formları",
+      "otomasyon_kurallari": "Otomasyon kuralları",
+      "ozel_alanlar": "Özel alan tanımları",
+      "ozel_alan_degerleri": "Özel alan değerleri"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

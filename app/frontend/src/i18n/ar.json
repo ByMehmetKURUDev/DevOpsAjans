@@ -486,7 +486,8 @@
     "tabKartvizit": "بطاقة الأعمال الرقمية",
     "tabQrMenu": "قائمة QR والكتالوج",
     "tabApi": "API والويب هوك",
-    "tabRandevu": "المواعيد"
+    "tabRandevu": "المواعيد",
+    "tabOtomasyon": "الأتمتة"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

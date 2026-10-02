@@ -186,7 +186,9 @@
         "teklif_ve_sozlesme": "Quote expiry and contract end reminders",
         "webhook_teslimatlari": "Webhook delivery retries",
         "webhook_temizligi": "Cleanup of old webhook logs (30 days)",
-        "randevu_hatirlatmalari": "Appointment reminders (24 hours and 1 hour before)"
+        "randevu_hatirlatmalari": "Appointment reminders (24 hours and 1 hour before)",
+        "otomasyon": "Automation rules (pending runs, after \"wait\", overdue invoices)",
+        "otomasyon_temizligi": "Cleanup of old automation run logs (30 days)"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

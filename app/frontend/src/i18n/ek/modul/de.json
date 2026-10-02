@@ -164,6 +164,10 @@
       "randevu": {
         "ad": "Termine und Meetings",
         "aciklama": "Buchungsseite wie Calendly: Terminarten, wöchentliche Verfügbarkeit und Ausnahmen, Team (Rundum-Verteilung), kollisionsfreie Buchung, .ics-Einladungen, Erinnerungs-E-Mails, Links zum Absagen/Verschieben, Kalenderabo und ein einbettbares Widget für Ihre Website."
+      },
+      "otomasyon": {
+        "ad": "Automatisierungsregeln",
+        "aciklama": "„Wenn dies passiert, tu das“: bedingte E-Mails, Panel-Benachrichtigungen, Aufgaben, Webhooks und Wartezeiten bei Ereignissen (Tickets, Rechnungen, Aufgaben, Termine…); fertige Vorlagen, Probeläufe und ein 30-Tage-Ausführungsprotokoll."
       }
     },
     "kategori": {
@@ -204,7 +208,10 @@
       "anahtar_siniri": "Max. aktive API-Schlüssel pro Konto",
       "webhook_siniri": "Max. Webhook-Endpunkte pro Konto",
       "dakika_siniri": "Anfragen pro Minute je Schlüssel",
-      "tur_siniri": "Max. Terminarten pro Konto"
+      "tur_siniri": "Max. Terminarten pro Konto",
+      "kural_siniri": "Höchstzahl an Automatisierungsregeln pro Konto",
+      "calisma_dakika_siniri": "Höchstzahl an Automatisierungsläufen pro Minute",
+      "calisma_saat_siniri": "Höchstzahl an Automatisierungsläufen pro Stunde"
     },
     "musteri": {
       "baslik": "Meine Module",

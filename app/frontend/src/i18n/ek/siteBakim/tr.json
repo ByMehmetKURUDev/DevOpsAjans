@@ -186,7 +186,9 @@
         "teklif_ve_sozlesme": "Teklif süreleri ve sözleşme bitiş hatırlatmaları",
         "webhook_teslimatlari": "Webhook yeniden denemeleri",
         "webhook_temizligi": "Eski webhook kayıtlarının temizliği (30 gün)",
-        "randevu_hatirlatmalari": "Randevu hatırlatmaları (24 saat ve 1 saat önce)"
+        "randevu_hatirlatmalari": "Randevu hatırlatmaları (24 saat ve 1 saat önce)",
+        "otomasyon": "Otomasyon kuralları (bekleyenler, \"bekle\" sonrası, fatura gecikmesi)",
+        "otomasyon_temizligi": "Eski otomasyon çalıştırma kayıtlarının temizliği (30 gün)"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

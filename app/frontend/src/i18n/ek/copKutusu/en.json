@@ -86,7 +86,9 @@
       "randevu_sayfalari": "Booking page",
       "randevu_turleri": "Event type (appointments)",
       "randevu_kisileri": "Booking team member",
-      "randevu_istisnalari": "Availability exception"
+      "randevu_istisnalari": "Availability exception",
+      "otomasyon_kurallari": "Automation rules",
+      "ozel_alanlar": "Custom field definitions"
     }
   }
 }

@@ -86,7 +86,9 @@
       "randevu_sayfalari": "صفحة الحجز",
       "randevu_turleri": "نوع الموعد",
       "randevu_kisileri": "عضو فريق الحجز",
-      "randevu_istisnalari": "استثناء في التوفر"
+      "randevu_istisnalari": "استثناء في التوفر",
+      "otomasyon_kurallari": "قواعد الأتمتة",
+      "ozel_alanlar": "تعريفات الحقول المخصصة"
     }
   }
 }

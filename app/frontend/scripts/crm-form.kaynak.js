@@ -5,6 +5,7 @@
  * siteden miras). Kurallar sunucuda: /api/v1/crm/form/<anahtar>.
  * KVKK (Faz 4G): onay kutusu yok — gönder düğmesinin altında aydınlatma satırı
  * + bağlantı. Pazarlama izni ayrı, isteğe bağlı, işaretsiz kutu (form soruyorsa).
+ * Faz 4W: forma eşlenen özel alanlar (`oz_*`): seçimde açılır liste, sayı/URL türünde input.
  */
 (function (w, d) {
   'use strict';
@@ -13,8 +14,8 @@
   var CSS =
     ':host{display:block}form{display:grid;gap:10px;max-width:560px;font:inherit;color:inherit}' +
     'h3{margin:0 0 4px;font-size:1.2em}label{display:grid;gap:4px;font-size:.9em;font-weight:600}' +
-    'input,textarea{font:inherit;font-weight:400;color:inherit;background:rgba(127,127,127,.08);border:1px solid rgba(127,127,127,.45);border-radius:10px;padding:10px 12px;width:100%;box-sizing:border-box}' +
-    'input:focus,textarea:focus{outline:2px solid #8b5cf6;outline-offset:1px}' +
+    'input,textarea,select{font:inherit;font-weight:400;color:inherit;background:rgba(127,127,127,.08);border:1px solid rgba(127,127,127,.45);border-radius:10px;padding:10px 12px;width:100%;box-sizing:border-box}' +
+    'input:focus,textarea:focus,select:focus{outline:2px solid #8b5cf6;outline-offset:1px}' +
     '.k{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:.85em;line-height:1.45}.k input{width:auto;margin:3px 0 0}' +
     '.k a,.a a{color:inherit;margin-inline-start:4px}.a{margin:0;font-size:.8em;opacity:.75;line-height:1.45}' +
     'button{font:inherit;font-weight:700;color:#fff;background:linear-gradient(90deg,#7c3aed,#db2777);border:0;border-radius:10px;padding:11px 20px;cursor:pointer;justify-self:start}' +
@@ -49,7 +50,11 @@
     t.alanlar.forEach(function (a) {
       var oz = { name: a.ad, maxlength: a.en_cok, autocomplete: OTO[a.ad] || 'off' };
       if (a.zorunlu) oz.required = '';
-      var g = a.ad === 'mesaj' ? el('textarea', Object.assign(oz, { rows: 4 })) : el('input', Object.assign(oz, { type: a.ad === 'email' ? 'email' : a.ad === 'telefon' ? 'tel' : 'text' }));
+      var g = a.secenekler
+        ? el('select', oz, [el('option', { value: '', text: '—' })].concat(a.secenekler.map(function (x) { return el('option', { value: x, text: x }); })))
+        : a.ad === 'mesaj'
+          ? el('textarea', Object.assign(oz, { rows: 4 }))
+          : el('input', Object.assign(oz, { type: a.ad === 'email' ? 'email' : a.ad === 'telefon' ? 'tel' : a.tur === 'url' ? 'url' : a.tur === 'sayi' ? 'number' : 'text', step: 'any' }));
       f.appendChild(el('label', null, [el('span', null, [a.etiket, a.zorunlu ? ' *' : el('i', { text: ' (' + m.istege_bagli + ')' })]), g]));
     });
     var bal = el('input', { name: t.bal_kupu, tabindex: '-1', autocomplete: 'off', 'aria-hidden': 'true', class: 'b' });

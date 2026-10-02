@@ -149,6 +149,9 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 30,
         "ebeveyn": "randevu_sayfalari",
     },
+    # Faz 4W: otomasyon kuralı (müşteride hesabın) ve özel alan tanımı (ajans; değerler kalıyor).
+    "otomasyon_kurallari": {"sahip": "hesap_email", "sira": 10},
+    "ozel_alanlar": {"sira": 10},
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

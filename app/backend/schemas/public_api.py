@@ -55,6 +55,9 @@ class Proje(_Model):
     hesap: Optional[str] = Field(None, description="Müşteri hesabı (e-posta).")
     olusturma: Optional[str] = Field(None, description=ZAMAN)
     guncelleme: Optional[str] = Field(None, description=ZAMAN)
+    ozel_alanlar: Optional[dict] = Field(
+        None, description="Özel alanlar {anahtar: değer} (Faz 4W). Müşteri anahtarında yalnız müşteriye görünür alanlar."
+    )
 
 
 class Gorev(_Model):
@@ -131,6 +134,9 @@ class DestekTalebi(_Model):
     olusturma: Optional[str] = Field(None, description=ZAMAN)
     guncelleme: Optional[str] = Field(None, description=ZAMAN)
     mesajlar: Optional[List[DestekMesaji]] = Field(None, description="Yalnız tekil uçta.")
+    ozel_alanlar: Optional[dict] = Field(
+        None, description="Özel alanlar {anahtar: değer} (Faz 4W). Müşteri anahtarında yalnız müşteriye görünür alanlar."
+    )
 
 
 class DestekOlustur(_Model):
@@ -157,6 +163,9 @@ class Aday(_Model):
     para_birimi: Optional[str] = None
     olusturma: Optional[str] = Field(None, description=ZAMAN)
     guncelleme: Optional[str] = Field(None, description=ZAMAN)
+    ozel_alanlar: Optional[dict] = Field(
+        None, description="Özel alanlar {anahtar: değer} (Faz 4W). Müşteri anahtarında yalnız müşteriye görünür alanlar."
+    )
 
 
 class AdayOlustur(_Model):

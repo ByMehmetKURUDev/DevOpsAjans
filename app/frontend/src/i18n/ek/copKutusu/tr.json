@@ -86,7 +86,9 @@
       "randevu_sayfalari": "Randevu sayfası",
       "randevu_turleri": "Etkinlik türü (randevu)",
       "randevu_kisileri": "Randevu ekibi kişisi",
-      "randevu_istisnalari": "Uygunluk istisnası"
+      "randevu_istisnalari": "Uygunluk istisnası",
+      "otomasyon_kurallari": "Otomasyon kuralları",
+      "ozel_alanlar": "Özel alan tanımları"
     }
   }
 }

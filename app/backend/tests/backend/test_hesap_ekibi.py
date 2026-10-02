@@ -194,6 +194,20 @@ async def ekip(db_oturumu):
                                     baslangic=rbas, bitis=rbas + timedelta(minutes=30), dolu_bas=rbas,
                                     dolu_bit=rbas + timedelta(minutes=30), koltuk=0, ad="Ziyaretçi", eposta="z@ornek.com"))
     k.update(RS=rs.id, RK=rk_.id, RT=rt.id, RR=rr.id)
+    # Faz 4W: `otomasyon` izni yalnız hesap yöneticisinin varsayılanında — API üyesine (apici) ayrıca
+    # veriliyor (üye sayısı değişmesin); sahibin bir (pasif) kuralı.
+    from models.hesap_uyeleri import HesapUyeleri
+    from models.otomasyon import OtomasyonKurallari
+    from services import hesap_ekibi as _he
+    from sqlalchemy import update as _update
+
+    await db.execute(_update(HesapUyeleri).where(HesapUyeleri.hesap_email == s, HesapUyeleri.uye_email == k["apici"])
+                     .values(izinler=json.dumps(["projeler", "api", "otomasyon"])))
+    await db.commit()
+    _he.onbellegi_temizle()
+    ok = await _ekle(db, OtomasyonKurallari(sahip_tur="musteri", hesap_email=s, ad="Sahibin kuralı", aktif=False,
+                                            tetik="destek.olusturuldu", eylemler='[{"tur": "bildirim", "alici": "hesap", "baslik": "x"}]'))
+    k.update(OK=ok.id)
     return k
 
 
@@ -409,6 +423,23 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/api-erisimim/webhooklar/{WH}/teslimatlar", ("api",), None, 200),
     ("POST", "/api/v1/api-erisimim/webhooklar/{WH}/teslimatlar/999999/yeniden-gonder", ("api",), None, "gecti"),
     ("DELETE", "/api/v1/api-erisimim/webhooklar/999999", ("api",), None, "gecti"),
+    # Faz 4W — otomasyon kuralları (`otomasyon` izni) ve özel alanlar (görünürler, salt okunur).
+    ("GET", "/api/v1/otomasyonlarim/meta", ("otomasyon",), None, 200),
+    ("GET", "/api/v1/otomasyonlarim/ornek-baglam?tetik=destek.olusturuldu", ("otomasyon",), None, 200),
+    ("GET", "/api/v1/otomasyonlarim/kurallar", ("otomasyon",), None, 200),
+    ("POST", "/api/v1/otomasyonlarim/kurallar", ("otomasyon",),
+     {"ad": "Ekip", "tetik": "destek.olusturuldu", "eylemler": [{"tur": "bildirim", "alici": "hesap", "baslik": "x"}]}, 200),
+    ("POST", "/api/v1/otomasyonlarim/kurallar/sablondan", ("otomasyon",), {"sablon": "destek_acil_bildirim"}, 200),
+    ("GET", "/api/v1/otomasyonlarim/kurallar/{OK}", ("otomasyon",), None, 200),
+    ("PUT", "/api/v1/otomasyonlarim/kurallar/{OK}", ("otomasyon",), {"aciklama": "Ekip"}, 200),
+    ("POST", "/api/v1/otomasyonlarim/kurallar/{OK}/test", ("otomasyon",), {}, 200),
+    ("POST", "/api/v1/otomasyonlarim/test", ("otomasyon",),
+     {"kural": {"tetik": "destek.olusturuldu", "eylemler": [{"tur": "bildirim", "alici": "hesap", "baslik": "x"}]}}, 200),
+    ("GET", "/api/v1/otomasyonlarim/gunluk", ("otomasyon",), None, 200),
+    ("GET", "/api/v1/otomasyonlarim/gunluk/999999", ("otomasyon",), None, "gecti"),
+    ("DELETE", "/api/v1/otomasyonlarim/kurallar/999999", ("otomasyon",), None, "gecti"),
+    ("GET", "/api/v1/ozel-alanlarim/proje/{P}", ("projeler",), None, 200),
+    ("GET", "/api/v1/ozel-alanlarim/destek/{T}", ("destek",), None, 200),
 ]
 
 
@@ -447,6 +478,8 @@ def _izinli_uye(k, izinler):
     if izinler is None:
         return k["kisitli"]
     if izinler == ("api",):  # Faz 4A: üye/fatura rolünün varsayılanında yok
+        return k["apici"]
+    if izinler == ("otomasyon",):  # Faz 4W: üye/fatura rolünün varsayılanında yok (apici'ye ayrıca verildi)
         return k["apici"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):

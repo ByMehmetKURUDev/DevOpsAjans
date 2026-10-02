@@ -486,7 +486,8 @@
     "tabKartvizit": "Digitale Visitenkarte",
     "tabQrMenu": "QR-Speisekarte & Katalog",
     "tabApi": "API & Webhooks",
-    "tabRandevu": "Termine"
+    "tabRandevu": "Termine",
+    "tabOtomasyon": "Automatisierung"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

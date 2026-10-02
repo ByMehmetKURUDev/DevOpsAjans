@@ -486,7 +486,8 @@
     "tabKartvizit": "Digital business card",
     "tabQrMenu": "QR menu & catalog",
     "tabApi": "API & webhooks",
-    "tabRandevu": "Appointments"
+    "tabRandevu": "Appointments",
+    "tabOtomasyon": "Automation"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

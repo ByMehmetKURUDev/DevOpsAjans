@@ -67,7 +67,8 @@
       "webhook_pasiflesti": "Webhook-Endpunkt deaktiviert",
       "randevu_yeni": "Termine: neue Buchung",
       "randevu_degisti": "Termine: verschoben",
-      "randevu_iptal": "Termine: abgesagt"
+      "randevu_iptal": "Termine: abgesagt",
+      "otomasyon_bildirimi": "Benachrichtigung einer Automatisierungsregel"
     },
     "kanal": {
       "inapp": "Panel",

@@ -97,7 +97,10 @@
       "bilgi_makaleleri": "Wissensdatenbank",
       "crm_adaylar": "CRM-Leads",
       "crm_asamalar": "CRM-Phasen",
-      "crm_formlar": "CRM-Formulare"
+      "crm_formlar": "CRM-Formulare",
+      "otomasyon_kurallari": "Automatisierungsregeln",
+      "ozel_alanlar": "Definitionen benutzerdefinierter Felder",
+      "ozel_alan_degerleri": "Werte benutzerdefinierter Felder"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

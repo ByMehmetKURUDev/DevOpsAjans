@@ -86,7 +86,9 @@
       "randevu_sayfalari": "预约页面",
       "randevu_turleri": "活动类型（预约）",
       "randevu_kisileri": "预约团队成员",
-      "randevu_istisnalari": "可预约时间例外"
+      "randevu_istisnalari": "可预约时间例外",
+      "otomasyon_kurallari": "自动化规则",
+      "ozel_alanlar": "自定义字段定义"
     }
   }
 }

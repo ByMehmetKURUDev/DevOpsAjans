@@ -34,7 +34,8 @@
       "kartvizit": "Dijital kartvizit ve yorum sayfası",
       "menu": "QR menü ve katalog",
       "api": "API ve webhook",
-      "randevu": "Randevu ve toplantılar"
+      "randevu": "Randevu ve toplantılar",
+      "otomasyon": "Otomasyon kuralları"
     },
     "durum": {
       "davet": "Davet bekliyor",

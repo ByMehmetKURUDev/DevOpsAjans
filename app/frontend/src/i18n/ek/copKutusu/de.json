@@ -86,7 +86,9 @@
       "randevu_sayfalari": "Buchungsseite",
       "randevu_turleri": "Terminart",
       "randevu_kisileri": "Teammitglied (Termine)",
-      "randevu_istisnalari": "Verfügbarkeitsausnahme"
+      "randevu_istisnalari": "Verfügbarkeitsausnahme",
+      "otomasyon_kurallari": "Automatisierungsregeln",
+      "ozel_alanlar": "Definitionen benutzerdefinierter Felder"
     }
   }
 }

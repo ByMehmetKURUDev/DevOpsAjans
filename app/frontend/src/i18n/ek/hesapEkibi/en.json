@@ -34,7 +34,8 @@
       "kartvizit": "Digital business card and review page",
       "menu": "QR menu & catalog",
       "api": "API and webhooks",
-      "randevu": "Appointments and meetings"
+      "randevu": "Appointments and meetings",
+      "otomasyon": "Automation rules"
     },
     "durum": {
       "davet": "Invitation pending",

@@ -25,6 +25,7 @@ import {
   UtensilsCrossed,
   KeyRound,
   CalendarCheck,
+  Workflow,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -98,6 +99,10 @@ const QrMenu = ekliLazy(['qrMenu', 'qrMenuSayfa'], () => import('@/components/Qr
 const ApiErisimi = ekliLazy('apiErisimi', () => import('@/components/ApiErisimi'));
 // Faz 5R — randevu ve toplantılar (yönetici paneliyle aynı bileşen, müşteri modu).
 const Randevu = ekliLazy('randevu', () => import('@/components/Randevu'));
+// Faz 4W — otomasyon kuralları (yönetici paneliyle aynı bileşen, müşteri modu).
+const Otomasyon = ekliLazy(['otomasyon', 'ozelAlanlar'], () => import('@/components/Otomasyon'));
+// Faz 4W — projenin müşteriye görünür özel alanları (salt okunur).
+const OzelAlanlarBolumu = ekliLazy('ozelAlanlar', () => import('@/components/OzelAlanlarBolumu'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -170,6 +175,7 @@ type Tab =
   | 'kartvizit'
   | 'menu'
   | 'randevu'
+  | 'otomasyon'
   | 'dosyalar'
   | 'api'
   | 'profile';
@@ -192,6 +198,7 @@ const SEKMELER: Tab[] = [
   'kartvizit',
   'menu',
   'randevu',
+  'otomasyon',
   'dosyalar',
   'api',
   'profile',
@@ -202,7 +209,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -635,6 +642,7 @@ export default function ClientPanel() {
     kartvizit: { label: t('ui.tabKartvizit'), icon: IdCard },
     menu: { label: t('ui.tabQrMenu'), icon: UtensilsCrossed },
     randevu: { label: t('ui.tabRandevu'), icon: CalendarCheck },
+    otomasyon: { label: t('ui.tabOtomasyon'), icon: Workflow },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
@@ -934,6 +942,13 @@ export default function ClientPanel() {
                       {modulBilgisi && modulAcik('zaman_takibi') && izinVar(['projeler']) && (
                         <Suspense fallback={null}>
                           <HarcananSureKarti projeId={Number(p.id)} />
+                        </Suspense>
+                      )}
+
+                      {/* Faz 4W: projenin müşteriye görünür özel alanları (salt okunur; yoksa çizilmez). */}
+                      {izinVar(['projeler']) && (
+                        <Suspense fallback={null}>
+                          <OzelAlanlarBolumu varlik="proje" kimlik={Number(p.id)} mod="musteri" className="mb-3" />
                         </Suspense>
                       )}
 
@@ -1247,6 +1262,17 @@ export default function ClientPanel() {
               }
             >
               <QrMenu mod="musteri" />
+            </Suspense>
+          )}
+          {tab === 'otomasyon' && modulBilgisi !== null && modulAcik('otomasyon') && izinVar(['otomasyon']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <Otomasyon mod="musteri" />
             </Suspense>
           )}
           {tab === 'randevu' && modulBilgisi !== null && modulAcik('randevu') && izinVar(['randevu']) && (

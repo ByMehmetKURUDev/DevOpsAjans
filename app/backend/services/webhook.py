@@ -26,6 +26,21 @@ Başka dosyalara dağılmış kanca yok; iki istisna iş biriminden geçmeyen
 Maliyet: aktif uç noktası listesi süreç içinde 30 sn önbellekte; hiç uç
 noktası yoksa (ya da olay türüne abone yoksa) kanca veritabanına hiç gitmiyor.
 
+Yayınlayıcı → aboneler (Faz 4W)
+-------------------------------
+Olay ÜRETİMİ tek noktada (bu dosya: flush kancası + `olay_yaz_sync` /
+`olay_yayinla` / `olaylari_yayinla_sync`), TÜKETİM abone listesinde: webhook
+teslimatı her zaman ilk abone (davranışı birebir aynı), otomasyon kuralları
+(`services/otomasyon.py`) `abone_ekle` ile kaydolan ikinci abone. Her abone:
+önbellekten "belki ilgilenirim" kararı (hayırsa veritabanına gidilmiyor),
+izlediği tablolar, aynı işlemde kendi SAVEPOINT'inde yazım ve isteğe bağlı
+`after_commit` işi. Bir abonenin hatası diğerini ve asıl işi etkilemiyor.
+Webhook kataloğunda olmayan olaylar (ör. `randevu.olusturuldu`,
+`aday.asama_degisti`, zamanlı `fatura.gecikti`) yalnız onları isteyen
+aboneye gider; webhook abonesi `OLAY_SOZLUGU` dışındaki türleri yok sayıyor.
+Otomasyonun zincir bilgisi (`session.info["otomasyon_zinciri"]`: derinlik +
+zincirdeki kurallar) abonelere `baglam["zincir"]` olarak geçiyor.
+
 Teslimat
 --------
 * Gövde `{id, tur, olusturma, hesap, veri}` (kişisel veri asgari: kimlikler
@@ -474,8 +489,10 @@ def _satirlari_ekle_sync(baglanti, hedefler: List[int], tur: str, hesap: Optiona
 def olay_yaz_sync(baglanti, tur: str, hesap: Optional[str], veri: Dict[str, Any], *, musteri_gorur: bool = True) -> int:
     """Eşleşen aktif uç noktalarına teslimat satırı yazar (çağıranın işleminde, SAVEPOINT).
 
-    HİÇBİR koşulda hata fırlatmaz; yazılan satır sayısını döndürür.
+    Faz 4W: olay ayrıca ek abonelere (otomasyon) dağıtılır. HİÇBİR koşulda hata
+    fırlatmaz; dönen değer eskisi gibi yazılan WEBHOOK teslimat satırı sayısı.
     """
+    _ek_abonelere_dagit(baglanti, [(tur, hesap, veri, musteri_gorur)], None)
     try:
         uclar = _onbellek_gecerli()
         if uclar is not None and not _abone_var_mi(uclar, tur):
@@ -496,7 +513,7 @@ def olay_yaz_sync(baglanti, tur: str, hesap: Optional[str], veri: Dict[str, Any]
 async def olay_yayinla(db: AsyncSession, tur: str, hesap: Optional[str], veri: Dict[str, Any], *, musteri_gorur: bool = True) -> int:
     """Async yollar için (çağıran commit eder). Hata fırlatmaz."""
     uclar = _onbellek_gecerli()
-    if uclar is not None and not _abone_var_mi(uclar, tur):
+    if uclar is not None and not _abone_var_mi(uclar, tur) and not _ek_abone_ilgilenir_mi(tur):
         return 0
     try:
         return await db.run_sync(lambda s: olay_yaz_sync(s.connection(), tur, hesap, veri, musteri_gorur=musteri_gorur))
@@ -628,6 +645,9 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
             }, True))
         elif tablo == "kartvizit_mesajlari" and obj.sahip_tur == "kart":
             olaylar.append(("kart.mesaj", obj.hesap_email, {"mesaj_id": obj.id, "kart_id": obj.sahip_id}, True))
+        elif tablo == "randevular":
+            # Faz 4W: yalnız otomasyon (webhook kataloğunda yok).
+            olaylar.append(("randevu.olusturuldu", obj.hesap_email, {"randevu_id": obj.id, "tur_id": obj.tur_id}, True))
 
     for obj in list(session.dirty):
         tablo = getattr(type(obj), "__tablename__", "")
@@ -671,6 +691,12 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
                     "sozlesme_id": obj.id, "no": obj.no, "baslik": obj.baslik, "teklif_id": obj.teklif_id,
                     "imza_at": iso(obj.imza_at),
                 }, True))
+        elif tablo == "crm_adaylar":
+            # Faz 4W: yalnız otomasyon (webhook kataloğunda yok).
+            degisti, eski, yeni = _gecmis(obj, "asama")
+            if degisti and yeni != eski and eski is not None:
+                olaylar.append(("aday.asama_degisti", None, {**aday_verisi(
+                    obj.id, obj.kaynak, yeni, obj.deger_tahmini, obj.para_birimi), "onceki_asama": eski}, False))
     return olaylar
 
 
@@ -685,32 +711,131 @@ IZLENEN_TABLOLAR = frozenset({
 })
 
 
+# ---------------------------------------------------------------------------
+# Faz 4W — yayınlayıcı: olay üretimi tek noktada, tüketim abone listesinde
+# ---------------------------------------------------------------------------
+#: (tür, hesap, veri, müşteri görür mü)
+Olay = Tuple[str, Optional[str], Dict[str, Any], bool]
+
+
+@dataclass
+class OlayAbonesi:
+    """Webhook dışındaki olay tüketicisi (ör. otomasyon kuralları)."""
+
+    ad: str
+    #: Önbellekten hızlı karar: tür verilirse o tür için, None ise herhangi bir olay için
+    #: "belki ilgilenirim". False dönerse veritabanına hiç gidilmez.
+    ilgileniyor_mu: Callable[[Optional[str]], bool]
+    #: Aynı işlemde (kendi SAVEPOINT'inde) olayları işler. baglam: {"zincir": ...}
+    yaz: Callable[[Any, List[Olay], Dict[str, Any]], Any]
+    #: Bu abonenin flush'ta izlediği tablolar (webhook'unkilere ek olabilir).
+    tablolar: FrozenSet[str] = frozenset()
+    #: İşlem onaylandıktan sonra (arka plan işini başlatmak için); hata fırlatmamalı.
+    commit_sonrasi: Optional[Callable[[], None]] = None
+
+
+_EK_ABONELER: List[OlayAbonesi] = []
+
+
+def abone_ekle(abone: OlayAbonesi) -> None:
+    """Aboneyi kaydeder (aynı adla ikinci kayıt öncekinin yerine geçer: yeniden import güvenli)."""
+    for i, a in enumerate(_EK_ABONELER):
+        if a.ad == abone.ad:
+            _EK_ABONELER[i] = abone
+            return
+    _EK_ABONELER.append(abone)
+
+
+def _ek_abone_ilgilenir_mi(tur: Optional[str]) -> bool:
+    for a in _EK_ABONELER:
+        try:
+            if a.ilgileniyor_mu(tur):
+                return True
+        except Exception:  # noqa: BLE001
+            return True
+    return False
+
+
+def _ek_abonelere_dagit(baglanti, olaylar: List[Olay], zincir: Optional[Dict[str, Any]]) -> None:
+    """Ek abonelere dağıtır; her abone kendi SAVEPOINT'inde. Hata fırlatmaz."""
+    if not olaylar:
+        return
+    for a in list(_EK_ABONELER):
+        try:
+            if not any(a.ilgileniyor_mu(o[0]) for o in olaylar):
+                continue
+            with baglanti.begin_nested():
+                a.yaz(baglanti, olaylar, {"zincir": zincir})
+        except Exception:  # noqa: BLE001 - abone asıl işi ASLA bozmamalı
+            logger.exception("Olay abonesi yazamadı (%s)", a.ad)
+
+
+def olaylari_yayinla_sync(baglanti, olaylar: List[Olay], *, zincir: Optional[Dict[str, Any]] = None) -> None:
+    """Kayıt değişikliğinden doğmayan olaylar (ör. zamanlı `fatura.gecikti`): bütün abonelere.
+    Webhook kataloğunda olmayan türleri webhook zaten yok sayar. Hata fırlatmaz."""
+    for tur, hesap, veri, gorur in olaylar:
+        if tur in OLAY_SOZLUGU:
+            try:
+                uclar = _onbellek_gecerli()
+                if uclar is None or _abone_var_mi(uclar, tur):
+                    with baglanti.begin_nested():
+                        if uclar is None:
+                            uclar = _uclari_yukle_sync(baglanti)
+                        h = eposta_duzelt(hesap) or None
+                        hedefler = [u.id for u in _eslesenler(uclar, tur, h, gorur)]
+                        if hedefler:
+                            _satirlari_ekle_sync(baglanti, hedefler, tur, h, veri)
+            except Exception:  # noqa: BLE001
+                logger.exception("Webhook olayı yazılamadı (%s)", tur)
+    _ek_abonelere_dagit(baglanti, olaylar, zincir)
+
+
+def _webhook_yaz(baglanti, olaylar: List[Olay]) -> None:
+    """Webhook abonesi: eşleşen aktif uç noktalarına teslimat satırları (eski davranış)."""
+    uclar = _onbellek_gecerli()
+    if uclar is None:
+        uclar = _uclari_yukle_sync(baglanti)
+    if not uclar:
+        return
+    for tur, hesap, veri, gorur in olaylar:
+        if tur not in OLAY_SOZLUGU or not _abone_var_mi(uclar, tur):
+            continue
+        hesap = eposta_duzelt(hesap) or None
+        hedefler = [u.id for u in _eslesenler(uclar, tur, hesap, gorur)]
+        if hedefler:
+            _satirlari_ekle_sync(baglanti, hedefler, tur, hesap, veri)
+
+
 @event.listens_for(Session, "after_flush")
 def _flush_sonrasi(session: Session, _flush_baglami) -> None:
     if session.info.get("webhook_kapali"):
         return
     try:
         uclar = _onbellek_gecerli()
-        if uclar is not None and not uclar:
-            return  # hiç aktif uç noktası yok: veritabanına hiç gitme
-        ilgili = any(
-            getattr(type(o), "__tablename__", "") in IZLENEN_TABLOLAR for o in (*session.new, *session.dirty)
-        )
+        # Hiç aktif uç noktası yoksa webhook ilgilenmiyor (veritabanına gitme).
+        webhook_belki = not (uclar is not None and not uclar)
+        ek = [a for a in _EK_ABONELER if a.ilgileniyor_mu(None)]
+        if not webhook_belki and not ek:
+            return
+        tablolar = set(IZLENEN_TABLOLAR) if webhook_belki else set()
+        for a in ek:
+            tablolar |= a.tablolar or IZLENEN_TABLOLAR
+        ilgili = any(getattr(type(o), "__tablename__", "") in tablolar for o in (*session.new, *session.dirty))
         if not ilgili:
             return
         baglanti = session.connection()
         with baglanti.begin_nested():
-            if uclar is None:
-                uclar = _uclari_yukle_sync(baglanti)
-            if not uclar:
-                return
-            for tur, hesap, veri, gorur in _olaylari_cikar(session, baglanti):
-                if not _abone_var_mi(uclar, tur):
-                    continue
-                hesap = eposta_duzelt(hesap) or None
-                hedefler = [u.id for u in _eslesenler(uclar, tur, hesap, gorur)]
-                if hedefler:
-                    _satirlari_ekle_sync(baglanti, hedefler, tur, hesap, veri)
+            olaylar = _olaylari_cikar(session, baglanti)
+        if not olaylar:
+            return
+        if webhook_belki:
+            try:
+                with baglanti.begin_nested():
+                    _webhook_yaz(baglanti, olaylar)
+            except Exception:  # noqa: BLE001 - webhook asıl işi ASLA bozmamalı
+                logger.exception("Webhook flush kancası çalışamadı")
+        if ek:
+            _ek_abonelere_dagit(baglanti, olaylar, session.info.get("otomasyon_zinciri"))
     except Exception:  # noqa: BLE001 - webhook asıl işi ASLA bozmamalı
         logger.exception("Webhook flush kancası çalışamadı")
 
@@ -723,6 +848,12 @@ _gorev: Dict[str, Any] = {"pompa": None, "yeniden": False}
 
 @event.listens_for(Session, "after_commit")
 def _commit_sonrasi(session: Session) -> None:
+    for a in _EK_ABONELER:  # Faz 4W: ek aboneler (otomasyon kuyruğu) kendi arka plan işini başlatır
+        if a.commit_sonrasi is not None:
+            try:
+                a.commit_sonrasi()
+            except Exception:  # noqa: BLE001
+                logger.exception("Olay abonesi commit sonrası işi başlatılamadı (%s)", a.ad)
     if not _bekleyen["var"] or not ANLIK_TESLIMAT:
         return
     try:
@@ -1185,5 +1316,5 @@ async def temizle(db: AsyncSession) -> Dict[str, int]:
 
 __all__ = [
     "OLAY_TURLERI", "PING", "imza_hesapla", "imza_dogrula", "olay_yayinla", "olay_yaz_sync", "aday_verisi",
-    "bekleyenleri_isle", "teslim_et", "test_gonder", "temizle",
+    "bekleyenleri_isle", "teslim_et", "test_gonder", "temizle", "OlayAbonesi", "abone_ekle", "olaylari_yayinla_sync",
 ]

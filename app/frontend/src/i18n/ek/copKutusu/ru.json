@@ -86,7 +86,9 @@
       "randevu_sayfalari": "Страница записи",
       "randevu_turleri": "Тип встречи",
       "randevu_kisileri": "Участник команды записи",
-      "randevu_istisnalari": "Исключение в расписании"
+      "randevu_istisnalari": "Исключение в расписании",
+      "otomasyon_kurallari": "Правила автоматизации",
+      "ozel_alanlar": "Описания пользовательских полей"
     }
   }
 }

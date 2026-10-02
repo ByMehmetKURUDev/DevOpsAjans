@@ -38,6 +38,7 @@ import {
   Timer,
   UserCog,
   UtensilsCrossed,
+  Workflow,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -88,6 +89,7 @@ export const MODUL_IKONLARI: Record<string, LucideIcon> = {
   Timer,
   UserCog,
   UtensilsCrossed,
+  Workflow,
 };
 
 export function modulIkonu(ad?: string | null): LucideIcon {

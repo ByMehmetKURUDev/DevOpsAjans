@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { Check, Copy, ExternalLink, Eye, EyeOff, Loader2, Pencil, Plus, Save, Trash2, X } from 'lucide-react';
@@ -20,6 +20,11 @@ import {
   type FormListesi,
 } from '@/lib/crm';
 import { AlanEtiketi, Bekle, METIN_ALANI, SECIM } from './ortak';
+import { ekliLazy } from '@/i18n/ekliLazy';
+import type { FormOzelEslemesi } from './FormOzelAlanlari';
+
+// Faz 4W: formda sorulacak CRM adayı özel alanları (ek paket `ozelAlanlar`).
+const FormOzelAlanlari = ekliLazy('ozelAlanlar', () => import('./FormOzelAlanlari'));
 
 const ALANLAR: FormAlani[] = ['ad', 'email', 'telefon', 'firma', 'mesaj', 'butce'];
 
@@ -36,6 +41,7 @@ type Taslak = {
   aydinlatma_baglantisi: string;
   pazarlama_izni_sor: boolean;
   aktif: boolean;
+  ozel_alanlar: FormOzelEslemesi[];
 };
 
 const BOS_ALANLAR: Taslak['alanlar'] = {
@@ -61,6 +67,7 @@ function taslakYap(f: CrmFormu | null): Taslak {
     aydinlatma_baglantisi: f?.aydinlatma_baglantisi ?? '',
     pazarlama_izni_sor: f?.pazarlama_izni_sor ?? false,
     aktif: f?.aktif ?? true,
+    ozel_alanlar: (f as (CrmFormu & { ozel_alanlar?: FormOzelEslemesi[] }) | null)?.ozel_alanlar ?? [],
   };
 }
 
@@ -327,6 +334,10 @@ function FormPenceresi({
             </div>
             <p className="mt-2 text-[11px] text-muted-foreground">{t('crm.form.epostaKilitli')}</p>
           </fieldset>
+
+          <Suspense fallback={null}>
+            <FormOzelAlanlari deger={taslak.ozel_alanlar} onDegis={(d) => setTaslak((x) => ({ ...x, ozel_alanlar: d }))} />
+          </Suspense>
 
           <AlanEtiketi ad={t('crm.form.varsayilanAsama')}>
             <select className={SECIM} value={taslak.varsayilan_asama} onChange={yaz('varsayilan_asama')}>

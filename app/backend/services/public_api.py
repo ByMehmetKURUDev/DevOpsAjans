@@ -93,6 +93,19 @@ def _yok() -> ApiHatasi:
     return ApiHatasi(404, "bulunamadi")
 
 
+async def _ozel_ekle(db: AsyncSession, kimlik: ApiKimlik, varlik: str, veri: Any) -> Any:
+    """Faz 4W: okuma yanıtlarına `ozel_alanlar` sözlüğü (geriye uyumlu ek alan). Müşteri anahtarında
+    yalnız "müşteriye görünür" alanlar. Hata asıl yanıtı bozmaz."""
+    try:
+        from services.ozel_alanlar import sozluklere_ekle
+
+        kayitlar = veri["veri"] if isinstance(veri, dict) and isinstance(veri.get("veri"), list) else [veri]
+        await sozluklere_ekle(db, varlik, kayitlar, yalniz_gorunur=not kimlik.ajans)
+    except Exception:  # noqa: BLE001
+        logger.exception("Özel alanlar API yanıtına eklenemedi")
+    return veri
+
+
 def _tarih_metni(deger: Any) -> Optional[str]:
     if deger is None:
         return None
@@ -143,8 +156,8 @@ def _proje_sorgusu(kimlik: ApiKimlik, hesap: Optional[str] = None):
 async def projeler(db: AsyncSession, kimlik: ApiKimlik, *, hesap=None, limit=None, cursor=None, updated_since=None):
     from models.projects import Projects
 
-    return await _sayfala(db, Projects, _proje_sorgusu(kimlik, hesap), proje_sozlugu, limit=limit, cursor=cursor,
-                          updated_since=updated_since)
+    return await _ozel_ekle(db, kimlik, "proje", await _sayfala(
+        db, Projects, _proje_sorgusu(kimlik, hesap), proje_sozlugu, limit=limit, cursor=cursor, updated_since=updated_since))
 
 
 async def _proje(db: AsyncSession, kimlik: ApiKimlik, proje_id: int):
@@ -157,7 +170,7 @@ async def _proje(db: AsyncSession, kimlik: ApiKimlik, proje_id: int):
 
 
 async def proje(db: AsyncSession, kimlik: ApiKimlik, proje_id: int) -> Dict[str, Any]:
-    return proje_sozlugu(await _proje(db, kimlik, proje_id))
+    return await _ozel_ekle(db, kimlik, "proje", proje_sozlugu(await _proje(db, kimlik, proje_id)))
 
 
 # ---------------------------------------------------------------------------
@@ -441,7 +454,8 @@ async def talepler(db: AsyncSession, kimlik: ApiKimlik, *, durum=None, hesap=Non
     sorgu = _talep_sorgusu(kimlik, hesap)
     if durum:
         sorgu = sorgu.where(Support_tickets.status == str(durum)[:20])
-    return await _sayfala(db, Support_tickets, sorgu, talep_sozlugu, limit=limit, cursor=cursor, updated_since=updated_since)
+    return await _ozel_ekle(db, kimlik, "destek", await _sayfala(
+        db, Support_tickets, sorgu, talep_sozlugu, limit=limit, cursor=cursor, updated_since=updated_since))
 
 
 async def _talep(db: AsyncSession, kimlik: ApiKimlik, talep_id: int):
@@ -460,7 +474,7 @@ async def talep(db: AsyncSession, kimlik: ApiKimlik, talep_id: int) -> Dict[str,
     mesajlar = (
         await db.execute(select(Ticket_replies).where(Ticket_replies.ticket_id == t.id).order_by(Ticket_replies.id.asc()).limit(500))
     ).scalars().all()
-    return talep_sozlugu(t, list(mesajlar))
+    return await _ozel_ekle(db, kimlik, "destek", talep_sozlugu(t, list(mesajlar)))
 
 
 async def talep_olustur(db: AsyncSession, kimlik: ApiKimlik, govde: Dict[str, Any]) -> Dict[str, Any]:
@@ -544,7 +558,8 @@ async def adaylar(db: AsyncSession, kimlik: ApiKimlik, *, asama=None, limit=None
     sorgu = select(CrmAdaylari)
     if asama:
         sorgu = sorgu.where(CrmAdaylari.asama == str(asama)[:60])
-    return await _sayfala(db, CrmAdaylari, sorgu, aday_sozlugu, limit=limit, cursor=cursor, updated_since=updated_since)
+    return await _ozel_ekle(db, kimlik, "crm_aday", await _sayfala(
+        db, CrmAdaylari, sorgu, aday_sozlugu, limit=limit, cursor=cursor, updated_since=updated_since))
 
 
 async def aday(db: AsyncSession, kimlik: ApiKimlik, aday_id: int) -> Dict[str, Any]:
@@ -554,7 +569,7 @@ async def aday(db: AsyncSession, kimlik: ApiKimlik, aday_id: int) -> Dict[str, A
     a = (await db.execute(select(CrmAdaylari).where(CrmAdaylari.id == int(aday_id)))).scalars().first()
     if a is None:
         raise _yok()
-    return aday_sozlugu(a)
+    return await _ozel_ekle(db, kimlik, "crm_aday", aday_sozlugu(a))
 
 
 async def aday_olustur(db: AsyncSession, kimlik: ApiKimlik, govde: Dict[str, Any]) -> Dict[str, Any]:

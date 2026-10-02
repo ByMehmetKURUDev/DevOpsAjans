@@ -97,7 +97,10 @@
       "bilgi_makaleleri": "知识库",
       "crm_adaylar": "CRM 线索",
       "crm_asamalar": "CRM 阶段",
-      "crm_formlar": "CRM 表单"
+      "crm_formlar": "CRM 表单",
+      "otomasyon_kurallari": "自动化规则",
+      "ozel_alanlar": "自定义字段定义",
+      "ozel_alan_degerleri": "自定义字段值"
     },
     "hareket": {
       "baslik": "账户动态",

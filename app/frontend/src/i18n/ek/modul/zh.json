@@ -164,6 +164,10 @@
       "randevu": {
         "ad": "预约与会议",
         "aciklama": "类似 Calendly 的预约页面：活动类型、每周可预约时间与例外、团队（轮流分配）、无冲突预约、.ics 邀请、提醒邮件、取消/改期链接、日历订阅以及可嵌入您网站的小组件。"
+      },
+      "otomasyon": {
+        "ad": "自动化规则",
+        "aciklama": "“发生这件事时就做那件事”：在事件（工单、发票、任务、预约等）上按条件发送邮件、面板通知、创建任务、发送 Webhook 和等待；提供现成模板、试运行和 30 天运行日志。"
       }
     },
     "kategori": {
@@ -204,7 +208,10 @@
       "anahtar_siniri": "每个账户最多有效 API 密钥数",
       "webhook_siniri": "每个账户最多 Webhook 端点数",
       "dakika_siniri": "每个密钥每分钟请求数上限",
-      "tur_siniri": "每个账户最多活动类型数"
+      "tur_siniri": "每个账户最多活动类型数",
+      "kural_siniri": "每个账户的自动化规则上限",
+      "calisma_dakika_siniri": "每分钟自动化运行上限",
+      "calisma_saat_siniri": "每小时自动化运行上限"
     },
     "musteri": {
       "baslik": "我的模块",

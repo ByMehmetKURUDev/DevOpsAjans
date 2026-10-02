@@ -67,7 +67,8 @@
       "webhook_pasiflesti": "वेबहुक एंडपॉइंट बंद किया गया",
       "randevu_yeni": "अपॉइंटमेंट: नई बुकिंग",
       "randevu_degisti": "अपॉइंटमेंट: समय बदला गया",
-      "randevu_iptal": "अपॉइंटमेंट: रद्द"
+      "randevu_iptal": "अपॉइंटमेंट: रद्द",
+      "otomasyon_bildirimi": "ऑटोमेशन नियम की सूचना"
     },
     "kanal": {
       "inapp": "पैनल",

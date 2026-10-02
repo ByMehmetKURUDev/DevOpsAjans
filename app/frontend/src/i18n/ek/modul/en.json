@@ -164,6 +164,10 @@
       "randevu": {
         "ad": "Appointments and meetings",
         "aciklama": "A Calendly-style booking page: event types, weekly availability and exceptions, team (round-robin), conflict-free booking, .ics invites, reminder emails, cancel/reschedule links, calendar subscription and an embeddable widget for your site."
+      },
+      "otomasyon": {
+        "ad": "Automation rules",
+        "aciklama": "\"When this happens, do that\": conditional email, panel notification, task, webhook and wait steps on events (tickets, invoices, tasks, bookings…); ready-made templates, dry runs and a 30-day run log."
       }
     },
     "kategori": {
@@ -204,7 +208,10 @@
       "anahtar_siniri": "Max active API keys per account",
       "webhook_siniri": "Max webhook endpoints per account",
       "dakika_siniri": "Requests per minute per key",
-      "tur_siniri": "Max event types per account"
+      "tur_siniri": "Max event types per account",
+      "kural_siniri": "Maximum automation rules per account",
+      "calisma_dakika_siniri": "Maximum automation runs per minute",
+      "calisma_saat_siniri": "Maximum automation runs per hour"
     },
     "musteri": {
       "baslik": "My modules",

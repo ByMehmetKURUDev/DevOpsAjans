@@ -164,6 +164,10 @@
       "randevu": {
         "ad": "Randevu ve toplantılar",
         "aciklama": "Calendly benzeri randevu sayfası: etkinlik türleri, haftalık uygunluk ve istisnalar, ekip (sırayla atama), çakışmasız rezervasyon, .ics davet, hatırlatma e-postası, iptal/yeniden planlama bağlantısı, takvim aboneliği ve sitenize gömülebilir pencere."
+      },
+      "otomasyon": {
+        "ad": "Otomasyon kuralları",
+        "aciklama": "\"Şu olunca bunu yap\": olaylarda (talep, fatura, görev, randevu…) koşullu e-posta, panel bildirimi, görev, webhook ve bekleme; hazır şablonlar, kuru çalıştırma ve 30 günlük çalıştırma günlüğü."
       }
     },
     "kategori": {
@@ -204,7 +208,10 @@
       "anahtar_siniri": "Hesap başına en çok etkin API anahtarı",
       "webhook_siniri": "Hesap başına en çok webhook uç noktası",
       "dakika_siniri": "Anahtar başına dakikalık istek sınırı",
-      "tur_siniri": "Hesap başına en çok etkinlik türü"
+      "tur_siniri": "Hesap başına en çok etkinlik türü",
+      "kural_siniri": "Hesap başına en çok otomasyon kuralı",
+      "calisma_dakika_siniri": "Dakikada en çok otomasyon çalıştırması",
+      "calisma_saat_siniri": "Saatte en çok otomasyon çalıştırması"
     },
     "musteri": {
       "baslik": "Modüllerim",

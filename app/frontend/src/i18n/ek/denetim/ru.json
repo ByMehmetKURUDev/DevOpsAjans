@@ -97,7 +97,10 @@
       "bilgi_makaleleri": "База знаний",
       "crm_adaylar": "Лиды CRM",
       "crm_asamalar": "Этапы CRM",
-      "crm_formlar": "Формы CRM"
+      "crm_formlar": "Формы CRM",
+      "otomasyon_kurallari": "Правила автоматизации",
+      "ozel_alanlar": "Описания пользовательских полей",
+      "ozel_alan_degerleri": "Значения пользовательских полей"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

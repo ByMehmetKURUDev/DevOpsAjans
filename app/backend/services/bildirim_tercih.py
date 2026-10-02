@@ -114,6 +114,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "randevu_yeni": {"roller": ("admin", "client"), "tetikleniyor": True},
     "randevu_degisti": {"roller": ("admin", "client"), "tetikleniyor": True},
     "randevu_iptal": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (yöneticilere / müşteri hesabına).
+    "otomasyon_bildirimi": {"roller": ("admin", "client"), "tetikleniyor": True},
 }
 
 

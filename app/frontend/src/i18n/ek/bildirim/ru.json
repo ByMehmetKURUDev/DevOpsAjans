@@ -67,7 +67,8 @@
       "webhook_pasiflesti": "Вебхук-адрес отключён",
       "randevu_yeni": "Записи: новая запись",
       "randevu_degisti": "Записи: перенесена",
-      "randevu_iptal": "Записи: отменена"
+      "randevu_iptal": "Записи: отменена",
+      "otomasyon_bildirimi": "Уведомление правила автоматизации"
     },
     "kanal": {
       "inapp": "Панель",

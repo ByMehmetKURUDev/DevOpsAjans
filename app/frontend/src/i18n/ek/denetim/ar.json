@@ -97,7 +97,10 @@
       "bilgi_makaleleri": "قاعدة المعرفة",
       "crm_adaylar": "العملاء المحتملون",
       "crm_asamalar": "مراحل المسار",
-      "crm_formlar": "نماذج العملاء المحتملين"
+      "crm_formlar": "نماذج العملاء المحتملين",
+      "otomasyon_kurallari": "قواعد الأتمتة",
+      "ozel_alanlar": "تعريفات الحقول المخصصة",
+      "ozel_alan_degerleri": "قيم الحقول المخصصة"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

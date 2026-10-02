@@ -67,7 +67,8 @@
       "webhook_pasiflesti": "Webhook endpoint disabled",
       "randevu_yeni": "Appointments: new booking",
       "randevu_degisti": "Appointments: rescheduled",
-      "randevu_iptal": "Appointments: cancelled"
+      "randevu_iptal": "Appointments: cancelled",
+      "otomasyon_bildirimi": "Automation rule notification"
     },
     "kanal": {
       "inapp": "Panel",

@@ -86,7 +86,9 @@
       "randevu_sayfalari": "बुकिंग पेज",
       "randevu_turleri": "इवेंट प्रकार (अपॉइंटमेंट)",
       "randevu_kisileri": "बुकिंग टीम सदस्य",
-      "randevu_istisnalari": "उपलब्धता अपवाद"
+      "randevu_istisnalari": "उपलब्धता अपवाद",
+      "otomasyon_kurallari": "ऑटोमेशन नियम",
+      "ozel_alanlar": "कस्टम फ़ील्ड परिभाषाएँ"
     }
   }
 }

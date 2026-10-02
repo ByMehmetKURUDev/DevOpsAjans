@@ -186,7 +186,9 @@
         "teklif_ve_sozlesme": "报价到期与合同到期提醒",
         "webhook_teslimatlari": "Webhook 重试投递",
         "webhook_temizligi": "清理旧的 Webhook 日志（30 天）",
-        "randevu_hatirlatmalari": "预约提醒（提前 24 小时和 1 小时）"
+        "randevu_hatirlatmalari": "预约提醒（提前 24 小时和 1 小时）",
+        "otomasyon": "自动化规则（待处理运行、“等待”之后、逾期发票）",
+        "otomasyon_temizligi": "清理旧的自动化运行日志（30 天）"
       },
       "gunluk": "每天",
       "haftalik": "每周"

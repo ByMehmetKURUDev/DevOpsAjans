@@ -67,7 +67,8 @@
       "webhook_pasiflesti": "تم إيقاف نقطة نهاية الويب هوك",
       "randevu_yeni": "المواعيد: حجز جديد",
       "randevu_degisti": "المواعيد: أعيدت جدولته",
-      "randevu_iptal": "المواعيد: أُلغي"
+      "randevu_iptal": "المواعيد: أُلغي",
+      "otomasyon_bildirimi": "إشعار قاعدة أتمتة"
     },
     "kanal": {
       "inapp": "اللوحة",

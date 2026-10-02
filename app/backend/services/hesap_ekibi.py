@@ -68,6 +68,9 @@ IZINLER: Tuple[str, ...] = (
     "api",
     # Faz 5R — randevu ve toplantılar (ekipte her kişi kendi uygunluğunu yönetir).
     "randevu",
+    # Faz 4W — otomasyon kuralları ve günlüğü (e-posta gönderebildiği için yalnız sahip/hesap
+    # yöneticisinin varsayılanında; üye ve fatura rolüne ayrıca verilir).
+    "otomasyon",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -169,6 +172,8 @@ OLAY_IZNI: Dict[str, str] = {
     "randevu_yeni": "randevu",
     "randevu_degisti": "randevu",
     "randevu_iptal": "randevu",
+    # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (hesaba).
+    "otomasyon_bildirimi": "otomasyon",
 }
 
 DAVET_OLAYI = "hesap_davet"

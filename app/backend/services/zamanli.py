@@ -227,6 +227,21 @@ async def _randevu_hatirlatmalari(db: AsyncSession, zorla: bool) -> Dict[str, An
     return await hatirlatmalari_gonder(db)
 
 
+async def _otomasyon(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 4W: `fatura.gecikti` olayı (fatura + eşik başına bir kez) ve kuyrukta bekleyen /
+    # "bekle" eyleminden sonra zamanı gelen otomasyon çalıştırmaları (süre bütçeli).
+    from services.otomasyon import zamanli_gorev
+
+    return await zamanli_gorev(db, zorla)
+
+
+async def _otomasyon_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 4W: 30 günden eski otomasyon çalıştırma kayıtları.
+    from services.otomasyon import temizle
+
+    return await temizle(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -262,6 +277,8 @@ GOREVLER: List[Gorev] = [
     Gorev("webhook_teslimatlari", timedelta(0), _webhook_teslimatlari),
     Gorev("webhook_temizligi", timedelta(hours=20), _webhook_temizligi),
     Gorev("randevu_hatirlatmalari", timedelta(0), _randevu_hatirlatmalari),
+    Gorev("otomasyon", timedelta(0), _otomasyon),
+    Gorev("otomasyon_temizligi", timedelta(hours=20), _otomasyon_temizligi),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

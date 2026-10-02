@@ -58,6 +58,7 @@ import {
   UtensilsCrossed,
   KeyRound,
   CalendarCheck,
+  Workflow,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -159,6 +160,10 @@ const QrMenu = ekliLazy(['qrMenu', 'qrMenuSayfa'], () => import('@/components/Qr
 const ApiErisimi = ekliLazy('apiErisimi', () => import('@/components/ApiErisimi'));
 // Faz 5R — randevu ve toplantılar (müşteri paneliyle aynı bileşen, yönetici modu).
 const Randevu = ekliLazy('randevu', () => import('@/components/Randevu'));
+// Faz 4W — otomasyon kuralları + özel alan tanımları (müşteri paneliyle aynı bileşen, yönetici modu).
+const Otomasyon = ekliLazy(['otomasyon', 'ozelAlanlar'], () => import('@/components/Otomasyon'));
+// Faz 4W — müşteri ayrıntısında hesabın özel alanları.
+const OzelAlanlarBolumu = ekliLazy('ozelAlanlar', () => import('@/components/OzelAlanlarBolumu'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
@@ -175,7 +180,7 @@ const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/a
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu', 'otomasyon'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -307,6 +312,7 @@ type Tab =
   | 'qrMenu'
   | 'api'
   | 'randevu'
+  | 'otomasyon'
   | 'baglantilar'
   | 'crm'
   | 'zaman'
@@ -1009,6 +1015,7 @@ export default function AdminPanel() {
     { key: 'qrMenu', label: t('ui.tabQrMenu'), icon: UtensilsCrossed },
     { key: 'api', label: t('ui.tabApi'), icon: KeyRound },
     { key: 'randevu', label: t('ui.tabRandevu'), icon: CalendarCheck },
+    { key: 'otomasyon', label: t('ui.tabOtomasyon'), icon: Workflow },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
@@ -1141,6 +1148,18 @@ export default function AdminPanel() {
           }
         >
           <ApiErisimi mod="yonetici" />
+        </Suspense>
+      )}
+
+      {tab === 'otomasyon' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <Otomasyon mod="yonetici" />
         </Suspense>
       )}
 
@@ -1941,6 +1960,10 @@ export default function AdminPanel() {
                         <div className="mt-4 border-t border-white/10 pt-4">
                           <Suspense fallback={<Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}>
                             <HesapEkibi hesapEmail={c.email} />
+                          </Suspense>
+                          {/* Faz 4W: müşteri hesabının özel alanları (tanım yoksa görünmez). */}
+                          <Suspense fallback={null}>
+                            <OzelAlanlarBolumu varlik="hesap" kimlik={c.email} className="mt-4" />
                           </Suspense>
                         </div>
                       )}

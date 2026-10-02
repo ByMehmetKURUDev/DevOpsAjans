@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
@@ -43,6 +43,10 @@ import {
   type PuanSatiri,
 } from '@/lib/crm';
 import { AlanEtiketi, Bekle, METIN_ALANI, PuanRozeti, SECIM } from './ortak';
+import { ekliLazy } from '@/i18n/ekliLazy';
+
+// Faz 4W: adayın özel alanları (tanım yoksa hiçbir şey çizmez; ek paket `ozelAlanlar`).
+const OzelAlanlarBolumu = ekliLazy('ozelAlanlar', () => import('@/components/OzelAlanlarBolumu'));
 
 interface Props {
   adayId: number;
@@ -420,6 +424,10 @@ export default function AdayCekmecesi({ adayId, meta, onKapat, onDegisti, onSekm
                 </Button>
               </div>
             </form>
+
+            <Suspense fallback={null}>
+              <OzelAlanlarBolumu varlik="crm_aday" kimlik={a.id} />
+            </Suspense>
 
             {/* Aktivite ekle */}
             <form

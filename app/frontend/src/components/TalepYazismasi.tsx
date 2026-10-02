@@ -11,6 +11,8 @@ import { ekliLazy } from '@/i18n/ekliLazy';
 
 // Faz 2C: ajans tarafında hazır cevap seçicisi — ayrı parça, müşteri paneline inmez.
 const HazirCevapSecici = ekliLazy('yardim', () => import('@/components/HazirCevapSecici'));
+// Faz 4W: talebin özel alanları — ayrı parça (tanım yoksa hiçbir şey çizmez).
+const OzelAlanlarBolumu = ekliLazy('ozelAlanlar', () => import('@/components/OzelAlanlarBolumu'));
 
 /**
  * Bir talebin altındaki yazışma. Hem müşteri panelinde hem yönetim
@@ -117,6 +119,9 @@ export default function TalepYazismasi({ ticketId, bizKimiz }: Props) {
 
   return (
     <div className="mt-3 space-y-3">
+      <Suspense fallback={null}>
+        <OzelAlanlarBolumu varlik="destek" kimlik={ticketId} mod={bizKimiz === 'ajans' ? 'yonetici' : 'musteri'} />
+      </Suspense>
       <div className="max-h-80 space-y-2 overflow-y-auto pr-1">
         {mesajlar.map((m) => {
           // Kuralın otomatik cevabı ajans tarafında görünür.

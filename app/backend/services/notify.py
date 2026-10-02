@@ -127,12 +127,16 @@ async def _eposta_gonder(
 
     `ek["ekler"]` (Faz 5R, isteğe bağlı): [{"dosya_adi", "icerik" (str|bytes), "tur"}]
     — ör. randevu daveti `.ics` (`text/calendar; method=REQUEST`).
+
+    `ek["html"]` (Faz 4W, isteğe bağlı): HTML sürümü (metin sürümü yine gider) —
+    otomasyon e-postaları; içerik çağıranda kaçışlı üretiliyor.
     """
     resend = _env("RESEND_API_KEY")
     gonderen = _env("NOTIFY_FROM_EMAIL") or "bildirim@mehmetkuru.dev"
     ek = ek or {}
     ek_basliklar = {k: str(v) for k, v in (ek.get("basliklar") or {}).items() if v}
     yanit_adresi = (ek.get("reply_to") or "").strip()
+    html_surumu = ek.get("html") or None
     ekler = [
         (str(e.get("dosya_adi") or "ek"),
          e["icerik"].encode("utf-8") if isinstance(e["icerik"], str) else bytes(e["icerik"]),
@@ -151,6 +155,8 @@ async def _eposta_gonder(
             yuk["headers"] = ek_basliklar
         if yanit_adresi:
             yuk["reply_to"] = yanit_adresi
+        if html_surumu:
+            yuk["html"] = html_surumu
         if ekler:
             import base64
 
@@ -190,6 +196,8 @@ async def _eposta_gonder(
                 if yanit_adresi:
                     mesaj["Reply-To"] = yanit_adresi
                 mesaj.set_content(govde)
+                if html_surumu:
+                    mesaj.add_alternative(html_surumu, subtype="html")
                 for ad, veri, tur in ekler:
                     ana, _, alt = tur.split(";", 1)[0].strip().partition("/")
                     parametreler = {

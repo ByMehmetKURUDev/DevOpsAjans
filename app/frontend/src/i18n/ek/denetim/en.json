@@ -97,7 +97,10 @@
       "bilgi_makaleleri": "Knowledge base",
       "crm_adaylar": "CRM leads",
       "crm_asamalar": "CRM stages",
-      "crm_formlar": "CRM forms"
+      "crm_formlar": "CRM forms",
+      "otomasyon_kurallari": "Automation rules",
+      "ozel_alanlar": "Custom field definitions",
+      "ozel_alan_degerleri": "Custom field values"
     },
     "hareket": {
       "baslik": "Account activity",

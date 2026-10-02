@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from 'react';
 import {
   AlertTriangle,
   Bug,
@@ -18,6 +18,10 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import GorevSayacDugmesi from '@/components/admin/GorevSayacDugmesi';
+import { ekliLazy } from '@/i18n/ekliLazy';
+
+// Faz 4W: proje ayrıntısında özel alanlar (tanım yoksa hiçbir şey çizmez).
+const OzelAlanlarBolumu = ekliLazy('ozelAlanlar', () => import('@/components/OzelAlanlarBolumu'));
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -521,6 +525,9 @@ export default function ProjeGorevleri({ projeId, projeBasligi, onKapat }: Props
           hataMetni={hataMetni}
         />
       )}
+      <Suspense fallback={null}>
+        <OzelAlanlarBolumu varlik="proje" kimlik={projeId} />
+      </Suspense>
     </section>
   );
 }

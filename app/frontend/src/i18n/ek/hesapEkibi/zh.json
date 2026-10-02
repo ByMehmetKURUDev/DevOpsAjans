@@ -34,7 +34,8 @@
       "kartvizit": "电子名片与评价页面",
       "menu": "二维码菜单与目录",
       "api": "API 与 Webhook",
-      "randevu": "预约与会议"
+      "randevu": "预约与会议",
+      "otomasyon": "自动化规则"
     },
     "durum": {
       "davet": "等待接受邀请",

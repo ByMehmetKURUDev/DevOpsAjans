@@ -97,7 +97,10 @@
       "bilgi_makaleleri": "ज्ञान आधार",
       "crm_adaylar": "सीआरएम लीड",
       "crm_asamalar": "सीआरएम चरण",
-      "crm_formlar": "सीआरएम फ़ॉर्म"
+      "crm_formlar": "सीआरएम फ़ॉर्म",
+      "otomasyon_kurallari": "ऑटोमेशन नियम",
+      "ozel_alanlar": "कस्टम फ़ील्ड परिभाषाएँ",
+      "ozel_alan_degerleri": "कस्टम फ़ील्ड मान"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

@@ -637,6 +637,13 @@ def _form_hatasi(h: formlar.FormHatasi) -> HTTPException:
     return _hata(h.durum, h.kod, **h.ek)
 
 
+async def _ozel_tanimlar(db: AsyncSession) -> Dict[int, Any]:
+    """Faz 4W: CRM adayının özel alanları (form eşlemesi için; pasifler dahil)."""
+    from services.ozel_alanlar import tanimlar
+
+    return {a.id: a for a in await tanimlar(db, "crm_aday", yalniz_aktif=False)}
+
+
 async def _form(db: AsyncSession, form_id: int) -> CrmFormlari:
     f = (await db.execute(select(CrmFormlari).where(CrmFormlari.id == form_id))).scalars().first()
     if f is None:
@@ -663,7 +670,7 @@ async def form_olustur(veri: Dict[str, Any] = Body(...), db: AsyncSession = Depe
     await servis.asamalari_hazirla(db)
     anahtarlar = [a.anahtar for a in await servis.asamalar(db)]
     try:
-        alanlar = formlar.tanimi_dogrula(veri, None, anahtarlar)
+        alanlar = formlar.tanimi_dogrula(veri, None, anahtarlar, await _ozel_tanimlar(db))
     except formlar.FormHatasi as h:
         raise _form_hatasi(h)
     f = CrmFormlari(genel_anahtar=formlar.yeni_genel_anahtar(), kvkk_surum=1, gonderim_sayisi=0, **{"aktif": True, **alanlar})
@@ -677,7 +684,7 @@ async def form_guncelle(form_id: int, veri: Dict[str, Any] = Body(...), db: Asyn
     f = await _form(db, form_id)
     anahtarlar = [a.anahtar for a in await servis.asamalar(db)]
     try:
-        alanlar = formlar.tanimi_dogrula(veri, f, anahtarlar)
+        alanlar = formlar.tanimi_dogrula(veri, f, anahtarlar, await _ozel_tanimlar(db))
     except formlar.FormHatasi as h:
         raise _form_hatasi(h)
     for k, v in alanlar.items():
@@ -723,7 +730,8 @@ def _koken_denetle(request: Request, f: CrmFormlari) -> Optional[str]:
 async def acik_form_tanimi(anahtar: str, request: Request, dil: str = Query("tr"), db: AsyncSession = Depends(get_db)):
     f = await _acik_form(db, anahtar)
     _koken_denetle(request, f)
-    return JSONResponse(formlar.acik_tanim(f, dil), headers={"Cache-Control": "no-store"})
+    ozel = await _ozel_tanimlar(db) if formlar.ozel_eslemesi(f.alanlar) else None
+    return JSONResponse(formlar.acik_tanim(f, dil, ozel), headers={"Cache-Control": "no-store"})
 
 
 @acik_router.post("/{anahtar}")
@@ -751,9 +759,11 @@ async def acik_form_gonder(anahtar: str, request: Request, db: AsyncSession = De
     if str(govde.get(formlar.BAL_KUPU) or "").strip():
         logger.info("CRM formu: bal küpü dolu, gönderim yok sayıldı (form %s)", f.id)
         return yanit
+    ozel_tanimlar = await _ozel_tanimlar(db) if formlar.ozel_eslemesi(f.alanlar) else None
     try:
         formlar.jeton_dogrula(govde.get("jeton"), f.id)
         degerler = formlar.gonderimi_dogrula(f, govde)
+        ozel_degerler = formlar.ozel_degerleri_dogrula(f, govde, ozel_tanimlar)
     except formlar.FormHatasi as h:
         raise _form_hatasi(h)
 
@@ -777,6 +787,14 @@ async def acik_form_gonder(anahtar: str, request: Request, db: AsyncSession = De
         ek_veri={"form": f.ad, "form_id": f.id},
     ))
     gonderim.aday_id = sonuc["aday_id"] if sonuc else None
+    if ozel_degerler and gonderim.aday_id:
+        # Faz 4W: forma eşlenen özel alanlar adaya (aynı işlemde: otomasyon kuralı görür).
+        from services import ozel_alanlar
+
+        try:
+            await ozel_alanlar.degerleri_yaz(db, "crm_aday", gonderim.aday_id, ozel_degerler, kisi="form")
+        except ozel_alanlar.OzelAlanHatasi:
+            logger.warning("Form özel alanları adaya yazılamadı (form %s)", f.id)
     if pazarlama:
         await pazarlama_izni.adaya_isle(db, gonderim.aday_id, an, f"form:{f.id}", gonderim.pazarlama_metin_surumu)
     f.gonderim_sayisi = int(f.gonderim_sayisi or 0) + 1

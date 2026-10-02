@@ -486,7 +486,8 @@
     "tabKartvizit": "डिजिटल बिज़नेस कार्ड",
     "tabQrMenu": "QR मेन्यू और कैटलॉग",
     "tabApi": "API और वेबहुक",
-    "tabRandevu": "अपॉइंटमेंट"
+    "tabRandevu": "अपॉइंटमेंट",
+    "tabOtomasyon": "ऑटोमेशन"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

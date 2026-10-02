@@ -67,7 +67,8 @@
       "webhook_pasiflesti": "Webhook uç noktası durduruldu",
       "randevu_yeni": "Randevu: yeni rezervasyon",
       "randevu_degisti": "Randevu: yeniden planlandı",
-      "randevu_iptal": "Randevu: iptal edildi"
+      "randevu_iptal": "Randevu: iptal edildi",
+      "otomasyon_bildirimi": "Otomasyon kuralı bildirimi"
     },
     "kanal": {
       "inapp": "Panel",

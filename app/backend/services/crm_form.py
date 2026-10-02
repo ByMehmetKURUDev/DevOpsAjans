@@ -41,6 +41,15 @@ rızaya bağlıyordu. Artık:
   Eski istemci `kvkk_onay` gönderirse yok sayılıyor (geriye uyumlu).
 * Pazarlama izni AYRI, isteğe bağlı, varsayılan işaretsiz kutu; yalnız formun
   `pazarlama_izni_sor` seçeneği açıksa görünüyor (`services/pazarlama_izni.py`).
+
+Özel alanlar (Faz 4W)
+---------------------
+Form ayarından CRM adayının özel alanlarına (`services/ozel_alanlar.py`,
+türler: metin, sayı, URL, seçim) eşlenen ek alanlar sorulabiliyor. Eşleme
+`alanlar` JSON'unun `ozel` anahtarında (``[{"alan_id", "zorunlu"}]``; tabloya
+sütun eklenmedi). Ziyaretçiye `oz_<anahtar>` adıyla gidiyor, gelen değer
+alanın türüne göre doğrulanıp adaya yazılıyor. Pasif ya da silinmiş alan
+formdan kendiliğinden düşüyor.
 """
 
 import hashlib
@@ -201,6 +210,52 @@ def dil_sec(ham: Optional[str]) -> str:
 # ---------------------------------------------------------------------------
 # Tanım doğrulama (panel)
 # ---------------------------------------------------------------------------
+OZEL_ON_EK = "oz_"
+OZEL_FORM_SINIRI = 10
+
+
+def ozel_eslemesi(alanlar_json: Any) -> List[Dict[str, Any]]:
+    """Kayıtlı eşleme: [{"alan_id": int, "zorunlu": bool}] (Faz 4W)."""
+    ham = json_sozluk(alanlar_json) if isinstance(alanlar_json, str) else (alanlar_json if isinstance(alanlar_json, dict) else {})
+    sonuc = []
+    for o in (ham.get("ozel") or []) if isinstance(ham, dict) else []:
+        if isinstance(o, dict) and isinstance(o.get("alan_id"), int) and not isinstance(o.get("alan_id"), bool):
+            sonuc.append({"alan_id": o["alan_id"], "zorunlu": o.get("zorunlu") is True})
+    return sonuc
+
+
+def ozel_eslemesi_dogrula(ham: Any, tanimlar: Dict[int, Any]) -> List[Dict[str, Any]]:
+    """Panel gövdesindeki `ozel_alanlar` → temiz eşleme. `tanimlar`: id → CRM adayı özel alanı."""
+    from services.ozel_alanlar import FORM_TURLERI
+
+    if ham in (None, ""):
+        return []
+    if not isinstance(ham, list):
+        raise FormHatasi("ozel_alan_gecersiz")
+    sonuc: List[Dict[str, Any]] = []
+    for o in ham:
+        if isinstance(o, int) and not isinstance(o, bool):
+            o = {"alan_id": o}
+        if not isinstance(o, dict) or not isinstance(o.get("alan_id"), int) or isinstance(o.get("alan_id"), bool):
+            raise FormHatasi("ozel_alan_gecersiz")
+        tanim = tanimlar.get(o["alan_id"])
+        if tanim is None or tanim.tur not in FORM_TURLERI:
+            raise FormHatasi("ozel_alan_gecersiz", alan_id=o["alan_id"])
+        if any(x["alan_id"] == o["alan_id"] for x in sonuc):
+            continue
+        sonuc.append({"alan_id": o["alan_id"], "zorunlu": o.get("zorunlu") is True or bool(tanim.zorunlu)})
+    if len(sonuc) > OZEL_FORM_SINIRI:
+        raise FormHatasi("ozel_alan_sayisi", en_cok=OZEL_FORM_SINIRI)
+    return sonuc
+
+
+def _alanlar_json(duz: Dict[str, Any], ozel: List[Dict[str, Any]]) -> str:
+    d: Dict[str, Any] = dict(duz)
+    if ozel:
+        d["ozel"] = ozel
+    return json.dumps(d)
+
+
 def alanlari_duzelt(ham: Any) -> Dict[str, Dict[str, bool]]:
     sonuc = {k: dict(v) for k, v in VARSAYILAN_ALANLAR.items()}
     if ham in (None, ""):
@@ -262,8 +317,12 @@ def https_adresi(ham: Any, kod: str) -> Optional[str]:
     return s
 
 
-def tanimi_dogrula(veri: Dict[str, Any], mevcut: Optional[Any], asama_anahtarlari: List[str]) -> Dict[str, Any]:
-    """Panel gövdesi → sütun değerleri (yalnız verilen alanlar; oluşturmada zorunlular)."""
+def tanimi_dogrula(veri: Dict[str, Any], mevcut: Optional[Any], asama_anahtarlari: List[str],
+                   ozel_tanimlar: Optional[Dict[int, Any]] = None) -> Dict[str, Any]:
+    """Panel gövdesi → sütun değerleri (yalnız verilen alanlar; oluşturmada zorunlular).
+
+    Faz 4W: `ozel_alanlar` (özel alan eşlemesi) `alanlar` JSON'una yazılıyor; verilmezse
+    mevcut eşleme korunuyor."""
     sonuc: Dict[str, Any] = {}
     yeni = mevcut is None
 
@@ -279,8 +338,13 @@ def tanimi_dogrula(veri: Dict[str, Any], mevcut: Optional[Any], asama_anahtarlar
         if len(b) > 160:
             raise FormHatasi("baslik_uzun")
         sonuc["baslik"] = b or None
-    if "alanlar" in veri or yeni:
-        sonuc["alanlar"] = json.dumps(alanlari_duzelt(veri.get("alanlar")))
+    if "alanlar" in veri or "ozel_alanlar" in veri or yeni:
+        duz = alanlari_duzelt(veri.get("alanlar")) if ("alanlar" in veri or yeni) else alanlari_duzelt(mevcut.alanlar)
+        if "ozel_alanlar" in veri:
+            ozel = ozel_eslemesi_dogrula(veri.get("ozel_alanlar"), ozel_tanimlar or {})
+        else:
+            ozel = ozel_eslemesi(mevcut.alanlar) if mevcut is not None else []
+        sonuc["alanlar"] = _alanlar_json(duz, ozel)
     if "varsayilan_asama" in veri:
         a = (veri.get("varsayilan_asama") or "").strip() or None
         if a and a not in asama_anahtarlari:
@@ -345,7 +409,8 @@ def form_sozlugu(f: Any) -> Dict[str, Any]:
 
     return {
         "id": f.id, "ad": f.ad, "baslik": f.baslik, "genel_anahtar": f.genel_anahtar,
-        "alanlar": alanlari_duzelt(f.alanlar), "varsayilan_asama": f.varsayilan_asama,
+        "alanlar": alanlari_duzelt(f.alanlar), "ozel_alanlar": ozel_eslemesi(f.alanlar),
+        "varsayilan_asama": f.varsayilan_asama,
         "varsayilan_etiketler": json_liste(f.varsayilan_etiketler), "tesekkur_metni": f.tesekkur_metni,
         "yonlendirme_adresi": f.yonlendirme_adresi, "izinli_alanlar": json_liste(f.izinli_alanlar),
         "aydinlatma_metni": f.aydinlatma_metni or "", "aydinlatma_baglantisi": f.aydinlatma_baglantisi,
@@ -459,7 +524,21 @@ def aydinlatma_adresi(f: Any, dil: str) -> str:
     return VARSAYILAN_AYDINLATMA if d == "tr" else VARSAYILAN_AYDINLATMA.replace("/gizlilik", f"/{d}/gizlilik")
 
 
-def acik_tanim(f: Any, dil: str) -> Dict[str, Any]:
+def _ozel_form_alanlari(f: Any, ozel_tanimlar: Optional[Dict[int, Any]]) -> List[Tuple[Any, bool]]:
+    """Formda sorulacak özel alanlar: (tanım, zorunlu) — pasif/silinmiş/türü uygun olmayan düşer."""
+    from services.ozel_alanlar import FORM_TURLERI
+
+    sonuc = []
+    for o in ozel_eslemesi(f.alanlar):
+        t = (ozel_tanimlar or {}).get(o["alan_id"])
+        if t is not None and t.aktif is not False and t.tur in FORM_TURLERI:
+            sonuc.append((t, bool(o["zorunlu"])))
+    return sonuc
+
+
+def acik_tanim(f: Any, dil: str, ozel_tanimlar: Optional[Dict[int, Any]] = None) -> Dict[str, Any]:
+    from services.ozel_alanlar import METIN_SINIRI, URL_SINIRI, _liste
+
     d = dil_sec(dil)
     e = ETIKETLER[d]
     alanlar = alanlari_duzelt(f.alanlar)
@@ -472,6 +551,12 @@ def acik_tanim(f: Any, dil: str) -> Dict[str, Any]:
         "alanlar": [
             {"ad": ad, "zorunlu": alanlar[ad]["zorunlu"], "etiket": e["alan"][ad], "en_cok": ALAN_SINIRLARI[ad]}
             for ad in ALAN_ADLARI if alanlar[ad]["acik"]
+        ] + [
+            # Faz 4W: özel alanlar (etiket alanın adı; tek dil). Seçimde `secenekler`.
+            {"ad": OZEL_ON_EK + t.anahtar, "zorunlu": zorunlu, "etiket": t.ad, "tur": t.tur,
+             "en_cok": URL_SINIRI if t.tur == "url" else (40 if t.tur == "sayi" else METIN_SINIRI),
+             **({"secenekler": _liste(t.secenekler)} if t.tur == "secim" else {})}
+            for t, zorunlu in _ozel_form_alanlari(f, ozel_tanimlar)
         ],
         # Onay kutusu yok: bilgilendirme satırı. `kvkk` aynı nesnenin eski adı —
         # önbellekte kalmış eski betik (Faz 4G öncesi) kırılmasın diye duruyor.
@@ -490,6 +575,28 @@ def acik_tanim(f: Any, dil: str) -> Dict[str, Any]:
         "jeton": jeton_uret(f.id),
         "bal_kupu": BAL_KUPU,
     }
+
+
+def ozel_degerleri_dogrula(f: Any, govde: Dict[str, Any], ozel_tanimlar: Optional[Dict[int, Any]]) -> Dict[str, Any]:
+    """Faz 4W: formdaki özel alanların temiz değerleri ({anahtar: değer}); boşlar dahil edilmez."""
+    from services.ozel_alanlar import OzelAlanHatasi, deger_dogrula
+
+    sonuc: Dict[str, Any] = {}
+    for t, zorunlu in _ozel_form_alanlari(f, ozel_tanimlar):
+        ad = OZEL_ON_EK + t.anahtar
+        ham = govde.get(ad)
+        if ham is not None and not isinstance(ham, (str, int, float)):
+            raise FormHatasi("alan_gecersiz", alan=ad)
+        ham = str(ham).strip() if ham is not None else ""
+        if not ham:
+            if zorunlu:
+                raise FormHatasi("alan_gerekli", alan=ad)
+            continue
+        try:
+            sonuc[t.anahtar] = deger_dogrula(t, ham)
+        except OzelAlanHatasi:
+            raise FormHatasi("alan_gecersiz", alan=ad)
+    return sonuc
 
 
 def gonderimi_dogrula(f: Any, govde: Dict[str, Any]) -> Dict[str, str]:
