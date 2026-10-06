@@ -15,7 +15,8 @@
       "kurallar": "Rules",
       "sablonlar": "Ready-made templates",
       "gunluk": "Run log",
-      "ozel": "Custom fields"
+      "ozel": "Custom fields",
+      "sistem": "System"
     },
     "kural": {
       "yeni": "New rule",
@@ -152,7 +153,18 @@
       "adres": "Address",
       "teknisyen": "Technician",
       "kod": "Code",
-      "bilet_sayisi": "Ticket count"
+      "bilet_sayisi": "Ticket count",
+      "sonraki_adim": "Next step",
+      "sonraki_adim_tarihi": "Next step date",
+      "son_hareket": "Last activity",
+      "hareketsiz_gun": "Inactive (days)",
+      "gecerlilik": "Valid until",
+      "gonderildi_at": "Sent at",
+      "goruntulendi": "Viewed",
+      "goruntulenme_sayisi": "View count",
+      "yanitsiz_gun": "Unanswered (days)",
+      "baglanti": "Link",
+      "yoneten": "Managed by (agency/client)"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -180,7 +192,9 @@
       "etkinlik_kayit": "Event registration",
       "etkinlik_bilet_satildi": "Paid ticket sold",
       "etkinlik_giris": "Checked in at the door",
-      "etkinlik_iptal": "Event ticket cancelled"
+      "etkinlik_iptal": "Event ticket cancelled",
+      "teklif_yanitsiz": "Quote left unanswered",
+      "aday_hareketsiz": "Lead went quiet"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -208,7 +222,9 @@
       "etkinlik_kayit": "An event registration was confirmed (paid ones once payment arrives).",
       "etkinlik_bilet_satildi": "Payment for a paid ticket order was received (agency events only).",
       "etkinlik_giris": "A ticket was scanned at the door (first entry).",
-      "etkinlik_iptal": "The attendee or the organiser cancelled a ticket."
+      "etkinlik_iptal": "The attendee or the organiser cancelled a ticket.",
+      "teklif_yanitsiz": "A sent quote has had no accept or decline for 3 or 7 days (once per threshold; resending restarts the count).",
+      "aday_hareketsiz": "An open lead has had no activity (note, call, stage change…) for 7 or 14 days. New activity resets the count."
     },
     "eylem": {
       "eposta": "Send email",
@@ -243,7 +259,8 @@
       "alici_ekip_uyesi": "A team member",
       "uye": "Team member",
       "baslik": "Title",
-      "govde": "Text"
+      "govde": "Text",
+      "alici_sorumlu_yonetici": "Owner (or admins if none)"
     },
     "gorev": {
       "proje": "Project",
@@ -411,10 +428,11 @@
         "bildirim_govde": "[[teklif.baslik]] ([[teklif.genel_toplam]] [[teklif.para_birimi]]) was accepted. A kick-off task was opened."
       },
       "fatura_gecikti_hatirlatma": {
-        "ad": "Invoice 3 days overdue → reminder email",
-        "aciklama": "A polite payment reminder to the account owner when an open invoice is 3 days overdue.",
-        "konu": "Payment reminder: [[fatura.no]]",
-        "govde": "Hello [[kisi.ad|]],\n\nInvoice [[fatura.no]] for [[fatura.tutar]] [[fatura.para_birimi]] became due [[fatura.gecikme_gun]] days ago. You can pay it from your panel.\n\nThank you"
+        "ad": "Invoice 30 days overdue → admin alert + CRM note",
+        "aciklama": "When: an open invoice is 30 days past due (once per invoice). What it does: sends admins a panel notification and adds a note to the client's CRM record. Payment reminders to the client (+1, +7, +14 days) are already sent by the system; this rule sends the client no extra email.",
+        "bildirim": "Unpaid for 30 days: [[fatura.no]]",
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) — [[fatura.no]], [[fatura.tutar]] [[fatura.para_birimi]], due [[fatura.vade_tarihi]]. Automatic reminders (+1/+7/+14 days) were sent; a phone call may help now.",
+        "metin": "Invoice [[fatura.no]] ([[fatura.tutar]] [[fatura.para_birimi]]) has been unpaid for 30 days."
       },
       "destek_acil_bildirim": {
         "ad": "Support ticket 'urgent' → notification",
@@ -426,6 +444,39 @@
         "ad": "Booking made → CRM activity",
         "aciklama": "A meeting activity is added to the CRM lead of the person who booked.",
         "metin": "Booking made: [[randevu.tur]] — [[randevu.baslangic]] ([[randevu.ad]])"
+      },
+      "teklif_yanitsiz_hatirlatma": {
+        "ad": "Quote unanswered for 3 days → gentle reminder",
+        "aciklama": "When: a quote you sent gets no accept or decline within 3 days (once per quote). What it does: sends the person on the quote a polite reminder email and drops you a panel notification. You can edit the text as you like.",
+        "konu": "A quick reminder about our quote: [[teklif.baslik]]",
+        "govde": "Hello [[kisi.ad|]],\n\nA few days ago we shared our quote [[teklif.no]], \"[[teklif.baslik]]\". If you have any questions or would like something changed, simply reply to this email.\n\nYou can review the quote here: [[teklif.baglanti|the link in our first email]]\n\nBest regards",
+        "bildirim": "Quote unanswered for 3 days: [[teklif.no]]",
+        "bildirim_govde": "[[teklif.baslik]] ([[teklif.genel_toplam]] [[teklif.para_birimi]]) — [[teklif.aday_ad|]] [[teklif.aday_eposta|]]. Viewed: [[teklif.goruntulendi]]. A gentle reminder email was sent to the client."
+      },
+      "aday_hareketsiz_hatirlatma": {
+        "ad": "Lead quiet for 7 days → reminder to owner",
+        "aciklama": "When: an open CRM lead has no activity (note, call, stage change) for 7 days. What it does: sends a panel notification to the lead's owner (or admins if unassigned) and adds a note to the lead. Any new activity on the lead restarts the count.",
+        "bildirim": "No activity for 7 days: [[aday.ad]]",
+        "bildirim_govde": "[[aday.ad]] [[aday.firma|]] — stage: [[aday.asama]], last activity: [[aday.son_hareket]]. Next step: [[aday.sonraki_adim|not set]].",
+        "metin": "No activity for 7 days; a reminder was sent to the owner."
+      },
+      "proje_yayinda_geri_bildirim": {
+        "ad": "Project launched → thank-you + feedback request",
+        "aciklama": "When: you move a project to the \"Launch\" stage. What it does: emails the client a thank-you that asks for their feedback. Everyone gets the same email (no different version for happy or unhappy clients — Google's rule). To add your Google review link, open the rule and edit the text.",
+        "konu": "[[proje.baslik]] is live — thank you!",
+        "govde": "Hello [[kisi.ad|]],\n\nYour project [[proje.baslik]] is now live. Thank you so much for trusting us along the way.\n\nWe'd love to hear about your experience in a few sentences: what did you like, and what could we have done better? Simply reply to this email. If you like, you can also leave a public review of our business.\n\nBest regards"
+      },
+      "sozlesme_imzalandi_bildirim": {
+        "ad": "Contract signed → kick-off reminder",
+        "aciklama": "When: a client signs a contract with e-signature. What it does: sends admins a \"time to start\" panel notification (reminder to schedule the kick-off and request documents and access). The usual signature notification is still sent too.",
+        "bildirim": "Time to start: [[sozlesme.no]]",
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) signed the contract \"[[sozlesme.baslik]]\". Next steps: schedule the kick-off meeting and request the documents and access you need."
+      },
+      "icerik_onaylandi_gorev": {
+        "ad": "Content approved → \"Publish\" reminder",
+        "aciklama": "When: a content post managed by the agency is approved (clients' own content excluded). What it does: sends the content owner (or admins if none) a \"Publish: <title>\" panel notification. The event has no project, so a notification is used instead of a task.",
+        "bildirim": "Publish: [[icerik.baslik]]",
+        "bildirim_govde": "Post approved. Scheduled for: [[icerik.planlanan_at|not set]]; channels: [[icerik.kanallar|—]]."
       }
     },
     "hata": {
@@ -483,7 +534,110 @@
       "calisma_yok": "Run not found.",
       "kayit_yok": "The event's record no longer exists.",
       "baglam_gecersiz": "Sample data must be a JSON object.",
-      "baglam_buyuk": "Sample data is too large."
+      "baglam_buyuk": "Sample data is too large.",
+      "acik_gerekli": "An on/off value is required."
+    },
+    "sistem": {
+      "baslik": "What the system does on its own",
+      "aciklama": "Everything that runs in the background without you lifting a finger: the weekly summary, built-in flows and scheduled jobs. Your own \"when this happens, do that\" rules are in the Rules tab.",
+      "akis": {
+        "baslik": "Built-in flows",
+        "aciklama": "They run the moment something happens; change their settings in the related section.",
+        "ayarla": "Configure",
+        "talepCrm": {
+          "ad": "Incoming requests become CRM leads",
+          "aciklama": "Anyone who writes via the contact form, pricing wizard, site analysis or embedded forms becomes a CRM lead; if the same person writes again it is added to their existing lead."
+        },
+        "teklifKabul": {
+          "ad": "Accepted quotes open an invoice, contract and project",
+          "aciklama": "When a client accepts a quote, the records you chose for that quote (first invoice, contract draft, project) are created automatically."
+        },
+        "destekKurallari": {
+          "ad": "Support requests are routed by rules",
+          "aciklama": "A new request is assigned to a team member based on its subject and source, gets a priority and tags, and can receive a canned reply."
+        },
+        "projeAsama": {
+          "ad": "Clients hear about project stage changes",
+          "aciklama": "When you move a project to the next stage, the client is informed in the panel and by email."
+        },
+        "bildirimler": {
+          "ad": "Who gets which notification",
+          "aciklama": "Turn email, browser, SMS and WhatsApp channels on or off for each event; the weekly summary email is managed here too."
+        },
+        "webhook": {
+          "ad": "Sending events to other systems (webhook)",
+          "aciklama": "Events such as a new lead or a paid invoice are sent instantly to systems you connect (Zapier, Make, etc.); failed deliveries are retried for 3 days."
+        }
+      },
+      "ozet": {
+        "baslik": "Weekly summary (Monday 08:00)",
+        "aciklama": "Every Monday morning admins get a summary of what needs attention this week: overdue invoices, open support requests, leads awaiting follow-up, unanswered quotes, content awaiting approval, pending documents, upcoming renewals and unreachable sites. Nothing is sent if everything is zero.",
+        "acik": "On",
+        "kapali": "Off",
+        "acildi": "Weekly summary turned on.",
+        "kapandi": "Weekly summary turned off.",
+        "sonGonderim": "Last sent",
+        "hicGonderilmedi": "not sent yet",
+        "buHafta": "This week",
+        "durum": {
+          "gonderildi": "sent",
+          "bos": "nothing needed attention, not sent",
+          "bekliyor": "not sent yet"
+        },
+        "sonraki": "Next send",
+        "kapaliyken": "off — will not be sent",
+        "ilkTurda": "at the next scheduled run (within 10 minutes)",
+        "alicilar": "Recipients",
+        "aliciSayisi": "{{sayi}} admin(s)",
+        "epostaYok": "The email channel is not ready (Resend or SMTP not set up, or switched off): the summary only appears in panel notifications.",
+        "tekKaynak": "This switch is the same setting as the email box of the \"Weekly summary\" row in the Notifications section.",
+        "onizle": "Preview",
+        "onizlemeNotu": "Current state (not sent):",
+        "bos": "Nothing needs attention right now — no summary would be sent this week.",
+        "panelde": "Open in panel",
+        "dahaFazla": "… and {{sayi}} more",
+        "bolum": {
+          "faturalar": "Overdue invoices",
+          "destek": "Open support requests",
+          "crm": "CRM leads awaiting follow-up",
+          "teklifler": "Quotes unanswered for 3+ days",
+          "icerik": "Content awaiting client approval",
+          "belgeler": "Pending document requests",
+          "yenilemeler": "Renewals due within 14 days",
+          "siteler": "Sites currently unreachable"
+        },
+        "ek": {
+          "toplam": "Total outstanding: {{tutar}}",
+          "sla": "SLA breached on {{sayi}} request(s)",
+          "crm": "{{adim}} with a due next step, {{hareketsiz}} inactive for 7+ days",
+          "geciken": "{{sayi}} past their due date"
+        },
+        "tur": {
+          "alan": "Domain",
+          "ssl": "SSL",
+          "hosting": "Hosting"
+        },
+        "satir": {
+          "gecikme": "{{sayi}} days overdue",
+          "sla_asildi": "SLA breached",
+          "acik": "open for {{sayi}} days",
+          "acik_bugun": "opened today",
+          "hareketsiz": "inactive for {{sayi}} days",
+          "yanitsiz": "unanswered for {{sayi}} days, not viewed",
+          "yanitsiz_goruldu": "unanswered for {{sayi}} days, viewed",
+          "onay_bekliyor": "awaiting approval for {{sayi}} days",
+          "onay_bekliyor_bugun": "awaiting approval since today",
+          "gecikti": "{{sayi}} days past due date",
+          "kapali": "unreachable for {{sayi}} days",
+          "kapali_bugun": "unreachable",
+          "sonraki_adim": "next step {{sayi}} days overdue",
+          "sonraki_adim_bugun": "next step due today",
+          "bekliyor": "pending",
+          "son_tarihe": "{{sayi}} days to due date",
+          "kaldi": "{{sayi}} days left",
+          "doldu": "expired {{sayi}} days ago"
+        }
+      }
     }
   }
 }

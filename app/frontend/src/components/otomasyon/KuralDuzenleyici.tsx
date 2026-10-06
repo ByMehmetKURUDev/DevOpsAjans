@@ -570,7 +570,7 @@ function EylemAlanlari({
     );
   }
   if (e.tur === 'bildirim') {
-    const alicilar = ajans ? ['yoneticiler', 'hesap', 'sorumlu', 'ekip_uyesi'] : ['hesap'];
+    const alicilar = ajans ? ['yoneticiler', 'hesap', 'sorumlu', 'sorumlu_yonetici', 'ekip_uyesi'] : ['hesap'];
     return (
       <div className="grid gap-3 sm:grid-cols-2">
         <Etiket ad={t('otomasyon.bildirim.alici')}>

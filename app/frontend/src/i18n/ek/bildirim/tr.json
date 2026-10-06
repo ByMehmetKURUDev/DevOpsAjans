@@ -77,7 +77,8 @@
       "saha_is_atandi": "Bana yeni saha işi atandı",
       "saha_bakim_zamani": "Bakım zamanı gelen cihazlar",
       "etkinlik_kayit": "Etkinlik: yeni kayıt",
-      "etkinlik_iptal": "Etkinlik: bilet iptal edildi"
+      "etkinlik_iptal": "Etkinlik: bilet iptal edildi",
+      "haftalik_ozet": "Haftalık özet (Pazartesi sabahı)"
     },
     "kanal": {
       "inapp": "Panel",

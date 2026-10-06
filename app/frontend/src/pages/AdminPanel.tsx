@@ -118,7 +118,7 @@ const MusteriRaporlari = lazy(() => import('@/components/admin/MusteriRaporlari'
 const HizmetAbonelikleri = lazy(() => import('@/components/admin/HizmetAbonelikleri'));
 // Faz 2A: bakım kartı, uptime, yenilemeler — metinleri `siteBakim` ek paketinde.
 const MusteriSiteleri = ekliLazy('siteBakim', () => import('@/components/admin/MusteriSiteleri'));
-const ZamanliGorevler = ekliLazy('siteBakim', () => import('@/components/admin/ZamanliGorevler'));
+// Faz 7O: "Zamanlı görevler" kartı Site Ayarları'ndan Otomasyon › Sistem'e taşındı.
 // Fiyatlandırma v5 paneli de ayrı parçada: 6 tablonun form/tablo mantığı
 // panele her girişte inmesin.
 const FiyatlandirmaV5Paneli = lazy(() => import('@/components/admin/FiyatlandirmaV5Paneli'));
@@ -195,6 +195,14 @@ const ZamanTakibi = ekliLazy('zamanTakibi', () => import('@/components/admin/Zam
 const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/admin/ProjeSablonlari'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
+type DestekBolumu = 'kullanici' | 'calisan' | 'rapor' | 'kurallar' | 'ayarlar';
+const DESTEK_BOLUMLERI: readonly DestekBolumu[] = ['kullanici', 'calisan', 'rapor', 'kurallar', 'ayarlar'];
+/** Destek sekmesinin `?bolum=` alt bölümü (yalnız `sekme=tickets` iken). */
+function istenenDestekBolumu(arama: string): DestekBolumu | null {
+  const q = new URLSearchParams(arama);
+  const b = q.get('bolum') as DestekBolumu | null;
+  return q.get('sekme') === 'tickets' && b && DESTEK_BOLUMLERI.includes(b) ? b : null;
+}
 /** `?sekme=` ile doğrudan açılan sekme (bildirim bağlantıları); menüde olmayan ad yok sayılır. */
 function istenenSekme(arama: string): string | null {
   const istenen = new URLSearchParams(arama).get('sekme') || '';
@@ -497,7 +505,12 @@ export default function AdminPanel() {
   // Destek sekmesinin alt bolumu: musteri talepleri / ekip / raporlar.
   // Faz 2E: ekibi açık olan müşteri kartı (tek seferde bir tane).
   const [ekipAcik, setEkipAcik] = useState<string | null>(null);
-  const [destekBolumu, setDestekBolumu] = useState<'kullanici' | 'calisan' | 'rapor' | 'kurallar' | 'ayarlar'>('kullanici');
+  const [destekBolumu, setDestekBolumu] = useState<DestekBolumu>(() => istenenDestekBolumu(location.search) ?? 'kullanici');
+  // Faz 7O: `?sekme=tickets&bolum=kurallar` (Otomasyon › Sistem'deki "Ayarla") doğrudan alt bölümü açar.
+  useEffect(() => {
+    const b = istenenDestekBolumu(location.search);
+    if (b) setDestekBolumu(b);
+  }, [location.search]);
   // Faz 2C: talep başına SLA durumu (rozet). Destek sekmesi açıkken çekiliyor.
   const [slaHaritasi, setSlaHaritasi] = useState<Record<string, SlaDurumu>>({});
   // Atama seciciyi doldurmak icin ekip listesi. Yalnizca Destek
@@ -1526,16 +1539,6 @@ export default function AdminPanel() {
       {tab === 'settings' && (
         <div className="space-y-6">
           <SiteSagligi />
-
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center py-6 text-muted-foreground">
-                <Loader2 className="h-5 w-5 animate-spin" />
-              </div>
-            }
-          >
-            <ZamanliGorevler />
-          </Suspense>
 
           <SiteTaramasi />
 

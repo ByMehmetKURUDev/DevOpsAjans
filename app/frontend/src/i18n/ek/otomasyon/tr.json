@@ -15,7 +15,8 @@
       "kurallar": "Kurallar",
       "sablonlar": "Hazır şablonlar",
       "gunluk": "Çalıştırma günlüğü",
-      "ozel": "Özel alanlar"
+      "ozel": "Özel alanlar",
+      "sistem": "Sistem"
     },
     "kural": {
       "yeni": "Yeni kural",
@@ -152,7 +153,18 @@
       "adres": "Adres",
       "teknisyen": "Teknisyen",
       "kod": "Kod",
-      "bilet_sayisi": "Bilet sayısı"
+      "bilet_sayisi": "Bilet sayısı",
+      "sonraki_adim": "Sonraki adım",
+      "sonraki_adim_tarihi": "Sonraki adım tarihi",
+      "son_hareket": "Son hareket",
+      "hareketsiz_gun": "Hareketsiz (gün)",
+      "gecerlilik": "Geçerlilik",
+      "gonderildi_at": "Gönderim zamanı",
+      "goruntulendi": "Görüntülendi mi",
+      "goruntulenme_sayisi": "Görüntülenme sayısı",
+      "yanitsiz_gun": "Yanıtsız (gün)",
+      "baglanti": "Bağlantı",
+      "yoneten": "Yöneten (ajans/müşteri)"
     },
     "olay": {
       "aday_olusturuldu": "Yeni CRM adayı",
@@ -180,7 +192,9 @@
       "etkinlik_kayit": "Etkinliğe kayıt",
       "etkinlik_bilet_satildi": "Ücretli bilet satıldı",
       "etkinlik_giris": "Kapıda giriş yapıldı",
-      "etkinlik_iptal": "Etkinlik bileti iptal edildi"
+      "etkinlik_iptal": "Etkinlik bileti iptal edildi",
+      "teklif_yanitsiz": "Teklif yanıtsız kaldı",
+      "aday_hareketsiz": "Aday hareketsiz kaldı"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Form, iletişim, site analizi ya da elle eklenen aday.",
@@ -208,7 +222,9 @@
       "etkinlik_kayit": "Etkinlik kaydı onaylandı (ücretlide ödeme gelince).",
       "etkinlik_bilet_satildi": "Ücretli bilet siparişinin ödemesi alındı (yalnız ajans etkinlikleri).",
       "etkinlik_giris": "Bilet kapıda okutuldu (ilk giriş).",
-      "etkinlik_iptal": "Katılımcı ya da organizatör bileti iptal etti."
+      "etkinlik_iptal": "Katılımcı ya da organizatör bileti iptal etti.",
+      "teklif_yanitsiz": "Gönderilen teklif 3 ya da 7 gündür kabul ya da ret almadı (eşik başına bir kez; yeniden gönderilirse sayaç baştan başlar).",
+      "aday_hareketsiz": "Açık aşamadaki adayda 7 ya da 14 gündür hareket yok (not, arama, aşama değişimi…). Yeni hareket sayacı sıfırlar."
     },
     "eylem": {
       "eposta": "E-posta gönder",
@@ -243,7 +259,8 @@
       "alici_ekip_uyesi": "Bir ekip üyesi",
       "uye": "Ekip üyesi",
       "baslik": "Başlık",
-      "govde": "Metin"
+      "govde": "Metin",
+      "alici_sorumlu_yonetici": "Sorumlu kişi (yoksa yöneticiler)"
     },
     "gorev": {
       "proje": "Proje",
@@ -411,10 +428,11 @@
         "bildirim_govde": "[[teklif.baslik]] ([[teklif.genel_toplam]] [[teklif.para_birimi]]) kabul edildi. Başlangıç görevi açıldı."
       },
       "fatura_gecikti_hatirlatma": {
-        "ad": "Fatura 3 gün gecikti → hatırlatma e-postası",
-        "aciklama": "Vadesi 3 gün geçen açık faturada hesap sahibine kibar bir ödeme hatırlatması.",
-        "konu": "Ödeme hatırlatması: [[fatura.no]]",
-        "govde": "Merhaba [[kisi.ad|]],\n\n[[fatura.no]] numaralı [[fatura.tutar]] [[fatura.para_birimi]] tutarındaki faturanızın vadesi [[fatura.gecikme_gun]] gün önce doldu. Ödemeyi panelinizden yapabilirsiniz.\n\nTeşekkürler"
+        "ad": "Fatura 30 gün gecikti → yöneticiye bildirim + CRM notu",
+        "aciklama": "Ne zaman: açık bir faturanın vadesi 30 gün geçince (fatura başına bir kez). Ne yapar: yöneticilere panel bildirimi gönderir ve müşterinin CRM kaydına not düşer. Müşteriye ödeme hatırlatmaları (+1, +7, +14. gün) zaten sistem tarafından gönderiliyor; bu kural müşteriye ayrıca e-posta atmaz.",
+        "bildirim": "30 gündür ödenmeyen fatura: [[fatura.no]]",
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) — [[fatura.no]], [[fatura.tutar]] [[fatura.para_birimi]], vade [[fatura.vade_tarihi]]. Otomatik hatırlatmalar (+1/+7/+14 gün) gönderildi; artık telefonla aramak iyi olabilir.",
+        "metin": "Fatura [[fatura.no]] ([[fatura.tutar]] [[fatura.para_birimi]]) 30 gündür ödenmedi."
       },
       "destek_acil_bildirim": {
         "ad": "Destek talebi 'acil' → bildirim",
@@ -426,6 +444,39 @@
         "ad": "Randevu oluştu → CRM etkinliği",
         "aciklama": "Randevu alan kişinin CRM adayına toplantı etkinliği eklenir.",
         "metin": "Randevu alındı: [[randevu.tur]] — [[randevu.baslangic]] ([[randevu.ad]])"
+      },
+      "teklif_yanitsiz_hatirlatma": {
+        "ad": "Teklif 3 gündür yanıtsız → nazik hatırlatma",
+        "aciklama": "Ne zaman: gönderdiğiniz teklif 3 gün içinde kabul ya da ret almazsa (teklif başına bir kez). Ne yapar: teklifteki kişiye kibar bir hatırlatma e-postası gönderir ve size panel bildirimi düşer. Metni dilediğiniz gibi değiştirebilirsiniz.",
+        "konu": "Teklifimizle ilgili kısa bir hatırlatma: [[teklif.baslik]]",
+        "govde": "Merhaba [[kisi.ad|]],\n\nBirkaç gün önce [[teklif.no]] numaralı \"[[teklif.baslik]]\" teklifimizi paylaşmıştık. Aklınıza takılan bir soru ya da değiştirmek istediğiniz bir nokta varsa bu e-postayı yanıtlamanız yeterli.\n\nTeklifi buradan inceleyebilirsiniz: [[teklif.baglanti|size gönderdiğimiz ilk e-postadaki bağlantı]]\n\nSevgiler",
+        "bildirim": "Teklif 3 gündür yanıtsız: [[teklif.no]]",
+        "bildirim_govde": "[[teklif.baslik]] ([[teklif.genel_toplam]] [[teklif.para_birimi]]) — [[teklif.aday_ad|]] [[teklif.aday_eposta|]]. Görüntülendi: [[teklif.goruntulendi]]. Müşteriye nazik bir hatırlatma e-postası gönderildi."
+      },
+      "aday_hareketsiz_hatirlatma": {
+        "ad": "Aday 7 gündür hareketsiz → sorumluya hatırlatma",
+        "aciklama": "Ne zaman: açık bir CRM adayında 7 gündür hiçbir hareket (not, arama, aşama değişimi) olmazsa. Ne yapar: adayın sorumlusuna (atanmamışsa yöneticilere) panel bildirimi gönderir ve adaya not düşer. Adayda yeni bir hareket olunca sayaç baştan başlar.",
+        "bildirim": "7 gündür hareket yok: [[aday.ad]]",
+        "bildirim_govde": "[[aday.ad]] [[aday.firma|]] — aşama: [[aday.asama]], son hareket: [[aday.son_hareket]]. Sonraki adım: [[aday.sonraki_adim|belirlenmemiş]].",
+        "metin": "7 gündür hareket yok; sorumluya hatırlatma gönderildi."
+      },
+      "proje_yayinda_geri_bildirim": {
+        "ad": "Proje yayında → teşekkür + geri bildirim isteği",
+        "aciklama": "Ne zaman: bir projeyi \"Yayın\" aşamasına aldığınızda. Ne yapar: müşteriye teşekkür eden ve görüşünü soran bir e-posta gönderir. E-posta herkese aynı gider (memnun olana bir türlü, olmayana başka türlü değil — Google'ın kuralı). Google yorum bağlantınızı eklemek için kuralı açıp metni düzenleyin.",
+        "konu": "[[proje.baslik]] yayında — teşekkürler!",
+        "govde": "Merhaba [[kisi.ad|]],\n\n[[proje.baslik]] projeniz yayına alındı. Bu süreçte bize güvendiğiniz için çok teşekkür ederiz.\n\nDeneyiminizi birkaç cümleyle paylaşırsanız seviniriz: neyi beğendiniz, neyi daha iyi yapabilirdik? Bu e-postayı yanıtlamanız yeterli. İsterseniz işletmemiz hakkında herkese açık bir yorum da bırakabilirsiniz.\n\nSevgiler"
+      },
+      "sozlesme_imzalandi_bildirim": {
+        "ad": "Sözleşme imzalandı → işe başlama hatırlatması",
+        "aciklama": "Ne zaman: müşteri bir sözleşmeyi e-imzayla imzaladığında. Ne yapar: yöneticilere \"işe başlama zamanı\" panel bildirimi gönderir (başlangıç toplantısı, belge ve erişim isteme hatırlatması). İmza bilgisi ayrıca her zamanki gibi bildirilir.",
+        "bildirim": "İşe başlama zamanı: [[sozlesme.no]]",
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) \"[[sozlesme.baslik]]\" sözleşmesini imzaladı. Sıradaki adımlar: başlangıç toplantısını planlayın, gerekli belge ve erişimleri isteyin."
+      },
+      "icerik_onaylandi_gorev": {
+        "ad": "İçerik onaylandı → \"Paylaş\" hatırlatması",
+        "aciklama": "Ne zaman: ajansın yönettiği bir içerik gönderisi onaylandığında (müşterinin kendi içerikleri hariç). Ne yapar: içeriğin sorumlusuna (yoksa yöneticilere) \"Paylaş: <başlık>\" panel bildirimi gönderir. Olayda proje olmadığı için görev yerine bildirim kullanılır.",
+        "bildirim": "Paylaş: [[icerik.baslik]]",
+        "bildirim_govde": "Gönderi onaylandı. Planlanan zaman: [[icerik.planlanan_at|belirlenmemiş]]; kanallar: [[icerik.kanallar|—]]."
       }
     },
     "hata": {
@@ -483,7 +534,110 @@
       "calisma_yok": "Çalıştırma bulunamadı.",
       "kayit_yok": "Olayın kaydı artık yok.",
       "baglam_gecersiz": "Örnek veri bir JSON nesnesi olmalı.",
-      "baglam_buyuk": "Örnek veri çok büyük."
+      "baglam_buyuk": "Örnek veri çok büyük.",
+      "acik_gerekli": "Açık/kapalı değeri gerekli."
+    },
+    "sistem": {
+      "baslik": "Sistemin kendiliğinden yaptıkları",
+      "aciklama": "Siz bir şey yapmadan arka planda çalışan her şey burada: haftalık özet, kendiliğinden işleyen akışlar ve zamanlı işler. Kendi \"şu olunca bunu yap\" kurallarınız Kurallar sekmesinde.",
+      "akis": {
+        "baslik": "Kendiliğinden işleyen akışlar",
+        "aciklama": "Bir olay olduğu anda çalışırlar; ayarlarını ilgili bölümden değiştirebilirsiniz.",
+        "ayarla": "Ayarla",
+        "talepCrm": {
+          "ad": "Gelen talepler CRM'e aday olarak düşer",
+          "aciklama": "İletişim formu, fiyat teklifi, site analizi ve gömülü formlardan yazan herkes CRM'de aday olur; aynı kişi yeniden yazarsa mevcut adayına eklenir."
+        },
+        "teklifKabul": {
+          "ad": "Teklif kabul edilince fatura, sözleşme ve proje açılır",
+          "aciklama": "Müşteri teklifi onaylayınca, o teklif için seçtiğiniz kayıtlar (ilk fatura, sözleşme taslağı, proje) kendiliğinden oluşur."
+        },
+        "destekKurallari": {
+          "ad": "Destek talepleri kurallara göre yönlenir",
+          "aciklama": "Yeni talep, konusuna ve kaynağına göre bir ekip üyesine atanır, öncelik ve etiket alır; isterseniz hazır cevap gider."
+        },
+        "projeAsama": {
+          "ad": "Proje aşaması değişince müşteri haberdar olur",
+          "aciklama": "Bir projeyi sonraki aşamaya aldığınızda müşteri panelde ve e-postayla bilgilendirilir."
+        },
+        "bildirimler": {
+          "ad": "Kime hangi bildirim gider",
+          "aciklama": "Her olay için e-posta, tarayıcı bildirimi, SMS ve WhatsApp kanallarını açıp kapatırsınız; haftalık özetin e-postası da buradan yönetilir."
+        },
+        "webhook": {
+          "ad": "Dış sistemlere olay gönderimi (webhook)",
+          "aciklama": "Bağladığınız dış sistemlere (Zapier, Make vb.) yeni aday, ödenen fatura gibi olaylar anında gider; ulaşılamazsa 3 gün boyunca yeniden denenir."
+        }
+      },
+      "ozet": {
+        "baslik": "Haftalık özet (Pazartesi 08:00)",
+        "aciklama": "Her Pazartesi sabahı yöneticilere bu hafta bakılacak işlerin özeti gider: geciken faturalar, açık destek talepleri, takip bekleyen adaylar, yanıtsız teklifler, onay bekleyen içerikler, bekleyen belgeler, yaklaşan yenilemeler ve erişilemeyen siteler. Hepsi sıfırsa gönderilmez.",
+        "acik": "Açık",
+        "kapali": "Kapalı",
+        "acildi": "Haftalık özet açıldı.",
+        "kapandi": "Haftalık özet kapatıldı.",
+        "sonGonderim": "Son gönderim",
+        "hicGonderilmedi": "henüz gönderilmedi",
+        "buHafta": "Bu hafta",
+        "durum": {
+          "gonderildi": "gönderildi",
+          "bos": "bakılacak bir şey yoktu, gönderilmedi",
+          "bekliyor": "henüz gönderilmedi"
+        },
+        "sonraki": "Sonraki gönderim",
+        "kapaliyken": "kapalı — gönderilmeyecek",
+        "ilkTurda": "bir sonraki zamanlı turda (10 dakika içinde)",
+        "alicilar": "Alıcılar",
+        "aliciSayisi": "{{sayi}} yönetici",
+        "epostaYok": "E-posta kanalı hazır değil (Resend ya da SMTP ayarlanmamış ya da kapalı): özet yalnız panel bildirimlerine düşer.",
+        "tekKaynak": "Bu düğme, Bildirimler bölümündeki \"Haftalık özet\" satırının e-posta kutusuyla aynı ayardır.",
+        "onizle": "Önizle",
+        "onizlemeNotu": "Şu anki durum (gönderilmez):",
+        "bos": "Şu an bakılacak bir şey yok — bu hafta özet gönderilmezdi.",
+        "panelde": "Panelde aç",
+        "dahaFazla": "… ve {{sayi}} tane daha",
+        "bolum": {
+          "faturalar": "Vadesi geçmiş faturalar",
+          "destek": "Açık destek talepleri",
+          "crm": "Takip bekleyen CRM adayları",
+          "teklifler": "3+ gündür yanıtsız teklifler",
+          "icerik": "Müşteri onayı bekleyen içerikler",
+          "belgeler": "Bekleyen belge talepleri",
+          "yenilemeler": "14 gün içinde yenilenecekler",
+          "siteler": "Şu an erişilemeyen siteler"
+        },
+        "ek": {
+          "toplam": "Toplam kalan: {{tutar}}",
+          "sla": "{{sayi}} talepte SLA aşıldı",
+          "crm": "{{adim}} sonraki adımı gelmiş, {{hareketsiz}} tanesi 7+ gündür hareketsiz",
+          "geciken": "{{sayi}} talebin son tarihi geçti"
+        },
+        "tur": {
+          "alan": "Alan adı",
+          "ssl": "SSL",
+          "hosting": "Hosting"
+        },
+        "satir": {
+          "gecikme": "{{sayi}} gün gecikti",
+          "sla_asildi": "SLA aşıldı",
+          "acik": "{{sayi}} gündür açık",
+          "acik_bugun": "bugün açıldı",
+          "hareketsiz": "{{sayi}} gündür hareketsiz",
+          "yanitsiz": "{{sayi}} gündür yanıtsız, görüntülenmedi",
+          "yanitsiz_goruldu": "{{sayi}} gündür yanıtsız, görüntülendi",
+          "onay_bekliyor": "{{sayi}} gündür onay bekliyor",
+          "onay_bekliyor_bugun": "bugünden beri onay bekliyor",
+          "gecikti": "son tarih {{sayi}} gün geçti",
+          "kapali": "{{sayi}} gündür erişilemiyor",
+          "kapali_bugun": "erişilemiyor",
+          "sonraki_adim": "sonraki adım {{sayi}} gün geçti",
+          "sonraki_adim_bugun": "sonraki adım bugün",
+          "bekliyor": "bekliyor",
+          "son_tarihe": "son tarihe {{sayi}} gün",
+          "kaldi": "{{sayi}} gün kaldı",
+          "doldu": "süresi {{sayi}} gün önce doldu"
+        }
+      }
     }
   }
 }

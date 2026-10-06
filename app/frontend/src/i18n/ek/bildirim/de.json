@@ -77,7 +77,8 @@
       "saha_is_atandi": "Mir wurde ein neuer Außendienstauftrag zugewiesen",
       "saha_bakim_zamani": "Geräte mit fälliger Wartung",
       "etkinlik_kayit": "Veranstaltung: neue Anmeldung",
-      "etkinlik_iptal": "Veranstaltung: Ticket storniert"
+      "etkinlik_iptal": "Veranstaltung: Ticket storniert",
+      "haftalik_ozet": "Wochenübersicht (Montagmorgen)"
     },
     "kanal": {
       "inapp": "Panel",

@@ -60,6 +60,9 @@ class Gorev:
     #: Bu kadar süre geçmeden tekrar çalışmıyor (zorla=True değilse).
     siklik: timedelta
     calistir: Callable[[AsyncSession, bool], Awaitable[Dict[str, Any]]]
+    #: Faz 7O — sıklıktan farklı bir takvimi olan iş için panelde gösterilecek plan anahtarı
+    #: (ör. "haftalik_pazartesi": 30 dakikada bir denetlenir ama haftada bir gönderir).
+    plan: Optional[str] = None
 
 
 # ---------------------------------------------------------------------------
@@ -271,6 +274,14 @@ async def _saha_servisi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_gorev(db)
 
 
+async def _haftalik_ozet(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 7O: Pazartesi 08:00'den (İstanbul) sonraki ilk turda, ISO hafta başına bir kez yöneticiye özet.
+    # `zorla` (yöneticinin "Şimdi çalıştır"ı) pencereyi ve hafta kilidini ATLAMIYOR: ikinci özet gitmez.
+    from services.haftalik_ozet import gonder
+
+    return await gonder(db)
+
+
 async def _etkinlik_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     # Faz 6E: ödemesi gelmeyen kayıtların yerleri ve süresi geçen davetler bırakılır, yer açılan
     # etkinlikte bekleme listesine 24 saatlik davet gider, biten etkinlik "tamamlandı" olur, teşekkür +
@@ -322,6 +333,7 @@ GOREVLER: List[Gorev] = [
     Gorev("eposta_pazarlama", timedelta(0), _eposta_pazarlama),
     Gorev("saha_servisi", timedelta(hours=20), _saha_servisi),
     Gorev("etkinlik_bakimi", timedelta(0), _etkinlik_bakimi),
+    Gorev("haftalik_ozet", timedelta(minutes=30), _haftalik_ozet, plan="haftalik_pazartesi"),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]
@@ -493,7 +505,7 @@ async def durum_listesi(db: AsyncSession) -> Dict[str, Any]:
     return {
         "genel": {**sozluk(genel), "calisiyor": bool(kilit and kilit > simdi())},
         "gorevler": [
-            {"gorev": g.ad, "siklik_dk": int(g.siklik.total_seconds() // 60), **sozluk(satirlar.get(g.ad))}
+            {"gorev": g.ad, "siklik_dk": int(g.siklik.total_seconds() // 60), "plan": g.plan, **sozluk(satirlar.get(g.ad))}
             for g in GOREVLER
         ],
         "anahtar_tanimli": _anahtar() is not None,

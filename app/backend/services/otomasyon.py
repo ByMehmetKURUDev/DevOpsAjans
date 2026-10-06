@@ -26,7 +26,8 @@ Koruma
   ayarı); aşan satır `atlandi: hiz_siniri`.
 * Idempotent: (olay_id, kural_id) benzersiz; satır koşullu kilitle bir kez
   işleniyor; zamanlı `fatura.gecikti` olayının kimliği belirlenimli
-  (fatura + eşik).
+  (fatura + eşik); Faz 7O `teklif.yanitsiz` (teklif + gönderim anı + eşik) ve
+  `aday.hareketsiz` (aday + son hareket anı + eşik) de öyle.
 * Pazarlama e-postası yalnız pazarlama izni olan alıcıya (`crm_adaylar`
   `pazarlama_izni_at`, Faz 4G); yoksa eylem atlanır ve günlüğe yazılır.
 """
@@ -335,6 +336,49 @@ def aday_sozlugu(a: Any) -> Dict[str, Any]:
         "asama": a.asama, "deger_tahmini": _sayi(a.deger_tahmini), "para_birimi": a.para_birimi,
         "etiketler": _json(a.etiketler, []), "sorumlu": a.sorumlu, "puan": a.puan, "butce": a.butce,
         "pazarlama_izni": a.pazarlama_izni_at is not None,
+        "sonraki_adim": a.sonraki_adim, "sonraki_adim_tarihi": iso(a.sonraki_adim_tarihi),
+    }
+
+
+async def _aday_hareketi(db: AsyncSession, aday: Dict[str, Any], kayit: Any, esik: Any = None) -> None:
+    """Faz 7O — `son_hareket` + `hareketsiz_gun` (verilen eşik — `aday.hareketsiz` olayı — ya da gerçek gün)."""
+    from services.crm import son_hareketler
+
+    son = (await son_hareketler(db, [kayit])).get(int(kayit.id))
+    aday["son_hareket"] = iso(son)
+    gun = None
+    if son is not None:
+        gun = max(0, (simdi() - son).days)
+    if esik is not None:
+        try:
+            gun = int(esik)
+        except (TypeError, ValueError):
+            pass
+    aday["hareketsiz_gun"] = gun
+
+
+def teklif_sozlugu(t: Any, esik: Any = None) -> Dict[str, Any]:
+    """Faz 7O — teklif bağlamı. `yanitsiz_gun`: `teklif.yanitsiz` olayında eşik; açık teklifte gönderimden
+    bu yana geçen gün; kararlı/taslak teklifte boş. `baglanti`: hesabı olan müşterinin panelindeki teklif
+    listesi (girişsiz `/teklif/<jeton>` bağlantısının ham jetonu saklanmıyor, yeniden kurulamaz)."""
+    from services.belge_ortak import site_adresi
+    from services.teklifler import ACIK_DURUMLAR
+
+    gonderildi = utc(t.gonderildi_at)
+    gun: Optional[int] = None
+    if esik is not None:
+        try:
+            gun = int(esik)
+        except (TypeError, ValueError):
+            gun = None
+    elif gonderildi is not None and t.durum in ACIK_DURUMLAR:
+        gun = max(0, (simdi() - gonderildi).days)
+    return {
+        "id": t.id, "no": t.no, "baslik": t.baslik, "genel_toplam": _sayi(t.genel_toplam), "para_birimi": t.para_birimi,
+        "durum": t.durum, "aday_ad": t.aday_ad, "aday_eposta": t.aday_eposta, "gecerlilik": t.gecerlilik,
+        "gonderildi_at": iso(gonderildi), "goruntulendi": int(t.goruntulenme_sayisi or 0) > 0,
+        "goruntulenme_sayisi": int(t.goruntulenme_sayisi or 0), "yanitsiz_gun": gun,
+        "baglanti": f"{site_adresi()}/client?sekme=invoices" if (t.hesap_email or "").strip() else None,
     }
 
 
@@ -382,16 +426,18 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
         if a is None:
             return None
         b["aday"] = aday_sozlugu(a)
+        await _aday_hareketi(db, b["aday"], a, veri.get("gun") if tur == "aday.hareketsiz" else None)
         if tur == "aday.asama_degisti":
             onceki["aday.asama"] = veri.get("onceki_asama")
+            if veri.get("asama"):  # Faz 7O: olay anındaki aşama (bkz. proje.asama_degisti)
+                b["aday"]["asama"] = veri.get("asama")
     elif on == "teklif":
         from models.teklifler import Teklifler
 
         t = await _kayit(db, Teklifler, veri.get("teklif_id"))
         if t is None:
             return None
-        b["teklif"] = {"id": t.id, "no": t.no, "baslik": t.baslik, "genel_toplam": _sayi(t.genel_toplam),
-                       "para_birimi": t.para_birimi, "durum": t.durum, "aday_ad": t.aday_ad, "aday_eposta": t.aday_eposta}
+        b["teklif"] = teklif_sozlugu(t, veri.get("gun") if tur == "teklif.yanitsiz" else None)
         proje_id = t.proje_id
     elif on == "sozlesme":
         from models.sozlesmeler import Sozlesmeler
@@ -464,7 +510,7 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
         ov = olay_verisi(g)
         b["icerik"] = {"id": g.id, "baslik": g.title, "durum": g.status, "kanallar": ov["kanallar"],
                        "planlanan_at": ov["planlanan_at"], "kampanya": g.campaign, "sorumlu": g.sorumlu_eposta,
-                       "not": veri.get("not") or g.durum_notu}
+                       "not": veri.get("not") or g.durum_notu, "yoneten": ov.get("yoneten") or "ajans"}
     elif on == "randevu":
         from models.randevu import Randevular, RandevuTurleri
 
@@ -480,6 +526,7 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             a = await _kayit(db, CrmAdaylari, r.crm_aday_id)
             if a is not None:
                 b["aday"] = aday_sozlugu(a)
+                await _aday_hareketi(db, b["aday"], a)
     elif on == "is_emri":
         from models.saha_servisi import SahaIsEmirleri, SahaMusterileri
 
@@ -515,12 +562,17 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             a = await _kayit(db, CrmAdaylari, sp.crm_aday_id)
             if a is not None:
                 b["aday"] = aday_sozlugu(a)
+                await _aday_hareketi(db, b["aday"], a)
     if proje_id:
         from models.projects import Projects
 
         p = await _kayit(db, Projects, proje_id)
         if p is not None and (ajans or eposta_duzelt(p.client_email) == eposta_duzelt(olay_hesap)):
             b["proje"] = _proje_sozlugu(p)
+            # Faz 7O: aşama OLAY ANINDAKİ değer (işleme anında proje başka aşamaya geçmiş olabilir: art arda
+            # iki değişimde ikisi de son aşamayı görüp aynı e-postayı iki kez göndermesin).
+            if tur == "proje.asama_degisti" and veri.get("asama"):
+                b["proje"]["asama"] = veri.get("asama")
         elif on == "proje":
             return None
     if olay_hesap:
@@ -570,7 +622,10 @@ def _sonuc(durum: str, neden: Optional[str] = None, **ozet: Any) -> Dict[str, An
     return d
 
 
-async def _aday_bul(db: AsyncSession, baglam: Dict[str, Any]) -> Any:
+async def _aday_bul(db: AsyncSession, baglam: Dict[str, Any], kapali_da: bool = False) -> Any:
+    """Olaydaki aday; yoksa kişinin e-postasıyla AÇIK aday. `kapali_da` (yalnız not/etkinlik eklemede —
+    Faz 7O): açık aday yoksa müşteriye dönüşmüş (kazanılmış) kaydı da bul, ör. "fatura 30 gün gecikti" notu
+    müşterinin CRM geçmişine düşsün. Aşama/etiket/sorumlu eylemleri kapalı adaya dokunmaz."""
     from models.crm import CrmAdaylari, CrmAsamalari
 
     a_id = (baglam.get("aday") or {}).get("id")
@@ -581,11 +636,21 @@ async def _aday_bul(db: AsyncSession, baglam: Dict[str, Any]) -> Any:
     email = eposta_duzelt((baglam.get("kisi") or {}).get("email"))
     if not email:
         return None
-    return (
+    a = (
         await db.execute(
             select(CrmAdaylari)
             .outerjoin(CrmAsamalari, CrmAsamalari.anahtar == CrmAdaylari.asama)
             .where(func.lower(CrmAdaylari.email) == email, or_(CrmAsamalari.tur.is_(None), CrmAsamalari.tur == "acik"))
+            .order_by(CrmAdaylari.id.desc())
+            .limit(1)
+        )
+    ).scalars().first()
+    if a is not None or not kapali_da:
+        return a
+    return (
+        await db.execute(
+            select(CrmAdaylari)
+            .where(or_(func.lower(CrmAdaylari.musteri_email) == email, func.lower(CrmAdaylari.email) == email))
             .order_by(CrmAdaylari.id.desc())
             .limit(1)
         )
@@ -643,6 +708,14 @@ async def eylem_yap(db: AsyncSession, k: Any, e: Dict[str, Any], baglam: Dict[st
             s = eposta_duzelt((baglam.get("aday") or {}).get("sorumlu"))
             alicilar = [{"email": s, "role": "admin"}] if s else []
             link = "/admin?sekme=crm"
+        elif alici_tur == "sorumlu_yonetici" and ajans:
+            # Faz 7O: adayın (yoksa içeriğin) sorumlusu; sorumlu atanmamışsa yöneticiler.
+            from services.notify import admin_recipients
+
+            s = eposta_duzelt((baglam.get("aday") or {}).get("sorumlu") or (baglam.get("icerik") or {}).get("sorumlu"))
+            alicilar = [{"email": s, "role": "admin"}] if s else await admin_recipients(db)
+            link = "/admin?sekme=crm" if baglam.get("aday") else (
+                "/admin?sekme=icerik" if baglam.get("icerik") else "/admin?sekme=otomasyon")
         elif alici_tur == "ekip_uyesi" and ajans:
             alicilar = [{"email": eposta_duzelt(e.get("adres")), "role": "admin"}]
             link = "/admin?sekme=otomasyon"
@@ -715,7 +788,7 @@ async def eylem_yap(db: AsyncSession, k: Any, e: Dict[str, Any], baglam: Dict[st
             if tur == "crm_aktivite":
                 ayrinti["metin"] = coz(e.get("metin"), "metin")[:4000]
             return _sonuc(yap, None, aday_id=aday.get("id"), **ayrinti)
-        a = await _aday_bul(db, baglam)
+        a = await _aday_bul(db, baglam, kapali_da=tur == "crm_aktivite")
         if a is None:
             return _sonuc(atla, "aday_yok")
         if tur == "crm_asama":
@@ -1187,13 +1260,156 @@ async def fatura_gecikmelerini_uret(db: AsyncSession, bugun: Optional[date] = No
     return {"aday_fatura": len(olaylar), "uretilen": sonra - once}
 
 
+async def _kural_var_mi(db: AsyncSession, tetik: str) -> bool:
+    return (
+        await db.execute(
+            select(OtomasyonKurallari.id).where(OtomasyonKurallari.aktif.is_(True), OtomasyonKurallari.tetik == tetik).limit(1)
+        )
+    ).scalar() is not None
+
+
+def _esik_bul(gun: int, esikler: Tuple[int, ...]) -> Optional[int]:
+    """Ulaşılan en büyük eşik; o eşiğin üstünden `GEC_URETIM_GUN`den fazla geçtiyse None (susar)."""
+    ulasilan = [e for e in esikler if e <= gun]
+    if not ulasilan:
+        return None
+    esik = ulasilan[-1]
+    return esik if gun - esik <= kural.GEC_URETIM_GUN else None
+
+
+async def _yenileri_ayikla(db: AsyncSession, tetik: str, olaylar: List[Tuple[str, Optional[str], Dict[str, Any], bool]]
+                           ) -> List[Tuple[str, Optional[str], Dict[str, Any], bool]]:
+    """Bu tetiğin bütün aktif kuralları için zaten yazılmış (belirlenimli kimlikli) olayları ayıklar.
+
+    Kuyruk abonesi de aynı denetimi yapıyor (asıl kilit o); bu yalnız her turda yüzlerce olayın tek tek
+    yeniden denetlenmesini önleyen toplu ön süzgeç. Sonradan eklenen kural için olay yine üretilir."""
+    if not olaylar:
+        return olaylar
+    kurallar = {
+        int(r[0]) for r in (await db.execute(
+            select(OtomasyonKurallari.id).where(OtomasyonKurallari.aktif.is_(True), OtomasyonKurallari.tetik == tetik)
+        )).all()
+    }
+    kimlikler = [o[2]["_olay_id"] for o in olaylar]
+    yazilmis: Dict[str, set] = {}
+    for i in range(0, len(kimlikler), 500):
+        for olay_id, kural_id in (await db.execute(
+            select(OtomasyonCalismalari.olay_id, OtomasyonCalismalari.kural_id)
+            .where(OtomasyonCalismalari.olay_id.in_(kimlikler[i : i + 500]))
+        )).all():
+            yazilmis.setdefault(olay_id, set()).add(int(kural_id))
+    return [o for o in olaylar if not kurallar <= yazilmis.get(o[2]["_olay_id"], set())]
+
+
+async def _olaylari_yaz(db: AsyncSession, olaylar: List[Tuple[str, Optional[str], Dict[str, Any], bool]]) -> int:
+    from services import webhook
+
+    once = int((await db.execute(select(func.count(OtomasyonCalismalari.id)))).scalar() or 0)
+    await db.run_sync(lambda s: webhook.olaylari_yayinla_sync(s.connection(), olaylar))
+    await db.commit()
+    sonra = int((await db.execute(select(func.count(OtomasyonCalismalari.id)))).scalar() or 0)
+    return sonra - once
+
+
+async def teklif_yanitsizlarini_uret(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
+    """Faz 7O — `teklif.yanitsiz`: gönderilmiş (`gonderildi_at` dolu) ve hâlâ AÇIK teklif (gönderildi /
+    görüntülendi; kabul, ret, süresi dolmuş, revize değil) gönderimden 3 ve 7 gün sonra.
+
+    Gün = gönderimden bu yana geçen tam 24 saatler (gece yarısı değil: müşteriye giden hatırlatma, teklifin
+    gönderildiği saatte gider). İdempotent iz `fatura.gecikti` ile aynı: belirlenimli olay kimliği
+    (teklif + gönderim anı + eşik) ve (olay, kural) benzersizliği → eşik başına kural başına BİR kez; teklif
+    yeniden gönderilirse (yeni `gonderildi_at`) sayaç baştan başlar. Abone kural yoksa hiç sorgu yapılmaz."""
+    from models.teklifler import Teklifler
+    from services.teklifler import ACIK_DURUMLAR, suresi_gecti_mi
+
+    if not await _kural_var_mi(db, "teklif.yanitsiz"):
+        return {"uretilen": 0}
+    an = an or simdi()
+    en_eski = an - timedelta(days=max(kural.YANITSIZ_ESIKLERI) + kural.GEC_URETIM_GUN + 1)
+    teklifler = (
+        await db.execute(
+            select(Teklifler).where(
+                Teklifler.durum.in_(ACIK_DURUMLAR), Teklifler.gonderildi_at.isnot(None),
+                Teklifler.gonderildi_at <= an - timedelta(days=min(kural.YANITSIZ_ESIKLERI)),
+                Teklifler.gonderildi_at >= en_eski,
+            ).order_by(Teklifler.id.desc()).limit(500)
+        )
+    ).scalars().all()
+    olaylar = []
+    for t in teklifler:
+        gonderildi = utc(t.gonderildi_at)
+        if gonderildi is None or suresi_gecti_mi(t):
+            continue
+        esik = _esik_bul((an - gonderildi).days, kural.YANITSIZ_ESIKLERI)
+        if esik is None:
+            continue
+        olaylar.append(("teklif.yanitsiz", t.hesap_email or None, {
+            "teklif_id": t.id, "no": t.no, "baslik": t.baslik, "genel_toplam": _sayi(t.genel_toplam),
+            "para_birimi": t.para_birimi, "aday_ad": t.aday_ad, "aday_eposta": t.aday_eposta,
+            "goruntulendi": int(t.goruntulenme_sayisi or 0) > 0, "gun": esik, "gonderildi_at": iso(gonderildi),
+            "baglanti": teklif_sozlugu(t)["baglanti"],
+            "_olay_id": f"tyanitsiz-{t.id}-{int(gonderildi.timestamp())}-{esik}",
+        }, False))
+    olaylar = await _yenileri_ayikla(db, "teklif.yanitsiz", olaylar)
+    if not olaylar:
+        return {"uretilen": 0}
+    return {"aday_teklif": len(olaylar), "uretilen": await _olaylari_yaz(db, olaylar)}
+
+
+async def aday_hareketsizlerini_uret(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
+    """Faz 7O — `aday.hareketsiz`: açık aşamadaki (kazanıldı/kaybedildi değil) CRM adayında son hareketten
+    7 ve 14 gün sonra.
+
+    Son hareket (`services/crm.son_hareketler`): oluşturma, aşama değişimi ya da otomasyon DIŞI en son CRM
+    etkinliği (not, arama, e-posta, toplantı, aynı kişiden yeni talep…). `updated_at` güvenilmez (sistem
+    damgaları da değiştiriyor) ve otomasyonun kendi notu sayılmaz. Olay kimliği son hareket anını içeriyor:
+    adayda yeni hareket olunca sayaç sıfırlanır; aynı hareketsizlik döneminde eşik başına kural başına BİR kez."""
+    from models.crm import CrmAdaylari
+    from services import crm
+
+    if not await _kural_var_mi(db, "aday.hareketsiz"):
+        return {"uretilen": 0}
+    an = an or simdi()
+    acik = await crm.acik_asama_anahtarlari(db)
+    if not acik:
+        return {"uretilen": 0}
+    adaylar = (
+        await db.execute(
+            select(CrmAdaylari.id, CrmAdaylari.created_at, CrmAdaylari.asama_degisme_at, CrmAdaylari.asama)
+            .where(CrmAdaylari.asama.in_(acik))
+            .order_by(CrmAdaylari.id.desc())
+            .limit(2000)
+        )
+    ).all()
+    sonlar = await crm.son_hareketler(db, adaylar)
+    olaylar = []
+    for a in adaylar:
+        son = sonlar.get(int(a.id))
+        if son is None:
+            continue
+        esik = _esik_bul((an - son).days, kural.HAREKETSIZ_ESIKLERI)
+        if esik is None:
+            continue
+        olaylar.append(("aday.hareketsiz", None, {
+            "aday_id": int(a.id), "asama": a.asama, "gun": esik, "son_hareket": iso(son),
+            "_olay_id": f"ahareketsiz-{int(a.id)}-{int(son.timestamp())}-{esik}",
+        }, False))
+    olaylar = await _yenileri_ayikla(db, "aday.hareketsiz", olaylar)
+    if not olaylar:
+        return {"uretilen": 0}
+    return {"aday_aday": len(olaylar), "uretilen": await _olaylari_yaz(db, olaylar)}
+
+
 async def zamanli_gorev(db: AsyncSession, zorla: bool = False) -> Dict[str, Any]:
     gecikme = await fatura_gecikmelerini_uret(db)
+    yanitsiz = await teklif_yanitsizlarini_uret(db)
+    hareketsiz = await aday_hareketsizlerini_uret(db)
     isleme = await bekleyenleri_isle()
-    return {"fatura_gecikti": gecikme, **isleme}
+    return {"fatura_gecikti": gecikme, "teklif_yanitsiz": yanitsiz, "aday_hareketsiz": hareketsiz, **isleme}
 
 
 __all__ = [
     "MODUL", "IZIN", "onbellegi_temizle", "bekleyenleri_isle", "calisma_isle", "baglam_kur", "eylem_yap",
     "kuru_calistir", "gunluk", "temizle", "fatura_gecikmelerini_uret", "zamanli_gorev", "pazarlama_izni_var_mi",
+    "teklif_yanitsizlarini_uret", "aday_hareketsizlerini_uret", "teklif_sozlugu",
 ]

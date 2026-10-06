@@ -223,6 +223,60 @@ export function otomasyonApi(mod: OtoMod) {
 export type OtomasyonApi = ReturnType<typeof otomasyonApi>;
 
 // ---------------------------------------------------------------------------
+// Faz 7O — Sistem (yalnız yönetici): haftalık özet
+// ---------------------------------------------------------------------------
+export interface OzetSatiri {
+  ad: string;
+  ayrinti: string | null;
+  tur: string | null;
+  gun: number | null;
+  tutar: number | null;
+  para_birimi: string | null;
+  zaman: string | null;
+}
+
+export interface OzetBolumu {
+  anahtar: 'faturalar' | 'destek' | 'crm' | 'teklifler' | 'icerik' | 'belgeler' | 'yenilemeler' | 'siteler';
+  sekme: string;
+  sayi: number;
+  ek: {
+    toplamlar?: { para_birimi: string; tutar: number }[];
+    sla_asildi?: number;
+    sonraki_adim?: number;
+    hareketsiz?: number;
+    geciken?: number;
+    hata?: boolean;
+  };
+  ornekler: OzetSatiri[];
+}
+
+export interface HaftalikOzet {
+  hafta: string;
+  olusturma: string;
+  bos: boolean;
+  bolumler: OzetBolumu[];
+  eposta: { konu: string; metin: string };
+}
+
+export interface HaftalikOzetDurumu {
+  acik: boolean;
+  son_gonderim: string | null;
+  hafta: string;
+  bu_hafta: 'gonderildi' | 'bos' | 'bekliyor';
+  sonraki: string | null;
+  eposta_kanali: 'hazir' | 'kapali' | 'yapilandirilmadi' | null;
+  alici_sayisi: number;
+}
+
+const SISTEM = '/api/v1/otomasyon/yonetim/haftalik-ozet';
+
+export const sistemApi = {
+  ozetDurumu: () => istek<HaftalikOzetDurumu>('GET', SISTEM),
+  ozetOnizle: () => istek<HaftalikOzet>('GET', `${SISTEM}/onizle`),
+  ozetAyarla: (acik: boolean) => istek<HaftalikOzetDurumu>('PUT', SISTEM, { acik }),
+};
+
+// ---------------------------------------------------------------------------
 // Özel alanlar
 // ---------------------------------------------------------------------------
 export type OzelVarlik = 'crm_aday' | 'proje' | 'hesap' | 'destek';

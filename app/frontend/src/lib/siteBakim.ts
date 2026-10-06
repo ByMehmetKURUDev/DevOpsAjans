@@ -138,7 +138,8 @@ export interface ZamanliSatir {
 
 export interface ZamanliDurum {
   genel: ZamanliSatir & { calisiyor: boolean };
-  gorevler: (ZamanliSatir & { gorev: string; siklik_dk: number })[];
+  /** `plan` (Faz 7O): sıklıktan farklı takvim, ör. "haftalik_pazartesi". */
+  gorevler: (ZamanliSatir & { gorev: string; siklik_dk: number; plan?: string | null })[];
   anahtar_tanimli: boolean;
   atlandi?: boolean;
   sebep?: string | null;

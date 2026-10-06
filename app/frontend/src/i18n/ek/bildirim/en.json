@@ -77,7 +77,8 @@
       "saha_is_atandi": "A new field job was assigned to me",
       "saha_bakim_zamani": "Equipment due for maintenance",
       "etkinlik_kayit": "Event: new registration",
-      "etkinlik_iptal": "Event: ticket cancelled"
+      "etkinlik_iptal": "Event: ticket cancelled",
+      "haftalik_ozet": "Weekly summary (Monday morning)"
     },
     "kanal": {
       "inapp": "Panel",

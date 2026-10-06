@@ -15,7 +15,8 @@
       "kurallar": "规则",
       "sablonlar": "现成模板",
       "gunluk": "运行日志",
-      "ozel": "自定义字段"
+      "ozel": "自定义字段",
+      "sistem": "系统"
     },
     "kural": {
       "yeni": "新建规则",
@@ -152,7 +153,18 @@
       "adres": "地址",
       "teknisyen": "技术人员",
       "kod": "代码",
-      "bilet_sayisi": "门票数量"
+      "bilet_sayisi": "门票数量",
+      "sonraki_adim": "下一步",
+      "sonraki_adim_tarihi": "下一步日期",
+      "son_hareket": "最近动态",
+      "hareketsiz_gun": "无动态（天）",
+      "gecerlilik": "有效期至",
+      "gonderildi_at": "发送时间",
+      "goruntulendi": "是否已查看",
+      "goruntulenme_sayisi": "查看次数",
+      "yanitsiz_gun": "未回复（天）",
+      "baglanti": "链接",
+      "yoneten": "管理方（代理/客户）"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -180,7 +192,9 @@
       "etkinlik_kayit": "活动报名",
       "etkinlik_bilet_satildi": "付费门票已售出",
       "etkinlik_giris": "已现场入场",
-      "etkinlik_iptal": "活动门票已取消"
+      "etkinlik_iptal": "活动门票已取消",
+      "teklif_yanitsiz": "报价未获回复",
+      "aday_hareketsiz": "线索无进展"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -208,7 +222,9 @@
       "etkinlik_kayit": "活动报名已确认（付费报名在收到付款后确认）。",
       "etkinlik_bilet_satildi": "付费门票订单已收到付款（仅限代理机构活动）。",
       "etkinlik_giris": "门票在入口被扫描（首次入场）。",
-      "etkinlik_iptal": "参与者或主办方取消了门票。"
+      "etkinlik_iptal": "参与者或主办方取消了门票。",
+      "teklif_yanitsiz": "已发送的报价在 3 天或 7 天内既未接受也未拒绝（每个阈值一次；重新发送后重新计时）。",
+      "aday_hareketsiz": "处于进行中阶段的线索已 7 天或 14 天没有动态（备注、电话、阶段变更…）。有新动态后重新计时。"
     },
     "eylem": {
       "eposta": "发送邮件",
@@ -243,7 +259,8 @@
       "alici_ekip_uyesi": "某位团队成员",
       "uye": "团队成员",
       "baslik": "标题",
-      "govde": "内容"
+      "govde": "内容",
+      "alici_sorumlu_yonetici": "负责人（无则管理员）"
     },
     "gorev": {
       "proje": "项目",
@@ -411,10 +428,11 @@
         "bildirim_govde": "[[teklif.baslik]]（[[teklif.genel_toplam]] [[teklif.para_birimi]]）已被接受，已创建启动任务。"
       },
       "fatura_gecikti_hatirlatma": {
-        "ad": "发票逾期 3 天 → 提醒邮件",
-        "aciklama": "未结发票逾期 3 天时，向账户所有者发送礼貌的付款提醒。",
-        "konu": "付款提醒：[[fatura.no]]",
-        "govde": "[[kisi.ad|]]，您好：\n\n编号为 [[fatura.no]]、金额为 [[fatura.tutar]] [[fatura.para_birimi]] 的发票已于 [[fatura.gecikme_gun]] 天前到期。您可以在面板中完成付款。\n\n谢谢"
+        "ad": "发票逾期 30 天 → 通知管理员 + CRM 备注",
+        "aciklama": "何时：未结发票逾期 30 天（每张发票一次）。做什么：向管理员发送面板通知，并在客户的 CRM 记录中添加备注。系统已会向客户发送付款提醒（第 1、7、14 天）；此规则不会再给客户发邮件。",
+        "bildirim": "30 天未付款：[[fatura.no]]",
+        "bildirim_govde": "[[hesap.ad|]]（[[hesap.email]]）— [[fatura.no]]，[[fatura.tutar]] [[fatura.para_birimi]]，到期日 [[fatura.vade_tarihi]]。自动提醒（第 1/7/14 天）已发送；现在打个电话可能更有效。",
+        "metin": "发票 [[fatura.no]]（[[fatura.tutar]] [[fatura.para_birimi]]）已 30 天未付款。"
       },
       "destek_acil_bildirim": {
         "ad": "紧急支持工单 → 通知",
@@ -426,6 +444,39 @@
         "ad": "新预约 → CRM 活动",
         "aciklama": "为预约者的 CRM 潜在客户添加一条会议活动。",
         "metin": "新预约：[[randevu.tur]] — [[randevu.baslangic]]（[[randevu.ad]]）"
+      },
+      "teklif_yanitsiz_hatirlatma": {
+        "ad": "报价 3 天未回复 → 友好提醒",
+        "aciklama": "何时：您发送的报价在 3 天内既未接受也未拒绝（每份报价一次）。做什么：向报价联系人发送一封礼貌的提醒邮件，并给您发送面板通知。文字可随意修改。",
+        "konu": "关于我们报价的简短提醒：[[teklif.baslik]]",
+        "govde": "[[kisi.ad|]]，您好：\n\n几天前我们发送了报价 [[teklif.no]]“[[teklif.baslik]]”。如有任何疑问或需要调整的地方，直接回复此邮件即可。\n\n您可以在这里查看报价：[[teklif.baglanti|我们第一封邮件中的链接]]\n\n此致敬礼",
+        "bildirim": "报价 3 天未回复：[[teklif.no]]",
+        "bildirim_govde": "[[teklif.baslik]]（[[teklif.genel_toplam]] [[teklif.para_birimi]]）— [[teklif.aday_ad|]] [[teklif.aday_eposta|]]。已查看：[[teklif.goruntulendi]]。已向客户发送友好提醒邮件。"
+      },
+      "aday_hareketsiz_hatirlatma": {
+        "ad": "线索 7 天无进展 → 提醒负责人",
+        "aciklama": "何时：进行中的 CRM 线索 7 天没有任何动态（备注、电话、阶段变更）。做什么：向线索负责人（未指派时为管理员）发送面板通知，并在线索上添加备注。线索有新动态后重新计时。",
+        "bildirim": "7 天无动态：[[aday.ad]]",
+        "bildirim_govde": "[[aday.ad]] [[aday.firma|]] — 阶段：[[aday.asama]]，最近动态：[[aday.son_hareket]]。下一步：[[aday.sonraki_adim|未设定]]。",
+        "metin": "7 天无动态；已提醒负责人。"
+      },
+      "proje_yayinda_geri_bildirim": {
+        "ad": "项目上线 → 致谢 + 邀请反馈",
+        "aciklama": "何时：您将项目切换到“上线”阶段。做什么：给客户发送一封致谢邮件并邀请其反馈。所有人收到的邮件相同（不会按满意与否发送不同版本——这是 Google 的规定）。如需加入您的 Google 评价链接，请打开规则编辑文字。",
+        "konu": "[[proje.baslik]] 已上线——感谢您！",
+        "govde": "[[kisi.ad|]]，您好：\n\n您的项目 [[proje.baslik]] 已正式上线。非常感谢您一路以来的信任。\n\n如果您愿意用几句话分享体验，我们会非常高兴：您喜欢哪些地方？我们哪里还可以做得更好？直接回复此邮件即可。如果愿意，您也可以为我们的公司留下公开评价。\n\n此致敬礼"
+      },
+      "sozlesme_imzalandi_bildirim": {
+        "ad": "合同已签署 → 启动提醒",
+        "aciklama": "何时：客户通过电子签名签署合同时。做什么：向管理员发送“该启动了”面板通知（提醒安排启动会议并索取文件和权限）。常规的签署通知照常发送。",
+        "bildirim": "该启动了：[[sozlesme.no]]",
+        "bildirim_govde": "[[hesap.ad|]]（[[hesap.email]]）已签署合同“[[sozlesme.baslik]]”。下一步：安排启动会议，索取所需的文件和访问权限。"
+      },
+      "icerik_onaylandi_gorev": {
+        "ad": "内容已批准 → “发布”提醒",
+        "aciklama": "何时：代理管理的内容帖子获得批准时（客户自己的内容除外）。做什么：向内容负责人（无则管理员）发送“发布：<标题>”面板通知。该事件不含项目，因此用通知代替任务。",
+        "bildirim": "发布：[[icerik.baslik]]",
+        "bildirim_govde": "帖子已批准。计划时间：[[icerik.planlanan_at|未设定]]；渠道：[[icerik.kanallar|—]]。"
       }
     },
     "hata": {
@@ -483,7 +534,110 @@
       "calisma_yok": "未找到运行记录。",
       "kayit_yok": "事件对应的记录已不存在。",
       "baglam_gecersiz": "示例数据必须是 JSON 对象。",
-      "baglam_buyuk": "示例数据过大。"
+      "baglam_buyuk": "示例数据过大。",
+      "acik_gerekli": "需要开启/关闭值。"
+    },
+    "sistem": {
+      "baslik": "系统自动完成的工作",
+      "aciklama": "无需您动手、在后台运行的一切都在这里：每周摘要、内置流程和定时任务。您自己的“发生这个就做那个”规则在“规则”标签中。",
+      "akis": {
+        "baslik": "内置流程",
+        "aciklama": "事件发生时立即运行；可在相关版块修改设置。",
+        "ayarla": "设置",
+        "talepCrm": {
+          "ad": "收到的咨询自动成为 CRM 线索",
+          "aciklama": "通过联系表单、报价向导、网站分析或嵌入表单留言的人都会成为 CRM 线索；同一个人再次留言会并入其现有线索。"
+        },
+        "teklifKabul": {
+          "ad": "报价被接受后自动生成发票、合同和项目",
+          "aciklama": "客户接受报价时，您为该报价选择的记录（首张发票、合同草稿、项目）会自动创建。"
+        },
+        "destekKurallari": {
+          "ad": "支持请求按规则分配",
+          "aciklama": "新请求会根据主题和来源分配给团队成员，设置优先级和标签，并可发送预设回复。"
+        },
+        "projeAsama": {
+          "ad": "项目阶段变化会通知客户",
+          "aciklama": "将项目推进到下一阶段时，客户会在面板中和通过邮件收到通知。"
+        },
+        "bildirimler": {
+          "ad": "谁接收哪些通知",
+          "aciklama": "为每个事件开启或关闭邮件、浏览器、短信和 WhatsApp 渠道；每周摘要邮件也在这里管理。"
+        },
+        "webhook": {
+          "ad": "向外部系统发送事件（Webhook）",
+          "aciklama": "新线索、发票已付款等事件会立即发送到您连接的系统（Zapier、Make 等）；发送失败会在 3 天内重试。"
+        }
+      },
+      "ozet": {
+        "baslik": "每周摘要（周一 08:00）",
+        "aciklama": "每周一早上，管理员会收到本周需要关注事项的摘要：逾期发票、未解决的支持请求、待跟进线索、未回复报价、待批准内容、待提交文件、即将到期的续费以及无法访问的网站。全部为零时不发送。",
+        "acik": "开启",
+        "kapali": "关闭",
+        "acildi": "每周摘要已开启。",
+        "kapandi": "每周摘要已关闭。",
+        "sonGonderim": "上次发送",
+        "hicGonderilmedi": "尚未发送",
+        "buHafta": "本周",
+        "durum": {
+          "gonderildi": "已发送",
+          "bos": "没有需要关注的事项，未发送",
+          "bekliyor": "尚未发送"
+        },
+        "sonraki": "下次发送",
+        "kapaliyken": "已关闭——不会发送",
+        "ilkTurda": "下一次定时运行时（10 分钟内）",
+        "alicilar": "收件人",
+        "aliciSayisi": "{{sayi}} 位管理员",
+        "epostaYok": "邮件渠道未就绪（未配置 Resend 或 SMTP，或已关闭）：摘要只会出现在面板通知中。",
+        "tekKaynak": "此开关与“通知”版块中“每周摘要”一行的邮件复选框是同一设置。",
+        "onizle": "预览",
+        "onizlemeNotu": "当前情况（不会发送）：",
+        "bos": "目前没有需要关注的事项——本周不会发送摘要。",
+        "panelde": "在面板中打开",
+        "dahaFazla": "… 另有 {{sayi}} 项",
+        "bolum": {
+          "faturalar": "逾期发票",
+          "destek": "未解决的支持请求",
+          "crm": "待跟进的 CRM 线索",
+          "teklifler": "3 天以上未回复的报价",
+          "icerik": "待客户批准的内容",
+          "belgeler": "待提交的文件请求",
+          "yenilemeler": "14 天内到期的续费",
+          "siteler": "当前无法访问的网站"
+        },
+        "ek": {
+          "toplam": "未付总额：{{tutar}}",
+          "sla": "{{sayi}} 个请求违反 SLA",
+          "crm": "{{adim}} 个下一步已到期，{{hareketsiz}} 个 7 天以上无动态",
+          "geciken": "{{sayi}} 个已过截止日期"
+        },
+        "tur": {
+          "alan": "域名",
+          "ssl": "SSL",
+          "hosting": "主机"
+        },
+        "satir": {
+          "gecikme": "逾期 {{sayi}} 天",
+          "sla_asildi": "违反 SLA",
+          "acik": "已开启 {{sayi}} 天",
+          "acik_bugun": "今天开启",
+          "hareketsiz": "{{sayi}} 天无动态",
+          "yanitsiz": "{{sayi}} 天未回复，未查看",
+          "yanitsiz_goruldu": "{{sayi}} 天未回复，已查看",
+          "onay_bekliyor": "等待批准 {{sayi}} 天",
+          "onay_bekliyor_bugun": "今天起等待批准",
+          "gecikti": "已过截止日期 {{sayi}} 天",
+          "kapali": "无法访问 {{sayi}} 天",
+          "kapali_bugun": "无法访问",
+          "sonraki_adim": "下一步已逾期 {{sayi}} 天",
+          "sonraki_adim_bugun": "下一步今天到期",
+          "bekliyor": "待提交",
+          "son_tarihe": "距截止日期 {{sayi}} 天",
+          "kaldi": "剩余 {{sayi}} 天",
+          "doldu": "已于 {{sayi}} 天前到期"
+        }
+      }
     }
   }
 }

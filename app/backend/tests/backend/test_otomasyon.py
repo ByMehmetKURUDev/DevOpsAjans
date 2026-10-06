@@ -273,7 +273,8 @@ async def test_musteri_modul_kapali_403_acik_ve_kisitlar(istemci, yonetici_basli
     assert meta["sahip_tur"] == "musteri"
     assert all(not o["anahtar"].startswith("aday.") for o in meta["olaylar"])
     assert "crm_asama" not in meta["eylemler"] and "destek" not in meta["eylemler"] and "eposta" in meta["eylemler"]
-    assert {s["anahtar"] for s in meta["sablonlar"]} == {"teklif_kabul_gorev", "fatura_gecikti_hatirlatma", "destek_acil_bildirim"}
+    # Faz 7O: fatura_gecikti_hatirlatma artık yöneticiye bildirim + CRM notu (yalnız ajans).
+    assert {s["anahtar"] for s in meta["sablonlar"]} == {"teklif_kabul_gorev", "destek_acil_bildirim"}
     y = await istemci.post(f"{M}/kurallar", json={"ad": "x", "tetik": "aday.olusturuldu", "eylemler": [EPOSTA_EYLEMI]}, headers=_b(e))
     assert y.status_code == 400 and _kod(y) == "tetik_yalniz_ajans"
     y = await istemci.post(f"{M}/kurallar", json={"ad": "x", "tetik": "destek.olusturuldu",
@@ -609,7 +610,14 @@ async def test_fatura_gecikti_olayi_esik_basina_bir_kez(istemci, yonetici_baslig
     from services import otomasyon
 
     e = await _musteri(istemci, yonetici_basligi)
-    k = (await istemci.post(f"{M}/kurallar/sablondan", json={"sablon": "fatura_gecikti_hatirlatma"}, headers=_b(e))).json()
+    # Faz 7O öncesi "fatura_gecikti_hatirlatma" şablonunun kurduğu müşteri kuralı (şablon değişti; böyle
+    # kurulmuş kurallar olduğu gibi çalışmaya devam ediyor).
+    k = await _kural(istemci, _b(e), M, ad="Fatura 3 gün gecikti → hatırlatma e-postası", tetik="fatura.gecikti",
+                     kosullar={"baglac": "ve", "kosullar": [{"alan": "fatura.gecikme_gun", "islec": "esittir", "deger": "3"}]},
+                     eylemler=[{"tur": "eposta", "nitelik": "bilgilendirme", "alici": "kisi",
+                                "konu": "Ödeme hatırlatması: {{fatura.no}}",
+                                "govde": "Merhaba {{kisi.ad|}},\n\n{{fatura.no}} numaralı faturanızın vadesi "
+                                         "{{fatura.gecikme_gun}} gün önce doldu."}])
     vade = (date.today() - timedelta(days=4)).isoformat()
     f = await _ekle(db_oturumu, Invoices(invoice_no=f"F-{uuid.uuid4().hex[:5]}", client_email=e, amount=1500.0,
                                          currency="TRY", status="unpaid", due_date=vade))

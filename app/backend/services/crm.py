@@ -1072,8 +1072,65 @@ async def hatirlatmalari_gonder(db: AsyncSession) -> Dict[str, Any]:
     return {"aday": len(adaylar), "alici": len(gruplar)}
 
 
+# ---------------------------------------------------------------------------
+# Faz 7O — son hareket (hareketsizlik hatırlatması ve haftalık özet)
+# ---------------------------------------------------------------------------
+#: Otomasyon kuralının kendi yazdığı CRM etkinliği "hareket" sayılmaz: yoksa "7 gündür hareketsiz"
+#: notu sayacı sıfırlar ve aday her hafta yeniden hatırlatılırdı.
+HAREKET_SAYILMAYAN_YAPANLAR = ("otomasyon",)
+
+
+def _zaman_coz(deger: Any) -> Optional[datetime]:
+    if isinstance(deger, str):
+        try:
+            deger = datetime.fromisoformat(deger.replace("Z", "+00:00"))
+        except ValueError:
+            return None
+    return utc(deger)
+
+
+async def son_hareketler(db: AsyncSession, adaylar: Sequence[Any]) -> Dict[int, datetime]:
+    """{aday_id: son hareket} — oluşturma, aşama değişimi (`asama_degisme_at`) ve otomasyon dışı
+    en son CRM etkinliğinin (not, arama, e-posta, toplantı, yeni talep, form…) en yenisi.
+
+    `updated_at` KULLANILMIYOR: günlük hatırlatma damgası, puan yenilemesi gibi sistem yazımları
+    da onu değiştiriyor; "hareket" sayılmamalı. `adaylar`: `id`, `created_at`, `asama_degisme_at`
+    öznitelikli satırlar (ORM nesnesi ya da sorgu satırı).
+    """
+    sonuc: Dict[int, datetime] = {}
+    for a in adaylar:
+        zamanlar = [_zaman_coz(getattr(a, "created_at", None)), _zaman_coz(getattr(a, "asama_degisme_at", None))]
+        en_yeni = max((z for z in zamanlar if z is not None), default=None)
+        if en_yeni is not None:
+            sonuc[int(a.id)] = en_yeni
+    idler = [int(a.id) for a in adaylar]
+    for i in range(0, len(idler), 500):
+        parca = idler[i : i + 500]
+        satirlar = (
+            await db.execute(
+                select(CrmAktiviteler.aday_id, func.max(CrmAktiviteler.zaman))
+                .where(
+                    CrmAktiviteler.aday_id.in_(parca),
+                    or_(CrmAktiviteler.yapan.is_(None), CrmAktiviteler.yapan.notin_(HAREKET_SAYILMAYAN_YAPANLAR)),
+                )
+                .group_by(CrmAktiviteler.aday_id)
+            )
+        ).all()
+        for aday_id, zaman in satirlar:
+            z = _zaman_coz(zaman)
+            if z is not None and (int(aday_id) not in sonuc or z > sonuc[int(aday_id)]):
+                sonuc[int(aday_id)] = z
+    return sonuc
+
+
+async def acik_asama_anahtarlari(db: AsyncSession) -> List[str]:
+    """Açık (kazanıldı/kaybedildi olmayan) aşamaların anahtarları."""
+    return [a.anahtar for a in await asamalar(db) if a.tur == "acik"]
+
+
 __all__ = [
     "KAYNAKLAR", "AKTIVITE_TURLERI", "ELLE_AKTIVITE_TURLERI", "ASAMA_TURLERI", "RENKLER", "PARA_BIRIMLERI",
     "TalepGirdisi", "kayittan_aday_sync", "kayit_isle", "puan_hesapla", "kaynak_esle", "alan_adi_turu",
     "gecmisi_ice_aktar", "asama_tasi", "ozet", "hatirlatmalari_gonder", "bekleyen_bildirimleri_gonder",
+    "son_hareketler", "acik_asama_anahtarlari",
 ]

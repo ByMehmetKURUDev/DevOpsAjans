@@ -606,7 +606,10 @@ async def test_zamanli_kisma_ve_acik_yanitta_ayrinti_yok(istemci, yonetici_basli
     govde = ilk.json()
     assert govde["atlandi"] is False
     assert [g["gorev"] for g in govde["gorevler"]] == zamanli.GOREV_ADLARI
-    assert "ozet" not in ilk.text and "hata" not in ilk.text
+    # Ayrıntı (özet/hata) anahtarı sızmıyor. (Faz 7O: görev adı "haftalik_ozet" alt dize olarak geçiyor;
+    # denetim anahtar düzeyinde.)
+    assert '"ozet"' not in ilk.text and '"hata"' not in ilk.text
+    assert all(set(g) <= {"gorev", "calisti", "sure_ms", "basarili"} for g in govde["gorevler"])
 
     ikinci = await istemci.post(f"{ZAMANLI}/calistir")
     assert ikinci.status_code == 200 and ikinci.json() == {"atlandi": True, "sebep": "erken"}

@@ -18,6 +18,11 @@ yalnız etkin hesabın kuralları; yalnız kendi hesabının (müşteriye görü
   POST   "/test"                       {kural, baglam? | calisma_id?} — kaydedilmemiş kuralın kuru çalıştırması
   GET    "/gunluk"                     ?kural_id=&durum=&once=&limit= — çalıştırmalar (30 gün)
   GET    "/gunluk/{id}"                tek çalıştırma
+
+Yalnız yönetici (Faz 7O — Otomasyon › Sistem; `services/haftalik_ozet.py`):
+  GET    "/haftalik-ozet"              durum: açık mı (bildirim matrisi), son gönderim, bu hafta, sonraki, e-posta kanalı
+  GET    "/haftalik-ozet/onizle"       özetin ŞU ANKİ içeriği (JSON; gönderilmez, iz yazılmaz)
+  PUT    "/haftalik-ozet"              {acik: bool} — matristeki yönetici × haftalik_ozet × e-posta hücresi
 """
 
 import json
@@ -337,5 +342,32 @@ def _uclari_kur(r: APIRouter, sahip_bul: Callable[[Request], Sahip]) -> None:
 
 _uclari_kur(yonetici_router, _yonetici_sahibi)
 _uclari_kur(musteri_router, _musteri_sahibi)
+
+
+# ---------------------------------------------------------------------------
+# Faz 7O — haftalık özet (yalnız yönetici router'ında; müşteri yolu yok)
+# ---------------------------------------------------------------------------
+@yonetici_router.get("/haftalik-ozet")
+async def haftalik_ozet_durumu(db: AsyncSession = Depends(get_db)):
+    from services import haftalik_ozet
+
+    return await haftalik_ozet.durum(db)
+
+
+@yonetici_router.get("/haftalik-ozet/onizle")
+async def haftalik_ozet_onizle(db: AsyncSession = Depends(get_db)):
+    from services import haftalik_ozet
+
+    return await haftalik_ozet.ozet_hazirla(db)
+
+
+@yonetici_router.put("/haftalik-ozet")
+async def haftalik_ozet_ayarla(govde: Dict[str, Any] = Body(...), db: AsyncSession = Depends(get_db)):
+    from services import haftalik_ozet
+
+    acik = govde.get("acik") if isinstance(govde, dict) else None
+    if not isinstance(acik, bool):
+        raise HTTPException(status_code=400, detail={"kod": "acik_gerekli"})
+    return await haftalik_ozet.ac_kapat(db, acik)
 
 router = (yonetici_router, musteri_router)

@@ -80,10 +80,18 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("ad"), Alan("firma"), Alan("email"), Alan("telefon"), Alan("kaynak"),
         Alan("asama", degisir=True), Alan("deger_tahmini", "sayi"), Alan("para_birimi"), Alan("etiketler", "liste"),
         Alan("sorumlu"), Alan("puan", "sayi"), Alan("butce"), Alan("pazarlama_izni", "evet_hayir"),
+        # Faz 7O — "sonraki adım" ve hareketsizlik (son hareket: oluşturma, aşama değişimi ya da otomasyon
+        # dışı CRM etkinliği; `aday.hareketsiz` olayında hareketsiz_gun = eşik, diğerlerinde gerçek gün).
+        Alan("sonraki_adim"), Alan("sonraki_adim_tarihi", "tarih"), Alan("son_hareket", "tarih"),
+        Alan("hareketsiz_gun", "sayi"),
     ),
     "teklif": (
         Alan("id", "sayi"), Alan("no"), Alan("baslik"), Alan("genel_toplam", "sayi"), Alan("para_birimi"), Alan("durum"),
         Alan("aday_ad"), Alan("aday_eposta"),
+        # Faz 7O — gönderim/görüntülenme ve yanıtsız gün (`teklif.yanitsiz` olayında eşik). `baglanti`:
+        # müşterinin hesabı varsa panelindeki teklif listesi (imzalı bağlantının ham jetonu saklanmıyor).
+        Alan("gecerlilik", "tarih"), Alan("gonderildi_at", "tarih"), Alan("goruntulendi", "evet_hayir"),
+        Alan("goruntulenme_sayisi", "sayi"), Alan("yanitsiz_gun", "sayi"), Alan("baglanti"),
     ),
     "sozlesme": (Alan("id", "sayi"), Alan("no"), Alan("baslik")),
     "fatura": (
@@ -114,6 +122,8 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
     "icerik": (
         Alan("id", "sayi"), Alan("baslik"), Alan("durum", degisir=True), Alan("kanallar", "liste"),
         Alan("planlanan_at", "tarih"), Alan("kampanya"), Alan("sorumlu"), Alan("not"),
+        # Faz 7O — ajans | musteri (müşterinin kendi yönettiği içerik ajansın paylaşacağı iş değil).
+        Alan("yoneten"),
     ),
     # Faz 6S — saha servisi iş emri (servis müşterisi: olaydaki kişi).
     "is_emri": (
@@ -176,10 +186,21 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("etkinlik.bilet_satildi", ("etkinlik", "aday", "hesap"), musteri=False),
     OtoOlay("etkinlik.giris", ("etkinlik", "hesap")),
     OtoOlay("etkinlik.iptal", ("etkinlik", "hesap")),
+    # Faz 7O — zamanlı üretilen hatırlatma olayları (yalnız ajans; webhook kataloğunda yok: durum
+    # değişikliği değil, "şu kadar gündür bir şey olmadı" türevi). Eşik başına bir kez.
+    OtoOlay("teklif.yanitsiz", ("teklif", "hesap"), musteri=False, yalniz_otomasyon=True),
+    OtoOlay("aday.hareketsiz", ("aday",), musteri=False, yalniz_otomasyon=True),
 )
 OLAY_SOZLUGU: Dict[str, OtoOlay] = {o.anahtar: o for o in OLAYLAR}
 #: `fatura.gecikti` hangi gecikme günlerinde üretiliyor (her biri fatura başına bir kez).
 GECIKME_ESIKLERI: Tuple[int, ...] = (1, 3, 7, 14, 30)
+#: Faz 7O — `teklif.yanitsiz`: gönderimden bu kadar gün sonra (teklif + gönderim başına eşik başına bir kez).
+YANITSIZ_ESIKLERI: Tuple[int, ...] = (3, 7)
+#: Faz 7O — `aday.hareketsiz`: son hareketten bu kadar gün sonra (yeni hareket sayacı sıfırlar).
+HAREKETSIZ_ESIKLERI: Tuple[int, ...] = (7, 14)
+#: Sunucu birkaç gün uyuduysa ulaşılan son eşik en çok bu kadar gün geç üretilir; daha eskisi susar
+#: (çalıştırma kayıtları 30 gün sonra silinince aynı olay yeniden üretilmesin).
+GEC_URETIM_GUN = 7
 
 EYLEM_TURLERI: Tuple[str, ...] = (
     "eposta", "bildirim", "gorev", "crm_asama", "crm_etiket", "crm_sahip", "crm_aktivite", "destek", "webhook", "bekle",
@@ -242,9 +263,13 @@ def sema(tur: str, ajans: bool, ozel: Optional[Dict[str, List[Dict[str, Any]]]] 
 ORNEK: Dict[str, Dict[str, Any]] = {
     "aday": {"id": 101, "ad": "Ayşe Yılmaz", "firma": "Örnek Ltd.", "email": "ayse@ornek.com", "telefon": "+905551112233",
              "kaynak": "form", "asama": "yeni", "deger_tahmini": 25000, "para_birimi": "TRY", "etiketler": ["web"],
-             "sorumlu": None, "puan": 40, "butce": "20-30 bin TL", "pazarlama_izni": False},
+             "sorumlu": None, "puan": 40, "butce": "20-30 bin TL", "pazarlama_izni": False,
+             "sonraki_adim": "Teklif hazırla", "sonraki_adim_tarihi": "2026-10-03", "son_hareket": "2026-09-24T10:00:00Z",
+             "hareketsiz_gun": 7},
     "teklif": {"id": 12, "no": "TKL-2026-0012", "baslik": "Kurumsal web sitesi", "genel_toplam": 48000,
-               "para_birimi": "TRY", "durum": "kabul", "aday_ad": "Ayşe Yılmaz", "aday_eposta": "ayse@ornek.com"},
+               "para_birimi": "TRY", "durum": "kabul", "aday_ad": "Ayşe Yılmaz", "aday_eposta": "ayse@ornek.com",
+               "gecerlilik": "2026-10-30", "gonderildi_at": "2026-09-28T09:00:00Z", "goruntulendi": True,
+               "goruntulenme_sayisi": 2, "yanitsiz_gun": 3, "baglanti": "https://mehmetkuru.dev/client?sekme=invoices"},
     "sozlesme": {"id": 7, "no": "SZL-2026-0007", "baslik": "Web sitesi sözleşmesi"},
     "fatura": {"id": 31, "no": "FTR-2026-0031", "tutar": 12000, "para_birimi": "TRY", "durum": "unpaid",
                "vade_tarihi": "2026-09-28", "gecikme_gun": 3},
@@ -252,7 +277,8 @@ ORNEK: Dict[str, Dict[str, Any]] = {
               "kaynak": "panel", "etiketler": [], "yazan": "musteri"},
     "gorev": {"id": 210, "baslik": "Ana sayfa tasarımı", "durum": "yapilacak", "oncelik": "normal", "atanan": None,
               "bitis_tarihi": "2026-10-10"},
-    "proje": {"id": 9, "baslik": "Kurumsal web sitesi", "asama": "tasarim", "durum": "in_progress", "ilerleme": 40,
+    # Aşama anahtarları `routers/project_events.py` STAGES: discovery, design, build, review, launch, aftercare.
+    "proje": {"id": 9, "baslik": "Kurumsal web sitesi", "asama": "design", "durum": "in_progress", "ilerleme": 33,
               "kategori": "Website"},
     "siparis": {"id": 77, "no": "A1B2C3", "durum": "yeni", "teslimat": "masa", "masa": "4", "toplam": 45000,
                 "para_birimi": "TRY", "kalem_sayisi": 3, "musteri_ad": "Ali"},
@@ -266,6 +292,8 @@ ORNEK: Dict[str, Dict[str, Any]] = {
     "etkinlik": {"id": 12, "baslik": "Yapay zekâ atölyesi", "baslangic": "2026-11-05T10:00:00Z", "durum": "onayli",
                  "kod": "K7Q2M9XH", "ad": "Ali Demir", "eposta": "ali@ornek.com", "telefon": None, "bilet_sayisi": 2,
                  "toplam": 0, "para_birimi": "TRY"},
+    "icerik": {"id": 64, "baslik": "Ekim kampanyası duyurusu", "durum": "onaylandi", "kanallar": ["instagram", "linkedin"],
+               "planlanan_at": "2026-10-08T07:00:00Z", "kampanya": "Ekim", "sorumlu": None, "not": None, "yoneten": "ajans"},
     "hesap": {"email": "musteri@ornek.com", "ad": "Örnek A.Ş."},
 }
 
@@ -291,7 +319,11 @@ def ornek_baglam(tur: str, ajans: bool, ozel: Optional[Dict[str, List[Dict[str, 
         baglam["_onceki"] = {"aday.asama": "yeni"}
         baglam["aday"]["asama"] = "teklif"
     if tur == "proje.asama_degisti":
-        baglam["_onceki"] = {"proje.asama": "kesif"}
+        baglam["_onceki"] = {"proje.asama": "review"}
+        baglam["proje"]["asama"] = "launch"
+        baglam["proje"]["ilerleme"] = 83
+    if tur == "teklif.yanitsiz":
+        baglam["teklif"].update({"durum": "gonderildi", "goruntulendi": False, "goruntulenme_sayisi": 0})
     return baglam
 
 
@@ -692,7 +724,8 @@ def _eylem_dogrula(i: int, e: Any, tetik: str, b: DogrulamaBaglami, yollar: Set[
         return d
     if tur == "bildirim":
         alici = e.get("alici") or ("yoneticiler" if b.ajans else "hesap")
-        izinli = ("yoneticiler", "hesap", "sorumlu", "ekip_uyesi") if b.ajans else ("hesap",)
+        # Faz 7O: "sorumlu_yonetici" — adayın/içeriğin sorumlusu, sorumlu yoksa yöneticiler.
+        izinli = ("yoneticiler", "hesap", "sorumlu", "sorumlu_yonetici", "ekip_uyesi") if b.ajans else ("hesap",)
         if alici not in izinli:
             raise KuralHatasi("alici_gecersiz", alan=on + "alici")
         d = {"tur": tur, "alici": alici, "baslik": metin("baslik", 200, zorunlu=True),
@@ -904,15 +937,21 @@ SABLONLAR: Tuple[Sablon, ...] = (
          "bildirim_govde": "{{teklif.baslik}} ({{teklif.genel_toplam}} {{teklif.para_birimi}}) kabul edildi. "
                            "Başlangıç görevi açıldı."},
     ),
+    # Faz 7O: önceden "3 gün gecikti → müşteriye e-posta"ydı; yerleşik +1/+7/+14 hatırlatmalarıyla (zamanlı
+    # `fatura_hatirlatmalari`) müşteriye ÇİFT e-posta gidebiliyordu. Artık bir üst basamak: 30 gün gecikince
+    # yöneticilere bildirim + CRM'e not. Bu şablondan önceden kurulmuş kurallar olduğu gibi kalır (yalnız tanım).
     Sablon(
         "fatura_gecikti_hatirlatma", "fatura.gecikti",
-        {"baglac": "ve", "kosullar": [{"alan": "fatura.gecikme_gun", "islec": "esittir", "deger": "3"}]},
-        ({"tur": "eposta", "nitelik": "bilgilendirme", "alici": "kisi", "konu": "$konu", "govde": "$govde"},),
-        {"ad": "Fatura 3 gün gecikti → hatırlatma e-postası",
-         "konu": "Ödeme hatırlatması: {{fatura.no}}",
-         "govde": "Merhaba {{kisi.ad|}},\n\n{{fatura.no}} numaralı {{fatura.tutar}} {{fatura.para_birimi}} tutarındaki "
-                  "faturanızın vadesi {{fatura.gecikme_gun}} gün önce doldu. Ödemeyi panelinizden yapabilirsiniz.\n\n"
-                  "Teşekkürler"},
+        {"baglac": "ve", "kosullar": [{"alan": "fatura.gecikme_gun", "islec": "esittir", "deger": "30"}]},
+        ({"tur": "bildirim", "alici": "yoneticiler", "baslik": "$bildirim", "govde": "$bildirim_govde"},
+         {"tur": "crm_aktivite", "aktivite_tur": "not", "metin": "$metin"}),
+        {"ad": "Fatura 30 gün gecikti → yöneticiye bildirim + CRM notu",
+         "bildirim": "30 gündür ödenmeyen fatura: {{fatura.no}}",
+         "bildirim_govde": "{{hesap.ad|}} ({{hesap.email}}) — {{fatura.no}}, {{fatura.tutar}} {{fatura.para_birimi}}, vade "
+                           "{{fatura.vade_tarihi}}. Otomatik hatırlatmalar (+1/+7/+14 gün) gönderildi; artık telefonla "
+                           "aramak iyi olabilir.",
+         "metin": "Fatura {{fatura.no}} ({{fatura.tutar}} {{fatura.para_birimi}}) 30 gündür ödenmedi."},
+        yalniz_ajans=True,
     ),
     Sablon(
         "destek_acil_bildirim", "destek.olusturuldu",
@@ -927,6 +966,70 @@ SABLONLAR: Tuple[Sablon, ...] = (
         ({"tur": "crm_aktivite", "aktivite_tur": "toplanti", "metin": "$metin"},),
         {"ad": "Randevu oluştu → CRM etkinliği",
          "metin": "Randevu alındı: {{randevu.tur}} — {{randevu.baslangic}} ({{randevu.ad}})"},
+        yalniz_ajans=True,
+    ),
+    # --- Faz 7O ---------------------------------------------------------------------------------------
+    Sablon(
+        "teklif_yanitsiz_hatirlatma", "teklif.yanitsiz",
+        {"baglac": "ve", "kosullar": [{"alan": "teklif.yanitsiz_gun", "islec": "esittir", "deger": "3"}]},
+        ({"tur": "eposta", "nitelik": "bilgilendirme", "alici": "kisi", "konu": "$konu", "govde": "$govde"},
+         {"tur": "bildirim", "alici": "yoneticiler", "baslik": "$bildirim", "govde": "$bildirim_govde"}),
+        {"ad": "Teklif 3 gündür yanıtsız → nazik hatırlatma",
+         "konu": "Teklifimizle ilgili kısa bir hatırlatma: {{teklif.baslik}}",
+         "govde": "Merhaba {{kisi.ad|}},\n\nBirkaç gün önce {{teklif.no}} numaralı \"{{teklif.baslik}}\" teklifimizi "
+                  "paylaşmıştık. Aklınıza takılan bir soru ya da değiştirmek istediğiniz bir nokta varsa bu e-postayı "
+                  "yanıtlamanız yeterli.\n\nTeklifi buradan inceleyebilirsiniz: {{teklif.baglanti|size gönderdiğimiz "
+                  "ilk e-postadaki bağlantı}}\n\nSevgiler",
+         "bildirim": "Teklif 3 gündür yanıtsız: {{teklif.no}}",
+         "bildirim_govde": "{{teklif.baslik}} ({{teklif.genel_toplam}} {{teklif.para_birimi}}) — {{teklif.aday_ad|}} "
+                           "{{teklif.aday_eposta|}}. Görüntülendi: {{teklif.goruntulendi}}. Müşteriye nazik bir "
+                           "hatırlatma e-postası gönderildi."},
+        yalniz_ajans=True,
+    ),
+    Sablon(
+        "aday_hareketsiz_hatirlatma", "aday.hareketsiz",
+        {"baglac": "ve", "kosullar": [{"alan": "aday.hareketsiz_gun", "islec": "esittir", "deger": "7"}]},
+        ({"tur": "bildirim", "alici": "sorumlu_yonetici", "baslik": "$bildirim", "govde": "$bildirim_govde"},
+         {"tur": "crm_aktivite", "aktivite_tur": "not", "metin": "$metin"}),
+        {"ad": "Aday 7 gündür hareketsiz → sorumluya hatırlatma",
+         "bildirim": "7 gündür hareket yok: {{aday.ad}}",
+         "bildirim_govde": "{{aday.ad}} {{aday.firma|}} — aşama: {{aday.asama}}, son hareket: {{aday.son_hareket}}. "
+                           "Sonraki adım: {{aday.sonraki_adim|belirlenmemiş}}.",
+         "metin": "7 gündür hareket yok; sorumluya hatırlatma gönderildi."},
+        yalniz_ajans=True,
+    ),
+    # Google yorum filtrelemesi (review gating) YOK: e-posta herkese aynı gider, memnuniyete göre değişmez.
+    Sablon(
+        "proje_yayinda_geri_bildirim", "proje.asama_degisti",
+        {"baglac": "ve", "kosullar": [{"alan": "proje.asama", "islec": "esittir", "deger": "launch"}]},
+        ({"tur": "eposta", "nitelik": "bilgilendirme", "alici": "kisi", "konu": "$konu", "govde": "$govde"},),
+        {"ad": "Proje yayında → teşekkür + geri bildirim isteği",
+         "konu": "{{proje.baslik}} yayında — teşekkürler!",
+         "govde": "Merhaba {{kisi.ad|}},\n\n{{proje.baslik}} projeniz yayına alındı. Bu süreçte bize güvendiğiniz "
+                  "için çok teşekkür ederiz.\n\nDeneyiminizi birkaç cümleyle paylaşırsanız seviniriz: neyi beğendiniz, "
+                  "neyi daha iyi yapabilirdik? Bu e-postayı yanıtlamanız yeterli. İsterseniz işletmemiz hakkında "
+                  "herkese açık bir yorum da bırakabilirsiniz.\n\nSevgiler"},
+        yalniz_ajans=True,
+    ),
+    # `sozlesme.imzalandi` olayında proje yok: görev eylemi "olaydaki proje" seçemez → yalnız bildirim.
+    Sablon(
+        "sozlesme_imzalandi_bildirim", "sozlesme.imzalandi", {"baglac": "ve", "kosullar": []},
+        ({"tur": "bildirim", "alici": "yoneticiler", "baslik": "$bildirim", "govde": "$bildirim_govde"},),
+        {"ad": "Sözleşme imzalandı → işe başlama hatırlatması",
+         "bildirim": "İşe başlama zamanı: {{sozlesme.no}}",
+         "bildirim_govde": "{{hesap.ad|}} ({{hesap.email}}) \"{{sozlesme.baslik}}\" sözleşmesini imzaladı. Sıradaki "
+                           "adımlar: başlangıç toplantısını planlayın, gerekli belge ve erişimleri isteyin."},
+        yalniz_ajans=True,
+    ),
+    # `icerik.onaylandi` olayında proje yok → görev yerine sorumluya (yoksa yöneticilere) bildirim.
+    Sablon(
+        "icerik_onaylandi_gorev", "icerik.onaylandi",
+        {"baglac": "ve", "kosullar": [{"alan": "icerik.yoneten", "islec": "esittir", "deger": "ajans"}]},
+        ({"tur": "bildirim", "alici": "sorumlu_yonetici", "baslik": "$bildirim", "govde": "$bildirim_govde"},),
+        {"ad": "İçerik onaylandı → \"Paylaş\" hatırlatması",
+         "bildirim": "Paylaş: {{icerik.baslik}}",
+         "bildirim_govde": "Gönderi onaylandı. Planlanan zaman: {{icerik.planlanan_at|belirlenmemiş}}; kanallar: "
+                           "{{icerik.kanallar|—}}."},
         yalniz_ajans=True,
     ),
 )

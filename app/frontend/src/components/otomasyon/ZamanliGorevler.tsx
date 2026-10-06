@@ -7,14 +7,16 @@ import { Button } from '@/components/ui/button';
 import { tarihBicimle, zamanliCalistir, zamanliDurum, type ZamanliDurum } from '@/lib/siteBakim';
 
 /**
- * Yönetici › Ayarlar › "Zamanlı görevler" kartı (Faz 2A).
+ * "Zamanlı görevler" kartı (Faz 2A). Faz 7O'dan beri Yönetici › Otomasyon › Sistem altında (Site
+ * Ayarları'ndan taşındı); metinleri `siteBakim` ek paketinde.
  *
  * Ücretsiz sunucuda zamanlayıcı yok; GitHub Actions her 10 dakikada
- * `/api/v1/zamanli/calistir` ucunu çağırıyor. Bu kart her görevin son
- * çalışmasını, süresini, özetini ve (varsa) hatasını gösteriyor; "Şimdi
- * çalıştır" 5 dakika kuralını ve görev sıklıklarını atlıyor.
+ * `/api/v1/zamanli/calistir` ucunu çağırıyor. Bu kart her görevin ne yaptığını
+ * (tek cümle), son çalışmasını, süresini, özetini ve (varsa) hatasını gösteriyor;
+ * "Şimdi çalıştır" 5 dakika kuralını ve görev sıklıklarını atlıyor (haftalık özet
+ * kendi takvimine uyar: aynı hafta ikinci kez gitmez).
  */
-export default function ZamanliGorevler() {
+export default function ZamanliGorevler({ onCalisti }: { onCalisti?: () => void } = {}) {
   const { t, i18n } = useTranslation();
   const dil = i18n.language;
   const [durum, setDurum] = useState<ZamanliDurum | null>(null);
@@ -42,6 +44,7 @@ export default function ZamanliGorevler() {
       setDurum(d);
       if (d.atlandi) toast.message(t('siteBakim.zamanli.atlandi'));
       else toast.success(t('siteBakim.zamanli.calisti'));
+      onCalisti?.();
     } catch {
       toast.error(t('siteBakim.hata.genel'));
     } finally {
@@ -49,7 +52,8 @@ export default function ZamanliGorevler() {
     }
   };
 
-  const siklik = (dk: number) => {
+  const siklik = (dk: number, plan?: string | null) => {
+    if (plan) return t(`siteBakim.zamanli.plan.${plan}`, { defaultValue: t('siteBakim.zamanli.haftalik') });
     if (!dk) return t('siteBakim.zamanli.herTur');
     // Sunucudaki pencere kaymaya pay bırakıyor (20 sa ≈ günlük, 6 gün 20 sa ≈ haftalık).
     if (dk >= 1200 && dk < 2880) return t('siteBakim.zamanli.gunluk');
@@ -111,16 +115,20 @@ export default function ZamanliGorevler() {
                 ) : (
                   <Clock className="h-4 w-4 shrink-0 text-muted-foreground" />
                 )}
-                <span className="min-w-[10rem] flex-1 font-medium">
+                <span className="min-w-0 flex-1 basis-40 font-medium">
                   {t(`siteBakim.zamanli.gorev.${g.gorev}`, { defaultValue: g.gorev })}
                 </span>
                 <span className="text-muted-foreground">
-                  {t('siteBakim.zamanli.siklik')}: {siklik(g.siklik_dk)}
+                  {t('siteBakim.zamanli.siklik')}: {siklik(g.siklik_dk, g.plan)}
                 </span>
                 <span className="text-muted-foreground">
                   {g.son_calisma ? tarihBicimle(g.son_calisma, dil, true) : t('siteBakim.zamanli.hic')}
                 </span>
                 {g.sure_ms !== null && <span className="text-muted-foreground">{g.sure_ms} ms</span>}
+                {/* Faz 7O: sade dilde "bu iş ne yapar" (teknik olmayan kullanıcı için). */}
+                <span className="w-full ps-7 text-[11px] leading-snug text-slate-300" data-zamanli-ne={g.gorev}>
+                  {t(`siteBakim.zamanli.ne.${g.gorev}`, { defaultValue: '' })}
+                </span>
                 {ozetMetni(g.sonuc) && (
                   <span className="w-full break-words font-mono text-[11px] text-muted-foreground">{ozetMetni(g.sonuc)}</span>
                 )}

@@ -15,7 +15,8 @@
       "kurallar": "Regeln",
       "sablonlar": "Fertige Vorlagen",
       "gunluk": "Ausführungsprotokoll",
-      "ozel": "Benutzerdefinierte Felder"
+      "ozel": "Benutzerdefinierte Felder",
+      "sistem": "System"
     },
     "kural": {
       "yeni": "Neue Regel",
@@ -152,7 +153,18 @@
       "adres": "Adresse",
       "teknisyen": "Techniker",
       "kod": "Code",
-      "bilet_sayisi": "Anzahl Tickets"
+      "bilet_sayisi": "Anzahl Tickets",
+      "sonraki_adim": "Nächster Schritt",
+      "sonraki_adim_tarihi": "Datum des nächsten Schritts",
+      "son_hareket": "Letzte Aktivität",
+      "hareketsiz_gun": "Inaktiv (Tage)",
+      "gecerlilik": "Gültig bis",
+      "gonderildi_at": "Gesendet am",
+      "goruntulendi": "Angesehen",
+      "goruntulenme_sayisi": "Anzahl Aufrufe",
+      "yanitsiz_gun": "Unbeantwortet (Tage)",
+      "baglanti": "Link",
+      "yoneten": "Verwaltet von (Agentur/Kunde)"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -180,7 +192,9 @@
       "etkinlik_kayit": "Anmeldung zur Veranstaltung",
       "etkinlik_bilet_satildi": "Kostenpflichtiges Ticket verkauft",
       "etkinlik_giris": "Einlass erfolgt",
-      "etkinlik_iptal": "Veranstaltungsticket storniert"
+      "etkinlik_iptal": "Veranstaltungsticket storniert",
+      "teklif_yanitsiz": "Angebot unbeantwortet",
+      "aday_hareketsiz": "Lead ohne Aktivität"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -208,7 +222,9 @@
       "etkinlik_kayit": "Eine Anmeldung wurde bestätigt (kostenpflichtige nach Zahlungseingang).",
       "etkinlik_bilet_satildi": "Zahlung für eine kostenpflichtige Ticketbestellung ist eingegangen (nur Agentur-Veranstaltungen).",
       "etkinlik_giris": "Ein Ticket wurde am Einlass gescannt (erster Einlass).",
-      "etkinlik_iptal": "Teilnehmende oder Veranstalter haben ein Ticket storniert."
+      "etkinlik_iptal": "Teilnehmende oder Veranstalter haben ein Ticket storniert.",
+      "teklif_yanitsiz": "Ein gesendetes Angebot wurde seit 3 oder 7 Tagen weder angenommen noch abgelehnt (je Schwelle einmal; erneutes Senden startet die Zählung neu).",
+      "aday_hareketsiz": "Ein offener Lead hat seit 7 oder 14 Tagen keine Aktivität (Notiz, Anruf, Phasenwechsel …). Neue Aktivität setzt die Zählung zurück."
     },
     "eylem": {
       "eposta": "E-Mail senden",
@@ -243,7 +259,8 @@
       "alici_ekip_uyesi": "Ein Teammitglied",
       "uye": "Teammitglied",
       "baslik": "Titel",
-      "govde": "Text"
+      "govde": "Text",
+      "alici_sorumlu_yonetici": "Verantwortliche Person (sonst Admins)"
     },
     "gorev": {
       "proje": "Projekt",
@@ -411,10 +428,11 @@
         "bildirim_govde": "[[teklif.baslik]] ([[teklif.genel_toplam]] [[teklif.para_birimi]]) wurde angenommen. Eine Kick-off-Aufgabe wurde erstellt."
       },
       "fatura_gecikti_hatirlatma": {
-        "ad": "Rechnung 3 Tage überfällig → Erinnerungs-E-Mail",
-        "aciklama": "Höfliche Zahlungserinnerung an den Kontoinhaber, wenn eine offene Rechnung 3 Tage überfällig ist.",
-        "konu": "Zahlungserinnerung: [[fatura.no]]",
-        "govde": "Hallo [[kisi.ad|]],\n\ndie Rechnung [[fatura.no]] über [[fatura.tutar]] [[fatura.para_birimi]] ist seit [[fatura.gecikme_gun]] Tagen fällig. Sie können sie in Ihrem Panel bezahlen.\n\nVielen Dank"
+        "ad": "Rechnung 30 Tage überfällig → Admin-Hinweis + CRM-Notiz",
+        "aciklama": "Wann: eine offene Rechnung ist 30 Tage überfällig (einmal pro Rechnung). Was passiert: Admins erhalten eine Panel-Benachrichtigung, im CRM-Eintrag des Kunden wird eine Notiz angelegt. Zahlungserinnerungen an den Kunden (+1, +7, +14 Tage) verschickt das System bereits; diese Regel sendet dem Kunden keine zusätzliche E-Mail.",
+        "bildirim": "Seit 30 Tagen unbezahlt: [[fatura.no]]",
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) — [[fatura.no]], [[fatura.tutar]] [[fatura.para_birimi]], fällig am [[fatura.vade_tarihi]]. Automatische Erinnerungen (+1/+7/+14 Tage) wurden gesendet; jetzt hilft vielleicht ein Anruf.",
+        "metin": "Rechnung [[fatura.no]] ([[fatura.tutar]] [[fatura.para_birimi]]) ist seit 30 Tagen unbezahlt."
       },
       "destek_acil_bildirim": {
         "ad": "Support-Ticket „dringend“ → Benachrichtigung",
@@ -426,6 +444,39 @@
         "ad": "Termin gebucht → CRM-Aktivität",
         "aciklama": "Dem CRM-Lead der buchenden Person wird eine Besprechungsaktivität hinzugefügt.",
         "metin": "Termin gebucht: [[randevu.tur]] — [[randevu.baslangic]] ([[randevu.ad]])"
+      },
+      "teklif_yanitsiz_hatirlatma": {
+        "ad": "Angebot seit 3 Tagen unbeantwortet → freundliche Erinnerung",
+        "aciklama": "Wann: Ihr gesendetes Angebot wird innerhalb von 3 Tagen weder angenommen noch abgelehnt (einmal pro Angebot). Was passiert: Die Person auf dem Angebot erhält eine höfliche Erinnerungs-E-Mail, Sie eine Panel-Benachrichtigung. Den Text können Sie beliebig anpassen.",
+        "konu": "Eine kurze Erinnerung zu unserem Angebot: [[teklif.baslik]]",
+        "govde": "Hallo [[kisi.ad|]],\n\nvor ein paar Tagen haben wir Ihnen unser Angebot [[teklif.no]] „[[teklif.baslik]]“ geschickt. Wenn Sie Fragen haben oder etwas geändert haben möchten, antworten Sie einfach auf diese E-Mail.\n\nHier können Sie das Angebot ansehen: [[teklif.baglanti|der Link in unserer ersten E-Mail]]\n\nViele Grüße",
+        "bildirim": "Angebot seit 3 Tagen unbeantwortet: [[teklif.no]]",
+        "bildirim_govde": "[[teklif.baslik]] ([[teklif.genel_toplam]] [[teklif.para_birimi]]) — [[teklif.aday_ad|]] [[teklif.aday_eposta|]]. Angesehen: [[teklif.goruntulendi]]. Dem Kunden wurde eine freundliche Erinnerung gesendet."
+      },
+      "aday_hareketsiz_hatirlatma": {
+        "ad": "Lead seit 7 Tagen inaktiv → Erinnerung an Verantwortliche",
+        "aciklama": "Wann: ein offener CRM-Lead hat seit 7 Tagen keine Aktivität (Notiz, Anruf, Phasenwechsel). Was passiert: die verantwortliche Person (oder, falls niemand zugewiesen ist, die Admins) erhält eine Panel-Benachrichtigung, am Lead wird eine Notiz angelegt. Jede neue Aktivität startet die Zählung neu.",
+        "bildirim": "Seit 7 Tagen keine Aktivität: [[aday.ad]]",
+        "bildirim_govde": "[[aday.ad]] [[aday.firma|]] — Phase: [[aday.asama]], letzte Aktivität: [[aday.son_hareket]]. Nächster Schritt: [[aday.sonraki_adim|nicht festgelegt]].",
+        "metin": "Seit 7 Tagen keine Aktivität; Erinnerung an die verantwortliche Person gesendet."
+      },
+      "proje_yayinda_geri_bildirim": {
+        "ad": "Projekt live → Dankeschön + Bitte um Feedback",
+        "aciklama": "Wann: Sie setzen ein Projekt in die Phase „Launch“. Was passiert: der Kunde erhält eine Dankes-E-Mail mit der Bitte um Feedback. Alle bekommen dieselbe E-Mail (keine andere Version für zufriedene oder unzufriedene Kunden – Googles Regel). Um Ihren Google-Bewertungslink einzufügen, öffnen Sie die Regel und bearbeiten Sie den Text.",
+        "konu": "[[proje.baslik]] ist live – vielen Dank!",
+        "govde": "Hallo [[kisi.ad|]],\n\nIhr Projekt [[proje.baslik]] ist jetzt live. Vielen Dank für Ihr Vertrauen während des gesamten Projekts.\n\nWir würden uns freuen, wenn Sie uns in ein paar Sätzen von Ihren Erfahrungen erzählen: Was hat Ihnen gefallen, was hätten wir besser machen können? Antworten Sie einfach auf diese E-Mail. Wenn Sie möchten, können Sie auch eine öffentliche Bewertung unseres Unternehmens hinterlassen.\n\nViele Grüße"
+      },
+      "sozlesme_imzalandi_bildirim": {
+        "ad": "Vertrag unterschrieben → Kick-off-Erinnerung",
+        "aciklama": "Wann: ein Kunde unterschreibt einen Vertrag per E-Signatur. Was passiert: Admins erhalten eine Panel-Benachrichtigung „Zeit zu starten“ (Erinnerung an Kick-off-Termin, Unterlagen und Zugänge). Die übliche Unterschriftsbenachrichtigung kommt weiterhin.",
+        "bildirim": "Zeit zu starten: [[sozlesme.no]]",
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) hat den Vertrag „[[sozlesme.baslik]]“ unterschrieben. Nächste Schritte: Kick-off-Termin planen, benötigte Unterlagen und Zugänge anfordern."
+      },
+      "icerik_onaylandi_gorev": {
+        "ad": "Inhalt freigegeben → „Veröffentlichen“-Erinnerung",
+        "aciklama": "Wann: ein von der Agentur verwalteter Beitrag wird freigegeben (eigene Inhalte der Kunden ausgenommen). Was passiert: die verantwortliche Person (sonst die Admins) erhält die Panel-Benachrichtigung „Veröffentlichen: <Titel>“. Das Ereignis hat kein Projekt, daher eine Benachrichtigung statt einer Aufgabe.",
+        "bildirim": "Veröffentlichen: [[icerik.baslik]]",
+        "bildirim_govde": "Beitrag freigegeben. Geplant für: [[icerik.planlanan_at|nicht festgelegt]]; Kanäle: [[icerik.kanallar|—]]."
       }
     },
     "hata": {
@@ -483,7 +534,110 @@
       "calisma_yok": "Ausführung nicht gefunden.",
       "kayit_yok": "Der Datensatz des Ereignisses existiert nicht mehr.",
       "baglam_gecersiz": "Die Beispieldaten müssen ein JSON-Objekt sein.",
-      "baglam_buyuk": "Die Beispieldaten sind zu groß."
+      "baglam_buyuk": "Die Beispieldaten sind zu groß.",
+      "acik_gerekli": "Ein Ein/Aus-Wert ist erforderlich."
+    },
+    "sistem": {
+      "baslik": "Was das System von selbst erledigt",
+      "aciklama": "Alles, was im Hintergrund läuft, ohne dass Sie etwas tun müssen: die Wochenübersicht, eingebaute Abläufe und geplante Aufgaben. Ihre eigenen „Wenn das passiert, tu das“-Regeln finden Sie im Tab Regeln.",
+      "akis": {
+        "baslik": "Eingebaute Abläufe",
+        "aciklama": "Sie laufen, sobald etwas passiert; die Einstellungen ändern Sie im jeweiligen Bereich.",
+        "ayarla": "Einstellen",
+        "talepCrm": {
+          "ad": "Eingehende Anfragen werden CRM-Leads",
+          "aciklama": "Wer über Kontaktformular, Preisrechner, Website-Analyse oder eingebettete Formulare schreibt, wird zum CRM-Lead; schreibt dieselbe Person erneut, wird es ihrem bestehenden Lead hinzugefügt."
+        },
+        "teklifKabul": {
+          "ad": "Angenommene Angebote erzeugen Rechnung, Vertrag und Projekt",
+          "aciklama": "Nimmt ein Kunde ein Angebot an, werden die dafür gewählten Datensätze (erste Rechnung, Vertragsentwurf, Projekt) automatisch angelegt."
+        },
+        "destekKurallari": {
+          "ad": "Supportanfragen werden per Regeln verteilt",
+          "aciklama": "Eine neue Anfrage wird je nach Betreff und Quelle einem Teammitglied zugewiesen, erhält Priorität und Tags und auf Wunsch eine Standardantwort."
+        },
+        "projeAsama": {
+          "ad": "Kunden erfahren von Projektphasenwechseln",
+          "aciklama": "Wenn Sie ein Projekt in die nächste Phase setzen, wird der Kunde im Panel und per E-Mail informiert."
+        },
+        "bildirimler": {
+          "ad": "Wer welche Benachrichtigung bekommt",
+          "aciklama": "Schalten Sie E-Mail, Browser-, SMS- und WhatsApp-Kanäle je Ereignis ein oder aus; auch die E-Mail der Wochenübersicht wird hier gesteuert."
+        },
+        "webhook": {
+          "ad": "Ereignisse an andere Systeme senden (Webhook)",
+          "aciklama": "Ereignisse wie ein neuer Lead oder eine bezahlte Rechnung gehen sofort an verbundene Systeme (Zapier, Make usw.); fehlgeschlagene Zustellungen werden 3 Tage lang wiederholt."
+        }
+      },
+      "ozet": {
+        "baslik": "Wochenübersicht (Montag 08:00)",
+        "aciklama": "Jeden Montagmorgen erhalten die Admins eine Übersicht über das, was diese Woche Aufmerksamkeit braucht: überfällige Rechnungen, offene Supportanfragen, nachzufassende Leads, unbeantwortete Angebote, Inhalte zur Freigabe, ausstehende Dokumente, anstehende Verlängerungen und nicht erreichbare Websites. Ist alles null, wird nichts gesendet.",
+        "acik": "An",
+        "kapali": "Aus",
+        "acildi": "Wochenübersicht eingeschaltet.",
+        "kapandi": "Wochenübersicht ausgeschaltet.",
+        "sonGonderim": "Zuletzt gesendet",
+        "hicGonderilmedi": "noch nicht gesendet",
+        "buHafta": "Diese Woche",
+        "durum": {
+          "gonderildi": "gesendet",
+          "bos": "nichts zu tun, nicht gesendet",
+          "bekliyor": "noch nicht gesendet"
+        },
+        "sonraki": "Nächster Versand",
+        "kapaliyken": "aus — wird nicht gesendet",
+        "ilkTurda": "beim nächsten geplanten Lauf (innerhalb von 10 Minuten)",
+        "alicilar": "Empfänger",
+        "aliciSayisi": "{{sayi}} Admin(s)",
+        "epostaYok": "Der E-Mail-Kanal ist nicht bereit (Resend oder SMTP nicht eingerichtet oder ausgeschaltet): die Übersicht erscheint nur in den Panel-Benachrichtigungen.",
+        "tekKaynak": "Dieser Schalter ist dieselbe Einstellung wie das E-Mail-Kästchen der Zeile „Wochenübersicht“ im Bereich Benachrichtigungen.",
+        "onizle": "Vorschau",
+        "onizlemeNotu": "Aktueller Stand (wird nicht gesendet):",
+        "bos": "Gerade ist nichts zu tun — diese Woche würde keine Übersicht gesendet.",
+        "panelde": "Im Panel öffnen",
+        "dahaFazla": "… und {{sayi}} weitere",
+        "bolum": {
+          "faturalar": "Überfällige Rechnungen",
+          "destek": "Offene Supportanfragen",
+          "crm": "Nachzufassende CRM-Leads",
+          "teklifler": "Seit 3+ Tagen unbeantwortete Angebote",
+          "icerik": "Inhalte zur Kundenfreigabe",
+          "belgeler": "Ausstehende Dokumentanfragen",
+          "yenilemeler": "Verlängerungen in den nächsten 14 Tagen",
+          "siteler": "Derzeit nicht erreichbare Websites"
+        },
+        "ek": {
+          "toplam": "Offen insgesamt: {{tutar}}",
+          "sla": "SLA bei {{sayi}} Anfrage(n) überschritten",
+          "crm": "{{adim}} mit fälligem nächsten Schritt, {{hareketsiz}} seit 7+ Tagen inaktiv",
+          "geciken": "{{sayi}} über der Frist"
+        },
+        "tur": {
+          "alan": "Domain",
+          "ssl": "SSL",
+          "hosting": "Hosting"
+        },
+        "satir": {
+          "gecikme": "{{sayi}} Tage überfällig",
+          "sla_asildi": "SLA überschritten",
+          "acik": "seit {{sayi}} Tagen offen",
+          "acik_bugun": "heute eröffnet",
+          "hareketsiz": "seit {{sayi}} Tagen inaktiv",
+          "yanitsiz": "seit {{sayi}} Tagen unbeantwortet, nicht angesehen",
+          "yanitsiz_goruldu": "seit {{sayi}} Tagen unbeantwortet, angesehen",
+          "onay_bekliyor": "wartet seit {{sayi}} Tagen auf Freigabe",
+          "onay_bekliyor_bugun": "wartet seit heute auf Freigabe",
+          "gecikti": "Frist seit {{sayi}} Tagen überschritten",
+          "kapali": "seit {{sayi}} Tagen nicht erreichbar",
+          "kapali_bugun": "nicht erreichbar",
+          "sonraki_adim": "nächster Schritt seit {{sayi}} Tagen fällig",
+          "sonraki_adim_bugun": "nächster Schritt heute fällig",
+          "bekliyor": "ausstehend",
+          "son_tarihe": "noch {{sayi}} Tage bis zur Frist",
+          "kaldi": "noch {{sayi}} Tage",
+          "doldu": "vor {{sayi}} Tagen abgelaufen"
+        }
+      }
     }
   }
 }
