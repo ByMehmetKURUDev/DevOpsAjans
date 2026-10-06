@@ -14,7 +14,8 @@ import LanguageGate from './components/LanguageGate';
 
 const AuthCallback = lazy(() => import('./pages/AuthCallback'));
 const AuthError = lazy(() => import('./pages/AuthError'));
-const Services = lazy(() => import('./pages/Services'));
+// Faz 4V: "Tüm modüller" kutusunun metni küçük ek pakette (`modulBaglanti`).
+const Services = ekliLazy('modulBaglanti', () => import('./pages/Services'));
 const Portfolio = lazy(() => import('./pages/Portfolio'));
 const Marketplace = lazy(() => import('./pages/Marketplace'));
 const BlogIndexPage = lazy(() => import('./pages/blog/BlogIndexPage'));
@@ -26,7 +27,8 @@ const ClientPanel = lazy(() => import('./pages/ClientPanel'));
 // Yönetim menüsünün grup adları ek pakette (giriş paketine eklenmesin).
 const AdminPanel = ekliLazy('yonetimMenusu', () => import('./pages/AdminPanel'));
 const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));
-const YolHaritasi = lazy(() => import('./pages/YolHaritasi'));
+// Faz 4V: aşama kartlarındaki modül adları modül ek paketinden (`modul`), bağlantı metinleri `modulBaglanti`.
+const YolHaritasi = ekliLazy(['modul', 'modulBaglanti'], () => import('./pages/YolHaritasi'));
 const SiteAnalizi = ekliLazy(['siteAnalizi', 'aydinlatma'], () => import('./pages/SiteAnalizi'));
 const SiteRaporu = ekliLazy('siteAnalizi', () => import('./pages/SiteRaporu'));
 const IslemSayfasi = ekliLazy('islem', () => import('./pages/IslemSayfasi'));
@@ -48,6 +50,11 @@ const SozlesmeSayfasi = ekliLazy(['sozlesme', 'teklif'], () => import('./pages/S
 // Faz 3K: herkese açık Kaynaklar (7 dil, prerender). Metinleri ek pakette, verisi API'de/gömülü.
 const KaynaklarListesi = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynaklarListesi'));
 const KaynakDetay = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/KaynakDetay'));
+// Faz 4V: modül vitrini (liste, modül, sektör paketi) — 7 dil, prerender. Modül adları `modul`,
+// tanıtım metinleri `modulVitrini` ek paketinde; teklif formunun aydınlatma satırı `aydinlatma`.
+const ModullerListesi = ekliLazy(['modul', 'modulVitrini'], () => import('./pages/moduller/ModullerListesi'));
+const ModulDetay = ekliLazy(['modul', 'modulVitrini', 'aydinlatma'], () => import('./pages/moduller/ModulDetay'));
+const PaketDetay = ekliLazy(['modul', 'modulVitrini', 'aydinlatma'], () => import('./pages/moduller/PaketDetay'));
 // Faz 3Y: yasal sayfalar (Gizlilik/KVKK, Kullanım Koşulları, Çerez Politikası) — tek bileşen,
 // metinleri ek pakette (7 dil), prerender + SEO. Veri sorumlusu bilgileri site ayarlarından.
 const YasalSayfa = ekliLazy('yasal', () => import('./pages/yasal/YasalSayfa'));
@@ -105,6 +112,9 @@ const AppRoutes = () => (
         <Route path="/site-analizi" element={<SiteAnalizi />} />
         <Route path="/kaynaklar" element={<KaynaklarListesi />} />
         <Route path="/kaynaklar/:slug" element={<KaynakDetay />} />
+        <Route path="/moduller" element={<ModullerListesi />} />
+        <Route path="/moduller/:slug" element={<ModulDetay />} />
+        <Route path="/moduller/paket/:slug" element={<PaketDetay />} />
         <Route path="/gizlilik" element={<YasalSayfa sayfa="gizlilik" />} />
         <Route path="/kullanim-kosullari" element={<YasalSayfa sayfa="kullanimKosullari" />} />
         <Route path="/cerez-politikasi" element={<YasalSayfa sayfa="cerezPolitikasi" />} />
@@ -146,6 +156,9 @@ const AppRoutes = () => (
         <Route path="site-analizi" element={<SiteAnalizi />} />
         <Route path="kaynaklar" element={<KaynaklarListesi />} />
         <Route path="kaynaklar/:slug" element={<KaynakDetay />} />
+        <Route path="moduller" element={<ModullerListesi />} />
+        <Route path="moduller/:slug" element={<ModulDetay />} />
+        <Route path="moduller/paket/:slug" element={<PaketDetay />} />
         <Route path="gizlilik" element={<YasalSayfa sayfa="gizlilik" />} />
         <Route path="kullanim-kosullari" element={<YasalSayfa sayfa="kullanimKosullari" />} />
         <Route path="cerez-politikasi" element={<YasalSayfa sayfa="cerezPolitikasi" />} />

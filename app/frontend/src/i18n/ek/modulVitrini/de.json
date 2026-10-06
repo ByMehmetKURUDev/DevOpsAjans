@@ -1,0 +1,525 @@
+{
+  "modulVitrini": {
+    "seo": {
+      "baslik": "Module und Branchenpakete: QR-Speisekarte, Termine, KI-Assistent | Mehmet KURU",
+      "aciklama": "QR-Speisekarte, digitale Visitenkarte, Terminbuchung, KI-Assistent, E-Mail-Marketing, Außendienst und mehr: sehen, was jedes Modul kann, und Angebot anfragen.",
+      "detaySonEki": "Module | Mehmet KURU",
+      "paketSonEki": "Branchenpaket | Mehmet KURU",
+      "anaSayfa": "Startseite",
+      "moduller": "Module"
+    },
+    "liste": {
+      "etiket": "Module",
+      "baslik": "Module passend",
+      "baslikVurgu": "zu Ihrem Geschäft",
+      "giris": "Wir schalten in Ihrem Kundenportal die Module frei, die Sie brauchen: von der QR-Speisekarte bis zur Terminbuchung, vom KI-Assistenten bis zum E-Mail-Marketing. Sehen Sie, was jedes Modul leistet, und fragen Sie das passende oder ein Paket für Ihre Branche an.",
+      "gezinme": "Seitenabschnitte",
+      "paketlerBaslik": "Fertige Pakete nach Branche",
+      "paketlerGiris": "Module, die oft zusammen genutzt werden, haben wir nach Art des Geschäfts gebündelt. Sie können ein Paket so anfragen, wie es ist, oder Module einzeln wählen.",
+      "paketModulleri": "Module im Paket",
+      "paketiIncele": "Paket ansehen",
+      "incele": "Ansehen",
+      "betaRozet": "Beta",
+      "yakindaBaslik": "Demnächst",
+      "yakindaGiris": "Module, an denen wir arbeiten. Sobald sie verfügbar sind, erscheinen hier ihre Seiten; tragen Sie sich in der Roadmap in die Warteliste ein, um als Erste davon zu erfahren.",
+      "yakindaRozet": "Demnächst",
+      "temellerBaslik": "In jedem Kundenportal enthalten",
+      "temellerGiris": "Diese Funktionen werden nicht als eigene Module verkauft: Sie sind im Panel jedes Kunden, mit dem wir arbeiten, bereits aktiv."
+    },
+    "kategori": {
+      "dijital_kimlik": "So zeigt sich Ihr Geschäft auf dem Handy, am Tisch und auf Drucksachen: Visitenkarte, QR-Codes, Speisekarte, Katalog und Bewertungsseite.",
+      "is_araclari": "Werkzeuge, die den Arbeitsalltag beschleunigen: Termine, Automatisierung, KI-Assistent, E-Mail-Marketing, Veranstaltungen und Tickets.",
+      "icerik": "Zum Vorbereiten und Planen von Social-Media- und Blog-Inhalten.",
+      "sektorel": "Module, die auf die Abläufe einer bestimmten Branche zugeschnitten sind.",
+      "hizmet": "Für Ihre Website und die Zusammenarbeit mit unserem Team: Überwachung, Verlängerungen, Dateien, API und Experten-Assistenten.",
+      "analiz": "Ein regelmäßiger Bericht über Ihre Website und die erledigte Arbeit."
+    },
+    "detay": {
+      "geri": "Alle Module",
+      "kirinti": "Brotkrumen-Navigation",
+      "neYapar": "Wofür ist es gut?",
+      "kimIcin": "Für wen?",
+      "ozellikler": "Was ist enthalten?",
+      "sss": "Häufige Fragen",
+      "ilgili": "Passt gut zusammen mit",
+      "paketlerde": "Enthalten in diesen Branchenpaketen",
+      "bulunamadi": "Modul nicht gefunden",
+      "paketBulunamadi": "Paket nicht gefunden",
+      "bulunamadiAciklama": "Die gesuchte Seite wurde möglicherweise entfernt oder verschoben. Sie können stattdessen alle Module ansehen.",
+      "sektorPaketi": "Branchenpaket",
+      "neden": "Warum diese Module?",
+      "paketModulleri": "Module im Paket",
+      "digerPaketler": "Weitere Branchenpakete"
+    },
+    "fiyat": {
+      "baslik": "Preis",
+      "dahil": "Enthalten im Paket {{paket}} und höher",
+      "baslangic": "Paketpreis ab",
+      "aylik": "{{tutar}} / Monat",
+      "profilNotu": "Der Betrag hängt vom gewählten Profil (Unternehmen, Start-up, NGO …) und der Zahlungsweise ab; für dieses Modul fällt zusätzlich zum Paket nichts an.",
+      "karsilastir": "Pakete vergleichen",
+      "teklifBaslik": "Angebot anfragen",
+      "teklifMetni": "Dieses Modul wird separat freigeschaltet. Den Preis ermitteln wir nach Ihrer Nutzung und Ihrem Bedarf; füllen Sie das Formular aus und wir senden Ihnen ein individuelles Angebot.",
+      "paketTeklifMetni": "Der Paketpreis richtet sich nach den gewählten Modulen und Ihrer Nutzung; füllen Sie das Formular aus und wir senden Ihnen ein individuelles Angebot.",
+      "kartPaket": "Im Paket {{paket}}",
+      "kartTeklif": "Auf Anfrage"
+    },
+    "form": {
+      "baslikModul": "Dieses Modul anfragen",
+      "baslikPaket": "Dieses Paket anfragen",
+      "giris": "Hinterlassen Sie ein paar Angaben – wir melden uns per E-Mail, um Ihren Bedarf zu besprechen und ein individuelles Angebot zu erstellen. Dieses Formular ist kein Kauf.",
+      "ad": "Ihr Name / Ihre Firma",
+      "eposta": "E-Mail",
+      "telefon": "Telefon (optional)",
+      "isletme": "Art des Geschäfts",
+      "isletmeSec": "Auswählen (optional)",
+      "diger": "Sonstiges",
+      "not": "Ihre Nachricht (optional)",
+      "notYerTutucu": "z. B. Anzahl der Standorte oder Nutzer, was Sie heute nutzen, wann Sie starten möchten",
+      "pazarlama": "Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden.",
+      "istegeBagli": "optional",
+      "gonder": "Angebot anfragen",
+      "gonderiliyor": "Wird gesendet …",
+      "basarili": "Anfrage erhalten",
+      "basariliMetin": "Vielen Dank. Wir prüfen Ihre Anfrage und antworten an die angegebene E-Mail-Adresse.",
+      "hata": {
+        "genel": "Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+        "ag": "Der Server ist nicht erreichbar. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+        "cok_fazla_istek": "Zu viele Anfragen in kurzer Zeit. Bitte versuchen Sie es in ein paar Minuten erneut.",
+        "eposta_gecersiz": "Geben Sie eine gültige E-Mail-Adresse ein.",
+        "ad_gerekli": "Geben Sie Ihren Namen oder Firmennamen ein.",
+        "alan_uzun": "Ein Feld ist zu lang. Bitte kürzen Sie es.",
+        "alan_gecersiz": "Ein Feld ist ungültig. Bitte prüfen Sie es.",
+        "anahtar_gecersiz": "Dieses Modul kann derzeit nicht angefragt werden.",
+        "isletme_turu_gecersiz": "Wählen Sie die Art Ihres Geschäfts aus der Liste.",
+        "govde_buyuk": "Ihre Nachricht ist zu lang. Bitte kürzen Sie sie."
+      }
+    },
+    "cta": {
+      "baslik": "Nicht sicher, was zu Ihnen passt?",
+      "metin": "Erzählen Sie uns von Ihrem Geschäft und Ihrer heutigen Arbeitsweise – wir wählen gemeinsam die Module, die Ihnen wirklich helfen.",
+      "dugme": "Schreiben Sie uns",
+      "konu": "Modulauswahl"
+    },
+    "p": {
+      "restoran_kafe": {
+        "ad": "Restaurant und Café",
+        "ozet": "Bestellen am Tisch, Abholbestellungen per WhatsApp und mehr Google-Bewertungen in einem Paket.",
+        "kimIcin": "Restaurants, Cafés, Konditoreien, Bars und Betriebe mit Abhol- oder Lieferservice.",
+        "neden": "Die QR-Speisekarte beschleunigt die Bestellung am Tisch, der WhatsApp-Katalog bündelt eine Abholbestellung in einer einzigen Nachricht, und die Google-Bewertungsseite macht es zufriedenen Gästen leicht, eine Bewertung zu schreiben. Mit einem dynamischen QR-Code ändern Sie den Link auf Ihren Tischaufstellern, ohne sie neu zu drucken."
+      },
+      "klinik_guzellik": {
+        "ad": "Praxis, Beauty und Beratung",
+        "ozet": "Online-Terminbuchung, eine teilbare digitale Visitenkarte und ein KI-Assistent für häufige Fragen.",
+        "kimIcin": "Praxen, Zahnarzt- und Kosmetikstudios, Friseure, Psychologen, Ernährungsberater, Anwälte und Berater.",
+        "neden": "Die Buchungsseite reduziert Telefonate, die digitale Visitenkarte teilt Ihre Kontaktdaten mit einem Tippen, und der KI-Assistent beantwortet die häufigen Fragen, die Sie in seiner Wissensdatenbank hinterlegen (Adresse, Öffnungszeiten, Vorbereitung). Die Google-Bewertungsseite erleichtert eine Bewertung nach dem Termin."
+      },
+      "teknik_servis": {
+        "ad": "Kundendienst und Wartung",
+        "ozet": "Außendienst mit Auftrag, Disposition und Techniker-Ansicht; dazu Online-Termine und eine Google-Bewertung nach dem Einsatz.",
+        "kimIcin": "Klima-, Heizungs-, Haushaltsgeräte-, Reinigungs-, Aufzugs- sowie Reparatur- und Wartungsfirmen.",
+        "neden": "Der Außendienst steuert den Ablauf vom Auftrag bis zum unterschriebenen Serviceformular, die Buchungsseite lässt Kunden selbst einen passenden Termin wählen, und die Google-Bewertungsseite macht es leicht, nach getaner Arbeit um eine Bewertung zu bitten."
+      },
+      "egitim_etkinlik": {
+        "ad": "Bildung, Kurse und Veranstaltungen",
+        "ozet": "Anmeldeseite und QR-Tickets, ein regelmäßiger Newsletter und Termine für Kennenlerngespräche oder Probestunden.",
+        "kimIcin": "Kurse, Bildungszentren, Workshops, Vereine und alle, die Seminare oder Tage der offenen Tür veranstalten.",
+        "neden": "Das Modul Veranstaltungen und Tickets übernimmt Anmeldung und Einlass, das E-Mail-Marketing hält regelmäßig Kontakt zu den Teilnehmenden, und die Terminbuchung dient für Kennenlerngespräche oder Probestunden."
+      },
+      "ajans_serbest": {
+        "ad": "Agentur und Freelancer",
+        "ozet": "Inhalte erstellen und planen, Gesprächstermine, eine digitale Visitenkarte und Automatisierung wiederkehrender Aufgaben.",
+        "kimIcin": "Kleine Agenturen, Social-Media-Manager, Designer, Berater und Freelancer.",
+        "neden": "Das Content-Studio beschleunigt das Erstellen und Planen von Inhalten, die Buchungsseite organisiert Kennenlerngespräche, die digitale Visitenkarte bündelt Ihre Kontaktdaten und Links auf einer Seite, und Automatisierungsregeln versenden Erinnerungs- und Nachfass-E-Mails für Sie."
+      },
+      "eticaret_kobi": {
+        "ad": "E-Commerce und KMU",
+        "ozet": "E-Mail-Kampagnen, ein KI-Assistent für Fragen auf Ihrer Website, messbare QR-Codes und Automatisierung.",
+        "kimIcin": "Onlineshops sowie kleine und mittlere Unternehmen, die regelmäßig mit ihren Kunden in Kontakt bleiben möchten.",
+        "neden": "Das E-Mail-Marketing versendet Kampagnen und automatische E-Mail-Serien an Ihre Kundenliste, der KI-Assistent beantwortet häufige Fragen auf Ihrer Website, dynamische QR-Codes messen Besuche von Verpackungen und Broschüren, und Automatisierungsregeln übernehmen wiederkehrende Aufgaben wie die Antwort auf neue Anfragen und Erinnerungen."
+      }
+    },
+    "m": {
+      "dinamik_qr": {
+        "ozet": "Ändern Sie das Ziel eines gedruckten QR-Codes ohne Neudruck und sehen Sie, wie oft er gescannt wird.",
+        "kimIcin": "Betriebe, die QR-Codes auf Plakaten, Speisekarten, Verpackungen, Broschüren oder Visitenkarten nutzen und den Link ab und zu ändern.",
+        "ozellikler": [
+          "QR-Codes und Kurzlinks, deren Ziel sich später ändern lässt",
+          "Typen für Webadresse, WhatsApp, Google-Bewertung, vCard und WLAN",
+          "QR-Design in Ihren Markenfarben mit Logo",
+          "Scan-Zahlen und Massenerstellung per CSV"
+        ],
+        "sss": [
+          {
+            "s": "Kann ich die Adresse ändern, ohne den gedruckten QR-Code zu ändern?",
+            "c": "Ja. Der QR-Code führt zu Ihrem Kurzlink; das Ziel des Kurzlinks ändern Sie jederzeit im Panel, die Drucksachen bleiben gleich."
+          },
+          {
+            "s": "Kann ich die Scans sehen?",
+            "c": "Ja. Das Panel zeigt für jeden QR-Code die Zahl der Scans und ihre zeitliche Verteilung."
+          }
+        ]
+      },
+      "dijital_kartvizit": {
+        "ozet": "Eine digitale Visitenkarte und Bio-Link-Seite, die Sie per Handy teilen; mit einem Tippen im Adressbuch gespeichert.",
+        "kimIcin": "Berater, Freelancer, Vertriebsteams und alle, die auf Messen und Terminen oft neue Leute kennenlernen.",
+        "ozellikler": [
+          "Im Adressbuch speichern (vCard) und per QR-Code teilen",
+          "Linkvorschau, die in WhatsApp und LinkedIn sauber aussieht",
+          "Kontaktformular auf der Seite, bei Bedarf Passwortschutz",
+          "Besuchs- und Klickzahlen"
+        ],
+        "sss": [
+          {
+            "s": "Kann jedes Teammitglied eine eigene Karte erstellen?",
+            "c": "Ja. Teammitglieder, die Sie Ihrem Konto hinzufügen, können eigene Karten anlegen; die Anzahl der Karten pro Konto wird in den Moduleinstellungen festgelegt."
+          },
+          {
+            "s": "Funktioniert der geteilte Link noch, wenn ich meine Daten ändere?",
+            "c": "Ja. Der Link bleibt gleich, und alle, die die Karte öffnen, sehen die aktuellen Daten."
+          }
+        ]
+      },
+      "google_yorum_sayfasi": {
+        "ozet": "Führen Sie Kunden mit einem QR-Code auf Tischaufsteller oder Beleg direkt zur Google-Bewertung.",
+        "kimIcin": "Lokale Betriebe mit persönlichem Kundenkontakt wie Cafés, Restaurants, Praxen, Geschäfte und Friseure.",
+        "ozellikler": [
+          "Schlichte Seite mit großem Button „Bei Google bewerten“",
+          "QR-Code für Tischaufsteller, Beleg oder Kasse",
+          "Optionales privates Feedback-Formular",
+          "Aufruf- und Klickzahlen"
+        ],
+        "sss": [
+          {
+            "s": "Wer schreibt die Bewertungen?",
+            "c": "Ihre Kunden selbst. Die Seite führt nur zur Bewertungsmaske bei Google; es wird nicht vorab nach einer Note gefragt und aussortiert."
+          },
+          {
+            "s": "Können unzufriedene Kunden sich zuerst an uns wenden?",
+            "c": "Wenn Sie möchten, kommt ein privates Feedback-Formular auf die Seite und die Nachrichten gehen an Sie. Der Button für eine Google-Bewertung bleibt für alle Besucher immer verfügbar."
+          }
+        ]
+      },
+      "qr_menu": {
+        "ozet": "Mehrsprachige QR-Speisekarte: Gäste scannen am Tisch, füllen den Warenkorb und senden die Bestellung per WhatsApp.",
+        "kimIcin": "Restaurants, Cafés, Konditoreien, Bars und Betriebe mit Abhol- oder Lieferservice.",
+        "ozellikler": [
+          "Tisch-QR-Codes, Kategorien und Produkte mit Optionen",
+          "Allergenangaben und mehrsprachige Speisekarte",
+          "Warenkorb, Gutscheine und Bestellung per WhatsApp",
+          "Produkte und Preise sofort im Panel aktualisieren"
+        ],
+        "sss": [
+          {
+            "s": "Werden Online-Zahlungen angenommen?",
+            "c": "Nein. Die Bestellung kommt als WhatsApp-Nachricht bei Ihnen an, und Sie kassieren wie gewohnt; ein eigenes Zahlungssystem ist nicht nötig."
+          },
+          {
+            "s": "Kann ich die Speisekarte selbst aktualisieren?",
+            "c": "Ja. Produkte, Preise und Fotos ändern Sie im Panel; die Tisch-QR-Codes bleiben gleich."
+          }
+        ]
+      },
+      "whatsapp_katalog": {
+        "ozet": "Zeigen Sie Ihre Produkte auf einer teilbaren Schaufensterseite; Bestellungen kommen als WhatsApp-Nachricht.",
+        "kimIcin": "Boutiquen, Heimproduzenten und kleine Läden, die über Instagram und WhatsApp verkaufen.",
+        "ozellikler": [
+          "Produktschaufenster und teilbare Produktseiten",
+          "Warenkorb, den Kunden selbst füllen",
+          "Bestellübersicht kommt als WhatsApp-Nachricht",
+          "Kein Zahlungssystem nötig"
+        ],
+        "sss": [
+          {
+            "s": "Was ist der Unterschied zu einem Onlineshop?",
+            "c": "Es gibt keine Zahlungs- und Versandanbindung: Der Kunde stellt den Warenkorb zusammen, schickt die Bestellung per WhatsApp an Sie, und den Rest klären Sie im Chat. Gut geeignet für einen schnellen Start."
+          },
+          {
+            "s": "Lässt es sich zusammen mit der QR-Speisekarte nutzen?",
+            "c": "Ja. Beide laufen auf demselben System; sind beide Module aktiv, können Sie einen Shop in beiden Ansichten einrichten."
+          }
+        ]
+      },
+      "randevu": {
+        "ozet": "Kunden wählen den passenden Termin selbst – weniger Telefonate, keine doppelt belegten Zeiten.",
+        "kimIcin": "Praxen, Kosmetikstudios, Berater, Trainer und alle Betriebe, die mit Terminen arbeiten.",
+        "ozellikler": [
+          "Termintypen, wöchentliche Arbeitszeiten und freie Tage",
+          "Zuweisung im Team nach Person oder reihum",
+          "Kalendereinladung (.ics), Erinnerungs-E-Mail sowie Links zum Absagen und Verschieben",
+          "Buchungsfenster zum Einbetten auf Ihrer Website"
+        ],
+        "sss": [
+          {
+            "s": "Funktioniert es mit Google Kalender?",
+            "c": "Jede Buchung kommt als Kalendereinladung (.ics), und über einen Kalender-Abo-Link sehen Sie Ihre Termine in Google Kalender oder Outlook. Ihre Verfügbarkeit legen Sie im Panel fest; andere Einträge in Ihrem Kalender werden nicht automatisch gelesen."
+          },
+          {
+            "s": "Können zwei Termine zur selben Zeit gebucht werden?",
+            "c": "Nein. Belegte Zeiten werden auf der Seite geschlossen; für dieselbe Zeit ist keine zweite Buchung möglich."
+          }
+        ]
+      },
+      "otomasyon": {
+        "ozet": "Überlassen Sie wiederkehrende E-Mails, Erinnerungen und Aufgaben dem Panel – mit Regeln nach dem Muster „wenn dies, dann das“.",
+        "kimIcin": "Kleine Teams, die Anfragen, Termine und Rechnungen nicht mehr von Hand verfolgen möchten.",
+        "ozellikler": [
+          "Regeln für Ereignisse wie neue Anfrage, Rechnung, Aufgabe oder Termin",
+          "Bedingte Schritte: E-Mail, Panel-Benachrichtigung, Aufgabe und Webhook",
+          "Warteschritt und fertige Vorlagen",
+          "Testlauf und 30-tägiges Ausführungsprotokoll"
+        ],
+        "sss": [
+          {
+            "s": "Muss ich programmieren können?",
+            "c": "Nein. Regeln werden über ein Formular eingerichtet; Sie können mit einer fertigen Vorlage beginnen und sie anpassen."
+          },
+          {
+            "s": "Lässt es sich mit Zapier oder Make verbinden?",
+            "c": "Ja, über den Webhook-Schritt. Für eine tiefere Anbindung gibt es außerdem das Modul API und Webhooks."
+          }
+        ]
+      },
+      "ai_asistan": {
+        "ozet": "Ein Chat-Assistent auf Ihrer Website, der Besuchern anhand Ihrer Dokumente, Seiten und FAQ antwortet.",
+        "kimIcin": "Betriebe, die immer wieder dieselben Fragen beantworten, und Websites, die auch außerhalb der Geschäftszeiten Fragen bekommen.",
+        "ozellikler": [
+          "Wissensdatenbank aus Dokumenten, Webseiten und FAQ",
+          "Chat-Fenster, mit einer Zeile Code auf Ihrer Website eingebunden",
+          "Nennt Quellen; übergibt an Ihr Team, wenn es etwas nicht weiß",
+          "Chat-Verlauf und Nutzungsübersicht"
+        ],
+        "sss": [
+          {
+            "s": "Was passiert bei einer Frage, die er nicht beantworten kann?",
+            "c": "Steht die Antwort nicht in der Wissensdatenbank, sagt er das, statt etwas zu erfinden, und übergibt den Besucher mit einer Support-Anfrage an Ihr Team; Sie antworten im Panel."
+          },
+          {
+            "s": "Gibt es ein Nutzungslimit?",
+            "c": "Ja. Wie viele Antworten pro Monat enthalten sind, hängt von Ihrem Konto ab; ist das Kontingent aufgebraucht, kann es auf Wunsch mit Credits weitergehen."
+          }
+        ]
+      },
+      "eposta_pazarlama": {
+        "ozet": "Erreichen Sie Ihre Kunden regelmäßig und mit Einwilligung – mit Newslettern, Kampagnen und automatischen E-Mail-Serien.",
+        "kimIcin": "Geschäfte mit Kundenliste, Kursanbieter, Veranstalter und Dienstleistungsbetriebe.",
+        "ozellikler": [
+          "Anmeldeformular mit Double-Opt-in, Listen und Segmente",
+          "Mobilfreundliche E-Mails mit Baustein-Editor",
+          "Zeitplanung, A/B-Betrefftest und Zustellbericht",
+          "Abmeldung mit einem Klick und Einwilligungsnachweis (türkisches Gesetz Nr. 6563)"
+        ],
+        "sss": [
+          {
+            "s": "Von welcher Adresse werden die E-Mails versendet?",
+            "c": "Von der verifizierten Domain der Agentur, mit dem Namen Ihres Geschäfts als Absendername; Antworten gehen an Ihre eigene E-Mail-Adresse."
+          },
+          {
+            "s": "Werden E-Mails an Personen ohne Einwilligung gesendet?",
+            "c": "Privatpersonen erhalten nur dann E-Mails, wenn sie eingewilligt haben. Einwilligungen und Abmeldungen werden protokolliert."
+          }
+        ]
+      },
+      "etkinlik_bilet": {
+        "ozet": "Anmeldeseite, QR-Tickets und Einlass per Handy für Ihre Seminare, Workshops und Veranstaltungen.",
+        "kimIcin": "Kurse, Bildungszentren, Vereine, Veranstalter und Betriebe mit Tagen der offenen Tür.",
+        "ozellikler": [
+          "Anmeldeseite, Ticketarten, Kontingent und Warteliste",
+          "QR-Ticket (PDF und zum Kalender hinzufügen)",
+          "Einlasskontrolle mit der Handykamera",
+          "Ankündigungs- und Umfrage-E-Mails nach der Veranstaltung"
+        ],
+        "sss": [
+          {
+            "s": "Kann ich kostenpflichtige Tickets verkaufen?",
+            "c": "Derzeit nehmen Kundenveranstaltungen kostenlose Anmeldungen an. Wenn Sie kostenpflichtige Tickets brauchen, vermerken Sie es im Anfrageformular – wir prüfen das gemeinsam."
+          },
+          {
+            "s": "Brauche ich am Einlass ein eigenes Gerät?",
+            "c": "Nein. Die Handykamera der Einlasskraft reicht; den Scan-Link geben Sie ihr im Panel."
+          }
+        ]
+      },
+      "icerik_studyosu": {
+        "ozet": "Erstellen Sie Social-Media- und Blog-Inhalte in Ihrer Markenstimme mit KI und planen Sie sie im Kalender.",
+        "kimIcin": "Betriebe, die ihre Social-Media-Kanäle selbst betreuen, kleine Agenturen und freie Content-Ersteller.",
+        "ozellikler": [
+          "Markenstimmen-Profile und 13 fertige Inhaltsvorlagen",
+          "Prüfung der Zeichenlimits je Kanal",
+          "Social-Media-Kalender und Freigabeablauf",
+          "Kurzlinks mit UTM, teilfertige Pakete und CSV-Export"
+        ],
+        "sss": [
+          {
+            "s": "Veröffentlicht es Beiträge selbst in sozialen Netzwerken?",
+            "c": "Nein. Inhalte werden als teilfertiges Paket vorbereitet; veröffentlicht wird von Ihnen oder Ihrem Planungstool."
+          },
+          {
+            "s": "Wie viele Inhalte kann ich erstellen?",
+            "c": "Wie viele Generierungen pro Monat enthalten sind, hängt von Ihrem Konto ab; ist das Kontingent aufgebraucht, kann es auf Wunsch mit Credits weitergehen."
+          }
+        ]
+      },
+      "saha_servisi": {
+        "ozet": "Steuern Sie Außendiensteinsätze an einem Ort – vom Auftrag über die Techniker-Ansicht bis zum unterschriebenen Serviceformular.",
+        "kimIcin": "Firmen mit Vor-Ort-Service wie Klima-, Heizungs-, Haushaltsgeräte-, Reinigungs-, Aufzugs- sowie Reparatur- und Wartungsbetriebe.",
+        "ozellikler": [
+          "Aufträge, Checklisten-Vorlagen und Dispositionstafel per Drag-and-drop",
+          "Mobile Techniker-Ansicht: Fotos, Kundenunterschrift, Standort mit Einwilligung",
+          "Gerätehistorie und Wartungserinnerungen",
+          "Serviceformular als PDF und Statusseite für Ihre Kunden"
+        ],
+        "sss": [
+          {
+            "s": "Müssen Techniker eine App installieren?",
+            "c": "Nein. Die Techniker-Ansicht öffnet sich im Browser des Handys, und Techniker sehen nur die ihnen zugewiesenen Aufträge."
+          },
+          {
+            "s": "Wird der Standort verfolgt?",
+            "c": "Eine laufende Verfolgung gibt es nicht. Wenn der Techniker zustimmt, wird der Standort nur beim Beginn und beim Abschluss eines Auftrags gespeichert."
+          }
+        ]
+      },
+      "uzman_asistanlar": {
+        "ozet": "Arbeiten Sie im Panel mit KI-Assistenten, die auf SEO, Werbung, Social Media und Marke spezialisiert sind.",
+        "kimIcin": "Inhaber und kleine Teams, die ihr Marketing selbst machen, aber Hilfe bei Ideen und Entwürfen möchten.",
+        "ozellikler": [
+          "Themenspezifische Assistenten: SEO, Werbung, Social Media, Marke",
+          "Chat im Panel; Gespräche werden personenbezogen gespeichert",
+          "Liefert Ideen, Textentwürfe und Checklisten",
+          "Tageslimit wird je nach Konto festgelegt"
+        ],
+        "sss": [
+          {
+            "s": "Ersetzen die Assistenten Ihr Team?",
+            "c": "Nein. Sie helfen bei schnellen Ideen und Entwürfen; für wichtige Entscheidungen und die Umsetzung arbeiten Sie weiter mit unserem Team."
+          },
+          {
+            "s": "Kann jemand anderes meine Gespräche sehen?",
+            "c": "Nein. Chats sind personenbezogen; auch andere Personen in Ihrem Konto können sie nicht sehen."
+          }
+        ]
+      },
+      "uptime": {
+        "ozet": "Erfahren Sie als Erste, wenn Ihre Website nicht erreichbar ist, und zeigen Sie Besuchern eine Statusseite.",
+        "kimIcin": "Jedes Geschäft, dessen Website Verkäufe, Termine oder Anfragen bringt und das Ausfälle nicht erst spät bemerken will.",
+        "ozellikler": [
+          "Regelmäßige Erreichbarkeitsprüfung Ihrer Website",
+          "Benachrichtigung bei Ausfall und Wiederherstellung",
+          "Öffentliche Statusseite (optional)",
+          "Verfügbarkeitsverlauf und Diagramm"
+        ],
+        "sss": [
+          {
+            "s": "Wie oft wird geprüft?",
+            "c": "Das Prüfintervall wird für Ihr Konto auf 5, 15, 30 oder 60 Minuten eingestellt."
+          },
+          {
+            "s": "Ist die Statusseite Pflicht?",
+            "c": "Nein. Ob Sie sie aktivieren, entscheiden Sie; ist sie aktiv, sehen Ihre Besucher dort, ob es einen Ausfall gibt."
+          }
+        ]
+      },
+      "yenileme": {
+        "ozet": "Behalten Sie Ablaufdaten von Domain, Hosting, SSL und Abos in einer Liste im Blick und werden Sie rechtzeitig erinnert.",
+        "kimIcin": "Jedes Geschäft, dessen Website nicht wegen einer abgelaufenen Domain oder eines SSL-Zertifikats offline gehen soll.",
+        "ozellikler": [
+          "Verlängerungen von Domain, Hosting, SSL und Abos in einer Liste",
+          "Erinnerung per E-Mail vor dem Ablauf",
+          "Verlängerungsrechnung und sicherer Zahlungslink",
+          "Im Tab Website-Pflege, zusammen mit den übrigen Angaben zu Ihrer Website"
+        ],
+        "sss": [
+          {
+            "s": "Wann kommt die Erinnerung?",
+            "c": "Wenn das Ablaufdatum näher rückt, werden Sie per E-Mail benachrichtigt; die Verlängerungsrechnung bezahlen Sie in einem Schritt über den Zahlungslink."
+          },
+          {
+            "s": "Wer übernimmt die Verlängerung?",
+            "c": "Unser Team übernimmt die Verlängerung; Sie müssen nur die Rechnung bezahlen."
+          }
+        ]
+      },
+      "dosyalar": {
+        "ozet": "Teilen Sie Projektdateien sicher und laden Sie angeforderte Dokumente an einem Ort hoch.",
+        "kimIcin": "Kunden, die im Projekt Logos, Bilder, Texte oder offizielle Dokumente mit unserem Team austauschen.",
+        "ozellikler": [
+          "Ordner und Sichtrechte pro Ordner",
+          "Liste der bei Ihnen angeforderten Dokumente mit Upload",
+          "Befristete Freigabelinks mit optionalem Passwort",
+          "Dateiverlauf an einem Ort statt verstreut in E-Mails"
+        ],
+        "sss": [
+          {
+            "s": "Wer kann die Dateien sehen?",
+            "c": "Berechtigte Personen in Ihrem Konto und unser Team. Wer von Ihnen einen Freigabelink erhält, kann die Dateien bis zum Ablauf des Links ebenfalls sehen."
+          },
+          {
+            "s": "Wie lange gilt ein Freigabelink?",
+            "c": "Beim Erstellen werden Gültigkeitsdauer, ein optionales Passwort und ein Download-Limit festgelegt; danach öffnet sich der Link nicht mehr."
+          }
+        ]
+      },
+      "api_erisimi": {
+        "ozet": "Verbinden Sie eigene Software und Automatisierungstools mit dem Panel: API-Schlüssel, signierte Webhooks und MCP.",
+        "kimIcin": "Betriebe, die Zapier, Make oder n8n nutzen oder mit eigener Software auf Panel-Daten zugreifen möchten.",
+        "ozellikler": [
+          "API-Schlüssel mit gewähltem Umfang, jederzeit widerrufbar",
+          "Signierte Webhook-Benachrichtigungen",
+          "MCP-Verbindung für KI-Assistenten wie Claude",
+          "Anfragelimit pro Schlüssel"
+        ],
+        "sss": [
+          {
+            "s": "Was passiert, wenn ich einen Schlüssel widerrufe?",
+            "c": "Der Schlüssel ist sofort ungültig; Verbindungen, die ihn nutzen, verlieren den Zugriff, andere Schlüssel bleiben unberührt."
+          },
+          {
+            "s": "Wie erkenne ich, dass ein Webhook wirklich vom Panel kommt?",
+            "c": "Jede Benachrichtigung ist signiert; durch Prüfen der Signatur stellen Sie fest, dass die Anfrage vom Panel stammt."
+          }
+        ]
+      },
+      "zaman_takibi": {
+        "ozet": "Sehen Sie auf der Projektkarte transparent, wie viel Zeit unser Team in Ihr Projekt gesteckt hat.",
+        "kimIcin": "Kunden, die nach Stunden oder Revisionen arbeiten und den Aufwand regelmäßig sehen möchten.",
+        "ozellikler": [
+          "Gesamt- und Monatszeit auf der Projektkarte",
+          "Nur freigegebene Arbeitseinträge",
+          "Abrechenbare Stunden, sofern vorhanden, separat ausgewiesen",
+          "Sichtbarkeit wird pro Projekt eingeschaltet"
+        ],
+        "sss": [
+          {
+            "s": "Welche Zeiten werden angezeigt?",
+            "c": "Von unserem Team erfasste und freigegebene Arbeitszeiten; Einträge, die noch auf Freigabe warten, werden nicht angezeigt."
+          },
+          {
+            "s": "Ist das in jedem Projekt sichtbar?",
+            "c": "Die Sichtbarkeit wird pro Projekt eingeschaltet; bei diesen Projekten erscheint auf der Karte eine Übersicht der aufgewendeten Zeit."
+          }
+        ]
+      },
+      "aylik_rapor": {
+        "ozet": "Ein Kundenbericht, der SEO, Analytics, Ladezeit und die erledigte Arbeit jeden Monat zusammenfasst.",
+        "kimIcin": "Betriebe, die einmal im Monat auf einen Blick sehen möchten, wie sich ihre Website und die Zusammenarbeit mit uns entwickeln.",
+        "ozellikler": [
+          "SEO-, Analytics- und Ladezeit-Übersichten in einem Bericht",
+          "Liste der im Monat erledigten Arbeiten",
+          "Berichtsseite, druck- und PDF-fertig",
+          "Archiv früherer Berichte im Panel"
+        ],
+        "sss": [
+          {
+            "s": "Wer erstellt den Bericht?",
+            "c": "Der Bericht wird automatisch aus den Daten erstellt; unser Team prüft und veröffentlicht ihn."
+          },
+          {
+            "s": "Habe ich Zugriff auf frühere Berichte?",
+            "c": "Ja. Veröffentlichte Berichte werden im Tab Berichte Ihres Panels archiviert."
+          }
+        ]
+      }
+    }
+  }
+}

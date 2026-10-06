@@ -117,7 +117,8 @@
       "kaynaklar": "Kaynaklar sayfası",
       "form": "Gömülü form",
       "manuel": "Elle eklendi",
-      "eposta": "E-posta"
+      "eposta": "E-posta",
+      "modul_vitrini": "Modül vitrini"
     },
     "aktivite": {
       "not": "Not",
@@ -300,7 +301,8 @@
       "geriAlindi": "Pazarlama izni geri alındı.",
       "kaynakForm": "form #{{no}}",
       "kaynakSiteAnalizi": "site analizi",
-      "rozet": "pazarlama izni"
+      "rozet": "pazarlama izni",
+      "kaynakModulVitrini": "modül vitrini ({{anahtar}})"
     }
   }
 }

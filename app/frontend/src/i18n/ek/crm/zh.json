@@ -117,7 +117,8 @@
       "kaynaklar": "资源页面",
       "form": "嵌入式表单",
       "manuel": "手动添加",
-      "eposta": "邮件"
+      "eposta": "邮件",
+      "modul_vitrini": "模块展示页"
     },
     "aktivite": {
       "not": "备注",
@@ -300,7 +301,8 @@
       "geriAlindi": "营销许可已撤回。",
       "kaynakForm": "表单 #{{no}}",
       "kaynakSiteAnalizi": "网站分析",
-      "rozet": "营销许可"
+      "rozet": "营销许可",
+      "kaynakModulVitrini": "模块展示页（{{anahtar}}）"
     }
   }
 }

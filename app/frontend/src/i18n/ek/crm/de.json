@@ -117,7 +117,8 @@
       "kaynaklar": "Ressourcen-Seite",
       "form": "Eingebettetes Formular",
       "manuel": "Manuell angelegt",
-      "eposta": "E-Mail"
+      "eposta": "E-Mail",
+      "modul_vitrini": "Modul-Übersicht"
     },
     "aktivite": {
       "not": "Notiz",
@@ -300,7 +301,8 @@
       "geriAlindi": "Marketing-Einwilligung widerrufen.",
       "kaynakForm": "Formular #{{no}}",
       "kaynakSiteAnalizi": "Website-Analyse",
-      "rozet": "Marketing-Einwilligung"
+      "rozet": "Marketing-Einwilligung",
+      "kaynakModulVitrini": "Modul-Übersicht ({{anahtar}})"
     }
   }
 }

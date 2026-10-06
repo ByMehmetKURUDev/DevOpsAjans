@@ -117,7 +117,8 @@
       "kaynaklar": "Resources page",
       "form": "Embedded form",
       "manuel": "Added manually",
-      "eposta": "Email"
+      "eposta": "Email",
+      "modul_vitrini": "Module showcase"
     },
     "aktivite": {
       "not": "Note",
@@ -300,7 +301,8 @@
       "geriAlindi": "Marketing permission withdrawn.",
       "kaynakForm": "form #{{no}}",
       "kaynakSiteAnalizi": "site analysis",
-      "rozet": "marketing permission"
+      "rozet": "marketing permission",
+      "kaynakModulVitrini": "module showcase ({{anahtar}})"
     }
   }
 }

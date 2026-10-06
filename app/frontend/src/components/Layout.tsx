@@ -49,6 +49,8 @@ function isBlogPostPath(path: string): boolean {
 
 /** Kaynaklar (liste + ayrıntı): başlığını sayfa kendisi yazıyor. Eşleşmede [, dil?, slug?]. */
 const KAYNAK_YOLU = /^(?:\/([a-z]{2}))?\/kaynaklar(?:\/([^/]+))?$/;
+/** Faz 4V — modül vitrini (liste, modül, paket): başlığını sayfa kendisi yazıyor. Eşleşmede [, dil?, alt yol?]. */
+const MODUL_YOLU = /^(?:\/([a-z]{2}))?\/moduller((?:\/paket)?\/[^/]+)?$/;
 
 /**
  * Yola karşılık gelen başlık/açıklama.
@@ -232,6 +234,9 @@ export default function Layout() {
     // Kaynak ayrıntısı: aynı kaynağın o dildeki adresi.
     const kaynak = normalizeRoutePath(location.pathname).match(KAYNAK_YOLU);
     if (kaynak?.[2]) navigate(`${localizedPath(code, 'kaynaklar')}/${kaynak[2]}`);
+    // Modül / sektör paketi ayrıntısı: aynı sayfanın o dildeki adresi.
+    const modul = normalizeRoutePath(location.pathname).match(MODUL_YOLU);
+    if (modul?.[2]) navigate(`${localizedPath(code, 'moduller')}${modul[2]}`);
   };
 
   const currentLang = getLanguageMeta(i18n.language);
@@ -250,7 +255,7 @@ export default function Layout() {
     const currentPath = normalizeRoutePath(location.pathname);
 
     // Tekil blog yazısı, Kaynaklar ve yasal sayfalar (Faz 3Y) başlığını kendisi yönetiyor.
-    if (isBlogPostPath(currentPath) || KAYNAK_YOLU.test(currentPath)) return;
+    if (isBlogPostPath(currentPath) || KAYNAK_YOLU.test(currentPath) || MODUL_YOLU.test(currentPath)) return;
     if (YASAL_SAYFALAR.includes(resolveRoute(currentPath).pageKey ?? '')) return;
 
     const routeMeta = getRouteMeta(currentPath, settings);
@@ -626,6 +631,16 @@ export default function Layout() {
                   className="inline-block py-2 hover:text-foreground transition-colors"
                 >
                   {t('footer.siteAnalizi')}
+                </Link>
+              </li>
+              {/* Faz 4V: modül vitrini — üst menü dolu olduğu için yalnız alt bilgide. */}
+              <li>
+                <Link
+                  to={localizedPath(activeLang, 'moduller')}
+                  className="inline-block py-2 hover:text-foreground transition-colors"
+                  data-alt-moduller
+                >
+                  {t('footer.moduller')}
                 </Link>
               </li>
             </ul>

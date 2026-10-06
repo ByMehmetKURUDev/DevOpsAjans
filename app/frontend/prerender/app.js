@@ -26,14 +26,33 @@ import BlogIndexPage from '../src/pages/blog/BlogIndexPage';
 import BlogPostPage from '../src/pages/blog/BlogPostPage';
 import KaynaklarListesi from '../src/pages/kaynaklar/KaynaklarListesi';
 import KaynakDetay from '../src/pages/kaynaklar/KaynakDetay';
+import ModullerListesi from '../src/pages/moduller/ModullerListesi';
+import ModulDetay from '../src/pages/moduller/ModulDetay';
+import PaketDetay from '../src/pages/moduller/PaketDetay';
 import YasalSayfa from '../src/pages/yasal/YasalSayfa';
 import { gomuluVeriyiAyarla } from '../src/lib/kaynaklar';
 import { yasalVeriyiAyarla } from '../src/lib/yasal';
+import { gomuluFiyatlariAyarla } from '../src/lib/modulVitrini';
 import { extractFaq, getBlogPost, getPostSeoMeta } from '../src/lib/blog';
 // Derleme verisi (canlı API ya da tohum dosyası) — vite.config `kaynakVeriEklentisi` sağlıyor.
 import KAYNAK_VERISI from 'virtual:kaynaklar-veri';
 import { KAYNAKLAR_SEO, kaynakBasligi, metaAciklama } from './kaynaklar-seo.js';
 import { KAYNAK_DILLERI, detayVerisi, kaynakYolu, kaynakYolunuCoz, listeVerisi } from './kaynaklar-veri.js';
+// Faz 4V: modül vitrini — yapı depodaki kopyadan (kayıttan üretilmiş), fiyat derlemede canlı uçtan
+// (vite.config `vitrinFiyatEklentisi`; okunamazsa boş → fiyatsız sayfa, JSON-LD'de offers yok).
+import VITRIN_YAPISI from './modul-vitrini-veri.json';
+import VITRIN_FIYATLARI from 'virtual:modul-vitrini-fiyat';
+import {
+  MODUL_DILLERI,
+  modulBul,
+  modulFiyati,
+  modulYolu,
+  modulYolunuCoz,
+  modullerYolu,
+  olcekAdi,
+  paketBul,
+  paketYolu,
+} from './moduller-veri.js';
 import { loadPanelSettings, resolvePanelValue } from './settings.js';
 import { yasalSeo } from './yasal-seo.js';
 import { yasalAyarlariniYukle } from './yasal-yukle.js';
@@ -107,6 +126,9 @@ function renderApp(url) {
             h(Route, { path: '/blog/:slug', element: h(BlogPostPage, null) }),
             h(Route, { path: '/kaynaklar', element: h(KaynaklarListesi, null) }),
             h(Route, { path: '/kaynaklar/:slug', element: h(KaynakDetay, null) }),
+            h(Route, { path: '/moduller', element: h(ModullerListesi, null) }),
+            h(Route, { path: '/moduller/:slug', element: h(ModulDetay, null) }),
+            h(Route, { path: '/moduller/paket/:slug', element: h(PaketDetay, null) }),
             h(Route, { path: '/gizlilik', element: h(YasalSayfa, { sayfa: 'gizlilik' }) }),
             h(Route, { path: '/kullanim-kosullari', element: h(YasalSayfa, { sayfa: 'kullanimKosullari' }) }),
             h(Route, { path: '/cerez-politikasi', element: h(YasalSayfa, { sayfa: 'cerezPolitikasi' }) }),
@@ -123,6 +145,9 @@ function renderApp(url) {
             h(Route, { path: 'site-analizi', element: h(SiteAnalizi, null) }),
             h(Route, { path: 'kaynaklar', element: h(KaynaklarListesi, null) }),
             h(Route, { path: 'kaynaklar/:slug', element: h(KaynakDetay, null) }),
+            h(Route, { path: 'moduller', element: h(ModullerListesi, null) }),
+            h(Route, { path: 'moduller/:slug', element: h(ModulDetay, null) }),
+            h(Route, { path: 'moduller/paket/:slug', element: h(PaketDetay, null) }),
             h(Route, { path: 'gizlilik', element: h(YasalSayfa, { sayfa: 'gizlilik' }) }),
             h(Route, { path: 'kullanim-kosullari', element: h(YasalSayfa, { sayfa: 'kullanimKosullari' }) }),
             h(Route, { path: 'cerez-politikasi', element: h(YasalSayfa, { sayfa: 'cerezPolitikasi' }) }),
@@ -310,6 +335,203 @@ function kaynakHead(gomulu, panelSettings) {
 }
 
 /**
+ * Modül vitrini (Faz 4V) — liste, modül ve sektör paketi sayfalarının <head>'i.
+ *
+ * Liste: CollectionPage + ItemList (modüller) + ItemList (sektör paketleri);
+ * modül: Service (+ fiyat varsa Offer — pakete dahil modülde paketin başlangıç
+ * aylık tutarı; ayrı satılan modülde fiyat yok, `offers` yok) + FAQPage +
+ * BreadcrumbList; paket: Service + paketteki modüller (OfferCatalog, fiyatsız).
+ * Metinler ek paketten (`modulVitrini`, `modul`) o sayfanın dilinde. Fiyat
+ * sayfaya da gömülüyor (`#modul-vitrini-verisi`): istemci ilk çizimi aynı
+ * tutarla yapıyor (src/lib/modulVitrini.ts).
+ */
+function modulHead({ dil, tur, slug }, panelSettings) {
+  const t = i18n.getFixedT(dil);
+  const htmlLang = getLanguage(dil).htmlLang;
+  const veriBetigi = {
+    type: 'script',
+    props: { type: 'application/json', id: 'modul-vitrini-verisi', children: guvenliJson({ fiyatlar: VITRIN_FIYATLARI }) },
+  };
+  const ldBetigi = (data) => ({
+    type: 'script',
+    props: { type: 'application/ld+json', children: guvenliJson({ '@context': 'https://schema.org', ...data }) },
+  });
+  const hreflang = (yolu) => [
+    ...MODUL_DILLERI.map((d) => ({
+      type: 'link',
+      props: { rel: 'alternate', hreflang: getLanguage(d).htmlLang, href: absoluteUrl(yolu(d)) },
+    })),
+    { type: 'link', props: { rel: 'alternate', hreflang: 'x-default', href: absoluteUrl(yolu(DEFAULT_LANGUAGE)) } },
+  ];
+  const anaSayfa = { '@type': 'ListItem', position: 1, name: t('modulVitrini.seo.anaSayfa'), item: absoluteUrl(localizedPath(dil, 'home')) };
+  const listeOgesi = { '@type': 'ListItem', position: 2, name: t('modulVitrini.seo.moduller'), item: absoluteUrl(modullerYolu(dil)) };
+  const saglayici = { '@type': 'ProfessionalService', name: SITE_NAME, url: `${SITE_URL}/`, image: SITE_OG_IMAGE };
+  const modulAdi = (anahtar) => t(`modul.m.${anahtar}.ad`);
+
+  if (tur === 'liste') {
+    const title = resolvePanelValue(panelSettings, PAGE_SEO_KEYS.moduller.title, dil, t('modulVitrini.seo.baslik'));
+    const description = resolvePanelValue(panelSettings, PAGE_SEO_KEYS.moduller.description, dil, t('modulVitrini.seo.aciklama'));
+    return buildHead({
+      title,
+      description,
+      canonicalPath: modullerYolu(dil),
+      ogType: 'website',
+      lang: dil,
+      extra: [
+        ...hreflang((d) => modullerYolu(d)),
+        ldBetigi({
+          '@type': 'CollectionPage',
+          name: title,
+          description,
+          url: absoluteUrl(modullerYolu(dil)),
+          inLanguage: htmlLang,
+          isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: `${SITE_URL}/` },
+          publisher: YAYINCI,
+          mainEntity: {
+            '@type': 'ItemList',
+            name: t('modulVitrini.seo.moduller'),
+            numberOfItems: VITRIN_YAPISI.moduller.length,
+            itemListElement: VITRIN_YAPISI.moduller.map((m, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              url: absoluteUrl(modulYolu(dil, m.slug)),
+              name: modulAdi(m.anahtar),
+            })),
+          },
+          hasPart: {
+            '@type': 'ItemList',
+            name: t('modulVitrini.liste.paketlerBaslik'),
+            numberOfItems: VITRIN_YAPISI.paketler.length,
+            itemListElement: VITRIN_YAPISI.paketler.map((p, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              url: absoluteUrl(paketYolu(dil, p.slug)),
+              name: t(`modulVitrini.p.${p.anahtar}.ad`),
+            })),
+          },
+        }),
+        ldBetigi({ '@type': 'BreadcrumbList', itemListElement: [anaSayfa, listeOgesi] }),
+        veriBetigi,
+      ],
+    });
+  }
+
+  const m = tur === 'modul' ? modulBul(VITRIN_YAPISI, slug) : null;
+  const p = tur === 'paket' ? paketBul(VITRIN_YAPISI, slug) : null;
+  if (!m && !p) {
+    return buildHead({
+      title: t('modulVitrini.seo.baslik'),
+      description: t('modulVitrini.seo.aciklama'),
+      canonicalPath: modullerYolu(dil),
+      ogType: 'website',
+      lang: dil,
+      noindex: true,
+      extra: [veriBetigi],
+    });
+  }
+
+  if (m) {
+    const ad = modulAdi(m.anahtar);
+    const adres = absoluteUrl(modulYolu(dil, m.slug));
+    const ozet = t(`modulVitrini.m.${m.anahtar}.ozet`);
+    const fiyat = modulFiyati(m, VITRIN_FIYATLARI);
+    const sss = t(`modulVitrini.m.${m.anahtar}.sss`, { returnObjects: true });
+    const offers =
+      fiyat && fiyat.tutar !== null
+        ? {
+            offers: {
+              '@type': 'Offer',
+              price: fiyat.tutar.toFixed(2),
+              priceCurrency: fiyat.paraBirimi,
+              priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                price: fiyat.tutar.toFixed(2),
+                priceCurrency: fiyat.paraBirimi,
+                unitCode: 'MON',
+                referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' },
+              },
+              description: t('modulVitrini.fiyat.dahil', { paket: olcekAdi(VITRIN_FIYATLARI, fiyat.paket, dil) }),
+              url: absoluteUrl(localizedPath(dil, 'services')),
+              availability: 'https://schema.org/InStock',
+            },
+          }
+        : {};
+    return buildHead({
+      title: `${ad} · ${t('modulVitrini.seo.detaySonEki')}`,
+      description: metaAciklama(ozet),
+      canonicalPath: modulYolu(dil, m.slug),
+      ogType: 'website',
+      lang: dil,
+      extra: [
+        ...hreflang((d) => modulYolu(d, m.slug)),
+        ldBetigi({
+          '@type': 'Service',
+          name: ad,
+          description: ozet,
+          url: adres,
+          serviceType: t(`modul.kategori.${m.kategori}`),
+          category: t(`modul.kategori.${m.kategori}`),
+          inLanguage: htmlLang,
+          provider: saglayici,
+          audience: { '@type': 'BusinessAudience', audienceType: t(`modulVitrini.m.${m.anahtar}.kimIcin`) },
+          ...offers,
+        }),
+        ...(Array.isArray(sss) && sss.length
+          ? [
+              ldBetigi({
+                '@type': 'FAQPage',
+                mainEntity: sss.map((x) => ({ '@type': 'Question', name: x.s, acceptedAnswer: { '@type': 'Answer', text: x.c } })),
+              }),
+            ]
+          : []),
+        ldBetigi({
+          '@type': 'BreadcrumbList',
+          itemListElement: [anaSayfa, listeOgesi, { '@type': 'ListItem', position: 3, name: ad, item: adres }],
+        }),
+        veriBetigi,
+      ],
+    });
+  }
+
+  const ad = t(`modulVitrini.p.${p.anahtar}.ad`);
+  const adres = absoluteUrl(paketYolu(dil, p.slug));
+  const ozet = t(`modulVitrini.p.${p.anahtar}.ozet`);
+  return buildHead({
+    title: `${ad} · ${t('modulVitrini.seo.paketSonEki')}`,
+    description: metaAciklama(ozet),
+    canonicalPath: paketYolu(dil, p.slug),
+    ogType: 'website',
+    lang: dil,
+    extra: [
+      ...hreflang((d) => paketYolu(d, p.slug)),
+      ldBetigi({
+        '@type': 'Service',
+        name: ad,
+        description: ozet,
+        url: adres,
+        serviceType: t('modulVitrini.detay.sektorPaketi'),
+        inLanguage: htmlLang,
+        provider: saglayici,
+        audience: { '@type': 'BusinessAudience', audienceType: t(`modulVitrini.p.${p.anahtar}.kimIcin`) },
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: t('modulVitrini.detay.paketModulleri'),
+          itemListElement: p.moduller
+            .map((k) => VITRIN_YAPISI.moduller.find((x) => x.anahtar === k))
+            .filter(Boolean)
+            .map((x) => ({ '@type': 'Service', name: modulAdi(x.anahtar), url: absoluteUrl(modulYolu(dil, x.slug)) })),
+        },
+      }),
+      ldBetigi({
+        '@type': 'BreadcrumbList',
+        itemListElement: [anaSayfa, listeOgesi, { '@type': 'ListItem', position: 3, name: ad, item: adres }],
+      }),
+      veriBetigi,
+    ],
+  });
+}
+
+/**
  * hreflang bağlantıları.
  *
  * Yalnızca gerçekten var olan çeviriler için üretiliyor. Önceki hâlinde
@@ -378,9 +600,11 @@ function buildHead({
   return { title, lang: language.htmlLang, elements: new Set(elements) };
 }
 
-function getHead(url, panelSettings = {}, kaynakVerisi = null, yasalVerisi = null) {
+function getHead(url, panelSettings = {}, kaynakVerisi = null, yasalVerisi = null, modulEslesmesi = null) {
   // Kaynaklar (liste + ayrıntı, 7 dil) — PAGE_SEO yerine kendi metinleri.
   if (kaynakVerisi) return kaynakHead(kaynakVerisi, panelSettings);
+  // Modül vitrini (Faz 4V) — metinleri ek pakette; PAGE_SEO'da yok.
+  if (modulEslesmesi) return modulHead(modulEslesmesi, panelSettings);
 
   const slug = getBlogSlug(url);
 
@@ -582,16 +806,26 @@ export async function prerender({ url }) {
   const yasalVerisi = yasalMi ? await yasalAyarlariniYukle() : null;
   yasalVeriyiAyarla(yasalVerisi);
 
+  // Modül vitrini: fiyatlar sayfaya gömülüyor (diğer sayfalarda null — sızmasın).
+  const modulEslesmesi = modulYolunuCoz(url);
+  gomuluFiyatlariAyarla(modulEslesmesi ? VITRIN_FIYATLARI : null);
+
   // Blog Türkçe; statik sayfalar kendi dilinde render edilir.
   await i18n.changeLanguage(isBlog ? DEFAULT_LANGUAGE : lang);
 
   const html = renderApp(url);
+  const modulYok =
+    Boolean(modulEslesmesi) &&
+    ((modulEslesmesi.tur === 'modul' && !modulBul(VITRIN_YAPISI, modulEslesmesi.slug)) ||
+      (modulEslesmesi.tur === 'paket' && !paketBul(VITRIN_YAPISI, modulEslesmesi.slug)));
   const is404 =
-    (Boolean(slug) && !getBlogPost(slug)) || Boolean(kaynakVerisi && 'detay' in kaynakVerisi && !kaynakVerisi.detay);
+    (Boolean(slug) && !getBlogPost(slug)) ||
+    Boolean(kaynakVerisi && 'detay' in kaynakVerisi && !kaynakVerisi.detay) ||
+    modulYok;
 
   return {
     html,
-    head: getHead(url, panelSettings, kaynakVerisi, yasalVerisi),
+    head: getHead(url, panelSettings, kaynakVerisi, yasalVerisi, modulEslesmesi),
     ...(is404 ? { statusCode: 404 } : {}),
   };
 }

@@ -169,7 +169,11 @@ export default function AdayCekmecesi({ adayId, meta, onKapat, onDegisti, onSekm
   const izinKaynagi = (k?: string | null) => {
     if (!k) return null;
     const [tur, no] = k.split(':');
-    return tur === 'form' ? t('crm.pazarlama.kaynakForm', { no }) : tur === 'site_analizi' ? t('crm.pazarlama.kaynakSiteAnalizi') : k;
+    if (tur === 'form') return t('crm.pazarlama.kaynakForm', { no });
+    if (tur === 'site_analizi') return t('crm.pazarlama.kaynakSiteAnalizi');
+    // Faz 4V: `modul_vitrini:<modul|paket>:<anahtar>` → "modül vitrini (anahtar)".
+    if (tur === 'modul_vitrini') return t('crm.pazarlama.kaynakModulVitrini', { anahtar: k.split(':')[2] ?? '' });
+    return k;
   };
 
   const tasi = (asama: string, neden?: string) =>

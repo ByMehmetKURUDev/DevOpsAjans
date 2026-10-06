@@ -19,7 +19,8 @@ export type Kaynak =
   | 'kaynaklar'
   | 'form'
   | 'manuel'
-  | 'eposta';
+  | 'eposta'
+  | 'modul_vitrini';
 export type ElleAktivite = 'not' | 'arama' | 'eposta' | 'toplanti';
 
 export interface Asama {

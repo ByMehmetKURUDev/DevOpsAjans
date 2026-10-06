@@ -1,0 +1,525 @@
+{
+  "modulVitrini": {
+    "seo": {
+      "baslik": "Modüller ve Sektör Paketleri: QR Menü, Randevu, AI Asistan | Mehmet KURU",
+      "aciklama": "QR menü, dijital kartvizit, randevu, AI asistan, e-posta pazarlama, saha servisi ve daha fazlası: modüllerin ne işe yaradığını görün, teklif isteyin.",
+      "detaySonEki": "Modüller | Mehmet KURU",
+      "paketSonEki": "Sektör paketi | Mehmet KURU",
+      "anaSayfa": "Ana Sayfa",
+      "moduller": "Modüller"
+    },
+    "liste": {
+      "etiket": "Modüller",
+      "baslik": "İşinize göre",
+      "baslikVurgu": "modül seçin",
+      "giris": "Müşteri portalınıza ihtiyacınız olan modülleri açıyoruz: QR menüden randevuya, AI asistandan e-posta pazarlamaya. Her modülün ne işe yaradığını görün; işinize uyanı ya da sektörünüze göre hazırlanmış paketi isteyin.",
+      "gezinme": "Sayfa bölümleri",
+      "paketlerBaslik": "Sektöre göre hazır paketler",
+      "paketlerGiris": "Sık birlikte kullanılan modülleri işletme türüne göre bir araya getirdik. Paketi olduğu gibi isteyebilir ya da modülleri tek tek seçebilirsiniz.",
+      "paketModulleri": "Paketteki modüller",
+      "paketiIncele": "Paketi incele",
+      "incele": "İncele",
+      "betaRozet": "Beta",
+      "yakindaBaslik": "Yakında",
+      "yakindaGiris": "Üzerinde çalıştığımız modüller. Yayına çıktıklarında tanıtım sayfaları burada açılacak; haber almak için yol haritasındaki bekleme listesine katılabilirsiniz.",
+      "yakindaRozet": "Yakında",
+      "temellerBaslik": "Her müşteri portalında",
+      "temellerGiris": "Bunlar ayrıca satılan modüller değil: bizimle çalışan her müşterinin panelinde zaten açık."
+    },
+    "kategori": {
+      "dijital_kimlik": "İşletmenizin telefonda, masada ve basılı malzemede görünen yüzü: kartvizit, QR, menü, katalog ve yorum sayfası.",
+      "is_araclari": "Günlük işi hızlandıran araçlar: randevu, otomasyon, AI asistan, e-posta pazarlama, etkinlik ve bilet.",
+      "icerik": "Sosyal medya ve blog içeriğini hazırlamak ve planlamak için.",
+      "sektorel": "Belirli bir sektörün iş akışına göre kurulmuş modüller.",
+      "hizmet": "Siteniz ve ekibimizle çalışmanız için: izleme, yenileme, dosyalar, API ve uzman asistanlar.",
+      "analiz": "Sitenizin ve yapılan işin düzenli raporu."
+    },
+    "detay": {
+      "geri": "Tüm modüller",
+      "kirinti": "Sayfa konumu",
+      "neYapar": "Ne işe yarar?",
+      "kimIcin": "Kimler için?",
+      "ozellikler": "Neler var?",
+      "sss": "Sık sorulan sorular",
+      "ilgili": "Birlikte iyi çalışır",
+      "paketlerde": "Yer aldığı sektör paketleri",
+      "bulunamadi": "Modül bulunamadı",
+      "paketBulunamadi": "Paket bulunamadı",
+      "bulunamadiAciklama": "Aradığınız sayfa kaldırılmış ya da adresi değişmiş olabilir. Tüm modüllere göz atabilirsiniz.",
+      "sektorPaketi": "Sektör paketi",
+      "neden": "Neden bu modüller?",
+      "paketModulleri": "Paketteki modüller",
+      "digerPaketler": "Diğer sektör paketleri"
+    },
+    "fiyat": {
+      "baslik": "Fiyat",
+      "dahil": "{{paket}} ve üstü paketlere dahil",
+      "baslangic": "Paket fiyatı, başlangıç",
+      "aylik": "{{tutar}} / ay",
+      "profilNotu": "Tutar seçtiğiniz profile (kurumsal, startup, STK…) ve ödeme şekline göre değişir; bu modül için pakete ek ücret ödenmez.",
+      "karsilastir": "Paketleri karşılaştırın",
+      "teklifBaslik": "Teklif alın",
+      "teklifMetni": "Bu modül ayrıca açılır. Fiyatını kullanımınıza ve ihtiyacınıza göre çıkarıyoruz; formu doldurun, size özel teklif gönderelim.",
+      "paketTeklifMetni": "Paketin fiyatı seçtiğiniz modüllere ve kullanımınıza göre çıkarılır; formu doldurun, size özel teklif gönderelim.",
+      "kartPaket": "{{paket}} paketinde",
+      "kartTeklif": "Teklif ile"
+    },
+    "form": {
+      "baslikModul": "Bu modülü isteyin",
+      "baslikPaket": "Bu paketi isteyin",
+      "giris": "Birkaç bilgi bırakın; ihtiyacınızı konuşmak ve size özel teklif hazırlamak için e-postayla dönüş yapalım. Bu form bir satın alma değildir.",
+      "ad": "Adınız / firmanız",
+      "eposta": "E-posta",
+      "telefon": "Telefon (isteğe bağlı)",
+      "isletme": "İşletme türü",
+      "isletmeSec": "Seçin (isteğe bağlı)",
+      "diger": "Diğer",
+      "not": "Notunuz (isteğe bağlı)",
+      "notYerTutucu": "Örn. kaç şube ya da kullanıcı, şu an ne kullandığınız, ne zaman başlamak istediğiniz",
+      "pazarlama": "Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum.",
+      "istegeBagli": "isteğe bağlı",
+      "gonder": "Teklif iste",
+      "gonderiliyor": "Gönderiliyor…",
+      "basarili": "Talebiniz alındı",
+      "basariliMetin": "Teşekkürler. Talebinizi inceleyip verdiğiniz e-posta adresine dönüş yapacağız.",
+      "hata": {
+        "genel": "Talep gönderilemedi, lütfen tekrar deneyin.",
+        "ag": "Sunucuya ulaşılamadı; bağlantınızı kontrol edip tekrar deneyin.",
+        "cok_fazla_istek": "Kısa sürede çok fazla talep gönderildi. Birkaç dakika sonra tekrar deneyin.",
+        "eposta_gecersiz": "Geçerli bir e-posta adresi yazın.",
+        "ad_gerekli": "Adınızı ya da firma adınızı yazın.",
+        "alan_uzun": "Bir alan çok uzun; lütfen kısaltın.",
+        "alan_gecersiz": "Bir alan geçersiz; lütfen kontrol edin.",
+        "anahtar_gecersiz": "Bu modül şu an talep edilemiyor.",
+        "isletme_turu_gecersiz": "İşletme türünü listeden seçin.",
+        "govde_buyuk": "Notunuz çok uzun; lütfen kısaltın."
+      }
+    },
+    "cta": {
+      "baslik": "Hangisinin size uygun olduğundan emin değil misiniz?",
+      "metin": "İşinizi ve şu an nasıl çalıştığınızı anlatın; gerçekten işinize yarayacak modülleri birlikte seçelim.",
+      "dugme": "Bize yazın",
+      "konu": "Modül seçimi"
+    },
+    "p": {
+      "restoran_kafe": {
+        "ad": "Restoran ve kafe",
+        "ozet": "Masadan sipariş, WhatsApp ile paket sipariş ve daha çok Google yorumu için bir arada.",
+        "kimIcin": "Restoran, kafe, pastane, bar ve paket servis yapan işletmeler.",
+        "neden": "QR menü masada siparişi hızlandırır, WhatsApp katalog paket siparişi tek mesajda toplar, Google yorum sayfası memnun müşterinin yorum bırakmasını kolaylaştırır. Dinamik QR ile masa kartındaki bağlantıyı yeniden bastırmadan değiştirirsiniz."
+      },
+      "klinik_guzellik": {
+        "ad": "Klinik, güzellik ve danışmanlık",
+        "ozet": "Online randevu, paylaşılabilir dijital kartvizit ve sık sorulanları yanıtlayan AI asistan.",
+        "kimIcin": "Klinikler, diş ve güzellik salonları, kuaförler, psikolog, diyetisyen, avukat ve danışmanlar.",
+        "neden": "Randevu sayfası telefon trafiğini azaltır, dijital kartvizit iletişim bilgilerinizi tek dokunuşla paylaştırır, AI asistan bilgi bankanıza eklediğiniz sık soruları (adres, çalışma saatleri, hazırlık) yanıtlar. Google yorum sayfası da görüşme sonrası yorumu kolaylaştırır."
+      },
+      "teknik_servis": {
+        "ad": "Teknik servis ve bakım",
+        "ozet": "İş emri, sevk ve teknisyen ekranıyla saha işleri; online randevu ve iş sonrası Google yorumu.",
+        "kimIcin": "Klima, kombi, beyaz eşya, temizlik, asansör ve bakım-onarım firmaları.",
+        "neden": "Saha servisi iş emrinden imzalı servis formuna kadar süreci yönetir, randevu sayfası müşterinin uygun saati kendisinin seçmesini sağlar, Google yorum sayfası iş bitince yorum istemeyi kolaylaştırır."
+      },
+      "egitim_etkinlik": {
+        "ad": "Eğitim, kurs ve etkinlik",
+        "ozet": "Kayıt sayfası ve QR bilet, düzenli bülten, tanışma görüşmesi ya da deneme dersi randevusu.",
+        "kimIcin": "Kurslar, eğitim merkezleri, atölyeler, dernekler ve seminer ya da tanıtım günü düzenleyenler.",
+        "neden": "Etkinlik ve bilet modülü kaydı ve kapı girişini yönetir, e-posta pazarlama katılımcılarla düzenli iletişim kurar, randevu modülü tanışma görüşmesi ya da deneme dersi için kullanılır."
+      },
+      "ajans_serbest": {
+        "ad": "Ajans ve serbest çalışan",
+        "ozet": "İçerik hazırlama ve planlama, görüşme randevusu, dijital kartvizit ve tekrar eden işler için otomasyon.",
+        "kimIcin": "Küçük ajanslar, sosyal medya yöneticileri, tasarımcılar, danışmanlar ve serbest çalışanlar.",
+        "neden": "İçerik stüdyosu içerik hazırlamayı ve planlamayı hızlandırır, randevu sayfası tanışma görüşmelerini düzenler, dijital kartvizit iletişim bilgilerinizi ve bağlantılarınızı tek sayfada toplar, otomasyon kuralları hatırlatma ve takip e-postalarını sizin yerinize gönderir."
+      },
+      "eticaret_kobi": {
+        "ad": "E-ticaret ve KOBİ",
+        "ozet": "E-posta kampanyaları, sitenizde soruları yanıtlayan AI asistan, ölçülebilir QR ve otomasyon.",
+        "kimIcin": "Online satış yapan mağazalar ve müşterisiyle düzenli iletişim kurmak isteyen küçük ve orta ölçekli işletmeler.",
+        "neden": "E-posta pazarlama müşteri listenize kampanya ve otomatik e-posta dizileri gönderir, AI asistan sitenizdeki sık soruları yanıtlar, dinamik QR ambalaj ve broşürden gelen ziyareti ölçer, otomasyon kuralları yeni talebe yanıt ve hatırlatma gibi tekrar eden işleri üstlenir."
+      }
+    },
+    "m": {
+      "dinamik_qr": {
+        "ozet": "Basılı QR kodunu yeniden bastırmadan hedefini değiştirin, kaç kez okutulduğunu görün.",
+        "kimIcin": "Afiş, menü, ambalaj, broşür ya da kartvizitte QR kullanan ve bağlantısını zaman zaman değiştiren işletmeler.",
+        "ozellikler": [
+          "Hedefi sonradan değiştirilebilen QR kod ve kısa bağlantı",
+          "Web adresi, WhatsApp, Google yorum, vCard ve Wi-Fi türleri",
+          "Logo ve renkle markanıza uygun QR tasarımı",
+          "Okutma sayıları ve CSV ile toplu oluşturma"
+        ],
+        "sss": [
+          {
+            "s": "Basılı QR'ı değiştirmeden adresi değiştirebilir miyim?",
+            "c": "Evet. QR kısa bağlantınıza gider; kısa bağlantının hedefini panelden istediğiniz an değiştirirsiniz, basılı malzeme aynı kalır."
+          },
+          {
+            "s": "Okutmaları görebilir miyim?",
+            "c": "Evet. Her QR için okutma sayısı ve zamana göre dağılımı panelde görünür."
+          }
+        ]
+      },
+      "dijital_kartvizit": {
+        "ozet": "Telefonla paylaşılan dijital kartvizit ve bio link sayfası; tek dokunuşla rehbere kaydedilir.",
+        "kimIcin": "Danışmanlar, serbest çalışanlar, satış ekipleri ve fuarda, toplantıda sık tanışan herkes.",
+        "ozellikler": [
+          "Rehbere kaydet (vCard) ve QR ile paylaşım",
+          "WhatsApp ve LinkedIn'de düzgün görünen bağlantı önizlemesi",
+          "Sayfada iletişim formu, istenirse parola koruması",
+          "Ziyaret ve tıklama sayıları"
+        ],
+        "sss": [
+          {
+            "s": "Ekipteki herkes kendi kartını yapabilir mi?",
+            "c": "Evet. Hesabınıza eklediğiniz ekip üyeleri kendi kartlarını oluşturabilir; hesap başına kart sayısı modül ayarıyla belirlenir."
+          },
+          {
+            "s": "Bilgilerimi değiştirirsem paylaştığım bağlantı bozulur mu?",
+            "c": "Hayır. Bağlantı aynı kalır; kartı açan herkes güncel bilgileri görür."
+          }
+        ]
+      },
+      "google_yorum_sayfasi": {
+        "ozet": "Masa kartı ya da fişteki QR ile müşterinizi doğrudan Google yorum ekranına götürün.",
+        "kimIcin": "Kafe, restoran, klinik, mağaza ve kuaför gibi müşterisiyle yüz yüze görüşen yerel işletmeler.",
+        "ozellikler": [
+          "Büyük \"Google'da yorum yaz\" düğmeli sade sayfa",
+          "Masa kartı, fiş ya da kasa için QR",
+          "İsteğe bağlı özel geri bildirim formu",
+          "Görüntülenme ve tıklama sayıları"
+        ],
+        "sss": [
+          {
+            "s": "Yorumları kim yazıyor?",
+            "c": "Müşterinizin kendisi. Sayfa yalnız Google'daki yorum ekranına yönlendirir; puan sorup memnun olanı ayırma gibi bir seçme yapılmaz."
+          },
+          {
+            "s": "Olumsuz deneyimi önce bize iletebilirler mi?",
+            "c": "İsterseniz sayfaya özel geri bildirim formu eklenir ve mesajlar size gelir. Google'da yorum yazma düğmesi her ziyaretçiye her zaman açık kalır."
+          }
+        ]
+      },
+      "qr_menu": {
+        "ozet": "Çok dilli QR menü: müşteri masadan okutur, sepetini doldurur, siparişi WhatsApp'tan gönderir.",
+        "kimIcin": "Restoran, kafe, pastane, bar ve paket servis yapan işletmeler.",
+        "ozellikler": [
+          "Masa QR'ları, kategoriler ve seçenekli ürünler",
+          "Alerjen bilgisi ve çok dilli menü",
+          "Sepet, kupon ve WhatsApp ile sipariş",
+          "Ürün ve fiyatları panelden anında güncelleme"
+        ],
+        "sss": [
+          {
+            "s": "Online ödeme alıyor mu?",
+            "c": "Hayır. Sipariş WhatsApp mesajı olarak size gelir, ödemeyi her zamanki gibi alırsınız; ayrıca bir ödeme altyapısı kurmanız gerekmez."
+          },
+          {
+            "s": "Menüyü kendim güncelleyebilir miyim?",
+            "c": "Evet. Ürün, fiyat ve fotoğrafları panelden değiştirirsiniz; masa QR'ları aynı kalır."
+          }
+        ]
+      },
+      "whatsapp_katalog": {
+        "ozet": "Ürünlerinizi paylaşılabilir bir vitrin sayfasında sergileyin; sipariş WhatsApp mesajıyla gelsin.",
+        "kimIcin": "Instagram ve WhatsApp üzerinden satış yapan butikler, ev üreticileri ve küçük mağazalar.",
+        "ozellikler": [
+          "Ürün vitrini ve paylaşılabilir ürün sayfaları",
+          "Müşterinin kendisinin doldurduğu sepet",
+          "Sipariş özeti WhatsApp mesajı olarak gelir",
+          "Ödeme altyapısı gerektirmez"
+        ],
+        "sss": [
+          {
+            "s": "E-ticaret sitesinden farkı ne?",
+            "c": "Ödeme ve kargo entegrasyonu yok: müşteri sepetini hazırlar, siparişi WhatsApp'tan size iletir, gerisini yazışarak tamamlarsınız. Hızlı başlamak için uygundur."
+          },
+          {
+            "s": "QR menüyle birlikte kullanılabilir mi?",
+            "c": "Evet. İkisi aynı altyapıda çalışır; iki modül de açıksa her iki düzende mağaza kurabilirsiniz."
+          }
+        ]
+      },
+      "randevu": {
+        "ozet": "Müşterileriniz uygun saati kendisi seçsin; telefon trafiği ve çakışan randevular azalsın.",
+        "kimIcin": "Klinikler, güzellik salonları, danışmanlar, eğitmenler ve görüşmeyle çalışan her işletme.",
+        "ozellikler": [
+          "Görüşme türleri, haftalık çalışma saatleri ve izin günleri",
+          "Ekipte kişiye göre ya da sırayla atama",
+          "Takvim daveti (.ics), hatırlatma e-postası, iptal ve yeniden planlama bağlantısı",
+          "Sitenize gömülebilen randevu penceresi"
+        ],
+        "sss": [
+          {
+            "s": "Google Takvim ile çalışır mı?",
+            "c": "Her randevu takvim daveti (.ics) olarak gelir; randevularınızı takvim aboneliği bağlantısıyla Google Takvim ya da Outlook'ta görebilirsiniz. Uygunluğunuzu panelden belirlersiniz; takviminizdeki diğer etkinlikler otomatik okunmaz."
+          },
+          {
+            "s": "Aynı saate iki randevu düşer mi?",
+            "c": "Hayır. Dolu saatler sayfada kapanır; aynı saate ikinci rezervasyon alınmaz."
+          }
+        ]
+      },
+      "otomasyon": {
+        "ozet": "\"Şu olunca bunu yap\" kurallarıyla tekrar eden e-posta, hatırlatma ve görev işlerini panele bırakın.",
+        "kimIcin": "Talep, randevu ve fatura takibini elle yapmaktan yorulan küçük ekipler.",
+        "ozellikler": [
+          "Yeni talep, fatura, görev, randevu gibi olaylara bağlı kurallar",
+          "Koşullu e-posta, panel bildirimi, görev ve webhook adımları",
+          "Bekleme adımı ve hazır şablonlar",
+          "Kuru çalıştırma ve 30 günlük çalıştırma günlüğü"
+        ],
+        "sss": [
+          {
+            "s": "Kod bilmem gerekir mi?",
+            "c": "Hayır. Kurallar formdan kurulur; hazır bir şablondan başlayıp kendinize göre değiştirebilirsiniz."
+          },
+          {
+            "s": "Zapier ya da Make'e bağlanabilir mi?",
+            "c": "Evet, webhook adımıyla. Daha kapsamlı bağlantı için API ve webhook modülü de var."
+          }
+        ]
+      },
+      "ai_asistan": {
+        "ozet": "Ziyaretçilerinize belgeleriniz, siteniz ve SSS'niz üzerinden yanıt veren, sitenize eklenen sohbet asistanı.",
+        "kimIcin": "Aynı soruları tekrar tekrar yanıtlayan işletmeler; mesai dışında da soru alan siteler.",
+        "ozellikler": [
+          "Belge, site sayfası ve SSS'den oluşan bilgi bankası",
+          "Sitenize tek satır kodla eklenen sohbet penceresi",
+          "Yanıtta kaynak gösterir; bilgisi yoksa ekibinize devreder",
+          "Sohbet kayıtları ve kullanım takibi"
+        ],
+        "sss": [
+          {
+            "s": "Bilmediği bir soru gelirse ne olur?",
+            "c": "Bilgi bankasında yanıt yoksa uydurmak yerine bunu söyler ve ziyaretçiyi destek talebiyle ekibinize devreder; siz de panelden yanıtlarsınız."
+          },
+          {
+            "s": "Kullanım sınırı var mı?",
+            "c": "Evet. Aya dahil yanıt sayısı hesabınıza göre belirlenir; dolduğunda isterseniz kredi ile devam eder."
+          }
+        ]
+      },
+      "eposta_pazarlama": {
+        "ozet": "Bülten, kampanya ve otomatik e-posta dizileriyle müşterilerinize düzenli ve izinli ulaşın.",
+        "kimIcin": "Müşteri listesi olan mağazalar, kurslar, etkinlik düzenleyenler ve hizmet işletmeleri.",
+        "ozellikler": [
+          "Çift onaylı abonelik formu, listeler ve segmentler",
+          "Blok düzenleyiciyle mobil uyumlu e-posta",
+          "Zamanlama, A/B konu testi ve teslimat raporu",
+          "Tek tıkla abonelikten çıkma ve izin kaydı (6563 sayılı Kanun)"
+        ],
+        "sss": [
+          {
+            "s": "E-postalar hangi adresten gider?",
+            "c": "Ajansın doğrulanmış alan adından, gönderen adında işletmenizin adıyla gider; yanıtlar sizin e-posta adresinize gelir."
+          },
+          {
+            "s": "İzni olmayan kişilere gönderilir mi?",
+            "c": "Bireysel alıcılara yalnız izin vermişlerse gönderilir. İzin ve abonelikten çıkma kayıtları tutulur."
+          }
+        ]
+      },
+      "etkinlik_bilet": {
+        "ozet": "Seminer, atölye ve etkinlikleriniz için kayıt sayfası, QR'lı bilet ve kapıda telefonla okutma.",
+        "kimIcin": "Kurslar, eğitim merkezleri, dernekler, etkinlik düzenleyenler ve tanıtım günü yapan işletmeler.",
+        "ozellikler": [
+          "Kayıt sayfası, bilet türleri, kontenjan ve bekleme listesi",
+          "QR'lı bilet (PDF ve takvime ekle)",
+          "Telefon kamerasıyla kapıda okutma",
+          "Duyuru ve etkinlik sonrası anket e-postası"
+        ],
+        "sss": [
+          {
+            "s": "Ücretli bilet satabilir miyim?",
+            "c": "Şu an müşteri etkinliklerinde ücretsiz kayıt alınıyor. Ücretli bilet ihtiyacınız varsa teklif formunda belirtin, birlikte değerlendirelim."
+          },
+          {
+            "s": "Kapıda ayrı bir cihaz gerekir mi?",
+            "c": "Hayır. Görevlinin telefon kamerası yeterli; okutma bağlantısını görevliye panelden verirsiniz."
+          }
+        ]
+      },
+      "icerik_studyosu": {
+        "ozet": "Marka sesinize uygun sosyal medya ve blog içeriğini yapay zekâyla hazırlayın, takvimde planlayın.",
+        "kimIcin": "Sosyal medyasını kendisi yöneten işletmeler, küçük ajanslar ve serbest içerik üreticileri.",
+        "ozellikler": [
+          "Marka sesi profilleri ve 13 hazır içerik şablonu",
+          "Kanal başına karakter sınırı denetimi",
+          "Sosyal medya takvimi ve onay akışı",
+          "UTM'li kısa bağlantı, paylaşıma hazır paket ve CSV dışa aktarma"
+        ],
+        "sss": [
+          {
+            "s": "Gönderileri sosyal medyada kendisi yayımlıyor mu?",
+            "c": "Hayır. İçerik paylaşıma hazır paket olarak hazırlanır; yayını siz ya da kullandığınız planlama aracı yapar."
+          },
+          {
+            "s": "Ne kadar içerik üretebilirim?",
+            "c": "Aya dahil üretim sayısı hesabınıza göre belirlenir; dolduğunda isterseniz kredi ile devam eder."
+          }
+        ]
+      },
+      "saha_servisi": {
+        "ozet": "İş emrinden teknisyen ekranına, imzalı servis formuna kadar saha işlerinizi tek yerden yönetin.",
+        "kimIcin": "Klima, kombi, beyaz eşya, temizlik, asansör ve bakım-onarım gibi sahada servis veren firmalar.",
+        "ozellikler": [
+          "İş emri, kontrol listesi şablonları ve sürükle-bırak sevk panosu",
+          "Mobil teknisyen ekranı: fotoğraf, müşteri imzası, izne bağlı konum",
+          "Cihaz geçmişi ve bakım zamanı hatırlatması",
+          "Servis formu PDF'i ve müşteriye özel durum sayfası"
+        ],
+        "sss": [
+          {
+            "s": "Teknisyenlerin uygulama yüklemesi gerekir mi?",
+            "c": "Hayır. Teknisyen ekranı telefonun tarayıcısında açılır; teknisyen yalnız kendisine atanan işleri görür."
+          },
+          {
+            "s": "Konum takibi yapılıyor mu?",
+            "c": "Sürekli takip yok. Teknisyen izin verirse yalnız işe başlarken ve bitirirken konum kaydedilir."
+          }
+        ]
+      },
+      "uzman_asistanlar": {
+        "ozet": "SEO, reklam, sosyal medya ve marka konularında uzmanlaşmış yapay zekâ asistanlarıyla panelden çalışın.",
+        "kimIcin": "Pazarlamasını kendisi yürüten ama fikir ve taslak için yardım isteyen işletme sahipleri ve küçük ekipler.",
+        "ozellikler": [
+          "Konuya özel asistanlar: SEO, reklam, sosyal medya, marka",
+          "Panel içinden sohbet; konuşmalar kişiye özel saklanır",
+          "Fikir, metin taslağı ve kontrol listesi hazırlar",
+          "Günlük kullanım sınırı hesabınıza göre ayarlanır"
+        ],
+        "sss": [
+          {
+            "s": "Asistanlar ekibinizin yerine mi geçiyor?",
+            "c": "Hayır. Hızlı fikir ve taslak için yardımcıdır; önemli kararlar ve uygulama için ekibimizle çalışmaya devam edersiniz."
+          },
+          {
+            "s": "Konuşmalarımı başkası görebilir mi?",
+            "c": "Hayır. Sohbetler kişiye özeldir; hesabınızdaki diğer kişiler de göremez."
+          }
+        ]
+      },
+      "uptime": {
+        "ozet": "Siteniz erişilemez olduğunda ilk siz haberdar olun; ziyaretçilerinize durum sayfası gösterin.",
+        "kimIcin": "Sitesi satış, randevu ya da talep getiren ve kesintiyi geç fark etmek istemeyen her işletme.",
+        "ozellikler": [
+          "Sitenizin düzenli aralıklarla erişilebilirlik kontrolü",
+          "Kesinti ve düzelme bildirimi",
+          "Herkese açık durum sayfası (isteğe bağlı)",
+          "Çalışma süresi geçmişi ve grafiği"
+        ],
+        "sss": [
+          {
+            "s": "Ne sıklıkla kontrol ediliyor?",
+            "c": "Kontrol aralığı hesabınıza göre 5, 15, 30 ya da 60 dakika olarak ayarlanır."
+          },
+          {
+            "s": "Durum sayfası zorunlu mu?",
+            "c": "Hayır. Açmak sizin seçiminiz; açarsanız ziyaretçileriniz bir kesinti olup olmadığını oradan görür."
+          }
+        ]
+      },
+      "yenileme": {
+        "ozet": "Alan adı, hosting, SSL ve abonelik bitişlerini tek listede izleyin; süre dolmadan hatırlatma alın.",
+        "kimIcin": "Alan adı ya da SSL süresi dolduğu için sitesinin kapanmasını istemeyen her işletme.",
+        "ozellikler": [
+          "Alan adı, hosting, SSL ve abonelik yenilemeleri tek listede",
+          "Bitişten önce e-posta hatırlatması",
+          "Yenileme faturası ve güvenli ödeme bağlantısı",
+          "Site bakım sekmesinde, sitenizin diğer bilgileriyle birlikte"
+        ],
+        "sss": [
+          {
+            "s": "Hatırlatma ne zaman gelir?",
+            "c": "Bitiş tarihi yaklaştığında e-postayla haber verilir; yenileme faturasını ödeme bağlantısıyla tek adımda ödersiniz."
+          },
+          {
+            "s": "Yenilemeyi kim yapar?",
+            "c": "Yenilemeyi ekibimiz yapar; size faturayı ödemek kalır."
+          }
+        ]
+      },
+      "dosyalar": {
+        "ozet": "Proje dosyalarını güvenle paylaşın; sizden istenen belgeleri tek yerden yükleyin.",
+        "kimIcin": "Projesinde ekibimizle logo, görsel, metin ya da resmi belge alışverişi yapan müşteriler.",
+        "ozellikler": [
+          "Klasörler ve klasör bazında görme yetkisi",
+          "Sizden istenen belgelerin listesi ve yükleme",
+          "Süreli, isteğe bağlı parolalı paylaşım bağlantısı",
+          "E-postada kaybolmayan, tek yerde dosya geçmişi"
+        ],
+        "sss": [
+          {
+            "s": "Dosyaları kimler görebilir?",
+            "c": "Hesabınızdaki yetkili kişiler ve ekibimiz. Paylaşım bağlantısı verdiğiniz kişi de bağlantının süresi dolana kadar görebilir."
+          },
+          {
+            "s": "Paylaşım bağlantısı ne kadar geçerli?",
+            "c": "Bağlantıyı oluştururken süre, isteğe bağlı parola ve indirme sınırı belirlenir; süre dolunca bağlantı açılmaz."
+          }
+        ]
+      },
+      "api_erisimi": {
+        "ozet": "Kendi yazılımınızı ve otomasyon araçlarınızı panele bağlayın: API anahtarı, imzalı webhook ve MCP.",
+        "kimIcin": "Zapier, Make ya da n8n kullanan veya kendi yazılımıyla panel verisine erişmek isteyen işletmeler.",
+        "ozellikler": [
+          "Kapsamı seçilen, istendiğinde iptal edilen API anahtarları",
+          "İmzalı webhook bildirimleri",
+          "Claude gibi yapay zekâ asistanları için MCP bağlantısı",
+          "Anahtar başına istek sınırı"
+        ],
+        "sss": [
+          {
+            "s": "Bir anahtarı iptal edersem ne olur?",
+            "c": "Anahtar hemen geçersiz olur; onu kullanan bağlantılar erişimini kaybeder, diğer anahtarlar etkilenmez."
+          },
+          {
+            "s": "Webhook'un gerçekten panelden geldiğini nasıl anlarım?",
+            "c": "Her bildirim imzalıdır; imzayı doğrulayarak isteğin panelden geldiğini kontrol edebilirsiniz."
+          }
+        ]
+      },
+      "zaman_takibi": {
+        "ozet": "Ekibimizin projenize ne kadar zaman harcadığını proje kartında şeffaf biçimde görün.",
+        "kimIcin": "Harcanan emeği düzenli görmek isteyen, saat ya da revizyon temelli çalışan müşteriler.",
+        "ozellikler": [
+          "Proje kartında toplam ve bu ayki harcanan süre",
+          "Yalnız onaylanmış çalışma kayıtları",
+          "Varsa faturalanabilir saatlerin ayrı gösterimi",
+          "Görünürlük proje bazında açılır"
+        ],
+        "sss": [
+          {
+            "s": "Hangi süreler gösteriliyor?",
+            "c": "Ekibimizin kaydettiği ve onaylanan çalışma süreleri; onay bekleyen kayıtlar görünmez."
+          },
+          {
+            "s": "Her projede görünür mü?",
+            "c": "Görünürlük proje bazında açılır; açık olan projelerin kartında harcanan süre özeti çıkar."
+          }
+        ]
+      },
+      "aylik_rapor": {
+        "ozet": "SEO, analitik, site hızı ve yapılan işleri her ay tek bir raporda toplayan müşteri raporu.",
+        "kimIcin": "Sitesinin ve bizimle yürüttüğü işin gidişatını ayda bir, tek bakışta görmek isteyen işletmeler.",
+        "ozellikler": [
+          "SEO, analitik ve hız özetleri tek raporda",
+          "O ay yapılan işlerin listesi",
+          "Yazdırmaya ve PDF'e uygun rapor sayfası",
+          "Geçmiş raporların panelde arşivi"
+        ],
+        "sss": [
+          {
+            "s": "Raporu kim hazırlıyor?",
+            "c": "Rapor verilerden otomatik oluşturulur; ekibimiz kontrol edip yayınlar."
+          },
+          {
+            "s": "Geçmiş raporlara ulaşabilir miyim?",
+            "c": "Evet. Yayınlanan raporlar panelinizdeki Raporlar sekmesinde arşivlenir."
+          }
+        ]
+      }
+    }
+  }
+}

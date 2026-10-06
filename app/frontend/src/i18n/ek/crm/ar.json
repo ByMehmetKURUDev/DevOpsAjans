@@ -117,7 +117,8 @@
       "kaynaklar": "صفحة الموارد",
       "form": "نموذج مضمّن",
       "manuel": "أُضيف يدويًا",
-      "eposta": "بريد إلكتروني"
+      "eposta": "بريد إلكتروني",
+      "modul_vitrini": "معرض الوحدات"
     },
     "aktivite": {
       "not": "ملاحظة",
@@ -300,7 +301,8 @@
       "geriAlindi": "تم سحب الإذن التسويقي.",
       "kaynakForm": "النموذج #{{no}}",
       "kaynakSiteAnalizi": "تحليل الموقع",
-      "rozet": "إذن تسويقي"
+      "rozet": "إذن تسويقي",
+      "kaynakModulVitrini": "معرض الوحدات ({{anahtar}})"
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Suspense, useEffect, useState, type FormEvent } from 'react';
-import { CheckCircle2, Loader2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
@@ -8,6 +9,9 @@ import { Button } from '@/components/ui/button';
 import { ekliLazy } from '@/i18n/ekliLazy';
 import { getAPIBaseURL } from '@/lib/config';
 import { client } from '@/lib/sdkClient';
+import { VITRIN } from '@/lib/modulVitrini';
+import { modulYolu } from '../../prerender/moduller-veri.js';
+import { DEFAULT_LANGUAGE, LANGUAGE_CODES, localizedPath } from '../../prerender/site.js';
 
 // Faz 2B — "Topluluktan" (planlanan müşteri önerileri). Yalnız yönetici
 // ayarı açıksa ve liste boş değilse, istemcide yükleniyor; prerender ve
@@ -40,6 +44,17 @@ const FAZLAR: { no: number; durum: Durum }[] = [
   { no: 6, durum: 'planlandi' },
 ];
 
+/**
+ * Faz 4V: aşamanın yayındaki modülleri → modül vitrinindeki tanıtım sayfası.
+ * Yalnız vitrinde (satışta) olan anahtarlar çiziliyor; adlar modül ek paketinden.
+ */
+const FAZ_MODULLERI: Record<number, string[]> = {
+  2: ['uptime', 'yenileme', 'aylik_rapor', 'dosyalar'],
+  4: ['dijital_kartvizit', 'dinamik_qr', 'qr_menu', 'whatsapp_katalog', 'google_yorum_sayfasi', 'api_erisimi'],
+  5: ['ai_asistan', 'otomasyon', 'eposta_pazarlama', 'icerik_studyosu', 'uzman_asistanlar'],
+  6: ['saha_servisi', 'etkinlik_bilet', 'randevu'],
+};
+
 const DURUM_STILI: Record<Durum, string> = {
   yayinda: 'border-emerald-400/50 bg-emerald-500/10 text-emerald-300',
   gelistiriliyor: 'border-sky-400/50 bg-sky-500/10 text-sky-300',
@@ -49,7 +64,8 @@ const DURUM_STILI: Record<Durum, string> = {
 const TONLAR = ['', 'cam-gok', 'cam-mor', 'cam-pembe'];
 
 export default function YolHaritasi() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const dil = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : DEFAULT_LANGUAGE;
   const [ad, setAd] = useState('');
   const [eposta, setEposta] = useState('');
   const [secili, setSecili] = useState<number[]>([]);
@@ -113,6 +129,14 @@ export default function YolHaritasi() {
             {t('yolHaritasi.baslik1')} <span className="gradient-text">{t('yolHaritasi.baslikVurgu')}</span>
           </h1>
           <p className="text-lg text-muted-foreground">{t('yolHaritasi.giris')}</p>
+          <Link
+            to={localizedPath(dil, 'moduller')}
+            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-purple-300 underline-offset-4 hover:underline"
+            data-yol-moduller
+          >
+            {t('modulBaglanti.yolIncele')}
+            <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+          </Link>
         </div>
 
         <ol className="cam-dongu grid gap-5 md:grid-cols-2">
@@ -135,6 +159,26 @@ export default function YolHaritasi() {
               </div>
               <h2 className="mt-3 text-lg font-semibold">{baslik(f.no)}</h2>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t(`yolHaritasi.f${f.no}Aciklama`)}</p>
+              {(() => {
+                const moduller = (FAZ_MODULLERI[f.no] ?? [])
+                  .map((k) => VITRIN.moduller.find((m) => m.anahtar === k))
+                  .filter(Boolean);
+                return moduller.length > 0 ? (
+                  <ul className="mt-4 flex flex-wrap gap-2" aria-label={t('modulBaglanti.yolFazModulleri')}>
+                    {moduller.map((m) => (
+                      <li key={m.anahtar} className="min-w-0">
+                        <Link
+                          to={modulYolu(dil, m.slug)}
+                          className="inline-flex max-w-full rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-foreground/90 transition-colors hover:border-purple-500/40"
+                          data-yol-modul={m.anahtar}
+                        >
+                          <span className="truncate">{t(`modul.m.${m.anahtar}.ad`)}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null;
+              })()}
             </li>
           ))}
         </ol>

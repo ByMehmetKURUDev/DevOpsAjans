@@ -1,0 +1,525 @@
+{
+  "modulVitrini": {
+    "seo": {
+      "baslik": "Modules and Industry Packages: QR Menu, Booking, AI Assistant | Mehmet KURU",
+      "aciklama": "QR menu, digital business card, appointments, AI assistant, email marketing, field service and more: see what each module does and request a quote.",
+      "detaySonEki": "Modules | Mehmet KURU",
+      "paketSonEki": "Industry package | Mehmet KURU",
+      "anaSayfa": "Home",
+      "moduller": "Modules"
+    },
+    "liste": {
+      "etiket": "Modules",
+      "baslik": "Pick the modules",
+      "baslikVurgu": "your business needs",
+      "giris": "We switch on the modules you need in your client portal: from QR menus to appointments, from an AI assistant to email marketing. See what each module does, then request the one that fits or a package prepared for your industry.",
+      "gezinme": "Page sections",
+      "paketlerBaslik": "Ready-made packages by industry",
+      "paketlerGiris": "We grouped modules that are often used together by type of business. Request a package as it is, or pick modules one by one.",
+      "paketModulleri": "Modules in this package",
+      "paketiIncele": "View package",
+      "incele": "View",
+      "betaRozet": "Beta",
+      "yakindaBaslik": "Coming soon",
+      "yakindaGiris": "Modules we are working on. Their pages will appear here once they are released; join the waitlist on the roadmap to hear about them first.",
+      "yakindaRozet": "Coming soon",
+      "temellerBaslik": "Included in every client portal",
+      "temellerGiris": "These are not sold as separate modules: they are already switched on in the panel of every client we work with."
+    },
+    "kategori": {
+      "dijital_kimlik": "How your business shows up on phones, tables and printed material: business card, QR codes, menu, catalog and review page.",
+      "is_araclari": "Tools that speed up daily work: appointments, automation, AI assistant, email marketing, events and tickets.",
+      "icerik": "For preparing and planning social media and blog content.",
+      "sektorel": "Modules built around the workflow of a specific industry.",
+      "hizmet": "For your website and for working with our team: monitoring, renewals, files, API and expert assistants.",
+      "analiz": "A regular report on your website and the work done."
+    },
+    "detay": {
+      "geri": "All modules",
+      "kirinti": "Breadcrumb",
+      "neYapar": "What does it do?",
+      "kimIcin": "Who is it for?",
+      "ozellikler": "What's included?",
+      "sss": "Frequently asked questions",
+      "ilgili": "Works well with",
+      "paketlerde": "Included in these industry packages",
+      "bulunamadi": "Module not found",
+      "paketBulunamadi": "Package not found",
+      "bulunamadiAciklama": "The page you are looking for may have been removed or moved. You can browse all modules instead.",
+      "sektorPaketi": "Industry package",
+      "neden": "Why these modules?",
+      "paketModulleri": "Modules in this package",
+      "digerPaketler": "Other industry packages"
+    },
+    "fiyat": {
+      "baslik": "Price",
+      "dahil": "Included in {{paket}} and higher packages",
+      "baslangic": "Package price, from",
+      "aylik": "{{tutar}} / month",
+      "profilNotu": "The amount depends on the profile you choose (corporate, startup, NGO…) and how you pay; there is no extra charge for this module on top of the package.",
+      "karsilastir": "Compare packages",
+      "teklifBaslik": "Request a quote",
+      "teklifMetni": "This module is switched on separately. We price it according to your usage and needs; fill in the form and we will send you a tailored quote.",
+      "paketTeklifMetni": "The package is priced according to the modules you choose and your usage; fill in the form and we will send you a tailored quote.",
+      "kartPaket": "In the {{paket}} package",
+      "kartTeklif": "On request"
+    },
+    "form": {
+      "baslikModul": "Request this module",
+      "baslikPaket": "Request this package",
+      "giris": "Leave a few details and we will reply by email to talk about your needs and prepare a tailored quote. This form is not a purchase.",
+      "ad": "Your name / company",
+      "eposta": "Email",
+      "telefon": "Phone (optional)",
+      "isletme": "Type of business",
+      "isletmeSec": "Select (optional)",
+      "diger": "Other",
+      "not": "Your note (optional)",
+      "notYerTutucu": "E.g. number of locations or users, what you use today, when you would like to start",
+      "pazarlama": "I would like to hear about campaigns and announcements by email.",
+      "istegeBagli": "optional",
+      "gonder": "Request a quote",
+      "gonderiliyor": "Sending…",
+      "basarili": "Request received",
+      "basariliMetin": "Thank you. We will review your request and reply to the email address you provided.",
+      "hata": {
+        "genel": "The request could not be sent. Please try again.",
+        "ag": "The server could not be reached. Check your connection and try again.",
+        "cok_fazla_istek": "Too many requests in a short time. Please try again in a few minutes.",
+        "eposta_gecersiz": "Enter a valid email address.",
+        "ad_gerekli": "Enter your name or company name.",
+        "alan_uzun": "One of the fields is too long. Please shorten it.",
+        "alan_gecersiz": "One of the fields is invalid. Please check it.",
+        "anahtar_gecersiz": "This module cannot be requested at the moment.",
+        "isletme_turu_gecersiz": "Select your type of business from the list.",
+        "govde_buyuk": "Your note is too long. Please shorten it."
+      }
+    },
+    "cta": {
+      "baslik": "Not sure which one is right for you?",
+      "metin": "Tell us about your business and how you work today, and we will choose the modules that will genuinely help, together.",
+      "dugme": "Contact us",
+      "konu": "Choosing modules"
+    },
+    "p": {
+      "restoran_kafe": {
+        "ad": "Restaurant and café",
+        "ozet": "Ordering from the table, takeaway orders over WhatsApp and more Google reviews, all in one.",
+        "kimIcin": "Restaurants, cafés, patisseries, bars and takeaway businesses.",
+        "neden": "The QR menu speeds up ordering at the table, the WhatsApp catalog gathers a takeaway order into a single message, and the Google review page makes it easy for happy guests to leave a review. With a dynamic QR code you can change the link on your table cards without reprinting them."
+      },
+      "klinik_guzellik": {
+        "ad": "Clinic, beauty and consulting",
+        "ozet": "Online booking, a shareable digital business card and an AI assistant that answers common questions.",
+        "kimIcin": "Clinics, dental and beauty salons, hairdressers, psychologists, dietitians, lawyers and consultants.",
+        "neden": "The booking page cuts down phone traffic, the digital business card shares your contact details in one tap, and the AI assistant answers the common questions you add to its knowledge base (address, opening hours, how to prepare). The Google review page makes it easy to leave a review after a visit."
+      },
+      "teknik_servis": {
+        "ad": "Field service and maintenance",
+        "ozet": "Field work with work orders, dispatch and a technician screen, plus online booking and a Google review after the job.",
+        "kimIcin": "Air-conditioning, boiler, appliance, cleaning, elevator and repair-and-maintenance companies.",
+        "neden": "Field service manages the process from the work order to the signed service form, the booking page lets customers choose a suitable time themselves, and the Google review page makes it easy to ask for a review once the job is done."
+      },
+      "egitim_etkinlik": {
+        "ad": "Training, courses and events",
+        "ozet": "Registration page and QR tickets, a regular newsletter, and bookings for intro calls or trial lessons.",
+        "kimIcin": "Courses, training centres, workshops, associations and anyone running seminars or open days.",
+        "neden": "Events and tickets handles registration and door check-in, email marketing keeps you in regular touch with attendees, and the booking module is used for intro calls or trial lessons."
+      },
+      "ajans_serbest": {
+        "ad": "Agency and freelancer",
+        "ozet": "Content preparation and planning, call booking, a digital business card and automation for repetitive work.",
+        "kimIcin": "Small agencies, social media managers, designers, consultants and freelancers.",
+        "neden": "The content studio speeds up preparing and planning content, the booking page organises intro calls, the digital business card gathers your contact details and links on one page, and automation rules send reminder and follow-up emails for you."
+      },
+      "eticaret_kobi": {
+        "ad": "E-commerce and SMB",
+        "ozet": "Email campaigns, an AI assistant that answers questions on your site, measurable QR codes and automation.",
+        "kimIcin": "Online stores and small and medium-sized businesses that want to stay in regular touch with their customers.",
+        "neden": "Email marketing sends campaigns and automated email sequences to your customer list, the AI assistant answers common questions on your site, dynamic QR codes measure visits from packaging and brochures, and automation rules take over repetitive work such as replying to new enquiries and sending reminders."
+      }
+    },
+    "m": {
+      "dinamik_qr": {
+        "ozet": "Change where a printed QR code points without reprinting it, and see how often it is scanned.",
+        "kimIcin": "Businesses that put QR codes on posters, menus, packaging, brochures or business cards and change the link from time to time.",
+        "ozellikler": [
+          "QR codes and short links whose destination you can change later",
+          "Web address, WhatsApp, Google review, vCard and Wi-Fi types",
+          "QR design in your brand colours with your logo",
+          "Scan counts and bulk creation from CSV"
+        ],
+        "sss": [
+          {
+            "s": "Can I change the address without changing the printed QR code?",
+            "c": "Yes. The QR code points to your short link; you change the short link's destination in the panel whenever you like, and the printed material stays the same."
+          },
+          {
+            "s": "Can I see the scans?",
+            "c": "Yes. The panel shows the number of scans for each QR code and how they are spread over time."
+          }
+        ]
+      },
+      "dijital_kartvizit": {
+        "ozet": "A digital business card and bio link page shared from your phone; saved to contacts in one tap.",
+        "kimIcin": "Consultants, freelancers, sales teams and anyone who meets new people at fairs and meetings.",
+        "ozellikler": [
+          "Save to contacts (vCard) and share with a QR code",
+          "A link preview that looks right on WhatsApp and LinkedIn",
+          "Contact form on the page, password protection if needed",
+          "Visit and click counts"
+        ],
+        "sss": [
+          {
+            "s": "Can everyone on the team make their own card?",
+            "c": "Yes. Team members you add to your account can create their own cards; the number of cards per account is set in the module settings."
+          },
+          {
+            "s": "If I change my details, will the link I shared break?",
+            "c": "No. The link stays the same, and everyone who opens the card sees the up-to-date details."
+          }
+        ]
+      },
+      "google_yorum_sayfasi": {
+        "ozet": "Send customers straight to the Google review screen with a QR code on a table card or receipt.",
+        "kimIcin": "Local businesses that meet customers face to face, such as cafés, restaurants, clinics, shops and hairdressers.",
+        "ozellikler": [
+          "A simple page with a large \"Write a Google review\" button",
+          "QR code for table cards, receipts or the till",
+          "Optional private feedback form",
+          "View and click counts"
+        ],
+        "sss": [
+          {
+            "s": "Who writes the reviews?",
+            "c": "Your customers themselves. The page only takes them to the review screen on Google; nobody is filtered by first asking for a rating."
+          },
+          {
+            "s": "Can unhappy customers tell us first?",
+            "c": "If you like, a private feedback form is added to the page and the messages come to you. The button for writing a Google review always stays available to every visitor."
+          }
+        ]
+      },
+      "qr_menu": {
+        "ozet": "A multilingual QR menu: guests scan at the table, fill their basket and send the order over WhatsApp.",
+        "kimIcin": "Restaurants, cafés, patisseries, bars and takeaway businesses.",
+        "ozellikler": [
+          "Table QR codes, categories and products with options",
+          "Allergen information and a multilingual menu",
+          "Basket, coupons and ordering over WhatsApp",
+          "Update products and prices instantly from the panel"
+        ],
+        "sss": [
+          {
+            "s": "Does it take online payments?",
+            "c": "No. The order reaches you as a WhatsApp message and you take payment as usual; there is no need to set up a separate payment system."
+          },
+          {
+            "s": "Can I update the menu myself?",
+            "c": "Yes. You change products, prices and photos in the panel; the table QR codes stay the same."
+          }
+        ]
+      },
+      "whatsapp_katalog": {
+        "ozet": "Show your products on a shareable storefront page and receive orders as WhatsApp messages.",
+        "kimIcin": "Boutiques, home producers and small shops that sell through Instagram and WhatsApp.",
+        "ozellikler": [
+          "Product storefront and shareable product pages",
+          "A basket that customers fill themselves",
+          "The order summary arrives as a WhatsApp message",
+          "No payment system required"
+        ],
+        "sss": [
+          {
+            "s": "How is it different from an online store?",
+            "c": "There is no payment or shipping integration: the customer prepares a basket, sends the order to you over WhatsApp, and you settle the rest in the chat. It is a good way to get started quickly."
+          },
+          {
+            "s": "Can it be used together with the QR menu?",
+            "c": "Yes. Both run on the same system; if both modules are switched on, you can set up a store in either layout."
+          }
+        ]
+      },
+      "randevu": {
+        "ozet": "Let customers choose a suitable time themselves, with fewer phone calls and no clashing bookings.",
+        "kimIcin": "Clinics, beauty salons, consultants, trainers and any business that works by appointment.",
+        "ozellikler": [
+          "Meeting types, weekly working hours and days off",
+          "Assignment within a team by person or in rotation",
+          "Calendar invite (.ics), reminder email, and cancel and reschedule links",
+          "A booking window you can embed on your website"
+        ],
+        "sss": [
+          {
+            "s": "Does it work with Google Calendar?",
+            "c": "Every booking arrives as a calendar invite (.ics), and you can see your bookings in Google Calendar or Outlook through a calendar subscription link. You set your availability in the panel; other events in your calendar are not read automatically."
+          },
+          {
+            "s": "Can two bookings end up at the same time?",
+            "c": "No. Taken slots are closed on the page, so a second booking cannot be made for the same time."
+          }
+        ]
+      },
+      "otomasyon": {
+        "ozet": "Hand repetitive emails, reminders and tasks over to the panel with \"when this happens, do that\" rules.",
+        "kimIcin": "Small teams tired of tracking enquiries, appointments and invoices by hand.",
+        "ozellikler": [
+          "Rules triggered by events such as a new enquiry, invoice, task or appointment",
+          "Conditional email, panel notification, task and webhook steps",
+          "Wait step and ready-made templates",
+          "Dry run and a 30-day run log"
+        ],
+        "sss": [
+          {
+            "s": "Do I need to know how to code?",
+            "c": "No. Rules are set up with a form; you can start from a ready-made template and adjust it to suit you."
+          },
+          {
+            "s": "Can it connect to Zapier or Make?",
+            "c": "Yes, with the webhook step. For a deeper connection there is also the API and webhooks module."
+          }
+        ]
+      },
+      "ai_asistan": {
+        "ozet": "A chat assistant on your website that answers visitors from your documents, pages and FAQ.",
+        "kimIcin": "Businesses that answer the same questions again and again, and websites that get questions outside working hours.",
+        "ozellikler": [
+          "A knowledge base built from documents, website pages and FAQ",
+          "A chat window added to your site with one line of code",
+          "Shows its sources; hands over to your team when it doesn't know",
+          "Chat history and usage tracking"
+        ],
+        "sss": [
+          {
+            "s": "What happens if it gets a question it can't answer?",
+            "c": "If the answer is not in the knowledge base, it says so instead of making something up and hands the visitor over to your team with a support request, which you answer from the panel."
+          },
+          {
+            "s": "Is there a usage limit?",
+            "c": "Yes. The number of replies included each month depends on your account; when it runs out, it can continue on credits if you wish."
+          }
+        ]
+      },
+      "eposta_pazarlama": {
+        "ozet": "Reach your customers regularly, and with their consent, through newsletters, campaigns and automated email sequences.",
+        "kimIcin": "Shops with a customer list, courses, event organisers and service businesses.",
+        "ozellikler": [
+          "Double opt-in signup form, lists and segments",
+          "Mobile-friendly emails built with a block editor",
+          "Scheduling, A/B subject testing and delivery report",
+          "One-click unsubscribe and consent records (Turkish Law No. 6563)"
+        ],
+        "sss": [
+          {
+            "s": "Which address are emails sent from?",
+            "c": "From the agency's verified domain, with your business name as the sender name; replies come to your own email address."
+          },
+          {
+            "s": "Are emails sent to people without consent?",
+            "c": "Individual recipients only receive emails if they have given consent. Consent and unsubscribe records are kept."
+          }
+        ]
+      },
+      "etkinlik_bilet": {
+        "ozet": "A registration page, QR tickets and check-in at the door with a phone for your seminars, workshops and events.",
+        "kimIcin": "Courses, training centres, associations, event organisers and businesses holding open days.",
+        "ozellikler": [
+          "Registration page, ticket types, capacity and waiting list",
+          "QR ticket (PDF and add to calendar)",
+          "Check-in at the door with a phone camera",
+          "Announcement and post-event survey emails"
+        ],
+        "sss": [
+          {
+            "s": "Can I sell paid tickets?",
+            "c": "At the moment, client events take free registrations. If you need paid tickets, mention it in the quote form and we will look at it together."
+          },
+          {
+            "s": "Do I need a separate device at the door?",
+            "c": "No. The staff member's phone camera is enough; you give them the scanning link from the panel."
+          }
+        ]
+      },
+      "icerik_studyosu": {
+        "ozet": "Prepare social media and blog content in your brand voice with AI, and plan it on a calendar.",
+        "kimIcin": "Businesses that run their own social media, small agencies and freelance content creators.",
+        "ozellikler": [
+          "Brand voice profiles and 13 ready-made content templates",
+          "Character limit checks for each channel",
+          "Social media calendar and approval flow",
+          "Short links with UTM tags, ready-to-share packages and CSV export"
+        ],
+        "sss": [
+          {
+            "s": "Does it publish posts to social media by itself?",
+            "c": "No. Content is prepared as a ready-to-share package; you or the scheduling tool you use do the publishing."
+          },
+          {
+            "s": "How much content can I create?",
+            "c": "The number of generations included each month depends on your account; when it runs out, it can continue on credits if you wish."
+          }
+        ]
+      },
+      "saha_servisi": {
+        "ozet": "Manage field work in one place, from the work order to the technician screen and the signed service form.",
+        "kimIcin": "Companies that provide on-site service, such as air-conditioning, boiler, appliance, cleaning, elevator and repair-and-maintenance firms.",
+        "ozellikler": [
+          "Work orders, checklist templates and a drag-and-drop dispatch board",
+          "Mobile technician screen: photos, customer signature, location with consent",
+          "Equipment history and maintenance reminders",
+          "Service form PDF and a status page for your customer"
+        ],
+        "sss": [
+          {
+            "s": "Do technicians need to install an app?",
+            "c": "No. The technician screen opens in the phone's browser, and technicians only see the jobs assigned to them."
+          },
+          {
+            "s": "Is location tracked?",
+            "c": "There is no continuous tracking. If the technician allows it, location is recorded only when starting and finishing a job."
+          }
+        ]
+      },
+      "uzman_asistanlar": {
+        "ozet": "Work in the panel with AI assistants specialised in SEO, ads, social media and branding.",
+        "kimIcin": "Business owners and small teams who run their own marketing but want help with ideas and drafts.",
+        "ozellikler": [
+          "Topic-specific assistants: SEO, ads, social media, branding",
+          "Chat inside the panel; conversations are kept private to each person",
+          "Prepares ideas, text drafts and checklists",
+          "Daily usage limit set according to your account"
+        ],
+        "sss": [
+          {
+            "s": "Do the assistants replace your team?",
+            "c": "No. They help with quick ideas and drafts; for important decisions and implementation you keep working with our team."
+          },
+          {
+            "s": "Can anyone else see my conversations?",
+            "c": "No. Chats are private to each person; other people on your account cannot see them either."
+          }
+        ]
+      },
+      "uptime": {
+        "ozet": "Be the first to know when your website is unreachable, and show visitors a status page.",
+        "kimIcin": "Any business whose website brings in sales, bookings or enquiries and that doesn't want to notice an outage late.",
+        "ozellikler": [
+          "Regular availability checks of your website",
+          "Outage and recovery notifications",
+          "Public status page (optional)",
+          "Uptime history and chart"
+        ],
+        "sss": [
+          {
+            "s": "How often is it checked?",
+            "c": "The check interval is set for your account to 5, 15, 30 or 60 minutes."
+          },
+          {
+            "s": "Is the status page mandatory?",
+            "c": "No. Turning it on is up to you; if you do, your visitors can see there whether there is an outage."
+          }
+        ]
+      },
+      "yenileme": {
+        "ozet": "Track domain, hosting, SSL and subscription expiry dates in one list and get reminded before they run out.",
+        "kimIcin": "Any business that doesn't want its website to go down because a domain or SSL certificate expired.",
+        "ozellikler": [
+          "Domain, hosting, SSL and subscription renewals in one list",
+          "Email reminder before expiry",
+          "Renewal invoice and secure payment link",
+          "On the site care tab, together with your website's other details"
+        ],
+        "sss": [
+          {
+            "s": "When does the reminder arrive?",
+            "c": "You are notified by email as the expiry date approaches, and you pay the renewal invoice in one step through the payment link."
+          },
+          {
+            "s": "Who does the renewal?",
+            "c": "Our team does the renewal; all you need to do is pay the invoice."
+          }
+        ]
+      },
+      "dosyalar": {
+        "ozet": "Share project files securely and upload the documents we ask you for in one place.",
+        "kimIcin": "Clients who exchange logos, images, texts or official documents with our team during a project.",
+        "ozellikler": [
+          "Folders and folder-level view permissions",
+          "A list of documents requested from you, with upload",
+          "Time-limited share links with an optional password",
+          "File history in one place instead of lost in email"
+        ],
+        "sss": [
+          {
+            "s": "Who can see the files?",
+            "c": "Authorised people on your account and our team. Someone you give a share link to can also see them until the link expires."
+          },
+          {
+            "s": "How long is a share link valid?",
+            "c": "When the link is created, a validity period, an optional password and a download limit are set; once it expires, the link no longer opens."
+          }
+        ]
+      },
+      "api_erisimi": {
+        "ozet": "Connect your own software and automation tools to the panel: API keys, signed webhooks and MCP.",
+        "kimIcin": "Businesses that use Zapier, Make or n8n, or want to reach panel data from their own software.",
+        "ozellikler": [
+          "Scoped API keys that can be revoked at any time",
+          "Signed webhook notifications",
+          "MCP connection for AI assistants such as Claude",
+          "Request limit per key"
+        ],
+        "sss": [
+          {
+            "s": "What happens if I revoke a key?",
+            "c": "The key stops working immediately; connections using it lose access, and other keys are not affected."
+          },
+          {
+            "s": "How do I know a webhook really came from the panel?",
+            "c": "Every notification is signed; by verifying the signature you can check that the request came from the panel."
+          }
+        ]
+      },
+      "zaman_takibi": {
+        "ozet": "See clearly on the project card how much time our team has spent on your project.",
+        "kimIcin": "Clients who work on an hourly or revision basis and want to see the effort spent regularly.",
+        "ozellikler": [
+          "Total and this month's time spent on the project card",
+          "Approved work entries only",
+          "Billable hours shown separately, where applicable",
+          "Visibility switched on per project"
+        ],
+        "sss": [
+          {
+            "s": "Which hours are shown?",
+            "c": "Work time recorded by our team and approved; entries awaiting approval are not shown."
+          },
+          {
+            "s": "Is it visible on every project?",
+            "c": "Visibility is switched on per project; projects where it is on show a time-spent summary on their card."
+          }
+        ]
+      },
+      "aylik_rapor": {
+        "ozet": "A client report that brings SEO, analytics, site speed and the work done together every month.",
+        "kimIcin": "Businesses that want to see how their website and the work with us are going, once a month, at a glance.",
+        "ozellikler": [
+          "SEO, analytics and speed summaries in one report",
+          "A list of the work done that month",
+          "A report page ready for printing and PDF",
+          "Archive of past reports in the panel"
+        ],
+        "sss": [
+          {
+            "s": "Who prepares the report?",
+            "c": "The report is generated automatically from the data; our team checks it and publishes it."
+          },
+          {
+            "s": "Can I access past reports?",
+            "c": "Yes. Published reports are archived in the Reports tab of your panel."
+          }
+        ]
+      }
+    }
+  }
+}

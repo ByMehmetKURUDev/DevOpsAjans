@@ -1,0 +1,476 @@
+{
+  "surum": 1,
+  "olcekler": [
+    "ALFA",
+    "BETA",
+    "OMEGA",
+    "SIGMA"
+  ],
+  "kategoriler": [
+    "dijital_kimlik",
+    "is_araclari",
+    "icerik",
+    "sektorel",
+    "hizmet",
+    "analiz"
+  ],
+  "moduller": [
+    {
+      "anahtar": "dinamik_qr",
+      "slug": "dinamik-qr",
+      "ikon": "QrCode",
+      "kategori": "dijital_kimlik",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "qr_menu",
+        "whatsapp_katalog",
+        "google_yorum_sayfasi",
+        "eposta_pazarlama"
+      ],
+      "sektor_paketleri": [
+        "restoran_kafe",
+        "eticaret_kobi"
+      ]
+    },
+    {
+      "anahtar": "dijital_kartvizit",
+      "slug": "dijital-kartvizit",
+      "ikon": "IdCard",
+      "kategori": "dijital_kimlik",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "randevu",
+        "ai_asistan",
+        "google_yorum_sayfasi",
+        "icerik_studyosu"
+      ],
+      "sektor_paketleri": [
+        "klinik_guzellik",
+        "ajans_serbest"
+      ]
+    },
+    {
+      "anahtar": "google_yorum_sayfasi",
+      "slug": "google-yorum-sayfasi",
+      "ikon": "Star",
+      "kategori": "dijital_kimlik",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "qr_menu",
+        "whatsapp_katalog",
+        "dinamik_qr",
+        "randevu"
+      ],
+      "sektor_paketleri": [
+        "restoran_kafe",
+        "klinik_guzellik",
+        "teknik_servis"
+      ]
+    },
+    {
+      "anahtar": "qr_menu",
+      "slug": "qr-menu",
+      "ikon": "UtensilsCrossed",
+      "kategori": "dijital_kimlik",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "whatsapp_katalog",
+        "google_yorum_sayfasi",
+        "dinamik_qr",
+        "dijital_kartvizit"
+      ],
+      "sektor_paketleri": [
+        "restoran_kafe"
+      ]
+    },
+    {
+      "anahtar": "whatsapp_katalog",
+      "slug": "whatsapp-katalog",
+      "ikon": "ShoppingBag",
+      "kategori": "dijital_kimlik",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "qr_menu",
+        "google_yorum_sayfasi",
+        "dinamik_qr",
+        "dijital_kartvizit"
+      ],
+      "sektor_paketleri": [
+        "restoran_kafe"
+      ]
+    },
+    {
+      "anahtar": "randevu",
+      "slug": "randevu",
+      "ikon": "CalendarCheck",
+      "kategori": "is_araclari",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "dijital_kartvizit",
+        "ai_asistan",
+        "google_yorum_sayfasi",
+        "saha_servisi"
+      ],
+      "sektor_paketleri": [
+        "klinik_guzellik",
+        "teknik_servis",
+        "egitim_etkinlik",
+        "ajans_serbest"
+      ]
+    },
+    {
+      "anahtar": "otomasyon",
+      "slug": "otomasyon",
+      "ikon": "Workflow",
+      "kategori": "is_araclari",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "icerik_studyosu",
+        "randevu",
+        "dijital_kartvizit",
+        "eposta_pazarlama"
+      ],
+      "sektor_paketleri": [
+        "ajans_serbest",
+        "eticaret_kobi"
+      ]
+    },
+    {
+      "anahtar": "ai_asistan",
+      "slug": "ai-asistan",
+      "ikon": "BotMessageSquare",
+      "kategori": "is_araclari",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "randevu",
+        "dijital_kartvizit",
+        "google_yorum_sayfasi",
+        "eposta_pazarlama"
+      ],
+      "sektor_paketleri": [
+        "klinik_guzellik",
+        "eticaret_kobi"
+      ]
+    },
+    {
+      "anahtar": "eposta_pazarlama",
+      "slug": "eposta-pazarlama",
+      "ikon": "Send",
+      "kategori": "is_araclari",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "etkinlik_bilet",
+        "randevu",
+        "ai_asistan",
+        "dinamik_qr"
+      ],
+      "sektor_paketleri": [
+        "egitim_etkinlik",
+        "eticaret_kobi"
+      ]
+    },
+    {
+      "anahtar": "etkinlik_bilet",
+      "slug": "etkinlik-bilet",
+      "ikon": "Ticket",
+      "kategori": "is_araclari",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "eposta_pazarlama",
+        "randevu",
+        "otomasyon",
+        "ai_asistan"
+      ],
+      "sektor_paketleri": [
+        "egitim_etkinlik"
+      ]
+    },
+    {
+      "anahtar": "icerik_studyosu",
+      "slug": "icerik-studyosu",
+      "ikon": "PenTool",
+      "kategori": "icerik",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "randevu",
+        "dijital_kartvizit",
+        "otomasyon"
+      ],
+      "sektor_paketleri": [
+        "ajans_serbest"
+      ]
+    },
+    {
+      "anahtar": "saha_servisi",
+      "slug": "saha-servisi",
+      "ikon": "Wrench",
+      "kategori": "sektorel",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "randevu",
+        "google_yorum_sayfasi"
+      ],
+      "sektor_paketleri": [
+        "teknik_servis"
+      ]
+    },
+    {
+      "anahtar": "uzman_asistanlar",
+      "slug": "uzman-asistanlar",
+      "ikon": "Bot",
+      "kategori": "hizmet",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "uptime",
+        "yenileme",
+        "dosyalar",
+        "api_erisimi"
+      ],
+      "sektor_paketleri": []
+    },
+    {
+      "anahtar": "uptime",
+      "slug": "uptime",
+      "ikon": "Activity",
+      "kategori": "hizmet",
+      "durum": "yayinda",
+      "paket": "ALFA",
+      "ilgili": [
+        "yenileme",
+        "uzman_asistanlar",
+        "dosyalar",
+        "api_erisimi"
+      ],
+      "sektor_paketleri": []
+    },
+    {
+      "anahtar": "yenileme",
+      "slug": "yenileme",
+      "ikon": "CalendarClock",
+      "kategori": "hizmet",
+      "durum": "yayinda",
+      "paket": "ALFA",
+      "ilgili": [
+        "uptime",
+        "uzman_asistanlar",
+        "dosyalar",
+        "api_erisimi"
+      ],
+      "sektor_paketleri": []
+    },
+    {
+      "anahtar": "dosyalar",
+      "slug": "dosyalar",
+      "ikon": "FolderOpen",
+      "kategori": "hizmet",
+      "durum": "yayinda",
+      "paket": "BETA",
+      "ilgili": [
+        "zaman_takibi",
+        "aylik_rapor",
+        "uzman_asistanlar",
+        "uptime"
+      ],
+      "sektor_paketleri": []
+    },
+    {
+      "anahtar": "api_erisimi",
+      "slug": "api-erisimi",
+      "ikon": "KeyRound",
+      "kategori": "hizmet",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "uzman_asistanlar",
+        "uptime",
+        "yenileme",
+        "dosyalar"
+      ],
+      "sektor_paketleri": []
+    },
+    {
+      "anahtar": "zaman_takibi",
+      "slug": "zaman-takibi",
+      "ikon": "Timer",
+      "kategori": "hizmet",
+      "durum": "yayinda",
+      "paket": "BETA",
+      "ilgili": [
+        "dosyalar",
+        "aylik_rapor",
+        "uzman_asistanlar",
+        "uptime"
+      ],
+      "sektor_paketleri": []
+    },
+    {
+      "anahtar": "aylik_rapor",
+      "slug": "aylik-rapor",
+      "ikon": "BarChart3",
+      "kategori": "analiz",
+      "durum": "yayinda",
+      "paket": "BETA",
+      "ilgili": [
+        "dosyalar",
+        "zaman_takibi"
+      ],
+      "sektor_paketleri": []
+    }
+  ],
+  "yakinda": [
+    {
+      "anahtar": "whatsapp",
+      "ikon": "MessagesSquare",
+      "kategori": "hizmet"
+    }
+  ],
+  "temeller": [
+    {
+      "anahtar": "projeler",
+      "ikon": "Briefcase"
+    },
+    {
+      "anahtar": "faturalar",
+      "ikon": "Receipt"
+    },
+    {
+      "anahtar": "krediler",
+      "ikon": "Coins"
+    },
+    {
+      "anahtar": "teklifler",
+      "ikon": "FileCheck2"
+    },
+    {
+      "anahtar": "sozlesmeler",
+      "ikon": "FileSignature"
+    },
+    {
+      "anahtar": "destek",
+      "ikon": "MessageSquare"
+    },
+    {
+      "anahtar": "mesajlar",
+      "ikon": "MessagesSquare"
+    },
+    {
+      "anahtar": "raporlar",
+      "ikon": "FileText"
+    },
+    {
+      "anahtar": "sitem",
+      "ikon": "ShieldCheck"
+    },
+    {
+      "anahtar": "site_analizi",
+      "ikon": "Gauge"
+    },
+    {
+      "anahtar": "islem",
+      "ikon": "Link2"
+    },
+    {
+      "anahtar": "bilgi_bankasi",
+      "ikon": "BookOpen"
+    },
+    {
+      "anahtar": "gorevler",
+      "ikon": "ListChecks"
+    },
+    {
+      "anahtar": "geri_bildirim",
+      "ikon": "Bug"
+    },
+    {
+      "anahtar": "duyurular",
+      "ikon": "Megaphone"
+    },
+    {
+      "anahtar": "oneri_kutusu",
+      "ikon": "Lightbulb"
+    },
+    {
+      "anahtar": "proje_sablonlari",
+      "ikon": "LayoutTemplate"
+    }
+  ],
+  "paketler": [
+    {
+      "anahtar": "restoran_kafe",
+      "slug": "restoran-kafe",
+      "ikon": "UtensilsCrossed",
+      "moduller": [
+        "qr_menu",
+        "whatsapp_katalog",
+        "google_yorum_sayfasi",
+        "dinamik_qr"
+      ]
+    },
+    {
+      "anahtar": "klinik_guzellik",
+      "slug": "klinik-guzellik",
+      "ikon": "CalendarCheck",
+      "moduller": [
+        "randevu",
+        "dijital_kartvizit",
+        "ai_asistan",
+        "google_yorum_sayfasi"
+      ]
+    },
+    {
+      "anahtar": "teknik_servis",
+      "slug": "teknik-servis",
+      "ikon": "Wrench",
+      "moduller": [
+        "saha_servisi",
+        "randevu",
+        "google_yorum_sayfasi"
+      ]
+    },
+    {
+      "anahtar": "egitim_etkinlik",
+      "slug": "egitim-etkinlik",
+      "ikon": "Ticket",
+      "moduller": [
+        "etkinlik_bilet",
+        "eposta_pazarlama",
+        "randevu"
+      ]
+    },
+    {
+      "anahtar": "ajans_serbest",
+      "slug": "ajans-serbest",
+      "ikon": "PenTool",
+      "moduller": [
+        "icerik_studyosu",
+        "randevu",
+        "dijital_kartvizit",
+        "otomasyon"
+      ]
+    },
+    {
+      "anahtar": "eticaret_kobi",
+      "slug": "eticaret-kobi",
+      "ikon": "ShoppingBag",
+      "moduller": [
+        "eposta_pazarlama",
+        "ai_asistan",
+        "dinamik_qr",
+        "otomasyon"
+      ]
+    }
+  ]
+}

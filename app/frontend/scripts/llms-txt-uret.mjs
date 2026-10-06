@@ -18,6 +18,8 @@ import { parse as parseYaml } from 'yaml';
 import { SITE_URL, SITE_NAME, canonicalUrlPathFor } from '../prerender/site.js';
 import { kaynakVerisiniYukle } from '../prerender/kaynaklar-yukle.js';
 import { kaynakYolu, listeVerisi } from '../prerender/kaynaklar-veri.js';
+import { vitrinYapisiniOku } from '../prerender/moduller-yukle.js';
+import { modulYolu, paketYolu } from '../prerender/moduller-veri.js';
 
 const kok = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const icerikDizini = path.join(kok, 'seo', 'content');
@@ -50,6 +52,7 @@ const SAYFALAR = [
   ['Portfolyo', '/portfolio', 'Tamamlanmış projeler ve vaka çalışmaları.'],
   ['Blog', '/blog', 'SEO, Google Ads, ölçümleme ve web geliştirme rehberleri.'],
   ['Kaynaklar', '/kaynaklar', 'Kullandığımız ve önerdiğimiz yapay zekâ araçları, Claude becerileri ve açık kaynak projeler (7 dilde).'],
+  ['Modüller', '/moduller', 'Müşteri portalı modülleri ve sektöre göre hazır paketler; her modülün tanıtımı ve teklif formu (7 dilde).'],
   ['İletişim', '/contact', 'İletişim bilgileri ve teklif formu.'],
   ['Gizlilik Politikası ve KVKK Aydınlatma Metni', '/gizlilik', 'Hangi kişisel verilerin, hangi amaç ve hukuki sebeple işlendiği; aktarım, saklama ve KVKK hakları.'],
   ['Kullanım Koşulları', '/kullanim-kosullari', 'Site, müşteri paneli ve hizmetlerin kullanım koşulları.'],
@@ -95,6 +98,32 @@ if (kaynaklar.kaynaklar.length > 0) {
   satirlar.push('');
 }
 
+// Faz 4V: Modül vitrini — yapı modül kaydından (depodaki kopya), adlar ve özetler ek paketlerden.
+const ekPaket = (ad) => JSON.parse(fs.readFileSync(path.join(kok, 'src', 'i18n', 'ek', ad, 'tr.json'), 'utf8'))[ad];
+const vitrin = vitrinYapisiniOku();
+let modulSayisi = 0;
+if (vitrin.moduller.length > 0) {
+  const modulMetni = ekPaket('modul');
+  const vitrinMetni = ekPaket('modulVitrini');
+  satirlar.push('## Modüller — işletmeler için portal modülleri');
+  satirlar.push('');
+  for (const m of vitrin.moduller) {
+    const ad = modulMetni.m?.[m.anahtar]?.ad ?? m.anahtar;
+    const ozetMetni = vitrinMetni.m?.[m.anahtar]?.ozet ?? '';
+    satirlar.push(`- [${ad}](${adres(modulYolu('tr', m.slug))})${ozetMetni ? ': ' + ozetMetni : ''}`);
+    modulSayisi += 1;
+  }
+  satirlar.push('');
+  satirlar.push('## Sektör paketleri');
+  satirlar.push('');
+  for (const p of vitrin.paketler) {
+    const metin = vitrinMetni.p?.[p.anahtar] ?? {};
+    const icindekiler = p.moduller.map((k) => modulMetni.m?.[k]?.ad ?? k).join(', ');
+    satirlar.push(`- [${metin.ad ?? p.anahtar}](${adres(paketYolu('tr', p.slug))}): ${metin.ozet ?? ''} Modüller: ${icindekiler}.`);
+  }
+  satirlar.push('');
+}
+
 for (const [kategori, liste] of [...gruplar].sort((a, b) => a[0].localeCompare(b[0], 'tr'))) {
   satirlar.push(`## Blog — ${kategori}`);
   satirlar.push('');
@@ -111,6 +140,6 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), cikti);
 
 const yaziSayisi = [...gruplar.values()].reduce((t, l) => t + l.length, 0);
 console.log(
-  `✓ llms.txt üretildi: ${SAYFALAR.length} sayfa, ${kaynaklar.kaynaklar.length} kaynak, ${yaziSayisi} blog yazısı, ` +
+  `✓ llms.txt üretildi: ${SAYFALAR.length} sayfa, ${kaynaklar.kaynaklar.length} kaynak, ${modulSayisi} modül, ${yaziSayisi} blog yazısı, ` +
     `${(Buffer.byteLength(cikti) / 1024).toFixed(1)} kB`,
 );

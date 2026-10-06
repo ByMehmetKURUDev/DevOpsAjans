@@ -117,7 +117,8 @@
       "kaynaklar": "संसाधन पेज",
       "form": "एम्बेड किया गया फ़ॉर्म",
       "manuel": "मैन्युअल रूप से जोड़ी गई",
-      "eposta": "ईमेल"
+      "eposta": "ईमेल",
+      "modul_vitrini": "मॉड्यूल शोकेस"
     },
     "aktivite": {
       "not": "नोट",
@@ -300,7 +301,8 @@
       "geriAlindi": "मार्केटिंग अनुमति वापस ली गई।",
       "kaynakForm": "फ़ॉर्म #{{no}}",
       "kaynakSiteAnalizi": "वेबसाइट विश्लेषण",
-      "rozet": "मार्केटिंग अनुमति"
+      "rozet": "मार्केटिंग अनुमति",
+      "kaynakModulVitrini": "मॉड्यूल शोकेस ({{anahtar}})"
     }
   }
 }

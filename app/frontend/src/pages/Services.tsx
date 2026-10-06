@@ -1,5 +1,8 @@
 import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import {
+  ArrowRight,
+  Blocks,
   Code2,
   Paintbrush,
   Search,
@@ -15,10 +18,12 @@ import PricingPlans from '@/components/PricingPlans';
 import SocialLinks from '@/components/SocialLinks';
 import Testimonials from '@/components/Testimonials';
 import ToolsUsed from '@/components/ToolsUsed';
+import { DEFAULT_LANGUAGE, LANGUAGE_CODES, localizedPath } from '../../prerender/site.js';
 
 export default function Services() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { settings } = useSiteSettings();
+  const dil = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : DEFAULT_LANGUAGE;
 
   const VALUES = [
     { title: t('about.v1Title'), desc: t('about.v1Desc') },
@@ -246,6 +251,29 @@ export default function Services() {
     packages: (
       <>
       <PricingPlans />
+      {/* Faz 4V: portal modülleri ve sektör paketleri vitrini. */}
+      <section className="pb-24" data-tum-moduller>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="cam-kart flex flex-col items-start gap-5 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+            <div className="flex min-w-0 gap-4">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-300">
+                <Blocks className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <h2 className="text-xl font-semibold">{t('modulBaglanti.servisBaslik')}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{t('modulBaglanti.servisMetin')}</p>
+              </div>
+            </div>
+            <Link
+              to={localizedPath(dil, 'moduller')}
+              className="inline-flex shrink-0 items-center gap-2 rounded-full border border-purple-500/40 px-5 py-2.5 text-sm font-semibold text-purple-200 transition-colors hover:bg-purple-500/10"
+            >
+              {t('modulBaglanti.servisDugme')}
+              <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
       </>
     ),
     testimonials: (

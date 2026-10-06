@@ -12,6 +12,8 @@ import { blogIndexPlugin } from './prerender/blog-index-plugin.js';
 import { gorunumOzniteligi } from './prerender/gorunum-plugin.js';
 import { kaynakVeriEklentisi, kaynakVerisiniYukle } from './prerender/kaynaklar-yukle.js';
 import { kaynakDetayYollari } from './prerender/kaynaklar-veri.js';
+import { vitrinFiyatEklentisi, vitrinFiyatlariniYukle, vitrinYapisiniOku } from './prerender/moduller-yukle.js';
+import { modulDetayYollari } from './prerender/moduller-veri.js';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
@@ -102,8 +104,13 @@ export default defineConfig(async ({ command }) => {
   // Ayrıntı sayfaları (7 dil × yayındaki kaynaklar) buradan prerender listesine giriyor.
   const kaynakVerisi =
     command === 'build' ? await kaynakVerisiniYukle() : { kategoriler: [], kaynaklar: [] };
+  // Faz 4V: modül vitrini — ayrıntı yolları depodaki yapıdan (kayıttan üretilmiş), fiyat canlı
+  // uçtan (5 sn; okunamazsa fiyatsız). Yalnız prerender betiğine `virtual:modul-vitrini-fiyat`.
+  const vitrinFiyatlari = command === 'build' ? (await vitrinFiyatlariniYukle()).fiyatlar : {};
   const prerenderRoutes =
-    command === 'build' ? [...getAllPrerenderRoutes(), ...kaynakDetayYollari(kaynakVerisi)] : [];
+    command === 'build'
+      ? [...getAllPrerenderRoutes(), ...kaynakDetayYollari(kaynakVerisi), ...modulDetayYollari(vitrinYapisiniOku())]
+      : [];
   // Sitemap eklentisi yolları üretilen HTML'lerden eğik çizgisiz topluyor;
   // priority anahtarları da o biçimde olmalı. Türkçe sayfalar tam ağırlıkta,
   // dil varyantları bir kademe düşük.
@@ -126,6 +133,7 @@ export default defineConfig(async ({ command }) => {
       blogIndexPlugin(),
       // Yalnız prerender betiğine `virtual:kaynaklar-veri` (istemci paketine girmez).
       kaynakVeriEklentisi(kaynakVerisi),
+      vitrinFiyatEklentisi(vitrinFiyatlari),
       // Site ayarı Modern ise prerender HTML'ine <html data-gorunum="modern">.
       gorunumOzniteligi(),
       ...(process.env.STATS === '1' ? [bundleStats()] : []),
