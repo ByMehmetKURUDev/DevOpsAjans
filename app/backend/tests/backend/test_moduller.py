@@ -269,10 +269,10 @@ async def test_modullerim_yalniz_musteri_modulleri_ve_gorunumler(istemci, muster
     # Dosyalar'ın ardında, Profil'den önce. İkisi de varsayılan kapalı.
     # Faz 4W/5A/5M: "otomasyon", "aiAsistan" ve "epostaPazarlama" randevunun ardında;
     # üçü de varsayılan kapalı. Faz 5I: "icerik" (İçerik stüdyosu; varsayılan kapalı)
-    # AI asistanın ardında.
+    # AI asistanın ardında. Faz 6S: "sahaServisi" (varsayılan kapalı) e-posta pazarlamanın ardında.
     assert sekmeler == [
         "projects", "invoices", "krediler", "tickets", "mesajlar", "asistanlar", "raporlar", "sitem", "analiz",
-        "qr", "kartvizit", "menu", "randevu", "otomasyon", "aiAsistan", "icerik", "epostaPazarlama", "dosyalar",
+        "qr", "kartvizit", "menu", "randevu", "otomasyon", "aiAsistan", "icerik", "epostaPazarlama", "sahaServisi", "dosyalar",
         "api", "profile",
     ]
     from core import moduller as mf

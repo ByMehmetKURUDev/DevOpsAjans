@@ -100,7 +100,12 @@
       "crm_formlar": "CRM-Formulare",
       "otomasyon_kurallari": "Automatisierungsregeln",
       "ozel_alanlar": "Definitionen benutzerdefinierter Felder",
-      "ozel_alan_degerleri": "Werte benutzerdefinierter Felder"
+      "ozel_alan_degerleri": "Werte benutzerdefinierter Felder",
+      "saha_ayarlari": "Außendienst-Einstellungen",
+      "saha_teknisyenleri": "Techniker",
+      "saha_cihazlari": "Servicegerät",
+      "saha_sablonlari": "Checklisten-Vorlage",
+      "saha_malzemeleri": "Außendienstmaterial"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

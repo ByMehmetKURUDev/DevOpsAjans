@@ -28,6 +28,7 @@ import {
   Workflow,
   PenTool,
   BotMessageSquare,
+  Wrench,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -113,6 +114,8 @@ const AiAsistan = ekliLazy(['aiAsistan', 'asistanSayfa'], () => import('@/compon
 const IcerikStudyosu = ekliLazy(['icerikStudyosu', 'icerikOnay'], () => import('@/components/IcerikStudyosu'));
 const IcerikOnaylari = ekliLazy('icerikOnay', () => import('@/components/IcerikOnaylari'));
 const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/EpostaPazarlama'));
+// Faz 6S — saha servisi: sevk panosu, iş emirleri, teknisyen ekranı (yönetici paneliyle aynı bileşen).
+const SahaServisi = ekliLazy('sahaServisi', () => import('@/components/SahaServisi'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -189,6 +192,7 @@ type Tab =
   | 'aiAsistan'
   | 'icerik'
   | 'epostaPazarlama'
+  | 'sahaServisi'
   | 'dosyalar'
   | 'api'
   | 'profile';
@@ -215,6 +219,7 @@ const SEKMELER: Tab[] = [
   'aiAsistan',
   'icerik',
   'epostaPazarlama',
+  'sahaServisi',
   'dosyalar',
   'api',
   'profile',
@@ -225,7 +230,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -662,6 +667,7 @@ export default function ClientPanel() {
     aiAsistan: { label: t('ui.tabAiAsistan'), icon: BotMessageSquare },
     icerik: { label: t('ui.tabIcerikStudyosu'), icon: PenTool },
     epostaPazarlama: { label: t('ui.tabEpostaPazarlama'), icon: Send },
+    sahaServisi: { label: t('ui.tabSahaServisi'), icon: Wrench },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
@@ -1344,6 +1350,18 @@ export default function ClientPanel() {
               }
             >
               <EpostaPazarlama mod="musteri" />
+            </Suspense>
+          )}
+
+          {tab === 'sahaServisi' && modulBilgisi !== null && modulAcik('saha_servisi') && izinVar(['saha_yonetim', 'saha_teknisyen']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <SahaServisi mod="musteri" />
             </Suspense>
           )}
 

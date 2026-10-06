@@ -100,7 +100,12 @@
       "crm_formlar": "CRM formları",
       "otomasyon_kurallari": "Otomasyon kuralları",
       "ozel_alanlar": "Özel alan tanımları",
-      "ozel_alan_degerleri": "Özel alan değerleri"
+      "ozel_alan_degerleri": "Özel alan değerleri",
+      "saha_ayarlari": "Saha servisi ayarları",
+      "saha_teknisyenleri": "Teknisyen",
+      "saha_cihazlari": "Servis cihazı",
+      "saha_sablonlari": "Kontrol listesi şablonu",
+      "saha_malzemeleri": "Saha malzemesi"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

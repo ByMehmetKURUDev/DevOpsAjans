@@ -191,7 +191,8 @@
         "otomasyon_temizligi": "Cleanup of old automation run logs (30 days)",
         "ai_asistan_bakimi": "AI assistant: weekly site refresh and conversation retention clean-up",
         "icerik_studyosu": "Content studio: sharing reminder (30 min before) and publish-time event",
-        "eposta_pazarlama": "Email marketing sends (scheduled campaigns, A/B decision, drip sequences)"
+        "eposta_pazarlama": "Email marketing sends (scheduled campaigns, A/B decision, drip sequences)",
+        "saha_servisi": "Field service: maintenance reminders, location and retention cleanup"
       },
       "gunluk": "daily",
       "haftalik": "weekly"

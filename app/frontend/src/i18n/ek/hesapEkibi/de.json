@@ -38,7 +38,9 @@
       "otomasyon": "Automatisierungsregeln",
       "asistan": "KI-Assistent und Wissensdatenbank",
       "icerik": "Content-Studio und Inhaltsfreigabe",
-      "pazarlama": "E-Mail-Marketing"
+      "pazarlama": "E-Mail-Marketing",
+      "saha_yonetim": "Außendienst — Verwaltung und Disposition",
+      "saha_teknisyen": "Außendienst — Techniker"
     },
     "durum": {
       "davet": "Einladung ausstehend",

@@ -90,7 +90,13 @@
       "otomasyon_kurallari": "Правила автоматизации",
       "icerik_markalari": "Профиль голоса бренда",
       "icerik_sablonlari": "Шаблон контента",
-      "ozel_alanlar": "Описания пользовательских полей"
+      "ozel_alanlar": "Описания пользовательских полей",
+      "saha_musterileri": "Клиент сервиса",
+      "saha_lokasyonlari": "Адрес обслуживания",
+      "saha_cihazlari": "Обслуживаемое оборудование",
+      "saha_sablonlari": "Шаблон чек-листа",
+      "saha_malzemeleri": "Материал выездного сервиса",
+      "saha_teknisyenleri": "Техник"
     }
   }
 }

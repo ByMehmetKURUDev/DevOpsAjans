@@ -73,7 +73,9 @@
       "icerik_onay_istendi": "Content: your approval is requested",
       "icerik_karar": "Content: client decision (approval / revision)",
       "icerik_hatirlatma": "Content: ready-to-share reminder (30 min before)",
-      "pazarlama_askiya_alindi": "Email marketing: sending suspended"
+      "pazarlama_askiya_alindi": "Email marketing: sending suspended",
+      "saha_is_atandi": "A new field job was assigned to me",
+      "saha_bakim_zamani": "Equipment due for maintenance"
     },
     "kanal": {
       "inapp": "Panel",

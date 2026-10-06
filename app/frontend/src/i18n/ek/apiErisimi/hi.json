@@ -61,7 +61,9 @@
       "icerik_yayinlandi": "कंटेंट प्रकाशित के रूप में चिह्नित",
       "qr_tarama": "QR स्कैन",
       "ping": "परीक्षण इवेंट",
-      "asistan_devredildi": "AI सहायक ने विज़िटर को व्यक्ति को सौंपा"
+      "asistan_devredildi": "AI सहायक ने विज़िटर को व्यक्ति को सौंपा",
+      "is_emri_olusturuldu": "फ़ील्ड वर्क ऑर्डर बनाया गया",
+      "is_emri_tamamlandi": "फ़ील्ड वर्क ऑर्डर पूरा हुआ"
     },
     "anahtar": {
       "yeni": "नई कुंजी",

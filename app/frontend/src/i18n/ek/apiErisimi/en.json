@@ -61,7 +61,9 @@
       "icerik_yayinlandi": "Content marked as published",
       "qr_tarama": "QR scan",
       "ping": "Test event",
-      "asistan_devredildi": "AI assistant handed a visitor over to a human"
+      "asistan_devredildi": "AI assistant handed a visitor over to a human",
+      "is_emri_olusturuldu": "Field work order created",
+      "is_emri_tamamlandi": "Field work order completed"
     },
     "anahtar": {
       "yeni": "New key",

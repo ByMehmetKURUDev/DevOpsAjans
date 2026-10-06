@@ -115,6 +115,12 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("baslik"), Alan("durum", degisir=True), Alan("kanallar", "liste"),
         Alan("planlanan_at", "tarih"), Alan("kampanya"), Alan("sorumlu"), Alan("not"),
     ),
+    # Faz 6S — saha servisi iş emri (servis müşterisi: olaydaki kişi).
+    "is_emri": (
+        Alan("id", "sayi"), Alan("no"), Alan("baslik"), Alan("tur"), Alan("oncelik"), Alan("durum"),
+        Alan("musteri_ad"), Alan("musteri_eposta"), Alan("adres"), Alan("baslangic", "tarih"), Alan("teknisyen"),
+        Alan("puan", "sayi"),
+    ),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -157,6 +163,9 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("icerik.yayin_zamani", ("icerik", "hesap")),
     OtoOlay("icerik.yayinlandi", ("icerik", "hesap")),
     OtoOlay("randevu.olusturuldu", ("randevu", "aday", "hesap"), yalniz_otomasyon=True),
+    # Faz 6S — saha servisi.
+    OtoOlay("is_emri.olusturuldu", ("is_emri", "hesap")),
+    OtoOlay("is_emri.tamamlandi", ("is_emri", "hesap")),
 )
 OLAY_SOZLUGU: Dict[str, OtoOlay] = {o.anahtar: o for o in OLAYLAR}
 #: `fatura.gecikti` hangi gecikme günlerinde üretiliyor (her biri fatura başına bir kez).
@@ -240,6 +249,10 @@ ORNEK: Dict[str, Dict[str, Any]] = {
     "mesaj": {"id": 15, "ad": "Mehmet Demir", "eposta": "mehmet@ornek.com", "telefon": None},
     "randevu": {"id": 40, "ad": "Zeynep Kaya", "eposta": "zeynep@ornek.com", "telefon": None,
                 "baslangic": "2026-10-05T10:00:00Z", "tur": "Tanışma görüşmesi", "sure_dk": 30, "konum": "Jitsi"},
+    "is_emri": {"id": 88, "no": "IE-2026-0088", "baslik": "Klima bakımı", "tur": "bakim", "oncelik": "normal",
+                "durum": "tamamlandi", "musteri_ad": "Ahmet Yıldız", "musteri_eposta": "ahmet@ornek.com",
+                "adres": "Atatürk Cad. 12, Kadıköy, İstanbul", "baslangic": "2026-10-05T07:00:00Z", "teknisyen": "Mert",
+                "puan": None},
     "hesap": {"email": "musteri@ornek.com", "ad": "Örnek A.Ş."},
 }
 
@@ -277,6 +290,8 @@ def kisi_sec(tur: str, baglam: Dict[str, Any]) -> Dict[str, Any]:
         return {"ad": baglam["aday"].get("ad"), "email": baglam["aday"].get("email")}
     if on == "randevu" and baglam.get("randevu"):
         return {"ad": baglam["randevu"].get("ad"), "email": baglam["randevu"].get("eposta")}
+    if on == "is_emri" and baglam.get("is_emri"):
+        return {"ad": baglam["is_emri"].get("musteri_ad"), "email": baglam["is_emri"].get("musteri_eposta")}
     if on == "kart" and baglam.get("mesaj"):
         return {"ad": baglam["mesaj"].get("ad"), "email": baglam["mesaj"].get("eposta")}
     if on == "menu" and baglam.get("siparis"):

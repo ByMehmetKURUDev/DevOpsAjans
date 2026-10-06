@@ -180,6 +180,10 @@
       "eposta_pazarlama": {
         "ad": "邮件营销",
         "aciklama": "简报、营销活动和滴灌序列：双重确认订阅表单、列表与细分、区块编辑器制作的移动端友好邮件、测试发送、定时发送、A/B 主题测试、投递报告、一键退订和同意记录。"
+      },
+      "saha_servisi": {
+        "ad": "现场服务",
+        "aciklama": "适用于保洁、空调、技术服务和维保公司：工单、拖放式调度看板、移动端技术人员界面（检查清单、照片、客户签名、经同意的定位）、设备历史与保养提醒、服务单 PDF，以及面向客户的签名状态页面。"
       }
     },
     "kategori": {
@@ -189,7 +193,8 @@
       "finans": "财务",
       "analiz": "分析",
       "dijital_kimlik": "数字身份",
-      "is_araclari": "业务工具"
+      "is_araclari": "业务工具",
+      "sektorel": "行业套件"
     },
     "durum": {
       "yayinda": "已上线",
@@ -234,7 +239,9 @@
       "aylik_gonderi": "每月最多帖子数",
       "marka_siniri": "最多品牌档案数",
       "aylik_gonderim_siniri": "每月最多发送（封）",
-      "kisi_siniri": "最多联系人"
+      "kisi_siniri": "最多联系人",
+      "teknisyen_siniri": "在职技术人员上限",
+      "aylik_is_emri_siniri": "每月工单上限"
     },
     "musteri": {
       "baslik": "我的模块",

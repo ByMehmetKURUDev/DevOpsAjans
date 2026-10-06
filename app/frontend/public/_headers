@@ -54,3 +54,18 @@
   ! Referrer-Policy
   Referrer-Policy: no-referrer
   X-Robots-Tag: noindex, nofollow
+
+# Faz 6S: saha servisi — teknisyen ekranı müşteri panelinde: "İşe başla / İşi bitir" anında TEK
+# SEFERLİK konum (uygulama içi açık rıza + tarayıcı izni). Konum izni yalnız kendi kökenine ve yalnız
+# panelde açılıyor; sitenin geri kalanında `geolocation=()` kalıyor. Kamera API'si yine kapalı
+# (fotoğraf dosya seçicinin `capture` özniteliğiyle telefonun kendi kamerasından geliyor).
+/client
+  ! Permissions-Policy
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self), interest-cohort=()
+
+# Faz 6S: servis müşterisinin imzalı sayfası (/servis/<jeton>) — dizine girmez; adres jeton taşıdığı
+# için yönlendiren (Referer) hiç gönderilmez.
+/servis/*
+  ! Referrer-Policy
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex, nofollow

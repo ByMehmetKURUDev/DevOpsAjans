@@ -180,6 +180,10 @@
       "eposta_pazarlama": {
         "ad": "E-posta pazarlama",
         "aciklama": "Bülten, kampanya ve damla dizileri: çift onaylı abonelik formu, listeler ve segmentler, blok düzenleyiciyle mobil uyumlu e-posta, test gönderimi, zamanlama, A/B konu testi, teslimat raporu, tek tıkla ret ve izin kaydı (6563 sayılı Kanun)."
+      },
+      "saha_servisi": {
+        "ad": "Saha servisi",
+        "aciklama": "Temizlik, klima, teknik servis ve bakım firmaları için: iş emri, sürükle-bırak sevk panosu, mobil teknisyen ekranı (kontrol listesi, fotoğraf, müşteri imzası, rızaya bağlı konum), cihaz geçmişi ve bakım hatırlatma, servis formu PDF'i ve müşteriye imzalı durum sayfası."
       }
     },
     "kategori": {
@@ -189,7 +193,8 @@
       "finans": "Finans",
       "analiz": "Analiz",
       "dijital_kimlik": "Dijital kimlik",
-      "is_araclari": "İş araçları"
+      "is_araclari": "İş araçları",
+      "sektorel": "Sektörel paketler"
     },
     "durum": {
       "yayinda": "Yayında",
@@ -234,7 +239,9 @@
       "aylik_gonderi": "Aylık en çok gönderi",
       "marka_siniri": "En çok marka profili",
       "aylik_gonderim_siniri": "Aylık en çok gönderim (ileti)",
-      "kisi_siniri": "En çok kişi (alıcı)"
+      "kisi_siniri": "En çok kişi (alıcı)",
+      "teknisyen_siniri": "En çok aktif teknisyen",
+      "aylik_is_emri_siniri": "Aylık en çok iş emri"
     },
     "musteri": {
       "baslik": "Modüllerim",

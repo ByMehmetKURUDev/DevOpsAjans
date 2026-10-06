@@ -100,7 +100,12 @@
       "crm_formlar": "CRM 表单",
       "otomasyon_kurallari": "自动化规则",
       "ozel_alanlar": "自定义字段定义",
-      "ozel_alan_degerleri": "自定义字段值"
+      "ozel_alan_degerleri": "自定义字段值",
+      "saha_ayarlari": "现场服务设置",
+      "saha_teknisyenleri": "技术人员",
+      "saha_cihazlari": "服务设备",
+      "saha_sablonlari": "检查清单模板",
+      "saha_malzemeleri": "现场物料"
     },
     "hareket": {
       "baslik": "账户动态",

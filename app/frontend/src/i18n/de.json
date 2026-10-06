@@ -490,7 +490,8 @@
     "tabRandevu": "Termine",
     "tabOtomasyon": "Automatisierung",
     "tabAiAsistan": "KI-Assistent",
-    "tabEpostaPazarlama": "E-Mail-Marketing"
+    "tabEpostaPazarlama": "E-Mail-Marketing",
+    "tabSahaServisi": "Außendienst"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

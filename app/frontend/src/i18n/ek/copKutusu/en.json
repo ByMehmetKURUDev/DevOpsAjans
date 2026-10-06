@@ -90,7 +90,13 @@
       "otomasyon_kurallari": "Automation rules",
       "icerik_markalari": "Brand voice profile",
       "icerik_sablonlari": "Content template",
-      "ozel_alanlar": "Custom field definitions"
+      "ozel_alanlar": "Custom field definitions",
+      "saha_musterileri": "Service customer",
+      "saha_lokasyonlari": "Service address",
+      "saha_cihazlari": "Service equipment",
+      "saha_sablonlari": "Checklist template",
+      "saha_malzemeleri": "Field material",
+      "saha_teknisyenleri": "Technician"
     }
   }
 }

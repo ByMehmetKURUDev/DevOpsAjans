@@ -73,7 +73,9 @@
       "icerik_onay_istendi": "İçerik: onayınız bekleniyor",
       "icerik_karar": "İçerik: müşteri kararı (onay / revizyon)",
       "icerik_hatirlatma": "İçerik: paylaşıma hazır hatırlatması (30 dk önce)",
-      "pazarlama_askiya_alindi": "E-posta pazarlama: gönderimler askıya alındı"
+      "pazarlama_askiya_alindi": "E-posta pazarlama: gönderimler askıya alındı",
+      "saha_is_atandi": "Bana yeni saha işi atandı",
+      "saha_bakim_zamani": "Bakım zamanı gelen cihazlar"
     },
     "kanal": {
       "inapp": "Panel",

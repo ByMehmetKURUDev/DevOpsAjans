@@ -126,6 +126,10 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "icerik_hatirlatma": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 5M — e-posta pazarlama gönderimleri otomatik askıya alındı (şikâyet / sert geri dönüş oranı).
     "pazarlama_askiya_alindi": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 6S — saha servisi: teknisyene yeni iş ataması (Web Push dahil) ve bakım zamanı gelen cihazlar.
+    # Servis müşterisine giden e-postalar katalog dışı (`saha_musteri`: yalnız e-posta).
+    "saha_is_atandi": {"roller": ("client",), "tetikleniyor": True},
+    "saha_bakim_zamani": {"roller": ("client",), "tetikleniyor": True},
 }
 
 

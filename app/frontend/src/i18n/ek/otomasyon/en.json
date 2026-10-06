@@ -97,7 +97,8 @@
       "icerik": "Content post",
       "hesap": "Client account",
       "kisi": "Person in the event",
-      "olay": "Event"
+      "olay": "Event",
+      "is_emri": "Field work order"
     },
     "alan": {
       "id": "ID",
@@ -145,7 +146,10 @@
       "planlanan_at": "Scheduled time",
       "kampanya": "Campaign",
       "not": "Note",
-      "zaman": "Time"
+      "zaman": "Time",
+      "musteri_eposta": "Customer email",
+      "adres": "Address",
+      "teknisyen": "Technician"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -167,7 +171,9 @@
       "icerik_revizyon_istendi": "Content revision requested",
       "icerik_yayin_zamani": "Content publish time arrived",
       "icerik_yayinlandi": "Content published",
-      "randevu_olusturuldu": "Booking made"
+      "randevu_olusturuldu": "Booking made",
+      "is_emri_olusturuldu": "Field work order created",
+      "is_emri_tamamlandi": "Field work order completed"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -189,7 +195,9 @@
       "icerik_revizyon_istendi": "The client requested a revision from the approval link or the panel (note included).",
       "icerik_yayin_zamani": "The scheduled time of an approved post arrived (once per post).",
       "icerik_yayinlandi": "The post was manually marked as published.",
-      "randevu_olusturuldu": "A new booking on the booking page."
+      "randevu_olusturuldu": "A new booking on the booking page.",
+      "is_emri_olusturuldu": "A field service work order was opened (manually, from the maintenance list or from a booking).",
+      "is_emri_tamamlandi": "The technician finished the job; the person in the event is the service customer."
     },
     "eylem": {
       "eposta": "Send email",

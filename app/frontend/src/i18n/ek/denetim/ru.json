@@ -100,7 +100,12 @@
       "crm_formlar": "Формы CRM",
       "otomasyon_kurallari": "Правила автоматизации",
       "ozel_alanlar": "Описания пользовательских полей",
-      "ozel_alan_degerleri": "Значения пользовательских полей"
+      "ozel_alan_degerleri": "Значения пользовательских полей",
+      "saha_ayarlari": "Настройки выездного сервиса",
+      "saha_teknisyenleri": "Техник",
+      "saha_cihazlari": "Обслуживаемое оборудование",
+      "saha_sablonlari": "Шаблон чек-листа",
+      "saha_malzemeleri": "Материал выездного сервиса"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

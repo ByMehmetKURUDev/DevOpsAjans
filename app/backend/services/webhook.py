@@ -147,6 +147,9 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     OlayTuru("qr.tarama", varsayilan=False, yuksek_hacim=True),
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (sohbet durumu "devredildi").
     OlayTuru("asistan.devredildi"),
+    # Faz 6S — saha servisi iş emri açıldı / tamamlandı.
+    OlayTuru("is_emri.olusturuldu"),
+    OlayTuru("is_emri.tamamlandi"),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.
@@ -658,6 +661,8 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
             olaylar.append(("randevu.olusturuldu", obj.hesap_email, {"randevu_id": obj.id, "tur_id": obj.tur_id}, True))
         elif tablo == "ai_asistan_sohbetleri" and obj.durum == "devredildi":
             olaylar.append(("asistan.devredildi", obj.hesap_email, _devir_verisi(obj), True))
+        elif tablo == "saha_is_emirleri":
+            olaylar.append(("is_emri.olusturuldu", obj.hesap_email, _is_emri_verisi(obj), True))
 
     for obj in list(session.dirty):
         tablo = getattr(type(obj), "__tablename__", "")
@@ -719,6 +724,10 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
                 elif eski == "musteri_onayi" and yeni == "taslak" and getattr(obj, "_icerik_revizyon", False):
                     olaylar.append(("icerik.revizyon_istendi", obj.hesap_email or None,
                                     olay_verisi(obj, {"not": obj.durum_notu}), True))
+        elif tablo == "saha_is_emirleri":
+            degisti, eski, yeni = _gecmis(obj, "durum")
+            if degisti and yeni == "tamamlandi" and eski != "tamamlandi":
+                olaylar.append(("is_emri.tamamlandi", obj.hesap_email, _is_emri_verisi(obj), True))
         elif tablo == "crm_adaylar":
             # Faz 4W: yalnız otomasyon (webhook kataloğunda yok).
             degisti, eski, yeni = _gecmis(obj, "asama")
@@ -734,6 +743,14 @@ def _devir_verisi(obj: Any) -> Dict[str, Any]:
             "mesaj_sayisi": obj.mesaj_sayisi, "kaynak": obj.kaynak, "koken": obj.koken, "zaman": iso(obj.devir_at)}
 
 
+def _is_emri_verisi(obj: Any) -> Dict[str, Any]:
+    """Faz 6S — saha servisi iş emri: kimlikler ve iş alanları (servis müşterisinin adı/iletişimi/
+    adresi ve konum YOK — gerekirse panelden)."""
+    return {"is_emri_id": obj.id, "no": obj.no, "tur": obj.tur, "oncelik": obj.oncelik, "durum": obj.durum,
+            "musteri_id": obj.musteri_id, "plan_bas": iso(obj.plan_bas), "bitir_at": iso(obj.bitir_at),
+            "randevu_id": obj.randevu_id}
+
+
 def aday_verisi(aday_id: Any, kaynak: Any, asama: Any, deger: Any, para: Any) -> Dict[str, Any]:
     """CRM adayı olay verisi — ad/e-posta/telefon YOK (API'den `crm:oku` kapsamıyla alınır)."""
     return {"aday_id": aday_id, "kaynak": kaynak, "asama": asama, "deger_tahmini": _sayi(deger), "para_birimi": para}
@@ -743,6 +760,8 @@ IZLENEN_TABLOLAR = frozenset({
     "invoices", "support_tickets", "ticket_replies", "project_tasks", "crm_adaylar", "menu_siparisleri",
     "content_posts",  # Faz 5I
     "kartvizit_mesajlari", "projects", "teklifler", "sozlesmeler", "ai_asistan_sohbetleri",
+    # Faz 6S — saha servisi iş emri.
+    "saha_is_emirleri",
 })
 
 

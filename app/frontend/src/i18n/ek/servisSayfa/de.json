@@ -1,0 +1,57 @@
+{
+  "servisSayfa": {
+    "ust": "Serviceinformationen",
+    "merhaba": "Hallo {{ad}}",
+    "is": {
+      "yeni": "Eingegangen",
+      "planlandi": "Geplant",
+      "yolda": "Techniker unterwegs",
+      "iste": "In Arbeit",
+      "tamamlandi": "Abgeschlossen",
+      "iptal": "Storniert",
+      "ertelendi": "Verschoben"
+    },
+    "tur": {
+      "kurulum": "Installation",
+      "ariza": "Störung",
+      "bakim": "Wartung",
+      "temizlik": "Reinigung",
+      "kesif": "Besichtigung"
+    },
+    "adim": {
+      "planlandi": "Geplant",
+      "yolda": "Techniker unterwegs",
+      "iste": "Arbeit begonnen",
+      "tamamlandi": "Abgeschlossen"
+    },
+    "teknisyen": "Techniker: {{ad}}",
+    "pdf": "Servicebericht herunterladen (PDF)",
+    "puan": {
+      "baslik": "Wie zufrieden waren Sie mit unserem Service?",
+      "yildiz": "{{sayi}} Sterne",
+      "yorum": "Ihr Kommentar (optional)",
+      "gonder": "Senden",
+      "tesekkur": "Vielen Dank für Ihre Bewertung!",
+      "verilen": "Ihre Bewertung: {{puan}} / 5"
+    },
+    "google": {
+      "metin": "Sie können Ihre Erfahrung auch auf Google teilen:",
+      "baglanti": "Google-Bewertung schreiben"
+    },
+    "hata": {
+      "ag": "Verbindungsfehler, bitte versuchen Sie es erneut.",
+      "puan": "Bewertung konnte nicht gespeichert werden.",
+      "cokHizli": "Zu viele Versuche; bitte später erneut versuchen."
+    },
+    "durum": {
+      "gecersiz": "Ungültiger Link",
+      "gecersizAciklama": "Dieser Link ist fehlerhaft oder gehört zu einem anderen Auftrag.",
+      "suresi_doldu": "Der Link ist abgelaufen",
+      "suresi_dolduAciklama": "Nach Abschluss eines Auftrags bleibt der Link eine begrenzte Zeit gültig. Wenden Sie sich für Informationen an die Servicefirma.",
+      "hata": "Etwas ist schiefgelaufen",
+      "hataAciklama": "Bitte versuchen Sie es später erneut."
+    },
+    "aydinlatma": "Ihre personenbezogenen Daten (Name, Kontaktdaten, Adresse, Unterschrift) werden von {{firma}} zur Erbringung der Serviceleistung verarbeitet und {{ay}} Monate nach Ihrem letzten Auftrag gelöscht. Zur Ausübung Ihrer Rechte nach dem türkischen Datenschutzgesetz (KVKK) können Sie sich an die Firma wenden.",
+    "aydinlatmaIletisim": "Kontakt: {{eposta}}"
+  }
+}

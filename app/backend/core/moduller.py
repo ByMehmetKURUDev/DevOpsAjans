@@ -36,7 +36,9 @@ Kurallar
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
-KATEGORILER: Tuple[str, ...] = ("cekirdek", "hizmet", "icerik", "finans", "analiz", "dijital_kimlik", "is_araclari")
+KATEGORILER: Tuple[str, ...] = ("cekirdek", "hizmet", "icerik", "finans", "analiz", "dijital_kimlik", "is_araclari",
+                                 # Faz 6 — sektörel paketler (saha servisi, …).
+                                 "sektorel")
 ROLLER: Tuple[str, ...] = ("admin", "client", "her_ikisi")
 DURUMLAR: Tuple[str, ...] = ("yayinda", "beta", "yakinda")
 #: `pricing_scales.kod` değerleri (scripts/seed_pricing_v5.py).
@@ -530,6 +532,29 @@ MODULLER: Tuple[Modul, ...] = (
         ayarlar=(
             AyarAlani("aylik_gonderim_siniri", "int", 10000, en_az=0, en_cok=1000000),
             AyarAlani("kisi_siniri", "int", 2000, en_az=0, en_cok=1000000),
+        ),
+    ),
+    # --- Sektörel paketler (Faz 6) ------------------------------------------
+    # Faz 6S — saha servisi (temizlik, klima, teknik servis, bakım-onarım firmaları): servis
+    # müşterisi + lokasyon + cihaz kaydı, iş emri ve kontrol listesi şablonları, sevk panosu
+    # (sürükle-bırak), mobil teknisyen ekranı (rızaya bağlı başla/bitir konumu, fotoğraf, yerinde
+    # imza, servis formu PDF'i), servis müşterisinin imzalı sayfası (durum, PDF, memnuniyet),
+    # raporlar ve bakım zamanı taraması. Varsayılan KAPALI, pakete bağlı değil (ayrı satılan
+    # modül; önerilen fiyat aylık 29 $ — 5 teknisyene kadar; ek teknisyen başına aylık 5 $).
+    # Ekip izinleri `saha_yonetim` (sevk/şablon/rapor) ve `saha_teknisyen` (yalnız kendine
+    # atanan işler). `teknisyen_siniri`: aktif teknisyen; `aylik_is_emri_siniri`: ayda açılan iş emri.
+    Modul(
+        anahtar="saha_servisi",
+        ad_varsayilan={"tr": "Saha servisi", "en": "Field service"},
+        ikon="Wrench",
+        kategori="sektorel",
+        musteri_sekmesi="sahaServisi",
+        yonetici_sekmesi="sahaServisi",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("teknisyen_siniri", "int", 5, en_az=0, en_cok=500),
+            AyarAlani("aylik_is_emri_siniri", "int", 300, en_az=0, en_cok=100000),
         ),
     ),
     Modul(

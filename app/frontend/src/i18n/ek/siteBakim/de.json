@@ -191,7 +191,8 @@
         "otomasyon_temizligi": "Bereinigung alter Automatisierungsprotokolle (30 Tage)",
         "ai_asistan_bakimi": "KI-Assistent: wöchentliche Website-Aktualisierung und Bereinigung der Gesprächsaufbewahrung",
         "icerik_studyosu": "Content-Studio: Teilen-Erinnerung (30 Min. vorher) und Ereignis zum Veröffentlichungszeitpunkt",
-        "eposta_pazarlama": "E-Mail-Marketing-Versand (geplante Kampagnen, A/B-Entscheidung, Drip-Sequenzen)"
+        "eposta_pazarlama": "E-Mail-Marketing-Versand (geplante Kampagnen, A/B-Entscheidung, Drip-Sequenzen)",
+        "saha_servisi": "Außendienst: Wartungserinnerungen, Standort- und Aufbewahrungsbereinigung"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

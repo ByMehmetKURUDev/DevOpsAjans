@@ -100,7 +100,12 @@
       "crm_formlar": "نماذج العملاء المحتملين",
       "otomasyon_kurallari": "قواعد الأتمتة",
       "ozel_alanlar": "تعريفات الحقول المخصصة",
-      "ozel_alan_degerleri": "قيم الحقول المخصصة"
+      "ozel_alan_degerleri": "قيم الحقول المخصصة",
+      "saha_ayarlari": "إعدادات الخدمة الميدانية",
+      "saha_teknisyenleri": "فني",
+      "saha_cihazlari": "جهاز الخدمة",
+      "saha_sablonlari": "قالب قائمة التحقق",
+      "saha_malzemeleri": "مادة ميدانية"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

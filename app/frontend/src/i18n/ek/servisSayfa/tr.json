@@ -1,0 +1,57 @@
+{
+  "servisSayfa": {
+    "ust": "Servis bilgisi",
+    "merhaba": "Merhaba {{ad}}",
+    "is": {
+      "yeni": "Alındı",
+      "planlandi": "Planlandı",
+      "yolda": "Teknisyen yolda",
+      "iste": "Çalışılıyor",
+      "tamamlandi": "Tamamlandı",
+      "iptal": "İptal edildi",
+      "ertelendi": "Ertelendi"
+    },
+    "tur": {
+      "kurulum": "Kurulum",
+      "ariza": "Arıza",
+      "bakim": "Bakım",
+      "temizlik": "Temizlik",
+      "kesif": "Keşif"
+    },
+    "adim": {
+      "planlandi": "Planlandı",
+      "yolda": "Teknisyen yolda",
+      "iste": "İş başladı",
+      "tamamlandi": "Tamamlandı"
+    },
+    "teknisyen": "Teknisyen: {{ad}}",
+    "pdf": "Servis formunu indir (PDF)",
+    "puan": {
+      "baslik": "Hizmetimizi nasıl buldunuz?",
+      "yildiz": "{{sayi}} yıldız",
+      "yorum": "Yorumunuz (isteğe bağlı)",
+      "gonder": "Gönder",
+      "tesekkur": "Değerlendirmeniz için teşekkürler!",
+      "verilen": "Puanınız: {{puan}} / 5"
+    },
+    "google": {
+      "metin": "Deneyiminizi Google'da da paylaşabilirsiniz:",
+      "baglanti": "Google'da yorum yaz"
+    },
+    "hata": {
+      "ag": "Bağlantı hatası, lütfen tekrar deneyin.",
+      "puan": "Puan kaydedilemedi.",
+      "cokHizli": "Çok fazla deneme; biraz sonra tekrar deneyin."
+    },
+    "durum": {
+      "gecersiz": "Bağlantı geçersiz",
+      "gecersizAciklama": "Bu bağlantı hatalı ya da başka bir işe ait.",
+      "suresi_doldu": "Bağlantının süresi doldu",
+      "suresi_dolduAciklama": "İş kapandıktan sonra bağlantı belirli bir süre açık kalır. Bilgi için servis firmasıyla iletişime geçin.",
+      "hata": "Bir sorun oluştu",
+      "hataAciklama": "Lütfen biraz sonra tekrar deneyin."
+    },
+    "aydinlatma": "Kişisel verileriniz (ad, iletişim, adres, imza) {{firma}} tarafından servis hizmetinin yürütülmesi amacıyla işlenir ve son işten {{ay}} ay sonra silinir. KVKK kapsamındaki haklarınız için firmaya başvurabilirsiniz.",
+    "aydinlatmaIletisim": "İletişim: {{eposta}}"
+  }
+}

@@ -79,6 +79,11 @@ IZINLER: Tuple[str, ...] = (
     # Faz 5M — e-posta pazarlama (kişi listesi, kampanya gönderimi: yalnız sahip/hesap yöneticisi
     # verebilir; üye ve fatura rolünün varsayılanında yok — `api` gibi).
     "pazarlama",
+    # Faz 6S — saha servisi: `saha_yonetim` (sevk panosu, iş emri, müşteri/cihaz, şablon, malzeme,
+    # rapor) ve `saha_teknisyen` (yalnız kendine atanan işler — "İşlerim"). Teknisyen ayrı bir rol
+    # değil: üye rolünde yalnız `saha_teknisyen` seçilir. Üye/fatura rolünün varsayılanında yok.
+    "saha_yonetim",
+    "saha_teknisyen",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -116,7 +121,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 5R–5A/5M arası varsayılan (api ve randevu var; asistan ve pazarlama yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu"}),
-        # Faz 5M–5I arası varsayılan (otomasyon, asistan ve pazarlama var; icerik yok).
+        # Faz 5A/5M–5I/6S/6E arası varsayılan (otomasyon, asistan ve pazarlama var; icerik ve saha/etkinlik izinleri yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "pazarlama"}),
@@ -202,6 +207,9 @@ OLAY_IZNI: Dict[str, str] = {
     "icerik_hatirlatma": "icerik",
     # Faz 5M — pazarlama gönderimleri askıya alındı.
     "pazarlama_askiya_alindi": "pazarlama",
+    # Faz 6S — bakım zamanı gelen cihazlar (hesaba; sevk/yönetim izni olan üyelere de).
+    # Teknisyene "yeni iş" (`saha_is_atandi`) kişisel: yalnız atanan kişiye gider (burada yok).
+    "saha_bakim_zamani": "saha_yonetim",
 }
 
 DAVET_OLAYI = "hesap_davet"

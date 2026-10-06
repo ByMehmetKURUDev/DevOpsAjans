@@ -1,0 +1,57 @@
+{
+  "servisSayfa": {
+    "ust": "服务信息",
+    "merhaba": "{{ad}}，您好",
+    "is": {
+      "yeni": "已受理",
+      "planlandi": "已排期",
+      "yolda": "技术人员在途中",
+      "iste": "施工中",
+      "tamamlandi": "已完成",
+      "iptal": "已取消",
+      "ertelendi": "已延期"
+    },
+    "tur": {
+      "kurulum": "安装",
+      "ariza": "故障维修",
+      "bakim": "保养",
+      "temizlik": "清洁",
+      "kesif": "现场勘察"
+    },
+    "adim": {
+      "planlandi": "已排期",
+      "yolda": "技术人员在途中",
+      "iste": "工作已开始",
+      "tamamlandi": "已完成"
+    },
+    "teknisyen": "技术人员：{{ad}}",
+    "pdf": "下载服务单（PDF）",
+    "puan": {
+      "baslik": "您对我们的服务满意吗？",
+      "yildiz": "{{sayi}} 星",
+      "yorum": "您的评论（可选）",
+      "gonder": "提交",
+      "tesekkur": "感谢您的评价！",
+      "verilen": "您的评分：{{puan}} / 5"
+    },
+    "google": {
+      "metin": "您也可以在 Google 上分享您的体验：",
+      "baglanti": "在 Google 上撰写评价"
+    },
+    "hata": {
+      "ag": "连接错误，请重试。",
+      "puan": "评分保存失败。",
+      "cokHizli": "尝试次数过多；请稍后再试。"
+    },
+    "durum": {
+      "gecersiz": "链接无效",
+      "gecersizAciklama": "此链接有误或属于其他工作。",
+      "suresi_doldu": "链接已过期",
+      "suresi_dolduAciklama": "工作关闭后，链接只在有限时间内有效。如需了解详情，请联系服务公司。",
+      "hata": "出现问题",
+      "hataAciklama": "请稍后再试。"
+    },
+    "aydinlatma": "您的个人数据（姓名、联系方式、地址、签名）由 {{firma}} 为提供服务而处理，并将在您最后一次工作后 {{ay}} 个月删除。如需行使土耳其个人数据保护法（KVKK）规定的权利，请联系该公司。",
+    "aydinlatmaIletisim": "联系方式：{{eposta}}"
+  }
+}

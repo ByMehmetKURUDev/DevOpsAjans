@@ -73,7 +73,9 @@
       "icerik_onay_istendi": "内容：请您审批",
       "icerik_karar": "内容：客户决定（批准 / 修改）",
       "icerik_hatirlatma": "内容：可发布提醒（提前 30 分钟）",
-      "pazarlama_askiya_alindi": "邮件营销：发送已暂停"
+      "pazarlama_askiya_alindi": "邮件营销：发送已暂停",
+      "saha_is_atandi": "有新的现场工作分配给我",
+      "saha_bakim_zamani": "需要保养的设备"
     },
     "kanal": {
       "inapp": "面板",

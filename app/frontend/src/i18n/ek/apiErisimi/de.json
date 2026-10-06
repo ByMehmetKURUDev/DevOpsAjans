@@ -61,7 +61,9 @@
       "icerik_yayinlandi": "Inhalt als veröffentlicht markiert",
       "qr_tarama": "QR-Scan",
       "ping": "Testereignis",
-      "asistan_devredildi": "KI-Assistent hat einen Besucher an einen Menschen übergeben"
+      "asistan_devredildi": "KI-Assistent hat einen Besucher an einen Menschen übergeben",
+      "is_emri_olusturuldu": "Außendienst-Arbeitsauftrag erstellt",
+      "is_emri_tamamlandi": "Außendienst-Arbeitsauftrag abgeschlossen"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

@@ -97,7 +97,8 @@
       "icerik": "منشور محتوى",
       "hesap": "حساب العميل",
       "kisi": "الشخص في الحدث",
-      "olay": "الحدث"
+      "olay": "الحدث",
+      "is_emri": "أمر عمل ميداني"
     },
     "alan": {
       "id": "المعرّف",
@@ -145,7 +146,10 @@
       "planlanan_at": "الموعد المجدول",
       "kampanya": "الحملة",
       "not": "ملاحظة",
-      "zaman": "الوقت"
+      "zaman": "الوقت",
+      "musteri_eposta": "بريد العميل",
+      "adres": "العنوان",
+      "teknisyen": "الفني"
     },
     "olay": {
       "aday_olusturuldu": "عميل محتمل جديد في CRM",
@@ -167,7 +171,9 @@
       "icerik_revizyon_istendi": "طُلب تعديل المحتوى",
       "icerik_yayin_zamani": "حلّ موعد نشر المحتوى",
       "icerik_yayinlandi": "نُشر المحتوى",
-      "randevu_olusturuldu": "حُجز موعد"
+      "randevu_olusturuldu": "حُجز موعد",
+      "is_emri_olusturuldu": "تم إنشاء أمر عمل ميداني",
+      "is_emri_tamamlandi": "اكتمل أمر عمل ميداني"
     },
     "olayAciklama": {
       "aday_olusturuldu": "عميل محتمل من نموذج أو تواصل أو تحليل موقع أو أُضيف يدويًا.",
@@ -189,7 +195,9 @@
       "icerik_revizyon_istendi": "طلب العميل تعديلًا من رابط الموافقة أو من اللوحة (مع الملاحظة).",
       "icerik_yayin_zamani": "حلّ الموعد المجدول لمنشور موافَق عليه (مرة واحدة لكل منشور).",
       "icerik_yayinlandi": "وُضعت على المنشور علامة «منشور» يدويًا.",
-      "randevu_olusturuldu": "حجز جديد في صفحة المواعيد."
+      "randevu_olusturuldu": "حجز جديد في صفحة المواعيد.",
+      "is_emri_olusturuldu": "فُتح أمر عمل في الخدمة الميدانية (يدويًا أو من قائمة الصيانة أو من حجز).",
+      "is_emri_tamamlandi": "أنهى الفني العمل؛ والشخص في الحدث هو عميل الخدمة."
     },
     "eylem": {
       "eposta": "إرسال بريد إلكتروني",

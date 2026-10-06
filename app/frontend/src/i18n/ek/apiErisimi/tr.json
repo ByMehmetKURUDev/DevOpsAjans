@@ -61,7 +61,9 @@
       "icerik_yayinlandi": "İçerik yayınlandı olarak işaretlendi",
       "qr_tarama": "QR taraması",
       "ping": "Test olayı",
-      "asistan_devredildi": "AI asistan ziyaretçiyi insana devretti"
+      "asistan_devredildi": "AI asistan ziyaretçiyi insana devretti",
+      "is_emri_olusturuldu": "Saha iş emri oluşturuldu",
+      "is_emri_tamamlandi": "Saha iş emri tamamlandı"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

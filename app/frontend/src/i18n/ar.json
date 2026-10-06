@@ -490,7 +490,8 @@
     "tabRandevu": "المواعيد",
     "tabOtomasyon": "الأتمتة",
     "tabAiAsistan": "مساعد الذكاء الاصطناعي",
-    "tabEpostaPazarlama": "التسويق عبر البريد"
+    "tabEpostaPazarlama": "التسويق عبر البريد",
+    "tabSahaServisi": "الخدمة الميدانية"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

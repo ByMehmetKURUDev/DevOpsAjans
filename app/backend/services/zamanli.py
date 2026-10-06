@@ -262,6 +262,15 @@ async def _eposta_pazarlama(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_isle(db)
 
 
+async def _saha_servisi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 6S: bakım zamanı gelen cihazlar (hesap başına tek özet bildirim; cihaz başına vade başına
+    # bir kez), rızayla alınmış ham konumun 90 gün sonra silinmesi, saklama süresi dolan servis
+    # müşterisinin anonimleşmesi.
+    from services.saha_kayit import zamanli_gorev
+
+    return await zamanli_gorev(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -302,6 +311,7 @@ GOREVLER: List[Gorev] = [
     Gorev("ai_asistan_bakimi", timedelta(hours=1), _ai_asistan_bakimi),
     Gorev("icerik_studyosu", timedelta(0), _icerik_studyosu),
     Gorev("eposta_pazarlama", timedelta(0), _eposta_pazarlama),
+    Gorev("saha_servisi", timedelta(hours=20), _saha_servisi),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

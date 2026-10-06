@@ -129,6 +129,14 @@ HARIC_TABLOLAR = frozenset({
     # kişisel. Ayarlar, listeler, formlar, segmentler, kampanyalar ve diziler kaydediliyor.
     "ep_kisiler", "ep_liste_uyelikleri", "ep_gonderimler", "ep_dizi_kayitlari", "ep_bastirma",
     "ep_tiklamalar", "ep_webhook_olaylari", "ep_gorseller",
+    # Faz 6S: saha servisi — servis müşterileri ve adresleri (KİŞİSEL VERİ; saklama süresi dolunca
+    # anonimleşiyor, denetim kaydında kopyası kalmamalı), iş emirleri (rızaya bağlı ham konum 90 gün
+    # sonra silinmeli; müşteri imzası/yorumu; geçişleri kendi `saha_durum_gecmisi` tablosunda kim + ne
+    # zaman olarak tutuluyor), atama/cihaz bağları, fotoğraf kayıtları (içerik dosya deposunda) ve
+    # malzeme kullanım satırları. Ayarlar, teknisyenler (konum rızası verme/geri alma dahil),
+    # cihazlar, şablonlar ve malzeme kataloğu kaydediliyor.
+    "saha_musterileri", "saha_lokasyonlari", "saha_is_emirleri", "saha_is_atamalari", "saha_is_cihazlari",
+    "saha_is_fotograflari", "saha_malzeme_kullanimi", "saha_durum_gecmisi",
 })
 
 #: Her güncellemede kendiliğinden değişen, bilgi taşımayan alanlar.
@@ -162,6 +170,8 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     "ai_asistanlar": frozenset({"dizin_surumu"}),
     "ai_asistan_kaynaklari": frozenset({"durum", "hata", "parca_sayisi", "karakter", "sayfa_sayisi", "son_isleme_at",
                                         "sonraki_yenileme_at"}),
+    # Faz 6S: bakım taramasının "bu vade için bildirim gitti" izi.
+    "saha_cihazlari": frozenset({"bakim_bildirim_tarihi"}),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

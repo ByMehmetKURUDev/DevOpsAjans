@@ -61,7 +61,9 @@
       "icerik_yayinlandi": "内容已标记为已发布",
       "qr_tarama": "二维码扫描",
       "ping": "测试事件",
-      "asistan_devredildi": "AI 助手已将访客转给人工"
+      "asistan_devredildi": "AI 助手已将访客转给人工",
+      "is_emri_olusturuldu": "已创建现场服务工单",
+      "is_emri_tamamlandi": "现场服务工单已完成"
     },
     "anahtar": {
       "yeni": "新建密钥",

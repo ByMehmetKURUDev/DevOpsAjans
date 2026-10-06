@@ -61,7 +61,9 @@
       "icerik_yayinlandi": "وُضعت على المحتوى علامة «منشور»",
       "qr_tarama": "مسح رمز QR",
       "ping": "حدث تجريبي",
-      "asistan_devredildi": "حوّل مساعد الذكاء الاصطناعي زائرًا إلى شخص"
+      "asistan_devredildi": "حوّل مساعد الذكاء الاصطناعي زائرًا إلى شخص",
+      "is_emri_olusturuldu": "تم إنشاء أمر عمل ميداني",
+      "is_emri_tamamlandi": "اكتمل أمر عمل ميداني"
     },
     "anahtar": {
       "yeni": "مفتاح جديد",

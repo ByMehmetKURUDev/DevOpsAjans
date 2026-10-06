@@ -97,7 +97,8 @@
       "icerik": "कंटेंट पोस्ट",
       "hesap": "क्लाइंट खाता",
       "kisi": "घटना से जुड़ा व्यक्ति",
-      "olay": "घटना"
+      "olay": "घटना",
+      "is_emri": "फ़ील्ड वर्क ऑर्डर"
     },
     "alan": {
       "id": "आईडी",
@@ -145,7 +146,10 @@
       "planlanan_at": "निर्धारित समय",
       "kampanya": "कैंपेन",
       "not": "नोट",
-      "zaman": "समय"
+      "zaman": "समय",
+      "musteri_eposta": "ग्राहक ईमेल",
+      "adres": "पता",
+      "teknisyen": "तकनीशियन"
     },
     "olay": {
       "aday_olusturuldu": "नई CRM लीड",
@@ -167,7 +171,9 @@
       "icerik_revizyon_istendi": "कंटेंट संशोधन माँगा गया",
       "icerik_yayin_zamani": "कंटेंट प्रकाशन का समय आया",
       "icerik_yayinlandi": "कंटेंट प्रकाशित",
-      "randevu_olusturuldu": "अपॉइंटमेंट बुक हुआ"
+      "randevu_olusturuldu": "अपॉइंटमेंट बुक हुआ",
+      "is_emri_olusturuldu": "फ़ील्ड वर्क ऑर्डर बनाया गया",
+      "is_emri_tamamlandi": "फ़ील्ड वर्क ऑर्डर पूरा हुआ"
     },
     "olayAciklama": {
       "aday_olusturuldu": "फ़ॉर्म, संपर्क, साइट विश्लेषण से आई या हाथ से जोड़ी गई लीड।",
@@ -189,7 +195,9 @@
       "icerik_revizyon_istendi": "ग्राहक ने स्वीकृति लिंक या पैनल से संशोधन माँगा (नोट सहित)।",
       "icerik_yayin_zamani": "स्वीकृत पोस्ट का निर्धारित समय आ गया (हर पोस्ट पर एक बार)।",
       "icerik_yayinlandi": "पोस्ट को मैन्युअल रूप से प्रकाशित चिह्नित किया गया।",
-      "randevu_olusturuldu": "अपॉइंटमेंट पेज पर नई बुकिंग।"
+      "randevu_olusturuldu": "अपॉइंटमेंट पेज पर नई बुकिंग।",
+      "is_emri_olusturuldu": "फ़ील्ड सर्विस में वर्क ऑर्डर खोला गया (हाथ से, रखरखाव सूची से या बुकिंग से)।",
+      "is_emri_tamamlandi": "तकनीशियन ने काम पूरा किया; घटना में व्यक्ति सर्विस ग्राहक है।"
     },
     "eylem": {
       "eposta": "ईमेल भेजें",

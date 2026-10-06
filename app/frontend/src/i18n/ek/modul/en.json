@@ -180,6 +180,10 @@
       "eposta_pazarlama": {
         "ad": "Email marketing",
         "aciklama": "Newsletters, campaigns and drip sequences: double opt-in signup form, lists and segments, mobile-friendly emails with a block editor, test sends, scheduling, A/B subject tests, delivery reports, one-click unsubscribe and consent records."
+      },
+      "saha_servisi": {
+        "ad": "Field service",
+        "aciklama": "For cleaning, HVAC, technical service and maintenance companies: work orders, a drag-and-drop dispatch board, a mobile technician screen (checklist, photos, customer signature, consent-based location), equipment history and maintenance reminders, a service report PDF and a signed status page for the customer."
       }
     },
     "kategori": {
@@ -189,7 +193,8 @@
       "finans": "Finance",
       "analiz": "Analytics",
       "dijital_kimlik": "Digital identity",
-      "is_araclari": "Business tools"
+      "is_araclari": "Business tools",
+      "sektorel": "Industry packages"
     },
     "durum": {
       "yayinda": "Live",
@@ -234,7 +239,9 @@
       "aylik_gonderi": "Max posts per month",
       "marka_siniri": "Max brand profiles",
       "aylik_gonderim_siniri": "Max sends per month (messages)",
-      "kisi_siniri": "Max contacts"
+      "kisi_siniri": "Max contacts",
+      "teknisyen_siniri": "Maximum active technicians",
+      "aylik_is_emri_siniri": "Maximum work orders per month"
     },
     "musteri": {
       "baslik": "My modules",

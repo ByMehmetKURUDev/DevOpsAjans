@@ -81,6 +81,9 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/bulten/:anahtar',
   '/bulten/onay/:jeton',
   '/bulten/tercih/:jeton',
+  // Faz 6S: saha servisi — servis müşterisinin imzalı sayfası (iş durumu, servis formu,
+  // memnuniyet); jetona özel, prerender yok, noindex (sayfa + `_headers` X-Robots-Tag).
+  '/servis/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

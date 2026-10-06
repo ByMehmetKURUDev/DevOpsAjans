@@ -42,6 +42,7 @@ import {
   UserCog,
   UtensilsCrossed,
   Workflow,
+  Wrench,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -96,6 +97,7 @@ export const MODUL_IKONLARI: Record<string, LucideIcon> = {
   UserCog,
   UtensilsCrossed,
   Workflow,
+  Wrench,
 };
 
 export function modulIkonu(ad?: string | null): LucideIcon {

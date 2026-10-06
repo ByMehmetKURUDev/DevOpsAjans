@@ -180,6 +180,10 @@
       "eposta_pazarlama": {
         "ad": "E-Mail-Marketing",
         "aciklama": "Newsletter, Kampagnen und Drip-Sequenzen: Anmeldeformular mit Double-Opt-in, Listen und Segmente, mobilfreundliche E-Mails mit Block-Editor, Testversand, Zeitplanung, A/B-Betrefftests, Zustellberichte, Abmeldung mit einem Klick und Einwilligungsnachweis."
+      },
+      "saha_servisi": {
+        "ad": "Außendienst",
+        "aciklama": "Für Reinigungs-, Klima-, Technik- und Wartungsfirmen: Arbeitsaufträge, Plantafel mit Drag-and-drop, mobile Technikeransicht (Checkliste, Fotos, Kundenunterschrift, einwilligungsbasierte Standorterfassung), Gerätehistorie und Wartungserinnerungen, Servicebericht als PDF und eine signierte Statusseite für den Kunden."
       }
     },
     "kategori": {
@@ -189,7 +193,8 @@
       "finans": "Finanzen",
       "analiz": "Analyse",
       "dijital_kimlik": "Digitale Identität",
-      "is_araclari": "Business-Werkzeuge"
+      "is_araclari": "Business-Werkzeuge",
+      "sektorel": "Branchenpakete"
     },
     "durum": {
       "yayinda": "Verfügbar",
@@ -234,7 +239,9 @@
       "aylik_gonderi": "Max. Beiträge pro Monat",
       "marka_siniri": "Max. Markenprofile",
       "aylik_gonderim_siniri": "Max. Versand pro Monat (Nachrichten)",
-      "kisi_siniri": "Max. Kontakte"
+      "kisi_siniri": "Max. Kontakte",
+      "teknisyen_siniri": "Höchstzahl aktiver Techniker",
+      "aylik_is_emri_siniri": "Höchstzahl an Arbeitsaufträgen pro Monat"
     },
     "musteri": {
       "baslik": "Meine Module",

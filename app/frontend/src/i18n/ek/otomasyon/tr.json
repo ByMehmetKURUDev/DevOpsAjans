@@ -97,7 +97,8 @@
       "icerik": "İçerik gönderisi",
       "hesap": "Müşteri hesabı",
       "kisi": "Olaydaki kişi",
-      "olay": "Olay"
+      "olay": "Olay",
+      "is_emri": "Saha iş emri"
     },
     "alan": {
       "id": "Kimlik",
@@ -145,7 +146,10 @@
       "planlanan_at": "Planlanan zaman",
       "kampanya": "Kampanya",
       "not": "Not",
-      "zaman": "Zaman"
+      "zaman": "Zaman",
+      "musteri_eposta": "Müşteri e-postası",
+      "adres": "Adres",
+      "teknisyen": "Teknisyen"
     },
     "olay": {
       "aday_olusturuldu": "Yeni CRM adayı",
@@ -167,7 +171,9 @@
       "icerik_revizyon_istendi": "İçerik için revizyon istendi",
       "icerik_yayin_zamani": "İçeriğin yayın zamanı geldi",
       "icerik_yayinlandi": "İçerik yayınlandı",
-      "randevu_olusturuldu": "Randevu alındı"
+      "randevu_olusturuldu": "Randevu alındı",
+      "is_emri_olusturuldu": "Saha iş emri oluşturuldu",
+      "is_emri_tamamlandi": "Saha iş emri tamamlandı"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Form, iletişim, site analizi ya da elle eklenen aday.",
@@ -189,7 +195,9 @@
       "icerik_revizyon_istendi": "Müşteri onay bağlantısından ya da panelden revizyon istedi (not dahil).",
       "icerik_yayin_zamani": "Onaylı gönderinin planlanan saati geldi (gönderi başına bir kez).",
       "icerik_yayinlandi": "Gönderi elle \"yayınlandı\" olarak işaretlendi.",
-      "randevu_olusturuldu": "Randevu sayfasından yeni rezervasyon."
+      "randevu_olusturuldu": "Randevu sayfasından yeni rezervasyon.",
+      "is_emri_olusturuldu": "Saha servisinde iş emri açıldı (elle, bakım listesinden ya da randevudan).",
+      "is_emri_tamamlandi": "Teknisyen işi bitirdi; olaydaki kişi servis müşterisidir."
     },
     "eylem": {
       "eposta": "E-posta gönder",

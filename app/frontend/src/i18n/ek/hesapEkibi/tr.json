@@ -38,7 +38,9 @@
       "otomasyon": "Otomasyon kuralları",
       "asistan": "AI asistan ve bilgi bankası",
       "icerik": "İçerik stüdyosu ve içerik onayı",
-      "pazarlama": "E-posta pazarlama"
+      "pazarlama": "E-posta pazarlama",
+      "saha_yonetim": "Saha servisi — yönetim ve sevk",
+      "saha_teknisyen": "Saha servisi — teknisyen"
     },
     "durum": {
       "davet": "Davet bekliyor",

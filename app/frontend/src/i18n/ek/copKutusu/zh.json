@@ -90,7 +90,13 @@
       "otomasyon_kurallari": "自动化规则",
       "icerik_markalari": "品牌语气档案",
       "icerik_sablonlari": "内容模板",
-      "ozel_alanlar": "自定义字段定义"
+      "ozel_alanlar": "自定义字段定义",
+      "saha_musterileri": "服务客户",
+      "saha_lokasyonlari": "服务地址",
+      "saha_cihazlari": "服务设备",
+      "saha_sablonlari": "检查清单模板",
+      "saha_malzemeleri": "现场物料",
+      "saha_teknisyenleri": "技术人员"
     }
   }
 }

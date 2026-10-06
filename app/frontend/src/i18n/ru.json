@@ -490,7 +490,8 @@
     "tabRandevu": "Записи",
     "tabOtomasyon": "Автоматизация",
     "tabAiAsistan": "ИИ-ассистент",
-    "tabEpostaPazarlama": "Email-маркетинг"
+    "tabEpostaPazarlama": "Email-маркетинг",
+    "tabSahaServisi": "Выездной сервис"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

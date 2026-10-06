@@ -168,6 +168,15 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 20,
         "ebeveyn": "ep_diziler",
     },
+    # Faz 6S: saha servisi — iş emri olmayan servis müşterisi (adresleri ve cihazlarıyla birlikte),
+    # kontrol listesi şablonu, malzeme ve teknisyen kaydı. İş emri çöpe düşmüyor (açık olmayan iş
+    # emri silinince imza/fotoğraf/konum hemen silinir); iş emri olan müşteri silinmez, anonimleşir.
+    "saha_musterileri": {"sahip": "hesap_email", "sira": 10},
+    "saha_lokasyonlari": {"sahip": "hesap_email", "sira": 20, "ebeveyn": "saha_musterileri"},
+    "saha_cihazlari": {"sahip": "hesap_email", "sira": 30, "ebeveyn": "saha_musterileri"},
+    "saha_sablonlari": {"sahip": "hesap_email", "sira": 10},
+    "saha_malzemeleri": {"sahip": "hesap_email", "sira": 10},
+    "saha_teknisyenleri": {"sahip": "hesap_email", "sira": 10},
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

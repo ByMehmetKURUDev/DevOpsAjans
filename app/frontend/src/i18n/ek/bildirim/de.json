@@ -73,7 +73,9 @@
       "icerik_onay_istendi": "Inhalt: Ihre Freigabe wird erbeten",
       "icerik_karar": "Inhalt: Entscheidung des Kunden (Freigabe / Überarbeitung)",
       "icerik_hatirlatma": "Inhalt: Erinnerung „Bereit zum Teilen“ (30 Min. vorher)",
-      "pazarlama_askiya_alindi": "E-Mail-Marketing: Versand ausgesetzt"
+      "pazarlama_askiya_alindi": "E-Mail-Marketing: Versand ausgesetzt",
+      "saha_is_atandi": "Mir wurde ein neuer Außendienstauftrag zugewiesen",
+      "saha_bakim_zamani": "Geräte mit fälliger Wartung"
     },
     "kanal": {
       "inapp": "Panel",

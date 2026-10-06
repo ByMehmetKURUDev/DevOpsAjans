@@ -90,7 +90,13 @@
       "otomasyon_kurallari": "قواعد الأتمتة",
       "icerik_markalari": "ملف صوت العلامة التجارية",
       "icerik_sablonlari": "قالب محتوى",
-      "ozel_alanlar": "تعريفات الحقول المخصصة"
+      "ozel_alanlar": "تعريفات الحقول المخصصة",
+      "saha_musterileri": "عميل الخدمة",
+      "saha_lokasyonlari": "عنوان الخدمة",
+      "saha_cihazlari": "جهاز الخدمة",
+      "saha_sablonlari": "قالب قائمة التحقق",
+      "saha_malzemeleri": "مادة ميدانية",
+      "saha_teknisyenleri": "فني"
     }
   }
 }

@@ -490,7 +490,8 @@
     "tabRandevu": "Randevular",
     "tabOtomasyon": "Otomasyon",
     "tabAiAsistan": "AI asistan",
-    "tabEpostaPazarlama": "E-posta pazarlama"
+    "tabEpostaPazarlama": "E-posta pazarlama",
+    "tabSahaServisi": "Saha servisi"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

@@ -97,7 +97,8 @@
       "icerik": "内容帖子",
       "hesap": "客户账户",
       "kisi": "事件中的人",
-      "olay": "事件"
+      "olay": "事件",
+      "is_emri": "现场服务工单"
     },
     "alan": {
       "id": "编号",
@@ -145,7 +146,10 @@
       "planlanan_at": "计划时间",
       "kampanya": "营销活动",
       "not": "备注",
-      "zaman": "时间"
+      "zaman": "时间",
+      "musteri_eposta": "客户邮箱",
+      "adres": "地址",
+      "teknisyen": "技术人员"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -167,7 +171,9 @@
       "icerik_revizyon_istendi": "已请求修改内容",
       "icerik_yayin_zamani": "内容发布时间到了",
       "icerik_yayinlandi": "内容已发布",
-      "randevu_olusturuldu": "新预约"
+      "randevu_olusturuldu": "新预约",
+      "is_emri_olusturuldu": "已创建现场服务工单",
+      "is_emri_tamamlandi": "现场服务工单已完成"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -189,7 +195,9 @@
       "icerik_revizyon_istendi": "客户通过审批链接或面板请求了修改（含备注）。",
       "icerik_yayin_zamani": "已批准帖子的计划时间到了（每篇帖子一次）。",
       "icerik_yayinlandi": "帖子被手动标记为已发布。",
-      "randevu_olusturuldu": "预约页面上的新预约。"
+      "randevu_olusturuldu": "预约页面上的新预约。",
+      "is_emri_olusturuldu": "现场服务中新建了工单（手动、来自保养列表或来自预约）。",
+      "is_emri_tamamlandi": "技术人员已完成工作；事件中的人员是服务客户。"
     },
     "eylem": {
       "eposta": "发送邮件",

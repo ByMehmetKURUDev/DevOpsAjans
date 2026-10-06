@@ -1,0 +1,57 @@
+{
+  "servisSayfa": {
+    "ust": "Service details",
+    "merhaba": "Hello {{ad}}",
+    "is": {
+      "yeni": "Received",
+      "planlandi": "Scheduled",
+      "yolda": "Technician on the way",
+      "iste": "In progress",
+      "tamamlandi": "Completed",
+      "iptal": "Cancelled",
+      "ertelendi": "Postponed"
+    },
+    "tur": {
+      "kurulum": "Installation",
+      "ariza": "Repair",
+      "bakim": "Maintenance",
+      "temizlik": "Cleaning",
+      "kesif": "Site survey"
+    },
+    "adim": {
+      "planlandi": "Scheduled",
+      "yolda": "Technician on the way",
+      "iste": "Work started",
+      "tamamlandi": "Completed"
+    },
+    "teknisyen": "Technician: {{ad}}",
+    "pdf": "Download service report (PDF)",
+    "puan": {
+      "baslik": "How was our service?",
+      "yildiz": "{{sayi}} stars",
+      "yorum": "Your comment (optional)",
+      "gonder": "Send",
+      "tesekkur": "Thank you for your feedback!",
+      "verilen": "Your rating: {{puan}} / 5"
+    },
+    "google": {
+      "metin": "You can also share your experience on Google:",
+      "baglanti": "Write a Google review"
+    },
+    "hata": {
+      "ag": "Connection error, please try again.",
+      "puan": "Couldn't save your rating.",
+      "cokHizli": "Too many attempts; please try again later."
+    },
+    "durum": {
+      "gecersiz": "Invalid link",
+      "gecersizAciklama": "This link is wrong or belongs to another job.",
+      "suresi_doldu": "This link has expired",
+      "suresi_dolduAciklama": "After a job is closed, the link stays open for a limited time. Please contact the service company for details.",
+      "hata": "Something went wrong",
+      "hataAciklama": "Please try again later."
+    },
+    "aydinlatma": "Your personal data (name, contact details, address, signature) is processed by {{firma}} to provide the service and is deleted {{ay}} months after your last job. You can contact the company to exercise your rights under the Turkish data protection law (KVKK).",
+    "aydinlatmaIletisim": "Contact: {{eposta}}"
+  }
+}

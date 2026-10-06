@@ -90,7 +90,13 @@
       "otomasyon_kurallari": "ऑटोमेशन नियम",
       "icerik_markalari": "ब्रांड वॉइस प्रोफ़ाइल",
       "icerik_sablonlari": "कंटेंट टेम्पलेट",
-      "ozel_alanlar": "कस्टम फ़ील्ड परिभाषाएँ"
+      "ozel_alanlar": "कस्टम फ़ील्ड परिभाषाएँ",
+      "saha_musterileri": "सर्विस ग्राहक",
+      "saha_lokasyonlari": "सर्विस पता",
+      "saha_cihazlari": "सर्विस उपकरण",
+      "saha_sablonlari": "चेकलिस्ट टेम्पलेट",
+      "saha_malzemeleri": "फ़ील्ड सामग्री",
+      "saha_teknisyenleri": "तकनीशियन"
     }
   }
 }

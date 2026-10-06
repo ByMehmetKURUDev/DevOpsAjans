@@ -440,6 +440,8 @@ export const NOINDEX_ROUTES = [
   '/asistan',
   // Faz 5M: bülten abonelik formu, çift onay ve ret/tercih sayfası (/bulten/...); noindex.
   '/bulten',
+  // Faz 6S: saha servisi — servis müşterisinin imzalı sayfası (/servis/<jeton>); kişiye özel, noindex.
+  '/servis',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

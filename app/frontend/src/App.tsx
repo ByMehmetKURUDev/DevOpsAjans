@@ -72,6 +72,9 @@ const AsistanSayfasi = lazy(() => import('./pages/AsistanSayfasi'));
 // Faz 5M: bülten — barındırılan abonelik formu, çift onay ve ret/tercih sayfası (site düzeni
 // dışında, prerender yok, noindex). Metinleri sayfanın kendisi yüklüyor (ek paket `bultenSayfa`).
 const BultenSayfasi = lazy(() => import('./pages/BultenSayfasi'));
+// Faz 6S: servis müşterisinin imzalı sayfası (/servis/<jeton>) — iş durumu, servis formu PDF'i, memnuniyet.
+// Site düzeni dışında, prerender yok, noindex; metinleri sayfa kendisi yüklüyor (ek paket `servisSayfa`).
+const ServisSayfasi = lazy(() => import('./pages/ServisSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -166,6 +169,8 @@ const AppRoutes = () => (
       <Route path="/bulten/onay/:jeton" element={<BultenSayfasi />} />
       <Route path="/bulten/tercih/:jeton" element={<BultenSayfasi />} />
       <Route path="/bulten/:anahtar" element={<BultenSayfasi />} />
+      {/* Faz 6S: saha servisi — servis müşterisinin girişsiz sayfası (imzalı jeton). */}
+      <Route path="/servis/:jeton" element={<ServisSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

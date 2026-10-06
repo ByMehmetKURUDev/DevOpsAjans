@@ -191,7 +191,8 @@
         "otomasyon_temizligi": "Eski otomasyon çalıştırma kayıtlarının temizliği (30 gün)",
         "ai_asistan_bakimi": "AI asistan: haftalık site yenileme ve sohbet saklama temizliği",
         "icerik_studyosu": "İçerik stüdyosu: paylaşım hatırlatması (30 dk önce) ve yayın zamanı olayı",
-        "eposta_pazarlama": "E-posta pazarlama gönderimleri (zamanlanmış kampanyalar, A/B kararı, damla dizileri)"
+        "eposta_pazarlama": "E-posta pazarlama gönderimleri (zamanlanmış kampanyalar, A/B kararı, damla dizileri)",
+        "saha_servisi": "Saha servisi: bakım hatırlatma, konum ve saklama temizliği"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

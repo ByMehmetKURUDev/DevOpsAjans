@@ -97,7 +97,8 @@
       "icerik": "Inhaltsbeitrag",
       "hesap": "Kundenkonto",
       "kisi": "Person im Ereignis",
-      "olay": "Ereignis"
+      "olay": "Ereignis",
+      "is_emri": "Außendienst-Arbeitsauftrag"
     },
     "alan": {
       "id": "ID",
@@ -145,7 +146,10 @@
       "planlanan_at": "Geplanter Zeitpunkt",
       "kampanya": "Kampagne",
       "not": "Notiz",
-      "zaman": "Zeit"
+      "zaman": "Zeit",
+      "musteri_eposta": "E-Mail des Kunden",
+      "adres": "Adresse",
+      "teknisyen": "Techniker"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -167,7 +171,9 @@
       "icerik_revizyon_istendi": "Überarbeitung angefordert",
       "icerik_yayin_zamani": "Veröffentlichungszeit erreicht",
       "icerik_yayinlandi": "Inhalt veröffentlicht",
-      "randevu_olusturuldu": "Termin gebucht"
+      "randevu_olusturuldu": "Termin gebucht",
+      "is_emri_olusturuldu": "Außendienst-Arbeitsauftrag erstellt",
+      "is_emri_tamamlandi": "Außendienst-Arbeitsauftrag abgeschlossen"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -189,7 +195,9 @@
       "icerik_revizyon_istendi": "Der Kunde hat über den Freigabelink oder das Panel eine Überarbeitung angefordert (inkl. Notiz).",
       "icerik_yayin_zamani": "Der geplante Zeitpunkt eines freigegebenen Beitrags ist erreicht (einmal pro Beitrag).",
       "icerik_yayinlandi": "Der Beitrag wurde manuell als veröffentlicht markiert.",
-      "randevu_olusturuldu": "Neue Buchung auf der Terminseite."
+      "randevu_olusturuldu": "Neue Buchung auf der Terminseite.",
+      "is_emri_olusturuldu": "Im Außendienst wurde ein Arbeitsauftrag angelegt (manuell, aus der Wartungsliste oder aus einer Buchung).",
+      "is_emri_tamamlandi": "Der Techniker hat den Auftrag abgeschlossen; die Person im Ereignis ist der Servicekunde."
     },
     "eylem": {
       "eposta": "E-Mail senden",

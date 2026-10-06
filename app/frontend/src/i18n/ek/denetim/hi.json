@@ -100,7 +100,12 @@
       "crm_formlar": "सीआरएम फ़ॉर्म",
       "otomasyon_kurallari": "ऑटोमेशन नियम",
       "ozel_alanlar": "कस्टम फ़ील्ड परिभाषाएँ",
-      "ozel_alan_degerleri": "कस्टम फ़ील्ड मान"
+      "ozel_alan_degerleri": "कस्टम फ़ील्ड मान",
+      "saha_ayarlari": "फ़ील्ड सर्विस सेटिंग्स",
+      "saha_teknisyenleri": "तकनीशियन",
+      "saha_cihazlari": "सर्विस उपकरण",
+      "saha_sablonlari": "चेकलिस्ट टेम्पलेट",
+      "saha_malzemeleri": "फ़ील्ड सामग्री"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

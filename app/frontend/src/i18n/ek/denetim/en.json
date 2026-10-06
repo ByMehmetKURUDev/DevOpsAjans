@@ -100,7 +100,12 @@
       "crm_formlar": "CRM forms",
       "otomasyon_kurallari": "Automation rules",
       "ozel_alanlar": "Custom field definitions",
-      "ozel_alan_degerleri": "Custom field values"
+      "ozel_alan_degerleri": "Custom field values",
+      "saha_ayarlari": "Field service settings",
+      "saha_teknisyenleri": "Technician",
+      "saha_cihazlari": "Service equipment",
+      "saha_sablonlari": "Checklist template",
+      "saha_malzemeleri": "Field material"
     },
     "hareket": {
       "baslik": "Account activity",

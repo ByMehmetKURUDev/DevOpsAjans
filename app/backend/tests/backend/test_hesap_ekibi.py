@@ -242,6 +242,32 @@ async def ekip(db_oturumu):
                                         bloklar=json.dumps([{"tur": "metin", "metin": "Merhaba"}])))
     ed = await _ekle(db, EpDiziler(hesap_email=s, ad="Sahibin dizisi", tetik="abonelik_onaylandi", liste_id=el.id, aktif=False))
     k.update(EL=el.id, EK=ek_.id, EF=ef.id, ES=es.id, EKP=ekp.id, ED=ed.id)
+    # Faz 6S: saha servisi izinleri (`saha_yonetim`, `saha_teknisyen`) üye/fatura rolünün varsayılanında
+    # yok — izinli üye ("sahaci") ayrıca; sahibin servis kayıtları ve sahacıya atanmış bir iş emri.
+    from models.saha_servisi import (
+        SahaCihazlari,
+        SahaIsAtamalari,
+        SahaIsEmirleri,
+        SahaLokasyonlari,
+        SahaMalzemeleri,
+        SahaMusterileri,
+        SahaSablonlari,
+        SahaTeknisyenleri,
+    )
+
+    k["sahaci"] = _e("sahaci")
+    await _uye_ekle(db, s, k["sahaci"], "uye", izinler=["projeler", "saha_yonetim", "saha_teknisyen"])
+    st = await _ekle(db, SahaTeknisyenleri(hesap_email=s, eposta=k["sahaci"], ad="Sahacı"))
+    sm = await _ekle(db, SahaMusterileri(hesap_email=s, ad="Servis müşterisi", eposta="servis@ornek.com"))
+    sl = await _ekle(db, SahaLokasyonlari(hesap_email=s, musteri_id=sm.id, ad="Ev", adres="Ekip Sk. 1"))
+    sc = await _ekle(db, SahaCihazlari(hesap_email=s, musteri_id=sm.id, lokasyon_id=sl.id, tur="Klima"))
+    ss = await _ekle(db, SahaSablonlari(hesap_email=s, ad="Ekip şablonu", maddeler="[]"))
+    smz = await _ekle(db, SahaMalzemeleri(hesap_email=s, ad="Gaz", birim="kg", birim_fiyat=100, stok=10.0))
+    si = await _ekle(db, SahaIsEmirleri(hesap_email=s, no=f"IE-EKIP-{uuid.uuid4().hex[:4]}", uid=uuid.uuid4().hex, tur="ariza",
+                                        durum="yeni", baslik="Ekip işi", musteri_id=sm.id, lokasyon_id=sl.id,
+                                        kontrol_listesi="[]", kontrol_yanitlari="{}"))
+    await _ekle(db, SahaIsAtamalari(is_emri_id=si.id, teknisyen_id=st.id, hesap_email=s))
+    k.update(ST=st.id, SM=sm.id, SL=sl.id, SC=sc.id, SS=ss.id, SMZ=smz.id, SI=si.id)
     return k
 
 
@@ -252,6 +278,8 @@ async def ekip(db_oturumu):
 #: Beklenen `"gecti"`: hesap/izin kontrolünden geçti (401 ya da hesap 403'ü değil);
 #: kayıt yok (404), gövde geçersiz (422), iş kuralı (409) olabilir.
 GOVDE_DOSYA = "__dosya__"
+#: Faz 6S: router düzeyinde iki izinden biri yeterli (yönetim ya da teknisyen).
+SAHA = ("saha_yonetim", "saha_teknisyen")
 MUSTERI_UCLARI = [
     ("GET", "/api/v1/entities/projects", ("projeler",), None, 200),
     ("GET", "/api/v1/entities/projects/all", ("projeler",), None, 200),
@@ -583,6 +611,58 @@ MUSTERI_UCLARI = [
     ("PUT", "/api/v1/eposta-pazarlamam/diziler/{ED}", ("pazarlama",), {"ad": "Yeni dizi adı"}, 200),
     ("DELETE", "/api/v1/eposta-pazarlamam/diziler/999999", ("pazarlama",), None, "gecti"),
     ("GET", "/api/v1/eposta-pazarlamam/diziler/{ED}/rapor", ("pazarlama",), None, 200),
+    # Faz 6S — saha servisi (`saha_yonetim` sevk/yönetim; `saha_teknisyen` yalnız kendine atanan işler).
+    ("GET", "/api/v1/saha-servisim/meta", SAHA, None, 200),
+    ("GET", "/api/v1/saha-servisim/ayarlar", ("saha_yonetim",), None, 200),
+    ("PUT", "/api/v1/saha-servisim/ayarlar", ("saha_yonetim",), {"firma_adi": "Ekip Servis"}, 200),
+    ("GET", "/api/v1/saha-servisim/teknisyenler", ("saha_yonetim",), None, 200),
+    ("POST", "/api/v1/saha-servisim/teknisyenler", ("saha_yonetim",), {"eposta": "aday-degil@ornek.com"}, "gecti"),
+    ("PUT", "/api/v1/saha-servisim/teknisyenler/{ST}", ("saha_yonetim",), {"ad": "Sahacı Usta"}, 200),
+    ("DELETE", "/api/v1/saha-servisim/teknisyenler/999999", ("saha_yonetim",), None, "gecti"),
+    ("GET", "/api/v1/saha-servisim/rizam", SAHA, None, 200),
+    ("POST", "/api/v1/saha-servisim/rizam", SAHA, {"surum": "eski", "onay": True}, "gecti"),
+    ("DELETE", "/api/v1/saha-servisim/rizam", SAHA, None, "gecti"),
+    ("GET", "/api/v1/saha-servisim/musteriler", ("saha_yonetim",), None, 200),
+    ("POST", "/api/v1/saha-servisim/musteriler", ("saha_yonetim",), {"ad": "Ekip müşterisi"}, 200),
+    ("GET", "/api/v1/saha-servisim/musteriler/{SM}", ("saha_yonetim",), None, 200),
+    ("PUT", "/api/v1/saha-servisim/musteriler/{SM}", ("saha_yonetim",), {"notlar": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/saha-servisim/musteriler/999999", ("saha_yonetim",), None, "gecti"),
+    ("POST", "/api/v1/saha-servisim/musteriler/{SM}/lokasyonlar", ("saha_yonetim",), {"ad": "Depo", "adres": "Sanayi"}, 200),
+    ("PUT", "/api/v1/saha-servisim/lokasyonlar/{SL}", ("saha_yonetim",), {"notlar": "Kapı kodu 12"}, 200),
+    ("DELETE", "/api/v1/saha-servisim/lokasyonlar/999999", ("saha_yonetim",), None, "gecti"),
+    ("POST", "/api/v1/saha-servisim/musteriler/{SM}/cihazlar", ("saha_yonetim",), {"tur": "Kombi"}, 200),
+    ("PUT", "/api/v1/saha-servisim/cihazlar/{SC}", ("saha_yonetim",), {"notlar": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/saha-servisim/cihazlar/999999", ("saha_yonetim",), None, "gecti"),
+    ("GET", "/api/v1/saha-servisim/cihazlar/{SC}/gecmis", ("saha_yonetim",), None, 200),
+    ("POST", "/api/v1/saha-servisim/cihazlar/{SC}/bakim-is-emri", ("saha_yonetim",), {}, "gecti"),
+    ("GET", "/api/v1/saha-servisim/sablonlar", ("saha_yonetim",), None, 200),
+    ("POST", "/api/v1/saha-servisim/sablonlar", ("saha_yonetim",), {"ad": "Ekip listesi", "maddeler": []}, 200),
+    ("PUT", "/api/v1/saha-servisim/sablonlar/{SS}", ("saha_yonetim",), {"ad": "Ekip şablonu 2"}, 200),
+    ("DELETE", "/api/v1/saha-servisim/sablonlar/999999", ("saha_yonetim",), None, "gecti"),
+    ("GET", "/api/v1/saha-servisim/malzemeler", SAHA, None, 200),
+    ("POST", "/api/v1/saha-servisim/malzemeler", ("saha_yonetim",), {"ad": "Vida"}, 200),
+    ("PUT", "/api/v1/saha-servisim/malzemeler/{SMZ}", ("saha_yonetim",), {"stok": 50}, 200),
+    ("DELETE", "/api/v1/saha-servisim/malzemeler/999999", ("saha_yonetim",), None, "gecti"),
+    ("GET", "/api/v1/saha-servisim/is-emirleri", ("saha_yonetim",), None, 200),
+    ("POST", "/api/v1/saha-servisim/is-emirleri", ("saha_yonetim",), {"musteri_id": 999999, "baslik": "Ekip işi"}, "gecti"),
+    ("GET", "/api/v1/saha-servisim/is-emirleri/{SI}", SAHA, None, 200),
+    ("PUT", "/api/v1/saha-servisim/is-emirleri/{SI}", ("saha_yonetim",), {"aciklama": "Ekipten"}, 200),
+    ("PUT", "/api/v1/saha-servisim/is-emirleri/{SI}/plan", ("saha_yonetim",), {"plan_bas": "2030-01-08T09:00:00Z"}, 200),
+    ("DELETE", "/api/v1/saha-servisim/is-emirleri/999999", ("saha_yonetim",), None, "gecti"),
+    ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/durum", SAHA, {"durum": "uydurma"}, "gecti"),
+    ("PUT", "/api/v1/saha-servisim/is-emirleri/{SI}/kontrol", SAHA, {"yanitlar": {}}, 200),
+    ("PUT", "/api/v1/saha-servisim/is-emirleri/{SI}/saha", SAHA, {"teknisyen_notu": "Ekipten"}, 200),
+    ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/fotograflar", SAHA, GOVDE_DOSYA, "gecti"),
+    ("DELETE", "/api/v1/saha-servisim/is-emirleri/{SI}/fotograflar/999999", SAHA, None, "gecti"),
+    ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/malzemeler", SAHA, {"ad": "Kablo", "miktar": 1}, 200),
+    ("DELETE", "/api/v1/saha-servisim/is-emirleri/{SI}/malzemeler/999999", SAHA, None, "gecti"),
+    ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/imza", SAHA, {"ad": "Ekip", "png": ""}, "gecti"),
+    ("GET", "/api/v1/saha-servisim/is-emirleri/{SI}/pdf", SAHA, None, 200),
+    ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/musteri-baglantisi", ("saha_yonetim",), None, 200),
+    ("GET", "/api/v1/saha-servisim/pano", ("saha_yonetim",), None, 200),
+    ("GET", "/api/v1/saha-servisim/islerim", SAHA, None, 200),
+    ("GET", "/api/v1/saha-servisim/raporlar", ("saha_yonetim",), None, 200),
+    ("GET", "/api/v1/saha-servisim/bakim", ("saha_yonetim",), None, 200),
 ]
 
 
@@ -626,6 +706,8 @@ def _izinli_uye(k, izinler):
         return k["apici"]
     if izinler == ("pazarlama",):  # Faz 5M: üye/fatura rolünün varsayılanında yok
         return k["pazarlamaci"]
+    if set(izinler) <= set(SAHA):  # Faz 6S: üye/fatura rolünün varsayılanında yok
+        return k["sahaci"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):
             return kisi
@@ -990,8 +1072,9 @@ async def test_yonetici_basligi_yok_sayar_ve_musteri_adina_yonetir(istemci, ekip
     y = await istemci.get("/api/v1/entities/invoices/all", headers=b)
     assert y.status_code == 200 and y.json()["total"] >= 1
     y = await istemci.get(f"/api/v1/musteri-hesaplari/{k['sahip']}/uyeler", headers=yonetici_basligi)
-    # Faz 4A: fikstürde `api` izinli dördüncü üye (apici) var; Faz 5M: `pazarlama` izinli beşinci (pazarlamaci).
-    assert y.status_code == 200 and len(y.json()["uyeler"]) == 5
+    # Faz 4A: fikstürde `api` izinli dördüncü üye (apici) var; Faz 5M: `pazarlama` izinli beşinci (pazarlamaci);
+    # Faz 6S: saha servisi izinli altıncı (sahaci).
+    assert y.status_code == 200 and len(y.json()["uyeler"]) == 6
     y = await istemci.post(
         f"/api/v1/musteri-hesaplari/{k['sahip']}/uyeler", json={"email": _e("ajans"), "rol": "uye"}, headers=yonetici_basligi
     )

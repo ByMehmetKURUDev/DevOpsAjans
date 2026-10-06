@@ -38,7 +38,9 @@
       "otomasyon": "自动化规则",
       "asistan": "AI 助手与知识库",
       "icerik": "内容工作室和内容审批",
-      "pazarlama": "邮件营销"
+      "pazarlama": "邮件营销",
+      "saha_yonetim": "现场服务 —— 管理与调度",
+      "saha_teknisyen": "现场服务 —— 技术人员"
     },
     "durum": {
       "davet": "等待接受邀请",

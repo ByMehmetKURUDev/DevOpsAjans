@@ -480,6 +480,21 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             a = await _kayit(db, CrmAdaylari, r.crm_aday_id)
             if a is not None:
                 b["aday"] = aday_sozlugu(a)
+    elif on == "is_emri":
+        from models.saha_servisi import SahaIsEmirleri, SahaMusterileri
+
+        ie = await _kayit(db, SahaIsEmirleri, veri.get("is_emri_id"))
+        if ie is None:
+            return None
+        from services import saha_kayit as _sk
+
+        m = await _kayit(db, SahaMusterileri, ie.musteri_id)
+        teknik = [t.ad for t in await _sk.atanan_teknisyenler(db, ie.id)]
+        b["is_emri"] = {"id": ie.id, "no": ie.no, "baslik": ie.baslik, "tur": ie.tur, "oncelik": ie.oncelik, "durum": ie.durum,
+                        "musteri_ad": m.ad if m and not m.anonim else None,
+                        "musteri_eposta": m.eposta if m and not m.anonim else None,
+                        "adres": await _sk.adres_metni(db, ie), "baslangic": iso(ie.plan_bas),
+                        "teknisyen": ", ".join(teknik) or None, "puan": ie.memnuniyet_puan}
     if proje_id:
         from models.projects import Projects
 

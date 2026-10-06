@@ -90,7 +90,13 @@
       "otomasyon_kurallari": "Otomasyon kuralları",
       "icerik_markalari": "Marka sesi profili",
       "icerik_sablonlari": "İçerik şablonu",
-      "ozel_alanlar": "Özel alan tanımları"
+      "ozel_alanlar": "Özel alan tanımları",
+      "saha_musterileri": "Servis müşterisi",
+      "saha_lokasyonlari": "Servis adresi",
+      "saha_cihazlari": "Servis cihazı",
+      "saha_sablonlari": "Kontrol listesi şablonu",
+      "saha_malzemeleri": "Saha malzemesi",
+      "saha_teknisyenleri": "Teknisyen"
     }
   }
 }

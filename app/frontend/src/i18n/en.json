@@ -490,7 +490,8 @@
     "tabRandevu": "Appointments",
     "tabOtomasyon": "Automation",
     "tabAiAsistan": "AI assistant",
-    "tabEpostaPazarlama": "Email marketing"
+    "tabEpostaPazarlama": "Email marketing",
+    "tabSahaServisi": "Field service"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

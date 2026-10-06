@@ -490,7 +490,8 @@
     "tabRandevu": "अपॉइंटमेंट",
     "tabOtomasyon": "ऑटोमेशन",
     "tabAiAsistan": "AI सहायक",
-    "tabEpostaPazarlama": "ईमेल मार्केटिंग"
+    "tabEpostaPazarlama": "ईमेल मार्केटिंग",
+    "tabSahaServisi": "फ़ील्ड सर्विस"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

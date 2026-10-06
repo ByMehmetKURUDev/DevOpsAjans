@@ -38,7 +38,9 @@
       "otomasyon": "Automation rules",
       "asistan": "AI assistant and knowledge base",
       "icerik": "Content studio and content approval",
-      "pazarlama": "Email marketing"
+      "pazarlama": "Email marketing",
+      "saha_yonetim": "Field service — management and dispatch",
+      "saha_teknisyen": "Field service — technician"
     },
     "durum": {
       "davet": "Invitation pending",
