@@ -583,7 +583,7 @@
       },
       "ozet": {
         "baslik": "Haftalık özet (Pazartesi 08:00)",
-        "aciklama": "Her Pazartesi sabahı yöneticilere bu hafta bakılacak işlerin özeti gider: geciken faturalar, açık destek talepleri, takip bekleyen adaylar, yanıtsız teklifler, onay bekleyen içerikler, bekleyen belgeler, yaklaşan yenilemeler ve erişilemeyen siteler. Hepsi sıfırsa gönderilmez.",
+        "aciklama": "Her Pazartesi sabahı yöneticilere bu hafta bakılacak işlerin özeti gider: geciken faturalar, açık destek talepleri, gelen kutusunda yanıt bekleyenler, takip bekleyen adaylar, yanıtsız teklifler, onay bekleyen içerikler, bekleyen belgeler, yaklaşan yenilemeler ve erişilemeyen siteler. Hepsi sıfırsa gönderilmez.",
         "acik": "Açık",
         "kapali": "Kapalı",
         "acildi": "Haftalık özet açıldı.",
@@ -616,7 +616,8 @@
           "icerik": "Müşteri onayı bekleyen içerikler",
           "belgeler": "Bekleyen belge talepleri",
           "yenilemeler": "14 gün içinde yenilenecekler",
-          "siteler": "Şu an erişilemeyen siteler"
+          "siteler": "Şu an erişilemeyen siteler",
+          "gelen_kutusu": "Gelen kutusunda yanıt bekleyenler"
         },
         "ek": {
           "toplam": "Toplam kalan: {{tutar}}",
@@ -647,7 +648,9 @@
           "bekliyor": "bekliyor",
           "son_tarihe": "son tarihe {{sayi}} gün",
           "kaldi": "{{sayi}} gün kaldı",
-          "doldu": "süresi {{sayi}} gün önce doldu"
+          "doldu": "süresi {{sayi}} gün önce doldu",
+          "yanit_bekliyor": "{{sayi}} gündür yanıt bekliyor",
+          "yanit_bekliyor_bugun": "bugün geldi"
         }
       }
     }

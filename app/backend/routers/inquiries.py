@@ -273,7 +273,8 @@ async def create_inquiries(
                 title=baslik,
                 body=govde,
                 recipients=await admin_recipients(db),
-                link="/admin",
+                # Faz 5G: iletişim formu mesajları gelen kutusunda (iletişim formu süzgeci, öğe seçili).
+                link=f"/admin?sekme=gelenKutusu&kaynak=iletisim&oge=iletisim:{result.id}",
                 ref_type="inquiry",
                 ref_id=result.id,
             )

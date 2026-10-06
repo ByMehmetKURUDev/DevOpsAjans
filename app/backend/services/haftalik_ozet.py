@@ -16,7 +16,8 @@ saatiyle PAZARTESİ 08:00'den sonraki ilk turda; ISO hafta başına BİR kez. Ki
 * Kişi kendi bildirim tercihinden e-postayı kapatabilir (dağıtıcının olağan kuralı).
 
 İçerik (bölüm başına sayı + en çok 5 örnek satır): vadesi geçmiş faturalar (para birimine göre kalan),
-açık destek talepleri ve SLA ihlalleri, sonraki adımı gelmiş / 7+ gündür hareketsiz CRM adayları, 3+
+açık destek talepleri ve SLA ihlalleri, gelen kutusunda yanıt bekleyenler (Faz 5G; destek talepleri ve
+CRM bölümündeki adayların talepleri hariç — çift sayım yok, bkz. `_gelen_kutusu`), sonraki adımı gelmiş / 7+ gündür hareketsiz CRM adayları, 3+
 gündür yanıtsız teklifler, müşteri onayı bekleyen içerikler, bekleyen belge talepleri, 14 gün içinde
 yenilenecek alan adı / SSL (elle yenilenen) / hosting, şu an erişilemeyen siteler.
 
@@ -183,6 +184,61 @@ async def _destek(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     return _bolum("destek", "tickets", len(talepler), asilan + digerleri, sla_asildi=len(asilan))
 
 
+#: Faz 5G — haftalık özette gelen kutusu kaynaklarının Türkçe adları (e-posta metni).
+GELEN_KAYNAK_ADLARI = {
+    "iletisim": "İletişim formu", "fiyat_teklifi": "Fiyat teklifi isteği", "sohbet": "Müşteri sohbeti",
+    "kartvizit": "Kartvizit mesajı", "randevu": "Randevu", "geri_bildirim": "Hata bildirimi",
+    "icerik_revizyon": "İçerik revizyonu", "belge": "Yüklenen belge",
+}
+
+
+async def _gelen_kutusu(db: AsyncSession, an: datetime) -> Dict[str, Any]:
+    """Faz 5G — gelen kutusunda yanıt bekleyenler. ÇİFT SAYIM YOK:
+
+    * Destek talepleri sayılmıyor: "Açık destek talepleri" bölümü onları SLA durumuyla zaten sayıyor.
+    * İletişim formu / fiyat teklifi isteğinin CRM adayı "Takip bekleyen CRM adayları" bölümünde zaten
+      görünüyorsa (sonraki adımı gelmiş ya da 7+ gündür hareketsiz) burada sayılmıyor.
+    * Müşteri onayı bekleyen içerik / bekleyen belge talebi (top müşteride) ile gelen kutusundaki
+      içerik revizyonu / yüklenen belge (top bizde) zaten ayrık kümeler.
+    """
+    from models.crm import CrmAdaylari
+    from services import crm
+    from services import gelen_kutusu as gk
+
+    bg = gk.Baglam(kisi="", an=an)
+    sz = gk.Suzgec(durum="bekleyen")
+    ogeler: List[Dict[str, Any]] = []
+    for kaynak in gk.KAYNAKLAR:
+        if kaynak == "destek":
+            continue
+        ogeler += [o for o in await gk._kaynagi_yukle(db, kaynak, sz, bg) if o["durum"] in gk.BEKLEYEN]
+    aday_idleri = {o["ek"].get("crm_aday_id") for o in ogeler if o["kaynak"] in ("iletisim", "fiyat_teklifi")} - {None}
+    crmde: set = set()
+    if aday_idleri:
+        acik = await crm.acik_asama_anahtarlari(db)
+        adaylar = (
+            await db.execute(select(CrmAdaylari).where(CrmAdaylari.id.in_(list(aday_idleri)), CrmAdaylari.asama.in_(acik)))
+        ).scalars().all() if acik else []
+        sonlar = await crm.son_hareketler(db, adaylar) if adaylar else {}
+        bugun = _bugun(an)
+        for a in adaylar:
+            tarih = crm.tarih_coz(a.sonraki_adim_tarihi)
+            son = sonlar.get(int(a.id))
+            if (tarih is not None and tarih <= bugun) or (son is not None and (an - son).days >= HAREKETSIZ_GUN):
+                crmde.add(int(a.id))
+    ogeler = [o for o in ogeler if o["ek"].get("crm_aday_id") not in crmde or o["ek"].get("crm_aday_id") is None]
+    ogeler.sort(key=lambda o: o["_zaman"])  # en uzun bekleyen önce
+    kaynaklar: Dict[str, int] = {}
+    for o in ogeler:
+        kaynaklar[o["kaynak"]] = kaynaklar.get(o["kaynak"], 0) + 1
+    satirlar = [
+        _satir(o.get("kisi_ad") or o.get("kisi_eposta"), ayrinti=o.get("baslik") or o.get("ozet"), tur="yanit_bekliyor",
+               gun=max(0, (an - o["_zaman"]).days))
+        for o in ogeler
+    ]
+    return _bolum("gelen_kutusu", "gelenKutusu", len(satirlar), satirlar, kaynaklar=kaynaklar)
+
+
 async def _crm(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     from models.crm import CrmAdaylari
     from services import crm
@@ -307,7 +363,7 @@ async def _siteler(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     return _bolum("siteler", "siteler", len(satirlar), satirlar)
 
 
-BOLUMLER = (_faturalar, _destek, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler)
+BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler)
 
 
 async def ozet_hazirla(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
@@ -337,6 +393,7 @@ async def ozet_hazirla(db: AsyncSession, an: Optional[datetime] = None) -> Dict[
 BASLIKLAR = {
     "faturalar": "Vadesi geçmiş faturalar",
     "destek": "Açık destek talepleri",
+    "gelen_kutusu": "Gelen kutusunda yanıt bekleyenler",
     "crm": "Takip bekleyen CRM adayları",
     "teklifler": f"{YANITSIZ_GUN}+ gündür yanıtsız teklifler",
     "icerik": "Müşteri onayı bekleyen içerikler",
@@ -363,6 +420,8 @@ def _bolum_ek_metni(b: Dict[str, Any]) -> str:
         return f"{ek.get('sonraki_adim', 0)} sonraki adımı gelmiş, {ek.get('hareketsiz', 0)} {HAREKETSIZ_GUN}+ gündür hareketsiz"
     if b["anahtar"] == "belgeler" and ek.get("geciken"):
         return f"{ek['geciken']} talebin son tarihi geçti"
+    if b["anahtar"] == "gelen_kutusu" and ek.get("kaynaklar"):
+        return ", ".join(f"{GELEN_KAYNAK_ADLARI.get(k, k)} {n}" for k, n in ek["kaynaklar"].items())
     return ""
 
 
@@ -380,6 +439,7 @@ def _satir_metni(s: Dict[str, Any]) -> str:
         "gecikti": f"son tarih {gun} gün geçti",
         "bekliyor": "bekliyor" if gun is None else f"son tarihe {gun} gün",
         "kapali": f"{gun} gündür erişilemiyor" if gun else "bugün erişilemiyor",
+        "yanit_bekliyor": f"{gun} gündür yanıt bekliyor" if gun else "bugün geldi",
     }.get(tur or "")
     if tur in YENILEME_ADLARI:
         durum = f"{YENILEME_ADLARI[tur]}: " + (f"{gun} gün kaldı" if (gun or 0) >= 0 else f"süresi {-(gun or 0)} gün önce doldu")

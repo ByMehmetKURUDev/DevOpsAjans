@@ -81,7 +81,8 @@
         "acik": "public",
         "asistan": "expert assistant",
         "yonetici": "admin",
-        "ai_asistan": "AI assistant (websites)"
+        "ai_asistan": "AI assistant (websites)",
+        "gelen_kutusu": "inbox drafts"
       },
       "kapat": "Close",
       "duzenleBaslik": "Edit assistant",

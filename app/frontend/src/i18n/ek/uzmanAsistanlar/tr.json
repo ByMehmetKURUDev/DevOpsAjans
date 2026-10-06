@@ -81,7 +81,8 @@
         "acik": "herkese açık",
         "asistan": "uzman asistan",
         "yonetici": "yönetici",
-        "ai_asistan": "AI asistan (siteler)"
+        "ai_asistan": "AI asistan (siteler)",
+        "gelen_kutusu": "gelen kutusu taslakları"
       },
       "kapat": "Kapat",
       "duzenleBaslik": "Asistanı düzenle",

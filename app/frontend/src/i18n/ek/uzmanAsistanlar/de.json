@@ -81,7 +81,8 @@
         "acik": "öffentlich",
         "asistan": "Fachassistent",
         "yonetici": "Admin",
-        "ai_asistan": "KI-Assistent (Websites)"
+        "ai_asistan": "KI-Assistent (Websites)",
+        "gelen_kutusu": "Posteingang-Entwürfe"
       },
       "kapat": "Schließen",
       "duzenleBaslik": "Assistent bearbeiten",

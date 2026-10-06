@@ -35,6 +35,11 @@ interface Props<K extends string> {
   onSec: (sekme: K) => void;
   /** Sekme başına sayı rozeti (ör. okunmamış sohbet); grubun rozeti toplamdır. */
   rozetler?: Partial<Record<K, number>>;
+  /**
+   * Rozeti yalnız kendi düğmesinde görünen, grubun toplamına KATILMAYAN sekmeler (Faz 5G):
+   * sohbetler gelen kutusunun sayısında zaten var — Destek grubunda iki kez sayılmasın.
+   */
+  grubaKatilmayan?: readonly K[];
 }
 
 /**

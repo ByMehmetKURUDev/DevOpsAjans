@@ -10,8 +10,6 @@ import {
   Trash2,
   Edit3,
   X,
-  Mail,
-  CheckCircle2,
   Settings2,
   BarChart3,
   Users,
@@ -26,7 +24,6 @@ import {
   LayoutList,
   GitBranch,
   BellRing,
-  Briefcase,
   Boxes,
   CalendarDays,
   Globe,
@@ -64,6 +61,7 @@ import {
   Send,
   Wrench,
   Ticket,
+  Inbox,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -72,7 +70,8 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import YonetimMenusu from '@/components/admin/YonetimMenusu';
-import { menudeVar, sonSekmeyiOku, sonSekmeyiYaz } from '@/lib/yonetimMenusu';
+import { sekmeyiCoz, sonSekmeyiOku, sonSekmeyiYaz } from '@/lib/yonetimMenusu';
+import { sayacGetir as gelenKutusuSayaci } from '@/lib/gelenKutusu';
 // Faz 7M — mobil kabuk: "Uygulama olarak yükle", çevrimdışı şeridi ve iskeleti.
 import {
   CevrimdisiIskelet,
@@ -201,8 +200,12 @@ const YasalBilgilerAyari = ekliLazy('yasalAyar', () => import('@/components/admi
 // Faz 3Z — Zaman (sayaç, kayıtlar, çizelge, iş yükü, onay, faturaya aktar) ve Proje şablonları.
 const ZamanTakibi = ekliLazy('zamanTakibi', () => import('@/components/admin/ZamanTakibi'));
 const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/admin/ProjeSablonlari'));
+// Faz 5G — birleşik gelen kutusu + AI yanıt taslağı (eski "İletişim formu" sekmesinin yerine); ek paket `gelenKutusu`.
+const GelenKutusu = ekliLazy('gelenKutusu', () => import('@/components/admin/GelenKutusu'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
+/** Faz 5G: gelen kutusu sekmesi kapalıyken yanıt bekleyen sayısı (menü rozeti). */
+const GELEN_KUTUSU_ARALIGI = 60000;
 type DestekBolumu = 'kullanici' | 'calisan' | 'rapor' | 'kurallar' | 'ayarlar';
 const DESTEK_BOLUMLERI: readonly DestekBolumu[] = ['kullanici', 'calisan', 'rapor', 'kurallar', 'ayarlar'];
 /** Destek sekmesinin `?bolum=` alt bölümü (yalnız `sekme=tickets` iken). */
@@ -211,10 +214,12 @@ function istenenDestekBolumu(arama: string): DestekBolumu | null {
   const b = q.get('bolum') as DestekBolumu | null;
   return q.get('sekme') === 'tickets' && b && DESTEK_BOLUMLERI.includes(b) ? b : null;
 }
-/** `?sekme=` ile doğrudan açılan sekme (bildirim bağlantıları); menüde olmayan ad yok sayılır. */
+/**
+ * `?sekme=` ile doğrudan açılan sekme (bildirim bağlantıları); menüde olmayan ad yok sayılır.
+ * Faz 5G: kaldırılan eski sekme adları yeni yerlerine çevrilir (`?sekme=inquiries` → gelen kutusu).
+ */
 function istenenSekme(arama: string): string | null {
-  const istenen = new URLSearchParams(arama).get('sekme') || '';
-  return menudeVar(istenen) ? istenen : null;
+  return sekmeyiCoz(new URLSearchParams(arama).get('sekme'));
 }
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
@@ -328,7 +333,7 @@ type Tab =
   | 'abonelik'
   | 'siteler'
   | 'tickets'
-  | 'inquiries'
+  | 'gelenKutusu'
   | 'siteAnalizleri'
   | 'denetim'
   | 'guvenlik'
@@ -456,8 +461,8 @@ export default function AdminPanel() {
   // Bağlantı yoksa bu tarayıcıda en son açılan sekme (yoksa Analitik).
   const [tab, setTab] = useState<Tab>(() => {
     try {
-      const istenen = istenenSekme(window.location.search) || sonSekmeyiOku();
-      if (istenen && menudeVar(istenen)) return istenen as Tab;
+      const istenen = istenenSekme(window.location.search) || sekmeyiCoz(sonSekmeyiOku());
+      if (istenen) return istenen as Tab;
     } catch {
       /* sunucuda çizim: pencere yok */
     }
@@ -479,10 +484,11 @@ export default function AdminPanel() {
   }, [tab]);
   // Faz 2G — "Müşteri sohbetleri" sekmesindeki okunmamış rozeti.
   const [okunmamisMesaj, setOkunmamisMesaj] = useState(0);
+  // Faz 5G — gelen kutusunda yanıt bekleyen (menü rozeti; Destek grubunun toplamı bu).
+  const [gelenSayisi, setGelenSayisi] = useState(0);
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(false);
@@ -495,9 +501,7 @@ export default function AdminPanel() {
   const stageLabel = useStageLabels();
   const asamaListesi = useStages();
   const [projeFiltresi, setProjeFiltresi] = useState<'musteri' | 'vaka' | 'hepsi'>('musteri');
-  // Uzman promptlari uretilen talep; modal bunun uzerinden aciliyor.
-  const [promptTalebi, setPromptTalebi] = useState<Inquiry | null>(null);
-  // Ayni modal projeler sekmesinden de aciliyor.
+  // Uzman promptları modalı projeler sekmesinden açılıyor (Faz 5G: talepler için gelen kutusunda).
   const [promptProjesi, setPromptProjesi] = useState<Project | null>(null);
   // Davet e-postasi gitmediyse metni burada tutup yoneticiye elden
   // gondermesi icin veriyoruz. Yoksa davet sessizce kaybolur ve musteri
@@ -561,6 +565,14 @@ export default function AdminPanel() {
     },
     { aralik: MESAJ_OZETI_ARALIGI, etkin: !!user && isAdmin && tab !== 'mesajlar' }
   );
+  // Faz 5G: gelen kutusu kapalıyken 60 sn'de bir yanıt bekleyen sayısı (açıkken liste kendisi bildiriyor).
+  useYoklama(
+    async () => {
+      const s = await gelenKutusuSayaci();
+      setGelenSayisi(s.toplam);
+    },
+    { aralik: GELEN_KUTUSU_ARALIGI, etkin: !!user && isAdmin && tab !== 'gelenKutusu' }
+  );
 
   // Atama secicisini doldurmak icin ekip listesi. Destek sekmesine
   // girilene kadar cekilmiyor; acilistaki toplu istege eklenmedi
@@ -605,10 +617,9 @@ export default function AdminPanel() {
   const loadAll = useCallback(async () => {
     setLoading(true);
     try {
-      const [pRes, bRes, iRes, invRes, tRes] = await Promise.all([
+      const [pRes, bRes, invRes, tRes] = await Promise.all([
         client.entities.projects.query({ sort: '-created_at', limit: 200 }),
         client.entities.blog_posts.query({ sort: '-created_at', limit: 200 }),
-        client.entities.inquiries.query({ sort: '-created_at', limit: 200 }),
         client.entities.invoices.query({ sort: '-created_at', limit: 200 }),
         client.entities.support_tickets.query({
           sort: '-created_at',
@@ -617,7 +628,6 @@ export default function AdminPanel() {
       ]);
       setProjects((pRes?.data?.items ?? []) as Project[]);
       setPosts((bRes?.data?.items ?? []) as BlogPost[]);
-      setInquiries((iRes?.data?.items ?? []) as Inquiry[]);
       setInvoices((invRes?.data?.items ?? []) as Invoice[]);
       setTickets((tRes?.data?.items ?? []) as Ticket[]);
     } catch (e) {
@@ -937,20 +947,6 @@ export default function AdminPanel() {
     toast.success(t('admin.inquiryConverted'));
   };
 
-  const markInquiryResolved = async (inq: Inquiry) => {
-    try {
-      await client.entities.inquiries.update({
-        id: String(inq.id),
-        data: { status: 'resolved' },
-      });
-      toast.success(t('admin.markedResolved'));
-      loadAll();
-    } catch (e) {
-      const err = e as { message?: string };
-      toast.error(err?.message || t('admin.updateFailed'));
-    }
-  };
-
   /* ---------------- Render ---------------- */
   if (authLoading) {
     return (
@@ -1072,7 +1068,7 @@ export default function AdminPanel() {
     { key: 'uzmanAsistanlar', label: t('ui.tabUzmanAsistanlar'), icon: Bot },
     { key: 'dosyalar', label: t('ui.tabDosyalar'), icon: FolderOpen },
     { key: 'bilgiBankasi', label: t('ui.tabBilgiBankasi'), icon: BookOpen },
-    { key: 'inquiries', label: t('ui.tabInquiries'), icon: Mail },
+    { key: 'gelenKutusu', label: t('ui.tabGelenKutusu'), icon: Inbox },
     { key: 'crm', label: t('ui.tabCrm'), icon: Handshake },
     { key: 'dinamikQr', label: t('ui.tabDinamikQr'), icon: QrCode },
     { key: 'kartvizit', label: t('ui.tabKartvizit'), icon: IdCard },
@@ -1126,7 +1122,14 @@ export default function AdminPanel() {
       </Suspense>
 
       {/* Menü: gruplar + seçili grubun bölümleri (lib/yonetimMenusu.ts). */}
-      <YonetimMenusu<Tab> sekmeler={TABS} aktif={tab} onSec={setTab} rozetler={{ mesajlar: okunmamisMesaj }} />
+      {/* Faz 5G: sohbetler gelen kutusu sayısında da var — Destek grubunun toplamı onları bir kez sayar. */}
+      <YonetimMenusu<Tab>
+        sekmeler={TABS}
+        aktif={tab}
+        onSec={setTab}
+        rozetler={{ mesajlar: okunmamisMesaj, gelenKutusu: gelenSayisi }}
+        grubaKatilmayan={['mesajlar']}
+      />
 
       {tab === 'mesajlar' && (
         <Suspense
@@ -2325,119 +2328,10 @@ export default function AdminPanel() {
             </div>
           )}
 
-          {tab === 'inquiries' && (
-            <div>
-              <h2 className="text-xl font-semibold mb-6">
-                {t('admin.tabInquiries')} ({inquiries.length})
-              </h2>
-              <div className="grid gap-3">
-                {inquiries.map((inq) => (
-                  <div key={inq.id} className="p-5 rounded-xl glass">
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold">{inq.name}</h3>
-                          <span
-                            className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full ${
-                              inq.status === 'converted'
-                                ? 'bg-purple-500/15 text-purple-300'
-                                : inq.status === 'resolved'
-                                  ? 'bg-emerald-500/15 text-emerald-300'
-                                  : 'bg-pink-500/15 text-pink-300'
-                            }`}
-                          >
-                            {inq.status === 'converted'
-                              ? t('admin.convertedLabel')
-                              : inq.status === 'resolved'
-                                ? t('admin.resolved')
-                                : t('admin.newLabel')}
-                          </span>
-                        </div>
-                        <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
-                          <a
-                            href={`mailto:${inq.email}`}
-                            className="hover:text-foreground inline-flex items-center gap-1"
-                          >
-                            <Mail className="h-3 w-3" /> {inq.email}
-                          </a>
-                          {inq.phone && <span>{inq.phone}</span>}
-                          {inq.created_at && (
-                            <span>
-                              {new Date(inq.created_at).toLocaleDateString(
-                                'tr-TR'
-                              )}
-                            </span>
-                          )}
-                          {/*
-                            Kaynak yalnizca VARSA gosteriliyor. Olcum
-                            baslamadan once gelen taleplerde sutun bos;
-                            oraya "bilinmiyor" yazmak, gercekten bilinmeyeni
-                            bir kategori gibi gosterirdi.
-                          */}
-                          {inq.source && (
-                            <span className="rounded-full bg-white/5 px-2 py-0.5 font-mono text-[10px]">
-                              {inq.source}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      {/*
-                        Çevrilmiş talepte "projeye çevir" göstermiyoruz:
-                        ikinci kez basmak aynı müşteri için ikinci bir proje
-                        açar ve panelinde iki kopya görünür.
-                      */}
-                      <div className="flex flex-none flex-wrap justify-end gap-1">
-                        {/*
-                          Uzman promptları her talepte duruyor, çevrilmişte
-                          de: işe başlarken de, iş ortasında da aynı brief
-                          lazım oluyor.
-                        */}
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => setPromptTalebi(inq)}
-                          className="gap-1 text-purple-300"
-                        >
-                          <Sparkles className="h-4 w-4" />
-                          {t(inq.brief ? 'uzman.dugmeHazir' : 'uzman.dugme')}
-                        </Button>
-                        {inq.status !== 'converted' && (
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => talebiProjeyeCevir(inq)}
-                            className="gap-1 text-purple-300"
-                          >
-                            <Briefcase className="h-4 w-4" /> {t('admin.convertToProject')}
-                          </Button>
-                        )}
-                        {inq.status !== 'resolved' && inq.status !== 'converted' && (
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => markInquiryResolved(inq)}
-                            className="gap-1 text-emerald-300"
-                          >
-                            <CheckCircle2 className="h-4 w-4" /> {t('admin.resolved')}
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                    {inq.subject && (
-                      <p className="font-medium text-sm mb-2">{inq.subject}</p>
-                    )}
-                    <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-                      {inq.message}
-                    </p>
-                  </div>
-                ))}
-                {inquiries.length === 0 && (
-                  <div className="p-10 rounded-xl glass text-center text-muted-foreground">
-                    {t('admin.noInquiries')}
-                  </div>
-                )}
-              </div>
-            </div>
+          {tab === 'gelenKutusu' && (
+            <Suspense fallback={<div className="p-10 text-center text-muted-foreground"><Loader2 className="mx-auto h-5 w-5 animate-spin" /></div>}>
+              <GelenKutusu onProjeyeCevir={talebiProjeyeCevir} onSayac={setGelenSayisi} />
+            </Suspense>
           )}
         </>
       )}
@@ -3049,20 +2943,6 @@ export default function AdminPanel() {
           kayitliBrief={promptProjesi.brief}
           onSaved={loadAll}
           onClose={() => setPromptProjesi(null)}
-        />
-      )}
-
-      {promptTalebi && (
-        <UzmanPromptlari
-          kayitTuru="inquiries"
-          talepId={promptTalebi.id}
-          musteri={promptTalebi.name}
-          musteriEposta={promptTalebi.email || ''}
-          konu={promptTalebi.subject || ''}
-          mesaj={promptTalebi.message}
-          kayitliBrief={promptTalebi.brief}
-          onSaved={loadAll}
-          onClose={() => setPromptTalebi(null)}
         />
       )}
 

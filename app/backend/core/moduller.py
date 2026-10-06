@@ -802,7 +802,8 @@ MODULLER: Tuple[Modul, ...] = (
         ikon="Mail",
         kategori="hizmet",
         musteri_sekmesi=None,
-        yonetici_sekmesi="inquiries",
+        # Faz 5G: "İletişim formu" sekmesi kalktı; talepler Destek › Gelen kutusunda.
+        yonetici_sekmesi="gelenKutusu",
         gerekli_rol="admin",
         varsayilan_acik=True,
     ),

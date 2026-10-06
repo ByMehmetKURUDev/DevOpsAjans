@@ -583,7 +583,7 @@
       },
       "ozet": {
         "baslik": "Wochenübersicht (Montag 08:00)",
-        "aciklama": "Jeden Montagmorgen erhalten die Admins eine Übersicht über das, was diese Woche Aufmerksamkeit braucht: überfällige Rechnungen, offene Supportanfragen, nachzufassende Leads, unbeantwortete Angebote, Inhalte zur Freigabe, ausstehende Dokumente, anstehende Verlängerungen und nicht erreichbare Websites. Ist alles null, wird nichts gesendet.",
+        "aciklama": "Jeden Montagmorgen erhalten die Admins eine Übersicht über das, was diese Woche Aufmerksamkeit braucht: überfällige Rechnungen, offene Supportanfragen, unbeantwortete Einträge im Posteingang, nachzufassende Leads, unbeantwortete Angebote, Inhalte zur Freigabe, ausstehende Dokumente, anstehende Verlängerungen und nicht erreichbare Websites. Ist alles null, wird nichts gesendet.",
         "acik": "An",
         "kapali": "Aus",
         "acildi": "Wochenübersicht eingeschaltet.",
@@ -616,7 +616,8 @@
           "icerik": "Inhalte zur Kundenfreigabe",
           "belgeler": "Ausstehende Dokumentanfragen",
           "yenilemeler": "Verlängerungen in den nächsten 14 Tagen",
-          "siteler": "Derzeit nicht erreichbare Websites"
+          "siteler": "Derzeit nicht erreichbare Websites",
+          "gelen_kutusu": "Im Posteingang wartet auf Antwort"
         },
         "ek": {
           "toplam": "Offen insgesamt: {{tutar}}",
@@ -647,7 +648,9 @@
           "bekliyor": "ausstehend",
           "son_tarihe": "noch {{sayi}} Tage bis zur Frist",
           "kaldi": "noch {{sayi}} Tage",
-          "doldu": "vor {{sayi}} Tagen abgelaufen"
+          "doldu": "vor {{sayi}} Tagen abgelaufen",
+          "yanit_bekliyor": "wartet seit {{sayi}} Tagen auf Antwort",
+          "yanit_bekliyor_bugun": "heute eingegangen"
         }
       }
     }

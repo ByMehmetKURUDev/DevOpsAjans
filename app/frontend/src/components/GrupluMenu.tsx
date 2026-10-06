@@ -30,6 +30,11 @@ export interface GrupluMenuOzellikleri<K extends string, G extends string> {
   onSec: (sekme: K) => void;
   /** Sekme başına sayı rozeti (ör. okunmamış sohbet); grubun rozeti toplamdır. */
   rozetler?: Partial<Record<K, number>>;
+  /**
+   * Rozeti yalnız kendi düğmesinde görünen, grubun toplamına KATILMAYAN sekmeler (Faz 5G):
+   * sohbetler gelen kutusunun sayısında zaten var — Destek grubunda iki kez sayılmasın.
+   */
+  grubaKatilmayan?: readonly K[];
   tanim: readonly GrupTanimi<G>[];
   ikonlar: Record<G | typeof DIGER, LucideIcon>;
   paket: string;
@@ -54,6 +59,7 @@ export default function GrupluMenu<K extends string, G extends string>({
   aktif,
   onSec,
   rozetler = {},
+  grubaKatilmayan = [],
   tanim,
   ikonlar,
   paket,
@@ -111,7 +117,7 @@ export default function GrupluMenu<K extends string, G extends string>({
   };
 
   const grubunRozeti = (anahtar: G | typeof DIGER) =>
-    gruplar.find((g) => g.anahtar === anahtar)?.sekmeler.reduce((top, s) => top + (rozetler[s.key] || 0), 0) || 0;
+    gruplar.find((g) => g.anahtar === anahtar)?.sekmeler.reduce((top, s) => top + (grubaKatilmayan.includes(s.key) ? 0 : rozetler[s.key] || 0), 0) || 0;
 
   const kokOzniteligi = { [`data-${kimlik}-menusu`]: true };
 

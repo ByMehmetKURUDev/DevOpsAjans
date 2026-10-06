@@ -583,7 +583,7 @@
       },
       "ozet": {
         "baslik": "Weekly summary (Monday 08:00)",
-        "aciklama": "Every Monday morning admins get a summary of what needs attention this week: overdue invoices, open support requests, leads awaiting follow-up, unanswered quotes, content awaiting approval, pending documents, upcoming renewals and unreachable sites. Nothing is sent if everything is zero.",
+        "aciklama": "Every Monday morning admins get a summary of what needs attention this week: overdue invoices, open support requests, items waiting for a reply in the inbox, leads awaiting follow-up, unanswered quotes, content awaiting approval, pending documents, upcoming renewals and unreachable sites. Nothing is sent if everything is zero.",
         "acik": "On",
         "kapali": "Off",
         "acildi": "Weekly summary turned on.",
@@ -616,7 +616,8 @@
           "icerik": "Content awaiting client approval",
           "belgeler": "Pending document requests",
           "yenilemeler": "Renewals due within 14 days",
-          "siteler": "Sites currently unreachable"
+          "siteler": "Sites currently unreachable",
+          "gelen_kutusu": "Waiting for a reply in the inbox"
         },
         "ek": {
           "toplam": "Total outstanding: {{tutar}}",
@@ -647,7 +648,9 @@
           "bekliyor": "pending",
           "son_tarihe": "{{sayi}} days to due date",
           "kaldi": "{{sayi}} days left",
-          "doldu": "expired {{sayi}} days ago"
+          "doldu": "expired {{sayi}} days ago",
+          "yanit_bekliyor": "waiting for a reply for {{sayi}} days",
+          "yanit_bekliyor_bugun": "arrived today"
         }
       }
     }

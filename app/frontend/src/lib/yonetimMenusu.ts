@@ -38,7 +38,8 @@ export const GRUPLAR: readonly GrupTanimi[] = [
   },
   {
     anahtar: 'satis',
-    sekmeler: ['crm', 'inquiries', 'siteAnalizleri', 'clients', 'teklifler', 'sozlesmeler'],
+    // Faz 5G: eski "İletişim formu" (`inquiries`) sekmesi kalktı — öğeleri Destek › Gelen kutusunda.
+    sekmeler: ['crm', 'siteAnalizleri', 'clients', 'teklifler', 'sozlesmeler'],
   },
   {
     anahtar: 'projeler',
@@ -50,7 +51,7 @@ export const GRUPLAR: readonly GrupTanimi[] = [
   },
   {
     anahtar: 'destek',
-    sekmeler: ['tickets', 'mesajlar', 'siteler', 'bilgiBankasi', 'geriBildirim'],
+    sekmeler: ['gelenKutusu', 'tickets', 'mesajlar', 'siteler', 'bilgiBankasi', 'geriBildirim'],
   },
   {
     anahtar: 'araclar',
@@ -108,4 +109,16 @@ export function sonSekmeyiYaz(sekme: string): void {
 /** Ad menü tanımındaki bir sekme mi (`?sekme=` ve hatırlanan sekme için). */
 export function menudeVar(sekme: string | null | undefined): boolean {
   return !!sekme && GRUPLAR.some((g) => g.sekmeler.includes(sekme));
+}
+
+/**
+ * Kaldırılmış sekmelerin yeni yeri (eski `?sekme=` bağlantıları ve hatırlanan sekme için).
+ * Faz 5G: "İletişim formu" → Gelen kutusu (iletişim formu süzgeciyle açılır).
+ */
+export const ESKI_SEKMELER: Readonly<Record<string, string>> = { inquiries: 'gelenKutusu' };
+
+export function sekmeyiCoz(sekme: string | null | undefined): string | null {
+  if (!sekme) return null;
+  const yeni = ESKI_SEKMELER[sekme] ?? sekme;
+  return menudeVar(yeni) ? yeni : null;
 }
