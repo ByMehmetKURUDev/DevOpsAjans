@@ -96,7 +96,10 @@
       "saha_cihazlari": "Servis cihazı",
       "saha_sablonlari": "Kontrol listesi şablonu",
       "saha_malzemeleri": "Saha malzemesi",
-      "saha_teknisyenleri": "Teknisyen"
+      "saha_teknisyenleri": "Teknisyen",
+      "etkinlikler": "Etkinlik",
+      "etkinlik_bilet_turleri": "Bilet türü",
+      "etkinlik_indirim_kodlari": "İndirim kodu (etkinlik)"
     }
   }
 }

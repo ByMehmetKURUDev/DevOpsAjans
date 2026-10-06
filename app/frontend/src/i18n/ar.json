@@ -491,7 +491,8 @@
     "tabOtomasyon": "الأتمتة",
     "tabAiAsistan": "مساعد الذكاء الاصطناعي",
     "tabEpostaPazarlama": "التسويق عبر البريد",
-    "tabSahaServisi": "الخدمة الميدانية"
+    "tabSahaServisi": "الخدمة الميدانية",
+    "tabEtkinlik": "الفعاليات"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

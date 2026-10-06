@@ -105,7 +105,11 @@
       "saha_teknisyenleri": "Technician",
       "saha_cihazlari": "Service equipment",
       "saha_sablonlari": "Checklist template",
-      "saha_malzemeleri": "Field material"
+      "saha_malzemeleri": "Field material",
+      "etkinlikler": "Events",
+      "etkinlik_bilet_turleri": "Event ticket types",
+      "etkinlik_indirim_kodlari": "Event discount codes",
+      "etkinlik_listeleri": "Event list"
     },
     "hareket": {
       "baslik": "Account activity",

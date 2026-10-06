@@ -491,7 +491,8 @@
     "tabOtomasyon": "Автоматизация",
     "tabAiAsistan": "ИИ-ассистент",
     "tabEpostaPazarlama": "Email-маркетинг",
-    "tabSahaServisi": "Выездной сервис"
+    "tabSahaServisi": "Выездной сервис",
+    "tabEtkinlik": "Мероприятия"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

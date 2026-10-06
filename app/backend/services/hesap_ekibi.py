@@ -84,6 +84,10 @@ IZINLER: Tuple[str, ...] = (
     # değil: üye rolünde yalnız `saha_teknisyen` seçilir. Üye/fatura rolünün varsayılanında yok.
     "saha_yonetim",
     "saha_teknisyen",
+    # Faz 6E — etkinlik ve bilet: `etkinlik` yönetim (katılımcı kişisel verisi, duyuru e-postası; üyenin
+    # varsayılanında yok), `etkinlik_giris` YALNIZ kapıda okutma (üyenin varsayılanında var).
+    "etkinlik",
+    "etkinlik_giris",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -95,7 +99,7 @@ ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
     # Faz 4K/4M: üye kendi kartvizitini ve menü/katalog mağazalarını da yönetir.
     "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
-            "kartvizit", "menu", "randevu", "asistan", "icerik"),
+            "kartvizit", "menu", "randevu", "asistan", "icerik", "etkinlik_giris"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
@@ -138,7 +142,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 5R–5A arası varsayılan.
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
                    "kartvizit", "menu", "randevu"}),
-        # Faz 5A–5I arası varsayılan (asistan var; icerik yok).
+        # Faz 5A–5I/6E arası varsayılan (asistan var; icerik ve etkinlik_giris yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
                    "kartvizit", "menu", "randevu", "asistan"}),
     ),
@@ -210,6 +214,9 @@ OLAY_IZNI: Dict[str, str] = {
     # Faz 6S — bakım zamanı gelen cihazlar (hesaba; sevk/yönetim izni olan üyelere de).
     # Teknisyene "yeni iş" (`saha_is_atandi`) kişisel: yalnız atanan kişiye gider (burada yok).
     "saha_bakim_zamani": "saha_yonetim",
+    # Faz 6E — etkinliğe yeni kayıt / katılımcı iptali (sahibine).
+    "etkinlik_kayit": "etkinlik",
+    "etkinlik_iptal": "etkinlik",
 }
 
 DAVET_OLAYI = "hesap_davet"

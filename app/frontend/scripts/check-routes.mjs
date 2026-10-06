@@ -84,6 +84,14 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   // Faz 6S: saha servisi — servis müşterisinin imzalı sayfası (iş durumu, servis formu,
   // memnuniyet); jetona özel, prerender yok, noindex (sayfa + `_headers` X-Robots-Tag).
   '/servis/:jeton',
+  // Faz 6E: etkinlik sayfası, imzalı bilet ve kapı (görevli/panel okutucu) bağlantıları, hesabın
+  // etkinlik listesi — dinamik, sahibine ait; önizleme/robots/JSON-LD'yi Pages Function yazıyor
+  // (functions/etkinlik/[[yol]].js, functions/etkinlikler/[slug].js).
+  '/etkinlik/:slug',
+  '/etkinlik/:slug/bilet/:jeton',
+  '/etkinlik/giris/:jeton',
+  '/etkinlik/okut/:eid',
+  '/etkinlikler/:slug',
 ]);
 
 const missing = [...appRoutes].filter(

@@ -491,7 +491,8 @@
     "tabOtomasyon": "Otomasyon",
     "tabAiAsistan": "AI asistan",
     "tabEpostaPazarlama": "E-posta pazarlama",
-    "tabSahaServisi": "Saha servisi"
+    "tabSahaServisi": "Saha servisi",
+    "tabEtkinlik": "Etkinlikler"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

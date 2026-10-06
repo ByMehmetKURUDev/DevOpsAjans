@@ -63,7 +63,11 @@
       "ping": "परीक्षण इवेंट",
       "asistan_devredildi": "AI सहायक ने विज़िटर को व्यक्ति को सौंपा",
       "is_emri_olusturuldu": "फ़ील्ड वर्क ऑर्डर बनाया गया",
-      "is_emri_tamamlandi": "फ़ील्ड वर्क ऑर्डर पूरा हुआ"
+      "is_emri_tamamlandi": "फ़ील्ड वर्क ऑर्डर पूरा हुआ",
+      "etkinlik_kayit": "कार्यक्रम पंजीकरण पक्का",
+      "etkinlik_bilet_satildi": "कार्यक्रम का सशुल्क टिकट बिका",
+      "etkinlik_giris": "कार्यक्रम में प्रवेश चेक-इन",
+      "etkinlik_iptal": "कार्यक्रम टिकट रद्द"
     },
     "anahtar": {
       "yeni": "नई कुंजी",

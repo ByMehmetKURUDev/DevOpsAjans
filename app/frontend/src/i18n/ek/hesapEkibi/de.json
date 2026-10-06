@@ -40,7 +40,9 @@
       "icerik": "Content-Studio und Inhaltsfreigabe",
       "pazarlama": "E-Mail-Marketing",
       "saha_yonetim": "Außendienst — Verwaltung und Disposition",
-      "saha_teknisyen": "Außendienst — Techniker"
+      "saha_teknisyen": "Außendienst — Techniker",
+      "etkinlik": "Veranstaltungen und Tickets (Verwaltung)",
+      "etkinlik_giris": "Veranstaltungen: Ticketkontrolle am Einlass"
     },
     "durum": {
       "davet": "Einladung ausstehend",

@@ -557,6 +557,27 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("aylik_is_emri_siniri", "int", 300, en_az=0, en_cok=100000),
         ),
     ),
+    # Faz 6E — etkinlik ve bilet: seminer, atölye, konser, webinar, kurs tanıtım günü için kayıt,
+    # bilet türleri, indirim kodu, bekleme listesi, QR bilet (PDF + .ics), kapıda okutma (telefon
+    # kamerası / elle kod; görevli bağlantısı), duyuru ve etkinlik sonrası teşekkür + anket e-postası.
+    # Müşteri etkinliğinde yalnız ücretsiz kayıt (ödeme ajansın hesabına gidiyor). Varsayılan KAPALI,
+    # pakete bağlı değil (ayrı satılan modül; önerilen aylık 15 $). Ekip izinleri `etkinlik` (yönetim)
+    # ve `etkinlik_giris` (yalnız okutma). `aylik_etkinlik_siniri`: ayda en çok yeni etkinlik;
+    # `kapasite_siniri`: etkinlik başına en çok katılımcı.
+    Modul(
+        anahtar="etkinlik_bilet",
+        ad_varsayilan={"tr": "Etkinlik ve bilet", "en": "Events and tickets"},
+        ikon="Ticket",
+        kategori="is_araclari",
+        musteri_sekmesi="etkinlik",
+        yonetici_sekmesi="etkinlik",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("aylik_etkinlik_siniri", "int", 5, en_az=0, en_cok=1000),
+            AyarAlani("kapasite_siniri", "int", 500, en_az=1, en_cok=100000),
+        ),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

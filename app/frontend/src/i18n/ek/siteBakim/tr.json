@@ -192,7 +192,8 @@
         "ai_asistan_bakimi": "AI asistan: haftalık site yenileme ve sohbet saklama temizliği",
         "icerik_studyosu": "İçerik stüdyosu: paylaşım hatırlatması (30 dk önce) ve yayın zamanı olayı",
         "eposta_pazarlama": "E-posta pazarlama gönderimleri (zamanlanmış kampanyalar, A/B kararı, damla dizileri)",
-        "saha_servisi": "Saha servisi: bakım hatırlatma, konum ve saklama temizliği"
+        "saha_servisi": "Saha servisi: bakım hatırlatma, konum ve saklama temizliği",
+        "etkinlik_bakimi": "Etkinlik bakımı (ödeme tutmaları, bekleme listesi davetleri, teşekkür e-postası)"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir"

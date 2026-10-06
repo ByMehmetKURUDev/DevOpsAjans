@@ -63,7 +63,11 @@
       "ping": "Testereignis",
       "asistan_devredildi": "KI-Assistent hat einen Besucher an einen Menschen übergeben",
       "is_emri_olusturuldu": "Außendienst-Arbeitsauftrag erstellt",
-      "is_emri_tamamlandi": "Außendienst-Arbeitsauftrag abgeschlossen"
+      "is_emri_tamamlandi": "Außendienst-Arbeitsauftrag abgeschlossen",
+      "etkinlik_kayit": "Veranstaltungsanmeldung bestätigt",
+      "etkinlik_bilet_satildi": "Kostenpflichtiges Veranstaltungsticket verkauft",
+      "etkinlik_giris": "Einlass bei der Veranstaltung",
+      "etkinlik_iptal": "Veranstaltungsticket storniert"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

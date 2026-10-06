@@ -98,7 +98,8 @@
       "hesap": "Kundenkonto",
       "kisi": "Person im Ereignis",
       "olay": "Ereignis",
-      "is_emri": "Außendienst-Arbeitsauftrag"
+      "is_emri": "Außendienst-Arbeitsauftrag",
+      "etkinlik": "Veranstaltungsanmeldung"
     },
     "alan": {
       "id": "ID",
@@ -149,7 +150,9 @@
       "zaman": "Zeit",
       "musteri_eposta": "E-Mail des Kunden",
       "adres": "Adresse",
-      "teknisyen": "Techniker"
+      "teknisyen": "Techniker",
+      "kod": "Code",
+      "bilet_sayisi": "Anzahl Tickets"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -173,7 +176,11 @@
       "icerik_yayinlandi": "Inhalt veröffentlicht",
       "randevu_olusturuldu": "Termin gebucht",
       "is_emri_olusturuldu": "Außendienst-Arbeitsauftrag erstellt",
-      "is_emri_tamamlandi": "Außendienst-Arbeitsauftrag abgeschlossen"
+      "is_emri_tamamlandi": "Außendienst-Arbeitsauftrag abgeschlossen",
+      "etkinlik_kayit": "Anmeldung zur Veranstaltung",
+      "etkinlik_bilet_satildi": "Kostenpflichtiges Ticket verkauft",
+      "etkinlik_giris": "Einlass erfolgt",
+      "etkinlik_iptal": "Veranstaltungsticket storniert"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -197,7 +204,11 @@
       "icerik_yayinlandi": "Der Beitrag wurde manuell als veröffentlicht markiert.",
       "randevu_olusturuldu": "Neue Buchung auf der Terminseite.",
       "is_emri_olusturuldu": "Im Außendienst wurde ein Arbeitsauftrag angelegt (manuell, aus der Wartungsliste oder aus einer Buchung).",
-      "is_emri_tamamlandi": "Der Techniker hat den Auftrag abgeschlossen; die Person im Ereignis ist der Servicekunde."
+      "is_emri_tamamlandi": "Der Techniker hat den Auftrag abgeschlossen; die Person im Ereignis ist der Servicekunde.",
+      "etkinlik_kayit": "Eine Anmeldung wurde bestätigt (kostenpflichtige nach Zahlungseingang).",
+      "etkinlik_bilet_satildi": "Zahlung für eine kostenpflichtige Ticketbestellung ist eingegangen (nur Agentur-Veranstaltungen).",
+      "etkinlik_giris": "Ein Ticket wurde am Einlass gescannt (erster Einlass).",
+      "etkinlik_iptal": "Teilnehmende oder Veranstalter haben ein Ticket storniert."
     },
     "eylem": {
       "eposta": "E-Mail senden",

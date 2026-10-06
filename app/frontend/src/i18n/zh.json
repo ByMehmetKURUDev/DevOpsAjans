@@ -491,7 +491,8 @@
     "tabOtomasyon": "自动化",
     "tabAiAsistan": "AI 助手",
     "tabEpostaPazarlama": "邮件营销",
-    "tabSahaServisi": "现场服务"
+    "tabSahaServisi": "现场服务",
+    "tabEtkinlik": "活动"
   },
   "admin": {
     "loadError": "管理数据加载失败",

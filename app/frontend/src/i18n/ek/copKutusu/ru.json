@@ -96,7 +96,10 @@
       "saha_cihazlari": "Обслуживаемое оборудование",
       "saha_sablonlari": "Шаблон чек-листа",
       "saha_malzemeleri": "Материал выездного сервиса",
-      "saha_teknisyenleri": "Техник"
+      "saha_teknisyenleri": "Техник",
+      "etkinlikler": "Мероприятие",
+      "etkinlik_bilet_turleri": "Тип билета",
+      "etkinlik_indirim_kodlari": "Промокод (мероприятие)"
     }
   }
 }

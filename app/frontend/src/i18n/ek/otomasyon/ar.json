@@ -98,7 +98,8 @@
       "hesap": "حساب العميل",
       "kisi": "الشخص في الحدث",
       "olay": "الحدث",
-      "is_emri": "أمر عمل ميداني"
+      "is_emri": "أمر عمل ميداني",
+      "etkinlik": "تسجيل الفعالية"
     },
     "alan": {
       "id": "المعرّف",
@@ -149,7 +150,9 @@
       "zaman": "الوقت",
       "musteri_eposta": "بريد العميل",
       "adres": "العنوان",
-      "teknisyen": "الفني"
+      "teknisyen": "الفني",
+      "kod": "الرمز",
+      "bilet_sayisi": "عدد التذاكر"
     },
     "olay": {
       "aday_olusturuldu": "عميل محتمل جديد في CRM",
@@ -173,7 +176,11 @@
       "icerik_yayinlandi": "نُشر المحتوى",
       "randevu_olusturuldu": "حُجز موعد",
       "is_emri_olusturuldu": "تم إنشاء أمر عمل ميداني",
-      "is_emri_tamamlandi": "اكتمل أمر عمل ميداني"
+      "is_emri_tamamlandi": "اكتمل أمر عمل ميداني",
+      "etkinlik_kayit": "التسجيل في فعالية",
+      "etkinlik_bilet_satildi": "تم بيع تذكرة مدفوعة",
+      "etkinlik_giris": "تم الدخول عند الباب",
+      "etkinlik_iptal": "تم إلغاء تذكرة فعالية"
     },
     "olayAciklama": {
       "aday_olusturuldu": "عميل محتمل من نموذج أو تواصل أو تحليل موقع أو أُضيف يدويًا.",
@@ -197,7 +204,11 @@
       "icerik_yayinlandi": "وُضعت على المنشور علامة «منشور» يدويًا.",
       "randevu_olusturuldu": "حجز جديد في صفحة المواعيد.",
       "is_emri_olusturuldu": "فُتح أمر عمل في الخدمة الميدانية (يدويًا أو من قائمة الصيانة أو من حجز).",
-      "is_emri_tamamlandi": "أنهى الفني العمل؛ والشخص في الحدث هو عميل الخدمة."
+      "is_emri_tamamlandi": "أنهى الفني العمل؛ والشخص في الحدث هو عميل الخدمة.",
+      "etkinlik_kayit": "تم تأكيد التسجيل في فعالية (المدفوع بعد وصول الدفع).",
+      "etkinlik_bilet_satildi": "تم استلام دفعة طلب تذاكر مدفوعة (فعاليات الوكالة فقط).",
+      "etkinlik_giris": "تم مسح التذكرة عند الباب (أول دخول).",
+      "etkinlik_iptal": "ألغى المشارك أو المنظم تذكرة."
     },
     "eylem": {
       "eposta": "إرسال بريد إلكتروني",

@@ -495,6 +495,26 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
                         "musteri_eposta": m.eposta if m and not m.anonim else None,
                         "adres": await _sk.adres_metni(db, ie), "baslangic": iso(ie.plan_bas),
                         "teknisyen": ", ".join(teknik) or None, "puan": ie.memnuniyet_puan}
+    elif on == "etkinlik":
+        # Faz 6E — kayıt / giriş / iptal: olay verisinde sipariş kimliği var (kişi alanları kayıttan).
+        from models.etkinlik import EtkinlikBiletleri, Etkinlikler, EtkinlikSiparisleri
+
+        sp = await _kayit(db, EtkinlikSiparisleri, veri.get("siparis_id"))
+        et = await _kayit(db, Etkinlikler, veri.get("etkinlik_id"))
+        if sp is None or et is None:
+            return None
+        adet = (await db.execute(select(func.count(EtkinlikBiletleri.id)).where(
+            EtkinlikBiletleri.siparis_id == sp.id, EtkinlikBiletleri.durum != "iptal"))).scalar() or 0
+        b["etkinlik"] = {"id": et.id, "baslik": et.baslik, "baslangic": iso(et.baslangic), "durum": sp.durum, "kod": sp.kod,
+                         "ad": sp.ad, "eposta": sp.eposta, "telefon": sp.telefon,
+                         "bilet_sayisi": int(veri.get("bilet_sayisi") or adet),
+                         "toplam": round((sp.toplam or 0) / 100, 2), "para_birimi": sp.para_birimi}
+        if ajans and sp.crm_aday_id:
+            from models.crm import CrmAdaylari
+
+            a = await _kayit(db, CrmAdaylari, sp.crm_aday_id)
+            if a is not None:
+                b["aday"] = aday_sozlugu(a)
     if proje_id:
         from models.projects import Projects
 

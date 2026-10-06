@@ -75,7 +75,9 @@
       "icerik_hatirlatma": "कंटेंट: शेयर के लिए तैयार रिमाइंडर (30 मिनट पहले)",
       "pazarlama_askiya_alindi": "ईमेल मार्केटिंग: भेजना निलंबित",
       "saha_is_atandi": "मुझे नया फ़ील्ड काम सौंपा गया",
-      "saha_bakim_zamani": "रखरखाव के लिए देय उपकरण"
+      "saha_bakim_zamani": "रखरखाव के लिए देय उपकरण",
+      "etkinlik_kayit": "कार्यक्रम: नया पंजीकरण",
+      "etkinlik_iptal": "कार्यक्रम: टिकट रद्द"
     },
     "kanal": {
       "inapp": "पैनल",

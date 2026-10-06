@@ -113,6 +113,10 @@ HARIC_TABLOLAR = frozenset({
     # anonimleşiyor), hatırlatma kayıtları, analitik olayları ve logo kayıtları.
     # Sayfa/tür/kişi/istisna kaydediliyor.
     "randevular", "randevu_hatirlatmalari", "randevu_olaylari", "randevu_gorselleri",
+    # Faz 6E: etkinlik kayıtları/biletleri/bekleme listesi (herkese açık formdan, KİŞİSEL VERİ —
+    # saklama süresi dolunca anonimleşiyor), kapı okutmaları ve kapak görselleri. Etkinlik, bilet
+    # türü ve indirim kodu kaydediliyor; liste ayarı da.
+    "etkinlik_siparisleri", "etkinlik_biletleri", "etkinlik_bekleme", "etkinlik_okutmalar", "etkinlik_gorselleri",
     # Faz 4W: otomasyon kuyruğu/günlüğü (her olayda satır; kendi 30 günlük günlüğü var).
     # Kurallar, özel alan tanımları ve değerleri kaydediliyor.
     "otomasyon_calismalari",

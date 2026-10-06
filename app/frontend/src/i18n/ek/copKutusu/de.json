@@ -96,7 +96,10 @@
       "saha_cihazlari": "Servicegerät",
       "saha_sablonlari": "Checklisten-Vorlage",
       "saha_malzemeleri": "Außendienstmaterial",
-      "saha_teknisyenleri": "Techniker"
+      "saha_teknisyenleri": "Techniker",
+      "etkinlikler": "Veranstaltung",
+      "etkinlik_bilet_turleri": "Ticketart",
+      "etkinlik_indirim_kodlari": "Rabattcode (Veranstaltung)"
     }
   }
 }

@@ -63,7 +63,11 @@
       "ping": "Test olayı",
       "asistan_devredildi": "AI asistan ziyaretçiyi insana devretti",
       "is_emri_olusturuldu": "Saha iş emri oluşturuldu",
-      "is_emri_tamamlandi": "Saha iş emri tamamlandı"
+      "is_emri_tamamlandi": "Saha iş emri tamamlandı",
+      "etkinlik_kayit": "Etkinliğe kayıt onaylandı",
+      "etkinlik_bilet_satildi": "Etkinlik için ücretli bilet satıldı",
+      "etkinlik_giris": "Etkinlikte kapıda giriş",
+      "etkinlik_iptal": "Etkinlik bileti iptal edildi"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

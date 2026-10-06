@@ -184,6 +184,10 @@
       "saha_servisi": {
         "ad": "Field service",
         "aciklama": "For cleaning, HVAC, technical service and maintenance companies: work orders, a drag-and-drop dispatch board, a mobile technician screen (checklist, photos, customer signature, consent-based location), equipment history and maintenance reminders, a service report PDF and a signed status page for the customer."
+      },
+      "etkinlik_bilet": {
+        "ad": "Events and tickets",
+        "aciklama": "Registration pages for seminars, workshops, concerts, webinars and open days: ticket types (early bird, student, hidden), discount codes, quotas and a waiting list, QR tickets (PDF + calendar), door check-in with a phone camera, announcements and a post-event survey email."
       }
     },
     "kategori": {
@@ -241,7 +245,9 @@
       "aylik_gonderim_siniri": "Max sends per month (messages)",
       "kisi_siniri": "Max contacts",
       "teknisyen_siniri": "Maximum active technicians",
-      "aylik_is_emri_siniri": "Maximum work orders per month"
+      "aylik_is_emri_siniri": "Maximum work orders per month",
+      "aylik_etkinlik_siniri": "Maximum new events per month",
+      "kapasite_siniri": "Maximum attendees per event"
     },
     "musteri": {
       "baslik": "My modules",

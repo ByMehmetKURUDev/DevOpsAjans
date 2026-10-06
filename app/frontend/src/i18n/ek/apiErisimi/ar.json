@@ -63,7 +63,11 @@
       "ping": "حدث تجريبي",
       "asistan_devredildi": "حوّل مساعد الذكاء الاصطناعي زائرًا إلى شخص",
       "is_emri_olusturuldu": "تم إنشاء أمر عمل ميداني",
-      "is_emri_tamamlandi": "اكتمل أمر عمل ميداني"
+      "is_emri_tamamlandi": "اكتمل أمر عمل ميداني",
+      "etkinlik_kayit": "تم تأكيد التسجيل في الفعالية",
+      "etkinlik_bilet_satildi": "تم بيع تذكرة فعالية مدفوعة",
+      "etkinlik_giris": "الدخول إلى الفعالية عند الباب",
+      "etkinlik_iptal": "تم إلغاء تذكرة الفعالية"
     },
     "anahtar": {
       "yeni": "مفتاح جديد",

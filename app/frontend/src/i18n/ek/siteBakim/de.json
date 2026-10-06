@@ -192,7 +192,8 @@
         "ai_asistan_bakimi": "KI-Assistent: wöchentliche Website-Aktualisierung und Bereinigung der Gesprächsaufbewahrung",
         "icerik_studyosu": "Content-Studio: Teilen-Erinnerung (30 Min. vorher) und Ereignis zum Veröffentlichungszeitpunkt",
         "eposta_pazarlama": "E-Mail-Marketing-Versand (geplante Kampagnen, A/B-Entscheidung, Drip-Sequenzen)",
-        "saha_servisi": "Außendienst: Wartungserinnerungen, Standort- und Aufbewahrungsbereinigung"
+        "saha_servisi": "Außendienst: Wartungserinnerungen, Standort- und Aufbewahrungsbereinigung",
+        "etkinlik_bakimi": "Veranstaltungswartung (Zahlungsreservierungen, Wartelisten-Einladungen, Dankes-E-Mail)"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich"

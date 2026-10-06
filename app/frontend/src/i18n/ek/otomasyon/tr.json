@@ -98,7 +98,8 @@
       "hesap": "Müşteri hesabı",
       "kisi": "Olaydaki kişi",
       "olay": "Olay",
-      "is_emri": "Saha iş emri"
+      "is_emri": "Saha iş emri",
+      "etkinlik": "Etkinlik kaydı"
     },
     "alan": {
       "id": "Kimlik",
@@ -149,7 +150,9 @@
       "zaman": "Zaman",
       "musteri_eposta": "Müşteri e-postası",
       "adres": "Adres",
-      "teknisyen": "Teknisyen"
+      "teknisyen": "Teknisyen",
+      "kod": "Kod",
+      "bilet_sayisi": "Bilet sayısı"
     },
     "olay": {
       "aday_olusturuldu": "Yeni CRM adayı",
@@ -173,7 +176,11 @@
       "icerik_yayinlandi": "İçerik yayınlandı",
       "randevu_olusturuldu": "Randevu alındı",
       "is_emri_olusturuldu": "Saha iş emri oluşturuldu",
-      "is_emri_tamamlandi": "Saha iş emri tamamlandı"
+      "is_emri_tamamlandi": "Saha iş emri tamamlandı",
+      "etkinlik_kayit": "Etkinliğe kayıt",
+      "etkinlik_bilet_satildi": "Ücretli bilet satıldı",
+      "etkinlik_giris": "Kapıda giriş yapıldı",
+      "etkinlik_iptal": "Etkinlik bileti iptal edildi"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Form, iletişim, site analizi ya da elle eklenen aday.",
@@ -197,7 +204,11 @@
       "icerik_yayinlandi": "Gönderi elle \"yayınlandı\" olarak işaretlendi.",
       "randevu_olusturuldu": "Randevu sayfasından yeni rezervasyon.",
       "is_emri_olusturuldu": "Saha servisinde iş emri açıldı (elle, bakım listesinden ya da randevudan).",
-      "is_emri_tamamlandi": "Teknisyen işi bitirdi; olaydaki kişi servis müşterisidir."
+      "is_emri_tamamlandi": "Teknisyen işi bitirdi; olaydaki kişi servis müşterisidir.",
+      "etkinlik_kayit": "Etkinlik kaydı onaylandı (ücretlide ödeme gelince).",
+      "etkinlik_bilet_satildi": "Ücretli bilet siparişinin ödemesi alındı (yalnız ajans etkinlikleri).",
+      "etkinlik_giris": "Bilet kapıda okutuldu (ilk giriş).",
+      "etkinlik_iptal": "Katılımcı ya da organizatör bileti iptal etti."
     },
     "eylem": {
       "eposta": "E-posta gönder",

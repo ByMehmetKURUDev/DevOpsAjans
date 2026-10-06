@@ -214,6 +214,29 @@ async def _musteri_sitesini_ac(db: AsyncSession, kayit: Payments) -> Optional[in
     return site.id if site is not None else None
 
 
+async def _etkinlik_odemesi(db: AsyncSession, kayit: Payments) -> Optional[int]:
+    """Faz 6E — faturasız `ETK-` ödemesi bir etkinlik kaydının: sipariş onaylanır, biletler geçerli
+    olur (aynı işlemde; commit çağıranda). Etkinlik ödemesi değilse None. Döner: sipariş kimliği
+    (0: ödeme bizimdi ama değişen bir şey yok)."""
+    from services import etkinlik_kayit
+
+    if not etkinlik_kayit.odeme_mi(kayit):
+        return None
+    return await etkinlik_kayit.odeme_tamamlandi(db, kayit) or 0
+
+
+async def _etkinlik_odemesi_sonrasi(siparis_id: Optional[int]) -> None:
+    """Commit'ten sonra: biletler e-postayla, sahibine bildirim. Hata yutulur (tahsilat kaydı tamam)."""
+    if not siparis_id:
+        return
+    try:
+        from services import etkinlik_kayit
+
+        await etkinlik_kayit.odeme_sonrasi(siparis_id)
+    except Exception:  # noqa: BLE001
+        logger.exception("Etkinlik ödemesi sonrası e-posta gönderilemedi: siparis=%s", siparis_id)
+
+
 def _site_adresi() -> str:
     """Müşterinin gördüğü site kökü.
 
@@ -756,11 +779,15 @@ async def _lemon_odemesini_isle(
     kayit.hata_mesaji = None
     kayit.ham_yanit = json.dumps(siparis, ensure_ascii=False)[:4000]
 
-    await _faturayi_kapat(db, kayit)
-    await _musteri_sitesini_ac(db, kayit)
+    # Faz 6E: etkinlik bileti ödemesi (faturasız) → biletler geçerli; müşteri sitesi açılmaz.
+    etkinlik_siparisi = await _etkinlik_odemesi(db, kayit)
+    if etkinlik_siparisi is None:
+        await _faturayi_kapat(db, kayit)
+        await _musteri_sitesini_ac(db, kayit)
     kredi_ozeti = await kredi.odeme_kredilerini_yukle(db, kayit.invoice_id)
     await db.commit()
     await kredi.kredi_yuklendi_bildir(db, kredi_ozeti)
+    await _etkinlik_odemesi_sonrasi(etkinlik_siparisi)
 
     logger.info("Lemon odemesi islendi: kayit=%s siparis=%s", kayit.id, siparis.get("id"))
     return kayit.id, True
@@ -856,14 +883,18 @@ async def _odemeyi_isle(
     kayit.hata_mesaji = None
     kayit.ham_yanit = json.dumps(siparis, ensure_ascii=False)[:4000]
 
-    await _faturayi_kapat(db, kayit)
-    # Kart tahsilatında da aynı kural: ödeme düştü, müşteri sitesi
-    # kaydı ve düğme jetonu kendiliğinden açılıyor.
-    await _musteri_sitesini_ac(db, kayit)
+    # Faz 6E: etkinlik bileti ödemesi (faturasız) → biletler geçerli; müşteri sitesi açılmaz.
+    etkinlik_siparisi = await _etkinlik_odemesi(db, kayit)
+    if etkinlik_siparisi is None:
+        await _faturayi_kapat(db, kayit)
+        # Kart tahsilatında da aynı kural: ödeme düştü, müşteri sitesi
+        # kaydı ve düğme jetonu kendiliğinden açılıyor.
+        await _musteri_sitesini_ac(db, kayit)
     # Kredi paketi faturasıysa krediler tahsilatla aynı işlemde yükleniyor.
     kredi_ozeti = await kredi.odeme_kredilerini_yukle(db, kayit.invoice_id)
     await db.commit()
     await kredi.kredi_yuklendi_bildir(db, kredi_ozeti)
+    await _etkinlik_odemesi_sonrasi(etkinlik_siparisi)
 
     # Ödendikten sonra link ölmeli; olmazsa iş durmuyor, tahsilat alındı.
     if kayit.shopier_urun_id:

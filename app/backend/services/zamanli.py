@@ -271,6 +271,15 @@ async def _saha_servisi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_gorev(db)
 
 
+async def _etkinlik_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 6E: ödemesi gelmeyen kayıtların yerleri ve süresi geçen davetler bırakılır, yer açılan
+    # etkinlikte bekleme listesine 24 saatlik davet gider, biten etkinlik "tamamlandı" olur, teşekkür +
+    # anket e-postası (tur başına bütçeli, sipariş başına bir kez) ve saklama süresi dolan kişisel veri.
+    from services.etkinlik_kayit import zamanli_bakim
+
+    return await zamanli_bakim(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -312,6 +321,7 @@ GOREVLER: List[Gorev] = [
     Gorev("icerik_studyosu", timedelta(0), _icerik_studyosu),
     Gorev("eposta_pazarlama", timedelta(0), _eposta_pazarlama),
     Gorev("saha_servisi", timedelta(hours=20), _saha_servisi),
+    Gorev("etkinlik_bakimi", timedelta(0), _etkinlik_bakimi),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
 ]

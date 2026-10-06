@@ -75,7 +75,9 @@
       "icerik_hatirlatma": "المحتوى: تذكير «جاهز للمشاركة» (قبل 30 دقيقة)",
       "pazarlama_askiya_alindi": "التسويق عبر البريد: تم تعليق الإرسال",
       "saha_is_atandi": "أُسند إليّ عمل ميداني جديد",
-      "saha_bakim_zamani": "أجهزة حان موعد صيانتها"
+      "saha_bakim_zamani": "أجهزة حان موعد صيانتها",
+      "etkinlik_kayit": "فعالية: تسجيل جديد",
+      "etkinlik_iptal": "فعالية: تم إلغاء تذكرة"
     },
     "kanal": {
       "inapp": "اللوحة",

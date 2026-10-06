@@ -184,6 +184,10 @@
       "saha_servisi": {
         "ad": "Saha servisi",
         "aciklama": "Temizlik, klima, teknik servis ve bakım firmaları için: iş emri, sürükle-bırak sevk panosu, mobil teknisyen ekranı (kontrol listesi, fotoğraf, müşteri imzası, rızaya bağlı konum), cihaz geçmişi ve bakım hatırlatma, servis formu PDF'i ve müşteriye imzalı durum sayfası."
+      },
+      "etkinlik_bilet": {
+        "ad": "Etkinlik ve bilet",
+        "aciklama": "Seminer, atölye, konser, webinar ve tanıtım günleri için kayıt sayfası: bilet türleri (erken kayıt, öğrenci, gizli), indirim kodu, kontenjan ve bekleme listesi, QR'lı bilet (PDF + takvim), telefon kamerasıyla kapıda okutma, duyuru ve etkinlik sonrası anket e-postası."
       }
     },
     "kategori": {
@@ -241,7 +245,9 @@
       "aylik_gonderim_siniri": "Aylık en çok gönderim (ileti)",
       "kisi_siniri": "En çok kişi (alıcı)",
       "teknisyen_siniri": "En çok aktif teknisyen",
-      "aylik_is_emri_siniri": "Aylık en çok iş emri"
+      "aylik_is_emri_siniri": "Aylık en çok iş emri",
+      "aylik_etkinlik_siniri": "Ayda en çok yeni etkinlik",
+      "kapasite_siniri": "Etkinlik başına en çok katılımcı"
     },
     "musteri": {
       "baslik": "Modüllerim",

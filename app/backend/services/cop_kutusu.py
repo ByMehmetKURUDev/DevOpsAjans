@@ -152,6 +152,21 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 30,
         "ebeveyn": "randevu_sayfalari",
     },
+    # Faz 6E: etkinlik — bilet türleri ve indirim kodlarıyla birlikte silinir, birlikte geri gelir.
+    # Kayıtlar/biletler silinmiyor (kişisel alanları silme anında anonimleşiyor).
+    "etkinlikler": {"sahip": "hesap_email", "sira": 10},
+    "etkinlik_bilet_turleri": {
+        "sahip_sorgu": "SELECT hesap_email FROM etkinlikler WHERE id = :v",
+        "sahip_alan": "etkinlik_id",
+        "sira": 20,
+        "ebeveyn": "etkinlikler",
+    },
+    "etkinlik_indirim_kodlari": {
+        "sahip_sorgu": "SELECT hesap_email FROM etkinlikler WHERE id = :v",
+        "sahip_alan": "etkinlik_id",
+        "sira": 20,
+        "ebeveyn": "etkinlikler",
+    },
     # Faz 4W: otomasyon kuralı (müşteride hesabın) ve özel alan tanımı (ajans; değerler kalıyor).
     "otomasyon_kurallari": {"sahip": "hesap_email", "sira": 10},
     "ozel_alanlar": {"sira": 10},

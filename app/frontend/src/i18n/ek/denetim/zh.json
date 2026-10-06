@@ -105,7 +105,11 @@
       "saha_teknisyenleri": "技术人员",
       "saha_cihazlari": "服务设备",
       "saha_sablonlari": "检查清单模板",
-      "saha_malzemeleri": "现场物料"
+      "saha_malzemeleri": "现场物料",
+      "etkinlikler": "活动",
+      "etkinlik_bilet_turleri": "活动门票类型",
+      "etkinlik_indirim_kodlari": "活动折扣码",
+      "etkinlik_listeleri": "活动列表"
     },
     "hareket": {
       "baslik": "账户动态",

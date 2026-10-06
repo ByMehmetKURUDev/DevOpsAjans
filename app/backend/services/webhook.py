@@ -21,7 +21,8 @@ webhook yazımı patlarsa yalnız SAVEPOINT gidiyor, asıl iş etkilenmiyor.
 Başka dosyalara dağılmış kanca yok; iki istisna iş biriminden geçmeyen
 (Core INSERT) yollar: CRM'in otomatik aday kaydı (`services/crm.py`
 `kayittan_aday_sync`) ve QR taraması (`routers/dinamik_qr.py` `_tarama_yaz`)
-— ikisinde tek satır `olay_yaz_sync` / `olay_yayinla`.
+— ikisinde tek satır `olay_yaz_sync` / `olay_yayinla`. (Faz 6E etkinlik
+olayları da bu kancadan: bilet satırının durum geçişi ve okutma kaydı.)
 
 Maliyet: aktif uç noktası listesi süreç içinde 30 sn önbellekte; hiç uç
 noktası yoksa (ya da olay türüne abone yoksa) kanca veritabanına hiç gitmiyor.
@@ -150,6 +151,13 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     # Faz 6S — saha servisi iş emri açıldı / tamamlandı.
     OlayTuru("is_emri.olusturuldu"),
     OlayTuru("is_emri.tamamlandi"),
+    # Faz 6E — etkinlik (flush kancası, `_etkinlik_olaylari`): kayıt onaylandı (ücretsizde anında,
+    # ücretlide ödeme gelince), ücretli bilet satıldı (yalnız ajans etkinliği — müşteri etkinliğinde
+    # ücretli bilet yok), kapıda giriş (okutma kaydı), onaylı bilet iptali. Kişisel veri yok.
+    OlayTuru("etkinlik.kayit"),
+    OlayTuru("etkinlik.bilet_satildi", musteri=False),
+    OlayTuru("etkinlik.giris", varsayilan=False),
+    OlayTuru("etkinlik.iptal"),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.
@@ -613,6 +621,9 @@ def _tek_deger(baglanti, sorgu) -> Any:
 def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str], Dict[str, Any], bool]]:
     """(tür, hesap, veri, müşteri görür mü) listesi. Hesap aramaları aynı bağlantıda."""
     olaylar: List[Tuple[str, Optional[str], Dict[str, Any], bool]] = []
+    #: Faz 6E — sipariş kimliği → bu flush'ta geçerli olan / iptal edilen biletler (sipariş başına tek olay).
+    etkinlik_gecerli: Dict[int, List[Any]] = {}
+    etkinlik_iptal: Dict[int, List[Any]] = {}
     for obj in list(session.new):
         tablo = getattr(type(obj), "__tablename__", "")
         if tablo == "invoices":
@@ -663,6 +674,10 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
             olaylar.append(("asistan.devredildi", obj.hesap_email, _devir_verisi(obj), True))
         elif tablo == "saha_is_emirleri":
             olaylar.append(("is_emri.olusturuldu", obj.hesap_email, _is_emri_verisi(obj), True))
+        elif tablo == "etkinlik_biletleri" and obj.durum == "gecerli":
+            etkinlik_gecerli.setdefault(obj.siparis_id, []).append(obj)
+        elif tablo == "etkinlik_okutmalar" and obj.sonuc == "gecerli" and obj.bilet_id:
+            olaylar.extend(_etkinlik_giris(baglanti, obj))
 
     for obj in list(session.dirty):
         tablo = getattr(type(obj), "__tablename__", "")
@@ -734,7 +749,63 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
             if degisti and yeni != eski and eski is not None:
                 olaylar.append(("aday.asama_degisti", None, {**aday_verisi(
                     obj.id, obj.kaynak, yeni, obj.deger_tahmini, obj.para_birimi), "onceki_asama": eski}, False))
+        elif tablo == "etkinlik_biletleri":
+            degisti, eski, yeni = _gecmis(obj, "durum")
+            if degisti and yeni == "gecerli" and eski != "gecerli":
+                etkinlik_gecerli.setdefault(obj.siparis_id, []).append(obj)
+            elif degisti and yeni == "iptal" and eski == "gecerli":
+                # Yalnız onaylı biletin iptali; ödenmemiş tutmanın süresi dolması olay değil.
+                etkinlik_iptal.setdefault(obj.siparis_id, []).append(obj)
+    if etkinlik_gecerli or etkinlik_iptal:
+        olaylar.extend(_etkinlik_olaylari(baglanti, etkinlik_gecerli, etkinlik_iptal))
     return olaylar
+
+
+def _etkinlik_olaylari(baglanti, gecerli: Dict[int, List[Any]], iptal: Dict[int, List[Any]]) -> List[Tuple[str, Optional[str], Dict[str, Any], bool]]:
+    """Faz 6E — sipariş başına `etkinlik.kayit` (+ ücretliyse `etkinlik.bilet_satildi`) / `etkinlik.iptal`.
+
+    Biletler kilitli kayıtta sipariş satırından SONRAKİ flush'ta ekleniyor; olay bilet satırından
+    çıkarıldığı için `bilet_sayisi` doğru. Ad/e-posta yok (otomasyon kişi alanlarını kayıttan okur)."""
+    from models.etkinlik import Etkinlikler, EtkinlikSiparisleri
+
+    olaylar: List[Tuple[str, Optional[str], Dict[str, Any], bool]] = []
+    for tur, gruplar in (("etkinlik.kayit", gecerli), ("etkinlik.iptal", iptal)):
+        for sid, biletler in gruplar.items():
+            satir = baglanti.execute(
+                select(EtkinlikSiparisleri.kod, EtkinlikSiparisleri.durum, EtkinlikSiparisleri.toplam,
+                       EtkinlikSiparisleri.para_birimi, EtkinlikSiparisleri.kaynak, Etkinlikler.id, Etkinlikler.slug,
+                       Etkinlikler.hesap_email)
+                .join(Etkinlikler, Etkinlikler.id == EtkinlikSiparisleri.etkinlik_id)
+                .where(EtkinlikSiparisleri.id == sid)
+            ).first()
+            if satir is None:
+                continue
+            kod, durum, toplam, para, kaynak, eid, slug, hesap = satir
+            veri = {"etkinlik_id": eid, "etkinlik_slug": slug, "siparis_id": sid, "siparis_kod": kod, "durum": durum,
+                    "bilet_sayisi": len(biletler), "toplam_kurus": int(toplam or 0), "para_birimi": para, "kaynak": kaynak,
+                    "bilet_turleri": sorted({int(b.tur_id) for b in biletler if b.tur_id is not None})}
+            olaylar.append((tur, hesap, veri, True))
+            if tur == "etkinlik.kayit" and int(toplam or 0) > 0:
+                olaylar.append(("etkinlik.bilet_satildi", hesap, dict(veri), True))
+    return olaylar
+
+
+def _etkinlik_giris(baglanti, okutma: Any) -> List[Tuple[str, Optional[str], Dict[str, Any], bool]]:
+    """Faz 6E — kapıda geçerli okutma (koşullu UPDATE'in yanında yazılan okutma kaydından)."""
+    from models.etkinlik import EtkinlikBiletleri, Etkinlikler
+
+    satir = baglanti.execute(
+        select(EtkinlikBiletleri.kod, EtkinlikBiletleri.siparis_id, EtkinlikBiletleri.tur_id, Etkinlikler.id,
+               Etkinlikler.slug, Etkinlikler.hesap_email)
+        .join(Etkinlikler, Etkinlikler.id == EtkinlikBiletleri.etkinlik_id)
+        .where(EtkinlikBiletleri.id == okutma.bilet_id)
+    ).first()
+    if satir is None:
+        return []
+    kod, sid, tid, eid, slug, hesap = satir
+    return [("etkinlik.giris", hesap, {"etkinlik_id": eid, "etkinlik_slug": slug, "siparis_id": sid, "bilet_kod": kod,
+                                       "tur_id": tid, "bilet_sayisi": 1, "kaynak": okutma.kaynak,
+                                       "cevrimdisi": bool(okutma.cevrimdisi), "giris_at": iso(okutma.zaman)}, True)]
 
 
 def _devir_verisi(obj: Any) -> Dict[str, Any]:
@@ -762,6 +833,7 @@ IZLENEN_TABLOLAR = frozenset({
     "kartvizit_mesajlari", "projects", "teklifler", "sozlesmeler", "ai_asistan_sohbetleri",
     # Faz 6S — saha servisi iş emri.
     "saha_is_emirleri",
+    "etkinlik_biletleri", "etkinlik_okutmalar",
 })
 
 

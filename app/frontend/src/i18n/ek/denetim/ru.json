@@ -105,7 +105,11 @@
       "saha_teknisyenleri": "Техник",
       "saha_cihazlari": "Обслуживаемое оборудование",
       "saha_sablonlari": "Шаблон чек-листа",
-      "saha_malzemeleri": "Материал выездного сервиса"
+      "saha_malzemeleri": "Материал выездного сервиса",
+      "etkinlikler": "Мероприятия",
+      "etkinlik_bilet_turleri": "Типы билетов",
+      "etkinlik_indirim_kodlari": "Промокоды мероприятий",
+      "etkinlik_listeleri": "Список мероприятий"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

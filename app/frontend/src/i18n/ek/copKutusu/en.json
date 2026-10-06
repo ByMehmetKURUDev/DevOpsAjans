@@ -96,7 +96,10 @@
       "saha_cihazlari": "Service equipment",
       "saha_sablonlari": "Checklist template",
       "saha_malzemeleri": "Field material",
-      "saha_teknisyenleri": "Technician"
+      "saha_teknisyenleri": "Technician",
+      "etkinlikler": "Event",
+      "etkinlik_bilet_turleri": "Ticket type",
+      "etkinlik_indirim_kodlari": "Discount code (event)"
     }
   }
 }

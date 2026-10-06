@@ -63,7 +63,11 @@
       "ping": "Test event",
       "asistan_devredildi": "AI assistant handed a visitor over to a human",
       "is_emri_olusturuldu": "Field work order created",
-      "is_emri_tamamlandi": "Field work order completed"
+      "is_emri_tamamlandi": "Field work order completed",
+      "etkinlik_kayit": "Event registration confirmed",
+      "etkinlik_bilet_satildi": "Paid event ticket sold",
+      "etkinlik_giris": "Event door check-in",
+      "etkinlik_iptal": "Event ticket cancelled"
     },
     "anahtar": {
       "yeni": "New key",

@@ -491,7 +491,8 @@
     "tabOtomasyon": "ऑटोमेशन",
     "tabAiAsistan": "AI सहायक",
     "tabEpostaPazarlama": "ईमेल मार्केटिंग",
-    "tabSahaServisi": "फ़ील्ड सर्विस"
+    "tabSahaServisi": "फ़ील्ड सर्विस",
+    "tabEtkinlik": "कार्यक्रम"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

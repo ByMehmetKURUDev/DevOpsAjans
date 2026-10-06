@@ -268,6 +268,28 @@ async def ekip(db_oturumu):
                                         kontrol_listesi="[]", kontrol_yanitlari="{}"))
     await _ekle(db, SahaIsAtamalari(is_emri_id=si.id, teknisyen_id=st.id, hesap_email=s))
     k.update(ST=st.id, SM=sm.id, SL=sl.id, SC=sc.id, SS=ss.id, SMZ=smz.id, SI=si.id)
+    # Faz 6E: `etkinlik` (yönetim) izni üyenin varsayılanında yok — pazarlama üyesine (pazarlamaci) ayrıca
+    # veriliyor (üye sayısı değişmesin); `etkinlik_giris` (yalnız okutma) üyede var. Sahibin bir etkinliği
+    # (tür + indirim + kayıt + bilet).
+    from datetime import datetime as _dt6
+    from datetime import timezone as _tz6
+
+    from models.etkinlik import EtkinlikBiletleri, EtkinlikBiletTurleri, EtkinlikIndirimKodlari, Etkinlikler, EtkinlikSiparisleri
+
+    await db.execute(_update(HesapUyeleri).where(HesapUyeleri.hesap_email == s, HesapUyeleri.uye_email == k["pazarlamaci"])
+                     .values(izinler=json.dumps(["projeler", "pazarlama", "etkinlik"])))
+    await db.commit()
+    _he.onbellegi_temizle()
+    eb = _dt6(2030, 1, 7, 9, 0, tzinfo=_tz6.utc)
+    et = await _ekle(db, Etkinlikler(hesap_email=s, slug=f"ekip-{uuid.uuid4().hex[:8]}", baslik="Sahibin etkinliği",
+                                     baslangic=eb, bitis=eb + timedelta(hours=3), durum="yayinda", kapasite=50))
+    ett = await _ekle(db, EtkinlikBiletTurleri(etkinlik_id=et.id, ad="Standart", fiyat=0))
+    eti = await _ekle(db, EtkinlikIndirimKodlari(etkinlik_id=et.id, kod="SAHIP10", tur="yuzde", deger=10))
+    ets = await _ekle(db, EtkinlikSiparisleri(etkinlik_id=et.id, hesap_email=s, kod=uuid.uuid4().hex[:8].upper(), ad="Katılımcı",
+                                              eposta="katilimci@ornek.com", durum="onayli"))
+    etb = await _ekle(db, EtkinlikBiletleri(etkinlik_id=et.id, siparis_id=ets.id, tur_id=ett.id,
+                                            kod=uuid.uuid4().hex[:10].upper(), durum="gecerli", koltuk=0))
+    k.update(ET=et.id, ETT=ett.id, ETI=eti.id, ETS=ets.id, ETB=etb.id)
     return k
 
 
@@ -663,6 +685,51 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/saha-servisim/islerim", SAHA, None, 200),
     ("GET", "/api/v1/saha-servisim/raporlar", ("saha_yonetim",), None, 200),
     ("GET", "/api/v1/saha-servisim/bakim", ("saha_yonetim",), None, 200),
+    # Faz 6E — etkinlik ve bilet (`etkinlik` yönetim; okutma/sayaç/giriş listesi `etkinlik_giris` da yeter).
+    ("GET", "/api/v1/etkinliklerim/meta", ("etkinlik",), None, 200),
+    ("GET", "/api/v1/etkinliklerim/giris-listesi", ("etkinlik", "etkinlik_giris"), None, 200),
+    ("GET", "/api/v1/etkinliklerim/liste-ayari", ("etkinlik",), None, 200),
+    ("PUT", "/api/v1/etkinliklerim/liste-ayari", ("etkinlik",), {"baslik": "Ekip etkinlikleri"}, "gecti"),
+    ("GET", "/api/v1/etkinliklerim", ("etkinlik",), None, 200),
+    ("POST", "/api/v1/etkinliklerim", ("etkinlik",),
+     {"baslik": "Ekip etkinliği", "baslangic": "2030-01-08T09:00:00Z", "bitis": "2030-01-08T12:00:00Z"}, 200),
+    ("GET", "/api/v1/etkinliklerim/{ET}", ("etkinlik",), None, 200),
+    ("PUT", "/api/v1/etkinliklerim/{ET}", ("etkinlik",), {"ozet": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/etkinliklerim/999999", ("etkinlik",), None, "gecti"),
+    ("POST", "/api/v1/etkinliklerim/{ET}/kapak", ("etkinlik",), GOVDE_DOSYA, "gecti"),
+    ("DELETE", "/api/v1/etkinliklerim/{ET}/kapak", ("etkinlik",), None, 200),
+    ("GET", "/api/v1/etkinliklerim/{ET}/qr?bicim=svg", ("etkinlik",), None, 200),
+    ("GET", "/api/v1/etkinliklerim/{ET}/bilet-turleri", ("etkinlik",), None, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/bilet-turleri", ("etkinlik",), {"ad": "Ekip türü"}, 200),
+    ("PUT", "/api/v1/etkinliklerim/{ET}/bilet-turleri/{ETT}", ("etkinlik",), {"aciklama": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/etkinliklerim/{ET}/bilet-turleri/999999", ("etkinlik",), None, "gecti"),
+    ("GET", "/api/v1/etkinliklerim/{ET}/indirimler", ("etkinlik",), None, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/indirimler", ("etkinlik",), {"kod": "EKIP", "tur": "yuzde", "deger": 10}, "gecti"),
+    ("PUT", "/api/v1/etkinliklerim/{ET}/indirimler/{ETI}", ("etkinlik",), {"deger": 15}, 200),
+    ("DELETE", "/api/v1/etkinliklerim/{ET}/indirimler/999999", ("etkinlik",), None, "gecti"),
+    ("GET", "/api/v1/etkinliklerim/{ET}/katilimcilar", ("etkinlik",), None, 200),
+    ("GET", "/api/v1/etkinliklerim/{ET}/katilimcilar.csv", ("etkinlik",), None, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/katilimcilar", ("etkinlik",),
+     {"ad": "Kapıda", "eposta": "kapi@ornek.com", "tur_id": 999999, "bildir": False}, "gecti"),
+    ("POST", "/api/v1/etkinliklerim/{ET}/siparisler/999999/iptal", ("etkinlik",), {}, "gecti"),
+    ("POST", "/api/v1/etkinliklerim/{ET}/siparisler/999999/odendi", ("etkinlik",), None, "gecti"),
+    ("POST", "/api/v1/etkinliklerim/{ET}/biletler/999999/iptal", ("etkinlik",), {}, "gecti"),
+    ("POST", "/api/v1/etkinliklerim/{ET}/biletler/{ETB}/iade", ("etkinlik",), {"durum": "yok"}, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/biletler/{ETB}/giris", ("etkinlik", "etkinlik_giris"), None, 200),
+    ("DELETE", "/api/v1/etkinliklerim/{ET}/biletler/{ETB}/giris", ("etkinlik",), None, 200),
+    ("GET", "/api/v1/etkinliklerim/{ET}/bekleme", ("etkinlik",), None, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/bekleme/999999/davet", ("etkinlik",), None, "gecti"),
+    ("DELETE", "/api/v1/etkinliklerim/{ET}/bekleme/999999", ("etkinlik",), None, "gecti"),
+    ("GET", "/api/v1/etkinliklerim/{ET}/istatistik", ("etkinlik",), None, 200),
+    ("GET", "/api/v1/etkinliklerim/{ET}/satis", ("etkinlik",), None, 200),
+    ("GET", "/api/v1/etkinliklerim/{ET}/sayac", ("etkinlik", "etkinlik_giris"), None, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/okut", ("etkinlik", "etkinlik_giris"), {"kod": "ZZZZZZZZZZ"}, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/duyuru", ("etkinlik",), {"konu": "Bilgi", "metin": "Ekip duyurusu"}, "gecti"),
+    ("POST", "/api/v1/etkinliklerim/{ET}/tesekkur", ("etkinlik",), None, "gecti"),
+    ("GET", "/api/v1/etkinliklerim/{ET}/gorevli", ("etkinlik",), None, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/gorevli", ("etkinlik",), {}, 200),
+    ("GET", "/api/v1/etkinliklerim/{ET}/pazarlama", ("etkinlik",), None, 200),
+    ("POST", "/api/v1/etkinliklerim/{ET}/pazarlama", ("etkinlik",), {"liste_id": 999999}, "gecti"),
 ]
 
 
@@ -708,6 +775,8 @@ def _izinli_uye(k, izinler):
         return k["pazarlamaci"]
     if set(izinler) <= set(SAHA):  # Faz 6S: üye/fatura rolünün varsayılanında yok
         return k["sahaci"]
+    if izinler == ("etkinlik",):  # Faz 6E: yönetim izni üyenin varsayılanında yok (pazarlamaci'ye ayrıca verildi)
+        return k["pazarlamaci"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):
             return kisi

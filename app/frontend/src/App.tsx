@@ -75,6 +75,10 @@ const BultenSayfasi = lazy(() => import('./pages/BultenSayfasi'));
 // Faz 6S: servis müşterisinin imzalı sayfası (/servis/<jeton>) — iş durumu, servis formu PDF'i, memnuniyet.
 // Site düzeni dışında, prerender yok, noindex; metinleri sayfa kendisi yüklüyor (ek paket `servisSayfa`).
 const ServisSayfasi = lazy(() => import('./pages/ServisSayfasi'));
+// Faz 6E: etkinlik ve bilet — etkinlik + kayıt, imzalı bilet sayfası, kapı okutucu (görevli / panel)
+// ve hesabın etkinlik listesi. Site düzeni dışında, prerender yok, varsayılan noindex; metinleri sayfa
+// kendisi yüklüyor (ek paket `etkinlikSayfa`); önizleme/JSON-LD/kamera izni Pages Function'ında.
+const EtkinlikSayfasi = lazy(() => import('./pages/EtkinlikSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -171,6 +175,12 @@ const AppRoutes = () => (
       <Route path="/bulten/:anahtar" element={<BultenSayfasi />} />
       {/* Faz 6S: saha servisi — servis müşterisinin girişsiz sayfası (imzalı jeton). */}
       <Route path="/servis/:jeton" element={<ServisSayfasi />} />
+      {/* Faz 6E: etkinlik ve bilet — bilet/görevli bağlantıları imzalı jetonlu (girişsiz). */}
+      <Route path="/etkinlik/giris/:jeton" element={<EtkinlikSayfasi gorunum="giris" />} />
+      <Route path="/etkinlik/okut/:eid" element={<EtkinlikSayfasi gorunum="okut" />} />
+      <Route path="/etkinlik/:slug/bilet/:jeton" element={<EtkinlikSayfasi gorunum="bilet" />} />
+      <Route path="/etkinlik/:slug" element={<EtkinlikSayfasi gorunum="etkinlik" />} />
+      <Route path="/etkinlikler/:slug" element={<EtkinlikSayfasi gorunum="liste" />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

@@ -63,7 +63,11 @@
       "ping": "测试事件",
       "asistan_devredildi": "AI 助手已将访客转给人工",
       "is_emri_olusturuldu": "已创建现场服务工单",
-      "is_emri_tamamlandi": "现场服务工单已完成"
+      "is_emri_tamamlandi": "现场服务工单已完成",
+      "etkinlik_kayit": "活动报名已确认",
+      "etkinlik_bilet_satildi": "活动付费门票已售出",
+      "etkinlik_giris": "活动现场入场",
+      "etkinlik_iptal": "活动门票已取消"
     },
     "anahtar": {
       "yeni": "新建密钥",

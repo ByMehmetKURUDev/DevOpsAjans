@@ -491,7 +491,8 @@
     "tabOtomasyon": "Automatisierung",
     "tabAiAsistan": "KI-Assistent",
     "tabEpostaPazarlama": "E-Mail-Marketing",
-    "tabSahaServisi": "Außendienst"
+    "tabSahaServisi": "Außendienst",
+    "tabEtkinlik": "Veranstaltungen"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

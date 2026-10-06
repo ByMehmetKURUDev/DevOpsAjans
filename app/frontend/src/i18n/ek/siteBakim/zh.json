@@ -192,7 +192,8 @@
         "ai_asistan_bakimi": "AI 助手：每周网站更新与对话保存清理",
         "icerik_studyosu": "内容工作室：发布提醒（提前 30 分钟）和发布时间事件",
         "eposta_pazarlama": "邮件营销发送（定时活动、A/B 判定、自动邮件序列）",
-        "saha_servisi": "现场服务：保养提醒、位置与保留期清理"
+        "saha_servisi": "现场服务：保养提醒、位置与保留期清理",
+        "etkinlik_bakimi": "活动维护（付款保留、候补邀请、感谢邮件）"
       },
       "gunluk": "每天",
       "haftalik": "每周"

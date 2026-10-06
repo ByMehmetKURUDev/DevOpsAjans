@@ -105,7 +105,11 @@
       "saha_teknisyenleri": "तकनीशियन",
       "saha_cihazlari": "सर्विस उपकरण",
       "saha_sablonlari": "चेकलिस्ट टेम्पलेट",
-      "saha_malzemeleri": "फ़ील्ड सामग्री"
+      "saha_malzemeleri": "फ़ील्ड सामग्री",
+      "etkinlikler": "कार्यक्रम",
+      "etkinlik_bilet_turleri": "कार्यक्रम टिकट प्रकार",
+      "etkinlik_indirim_kodlari": "कार्यक्रम डिस्काउंट कोड",
+      "etkinlik_listeleri": "कार्यक्रम सूची"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

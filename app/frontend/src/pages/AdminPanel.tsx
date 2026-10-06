@@ -63,6 +63,7 @@ import {
   PenTool,
   Send,
   Wrench,
+  Ticket,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -175,6 +176,8 @@ const AiAsistan = ekliLazy(['aiAsistan', 'asistanSayfa'], () => import('@/compon
 const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/EpostaPazarlama'));
 // Faz 6S — saha servisi: müşteri hesabı seçerek salt okunur destek görünümü (müşteri paneliyle aynı bileşen).
 const SahaServisi = ekliLazy('sahaServisi', () => import('@/components/SahaServisi'));
+// Faz 6E — etkinlik ve bilet (müşteri paneliyle aynı bileşen, yönetici modu).
+const Etkinlik = ekliLazy('etkinlik', () => import('@/components/Etkinlik'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
@@ -191,7 +194,7 @@ const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/a
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -327,6 +330,7 @@ type Tab =
   | 'aiAsistan'
   | 'epostaPazarlama'
   | 'sahaServisi'
+  | 'etkinlik'
   | 'baglantilar'
   | 'crm'
   | 'zaman'
@@ -1033,6 +1037,7 @@ export default function AdminPanel() {
     { key: 'aiAsistan', label: t('ui.tabAiAsistan'), icon: BotMessageSquare },
     { key: 'epostaPazarlama', label: t('ui.tabEpostaPazarlama'), icon: Send },
     { key: 'sahaServisi', label: t('ui.tabSahaServisi'), icon: Wrench },
+    { key: 'etkinlik', label: t('ui.tabEtkinlik'), icon: Ticket },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
@@ -1225,6 +1230,18 @@ export default function AdminPanel() {
           }
         >
           <SahaServisi mod="yonetici" />
+        </Suspense>
+      )}
+
+      {tab === 'etkinlik' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <Etkinlik mod="yonetici" />
         </Suspense>
       )}
 

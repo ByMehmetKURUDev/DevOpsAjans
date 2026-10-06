@@ -184,6 +184,10 @@
       "saha_servisi": {
         "ad": "现场服务",
         "aciklama": "适用于保洁、空调、技术服务和维保公司：工单、拖放式调度看板、移动端技术人员界面（检查清单、照片、客户签名、经同意的定位）、设备历史与保养提醒、服务单 PDF，以及面向客户的签名状态页面。"
+      },
+      "etkinlik_bilet": {
+        "ad": "活动与门票",
+        "aciklama": "为研讨会、工作坊、音乐会、网络研讨会和开放日提供报名页面：门票类型（早鸟、学生、隐藏）、折扣码、名额与候补名单、二维码门票（PDF + 日历）、用手机摄像头现场检票、活动通知和活动后的问卷邮件。"
       }
     },
     "kategori": {
@@ -241,7 +245,9 @@
       "aylik_gonderim_siniri": "每月最多发送（封）",
       "kisi_siniri": "最多联系人",
       "teknisyen_siniri": "在职技术人员上限",
-      "aylik_is_emri_siniri": "每月工单上限"
+      "aylik_is_emri_siniri": "每月工单上限",
+      "aylik_etkinlik_siniri": "每月新建活动上限",
+      "kapasite_siniri": "每场活动参与者上限"
     },
     "musteri": {
       "baslik": "我的模块",

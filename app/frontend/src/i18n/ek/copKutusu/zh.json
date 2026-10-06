@@ -96,7 +96,10 @@
       "saha_cihazlari": "服务设备",
       "saha_sablonlari": "检查清单模板",
       "saha_malzemeleri": "现场物料",
-      "saha_teknisyenleri": "技术人员"
+      "saha_teknisyenleri": "技术人员",
+      "etkinlikler": "活动",
+      "etkinlik_bilet_turleri": "门票类型",
+      "etkinlik_indirim_kodlari": "折扣码（活动）"
     }
   }
 }

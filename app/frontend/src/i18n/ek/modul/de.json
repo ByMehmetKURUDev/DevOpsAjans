@@ -184,6 +184,10 @@
       "saha_servisi": {
         "ad": "Außendienst",
         "aciklama": "Für Reinigungs-, Klima-, Technik- und Wartungsfirmen: Arbeitsaufträge, Plantafel mit Drag-and-drop, mobile Technikeransicht (Checkliste, Fotos, Kundenunterschrift, einwilligungsbasierte Standorterfassung), Gerätehistorie und Wartungserinnerungen, Servicebericht als PDF und eine signierte Statusseite für den Kunden."
+      },
+      "etkinlik_bilet": {
+        "ad": "Veranstaltungen und Tickets",
+        "aciklama": "Anmeldeseiten für Seminare, Workshops, Konzerte, Webinare und Infotage: Ticketarten (Frühbucher, Studierende, versteckt), Rabattcodes, Kontingente und Warteliste, QR-Tickets (PDF + Kalender), Einlasskontrolle mit der Handykamera, Ankündigungen und eine Umfrage-E-Mail nach der Veranstaltung."
       }
     },
     "kategori": {
@@ -241,7 +245,9 @@
       "aylik_gonderim_siniri": "Max. Versand pro Monat (Nachrichten)",
       "kisi_siniri": "Max. Kontakte",
       "teknisyen_siniri": "Höchstzahl aktiver Techniker",
-      "aylik_is_emri_siniri": "Höchstzahl an Arbeitsaufträgen pro Monat"
+      "aylik_is_emri_siniri": "Höchstzahl an Arbeitsaufträgen pro Monat",
+      "aylik_etkinlik_siniri": "Höchstens neue Veranstaltungen pro Monat",
+      "kapasite_siniri": "Höchstens Teilnehmende pro Veranstaltung"
     },
     "musteri": {
       "baslik": "Meine Module",

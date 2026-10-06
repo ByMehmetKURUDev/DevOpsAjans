@@ -75,7 +75,9 @@
       "icerik_hatirlatma": "Inhalt: Erinnerung „Bereit zum Teilen“ (30 Min. vorher)",
       "pazarlama_askiya_alindi": "E-Mail-Marketing: Versand ausgesetzt",
       "saha_is_atandi": "Mir wurde ein neuer Außendienstauftrag zugewiesen",
-      "saha_bakim_zamani": "Geräte mit fälliger Wartung"
+      "saha_bakim_zamani": "Geräte mit fälliger Wartung",
+      "etkinlik_kayit": "Veranstaltung: neue Anmeldung",
+      "etkinlik_iptal": "Veranstaltung: Ticket storniert"
     },
     "kanal": {
       "inapp": "Panel",

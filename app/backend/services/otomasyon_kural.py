@@ -121,6 +121,11 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("musteri_ad"), Alan("musteri_eposta"), Alan("adres"), Alan("baslangic", "tarih"), Alan("teknisyen"),
         Alan("puan", "sayi"),
     ),
+    # Faz 6E — etkinlik kaydı (sipariş) / giriş / iptal: kişi alanları kayıttan.
+    "etkinlik": (
+        Alan("id", "sayi"), Alan("baslik"), Alan("baslangic", "tarih"), Alan("durum"), Alan("kod"), Alan("ad"),
+        Alan("eposta"), Alan("telefon"), Alan("bilet_sayisi", "sayi"), Alan("toplam", "sayi"), Alan("para_birimi"),
+    ),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -166,6 +171,11 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     # Faz 6S — saha servisi.
     OtoOlay("is_emri.olusturuldu", ("is_emri", "hesap")),
     OtoOlay("is_emri.tamamlandi", ("is_emri", "hesap")),
+    OtoOlay("etkinlik.kayit", ("etkinlik", "aday", "hesap")),
+    # Ücretli bilet yalnız ajans etkinliğinde (müşteri etkinliğinde ödeme alınmıyor).
+    OtoOlay("etkinlik.bilet_satildi", ("etkinlik", "aday", "hesap"), musteri=False),
+    OtoOlay("etkinlik.giris", ("etkinlik", "hesap")),
+    OtoOlay("etkinlik.iptal", ("etkinlik", "hesap")),
 )
 OLAY_SOZLUGU: Dict[str, OtoOlay] = {o.anahtar: o for o in OLAYLAR}
 #: `fatura.gecikti` hangi gecikme günlerinde üretiliyor (her biri fatura başına bir kez).
@@ -253,6 +263,9 @@ ORNEK: Dict[str, Dict[str, Any]] = {
                 "durum": "tamamlandi", "musteri_ad": "Ahmet Yıldız", "musteri_eposta": "ahmet@ornek.com",
                 "adres": "Atatürk Cad. 12, Kadıköy, İstanbul", "baslangic": "2026-10-05T07:00:00Z", "teknisyen": "Mert",
                 "puan": None},
+    "etkinlik": {"id": 12, "baslik": "Yapay zekâ atölyesi", "baslangic": "2026-11-05T10:00:00Z", "durum": "onayli",
+                 "kod": "K7Q2M9XH", "ad": "Ali Demir", "eposta": "ali@ornek.com", "telefon": None, "bilet_sayisi": 2,
+                 "toplam": 0, "para_birimi": "TRY"},
     "hesap": {"email": "musteri@ornek.com", "ad": "Örnek A.Ş."},
 }
 
@@ -292,6 +305,8 @@ def kisi_sec(tur: str, baglam: Dict[str, Any]) -> Dict[str, Any]:
         return {"ad": baglam["randevu"].get("ad"), "email": baglam["randevu"].get("eposta")}
     if on == "is_emri" and baglam.get("is_emri"):
         return {"ad": baglam["is_emri"].get("musteri_ad"), "email": baglam["is_emri"].get("musteri_eposta")}
+    if on == "etkinlik" and baglam.get("etkinlik"):
+        return {"ad": baglam["etkinlik"].get("ad"), "email": baglam["etkinlik"].get("eposta")}
     if on == "kart" and baglam.get("mesaj"):
         return {"ad": baglam["mesaj"].get("ad"), "email": baglam["mesaj"].get("eposta")}
     if on == "menu" and baglam.get("siparis"):

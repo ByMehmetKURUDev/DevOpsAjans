@@ -40,7 +40,9 @@
       "icerik": "Content studio and content approval",
       "pazarlama": "Email marketing",
       "saha_yonetim": "Field service — management and dispatch",
-      "saha_teknisyen": "Field service — technician"
+      "saha_teknisyen": "Field service — technician",
+      "etkinlik": "Events and tickets (management)",
+      "etkinlik_giris": "Events: ticket check-in at the door"
     },
     "durum": {
       "davet": "Invitation pending",

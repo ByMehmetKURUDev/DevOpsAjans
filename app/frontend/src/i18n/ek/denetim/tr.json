@@ -105,7 +105,11 @@
       "saha_teknisyenleri": "Teknisyen",
       "saha_cihazlari": "Servis cihazı",
       "saha_sablonlari": "Kontrol listesi şablonu",
-      "saha_malzemeleri": "Saha malzemesi"
+      "saha_malzemeleri": "Saha malzemesi",
+      "etkinlikler": "Etkinlikler",
+      "etkinlik_bilet_turleri": "Etkinlik bilet türleri",
+      "etkinlik_indirim_kodlari": "Etkinlik indirim kodları",
+      "etkinlik_listeleri": "Etkinlik listesi"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

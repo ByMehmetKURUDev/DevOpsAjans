@@ -114,6 +114,10 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "randevu_yeni": {"roller": ("admin", "client"), "tetikleniyor": True},
     "randevu_degisti": {"roller": ("admin", "client"), "tetikleniyor": True},
     "randevu_iptal": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 6E — etkinlik: yeni kayıt ve katılımcı iptali (etkinlik sahibine / ajans etkinliğinde
+    # yöneticilere). Katılımcı e-postaları katalog dışı (`etkinlik_katilimci`: yalnız e-posta).
+    "etkinlik_kayit": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "etkinlik_iptal": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (yöneticilere / müşteri hesabına).
     "otomasyon_bildirimi": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,

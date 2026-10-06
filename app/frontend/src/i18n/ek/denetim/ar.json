@@ -105,7 +105,11 @@
       "saha_teknisyenleri": "فني",
       "saha_cihazlari": "جهاز الخدمة",
       "saha_sablonlari": "قالب قائمة التحقق",
-      "saha_malzemeleri": "مادة ميدانية"
+      "saha_malzemeleri": "مادة ميدانية",
+      "etkinlikler": "الفعاليات",
+      "etkinlik_bilet_turleri": "أنواع تذاكر الفعاليات",
+      "etkinlik_indirim_kodlari": "أكواد خصم الفعاليات",
+      "etkinlik_listeleri": "قائمة الفعاليات"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

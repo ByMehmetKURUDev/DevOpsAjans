@@ -98,7 +98,8 @@
       "hesap": "客户账户",
       "kisi": "事件中的人",
       "olay": "事件",
-      "is_emri": "现场服务工单"
+      "is_emri": "现场服务工单",
+      "etkinlik": "活动报名"
     },
     "alan": {
       "id": "编号",
@@ -149,7 +150,9 @@
       "zaman": "时间",
       "musteri_eposta": "客户邮箱",
       "adres": "地址",
-      "teknisyen": "技术人员"
+      "teknisyen": "技术人员",
+      "kod": "代码",
+      "bilet_sayisi": "门票数量"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -173,7 +176,11 @@
       "icerik_yayinlandi": "内容已发布",
       "randevu_olusturuldu": "新预约",
       "is_emri_olusturuldu": "已创建现场服务工单",
-      "is_emri_tamamlandi": "现场服务工单已完成"
+      "is_emri_tamamlandi": "现场服务工单已完成",
+      "etkinlik_kayit": "活动报名",
+      "etkinlik_bilet_satildi": "付费门票已售出",
+      "etkinlik_giris": "已现场入场",
+      "etkinlik_iptal": "活动门票已取消"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -197,7 +204,11 @@
       "icerik_yayinlandi": "帖子被手动标记为已发布。",
       "randevu_olusturuldu": "预约页面上的新预约。",
       "is_emri_olusturuldu": "现场服务中新建了工单（手动、来自保养列表或来自预约）。",
-      "is_emri_tamamlandi": "技术人员已完成工作；事件中的人员是服务客户。"
+      "is_emri_tamamlandi": "技术人员已完成工作；事件中的人员是服务客户。",
+      "etkinlik_kayit": "活动报名已确认（付费报名在收到付款后确认）。",
+      "etkinlik_bilet_satildi": "付费门票订单已收到付款（仅限代理机构活动）。",
+      "etkinlik_giris": "门票在入口被扫描（首次入场）。",
+      "etkinlik_iptal": "参与者或主办方取消了门票。"
     },
     "eylem": {
       "eposta": "发送邮件",

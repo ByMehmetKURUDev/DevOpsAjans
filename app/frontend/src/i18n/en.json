@@ -491,7 +491,8 @@
     "tabOtomasyon": "Automation",
     "tabAiAsistan": "AI assistant",
     "tabEpostaPazarlama": "Email marketing",
-    "tabSahaServisi": "Field service"
+    "tabSahaServisi": "Field service",
+    "tabEtkinlik": "Events"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

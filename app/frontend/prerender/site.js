@@ -442,6 +442,10 @@ export const NOINDEX_ROUTES = [
   '/bulten',
   // Faz 6S: saha servisi — servis müşterisinin imzalı sayfası (/servis/<jeton>); kişiye özel, noindex.
   '/servis',
+  // Faz 6E: etkinlik sayfası, bilet ve kapı bağlantıları (/etkinlik/...), hesabın etkinlik listesi
+  // (/etkinlikler/...); site haritasına girmez (görünürlük etkinlik ayarı — robots'u Pages Function yazıyor).
+  '/etkinlik',
+  '/etkinlikler',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */
