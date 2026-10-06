@@ -1,0 +1,35 @@
+{
+  "panelKabugu": {
+    "menu": {
+      "menu": "Panel menüsü",
+      "bolumler": "Bölümler",
+      "ara": "Bölüm ara… ( / )",
+      "temizle": "Aramayı temizle",
+      "sonucYok": "Eşleşen bölüm yok.",
+      "grup": {
+        "projeler": "Projelerim",
+        "destek": "Destek",
+        "sitem": "Sitem",
+        "araclar": "Araçlarım",
+        "hesap": "Hesabım",
+        "diger": "Diğer"
+      }
+    },
+    "uygulama": {
+      "yukle": "Uygulama olarak yükle",
+      "yukleAciklama": "Paneli telefonunuza ya da bilgisayarınıza uygulama olarak ekleyin; ana ekrandan tek dokunuşla açılır.",
+      "gizle": "30 gün gösterme",
+      "iosBaslik": "Ana ekrana ekleyin",
+      "iosAdim1": "Safari'de Paylaş düğmesine (yukarı oklu kare) dokunun.",
+      "iosAdim2": "Listeden “Ana Ekrana Ekle”yi seçin.",
+      "iosAdim3": "Sağ üstteki “Ekle”ye dokunun; panel ana ekranınızdan uygulama gibi açılır.",
+      "iosNot": "Uygulamayı ana ekrandan açtıktan sonra tarayıcı bildirimlerini bildirim tercihlerinizden açabilirsiniz.",
+      "tamam": "Tamam",
+      "cevrimdisi": "Bağlantı yok — çevrimdışısınız. Bağlantı gelene kadar değişiklikler kaydedilmeyebilir.",
+      "geriGeldi": "Bağlantı geri geldi.",
+      "iskeletBaslik": "Panel çevrimdışı açıldı",
+      "iskeletMetin": "Bilgilerinizi göstermek için internet bağlantısı gerekiyor. Bağlantı gelince panel kendiliğinden yüklenecek.",
+      "yenidenDene": "Yeniden dene"
+    }
+  }
+}

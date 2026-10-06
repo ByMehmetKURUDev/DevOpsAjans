@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ekliLazy } from '@/i18n/ekliLazy';
 import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -44,13 +44,21 @@ import SiteBakimIzni from '@/components/SiteBakimIzni';
 import { HIZMETLER } from '@/lib/talepler';
 import { useStageLabels } from '@/lib/projectEvents';
 import { client, oturumIziVarMi } from '@/lib/sdkClient';
-import { useSiteSettings } from '@/lib/siteSettings';
+import { isAdminUser, useSiteSettings } from '@/lib/siteSettings';
 import { modullerimiGetir, type Modullerim as ModulBilgisi } from '@/lib/moduller';
 import { modulIkonu } from '@/lib/modulIkonlari';
 import { IZINLER, SEKME_IZINLERI, hesaplarimiGetir, type Hesap } from '@/lib/hesapEkibi';
 import { hesapSec, seciliHesap } from '@/lib/hesapSecimi';
 import { ozetGetir as mesajOzeti } from '@/lib/mesajlar';
 import { useYoklama } from '@/hooks/useYoklama';
+import { grupluMenuMu, sonMusteriSekmesi, sonMusteriSekmesiniYaz } from '@/lib/musteriMenusu';
+import {
+  CevrimdisiIskelet,
+  CevrimdisiSerit,
+  UygulamaYukleDugmesi,
+  useCevrimdisiAcilis,
+  usePanelKabugu,
+} from '@/lib/uygulamaKabugu';
 
 // Site analizi sekmesi ayrı parçada: rapor görünümü panele her girişte inmesin.
 const SiteAnalizim = ekliLazy('siteAnalizi', () => import('@/components/SiteAnalizim'));
@@ -125,6 +133,8 @@ const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/c
 // personelinin kendi zaman kayıtları (yalnız personele; ek paket `zamanTakibi`).
 const HarcananSureKarti = ekliLazy('zamanTakibi', () => import('@/components/HarcananSureKarti'));
 const PersonelZaman = ekliLazy('zamanTakibi', () => import('@/components/PersonelZaman'));
+// Faz 7M — sekme sayısı DUZ_MENU_SINIRI'nı aşınca gruplu menü (yönetici menüsüyle aynı bileşen).
+const MusteriMenusu = ekliLazy('panelKabugu', () => import('@/components/MusteriMenusu'));
 /** Panel açık, Mesajlar sekmesi kapalıyken yalnız okunmamış sayısı (30–60 sn). */
 const MESAJ_OZETI_ARALIGI = 45000;
 
@@ -237,11 +247,16 @@ const SEKMELER: Tab[] = [
  */
 const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik'];
 
-/** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
+/**
+ * `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın.
+ * Bağlantı yoksa gruplu menüde son açılan sekme (Faz 7M; düz çubukta yazılmaz).
+ */
 function ilkSekme(): Tab {
   if (typeof window === 'undefined') return 'projects';
   const istenen = new URLSearchParams(window.location.search).get('sekme') as Tab | null;
-  return istenen && SEKMELER.includes(istenen) ? istenen : 'projects';
+  if (istenen && SEKMELER.includes(istenen)) return istenen;
+  const son = sonMusteriSekmesi() as Tab | null;
+  return son && SEKMELER.includes(son) ? son : 'projects';
 }
 
 
@@ -255,8 +270,11 @@ export default function ClientPanel() {
     t(`ui.status.${status || fallbackKey}`, { defaultValue: status || '' });
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
+  // Faz 7M: oturum isteği bağlantı yüzünden düşerse giriş ekranı yerine çevrimdışı iskelet.
+  const cevrimdisiAcilis = useCevrimdisiAcilis();
   const [tab, setTab] = useState<Tab>(ilkSekme);
   const location = useLocation();
+  const navigate = useNavigate();
   // Bildirim bağlantısı panel açıkken tıklanırsa (aynı rota, yeni `?sekme=`) sekmeye geç.
   useEffect(() => {
     try {
@@ -300,12 +318,26 @@ export default function ClientPanel() {
       .me()
       .then((res) => {
         if (res?.data) setUser(res.data as AuthUser);
+        cevrimdisiAcilis.sonuc();
       })
-      .catch(() => {})
+      .catch((e) => cevrimdisiAcilis.sonuc(e))
       .finally(() => setAuthLoading(false));
-  }, []);
+    // Bağlantı gelince (`deneme`) oturum isteği yinelenir.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cevrimdisiAcilis.deneme]);
 
   const email = (user?.email || '').toLowerCase();
+
+  // Faz 7M: uygulama (manifest `start_url` = /client?kaynak=uygulama) yöneticide yönetim paneliyle açılsın.
+  useEffect(() => {
+    if (!user) return;
+    try {
+      if (new URLSearchParams(window.location.search).get('kaynak') !== 'uygulama') return;
+    } catch {
+      return;
+    }
+    if (isAdminUser(user, settings)) navigate('/admin', { replace: true });
+  }, [user, settings, navigate]);
 
   // Faz 3Z — ajans personeli mi? (yönetici değil, ekip listesinde aktif). Tek
   // küçük istek; personelse zaman bölümü (ayrı parça + ek paket) iner.
@@ -555,6 +587,15 @@ export default function ClientPanel() {
     if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(gorunenSekmeler[0]?.key ?? 'profile');
   }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi]);
 
+  // Faz 7M: görünür sekme sayısı DUZ_MENU_SINIRI'nı aşınca gruplu menü; son açılan
+  // sekme yalnız orada hatırlanır (düz çubuklu müşteri panele bugünkü gibi Projelerim ile girer).
+  const grupluMenu = grupluMenuMu(gorunenSekmeler.length);
+  useEffect(() => {
+    if (grupluMenu && gorunenSekmeler.some((x) => x.key === tab)) sonMusteriSekmesiniYaz(tab);
+  }, [grupluMenu, tab, gorunenSekmeler]);
+  // Panel iskeleti ve yüklenen parçalar çevrimdışı açılış için saklansın (servis çalışanı).
+  usePanelKabugu('/client', tab);
+
   const submitTicket = async () => {
     if (!ticketForm.subject.trim() || !ticketForm.message.trim()) {
       toast.error(t('ui.ticketRequired'));
@@ -623,6 +664,14 @@ export default function ClientPanel() {
     );
   }
 
+  if (!user && cevrimdisiAcilis.cevrimdisi) {
+    return (
+      <Suspense fallback={null}>
+        <CevrimdisiIskelet ust={t('ui.clientPanelTitle')} onYenidenDene={cevrimdisiAcilis.yenidenDene} />
+      </Suspense>
+    );
+  }
+
   if (!user) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center px-4">
@@ -686,20 +735,29 @@ export default function ClientPanel() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="mb-10">
-        <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-2">
-          {t('ui.clientPanelTitle')}
-        </p>
-        <h1 className="text-4xl md:text-5xl font-bold">
-          {t('ui.controlCenter')} <span className="gradient-text">{t('ui.controlCenterHighlight')}</span>
-        </h1>
-        <p className="text-muted-foreground mt-2">
-          {t('ui.session')}:{' '}
-          <span className="text-foreground">
-            {user.email || user.name}
-          </span>
-        </p>
+      <div className="mb-10 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-2">
+            {t('ui.clientPanelTitle')}
+          </p>
+          <h1 className="text-4xl md:text-5xl font-bold">
+            {t('ui.controlCenter')} <span className="gradient-text">{t('ui.controlCenterHighlight')}</span>
+          </h1>
+          <p className="text-muted-foreground mt-2">
+            {t('ui.session')}:{' '}
+            <span className="text-foreground">
+              {user.email || user.name}
+            </span>
+          </p>
+        </div>
+        {/* Faz 7M: "Uygulama olarak yükle" (yüklüyse, gizlendiyse ya da tarayıcı desteklemiyorsa çizilmez). */}
+        <Suspense fallback={null}>
+          <UygulamaYukleDugmesi />
+        </Suspense>
       </div>
+      <Suspense fallback={null}>
+        <CevrimdisiSerit />
+      </Suspense>
 
       {/* Faz 2E: birden çok hesaba erişim varsa hesap seçici; başka hesaptaysa şerit. */}
       {hesapHazir && ((hesaplar?.length ?? 0) > 1 || !etkin.kendi) && (
@@ -795,7 +853,18 @@ export default function ClientPanel() {
         </Suspense>
       )}
 
-      {/* Tabs */}
+      {/* Tabs — kalabalıksa (Faz 7M) gruplu menü, değilse bugünkü düz çubuk. */}
+      {grupluMenu ? (
+        <Suspense fallback={<div className="mb-8 h-24" aria-hidden="true" />}>
+          <MusteriMenusu
+            sekmeler={TABS}
+            aktif={tab}
+            onSec={(k) => setTab(k as Tab)}
+            rozetler={{ mesajlar: okunmamisMesaj }}
+            modulDurumu={modulBilgisi ? 'sunucu' : modulHatasi ? 'hata' : 'yukleniyor'}
+          />
+        </Suspense>
+      ) : (
       <div
         className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto"
         data-sekme-cubugu
@@ -830,6 +899,7 @@ export default function ClientPanel() {
           </button>
         ))}
       </div>
+      )}
 
       {dataLoading ? (
         <div className="py-16 flex items-center justify-center text-muted-foreground">

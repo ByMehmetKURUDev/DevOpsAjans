@@ -73,6 +73,14 @@ import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
 import YonetimMenusu from '@/components/admin/YonetimMenusu';
 import { menudeVar, sonSekmeyiOku, sonSekmeyiYaz } from '@/lib/yonetimMenusu';
+// Faz 7M — mobil kabuk: "Uygulama olarak yükle", çevrimdışı şeridi ve iskeleti.
+import {
+  CevrimdisiIskelet,
+  CevrimdisiSerit,
+  UygulamaYukleDugmesi,
+  useCevrimdisiAcilis,
+  usePanelKabugu,
+} from '@/lib/uygulamaKabugu';
 import FaturaOdemeBaglantisi from '@/components/admin/FaturaOdemeBaglantisi';
 import ElleTahsilat from '@/components/admin/ElleTahsilat';
 import TalepYazismasi from '@/components/TalepYazismasi';
@@ -521,6 +529,8 @@ export default function AdminPanel() {
   const [settingDraft, setSettingDraft] = useState<Record<string, string>>({});
   const [savingSettings, setSavingSettings] = useState(false);
 
+  // Faz 7M: oturum isteği bağlantı yüzünden düşerse giriş ekranı yerine çevrimdışı iskelet.
+  const cevrimdisiAcilis = useCevrimdisiAcilis();
   useEffect(() => {
     // Oturum izi yoksa cagri kesin 401 doner; bos yere istek atmiyoruz.
     if (!oturumIziVarMi()) {
@@ -531,10 +541,15 @@ export default function AdminPanel() {
       .me()
       .then((res) => {
         if (res?.data) setUser(res.data as AuthUser);
+        cevrimdisiAcilis.sonuc();
       })
-      .catch(() => {})
+      .catch((e) => cevrimdisiAcilis.sonuc(e))
       .finally(() => setAuthLoading(false));
-  }, []);
+    // Faz 7M: bağlantı gelince (`deneme`) oturum isteği yinelenir.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cevrimdisiAcilis.deneme]);
+  // Panel iskeleti ve yüklenen parçalar çevrimdışı açılış için saklansın (servis çalışanı).
+  usePanelKabugu('/admin', tab);
 
   const isAdmin = isAdminUser(user, settings);
 
@@ -945,6 +960,14 @@ export default function AdminPanel() {
     );
   }
 
+  if (!user && cevrimdisiAcilis.cevrimdisi) {
+    return (
+      <Suspense fallback={null}>
+        <CevrimdisiIskelet ust={t('ui.management')} onYenidenDene={cevrimdisiAcilis.yenidenDene} />
+      </Suspense>
+    );
+  }
+
   if (!user) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center px-4">
@@ -1083,11 +1106,19 @@ export default function AdminPanel() {
             {t('ui.controlCenter')} <span className="gradient-text">{t('ui.controlCenterHighlight')}</span>
           </h1>
         </div>
-        <div className="text-sm text-muted-foreground">
-          {t('ui.session')}:{' '}
-          <span className="text-foreground">{user.email || user.name}</span>
+        <div className="flex flex-wrap items-center gap-3">
+          <Suspense fallback={null}>
+            <UygulamaYukleDugmesi />
+          </Suspense>
+          <div className="text-sm text-muted-foreground">
+            {t('ui.session')}:{' '}
+            <span className="text-foreground">{user.email || user.name}</span>
+          </div>
         </div>
       </div>
+      <Suspense fallback={null}>
+        <CevrimdisiSerit />
+      </Suspense>
 
       {/* Ekip duyuruları (hedef: ekip) — yoksa hiçbir şey çizilmez. */}
       <Suspense fallback={null}>

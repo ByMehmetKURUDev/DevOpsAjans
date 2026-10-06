@@ -1,0 +1,35 @@
+{
+  "panelKabugu": {
+    "menu": {
+      "menu": "Panel menu",
+      "bolumler": "Sections",
+      "ara": "Find a section… ( / )",
+      "temizle": "Clear search",
+      "sonucYok": "No matching section.",
+      "grup": {
+        "projeler": "My projects",
+        "destek": "Support",
+        "sitem": "My site",
+        "araclar": "My tools",
+        "hesap": "My account",
+        "diger": "Other"
+      }
+    },
+    "uygulama": {
+      "yukle": "Install as app",
+      "yukleAciklama": "Add the panel to your phone or computer as an app; it opens with one tap from your home screen.",
+      "gizle": "Don't show for 30 days",
+      "iosBaslik": "Add to Home Screen",
+      "iosAdim1": "In Safari, tap the Share button (the square with an up arrow).",
+      "iosAdim2": "Choose “Add to Home Screen” from the list.",
+      "iosAdim3": "Tap “Add” in the top-right corner; the panel then opens from your home screen like an app.",
+      "iosNot": "Once you open the app from your home screen, you can turn on browser notifications in your notification preferences.",
+      "tamam": "OK",
+      "cevrimdisi": "You're offline. Changes may not be saved until the connection is back.",
+      "geriGeldi": "You're back online.",
+      "iskeletBaslik": "The panel opened offline",
+      "iskeletMetin": "An internet connection is needed to show your information. The panel will load by itself when the connection is back.",
+      "yenidenDene": "Try again"
+    }
+  }
+}

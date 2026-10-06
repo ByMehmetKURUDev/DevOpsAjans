@@ -1,0 +1,35 @@
+{
+  "panelKabugu": {
+    "menu": {
+      "menu": "Panelmenü",
+      "bolumler": "Bereiche",
+      "ara": "Bereich suchen… ( / )",
+      "temizle": "Suche leeren",
+      "sonucYok": "Kein passender Bereich.",
+      "grup": {
+        "projeler": "Meine Projekte",
+        "destek": "Support",
+        "sitem": "Meine Website",
+        "araclar": "Meine Tools",
+        "hesap": "Mein Konto",
+        "diger": "Weitere"
+      }
+    },
+    "uygulama": {
+      "yukle": "Als App installieren",
+      "yukleAciklama": "Fügen Sie den Bereich als App zu Ihrem Telefon oder Computer hinzu; er öffnet sich mit einem Tipp vom Home-Bildschirm.",
+      "gizle": "30 Tage nicht anzeigen",
+      "iosBaslik": "Zum Home-Bildschirm hinzufügen",
+      "iosAdim1": "Tippen Sie in Safari auf die Teilen-Taste (Quadrat mit Pfeil nach oben).",
+      "iosAdim2": "Wählen Sie in der Liste „Zum Home-Bildschirm“.",
+      "iosAdim3": "Tippen Sie oben rechts auf „Hinzufügen“; der Bereich öffnet sich dann wie eine App vom Home-Bildschirm.",
+      "iosNot": "Sobald Sie die App vom Home-Bildschirm öffnen, können Sie Browser-Benachrichtigungen in Ihren Benachrichtigungseinstellungen aktivieren.",
+      "tamam": "OK",
+      "cevrimdisi": "Sie sind offline. Bis die Verbindung zurück ist, werden Änderungen möglicherweise nicht gespeichert.",
+      "geriGeldi": "Sie sind wieder online.",
+      "iskeletBaslik": "Der Bereich wurde offline geöffnet",
+      "iskeletMetin": "Um Ihre Daten anzuzeigen, ist eine Internetverbindung nötig. Sobald die Verbindung zurück ist, lädt der Bereich von selbst.",
+      "yenidenDene": "Erneut versuchen"
+    }
+  }
+}

@@ -1,3 +1,13 @@
+import {
+  grupla,
+  grubunuBul as ortakGrubunuBul,
+  sekmeAra as ortakSekmeAra,
+  yerelOku,
+  yerelYaz,
+  type KurulmusGrup as OrtakGrup,
+  type MenuSekmesi,
+} from '@/lib/grupluMenu';
+
 /**
  * Yönetici paneli menüsü: 46 sekme tek satırda kalabalıktı. Sekmeler burada
  * dokuz gruba ayrılıyor; üst satırda gruplar, alt satırda seçili grubun
@@ -56,15 +66,10 @@ export const GRUPLAR: readonly GrupTanimi[] = [
   },
 ];
 
-export interface MenuSekmesi<K extends string = string> {
-  key: K;
-  label: string;
-}
+// Yerleştirme ve arama bütün paneller için ortak (Faz 7M: müşteri paneli de kullanıyor).
+export { sadelestir, type MenuSekmesi } from '@/lib/grupluMenu';
 
-export interface KurulmusGrup<S extends MenuSekmesi> {
-  anahtar: GrupAnahtari;
-  sekmeler: S[];
-}
+export type KurulmusGrup<S extends MenuSekmesi> = OrtakGrup<S, GrupAnahtari>;
 
 /**
  * Var olan sekmeleri gruplara yerleştirir. Tanımda olup panelde olmayan
@@ -72,33 +77,12 @@ export interface KurulmusGrup<S extends MenuSekmesi> {
  * sekmeler sonda "Diğer" grubunda toplanır.
  */
 export function gruplariKur<S extends MenuSekmesi>(sekmeler: readonly S[]): KurulmusGrup<S>[] {
-  const harita = new Map(sekmeler.map((s) => [s.key, s] as const));
-  const kullanilan = new Set<string>();
-  const sonuc: KurulmusGrup<S>[] = [];
-  for (const g of GRUPLAR) {
-    const icindekiler: S[] = [];
-    for (const k of g.sekmeler) {
-      const s = harita.get(k);
-      if (s && !kullanilan.has(k)) {
-        icindekiler.push(s);
-        kullanilan.add(k);
-      }
-    }
-    if (icindekiler.length) sonuc.push({ anahtar: g.anahtar, sekmeler: icindekiler });
-  }
-  const kalan = sekmeler.filter((s) => !kullanilan.has(s.key));
-  if (kalan.length) sonuc.push({ anahtar: 'diger', sekmeler: kalan });
-  return sonuc;
+  return grupla(sekmeler, GRUPLAR);
 }
 
 /** Sekmenin bulunduğu grup (kurulmuş gruplar içinde). */
 export function grubunuBul<S extends MenuSekmesi>(gruplar: KurulmusGrup<S>[], sekme: string): GrupAnahtari | null {
-  return gruplar.find((g) => g.sekmeler.some((s) => s.key === sekme))?.anahtar ?? null;
-}
-
-/** Arama için harf/aksan farkını yok sayan sadeleştirme (İ/ı, ş, ç…). */
-export function sadelestir(metin: string): string {
-  return metin.toLocaleLowerCase('tr').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ı/g, 'i').trim();
+  return ortakGrubunuBul(gruplar, sekme);
 }
 
 /** Etiketi ya da anahtarı aranan metni içeren sekmeler (grup sırasıyla). */
@@ -107,35 +91,18 @@ export function sekmeAra<S extends MenuSekmesi>(
   aranan: string,
   grupAdi: (g: GrupAnahtari) => string,
 ): S[] {
-  const q = sadelestir(aranan);
-  if (!q) return [];
-  const bulunan: S[] = [];
-  for (const g of gruplar) {
-    const grupEslesti = sadelestir(grupAdi(g.anahtar)).includes(q);
-    for (const s of g.sekmeler) {
-      if (grupEslesti || sadelestir(s.label).includes(q) || sadelestir(s.key).includes(q)) bulunan.push(s);
-    }
-  }
-  return bulunan;
+  return ortakSekmeAra(gruplar, aranan, grupAdi);
 }
 
 /** Son açılan sekme (tarayıcıya özel kolaylık; okunamazsa yok sayılır). */
 const SON_SEKME_ANAHTARI = 'mk_yonetim_son_sekme';
 
 export function sonSekmeyiOku(): string | null {
-  try {
-    return window.localStorage.getItem(SON_SEKME_ANAHTARI);
-  } catch {
-    return null;
-  }
+  return yerelOku(SON_SEKME_ANAHTARI);
 }
 
 export function sonSekmeyiYaz(sekme: string): void {
-  try {
-    window.localStorage.setItem(SON_SEKME_ANAHTARI, sekme);
-  } catch {
-    /* gizli pencere / engellenmiş depolama: önemli değil */
-  }
+  yerelYaz(SON_SEKME_ANAHTARI, sekme);
 }
 
 /** Ad menü tanımındaki bir sekme mi (`?sekme=` ve hatırlanan sekme için). */

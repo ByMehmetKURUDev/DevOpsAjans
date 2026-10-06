@@ -1,0 +1,35 @@
+{
+  "panelKabugu": {
+    "menu": {
+      "menu": "面板菜单",
+      "bolumler": "栏目",
+      "ara": "查找栏目…（/）",
+      "temizle": "清除搜索",
+      "sonucYok": "没有匹配的栏目。",
+      "grup": {
+        "projeler": "我的项目",
+        "destek": "支持",
+        "sitem": "我的网站",
+        "araclar": "我的工具",
+        "hesap": "我的账户",
+        "diger": "其他"
+      }
+    },
+    "uygulama": {
+      "yukle": "安装为应用",
+      "yukleAciklama": "将面板作为应用添加到手机或电脑，从主屏幕一键打开。",
+      "gizle": "30 天内不再显示",
+      "iosBaslik": "添加到主屏幕",
+      "iosAdim1": "在 Safari 中点按“分享”按钮（带向上箭头的方框）。",
+      "iosAdim2": "在列表中选择“添加到主屏幕”。",
+      "iosAdim3": "点按右上角的“添加”，面板即可像应用一样从主屏幕打开。",
+      "iosNot": "从主屏幕打开应用后，可在通知偏好设置中开启浏览器通知。",
+      "tamam": "好的",
+      "cevrimdisi": "您已离线。连接恢复前，更改可能无法保存。",
+      "geriGeldi": "网络已恢复。",
+      "iskeletBaslik": "面板已在离线状态下打开",
+      "iskeletMetin": "显示您的信息需要网络连接。连接恢复后，面板会自动加载。",
+      "yenidenDene": "重试"
+    }
+  }
+}
