@@ -39,9 +39,9 @@ const FAZLAR: { no: number; durum: Durum }[] = [
   { no: 1, durum: 'yayinda' },
   { no: 2, durum: 'yayinda' },
   { no: 3, durum: 'gelistiriliyor' },
-  { no: 4, durum: 'planlandi' },
-  { no: 5, durum: 'planlandi' },
-  { no: 6, durum: 'planlandi' },
+  { no: 4, durum: 'gelistiriliyor' },
+  { no: 5, durum: 'gelistiriliyor' },
+  { no: 6, durum: 'gelistiriliyor' },
 ];
 
 /**
