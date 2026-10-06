@@ -8617,6 +8617,742 @@
       "one_cikan": false,
       "sira": 990,
       "dogrulama_tarihi": "2026-10-01"
+    },
+    {
+      "slug": "n8n",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "n8n: Uygulamaları ve Yapay Zekâ Modellerini Görsel Akışlarla Bağlayan, Kendi Sunucunuzda Çalışan Otomasyon Platformu",
+        "en": "n8n: A Self-Hostable Automation Platform That Connects Apps and AI Models Through Visual Workflows",
+        "de": "n8n: Selbst hostbare Automatisierungsplattform, die Apps und KI-Modelle über visuelle Workflows verbindet",
+        "ru": "n8n: платформа автоматизации на собственном сервере, связывающая приложения и ИИ-модели визуальными процессами",
+        "zh": "n8n：可自托管的自动化平台，用可视化工作流连接应用与 AI 模型",
+        "hi": "n8n: ऐप्स और एआई मॉडलों को विज़ुअल वर्कफ़्लो से जोड़ने वाला, अपने सर्वर पर चलने वाला ऑटोमेशन प्लेटफ़ॉर्म",
+        "ar": "n8n: منصة أتمتة قابلة للاستضافة الذاتية تربط التطبيقات ونماذج الذكاء الاصطناعي عبر مسارات عمل مرئية"
+      },
+      "ozet": {
+        "tr": "Formdan CRM'e, e-postadan tabloya akışları sürükle-bırak kurar; 1500'ü aşkın entegrasyon ve yapay zekâ ajanı düğümleriyle kendi sunucunuzda çalışır.",
+        "en": "Build flows from forms to CRM or email to spreadsheets by drag and drop; 1,500+ integrations and AI agent nodes, running on your own server.",
+        "de": "Abläufe von Formular zu CRM oder E-Mail zu Tabelle per Drag-and-drop; über 1.500 Integrationen und KI-Agenten-Knoten, auf dem eigenen Server.",
+        "ru": "Цепочки «форма → CRM» или «почта → таблица» собираются перетаскиванием; 1500+ интеграций и узлы ИИ-агентов на вашем сервере.",
+        "zh": "拖放即可搭建从表单到 CRM、从邮件到表格的流程；提供 1500 多个集成和 AI 智能体节点，运行在你自己的服务器上。",
+        "hi": "फ़ॉर्म से CRM या ईमेल से स्प्रेडशीट तक के फ़्लो ड्रैग-एंड-ड्रॉप से बनाएँ; 1500+ इंटीग्रेशन और एआई एजेंट नोड, अपने सर्वर पर।",
+        "ar": "أنشئ مسارات من النماذج إلى CRM أو من البريد إلى الجداول بالسحب والإفلات؛ أكثر من 1500 تكامل وعُقد لوكلاء الذكاء الاصطناعي على خادمك."
+      },
+      "aciklama": {
+        "tr": "n8n, uygulamalar arasındaki tekrarlayan işleri görsel bir tuvalde düğümleri birbirine bağlayarak otomatikleştiren bir iş akışı platformudur. Bir web formu dolduğunda kaydı CRM'e eklemek, gelen e-postayı özetleyip ekibe Slack'ten iletmek ya da siparişleri her sabah bir tabloya aktarmak gibi akışlar kod yazmadan kurulur; gerektiğinde araya JavaScript veya Python adımı eklenir. 1500'ü aşkın hazır entegrasyon ve binlerce akış şablonu sunar. Yapay zekâ ajanı düğümleri OpenAI, Anthropic, Google ya da açık modelleri araç kullanan ve gerektiğinde insan onayı bekleyen akışlara bağlar. Kaynak kodu GitHub'da açıktır ve Docker ile kendi sunucunuza kurulabilir; barındırılan n8n Cloud ücretlidir.\n\nAjans olarak küçük işletmelerin form, e-posta, randevu ve sipariş süreçlerini birbirine bağlamak için en sık önerdiğimiz araçlardan biridir. Lisansı fair-code yaklaşımındaki Sustainable Use License'tır ve OSI onaylı bir açık kaynak lisansı değildir: kendi iç işleriniz için ücretsizdir; n8n'in lisans SSS'ine göre müşteriler için kendi sunucunuzda akış kurup bakımını ücret karşılığı yapmak serbesttir, ancak müşterilerin kendi akışlarını oluşturup düzenleyebildiği bir hizmet sunmak ayrı ticari lisans gerektirir. Kendi sunucunuzdaki kurulum varsayılan olarak n8n'e tanılama verisi gönderir, sürüm ve şablon bilgisi çeker; ortam değişkenleriyle kapatılabilir. 2025 sonu ile 2026 başında, kimlik doğrulaması gerektirmeden uzaktan kod çalıştırmaya izin verenler de dahil kritik açıklar duyuruldu (ör. CVE-2026-21858); sürümü düzenli güncelleyin, düzenleyiciyi ve webhook uçlarını korumasız biçimde internete açmayın.",
+        "en": "n8n is a workflow platform that automates repetitive work between apps by connecting nodes on a visual canvas. Flows such as adding a web-form submission to your CRM, summarising incoming email and forwarding it to the team on Slack, or copying orders into a spreadsheet every morning are built without code, and a JavaScript or Python step can be added when needed. It offers more than 1,500 ready-made integrations and thousands of workflow templates. AI agent nodes connect OpenAI, Anthropic, Google or open models to flows that use tools and can wait for human approval. The source code is public on GitHub and can be installed on your own server with Docker; the hosted n8n Cloud is paid.\n\nAs an agency, it is one of the tools we recommend most often for connecting small businesses' form, email, booking and order processes. Its licence is the fair-code Sustainable Use License, which is not an OSI-approved open-source licence: it is free for your own internal business use, and according to n8n's licence FAQ you may build and maintain workflows for clients on your own instance for a fee, but offering a service in which clients create and edit their own workflows requires a separate commercial licence. A self-hosted instance sends diagnostics to n8n and fetches version and template information by default; this can be switched off with environment variables. Critical vulnerabilities, including ones that allowed unauthenticated remote code execution (e.g. CVE-2026-21858), were disclosed in late 2025 and early 2026, so update regularly and do not expose the editor or webhook endpoints to the internet unprotected.",
+        "de": "n8n ist eine Workflow-Plattform, die wiederkehrende Aufgaben zwischen Anwendungen automatisiert, indem Knoten auf einer visuellen Arbeitsfläche verbunden werden. Abläufe wie das Übertragen einer Webformular-Anfrage ins CRM, das Zusammenfassen eingehender E-Mails mit Weiterleitung an das Team in Slack oder das tägliche Übertragen von Bestellungen in eine Tabelle entstehen ohne Code; bei Bedarf lässt sich ein JavaScript- oder Python-Schritt einfügen. Es gibt über 1.500 fertige Integrationen und Tausende Workflow-Vorlagen. KI-Agenten-Knoten binden OpenAI, Anthropic, Google oder offene Modelle in Abläufe ein, die Werkzeuge nutzen und bei Bedarf auf eine menschliche Freigabe warten. Der Quellcode ist auf GitHub einsehbar und lässt sich mit Docker auf dem eigenen Server installieren; das gehostete n8n Cloud ist kostenpflichtig.\n\nAls Agentur empfehlen wir n8n besonders häufig, um Formular-, E-Mail-, Termin- und Bestellprozesse kleiner Unternehmen zu verknüpfen. Die Lizenz ist die Sustainable Use License nach dem Fair-Code-Ansatz und keine OSI-anerkannte Open-Source-Lizenz: Für eigene interne Geschäftszwecke ist die Nutzung kostenlos; laut Lizenz-FAQ von n8n dürfen Sie für Kunden Workflows auf Ihrer eigenen Instanz gegen Bezahlung erstellen und warten, ein Dienst, in dem Kunden eigene Workflows anlegen und bearbeiten, erfordert jedoch eine separate kommerzielle Lizenz. Eine selbst gehostete Instanz sendet standardmäßig Diagnosedaten an n8n und ruft Versions- und Vorlageninformationen ab; das lässt sich über Umgebungsvariablen abschalten. Ende 2025 und Anfang 2026 wurden kritische Schwachstellen veröffentlicht, darunter solche, die Codeausführung ohne Anmeldung erlaubten (z. B. CVE-2026-21858): Aktualisieren Sie regelmäßig und stellen Sie Editor und Webhook-Endpunkte nicht ungeschützt ins Internet.",
+        "ru": "n8n — платформа рабочих процессов, которая автоматизирует повторяющиеся задачи между приложениями: узлы соединяются на визуальном холсте. Цепочки вроде «заявка с веб-формы → запись в CRM», «краткое содержание входящего письма → сообщение команде в Slack» или ежедневной выгрузки заказов в таблицу собираются без кода, а при необходимости добавляется шаг на JavaScript или Python. Доступно более 1500 готовых интеграций и тысячи шаблонов процессов. Узлы ИИ-агентов подключают модели OpenAI, Anthropic, Google или открытые модели к процессам, которые используют инструменты и при необходимости ждут подтверждения человека. Исходный код открыт на GitHub, платформу можно развернуть на своём сервере через Docker; облачный n8n Cloud платный.\n\nКак агентство мы чаще всего рекомендуем n8n, чтобы связать процессы малого бизнеса: формы, почту, записи на приём и заказы. Лицензия — Sustainable Use License в духе fair-code, и она не является одобренной OSI открытой лицензией: для внутренних задач вашей компании использование бесплатно; согласно FAQ n8n по лицензии, можно за плату строить и сопровождать процессы для клиентов на собственном экземпляре, но сервис, в котором клиенты сами создают и редактируют процессы, требует отдельной коммерческой лицензии. Самостоятельно размещённый экземпляр по умолчанию отправляет в n8n диагностические данные и запрашивает сведения о версиях и шаблонах; это отключается переменными окружения. В конце 2025 и начале 2026 года были раскрыты критические уязвимости, в том числе позволявшие выполнять код без аутентификации (например, CVE-2026-21858): регулярно обновляйтесь и не открывайте редактор и вебхуки в интернет без защиты.",
+        "zh": "n8n 是一个工作流平台，通过在可视化画布上连接节点来自动化应用之间的重复性工作。例如把网页表单提交写入 CRM、汇总收到的邮件并通过 Slack 转给团队、每天早上把订单导入表格，这些流程都无需编写代码即可搭建，需要时也可以插入 JavaScript 或 Python 步骤。它提供 1500 多个现成集成和数千个工作流模板。AI 智能体节点可以把 OpenAI、Anthropic、Google 或开源模型接入能调用工具、并可等待人工审批的流程。源代码在 GitHub 上公开，可用 Docker 安装在自己的服务器上；托管版 n8n Cloud 需付费。\n\n作为代理机构，我们最常推荐用它来连接小企业的表单、邮件、预约和订单流程。它采用 fair-code 理念的 Sustainable Use License，并非 OSI 认可的开源许可证：用于企业自身内部业务时免费；根据 n8n 的许可证常见问题，你可以在自己的实例上为客户搭建并维护工作流并收取费用，但提供让客户自行创建和编辑工作流的服务则需要单独的商业许可。自托管实例默认会向 n8n 发送诊断数据并获取版本和模板信息，可通过环境变量关闭。2025 年底至 2026 年初曾披露多个严重漏洞，其中包括无需身份验证即可远程执行代码的漏洞（如 CVE-2026-21858）：请定期更新，不要在无防护的情况下把编辑器和 Webhook 端点暴露到互联网。",
+        "hi": "n8n एक वर्कफ़्लो प्लेटफ़ॉर्म है जो विज़ुअल कैनवस पर नोड जोड़कर ऐप्स के बीच दोहराए जाने वाले काम को स्वचालित करता है। वेब फ़ॉर्म की एंट्री को CRM में जोड़ना, आने वाले ईमेल का सारांश बनाकर Slack पर टीम को भेजना या हर सुबह ऑर्डर को स्प्रेडशीट में डालना जैसे फ़्लो बिना कोड के बनते हैं; ज़रूरत हो तो बीच में JavaScript या Python स्टेप जोड़ा जा सकता है। इसमें 1500 से अधिक तैयार इंटीग्रेशन और हज़ारों वर्कफ़्लो टेम्पलेट हैं। एआई एजेंट नोड OpenAI, Anthropic, Google या ओपन मॉडलों को ऐसे फ़्लो से जोड़ते हैं जो टूल इस्तेमाल करते हैं और ज़रूरत पड़ने पर इंसानी मंज़ूरी का इंतज़ार करते हैं। सोर्स कोड GitHub पर खुला है और Docker से अपने सर्वर पर इंस्टॉल किया जा सकता है; होस्टेड n8n Cloud सशुल्क है।\n\nएक एजेंसी के रूप में हम छोटे व्यवसायों की फ़ॉर्म, ईमेल, अपॉइंटमेंट और ऑर्डर प्रक्रियाओं को जोड़ने के लिए इसे सबसे अधिक सुझाते हैं। इसका लाइसेंस fair-code सोच वाला Sustainable Use License है, जो OSI-मान्य ओपन-सोर्स लाइसेंस नहीं है: अपने आंतरिक व्यावसायिक काम के लिए यह मुफ़्त है; n8n के लाइसेंस FAQ के अनुसार आप अपने इंस्टेंस पर क्लाइंट के लिए शुल्क लेकर वर्कफ़्लो बना और संभाल सकते हैं, लेकिन ऐसी सेवा देना जिसमें क्लाइंट ख़ुद वर्कफ़्लो बनाएँ और बदलें, अलग व्यावसायिक लाइसेंस माँगता है। सेल्फ़-होस्टेड इंस्टेंस डिफ़ॉल्ट रूप से n8n को डायग्नॉस्टिक डेटा भेजता है और संस्करण व टेम्पलेट की जानकारी लेता है; इसे एनवायरनमेंट वेरिएबल से बंद किया जा सकता है। 2025 के अंत और 2026 की शुरुआत में गंभीर कमज़ोरियाँ सामने आईं, जिनमें बिना प्रमाणीकरण रिमोट कोड चलाने देने वाली कमज़ोरियाँ भी थीं (जैसे CVE-2026-21858): नियमित अपडेट करें और एडिटर व वेबहुक एंडपॉइंट को बिना सुरक्षा इंटरनेट पर न खोलें।",
+        "ar": "n8n منصة لمسارات العمل تؤتمت المهام المتكررة بين التطبيقات عبر ربط العُقد على لوحة مرئية. تُبنى مسارات مثل إضافة طلب من نموذج ويب إلى نظام CRM، أو تلخيص البريد الوارد وإرساله إلى الفريق عبر Slack، أو نقل الطلبات إلى جدول كل صباح، دون كتابة شيفرة، ويمكن إضافة خطوة بلغة JavaScript أو Python عند الحاجة. تضم أكثر من 1500 تكامل جاهز وآلاف قوالب مسارات العمل. وتربط عُقد وكلاء الذكاء الاصطناعي نماذج OpenAI وAnthropic وGoogle أو النماذج المفتوحة بمسارات تستخدم الأدوات وتنتظر موافقة بشرية عند الحاجة. الشيفرة المصدرية متاحة على GitHub ويمكن تثبيتها على خادمك عبر Docker، أما خدمة n8n Cloud المستضافة فمدفوعة.\n\nبصفتنا وكالة، فهي من أكثر الأدوات التي نوصي بها لربط عمليات النماذج والبريد والمواعيد والطلبات لدى الشركات الصغيرة. ترخيصها هو Sustainable Use License وفق نهج fair-code، وهو ليس ترخيصًا مفتوح المصدر معتمدًا من OSI: الاستخدام مجاني لأغراض عملك الداخلية، ووفق الأسئلة الشائعة لترخيص n8n يجوز لك بناء مسارات العمل لعملائك وصيانتها على نسختك مقابل أجر، أما تقديم خدمة يُنشئ فيها العملاء مساراتهم ويعدّلونها بأنفسهم فيتطلب ترخيصًا تجاريًا منفصلًا. ترسل النسخة المستضافة ذاتيًا افتراضيًا بيانات تشخيصية إلى n8n وتجلب معلومات الإصدارات والقوالب، ويمكن إيقاف ذلك بمتغيرات البيئة. كُشف في أواخر 2025 وأوائل 2026 عن ثغرات حرجة، منها ما يسمح بتنفيذ شيفرة عن بُعد دون مصادقة (مثل CVE-2026-21858)، لذا حدّث النسخة بانتظام ولا تعرّض المحرر ونقاط Webhook للإنترنت دون حماية."
+      },
+      "adimlar": {
+        "tr": [
+          "Denemek için Docker açıkken önce docker volume create n8n_data, ardından docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n komutunu çalıştırıp http://localhost:5678 adresini açın.",
+          "İlk ekranda sahip (owner) hesabını güçlü bir şifreyle oluşturun; n8n'e veri gönderilmesin istiyorsanız docker run komutuna -e N8N_DIAGNOSTICS_ENABLED=false -e N8N_VERSION_NOTIFICATIONS_ENABLED=false -e N8N_TEMPLATES_ENABLED=false ekleyin.",
+          "Üç düğümlük bir akışla başlayın: Form Trigger ile gelen başvuruyu Google Sheets'e yazın, ardından kendinize bilgi e-postası gönderin ve akışı test edin.",
+          "Sunucuya taşırken HTTPS'li bir ters vekil arkasında çalıştırın, sürümü düzenli güncelleyin ve kayıtlı kimlik bilgilerini şifreleyen anahtarı (N8N_ENCRYPTION_KEY) yedekleyin."
+        ],
+        "en": [
+          "To try it with Docker running, first run docker volume create n8n_data, then docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n, and open http://localhost:5678.",
+          "On the first screen create the owner account with a strong password; to stop sending data to n8n, add -e N8N_DIAGNOSTICS_ENABLED=false -e N8N_VERSION_NOTIFICATIONS_ENABLED=false -e N8N_TEMPLATES_ENABLED=false to the docker run command.",
+          "Start with a three-node flow: write submissions from a Form Trigger to Google Sheets, then send yourself a notification email, and test the flow.",
+          "When moving to a server, run it behind a reverse proxy with HTTPS, update regularly and back up the key that encrypts stored credentials (N8N_ENCRYPTION_KEY)."
+        ],
+        "de": [
+          "Zum Ausprobieren bei laufendem Docker zuerst docker volume create n8n_data, dann docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n ausführen und http://localhost:5678 öffnen.",
+          "Auf dem ersten Bildschirm das Owner-Konto mit starkem Passwort anlegen; wer keine Daten an n8n senden möchte, ergänzt den docker-run-Befehl um -e N8N_DIAGNOSTICS_ENABLED=false -e N8N_VERSION_NOTIFICATIONS_ENABLED=false -e N8N_TEMPLATES_ENABLED=false.",
+          "Mit einem Ablauf aus drei Knoten beginnen: Anfragen aus einem Form Trigger in Google Sheets schreiben, danach eine Benachrichtigungs-E-Mail an sich selbst senden und den Ablauf testen.",
+          "Beim Umzug auf einen Server hinter einem Reverse Proxy mit HTTPS betreiben, regelmäßig aktualisieren und den Schlüssel sichern, der gespeicherte Zugangsdaten verschlüsselt (N8N_ENCRYPTION_KEY)."
+        ],
+        "ru": [
+          "Для пробы при запущенном Docker выполните docker volume create n8n_data, затем docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n и откройте http://localhost:5678.",
+          "На первом экране создайте учётную запись владельца (owner) с надёжным паролем; чтобы не отправлять данные в n8n, добавьте к команде docker run параметры -e N8N_DIAGNOSTICS_ENABLED=false -e N8N_VERSION_NOTIFICATIONS_ENABLED=false -e N8N_TEMPLATES_ENABLED=false.",
+          "Начните с процесса из трёх узлов: записывайте заявки из Form Trigger в Google Sheets, затем отправляйте себе письмо-уведомление и протестируйте процесс.",
+          "При переносе на сервер запускайте n8n за обратным прокси с HTTPS, регулярно обновляйте и сохраните резервную копию ключа, которым шифруются учётные данные (N8N_ENCRYPTION_KEY)."
+        ],
+        "zh": [
+          "试用时在 Docker 运行状态下先执行 docker volume create n8n_data，再执行 docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n，然后打开 http://localhost:5678。",
+          "在首个界面用强密码创建所有者（owner）账户；如不希望向 n8n 发送数据，在 docker run 命令中加入 -e N8N_DIAGNOSTICS_ENABLED=false -e N8N_VERSION_NOTIFICATIONS_ENABLED=false -e N8N_TEMPLATES_ENABLED=false。",
+          "从三个节点的流程开始：把 Form Trigger 收到的申请写入 Google Sheets，再给自己发送一封通知邮件，然后测试流程。",
+          "迁移到服务器时，请将其置于启用 HTTPS 的反向代理之后，定期更新，并备份用于加密已存凭据的密钥（N8N_ENCRYPTION_KEY）。"
+        ],
+        "hi": [
+          "आज़माने के लिए Docker चालू रखकर पहले docker volume create n8n_data और फिर docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n चलाएँ, फिर http://localhost:5678 खोलें।",
+          "पहली स्क्रीन पर मज़बूत पासवर्ड के साथ ओनर (owner) खाता बनाएँ; n8n को डेटा न भेजना हो तो docker run कमांड में -e N8N_DIAGNOSTICS_ENABLED=false -e N8N_VERSION_NOTIFICATIONS_ENABLED=false -e N8N_TEMPLATES_ENABLED=false जोड़ें।",
+          "तीन नोड वाले फ़्लो से शुरू करें: Form Trigger से आए आवेदन को Google Sheets में लिखें, फिर ख़ुद को सूचना ईमेल भेजें और फ़्लो का परीक्षण करें।",
+          "सर्वर पर ले जाते समय इसे HTTPS वाले रिवर्स प्रॉक्सी के पीछे चलाएँ, नियमित अपडेट करें और सहेजे गए क्रेडेंशियल को एन्क्रिप्ट करने वाली कुंजी (N8N_ENCRYPTION_KEY) का बैकअप रखें।"
+        ],
+        "ar": [
+          "للتجربة، ومع تشغيل Docker، نفّذ أولًا docker volume create n8n_data ثم docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n وافتح http://localhost:5678.",
+          "في الشاشة الأولى أنشئ حساب المالك (owner) بكلمة مرور قوية؛ وإن لم ترغب في إرسال بيانات إلى n8n فأضف إلى أمر docker run الخيارات -e N8N_DIAGNOSTICS_ENABLED=false -e N8N_VERSION_NOTIFICATIONS_ENABLED=false -e N8N_TEMPLATES_ENABLED=false.",
+          "ابدأ بمسار من ثلاث عُقد: اكتب الطلبات الواردة من Form Trigger في Google Sheets، ثم أرسل إلى نفسك رسالة إشعار بالبريد، واختبر المسار.",
+          "عند النقل إلى خادم شغّله خلف وكيل عكسي يعمل بـHTTPS، وحدّثه بانتظام، واحتفظ بنسخة احتياطية من المفتاح الذي يشفّر بيانات الاعتماد المحفوظة (N8N_ENCRYPTION_KEY)."
+        ]
+      },
+      "etiketler": [
+        "iş akışı",
+        "otomasyon",
+        "yapay zekâ ajanı",
+        "entegrasyon",
+        "self-host",
+        "kaynağı açık"
+      ],
+      "baglanti": "https://github.com/n8n-io/n8n",
+      "baglanti_turu": "github",
+      "lisans": "Sustainable Use License (fair-code; .ee dosyaları hariç)",
+      "ucretsiz": true,
+      "acik_kaynak": false,
+      "youtube_short": null,
+      "one_cikan": true,
+      "sira": 1000,
+      "dogrulama_tarihi": "2026-10-06"
+    },
+    {
+      "slug": "appsmith",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "Appsmith: Veritabanı ve API'lerinize Bağlanan Yönetim Panellerini ve İç Araçları Sürükle-Bırakla Kuran Açık Kaynak Platform",
+        "en": "Appsmith: An Open-Source Platform for Building Admin Panels and Internal Tools on Top of Your Databases and APIs by Drag and Drop",
+        "de": "Appsmith: Open-Source-Plattform, mit der Sie Admin-Panels und interne Tools auf Ihren Datenbanken und APIs per Drag-and-drop bauen",
+        "ru": "Appsmith: открытая платформа для сборки админ-панелей и внутренних инструментов поверх ваших баз данных и API перетаскиванием",
+        "zh": "Appsmith：通过拖放在数据库和 API 之上搭建管理后台与内部工具的开源平台",
+        "hi": "Appsmith: आपके डेटाबेस और API पर ड्रैग-एंड-ड्रॉप से एडमिन पैनल और आंतरिक टूल बनाने वाला ओपन-सोर्स प्लेटफ़ॉर्म",
+        "ar": "Appsmith: منصة مفتوحة المصدر لبناء لوحات الإدارة والأدوات الداخلية فوق قواعد بياناتك وواجهات API بالسحب والإفلات"
+      },
+      "ozet": {
+        "tr": "Tablo, form ve grafik bileşenlerini veritabanına ya da API'ye bağlayarak sipariş, stok ve müşteri panelleri kurar; Docker ile kendi sunucunuzda çalışır.",
+        "en": "Connects table, form and chart widgets to a database or API to build order, stock and customer panels; runs on your own server with Docker.",
+        "de": "Verbindet Tabellen-, Formular- und Diagramm-Widgets mit Datenbank oder API für Bestell-, Lager- und Kundenpanels; läuft per Docker selbst gehostet.",
+        "ru": "Подключает таблицы, формы и графики к базе данных или API для панелей заказов, склада и клиентов; работает на вашем сервере через Docker.",
+        "zh": "把表格、表单和图表组件连接到数据库或 API，搭建订单、库存和客户面板；可用 Docker 运行在自己的服务器上。",
+        "hi": "टेबल, फ़ॉर्म और चार्ट विजेट को डेटाबेस या API से जोड़कर ऑर्डर, स्टॉक और ग्राहक पैनल बनाता है; Docker से अपने सर्वर पर चलता है।",
+        "ar": "يربط مكونات الجداول والنماذج والرسوم البيانية بقاعدة بيانات أو API لبناء لوحات الطلبات والمخزون والعملاء؛ ويعمل على خادمك عبر Docker."
+      },
+      "aciklama": {
+        "tr": "Appsmith, şirket içinde kullanılan yönetim panellerini, onay ekranlarını ve raporlama araçlarını hızla kurmak için geliştirilmiş açık kaynak bir düşük kodlu (low-code) platformdur. Tablo, form, grafik ve düğme gibi hazır bileşenleri sürükleyip bırakır, bunları PostgreSQL, MySQL, MongoDB, Google Sheets ya da herhangi bir REST veya GraphQL API'ye bağlarsınız; davranışı gerektiğinde JavaScript ile yazarsınız. 25'ten fazla veritabanıyla doğrudan bağlantı kurabilir; uygulamalar ekip hesaplarıyla paylaşılır ve yalnız görüntüleme ya da düzenleme yetkisiyle açılabilir. Topluluk sürümü Apache-2.0 lisanslıdır; bulut sürümü ve ücretli planları da vardır.\n\nAjans olarak müşterilerin Excel'de yürüttüğü sipariş, stok, randevu ya da başvuru takibini mevcut veritabanının üzerine birkaç günde kurulan bir panele taşımak için değerlendiriyoruz. Resmi kurulum belgesi varsayılan olarak ücretsiz planı olan ticari sürümü (appsmith-ee) kurar; Apache-2.0 lisanslı açık kaynak sürüm için imaj adını appsmith-ce yapın. SAML/OIDC ile tek oturum açma ve ayrıntılı rol tabanlı yetkilendirme gibi bazı kurumsal özellikler ücretli sürümdedir. Varsayılan kurulum MongoDB, Redis ve PostgreSQL'i aynı kapsayıcıda çalıştırdığı için sunucuda en az 8 GB bellek önerilir. Anonim kullanım verisi yönetici ayarlarından ya da APPSMITH_DISABLE_TELEMETRY=true ile kapatılabilir; sunucunun iki saatte bir gönderdiği canlılık sinyali ve ilk kurulum bildirimi ise bu ayardan bağımsızdır.",
+        "en": "Appsmith is an open-source low-code platform for quickly building the admin panels, approval screens and reporting tools a company uses internally. You drag and drop ready-made widgets such as tables, forms, charts and buttons, connect them to PostgreSQL, MySQL, MongoDB, Google Sheets or any REST or GraphQL API, and write behaviour in JavaScript where needed. It connects directly to more than 25 databases, and apps are shared with team accounts with view-only or edit access. The community edition is Apache-2.0-licensed; there is also a cloud version and paid plans.\n\nAs an agency we are evaluating it for moving the order, stock, booking or application tracking that clients run in Excel into a panel built in a few days on top of their existing database. The official installation guide installs the commercial edition with a free plan (appsmith-ee) by default; for the Apache-2.0 open-source edition, change the image name to appsmith-ce. Some enterprise features, such as single sign-on via SAML/OIDC and granular role-based access control, are in the paid edition. Because the default setup runs MongoDB, Redis and PostgreSQL inside the same container, at least 8 GB of RAM is recommended on the server. Anonymous usage data can be turned off in the admin settings or with APPSMITH_DISABLE_TELEMETRY=true; the keep-alive ping the server sends every two hours and the first-setup notification are independent of this setting.",
+        "de": "Appsmith ist eine Open-Source-Low-Code-Plattform, mit der sich unternehmensinterne Admin-Panels, Freigabemasken und Reporting-Tools schnell bauen lassen. Fertige Widgets wie Tabellen, Formulare, Diagramme und Buttons werden per Drag-and-drop platziert, mit PostgreSQL, MySQL, MongoDB, Google Sheets oder einer beliebigen REST- oder GraphQL-API verbunden, und das Verhalten wird bei Bedarf in JavaScript geschrieben. Direkte Verbindungen zu mehr als 25 Datenbanken sind möglich; Apps werden mit Teamkonten geteilt und lassen sich nur zum Ansehen oder zum Bearbeiten freigeben. Die Community-Edition steht unter Apache-2.0; daneben gibt es eine Cloud-Version und kostenpflichtige Pläne.\n\nAls Agentur prüfen wir Appsmith, um Bestell-, Lager-, Termin- oder Bewerbungslisten, die Kunden in Excel führen, in ein Panel zu überführen, das in wenigen Tagen auf der vorhandenen Datenbank entsteht. Die offizielle Installationsanleitung installiert standardmäßig die kommerzielle Edition mit kostenlosem Plan (appsmith-ee); für die Open-Source-Edition unter Apache-2.0 ändern Sie den Image-Namen auf appsmith-ce. Einige Enterprise-Funktionen wie Single Sign-on über SAML/OIDC und fein abgestufte rollenbasierte Rechte gibt es nur in der kostenpflichtigen Edition. Da die Standardinstallation MongoDB, Redis und PostgreSQL im selben Container betreibt, werden auf dem Server mindestens 8 GB RAM empfohlen. Anonyme Nutzungsdaten lassen sich in den Admin-Einstellungen oder mit APPSMITH_DISABLE_TELEMETRY=true abschalten; das Lebenszeichen, das der Server alle zwei Stunden sendet, und die Meldung bei der Ersteinrichtung sind davon unabhängig.",
+        "ru": "Appsmith — открытая low-code-платформа для быстрой сборки внутренних админ-панелей, экранов согласования и инструментов отчётности. Готовые виджеты — таблицы, формы, графики и кнопки — перетаскиваются на холст и подключаются к PostgreSQL, MySQL, MongoDB, Google Sheets или любому REST- либо GraphQL-API, а логика при необходимости пишется на JavaScript. Поддерживается прямое подключение к более чем 25 базам данных; приложения открываются командным учётным записям с правами только на просмотр или на редактирование. Community-версия распространяется по лицензии Apache-2.0; есть также облачная версия и платные тарифы.\n\nКак агентство мы рассматриваем Appsmith, чтобы перенести учёт заказов, склада, записей или заявок, который клиенты ведут в Excel, в панель, собранную за несколько дней поверх их существующей базы данных. Официальная инструкция по установке по умолчанию ставит коммерческую версию с бесплатным тарифом (appsmith-ee); для открытой версии под Apache-2.0 замените имя образа на appsmith-ce. Часть корпоративных функций, например единый вход через SAML/OIDC и детальное ролевое разграничение прав, доступна только в платной версии. Поскольку стандартная установка запускает MongoDB, Redis и PostgreSQL в одном контейнере, на сервере рекомендуется не менее 8 ГБ памяти. Анонимную статистику использования можно отключить в настройках администратора или переменной APPSMITH_DISABLE_TELEMETRY=true; сигнал активности, который сервер отправляет каждые два часа, и уведомление о первой установке от этой настройки не зависят.",
+        "zh": "Appsmith 是一个开源低代码平台，用于快速搭建企业内部使用的管理后台、审批界面和报表工具。你可以拖放表格、表单、图表、按钮等现成组件，把它们连接到 PostgreSQL、MySQL、MongoDB、Google Sheets 或任意 REST、GraphQL API，并在需要时用 JavaScript 编写逻辑。它可以直接连接 25 种以上的数据库；应用可共享给团队账户，并设置为仅查看或可编辑。社区版采用 Apache-2.0 许可证；另有云端版本和付费方案。\n\n作为代理机构，我们正在评估用它把客户在 Excel 中管理的订单、库存、预约或申请记录，迁移到几天内基于现有数据库搭建好的面板中。官方安装文档默认安装带免费方案的商业版（appsmith-ee）；如需 Apache-2.0 开源版，请把镜像名改为 appsmith-ce。部分企业功能，如通过 SAML/OIDC 的单点登录和细粒度的基于角色的权限控制，仅在付费版中提供。默认安装会在同一容器中运行 MongoDB、Redis 和 PostgreSQL，因此建议服务器至少有 8 GB 内存。匿名使用数据可在管理设置中或通过 APPSMITH_DISABLE_TELEMETRY=true 关闭；但服务器每两小时发送一次的存活信号和首次安装通知不受此设置影响。",
+        "hi": "Appsmith एक ओपन-सोर्स लो-कोड प्लेटफ़ॉर्म है, जिससे कंपनी के अंदर इस्तेमाल होने वाले एडमिन पैनल, अनुमोदन स्क्रीन और रिपोर्टिंग टूल जल्दी बनाए जाते हैं। आप टेबल, फ़ॉर्म, चार्ट और बटन जैसे तैयार विजेट ड्रैग-एंड-ड्रॉप करते हैं, उन्हें PostgreSQL, MySQL, MongoDB, Google Sheets या किसी भी REST या GraphQL API से जोड़ते हैं और ज़रूरत हो तो व्यवहार JavaScript में लिखते हैं। यह 25 से अधिक डेटाबेस से सीधे जुड़ सकता है; ऐप टीम खातों के साथ केवल देखने या संपादन की अनुमति के साथ साझा किए जाते हैं। कम्युनिटी संस्करण Apache-2.0 लाइसेंस में है; क्लाउड संस्करण और सशुल्क प्लान भी उपलब्ध हैं।\n\nएक एजेंसी के रूप में हम इसे इस उद्देश्य से परख रहे हैं कि क्लाइंट जो ऑर्डर, स्टॉक, अपॉइंटमेंट या आवेदन का हिसाब Excel में रखते हैं, उसे उनके मौजूदा डेटाबेस पर कुछ ही दिनों में बने पैनल में ले जाया जाए। आधिकारिक इंस्टॉलेशन गाइड डिफ़ॉल्ट रूप से मुफ़्त प्लान वाला व्यावसायिक संस्करण (appsmith-ee) इंस्टॉल करती है; Apache-2.0 वाले ओपन-सोर्स संस्करण के लिए इमेज का नाम appsmith-ce करें। SAML/OIDC से सिंगल साइन-ऑन और बारीक रोल-आधारित अनुमतियों जैसी कुछ एंटरप्राइज़ सुविधाएँ सशुल्क संस्करण में हैं। डिफ़ॉल्ट सेटअप MongoDB, Redis और PostgreSQL को एक ही कंटेनर में चलाता है, इसलिए सर्वर पर कम से कम 8 GB मेमोरी की सलाह दी जाती है। गुमनाम उपयोग डेटा एडमिन सेटिंग्स से या APPSMITH_DISABLE_TELEMETRY=true से बंद किया जा सकता है; सर्वर द्वारा हर दो घंटे पर भेजा जाने वाला सक्रियता संकेत और पहली सेटअप सूचना इस सेटिंग से स्वतंत्र हैं।",
+        "ar": "Appsmith منصة مفتوحة المصدر منخفضة الشيفرة (low-code) لبناء لوحات الإدارة وشاشات الموافقة وأدوات التقارير التي تستخدمها الشركة داخليًا بسرعة. تسحب مكونات جاهزة مثل الجداول والنماذج والرسوم البيانية والأزرار وتفلتها، ثم تربطها بـPostgreSQL أو MySQL أو MongoDB أو Google Sheets أو أي واجهة REST أو GraphQL، وتكتب السلوك بلغة JavaScript عند الحاجة. تتصل مباشرة بأكثر من 25 قاعدة بيانات، وتُشارك التطبيقات مع حسابات الفريق بصلاحية العرض فقط أو التعديل. النسخة المجتمعية مرخّصة بـApache-2.0، وتتوفر أيضًا نسخة سحابية وخطط مدفوعة.\n\nبصفتنا وكالة، نقيّمها لنقل متابعة الطلبات أو المخزون أو المواعيد أو الطلبات المقدَّمة التي يديرها العملاء في Excel إلى لوحة تُبنى خلال أيام فوق قاعدة بياناتهم الحالية. يثبّت دليل التثبيت الرسمي افتراضيًا النسخة التجارية ذات الخطة المجانية (appsmith-ee)؛ وللحصول على النسخة مفتوحة المصدر المرخّصة بـApache-2.0 غيّر اسم الصورة إلى appsmith-ce. بعض ميزات المؤسسات، مثل تسجيل الدخول الموحّد عبر SAML/OIDC والصلاحيات التفصيلية القائمة على الأدوار، موجودة في النسخة المدفوعة. ولأن الإعداد الافتراضي يشغّل MongoDB وRedis وPostgreSQL داخل الحاوية نفسها، يوصى بذاكرة لا تقل عن 8 غيغابايت على الخادم. يمكن إيقاف بيانات الاستخدام المجهولة من إعدادات المسؤول أو عبر APPSMITH_DISABLE_TELEMETRY=true، أما إشارة النشاط التي يرسلها الخادم كل ساعتين وإشعار الإعداد الأول فلا يتأثران بهذا الإعداد."
+      },
+      "adimlar": {
+        "tr": [
+          "Bir appsmith klasörü açıp içine docker-compose.yml oluşturun; imaj olarak index.docker.io/appsmith/appsmith-ce:<sürüm> yazın (GitHub'daki son sürüm etiketini kullanın), 80 ve 443 portlarını ve ./stacks:/appsmith-stacks birimini ekleyin.",
+          "docker-compose up -d ile başlatın; birkaç dakika sonra http://localhost adresini açıp yönetici hesabını oluşturun.",
+          "Telemetriyi kapatmak için Admin Settings > General'da Share anonymous usage data seçeneğini kapatıp Save & Restart'a basın ya da docker.env dosyasında APPSMITH_DISABLE_TELEMETRY=true yapın.",
+          "İlk uygulama olarak bir Google Sheets ya da PostgreSQL tablosunu bağlayıp kayıtları listeleyen ve düzenleyen tablo + form ekranı kurun; erişimi yalnız ekip hesaplarına açın."
+        ],
+        "en": [
+          "Create an appsmith folder with a docker-compose.yml inside; set the image to index.docker.io/appsmith/appsmith-ce:<version> (use the latest release tag on GitHub) and add ports 80 and 443 and the ./stacks:/appsmith-stacks volume.",
+          "Start it with docker-compose up -d; after a few minutes open http://localhost and create the administrator account.",
+          "To turn off telemetry, disable Share anonymous usage data under Admin Settings > General and click Save & Restart, or set APPSMITH_DISABLE_TELEMETRY=true in the docker.env file.",
+          "As a first app, connect a Google Sheets or PostgreSQL table and build a table + form screen that lists and edits records; give access to team accounts only."
+        ],
+        "de": [
+          "Einen Ordner appsmith mit einer docker-compose.yml anlegen; als Image index.docker.io/appsmith/appsmith-ce:<version> eintragen (neuestes Release-Tag auf GitHub verwenden) sowie die Ports 80 und 443 und das Volume ./stacks:/appsmith-stacks ergänzen.",
+          "Mit docker-compose up -d starten; nach einigen Minuten http://localhost öffnen und das Administratorkonto anlegen.",
+          "Telemetrie abschalten: unter Admin Settings > General die Option Share anonymous usage data deaktivieren und Save & Restart klicken oder in der Datei docker.env APPSMITH_DISABLE_TELEMETRY=true setzen.",
+          "Als erste App eine Google-Sheets- oder PostgreSQL-Tabelle anbinden und eine Tabellen- und Formularansicht bauen, die Datensätze auflistet und bearbeitet; Zugriff nur für Teamkonten freigeben."
+        ],
+        "ru": [
+          "Создайте папку appsmith и в ней docker-compose.yml; укажите образ index.docker.io/appsmith/appsmith-ce:<версия> (возьмите последний тег релиза на GitHub), добавьте порты 80 и 443 и том ./stacks:/appsmith-stacks.",
+          "Запустите командой docker-compose up -d; через несколько минут откройте http://localhost и создайте учётную запись администратора.",
+          "Чтобы отключить телеметрию, выключите Share anonymous usage data в Admin Settings > General и нажмите Save & Restart либо задайте APPSMITH_DISABLE_TELEMETRY=true в файле docker.env.",
+          "В качестве первого приложения подключите таблицу Google Sheets или PostgreSQL и соберите экран «таблица + форма» для просмотра и правки записей; откройте доступ только командным учётным записям."
+        ],
+        "zh": [
+          "新建 appsmith 文件夹并在其中创建 docker-compose.yml；镜像填写 index.docker.io/appsmith/appsmith-ce:<版本>（使用 GitHub 上最新的发布标签），并添加 80、443 端口和 ./stacks:/appsmith-stacks 卷。",
+          "用 docker-compose up -d 启动；几分钟后打开 http://localhost 并创建管理员账户。",
+          "如需关闭遥测，在 Admin Settings > General 中关闭 Share anonymous usage data 并点击 Save & Restart，或在 docker.env 文件中设置 APPSMITH_DISABLE_TELEMETRY=true。",
+          "第一个应用可连接一张 Google Sheets 或 PostgreSQL 表，搭建可列出和编辑记录的“表格 + 表单”界面；只向团队账户开放访问。"
+        ],
+        "hi": [
+          "appsmith नाम का फ़ोल्डर बनाकर उसमें docker-compose.yml बनाएँ; इमेज के रूप में index.docker.io/appsmith/appsmith-ce:<संस्करण> लिखें (GitHub पर नवीनतम रिलीज़ टैग लें) और 80 व 443 पोर्ट तथा ./stacks:/appsmith-stacks वॉल्यूम जोड़ें।",
+          "docker-compose up -d से शुरू करें; कुछ मिनट बाद http://localhost खोलें और एडमिन खाता बनाएँ।",
+          "टेलीमेट्री बंद करने के लिए Admin Settings > General में Share anonymous usage data बंद करके Save & Restart दबाएँ, या docker.env फ़ाइल में APPSMITH_DISABLE_TELEMETRY=true करें।",
+          "पहले ऐप के रूप में Google Sheets या PostgreSQL टेबल जोड़कर रिकॉर्ड दिखाने और बदलने वाली टेबल + फ़ॉर्म स्क्रीन बनाएँ; पहुँच केवल टीम खातों को दें।"
+        ],
+        "ar": [
+          "أنشئ مجلدًا باسم appsmith وبداخله ملف docker-compose.yml؛ اكتب الصورة index.docker.io/appsmith/appsmith-ce:<الإصدار> (استخدم أحدث وسم إصدار على GitHub)، وأضف المنفذين 80 و443 والمجلد ./stacks:/appsmith-stacks.",
+          "شغّله بالأمر docker-compose up -d؛ وبعد بضع دقائق افتح http://localhost وأنشئ حساب المسؤول.",
+          "لإيقاف القياس عن بُعد عطّل خيار Share anonymous usage data في Admin Settings > General واضغط Save & Restart، أو اضبط APPSMITH_DISABLE_TELEMETRY=true في ملف docker.env.",
+          "كتطبيق أول، اربط جدول Google Sheets أو PostgreSQL وابنِ شاشة جدول + نموذج تعرض السجلات وتعدّلها؛ وامنح الوصول لحسابات الفريق فقط."
+        ]
+      },
+      "etiketler": [
+        "dahili araç",
+        "yönetim paneli",
+        "low-code",
+        "kodsuz",
+        "self-host",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/appsmithorg/appsmith",
+      "baglanti_turu": "github",
+      "lisans": "Apache-2.0 (Community sürümü)",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 1010,
+      "dogrulama_tarihi": "2026-10-06"
+    },
+    {
+      "slug": "devtoys",
+      "kategori": "veri-otomasyon",
+      "baslik": {
+        "tr": "DevToys: JSON Biçimlendirme, JWT Çözme ve Base64 Gibi Günlük Geliştirici İşlerini Çevrimdışı Yapan Masaüstü Araç Kutusu",
+        "en": "DevToys: A Desktop Toolbox That Handles Everyday Developer Tasks Such as JSON Formatting, JWT Decoding and Base64 Offline",
+        "de": "DevToys: Desktop-Werkzeugkasten, der alltägliche Entwickleraufgaben wie JSON-Formatierung, JWT-Dekodierung und Base64 offline erledigt",
+        "ru": "DevToys: настольный набор инструментов для повседневных задач разработчика — форматирования JSON, разбора JWT и Base64 — без интернета",
+        "zh": "DevToys：离线完成 JSON 格式化、JWT 解码、Base64 等日常开发任务的桌面工具箱",
+        "hi": "DevToys: JSON फ़ॉर्मैटिंग, JWT डिकोडिंग और Base64 जैसे रोज़मर्रा के डेवलपर काम ऑफ़लाइन करने वाला डेस्कटॉप टूलबॉक्स",
+        "ar": "DevToys: صندوق أدوات مكتبي يُنجز مهام المطوّر اليومية مثل تنسيق JSON وفك رموز JWT وBase64 دون اتصال"
+      },
+      "ozet": {
+        "tr": "JSON/YAML dönüştürme, JWT çözme, hash ve metin karşılaştırma gibi 30 aracı Windows, macOS ve Linux'ta çevrimdışı sunar; veriniz bilgisayardan çıkmaz.",
+        "en": "30 offline tools on Windows, macOS and Linux, including JSON/YAML conversion, JWT decoding, hashing and text comparison; your data stays on your computer.",
+        "de": "30 Offline-Werkzeuge für Windows, macOS und Linux, etwa JSON/YAML-Umwandlung, JWT-Dekodierung, Hashes und Textvergleich; Daten bleiben auf dem Rechner.",
+        "ru": "30 офлайн-инструментов для Windows, macOS и Linux: JSON/YAML, разбор JWT, хеши, сравнение текстов; данные не покидают компьютер.",
+        "zh": "在 Windows、macOS 和 Linux 上离线提供 30 个工具，包括 JSON/YAML 转换、JWT 解码、哈希和文本比较；数据不离开你的电脑。",
+        "hi": "Windows, macOS और Linux पर 30 ऑफ़लाइन टूल: JSON/YAML रूपांतरण, JWT डिकोडिंग, हैश और टेक्स्ट तुलना; आपका डेटा कंप्यूटर से बाहर नहीं जाता।",
+        "ar": "30 أداة تعمل دون اتصال على Windows وmacOS وLinux، منها تحويل JSON/YAML وفك JWT والتجزئة ومقارنة النصوص؛ وتبقى بياناتك على جهازك."
+      },
+      "aciklama": {
+        "tr": "DevToys, geliştiricilerin gün içinde sık ihtiyaç duyduğu küçük işleri tek bir masaüstü uygulamada toplayan açık kaynak bir araç kutusudur. JSON ile YAML arasında dönüştürme; JSON, SQL ve XML biçimlendirme; JWT, Base64, URL ve GZip kodlama/çözme; hash, UUID ve şifre üretme; metin ve liste karşılaştırma; düzenli ifade (regex) ve JSONPath test etme, cron ifadesi okuma, renk körlüğü simülasyonu ve PNG/JPEG sıkıştırma dahil 30 araçla gelir. Akıllı algılama (Smart Detection), panodaki içeriğe uygun aracı kendisi önerir. Windows, macOS ve Linux'ta çalışır; araçların bir kısmı ayrı indirilen DevToys CLI ile komut satırından ve CI süreçlerinde de kullanılabilir, topluluk eklentileriyle genişletilebilir. MIT lisanslıdır.\n\nAjans olarak müşteri projelerinde gelen API yanıtını okumak, bir oturum jetonunun içeriğine bakmak ya da iki yapılandırma dosyasını karşılaştırmak için öneriyoruz. Bu işleri yapan rastgele web sitelerine müşteriye ait jeton, anahtar veya kişisel veri yapıştırmak risklidir; DevToys araçları yerelde çalışır ve gizlilik politikasına göre kullanım kayıtları geliştiriciye gönderilmez, yalnız ayarlardaki Logs bölümünde görünür. Güncel 2.x sürümleri GitHub'da ön sürüm (pre-release) olarak etiketlenir; resmi siteden ya da paket yöneticilerinden kurmanız yeterlidir. Ek araçlar NuGet üzerinden eklenti olarak gelir ve bilgisayarınızda kod çalıştırır; yalnız güvendiğiniz eklentileri kurun.",
+        "en": "DevToys is an open-source toolbox that gathers the small tasks developers need many times a day into a single desktop app. It ships with 30 tools, including JSON ↔ YAML conversion; JSON, SQL and XML formatting; JWT, Base64, URL and GZip encoding/decoding; hash, UUID and password generation; text and list comparison; regular-expression and JSONPath testing, cron expression parsing, a colour-blindness simulator and PNG/JPEG compression. Smart Detection suggests the right tool for whatever is on your clipboard. It runs on Windows, macOS and Linux; some tools are also available from the command line and in CI through the separately downloaded DevToys CLI, and it can be extended with community extensions. It is MIT-licensed.\n\nAs an agency we recommend it for reading an incoming API response, looking inside a session token or comparing two configuration files in client projects. Pasting a client's tokens, keys or personal data into random websites that do these jobs is risky; DevToys tools run locally and, according to its privacy policy, usage logs are not sent to the developer but only shown in the Logs section of the settings. Current 2.x releases are tagged as pre-releases on GitHub; installing from the official website or a package manager is enough. Extra tools arrive as extensions via NuGet and run code on your computer, so install only extensions you trust.",
+        "de": "DevToys ist ein Open-Source-Werkzeugkasten, der die kleinen Aufgaben, die Entwickler mehrmals täglich brauchen, in einer Desktop-App bündelt. Er bringt 30 Werkzeuge mit, darunter JSON ↔ YAML-Umwandlung; JSON-, SQL- und XML-Formatierung; JWT-, Base64-, URL- und GZip-Kodierung/-Dekodierung; Hash-, UUID- und Passwortgenerator; Text- und Listenvergleich; Tester für reguläre Ausdrücke und JSONPath, Cron-Parser, Farbenblindheits-Simulator und PNG/JPEG-Kompression. Die Smart Detection schlägt passend zum Inhalt der Zwischenablage das richtige Werkzeug vor. Die App läuft unter Windows, macOS und Linux; einige Werkzeuge stehen über die separat erhältliche DevToys CLI auch auf der Kommandozeile und in CI zur Verfügung, und Community-Erweiterungen bauen den Umfang aus. Sie steht unter MIT-Lizenz.\n\nAls Agentur empfehlen wir DevToys, um in Kundenprojekten eine API-Antwort zu lesen, in ein Sitzungstoken zu schauen oder zwei Konfigurationsdateien zu vergleichen. Token, Schlüssel oder personenbezogene Daten von Kunden in beliebige Websites einzufügen, die solche Aufgaben erledigen, ist riskant; die DevToys-Werkzeuge laufen lokal, und laut Datenschutzerklärung werden Nutzungsprotokolle nicht an den Entwickler gesendet, sondern nur im Bereich Logs der Einstellungen angezeigt. Aktuelle 2.x-Versionen sind auf GitHub als Vorabversion (Pre-Release) markiert; die Installation über die offizielle Website oder einen Paketmanager genügt. Zusätzliche Werkzeuge kommen als Erweiterungen über NuGet und führen Code auf Ihrem Rechner aus – installieren Sie nur Erweiterungen, denen Sie vertrauen.",
+        "ru": "DevToys — открытый набор инструментов, который собирает в одном настольном приложении мелкие задачи, нужные разработчику по многу раз в день. В комплекте 30 инструментов: преобразование JSON ↔ YAML; форматирование JSON, SQL и XML; кодирование и декодирование JWT, Base64, URL и GZip; генерация хешей, UUID и паролей; сравнение текстов и списков; проверка регулярных выражений и JSONPath, разбор cron-выражений, симулятор дальтонизма и сжатие PNG/JPEG. Функция Smart Detection сама предлагает подходящий инструмент для содержимого буфера обмена. Приложение работает в Windows, macOS и Linux; часть инструментов доступна из командной строки и в CI через отдельно скачиваемый DevToys CLI, а набор расширяется плагинами сообщества. Лицензия MIT.\n\nКак агентство мы рекомендуем DevToys, чтобы в клиентских проектах прочитать ответ API, заглянуть внутрь токена сессии или сравнить два файла конфигурации. Вставлять токены, ключи или персональные данные клиента на случайные сайты, выполняющие такие задачи, рискованно; инструменты DevToys работают локально, а журналы использования, согласно политике конфиденциальности, не отправляются разработчику и видны только в разделе Logs в настройках. Актуальные версии 2.x помечены на GitHub как предварительные (pre-release); достаточно установить приложение с официального сайта или через менеджер пакетов. Дополнительные инструменты ставятся как расширения через NuGet и выполняют код на вашем компьютере, поэтому устанавливайте только те, которым доверяете.",
+        "zh": "DevToys 是一个开源工具箱，把开发者每天要反复处理的小任务集中到一个桌面应用中。它自带 30 个工具，包括 JSON 与 YAML 互转；JSON、SQL 和 XML 格式化；JWT、Base64、URL 和 GZip 编解码；哈希、UUID 和密码生成；文本与列表比较；正则表达式和 JSONPath 测试、cron 表达式解析、色盲模拟以及 PNG/JPEG 压缩。智能检测（Smart Detection）会根据剪贴板内容自动推荐合适的工具。它可在 Windows、macOS 和 Linux 上运行；部分工具还可通过单独下载的 DevToys CLI 在命令行和 CI 中使用，并可用社区扩展进一步增强。采用 MIT 许可证。\n\n作为代理机构，我们推荐在客户项目中用它查看 API 响应、检查会话令牌内容或比较两个配置文件。把客户的令牌、密钥或个人数据粘贴到随便找来的在线工具网站上是有风险的；DevToys 的工具在本地运行，根据其隐私政策，使用日志不会发送给开发者，只显示在设置中的 Logs 部分。当前 2.x 版本在 GitHub 上被标记为预发布（pre-release）；从官方网站或包管理器安装即可。额外工具以扩展形式通过 NuGet 获取，会在你的电脑上运行代码，请只安装你信任的扩展。",
+        "hi": "DevToys एक ओपन-सोर्स टूलबॉक्स है जो डेवलपरों को दिन में कई बार पड़ने वाले छोटे कामों को एक ही डेस्कटॉप ऐप में इकट्ठा करता है। इसमें 30 टूल आते हैं, जैसे JSON ↔ YAML रूपांतरण; JSON, SQL और XML फ़ॉर्मैटिंग; JWT, Base64, URL और GZip एन्कोड/डिकोड; हैश, UUID और पासवर्ड जनरेटर; टेक्स्ट और सूची की तुलना; रेगुलर एक्सप्रेशन और JSONPath टेस्टर, cron एक्सप्रेशन पार्सर, रंग-अंधता सिम्युलेटर और PNG/JPEG कंप्रेशन। स्मार्ट डिटेक्शन क्लिपबोर्ड की सामग्री के अनुसार सही टूल ख़ुद सुझाता है। यह Windows, macOS और Linux पर चलता है; कुछ टूल अलग से डाउनलोड होने वाले DevToys CLI के ज़रिए कमांड लाइन और CI में भी उपलब्ध हैं, और कम्युनिटी एक्सटेंशन से इसे बढ़ाया जा सकता है। यह MIT लाइसेंस में है।\n\nएक एजेंसी के रूप में हम क्लाइंट प्रोजेक्ट में आई API प्रतिक्रिया पढ़ने, किसी सेशन टोकन के भीतर देखने या दो कॉन्फ़िगरेशन फ़ाइलों की तुलना करने के लिए इसे सुझाते हैं। क्लाइंट के टोकन, कुंजियाँ या निजी डेटा ऐसे काम करने वाली अनजान वेबसाइटों पर चिपकाना जोखिम भरा है; DevToys के टूल स्थानीय रूप से चलते हैं और गोपनीयता नीति के अनुसार उपयोग लॉग डेवलपर को नहीं भेजे जाते, केवल सेटिंग्स के Logs भाग में दिखते हैं। वर्तमान 2.x संस्करण GitHub पर प्री-रिलीज़ के रूप में टैग किए गए हैं; आधिकारिक वेबसाइट या पैकेज मैनेजर से इंस्टॉल करना पर्याप्त है। अतिरिक्त टूल NuGet के ज़रिए एक्सटेंशन के रूप में आते हैं और आपके कंप्यूटर पर कोड चलाते हैं, इसलिए केवल भरोसेमंद एक्सटेंशन ही इंस्टॉल करें।",
+        "ar": "DevToys صندوق أدوات مفتوح المصدر يجمع المهام الصغيرة التي يحتاجها المطوّرون مرات كثيرة في اليوم داخل تطبيق مكتبي واحد. يأتي مع 30 أداة، منها التحويل بين JSON وYAML؛ وتنسيق JSON وSQL وXML؛ وترميز وفك ترميز JWT وBase64 وURL وGZip؛ وتوليد التجزئة وUUID وكلمات المرور؛ ومقارنة النصوص والقوائم؛ واختبار التعابير النمطية وJSONPath، وقراءة تعابير cron، ومحاكاة عمى الألوان، وضغط صور PNG/JPEG. تقترح ميزة الكشف الذكي (Smart Detection) الأداة المناسبة لمحتوى الحافظة تلقائيًا. يعمل على Windows وmacOS وLinux، وتتوفر بعض الأدوات من سطر الأوامر وفي خطوط CI عبر أداة DevToys CLI التي تُنزَّل منفصلة، ويمكن توسيعه بإضافات المجتمع. وهو مرخّص بـMIT.\n\nبصفتنا وكالة، نوصي به لقراءة استجابة API واردة أو الاطلاع على محتوى رمز جلسة أو مقارنة ملفي إعدادات في مشاريع العملاء. لصق رموز العميل أو مفاتيحه أو بياناته الشخصية في مواقع عشوائية تؤدي هذه المهام أمر محفوف بالمخاطر؛ أما أدوات DevToys فتعمل محليًا، ووفق سياسة الخصوصية لا تُرسل سجلات الاستخدام إلى المطوّر بل تظهر فقط في قسم Logs من الإعدادات. الإصدارات الحالية 2.x موسومة على GitHub كإصدارات تمهيدية (pre-release)، ويكفي التثبيت من الموقع الرسمي أو عبر مدير الحزم. تأتي الأدوات الإضافية كإضافات عبر NuGet وتشغّل شيفرة على جهازك، لذا لا تثبّت إلا الإضافات التي تثق بها."
+      },
+      "adimlar": {
+        "tr": [
+          "devtoys.app/download sayfasından işletim sisteminize uygun paketi indirin ya da komutla kurun: Windows'ta winget install DevToys-app.DevToys, macOS'ta brew install --cask devtoys; Linux için .deb paketi vardır.",
+          "Uygulamayı açıp bir JSON, JWT ya da Base64 metnini kopyalayın; Smart Detection uygun aracı ampul simgesiyle önerir.",
+          "Akıllı algılamanın panodaki içeriği otomatik yapıştırmasını istemiyorsanız bu davranışı ayarlardan değiştirin.",
+          "Komut satırında ya da CI'da kullanmak için DevToys CLI'yi aynı sayfadan ayrıca indirin; ek araç gerekiyorsa yalnız güvendiğiniz eklentileri kurun."
+        ],
+        "en": [
+          "Download the package for your operating system from devtoys.app/download or install it from the command line: winget install DevToys-app.DevToys on Windows, brew install --cask devtoys on macOS; a .deb package is available for Linux.",
+          "Open the app and copy some JSON, a JWT or Base64 text; Smart Detection suggests the matching tool with a light-bulb icon.",
+          "If you do not want Smart Detection to paste clipboard content automatically, change this behaviour in the settings.",
+          "To use it on the command line or in CI, download DevToys CLI separately from the same page; if you need more tools, install only extensions you trust."
+        ],
+        "de": [
+          "Das passende Paket unter devtoys.app/download herunterladen oder per Kommandozeile installieren: unter Windows winget install DevToys-app.DevToys, unter macOS brew install --cask devtoys; für Linux gibt es ein .deb-Paket.",
+          "App öffnen und JSON, ein JWT oder Base64-Text kopieren; die Smart Detection schlägt das passende Werkzeug mit einem Glühbirnen-Symbol vor.",
+          "Wer nicht möchte, dass die Smart Detection den Inhalt der Zwischenablage automatisch einfügt, ändert dieses Verhalten in den Einstellungen.",
+          "Für Kommandozeile oder CI die DevToys CLI separat auf derselben Seite herunterladen; zusätzliche Werkzeuge nur über vertrauenswürdige Erweiterungen installieren."
+        ],
+        "ru": [
+          "Скачайте пакет для своей ОС на странице devtoys.app/download или установите командой: в Windows winget install DevToys-app.DevToys, в macOS brew install --cask devtoys; для Linux есть пакет .deb.",
+          "Откройте приложение и скопируйте JSON, JWT или текст в Base64; Smart Detection предложит подходящий инструмент значком лампочки.",
+          "Если не хотите, чтобы Smart Detection автоматически вставлял содержимое буфера обмена, измените это поведение в настройках.",
+          "Для командной строки или CI отдельно скачайте DevToys CLI с той же страницы; дополнительные инструменты ставьте только из расширений, которым доверяете."
+        ],
+        "zh": [
+          "在 devtoys.app/download 下载适合你操作系统的安装包，或用命令安装：Windows 上执行 winget install DevToys-app.DevToys，macOS 上执行 brew install --cask devtoys；Linux 提供 .deb 包。",
+          "打开应用后复制一段 JSON、JWT 或 Base64 文本，智能检测会用灯泡图标推荐对应的工具。",
+          "如果不希望智能检测自动粘贴剪贴板内容，可在设置中修改这一行为。",
+          "如需在命令行或 CI 中使用，请在同一页面另行下载 DevToys CLI；需要更多工具时，只安装你信任的扩展。"
+        ],
+        "hi": [
+          "devtoys.app/download से अपने ऑपरेटिंग सिस्टम का पैकेज डाउनलोड करें या कमांड से इंस्टॉल करें: Windows पर winget install DevToys-app.DevToys, macOS पर brew install --cask devtoys; Linux के लिए .deb पैकेज उपलब्ध है।",
+          "ऐप खोलकर कोई JSON, JWT या Base64 टेक्स्ट कॉपी करें; स्मार्ट डिटेक्शन बल्ब आइकन से सही टूल सुझाता है।",
+          "अगर आप नहीं चाहते कि स्मार्ट डिटेक्शन क्लिपबोर्ड की सामग्री अपने-आप चिपकाए, तो सेटिंग्स में यह व्यवहार बदलें।",
+          "कमांड लाइन या CI में उपयोग के लिए उसी पेज से DevToys CLI अलग से डाउनलोड करें; और टूल चाहिए तो केवल भरोसेमंद एक्सटेंशन इंस्टॉल करें।"
+        ],
+        "ar": [
+          "نزّل الحزمة المناسبة لنظام تشغيلك من devtoys.app/download أو ثبّتها بالأمر: على Windows الأمر winget install DevToys-app.DevToys، وعلى macOS الأمر brew install --cask devtoys؛ وتتوفر حزمة .deb لنظام Linux.",
+          "افتح التطبيق وانسخ نص JSON أو JWT أو Base64، وسيقترح الكشف الذكي الأداة المناسبة بأيقونة مصباح.",
+          "إن لم ترغب في أن يلصق الكشف الذكي محتوى الحافظة تلقائيًا، فغيّر هذا السلوك من الإعدادات.",
+          "للاستخدام في سطر الأوامر أو في CI نزّل DevToys CLI منفصلة من الصفحة نفسها؛ وإن احتجت أدوات إضافية فلا تثبّت إلا الإضافات التي تثق بها."
+        ]
+      },
+      "etiketler": [
+        "geliştirici araçları",
+        "json",
+        "jwt",
+        "base64",
+        "çevrimdışı",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/DevToys-app/DevToys",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 1020,
+      "dogrulama_tarihi": "2026-10-06"
+    },
+    {
+      "slug": "mermaid",
+      "kategori": "gorsel-tasarim",
+      "baslik": {
+        "tr": "Mermaid: Metinden Akış Şeması, Zaman Çizelgesi ve Gantt Diyagramı Üreten Açık Kaynak Çizim Aracı",
+        "en": "Mermaid: An Open-Source Tool That Turns Text into Flowcharts, Timelines and Gantt Charts",
+        "de": "Mermaid: Open-Source-Werkzeug, das aus Text Flussdiagramme, Zeitleisten und Gantt-Diagramme erzeugt",
+        "ru": "Mermaid: открытый инструмент, который превращает текст в блок-схемы, временные шкалы и диаграммы Ганта",
+        "zh": "Mermaid：用文本生成流程图、时间线和甘特图的开源绘图工具",
+        "hi": "Mermaid: टेक्स्ट से फ़्लोचार्ट, टाइमलाइन और गैंट चार्ट बनाने वाला ओपन-सोर्स टूल",
+        "ar": "Mermaid: أداة مفتوحة المصدر تحوّل النص إلى مخططات انسيابية وخطوط زمنية ومخططات غانت"
+      },
+      "ozet": {
+        "tr": "Birkaç satır Markdown benzeri metinden akış, sıra, Gantt ve zihin haritası diyagramı çizer; GitHub, Notion ve Obsidian doğrudan gösterir.",
+        "en": "Draws flow, sequence, Gantt and mind-map diagrams from a few lines of Markdown-like text; GitHub, Notion and Obsidian render it directly.",
+        "de": "Zeichnet Fluss-, Sequenz-, Gantt- und Mindmap-Diagramme aus wenigen Zeilen Markdown-ähnlichem Text; GitHub, Notion und Obsidian zeigen sie direkt an.",
+        "ru": "Рисует блок-схемы, диаграммы последовательностей, Ганта и карты мыслей из пары строк текста; GitHub, Notion и Obsidian показывают их сразу.",
+        "zh": "用几行类 Markdown 文本绘制流程图、时序图、甘特图和思维导图；GitHub、Notion 和 Obsidian 可直接渲染。",
+        "hi": "Markdown जैसे कुछ पंक्तियों के टेक्स्ट से फ़्लो, सीक्वेंस, गैंट और माइंड-मैप डायग्राम बनाता है; GitHub, Notion और Obsidian इन्हें सीधे दिखाते हैं।",
+        "ar": "يرسم مخططات انسيابية وتسلسلية وغانت وخرائط ذهنية من بضعة أسطر نصية شبيهة بـMarkdown؛ ويعرضها GitHub وNotion وObsidian مباشرة."
+      },
+      "aciklama": {
+        "tr": "Mermaid, diyagramları bir çizim programında kutu sürükleyerek değil, Markdown'a benzeyen kısa bir metinle tanımlamayı sağlayan açık kaynak bir JavaScript kütüphanesidir. Akış şeması, sıra (sequence), sınıf, varlık-ilişki, durum, Gantt, pasta grafiği, zihin haritası, zaman çizelgesi ve Sankey dahil 20'yi aşkın diyagram türünü destekler. Diyagram metin olduğu için Git'te sürümlenir, değişiklikler satır satır görülür ve bir yapay zekâ asistanına yazdırılması kolaydır. GitHub ve GitLab, Markdown dosyalarındaki mermaid kod bloklarını doğrudan çizer; Notion ve Obsidian gibi birçok araç da destekler. Tarayıcıdaki Mermaid Live Editor ile kurulum gerekmeden denenebilir, komut satırı aracıyla SVG, PNG veya PDF çıktısı alınabilir. MIT lisanslıdır.\n\nAjans olarak müşterilere sunduğumuz süreç akışlarını, proje zaman çizelgelerini, site haritalarını ve entegrasyon şemalarını Claude'a Mermaid koduyla yazdırıp düzenliyoruz; tasarım aracı açmadan dakikalar içinde güncellenebilen, dokümantasyonla birlikte yaşayan şemalar sağlıyor. Live Editor'daki paylaşım bağlantısı diyagramın içeriğini adresin kendisinde taşır; gizli müşteri bilgisi içeren şemaları bu yolla paylaşmayın. Editördeki bulut kaydetme seçenekleri Mermaid'in ticari hizmetine hesapla bağlanır ve gelişmiş düzenleyici ücretlidir; açık kaynak kütüphane ve temel editör ücretsizdir. Ziyaretçilerin yazdığı diyagramları kendi sitenizde gösterecekseniz güvenlik seviyesini (securityLevel) varsayılan strict değerinde ya da sandbox olarak bırakın.",
+        "en": "Mermaid is an open-source JavaScript library that lets you define diagrams with short, Markdown-like text instead of dragging boxes around in a drawing program. It supports more than 20 diagram types, including flowcharts, sequence, class, entity-relationship and state diagrams, Gantt charts, pie charts, mind maps, timelines and Sankey diagrams. Because a diagram is text, it can be versioned in Git, changes are visible line by line, and it is easy to have an AI assistant write one. GitHub and GitLab render mermaid code blocks in Markdown files directly, and many tools such as Notion and Obsidian support it too. You can try it without installing anything in the browser-based Mermaid Live Editor, and export SVG, PNG or PDF with the command-line tool. It is MIT-licensed.\n\nAs an agency we have Claude write the process flows, project timelines, sitemaps and integration diagrams we present to clients as Mermaid code and then refine them; the result is diagrams that live alongside the documentation and can be updated in minutes without opening a design tool. A Live Editor share link carries the diagram content in the URL itself, so do not share diagrams containing confidential client information that way. The editor's cloud-saving options connect to Mermaid's commercial service with an account, and the advanced editor is paid; the open-source library and the basic editor are free. If you display diagrams written by visitors on your own site, keep securityLevel at the default strict value or set it to sandbox.",
+        "de": "Mermaid ist eine Open-Source-JavaScript-Bibliothek, mit der sich Diagramme durch kurzen, Markdown-ähnlichen Text beschreiben lassen, statt Kästchen in einem Zeichenprogramm zu verschieben. Unterstützt werden über 20 Diagrammtypen, darunter Flussdiagramme, Sequenz-, Klassen-, Entity-Relationship- und Zustandsdiagramme, Gantt- und Kreisdiagramme, Mindmaps, Zeitleisten und Sankey-Diagramme. Weil ein Diagramm aus Text besteht, lässt es sich in Git versionieren, Änderungen sind zeilenweise sichtbar, und ein KI-Assistent kann es leicht schreiben. GitHub und GitLab stellen mermaid-Codeblöcke in Markdown-Dateien direkt dar; auch viele Werkzeuge wie Notion und Obsidian unterstützen es. Im browserbasierten Mermaid Live Editor lässt es sich ohne Installation ausprobieren, und mit dem Kommandozeilen-Tool entstehen SVG-, PNG- oder PDF-Dateien. Lizenz: MIT.\n\nAls Agentur lassen wir Claude die Prozessabläufe, Projektzeitpläne, Sitemaps und Integrationsdiagramme, die wir Kunden zeigen, als Mermaid-Code schreiben und verfeinern sie anschließend; so entstehen Diagramme, die mit der Dokumentation mitwachsen und sich ohne Designwerkzeug in Minuten aktualisieren lassen. Ein Freigabelink aus dem Live Editor trägt den Diagramminhalt in der URL selbst; teilen Sie Diagramme mit vertraulichen Kundendaten nicht auf diese Weise. Die Cloud-Speicheroptionen des Editors sind per Konto mit dem kommerziellen Dienst von Mermaid verbunden, und der erweiterte Editor ist kostenpflichtig; Open-Source-Bibliothek und Basis-Editor sind kostenlos. Wenn Sie von Besuchern geschriebene Diagramme auf Ihrer eigenen Website anzeigen, belassen Sie securityLevel auf dem Standardwert strict oder stellen Sie sandbox ein.",
+        "ru": "Mermaid — открытая JavaScript-библиотека, которая позволяет описывать диаграммы коротким текстом в духе Markdown, а не перетаскивать блоки в графическом редакторе. Поддерживается более 20 типов диаграмм: блок-схемы, диаграммы последовательностей, классов, «сущность — связь» и состояний, диаграммы Ганта, круговые диаграммы, карты мыслей, временные шкалы и диаграммы Санки. Поскольку диаграмма — это текст, её можно хранить в Git, изменения видны построчно, а написать её легко поручить ИИ-ассистенту. GitHub и GitLab сразу отображают блоки кода mermaid в Markdown-файлах; поддерживают его и многие другие инструменты, например Notion и Obsidian. Попробовать можно без установки в браузерном Mermaid Live Editor, а утилита командной строки сохраняет результат в SVG, PNG или PDF. Лицензия MIT.\n\nКак агентство мы поручаем Claude описывать в коде Mermaid схемы процессов, графики проектов, карты сайтов и схемы интеграций для клиентов, а затем дорабатываем их; так получаются схемы, которые живут рядом с документацией и обновляются за минуты без дизайнерских программ. Ссылка «поделиться» из Live Editor содержит саму диаграмму прямо в адресе, поэтому не передавайте так схемы с конфиденциальными данными клиента. Облачное сохранение в редакторе привязано к учётной записи в коммерческом сервисе Mermaid, а расширенный редактор платный; открытая библиотека и базовый редактор бесплатны. Если на своём сайте вы показываете диаграммы, написанные посетителями, оставьте securityLevel в значении по умолчанию strict или включите sandbox.",
+        "zh": "Mermaid 是一个开源 JavaScript 库，让你用简短的类 Markdown 文本来定义图表，而不必在绘图软件里拖动方框。它支持 20 多种图表类型，包括流程图、时序图、类图、实体关系图、状态图、甘特图、饼图、思维导图、时间线和桑基图。由于图表本身就是文本，可以放进 Git 做版本管理，修改逐行可见，也很容易让 AI 助手来编写。GitHub 和 GitLab 会直接渲染 Markdown 文件中的 mermaid 代码块，Notion、Obsidian 等许多工具也支持它。无需安装即可在浏览器中的 Mermaid Live Editor 里试用，并可通过命令行工具导出 SVG、PNG 或 PDF。采用 MIT 许可证。\n\n作为代理机构，我们让 Claude 用 Mermaid 代码编写向客户展示的流程图、项目时间表、网站地图和集成示意图，再进行修改；这样得到的图表与文档放在一起，无需打开设计工具即可在几分钟内更新。Live Editor 的分享链接会把图表内容直接放在网址里，因此不要用这种方式分享包含客户机密信息的图表。编辑器中的云端保存功能需要用账户连接 Mermaid 的商业服务，高级编辑器为付费产品；开源库和基础编辑器免费。如果要在自己的网站上展示访客编写的图表，请把 securityLevel 保持为默认的 strict，或设为 sandbox。",
+        "hi": "Mermaid एक ओपन-सोर्स JavaScript लाइब्रेरी है, जिससे डायग्राम किसी ड्रॉइंग प्रोग्राम में बॉक्स खींचकर नहीं, बल्कि Markdown जैसे छोटे टेक्स्ट से परिभाषित किए जाते हैं। यह 20 से अधिक प्रकार के डायग्राम सपोर्ट करता है, जैसे फ़्लोचार्ट, सीक्वेंस, क्लास, एंटिटी-रिलेशनशिप और स्टेट डायग्राम, गैंट चार्ट, पाई चार्ट, माइंड मैप, टाइमलाइन और सैंकी डायग्राम। डायग्राम टेक्स्ट होने के कारण Git में संस्करणबद्ध होता है, बदलाव पंक्ति-दर-पंक्ति दिखते हैं और इसे किसी एआई असिस्टेंट से लिखवाना आसान है। GitHub और GitLab Markdown फ़ाइलों के mermaid कोड ब्लॉक को सीधे रेंडर करते हैं; Notion और Obsidian जैसे कई टूल भी इसे सपोर्ट करते हैं। ब्राउज़र आधारित Mermaid Live Editor में बिना इंस्टॉल किए आज़माया जा सकता है और कमांड-लाइन टूल से SVG, PNG या PDF निकाला जा सकता है। यह MIT लाइसेंस में है।\n\nएक एजेंसी के रूप में हम क्लाइंट को दिखाए जाने वाले प्रोसेस फ़्लो, प्रोजेक्ट टाइमलाइन, साइटमैप और इंटीग्रेशन डायग्राम Claude से Mermaid कोड में लिखवाकर सुधारते हैं; इससे ऐसे डायग्राम मिलते हैं जो दस्तावेज़ों के साथ रहते हैं और डिज़ाइन टूल खोले बिना मिनटों में अपडेट हो जाते हैं। Live Editor का शेयर लिंक डायग्राम की सामग्री को URL में ही रखता है, इसलिए गोपनीय क्लाइंट जानकारी वाले डायग्राम इस तरह साझा न करें। एडिटर के क्लाउड-सेव विकल्प खाते के ज़रिए Mermaid की व्यावसायिक सेवा से जुड़ते हैं और एडवांस्ड एडिटर सशुल्क है; ओपन-सोर्स लाइब्रेरी और बुनियादी एडिटर मुफ़्त हैं। अगर आप अपनी साइट पर विज़िटरों के लिखे डायग्राम दिखाते हैं, तो securityLevel को डिफ़ॉल्ट strict पर रहने दें या sandbox करें।",
+        "ar": "Mermaid مكتبة JavaScript مفتوحة المصدر تتيح تعريف المخططات بنص قصير شبيه بـMarkdown بدل سحب المربعات في برنامج رسم. تدعم أكثر من 20 نوعًا من المخططات، منها المخططات الانسيابية ومخططات التسلسل والفئات والكيانات والعلاقات والحالات، ومخططات غانت والدوائر البيانية والخرائط الذهنية والخطوط الزمنية ومخططات سانكي. ولأن المخطط نص، يمكن إدارة إصداراته في Git ورؤية التغييرات سطرًا بسطر، ومن السهل أن يكتبه مساعد ذكاء اصطناعي. يعرض GitHub وGitLab كتل شيفرة mermaid في ملفات Markdown مباشرة، كما تدعمه أدوات كثيرة مثل Notion وObsidian. يمكن تجربته دون أي تثبيت في محرر Mermaid Live Editor على المتصفح، وتصدير الناتج بصيغ SVG أو PNG أو PDF عبر أداة سطر الأوامر. وهو مرخّص بـMIT.\n\nبصفتنا وكالة، نجعل Claude يكتب مخططات العمليات والجداول الزمنية للمشاريع وخرائط المواقع ومخططات التكامل التي نعرضها على العملاء بشيفرة Mermaid ثم ننقّحها؛ فنحصل على مخططات تعيش مع التوثيق ويمكن تحديثها في دقائق دون فتح أداة تصميم. رابط المشاركة في Live Editor يحمل محتوى المخطط داخل العنوان نفسه، لذا لا تشارك بهذه الطريقة مخططات تتضمن معلومات سرية للعملاء. خيارات الحفظ السحابي في المحرر ترتبط بحساب لدى خدمة Mermaid التجارية، والمحرر المتقدم مدفوع؛ أما المكتبة مفتوحة المصدر والمحرر الأساسي فمجانيان. إذا كنت تعرض على موقعك مخططات يكتبها الزوار، فأبقِ securityLevel على القيمة الافتراضية strict أو اضبطه على sandbox."
+      },
+      "adimlar": {
+        "tr": [
+          "Kurulum gerektirmeden mermaid.live adresinde hazır Flowchart örneğini açın ve metni değiştirerek diyagramın anında güncellendiğini görün.",
+          "Claude'a 'Bu süreci Mermaid flowchart olarak yaz' diyerek bir müşteri sürecini metne döktürün, çıktıyı editöre yapıştırıp düzenleyin.",
+          "Dokümantasyonda kullanmak için kodu GitHub'daki bir Markdown dosyasında ```mermaid kod bloğuna, Notion'da dili Mermaid seçilmiş bir kod bloğuna koyun; ayrı görsel isterseniz npx -p @mermaid-js/mermaid-cli mmdc -i diyagram.mmd -o diyagram.svg ile SVG üretin.",
+          "Kendi sitenize eklerken mermaid paketini npm'den kurun; ziyaretçi girdisi gösterecekseniz securityLevel ayarını strict ya da sandbox olarak tutun."
+        ],
+        "en": [
+          "Without installing anything, open the sample Flowchart at mermaid.live and change the text to see the diagram update instantly.",
+          "Ask Claude to 'write this process as a Mermaid flowchart' to turn a client process into text, then paste the output into the editor and refine it.",
+          "For documentation, put the code in a ```mermaid code block in a Markdown file on GitHub, or in a code block with the language set to Mermaid in Notion; for a separate image, generate an SVG with npx -p @mermaid-js/mermaid-cli mmdc -i diagram.mmd -o diagram.svg.",
+          "When adding it to your own site, install the mermaid package from npm; if you display visitor input, keep securityLevel at strict or sandbox."
+        ],
+        "de": [
+          "Ohne Installation unter mermaid.live das Beispiel Flowchart öffnen und den Text ändern – das Diagramm aktualisiert sich sofort.",
+          "Claude bitten: „Schreibe diesen Prozess als Mermaid-Flowchart“, um einen Kundenprozess in Text zu fassen; die Ausgabe in den Editor einfügen und verfeinern.",
+          "Für die Dokumentation den Code auf GitHub in einen ```mermaid-Codeblock einer Markdown-Datei oder in Notion in einen Codeblock mit der Sprache Mermaid setzen; für eine separate Grafik mit npx -p @mermaid-js/mermaid-cli mmdc -i diagramm.mmd -o diagramm.svg eine SVG erzeugen.",
+          "Für die eigene Website das Paket mermaid über npm installieren; bei Besuchereingaben securityLevel auf strict oder sandbox lassen."
+        ],
+        "ru": [
+          "Без установки откройте пример Flowchart на mermaid.live и измените текст — диаграмма обновится мгновенно.",
+          "Попросите Claude: «Опиши этот процесс как Mermaid flowchart», чтобы перевести процесс клиента в текст, затем вставьте результат в редактор и доработайте.",
+          "Для документации поместите код в блок ```mermaid в Markdown-файле на GitHub или в блок кода с языком Mermaid в Notion; для отдельного изображения создайте SVG командой npx -p @mermaid-js/mermaid-cli mmdc -i diagram.mmd -o diagram.svg.",
+          "Для своего сайта установите пакет mermaid из npm; если показываете ввод посетителей, держите securityLevel в значении strict или sandbox."
+        ],
+        "zh": [
+          "无需安装，在 mermaid.live 打开示例 Flowchart，修改文本即可看到图表即时更新。",
+          "对 Claude 说“把这个流程写成 Mermaid flowchart”，把客户流程转成文本，再把输出粘贴到编辑器中修改。",
+          "用于文档时，把代码放进 GitHub 上 Markdown 文件中的 ```mermaid 代码块，或 Notion 中语言设为 Mermaid 的代码块；如需单独图片，可用 npx -p @mermaid-js/mermaid-cli mmdc -i diagram.mmd -o diagram.svg 生成 SVG。",
+          "在自己的网站中使用时，从 npm 安装 mermaid 包；如需展示访客输入，请将 securityLevel 保持为 strict 或 sandbox。"
+        ],
+        "hi": [
+          "बिना कुछ इंस्टॉल किए mermaid.live पर Flowchart उदाहरण खोलें और टेक्स्ट बदलकर देखें कि डायग्राम तुरंत अपडेट होता है।",
+          "Claude से कहें 'इस प्रक्रिया को Mermaid flowchart के रूप में लिखो', ताकि क्लाइंट की प्रक्रिया टेक्स्ट में आ जाए; फिर आउटपुट एडिटर में चिपकाकर सुधारें।",
+          "दस्तावेज़ों के लिए कोड को GitHub की Markdown फ़ाइल में ```mermaid कोड ब्लॉक में, या Notion में भाषा Mermaid चुने गए कोड ब्लॉक में रखें; अलग इमेज चाहिए तो npx -p @mermaid-js/mermaid-cli mmdc -i diagram.mmd -o diagram.svg से SVG बनाएँ।",
+          "अपनी साइट में जोड़ते समय npm से mermaid पैकेज इंस्टॉल करें; विज़िटर का इनपुट दिखाना हो तो securityLevel को strict या sandbox पर रखें।"
+        ],
+        "ar": [
+          "دون أي تثبيت، افتح مثال Flowchart على mermaid.live وغيّر النص لترى المخطط يتحدّث فورًا.",
+          "اطلب من Claude: «اكتب هذه العملية كمخطط Mermaid flowchart» لتحويل عملية العميل إلى نص، ثم الصق الناتج في المحرر ونقّحه.",
+          "للتوثيق ضع الشيفرة داخل كتلة ```mermaid في ملف Markdown على GitHub، أو في كتلة شيفرة لغتها Mermaid في Notion؛ ولصورة منفصلة أنشئ ملف SVG بالأمر npx -p @mermaid-js/mermaid-cli mmdc -i diagram.mmd -o diagram.svg.",
+          "عند إضافته إلى موقعك ثبّت حزمة mermaid من npm؛ وإن كنت تعرض مدخلات الزوار فأبقِ securityLevel على strict أو sandbox."
+        ]
+      },
+      "etiketler": [
+        "diyagram",
+        "akış şeması",
+        "gantt",
+        "markdown",
+        "dokümantasyon",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/mermaid-js/mermaid",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 1030,
+      "dogrulama_tarihi": "2026-10-06"
+    },
+    {
+      "slug": "deer-flow",
+      "kategori": "ajan",
+      "baslik": {
+        "tr": "DeerFlow: Araştırma Yapan, Rapor ve Sunum Hazırlayan, Kod Çalıştıran Açık Kaynak Çoklu Ajan Platformu",
+        "en": "DeerFlow: An Open-Source Multi-Agent Platform That Researches, Writes Reports and Slides, and Runs Code",
+        "de": "DeerFlow: Open-Source-Multi-Agenten-Plattform, die recherchiert, Berichte und Präsentationen erstellt und Code ausführt",
+        "ru": "DeerFlow: открытая мультиагентная платформа, которая проводит исследования, готовит отчёты и презентации и выполняет код",
+        "zh": "DeerFlow：能做调研、写报告和幻灯片并执行代码的开源多智能体平台",
+        "hi": "DeerFlow: शोध करने, रिपोर्ट व प्रेज़ेंटेशन तैयार करने और कोड चलाने वाला ओपन-सोर्स मल्टी-एजेंट प्लेटफ़ॉर्म",
+        "ar": "DeerFlow: منصة متعددة الوكلاء مفتوحة المصدر تُجري الأبحاث وتعدّ التقارير والعروض وتشغّل الشيفرة"
+      },
+      "ozet": {
+        "tr": "ByteDance'in açık kaynak ajan platformu; alt ajanlar, beceriler ve korumalı alanla saatler sürebilen araştırma, rapor ve sunum işlerini yürütür.",
+        "en": "ByteDance's open-source agent platform; with sub-agents, skills and a sandbox it carries out research, report and slide tasks that can take hours.",
+        "de": "Open-Source-Agentenplattform von ByteDance; erledigt mit Sub-Agenten, Skills und Sandbox stundenlange Recherche-, Berichts- und Präsentationsaufgaben.",
+        "ru": "Открытая агентная платформа ByteDance: с субагентами, навыками и песочницей выполняет многочасовые исследования, отчёты и презентации.",
+        "zh": "字节跳动的开源智能体平台；借助子智能体、技能和沙箱，完成可能持续数小时的调研、报告和幻灯片任务。",
+        "hi": "ByteDance का ओपन-सोर्स एजेंट प्लेटफ़ॉर्म; सब-एजेंट, स्किल और सैंडबॉक्स से घंटों चलने वाले शोध, रिपोर्ट और प्रेज़ेंटेशन काम करता है।",
+        "ar": "منصة وكلاء مفتوحة المصدر من ByteDance؛ تُنجز بالوكلاء الفرعيين والمهارات وبيئة معزولة مهام بحث وتقارير وعروض قد تستغرق ساعات."
+      },
+      "aciklama": {
+        "tr": "DeerFlow, ByteDance'in geliştirdiği ve 2.0 sürümüyle sıfırdan yeniden yazılan açık kaynak bir ajan çalışma ortamıdır (agent harness). Bir baş ajan işi planlar, gerektiğinde alt ajanlar başlatır; dosya sistemi, uzun süreli hafıza ve yerel ya da Docker tabanlı korumalı alan (sandbox) sayesinde web'de araştırma yapıp kod çalıştırarak dakikalardan saatlere uzanan görevleri bitirir. Araştırma, rapor üretimi, sunum, web sayfası, görsel ve video üretimi için hazır becerilerle gelir; Agent Skills biçimindeki kendi becerilerinizi ve MCP sunucularını ekleyebilirsiniz. LangGraph ve LangChain üzerine kuruludur, OpenAI uyumlu uç noktalar dahil birçok model sağlayıcısıyla çalışır ve Slack, Telegram gibi mesajlaşma kanallarına bağlanabilir. MIT lisanslıdır.\n\nAjans olarak müşteriler için pazar ve rakip araştırması gibi çok adımlı, kaynak gösterilmesi gereken işleri tek seferde rapora dönüştürmek için deneysel olarak değerlendiriyoruz; günlük küçük işler için ağır bir araçtır. Yerel deneme için en az 4 çekirdek, 8 GB bellek ve 20 GB disk, sürekli çalışan bir sunucu için en az 8 çekirdek ve 16 GB bellek önerilir. Komut çalıştırma ve dosya yazma yetkileri olduğu için varsayılan olarak yalnız 127.0.0.1 üzerinden erişilecek şekilde gelir; proje, yerel ağa ya da internete açmadan önce IP izin listesi, kimlik doğrulamalı ters vekil ve ağ yalıtımı uygulanmasını şart koşar ve yönetici yetkisinin sunucuda kod çalıştırmaya denk olduğunu belirtir. README, ByteDance'in Doubao modelini ve BytePlus arama hizmetlerini öne çıkarır; verilerinizin hangi sağlayıcıya gideceğine kendiniz karar verin ve modele kendi API anahtarınızla bağlanın.",
+        "en": "DeerFlow is an open-source agent harness developed by ByteDance and rewritten from scratch for version 2.0. A lead agent plans the work and spawns sub-agents when needed; with a file system, long-term memory and a local or Docker-based sandbox it researches the web and runs code to finish tasks lasting from minutes to hours. It ships with built-in skills for research, report generation, slides, web pages, and image and video generation, and you can add your own skills in the Agent Skills format as well as MCP servers. It is built on LangGraph and LangChain, works with many model providers including OpenAI-compatible endpoints, and can connect to messaging channels such as Slack and Telegram. It is MIT-licensed.\n\nAs an agency we are experimentally evaluating it for turning multi-step work that needs cited sources, such as market and competitor research for clients, into a report in one go; it is a heavy tool for small everyday tasks. At least 4 CPU cores, 8 GB of RAM and 20 GB of disk are recommended for local evaluation, and at least 8 cores and 16 GB of RAM for a long-running server. Because it can execute commands and write files, by default it is reachable only via 127.0.0.1; before exposing it to a LAN or the internet, the project requires an IP allowlist, an authenticating reverse proxy and network isolation, and notes that admin rights are equivalent to code execution on the host. The README promotes ByteDance's Doubao models and BytePlus search services; decide for yourself which provider your data goes to and connect to the model with your own API key.",
+        "de": "DeerFlow ist eine von ByteDance entwickelte Open-Source-Laufzeitumgebung für Agenten (Agent Harness), die mit Version 2.0 von Grund auf neu geschrieben wurde. Ein Lead-Agent plant die Arbeit und startet bei Bedarf Sub-Agenten; mit Dateisystem, Langzeitgedächtnis und einer lokalen oder Docker-basierten Sandbox recherchiert er im Web und führt Code aus, um Aufgaben von Minuten bis Stunden abzuschließen. Mitgeliefert werden Skills für Recherche, Berichterstellung, Präsentationen, Webseiten sowie Bild- und Videoerzeugung; eigene Skills im Agent-Skills-Format und MCP-Server lassen sich ergänzen. Die Plattform basiert auf LangGraph und LangChain, arbeitet mit vielen Modellanbietern einschließlich OpenAI-kompatibler Endpunkte und lässt sich an Messaging-Kanäle wie Slack und Telegram anbinden. Lizenz: MIT.\n\nAls Agentur testen wir DeerFlow experimentell, um mehrstufige Arbeiten mit Quellenangaben, etwa Markt- und Wettbewerbsrecherchen für Kunden, in einem Durchgang in einen Bericht zu verwandeln; für kleine Alltagsaufgaben ist es ein schweres Werkzeug. Für lokale Tests werden mindestens 4 CPU-Kerne, 8 GB RAM und 20 GB Speicherplatz empfohlen, für einen dauerhaft laufenden Server mindestens 8 Kerne und 16 GB RAM. Weil es Befehle ausführen und Dateien schreiben kann, ist es standardmäßig nur über 127.0.0.1 erreichbar; bevor es im LAN oder Internet erreichbar gemacht wird, verlangt das Projekt eine IP-Allowlist, einen authentifizierenden Reverse Proxy und Netzwerkisolation und weist darauf hin, dass Admin-Rechte einer Codeausführung auf dem Host entsprechen. Die README bewirbt die Doubao-Modelle von ByteDance und Suchdienste von BytePlus; entscheiden Sie selbst, an welchen Anbieter Ihre Daten gehen, und verbinden Sie das Modell mit Ihrem eigenen API-Schlüssel.",
+        "ru": "DeerFlow — открытая среда выполнения агентов (agent harness), разработанная ByteDance и полностью переписанная в версии 2.0. Ведущий агент планирует работу и при необходимости запускает субагентов; благодаря файловой системе, долговременной памяти и локальной или Docker-песочнице он ищет информацию в интернете и выполняет код, доводя до конца задачи длительностью от минут до часов. В комплекте есть готовые навыки для исследований, подготовки отчётов, презентаций, веб-страниц, а также генерации изображений и видео; можно добавлять собственные навыки в формате Agent Skills и MCP-серверы. Платформа построена на LangGraph и LangChain, работает со многими поставщиками моделей, включая OpenAI-совместимые эндпоинты, и подключается к мессенджерам вроде Slack и Telegram. Лицензия MIT.\n\nКак агентство мы экспериментально оцениваем DeerFlow, чтобы за один заход превращать многошаговую работу со ссылками на источники — например, исследования рынка и конкурентов для клиентов — в отчёт; для мелких повседневных задач это тяжёлый инструмент. Для локальной пробы рекомендуются не менее 4 ядер, 8 ГБ памяти и 20 ГБ диска, для постоянно работающего сервера — не менее 8 ядер и 16 ГБ памяти. Поскольку платформа может выполнять команды и записывать файлы, по умолчанию она доступна только через 127.0.0.1; перед открытием в локальную сеть или интернет проект требует белого списка IP, обратного прокси с аутентификацией и сетевой изоляции и предупреждает, что права администратора равносильны выполнению кода на сервере. README продвигает модели Doubao от ByteDance и поисковые сервисы BytePlus; сами решайте, какому поставщику уходят ваши данные, и подключайте модель своим API-ключом.",
+        "zh": "DeerFlow 是字节跳动开发的开源智能体运行框架（agent harness），2.0 版本从零重写。主智能体负责规划工作，并在需要时启动子智能体；借助文件系统、长期记忆以及本地或基于 Docker 的沙箱，它可以上网调研、执行代码，完成耗时从几分钟到数小时不等的任务。它内置调研、报告生成、幻灯片、网页以及图像和视频生成等技能，你也可以添加 Agent Skills 格式的自定义技能和 MCP 服务器。它基于 LangGraph 和 LangChain 构建，支持包括 OpenAI 兼容端点在内的多种模型提供商，并可接入 Slack、Telegram 等消息渠道。采用 MIT 许可证。\n\n作为代理机构，我们正在试验性地评估用它把需要注明来源的多步骤工作（例如为客户做市场和竞争对手调研）一次性整理成报告；对于日常小任务来说，它是个重型工具。本地试用建议至少 4 核 CPU、8 GB 内存和 20 GB 磁盘，长期运行的服务器建议至少 8 核和 16 GB 内存。由于它可以执行命令和写入文件，默认只允许通过 127.0.0.1 访问；在开放到局域网或互联网之前，项目要求配置 IP 白名单、带身份验证的反向代理和网络隔离，并指出管理员权限等同于在服务器上执行代码。README 重点推荐字节跳动的豆包模型和 BytePlus 搜索服务；数据交给哪家提供商请自行决定，并使用你自己的 API 密钥连接模型。",
+        "hi": "DeerFlow, ByteDance द्वारा विकसित एक ओपन-सोर्स एजेंट हार्नेस है, जिसे संस्करण 2.0 में शुरू से दोबारा लिखा गया है। एक मुख्य एजेंट काम की योजना बनाता है और ज़रूरत पड़ने पर सब-एजेंट शुरू करता है; फ़ाइल सिस्टम, दीर्घकालिक मेमोरी और स्थानीय या Docker आधारित सैंडबॉक्स की मदद से यह वेब पर शोध करता है और कोड चलाकर मिनटों से घंटों तक चलने वाले काम पूरे करता है। इसमें शोध, रिपोर्ट बनाने, प्रेज़ेंटेशन, वेब पेज और इमेज व वीडियो बनाने के लिए तैयार स्किल आते हैं; आप Agent Skills प्रारूप में अपनी स्किल और MCP सर्वर जोड़ सकते हैं। यह LangGraph और LangChain पर बना है, OpenAI-संगत एंडपॉइंट सहित कई मॉडल प्रदाताओं के साथ काम करता है और Slack, Telegram जैसे मैसेजिंग चैनलों से जुड़ सकता है। यह MIT लाइसेंस में है।\n\nएक एजेंसी के रूप में हम इसे प्रयोग के तौर पर परख रहे हैं, ताकि क्लाइंट के लिए बाज़ार और प्रतिस्पर्धी शोध जैसे कई चरणों वाले, स्रोत सहित काम एक बार में रिपोर्ट में बदल सकें; रोज़ के छोटे कामों के लिए यह भारी टूल है। स्थानीय परीक्षण के लिए कम से कम 4 CPU कोर, 8 GB मेमोरी और 20 GB डिस्क, और लगातार चलने वाले सर्वर के लिए कम से कम 8 कोर और 16 GB मेमोरी की सलाह दी जाती है। कमांड चलाने और फ़ाइलें लिखने की क्षमता के कारण यह डिफ़ॉल्ट रूप से केवल 127.0.0.1 से पहुँच योग्य होता है; लोकल नेटवर्क या इंटरनेट पर खोलने से पहले प्रोजेक्ट IP अलाउलिस्ट, प्रमाणीकरण वाला रिवर्स प्रॉक्सी और नेटवर्क अलगाव ज़रूरी बताता है, और कहता है कि एडमिन अधिकार सर्वर पर कोड चलाने के बराबर हैं। README में ByteDance के Doubao मॉडल और BytePlus सर्च सेवाओं को प्रमुखता दी गई है; आपका डेटा किस प्रदाता तक जाए, यह ख़ुद तय करें और मॉडल से अपनी API कुंजी के साथ जुड़ें।",
+        "ar": "DeerFlow بيئة تشغيل وكلاء (agent harness) مفتوحة المصدر طوّرتها ByteDance، وأُعيدت كتابتها من الصفر في الإصدار 2.0. يخطط وكيل رئيسي للعمل ويطلق وكلاء فرعيين عند الحاجة؛ وبفضل نظام ملفات وذاكرة طويلة الأمد وبيئة معزولة (sandbox) محلية أو قائمة على Docker، يبحث في الويب ويشغّل الشيفرة لإنجاز مهام تمتد من دقائق إلى ساعات. يأتي بمهارات جاهزة للبحث وإعداد التقارير والعروض التقديمية وصفحات الويب وتوليد الصور والفيديو، ويمكنك إضافة مهاراتك الخاصة بصيغة Agent Skills وخوادم MCP. بُني على LangGraph وLangChain، ويعمل مع مزوّدي نماذج كثيرين منهم نقاط النهاية المتوافقة مع OpenAI، ويمكن ربطه بقنوات مراسلة مثل Slack وTelegram. وهو مرخّص بـMIT.\n\nبصفتنا وكالة، نقيّمه تجريبيًا لتحويل الأعمال متعددة الخطوات التي تتطلب ذكر المصادر، مثل أبحاث السوق والمنافسين للعملاء، إلى تقرير دفعة واحدة؛ وهو أداة ثقيلة للمهام اليومية الصغيرة. يوصى للتجربة المحلية بأربع أنوية معالج على الأقل و8 غيغابايت ذاكرة و20 غيغابايت قرص، ولخادم يعمل باستمرار بثماني أنوية و16 غيغابايت ذاكرة على الأقل. ولأنه قادر على تنفيذ الأوامر وكتابة الملفات، فهو متاح افتراضيًا عبر 127.0.0.1 فقط؛ وقبل فتحه على الشبكة المحلية أو الإنترنت يشترط المشروع قائمة سماح لعناوين IP ووكيلًا عكسيًا بمصادقة وعزلًا للشبكة، وينبّه إلى أن صلاحية المسؤول تعادل تنفيذ شيفرة على الخادم. يروّج ملف README لنماذج Doubao من ByteDance وخدمات البحث من BytePlus؛ قرّر بنفسك أي مزوّد تذهب إليه بياناتك، واربط النموذج بمفتاح API الخاص بك."
+      },
+      "adimlar": {
+        "tr": [
+          "Docker (Compose v2.24+), Git ve make kuruluyken depoyu klonlayın: git clone https://github.com/bytedance/deer-flow.git ve cd deer-flow.",
+          "make setup ile kurulum sihirbazını çalıştırın; model sağlayıcınızı ve API anahtarınızı girin, korumalı alan için Docker modunu seçin ve gerek yoksa kabuk (bash) erişimini kapalı bırakın.",
+          "make doctor ile ayarları denetleyin; ardından make up ile imajları derleyip servisleri başlatın ve http://localhost:2026 adresini açın.",
+          "İlk görev olarak kısa bir pazar araştırması isteyin ve rapordaki kaynakları tek tek doğrulayın; başka cihazlardan erişim gerekecekse önce /setup ile yönetici hesabını oluşturun, BIND_HOST'u ancak güvenlik önlemlerini uyguladıktan sonra değiştirin."
+        ],
+        "en": [
+          "With Docker (Compose v2.24+), Git and make installed, clone the repository: git clone https://github.com/bytedance/deer-flow.git and cd deer-flow.",
+          "Run the setup wizard with make setup; enter your model provider and API key, choose Docker mode for the sandbox and leave shell (bash) access disabled unless you need it.",
+          "Check the configuration with make doctor, then build the images and start the services with make up and open http://localhost:2026.",
+          "As a first task, ask for a short market study and verify the sources in the report one by one; if other devices need access, first create the admin account via /setup and change BIND_HOST only after applying the security measures."
+        ],
+        "de": [
+          "Mit installiertem Docker (Compose v2.24+), Git und make das Repository klonen: git clone https://github.com/bytedance/deer-flow.git und cd deer-flow.",
+          "Mit make setup den Einrichtungsassistenten starten; Modellanbieter und API-Schlüssel eingeben, für die Sandbox den Docker-Modus wählen und den Shell-Zugriff (bash) deaktiviert lassen, wenn er nicht nötig ist.",
+          "Mit make doctor die Konfiguration prüfen, danach mit make up die Images bauen und die Dienste starten und http://localhost:2026 öffnen.",
+          "Als erste Aufgabe eine kurze Marktstudie anfordern und die Quellen im Bericht einzeln prüfen; wenn andere Geräte zugreifen sollen, zuerst über /setup das Admin-Konto anlegen und BIND_HOST erst nach Umsetzung der Sicherheitsmaßnahmen ändern."
+        ],
+        "ru": [
+          "При установленных Docker (Compose v2.24+), Git и make клонируйте репозиторий: git clone https://github.com/bytedance/deer-flow.git и cd deer-flow.",
+          "Запустите мастер настройки командой make setup: укажите поставщика модели и API-ключ, выберите для песочницы режим Docker и оставьте доступ к оболочке (bash) выключенным, если он не нужен.",
+          "Проверьте настройки командой make doctor, затем соберите образы и запустите сервисы командой make up и откройте http://localhost:2026.",
+          "В качестве первой задачи попросите короткое исследование рынка и по одному проверьте источники в отчёте; если нужен доступ с других устройств, сначала создайте учётную запись администратора через /setup и меняйте BIND_HOST только после применения мер безопасности."
+        ],
+        "zh": [
+          "在已安装 Docker（Compose v2.24+）、Git 和 make 的情况下克隆仓库：git clone https://github.com/bytedance/deer-flow.git，然后 cd deer-flow。",
+          "运行 make setup 启动安装向导；填写模型提供商和 API 密钥，沙箱选择 Docker 模式，如无必要请保持 shell（bash）访问关闭。",
+          "用 make doctor 检查配置，然后用 make up 构建镜像并启动服务，打开 http://localhost:2026。",
+          "第一个任务可以请它做一份简短的市场调研，并逐一核实报告中的来源；如需从其他设备访问，请先通过 /setup 创建管理员账户，并在落实安全措施后再修改 BIND_HOST。"
+        ],
+        "hi": [
+          "Docker (Compose v2.24+), Git और make इंस्टॉल होने पर रिपॉज़िटरी क्लोन करें: git clone https://github.com/bytedance/deer-flow.git और cd deer-flow।",
+          "make setup से सेटअप विज़ार्ड चलाएँ; अपना मॉडल प्रदाता और API कुंजी डालें, सैंडबॉक्स के लिए Docker मोड चुनें और ज़रूरत न हो तो शेल (bash) एक्सेस बंद रखें।",
+          "make doctor से सेटिंग्स जाँचें, फिर make up से इमेज बनाकर सेवाएँ शुरू करें और http://localhost:2026 खोलें।",
+          "पहले काम के रूप में छोटा बाज़ार अध्ययन माँगें और रिपोर्ट के स्रोतों को एक-एक करके जाँचें; अन्य डिवाइस से पहुँच चाहिए तो पहले /setup से एडमिन खाता बनाएँ और सुरक्षा उपाय लागू करने के बाद ही BIND_HOST बदलें।"
+        ],
+        "ar": [
+          "مع تثبيت Docker (Compose v2.24+) وGit وmake، استنسخ المستودع: git clone https://github.com/bytedance/deer-flow.git ثم cd deer-flow.",
+          "شغّل معالج الإعداد بالأمر make setup؛ أدخل مزوّد النموذج ومفتاح API، واختر وضع Docker للبيئة المعزولة، واترك الوصول إلى الصدفة (bash) معطّلًا ما لم تحتج إليه.",
+          "افحص الإعدادات بالأمر make doctor، ثم ابنِ الصور وشغّل الخدمات بالأمر make up وافتح http://localhost:2026.",
+          "كمهمة أولى اطلب دراسة سوق قصيرة وتحقّق من مصادر التقرير واحدًا تلو الآخر؛ وإن احتجت الوصول من أجهزة أخرى فأنشئ أولًا حساب المسؤول عبر /setup، ولا تغيّر BIND_HOST إلا بعد تطبيق إجراءات الأمان."
+        ]
+      },
+      "etiketler": [
+        "araştırma ajanı",
+        "çoklu ajan",
+        "rapor",
+        "sandbox",
+        "langgraph",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/bytedance/deer-flow",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 1040,
+      "dogrulama_tarihi": "2026-10-06"
+    },
+    {
+      "slug": "copilotkit",
+      "kategori": "ajan",
+      "baslik": {
+        "tr": "CopilotKit: Web ve Mobil Uygulamalara Sohbet Arayüzlü Yapay Zekâ Asistanı ve Ajan Ekleyen Açık Kaynak Geliştirici Kiti",
+        "en": "CopilotKit: An Open-Source Developer Kit for Adding Chat-Based AI Assistants and Agents to Web and Mobile Apps",
+        "de": "CopilotKit: Open-Source-Entwicklerkit, das Web- und Mobil-Apps um KI-Assistenten mit Chat-Oberfläche und Agenten erweitert",
+        "ru": "CopilotKit: открытый набор для разработчиков, который добавляет в веб- и мобильные приложения ИИ-ассистентов с чатом и агентов",
+        "zh": "CopilotKit：为 Web 和移动应用添加聊天式 AI 助手与智能体的开源开发套件",
+        "hi": "CopilotKit: वेब और मोबाइल ऐप्स में चैट आधारित एआई असिस्टेंट और एजेंट जोड़ने वाली ओपन-सोर्स डेवलपर किट",
+        "ar": "CopilotKit: حزمة مطوّرين مفتوحة المصدر لإضافة مساعدات ذكاء اصطناعي بواجهة محادثة ووكلاء إلى تطبيقات الويب والجوال"
+      },
+      "ozet": {
+        "tr": "React, Angular, Vue ve React Native uygulamalarına sohbet penceresi, ajanın çizdiği arayüz bileşenleri ve işlem öncesi onay adımları ekler.",
+        "en": "Adds a chat window, agent-rendered UI components and approval steps before actions to React, Angular, Vue and React Native apps.",
+        "de": "Ergänzt React-, Angular-, Vue- und React-Native-Apps um ein Chatfenster, vom Agenten erzeugte UI-Komponenten und Freigabeschritte vor Aktionen.",
+        "ru": "Добавляет в приложения на React, Angular, Vue и React Native окно чата, интерфейс, который рисует агент, и шаги подтверждения перед действиями.",
+        "zh": "为 React、Angular、Vue 和 React Native 应用添加聊天窗口、由智能体渲染的界面组件，以及执行操作前的确认步骤。",
+        "hi": "React, Angular, Vue और React Native ऐप्स में चैट विंडो, एजेंट द्वारा बनाए UI कंपोनेंट और कार्रवाई से पहले मंज़ूरी के चरण जोड़ता है।",
+        "ar": "يضيف إلى تطبيقات React وAngular وVue وReact Native نافذة محادثة ومكونات واجهة يرسمها الوكيل وخطوات موافقة قبل تنفيذ الإجراءات."
+      },
+      "aciklama": {
+        "tr": "CopilotKit, mevcut bir web ya da mobil uygulamanın içine yapay zekâ asistanı ve ajan yerleştirmek için kullanılan açık kaynak bir geliştirici kitidir. Hazır sohbet arayüzü yanıtları akış halinde gösterir; ajan arka uçtaki araçları çağırıp sonucu tablo, kart ya da form gibi arayüz bileşenleri olarak ekrana çizebilir (generative UI). Ajan ile arayüz aynı durumu (state) paylaşır ve ajan kritik bir işlemden önce durup kullanıcıdan onay ya da düzeltme isteyebilir (human-in-the-loop). React ve Next.js için tam desteklidir; Angular, Vue ve React Native ile Slack ve Microsoft Teams kanalları da desteklenir. Ekibin geliştirdiği açık AG-UI protokolü sayesinde LangGraph, CrewAI, Mastra ve PydanticAI gibi çerçevelerle yazılmış ajanlar bağlanabilir. MIT lisanslıdır.\n\nAjans olarak müşterinin yönetim paneline ya da müşteri portalına 'bu ayın satışlarını özetle' gibi istekleri yerine getiren, veri değiştirmeden önce onay soran bir asistan eklemek için değerlendiriyoruz; sohbet arayüzünü sıfırdan yazmaktan çok daha hızlıdır. Kalıcı konuşma geçmişi, kullanıcı hafızası ve ürün analitiği sunan CopilotKit Intelligence ayrı, plana bağlı bir hizmettir; açık kaynak çekirdek onsuz da çalışır. Çalışma zamanı (runtime) ve geliştirici aracı Inspector varsayılan olarak anonim telemetri gönderir; COPILOTKIT_TELEMETRY_DISABLED=true ile kapanır. Model API anahtarlarını tarayıcıya değil sunucudaki runtime'a koyun ve ajanın çağırabileceği araçları oturum açan kullanıcının yetkileriyle sınırlayın.",
+        "en": "CopilotKit is an open-source developer kit for embedding AI assistants and agents inside an existing web or mobile app. Its ready-made chat UI streams responses; the agent can call backend tools and render the result on screen as UI components such as tables, cards or forms (generative UI). The agent and the UI share the same state, and the agent can pause before a critical action to ask the user for approval or corrections (human-in-the-loop). React and Next.js are fully supported; Angular, Vue and React Native, as well as Slack and Microsoft Teams channels, are supported too. Thanks to the open AG-UI protocol developed by the team, agents written with frameworks such as LangGraph, CrewAI, Mastra and PydanticAI can be connected. It is MIT-licensed.\n\nAs an agency we are evaluating it for adding an assistant to a client's admin panel or customer portal that handles requests like 'summarise this month's sales' and asks for approval before changing data; it is much faster than writing a chat interface from scratch. CopilotKit Intelligence, which provides persistent conversation history, user memory and product analytics, is a separate plan-based service; the open-source core works without it. The runtime and the Inspector developer tool send anonymous telemetry by default; set COPILOTKIT_TELEMETRY_DISABLED=true to turn it off. Keep model API keys in the server-side runtime rather than the browser, and limit the tools the agent can call to the signed-in user's permissions.",
+        "de": "CopilotKit ist ein Open-Source-Entwicklerkit, mit dem sich KI-Assistenten und Agenten in eine bestehende Web- oder Mobil-App einbetten lassen. Die fertige Chat-Oberfläche streamt Antworten; der Agent kann Backend-Werkzeuge aufrufen und das Ergebnis als UI-Komponenten wie Tabellen, Karten oder Formulare darstellen (Generative UI). Agent und Oberfläche teilen sich denselben Zustand (State), und der Agent kann vor einer kritischen Aktion anhalten und den Nutzer um Freigabe oder Korrektur bitten (Human-in-the-Loop). React und Next.js werden vollständig unterstützt, außerdem Angular, Vue und React Native sowie die Kanäle Slack und Microsoft Teams. Über das vom Team entwickelte offene AG-UI-Protokoll lassen sich Agenten anbinden, die mit Frameworks wie LangGraph, CrewAI, Mastra oder PydanticAI geschrieben sind. Lizenz: MIT.\n\nAls Agentur prüfen wir CopilotKit, um dem Admin-Panel oder Kundenportal eines Kunden einen Assistenten hinzuzufügen, der Anfragen wie „Fasse die Umsätze dieses Monats zusammen“ erledigt und vor Datenänderungen um Freigabe bittet; das geht deutlich schneller, als eine Chat-Oberfläche selbst zu schreiben. CopilotKit Intelligence mit dauerhaftem Gesprächsverlauf, Nutzergedächtnis und Produktanalysen ist ein separater, planbasierter Dienst; der Open-Source-Kern funktioniert auch ohne ihn. Runtime und das Entwicklerwerkzeug Inspector senden standardmäßig anonyme Telemetrie; mit COPILOTKIT_TELEMETRY_DISABLED=true wird sie abgeschaltet. Bewahren Sie Modell-API-Schlüssel in der serverseitigen Runtime statt im Browser auf und beschränken Sie die Werkzeuge, die der Agent aufrufen darf, auf die Rechte des angemeldeten Nutzers.",
+        "ru": "CopilotKit — открытый набор для разработчиков, позволяющий встроить ИИ-ассистентов и агентов в существующее веб- или мобильное приложение. Готовый интерфейс чата выводит ответы потоком; агент может вызывать серверные инструменты и показывать результат в виде компонентов интерфейса — таблиц, карточек или форм (generative UI). Агент и интерфейс работают с общим состоянием (state), а перед важным действием агент может остановиться и запросить у пользователя подтверждение или правки (human-in-the-loop). Полностью поддерживаются React и Next.js; также поддерживаются Angular, Vue и React Native, а ещё каналы Slack и Microsoft Teams. Благодаря открытому протоколу AG-UI, который развивает команда, можно подключать агентов, написанных на LangGraph, CrewAI, Mastra, PydanticAI и других фреймворках. Лицензия MIT.\n\nКак агентство мы рассматриваем CopilotKit, чтобы добавить в админ-панель или клиентский портал заказчика ассистента, который выполняет запросы вроде «подведи итоги продаж за этот месяц» и спрашивает подтверждение перед изменением данных; это гораздо быстрее, чем писать интерфейс чата с нуля. CopilotKit Intelligence с постоянной историей диалогов, памятью пользователя и продуктовой аналитикой — отдельный сервис по тарифным планам; открытое ядро работает и без него. Среда выполнения (runtime) и инструмент разработчика Inspector по умолчанию отправляют анонимную телеметрию; она отключается переменной COPILOTKIT_TELEMETRY_DISABLED=true. Храните API-ключи моделей в серверном runtime, а не в браузере, и ограничьте инструменты, которые может вызывать агент, правами вошедшего пользователя.",
+        "zh": "CopilotKit 是一个开源开发套件，用于把 AI 助手和智能体嵌入到现有的 Web 或移动应用中。现成的聊天界面以流式方式显示回复；智能体可以调用后端工具，并把结果以表格、卡片或表单等界面组件的形式渲染出来（generative UI）。智能体与界面共享同一状态（state），在执行关键操作前，智能体可以暂停并请用户确认或修改（human-in-the-loop）。它全面支持 React 和 Next.js，同时支持 Angular、Vue、React Native，以及 Slack 和 Microsoft Teams 渠道。借助团队开发的开放 AG-UI 协议，可以接入用 LangGraph、CrewAI、Mastra、PydanticAI 等框架编写的智能体。采用 MIT 许可证。\n\n作为代理机构，我们正在评估用它为客户的管理后台或客户门户添加一个助手，处理诸如“汇总本月销售”之类的请求，并在修改数据前征求确认；这比从零编写聊天界面快得多。提供持久对话历史、用户记忆和产品分析的 CopilotKit Intelligence 是一项独立的、按方案提供的服务；开源核心不依赖它也能运行。运行时（runtime）和开发者工具 Inspector 默认会发送匿名遥测数据，可通过 COPILOTKIT_TELEMETRY_DISABLED=true 关闭。请把模型 API 密钥放在服务器端的 runtime 中而不是浏览器里，并把智能体可调用的工具限制在已登录用户的权限范围内。",
+        "hi": "CopilotKit एक ओपन-सोर्स डेवलपर किट है, जिससे किसी मौजूदा वेब या मोबाइल ऐप के भीतर एआई असिस्टेंट और एजेंट जोड़े जाते हैं। तैयार चैट इंटरफ़ेस जवाबों को स्ट्रीम करके दिखाता है; एजेंट बैकएंड टूल बुला सकता है और नतीजे को टेबल, कार्ड या फ़ॉर्म जैसे UI कंपोनेंट के रूप में स्क्रीन पर दिखा सकता है (generative UI)। एजेंट और इंटरफ़ेस एक ही स्टेट साझा करते हैं, और कोई अहम कार्रवाई करने से पहले एजेंट रुककर उपयोगकर्ता से मंज़ूरी या सुधार माँग सकता है (human-in-the-loop)। React और Next.js पूरी तरह समर्थित हैं; Angular, Vue और React Native के साथ Slack और Microsoft Teams चैनल भी समर्थित हैं। टीम द्वारा विकसित खुले AG-UI प्रोटोकॉल की बदौलत LangGraph, CrewAI, Mastra और PydanticAI जैसे फ़्रेमवर्क से बने एजेंट जोड़े जा सकते हैं। यह MIT लाइसेंस में है।\n\nएक एजेंसी के रूप में हम इसे क्लाइंट के एडमिन पैनल या ग्राहक पोर्टल में ऐसा असिस्टेंट जोड़ने के लिए परख रहे हैं जो 'इस महीने की बिक्री का सारांश दो' जैसे अनुरोध पूरे करे और डेटा बदलने से पहले मंज़ूरी पूछे; यह चैट इंटरफ़ेस शुरू से लिखने से कहीं तेज़ है। स्थायी बातचीत इतिहास, उपयोगकर्ता मेमोरी और प्रोडक्ट एनालिटिक्स देने वाला CopilotKit Intelligence एक अलग, प्लान-आधारित सेवा है; ओपन-सोर्स कोर इसके बिना भी चलता है। रनटाइम और डेवलपर टूल Inspector डिफ़ॉल्ट रूप से गुमनाम टेलीमेट्री भेजते हैं; COPILOTKIT_TELEMETRY_DISABLED=true से इसे बंद करें। मॉडल API कुंजियाँ ब्राउज़र में नहीं बल्कि सर्वर-साइड रनटाइम में रखें, और एजेंट जिन टूल को बुला सकता है उन्हें लॉग-इन उपयोगकर्ता की अनुमतियों तक सीमित रखें।",
+        "ar": "CopilotKit حزمة مطوّرين مفتوحة المصدر لتضمين مساعدات ذكاء اصطناعي ووكلاء داخل تطبيق ويب أو جوال قائم. تعرض واجهة المحادثة الجاهزة الردود بشكل متدفق، ويمكن للوكيل استدعاء أدوات الخادم وعرض النتيجة على الشاشة كمكونات واجهة مثل الجداول أو البطاقات أو النماذج (generative UI). يتشارك الوكيل والواجهة الحالة نفسها (state)، ويمكن للوكيل التوقف قبل إجراء حساس ليطلب من المستخدم الموافقة أو التصحيح (human-in-the-loop). الدعم كامل لـReact وNext.js، كما تُدعم Angular وVue وReact Native وقنوات Slack وMicrosoft Teams. وبفضل بروتوكول AG-UI المفتوح الذي يطوّره الفريق، يمكن ربط وكلاء مكتوبين بأطر مثل LangGraph وCrewAI وMastra وPydanticAI. وهي مرخّصة بـMIT.\n\nبصفتنا وكالة، نقيّمها لإضافة مساعد إلى لوحة إدارة العميل أو بوابة عملائه ينفّذ طلبات مثل «لخّص مبيعات هذا الشهر» ويطلب الموافقة قبل تغيير البيانات؛ وهذا أسرع بكثير من كتابة واجهة محادثة من الصفر. CopilotKit Intelligence، الذي يوفر سجل محادثات دائمًا وذاكرة للمستخدم وتحليلات للمنتج، خدمة منفصلة مرتبطة بالخطط، والنواة مفتوحة المصدر تعمل بدونها. ترسل بيئة التشغيل (runtime) وأداة المطوّر Inspector قياسات مجهولة افتراضيًا، ويمكن إيقافها بـCOPILOTKIT_TELEMETRY_DISABLED=true. احفظ مفاتيح API الخاصة بالنماذج في بيئة التشغيل على الخادم لا في المتصفح، وقيّد الأدوات التي يستطيع الوكيل استدعاءها بصلاحيات المستخدم المسجّل دخوله."
+      },
+      "adimlar": {
+        "tr": [
+          "Yeni bir deneme projesi için Node.js kuruluyken npx copilotkit@latest create komutunu çalıştırın; komut mevcut uygulamanıza dokunmadan ayrı bir klasör oluşturur.",
+          "Mevcut bir uygulamaya eklemek için kodlama ajanınızdan (ör. Claude Code) proje kökünde npx --yes copilotkit@latest onboard start komutunu çalıştırıp yönergeleri izlemesini isteyin ve yaptığı değişiklikleri gözden geçirin.",
+          "Model anahtarını sunucu tarafındaki ortam değişkenlerine koyun; telemetriyi kapatmak için COPILOTKIT_TELEMETRY_DISABLED=true ekleyin.",
+          "İlk sürümde asistana yalnız okuma yapan bir araç verin (ör. sipariş listesini getir); veri değiştiren araçları kullanıcı onayı adımıyla ekleyin."
+        ],
+        "en": [
+          "For a new test project, with Node.js installed, run npx copilotkit@latest create; it creates a separate folder without touching your existing app.",
+          "To add it to an existing app, ask your coding agent (e.g. Claude Code) to run npx --yes copilotkit@latest onboard start from the project root and follow the instructions, then review the changes it makes.",
+          "Put the model key in server-side environment variables, and add COPILOTKIT_TELEMETRY_DISABLED=true to turn off telemetry.",
+          "In the first version give the assistant a read-only tool (e.g. fetch the order list); add tools that change data together with a user-approval step."
+        ],
+        "de": [
+          "Für ein neues Testprojekt bei installiertem Node.js npx copilotkit@latest create ausführen; der Befehl legt einen separaten Ordner an, ohne die bestehende App anzufassen.",
+          "Zum Einbau in eine bestehende App den Coding-Agenten (z. B. Claude Code) bitten, im Projektstamm npx --yes copilotkit@latest onboard start auszuführen und den Anweisungen zu folgen; die Änderungen anschließend prüfen.",
+          "Den Modellschlüssel in serverseitige Umgebungsvariablen legen und zum Abschalten der Telemetrie COPILOTKIT_TELEMETRY_DISABLED=true ergänzen.",
+          "In der ersten Version dem Assistenten nur ein lesendes Werkzeug geben (z. B. Bestellliste abrufen); Werkzeuge, die Daten ändern, mit einem Freigabeschritt durch den Nutzer ergänzen."
+        ],
+        "ru": [
+          "Для нового тестового проекта при установленном Node.js выполните npx copilotkit@latest create — команда создаст отдельную папку, не трогая существующее приложение.",
+          "Чтобы добавить его в существующее приложение, попросите кодового агента (например, Claude Code) выполнить в корне проекта npx --yes copilotkit@latest onboard start и следовать инструкциям, а затем проверьте внесённые изменения.",
+          "Поместите ключ модели в серверные переменные окружения, а для отключения телеметрии добавьте COPILOTKIT_TELEMETRY_DISABLED=true.",
+          "В первой версии дайте ассистенту только инструмент для чтения (например, получить список заказов); инструменты, изменяющие данные, добавляйте вместе с шагом подтверждения пользователем."
+        ],
+        "zh": [
+          "如需新建测试项目，在已安装 Node.js 的情况下运行 npx copilotkit@latest create；该命令会新建单独的文件夹，不会改动你现有的应用。",
+          "如需集成到现有应用，请让你的编码智能体（如 Claude Code）在项目根目录运行 npx --yes copilotkit@latest onboard start 并按提示操作，然后审查它所做的修改。",
+          "把模型密钥放在服务器端环境变量中；如需关闭遥测，添加 COPILOTKIT_TELEMETRY_DISABLED=true。",
+          "第一个版本只给助手一个只读工具（如获取订单列表）；会修改数据的工具，请连同用户确认步骤一起添加。"
+        ],
+        "hi": [
+          "नए परीक्षण प्रोजेक्ट के लिए Node.js इंस्टॉल होने पर npx copilotkit@latest create चलाएँ; यह आपके मौजूदा ऐप को छुए बिना अलग फ़ोल्डर बनाता है।",
+          "मौजूदा ऐप में जोड़ने के लिए अपने कोडिंग एजेंट (जैसे Claude Code) से प्रोजेक्ट रूट में npx --yes copilotkit@latest onboard start चलाकर निर्देशों का पालन करने को कहें, फिर उसके बदलावों की समीक्षा करें।",
+          "मॉडल कुंजी सर्वर-साइड एनवायरनमेंट वेरिएबल में रखें; टेलीमेट्री बंद करने के लिए COPILOTKIT_TELEMETRY_DISABLED=true जोड़ें।",
+          "पहले संस्करण में असिस्टेंट को केवल पढ़ने वाला टूल दें (जैसे ऑर्डर सूची लाना); डेटा बदलने वाले टूल उपयोगकर्ता मंज़ूरी चरण के साथ जोड़ें।"
+        ],
+        "ar": [
+          "لمشروع تجريبي جديد، ومع تثبيت Node.js، نفّذ npx copilotkit@latest create؛ ينشئ الأمر مجلدًا منفصلًا دون المساس بتطبيقك الحالي.",
+          "لإضافتها إلى تطبيق قائم اطلب من وكيل البرمجة لديك (مثل Claude Code) تنفيذ npx --yes copilotkit@latest onboard start في جذر المشروع واتباع التعليمات، ثم راجع التغييرات التي أجراها.",
+          "ضع مفتاح النموذج في متغيرات البيئة على الخادم، وأضف COPILOTKIT_TELEMETRY_DISABLED=true لإيقاف القياس عن بُعد.",
+          "في الإصدار الأول امنح المساعد أداة للقراءة فقط (مثل جلب قائمة الطلبات)، وأضف الأدوات التي تغيّر البيانات مع خطوة موافقة من المستخدم."
+        ]
+      },
+      "etiketler": [
+        "yapay zekâ asistanı",
+        "react",
+        "sohbet arayüzü",
+        "generative ui",
+        "ag-ui",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/CopilotKit/CopilotKit",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 1050,
+      "dogrulama_tarihi": "2026-10-06"
+    },
+    {
+      "slug": "prompts-chat",
+      "kategori": "rehber",
+      "baslik": {
+        "tr": "prompts.chat: Eski Adıyla Awesome ChatGPT Prompts — Topluluk İstem Kütüphanesi, Ücretsiz İstem Kitabı ve MCP Sunucusu",
+        "en": "prompts.chat: Formerly Awesome ChatGPT Prompts — A Community Prompt Library, a Free Prompting Book and an MCP Server",
+        "de": "prompts.chat: Früher Awesome ChatGPT Prompts – Community-Prompt-Bibliothek, kostenloses Prompting-Buch und MCP-Server",
+        "ru": "prompts.chat: бывший Awesome ChatGPT Prompts — библиотека промптов сообщества, бесплатная книга о промптинге и MCP-сервер",
+        "zh": "prompts.chat：原 Awesome ChatGPT Prompts——社区提示词库、免费提示词手册与 MCP 服务器",
+        "hi": "prompts.chat: पहले Awesome ChatGPT Prompts — कम्युनिटी प्रॉम्प्ट लाइब्रेरी, मुफ़्त प्रॉम्प्टिंग पुस्तक और MCP सर्वर",
+        "ar": "prompts.chat: سابقًا Awesome ChatGPT Prompts — مكتبة أوامر مجتمعية وكتاب مجاني عن كتابة الأوامر وخادم MCP"
+      },
+      "ozet": {
+        "tr": "Her yapay zekâ sohbet aracında işe yarayan topluluk istemleri, ücretsiz etkileşimli istem kitabı, Claude Code eklentisi ve kendi kurabileceğiniz kütüphane.",
+        "en": "Community prompts that work in any AI chat tool, a free interactive prompting book, a Claude Code plugin and a library you can host yourself.",
+        "de": "Community-Prompts für jedes KI-Chat-Tool, ein kostenloses interaktives Prompting-Buch, ein Claude-Code-Plugin und eine selbst hostbare Bibliothek.",
+        "ru": "Промпты сообщества для любого ИИ-чата, бесплатная интерактивная книга о промптинге, плагин для Claude Code и библиотека для своего сервера.",
+        "zh": "适用于各种 AI 聊天工具的社区提示词、免费互动式提示词手册、Claude Code 插件，以及可自行部署的提示词库。",
+        "hi": "हर एआई चैट टूल में काम आने वाले कम्युनिटी प्रॉम्प्ट, मुफ़्त इंटरैक्टिव प्रॉम्प्टिंग पुस्तक, Claude Code प्लगइन और ख़ुद होस्ट होने वाली लाइब्रेरी।",
+        "ar": "أوامر مجتمعية تصلح لأي أداة محادثة ذكية، وكتاب تفاعلي مجاني عن كتابة الأوامر، وإضافة لـClaude Code، ومكتبة يمكنك استضافتها بنفسك."
+      },
+      "aciklama": {
+        "tr": "prompts.chat, GitHub'ın en çok yıldız alan depolarından Awesome ChatGPT Prompts'un yeni adıdır ve Türk geliştirici Fatih Kadir Akın tarafından yürütülür. ChatGPT için başlayan ama Claude ve Gemini gibi güncel asistanlarda da işe yarayan, topluluğun eklediği rol ve görev istemlerini (prompt) web sitesinde aranabilir biçimde; ayrıca CSV dosyası ve Hugging Face veri seti olarak sunar. Aynı projedeki ücretsiz ve etkileşimli 'The Interactive Book of Prompting', 28'i aşkın bölümde net istem yazmayı, düşünce zinciri (chain-of-thought) ve az örnekli (few-shot) istem gibi teknikleri tarayıcıda denenebilen örneklerle anlatır; 8–14 yaş için oyunlaştırılmış bir sürümü de vardır. İstemlere komut satırından, Claude Code eklentisiyle ya da MCP sunucusu üzerinden erişilebilir. Kod MIT, istem içerikleri CC0 (kamu malı) lisanslıdır; kendi şirketiniz için markalı ve girişli özel bir istem kütüphanesi de kurabilirsiniz.\n\nAjans olarak yapay zekâya yeni başlayan küçük işletme ekiplerine istem yazmayı öğretirken hem kitabı hem de örnek kütüphaneyi başlangıç noktası olarak öneriyoruz; ekibin işe yarayan istemlerini tek yerde toplamak için kendi kopyanızı kurmak da mümkündür. İstemler topluluk tarafından eklendiği için kalite değişkendir; kullanmadan önce okuyup kendi işinize uyarlayın ve istem metinlerine müşteri ya da kişisel veri koymayın. Uzak MCP sunucusu aramalarınızı prompts.chat'e iletir; hassas işlerde kendi kurulumunuzu tercih edin. Kendi kurulum Node.js ve PostgreSQL veritabanı ister.",
+        "en": "prompts.chat is the new name of Awesome ChatGPT Prompts, one of the most-starred repositories on GitHub, and is run by the Turkish developer Fatih Kadir Akın. It offers community-contributed role and task prompts, originally written for ChatGPT but useful with current assistants such as Claude and Gemini, as a searchable website and also as a CSV file and a Hugging Face dataset. The project's free, interactive 'The Interactive Book of Prompting' covers writing clear prompts and techniques such as chain-of-thought and few-shot prompting across more than 28 chapters, with examples you can try in the browser; there is also a gamified version for ages 8–14. The prompts can be accessed from the command line, through a Claude Code plugin or via an MCP server. The code is MIT-licensed and the prompt content is CC0 (public domain); you can also set up a private, branded prompt library with sign-in for your own company.\n\nAs an agency we recommend both the book and the sample library as a starting point when teaching small-business teams who are new to AI how to write prompts; you can also host your own copy to collect the prompts that work for your team in one place. Because prompts are added by the community, quality varies; read and adapt them to your own work before use, and do not put client or personal data into prompt texts. The remote MCP server forwards your searches to prompts.chat; prefer your own installation for sensitive work. A self-hosted installation needs Node.js and a PostgreSQL database.",
+        "de": "prompts.chat ist der neue Name von Awesome ChatGPT Prompts, einem der Repositories mit den meisten Sternen auf GitHub, und wird vom türkischen Entwickler Fatih Kadir Akın betreut. Die von der Community beigesteuerten Rollen- und Aufgaben-Prompts – ursprünglich für ChatGPT, aber auch mit aktuellen Assistenten wie Claude und Gemini nützlich – gibt es als durchsuchbare Website sowie als CSV-Datei und Hugging-Face-Datensatz. Das kostenlose, interaktive „The Interactive Book of Prompting“ des Projekts erklärt in über 28 Kapiteln klares Prompting sowie Techniken wie Chain-of-Thought und Few-Shot-Prompting mit Beispielen, die sich im Browser ausprobieren lassen; für 8- bis 14-Jährige gibt es eine spielerische Version. Auf die Prompts kann man über die Kommandozeile, ein Claude-Code-Plugin oder einen MCP-Server zugreifen. Der Code steht unter MIT, die Prompt-Inhalte unter CC0 (gemeinfrei); für das eigene Unternehmen lässt sich auch eine private, gebrandete Prompt-Bibliothek mit Anmeldung einrichten.\n\nAls Agentur empfehlen wir Buch und Beispielbibliothek als Einstieg, wenn wir Teams kleiner Unternehmen, die neu mit KI arbeiten, das Schreiben von Prompts beibringen; eine eigene Instanz hilft zudem, die bewährten Prompts des Teams an einem Ort zu sammeln. Da die Prompts von der Community stammen, schwankt die Qualität; lesen und passen Sie sie vor der Nutzung an Ihre Arbeit an und schreiben Sie keine Kunden- oder personenbezogenen Daten in Prompt-Texte. Der entfernte MCP-Server leitet Ihre Suchanfragen an prompts.chat weiter; für sensible Arbeit ist die eigene Installation vorzuziehen. Eine selbst gehostete Installation benötigt Node.js und eine PostgreSQL-Datenbank.",
+        "ru": "prompts.chat — новое название Awesome ChatGPT Prompts, одного из самых популярных по числу звёзд репозиториев GitHub; проект ведёт турецкий разработчик Фатих Кадир Акын. Добавленные сообществом ролевые и задачные промпты — изначально для ChatGPT, но полезные и с современными ассистентами вроде Claude и Gemini — доступны на сайте с поиском, а также в виде CSV-файла и набора данных на Hugging Face. Бесплатная интерактивная книга проекта «The Interactive Book of Prompting» более чем в 28 главах объясняет, как писать ясные промпты, и такие техники, как chain-of-thought и few-shot, с примерами, которые можно попробовать прямо в браузере; есть и игровая версия для детей 8–14 лет. К промптам можно обращаться из командной строки, через плагин для Claude Code или через MCP-сервер. Код распространяется по лицензии MIT, а тексты промптов — CC0 (общественное достояние); для своей компании можно развернуть закрытую фирменную библиотеку промптов со входом по учётным записям.\n\nКак агентство мы рекомендуем и книгу, и библиотеку примеров как отправную точку, когда учим команды малого бизнеса, только начинающие работать с ИИ, писать промпты; собственная копия поможет собрать удачные промпты команды в одном месте. Поскольку промпты добавляет сообщество, их качество неодинаково: перед использованием прочитайте и адаптируйте их под свою задачу и не вставляйте в тексты промптов данные клиентов или персональные данные. Удалённый MCP-сервер передаёт ваши поисковые запросы на prompts.chat; для чувствительных задач лучше использовать собственную установку. Для самостоятельной установки нужны Node.js и база данных PostgreSQL.",
+        "zh": "prompts.chat 是 GitHub 上星标数最多的仓库之一 Awesome ChatGPT Prompts 的新名称，由土耳其开发者 Fatih Kadir Akın 维护。它把社区贡献的角色类和任务类提示词——最初为 ChatGPT 编写，但同样适用于 Claude、Gemini 等当前的助手——以可搜索的网站形式提供，也提供 CSV 文件和 Hugging Face 数据集。项目中免费的互动式手册《The Interactive Book of Prompting》用 28 个以上章节讲解如何写出清晰的提示词，以及思维链（chain-of-thought）、少样本（few-shot）等技巧，示例可直接在浏览器中试用；另有面向 8–14 岁儿童的游戏化版本。可以通过命令行、Claude Code 插件或 MCP 服务器访问这些提示词。代码采用 MIT 许可证，提示词内容采用 CC0（公共领域）；你也可以为自己的公司搭建带品牌和登录功能的私有提示词库。\n\n作为代理机构，在教刚接触 AI 的小企业团队写提示词时，我们推荐把这本手册和示例库作为起点；你也可以部署自己的副本，把团队验证有效的提示词集中在一处。由于提示词由社区添加，质量参差不齐；使用前请先阅读并根据自己的工作进行调整，也不要在提示词文本中放入客户或个人数据。远程 MCP 服务器会把你的搜索请求转发到 prompts.chat；处理敏感工作时，建议使用自己部署的版本。自行部署需要 Node.js 和 PostgreSQL 数据库。",
+        "hi": "prompts.chat, GitHub के सबसे ज़्यादा स्टार पाने वाले रिपॉज़िटरी में से एक Awesome ChatGPT Prompts का नया नाम है और इसे तुर्की डेवलपर फ़ातिह कादिर अकिन चलाते हैं। यह कम्युनिटी द्वारा जोड़े गए रोल और टास्क प्रॉम्प्ट — जो मूल रूप से ChatGPT के लिए लिखे गए थे पर Claude और Gemini जैसे मौजूदा असिस्टेंट में भी काम आते हैं — खोज योग्य वेबसाइट के रूप में, साथ ही CSV फ़ाइल और Hugging Face डेटासेट के रूप में देता है। प्रोजेक्ट की मुफ़्त, इंटरैक्टिव 'The Interactive Book of Prompting' 28 से अधिक अध्यायों में स्पष्ट प्रॉम्प्ट लिखना और chain-of-thought व few-shot जैसी तकनीकें ब्राउज़र में आज़माए जा सकने वाले उदाहरणों के साथ समझाती है; 8–14 वर्ष के बच्चों के लिए खेल-आधारित संस्करण भी है। प्रॉम्प्ट कमांड लाइन, Claude Code प्लगइन या MCP सर्वर के ज़रिए उपलब्ध हैं। कोड MIT लाइसेंस में और प्रॉम्प्ट सामग्री CC0 (सार्वजनिक डोमेन) में है; आप अपनी कंपनी के लिए अपने ब्रांड और लॉग-इन वाली निजी प्रॉम्प्ट लाइब्रेरी भी बना सकते हैं।\n\nएक एजेंसी के रूप में, एआई पर नई शुरुआत करने वाली छोटी व्यावसायिक टीमों को प्रॉम्प्ट लिखना सिखाते समय हम पुस्तक और उदाहरण लाइब्रेरी दोनों को शुरुआती बिंदु के रूप में सुझाते हैं; टीम के कारगर प्रॉम्प्ट एक जगह इकट्ठा करने के लिए अपनी कॉपी भी चलाई जा सकती है। प्रॉम्प्ट कम्युनिटी जोड़ती है, इसलिए गुणवत्ता अलग-अलग होती है; उपयोग से पहले पढ़कर अपने काम के अनुसार ढालें और प्रॉम्प्ट टेक्स्ट में क्लाइंट या निजी डेटा न डालें। रिमोट MCP सर्वर आपकी खोजों को prompts.chat तक भेजता है; संवेदनशील काम के लिए अपना इंस्टॉलेशन बेहतर है। अपने इंस्टॉलेशन के लिए Node.js और PostgreSQL डेटाबेस चाहिए।",
+        "ar": "prompts.chat هو الاسم الجديد لمستودع Awesome ChatGPT Prompts، أحد أكثر المستودعات حصولًا على النجوم في GitHub، ويديره المطوّر التركي فاتح قادر آقن. يقدّم أوامر (prompts) للأدوار والمهام أضافها المجتمع — كُتبت أصلًا لـChatGPT لكنها مفيدة أيضًا مع المساعدات الحالية مثل Claude وGemini — عبر موقع قابل للبحث، وكذلك كملف CSV ومجموعة بيانات على Hugging Face. ويشرح كتاب المشروع المجاني التفاعلي «The Interactive Book of Prompting» في أكثر من 28 فصلًا كيفية كتابة أوامر واضحة وتقنيات مثل سلسلة التفكير (chain-of-thought) والأمثلة القليلة (few-shot)، مع أمثلة يمكن تجربتها في المتصفح؛ وتوجد نسخة على شكل لعبة للأطفال من 8 إلى 14 عامًا. يمكن الوصول إلى الأوامر من سطر الأوامر أو عبر إضافة لـClaude Code أو عبر خادم MCP. الشيفرة مرخّصة بـMIT ومحتوى الأوامر بـCC0 (ملكية عامة)، ويمكنك أيضًا إنشاء مكتبة أوامر خاصة بعلامتك التجارية وبتسجيل دخول لشركتك.\n\nبصفتنا وكالة، نوصي بالكتاب ومكتبة الأمثلة كنقطة انطلاق عند تعليم فرق الشركات الصغيرة الجديدة على الذكاء الاصطناعي كتابة الأوامر؛ ويمكنك أيضًا تشغيل نسختك الخاصة لجمع الأوامر الناجحة لفريقك في مكان واحد. ولأن المجتمع هو من يضيف الأوامر فجودتها متفاوتة؛ اقرأها وكيّفها مع عملك قبل الاستخدام، ولا تضع بيانات العملاء أو البيانات الشخصية في نصوص الأوامر. يمرّر خادم MCP البعيد عمليات بحثك إلى prompts.chat، لذا فضّل التثبيت الخاص بك في الأعمال الحساسة. يتطلب التثبيت الذاتي Node.js وقاعدة بيانات PostgreSQL."
+      },
+      "adimlar": {
+        "tr": [
+          "prompts.chat/prompts adresinde işinize uygun bir rol ya da görev istemi arayın; kopyalayıp kullandığınız yapay zekâ asistanında kendi bilgilerinizle uyarlayın.",
+          "İstem yazmayı öğrenmek için prompts.chat/book adresindeki ücretsiz etkileşimli kitabı baştan okuyun ve örnekleri tarayıcıda deneyin.",
+          "Claude Code'da kullanmak için önce /plugin marketplace add f/prompts.chat, ardından /plugin install prompts.chat@prompts.chat komutunu çalıştırın.",
+          "Ekibinize özel kütüphane için npx prompts.chat new my-prompt-library ile yeni bir kurulum başlatın; sihirbaz marka, tema ve GitHub/Google/Azure AD girişini ayarlar, PostgreSQL veritabanı gerekir."
+        ],
+        "en": [
+          "Search prompts.chat/prompts for a role or task prompt that fits your work; copy it and adapt it with your own details in the AI assistant you use.",
+          "To learn prompting, read the free interactive book at prompts.chat/book from the beginning and try the examples in the browser.",
+          "To use it in Claude Code, first run /plugin marketplace add f/prompts.chat, then /plugin install prompts.chat@prompts.chat.",
+          "For a team-only library, start a new installation with npx prompts.chat new my-prompt-library; the wizard sets up branding, theme and GitHub/Google/Azure AD sign-in, and a PostgreSQL database is required."
+        ],
+        "de": [
+          "Unter prompts.chat/prompts einen passenden Rollen- oder Aufgaben-Prompt suchen, kopieren und im eigenen KI-Assistenten mit den eigenen Angaben anpassen.",
+          "Zum Lernen das kostenlose interaktive Buch unter prompts.chat/book von Anfang an lesen und die Beispiele im Browser ausprobieren.",
+          "Für Claude Code zuerst /plugin marketplace add f/prompts.chat und danach /plugin install prompts.chat@prompts.chat ausführen.",
+          "Für eine teameigene Bibliothek mit npx prompts.chat new my-prompt-library eine neue Installation starten; der Assistent richtet Branding, Theme und Anmeldung über GitHub/Google/Azure AD ein, eine PostgreSQL-Datenbank wird benötigt."
+        ],
+        "ru": [
+          "Найдите на prompts.chat/prompts подходящий ролевой или задачный промпт, скопируйте его и адаптируйте под свои данные в используемом ИИ-ассистенте.",
+          "Чтобы научиться промптингу, прочитайте с начала бесплатную интерактивную книгу на prompts.chat/book и попробуйте примеры в браузере.",
+          "Для Claude Code сначала выполните /plugin marketplace add f/prompts.chat, затем /plugin install prompts.chat@prompts.chat.",
+          "Для библиотеки только для вашей команды начните новую установку командой npx prompts.chat new my-prompt-library; мастер настроит бренд, тему и вход через GitHub/Google/Azure AD, потребуется база данных PostgreSQL."
+        ],
+        "zh": [
+          "在 prompts.chat/prompts 搜索适合你工作的角色或任务提示词，复制后在你使用的 AI 助手中结合自己的信息加以调整。",
+          "想学习写提示词，可从头阅读 prompts.chat/book 上的免费互动手册，并在浏览器中试用示例。",
+          "在 Claude Code 中使用时，先运行 /plugin marketplace add f/prompts.chat，再运行 /plugin install prompts.chat@prompts.chat。",
+          "如需团队专用的提示词库，用 npx prompts.chat new my-prompt-library 开始新的部署；向导会配置品牌、主题以及 GitHub/Google/Azure AD 登录，需要 PostgreSQL 数据库。"
+        ],
+        "hi": [
+          "prompts.chat/prompts पर अपने काम के अनुकूल रोल या टास्क प्रॉम्प्ट खोजें; उसे कॉपी करके अपने एआई असिस्टेंट में अपनी जानकारी के साथ ढालें।",
+          "प्रॉम्प्ट लिखना सीखने के लिए prompts.chat/book पर मुफ़्त इंटरैक्टिव पुस्तक शुरू से पढ़ें और उदाहरण ब्राउज़र में आज़माएँ।",
+          "Claude Code में उपयोग के लिए पहले /plugin marketplace add f/prompts.chat और फिर /plugin install prompts.chat@prompts.chat चलाएँ।",
+          "केवल अपनी टीम की लाइब्रेरी के लिए npx prompts.chat new my-prompt-library से नया इंस्टॉलेशन शुरू करें; विज़ार्ड ब्रांड, थीम और GitHub/Google/Azure AD लॉग-इन सेट करता है, PostgreSQL डेटाबेस आवश्यक है।"
+        ],
+        "ar": [
+          "ابحث في prompts.chat/prompts عن أمر دور أو مهمة يناسب عملك، وانسخه ثم كيّفه بمعلوماتك في مساعد الذكاء الاصطناعي الذي تستخدمه.",
+          "لتعلّم كتابة الأوامر اقرأ الكتاب التفاعلي المجاني على prompts.chat/book من البداية وجرّب الأمثلة في المتصفح.",
+          "للاستخدام في Claude Code نفّذ أولًا /plugin marketplace add f/prompts.chat ثم /plugin install prompts.chat@prompts.chat.",
+          "لمكتبة خاصة بفريقك ابدأ تثبيتًا جديدًا بالأمر npx prompts.chat new my-prompt-library؛ يضبط المعالج العلامة التجارية والمظهر وتسجيل الدخول عبر GitHub/Google/Azure AD، ويلزم وجود قاعدة بيانات PostgreSQL."
+        ]
+      },
+      "etiketler": [
+        "istem",
+        "prompt",
+        "chatgpt",
+        "claude",
+        "mcp",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/f/prompts.chat",
+      "baglanti_turu": "github",
+      "lisans": "MIT (kod) / CC0-1.0 (istemler)",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 1060,
+      "dogrulama_tarihi": "2026-10-06"
+    },
+    {
+      "slug": "ai-engineering-from-scratch",
+      "kategori": "rehber",
+      "baslik": {
+        "tr": "AI Engineering from Scratch: Matematikten Ajanlara ve MCP'ye Uzanan, Uygulamalı ve Ücretsiz Yapay Zekâ Mühendisliği Müfredatı",
+        "en": "AI Engineering from Scratch: A Free, Hands-On AI Engineering Curriculum from Maths to Agents and MCP",
+        "de": "AI Engineering from Scratch: Kostenloser, praxisnaher Lehrplan für KI-Engineering von Mathematik bis zu Agenten und MCP",
+        "ru": "AI Engineering from Scratch: бесплатная практическая программа по ИИ-инженерии — от математики до агентов и MCP",
+        "zh": "AI Engineering from Scratch：从数学到智能体与 MCP 的免费实践型 AI 工程课程",
+        "hi": "AI Engineering from Scratch: गणित से एजेंट और MCP तक, मुफ़्त और व्यावहारिक एआई इंजीनियरिंग पाठ्यक्रम",
+        "ar": "AI Engineering from Scratch: منهج مجاني وتطبيقي لهندسة الذكاء الاصطناعي من الرياضيات إلى الوكلاء وMCP"
+      },
+      "ozet": {
+        "tr": "20 aşamada 500'ü aşkın uygulamalı ders; her ders bir istem, beceri, ajan ya da MCP sunucusu üretir. Ücretsiz, MIT lisanslı, Türkçe README'si var.",
+        "en": "More than 500 hands-on lessons in 20 phases; each produces a prompt, skill, agent or MCP server. Free, MIT-licensed, with a Turkish README.",
+        "de": "Über 500 praktische Lektionen in 20 Phasen; jede liefert einen Prompt, Skill, Agenten oder MCP-Server. Kostenlos und MIT-lizenziert.",
+        "ru": "Более 500 практических уроков в 20 этапах; каждый даёт промпт, навык, агента или MCP-сервер. Бесплатно, лицензия MIT.",
+        "zh": "20 个阶段、500 多节实践课，每节课都会产出一个提示词、技能、智能体或 MCP 服务器。免费，MIT 许可证。",
+        "hi": "20 चरणों में 500 से अधिक व्यावहारिक पाठ; हर पाठ एक प्रॉम्प्ट, स्किल, एजेंट या MCP सर्वर बनाता है। मुफ़्त, MIT लाइसेंस।",
+        "ar": "أكثر من 500 درس تطبيقي في 20 مرحلة؛ كل درس يُنتج أمرًا أو مهارة أو وكيلًا أو خادم MCP. مجاني ومرخّص بـMIT."
+      },
+      "aciklama": {
+        "tr": "AI Engineering from Scratch, yapay zekâ mühendisliğini temelden üretime kadar öğreten açık kaynak ve ücretsiz bir müfredattır. 20 aşamaya yayılan 500'ü aşkın ders, geliştirme ortamı kurulumu ve doğrusal cebirle başlayıp makine öğrenmesi, büyük dil modeli (LLM) mühendisliği, araçlar ve protokoller ile ajan mühendisliğine kadar ilerler. Dersler Python, TypeScript, Rust ve Julia ile uygulamalıdır ve her biri yeniden kullanılabilir bir çıktı (istem, Agent Skill, ajan ya da MCP sunucusu) üretir. 'Ajan kurmak istiyorum', 'MCP ile geliştirmek istiyorum' ya da 'kodlama ajanlarını gerçek projelerde kullanmak istiyorum' gibi hedeflere göre kısa yollar sunar. İçerik GitHub'da ve web sitesinde aynıdır; Claude Code ve Codex gibi ajanlara kurulabilen öğretmen becerileri dersi anlatıp küçük sınavlar yapar. MIT lisanslıdır ve README Türkçe dahil birçok dile çevrilmiştir.\n\nAjans olarak ekibimize ve yapay zekâ ile ürün geliştirmek isteyen müşteri ekiplerine, özellikle ajan, MCP ve Agent Skills yollarını yapılandırılmış bir öğrenme planı olarak öneriyoruz; bu sayfadaki Generative AI for Beginners kursundan sonraki adım olarak düşünülebilir. Proje 2026'da açıldı ve çok hızlı büyüyor; dersler sık değişebilir, kritik bilgileri resmi belgelerle karşılaştırın. Öğretmen becerilerini kurmadan önce SKILL.md dosyalarını okuyun ve becerileri yalnız ihtiyacınız olan kapsamda (proje ya da kullanıcı) kurun; depoyu klonlamak Claude Code'da bu becerilerin otomatik yüklenmesine yol açar.",
+        "en": "AI Engineering from Scratch is a free, open-source curriculum that teaches AI engineering from the fundamentals to production. More than 500 lessons across 20 phases start with setting up a development environment and linear algebra, then move through machine learning, large language model (LLM) engineering, tools and protocols, up to agent engineering. Lessons are hands-on in Python, TypeScript, Rust and Julia, and each produces a reusable artifact: a prompt, an Agent Skill, an agent or an MCP server. Shortcuts are offered for goals such as 'I want to build agents', 'I want to build with MCP' or 'I want to use coding agents on real repositories'. The content is identical on GitHub and on the website; tutor skills that can be installed into agents such as Claude Code and Codex teach each lesson and run short quizzes. It is MIT-licensed and the README has been translated into many languages, including Turkish.\n\nAs an agency we recommend it, especially the agent, MCP and Agent Skills paths, as a structured learning plan for our team and for client teams who want to build products with AI; it can be seen as the next step after the Generative AI for Beginners course listed on this page. The project launched in 2026 and is growing very fast; lessons may change often, so cross-check critical information against official documentation. Before installing the tutor skills, read their SKILL.md files and install them only at the scope you need (project or user); cloning the repository makes Claude Code load these skills automatically.",
+        "de": "AI Engineering from Scratch ist ein kostenloser Open-Source-Lehrplan, der KI-Engineering von den Grundlagen bis zum Produktiveinsatz vermittelt. Über 500 Lektionen in 20 Phasen beginnen mit der Einrichtung der Entwicklungsumgebung und linearer Algebra und führen über maschinelles Lernen, Engineering mit großen Sprachmodellen (LLM) sowie Werkzeuge und Protokolle bis zum Agenten-Engineering. Die Lektionen sind praxisnah in Python, TypeScript, Rust und Julia, und jede liefert ein wiederverwendbares Ergebnis: einen Prompt, einen Agent Skill, einen Agenten oder einen MCP-Server. Für Ziele wie „Ich möchte Agenten bauen“, „Ich möchte mit MCP entwickeln“ oder „Ich möchte Coding-Agenten in echten Repositories nutzen“ gibt es Abkürzungen. Die Inhalte sind auf GitHub und auf der Website identisch; Tutor-Skills, die sich in Agenten wie Claude Code und Codex installieren lassen, erklären die Lektionen und stellen kurze Quizfragen. Lizenz: MIT; die README ist in viele Sprachen übersetzt, auch ins Türkische.\n\nAls Agentur empfehlen wir den Lehrplan – vor allem die Pfade zu Agenten, MCP und Agent Skills – als strukturierten Lernplan für unser Team und für Kundenteams, die mit KI Produkte entwickeln wollen; er eignet sich als nächster Schritt nach dem auf dieser Seite gelisteten Kurs Generative AI for Beginners. Das Projekt startete 2026 und wächst sehr schnell; Lektionen können sich häufig ändern, gleichen Sie kritische Informationen daher mit offiziellen Dokumentationen ab. Lesen Sie vor der Installation der Tutor-Skills deren SKILL.md-Dateien und installieren Sie sie nur im benötigten Geltungsbereich (Projekt oder Nutzer); wer das Repository klont, lässt Claude Code diese Skills automatisch laden.",
+        "ru": "AI Engineering from Scratch — бесплатная открытая учебная программа, которая обучает ИИ-инженерии от основ до продакшена. Более 500 уроков в 20 этапах начинаются с настройки среды разработки и линейной алгебры, а затем проходят через машинное обучение, инженерию больших языковых моделей (LLM), инструменты и протоколы вплоть до инженерии агентов. Уроки практические — на Python, TypeScript, Rust и Julia, и каждый даёт переиспользуемый результат: промпт, Agent Skill, агента или MCP-сервер. Предусмотрены короткие маршруты под цели вроде «хочу создавать агентов», «хочу разрабатывать с MCP» или «хочу применять кодовых агентов в реальных репозиториях». Материалы на GitHub и на сайте совпадают; навыки-наставники, которые устанавливаются в агентов вроде Claude Code и Codex, объясняют уроки и проводят короткие тесты. Лицензия MIT; README переведён на многие языки, в том числе на турецкий.\n\nКак агентство мы рекомендуем программу — особенно маршруты по агентам, MCP и Agent Skills — как структурированный план обучения для нашей команды и для команд клиентов, которые хотят создавать продукты с ИИ; её можно считать следующим шагом после курса Generative AI for Beginners с этой страницы. Проект запущен в 2026 году и растёт очень быстро; уроки могут часто меняться, поэтому сверяйте важные сведения с официальной документацией. Перед установкой навыков-наставников прочитайте их файлы SKILL.md и устанавливайте их только в нужной области (проект или пользователь); клонирование репозитория приводит к автоматической загрузке этих навыков в Claude Code.",
+        "zh": "AI Engineering from Scratch 是一套免费的开源课程，从基础到生产环境系统讲授 AI 工程。20 个阶段共 500 多节课，从搭建开发环境和线性代数开始，依次讲到机器学习、大语言模型（LLM）工程、工具与协议，直至智能体工程。课程以 Python、TypeScript、Rust 和 Julia 动手实践，每节课都会产出一个可复用的成果：提示词、Agent Skill、智能体或 MCP 服务器。课程还按“我想构建智能体”“我想用 MCP 开发”“我想在真实仓库中使用编码智能体”等目标提供快捷路线。GitHub 与网站上的内容一致；可安装到 Claude Code、Codex 等智能体中的导师技能会讲解课程并进行小测验。采用 MIT 许可证，README 已被翻译成包括土耳其语在内的多种语言。\n\n作为代理机构，我们向自己的团队以及希望用 AI 开发产品的客户团队推荐这套课程，特别是智能体、MCP 和 Agent Skills 路线，作为结构化的学习计划；它可以作为本页所列 Generative AI for Beginners 课程之后的下一步。该项目于 2026 年启动，增长非常快；课程内容可能频繁变化，关键信息请与官方文档核对。安装导师技能前，请先阅读其 SKILL.md 文件，并只在需要的范围（项目或用户）内安装；克隆仓库后，Claude Code 会自动加载这些技能。",
+        "hi": "AI Engineering from Scratch एक मुफ़्त, ओपन-सोर्स पाठ्यक्रम है जो एआई इंजीनियरिंग को बुनियाद से प्रोडक्शन तक सिखाता है। 20 चरणों में फैले 500 से अधिक पाठ डेवलपमेंट एनवायरनमेंट सेटअप और रैखिक बीजगणित से शुरू होकर मशीन लर्निंग, बड़े भाषा मॉडल (LLM) इंजीनियरिंग, टूल और प्रोटोकॉल से होते हुए एजेंट इंजीनियरिंग तक पहुँचते हैं। पाठ Python, TypeScript, Rust और Julia में व्यावहारिक हैं और हर पाठ एक दोबारा इस्तेमाल होने वाला नतीजा देता है: प्रॉम्प्ट, Agent Skill, एजेंट या MCP सर्वर। 'मैं एजेंट बनाना चाहता हूँ', 'मैं MCP के साथ विकसित करना चाहता हूँ' या 'मैं असली रिपॉज़िटरी में कोडिंग एजेंट इस्तेमाल करना चाहता हूँ' जैसे लक्ष्यों के लिए छोटे रास्ते दिए गए हैं। सामग्री GitHub और वेबसाइट पर एक जैसी है; Claude Code और Codex जैसे एजेंटों में इंस्टॉल होने वाली ट्यूटर स्किल पाठ समझाती हैं और छोटी क्विज़ लेती हैं। यह MIT लाइसेंस में है और README तुर्की सहित कई भाषाओं में अनुवादित है।\n\nएक एजेंसी के रूप में हम इसे, ख़ासकर एजेंट, MCP और Agent Skills वाले रास्तों को, अपनी टीम और एआई से उत्पाद बनाना चाहने वाली क्लाइंट टीमों के लिए एक व्यवस्थित सीखने की योजना के रूप में सुझाते हैं; इसे इस पेज पर सूचीबद्ध Generative AI for Beginners कोर्स के बाद का अगला कदम माना जा सकता है। प्रोजेक्ट 2026 में शुरू हुआ और बहुत तेज़ी से बढ़ रहा है; पाठ अक्सर बदल सकते हैं, इसलिए अहम जानकारी आधिकारिक दस्तावेज़ों से मिलाएँ। ट्यूटर स्किल इंस्टॉल करने से पहले उनकी SKILL.md फ़ाइलें पढ़ें और उन्हें केवल ज़रूरी दायरे (प्रोजेक्ट या उपयोगकर्ता) में इंस्टॉल करें; रिपॉज़िटरी क्लोन करने पर Claude Code ये स्किल अपने-आप लोड कर लेता है।",
+        "ar": "AI Engineering from Scratch منهج مجاني مفتوح المصدر يعلّم هندسة الذكاء الاصطناعي من الأساسيات حتى الإنتاج. يبدأ أكثر من 500 درس موزعة على 20 مرحلة بإعداد بيئة التطوير والجبر الخطي، ثم ينتقل إلى تعلّم الآلة وهندسة النماذج اللغوية الكبيرة (LLM) والأدوات والبروتوكولات وصولًا إلى هندسة الوكلاء. الدروس تطبيقية بلغات Python وTypeScript وRust وJulia، وكل درس يُنتج مخرجًا قابلًا لإعادة الاستخدام: أمرًا أو Agent Skill أو وكيلًا أو خادم MCP. ويقدّم مسارات مختصرة لأهداف مثل «أريد بناء وكلاء» أو «أريد التطوير باستخدام MCP» أو «أريد استخدام وكلاء البرمجة في مستودعات حقيقية». المحتوى نفسه على GitHub وعلى الموقع، وتشرح مهارات المعلّم التي يمكن تثبيتها في وكلاء مثل Claude Code وCodex الدروسَ وتجري اختبارات قصيرة. وهو مرخّص بـMIT، وقد تُرجم ملف README إلى لغات كثيرة منها التركية.\n\nبصفتنا وكالة، نوصي به — ولا سيما مسارات الوكلاء وMCP وAgent Skills — كخطة تعلّم منظَّمة لفريقنا ولفرق العملاء الراغبة في بناء منتجات بالذكاء الاصطناعي؛ ويمكن اعتباره الخطوة التالية بعد دورة Generative AI for Beginners المدرجة في هذه الصفحة. انطلق المشروع في 2026 وينمو بسرعة كبيرة؛ وقد تتغير الدروس كثيرًا، فقارن المعلومات المهمة بالوثائق الرسمية. قبل تثبيت مهارات المعلّم اقرأ ملفات SKILL.md الخاصة بها وثبّتها في النطاق الذي تحتاجه فقط (المشروع أو المستخدم)؛ واستنساخ المستودع يجعل Claude Code يحمّل هذه المهارات تلقائيًا."
+      },
+      "adimlar": {
+        "tr": [
+          "Türkçe başlamak için depodaki i18n/tr/README.md dosyasını ya da aiengineeringfromscratch.com sitesini açın ve 'Start here' tablosundan hedefinize uygun yolu seçin.",
+          "Ajan ve MCP odaklıysanız Phase 13 (Tools and Protocols) ve Phase 14 (Agent Engineering) aşamalarından başlayın; temel eksikse Phase 0 kurulum dersiyle ilerleyin.",
+          "İsterseniz öğretmen becerilerini kurun: npx skills add rohitg00/ai-engineering-from-scratch; kurucu hangi ajana ve hangi kapsama kurulacağını sorar, öncesinde beceri dosyalarını inceleyin.",
+          "Claude Code'da /start-learning ile seviyenizi belirleyin, her aşamanın sonunda /check-understanding komutuyla kendinizi sınayın."
+        ],
+        "en": [
+          "Open the repository README (translations are under i18n/) or the aiengineeringfromscratch.com website and pick the path that fits your goal from the 'Start here' table.",
+          "If you focus on agents and MCP, start with Phase 13 (Tools and Protocols) and Phase 14 (Agent Engineering); if fundamentals are missing, begin with the Phase 0 setup lesson.",
+          "Optionally install the tutor skills: npx skills add rohitg00/ai-engineering-from-scratch; the installer asks which agent and scope to install into, so review the skill files first.",
+          "In Claude Code, use /start-learning to find your level and test yourself at the end of each phase with /check-understanding."
+        ],
+        "de": [
+          "Die Datei i18n/de/README.md (bzw. die README in Ihrer Sprache) oder die Website aiengineeringfromscratch.com öffnen und in der Tabelle „Start here“ den Pfad wählen, der zu Ihrem Ziel passt.",
+          "Mit Fokus auf Agenten und MCP mit Phase 13 (Tools and Protocols) und Phase 14 (Agent Engineering) beginnen; fehlen Grundlagen, mit der Einrichtungslektion in Phase 0 starten.",
+          "Bei Bedarf die Tutor-Skills installieren: npx skills add rohitg00/ai-engineering-from-scratch; das Installationsprogramm fragt nach Agent und Geltungsbereich – vorher die Skill-Dateien prüfen.",
+          "In Claude Code mit /start-learning das eigene Niveau bestimmen und sich am Ende jeder Phase mit /check-understanding testen."
+        ],
+        "ru": [
+          "Откройте файл i18n/ru/README.md (README на вашем языке) или сайт aiengineeringfromscratch.com и выберите в таблице «Start here» маршрут под свою цель.",
+          "Если вас интересуют агенты и MCP, начните с этапов Phase 13 (Tools and Protocols) и Phase 14 (Agent Engineering); если не хватает основ, начните с урока по настройке в Phase 0.",
+          "При желании установите навыки-наставники: npx skills add rohitg00/ai-engineering-from-scratch; установщик спросит, в какого агента и в какую область их ставить, поэтому заранее просмотрите файлы навыков.",
+          "В Claude Code определите свой уровень командой /start-learning, а в конце каждого этапа проверяйте себя командой /check-understanding."
+        ],
+        "zh": [
+          "打开仓库中的 i18n/zh/README.md（或你所用语言的 README）或 aiengineeringfromscratch.com 网站，在“Start here”表格中选择符合你目标的路线。",
+          "如果重点是智能体和 MCP，从 Phase 13（Tools and Protocols）和 Phase 14（Agent Engineering）开始；如果基础不足，请从 Phase 0 的环境搭建课开始。",
+          "如有需要可安装导师技能：npx skills add rohitg00/ai-engineering-from-scratch；安装程序会询问安装到哪个智能体以及安装范围，请先查看技能文件。",
+          "在 Claude Code 中用 /start-learning 确定自己的水平，并在每个阶段结束时用 /check-understanding 自测。"
+        ],
+        "hi": [
+          "रिपॉज़िटरी में i18n/hi/README.md (या अपनी भाषा का README) या aiengineeringfromscratch.com वेबसाइट खोलें और 'Start here' तालिका से अपने लक्ष्य के अनुकूल रास्ता चुनें।",
+          "अगर ध्यान एजेंट और MCP पर है तो Phase 13 (Tools and Protocols) और Phase 14 (Agent Engineering) से शुरू करें; बुनियाद कमज़ोर हो तो Phase 0 के सेटअप पाठ से आगे बढ़ें।",
+          "चाहें तो ट्यूटर स्किल इंस्टॉल करें: npx skills add rohitg00/ai-engineering-from-scratch; इंस्टॉलर पूछता है कि किस एजेंट और किस दायरे में इंस्टॉल करना है, इसलिए पहले स्किल फ़ाइलें देख लें।",
+          "Claude Code में /start-learning से अपना स्तर तय करें और हर चरण के अंत में /check-understanding से ख़ुद को जाँचें।"
+        ],
+        "ar": [
+          "افتح ملف i18n/ar/README.md (أو ملف README بلغتك) في المستودع أو موقع aiengineeringfromscratch.com، واختر من جدول «Start here» المسار المناسب لهدفك.",
+          "إن كان تركيزك على الوكلاء وMCP فابدأ بالمرحلتين Phase 13 (Tools and Protocols) وPhase 14 (Agent Engineering)، وإن كانت الأساسيات ناقصة فابدأ بدرس الإعداد في Phase 0.",
+          "ثبّت مهارات المعلّم إن رغبت: npx skills add rohitg00/ai-engineering-from-scratch؛ يسألك المثبّت عن الوكيل والنطاق المراد التثبيت فيهما، فراجع ملفات المهارات أولًا.",
+          "في Claude Code حدّد مستواك بالأمر /start-learning، واختبر نفسك في نهاية كل مرحلة بالأمر /check-understanding."
+        ]
+      },
+      "etiketler": [
+        "eğitim",
+        "yapay zekâ mühendisliği",
+        "ajan",
+        "mcp",
+        "agent skills",
+        "açık kaynak"
+      ],
+      "baglanti": "https://github.com/rohitg00/ai-engineering-from-scratch",
+      "baglanti_turu": "github",
+      "lisans": "MIT",
+      "ucretsiz": true,
+      "acik_kaynak": true,
+      "youtube_short": null,
+      "one_cikan": false,
+      "sira": 1070,
+      "dogrulama_tarihi": "2026-10-06"
     }
   ]
 }
