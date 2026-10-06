@@ -194,7 +194,8 @@
         "eposta_pazarlama": "Email marketing sends (scheduled campaigns, A/B decision, drip sequences)",
         "saha_servisi": "Field service: maintenance reminders, location and retention cleanup",
         "etkinlik_bakimi": "Event maintenance (payment holds, waiting-list invitations, thank-you email)",
-        "haftalik_ozet": "Weekly summary (to admins, Monday 08:00)"
+        "haftalik_ozet": "Weekly summary (to admins, Monday 08:00)",
+        "saklama_temizligi": "Retention cleanup of old visit and click records (13 months)"
       },
       "gunluk": "daily",
       "haftalik": "weekly",
@@ -233,7 +234,8 @@
         "saha_servisi": "Reports devices due for maintenance; clears old location and personal data when its time is up.",
         "etkinlik_bakimi": "Releases unpaid ticket holds, invites the waiting list when seats free up and sends a thank-you email after the event.",
         "haftalik_ozet": "Every Monday morning sends you a summary of what needs attention this week (nothing is sent if all is zero).",
-        "aylik_site_analizi": "Runs an automatic site analysis for client sites every month (at most one site per run)."
+        "aylik_site_analizi": "Runs an automatic site analysis for client sites every month (at most one site per run).",
+        "saklama_temizligi": "Keeps QR scan, digital business card, review page, QR menu and booking page visit records and email campaign clicks for 13 months; before deleting older ones it rolls them up into daily totals, so the totals in the panel stay the same. It also deletes expired request-limit counters. Runs once a day."
       }
     },
     "musteri": {

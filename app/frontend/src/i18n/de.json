@@ -231,7 +231,8 @@
     "whatsappIntro": "Hallo, ich schreibe über mehmetkuru.dev. Ich möchte über ein Projekt sprechen.",
     "panelYonlendirme": "You can follow your project from here. The panel shows stages, files and messages in one place.",
     "panelEposta": "Sign up with this address:",
-    "panelBtn": "Go to my project panel"
+    "panelBtn": "Go to my project panel",
+    "errorSend": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
   },
   "clientPanel": {
     "sectionTag": "Kunden-Panel",
@@ -457,7 +458,6 @@
     "emailMismatchDesc": "Der Bereich ordnet Einträge über die E-Mail-Adresse zu. Sie sind als {{email}} angemeldet. Hängt Ihr Projekt an einer anderen Adresse, erscheint es hier nicht — schreiben Sie uns, wir gleichen das ab.",
     "emailMismatchCta": "Schreiben Sie uns",
     "tabMarketplace": "Marktplatz",
-    "tabIcerik": "Inhalte",
     "tabIcerikStudyosu": "Content-Studio",
     "tabSiteAnalizleri": "Website-Analysen",
     "tabAnaliz": "Website-Analyse",
@@ -1249,70 +1249,6 @@
       "baglanti_tavani": "{{sayi}} distinct links were found; the first {{tavan}} were checked."
     }
   },
-  "icerik": {
-    "nasilCalisir": "This screen prepares posts; it does NOT publish them. Flow: plan → draft with AI → approve → when the time comes hit \"Copy and open\", paste in the channel, publish, then mark as published. Automatic publishing needs approved app accounts for Instagram/Facebook/LinkedIn and a paid API for X; the free server also sleeps, so a scheduled job would not fire on time.",
-    "gecikenUyari": "{{count}} post(s) are past their time and still unpublished.",
-    "hepsi": "All",
-    "yeni": "New post",
-    "yeniBaslik": "New post",
-    "duzenleBaslik": "Edit post",
-    "yukleniyor": "Loading posts…",
-    "bos": "No posts in this view. Start with \"New post\".",
-    "listeHatasi": "Could not load posts.",
-    "kaydedildi": "Post saved.",
-    "kaydetmeHatasi": "Could not save the post.",
-    "baslikGerekli": "Topic cannot be empty.",
-    "silindi": "Post deleted.",
-    "silmeHatasi": "Could not delete the post.",
-    "silmeOnayi": "Delete \"{{title}}\"? This cannot be undone.",
-    "kopyalaVeAc": "Copy text and open the channel",
-    "kopyalandi": "Text copied; the channel opened in a new tab.",
-    "kopyalanamadi": "Could not copy; open the post and copy the text manually.",
-    "paylasildi": "Mark as published",
-    "duzenle": "Edit",
-    "sil": "Delete",
-    "kapat": "Close",
-    "kaydet": "Save",
-    "vazgec": "Cancel",
-    "zamansiz": "no time set",
-    "sinirAsildi": "over the limit",
-    "fKonu": "Topic (internal name)",
-    "fKonuIpucu": "z. B. Ankündigung zum Start des Marktplatzes",
-    "fKanal": "Channel",
-    "fZaman": "Publish time",
-    "fDurum": "Status",
-    "fMetin": "Post text",
-    "fBaglanti": "Link",
-    "fEtiketler": "Hashtags",
-    "fGorsel": "Image URL",
-    "fKampanya": "Campaign",
-    "fKampanyaIpucu": "z. B. Marktplatz-Start im Oktober",
-    "fNot": "Note (panel only)",
-    "aiBaslik": "Draft with AI",
-    "aiIpucu": "Optional steer: audience, tone, emphasis",
-    "aiYaz": "Write draft",
-    "aiHazir": "Draft written; edit and save.",
-    "aiHatasi": "Could not generate a draft. We do not show made-up text — try again or write it yourself.",
-    "aiKonuGerekli": "Write the topic first; the AI has nothing to work from.",
-    "aiUyari": "The AI is constrained from writing prices, durations or delivery dates. Still, read it before publishing — delete any invented figure or reference.",
-    "kanal": {
-      "instagram": "Instagram",
-      "facebook": "Facebook",
-      "linkedin": "LinkedIn",
-      "x": "X",
-      "blog": "Blog",
-      "email": "E-mail"
-    },
-    "durum": {
-      "draft": "Draft",
-      "approved": "Approved",
-      "published": "Published"
-    },
-    "hatirlat": "E-mail the overdue list to me",
-    "hatirlatildi": "Reminder sent to {{count}} admin address(es).",
-    "hatirlatmaGitmedi": "The e-mail was not sent: {{ayrinti}}",
-    "hatirlatmaHatasi": "Could not send the reminder."
-  },
   "riza": {
     "baslik": "Cookie- und Messeinstellung",
     "metin": "Wir möchten Google Analytics, Google Ads und Meta-Tools einsetzen, um die Nutzung der Website zu messen und Anzeigen auszuwerten. Bei Ablehnung wird keines davon geladen; die Website funktioniert unverändert.",
@@ -1741,6 +1677,7 @@
     "girisAciklama": "Wählen Sie Profil und Zahlungsart – die Preise aller vier Stufen aktualisieren sich sofort. Module hinzufügen, Angebot anfordern oder direkt kaufen."
   },
   "genel": {
-    "kapat": "Schließen"
+    "kapat": "Schließen",
+    "cokHizli": "Zu viele Versuche. Bitte versuchen Sie es in ein paar Minuten erneut."
   }
 }

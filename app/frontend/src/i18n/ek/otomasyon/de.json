@@ -67,7 +67,9 @@
       "aciklamaAlani": "Beschreibung (optional)",
       "aktif": "Regel aktiv (läuft nach dem Speichern)",
       "geri": "Zurück",
-      "ileri": "Weiter"
+      "ileri": "Weiter",
+      "bekleDenetim": "Bedingungen nach dem Warten erneut prüfen",
+      "bekleDenetimAciklama": "Nach jedem „Warten“-Schritt werden die Bedingungen anhand des aktuellen Datensatzes erneut geprüft; treffen sie nicht mehr zu, entfallen die restlichen Aktionen (z. B. keine Erinnerung, wenn die Rechnung inzwischen bezahlt wurde). Das Ergebnis steht im Ausführungsprotokoll."
     },
     "baglac": {
       "ve": "Alle müssen zutreffen (UND)",
@@ -164,7 +166,9 @@
       "goruntulenme_sayisi": "Anzahl Aufrufe",
       "yanitsiz_gun": "Unbeantwortet (Tage)",
       "baglanti": "Link",
-      "yoneten": "Verwaltet von (Agentur/Kunde)"
+      "yoneten": "Verwaltet von (Agentur/Kunde)",
+      "acik": "Offen (unbezahlt)",
+      "vadeye_kalan_gun": "Tage bis Fälligkeit"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -350,7 +354,8 @@
       "degisiklik_yok": "Nichts zu ändern",
       "webhook_yok": "Webhook-Endpunkt nicht gefunden",
       "webhook_pasif": "Webhook-Endpunkt ist deaktiviert",
-      "eylem_turu_gecersiz": "Ungültige Aktion"
+      "eylem_turu_gecersiz": "Ungültige Aktion",
+      "kosul_artik_saglanmiyor": "Bedingung nicht mehr erfüllt (nach dem Warten erneut geprüft)"
     },
     "ozet": {
       "alici": "Empfänger",
@@ -467,16 +472,23 @@
         "govde": "Hallo [[kisi.ad|]],\n\nIhr Projekt [[proje.baslik]] ist jetzt live. Vielen Dank für Ihr Vertrauen während des gesamten Projekts.\n\nWir würden uns freuen, wenn Sie uns in ein paar Sätzen von Ihren Erfahrungen erzählen: Was hat Ihnen gefallen, was hätten wir besser machen können? Antworten Sie einfach auf diese E-Mail. Wenn Sie möchten, können Sie auch eine öffentliche Bewertung unseres Unternehmens hinterlassen.\n\nViele Grüße"
       },
       "sozlesme_imzalandi_bildirim": {
-        "ad": "Vertrag unterschrieben → Kick-off-Erinnerung",
-        "aciklama": "Wann: ein Kunde unterschreibt einen Vertrag per E-Signatur. Was passiert: Admins erhalten eine Panel-Benachrichtigung „Zeit zu starten“ (Erinnerung an Kick-off-Termin, Unterlagen und Zugänge). Die übliche Unterschriftsbenachrichtigung kommt weiterhin.",
+        "ad": "Vertrag unterschrieben → Kick-off-Erinnerung + Aufgabe",
+        "aciklama": "Wann: ein Kunde unterschreibt einen Vertrag per E-Signatur. Was passiert: Admins erhalten eine Panel-Benachrichtigung „Zeit zu starten“; stammt der Vertrag aus einem Angebot, zu dem ein Projekt angelegt wurde, kommt dort zusätzlich eine Aufgabe „Unterlagen und Zugänge anfordern“ mit Frist in 2 Tagen hinzu (ohne Projekt wird der Aufgabenschritt übersprungen). Die übliche Unterschriftsbenachrichtigung kommt weiterhin.",
         "bildirim": "Zeit zu starten: [[sozlesme.no]]",
-        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) hat den Vertrag „[[sozlesme.baslik]]“ unterschrieben. Nächste Schritte: Kick-off-Termin planen, benötigte Unterlagen und Zugänge anfordern."
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) hat den Vertrag „[[sozlesme.baslik]]“ unterschrieben. Nächste Schritte: Kick-off-Termin planen, benötigte Unterlagen und Zugänge anfordern.",
+        "gorev": "Unterlagen und Zugänge anfordern: [[sozlesme.baslik]]"
       },
       "icerik_onaylandi_gorev": {
         "ad": "Inhalt freigegeben → „Veröffentlichen“-Erinnerung",
         "aciklama": "Wann: ein von der Agentur verwalteter Beitrag wird freigegeben (eigene Inhalte der Kunden ausgenommen). Was passiert: die verantwortliche Person (sonst die Admins) erhält die Panel-Benachrichtigung „Veröffentlichen: <Titel>“. Das Ereignis hat kein Projekt, daher eine Benachrichtigung statt einer Aufgabe.",
         "bildirim": "Veröffentlichen: [[icerik.baslik]]",
         "bildirim_govde": "Beitrag freigegeben. Geplant für: [[icerik.planlanan_at|nicht festgelegt]]; Kanäle: [[icerik.kanallar|—]]."
+      },
+      "fatura_vade_oncesi_hatirlatma": {
+        "ad": "Rechnung erstellt → Erinnerung vor Fälligkeit, wenn nach 5 Tagen noch offen",
+        "aciklama": "Wann: eine Rechnung wird erstellt; die Regel wartet 5 Tage und prüft die Bedingungen erneut. Was passiert: Ist die Rechnung noch unbezahlt und erst in mindestens 2 Tagen fällig, erhält der Kunde eine freundliche E-Mail „Fälligkeit naht“. Wurde sie inzwischen bezahlt oder ist die Fälligkeit zu nah, wird nichts gesendet. Die Erinnerungen des Systems nach Fälligkeit (+1, +7, +14 Tage) sind getrennt; diese Regel läuft nur vor der Fälligkeit, daher gibt es für dieselbe Rechnung keine doppelten E-Mails.",
+        "konu": "Erinnerung: Rechnung [[fatura.no]] ist am [[fatura.vade_tarihi]] fällig",
+        "govde": "Hallo [[kisi.ad|]],\n\nIhre Rechnung [[fatura.no]] über [[fatura.tutar]] [[fatura.para_birimi]] ist am [[fatura.vade_tarihi]] fällig. Sie finden sie in Ihrem Kundenbereich.\n\nFalls Sie bereits bezahlt haben, betrachten Sie diese E-Mail bitte als gegenstandslos. Bei Fragen antworten Sie einfach auf diese E-Mail.\n\nViele Grüße"
       }
     },
     "hata": {

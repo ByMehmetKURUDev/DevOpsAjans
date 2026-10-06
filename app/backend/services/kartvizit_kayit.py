@@ -197,7 +197,10 @@ async def olay_yaz(veri: Dict[str, Any]) -> None:
 
 
 async def olaylari_sil(db: AsyncSession, sahip_tur: str, sahip_id: int) -> None:
+    from models.hiz_sayaclari import AnalizGunlukOzetleri as O
+
     await db.execute(delete(T).where(T.sahip_tur == sahip_tur, T.sahip_id == sahip_id))
+    await db.execute(delete(O).where(O.kaynak == sahip_tur, O.nesne_id == sahip_id))
 
 
 async def donem_sayilari(
@@ -279,11 +282,17 @@ async def analiz(db: AsyncSession, sahip_tur: str, sahip_id: int, gun: int, olay
             )
         ).all()
     ]
+    # Faz 7H: 13 aydan eski olaylar günlük özete taşındı (services/analiz_saklama.py); tüm zamanlar
+    # toplamı ham + özet (dönem en çok 365 gün, saklama 395 gün: dönem sayıları hep hamdan).
+    from services.analiz_saklama import toplam_al, toplamlar
+
+    ozet = await toplamlar(db, sahip_tur, sahip_id)
     return {
-        "toplam": {o: toplam_ham.get(o, 0) for o in olaylar},
-        "tekil": await tek(select(func.count(func.distinct(T.ip_ozeti))).where(*insan, *gorunum)),
-        "qr": await tek(select(func.count(T.id)).where(*insan, *gorunum, T.kanal == "qr")),
-        "bot": await tek(select(func.count(T.id)).where(*sahip, T.bot.is_(True))),
+        "toplam": {o: toplam_ham.get(o, 0) + toplam_al(ozet, "sayi", o) for o in olaylar},
+        "tekil": await tek(select(func.count(func.distinct(T.ip_ozeti))).where(*insan, *gorunum))
+        + toplam_al(ozet, "tekil", "goruntulenme"),
+        "qr": await tek(select(func.count(T.id)).where(*insan, *gorunum, T.kanal == "qr")) + toplam_al(ozet, "qr", "goruntulenme"),
+        "bot": await tek(select(func.count(T.id)).where(*sahip, T.bot.is_(True))) + toplam_al(ozet, "bot"),
         "donem": {
             "gun": gun,
             **{o: donem_ham.get(o, 0) for o in olaylar},

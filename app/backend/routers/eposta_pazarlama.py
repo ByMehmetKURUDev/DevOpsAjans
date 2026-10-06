@@ -67,7 +67,7 @@ from services import eposta_pazarlama as ep
 from sqlalchemy import delete, desc, func, or_, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -98,10 +98,11 @@ _test_hizi = HizSiniri(10, 3600.0)
 _aktarma_hizi = HizSiniri(10, 3600.0)
 _gorsel_hizi = HizSiniri(60, 3600.0)
 #: Ziyaretçi (IP özeti): 10 dakikada 5 abonelik; form başına saatte 100; onay/tercih dakikada 30.
-_form_hizi = HizSiniri(5, 600.0)
-_form_genel_hizi = HizSiniri(100, 3600.0)
-_onay_hizi = HizSiniri(30, 60.0)
-_tercih_hizi = HizSiniri(30, 60.0)
+#: Faz 7H: bu herkese açık sayaçlar veritabanında (sunucu uyanınca sıfırlanmıyor).
+_form_hizi = KaliciHizSiniri("bulten-form", 5, 600.0)
+_form_genel_hizi = KaliciHizSiniri("bulten-form-genel", 100, 3600.0)
+_onay_hizi = KaliciHizSiniri("bulten-onay", 30, 60.0)
+_tercih_hizi = KaliciHizSiniri("bulten-tercih", 30, 60.0)
 
 
 def hiz_sinirlarini_temizle() -> None:
@@ -149,6 +150,12 @@ def _ih(h: ic.IcerikHatasi) -> HTTPException:
 
 def _hiz(sinir: HizSiniri, anahtar: str) -> None:
     if not sinir.izin_var_mi(anahtar or "anonim"):
+        raise _hata(429, "cok_hizli")
+
+
+async def _kalici_hiz(*denemeler) -> None:
+    """Faz 7H: herkese açık uçların veritabanı destekli sayacı ((sınırlayıcı, anahtar) çiftleri)."""
+    if not await izin_ver(*denemeler):
         raise _hata(429, "cok_hizli")
 
 
@@ -412,6 +419,12 @@ async def _rapor(db: AsyncSession, k: EpKampanyalar, alici_siniri: int = 100) ->
     tiklamalar = dict((await db.execute(
         select(EpTiklamalar.indeks, func.count(EpTiklamalar.id)).where(EpTiklamalar.kampanya_id == k.id).group_by(EpTiklamalar.indeks)
     )).all())
+    # Faz 7H: 13 aydan eski tıklamalar günlük özete taşındı (services/analiz_saklama.py) — toplam aynı kalsın.
+    from services.analiz_saklama import toplamlar as _ozet_toplamlari
+
+    for indeks, d in (await _ozet_toplamlari(db, "eposta_tik", k.id)).items():
+        if str(indeks).isdigit():
+            tiklamalar[int(indeks)] = int(tiklamalar.get(int(indeks), 0)) + d["sayi"]
     alicilar = (await db.execute(
         select(EpGonderimler).where(EpGonderimler.kampanya_id == k.id).order_by(EpGonderimler.id).limit(alici_siniri)
     )).scalars().all()
@@ -1667,8 +1680,7 @@ async def form_gonder(anahtar: str, request: Request, db: AsyncSession = Depends
     f = await _yayinda_form(db, anahtar)
     _koken_denetle(request, f)
     govde = await _json_govde(request)
-    _hiz(_form_hizi, _ziyaretci(request, f"form|{f.id}"))
-    _hiz(_form_genel_hizi, f"form|{f.id}")
+    await _kalici_hiz((_form_hizi, _ziyaretci(request, f"form|{f.id}")), (_form_genel_hizi, f"form|{f.id}"))
     d = ep.dil_sec(govde.get("dil") or f.dil)
     tesekkur = {"tesekkur": f.tesekkur_metni or ep.FORM_METINLERI[d]["tesekkur"]}
     try:
@@ -1761,7 +1773,7 @@ def _onay_durumu(u: EpListeUyelikleri) -> str:
 
 @acik_router.get("/onay/{jeton}")
 async def onay_bilgisi(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
-    _hiz(_onay_hizi, _ziyaretci(request, "onay"))
+    await _kalici_hiz((_onay_hizi, _ziyaretci(request, "onay")))
     u = await _onay_kaydi(db, jeton)
     kisi = (await db.execute(select(EpKisiler).where(EpKisiler.id == u.kisi_id))).scalars().first()
     liste = (await db.execute(select(EpListeler).where(EpListeler.id == u.liste_id))).scalars().first()
@@ -1774,7 +1786,7 @@ async def onay_bilgisi(jeton: str, request: Request, db: AsyncSession = Depends(
 
 @acik_router.post("/onay/{jeton}")
 async def onay_ver(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
-    _hiz(_onay_hizi, _ziyaretci(request, "onay"))
+    await _kalici_hiz((_onay_hizi, _ziyaretci(request, "onay")))
     u = await _onay_kaydi(db, jeton)
     durum = _onay_durumu(u)
     if durum == "kullanildi":
@@ -1830,14 +1842,14 @@ async def _tercih_verisi(db: AsyncSession, k: EpKisiler) -> Dict[str, Any]:
 
 @acik_router.get("/tercih/{jeton}")
 async def tercih(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
-    _hiz(_tercih_hizi, _ziyaretci(request, "tercih"))
+    await _kalici_hiz((_tercih_hizi, _ziyaretci(request, "tercih")))
     k = await _tercih_kisisi(db, jeton)
     return JSONResponse(await _tercih_verisi(db, k), headers=ACIK_BASLIKLAR)
 
 
 @acik_router.post("/tercih/{jeton}")
 async def tercih_yaz(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
-    _hiz(_tercih_hizi, _ziyaretci(request, "tercih"))
+    await _kalici_hiz((_tercih_hizi, _ziyaretci(request, "tercih")))
     k = await _tercih_kisisi(db, jeton)
     govde = await _json_govde(request)
     if govde.get("islem") == "ret":
@@ -1864,7 +1876,7 @@ async def tercih_yaz(jeton: str, request: Request, db: AsyncSession = Depends(ge
 @acik_router.post("/ret/{jeton}")
 async def tek_tik_ret(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
     """RFC 8058: posta sağlayıcısı `List-Unsubscribe=One-Click` gövdesiyle POST eder → anında ret."""
-    _hiz(_tercih_hizi, _ziyaretci(request, "ret"))
+    await _kalici_hiz((_tercih_hizi, _ziyaretci(request, "ret")))
     k = await _tercih_kisisi(db, jeton)
     await eg.ret_et(db, k, "tek_tik")
     await db.commit()

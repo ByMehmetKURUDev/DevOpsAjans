@@ -68,7 +68,7 @@ from services.dosya_deposu import icerik_konumu
 from sqlalchemy import delete, desc, func, insert, or_, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -120,11 +120,12 @@ _toplu_hizi = HizSiniri(5, 60.0)
 _ceviri_hizi = HizSiniri(20, 60.0)
 _qr_hizi = HizSiniri(20, 60.0)
 #: Ziyaretçi (IP özeti + mağaza): 10 dakikada 5 sipariş; dakikada 60 hesap; dakikada 120 olay.
-_siparis_hizi = HizSiniri(5, 600.0)
+#: Faz 7H: sipariş sayaçları veritabanında; sepet hesabı / olay sayımı bellekte (sık, düşük riskli).
+_siparis_hizi = KaliciHizSiniri("menu-siparis", 5, 600.0)
 _hesap_hizi = HizSiniri(60, 60.0)
 _olay_hizi = HizSiniri(120, 60.0)
 #: Mağaza başına: dakikada 30 sipariş (aynı anda çok IP'den gelen saldırıya karşı).
-_magaza_siparis_hizi = HizSiniri(30, 60.0)
+_magaza_siparis_hizi = KaliciHizSiniri("menu-magaza-siparis", 30, 60.0)
 
 
 def hiz_sinirlarini_temizle() -> None:
@@ -175,6 +176,12 @@ def _an(an: Optional[datetime]) -> Optional[str]:
 
 def _hiz(sinir: HizSiniri, anahtar: str) -> None:
     if not sinir.izin_var_mi(anahtar or "anonim"):
+        raise _hata(429, "cok_hizli")
+
+
+async def _kalici_hiz(*denemeler) -> None:
+    """Faz 7H: herkese açık uçların veritabanı destekli sayacı ((sınırlayıcı, anahtar) çiftleri)."""
+    if not await izin_ver(*denemeler):
         raise _hata(429, "cok_hizli")
 
 
@@ -1780,8 +1787,7 @@ async def acik_hesapla(slug: str, request: Request, govde: Dict[str, Any] = Body
 async def acik_siparis(slug: str, request: Request, arka: BackgroundTasks, govde: Dict[str, Any] = Body(...),
                        db: AsyncSession = Depends(get_db)):
     m = await _yayinda_magaza(db, slug)
-    _hiz(_siparis_hizi, _ziyaretci_anahtari(request, m))
-    _hiz(_magaza_siparis_hizi, str(m.id))
+    await _kalici_hiz((_siparis_hizi, _ziyaretci_anahtari(request, m)), (_magaza_siparis_hizi, str(m.id)))
     # Bal küpü: bot "başarılı" görsün, hiçbir şey kaydedilmesin.
     if str(govde.get("web_adresi") or "").strip():
         logger.info("Menü siparişi: bal küpü dolu, yok sayıldı (mağaza %s)", m.id)

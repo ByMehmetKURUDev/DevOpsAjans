@@ -35,7 +35,7 @@ from services import imzali_islem as servis
 from services.imzali_islem import IslemHatasi
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -62,15 +62,16 @@ _EPOSTA = re.compile(r"^[^@\s<>,;]+@[^@\s<>,;]+\.[^@\s<>,;]{2,}$")
 # Hız sınırı (bellek içi, IP özeti başına kayan pencere)
 # --------------------------------------------------------------------------
 # Faz 2D: sınıf `utils/hiz_siniri.py`ye taşındı (giriş uçları da kullanıyor).
+# Faz 7H: sayaç veritabanında (sunucu uyuyup kalkınca jeton denemesi sayacı sıfırlanmıyor).
 _HizSiniri = HizSiniri
 
 
-hiz_siniri = _HizSiniri(DAKIKA_SINIRI)
+hiz_siniri = KaliciHizSiniri("imzali-islem", DAKIKA_SINIRI)
 
 
-def _sinir_denetle(request: Request) -> str:
+async def _sinir_denetle(request: Request) -> str:
     ozet = ip_ozeti(istemci_ip(request))
-    if not hiz_siniri.izin_var_mi(ozet):
+    if not await izin_ver((hiz_siniri, ozet)):
         raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail={"kod": "sinir"})
     return ozet
 
@@ -302,7 +303,7 @@ async def _eposta_gonder(db: AsyncSession, kayit: SignedActions, baglanti: str) 
 # --------------------------------------------------------------------------
 @acik_router.get("/{jeton}", response_model=AcikIslem)
 async def islem_ozeti(jeton: str, request: Request, db: AsyncSession = _Depends(get_db)):
-    _sinir_denetle(request)
+    await _sinir_denetle(request)
     kayit = await servis.coz(db, jeton)
     if kayit is None or _tanim(kayit).ozel:
         # Faz 3T: teklif/sözleşme bağlantısı kendi sayfasından (`/teklif`, `/sozlesme`).
@@ -326,7 +327,7 @@ async def islem_ozeti(jeton: str, request: Request, db: AsyncSession = _Depends(
 async def islem_karari(
     jeton: str, request: Request, govde: KararGirdisi = Body(...), db: AsyncSession = _Depends(get_db)
 ):
-    ip = _sinir_denetle(request)
+    ip = await _sinir_denetle(request)
     kayit = await servis.coz(db, jeton)
     if kayit is None or _tanim(kayit).ozel:
         raise HTTPException(status_code=404, detail={"kod": "bulunamadi"})

@@ -13,6 +13,9 @@ def _eposta(on: str) -> str:
 
 
 async def _kredi_satin_al(istemci, eposta, paket=25):
+    from routers import fiyatlandirma
+
+    fiyatlandirma.hiz_sinirlarini_temizle()  # Faz 7H: herkese açık uç IP başına sınırlı
     y = await istemci.post(
         "/api/v1/fiyat-satin-al", json={"kredi_paketi": paket, "musteri_eposta": eposta, "musteri_adi": "Test"}
     )

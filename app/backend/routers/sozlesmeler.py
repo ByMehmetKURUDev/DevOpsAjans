@@ -27,7 +27,7 @@ from services import sozlesmeler as servis
 from services.sozlesmeler import SozlesmeHatasi
 from sqlalchemy import and_, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -42,7 +42,8 @@ musteri_router = APIRouter(
     dependencies=[_Depends(izin_gerekli("faturalar")), _Depends(modul_gerekli("sozlesmeler"))],
 )
 
-hiz_siniri = HizSiniri(20)
+# Faz 7H: imzalı bağlantı denemeleri — sayaç veritabanında (yeniden yayında sıfırlanmıyor).
+hiz_siniri = KaliciHizSiniri("sozlesme-baglanti", 20)
 
 
 class SablonGirdisi(BaseModel):
@@ -97,9 +98,9 @@ def _yonetici_iste(request: Request) -> str:
     return (kullanici.email or "").strip().lower()
 
 
-def _sinir(request: Request) -> str:
+async def _sinir(request: Request) -> str:
     ozet = ip_ozeti(istemci_ip(request))
-    if not hiz_siniri.izin_var_mi(ozet):
+    if not await izin_ver((hiz_siniri, ozet)):
         raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail={"kod": "sinir"})
     return ozet
 
@@ -294,7 +295,7 @@ async def imza_gorseli(sozlesme_id: int, request: Request, db: AsyncSession = _D
 # --------------------------------------------------------------------------
 @acik_router.get("/{jeton}")
 async def acik_goruntule(jeton: str, request: Request, db: AsyncSession = _Depends(get_db)):
-    _sinir(request)
+    await _sinir(request)
     try:
         s, kayit = await servis.jetondan(db, jeton)
     except SozlesmeHatasi as h:
@@ -304,7 +305,7 @@ async def acik_goruntule(jeton: str, request: Request, db: AsyncSession = _Depen
 
 @acik_router.post("/{jeton}/imza")
 async def acik_imza(jeton: str, request: Request, govde: ImzaGirdisi = Body(...), db: AsyncSession = _Depends(get_db)):
-    ip = _sinir(request)
+    ip = await _sinir(request)
     try:
         s = await servis.imzala(
             db, jeton=jeton, ad=govde.ad_soyad, onay=govde.onay, gosterilen_ozet=govde.metin_ozeti,
@@ -318,7 +319,7 @@ async def acik_imza(jeton: str, request: Request, govde: ImzaGirdisi = Body(...)
 
 @acik_router.get("/{jeton}/pdf")
 async def acik_pdf(jeton: str, request: Request, dil: Optional[str] = Query(None), db: AsyncSession = _Depends(get_db)):
-    _sinir(request)
+    await _sinir(request)
     try:
         s, _ = await servis.jetondan(db, jeton)
     except SozlesmeHatasi as h:

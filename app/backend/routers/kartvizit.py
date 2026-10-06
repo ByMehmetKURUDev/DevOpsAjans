@@ -57,7 +57,7 @@ from services.dosya_deposu import icerik_konumu
 from sqlalchemy import desc, func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 
 logger = logging.getLogger(__name__)
 
@@ -82,11 +82,13 @@ _gorsel_hizi = HizSiniri(30, 60.0)
 #: Herkese açık: aynı IP + kart dakikada 30 görüntülenme kaydı (sayfa yine açılır),
 #: IP başı dakikada 60 olay, parola denemesi IP+kart başı dakikada 5,
 #: form IP+kart başı 10 dakikada 3 ve IP başı saatte 10.
+#: Faz 7H: parola ve form sayaçları veritabanında (sunucu uyanınca sıfırlanmıyor); görüntülenme /
+#: olay sayaçları yalnız tekrar süzgeci, bellekte kalıyor.
 _gorunum_hizi = HizSiniri(30, 60.0)
 _olay_hizi = HizSiniri(60, 60.0)
-_parola_hizi = HizSiniri(5, 60.0)
-_form_hizi = HizSiniri(3, 600.0)
-_form_ip_hizi = HizSiniri(10, 3600.0)
+_parola_hizi = KaliciHizSiniri("kart-parola", 5, 60.0)
+_form_hizi = KaliciHizSiniri("kart-form", 3, 600.0)
+_form_ip_hizi = KaliciHizSiniri("kart-form-ip", 10, 3600.0)
 
 
 def hiz_sinirlarini_temizle() -> None:
@@ -123,6 +125,12 @@ def _kart_hatasi(h: k.KartHatasi) -> HTTPException:
 
 def _hiz(sinir: HizSiniri, anahtar: str) -> None:
     if not sinir.izin_var_mi(anahtar or "anonim"):
+        raise _hata(429, "cok_hizli")
+
+
+async def _kalici_hiz(*denemeler) -> None:
+    """Faz 7H: herkese açık uçların veritabanı destekli sayacı ((sınırlayıcı, anahtar) çiftleri)."""
+    if not await izin_ver(*denemeler):
         raise _hata(429, "cok_hizli")
 
 
@@ -903,7 +911,7 @@ async def acik_parola(adres: str, request: Request, db: AsyncSession = Depends(g
     if not kart.sifre_ozet:
         return JSONResponse({"jeton": None, "kart": _acik_sozluk(kart, await kk.gorseller(db, "kart", kart.id))},
                             headers=ACIK_BASLIKLAR)
-    _hiz(_parola_hizi, k.hiz_anahtari(request, "parola", kart.id))
+    await _kalici_hiz((_parola_hizi, k.hiz_anahtari(request, "parola", kart.id)))
     from services.dosyalar import sifre_dogru_mu
 
     parola = str(govde.get("parola") or "")
@@ -1044,8 +1052,7 @@ async def acik_mesaj(adres: str, request: Request, arka: BackgroundTasks, db: As
     if not kart.form_acik:
         raise _hata(403, "form_kapali")
     _kilit_iste(kart, govde.get("j"))
-    _hiz(_form_hizi, k.hiz_anahtari(request, "form", kart.id))
-    _hiz(_form_ip_hizi, k.hiz_anahtari(request, "form"))
+    await _kalici_hiz((_form_hizi, k.hiz_anahtari(request, "form", kart.id)), (_form_ip_hizi, k.hiz_anahtari(request, "form")))
     # Bal küpü: bot "başarılı" görsün, hiçbir şey kaydedilmesin.
     if str(govde.get("web_sitesi") or "").strip():
         logger.info("Kartvizit formu: bal küpü dolu, gönderim yok sayıldı (kart %s)", kart.id)

@@ -30,6 +30,17 @@ Koruma
   `aday.hareketsiz` (aday + son hareket anı + eşik) de öyle.
 * Pazarlama e-postası yalnız pazarlama izni olan alıcıya (`crm_adaylar`
   `pazarlama_izni_at`, Faz 4G); yoksa eylem atlanır ve günlüğe yazılır.
+
+Bekleme sonrası koşul denetimi (Faz 7H)
+---------------------------------------
+Kuralda `bekleme_sonrasi_denetim` açıksa (yeni kurallarda varsayılan; eski
+kurallarda NULL = kapalı) her "bekle" adımından sonra bağlam olaydaki
+kimliklerden TAZE kurulur (`baglam_kur(..., taze=True)`: aşama gibi olay anı
+değerleri yerine kaydın güncel hâli; `fatura.gecikti` / `teklif.yanitsiz` /
+`aday.hareketsiz` eşik günü olayın kimliği olduğu için korunur) ve koşullar
+yeniden değerlendirilir. Artık tutmuyorsa çalıştırma `kosul_tutmadi` +
+`kosul_artik_saglanmiyor` ile durur; günlükte görünür. Ör. "fatura kesildi →
+5 gün bekle → hâlâ açıksa hatırlat".
 """
 
 import asyncio
@@ -410,9 +421,12 @@ async def _kayit(db: AsyncSession, model: Any, kimlik: Any) -> Any:
     return (await db.execute(select(model).where(model.id == kimlik).execution_options(populate_existing=True))).scalars().first()
 
 
-async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesap: Optional[str], ajans: bool
-                     ) -> Optional[Dict[str, Any]]:
-    """Kuralın koşul/yer tutucu bağlamı. Asıl kayıt silinmişse None."""
+async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesap: Optional[str], ajans: bool,
+                     taze: bool = False) -> Optional[Dict[str, Any]]:
+    """Kuralın koşul/yer tutucu bağlamı. Asıl kayıt silinmişse None.
+
+    `taze` (Faz 7H — bekleme sonrası yeniden denetim): olay anının değerleri (aday/proje aşaması) yerine
+    kaydın GÜNCEL hâli. Eşik günleri (gecikme, yanıtsız, hareketsiz) olayın kimliği; onlar korunur."""
     from services import ozel_alanlar as oz
 
     b: Dict[str, Any] = {}
@@ -429,7 +443,7 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
         await _aday_hareketi(db, b["aday"], a, veri.get("gun") if tur == "aday.hareketsiz" else None)
         if tur == "aday.asama_degisti":
             onceki["aday.asama"] = veri.get("onceki_asama")
-            if veri.get("asama"):  # Faz 7O: olay anındaki aşama (bkz. proje.asama_degisti)
+            if veri.get("asama") and not taze:  # Faz 7O: olay anındaki aşama (bkz. proje.asama_degisti)
                 b["aday"]["asama"] = veri.get("asama")
     elif on == "teklif":
         from models.teklifler import Teklifler
@@ -446,6 +460,11 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
         if s is None:
             return None
         b["sozlesme"] = {"id": s.id, "no": s.no, "baslik": s.baslik}
+        # Faz 7H: teklifinden açılmış proje (teklif → proje) — görev eylemi "olaydaki proje" için.
+        if s.teklif_id:
+            from models.teklifler import Teklifler
+
+            proje_id = (await db.execute(select(Teklifler.proje_id).where(Teklifler.id == s.teklif_id))).scalar()
     elif on == "fatura":
         from models.invoices import Invoices
 
@@ -458,8 +477,14 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
                 gecikme = max(0, (date.today() - date.fromisoformat(str(f.due_date)[:10])).days)
             except ValueError:
                 gecikme = None
+        from services.faturalar import IPTAL_DURUMLARI, KAPALI_DURUMLAR, tarih_coz, tr_bugun
+
+        vade = tarih_coz(f.due_date) if f.due_date else None
         b["fatura"] = {"id": f.id, "no": f.invoice_no, "tutar": _sayi(f.amount), "para_birimi": f.currency or "TRY",
-                       "durum": f.status, "vade_tarihi": (str(f.due_date)[:10] if f.due_date else None), "gecikme_gun": gecikme}
+                       "durum": f.status, "vade_tarihi": (str(f.due_date)[:10] if f.due_date else None), "gecikme_gun": gecikme,
+                       # Faz 7H: ödenmemiş mi (ödendi/iptal/iade/taslak değil) ve vadeye kalan gün (geçtiyse eksi).
+                       "acik": (f.status or "") not in KAPALI_DURUMLAR + IPTAL_DURUMLARI,
+                       "vadeye_kalan_gun": (vade - tr_bugun()).days if vade else None}
     elif on == "destek":
         from models.support_tickets import Support_tickets
 
@@ -570,8 +595,9 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
         if p is not None and (ajans or eposta_duzelt(p.client_email) == eposta_duzelt(olay_hesap)):
             b["proje"] = _proje_sozlugu(p)
             # Faz 7O: aşama OLAY ANINDAKİ değer (işleme anında proje başka aşamaya geçmiş olabilir: art arda
-            # iki değişimde ikisi de son aşamayı görüp aynı e-postayı iki kez göndermesin).
-            if tur == "proje.asama_degisti" and veri.get("asama"):
+            # iki değişimde ikisi de son aşamayı görüp aynı e-postayı iki kez göndermesin). Faz 7H: bekleme
+            # sonrası yeniden denetimde (taze) güncel aşama — "hâlâ bu aşamada mı?".
+            if tur == "proje.asama_degisti" and veri.get("asama") and not taze:
                 b["proje"]["asama"] = veri.get("asama")
         elif on == "proje":
             return None
@@ -985,7 +1011,13 @@ async def calisma_isle(db: AsyncSession, calisma_id: int) -> Dict[str, Any]:
         await db.commit()
 
     veri = _json(c.veri, {})
-    baglam = await baglam_kur(db, c.tur, veri, c.olay_hesap, ajans)
+    sonuclar: List[Dict[str, Any]] = _json(c.eylem_sonuclari, [])
+    # Faz 7H: "bekle"den dönülüyorsa ve kuralda açıksa koşullar kaydın güncel hâliyle yeniden denetlenir.
+    yeniden_denetim = bool(
+        c.kosul_sonucu is not None and getattr(k, "bekleme_sonrasi_denetim", None)
+        and sonuclar and isinstance(sonuclar[-1], dict) and sonuclar[-1].get("tur") == "bekle"
+    )
+    baglam = await baglam_kur(db, c.tur, veri, c.olay_hesap, ajans, taze=yeniden_denetim)
     if baglam is None:
         return await _bitir(db, c, "atlandi", "kayit_yok")
 
@@ -994,9 +1026,14 @@ async def calisma_isle(db: AsyncSession, calisma_id: int) -> Dict[str, Any]:
         if not sonuc:
             return await _bitir(db, c, "kosul_tutmadi", None, kosul_sonucu=False, kosul_ayrinti=_yaz(ayrinti))
         await _guncelle(db, c.id, kosul_sonucu=True, kosul_ayrinti=_yaz(ayrinti))
+    elif yeniden_denetim:
+        sonuc, ayrinti = kural.kosullari_degerlendir(k.kosullar, baglam)
+        if not sonuc:
+            return await _bitir(db, c, "kosul_tutmadi", "kosul_artik_saglanmiyor", kosul_sonucu=False,
+                                kosul_ayrinti=_yaz(ayrinti))
+        await _guncelle(db, c.id, kosul_ayrinti=_yaz(ayrinti))
 
     eylemler = _json(k.eylemler, [])
-    sonuclar: List[Dict[str, Any]] = _json(c.eylem_sonuclari, [])
     i = int(c.sonraki_eylem or 0)
     zincir = {"derinlik": int(c.derinlik or 1) + 1, "kurallar": sorted(set(_json(c.zincir, [])) | {k.id})}
     oturum_bilgisi = db.sync_session.info

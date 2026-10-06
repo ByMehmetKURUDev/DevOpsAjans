@@ -50,7 +50,7 @@ from services import ai_asistan as s
 from services import ai_asistan_icerik as icerik
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -70,11 +70,12 @@ _belge_hizi = HizSiniri(20, 600.0)
 _url_hizi = HizSiniri(10, 600.0)
 #: Ziyaretçi: IP özeti başına dakikada 20 / günde 300 mesaj; oturum başına dakikada 8;
 #: asistan başına dakikada 120 (çok IP'den gelen saldırı); devir IP başına 10 dakikada 5.
-_ip_dakika = HizSiniri(20, 60.0)
-_ip_gun = HizSiniri(300, 86400.0)
-_oturum_hizi = HizSiniri(8, 60.0)
-_asistan_hizi = HizSiniri(120, 60.0)
-_devir_hizi = HizSiniri(5, 600.0)
+#: Faz 7H: ziyaretçi sayaçları veritabanında (sunucu uyanınca / yeniden yayında sıfırlanmıyor).
+_ip_dakika = KaliciHizSiniri("asistan-ip-dk", 20, 60.0)
+_ip_gun = KaliciHizSiniri("asistan-ip-gun", 300, 86400.0)
+_oturum_hizi = KaliciHizSiniri("asistan-oturum", 8, 60.0)
+_asistan_hizi = KaliciHizSiniri("asistan-genel", 120, 60.0)
+_devir_hizi = KaliciHizSiniri("asistan-devir", 5, 600.0)
 _yapilandirma_hizi = HizSiniri(120, 60.0)
 
 SAYFA_BOYU = 50
@@ -117,6 +118,12 @@ def _cevir(h: Exception) -> HTTPException:
 
 def _hiz(sinir: HizSiniri, anahtar: str) -> None:
     if not sinir.izin_var_mi(anahtar):
+        raise _hata(429, "cok_hizli")
+
+
+async def _kalici_hiz(*denemeler) -> None:
+    """Faz 7H: herkese açık uçların veritabanı destekli sayacı ((sınırlayıcı, anahtar) çiftleri)."""
+    if not await izin_ver(*denemeler):
         raise _hata(429, "cok_hizli")
 
 
@@ -752,10 +759,9 @@ async def mesaj(anahtar: str, request: Request, govde: MesajGirdisi = Body(...),
         raise _hata(413, "mesaj_uzun", en_cok=s.MESAJ_SINIRI)
     ziyaretci = _ziyaretci(request)
     if not govde.onizleme:
-        _hiz(_ip_dakika, ziyaretci)
-        _hiz(_ip_gun, ziyaretci)
-        _hiz(_asistan_hizi, str(a.id))
-    _hiz(_oturum_hizi, oturum_ozeti)
+        await _kalici_hiz((_ip_dakika, ziyaretci), (_ip_gun, ziyaretci), (_asistan_hizi, str(a.id)), (_oturum_hizi, oturum_ozeti))
+    else:
+        await _kalici_hiz((_oturum_hizi, oturum_ozeti))
     so = await s.sohbet_ac(db, a, oturum_ozeti, kaynak="onizleme" if govde.onizleme else ("gomulu" if govde.gomulu else "sayfa"),
                            koken=host, dil=s.dil_coz(govde.dil), ip_ozeti=None if govde.onizleme else ziyaretci)
     from services import yapay_zeka as ai
@@ -780,7 +786,7 @@ async def devret(anahtar: str, request: Request, govde: DevirGirdisi = Body(...)
     oturum_ozeti = _ortak_kontroller(request, a, govde.oturum, govde.onizleme)
     ziyaretci = _ziyaretci(request)
     if not govde.onizleme:
-        _hiz(_devir_hizi, ziyaretci)
+        await _kalici_hiz((_devir_hizi, ziyaretci))
     try:
         bilgi = s.devir_dogrula({"ad": govde.ad, "eposta": govde.eposta, "telefon": govde.telefon, "not": govde.not_})
     except s.AsistanHatasi as h:

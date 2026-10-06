@@ -30,7 +30,7 @@ from fastapi import APIRouter, Body, Depends, HTTPException, Request, status
 from pydantic import BaseModel, ConfigDict, Field
 from services import yapay_zeka as ai
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -52,9 +52,10 @@ VARSAYILAN_BUTCE = 1000
 BUTCE_AYARI = "ai_acik_gunluk_butce"
 MODEL_AYARI = "ai_acik_model"
 
-#: IP başına (tuzlu özet) — keşif ve sohbet ortak sayılıyor.
-_saatlik = HizSiniri(30, 3600.0)
-_gunluk = HizSiniri(100, 86400.0)
+#: IP başına (tuzlu özet) — keşif ve sohbet ortak sayılıyor. Faz 7H: sayaç veritabanında
+#: (sunucu uyanınca / yeniden yayında sıfırlanmıyor; günlük sınır gerçekten günlük).
+_saatlik = KaliciHizSiniri("ai-acik-saat", 30, 3600.0)
+_gunluk = KaliciHizSiniri("ai-acik-gun", 100, 86400.0)
 #: Yönetici içerik taslağı: kişi başına saatte 60.
 _yonetici_hiz = HizSiniri(60, 3600.0)
 
@@ -84,7 +85,7 @@ async def _acik_kapi(request: Request, db: AsyncSession, toplam: int, sinir: int
     if toplam > sinir:
         raise _hata("govde_cok_buyuk", 413)
     anahtar = ip_ozeti(istemci_ip(request))
-    if not _gunluk.izin_var_mi(anahtar) or not _saatlik.izin_var_mi(anahtar):
+    if not await izin_ver((_gunluk, anahtar), (_saatlik, anahtar)):
         raise _hata("cok_fazla_istek", status.HTTP_429_TOO_MANY_REQUESTS)
     butce = ai.tam_sayi(await ai.ayar_oku(db, BUTCE_AYARI), VARSAYILAN_BUTCE, 0, 10_000_000)
     if not await ai.sayac_artir(db, "acik", butce if butce > 0 else None):

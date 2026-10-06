@@ -64,6 +64,9 @@ async def _talep(istemci, email: str, source: str = "iletisim-formu", message: s
     govde = {"name": "Ayşe Yılmaz", "email": email, "message": message, "status": "new", **ek}
     if source is not None:
         govde["source"] = source
+    from routers import inquiries
+
+    inquiries.hiz_sinirlarini_temizle()  # Faz 7H: herkese açık iletişim formu IP başına sınırlı
     y = await istemci.post("/api/v1/entities/inquiries", json=govde)
     assert y.status_code == 201, y.text
     return y.json()

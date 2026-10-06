@@ -524,6 +524,9 @@ class DatabaseManager:
         {"tablo": "projects", "sutun": "faturalanabilir_musteriye_gorunur", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
         {"tablo": "project_tasks", "sutun": "baslangic_tarihi", "tur_pg": "DATE", "tur_sqlite": "DATE"},
         {"tablo": "teklifler", "sutun": "proje_sablon_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        # Faz 7H — otomasyon: "bekle"den sonra koşulları yeniden denetle. Dolgu YOK: eski kurallarda
+        # NULL = kapalı (davranışları değişmiyor); yeni kurallar açık başlıyor.
+        {"tablo": "otomasyon_kurallari", "sutun": "bekleme_sonrasi_denetim", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
     )
 
     async def _eksik_sutunlari_tamamla(self):

@@ -67,7 +67,9 @@
       "aciklamaAlani": "Description (optional)",
       "aktif": "Rule enabled (starts running once saved)",
       "geri": "Back",
-      "ileri": "Next"
+      "ileri": "Next",
+      "bekleDenetim": "Re-check conditions after waiting",
+      "bekleDenetimAciklama": "After each \"Wait\" step the conditions are checked again against the record's current state; if they no longer hold, the remaining actions are skipped (e.g. no reminder if the invoice was paid in the meantime). The outcome shows in the run log."
     },
     "baglac": {
       "ve": "All must match (AND)",
@@ -164,7 +166,9 @@
       "goruntulenme_sayisi": "View count",
       "yanitsiz_gun": "Unanswered (days)",
       "baglanti": "Link",
-      "yoneten": "Managed by (agency/client)"
+      "yoneten": "Managed by (agency/client)",
+      "acik": "Open (unpaid)",
+      "vadeye_kalan_gun": "Days until due"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -350,7 +354,8 @@
       "degisiklik_yok": "Nothing to change",
       "webhook_yok": "Webhook endpoint not found",
       "webhook_pasif": "Webhook endpoint is disabled",
-      "eylem_turu_gecersiz": "Invalid action"
+      "eylem_turu_gecersiz": "Invalid action",
+      "kosul_artik_saglanmiyor": "Condition no longer met (re-checked after waiting)"
     },
     "ozet": {
       "alici": "Recipient",
@@ -467,16 +472,23 @@
         "govde": "Hello [[kisi.ad|]],\n\nYour project [[proje.baslik]] is now live. Thank you so much for trusting us along the way.\n\nWe'd love to hear about your experience in a few sentences: what did you like, and what could we have done better? Simply reply to this email. If you like, you can also leave a public review of our business.\n\nBest regards"
       },
       "sozlesme_imzalandi_bildirim": {
-        "ad": "Contract signed → kick-off reminder",
-        "aciklama": "When: a client signs a contract with e-signature. What it does: sends admins a \"time to start\" panel notification (reminder to schedule the kick-off and request documents and access). The usual signature notification is still sent too.",
+        "ad": "Contract signed → kick-off reminder + task",
+        "aciklama": "When: a client signs a contract with e-signature. What it does: sends admins a \"time to start\" panel notification; if the contract came from a quote and that quote opened a project, it also adds a \"request documents and access\" task due in 2 days to the project (the task step is skipped when there is no project). The usual signature notification is still sent too.",
         "bildirim": "Time to start: [[sozlesme.no]]",
-        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) signed the contract \"[[sozlesme.baslik]]\". Next steps: schedule the kick-off meeting and request the documents and access you need."
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) signed the contract \"[[sozlesme.baslik]]\". Next steps: schedule the kick-off meeting and request the documents and access you need.",
+        "gorev": "Request documents and access: [[sozlesme.baslik]]"
       },
       "icerik_onaylandi_gorev": {
         "ad": "Content approved → \"Publish\" reminder",
         "aciklama": "When: a content post managed by the agency is approved (clients' own content excluded). What it does: sends the content owner (or admins if none) a \"Publish: <title>\" panel notification. The event has no project, so a notification is used instead of a task.",
         "bildirim": "Publish: [[icerik.baslik]]",
         "bildirim_govde": "Post approved. Scheduled for: [[icerik.planlanan_at|not set]]; channels: [[icerik.kanallar|—]]."
+      },
+      "fatura_vade_oncesi_hatirlatma": {
+        "ad": "Invoice issued → reminder before due date if still open after 5 days",
+        "aciklama": "When: an invoice is issued; it waits 5 days and re-checks the conditions. What it does: if the invoice is still unpaid and due in at least 2 days, it sends the client a friendly \"due date approaching\" email. If it was paid in the meantime or the due date is too close, nothing is sent. The system's after-due reminders (+1, +7, +14 days) are separate; this rule only runs before the due date, so the same invoice never gets duplicate emails.",
+        "konu": "Reminder: invoice [[fatura.no]] is due on [[fatura.vade_tarihi]]",
+        "govde": "Hello [[kisi.ad|]],\n\nYour invoice [[fatura.no]] for [[fatura.tutar]] [[fatura.para_birimi]] is due on [[fatura.vade_tarihi]]. You can view it in your client panel.\n\nIf you have already paid, please disregard this email. If you have any questions, simply reply to this email.\n\nBest regards"
       }
     },
     "hata": {

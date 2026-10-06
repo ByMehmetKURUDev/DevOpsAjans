@@ -194,7 +194,8 @@
         "eposta_pazarlama": "E-posta pazarlama gönderimleri (zamanlanmış kampanyalar, A/B kararı, damla dizileri)",
         "saha_servisi": "Saha servisi: bakım hatırlatma, konum ve saklama temizliği",
         "etkinlik_bakimi": "Etkinlik bakımı (ödeme tutmaları, bekleme listesi davetleri, teşekkür e-postası)",
-        "haftalik_ozet": "Haftalık özet (yöneticiye, Pazartesi 08:00)"
+        "haftalik_ozet": "Haftalık özet (yöneticiye, Pazartesi 08:00)",
+        "saklama_temizligi": "Eski ziyaret ve tıklama kayıtlarının saklama temizliği (13 ay)"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir",
@@ -233,7 +234,8 @@
         "saha_servisi": "Bakım zamanı gelen cihazları bildirir; eski konum ve kişisel verileri süresi dolunca temizler.",
         "etkinlik_bakimi": "Ödemesi gelmeyen bilet tutmalarını bırakır, yer açılınca bekleme listesine davet yollar, etkinlik bitince teşekkür e-postası atar.",
         "haftalik_ozet": "Her Pazartesi sabahı size bu hafta bakılacak işlerin özetini gönderir (hepsi sıfırsa göndermez).",
-        "aylik_site_analizi": "Her ay müşteri siteleri için otomatik site analizi çalıştırır (turda en çok bir site)."
+        "aylik_site_analizi": "Her ay müşteri siteleri için otomatik site analizi çalıştırır (turda en çok bir site).",
+        "saklama_temizligi": "QR tarama, dijital kartvizit, yorum sayfası, QR menü ve randevu sayfası ziyaret kayıtlarını ve e-posta kampanyası tıklamalarını 13 ay saklar; daha eskilerini silmeden önce günlük toplamlara indirger, böylece paneldeki toplamlar değişmez. Süresi dolmuş istek sınırı sayaçlarını da siler. Günde bir çalışır."
       }
     },
     "musteri": {

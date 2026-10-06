@@ -36,6 +36,7 @@ from routers.kartvizit import (
     _govde_oku,
     _hata,
     _hiz,
+    _kalici_hiz,
     _kart_hatasi,
     _musteri_kapsami as _kart_musteri_kapsami,
     _yonetici_kapsami,
@@ -50,7 +51,7 @@ from services.dosya_deposu import icerik_konumu
 from sqlalchemy import desc, func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri
 
 logger = logging.getLogger(__name__)
 
@@ -72,8 +73,9 @@ musteri_router = APIRouter(
 _yazma_hizi = HizSiniri(60, 60.0)
 _gorunum_hizi = HizSiniri(30, 60.0)
 _olay_hizi = HizSiniri(60, 60.0)
-_form_hizi = HizSiniri(3, 600.0)
-_form_ip_hizi = HizSiniri(10, 3600.0)
+#: Faz 7H: form sayaçları veritabanında (sunucu uyanınca sıfırlanmıyor).
+_form_hizi = KaliciHizSiniri("yorum-form", 3, 600.0)
+_form_ip_hizi = KaliciHizSiniri("yorum-form-ip", 10, 3600.0)
 
 
 def hiz_sinirlarini_temizle() -> None:
@@ -540,8 +542,8 @@ async def acik_geri_bildirim(adres: str, request: Request, arka: BackgroundTasks
         raise _hata(404, "bulunamadi")
     if not y.geri_bildirim_acik:
         raise _hata(403, "form_kapali")
-    _hiz(_form_hizi, k.hiz_anahtari(request, "yorum-form", y.id))
-    _hiz(_form_ip_hizi, k.hiz_anahtari(request, "yorum-form"))
+    await _kalici_hiz((_form_hizi, k.hiz_anahtari(request, "yorum-form", y.id)),
+                      (_form_ip_hizi, k.hiz_anahtari(request, "yorum-form")))
     if str(govde.get("web_sitesi") or "").strip():
         logger.info("Yorum sayfası formu: bal küpü dolu, gönderim yok sayıldı (sayfa %s)", y.id)
         return {"ok": True}

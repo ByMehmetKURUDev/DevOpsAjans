@@ -14,11 +14,22 @@ from dependencies.kayit_sahipligi import sahibine_daralt, sahiplik_dogrula
 from fastapi import Depends as _Depends
 from services.inquiries import InquiriesService
 from services.notify import admin_recipients, dispatch, render
+from utils.hiz_siniri import KaliciHizSiniri, izin_ver
+from utils.istemci_ip import ip_ozeti, istemci_ip
 
 # Set up logging
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/entities/inquiries", tags=["inquiries"], dependencies=[_Depends(entity_guard)])
+
+#: Faz 7H — herkese açık iletişim formu: IP özeti başına 10 dakikada en çok 5 mesaj (önceden
+#: sınırsızdı). Sayaç veritabanında (sunucu uyanınca sıfırlanmıyor); yönetici muaf.
+_form_hizi = KaliciHizSiniri("iletisim-formu", 5, 600.0)
+
+
+def hiz_sinirlarini_temizle() -> None:
+    """Testler için."""
+    _form_hizi.temizle()
 
 
 # ---------- Pydantic Schemas ----------
@@ -213,9 +224,14 @@ async def get_inquiries(
 @router.post("", response_model=InquiriesResponse, status_code=201)
 async def create_inquiries(
     data: InquiriesData,
+    request: Request,
     db: AsyncSession = Depends(get_db),
 ):
     """Create a new inquiries"""
+    from dependencies.kayit_sahipligi import _yonetici_mi
+
+    if not _yonetici_mi(request)[1] and not await izin_ver((_form_hizi, ip_ozeti(istemci_ip(request)))):
+        raise HTTPException(status_code=429, detail={"kod": "cok_hizli"})
     logger.debug(f"Creating new inquiries with data: {data}")
     
     service = InquiriesService(db)

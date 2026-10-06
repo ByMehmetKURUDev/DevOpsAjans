@@ -6,6 +6,9 @@ Tablolar
   anahtarı/webhook ile aynı desen: `sahip_tur` + `hesap_email`, ajansta boş),
   tetikleyici olay, koşullar (JSON: `{"baglac": "ve"|"veya", "kosullar": [...]}`),
   sıralı eylemler (JSON listesi, en çok 5). Ayrıntı `services/otomasyon_kural.py`.
+  Faz 7H: `bekleme_sonrasi_denetim` — "bekle" eyleminden sonra koşullar kaydın
+  GÜNCEL hâliyle yeniden denetlenir; artık tutmuyorsa çalıştırma durur. Yeni
+  kurallarda açık; sütun sonradan eklendiği için eski kurallarda NULL = kapalı.
 * `otomasyon_calismalari` — HEM kuyruk HEM günlük: olay geldiğinde eşleşen her
   kural için bir satır (`bekliyor`), arka plan görevi / zamanlı uç işliyor;
   koşul sonucu, eylem sonuçları, "bekle" eyleminden sonra kalınan yer burada.
@@ -51,6 +54,8 @@ class OtomasyonKurallari(Base):
     eylemler = Column(Text, nullable=False, default="[]")
     #: Hazır şablondan oluşturulduysa şablon anahtarı (bilgi amaçlı).
     sablon = Column(String(60), nullable=True)
+    #: Faz 7H: "bekle"den sonra koşulları taze kayıtla yeniden denetle (NULL = kapalı; eski kurallar).
+    bekleme_sonrasi_denetim = Column(Boolean, nullable=True)
     olusturan = Column(String(254), nullable=True)
     calisma_sayisi = Column(Integer, nullable=False, default=0)
     son_calisma_at = Column(DateTime(timezone=True), nullable=True)
@@ -84,7 +89,8 @@ class OtomasyonCalismalari(Base):
     zincir = Column(Text, nullable=True)
     #: bekliyor | tamam | hata | kosul_tutmadi | atlandi
     durum = Column(String(16), nullable=False, default="bekliyor")
-    #: atlandi/hata kısa nedeni (dongu | derinlik | hiz_siniri | modul_kapali | kural_yok | kural_pasif …).
+    #: atlandi/hata kısa nedeni (dongu | derinlik | hiz_siniri | modul_kapali | kural_yok | kural_pasif …);
+    #: Faz 7H: kosul_tutmadi + `kosul_artik_saglanmiyor` = bekleme sonrası yeniden denetimde durdu.
     neden = Column(String(120), nullable=True)
     kosul_sonucu = Column(Boolean, nullable=True)
     #: JSON: [{"alan", "islec", "deger", "gercek", "sonuc"}]

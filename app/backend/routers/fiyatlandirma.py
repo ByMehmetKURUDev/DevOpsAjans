@@ -22,7 +22,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -37,6 +37,24 @@ from services.pricing_generic import GenericEntityService
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1", tags=["fiyatlandirma"])
+
+#: Faz 7H — herkese açık "Teklif Al" / "Satın Al" (her biri fatura + talep kaydı açıyor; önceden
+#: yalnız 60 sn'lik çift gönderim koruması vardı): IP özeti başına 10 dakikada en çok 10 istek,
+#: ikisi ortak. Sayaç veritabanında (sunucu uyanınca sıfırlanmıyor).
+from utils.hiz_siniri import KaliciHizSiniri, izin_ver  # noqa: E402
+from utils.istemci_ip import ip_ozeti, istemci_ip  # noqa: E402
+
+_fiyat_hizi = KaliciHizSiniri("fiyat-teklif", 10, 600.0)
+
+
+def hiz_sinirlarini_temizle() -> None:
+    """Testler için."""
+    _fiyat_hizi.temizle()
+
+
+async def _fiyat_hiz_denetle(request: Request) -> None:
+    if not await izin_ver((_fiyat_hizi, ip_ozeti(istemci_ip(request)))):
+        raise HTTPException(status_code=429, detail={"kod": "cok_hizli"})
 
 
 async def _fiyat_verilerini_yukle(db: AsyncSession, scale_kod: str):
@@ -222,7 +240,8 @@ async def _kayit_olustur(db: AsyncSession, req: FiyatTeklifRequest, tur: str, ka
 
 
 @router.post("/fiyat-teklif")
-async def fiyat_teklif(req: FiyatTeklifRequest, db: AsyncSession = Depends(get_db)):
+async def fiyat_teklif(req: FiyatTeklifRequest, request: Request, db: AsyncSession = Depends(get_db)):
+    await _fiyat_hiz_denetle(request)
     tur = _secim_tanimi(req)
     if await _son_ayni_kayit(db, req, tur):
         raise HTTPException(status_code=409, detail="Bu teklif az önce zaten gönderildi.")
@@ -258,12 +277,13 @@ async def _bekleyen_odeme(db: AsyncSession, invoice: Invoices) -> Payments:
 
 
 @router.post("/fiyat-satin-al")
-async def fiyat_satin_al(req: FiyatTeklifRequest, db: AsyncSession = Depends(get_db)):
+async def fiyat_satin_al(req: FiyatTeklifRequest, request: Request, db: AsyncSession = Depends(get_db)):
     """Satın Al: kaydı açar, ödeme sayfasının adresini döndürür.
 
     Aynı seçim 60 saniye içinde tekrar gelirse yeni fatura açılmaz; önceki
     faturanın bekleyen ödeme bağlantısı döner (çift tıklama güvenli).
     """
+    await _fiyat_hiz_denetle(request)
     tur = _secim_tanimi(req)
     onceki = await _son_ayni_kayit(db, req, tur)
     if onceki and onceki.invoice_id:

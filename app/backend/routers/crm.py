@@ -47,7 +47,7 @@ from services import crm_form as formlar
 from services import pazarlama_izni
 from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import KaliciHizSiniri, izin_ver
 from utils.istemci_ip import istemci_ip, ip_ozeti
 
 logger = logging.getLogger(__name__)
@@ -55,8 +55,8 @@ logger = logging.getLogger(__name__)
 yonetici_router = APIRouter(prefix="/api/v1/crm", tags=["crm"], dependencies=[Depends(yonetici_gerekli)])
 acik_router = APIRouter(prefix="/api/v1/crm/form", tags=["crm"])
 
-#: IP başına 10 dakikada en çok 5 form gönderimi.
-_form_hizi = HizSiniri(5, 600.0)
+#: IP başına 10 dakikada en çok 5 form gönderimi (Faz 7H: sayaç veritabanında).
+_form_hizi = KaliciHizSiniri("crm-form", 5, 600.0)
 KANBAN_SINIRI = 200
 AKTIVITE_SINIRI = 300
 
@@ -738,7 +738,7 @@ async def acik_form_tanimi(anahtar: str, request: Request, dil: str = Query("tr"
 async def acik_form_gonder(anahtar: str, request: Request, db: AsyncSession = Depends(get_db)):
     """Gövde JSON (betik `text/plain` gönderiyor: tarayıcı ön kontrol yapmasın)."""
     ip = ip_ozeti(istemci_ip(request))
-    if not _form_hizi.izin_var_mi(ip):
+    if not await izin_ver((_form_hizi, ip)):
         raise _hata(429, "cok_fazla_istek")
     ham = await request.body()
     if len(ham) > formlar.GOVDE_SINIRI:

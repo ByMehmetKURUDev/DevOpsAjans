@@ -29,7 +29,7 @@ from services.belge_hesap import HesapHatasi, belge_hesapla
 from services.teklifler import TeklifHatasi
 from sqlalchemy import and_, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -44,7 +44,8 @@ musteri_router = APIRouter(
     dependencies=[_Depends(izin_gerekli("faturalar")), _Depends(modul_gerekli("teklifler"))],
 )
 
-hiz_siniri = HizSiniri(20)
+# Faz 7H: imzalı bağlantı denemeleri — sayaç veritabanında (yeniden yayında sıfırlanmıyor).
+hiz_siniri = KaliciHizSiniri("teklif-baglanti", 20)
 
 
 # --------------------------------------------------------------------------
@@ -117,9 +118,9 @@ def _yonetici_iste(request: Request) -> str:
     return (kullanici.email or "").strip().lower()
 
 
-def _sinir(request: Request) -> str:
+async def _sinir(request: Request) -> str:
     ozet = ip_ozeti(istemci_ip(request))
-    if not hiz_siniri.izin_var_mi(ozet):
+    if not await izin_ver((hiz_siniri, ozet)):
         raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail={"kod": "sinir"})
     return ozet
 
@@ -318,7 +319,7 @@ async def yonetici_pdf(teklif_id: int, request: Request, dil: str = Query("tr"),
 # --------------------------------------------------------------------------
 @acik_router.get("/{jeton}")
 async def acik_goruntule(jeton: str, request: Request, db: AsyncSession = _Depends(get_db)):
-    _sinir(request)
+    await _sinir(request)
     try:
         teklif, kayit = await servis.jetondan(db, jeton)
     except TeklifHatasi as h:
@@ -329,7 +330,7 @@ async def acik_goruntule(jeton: str, request: Request, db: AsyncSession = _Depen
 
 @acik_router.post("/{jeton}/karar")
 async def acik_karar(jeton: str, request: Request, govde: KararGirdisi = Body(...), db: AsyncSession = _Depends(get_db)):
-    ip = _sinir(request)
+    ip = await _sinir(request)
     try:
         teklif = await servis.karar_ver(
             db, jeton=jeton, sonuc=govde.sonuc, ad=govde.ad_soyad, not_=govde.not_, ip_ozeti=ip, kanal="baglanti"
@@ -342,7 +343,7 @@ async def acik_karar(jeton: str, request: Request, govde: KararGirdisi = Body(..
 
 @acik_router.get("/{jeton}/pdf")
 async def acik_pdf(jeton: str, request: Request, dil: str = Query("tr"), db: AsyncSession = _Depends(get_db)):
-    _sinir(request)
+    await _sinir(request)
     try:
         teklif, _ = await servis.jetondan(db, jeton)
     except TeklifHatasi as h:

@@ -120,7 +120,8 @@ async function ayikla(response: Response): Promise<never> {
   let detail: string | undefined;
   try {
     const body = await response.json();
-    detail = body?.detail;
+    // Faz 7H: 429 gibi uçlar `{kod}` nesnesi döndürüyor; mesaj yalnız metin detayından.
+    detail = typeof body?.detail === 'string' ? body.detail : undefined;
   } catch {
     /* JSON degil */
   }

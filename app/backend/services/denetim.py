@@ -120,6 +120,9 @@ HARIC_TABLOLAR = frozenset({
     # Faz 4W: otomasyon kuyruğu/günlüğü (her olayda satır; kendi 30 günlük günlüğü var).
     # Kurallar, özel alan tanımları ve değerleri kaydediliyor.
     "otomasyon_calismalari",
+    # Faz 7H: kalıcı hız sayaçları (herkese açık her istekte artıyor; teknik iz) ve 13 aydan eski
+    # analiz olaylarının günlük özetleri (zamanlı saklama temizliği yazıyor; yalnız sayılar).
+    "hiz_sayaclari", "analiz_gunluk_ozetleri",
     # Faz 5A: AI asistan sohbetleri ve mesajları (herkese açık, KİŞİSEL VERİ — saklama süresi
     # dolunca siliniyor), bilgi bankası parçaları (kaynaktan türetilmiş, her işlemede yeniden
     # yazılıyor) ve günlük sayaç. Asistan ayarları ve kaynaklar kaydediliyor.

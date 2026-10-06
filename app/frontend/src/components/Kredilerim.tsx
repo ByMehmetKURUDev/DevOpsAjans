@@ -67,8 +67,8 @@ export default function Kredilerim({ eposta, ad }: { eposta?: string; ad?: strin
         musteri_adi: ad || undefined,
       });
       window.location.assign(sonuc.adres);
-    } catch {
-      toast.error(t('kredi.musteri.satinAlHata'));
+    } catch (h) {
+      toast.error((h as { status?: number })?.status === 429 ? t('genel.cokHizli') : t('kredi.musteri.satinAlHata'));
       setAliniyor(false);
     }
   };

@@ -420,12 +420,14 @@ async def test_sozlesme_imzalandi_sablonu_bildirim(istemci, yonetici_basligi, db
     from services import otomasyon_kural as k
 
     s = k.SABLON_SOZLUGU["sozlesme_imzalandi_bildirim"]
-    # Olayda proje yok → görev eylemi "olaydaki proje" seçemez; şablon yalnız bildirim.
-    assert not k.OLAY_SOZLUGU["sozlesme.imzalandi"].proje_var and [e["tur"] for e in s.eylemler] == ["bildirim"]
+    # Faz 7H: olayda sözleşmenin teklifinden açılan proje var (teklif → proje) → bildirim + "olaydaki proje"ye
+    # görev (proje yoksa görev adımı "proje_yok" ile atlanır; ayrıntı test_saglamlastirma.py).
+    assert k.OLAY_SOZLUGU["sozlesme.imzalandi"].proje_var and [e["tur"] for e in s.eylemler] == ["bildirim", "gorev"]
     kural = await _sablondan(istemci, yonetici_basligi, "sozlesme_imzalandi_bildirim")
     y = await istemci.post(f"{Y}/kurallar/{kural['id']}/test", json={}, headers=yonetici_basligi)
     assert y.status_code == 200 and y.json()["eylemler"][0]["durum"] == "yapilacak"
     assert y.json()["eylemler"][0]["ozet"]["baslik"].startswith("İşe başlama zamanı")
+    assert y.json()["eylemler"][1]["durum"] == "yapilacak"
 
 
 # ---------------------------------------------------------------------------

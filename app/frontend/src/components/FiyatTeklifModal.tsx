@@ -76,7 +76,10 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim,
       toast.success(t('fiyatTeklif.alindi', 'Teklifiniz oluşturuldu, fatura e-postanıza gönderilecek.'));
     } catch (hata) {
       const h = hata as { status?: number; message?: string };
-      if (h?.status === 409) {
+      if (h?.status === 429) {
+        // Faz 7H: IP başına istek sınırı (kalıcı sayaç) — kibar "biraz sonra deneyin".
+        toast.error(t('genel.cokHizli'));
+      } else if (h?.status === 409) {
         // Sunucu 60sn'lik cift-gonderim korumasina takildi -- kullaniciya
         // hata gibi degil, "zaten aldik" gibi gosteriliyor.
         setBitti(true);

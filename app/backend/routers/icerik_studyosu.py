@@ -54,7 +54,7 @@ from services import icerik_studyosu as st
 from services.icerik_studyosu import Kapsam, StudyoHatasi
 from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -71,11 +71,12 @@ onay_router = APIRouter(prefix="/api/v1/icerik-onaylarim", tags=["icerik_studyos
                         dependencies=[Depends(izin_gerekli(st.IZIN))])
 acik_router = APIRouter(prefix="/api/v1", tags=["icerik_studyosu"])
 
-#: Kişi başı: dakikada 20 üretim, 60 yazma; saatte 120 görsel. IP başı: dakikada 20 onay sayfası isteği.
+#: Kişi başı: dakikada 20 üretim, 60 yazma; saatte 120 görsel. IP başı: dakikada 20 onay sayfası isteği
+#: (Faz 7H: bu sayaç veritabanında).
 _uretim_hizi = HizSiniri(20, 60.0)
 _yazma_hizi = HizSiniri(60, 60.0)
 _gorsel_hizi = HizSiniri(120, 3600.0)
-_acik_hiz = HizSiniri(20, 60.0)
+_acik_hiz = KaliciHizSiniri("icerik-onay", 20, 60.0)
 
 
 def hiz_sinirlarini_temizle() -> None:
@@ -94,6 +95,12 @@ def _sh(h: StudyoHatasi) -> HTTPException:
 
 def _hiz(sinir: HizSiniri, anahtar: str) -> None:
     if not sinir.izin_var_mi(anahtar or "anonim"):
+        raise _hata(429, "cok_hizli")
+
+
+async def _kalici_hiz(*denemeler) -> None:
+    """Faz 7H: herkese açık uçların veritabanı destekli sayacı ((sınırlayıcı, anahtar) çiftleri)."""
+    if not await izin_ver(*denemeler):
         raise _hata(429, "cok_hizli")
 
 
@@ -611,7 +618,7 @@ async def _onay_kaydi(db: AsyncSession, jeton: str):
 async def onay_ozeti(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
     from services import imzali_islem
 
-    _hiz(_acik_hiz, ip_ozeti(istemci_ip(request)))
+    await _kalici_hiz((_acik_hiz, ip_ozeti(istemci_ip(request))))
     kayit = await _onay_kaydi(db, jeton)
     tanim = imzali_islem.TURLER["icerik_onay"]
     g = (await db.execute(select(Content_posts).where(Content_posts.id == kayit.hedef_id))).scalars().first()
@@ -633,7 +640,7 @@ async def onay_karari(jeton: str, request: Request, govde: Dict[str, Any] = Body
     from services import imzali_islem
 
     ip = ip_ozeti(istemci_ip(request))
-    _hiz(_acik_hiz, ip)
+    await _kalici_hiz((_acik_hiz, ip))
     await _onay_kaydi(db, jeton)
     try:
         sonuc = await imzali_islem.kullan(db, jeton, str(govde.get("sonuc") or ""), govde.get("not"), ip_ozeti=ip)

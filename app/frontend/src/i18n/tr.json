@@ -231,7 +231,8 @@
     "whatsappIntro": "Merhaba, mehmetkuru.dev üzerinden yazıyorum. Bir proje hakkında görüşmek istiyorum.",
     "panelYonlendirme": "Projenizi buradan takip edebilirsiniz. Panelde aşamaları, dosyaları ve yazışmayı tek yerde görürsünüz.",
     "panelEposta": "Kaydolurken şu adresi kullanın:",
-    "panelBtn": "Proje panelime git"
+    "panelBtn": "Proje panelime git",
+    "errorSend": "Mesaj gönderilemedi. Lütfen tekrar deneyin."
   },
   "clientPanel": {
     "sectionTag": "Müşteri Paneli",
@@ -457,7 +458,6 @@
     "emailMismatchDesc": "Panel kayıtları e-posta adresinize göre eşleştiriyor. Şu an {{email}} adresiyle giriş yaptınız. Projeniz başka bir adrese bağlıysa burada görünmez — bu durumda bize yazın, adresi eşitleyelim.",
     "emailMismatchCta": "Bize yazın",
     "tabMarketplace": "Pazaryeri",
-    "tabIcerik": "İçerik",
     "tabIcerikStudyosu": "İçerik stüdyosu",
     "tabSiteAnalizleri": "Site analizleri",
     "tabAnaliz": "Site analizi",
@@ -1250,70 +1250,6 @@
       "baglanti_tavani": "{{sayi}} ayrı bağlantı bulundu; ilk {{tavan}} tanesi denetlendi."
     }
   },
-  "icerik": {
-    "nasilCalisir": "Bu ekran gönderi hazırlar, gönderi ATMAZ. Akış: planla → AI taslağı yaz → onayla → zamanı gelince \"Kopyala ve aç\" ile metni panoya al, kanalda yapıştır, paylaş, sonra \"Paylaşıldı\" işaretle. Otomatik yayın için Instagram/Facebook/LinkedIn onaylı uygulama hesabı, X için ücretli API gerekiyor; ayrıca ücretsiz sunucu uykuya geçtiği için zamanlanmış iş tam saatinde çalışmaz.",
-    "gecikenUyari": "{{count}} gönderinin zamanı geçti ve hâlâ paylaşılmadı.",
-    "hepsi": "Hepsi",
-    "yeni": "Yeni gönderi",
-    "yeniBaslik": "Yeni gönderi",
-    "duzenleBaslik": "Gönderiyi düzenle",
-    "yukleniyor": "Gönderiler yükleniyor…",
-    "bos": "Bu görünümde gönderi yok. \"Yeni gönderi\" ile başlayın.",
-    "listeHatasi": "Gönderiler okunamadı.",
-    "kaydedildi": "Gönderi kaydedildi.",
-    "kaydetmeHatasi": "Gönderi kaydedilemedi.",
-    "baslikGerekli": "Konu boş olamaz.",
-    "silindi": "Gönderi silindi.",
-    "silmeHatasi": "Gönderi silinemedi.",
-    "silmeOnayi": "\"{{title}}\" silinsin mi? Bu geri alınamaz.",
-    "kopyalaVeAc": "Metni kopyala ve kanalı aç",
-    "kopyalandi": "Metin panoya kopyalandı; kanal yeni sekmede açıldı.",
-    "kopyalanamadi": "Panoya kopyalanamadı; metni gönderiyi düzenleyip elle alabilirsiniz.",
-    "paylasildi": "Paylaşıldı işaretle",
-    "duzenle": "Düzenle",
-    "sil": "Sil",
-    "kapat": "Kapat",
-    "kaydet": "Kaydet",
-    "vazgec": "Vazgeç",
-    "zamansiz": "zaman verilmedi",
-    "sinirAsildi": "sınır aşıldı",
-    "fKonu": "Konu (panelde görünen iç ad)",
-    "fKonuIpucu": "Örn: Pazaryeri açılış duyurusu",
-    "fKanal": "Kanal",
-    "fZaman": "Paylaşım zamanı",
-    "fDurum": "Durum",
-    "fMetin": "Gönderi metni",
-    "fBaglanti": "Bağlantı",
-    "fEtiketler": "Hashtagler",
-    "fGorsel": "Görsel adresi",
-    "fKampanya": "Kampanya",
-    "fKampanyaIpucu": "Örn: Ekim pazaryeri lansmanı",
-    "fNot": "Not (yalnızca panelde)",
-    "aiBaslik": "AI ile taslak yaz",
-    "aiIpucu": "İsteğe bağlı yönlendirme: hedef kitle, üslup, vurgu",
-    "aiYaz": "Taslak yaz",
-    "aiHazir": "Taslak yazıldı; düzenleyip kaydedebilirsiniz.",
-    "aiHatasi": "AI taslağı üretilemedi. Uydurma metin göstermiyoruz — tekrar deneyin ya da elle yazın.",
-    "aiKonuGerekli": "Önce konuyu yazın; AI neye göre yazacağını bilmiyor.",
-    "aiUyari": "AI fiyat, süre ve teslim tarihi yazmaması için sınırlandırıldı. Yine de yayınlamadan önce okuyun — uydurma bir rakam ya da referans gördüyseniz silin.",
-    "kanal": {
-      "instagram": "Instagram",
-      "facebook": "Facebook",
-      "linkedin": "LinkedIn",
-      "x": "X",
-      "blog": "Blog",
-      "email": "E-posta"
-    },
-    "durum": {
-      "draft": "Taslak",
-      "approved": "Onaylı",
-      "published": "Paylaşıldı"
-    },
-    "hatirlat": "Gecikenleri bana e-postayla gönder",
-    "hatirlatildi": "Hatırlatma {{count}} yönetici adresine gönderildi.",
-    "hatirlatmaGitmedi": "E-posta gönderilemedi: {{ayrinti}}",
-    "hatirlatmaHatasi": "Hatırlatma gönderilemedi."
-  },
   "riza": {
     "baslik": "Çerez ve ölçüm tercihi",
     "metin": "Siteyi nasıl kullandığınızı ölçmek ve reklamları değerlendirmek için Google Analytics, Google Ads ve Meta araçlarını kullanmak istiyoruz. Reddederseniz bu araçların hiçbiri yüklenmez; site aynı şekilde çalışır.",
@@ -1742,6 +1678,7 @@
     "girisAciklama": "Profilinizi ve ödeme şeklinizi seçin, dört ölçeğin fiyatı anında güncellensin. Modülleri ekleyin, teklif alın ya da hemen satın alın."
   },
   "genel": {
-    "kapat": "Kapat"
+    "kapat": "Kapat",
+    "cokHizli": "Çok fazla deneme yapıldı. Lütfen birkaç dakika sonra tekrar deneyin."
   }
 }

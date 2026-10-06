@@ -67,7 +67,9 @@
       "aciklamaAlani": "Açıklama (isteğe bağlı)",
       "aktif": "Kural etkin (kaydedince çalışmaya başlar)",
       "geri": "Geri",
-      "ileri": "İleri"
+      "ileri": "İleri",
+      "bekleDenetim": "Beklemeden sonra koşulları yeniden denetle",
+      "bekleDenetimAciklama": "Her \"Bekle\" adımından sonra koşullar kaydın güncel hâline göre yeniden denetlenir; artık tutmuyorsa kalan eylemler yapılmaz (ör. fatura bu arada ödendiyse hatırlatma gitmez). Durum, çalıştırma günlüğünde görünür."
     },
     "baglac": {
       "ve": "Hepsi tutsun (VE)",
@@ -164,7 +166,9 @@
       "goruntulenme_sayisi": "Görüntülenme sayısı",
       "yanitsiz_gun": "Yanıtsız (gün)",
       "baglanti": "Bağlantı",
-      "yoneten": "Yöneten (ajans/müşteri)"
+      "yoneten": "Yöneten (ajans/müşteri)",
+      "acik": "Açık (ödenmemiş)",
+      "vadeye_kalan_gun": "Vadeye kalan (gün)"
     },
     "olay": {
       "aday_olusturuldu": "Yeni CRM adayı",
@@ -350,7 +354,8 @@
       "degisiklik_yok": "Değişecek bir şey yok",
       "webhook_yok": "Webhook uç noktası bulunamadı",
       "webhook_pasif": "Webhook uç noktası kapalı",
-      "eylem_turu_gecersiz": "Geçersiz eylem"
+      "eylem_turu_gecersiz": "Geçersiz eylem",
+      "kosul_artik_saglanmiyor": "Koşul artık sağlanmıyor (beklemeden sonra yeniden denetlendi)"
     },
     "ozet": {
       "alici": "Alıcı",
@@ -467,16 +472,23 @@
         "govde": "Merhaba [[kisi.ad|]],\n\n[[proje.baslik]] projeniz yayına alındı. Bu süreçte bize güvendiğiniz için çok teşekkür ederiz.\n\nDeneyiminizi birkaç cümleyle paylaşırsanız seviniriz: neyi beğendiniz, neyi daha iyi yapabilirdik? Bu e-postayı yanıtlamanız yeterli. İsterseniz işletmemiz hakkında herkese açık bir yorum da bırakabilirsiniz.\n\nSevgiler"
       },
       "sozlesme_imzalandi_bildirim": {
-        "ad": "Sözleşme imzalandı → işe başlama hatırlatması",
-        "aciklama": "Ne zaman: müşteri bir sözleşmeyi e-imzayla imzaladığında. Ne yapar: yöneticilere \"işe başlama zamanı\" panel bildirimi gönderir (başlangıç toplantısı, belge ve erişim isteme hatırlatması). İmza bilgisi ayrıca her zamanki gibi bildirilir.",
+        "ad": "Sözleşme imzalandı → işe başlama hatırlatması + görev",
+        "aciklama": "Ne zaman: müşteri bir sözleşmeyi e-imzayla imzaladığında. Ne yapar: yöneticilere \"işe başlama zamanı\" panel bildirimi gönderir; sözleşme bir tekliften oluştuysa ve o teklifle proje açıldıysa projeye 2 gün vadeli \"belge ve erişimleri iste\" görevi de açar (proje yoksa görev adımı atlanır). İmza bilgisi ayrıca her zamanki gibi bildirilir.",
         "bildirim": "İşe başlama zamanı: [[sozlesme.no]]",
-        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) \"[[sozlesme.baslik]]\" sözleşmesini imzaladı. Sıradaki adımlar: başlangıç toplantısını planlayın, gerekli belge ve erişimleri isteyin."
+        "bildirim_govde": "[[hesap.ad|]] ([[hesap.email]]) \"[[sozlesme.baslik]]\" sözleşmesini imzaladı. Sıradaki adımlar: başlangıç toplantısını planlayın, gerekli belge ve erişimleri isteyin.",
+        "gorev": "Belge ve erişimleri iste: [[sozlesme.baslik]]"
       },
       "icerik_onaylandi_gorev": {
         "ad": "İçerik onaylandı → \"Paylaş\" hatırlatması",
         "aciklama": "Ne zaman: ajansın yönettiği bir içerik gönderisi onaylandığında (müşterinin kendi içerikleri hariç). Ne yapar: içeriğin sorumlusuna (yoksa yöneticilere) \"Paylaş: <başlık>\" panel bildirimi gönderir. Olayda proje olmadığı için görev yerine bildirim kullanılır.",
         "bildirim": "Paylaş: [[icerik.baslik]]",
         "bildirim_govde": "Gönderi onaylandı. Planlanan zaman: [[icerik.planlanan_at|belirlenmemiş]]; kanallar: [[icerik.kanallar|—]]."
+      },
+      "fatura_vade_oncesi_hatirlatma": {
+        "ad": "Fatura kesildi → 5 gün sonra hâlâ açıksa vade öncesi hatırlatma",
+        "aciklama": "Ne zaman: bir fatura kesildiğinde 5 gün bekler, sonra koşulları yeniden denetler. Ne yapar: fatura hâlâ ödenmemişse ve vadesine en az 2 gün varsa müşteriye nazik bir \"vade yaklaşıyor\" e-postası gönderir. Bu arada ödendiyse ya da vadesi yaklaştıysa hiçbir şey göndermez. Sistemin vade sonrası hatırlatmaları (+1, +7, +14. gün) ayrı; bu kural yalnız vadeden önce çalıştığı için aynı fatura için çift e-posta gitmez.",
+        "konu": "Hatırlatma: [[fatura.no]] numaralı faturanın vadesi [[fatura.vade_tarihi]]",
+        "govde": "Merhaba [[kisi.ad|]],\n\n[[fatura.no]] numaralı [[fatura.tutar]] [[fatura.para_birimi]] tutarındaki faturanızın son ödeme tarihi [[fatura.vade_tarihi]]. Faturanızı müşteri panelinizden görüntüleyebilirsiniz.\n\nÖdemeyi yaptıysanız bu e-postayı dikkate almayın. Sorunuz olursa bu e-postayı yanıtlamanız yeterli.\n\nSevgiler"
       }
     },
     "hata": {

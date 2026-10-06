@@ -28,7 +28,7 @@ from schemas.auth import (
 )
 from services.auth import AuthService
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 router = APIRouter(prefix="/api/v1/auth", tags=["authentication"])
@@ -36,14 +36,15 @@ logger = logging.getLogger(__name__)
 
 # Faz 2D: giriş uçlarında IP başına deneme sınırı (10 dakikada 30 istek;
 # login + callback + token/exchange ortak sayılıyor — bir giriş 2 istek).
+# Faz 7H: sayaç veritabanında (sunucu uyuyup kalkınca sıfırlanmıyor).
 GIRIS_SINIRI = 30
 GIRIS_PENCERESI_SN = 600
-giris_hiz_siniri = HizSiniri(GIRIS_SINIRI, GIRIS_PENCERESI_SN)
+giris_hiz_siniri = KaliciHizSiniri("giris", GIRIS_SINIRI, GIRIS_PENCERESI_SN)
 SINIR_MESAJI = "Çok fazla giriş denemesi; lütfen birkaç dakika sonra tekrar deneyin"
 
 
-def _giris_siniri_asildi_mi(request: Request) -> bool:
-    return not giris_hiz_siniri.izin_var_mi(ip_ozeti(istemci_ip(request)))
+async def _giris_siniri_asildi_mi(request: Request) -> bool:
+    return not await izin_ver((giris_hiz_siniri, ip_ozeti(istemci_ip(request))))
 
 
 def _local_patch(url: str) -> str:
@@ -105,7 +106,7 @@ def derive_name_from_email(email: str) -> str:
 @router.get("/login")
 async def login(request: Request, db: AsyncSession = Depends(get_db)):
     """Start OIDC login flow with PKCE."""
-    if _giris_siniri_asildi_mi(request):
+    if await _giris_siniri_asildi_mi(request):
         raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail=SINIR_MESAJI)
     state = generate_state()
     nonce = generate_nonce()
@@ -150,7 +151,7 @@ async def callback(
             status_code=status.HTTP_302_FOUND,
         )
 
-    if _giris_siniri_asildi_mi(request):
+    if await _giris_siniri_asildi_mi(request):
         return redirect_with_error(SINIR_MESAJI)
 
     if error:
@@ -270,7 +271,7 @@ async def exchange_platform_token(
 ):
     """Exchange Platform token for app token. Admin gets admin role, team members get user role."""
     logger.info("[token/exchange] Received platform token exchange request")
-    if _giris_siniri_asildi_mi(request):
+    if await _giris_siniri_asildi_mi(request):
         raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail=SINIR_MESAJI)
 
     verify_url = f"{settings.oidc_issuer_url}/platform/tokens/verify"

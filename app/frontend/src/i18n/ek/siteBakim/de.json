@@ -194,7 +194,8 @@
         "eposta_pazarlama": "E-Mail-Marketing-Versand (geplante Kampagnen, A/B-Entscheidung, Drip-Sequenzen)",
         "saha_servisi": "Außendienst: Wartungserinnerungen, Standort- und Aufbewahrungsbereinigung",
         "etkinlik_bakimi": "Veranstaltungswartung (Zahlungsreservierungen, Wartelisten-Einladungen, Dankes-E-Mail)",
-        "haftalik_ozet": "Wochenübersicht (an Admins, Montag 08:00)"
+        "haftalik_ozet": "Wochenübersicht (an Admins, Montag 08:00)",
+        "saklama_temizligi": "Aufbewahrungsbereinigung alter Besuchs- und Klickdaten (13 Monate)"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich",
@@ -233,7 +234,8 @@
         "saha_servisi": "Meldet wartungsfällige Geräte; löscht alte Standort- und personenbezogene Daten nach Fristablauf.",
         "etkinlik_bakimi": "Gibt unbezahlte Ticketreservierungen frei, lädt bei freien Plätzen die Warteliste ein und schickt nach dem Event eine Dankes-E-Mail.",
         "haftalik_ozet": "Schickt Ihnen jeden Montagmorgen eine Übersicht über das, was diese Woche ansteht (bei lauter Nullen nichts).",
-        "aylik_site_analizi": "Führt monatlich eine automatische Website-Analyse für Kundenwebsites durch (höchstens eine Seite pro Lauf)."
+        "aylik_site_analizi": "Führt monatlich eine automatische Website-Analyse für Kundenwebsites durch (höchstens eine Seite pro Lauf).",
+        "saklama_temizligi": "Bewahrt Besuchsdaten von QR-Scans, digitalen Visitenkarten, Bewertungsseiten, QR-Menüs und Buchungsseiten sowie Klicks aus E-Mail-Kampagnen 13 Monate auf; ältere Daten werden vor dem Löschen zu Tagessummen zusammengefasst, sodass die Summen im Panel gleich bleiben. Löscht außerdem abgelaufene Zähler der Anfragebegrenzung. Läuft einmal täglich."
       }
     },
     "musteri": {

@@ -29,7 +29,7 @@ export const YASAL_VARSAYILAN = {
   unvan: 'Mehmet KURU (By Mehmet KURU Dev)',
   eposta: 'mehmetkuru.dev@gmail.com',
   // Metinlerin bu sürümünün tarihi. Metin değişince güncellenmeli (ya da panelden).
-  sonGuncelleme: '2026-10-01',
+  sonGuncelleme: '2026-10-06',
 };
 
 /** Prerender'ın canlı API'den alacağı anahtarlar (yasal + iletişim e-postası). */

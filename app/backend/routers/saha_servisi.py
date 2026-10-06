@@ -70,7 +70,7 @@ from services import saha_servisi as s
 from sqlalchemy import func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -87,10 +87,11 @@ musteri_router = APIRouter(
 )
 
 #: Panel (kişi başı): dakikada 120 yazma, 30 fotoğraf. Herkese açık (IP özeti): dakikada 30; puan 10 dk'da 5.
+#: Faz 7H: herkese açık iki sayaç veritabanında (sunucu uyanınca sıfırlanmıyor).
 _yazma_hizi = HizSiniri(120, 60.0)
 _foto_hizi = HizSiniri(30, 60.0)
-_acik_hizi = HizSiniri(30, 60.0)
-_puan_hizi = HizSiniri(5, 600.0)
+_acik_hizi = KaliciHizSiniri("saha-acik", 30, 60.0)
+_puan_hizi = KaliciHizSiniri("saha-puan", 5, 600.0)
 _gorsel_hizi = HizSiniri(240, 60.0)
 
 ACIK_BASLIKLAR = {"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "X-Robots-Tag": "noindex, nofollow",
@@ -145,6 +146,12 @@ def _yonetim_iste(k: Kapsam) -> None:
 
 def _hiz(sinir: HizSiniri, anahtar: str) -> None:
     if not sinir.izin_var_mi(anahtar or "anonim"):
+        raise _hata(429, "cok_hizli")
+
+
+async def _kalici_hiz(*denemeler) -> None:
+    """Faz 7H: herkese açık uçların veritabanı destekli sayacı ((sınırlayıcı, anahtar) çiftleri)."""
+    if not await izin_ver(*denemeler):
         raise _hata(429, "cok_hizli")
 
 
@@ -1466,7 +1473,7 @@ async def yonetici_hesaplar(db: AsyncSession = Depends(get_db)):
 # Herkese açık: servis müşterisinin imzalı sayfası
 # ---------------------------------------------------------------------------
 async def _jetonlu(db: AsyncSession, request: Request, jeton: str) -> SahaIsEmirleri:
-    _hiz(_acik_hizi, ip_ozeti("saha-acik|" + istemci_ip(request)))
+    await _kalici_hiz((_acik_hizi, ip_ozeti("saha-acik|" + istemci_ip(request))))
     kimlik = s.jeton_kimligi(jeton)
     if kimlik is None:
         raise _hata(404, "baglanti_gecersiz")
@@ -1548,7 +1555,7 @@ async def acik_memnuniyet(jeton: str, request: Request, db: AsyncSession = Depen
     if not isinstance(govde, dict):
         raise _hata(400, "govde_gecersiz")
     ie = await _jetonlu(db, request, jeton)
-    _hiz(_puan_hizi, ip_ozeti("saha-puan|" + istemci_ip(request)))
+    await _kalici_hiz((_puan_hizi, ip_ozeti("saha-puan|" + istemci_ip(request))))
     a = await sk.ayarlar(db, ie.hesap_email)
     if ie.durum != "tamamlandi" or not a.memnuniyet_acik:
         raise _hata(409, "puanlanamaz")

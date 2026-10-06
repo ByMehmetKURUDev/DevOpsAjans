@@ -184,6 +184,7 @@
                 "İşlem ve denetim kayıtları 365 gün saklanır.",
                 "Dosya paylaşım bağlantıları en çok 30 gün, onay bağlantıları varsayılan olarak 14 gün (en çok 90 gün), site analizi rapor bağlantıları 30 gün geçerlidir.",
                 "Site izleme ölçümleri 90 gün, bunların günlük özetleri 400 gün saklanır.",
+                "QR kod taramaları ile dijital kartvizit, yorum sayfası, QR menü ve randevu sayfası ziyaret kayıtları (IP adresinizin günlük tuzlanmış özetiyle) 13 ay saklanır; daha eski dönemler yalnızca kişisel veri içermeyen günlük toplam sayılar olarak tutulur. İstek sınırı sayaçları yalnızca sınır süresi boyunca tutulur ve en geç iki gün içinde silinir.",
                 "Sitedeki herkese açık yapay zekâ sohbetleri sunucuda saklanmaz.",
                 "Müşterilerimizin sitelerindeki yapay zekâ asistanı sohbetleri, müşterimizin seçtiği süre (varsayılan 90 gün) sonunda devir bilgileriyle birlikte silinir.",
                 "Fatura, sözleşme ve muhasebe kayıtları, Vergi Usul Kanunu ve Türk Ticaret Kanunu'ndaki defter ve belge saklama süreleri boyunca saklanır.",

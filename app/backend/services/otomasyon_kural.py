@@ -97,6 +97,9 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
     "fatura": (
         Alan("id", "sayi"), Alan("no"), Alan("tutar", "sayi"), Alan("para_birimi"), Alan("durum"),
         Alan("vade_tarihi", "tarih"), Alan("gecikme_gun", "sayi"),
+        # Faz 7H — "hâlâ ödenmedi mi" (ödenmiş / iptal / iade / taslak değil) ve vadeye kalan gün (bugün
+        # İstanbul; vadesi geçtiyse eksi). Bekleme sonrası yeniden denetimde kaydın güncel hâli.
+        Alan("acik", "evet_hayir"), Alan("vadeye_kalan_gun", "sayi"),
     ),
     "talep": (
         Alan("id", "sayi"), Alan("konu"), Alan("durum"), Alan("oncelik"), Alan("hizmet"), Alan("kaynak"),
@@ -161,7 +164,9 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("aday.asama_degisti", ("aday",), musteri=False, yalniz_otomasyon=True),
     OtoOlay("teklif.kabul_edildi", ("teklif", "proje", "hesap"), proje_var=True),
     OtoOlay("teklif.reddedildi", ("teklif", "hesap")),
-    OtoOlay("sozlesme.imzalandi", ("sozlesme", "hesap")),
+    # Faz 7H: sözleşmenin teklifinden açılan proje (teklif → proje) varsa bağlamda; görev eylemi
+    # "olaydaki proje"yi seçebilir (proje yoksa eylem "proje bulunamadı" ile atlanır).
+    OtoOlay("sozlesme.imzalandi", ("sozlesme", "proje", "hesap"), proje_var=True),
     OtoOlay("fatura.olusturuldu", ("fatura", "hesap")),
     OtoOlay("fatura.odendi", ("fatura", "hesap")),
     OtoOlay("fatura.gecikti", ("fatura", "hesap"), yalniz_otomasyon=True),
@@ -272,7 +277,7 @@ ORNEK: Dict[str, Dict[str, Any]] = {
                "goruntulenme_sayisi": 2, "yanitsiz_gun": 3, "baglanti": "https://mehmetkuru.dev/client?sekme=invoices"},
     "sozlesme": {"id": 7, "no": "SZL-2026-0007", "baslik": "Web sitesi sözleşmesi"},
     "fatura": {"id": 31, "no": "FTR-2026-0031", "tutar": 12000, "para_birimi": "TRY", "durum": "unpaid",
-               "vade_tarihi": "2026-09-28", "gecikme_gun": 3},
+               "vade_tarihi": "2026-09-28", "gecikme_gun": 3, "acik": True, "vadeye_kalan_gun": -3},
     "talep": {"id": 55, "konu": "Site açılmıyor", "durum": "open", "oncelik": "acil", "hizmet": "website",
               "kaynak": "panel", "etiketler": [], "yazan": "musteri"},
     "gorev": {"id": 210, "baslik": "Ana sayfa tasarımı", "durum": "yapilacak", "oncelik": "normal", "atanan": None,
@@ -324,6 +329,11 @@ def ornek_baglam(tur: str, ajans: bool, ozel: Optional[Dict[str, List[Dict[str, 
         baglam["proje"]["ilerleme"] = 83
     if tur == "teklif.yanitsiz":
         baglam["teklif"].update({"durum": "gonderildi", "goruntulendi": False, "goruntulenme_sayisi": 0})
+    if tur == "fatura.olusturuldu":
+        # Faz 7H: yeni kesilmiş fatura — vadesi gelmemiş (vade öncesi hatırlatma şablonu örnekte tutsun).
+        baglam["fatura"].update({"vade_tarihi": "2026-10-08", "gecikme_gun": 0, "vadeye_kalan_gun": 7})
+    if tur == "fatura.odendi":
+        baglam["fatura"].update({"durum": "paid", "acik": False})
     return baglam
 
 
@@ -840,6 +850,11 @@ def kural_dogrula(veri: Dict[str, Any], b: DogrulamaBaglami, mevcut: Optional[An
         sonuc["aktif"] = veri.get("aktif") is not False
     elif yeni:
         sonuc["aktif"] = True
+    # Faz 7H: yeni kuralda varsayılan AÇIK; yalnız açıkça `false` gelirse kapalı.
+    if "bekleme_sonrasi_denetim" in veri:
+        sonuc["bekleme_sonrasi_denetim"] = veri.get("bekleme_sonrasi_denetim") is not False
+    elif yeni:
+        sonuc["bekleme_sonrasi_denetim"] = True
     tetik = veri.get("tetik") if ("tetik" in veri or yeni) else mevcut.tetik
     olay = OLAY_SOZLUGU.get(str(tetik or ""))
     if olay is None:
@@ -897,6 +912,7 @@ def kural_sozlugu(k: Any) -> Dict[str, Any]:
         "id": k.id, "sahip_tur": k.sahip_tur, "hesap_email": k.hesap_email, "ad": k.ad, "aciklama": k.aciklama,
         "aktif": bool(k.aktif), "tetik": k.tetik, "kosullar": _j(k.kosullar, {"baglac": "ve", "kosullar": []}),
         "eylemler": _j(k.eylemler, []), "sablon": k.sablon, "olusturan": k.olusturan,
+        "bekleme_sonrasi_denetim": bool(getattr(k, "bekleme_sonrasi_denetim", None)),
         "calisma_sayisi": int(k.calisma_sayisi or 0), "son_calisma_at": iso(k.son_calisma_at),
         "olusturma": iso(k.created_at), "guncelleme": iso(k.updated_at),
     }
@@ -1011,14 +1027,36 @@ SABLONLAR: Tuple[Sablon, ...] = (
                   "herkese açık bir yorum da bırakabilirsiniz.\n\nSevgiler"},
         yalniz_ajans=True,
     ),
-    # `sozlesme.imzalandi` olayında proje yok: görev eylemi "olaydaki proje" seçemez → yalnız bildirim.
+    # Faz 7H: sözleşmenin teklifinden açılmış proje (teklif → proje) bağlamda; varsa projeye "belge ve
+    # erişimleri iste" görevi de açılır (yoksa görev "proje bulunamadı" ile atlanır, bildirim yine gider).
+    # Başlangıç toplantısı görevi `teklif_kabul_gorev`de; burada ikinci kez açılmıyor.
     Sablon(
         "sozlesme_imzalandi_bildirim", "sozlesme.imzalandi", {"baglac": "ve", "kosullar": []},
-        ({"tur": "bildirim", "alici": "yoneticiler", "baslik": "$bildirim", "govde": "$bildirim_govde"},),
-        {"ad": "Sözleşme imzalandı → işe başlama hatırlatması",
+        ({"tur": "bildirim", "alici": "yoneticiler", "baslik": "$bildirim", "govde": "$bildirim_govde"},
+         {"tur": "gorev", "proje": "olay", "baslik": "$gorev", "son_tarih_gun": 2, "oncelik": "normal"}),
+        {"ad": "Sözleşme imzalandı → işe başlama hatırlatması + görev",
          "bildirim": "İşe başlama zamanı: {{sozlesme.no}}",
          "bildirim_govde": "{{hesap.ad|}} ({{hesap.email}}) \"{{sozlesme.baslik}}\" sözleşmesini imzaladı. Sıradaki "
-                           "adımlar: başlangıç toplantısını planlayın, gerekli belge ve erişimleri isteyin."},
+                           "adımlar: başlangıç toplantısını planlayın, gerekli belge ve erişimleri isteyin.",
+         "gorev": "Belge ve erişimleri iste: {{sozlesme.baslik}}"},
+        yalniz_ajans=True,
+    ),
+    # Faz 7H — bekleme sonrası koşul denetimi: fatura kesilince 5 gün beklenir; fatura HÂLÂ açıksa ve vadesine
+    # en az 2 gün varsa müşteriye nazik "vade yaklaşıyor" e-postası. Yerleşik hatırlatmalar (`fatura_hatirlatmalari`)
+    # vadeden SONRA (+1/+7/+14) gidiyor; bu yalnız vadeden ÖNCE gider → aynı fatura için çift e-posta yok.
+    # Vadesi 5 günden kısa faturada yeniden denetim tutmaz, e-posta gitmez (yerleşikler devralır).
+    Sablon(
+        "fatura_vade_oncesi_hatirlatma", "fatura.olusturuldu",
+        {"baglac": "ve", "kosullar": [{"alan": "fatura.acik", "islec": "esittir", "deger": "true"},
+                                     {"alan": "fatura.vadeye_kalan_gun", "islec": "buyuktur", "deger": "1"}]},
+        ({"tur": "bekle", "miktar": 5, "birim": "gun"},
+         {"tur": "eposta", "nitelik": "bilgilendirme", "alici": "kisi", "konu": "$konu", "govde": "$govde"}),
+        {"ad": "Fatura kesildi → 5 gün sonra hâlâ açıksa vade öncesi hatırlatma",
+         "konu": "Hatırlatma: {{fatura.no}} numaralı faturanın vadesi {{fatura.vade_tarihi}}",
+         "govde": "Merhaba {{kisi.ad|}},\n\n{{fatura.no}} numaralı {{fatura.tutar}} {{fatura.para_birimi}} tutarındaki "
+                  "faturanızın son ödeme tarihi {{fatura.vade_tarihi}}. Faturanızı müşteri panelinizden "
+                  "görüntüleyebilirsiniz.\n\nÖdemeyi yaptıysanız bu e-postayı dikkate almayın. Sorunuz olursa bu "
+                  "e-postayı yanıtlamanız yeterli.\n\nSevgiler"},
         yalniz_ajans=True,
     ),
     # `icerik.onaylandi` olayında proje yok → görev yerine sorumluya (yoksa yöneticilere) bildirim.

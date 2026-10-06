@@ -544,11 +544,16 @@ async def _analiz(db: AsyncSession, k: DinamikQr, gun: int) -> Dict[str, Any]:
         n, t = gunluk_ham.get(g, (0, 0))
         gunluk.append({"gun": g, "tarama": n, "tekil": t})
     refererlar = [r for r in await dagilim(T.referer_alan, 11) if r["anahtar"]][:10]
+    # Faz 7H: 13 aydan eski taramalar günlük özete taşındı (services/analiz_saklama.py); tüm zamanlar
+    # toplamı ham + özet (dönem en çok 365 gün, saklama 395 gün: dönem sayıları hep hamdan).
+    from services.analiz_saklama import toplam_al, toplamlar
+
+    ozet = await toplamlar(db, "qr", k.id)
     return {
         "statik": k.tur in s.STATIK_TURLER,
-        "toplam": await tek(select(func.count(T.id)).where(*insan)),
-        "tekil": await tek(select(func.count(func.distinct(T.ip_ozeti))).where(*insan)),
-        "bot": await tek(select(func.count(T.id)).where(T.qr_id == k.id, T.bot.is_(True))),
+        "toplam": await tek(select(func.count(T.id)).where(*insan)) + toplam_al(ozet, "sayi"),
+        "tekil": await tek(select(func.count(func.distinct(T.ip_ozeti))).where(*insan)) + toplam_al(ozet, "tekil"),
+        "bot": await tek(select(func.count(T.id)).where(T.qr_id == k.id, T.bot.is_(True))) + toplam_al(ozet, "bot"),
         "donem": {
             "gun": gun,
             "tarama": sum(x["tarama"] for x in gunluk),

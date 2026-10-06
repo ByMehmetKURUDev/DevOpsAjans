@@ -67,7 +67,9 @@
       "aciklamaAlani": "说明（可选）",
       "aktif": "启用规则（保存后开始运行）",
       "geri": "上一步",
-      "ileri": "下一步"
+      "ileri": "下一步",
+      "bekleDenetim": "等待后重新检查条件",
+      "bekleDenetimAciklama": "每个“等待”步骤之后，会按记录的当前状态重新检查条件；若不再满足，其余操作将不会执行（例如发票已在此期间付款，则不会发送提醒）。结果会显示在运行日志中。"
     },
     "baglac": {
       "ve": "全部满足（与）",
@@ -164,7 +166,9 @@
       "goruntulenme_sayisi": "查看次数",
       "yanitsiz_gun": "未回复（天）",
       "baglanti": "链接",
-      "yoneten": "管理方（代理/客户）"
+      "yoneten": "管理方（代理/客户）",
+      "acik": "未结（未付款）",
+      "vadeye_kalan_gun": "距到期日（天）"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -350,7 +354,8 @@
       "degisiklik_yok": "没有需要更改的内容",
       "webhook_yok": "未找到 Webhook 端点",
       "webhook_pasif": "Webhook 端点已停用",
-      "eylem_turu_gecersiz": "无效操作"
+      "eylem_turu_gecersiz": "无效操作",
+      "kosul_artik_saglanmiyor": "条件已不再满足（等待后重新检查）"
     },
     "ozet": {
       "alici": "收件人",
@@ -467,16 +472,23 @@
         "govde": "[[kisi.ad|]]，您好：\n\n您的项目 [[proje.baslik]] 已正式上线。非常感谢您一路以来的信任。\n\n如果您愿意用几句话分享体验，我们会非常高兴：您喜欢哪些地方？我们哪里还可以做得更好？直接回复此邮件即可。如果愿意，您也可以为我们的公司留下公开评价。\n\n此致敬礼"
       },
       "sozlesme_imzalandi_bildirim": {
-        "ad": "合同已签署 → 启动提醒",
-        "aciklama": "何时：客户通过电子签名签署合同时。做什么：向管理员发送“该启动了”面板通知（提醒安排启动会议并索取文件和权限）。常规的签署通知照常发送。",
+        "ad": "合同已签署 → 启动提醒 + 任务",
+        "aciklama": "何时：客户通过电子签名签署合同时。做什么：向管理员发送“该启动了”面板通知；如果合同来自某个报价且该报价已创建项目，还会在项目中添加一个 2 天内到期的“索取文件和访问权限”任务（没有项目时跳过任务步骤）。常规的签署通知照常发送。",
         "bildirim": "该启动了：[[sozlesme.no]]",
-        "bildirim_govde": "[[hesap.ad|]]（[[hesap.email]]）已签署合同“[[sozlesme.baslik]]”。下一步：安排启动会议，索取所需的文件和访问权限。"
+        "bildirim_govde": "[[hesap.ad|]]（[[hesap.email]]）已签署合同“[[sozlesme.baslik]]”。下一步：安排启动会议，索取所需的文件和访问权限。",
+        "gorev": "索取文件和访问权限：[[sozlesme.baslik]]"
       },
       "icerik_onaylandi_gorev": {
         "ad": "内容已批准 → “发布”提醒",
         "aciklama": "何时：代理管理的内容帖子获得批准时（客户自己的内容除外）。做什么：向内容负责人（无则管理员）发送“发布：<标题>”面板通知。该事件不含项目，因此用通知代替任务。",
         "bildirim": "发布：[[icerik.baslik]]",
         "bildirim_govde": "帖子已批准。计划时间：[[icerik.planlanan_at|未设定]]；渠道：[[icerik.kanallar|—]]。"
+      },
+      "fatura_vade_oncesi_hatirlatma": {
+        "ad": "开具发票 → 5 天后仍未付款则在到期前提醒",
+        "aciklama": "何时：开具发票后等待 5 天，然后重新检查条件。做什么：如果发票仍未付款且距到期日至少还有 2 天，就向客户发送一封友好的“即将到期”邮件。若期间已付款或到期日太近，则不发送任何内容。系统在到期后的提醒（+1、+7、+14 天）是分开的；此规则只在到期前运行，因此同一张发票不会收到重复邮件。",
+        "konu": "提醒：发票 [[fatura.no]] 将于 [[fatura.vade_tarihi]] 到期",
+        "govde": "[[kisi.ad|]]，您好：\n\n您的发票 [[fatura.no]]（金额 [[fatura.tutar]] [[fatura.para_birimi]]）将于 [[fatura.vade_tarihi]] 到期。您可以在客户面板中查看该发票。\n\n如果您已付款，请忽略此邮件。如有任何疑问，直接回复此邮件即可。\n\n此致敬礼"
       }
     },
     "hata": {

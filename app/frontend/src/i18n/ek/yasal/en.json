@@ -184,6 +184,7 @@
                 "Activity and audit records are kept for 365 days.",
                 "File sharing links are valid for at most 30 days, approval links for 14 days by default (at most 90 days), and website analysis report links for 30 days.",
                 "Website monitoring measurements are kept for 90 days and their daily summaries for 400 days.",
+                "QR code scans and visit records of digital business cards, review pages, QR menus and booking pages (with a daily salted hash of your IP address) are kept for 13 months; older periods are kept only as daily totals that contain no personal data. Request-limit counters are kept only for the duration of the limit and deleted within two days at the latest.",
                 "Public AI chats on the website are not stored on the server.",
                 "AI assistant conversations on our clients' websites are deleted, together with handover details, at the end of the period chosen by the client (90 days by default).",
                 "Invoice, contract and accounting records are kept for the book and document retention periods set by the Turkish Tax Procedure Law and the Turkish Commercial Code.",

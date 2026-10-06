@@ -110,6 +110,14 @@ async def _analiz_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await eski_analizleri_temizle(db)
 
 
+async def _saklama_temizligi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 7H: 13 aydan eski ham analiz olayları (QR, kartvizit/yorum, kampanya tıklaması önce günlük
+    # özete; menü/randevu olayları yalnız silinir) ve penceresi geçmiş kalıcı hız sayaçları.
+    from services.analiz_saklama import saklama_temizligi
+
+    return await saklama_temizligi(db)
+
+
 async def _sla_kontrolu(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     from services.sla import sla_kontrolu
 
@@ -305,6 +313,7 @@ GOREVLER: List[Gorev] = [
     Gorev("kredi_sure_dolumlari", timedelta(hours=20), _kredi_sure_dolumlari),
     Gorev("uptime_temizligi", timedelta(hours=20), _uptime_temizligi),
     Gorev("analiz_temizligi", timedelta(days=6, hours=20), _analiz_temizligi),
+    Gorev("saklama_temizligi", timedelta(hours=20), _saklama_temizligi),
     # Faz 2D: 30 günden eski biten/iptal oturumlar; saklama süresi dolan çöp kutusu.
     Gorev("oturum_temizligi", timedelta(hours=20), _oturum_temizligi),
     Gorev("cop_kutusu_temizligi", timedelta(hours=20), _cop_kutusu_temizligi),

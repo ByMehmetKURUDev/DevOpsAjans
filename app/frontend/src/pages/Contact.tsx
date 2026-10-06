@@ -119,8 +119,12 @@ export default function Contact() {
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
       toast.success(t('contact.success'));
     } catch (err) {
-      const anyErr = err as { data?: { detail?: string }; message?: string };
-      toast.error(anyErr?.data?.detail || anyErr?.message || 'Failed to send message. Please try again.');
+      const anyErr = err as { status?: number; response?: { status?: number; data?: { detail?: unknown } }; data?: { detail?: unknown } };
+      const durum = anyErr?.response?.status ?? anyErr?.status;
+      const detay = anyErr?.response?.data?.detail ?? anyErr?.data?.detail;
+      // Faz 7H: 429 = IP başına istek sınırı (10 dakikada 5 mesaj) — kibar "biraz sonra deneyin".
+      if (durum === 429) toast.error(t('genel.cokHizli'));
+      else toast.error(typeof detay === 'string' && detay ? detay : t('contact.errorSend'));
     } finally {
       setSubmitting(false);
     }

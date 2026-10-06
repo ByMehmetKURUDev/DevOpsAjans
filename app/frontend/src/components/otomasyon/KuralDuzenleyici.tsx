@@ -35,6 +35,8 @@ interface Taslak {
   ad: string;
   aciklama: string;
   aktif: boolean;
+  /** Faz 7H: "bekle"den sonra koşulları yeniden denetle (yeni kuralda açık). */
+  denetim: boolean;
   tetik: string;
   kosullar: KosulGrubu;
   eylemler: Eylem[];
@@ -58,6 +60,7 @@ export default function KuralDuzenleyici({ api, meta, mod, kural, onKapat, onKay
     ad: kural?.ad ?? '',
     aciklama: kural?.aciklama ?? '',
     aktif: kural?.aktif ?? true,
+    denetim: kural ? !!kural.bekleme_sonrasi_denetim : true,
     tetik: kural?.tetik ?? '',
     kosullar: kural?.kosullar ?? { baglac: 've', kosullar: [] },
     eylemler: kural?.eylemler ?? [],
@@ -144,6 +147,7 @@ export default function KuralDuzenleyici({ api, meta, mod, kural, onKapat, onKay
     ad: taslak.ad.trim(),
     aciklama: taslak.aciklama.trim() || null,
     aktif: taslak.aktif,
+    bekleme_sonrasi_denetim: taslak.denetim,
     tetik: taslak.tetik,
     kosullar: {
       baglac: taslak.kosullar.baglac,
@@ -404,6 +408,21 @@ export default function KuralDuzenleyici({ api, meta, mod, kural, onKapat, onKay
                 ))}
             </select>
           </label>
+          {taslak.eylemler.some((e) => e.tur === 'bekle') && (
+            <label className="flex items-start gap-2 rounded-xl border border-sky-400/20 bg-sky-500/[0.06] p-3 text-sm" data-testid="oto-bekle-denetim">
+              <input
+                type="checkbox"
+                className="mt-0.5 h-4 w-4 shrink-0 accent-purple-500"
+                checked={taslak.denetim}
+                onChange={(e) => setTaslak((x) => ({ ...x, denetim: e.target.checked }))}
+                data-testid="oto-bekle-denetim-kutu"
+              />
+              <span className="min-w-0">
+                <span className="block font-medium">{t('otomasyon.duzenleyici.bekleDenetim')}</span>
+                <span className="block text-xs text-muted-foreground">{t('otomasyon.duzenleyici.bekleDenetimAciklama')}</span>
+              </span>
+            </label>
+          )}
           {sema.length > 0 && taslak.eylemler.some((e) => Object.keys(e).some((k) => METIN_ALANLARI.has(k))) && (
             <details className="rounded-xl border border-white/10 bg-white/[0.02] p-3 text-sm" data-testid="oto-degiskenler">
               <summary className="flex cursor-pointer items-center gap-1.5 text-purple-200">

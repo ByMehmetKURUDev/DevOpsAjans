@@ -97,6 +97,8 @@ export interface Kural {
   eylemler: Eylem[];
   sablon: string | null;
   olusturan: string | null;
+  /** Faz 7H: "bekle"den sonra koşullar kaydın güncel hâliyle yeniden denetlenir (eski kurallarda false). */
+  bekleme_sonrasi_denetim: boolean;
   calisma_sayisi: number;
   son_calisma_at: string | null;
   olusturma: string | null;
@@ -107,6 +109,7 @@ export interface KuralGirdisi {
   ad: string;
   aciklama?: string | null;
   aktif?: boolean;
+  bekleme_sonrasi_denetim?: boolean;
   tetik: string;
   kosullar: KosulGrubu;
   eylemler: Eylem[];

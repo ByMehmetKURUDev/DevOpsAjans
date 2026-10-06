@@ -68,7 +68,7 @@ from services.dosya_deposu import icerik_konumu
 from sqlalchemy import delete, desc, func, insert, or_, select, update
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -93,13 +93,14 @@ musteri_router = APIRouter(
 _yazma_hizi = HizSiniri(60, 60.0)
 _gorsel_hizi = HizSiniri(20, 60.0)
 #: Ziyaretçi (IP özeti + sayfa): 10 dakikada 5 rezervasyon; dakikada 120 müsaitlik sorgusu.
-_rezervasyon_hizi = HizSiniri(5, 600.0)
+#: Faz 7H: rezervasyon ve yönetim bağlantısı sayaçları veritabanında (sunucu uyanınca sıfırlanmıyor).
+_rezervasyon_hizi = KaliciHizSiniri("randevu-rez", 5, 600.0)
 _musaitlik_hizi = HizSiniri(120, 60.0)
 _olay_hizi = HizSiniri(60, 60.0)
 #: Sayfa başına dakikada 30 rezervasyon (aynı anda çok IP'den gelen saldırıya karşı).
-_sayfa_rezervasyon_hizi = HizSiniri(30, 60.0)
+_sayfa_rezervasyon_hizi = KaliciHizSiniri("randevu-sayfa-rez", 30, 60.0)
 #: Yönetim bağlantısı (IP özeti): dakikada 30; besleme (jeton): dakikada 30.
-_islem_hizi = HizSiniri(30, 60.0)
+_islem_hizi = KaliciHizSiniri("randevu-islem", 30, 60.0)
 _besleme_hizi = HizSiniri(30, 60.0)
 
 
@@ -141,6 +142,12 @@ def _r_hatasi(h: s.RandevuHatasi) -> HTTPException:
 
 def _hiz(sinir: HizSiniri, anahtar: str) -> None:
     if not sinir.izin_var_mi(anahtar or "anonim"):
+        raise _hata(429, "cok_hizli")
+
+
+async def _kalici_hiz(*denemeler) -> None:
+    """Faz 7H: herkese açık uçların veritabanı destekli sayacı ((sınırlayıcı, anahtar) çiftleri)."""
+    if not await izin_ver(*denemeler):
         raise _hata(429, "cok_hizli")
 
 
@@ -1367,8 +1374,7 @@ def _acik_randevu_sozlugu(b: rk.Baglam, r: Randevular, takvim: bool = True) -> D
 async def acik_rezervasyon(slug: str, tur: str, request: Request, arka: BackgroundTasks, db: AsyncSession = Depends(get_db)):
     govde = await _govde_oku(request)
     p = await _yayinda_sayfa(db, slug)
-    _hiz(_rezervasyon_hizi, _ziyaretci_anahtari(request, p.id))
-    _hiz(_sayfa_rezervasyon_hizi, str(p.id))
+    await _kalici_hiz((_rezervasyon_hizi, _ziyaretci_anahtari(request, p.id)), (_sayfa_rezervasyon_hizi, str(p.id)))
     t = await _yayinda_tur(db, p, tur)
     # Bal küpü: bot "başarılı" görsün, hiçbir şey kaydedilmesin.
     if str(govde.get("web_adresi") or "").strip():
@@ -1418,7 +1424,7 @@ async def acik_rezervasyon(slug: str, tur: str, request: Request, arka: Backgrou
 # İmzalı yönetim bağlantısı (girişsiz iptal / yeniden planlama)
 # ---------------------------------------------------------------------------
 async def _jetonlu(db: AsyncSession, request: Request, jeton: str) -> tuple:
-    _hiz(_islem_hizi, ip_ozeti("randevu-islem|" + istemci_ip(request)))
+    await _kalici_hiz((_islem_hizi, ip_ozeti("randevu-islem|" + istemci_ip(request))))
     kimlik = s.jeton_kimligi(jeton)
     if kimlik is None:
         raise _hata(404, "baglanti_gecersiz")

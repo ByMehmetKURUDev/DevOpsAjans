@@ -98,8 +98,11 @@ export default function HizliTalep({
       setBitti(true);
       toast.success(t('hizliTalep.alindi', 'Talebiniz alındı.'));
     } catch (hata) {
-      const h = hata as { data?: { detail?: string }; message?: string };
-      toast.error(h?.data?.detail || h?.message || t('hizliTalep.hata', 'Gönderilemedi.'));
+      const h = hata as { status?: number; response?: { status?: number; data?: { detail?: unknown } }; data?: { detail?: unknown } };
+      const detay = h?.response?.data?.detail ?? h?.data?.detail;
+      // Faz 7H: 429 = IP başına istek sınırı — kibar "biraz sonra deneyin".
+      if ((h?.response?.status ?? h?.status) === 429) toast.error(t('genel.cokHizli'));
+      else toast.error(typeof detay === 'string' && detay ? detay : t('hizliTalep.hata', 'Gönderilemedi.'));
     } finally {
       setGonderiliyor(false);
     }

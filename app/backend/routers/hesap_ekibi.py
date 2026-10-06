@@ -39,7 +39,7 @@ from pydantic import BaseModel
 from services import hesap_ekibi as servis
 from services.hesap_ekibi import HesapBaglami, HesapHatasi
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -51,8 +51,8 @@ yonetici_router = APIRouter(
     prefix="/api/v1/musteri-hesaplari", tags=["hesap-ekibi"], dependencies=[_Depends(yonetici_gerekli)]
 )
 
-#: Girişsiz davet ucu: IP başına dakikada en çok bu kadar istek.
-_hiz = HizSiniri(30)
+#: Girişsiz davet ucu: IP başına dakikada en çok bu kadar istek (Faz 7H: sayaç veritabanında).
+_hiz = KaliciHizSiniri("hesap-davet", 30)
 
 
 class UyeGirdisi(BaseModel):
@@ -72,8 +72,8 @@ def _hata(h: HesapHatasi) -> HTTPException:
     return HTTPException(status_code=h.durum, detail=h.detay())
 
 
-def _hiz_denetle(request: Request) -> None:
-    if not _hiz.izin_var_mi(ip_ozeti(istemci_ip(request))):
+async def _hiz_denetle(request: Request) -> None:
+    if not await izin_ver((_hiz, ip_ozeti(istemci_ip(request)))):
         raise HTTPException(status_code=429, detail={"kod": "cok_istek"})
 
 
@@ -227,7 +227,7 @@ async def uye_davet_yenile(uye_id: int, request: Request, db: AsyncSession = _De
 @davet_router.get("/{jeton}")
 async def davet_bilgisi(jeton: str, request: Request, db: AsyncSession = _Depends(get_db)):
     """Girişsiz: kim, hangi hesaba, hangi rolle davet edilmiş (e-postalar maskeli)."""
-    _hiz_denetle(request)
+    await _hiz_denetle(request)
     satir = await servis.davet_coz(db, jeton)
     if satir is None or satir.durum != "davet":
         raise HTTPException(status_code=404, detail={"kod": "davet_yok"})
@@ -246,7 +246,7 @@ async def davet_bilgisi(jeton: str, request: Request, db: AsyncSession = _Depend
 @davet_router.post("/{jeton}/kabul")
 async def davet_kabul(jeton: str, request: Request, db: AsyncSession = _Depends(get_db)):
     """Giriş gerekli; jetondaki e-posta davet edilen e-postayla aynı olmalı."""
-    _hiz_denetle(request)
+    await _hiz_denetle(request)
     kullanici, _ = _yonetici_mi(request)
     if kullanici is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail={"kod": "oturum_gerekli"})

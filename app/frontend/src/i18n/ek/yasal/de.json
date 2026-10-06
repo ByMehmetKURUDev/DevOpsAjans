@@ -184,6 +184,7 @@
                 "Vorgangs- und Prüfprotokolle werden 365 Tage aufbewahrt.",
                 "Links zum Teilen von Dateien gelten höchstens 30 Tage, Bestätigungslinks standardmäßig 14 Tage (höchstens 90 Tage) und Berichtslinks der Website-Analyse 30 Tage.",
                 "Messwerte der Website-Überwachung werden 90 Tage, deren Tageszusammenfassungen 400 Tage aufbewahrt.",
+                "QR-Code-Scans sowie Besuchsdaten digitaler Visitenkarten, Bewertungsseiten, QR-Menüs und Buchungsseiten (mit einem täglich gesalzenen Hash Ihrer IP-Adresse) werden 13 Monate aufbewahrt; ältere Zeiträume bleiben nur als tägliche Gesamtzahlen ohne personenbezogene Daten erhalten. Zähler für Anfragebegrenzungen werden nur für die Dauer der Begrenzung gespeichert und spätestens nach zwei Tagen gelöscht.",
                 "Öffentliche KI-Chats auf der Website werden auf dem Server nicht gespeichert.",
                 "Gespräche mit dem KI-Assistenten auf den Websites unserer Kunden werden samt Übergabedaten nach Ablauf der vom Kunden gewählten Frist (standardmäßig 90 Tage) gelöscht.",
                 "Rechnungs-, Vertrags- und Buchhaltungsunterlagen werden für die im türkischen Steuerverfahrensgesetz und im türkischen Handelsgesetzbuch festgelegten Aufbewahrungsfristen für Bücher und Belege gespeichert.",

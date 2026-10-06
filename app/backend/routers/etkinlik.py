@@ -72,7 +72,7 @@ from services.dosya_deposu import icerik_konumu
 from sqlalchemy import func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.hiz_siniri import HizSiniri
+from utils.hiz_siniri import HizSiniri, KaliciHizSiniri, izin_ver
 from utils.istemci_ip import ip_ozeti, istemci_ip
 
 logger = logging.getLogger(__name__)
@@ -103,13 +103,14 @@ _duyuru_hizi = HizSiniri(5, 3600.0)
 #: Okutma (kişi ya da görevli jetonu başı): dakikada 240 (kuyruk boşaltma dahil).
 _okut_hizi = HizSiniri(240, 60.0)
 #: Ziyaretçi (IP özeti + etkinlik): 10 dakikada 6 kayıt / 5 bekleme; dakikada 60 fiyat.
-_kayit_hizi = HizSiniri(6, 600.0)
-_bekleme_hizi = HizSiniri(5, 600.0)
+#: Faz 7H: kayıt, bekleme listesi ve bilet bağlantısı sayaçları veritabanında.
+_kayit_hizi = KaliciHizSiniri("etkinlik-kayit", 6, 600.0)
+_bekleme_hizi = KaliciHizSiniri("etkinlik-bekleme", 5, 600.0)
 _fiyat_hizi = HizSiniri(60, 60.0)
 #: Etkinlik başına dakikada 60 kayıt (çok IP'den gelen saldırıya karşı).
-_etkinlik_kayit_hizi = HizSiniri(60, 60.0)
+_etkinlik_kayit_hizi = KaliciHizSiniri("etkinlik-genel", 60, 60.0)
 #: Bilet sayfası (IP özeti): dakikada 60.
-_bilet_hizi = HizSiniri(60, 60.0)
+_bilet_hizi = KaliciHizSiniri("etkinlik-bilet", 60, 60.0)
 
 
 def hiz_sinirlarini_temizle() -> None:
@@ -155,6 +156,12 @@ def _e_hatasi(h: s.TemelHata) -> HTTPException:
 
 def _hiz(sinir: HizSiniri, anahtar: str) -> None:
     if not sinir.izin_var_mi(anahtar or "anonim"):
+        raise _hata(429, "cok_hizli")
+
+
+async def _kalici_hiz(*denemeler) -> None:
+    """Faz 7H: herkese açık uçların veritabanı destekli sayacı ((sınırlayıcı, anahtar) çiftleri)."""
+    if not await izin_ver(*denemeler):
         raise _hata(429, "cok_hizli")
 
 
@@ -1523,8 +1530,7 @@ async def acik_fiyat(slug: str, request: Request, db: AsyncSession = Depends(get
 async def acik_kayit(slug: str, request: Request, arka: BackgroundTasks, db: AsyncSession = Depends(get_db)):
     govde = await _govde_oku(request)
     e = await _acik_etkinlik(db, slug)
-    _hiz(_kayit_hizi, _ziyaretci(request, e.id))
-    _hiz(_etkinlik_kayit_hizi, str(e.id))
+    await _kalici_hiz((_kayit_hizi, _ziyaretci(request, e.id)), (_etkinlik_kayit_hizi, str(e.id)))
     # Bal küpü: bot "başarılı" görsün, hiçbir şey kaydedilmesin.
     if str(govde.get("web_adresi") or "").strip():
         logger.info("Etkinlik: bal küpü dolu, yok sayıldı (etkinlik %s)", e.id)
@@ -1576,7 +1582,7 @@ async def acik_kayit(slug: str, request: Request, arka: BackgroundTasks, db: Asy
 async def acik_bekleme(slug: str, request: Request, arka: BackgroundTasks, db: AsyncSession = Depends(get_db)):
     govde = await _govde_oku(request, 8192)
     e = await _acik_etkinlik(db, slug)
-    _hiz(_bekleme_hizi, _ziyaretci(request, e.id))
+    await _kalici_hiz((_bekleme_hizi, _ziyaretci(request, e.id)))
     if str(govde.get("web_adresi") or "").strip():
         return JSONResponse({"ok": True}, headers=ACIK_BASLIKLAR)
     try:
@@ -1633,7 +1639,7 @@ async def acik_bekleme(slug: str, request: Request, arka: BackgroundTasks, db: A
 # Bilet sayfası (imzalı bağlantı)
 # ---------------------------------------------------------------------------
 async def _bilet_jetonlu(db: AsyncSession, request: Request, jeton: str):
-    _hiz(_bilet_hizi, ip_ozeti("etkinlik-bilet|" + istemci_ip(request)))
+    await _kalici_hiz((_bilet_hizi, ip_ozeti("etkinlik-bilet|" + istemci_ip(request))))
     kimlik = s.siparis_jetonu_kimligi(jeton)
     if kimlik is None:
         raise _hata(404, "baglanti_gecersiz")
