@@ -42,10 +42,10 @@
       "icons": [{ "src": "/logo192.png", "sizes": "192x192", "type": "image/png" }]
     },
     {
-      "name": "Yönetim paneli",
-      "short_name": "Yönetim",
-      "description": "Ajans yönetim paneli",
-      "url": "/admin",
+      "name": "Gelen kutusu",
+      "short_name": "Gelen kutusu",
+      "description": "Yönetim paneli: yanıt bekleyen her şey tek listede",
+      "url": "/admin?sekme=gelenKutusu",
       "icons": [{ "src": "/logo192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
