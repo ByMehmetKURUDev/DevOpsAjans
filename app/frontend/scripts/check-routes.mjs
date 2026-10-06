@@ -43,6 +43,8 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/rapor/:jeton',
   // İmzalı işlem bağlantısı: jetona özel, girişsiz karar sayfası, noindex.
   '/islem/:jeton',
+  // Faz 5I: girişsiz içerik onayı — jetona özel (noindex).
+  '/icerik-onay/:jeton',
   // Müşterinin durum sayfası: dinamik, müşteriye ait; varsayılan noindex (Faz 2A).
   '/durum/:slug',
   'durum/:slug',

@@ -413,6 +413,8 @@ export const NOINDEX_ROUTES = [
   '/rapor',
   // Imzali islem baglantisi (/islem/<jeton>): tek kisilik karar sayfasi.
   '/islem',
+  // Faz 5I: icerik onayi baglantisi (/icerik-onay/<jeton>); kisiye ozel.
+  '/icerik-onay',
   // Musteri durum sayfasi (/durum/<slug>): dinamik; site haritasina girmez.
   '/durum',
   // Faz 2C: jetonlu dosya paylasimi ve aylik musteri raporu; kisiye ozel.

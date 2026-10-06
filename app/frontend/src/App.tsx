@@ -29,6 +29,8 @@ const YolHaritasi = lazy(() => import('./pages/YolHaritasi'));
 const SiteAnalizi = ekliLazy(['siteAnalizi', 'aydinlatma'], () => import('./pages/SiteAnalizi'));
 const SiteRaporu = ekliLazy('siteAnalizi', () => import('./pages/SiteRaporu'));
 const IslemSayfasi = ekliLazy('islem', () => import('./pages/IslemSayfasi'));
+// Faz 5I: girişsiz içerik onayı (/icerik-onay/<jeton>) — jetona özel, prerender yok, noindex.
+const IcerikOnaySayfasi = ekliLazy('icerikOnay', () => import('./pages/IcerikOnaySayfasi'));
 // Faz 2A: müşterinin açtığı herkese açık durum sayfası (dinamik, prerender yok).
 const DurumSayfasi = ekliLazy('siteBakim', () => import('./pages/DurumSayfasi'));
 // Faz 2C: girişsiz dosya paylaşımı ve yazdırmaya uygun aylık rapor (ikisi de noindex, prerender yok).
@@ -106,6 +108,8 @@ const AppRoutes = () => (
         <Route path="/rapor/:jeton" element={<SiteRaporu />} />
         {/* İmzalı işlem bağlantısı (teklif kabulü, teslim onayı). Oturum istemiyor, noindex. */}
         <Route path="/islem/:jeton" element={<IslemSayfasi />} />
+        {/* Faz 5I: içerik onayı (ajansın hazırladığı gönderi). Oturum istemiyor, noindex. */}
+        <Route path="/icerik-onay/:jeton" element={<IcerikOnaySayfasi />} />
         {/* Herkese açık durum sayfası (/durum/<slug>). Varsayılan noindex; müşteri seçerse index. */}
         <Route path="/durum/:slug" element={<DurumSayfasi />} />
         {/* Süreli, isteğe bağlı parolalı dosya paylaşımı (/paylas/<jeton>). Oturum istemiyor, noindex. */}

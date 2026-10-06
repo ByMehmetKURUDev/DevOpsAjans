@@ -1,0 +1,99 @@
+{
+  "icerikOnay": {
+    "baslik": "待您审批的内容",
+    "aciklama": "您的代理机构为您准备的帖子。请查看后批准，或写明需要修改的地方以请求修改。",
+    "bos": "目前没有等待您审批的内容。",
+    "kanallar": "渠道",
+    "planlanan": "计划时间",
+    "kampanya": "营销活动",
+    "marka": "品牌",
+    "gorseller": "图片",
+    "video": "视频链接",
+    "ilkYorum": "首条评论",
+    "baglanti": "链接",
+    "sinirAsimi": "超出渠道字数限制",
+    "onayla": "批准",
+    "revizyonIste": "请求修改",
+    "revizyonNotu": "修改说明",
+    "revizyonIpucu": "请写明需要修改的内容（例如图片、语气、日期）。",
+    "notIstege": "备注（可选）",
+    "revizyonGonder": "发送修改请求",
+    "vazgec": "取消",
+    "onaylandi": "内容已批准，谢谢！",
+    "revizyonGonderildi": "您的修改请求已发送给代理机构。",
+    "sonKullanma": "有效期至：{{tarih}}",
+    "alici": "此链接发送给 {{alici}}",
+    "anaSayfa": "首页",
+    "kanal": {
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "tiktok": "TikTok",
+      "youtube_shorts": "YouTube Shorts",
+      "google_isletme": "Google 商家资料",
+      "pinterest": "Pinterest",
+      "blog": "博客",
+      "email": "电子邮件通讯"
+    },
+    "durum": {
+      "taslak": "草稿",
+      "incelemede": "审核中",
+      "musteri_onayi": "等待客户审批",
+      "onaylandi": "已批准",
+      "yayinlandi": "已发布",
+      "reddedildi": "已拒绝"
+    },
+    "sayfa": {
+      "baslik": "内容审批",
+      "aciklama": "以下内容等待您的审批。无需登录；链接只能使用一次。",
+      "hata": "出现了问题",
+      "bulunamadi": {
+        "baslik": "未找到链接",
+        "metin": "链接无效或已被删除。您可以请代理机构发送新的链接。"
+      },
+      "kullanildi": {
+        "baslik": "此链接已被使用",
+        "metin": "该内容已经做出决定。",
+        "onay": "该内容已获批准。",
+        "revizyon": "已请求修改；代理机构会更新内容后重新发送。"
+      },
+      "suresi_doldu": {
+        "baslik": "链接已过期",
+        "metin": "请向代理机构索取新的审批链接。"
+      },
+      "iptal": {
+        "baslik": "链接已取消",
+        "metin": "代理机构已撤回或更新了此审批请求。"
+      },
+      "sonuc": {
+        "onay": {
+          "baslik": "已收到您的批准",
+          "metin": "谢谢！内容将在计划时间准备发布。"
+        },
+        "revizyon": {
+          "baslik": "修改请求已发送",
+          "metin": "代理机构会根据您的说明更新内容并重新发送。"
+        }
+      }
+    },
+    "hata": {
+      "genel": "操作未能完成，请重试。",
+      "ag": "无法连接服务器，请检查网络。",
+      "yetki": "您无权执行此操作。",
+      "cok_hizli": "请求过多，请几秒后重试。",
+      "sinir": "请求过多，请稍后重试。",
+      "bulunamadi": "未找到内容。",
+      "kullanildi": "该内容已经做出决定。",
+      "suresi_doldu": "审批链接已过期。",
+      "iptal": "审批请求已撤回。",
+      "not_gerekli": "请为修改写一段简短说明。",
+      "not_uzun": "说明过长（最多 2000 个字符）。",
+      "gecersiz_sonuc": "无效的决定。",
+      "hedef_degisti": "内容已被更改，请刷新页面。",
+      "hedef_yok": "该内容已不存在。",
+      "mesgul": "操作与另一个请求冲突，请重试。",
+      "hesap_izni_yok": "您在此账户中没有内容权限。"
+    }
+  }
+}

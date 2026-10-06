@@ -138,6 +138,12 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     OlayTuru("proje.asama_degisti"),
     OlayTuru("menu.siparis"),
     OlayTuru("kart.mesaj"),
+    # Faz 5I — İçerik stüdyosu: onay (müşteri ya da ekip), müşterinin revizyon isteği, planlanan
+    # saat geldi (onaylı gönderi; zamanlı uçtan, tek kez) ve elle "yayınlandı" işareti.
+    OlayTuru("icerik.onaylandi"),
+    OlayTuru("icerik.revizyon_istendi"),
+    OlayTuru("icerik.yayin_zamani"),
+    OlayTuru("icerik.yayinlandi"),
     OlayTuru("qr.tarama", varsayilan=False, yuksek_hacim=True),
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (sohbet durumu "devredildi").
     OlayTuru("asistan.devredildi"),
@@ -699,6 +705,20 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
                     "sozlesme_id": obj.id, "no": obj.no, "baslik": obj.baslik, "teklif_id": obj.teklif_id,
                     "imza_at": iso(obj.imza_at),
                 }, True))
+        elif tablo == "content_posts":
+            # Faz 5I — içerik stüdyosu durum geçişleri (metin olay verisinde yok).
+            degisti, eski, yeni = _gecmis(obj, "status")
+            if degisti and yeni != eski:
+                from services.icerik_planlayici import olay_verisi
+
+                if yeni == "onaylandi" and eski != "yayinlandi":
+                    kaynak = "musteri" if eski == "musteri_onayi" else "ekip"
+                    olaylar.append(("icerik.onaylandi", obj.hesap_email or None, olay_verisi(obj, {"kaynak": kaynak}), True))
+                elif yeni == "yayinlandi":
+                    olaylar.append(("icerik.yayinlandi", obj.hesap_email or None, olay_verisi(obj), True))
+                elif eski == "musteri_onayi" and yeni == "taslak" and getattr(obj, "_icerik_revizyon", False):
+                    olaylar.append(("icerik.revizyon_istendi", obj.hesap_email or None,
+                                    olay_verisi(obj, {"not": obj.durum_notu}), True))
         elif tablo == "crm_adaylar":
             # Faz 4W: yalnız otomasyon (webhook kataloğunda yok).
             degisti, eski, yeni = _gecmis(obj, "asama")
@@ -721,6 +741,7 @@ def aday_verisi(aday_id: Any, kaynak: Any, asama: Any, deger: Any, para: Any) ->
 
 IZLENEN_TABLOLAR = frozenset({
     "invoices", "support_tickets", "ticket_replies", "project_tasks", "crm_adaylar", "menu_siparisleri",
+    "content_posts",  # Faz 5I
     "kartvizit_mesajlari", "projects", "teklifler", "sozlesmeler", "ai_asistan_sohbetleri",
 })
 

@@ -173,6 +173,10 @@
         "ad": "AI 助手与知识库",
         "aciklama": "依据您的文档、网站和常见问题作答的聊天助手，一行代码即可嵌入您的网站：标注来源、不编造答案，并通过支持工单把访客转给您的团队；提供对话记录、用量和积分统计。"
       },
+      "icerik_studyosu": {
+        "ad": "内容工作室",
+        "aciklama": "品牌语气档案、13 个现成 AI 内容模板（Instagram、Reels、LinkedIn、X 串文、博客、通讯、广告……）以及自定义模板；字数限制检查和警告标记；社交媒体日历、客户审批、带 UTM 的短链接、发布即用素材包和 CSV 导出。"
+      },
       "eposta_pazarlama": {
         "ad": "邮件营销",
         "aciklama": "简报、营销活动和滴灌序列：双重确认订阅表单、列表与细分、区块编辑器制作的移动端友好邮件、测试发送、定时发送、A/B 主题测试、投递报告、一键退订和同意记录。"
@@ -225,6 +229,10 @@
       "aylik_mesaj": "每月包含的 AI 回复数",
       "gunluk_yanit": "每日回复上限",
       "kredi_ile_asim": "包含额度用完后以积分块继续",
+      "aylik_uretim": "每月包含的 AI 生成次数",
+      "gunluk_uretim": "每日最多生成次数",
+      "aylik_gonderi": "每月最多帖子数",
+      "marka_siniri": "最多品牌档案数",
       "aylik_gonderim_siniri": "每月最多发送（封）",
       "kisi_siniri": "最多联系人"
     },

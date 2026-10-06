@@ -173,6 +173,10 @@
         "ad": "AI asistan ve bilgi bankası",
         "aciklama": "Belgeleriniz, siteniz ve SSS'niz üzerinden yanıt veren, sitenize tek satırla gömülen sohbet asistanı: kaynak gösterir, bilmediğini uydurmaz, ziyaretçiyi destek talebiyle ekibinize devreder; sohbet kayıtları, kullanım ve kredi takibi."
       },
+      "icerik_studyosu": {
+        "ad": "İçerik stüdyosu",
+        "aciklama": "Marka sesi profilleri, 13 hazır AI içerik şablonu (Instagram, Reels, LinkedIn, X dizisi, blog, bülten, reklam…) ve kendi şablonunuz; karakter sınırı denetimi ve uyarı rozeti; sosyal medya takvimi, müşteri onayı, UTM'li kısa link, paylaşıma hazır paket ve CSV dışa aktarma."
+      },
       "eposta_pazarlama": {
         "ad": "E-posta pazarlama",
         "aciklama": "Bülten, kampanya ve damla dizileri: çift onaylı abonelik formu, listeler ve segmentler, blok düzenleyiciyle mobil uyumlu e-posta, test gönderimi, zamanlama, A/B konu testi, teslimat raporu, tek tıkla ret ve izin kaydı (6563 sayılı Kanun)."
@@ -225,6 +229,10 @@
       "aylik_mesaj": "Aya dahil yapay zekâ yanıtı",
       "gunluk_yanit": "Günlük en çok yanıt",
       "kredi_ile_asim": "Dahil hak bitince kredi bloğuyla devam et",
+      "aylik_uretim": "Aya dahil AI üretimi",
+      "gunluk_uretim": "Günlük en çok üretim",
+      "aylik_gonderi": "Aylık en çok gönderi",
+      "marka_siniri": "En çok marka profili",
       "aylik_gonderim_siniri": "Aylık en çok gönderim (ileti)",
       "kisi_siniri": "En çok kişi (alıcı)"
     },

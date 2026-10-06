@@ -55,6 +55,10 @@
       "proje_asama_degisti": "项目阶段已变更",
       "menu_siparis": "菜单 / 目录订单",
       "kart_mesaj": "来自名片的消息",
+      "icerik_onaylandi": "内容已批准（客户或团队）",
+      "icerik_revizyon_istendi": "客户请求修改内容",
+      "icerik_yayin_zamani": "已批准内容的计划时间到了",
+      "icerik_yayinlandi": "内容已标记为已发布",
       "qr_tarama": "二维码扫描",
       "ping": "测试事件",
       "asistan_devredildi": "AI 助手已将访客转给人工"

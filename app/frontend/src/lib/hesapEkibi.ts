@@ -32,6 +32,8 @@ export const IZINLER = [
   'otomasyon',
   // Faz 5A — AI asistan ve bilgi bankası.
   'asistan',
+  // Faz 5I — İçerik stüdyosu ve içerik onayı.
+  'icerik',
   // Faz 5M — e-posta pazarlama.
   'pazarlama',
 ] as const;
@@ -196,5 +198,6 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   randevu: ['randevu'],
   otomasyon: ['otomasyon'],
   aiAsistan: ['asistan'],
+  icerik: ['icerik'],
   epostaPazarlama: ['pazarlama'],
 };

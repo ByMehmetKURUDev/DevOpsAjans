@@ -110,6 +110,11 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("ad"), Alan("eposta"), Alan("telefon"), Alan("baslangic", "tarih"), Alan("tur"),
         Alan("sure_dk", "sayi"), Alan("konum"),
     ),
+    # Faz 5I — içerik stüdyosu gönderisi (metin yok; kanallar, planlanan zaman, kampanya).
+    "icerik": (
+        Alan("id", "sayi"), Alan("baslik"), Alan("durum", degisir=True), Alan("kanallar", "liste"),
+        Alan("planlanan_at", "tarih"), Alan("kampanya"), Alan("sorumlu"), Alan("not"),
+    ),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -146,6 +151,11 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("proje.asama_degisti", ("proje", "hesap"), proje_var=True),
     OtoOlay("menu.siparis", ("siparis", "hesap")),
     OtoOlay("kart.mesaj", ("mesaj", "hesap")),
+    # Faz 5I — içerik stüdyosu (webhook kataloğunda da var).
+    OtoOlay("icerik.onaylandi", ("icerik", "hesap")),
+    OtoOlay("icerik.revizyon_istendi", ("icerik", "hesap")),
+    OtoOlay("icerik.yayin_zamani", ("icerik", "hesap")),
+    OtoOlay("icerik.yayinlandi", ("icerik", "hesap")),
     OtoOlay("randevu.olusturuldu", ("randevu", "aday", "hesap"), yalniz_otomasyon=True),
 )
 OLAY_SOZLUGU: Dict[str, OtoOlay] = {o.anahtar: o for o in OLAYLAR}

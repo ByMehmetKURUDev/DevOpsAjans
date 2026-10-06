@@ -60,6 +60,7 @@ import {
   CalendarCheck,
   Workflow,
   BotMessageSquare,
+  PenTool,
   Send,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -103,7 +104,8 @@ const Baglantilar = ekliLazy('baglantilar', () => import('@/components/admin/Bag
 const MarketplacePanel = ekliLazy('marketplaceCeviri', () => import('@/components/admin/MarketplacePanel'));
 // Icerik takvimi de ayri parcada: AI katmani ve form yalnizca sekme
 // acilinca iniyor.
-const IcerikPlani = lazy(() => import('@/components/admin/IcerikPlani'));
+// Faz 5I — İçerik stüdyosu (eski içerik takviminin yerine; müşteri paneliyle aynı bileşen, yönetici modu).
+const IcerikStudyosu = ekliLazy(['icerikStudyosu', 'icerikOnay'], () => import('@/components/IcerikStudyosu'));
 // Tahsilat ekranı ayrı parçada: panele girenlerin çoğu bu sekmeyi
 // açmıyor, kodu ilk yüklemede inmesin.
 const OdemePaneli = lazy(() => import('@/components/admin/OdemePaneli'));
@@ -186,7 +188,7 @@ const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/a
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'epostaPazarlama'] as const;
+const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama'] as const;
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -1001,7 +1003,7 @@ export default function AdminPanel() {
     { key: 'projeSablonlari', label: t('ui.tabProjeSablonlari'), icon: LayoutTemplate },
     { key: 'marketplace', label: t('ui.tabMarketplace'), icon: Boxes },
     { key: 'kaynaklar', label: t('nav.kaynaklar'), icon: Library },
-    { key: 'icerik', label: t('ui.tabIcerik'), icon: CalendarDays },
+    { key: 'icerik', label: t('ui.tabIcerikStudyosu'), icon: PenTool },
     { key: 'blog', label: t('ui.blog'), icon: Newspaper },
     { key: 'clients', label: t('ui.tabClients'), icon: Users },
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
@@ -1217,7 +1219,7 @@ export default function AdminPanel() {
             </div>
           }
         >
-          <IcerikPlani />
+          <IcerikStudyosu mod="yonetici" />
         </Suspense>
       )}
 

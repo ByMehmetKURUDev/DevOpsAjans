@@ -70,6 +70,9 @@
       "randevu_iptal": "预约：已取消",
       "otomasyon_bildirimi": "自动化规则通知",
       "asistan_devir": "AI 助手：访客已转人工",
+      "icerik_onay_istendi": "内容：请您审批",
+      "icerik_karar": "内容：客户决定（批准 / 修改）",
+      "icerik_hatirlatma": "内容：可发布提醒（提前 30 分钟）",
       "pazarlama_askiya_alindi": "邮件营销：发送已暂停"
     },
     "kanal": {

@@ -68,7 +68,10 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "invoices": {"sahip": "client_email", "sira": 10},
     "client_sites": {"sahip": "client_email", "sira": 10},
     "blog_posts": {"sira": 10},
-    "content_posts": {"sira": 10},
+    # Faz 5I: gönderi hesaba ait (boş = ajansın kendi içeriği; müşteri kendi çöp kutusunda görür).
+    "content_posts": {"sahip": "hesap_email", "sira": 10},
+    "icerik_markalari": {"sahip": "hesap_email", "sira": 10},
+    "icerik_sablonlari": {"sahip": "hesap_email", "sira": 10},
     "marketplace_items": {"sira": 10},
     "bilgi_makaleleri": {"sira": 10},
     "duyurular": {"sira": 10},

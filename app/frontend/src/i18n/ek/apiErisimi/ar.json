@@ -55,6 +55,10 @@
       "proje_asama_degisti": "تغيّرت مرحلة المشروع",
       "menu_siparis": "طلب من القائمة / الكتالوج",
       "kart_mesaj": "رسالة من بطاقة العمل",
+      "icerik_onaylandi": "تمت الموافقة على المحتوى (من العميل أو الفريق)",
+      "icerik_revizyon_istendi": "طلب العميل تعديل المحتوى",
+      "icerik_yayin_zamani": "حلّ الموعد المجدول لمحتوى موافَق عليه",
+      "icerik_yayinlandi": "وُضعت على المحتوى علامة «منشور»",
       "qr_tarama": "مسح رمز QR",
       "ping": "حدث تجريبي",
       "asistan_devredildi": "حوّل مساعد الذكاء الاصطناعي زائرًا إلى شخص"

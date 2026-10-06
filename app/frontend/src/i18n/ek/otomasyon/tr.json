@@ -94,6 +94,7 @@
       "siparis": "Sipariş",
       "mesaj": "Kartvizit mesajı",
       "randevu": "Randevu",
+      "icerik": "İçerik gönderisi",
       "hesap": "Müşteri hesabı",
       "kisi": "Olaydaki kişi",
       "olay": "Olay"
@@ -140,6 +141,10 @@
       "tur": "Tür",
       "sure_dk": "Süre (dk)",
       "konum": "Konum",
+      "kanallar": "Kanallar",
+      "planlanan_at": "Planlanan zaman",
+      "kampanya": "Kampanya",
+      "not": "Not",
       "zaman": "Zaman"
     },
     "olay": {
@@ -158,6 +163,10 @@
       "proje_asama_degisti": "Projenin aşaması değişti",
       "menu_siparis": "QR menü siparişi",
       "kart_mesaj": "Kartvizitten mesaj",
+      "icerik_onaylandi": "İçerik onaylandı",
+      "icerik_revizyon_istendi": "İçerik için revizyon istendi",
+      "icerik_yayin_zamani": "İçeriğin yayın zamanı geldi",
+      "icerik_yayinlandi": "İçerik yayınlandı",
       "randevu_olusturuldu": "Randevu alındı"
     },
     "olayAciklama": {
@@ -176,6 +185,10 @@
       "proje_asama_degisti": "Proje başka bir aşamaya geçti.",
       "menu_siparis": "QR menü / katalogdan sipariş geldi.",
       "kart_mesaj": "Dijital kartvizitten mesaj geldi.",
+      "icerik_onaylandi": "Gönderi müşteri onayıyla ya da ekipte onaylandı.",
+      "icerik_revizyon_istendi": "Müşteri onay bağlantısından ya da panelden revizyon istedi (not dahil).",
+      "icerik_yayin_zamani": "Onaylı gönderinin planlanan saati geldi (gönderi başına bir kez).",
+      "icerik_yayinlandi": "Gönderi elle \"yayınlandı\" olarak işaretlendi.",
       "randevu_olusturuldu": "Randevu sayfasından yeni rezervasyon."
     },
     "eylem": {

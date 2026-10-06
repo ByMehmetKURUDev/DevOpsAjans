@@ -55,6 +55,10 @@
       "proje_asama_degisti": "प्रोजेक्ट का चरण बदला",
       "menu_siparis": "मेनू / कैटलॉग ऑर्डर",
       "kart_mesaj": "बिज़नेस कार्ड से संदेश",
+      "icerik_onaylandi": "कंटेंट स्वीकृत (ग्राहक या टीम द्वारा)",
+      "icerik_revizyon_istendi": "ग्राहक ने कंटेंट में संशोधन माँगा",
+      "icerik_yayin_zamani": "स्वीकृत कंटेंट का निर्धारित समय आ गया",
+      "icerik_yayinlandi": "कंटेंट प्रकाशित के रूप में चिह्नित",
       "qr_tarama": "QR स्कैन",
       "ping": "परीक्षण इवेंट",
       "asistan_devredildi": "AI सहायक ने विज़िटर को व्यक्ति को सौंपा"

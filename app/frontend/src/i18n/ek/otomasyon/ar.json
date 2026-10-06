@@ -94,6 +94,7 @@
       "siparis": "الطلب",
       "mesaj": "رسالة بطاقة العمل",
       "randevu": "الموعد",
+      "icerik": "منشور محتوى",
       "hesap": "حساب العميل",
       "kisi": "الشخص في الحدث",
       "olay": "الحدث"
@@ -140,6 +141,10 @@
       "tur": "النوع",
       "sure_dk": "المدة (دقيقة)",
       "konum": "المكان",
+      "kanallar": "القنوات",
+      "planlanan_at": "الموعد المجدول",
+      "kampanya": "الحملة",
+      "not": "ملاحظة",
       "zaman": "الوقت"
     },
     "olay": {
@@ -158,6 +163,10 @@
       "proje_asama_degisti": "تغيّرت مرحلة المشروع",
       "menu_siparis": "طلب من قائمة QR",
       "kart_mesaj": "رسالة من بطاقة العمل",
+      "icerik_onaylandi": "تمت الموافقة على المحتوى",
+      "icerik_revizyon_istendi": "طُلب تعديل المحتوى",
+      "icerik_yayin_zamani": "حلّ موعد نشر المحتوى",
+      "icerik_yayinlandi": "نُشر المحتوى",
       "randevu_olusturuldu": "حُجز موعد"
     },
     "olayAciklama": {
@@ -176,6 +185,10 @@
       "proje_asama_degisti": "انتقل المشروع إلى مرحلة أخرى.",
       "menu_siparis": "وصل طلب من قائمة QR / الكتالوج.",
       "kart_mesaj": "وصلت رسالة من بطاقة العمل الرقمية.",
+      "icerik_onaylandi": "وافق العميل على المنشور أو تمت الموافقة عليه داخل الفريق.",
+      "icerik_revizyon_istendi": "طلب العميل تعديلًا من رابط الموافقة أو من اللوحة (مع الملاحظة).",
+      "icerik_yayin_zamani": "حلّ الموعد المجدول لمنشور موافَق عليه (مرة واحدة لكل منشور).",
+      "icerik_yayinlandi": "وُضعت على المنشور علامة «منشور» يدويًا.",
       "randevu_olusturuldu": "حجز جديد في صفحة المواعيد."
     },
     "eylem": {

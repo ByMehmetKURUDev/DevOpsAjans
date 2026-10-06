@@ -119,6 +119,11 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,
     # ajansın kendi asistanında yöneticilere).
     "asistan_devir": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 5I — içerik stüdyosu: müşteriden onay isteği (imzalı bağlantı), müşterinin kararı
+    # (ajansa) ve planlanan saatten 30 dk önce "paylaşıma hazır" hatırlatması (sorumluya).
+    "icerik_onay_istendi": {"roller": ("client",), "tetikleniyor": True},
+    "icerik_karar": {"roller": ("admin",), "tetikleniyor": True},
+    "icerik_hatirlatma": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 5M — e-posta pazarlama gönderimleri otomatik askıya alındı (şikâyet / sert geri dönüş oranı).
     "pazarlama_askiya_alindi": {"roller": ("admin", "client"), "tetikleniyor": True},
 }

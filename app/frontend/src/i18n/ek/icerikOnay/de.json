@@ -1,0 +1,99 @@
+{
+  "icerikOnay": {
+    "baslik": "Inhalte zur Freigabe",
+    "aciklama": "Beiträge, die Ihre Agentur für Sie vorbereitet hat. Prüfen Sie sie und geben Sie sie frei oder fordern Sie eine Überarbeitung an, indem Sie beschreiben, was sich ändern soll.",
+    "bos": "Derzeit warten keine Inhalte auf Ihre Freigabe.",
+    "kanallar": "Kanäle",
+    "planlanan": "Geplant",
+    "kampanya": "Kampagne",
+    "marka": "Marke",
+    "gorseller": "Bilder",
+    "video": "Video-Link",
+    "ilkYorum": "Erster Kommentar",
+    "baglanti": "Link",
+    "sinirAsimi": "Zeichenlimit des Kanals überschritten",
+    "onayla": "Freigeben",
+    "revizyonIste": "Überarbeitung anfordern",
+    "revizyonNotu": "Hinweis zur Überarbeitung",
+    "revizyonIpucu": "Beschreiben Sie, was sich ändern soll (z. B. Bild, Ton, Datum).",
+    "notIstege": "Notiz (optional)",
+    "revizyonGonder": "Überarbeitungswunsch senden",
+    "vazgec": "Abbrechen",
+    "onaylandi": "Inhalt freigegeben. Vielen Dank!",
+    "revizyonGonderildi": "Ihr Überarbeitungswunsch wurde an die Agentur gesendet.",
+    "sonKullanma": "Gültig bis: {{tarih}}",
+    "alici": "Dieser Link wurde an {{alici}} gesendet",
+    "anaSayfa": "Startseite",
+    "kanal": {
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "tiktok": "TikTok",
+      "youtube_shorts": "YouTube Shorts",
+      "google_isletme": "Google-Unternehmensprofil",
+      "pinterest": "Pinterest",
+      "blog": "Blog",
+      "email": "E-Mail-Newsletter"
+    },
+    "durum": {
+      "taslak": "Entwurf",
+      "incelemede": "In Prüfung",
+      "musteri_onayi": "Wartet auf Kundenfreigabe",
+      "onaylandi": "Freigegeben",
+      "yayinlandi": "Veröffentlicht",
+      "reddedildi": "Abgelehnt"
+    },
+    "sayfa": {
+      "baslik": "Inhaltsfreigabe",
+      "aciklama": "Der folgende Inhalt wartet auf Ihre Freigabe. Keine Anmeldung nötig; der Link kann nur einmal verwendet werden.",
+      "hata": "Etwas ist schiefgelaufen",
+      "bulunamadi": {
+        "baslik": "Link nicht gefunden",
+        "metin": "Der Link ist ungültig oder wurde entfernt. Sie können Ihre Agentur um einen neuen bitten."
+      },
+      "kullanildi": {
+        "baslik": "Dieser Link wurde bereits verwendet",
+        "metin": "Für diesen Inhalt wurde bereits entschieden.",
+        "onay": "Dieser Inhalt wurde bereits freigegeben.",
+        "revizyon": "Es wurde eine Überarbeitung angefordert; Ihre Agentur aktualisiert den Inhalt und sendet ihn erneut."
+      },
+      "suresi_doldu": {
+        "baslik": "Der Link ist abgelaufen",
+        "metin": "Bitten Sie Ihre Agentur um einen neuen Freigabelink."
+      },
+      "iptal": {
+        "baslik": "Der Link wurde storniert",
+        "metin": "Ihre Agentur hat diese Freigabeanfrage zurückgezogen oder erneuert."
+      },
+      "sonuc": {
+        "onay": {
+          "baslik": "Freigabe erhalten",
+          "metin": "Vielen Dank! Der Inhalt wird zur geplanten Zeit zur Veröffentlichung vorbereitet."
+        },
+        "revizyon": {
+          "baslik": "Überarbeitungswunsch gesendet",
+          "metin": "Ihre Agentur aktualisiert den Inhalt gemäß Ihrer Notiz und sendet ihn erneut."
+        }
+      }
+    },
+    "hata": {
+      "genel": "Die Aktion konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
+      "ag": "Der Server ist nicht erreichbar. Prüfen Sie Ihre Verbindung.",
+      "yetki": "Dazu sind Sie nicht berechtigt.",
+      "cok_hizli": "Zu viele Anfragen. Versuchen Sie es in einigen Sekunden erneut.",
+      "sinir": "Zu viele Anfragen. Versuchen Sie es gleich noch einmal.",
+      "bulunamadi": "Inhalt nicht gefunden.",
+      "kullanildi": "Für diesen Inhalt wurde bereits entschieden.",
+      "suresi_doldu": "Der Freigabelink ist abgelaufen.",
+      "iptal": "Die Freigabeanfrage wurde zurückgezogen.",
+      "not_gerekli": "Bitte schreiben Sie eine kurze Notiz zur Überarbeitung.",
+      "not_uzun": "Die Notiz ist zu lang (max. 2.000 Zeichen).",
+      "gecersiz_sonuc": "Ungültige Entscheidung.",
+      "hedef_degisti": "Der Inhalt hat sich inzwischen geändert; bitte neu laden.",
+      "hedef_yok": "Den Inhalt gibt es nicht mehr.",
+      "mesgul": "Die Aktion kollidierte mit einer anderen Anfrage; bitte erneut versuchen.",
+      "hesap_izni_yok": "Sie haben in diesem Konto keine Inhaltsberechtigung."
+    }
+  }
+}

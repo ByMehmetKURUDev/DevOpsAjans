@@ -26,6 +26,7 @@ import {
   KeyRound,
   CalendarCheck,
   Workflow,
+  PenTool,
   BotMessageSquare,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -107,6 +108,10 @@ const OzelAlanlarBolumu = ekliLazy('ozelAlanlar', () => import('@/components/Oze
 // Faz 5A — AI asistan + bilgi bankası (yönetici paneliyle aynı bileşen, müşteri modu).
 const AiAsistan = ekliLazy(['aiAsistan', 'asistanSayfa'], () => import('@/components/AiAsistan'));
 // Faz 5M — e-posta pazarlama (yönetici paneliyle aynı bileşen, müşteri modu).
+// Faz 5I — İçerik stüdyosu (yönetici paneliyle aynı bileşen, müşteri modu) ve modülden bağımsız
+// "Onay bekleyen içerikler" kartı (ajansın müşteri için hazırladığı içerik).
+const IcerikStudyosu = ekliLazy(['icerikStudyosu', 'icerikOnay'], () => import('@/components/IcerikStudyosu'));
+const IcerikOnaylari = ekliLazy('icerikOnay', () => import('@/components/IcerikOnaylari'));
 const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/EpostaPazarlama'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
@@ -182,6 +187,7 @@ type Tab =
   | 'randevu'
   | 'otomasyon'
   | 'aiAsistan'
+  | 'icerik'
   | 'epostaPazarlama'
   | 'dosyalar'
   | 'api'
@@ -207,6 +213,7 @@ const SEKMELER: Tab[] = [
   'randevu',
   'otomasyon',
   'aiAsistan',
+  'icerik',
   'epostaPazarlama',
   'dosyalar',
   'api',
@@ -218,7 +225,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'epostaPazarlama'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama'];
 
 /** `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın. */
 function ilkSekme(): Tab {
@@ -653,6 +660,7 @@ export default function ClientPanel() {
     randevu: { label: t('ui.tabRandevu'), icon: CalendarCheck },
     otomasyon: { label: t('ui.tabOtomasyon'), icon: Workflow },
     aiAsistan: { label: t('ui.tabAiAsistan'), icon: BotMessageSquare },
+    icerik: { label: t('ui.tabIcerikStudyosu'), icon: PenTool },
     epostaPazarlama: { label: t('ui.tabEpostaPazarlama'), icon: Send },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
@@ -711,6 +719,12 @@ export default function ClientPanel() {
       {modulAcik('islem') && izinVar(['faturalar', 'projeler', 'raporlar']) && (
         <Suspense fallback={null}>
           <OnayBekleyenler onDegisti={loadData} />
+        </Suspense>
+      )}
+      {/* Faz 5I: ajansın onaya sunduğu içerikler — İçerik stüdyosu modülü kapalı olsa da. */}
+      {izinVar(['icerik']) && tab !== 'icerik' && (
+        <Suspense fallback={null}>
+          <IcerikOnaylari />
         </Suspense>
       )}
 
@@ -1306,6 +1320,18 @@ export default function ClientPanel() {
               }
             >
               <AiAsistan mod="musteri" />
+            </Suspense>
+          )}
+
+          {tab === 'icerik' && modulBilgisi !== null && modulAcik('icerik_studyosu') && izinVar(['icerik']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <IcerikStudyosu mod="musteri" />
             </Suspense>
           )}
 

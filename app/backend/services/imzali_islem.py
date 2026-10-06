@@ -93,6 +93,9 @@ TURLER: Dict[str, TurTanimi] = {
     "rapor_goruntule": TurTanimi("site_analyses", ("goruntulendi",), tek_kullanimlik=False),
     # Faz 3T — biçimli teklif (görüntüleme çoklu: jeton çözülür, sayaç artar;
     # karar tek: kabul ya da gerekçeli ret) ve sözleşme imzası (tek: "onay").
+    # Faz 5I — İçerik stüdyosu: müşteri gönderiyi onaylar ya da gerekçeli revizyon ister.
+    # Kendi sayfası (`/icerik-onay/<jeton>`) ve panel listesi (`/icerik-onaylarim`) var.
+    "icerik_onay": TurTanimi("content_posts", ("onay", "revizyon"), not_zorunlu=("revizyon",), ozel=True),
     "teklif_onay": TurTanimi("teklifler", ("kabul", "red"), not_zorunlu=("red",), ozel=True),
     "sozlesme_imza": TurTanimi("sozlesmeler", ("onay",), ozel=True),
 }
@@ -534,6 +537,10 @@ async def _etkiyi_uygula(
         return await _teklif_etkisi(db, kayit, sonuc, not_)
     if kayit.tur == "teslimat_onay":
         return await _teslimat_etkisi(db, kayit, sonuc, not_)
+    if kayit.tur == "icerik_onay":
+        from services.icerik_planlayici import onay_etkisi
+
+        return await onay_etkisi(db, kayit, sonuc, not_, ek or {})
     if kayit.tur == "teklif_onay":
         from services.teklifler import karar_etkisi
 

@@ -1,0 +1,99 @@
+{
+  "icerikOnay": {
+    "baslik": "Content awaiting your approval",
+    "aciklama": "Posts your agency prepared for you. Review them, then approve or request a revision by describing what should change.",
+    "bos": "No content is waiting for your approval right now.",
+    "kanallar": "Channels",
+    "planlanan": "Scheduled",
+    "kampanya": "Campaign",
+    "marka": "Brand",
+    "gorseller": "Images",
+    "video": "Video link",
+    "ilkYorum": "First comment",
+    "baglanti": "Link",
+    "sinirAsimi": "Channel character limit exceeded",
+    "onayla": "Approve",
+    "revizyonIste": "Request revision",
+    "revizyonNotu": "Revision note",
+    "revizyonIpucu": "Describe what should change (e.g. image, tone, date).",
+    "notIstege": "Note (optional)",
+    "revizyonGonder": "Send revision request",
+    "vazgec": "Cancel",
+    "onaylandi": "Content approved. Thank you!",
+    "revizyonGonderildi": "Your revision request was sent to the agency.",
+    "sonKullanma": "Valid until: {{tarih}}",
+    "alici": "This link was sent to {{alici}}",
+    "anaSayfa": "Home",
+    "kanal": {
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "tiktok": "TikTok",
+      "youtube_shorts": "YouTube Shorts",
+      "google_isletme": "Google Business Profile",
+      "pinterest": "Pinterest",
+      "blog": "Blog",
+      "email": "Email newsletter"
+    },
+    "durum": {
+      "taslak": "Draft",
+      "incelemede": "In review",
+      "musteri_onayi": "Awaiting client approval",
+      "onaylandi": "Approved",
+      "yayinlandi": "Published",
+      "reddedildi": "Rejected"
+    },
+    "sayfa": {
+      "baslik": "Content approval",
+      "aciklama": "The content below is awaiting your approval. No sign-in needed; the link can be used only once.",
+      "hata": "Something went wrong",
+      "bulunamadi": {
+        "baslik": "Link not found",
+        "metin": "The link is invalid or was removed. You can ask your agency for a new one."
+      },
+      "kullanildi": {
+        "baslik": "This link was already used",
+        "metin": "A decision has already been made for this content.",
+        "onay": "This content has already been approved.",
+        "revizyon": "A revision was requested; your agency will update it and send it again."
+      },
+      "suresi_doldu": {
+        "baslik": "The link has expired",
+        "metin": "Ask your agency for a new approval link."
+      },
+      "iptal": {
+        "baslik": "The link was cancelled",
+        "metin": "Your agency withdrew or renewed this approval request."
+      },
+      "sonuc": {
+        "onay": {
+          "baslik": "Approval received",
+          "metin": "Thank you! The content will be prepared for publishing at the scheduled time."
+        },
+        "revizyon": {
+          "baslik": "Revision request sent",
+          "metin": "Your agency will update the content according to your note and send it again."
+        }
+      }
+    },
+    "hata": {
+      "genel": "The action could not be completed. Please try again.",
+      "ag": "Could not reach the server. Check your connection.",
+      "yetki": "You are not allowed to do this.",
+      "cok_hizli": "Too many requests. Try again in a few seconds.",
+      "sinir": "Too many requests. Try again shortly.",
+      "bulunamadi": "Content not found.",
+      "kullanildi": "A decision has already been made for this content.",
+      "suresi_doldu": "The approval link has expired.",
+      "iptal": "The approval request was withdrawn.",
+      "not_gerekli": "Please write a short note for the revision.",
+      "not_uzun": "The note is too long (max 2,000 characters).",
+      "gecersiz_sonuc": "Invalid decision.",
+      "hedef_degisti": "The content changed meanwhile; please reload.",
+      "hedef_yok": "The content no longer exists.",
+      "mesgul": "The action collided with another request; try again.",
+      "hesap_izni_yok": "You do not have content permission in this account."
+    }
+  }
+}

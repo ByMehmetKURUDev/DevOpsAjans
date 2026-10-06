@@ -94,6 +94,7 @@
       "siparis": "Bestellung",
       "mesaj": "Visitenkarten-Nachricht",
       "randevu": "Termin",
+      "icerik": "Inhaltsbeitrag",
       "hesap": "Kundenkonto",
       "kisi": "Person im Ereignis",
       "olay": "Ereignis"
@@ -140,6 +141,10 @@
       "tur": "Typ",
       "sure_dk": "Dauer (Min.)",
       "konum": "Ort",
+      "kanallar": "Kanäle",
+      "planlanan_at": "Geplanter Zeitpunkt",
+      "kampanya": "Kampagne",
+      "not": "Notiz",
       "zaman": "Zeit"
     },
     "olay": {
@@ -158,6 +163,10 @@
       "proje_asama_degisti": "Projektphase geändert",
       "menu_siparis": "QR-Menü-Bestellung",
       "kart_mesaj": "Nachricht über Visitenkarte",
+      "icerik_onaylandi": "Inhalt freigegeben",
+      "icerik_revizyon_istendi": "Überarbeitung angefordert",
+      "icerik_yayin_zamani": "Veröffentlichungszeit erreicht",
+      "icerik_yayinlandi": "Inhalt veröffentlicht",
       "randevu_olusturuldu": "Termin gebucht"
     },
     "olayAciklama": {
@@ -176,6 +185,10 @@
       "proje_asama_degisti": "Das Projekt ist in eine andere Phase gewechselt.",
       "menu_siparis": "Eine Bestellung kam über QR-Menü / Katalog.",
       "kart_mesaj": "Über eine digitale Visitenkarte kam eine Nachricht.",
+      "icerik_onaylandi": "Der Beitrag wurde vom Kunden oder im Team freigegeben.",
+      "icerik_revizyon_istendi": "Der Kunde hat über den Freigabelink oder das Panel eine Überarbeitung angefordert (inkl. Notiz).",
+      "icerik_yayin_zamani": "Der geplante Zeitpunkt eines freigegebenen Beitrags ist erreicht (einmal pro Beitrag).",
+      "icerik_yayinlandi": "Der Beitrag wurde manuell als veröffentlicht markiert.",
       "randevu_olusturuldu": "Neue Buchung auf der Terminseite."
     },
     "eylem": {

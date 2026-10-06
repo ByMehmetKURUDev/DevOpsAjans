@@ -55,6 +55,10 @@
       "proje_asama_degisti": "Project stage changed",
       "menu_siparis": "Menu / catalog order",
       "kart_mesaj": "Message from a business card",
+      "icerik_onaylandi": "Content approved (by the client or the team)",
+      "icerik_revizyon_istendi": "The client requested a content revision",
+      "icerik_yayin_zamani": "The scheduled time of approved content arrived",
+      "icerik_yayinlandi": "Content marked as published",
       "qr_tarama": "QR scan",
       "ping": "Test event",
       "asistan_devredildi": "AI assistant handed a visitor over to a human"

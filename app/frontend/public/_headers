@@ -41,6 +41,13 @@
   ! Content-Security-Policy
   ! Reporting-Endpoints
 
+# Faz 5I: girişsiz içerik onayı (/icerik-onay/<jeton>) — dizine girmez; adres jeton taşıdığı
+# için yönlendiren (Referer) hiç gönderilmez.
+/icerik-onay/*
+  ! Referrer-Policy
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex, nofollow
+
 # Faz 5M: bülten sayfaları (abonelik formu, çift onay, ret/tercih) — dizine girmez; adres
 # jeton taşıdığı için yönlendiren (Referer) hiç gönderilmez.
 /bulten/*

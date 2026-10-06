@@ -55,6 +55,10 @@
       "proje_asama_degisti": "Projektphase geändert",
       "menu_siparis": "Menü- / Katalogbestellung",
       "kart_mesaj": "Nachricht über die Visitenkarte",
+      "icerik_onaylandi": "Inhalt freigegeben (vom Kunden oder vom Team)",
+      "icerik_revizyon_istendi": "Der Kunde hat eine Überarbeitung angefordert",
+      "icerik_yayin_zamani": "Der geplante Zeitpunkt eines freigegebenen Inhalts ist erreicht",
+      "icerik_yayinlandi": "Inhalt als veröffentlicht markiert",
       "qr_tarama": "QR-Scan",
       "ping": "Testereignis",
       "asistan_devredildi": "KI-Assistent hat einen Besucher an einen Menschen übergeben"

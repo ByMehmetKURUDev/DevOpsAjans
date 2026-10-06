@@ -88,6 +88,8 @@
       "randevu_kisileri": "Booking team member",
       "randevu_istisnalari": "Availability exception",
       "otomasyon_kurallari": "Automation rules",
+      "icerik_markalari": "Brand voice profile",
+      "icerik_sablonlari": "Content template",
       "ozel_alanlar": "Custom field definitions"
     }
   }

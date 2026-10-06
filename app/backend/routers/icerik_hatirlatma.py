@@ -17,7 +17,7 @@ Gövdeyi burada kuruyoruz, dil modeline sormuyoruz: liste zaten veriden
 """
 
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
 
 from core.database import get_db
@@ -42,7 +42,7 @@ router = APIRouter(
 )
 
 #: Paylaşılmış sayılan durumlar — bunlar gecikmiş olamaz.
-BITMIS = {"published", "yayinlandi", "done"}
+BITMIS = {"published", "yayinlandi", "done", "reddedildi"}
 
 KANAL_ADI = {
     "instagram": "Instagram",
@@ -80,17 +80,20 @@ async def hatirlatma_gonder(request: Request, db: AsyncSession = Depends(get_db)
             detail="Bu işlem için yönetici olmanız gerekiyor",
         )
 
-    simdi = datetime.now()
+    # Faz 5I: `scheduled_at` gönderinin saat dilimindeki YEREL saat (İçerik stüdyosu); geçti mi
+    # sorusu UTC'de soruluyor. Eski kayıtlar (İngilizce durum, tek kanal) önce düzeltiliyor.
+    from services import icerik_planlayici as ip
+
+    await ip.eski_kayitlari_duzelt(db)
+    simdi_utc = datetime.now(timezone.utc)
     sonuc = await db.execute(
         select(Content_posts).order_by(Content_posts.scheduled_at.asc())
     )
-    gecikenler: List[Content_posts] = [
-        g
-        for g in sonuc.scalars().all()
-        if g.scheduled_at
-        and g.scheduled_at < simdi
-        and (g.status or "").strip().lower() not in BITMIS
-    ]
+    gecikenler: List[Content_posts] = []
+    for g in sonuc.scalars().all():
+        an = ip.gonderi_utc(g) if g.scheduled_at else None
+        if an and an < simdi_utc and (g.status or "").strip().lower() not in BITMIS:
+            gecikenler.append(g)
 
     if not gecikenler:
         return HatirlatmaYaniti(geciken=0, eposta_durumu="off",
@@ -98,17 +101,18 @@ async def hatirlatma_gonder(request: Request, db: AsyncSession = Depends(get_db)
 
     satirlar = []
     for g in gecikenler:
-        gun = (simdi - g.scheduled_at).days
+        gun = (simdi_utc - ip.gonderi_utc(g)).days
         ne_zaman = g.scheduled_at.strftime("%d.%m.%Y %H:%M")
         gecikme = f"{gun} gün geçti" if gun >= 1 else "bugün"
-        satirlar.append(f"- {_kanal(g.channel)} · {ne_zaman} ({gecikme}): {g.title}")
+        kanallar = ", ".join(_kanal(k) for k in ip.kanal_listesi(g)) or _kanal(g.channel)
+        satirlar.append(f"- {kanallar} · {ne_zaman} ({gecikme}): {g.title}")
 
     govde = (
         f"{len(gecikenler)} içerik gönderisinin zamanı geçti ve hâlâ "
         "paylaşılmadı:\n\n"
         + "\n".join(satirlar)
-        + "\n\nPanelden \"Kopyala ve aç\" ile metni alıp kanalda "
-        "paylaştıktan sonra \"Paylaşıldı\" olarak işaretleyin."
+        + "\n\nİçerik stüdyosunda gönderinin \"Paylaşıma hazır\" paketinden metni ve "
+        "görselleri alıp kanalda paylaştıktan sonra \"Yayınlandı\" olarak işaretleyin."
     )
     baslik = f"{len(gecikenler)} içerik gönderisi gecikti"
 
@@ -130,7 +134,7 @@ async def hatirlatma_gonder(request: Request, db: AsyncSession = Depends(get_db)
         title=baslik,
         body=govde,
         recipients=alicilar,
-        link="/admin",
+        link="/admin?sekme=icerik",
     )
 
     durum, ayrinti = "unknown", ""

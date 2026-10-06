@@ -486,6 +486,33 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("kredi_ile_asim", "bool", True),
         ),
     ),
+    # Faz 5I — İçerik stüdyosu: marka sesi profilleri, 13 hazır AI içerik şablonu + kendi şablonu
+    # (1–3 varyasyon, karakter sınırı denetimi, uyarı rozeti, ince ayar), sosyal medya planlayıcı
+    # (takvim/liste, kanal başına metin, UTM'li kısa link, paylaşıma hazır paketi, CSV dışa
+    # aktarma; doğrudan yayın YOK). Varsayılan KAPALI, pakete bağlı değil (ayrı satılan modül;
+    # önerilen aylık 19 $). Ekip izni `icerik`. Ajansın müşteri için hazırladığı içeriğin müşteri
+    # onayı modül kapalıyken de çalışır (müşteri paneli "Onay bekleyen içerikler"). Yönetici
+    # tarafı mevcut "İçerik" sekmesi (ajans modülü `icerik`) — bu yüzden `yonetici_sekmesi` boş.
+    # `aylik_uretim`: aya dahil AI üretimi; `gunluk_uretim`: günlük üst sınır; `aylik_gonderi`:
+    # müşterinin kendi oluşturduğu aylık gönderi; `marka_siniri`; `kredi_ile_asim`: dahil hak
+    # bitince kredi bloğuyla sürsün mü (site ayarı: blok başına üretim/kredi).
+    Modul(
+        anahtar="icerik_studyosu",
+        ad_varsayilan={"tr": "İçerik stüdyosu", "en": "Content studio"},
+        ikon="PenTool",
+        kategori="icerik",
+        musteri_sekmesi="icerik",
+        yonetici_sekmesi=None,
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("aylik_uretim", "int", 100, en_az=0, en_cok=1_000_000),
+            AyarAlani("gunluk_uretim", "int", 50, en_az=0, en_cok=100_000),
+            AyarAlani("aylik_gonderi", "int", 60, en_az=0, en_cok=100_000),
+            AyarAlani("marka_siniri", "int", 3, en_az=0, en_cok=1000),
+            AyarAlani("kredi_ile_asim", "bool", True),
+        ),
+    ),
     # Faz 5M — e-posta pazarlama: listeler + çift onaylı abonelik formu, segmentler, blok
     # düzenleyicili kampanya (test, zamanlama, A/B konu), damla dizileri, ret/tercih sayfası,
     # teslimat raporu. Gönderim ajansın doğrulanmış alan adından ("Müşteri via mehmetkuru.dev",

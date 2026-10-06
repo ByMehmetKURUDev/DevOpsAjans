@@ -94,6 +94,7 @@
       "siparis": "Order",
       "mesaj": "Business card message",
       "randevu": "Booking",
+      "icerik": "Content post",
       "hesap": "Client account",
       "kisi": "Person in the event",
       "olay": "Event"
@@ -140,6 +141,10 @@
       "tur": "Type",
       "sure_dk": "Duration (min)",
       "konum": "Location",
+      "kanallar": "Channels",
+      "planlanan_at": "Scheduled time",
+      "kampanya": "Campaign",
+      "not": "Note",
       "zaman": "Time"
     },
     "olay": {
@@ -158,6 +163,10 @@
       "proje_asama_degisti": "Project stage changed",
       "menu_siparis": "QR menu order",
       "kart_mesaj": "Business card message",
+      "icerik_onaylandi": "Content approved",
+      "icerik_revizyon_istendi": "Content revision requested",
+      "icerik_yayin_zamani": "Content publish time arrived",
+      "icerik_yayinlandi": "Content published",
       "randevu_olusturuldu": "Booking made"
     },
     "olayAciklama": {
@@ -176,6 +185,10 @@
       "proje_asama_degisti": "The project moved to another stage.",
       "menu_siparis": "An order came from a QR menu / catalog.",
       "kart_mesaj": "A message came from a digital business card.",
+      "icerik_onaylandi": "The post was approved by the client or within the team.",
+      "icerik_revizyon_istendi": "The client requested a revision from the approval link or the panel (note included).",
+      "icerik_yayin_zamani": "The scheduled time of an approved post arrived (once per post).",
+      "icerik_yayinlandi": "The post was manually marked as published.",
       "randevu_olusturuldu": "A new booking on the booking page."
     },
     "eylem": {

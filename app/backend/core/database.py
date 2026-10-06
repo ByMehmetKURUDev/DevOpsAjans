@@ -449,6 +449,30 @@ class DatabaseManager:
             "tur_pg": "VARCHAR",
             "tur_sqlite": "TEXT",
         },
+        # Faz 5I — İçerik stüdyosu: mevcut içerik takvimi (`content_posts`) genişletildi —
+        # ikinci bir gönderi tablosu yok. Eski satırlarda hepsi NULL: hesap boş = ajansın
+        # kendi içeriği, saat dilimi boş = Europe/Istanbul (eski davranış: yönetici saati).
+        {"tablo": "content_posts", "sutun": "hesap_email", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "yoneten", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "marka_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "content_posts", "sutun": "kanallar", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "kanal_metinleri", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "ilk_yorum", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "gorseller", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "video_url", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "kisa_linkler", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "saat_dilimi", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "sorumlu_eposta", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "olusturan_eposta", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "uretim_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "content_posts", "sutun": "durum_notu", "tur_pg": "TEXT", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "durum_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        {"tablo": "content_posts", "sutun": "durum_degistiren", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "onay_islem_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "content_posts", "sutun": "onaylayan", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "content_posts", "sutun": "onay_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        {"tablo": "content_posts", "sutun": "hatirlatma_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        {"tablo": "content_posts", "sutun": "yayin_olayi_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
         # Faz 3T — fatura kalemleri + KDV dökümü, iade (alacak) faturası,
         # tekrarlayan fatura bağı. Eski (tek tutarlı) faturalarda hepsi NULL:
         # `amount` tek gerçek kaynak olarak kalıyor; kalemli faturada `amount`

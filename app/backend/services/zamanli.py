@@ -246,6 +246,14 @@ async def _ai_asistan_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     from services.ai_asistan import bakim_calistir
 
     return await bakim_calistir(db)
+async def _icerik_studyosu(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 5I: planlanan saatten 30 dk önce "paylaşıma hazır" hatırlatması ve onaylı gönderide
+    # `icerik.yayin_zamani` olayı — ikisi de gönderi başına TEK KEZ (koşullu UPDATE).
+    from services.icerik_planlayici import zamanli_gorev
+
+    return await zamanli_gorev(db)
+
+
 async def _eposta_pazarlama(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     # Faz 5M: zamanı gelen kampanyalar, A/B kararı, damla dizisi adımları ve kuyruktaki iletiler
     # (tur başına süre ve ileti bütçesi; Resend hız sınırı). Satırlar tek kez gönderilir.
@@ -292,6 +300,7 @@ GOREVLER: List[Gorev] = [
     Gorev("otomasyon", timedelta(0), _otomasyon),
     Gorev("otomasyon_temizligi", timedelta(hours=20), _otomasyon_temizligi),
     Gorev("ai_asistan_bakimi", timedelta(hours=1), _ai_asistan_bakimi),
+    Gorev("icerik_studyosu", timedelta(0), _icerik_studyosu),
     Gorev("eposta_pazarlama", timedelta(0), _eposta_pazarlama),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),

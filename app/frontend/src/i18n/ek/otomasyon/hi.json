@@ -94,6 +94,7 @@
       "siparis": "ऑर्डर",
       "mesaj": "बिज़नेस कार्ड संदेश",
       "randevu": "अपॉइंटमेंट",
+      "icerik": "कंटेंट पोस्ट",
       "hesap": "क्लाइंट खाता",
       "kisi": "घटना से जुड़ा व्यक्ति",
       "olay": "घटना"
@@ -140,6 +141,10 @@
       "tur": "प्रकार",
       "sure_dk": "अवधि (मिनट)",
       "konum": "स्थान",
+      "kanallar": "चैनल",
+      "planlanan_at": "निर्धारित समय",
+      "kampanya": "कैंपेन",
+      "not": "नोट",
       "zaman": "समय"
     },
     "olay": {
@@ -158,6 +163,10 @@
       "proje_asama_degisti": "प्रोजेक्ट का चरण बदला",
       "menu_siparis": "QR मेनू ऑर्डर",
       "kart_mesaj": "बिज़नेस कार्ड से संदेश",
+      "icerik_onaylandi": "कंटेंट स्वीकृत",
+      "icerik_revizyon_istendi": "कंटेंट संशोधन माँगा गया",
+      "icerik_yayin_zamani": "कंटेंट प्रकाशन का समय आया",
+      "icerik_yayinlandi": "कंटेंट प्रकाशित",
       "randevu_olusturuldu": "अपॉइंटमेंट बुक हुआ"
     },
     "olayAciklama": {
@@ -176,6 +185,10 @@
       "proje_asama_degisti": "प्रोजेक्ट दूसरे चरण में गया।",
       "menu_siparis": "QR मेनू / कैटलॉग से ऑर्डर आया।",
       "kart_mesaj": "डिजिटल बिज़नेस कार्ड से संदेश आया।",
+      "icerik_onaylandi": "पोस्ट ग्राहक ने या टीम में स्वीकृत की।",
+      "icerik_revizyon_istendi": "ग्राहक ने स्वीकृति लिंक या पैनल से संशोधन माँगा (नोट सहित)।",
+      "icerik_yayin_zamani": "स्वीकृत पोस्ट का निर्धारित समय आ गया (हर पोस्ट पर एक बार)।",
+      "icerik_yayinlandi": "पोस्ट को मैन्युअल रूप से प्रकाशित चिह्नित किया गया।",
       "randevu_olusturuldu": "अपॉइंटमेंट पेज पर नई बुकिंग।"
     },
     "eylem": {

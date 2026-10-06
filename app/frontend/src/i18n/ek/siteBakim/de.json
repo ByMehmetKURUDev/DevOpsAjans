@@ -190,6 +190,7 @@
         "otomasyon": "Automatisierungsregeln (ausstehende Läufe, nach „Warten“, überfällige Rechnungen)",
         "otomasyon_temizligi": "Bereinigung alter Automatisierungsprotokolle (30 Tage)",
         "ai_asistan_bakimi": "KI-Assistent: wöchentliche Website-Aktualisierung und Bereinigung der Gesprächsaufbewahrung",
+        "icerik_studyosu": "Content-Studio: Teilen-Erinnerung (30 Min. vorher) und Ereignis zum Veröffentlichungszeitpunkt",
         "eposta_pazarlama": "E-Mail-Marketing-Versand (geplante Kampagnen, A/B-Entscheidung, Drip-Sequenzen)"
       },
       "gunluk": "täglich",

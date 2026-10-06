@@ -1,0 +1,99 @@
+{
+  "icerikOnay": {
+    "baslik": "Onay bekleyen içerikler",
+    "aciklama": "Ajansınızın sizin için hazırladığı gönderiler. İnceleyin; onaylayın ya da ne değişmesi gerektiğini yazarak revizyon isteyin.",
+    "bos": "Şu anda onayınızı bekleyen içerik yok.",
+    "kanallar": "Kanallar",
+    "planlanan": "Planlanan",
+    "kampanya": "Kampanya",
+    "marka": "Marka",
+    "gorseller": "Görseller",
+    "video": "Video bağlantısı",
+    "ilkYorum": "İlk yorum",
+    "baglanti": "Bağlantı",
+    "sinirAsimi": "Kanal karakter sınırı aşıldı",
+    "onayla": "Onayla",
+    "revizyonIste": "Revizyon iste",
+    "revizyonNotu": "Revizyon notu",
+    "revizyonIpucu": "Neyin değişmesini istediğinizi yazın (ör. görsel, ton, tarih).",
+    "notIstege": "Not (isteğe bağlı)",
+    "revizyonGonder": "Revizyon isteğini gönder",
+    "vazgec": "Vazgeç",
+    "onaylandi": "İçerik onaylandı. Teşekkürler!",
+    "revizyonGonderildi": "Revizyon isteğiniz ajansa iletildi.",
+    "sonKullanma": "Son geçerlilik: {{tarih}}",
+    "alici": "Bu bağlantı {{alici}} için gönderildi",
+    "anaSayfa": "Ana sayfa",
+    "kanal": {
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "x": "X",
+      "tiktok": "TikTok",
+      "youtube_shorts": "YouTube Shorts",
+      "google_isletme": "Google İşletme Profili",
+      "pinterest": "Pinterest",
+      "blog": "Blog",
+      "email": "E-posta bülteni"
+    },
+    "durum": {
+      "taslak": "Taslak",
+      "incelemede": "İncelemede",
+      "musteri_onayi": "Müşteri onayı bekliyor",
+      "onaylandi": "Onaylandı",
+      "yayinlandi": "Yayınlandı",
+      "reddedildi": "Reddedildi"
+    },
+    "sayfa": {
+      "baslik": "İçerik onayı",
+      "aciklama": "Aşağıdaki içerik onayınızı bekliyor. Giriş yapmanız gerekmez; bağlantı yalnız bir kez kullanılabilir.",
+      "hata": "Bir sorun oluştu",
+      "bulunamadi": {
+        "baslik": "Bağlantı bulunamadı",
+        "metin": "Bağlantı geçersiz ya da kaldırılmış. Ajansınızdan yeni bir bağlantı isteyebilirsiniz."
+      },
+      "kullanildi": {
+        "baslik": "Bu bağlantı kullanıldı",
+        "metin": "Bu içerik için karar zaten verildi.",
+        "onay": "Bu içerik zaten onaylandı.",
+        "revizyon": "Bu içerik için revizyon istendi; ajansınız güncelleyip yeniden gönderecek."
+      },
+      "suresi_doldu": {
+        "baslik": "Bağlantının süresi doldu",
+        "metin": "Ajansınızdan yeni bir onay bağlantısı isteyin."
+      },
+      "iptal": {
+        "baslik": "Bağlantı iptal edildi",
+        "metin": "Ajansınız bu onay isteğini geri çekti ya da yeniledi."
+      },
+      "sonuc": {
+        "onay": {
+          "baslik": "Onayınız alındı",
+          "metin": "Teşekkürler! İçerik planlanan zamanda paylaşılmak üzere hazırlanacak."
+        },
+        "revizyon": {
+          "baslik": "Revizyon isteğiniz iletildi",
+          "metin": "Ajansınız notunuza göre içeriği güncelleyip size yeniden gönderecek."
+        }
+      }
+    },
+    "hata": {
+      "genel": "İşlem tamamlanamadı. Lütfen tekrar deneyin.",
+      "ag": "Sunucuya ulaşılamadı. Bağlantınızı kontrol edin.",
+      "yetki": "Bu işlem için yetkiniz yok.",
+      "cok_hizli": "Çok fazla istek. Birkaç saniye sonra tekrar deneyin.",
+      "sinir": "Çok fazla istek. Biraz sonra tekrar deneyin.",
+      "bulunamadi": "İçerik bulunamadı.",
+      "kullanildi": "Bu içerik için karar zaten verildi.",
+      "suresi_doldu": "Onay bağlantısının süresi doldu.",
+      "iptal": "Onay isteği geri çekildi.",
+      "not_gerekli": "Revizyon için kısa bir not yazın.",
+      "not_uzun": "Not çok uzun (en çok 2.000 karakter).",
+      "gecersiz_sonuc": "Geçersiz karar.",
+      "hedef_degisti": "İçerik bu arada değişti; sayfayı yenileyin.",
+      "hedef_yok": "İçerik artık yok.",
+      "mesgul": "İşlem şu anda başka bir istekle çakıştı; tekrar deneyin.",
+      "hesap_izni_yok": "Hesapta içerik izniniz yok."
+    }
+  }
+}

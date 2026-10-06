@@ -70,6 +70,9 @@
       "randevu_iptal": "Randevu: iptal edildi",
       "otomasyon_bildirimi": "Otomasyon kuralı bildirimi",
       "asistan_devir": "AI asistan: ziyaretçi insana devredildi",
+      "icerik_onay_istendi": "İçerik: onayınız bekleniyor",
+      "icerik_karar": "İçerik: müşteri kararı (onay / revizyon)",
+      "icerik_hatirlatma": "İçerik: paylaşıma hazır hatırlatması (30 dk önce)",
       "pazarlama_askiya_alindi": "E-posta pazarlama: gönderimler askıya alındı"
     },
     "kanal": {

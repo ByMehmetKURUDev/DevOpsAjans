@@ -453,6 +453,18 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
         if m is None:
             return None
         b["mesaj"] = {"id": m.id, "ad": m.ad, "eposta": m.eposta, "telefon": m.telefon}
+    elif on == "icerik":
+        # Faz 5I — içerik stüdyosu gönderisi (müşteri kuralı yalnız kendi hesabının gönderisini görür).
+        from models.content_posts import Content_posts
+        from services.icerik_planlayici import olay_verisi
+
+        g = await _kayit(db, Content_posts, veri.get("gonderi_id"))
+        if g is None or (not ajans and eposta_duzelt(g.hesap_email) != eposta_duzelt(olay_hesap)):
+            return None
+        ov = olay_verisi(g)
+        b["icerik"] = {"id": g.id, "baslik": g.title, "durum": g.status, "kanallar": ov["kanallar"],
+                       "planlanan_at": ov["planlanan_at"], "kampanya": g.campaign, "sorumlu": g.sorumlu_eposta,
+                       "not": veri.get("not") or g.durum_notu}
     elif on == "randevu":
         from models.randevu import Randevular, RandevuTurleri
 

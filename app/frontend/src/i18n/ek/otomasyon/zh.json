@@ -94,6 +94,7 @@
       "siparis": "订单",
       "mesaj": "名片留言",
       "randevu": "预约",
+      "icerik": "内容帖子",
       "hesap": "客户账户",
       "kisi": "事件中的人",
       "olay": "事件"
@@ -140,6 +141,10 @@
       "tur": "类型",
       "sure_dk": "时长（分钟）",
       "konum": "地点",
+      "kanallar": "渠道",
+      "planlanan_at": "计划时间",
+      "kampanya": "营销活动",
+      "not": "备注",
       "zaman": "时间"
     },
     "olay": {
@@ -158,6 +163,10 @@
       "proje_asama_degisti": "项目阶段变更",
       "menu_siparis": "二维码菜单订单",
       "kart_mesaj": "名片留言",
+      "icerik_onaylandi": "内容已批准",
+      "icerik_revizyon_istendi": "已请求修改内容",
+      "icerik_yayin_zamani": "内容发布时间到了",
+      "icerik_yayinlandi": "内容已发布",
       "randevu_olusturuldu": "新预约"
     },
     "olayAciklama": {
@@ -176,6 +185,10 @@
       "proje_asama_degisti": "项目进入了另一个阶段。",
       "menu_siparis": "来自二维码菜单 / 目录的订单。",
       "kart_mesaj": "来自数字名片的留言。",
+      "icerik_onaylandi": "帖子已获客户批准或在团队内批准。",
+      "icerik_revizyon_istendi": "客户通过审批链接或面板请求了修改（含备注）。",
+      "icerik_yayin_zamani": "已批准帖子的计划时间到了（每篇帖子一次）。",
+      "icerik_yayinlandi": "帖子被手动标记为已发布。",
       "randevu_olusturuldu": "预约页面上的新预约。"
     },
     "eylem": {

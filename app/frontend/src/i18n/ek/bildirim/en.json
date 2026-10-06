@@ -70,6 +70,9 @@
       "randevu_iptal": "Appointments: cancelled",
       "otomasyon_bildirimi": "Automation rule notification",
       "asistan_devir": "AI assistant: visitor handed over to a human",
+      "icerik_onay_istendi": "Content: your approval is requested",
+      "icerik_karar": "Content: client decision (approval / revision)",
+      "icerik_hatirlatma": "Content: ready-to-share reminder (30 min before)",
       "pazarlama_askiya_alindi": "Email marketing: sending suspended"
     },
     "kanal": {

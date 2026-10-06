@@ -55,6 +55,10 @@
       "proje_asama_degisti": "Projenin aşaması değişti",
       "menu_siparis": "Menü / katalog siparişi",
       "kart_mesaj": "Kartvizitten mesaj",
+      "icerik_onaylandi": "İçerik onaylandı (müşteri ya da ekip)",
+      "icerik_revizyon_istendi": "Müşteri içerik için revizyon istedi",
+      "icerik_yayin_zamani": "Onaylı içeriğin planlanan saati geldi",
+      "icerik_yayinlandi": "İçerik yayınlandı olarak işaretlendi",
       "qr_tarama": "QR taraması",
       "ping": "Test olayı",
       "asistan_devredildi": "AI asistan ziyaretçiyi insana devretti"

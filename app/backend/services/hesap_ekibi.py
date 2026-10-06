@@ -73,6 +73,9 @@ IZINLER: Tuple[str, ...] = (
     "otomasyon",
     # Faz 5A — AI asistan ve bilgi bankası (sohbet kayıtları ziyaretçi kişisel verisi taşır).
     "asistan",
+    # Faz 5I — İçerik stüdyosu (marka sesi, AI yazar, planlayıcı) ve ajansın onaya sunduğu
+    # içeriklere karar (onay / revizyon). Üyenin varsayılanında var.
+    "icerik",
     # Faz 5M — e-posta pazarlama (kişi listesi, kampanya gönderimi: yalnız sahip/hesap yöneticisi
     # verebilir; üye ve fatura rolünün varsayılanında yok — `api` gibi).
     "pazarlama",
@@ -87,7 +90,7 @@ ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
     # Faz 4K/4M: üye kendi kartvizitini ve menü/katalog mağazalarını da yönetir.
     "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
-            "kartvizit", "menu", "randevu", "asistan"),
+            "kartvizit", "menu", "randevu", "asistan", "icerik"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
@@ -113,6 +116,10 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 5R–5A/5M arası varsayılan (api ve randevu var; asistan ve pazarlama yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu"}),
+        # Faz 5M–5I arası varsayılan (otomasyon, asistan ve pazarlama var; icerik yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
+                   "asistan", "pazarlama"}),
     ),
     "uye": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
@@ -126,6 +133,9 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 5R–5A arası varsayılan.
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
                    "kartvizit", "menu", "randevu"}),
+        # Faz 5A–5I arası varsayılan (asistan var; icerik yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
+                   "kartvizit", "menu", "randevu", "asistan"}),
     ),
 }
 
@@ -187,6 +197,9 @@ OLAY_IZNI: Dict[str, str] = {
     "otomasyon_bildirimi": "otomasyon",
     # Faz 5A — AI asistan ziyaretçiyi insana devretti.
     "asistan_devir": "asistan",
+    # Faz 5I — içerik "paylaşıma hazır" hatırlatması (müşterinin kendi içeriği). Onay isteği
+    # (imzalı bağlantı) burada YOK: yalnız adı geçen alıcıya gider.
+    "icerik_hatirlatma": "icerik",
     # Faz 5M — pazarlama gönderimleri askıya alındı.
     "pazarlama_askiya_alindi": "pazarlama",
 }

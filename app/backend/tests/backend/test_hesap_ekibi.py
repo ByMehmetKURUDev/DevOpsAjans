@@ -217,6 +217,15 @@ async def ekip(db_oturumu):
                                               durum="hazir"))
     ais = await _ekle(db, AiAsistanSohbetleri(asistan_id=aia.id, hesap_email=s, oturum_ozeti=uuid.uuid4().hex, kaynak="sayfa"))
     k.update(AIA=aia.id, AIK=aik.id, AIS=ais.id)
+    # Faz 5I: sahibin içerik stüdyosu kayıtları (marka, şablon, kendi gönderisi).
+    from models.content_posts import Content_posts
+    from models.icerik_studyosu import IcerikMarkalari, IcerikSablonlari
+
+    im = await _ekle(db, IcerikMarkalari(hesap_email=s, ad="Sahibin markası", ton="{}"))
+    isb = await _ekle(db, IcerikSablonlari(hesap_email=s, ad="Sahibin şablonu", alanlar="[]", istem="Yaz"))
+    ig = await _ekle(db, Content_posts(title="Sahibin gönderisi", hesap_email=s, yoneten="musteri", status="taslak",
+                                       kanallar='["instagram"]', channel="instagram", body="Merhaba"))
+    k.update(IM=im.id, IS=isb.id, IG=ig.id)
     # Faz 5M: `pazarlama` izni yalnız hesap yöneticisinin varsayılanında — izinli üye ayrıca; sahibin
     # e-posta pazarlama kayıtları (liste, kişi, form, segment, taslak kampanya, dizi).
     from models.eposta_pazarlama import EpDiziler, EpFormlar, EpKampanyalar, EpKisiler, EpListeler, EpSegmentler
@@ -488,6 +497,38 @@ MUSTERI_UCLARI = [
     ("POST", "/api/v1/ai-asistanim/{AIA}/sohbetler/{AIS}/anonimlestir", ("asistan",), None, 200),
     ("DELETE", "/api/v1/ai-asistanim/{AIA}/sohbetler/999999", ("asistan",), None, "gecti"),
     ("GET", "/api/v1/ai-asistanim/{AIA}/kullanim", ("asistan",), None, 200),
+    # Faz 5I — İçerik stüdyosu (`icerik` izni; üyenin varsayılanında). AI kapalı → 503 → "gecti".
+    ("GET", "/api/v1/icerik-studyom/meta", ("icerik",), None, 200),
+    ("GET", "/api/v1/icerik-studyom/kullanim", ("icerik",), None, 200),
+    ("GET", "/api/v1/icerik-studyom/markalar", ("icerik",), None, 200),
+    ("POST", "/api/v1/icerik-studyom/markalar", ("icerik",), {"ad": "Ekip markası"}, "gecti"),
+    ("GET", "/api/v1/icerik-studyom/markalar/{IM}", ("icerik",), None, 200),
+    ("PUT", "/api/v1/icerik-studyom/markalar/{IM}", ("icerik",), {"sektor": "Kafe"}, 200),
+    ("DELETE", "/api/v1/icerik-studyom/markalar/999999", ("icerik",), None, "gecti"),
+    ("POST", "/api/v1/icerik-studyom/markalar/{IM}/ses-cikar", ("icerik",), {}, "gecti"),
+    ("GET", "/api/v1/icerik-studyom/sablonlar", ("icerik",), None, 200),
+    ("POST", "/api/v1/icerik-studyom/sablonlar", ("icerik",), {"ad": "Ekip şablonu", "alanlar": [], "istem": "Yaz"}, 200),
+    ("PUT", "/api/v1/icerik-studyom/sablonlar/{IS}", ("icerik",), {"ad": "Yeni ad"}, 200),
+    ("DELETE", "/api/v1/icerik-studyom/sablonlar/999999", ("icerik",), None, "gecti"),
+    ("POST", "/api/v1/icerik-studyom/uret", ("icerik",), {"sablon": "instagram_gonderi", "girdi": {"konu": "x"}}, "gecti"),
+    ("POST", "/api/v1/icerik-studyom/ince-ayar", ("icerik",), {"islem": "emoji_cikar", "metin": "Selam"}, 200),
+    ("GET", "/api/v1/icerik-studyom/uretimler", ("icerik",), None, 200),
+    ("GET", "/api/v1/icerik-studyom/uretimler/999999", ("icerik",), None, "gecti"),
+    ("GET", "/api/v1/icerik-studyom/gonderiler", ("icerik",), None, 200),
+    ("POST", "/api/v1/icerik-studyom/gonderiler", ("icerik",), {"baslik": "Ekip gönderisi"}, "gecti"),
+    ("GET", "/api/v1/icerik-studyom/gonderiler/{IG}", ("icerik",), None, 200),
+    ("PUT", "/api/v1/icerik-studyom/gonderiler/{IG}", ("icerik",), {"notlar": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/icerik-studyom/gonderiler/999999", ("icerik",), None, "gecti"),
+    ("POST", "/api/v1/icerik-studyom/gonderiler/{IG}/durum", ("icerik",), {"durum": "incelemede"}, "gecti"),
+    ("POST", "/api/v1/icerik-studyom/gonderiler/{IG}/kisa-link", ("icerik",), None, "gecti"),
+    ("GET", "/api/v1/icerik-studyom/gonderiler/{IG}/paket", ("icerik",), None, 200),
+    ("GET", "/api/v1/icerik-studyom/gonderiler/{IG}/gorseller.zip", ("icerik",), None, "gecti"),
+    ("GET", "/api/v1/icerik-studyom/disa-aktar.csv", ("icerik",), None, 200),
+    ("GET", "/api/v1/icerik-studyom/gorseller", ("icerik",), None, 200),
+    ("POST", "/api/v1/icerik-studyom/gorseller", ("icerik",), GOVDE_DOSYA, "gecti"),
+    # Onay bekleyen içerikler (modülden bağımsız; yalnız `icerik` izni).
+    ("GET", "/api/v1/icerik-onaylarim", ("icerik",), None, 200),
+    ("POST", "/api/v1/icerik-onaylarim/999999", ("icerik",), {"sonuc": "onay"}, "gecti"),
     # Faz 5M — e-posta pazarlama (`pazarlama` izni). Gönderim/test Resend kurulu değil → 409 → "gecti".
     ("GET", "/api/v1/eposta-pazarlamam/meta", ("pazarlama",), None, 200),
     ("GET", "/api/v1/eposta-pazarlamam/ozet", ("pazarlama",), None, 200),

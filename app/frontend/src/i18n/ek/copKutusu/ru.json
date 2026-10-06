@@ -88,6 +88,8 @@
       "randevu_kisileri": "Участник команды записи",
       "randevu_istisnalari": "Исключение в расписании",
       "otomasyon_kurallari": "Правила автоматизации",
+      "icerik_markalari": "Профиль голоса бренда",
+      "icerik_sablonlari": "Шаблон контента",
       "ozel_alanlar": "Описания пользовательских полей"
     }
   }
