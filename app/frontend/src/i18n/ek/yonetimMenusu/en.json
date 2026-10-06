@@ -1,0 +1,22 @@
+{
+  "yonetimMenusu": {
+    "menu": "Admin menu",
+    "bolumler": "Sections",
+    "ara": "Find a section… ( / )",
+    "temizle": "Clear search",
+    "sonucYok": "No matching section.",
+    "tabFiyat": "Pricing tables",
+    "grup": {
+      "site": "My website",
+      "pazarlama": "Marketing",
+      "satis": "Sales",
+      "projeler": "Projects",
+      "finans": "Finance",
+      "destek": "Support",
+      "araclar": "Client tools",
+      "otomasyon": "Automation",
+      "sistem": "System",
+      "diger": "Other"
+    }
+  }
+}

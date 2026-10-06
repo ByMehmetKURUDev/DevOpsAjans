@@ -1,0 +1,22 @@
+{
+  "yonetimMenusu": {
+    "menu": "管理菜单",
+    "bolumler": "栏目",
+    "ara": "查找栏目…（/）",
+    "temizle": "清除搜索",
+    "sonucYok": "没有匹配的栏目。",
+    "tabFiyat": "价格表",
+    "grup": {
+      "site": "我的网站",
+      "pazarlama": "营销",
+      "satis": "销售",
+      "projeler": "项目",
+      "finans": "财务",
+      "destek": "支持",
+      "araclar": "客户工具",
+      "otomasyon": "自动化",
+      "sistem": "系统",
+      "diger": "其他"
+    }
+  }
+}

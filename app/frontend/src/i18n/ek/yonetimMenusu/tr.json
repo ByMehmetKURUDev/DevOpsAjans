@@ -1,0 +1,22 @@
+{
+  "yonetimMenusu": {
+    "menu": "Yönetim menüsü",
+    "bolumler": "Bölümler",
+    "ara": "Bölüm ara… ( / )",
+    "temizle": "Aramayı temizle",
+    "sonucYok": "Eşleşen bölüm yok.",
+    "tabFiyat": "Fiyat tabloları",
+    "grup": {
+      "site": "Web sitem",
+      "pazarlama": "Pazarlama",
+      "satis": "Satış",
+      "projeler": "Projeler",
+      "finans": "Finans",
+      "destek": "Destek",
+      "araclar": "Müşteri araçları",
+      "otomasyon": "Otomasyon",
+      "sistem": "Sistem",
+      "diger": "Diğer"
+    }
+  }
+}

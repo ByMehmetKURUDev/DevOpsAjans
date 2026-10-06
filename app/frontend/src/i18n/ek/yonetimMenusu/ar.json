@@ -1,0 +1,22 @@
+{
+  "yonetimMenusu": {
+    "menu": "قائمة الإدارة",
+    "bolumler": "الأقسام",
+    "ara": "ابحث عن قسم… ( / )",
+    "temizle": "مسح البحث",
+    "sonucYok": "لا يوجد قسم مطابق.",
+    "tabFiyat": "جداول الأسعار",
+    "grup": {
+      "site": "موقعي",
+      "pazarlama": "التسويق",
+      "satis": "المبيعات",
+      "projeler": "المشاريع",
+      "finans": "المالية",
+      "destek": "الدعم",
+      "araclar": "أدوات العملاء",
+      "otomasyon": "الأتمتة",
+      "sistem": "النظام",
+      "diger": "أخرى"
+    }
+  }
+}

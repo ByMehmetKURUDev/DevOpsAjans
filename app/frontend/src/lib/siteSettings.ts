@@ -218,19 +218,12 @@ export const SETTING_GROUPS: {
     ],
   },
   {
+    // Paket fiyatları artık Fiyat tabloları (v5) bölümünden geliyor; burada yalnız
+    // yatırım hesaplayıcısının okuduğu aylık SEO & Ads ücreti kaldı.
     group: 'pricing',
     title: 'settingsForm.pricingTitle',
     description: 'settingsForm.pricingDesc',
-    fields: [
-      { key: 'price_starter', label: 'settingsForm.fStarter' },
-      { key: 'price_business', label: 'settingsForm.fBusiness' },
-      { key: 'price_ecommerce', label: 'settingsForm.fEcommerce' },
-      { key: 'price_saas', label: 'settingsForm.fSaas' },
-      // DevOps paketinde fiyat gösterilmiyor; bu alan yalnızca teklif
-      // hazırlarken referans olsun diye duruyor.
-      { key: 'price_devops', label: 'settingsForm.fDevops' },
-      { key: 'yearly_discount', label: 'settingsForm.fYearlyDiscount' },
-    ],
+    fields: [{ key: 'price_ecommerce', label: 'settingsForm.fEcommerce' }],
   },
   {
     group: 'notify',
@@ -242,7 +235,6 @@ export const SETTING_GROUPS: {
       { key: 'notify_whatsapp', label: 'settingsForm.fNotifyWhatsapp' },
       { key: 'notify_admin_phone', label: 'settingsForm.fNotifyPhone' },
       { key: 'whatsapp_template', label: 'settingsForm.fWhatsappTemplate' },
-      { key: 'admin_emails', label: 'settingsForm.fAdminEmails' },
     ],
   },
   {
@@ -280,29 +272,8 @@ export const SETTING_GROUPS: {
       { key: 'bing_site_verification', label: 'settingsForm.fBingDogrulama' },
     ],
   },
-  {
-    group: 'pageSeo',
-    title: 'settingsForm.pageSeoTitle',
-    description: 'settingsForm.pageSeoDesc',
-    fields: [
-      { key: 'seo_title_home', label: 'settingsForm.fSeoHomeTitle', translatable: true },
-      { key: 'seo_desc_home', label: 'settingsForm.fSeoHomeDesc', multiline: true, translatable: true },
-      { key: 'seo_title_services', label: 'settingsForm.fSeoServicesTitle', translatable: true },
-      { key: 'seo_desc_services', label: 'settingsForm.fSeoServicesDesc', multiline: true, translatable: true },
-      { key: 'seo_title_portfolio', label: 'settingsForm.fSeoPortfolioTitle', translatable: true },
-      { key: 'seo_desc_portfolio', label: 'settingsForm.fSeoPortfolioDesc', multiline: true, translatable: true },
-      { key: 'seo_title_contact', label: 'settingsForm.fSeoContactTitle', translatable: true },
-      { key: 'seo_desc_contact', label: 'settingsForm.fSeoContactDesc', multiline: true, translatable: true },
-      { key: 'seo_title_marketplace', label: 'settingsForm.fSeoMarketplaceTitle', translatable: true },
-      { key: 'seo_desc_marketplace', label: 'settingsForm.fSeoMarketplaceDesc', multiline: true, translatable: true },
-      { key: 'seo_title_roadmap', label: 'settingsForm.fSeoRoadmapTitle', translatable: true },
-      { key: 'seo_desc_roadmap', label: 'settingsForm.fSeoRoadmapDesc', multiline: true, translatable: true },
-      { key: 'seo_title_site_analysis', label: 'settingsForm.fSeoSiteAnalysisTitle', translatable: true },
-      { key: 'seo_desc_site_analysis', label: 'settingsForm.fSeoSiteAnalysisDesc', multiline: true, translatable: true },
-      { key: 'seo_title_blog', label: 'settingsForm.fSeoBlogTitle', translatable: true },
-      { key: 'seo_desc_blog', label: 'settingsForm.fSeoBlogDesc', multiline: true, translatable: true },
-    ],
-  },
+  // Sayfa başına SEO başlık/açıklaması yalnız Site Sayfaları bölümünde düzenleniyor
+  // (aynı anahtarlar; burada ikinci bir kopyası vardı).
   {
     group: 'access',
     title: 'settingsForm.accessTitle',

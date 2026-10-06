@@ -71,6 +71,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
+import YonetimMenusu from '@/components/admin/YonetimMenusu';
+import { menudeVar, sonSekmeyiOku, sonSekmeyiYaz } from '@/lib/yonetimMenusu';
 import FaturaOdemeBaglantisi from '@/components/admin/FaturaOdemeBaglantisi';
 import ElleTahsilat from '@/components/admin/ElleTahsilat';
 import TalepYazismasi from '@/components/TalepYazismasi';
@@ -193,8 +195,11 @@ const ZamanTakibi = ekliLazy('zamanTakibi', () => import('@/components/admin/Zam
 const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/admin/ProjeSablonlari'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
-/** `?sekme=` ile doğrudan açılabilen sekmeler (bildirim bağlantıları). */
-const BAGLANTI_SEKMELERI = ['guvenlik', 'copKutusu', 'denetim', 'mesajlar', 'kaynaklar', 'uzmanAsistanlar', 'baglantilar', 'teklifler', 'sozlesmeler', 'invoices', 'crm', 'zaman', 'projeSablonlari', 'projects', 'dinamikQr', 'kartvizit', 'qrMenu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik'] as const;
+/** `?sekme=` ile doğrudan açılan sekme (bildirim bağlantıları); menüde olmayan ad yok sayılır. */
+function istenenSekme(arama: string): string | null {
+  const istenen = new URLSearchParams(arama).get('sekme') || '';
+  return menudeVar(istenen) ? istenen : null;
+}
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
 const SETTING_LANG_OPTIONS = [
@@ -432,10 +437,11 @@ export default function AdminPanel() {
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   // Bildirim bağlantıları (`/admin?sekme=guvenlik`) doğrudan sekmeyi açsın.
+  // Bağlantı yoksa bu tarayıcıda en son açılan sekme (yoksa Analitik).
   const [tab, setTab] = useState<Tab>(() => {
     try {
-      const istenen = new URLSearchParams(window.location.search).get('sekme');
-      if ((BAGLANTI_SEKMELERI as readonly string[]).includes(istenen || '')) return istenen as Tab;
+      const istenen = istenenSekme(window.location.search) || sonSekmeyiOku();
+      if (istenen && menudeVar(istenen)) return istenen as Tab;
     } catch {
       /* sunucuda çizim: pencere yok */
     }
@@ -445,12 +451,16 @@ export default function AdminPanel() {
   // Panel açıkken bildirim bağlantısına tıklanırsa (aynı rota, yeni `?sekme=`).
   useEffect(() => {
     try {
-      const istenen = new URLSearchParams(location.search).get('sekme');
-      if ((BAGLANTI_SEKMELERI as readonly string[]).includes(istenen || '')) setTab(istenen as Tab);
+      const istenen = istenenSekme(location.search);
+      if (istenen) setTab(istenen as Tab);
     } catch {
       /* tarayıcı dışı */
     }
   }, [location.search]);
+  // Açılan sekme bu tarayıcıda hatırlanır (bir dahaki girişte oradan açılır).
+  useEffect(() => {
+    sonSekmeyiYaz(tab);
+  }, [tab]);
   // Faz 2G — "Müşteri sohbetleri" sekmesindeki okunmamış rozeti.
   const [okunmamisMesaj, setOkunmamisMesaj] = useState(0);
 
@@ -1040,7 +1050,7 @@ export default function AdminPanel() {
     { key: 'etkinlik', label: t('ui.tabEtkinlik'), icon: Ticket },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
-    { key: 'fiyatlandirmaV5', label: t('ui.tabFiyatlandirmaV5', 'Fiyatlandırma v5'), icon: DollarSign },
+    { key: 'fiyatlandirmaV5', label: t('yonetimMenusu.tabFiyat'), icon: DollarSign },
     { key: 'denetim', label: t('ui.tabDenetim'), icon: History },
     { key: 'guvenlik', label: t('ui.tabGuvenlik'), icon: ShieldCheck },
     { key: 'copKutusu', label: t('ui.tabCopKutusu'), icon: ArchiveRestore },
@@ -1071,35 +1081,8 @@ export default function AdminPanel() {
         <DuyuruSeridi />
       </Suspense>
 
-      {/* Tabs */}
-      <div className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto">
-        {TABS.map((tItem) => (
-          <button
-            key={tItem.key}
-            data-sekme={tItem.key}
-            onClick={() => setTab(tItem.key)}
-            className={`px-4 py-3 text-sm font-medium transition-colors relative inline-flex items-center gap-2 whitespace-nowrap ${
-              tab === tItem.key
-                ? 'text-foreground'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <tItem.icon className="h-4 w-4" />
-            {tItem.label}
-            {tItem.key === 'mesajlar' && okunmamisMesaj > 0 && (
-              <span
-                className="inline-flex min-w-[1.25rem] items-center justify-center rounded-full bg-pink-600 px-1.5 text-[11px] font-semibold leading-5 text-white"
-                data-rozet={okunmamisMesaj}
-              >
-                {okunmamisMesaj > 99 ? '99+' : okunmamisMesaj}
-              </span>
-            )}
-            {tab === tItem.key && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500" />
-            )}
-          </button>
-        ))}
-      </div>
+      {/* Menü: gruplar + seçili grubun bölümleri (lib/yonetimMenusu.ts). */}
+      <YonetimMenusu<Tab> sekmeler={TABS} aktif={tab} onSec={setTab} rozetler={{ mesajlar: okunmamisMesaj }} />
 
       {tab === 'mesajlar' && (
         <Suspense

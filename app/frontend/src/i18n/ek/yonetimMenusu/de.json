@@ -1,0 +1,22 @@
+{
+  "yonetimMenusu": {
+    "menu": "Verwaltungsmenü",
+    "bolumler": "Bereiche",
+    "ara": "Bereich suchen… ( / )",
+    "temizle": "Suche leeren",
+    "sonucYok": "Kein passender Bereich.",
+    "tabFiyat": "Preistabellen",
+    "grup": {
+      "site": "Meine Website",
+      "pazarlama": "Marketing",
+      "satis": "Vertrieb",
+      "projeler": "Projekte",
+      "finans": "Finanzen",
+      "destek": "Support",
+      "araclar": "Kundentools",
+      "otomasyon": "Automatisierung",
+      "sistem": "System",
+      "diger": "Weitere"
+    }
+  }
+}

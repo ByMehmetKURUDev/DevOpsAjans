@@ -23,7 +23,8 @@ const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
 // Faz 4G: rızaya bağlı harita yer tutucusu (ek paket 'iletisimHarita').
 const Contact = ekliLazy(['aydinlatma', 'iletisimHarita'], () => import('./pages/Contact'));
 const ClientPanel = lazy(() => import('./pages/ClientPanel'));
-const AdminPanel = lazy(() => import('./pages/AdminPanel'));
+// Yönetim menüsünün grup adları ek pakette (giriş paketine eklenmesin).
+const AdminPanel = ekliLazy('yonetimMenusu', () => import('./pages/AdminPanel'));
 const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));
 const YolHaritasi = lazy(() => import('./pages/YolHaritasi'));
 const SiteAnalizi = ekliLazy(['siteAnalizi', 'aydinlatma'], () => import('./pages/SiteAnalizi'));

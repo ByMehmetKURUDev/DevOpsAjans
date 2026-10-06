@@ -549,3 +549,14 @@
 :root[data-gorunum='modern'] .hero-surface > .absolute.bottom-0 .border-r {
   border-color: rgb(var(--m-y) / 0.14);
 }
+
+/* Yönetici menüsü alt satırı (seçili grubun bölümleri): ince neon haplar. */
+:root[data-gorunum='modern'] .cam-alt-sekmeler > button {
+  border-color: rgb(var(--m-g) / 0.28);
+}
+:root[data-gorunum='modern'] .cam-alt-sekmeler > button[aria-current='page'] {
+  color: rgb(var(--m-y));
+  background: rgb(var(--m-y) / 0.1);
+  border-color: rgb(var(--m-y));
+  box-shadow: 0 0 14px -5px rgb(var(--m-y) / 0.9);
+}
