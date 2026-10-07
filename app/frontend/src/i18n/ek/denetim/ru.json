@@ -122,7 +122,11 @@
       "egitim_quizleri": "Тесты и задания",
       "egitim_duyurulari": "Объявления курса",
       "egitim_ayarlari": "Настройки обучения",
-      "belgeler": "Документы и стратегические работы"
+      "belgeler": "Документы и стратегические работы",
+      "ik_personel": "Карточки сотрудников",
+      "ik_ayarlari": "Настройки кадров",
+      "ik_tatiller": "Праздники (кадры)",
+      "ik_vardiya_sablonlari": "Шаблоны смен"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

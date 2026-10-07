@@ -121,6 +121,9 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Faz 6K — eğitim: kursa yeni kayıt (kurs sahibine / ajans kursunda yöneticilere). Öğrenci/veli
     # e-postaları katalog dışı (`egitim_ogrenci`: yalnız e-posta).
     "egitim_kayit": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 6I — İK: personel portaldan izin talebi gönderdi (hesap sahibine / ajans personelinde yöneticilere).
+    # Personele giden e-postalar katalog dışı (`ik_personel`: yalnız e-posta).
+    "ik_izin_talebi": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (yöneticilere / müşteri hesabına).
     "otomasyon_bildirimi": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,

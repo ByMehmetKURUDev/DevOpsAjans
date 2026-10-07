@@ -200,6 +200,10 @@
       "belgeler": {
         "ad": "文档与战略工具",
         "aciklama": "您自己的文档、知识库和笔记（待办、版本历史、PDF/Markdown）以及战略模板：SWOT、商业模式画布、精益画布、PESTLE、波特五力、麦肯锡 7S、蓝海、Ikigai；可用 AI 撰写、摘要、校对和起草。"
+      },
+      "insan_kaynaklari": {
+        "ad": "人力资源（员工、请假、排班）",
+        "aciklama": "员工档案、请假申请与审批、年假余额（法定默认值可调整）、请假日历、每周排班，以及每位员工的免登录个人页面。不含薪资核算。"
       }
     },
     "kategori": {
@@ -265,7 +269,8 @@
       "kurs_siniri": "课程数量上限",
       "ogrenci_siniri": "学员数量上限（在读 + 候补）",
       "ai_hakki": "每月 AI 出题次数",
-      "belge_siniri": "每个账户自建文档上限"
+      "belge_siniri": "每个账户自建文档上限",
+      "personel_siniri": "在职员工上限"
     },
     "musteri": {
       "baslik": "我的模块",

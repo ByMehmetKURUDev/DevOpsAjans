@@ -122,7 +122,11 @@
       "egitim_quizleri": "Quiz ve ödevler",
       "egitim_duyurulari": "Kurs duyuruları",
       "egitim_ayarlari": "Eğitim ayarları",
-      "belgeler": "Belgeler ve strateji çalışmaları"
+      "belgeler": "Belgeler ve strateji çalışmaları",
+      "ik_personel": "Personel kartları",
+      "ik_ayarlari": "İK ayarları",
+      "ik_tatiller": "İK tatil günleri",
+      "ik_vardiya_sablonlari": "Vardiya şablonları"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

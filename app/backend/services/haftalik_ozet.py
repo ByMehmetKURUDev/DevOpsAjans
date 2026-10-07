@@ -20,7 +20,8 @@ açık destek talepleri ve SLA ihlalleri, gelen kutusunda yanıt bekleyenler (Fa
 CRM bölümündeki adayların talepleri hariç — çift sayım yok, bkz. `_gelen_kutusu`), sonraki adımı gelmiş / 7+ gündür hareketsiz CRM adayları, 3+
 gündür yanıtsız teklifler, müşteri onayı bekleyen içerikler, bekleyen belge talepleri, 14 gün içinde
 yenilenecek alan adı / SSL (elle yenilenen) / hosting, şu an erişilemeyen siteler, müşterilerin POS'unda
-kritik stok seviyesindeki ürünler (Faz 6P).
+kritik stok seviyesindeki ürünler (Faz 6P), ajansın kendi personelinin bekleyen izin talepleri (Faz 6I; gelen
+kutusu bölümünde sayılmaz).
 
 Dil: diğer yönetici bildirimleri gibi Türkçe; başlık/gövde panelden `notify_tpl_haftalik_ozet_*`
 ile değiştirilebilir (`render`). Önizleme (`ozet_hazirla`) yapılandırılmış veri döner; panel kendi
@@ -210,7 +211,8 @@ async def _gelen_kutusu(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     sz = gk.Suzgec(durum="bekleyen")
     ogeler: List[Dict[str, Any]] = []
     for kaynak in gk.KAYNAKLAR:
-        if kaynak == "destek":
+        # Faz 6I: izin talepleri kendi bölümünde ("Bekleyen izin talepleri") — çift sayım yok.
+        if kaynak in ("destek", "izin_talebi"):
             continue
         ogeler += [o for o in await gk._kaynagi_yukle(db, kaynak, sz, bg) if o["durum"] in gk.BEKLEYEN]
     aday_idleri = {o["ek"].get("crm_aday_id") for o in ogeler if o["kaynak"] in ("iletisim", "fiyat_teklifi")} - {None}
@@ -388,7 +390,26 @@ async def _stok_kritik(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     return _bolum("stok_kritik", "stokPos", len(satirlar), satirlar, hesap=hesap_sayisi)
 
 
-BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler, _stok_kritik)
+async def _ik_izin(db: AsyncSession, an: datetime) -> Dict[str, Any]:
+    """Faz 6I — ajansın KENDİ personelinin bekleyen izin talepleri (portal ya da panel; müşterilerinki kendi
+    panellerinde). En uzun bekleyen önce; satırda personel + tür ve tarih aralığı."""
+    from models.ik import IkIzinler, IkPersonel
+    from services import ik as ik_s
+
+    satirlar = (
+        await db.execute(
+            select(IkIzinler, IkPersonel.ad).join(IkPersonel, IkPersonel.id == IkIzinler.personel_id)
+            .where(IkIzinler.hesap_email.is_(None), IkIzinler.durum == "beklemede")
+            .order_by(IkIzinler.created_at.asc()).limit(500)
+        )
+    ).all()
+    ornekler = [_satir(ad, ayrinti=f"{ik_s.tur_adi(i.tur)} · {ik_s.aralik_metni(i.baslangic, i.bitis)}", tur="izin_bekliyor",
+                       gun=max(0, (an - (_utc(i.created_at) or an)).days)) for i, ad in satirlar]
+    return _bolum("ik_izin", "ik", len(ornekler), ornekler)
+
+
+BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler, _stok_kritik,
+            _ik_izin)
 
 
 async def ozet_hazirla(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
@@ -426,6 +447,7 @@ BASLIKLAR = {
     "yenilemeler": f"{YENILEME_GUN} gün içinde yenilenecekler (alan adı, SSL, hosting)",
     "siteler": "Şu an erişilemeyen siteler",
     "stok_kritik": "Müşterilerde kritik stok seviyesindeki ürünler (POS)",
+    "ik_izin": "Bekleyen izin talepleri (ajans personeli)",
 }
 YENILEME_ADLARI = {"alan": "Alan adı", "ssl": "SSL", "hosting": "Hosting"}
 
@@ -469,6 +491,7 @@ def _satir_metni(s: Dict[str, Any]) -> str:
         "kapali": f"{gun} gündür erişilemiyor" if gun else "bugün erişilemiyor",
         "yanit_bekliyor": f"{gun} gündür yanıt bekliyor" if gun else "bugün geldi",
         "kritik_stok": f"{gun} gündür kritik seviyede" if gun else "bugün kritik seviyeye indi",
+        "izin_bekliyor": f"{gun} gündür karar bekliyor" if gun else "bugün geldi",
     }.get(tur or "")
     if tur in YENILEME_ADLARI:
         durum = f"{YENILEME_ADLARI[tur]}: " + (f"{gun} gün kaldı" if (gun or 0) >= 0 else f"süresi {-(gun or 0)} gün önce doldu")

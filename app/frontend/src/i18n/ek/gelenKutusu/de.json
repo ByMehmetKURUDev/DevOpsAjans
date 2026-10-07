@@ -16,7 +16,8 @@
       "icerik_revizyon": "Inhaltsrevision",
       "belge": "Dokument",
       "egitim": "Kursanmeldung",
-      "belge_paylasim": "Dokumentfreigabe"
+      "belge_paylasim": "Dokumentfreigabe",
+      "izin_talebi": "Urlaubsantrag"
     },
     "durumSuzgeci": {
       "etiket": "Nach Status filtern",
@@ -57,7 +58,9 @@
       "uzman_istem_hazir": "Experten-Prompts (fertig)",
       "yeniden_ac": "Wieder öffnen",
       "goreve_donustur": "In Aufgabe umwandeln",
-      "paket_uygula": "Dieses Paket für diesen Kunden anwenden"
+      "paket_uygula": "Dieses Paket für diesen Kunden anwenden",
+      "onayla": "Genehmigen",
+      "reddet": "Ablehnen"
     },
     "eylemTamam": "Erledigt.",
     "eylemHata": "Die Aktion konnte nicht ausgeführt werden.",
@@ -89,7 +92,12 @@
       "ogrenci": "Teilnehmende Person",
       "veli": "Erziehungsberechtigte",
       "kayitDurumu": "Anmeldestatus",
-      "olay": "Was ist passiert"
+      "olay": "Was ist passiert",
+      "personel": "Mitarbeitende",
+      "departman": "Abteilung",
+      "izinTuru": "Urlaubsart",
+      "tarih": "Zeitraum",
+      "isGunu": "Arbeitstage"
     },
     "karar": {
       "bekliyor": "Entscheidung ausstehend",
@@ -143,6 +151,23 @@
     "belgeOlayi": {
       "paylasti": "Hat ein eigenes Dokument mit der Agentur geteilt",
       "onayladi": "Hat das geteilte Dokument gelesen und bestätigt (Version {{sayi}})"
+    },
+    "izinTuru": {
+      "yillik": "Jahresurlaub",
+      "mazeret": "Sonderurlaub",
+      "ucretsiz": "Unbezahlter Urlaub",
+      "rapor": "Krankmeldung (ärztliches Attest)",
+      "dogum": "Mutterschaftsurlaub",
+      "babalik": "Vaterschaftsurlaub",
+      "evlilik": "Hochzeitsurlaub",
+      "olum": "Trauerurlaub",
+      "diger": "Sonstiger Urlaub"
+    },
+    "izinDurum": {
+      "beklemede": "Entscheidung offen",
+      "onaylandi": "Genehmigt",
+      "reddedildi": "Abgelehnt",
+      "iptal": "Storniert"
     }
   }
 }

@@ -16,7 +16,8 @@
       "icerik_revizyon": "İçerik revizyonu",
       "belge": "Belge",
       "egitim": "Kurs kaydı",
-      "belge_paylasim": "Belge paylaşımı"
+      "belge_paylasim": "Belge paylaşımı",
+      "izin_talebi": "İzin talebi"
     },
     "durumSuzgeci": {
       "etiket": "Duruma göre süz",
@@ -57,7 +58,9 @@
       "uzman_istem_hazir": "Uzman istemleri (hazır)",
       "yeniden_ac": "Yeniden aç",
       "goreve_donustur": "Göreve dönüştür",
-      "paket_uygula": "Bu paketi bu müşteriye uygula"
+      "paket_uygula": "Bu paketi bu müşteriye uygula",
+      "onayla": "Onayla",
+      "reddet": "Reddet"
     },
     "eylemTamam": "İşlem yapıldı.",
     "eylemHata": "İşlem yapılamadı.",
@@ -89,7 +92,12 @@
       "ogrenci": "Öğrenci",
       "veli": "Veli",
       "kayitDurumu": "Kayıt durumu",
-      "olay": "Ne oldu"
+      "olay": "Ne oldu",
+      "personel": "Personel",
+      "departman": "Departman",
+      "izinTuru": "İzin türü",
+      "tarih": "Tarih",
+      "isGunu": "İş günü"
     },
     "karar": {
       "bekliyor": "Karar bekleniyor",
@@ -143,6 +151,23 @@
     "belgeOlayi": {
       "paylasti": "Kendi belgesini ajansla paylaştı",
       "onayladi": "Paylaşılan belgeyi okudu ve onayladı (sürüm {{sayi}})"
+    },
+    "izinTuru": {
+      "yillik": "Yıllık izin",
+      "mazeret": "Mazeret izni",
+      "ucretsiz": "Ücretsiz izin",
+      "rapor": "Rapor (hastalık)",
+      "dogum": "Doğum izni",
+      "babalik": "Babalık izni",
+      "evlilik": "Evlilik izni",
+      "olum": "Ölüm izni",
+      "diger": "Diğer izin"
+    },
+    "izinDurum": {
+      "beklemede": "Karar bekliyor",
+      "onaylandi": "Onaylandı",
+      "reddedildi": "Reddedildi",
+      "iptal": "İptal"
     }
   }
 }

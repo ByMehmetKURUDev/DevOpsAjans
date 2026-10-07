@@ -105,7 +105,11 @@
       "egitim_dersleri": "درس",
       "egitim_quizleri": "اختبار / واجب",
       "belgeler": "مستند / عمل استراتيجي",
-      "belge_surumleri": "إصدار مستند"
+      "belge_surumleri": "إصدار مستند",
+      "ik_personel": "موظف",
+      "ik_izinler": "سجل إجازة",
+      "ik_vardiyalar": "مناوبة",
+      "ik_dosyalar": "مستند موظف"
     }
   }
 }

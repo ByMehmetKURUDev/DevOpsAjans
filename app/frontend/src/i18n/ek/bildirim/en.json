@@ -82,7 +82,8 @@
       "stok_kritik": "Products that fell to low stock",
       "egitim_kayit": "Courses: new student enrolment",
       "belge_paylasildi": "Document shared (agency → client or client → agency)",
-      "belge_onaylandi": "Client read and approved a shared document"
+      "belge_onaylandi": "Client read and approved a shared document",
+      "ik_izin_talebi": "HR: new leave request from staff"
     },
     "kanal": {
       "inapp": "Panel",

@@ -581,6 +581,27 @@
             "c": "Aya dahil kullanım hesabınıza göre belirlenir; dolduğunda isterseniz kredi ile devam eder."
           }
         ]
+      },
+      "insan_kaynaklari": {
+        "ozet": "Personel kartı, izin talebi ve bakiyesi, izin takvimi ve haftalık vardiya planı; personel kendi sayfasından izin ister.",
+        "kimIcin": "Vardiyalı ya da izin takibi gereken kafe, restoran, mağaza, klinik, ofis ve ajanslar.",
+        "ozellikler": [
+          "Veri azaltmalı personel kartı, belge ekleri ve CSV içe/dışa aktarma",
+          "İzin talebi → onay/ret → e-posta; kıdem ve yaşa göre yıllık izin bakiyesi",
+          "Resmi tatil ve çalışma günlerine göre izin günü hesabı, izin takvimi ve ICS",
+          "Haftalık vardiya ızgarası, şablonlar, geçen haftayı kopyala, yayınla; dinlenme ve 45 saat uyarıları",
+          "Personelin girişsiz kendi sayfası: vardiyalarım, bakiye, izin talebi"
+        ],
+        "sss": [
+          {
+            "s": "Bordro ya da maaş hesabı yapıyor mu?",
+            "c": "Hayır. Modül personel, izin ve vardiya planlamasıyla sınırlıdır; bordro ve SGK bildirimi için muhasebe yazılımınızı kullanmaya devam edin."
+          },
+          {
+            "s": "İzin hakları kanuna uygun mu?",
+            "c": "4857 sayılı İş Kanunu'nun yıllık izin ve yasal izin süreleri varsayılan olarak gelir; işyerinize göre ayarlardan değiştirebilirsiniz. Hesaplar bilgilendirme amaçlıdır."
+          }
+        ]
       }
     },
     "s": {

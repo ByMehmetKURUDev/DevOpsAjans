@@ -200,6 +200,10 @@
       "belgeler": {
         "ad": "Documents and strategy tools",
         "aciklama": "Your own documents, wiki and notes (to-dos, version history, PDF/Markdown) and strategy templates: SWOT, Business Model Canvas, Lean Canvas, PESTLE, Porter, McKinsey 7S, Blue Ocean, Ikigai; write, summarize, proofread and draft with AI."
+      },
+      "insan_kaynaklari": {
+        "ad": "HR (staff, leave, shifts)",
+        "aciklama": "Staff records, leave requests and approval, annual leave balances (adjustable legal defaults), leave calendar, weekly shift plan and a no-login page for each employee. No payroll."
       }
     },
     "kategori": {
@@ -265,7 +269,8 @@
       "kurs_siniri": "Maximum courses",
       "ogrenci_siniri": "Maximum students (active + waiting)",
       "ai_hakki": "Monthly AI question generations",
-      "belge_siniri": "Maximum own documents per account"
+      "belge_siniri": "Maximum own documents per account",
+      "personel_siniri": "Maximum active staff"
     },
     "musteri": {
       "baslik": "My modules",

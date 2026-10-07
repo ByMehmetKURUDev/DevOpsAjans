@@ -105,7 +105,8 @@
       "etkinlik": "活动报名",
       "satis": "收银销售",
       "stok": "库存商品",
-      "egitim": "课程学员"
+      "egitim": "课程学员",
+      "izin": "请假记录"
     },
     "alan": {
       "id": "编号",
@@ -182,7 +183,14 @@
       "esik": "阈值",
       "veli_ad": "家长姓名",
       "veli_eposta": "家长邮箱",
-      "devamsizlik": "缺勤（节）"
+      "devamsizlik": "缺勤（节）",
+      "bitis": "结束",
+      "gun": "工作日",
+      "karar_notu": "审批备注",
+      "personel_ad": "员工姓名",
+      "personel_eposta": "员工邮箱",
+      "departman": "部门",
+      "gorev": "职位"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -217,7 +225,9 @@
       "stok_kritik": "商品降至库存预警线",
       "egitim_kayit": "课程报名",
       "egitim_tamamlandi": "完成课程（证书）",
-      "egitim_devamsizlik": "缺勤达到阈值"
+      "egitim_devamsizlik": "缺勤达到阈值",
+      "ik_izin_talebi": "新请假申请",
+      "ik_izin_karari": "请假申请已审批"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -252,7 +262,9 @@
       "stok_kritik": "商品总库存降至阈值（回升前只触发一次）。",
       "egitim_kayit": "学员报名课程或加入候补名单（表单、手动或 CSV）；未满 18 岁时联系人为家长。",
       "egitim_tamamlandi": "已向学员颁发证书（满足条件自动颁发或手动颁发）。",
-      "egitim_devamsizlik": "学员缺勤达到设定的节数（每名学员一次）。"
+      "egitim_devamsizlik": "学员缺勤达到设定的节数（每名学员一次）。",
+      "ik_izin_talebi": "员工提交了请假申请，或在面板中创建了待审批申请（病假仅含日期）。",
+      "ik_izin_karari": "待审批的请假申请被批准或拒绝（含直接以已批准添加的请假）。"
     },
     "eylem": {
       "eposta": "发送邮件",
@@ -656,7 +668,8 @@
           "yenilemeler": "14 天内到期的续费",
           "siteler": "当前无法访问的网站",
           "gelen_kutusu": "收件箱中待回复",
-          "stok_kritik": "客户低库存商品（收银）"
+          "stok_kritik": "客户低库存商品（收银）",
+          "ik_izin": "待审批请假申请（代理机构员工）"
         },
         "ek": {
           "toplam": "未付总额：{{tutar}}",
@@ -691,7 +704,9 @@
           "yanit_bekliyor": "已等待回复 {{sayi}} 天",
           "yanit_bekliyor_bugun": "今天收到",
           "kritik_stok": "已低库存 {{sayi}} 天",
-          "kritik_stok_bugun": "今天降至低库存"
+          "kritik_stok_bugun": "今天降至低库存",
+          "izin_bekliyor": "已等待审批 {{sayi}} 天",
+          "izin_bekliyor_bugun": "今天收到"
         }
       }
     }

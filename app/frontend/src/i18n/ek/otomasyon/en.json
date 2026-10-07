@@ -105,7 +105,8 @@
       "etkinlik": "Event registration",
       "satis": "POS sale",
       "stok": "Stock item",
-      "egitim": "Course student"
+      "egitim": "Course student",
+      "izin": "Leave record"
     },
     "alan": {
       "id": "ID",
@@ -182,7 +183,14 @@
       "esik": "Threshold",
       "veli_ad": "Parent name",
       "veli_eposta": "Parent email",
-      "devamsizlik": "Absences (classes)"
+      "devamsizlik": "Absences (classes)",
+      "bitis": "End",
+      "gun": "Working days",
+      "karar_notu": "Decision note",
+      "personel_ad": "Employee name",
+      "personel_eposta": "Employee email",
+      "departman": "Department",
+      "gorev": "Position"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -217,7 +225,9 @@
       "stok_kritik": "Product fell to low stock",
       "egitim_kayit": "Course enrolment",
       "egitim_tamamlandi": "Course completed (certificate)",
-      "egitim_devamsizlik": "Absence threshold reached"
+      "egitim_devamsizlik": "Absence threshold reached",
+      "ik_izin_talebi": "New leave request",
+      "ik_izin_karari": "Leave request decided"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -252,7 +262,9 @@
       "stok_kritik": "A product's total stock fell to its threshold (once until it rises above it again).",
       "egitim_kayit": "A student enrolled or joined the waiting list (form, manual or CSV); for under-18s the contact person is the parent.",
       "egitim_tamamlandi": "A certificate was issued to the student (automatically when conditions are met, or manually).",
-      "egitim_devamsizlik": "The student missed the set number of classes (once per student)."
+      "egitim_devamsizlik": "The student missed the set number of classes (once per student).",
+      "ik_izin_talebi": "An employee sent a leave request, or a pending request was created in the panel (sick leave: dates only).",
+      "ik_izin_karari": "A pending leave request was approved or declined (also leave added directly as approved)."
     },
     "eylem": {
       "eposta": "Send email",
@@ -656,7 +668,8 @@
           "yenilemeler": "Renewals due within 14 days",
           "siteler": "Sites currently unreachable",
           "gelen_kutusu": "Waiting for a reply in the inbox",
-          "stok_kritik": "Customers' products at low stock (POS)"
+          "stok_kritik": "Customers' products at low stock (POS)",
+          "ik_izin": "Pending leave requests (agency staff)"
         },
         "ek": {
           "toplam": "Total outstanding: {{tutar}}",
@@ -691,7 +704,9 @@
           "yanit_bekliyor": "waiting for a reply for {{sayi}} days",
           "yanit_bekliyor_bugun": "arrived today",
           "kritik_stok": "at low stock for {{sayi}} days",
-          "kritik_stok_bugun": "fell to low stock today"
+          "kritik_stok_bugun": "fell to low stock today",
+          "izin_bekliyor": "awaiting a decision for {{sayi}} days",
+          "izin_bekliyor_bugun": "arrived today"
         }
       }
     }

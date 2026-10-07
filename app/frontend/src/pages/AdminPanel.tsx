@@ -63,6 +63,7 @@ import {
   Ticket,
   ScanBarcode,
   GraduationCap,
+  UsersRound,
   Inbox,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -194,6 +195,8 @@ const Etkinlik = ekliLazy('etkinlik', () => import('@/components/Etkinlik'));
 const StokPos = ekliLazy('stokPos', () => import('@/components/StokPos'));
 // Faz 6K — eğitim: kurs, öğrenci, program/yoklama, dersler, quiz/ödev, sertifika (müşteri paneliyle aynı bileşen).
 const Egitim = ekliLazy('egitim', () => import('@/components/Egitim'));
+// Faz 6I — insan kaynakları: ajansın kendi personeli (tam yönetim) + müşteri hesabı seçerek salt okunur destek.
+const Ik = ekliLazy('ik', () => import('@/components/Ik'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
@@ -368,6 +371,7 @@ type Tab =
   | 'etkinlik'
   | 'stokPos'
   | 'egitim'
+  | 'ik'
   | 'baglantilar'
   | 'crm'
   | 'zaman'
@@ -1093,6 +1097,7 @@ export default function AdminPanel() {
     { key: 'etkinlik', label: t('ui.tabEtkinlik'), icon: Ticket },
     { key: 'stokPos', label: t('ui.tabStokPos'), icon: ScanBarcode },
     { key: 'egitim', label: t('ui.tabEgitim'), icon: GraduationCap },
+    { key: 'ik', label: t('ui.tabIk'), icon: UsersRound },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('yonetimMenusu.tabFiyat'), icon: DollarSign },
@@ -1309,6 +1314,18 @@ export default function AdminPanel() {
           }
         >
           <Egitim mod="yonetici" />
+        </Suspense>
+      )}
+
+      {tab === 'ik' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <Ik mod="yonetici" />
         </Suspense>
       )}
 

@@ -542,6 +542,12 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     assert y.status_code == 200, y.text
     await _ekle(db_oturumu, StokUrunleri(hesap_email=e, ad="Filtre kahve", barkod="2000000000008", satis_fiyati=100,
                                          kritik_esik=2000, kritik_at=an - timedelta(days=1)))
+    # Faz 6I: ajansın kendi personelinin bekleyen izin talebi (gelen kutusu bölümünde sayılmaz, kendi bölümünde).
+    from models.ik import IkIzinler, IkPersonel
+
+    ikp = await _ekle(db_oturumu, IkPersonel(hesap_email=None, ad="Özet Personeli", ise_giris=date(2020, 1, 1), durum="aktif"))
+    await _ekle(db_oturumu, IkIzinler(hesap_email=None, personel_id=ikp.id, tur="yillik", baslangic=date.today(),
+                                      bitis=date.today(), gun=1, durum="beklemede", kaynak="portal", created_at=an - timedelta(days=2)))
 
     from models.sozlesmeler import HatirlatmaIzleri
 
@@ -552,7 +558,7 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     o = y.json()
     bolumler = {b["anahtar"]: b for b in o["bolumler"]}
     assert list(bolumler) == ["faturalar", "destek", "gelen_kutusu", "crm", "teklifler", "icerik", "belgeler",
-                              "yenilemeler", "siteler", "stok_kritik"]
+                              "yenilemeler", "siteler", "stok_kritik", "ik_izin"]
     for b in bolumler.values():
         assert b["sayi"] >= 1 and len(b["ornekler"]) <= ho.ORNEK_SINIRI, b
     assert any(t["para_birimi"] == "USD" for t in bolumler["faturalar"]["ek"]["toplamlar"])
@@ -561,8 +567,11 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     assert any(s["ad"] == "ornek-kafe.com" and s["tur"] == "alan" for s in bolumler["yenilemeler"]["ornekler"])
     assert any(s["ad"] == "ornek-kafe.com" for s in bolumler["siteler"]["ornekler"])
     assert {b["sekme"] for b in o["bolumler"]} <= {"invoices", "tickets", "gelenKutusu", "crm", "teklifler", "icerik",
-                                                   "dosyalar", "siteler", "stokPos"}
+                                                   "dosyalar", "siteler", "stokPos", "ik"}
     assert bolumler["gelen_kutusu"]["ek"]["kaynaklar"].get("kartvizit", 0) >= 1
+    assert "izin_talebi" not in bolumler["gelen_kutusu"]["ek"]["kaynaklar"]
+    assert any(s["ad"] == "Özet Personeli" and s["tur"] == "izin_bekliyor" for s in bolumler["ik_izin"]["ornekler"]) or \
+        bolumler["ik_izin"]["sayi"] > len(bolumler["ik_izin"]["ornekler"])
     assert o["bos"] is False and o["eposta"]["konu"].startswith("Haftalık özet")
     # Önizleme gönderim izi yazmaz.
     assert (await db_oturumu.execute(iz_sayisi)).scalar() == iz_once

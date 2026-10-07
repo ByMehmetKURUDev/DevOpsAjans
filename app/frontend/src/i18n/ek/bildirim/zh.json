@@ -82,7 +82,8 @@
       "stok_kritik": "降至库存预警线的商品",
       "egitim_kayit": "课程：新学员报名",
       "belge_paylasildi": "文档已共享（代理机构 → 客户 或 客户 → 代理机构）",
-      "belge_onaylandi": "客户已阅读并确认共享文档"
+      "belge_onaylandi": "客户已阅读并确认共享文档",
+      "ik_izin_talebi": "人力资源：员工新请假申请"
     },
     "kanal": {
       "inapp": "面板",

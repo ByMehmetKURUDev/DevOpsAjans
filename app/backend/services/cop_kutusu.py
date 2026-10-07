@@ -188,6 +188,13 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 20,
         "ebeveyn": "egitim_kurslari",
     },
+    # Faz 6I: personel kartı — izin kayıtları, vardiyaları ve belge ekleriyle birlikte silinir, birlikte geri
+    # gelir (ajansın kendi personelinde sahip boş: yalnız yönetici görür). Belge eki tek başına silinince de
+    # çöpe düşer (ebeveyni yok); içeriği çöp kaydı kalıcı silinince gider.
+    "ik_personel": {"sahip": "hesap_email", "sira": 10},
+    "ik_izinler": {"sahip": "hesap_email", "sira": 20, "ebeveyn": "ik_personel"},
+    "ik_vardiyalar": {"sahip": "hesap_email", "sira": 20, "ebeveyn": "ik_personel"},
+    "ik_dosyalar": {"sahip": "hesap_email", "sira": 20},
     # Faz 4W: otomasyon kuralı (müşteride hesabın) ve özel alan tanımı (ajans; değerler kalıyor).
     "otomasyon_kurallari": {"sahip": "hesap_email", "sira": 10},
     "ozel_alanlar": {"sira": 10},
@@ -670,8 +677,9 @@ async def _icerigi_sil(db: AsyncSession, kayit: CopKutusu) -> None:
     """Çöpteki dosyanın bekletilen içeriğini siler (geri alınmamışsa).
 
     Faz 4K: kartvizit görselleri de aynı alanları taşıyor (`depo`, `depolama_anahtari`).
+    Faz 6I: personel belge ekleri (`ik_dosyalar`) da.
     """
-    if kayit.tablo not in ("files", "kartvizit_gorselleri") or kayit.geri_alindi:
+    if kayit.tablo not in ("files", "kartvizit_gorselleri", "ik_dosyalar") or kayit.geri_alindi:
         return
     veri = veri_coz(kayit)
     anahtar = veri.get("depolama_anahtari")

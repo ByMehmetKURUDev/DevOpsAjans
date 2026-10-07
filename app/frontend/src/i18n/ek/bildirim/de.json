@@ -82,7 +82,8 @@
       "stok_kritik": "Produkte mit kritischem Bestand",
       "egitim_kayit": "Kurse: neue Anmeldung",
       "belge_paylasildi": "Dokument geteilt (Agentur → Kunde oder Kunde → Agentur)",
-      "belge_onaylandi": "Kunde hat ein geteiltes Dokument gelesen und bestätigt"
+      "belge_onaylandi": "Kunde hat ein geteiltes Dokument gelesen und bestätigt",
+      "ik_izin_talebi": "Personal: neuer Urlaubsantrag"
     },
     "kanal": {
       "inapp": "Panel",

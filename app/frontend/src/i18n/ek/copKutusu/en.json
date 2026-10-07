@@ -105,7 +105,11 @@
       "egitim_dersleri": "Lesson",
       "egitim_quizleri": "Quiz / assignment",
       "belgeler": "Document / strategy work",
-      "belge_surumleri": "Document version"
+      "belge_surumleri": "Document version",
+      "ik_personel": "Staff member",
+      "ik_izinler": "Leave record",
+      "ik_vardiyalar": "Shift",
+      "ik_dosyalar": "Staff document"
     }
   }
 }

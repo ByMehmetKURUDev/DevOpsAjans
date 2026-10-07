@@ -47,7 +47,8 @@
       "kasa": "Stock & POS — till only (sales screen)",
       "egitim": "Courses (management)",
       "egitim_egitmen": "Courses: instructor (own courses only)",
-      "belgeler": "Documents, wiki and strategy tools"
+      "belgeler": "Documents, wiki and strategy tools",
+      "ik": "HR (staff, leave, shifts)"
     },
     "durum": {
       "davet": "Invitation pending",

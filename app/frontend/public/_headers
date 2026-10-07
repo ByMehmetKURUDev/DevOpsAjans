@@ -72,3 +72,10 @@
   ! Referrer-Policy
   Referrer-Policy: no-referrer
   X-Robots-Tag: noindex, nofollow
+
+# Faz 6I: girişsiz personel sayfası (/personel/<jeton>) — dizine girmez; adres jeton taşıdığı için
+# yönlendiren (Referer) hiç gönderilmez. Kamera/konum gerekmez (sitenin varsayılanı: kapalı).
+/personel/*
+  ! Referrer-Policy
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex, nofollow

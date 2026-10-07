@@ -196,6 +196,21 @@
       ]
     },
     {
+      "anahtar": "insan_kaynaklari",
+      "slug": "insan-kaynaklari",
+      "ikon": "UsersRound",
+      "kategori": "is_araclari",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "randevu",
+        "otomasyon",
+        "ai_asistan",
+        "eposta_pazarlama"
+      ],
+      "sektor_paketleri": []
+    },
+    {
       "anahtar": "belgeler",
       "slug": "belgeler",
       "ikon": "NotebookPen",

@@ -122,7 +122,11 @@
       "egitim_quizleri": "الاختبارات والواجبات",
       "egitim_duyurulari": "إعلانات الدورة",
       "egitim_ayarlari": "إعدادات التعليم",
-      "belgeler": "المستندات والأعمال الاستراتيجية"
+      "belgeler": "المستندات والأعمال الاستراتيجية",
+      "ik_personel": "سجلات الموظفين",
+      "ik_ayarlari": "إعدادات الموارد البشرية",
+      "ik_tatiller": "عطل الموارد البشرية",
+      "ik_vardiya_sablonlari": "قوالب المناوبات"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

@@ -105,7 +105,11 @@
       "egitim_dersleri": "Урок",
       "egitim_quizleri": "Тест / задание",
       "belgeler": "Документ / стратегическая работа",
-      "belge_surumleri": "Версия документа"
+      "belge_surumleri": "Версия документа",
+      "ik_personel": "Сотрудник",
+      "ik_izinler": "Запись об отпуске",
+      "ik_vardiyalar": "Смена",
+      "ik_dosyalar": "Документ сотрудника"
     }
   }
 }

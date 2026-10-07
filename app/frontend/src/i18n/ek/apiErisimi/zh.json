@@ -72,7 +72,9 @@
       "stok_kritik": "商品降至库存预警线",
       "egitim_kayit": "新的课程报名（学员或候补）",
       "egitim_tamamlandi": "课程完成，已颁发证书",
-      "egitim_devamsizlik": "学员缺勤达到阈值"
+      "egitim_devamsizlik": "学员缺勤达到阈值",
+      "ik_izin_talebi": "新请假申请（员工）",
+      "ik_izin_karari": "请假申请已审批（批准 / 拒绝）"
     },
     "anahtar": {
       "yeni": "新建密钥",

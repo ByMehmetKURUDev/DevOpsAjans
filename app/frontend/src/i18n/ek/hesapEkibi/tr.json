@@ -47,7 +47,8 @@
       "kasa": "Stok ve POS — yalnız kasa (satış ekranı)",
       "egitim": "Eğitim (yönetim)",
       "egitim_egitmen": "Eğitim: eğitmen (yalnız kendi kursları)",
-      "belgeler": "Belgeler, wiki ve strateji araçları"
+      "belgeler": "Belgeler, wiki ve strateji araçları",
+      "ik": "İnsan kaynakları (personel, izin, vardiya)"
     },
     "durum": {
       "davet": "Davet bekliyor",

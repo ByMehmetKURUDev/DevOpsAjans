@@ -20,6 +20,8 @@ export const KAYNAKLAR = [
   'egitim',
   // Faz 5B: müşterinin ajansla paylaştığı belge / paylaşılan belgeye onayı.
   'belge_paylasim',
+  // Faz 6I: ajansın kendi personelinin portaldan gönderdiği izin talebi.
+  'izin_talebi',
 ] as const;
 export type Kaynak = (typeof KAYNAKLAR)[number];
 

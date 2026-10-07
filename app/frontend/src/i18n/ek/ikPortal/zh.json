@@ -1,0 +1,91 @@
+{
+  "ikPortal": {
+    "merhaba": "{{ad}}，您好",
+    "gun": "天",
+    "bakiye": {
+      "baslik": "剩余年假",
+      "devir": "结转",
+      "kazanilan": "已获得",
+      "kullanilan": "已使用",
+      "bekleyen": "待审批",
+      "sonraki": "下次累计：{{tarih}} · {{gun}} 天"
+    },
+    "vardiya": {
+      "baslik": "我的班次",
+      "takvim": "添加到日历",
+      "bos": "暂无即将到来的已发布班次。"
+    },
+    "talep": {
+      "baslik": "申请请假",
+      "tur": "假期类型",
+      "baslangic": "开始",
+      "bitis": "结束",
+      "yarim": "半天",
+      "onizleme": "{{gun}} 个工作日（{{takvim}} 个日历日）",
+      "yasalIsGunu": "法定 {{sayi}} 个工作日",
+      "yasalTakvim": "法定 {{sayi}} 个日历日",
+      "raporNotu": "病假只记录日期范围，不记录诊断或说明。",
+      "aciklama": "简短备注（可选）",
+      "gonder": "提交申请"
+    },
+    "gonderildi": "申请已提交；审批结果将通过邮件通知您。",
+    "zatenVar": "您已提交过此申请。",
+    "geriCekOnay": "撤回此申请？",
+    "gecmis": {
+      "baslik": "我的请假记录",
+      "bos": "暂无请假记录。",
+      "gun": "{{sayi}} 个工作日",
+      "not": "备注：{{not}}",
+      "geriCek": "撤回"
+    },
+    "tur": {
+      "yillik": "年假",
+      "mazeret": "事假",
+      "ucretsiz": "无薪假",
+      "rapor": "病假（医疗证明）",
+      "dogum": "产假",
+      "babalik": "陪产假",
+      "evlilik": "婚假",
+      "olum": "丧假",
+      "diger": "其他假期"
+    },
+    "durumlar": {
+      "beklemede": "待审批",
+      "onaylandi": "已批准",
+      "reddedildi": "已拒绝",
+      "iptal": "已取消"
+    },
+    "durum": {
+      "gecersiz": "链接无效",
+      "gecersizAciklama": "链接有误或已被更新。请向主管索取新链接。",
+      "kapali": "链接已关闭",
+      "kapaliAciklama": "该链接已被撤销或不再使用。",
+      "hata": "出现问题",
+      "hataAciklama": "页面暂时无法打开，请稍后再试。"
+    },
+    "uyari": {
+      "cakisan_talep": "这些日期您已有其他申请。",
+      "bakiye_yetersiz": "您的年假余额可能不足以覆盖此申请。",
+      "yasal_sure_asildi": "申请的天数超过工作场所设定的法定期限。",
+      "calisma_gunu_yok": "该期间没有工作日（周末或公共假日）。"
+    },
+    "hata": {
+      "genel": "出现问题，请重试。",
+      "ag": "无法连接服务器，请检查网络。",
+      "cok_hizli": "操作过于频繁，请稍后重试。",
+      "cok_eski": "无法为这么久以前的日期提交申请。",
+      "bitis_once": "结束日期不能早于开始日期。",
+      "yarim_tek_gun": "只有单日请假可选择半天。",
+      "aralik_cok_uzun": "日期范围过长（最多 {{en_cok}} 天）。",
+      "secim_gecersiz": "选择无效。",
+      "tarih_gecersiz": "日期无效。",
+      "zorunlu": "请填写必填项。",
+      "govde_gecersiz": "无法读取请求。",
+      "personel_ayrildi": "该员工已离职，无法操作。",
+      "modul_kapali": "该账户未开通人力资源模块。",
+      "baglanti_gecersiz": "链接无效",
+      "baglanti_kapali": "链接已关闭"
+    },
+    "not": "此页面为您个人专属，请勿分享链接。假期余额仅供参考，准确信息请咨询雇主。"
+  }
+}

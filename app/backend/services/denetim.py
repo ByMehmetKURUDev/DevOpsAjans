@@ -127,6 +127,11 @@ HARIC_TABLOLAR = frozenset({
     # sertifika satırları, AI sayacı. Kurs, oturum, ders, quiz, duyuru ve hesap ayarı kaydediliyor.
     "egitim_ogrencileri", "egitim_yoklama", "egitim_ilerleme", "egitim_denemeleri", "egitim_teslimleri",
     "egitim_dosyalari", "egitim_sertifikalari", "egitim_ai_kullanimi",
+    # Faz 6I: İK — izin kayıtları (rapor tarihleri sağlıkla ilgili özel nitelikli veri olabilir; kendi izini var:
+    # talep eden, karar veren + zaman, iptal eden + zaman), vardiyalar (yüksek hacim, kopyala/yayınla; yayın zamanı
+    # kendi satırında) ve personel belge ekleri (dosya içeriği kişisel). Personel kartı, ayarlar, tatil günleri
+    # ve vardiya şablonları kaydediliyor.
+    "ik_izinler", "ik_vardiyalar", "ik_dosyalar",
     # Faz 4W: otomasyon kuyruğu/günlüğü (her olayda satır; kendi 30 günlük günlüğü var).
     # Kurallar, özel alan tanımları ve değerleri kaydediliyor.
     "otomasyon_calismalari",
@@ -194,6 +199,8 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     "saha_cihazlari": frozenset({"bakim_bildirim_tarihi"}),
     # Faz 5B: arama için türetilmiş metin (başlık/gövde değişikliği zaten kaydediliyor).
     "belgeler": frozenset({"arama_metni"}),
+    # Faz 6I: personelin portalı son açtığı an (her ziyarette yazılıyor).
+    "ik_personel": frozenset({"portal_son_at"}),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

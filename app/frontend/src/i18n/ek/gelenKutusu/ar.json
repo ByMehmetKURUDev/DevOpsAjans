@@ -16,7 +16,8 @@
       "icerik_revizyon": "تعديل محتوى",
       "belge": "مستند",
       "egitim": "تسجيل في دورة",
-      "belge_paylasim": "مشاركة المستندات"
+      "belge_paylasim": "مشاركة المستندات",
+      "izin_talebi": "طلب إجازة"
     },
     "durumSuzgeci": {
       "etiket": "التصفية حسب الحالة",
@@ -57,7 +58,9 @@
       "uzman_istem_hazir": "موجّهات الخبراء (جاهزة)",
       "yeniden_ac": "إعادة الفتح",
       "goreve_donustur": "تحويل إلى مهمة",
-      "paket_uygula": "طبّق هذه الباقة على هذا العميل"
+      "paket_uygula": "طبّق هذه الباقة على هذا العميل",
+      "onayla": "موافقة",
+      "reddet": "رفض"
     },
     "eylemTamam": "تمّ.",
     "eylemHata": "تعذّر تنفيذ الإجراء.",
@@ -89,7 +92,12 @@
       "ogrenci": "الطالب",
       "veli": "وليّ الأمر",
       "kayitDurumu": "حالة التسجيل",
-      "olay": "ماذا حدث"
+      "olay": "ماذا حدث",
+      "personel": "الموظف",
+      "departman": "القسم",
+      "izinTuru": "نوع الإجازة",
+      "tarih": "التواريخ",
+      "isGunu": "أيام العمل"
     },
     "karar": {
       "bekliyor": "بانتظار القرار",
@@ -143,6 +151,23 @@
     "belgeOlayi": {
       "paylasti": "شارك مستنده الخاص مع الوكالة",
       "onayladi": "قرأ المستند المُشارك ووافق عليه (الإصدار {{sayi}})"
+    },
+    "izinTuru": {
+      "yillik": "إجازة سنوية",
+      "mazeret": "إجازة ظرفية",
+      "ucretsiz": "إجازة غير مدفوعة",
+      "rapor": "إجازة مرضية (تقرير طبي)",
+      "dogum": "إجازة أمومة",
+      "babalik": "إجازة أبوة",
+      "evlilik": "إجازة زواج",
+      "olum": "إجازة وفاة",
+      "diger": "إجازة أخرى"
+    },
+    "izinDurum": {
+      "beklemede": "بانتظار القرار",
+      "onaylandi": "موافق عليها",
+      "reddedildi": "مرفوضة",
+      "iptal": "ملغاة"
     }
   }
 }

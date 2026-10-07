@@ -122,7 +122,11 @@
       "egitim_quizleri": "Quizzes and assignments",
       "egitim_duyurulari": "Course announcements",
       "egitim_ayarlari": "Course settings",
-      "belgeler": "Documents and strategy work"
+      "belgeler": "Documents and strategy work",
+      "ik_personel": "Staff records",
+      "ik_ayarlari": "HR settings",
+      "ik_tatiller": "HR holidays",
+      "ik_vardiya_sablonlari": "Shift templates"
     },
     "hareket": {
       "baslik": "Account activity",

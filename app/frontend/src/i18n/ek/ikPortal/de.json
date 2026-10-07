@@ -1,0 +1,91 @@
+{
+  "ikPortal": {
+    "merhaba": "Hallo {{ad}}",
+    "gun": "Tage",
+    "bakiye": {
+      "baslik": "Resturlaub",
+      "devir": "Übertrag",
+      "kazanilan": "Erworben",
+      "kullanilan": "Genommen",
+      "bekleyen": "Beantragt",
+      "sonraki": "Nächster Anspruch: {{tarih}} · {{gun}} Tage"
+    },
+    "vardiya": {
+      "baslik": "Meine Schichten",
+      "takvim": "Zum Kalender",
+      "bos": "Keine anstehenden veröffentlichten Schichten."
+    },
+    "talep": {
+      "baslik": "Urlaub beantragen",
+      "tur": "Urlaubsart",
+      "baslangic": "Beginn",
+      "bitis": "Ende",
+      "yarim": "Halber Tag",
+      "onizleme": "{{gun}} Arbeitstage ({{takvim}} Kalendertage)",
+      "yasalIsGunu": "gesetzlich {{sayi}} Arbeitstage",
+      "yasalTakvim": "gesetzlich {{sayi}} Kalendertage",
+      "raporNotu": "Bei Krankmeldungen wird nur der Zeitraum erfasst; keine Diagnose und keine Notiz.",
+      "aciklama": "Kurze Notiz (optional)",
+      "gonder": "Antrag senden"
+    },
+    "gonderildi": "Ihr Antrag wurde gesendet; die Entscheidung kommt per E-Mail.",
+    "zatenVar": "Diesen Antrag haben Sie bereits gesendet.",
+    "geriCekOnay": "Diesen Antrag zurückziehen?",
+    "gecmis": {
+      "baslik": "Mein Urlaubsverlauf",
+      "bos": "Noch keine Urlaubseinträge.",
+      "gun": "{{sayi}} Arbeitstage",
+      "not": "Hinweis: {{not}}",
+      "geriCek": "Zurückziehen"
+    },
+    "tur": {
+      "yillik": "Jahresurlaub",
+      "mazeret": "Sonderurlaub",
+      "ucretsiz": "Unbezahlter Urlaub",
+      "rapor": "Krankmeldung (ärztliches Attest)",
+      "dogum": "Mutterschaftsurlaub",
+      "babalik": "Vaterschaftsurlaub",
+      "evlilik": "Hochzeitsurlaub",
+      "olum": "Trauerurlaub",
+      "diger": "Sonstiger Urlaub"
+    },
+    "durumlar": {
+      "beklemede": "Offen",
+      "onaylandi": "Genehmigt",
+      "reddedildi": "Abgelehnt",
+      "iptal": "Storniert"
+    },
+    "durum": {
+      "gecersiz": "Ungültiger Link",
+      "gecersizAciklama": "Der Link ist falsch oder wurde erneuert. Bitten Sie Ihre Vorgesetzten um einen neuen Link.",
+      "kapali": "Link geschlossen",
+      "kapaliAciklama": "Dieser Link wurde widerrufen oder wird nicht mehr verwendet.",
+      "hata": "Etwas ist schiefgelaufen",
+      "hataAciklama": "Die Seite konnte gerade nicht geöffnet werden. Bitte später erneut versuchen."
+    },
+    "uyari": {
+      "cakisan_talep": "Für diese Tage gibt es bereits einen anderen Antrag.",
+      "bakiye_yetersiz": "Ihr Jahresurlaub reicht für diesen Antrag eventuell nicht.",
+      "yasal_sure_asildi": "Die beantragte Dauer überschreitet die vom Betrieb festgelegte gesetzliche Dauer.",
+      "calisma_gunu_yok": "Keine Arbeitstage in diesem Zeitraum (Wochenende oder Feiertag)."
+    },
+    "hata": {
+      "genel": "Etwas ist schiefgelaufen. Bitte erneut versuchen.",
+      "ag": "Server nicht erreichbar. Verbindung prüfen.",
+      "cok_hizli": "Zu viele Aktionen; kurz warten und erneut versuchen.",
+      "cok_eski": "Für ein so altes Datum ist kein Antrag möglich.",
+      "bitis_once": "Das Ende darf nicht vor dem Beginn liegen.",
+      "yarim_tek_gun": "Halber Tag nur bei eintägigem Urlaub.",
+      "aralik_cok_uzun": "Zeitraum zu lang (höchstens {{en_cok}} Tage).",
+      "secim_gecersiz": "Ungültige Auswahl.",
+      "tarih_gecersiz": "Ungültiges Datum.",
+      "zorunlu": "Pflichtfelder ausfüllen.",
+      "govde_gecersiz": "Anfrage konnte nicht gelesen werden.",
+      "personel_ayrildi": "Diese Person ist ausgeschieden; Aktion nicht möglich.",
+      "modul_kapali": "Das Personalmodul ist für dieses Konto deaktiviert.",
+      "baglanti_gecersiz": "Ungültiger Link",
+      "baglanti_kapali": "Link geschlossen"
+    },
+    "not": "Diese Seite ist persönlich; teilen Sie den Link nicht. Das Urlaubskonto dient nur zur Information; verbindliche Angaben erhalten Sie vom Arbeitgeber."
+  }
+}

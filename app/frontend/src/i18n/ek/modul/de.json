@@ -200,6 +200,10 @@
       "belgeler": {
         "ad": "Dokumente und Strategie-Tools",
         "aciklama": "Eigene Dokumente, Wiki und Notizen (Aufgaben, Versionsverlauf, PDF/Markdown) und Strategievorlagen: SWOT, Business Model Canvas, Lean Canvas, PESTLE, Porter, McKinsey 7S, Blue Ocean, Ikigai; mit KI schreiben, zusammenfassen, korrigieren und entwerfen."
+      },
+      "insan_kaynaklari": {
+        "ad": "Personalwesen (Personal, Urlaub, Schichten)",
+        "aciklama": "Personalakten, Urlaubsanträge und Genehmigung, Urlaubskonten (anpassbare gesetzliche Vorgaben), Urlaubskalender, wöchentlicher Schichtplan und eine Seite ohne Login für jede Person. Keine Lohnabrechnung."
       }
     },
     "kategori": {
@@ -265,7 +269,8 @@
       "kurs_siniri": "Höchstzahl an Kursen",
       "ogrenci_siniri": "Höchstzahl an Teilnehmenden (aktiv + wartend)",
       "ai_hakki": "KI-Fragenerstellungen pro Monat",
-      "belge_siniri": "Höchstzahl eigener Dokumente pro Konto"
+      "belge_siniri": "Höchstzahl eigener Dokumente pro Konto",
+      "personel_siniri": "Höchstzahl aktives Personal"
     },
     "musteri": {
       "baslik": "Meine Module",

@@ -613,6 +613,18 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             miktar = round(await toplam_stok(db, u.id) / 1000, 3)
         b["stok"] = {"urun_id": u.id, "ad": u.ad, "barkod": u.barkod, "sku": u.sku, "kategori": u.kategori, "birim": u.birim,
                      "miktar": miktar, "esik": round(u.kritik_esik / 1000, 3) if u.kritik_esik is not None else None}
+    elif on == "ik":
+        # Faz 6I — izin talebi / kararı: olay verisinde izin ve personel kimliği (kişi alanları kayıttan).
+        from models.ik import IkIzinler, IkPersonel
+
+        iz = await _kayit(db, IkIzinler, veri.get("izin_id"))
+        if iz is None:
+            return None
+        pe = await _kayit(db, IkPersonel, iz.personel_id)
+        b["izin"] = {"id": iz.id, "tur": iz.tur, "baslangic": iz.baslangic.isoformat(), "bitis": iz.bitis.isoformat(),
+                     "gun": float(iz.gun or 0), "durum": iz.durum, "kaynak": iz.kaynak, "karar_notu": iz.karar_notu,
+                     "personel_ad": pe.ad if pe else None, "personel_eposta": pe.eposta if pe else None,
+                     "departman": pe.departman if pe else None, "gorev": pe.gorev if pe else None}
     elif on == "egitim":
         # Faz 6K — kayıt / tamamlandı / devamsızlık: olay verisinde öğrenci kimliği var (kişi alanları kayıttan).
         from models.egitim import EgitimKurslari, EgitimOgrencileri, EgitimSertifikalari

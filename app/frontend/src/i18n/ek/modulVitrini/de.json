@@ -581,6 +581,27 @@
             "c": "Das monatliche Kontingent hängt von Ihrem Konto ab; danach können Sie auf Wunsch mit Guthaben weitermachen."
           }
         ]
+      },
+      "insan_kaynaklari": {
+        "ozet": "Personalakten, Urlaubsanträge und -konten, Urlaubskalender und wöchentlicher Schichtplan; Mitarbeitende beantragen Urlaub auf ihrer Seite.",
+        "kimIcin": "Cafés, Restaurants, Läden, Praxen, Büros und Agenturen mit Schichten oder Urlaubsplanung.",
+        "ozellikler": [
+          "Datensparsame Personalakten, Dokumente und CSV-Import/-Export",
+          "Urlaubsantrag → genehmigen/ablehnen → E-Mail; Jahresurlaub nach Dienstjahren und Alter",
+          "Urlaubstage unter Berücksichtigung von Feiertagen und Arbeitstagen, Kalender und ICS",
+          "Wöchentliches Schichtraster, Vorlagen, Vorwoche kopieren, veröffentlichen; Ruhezeit- und 45-Stunden-Warnungen",
+          "Seite ohne Login für jede Person: meine Schichten, Urlaubskonto, Antrag"
+        ],
+        "sss": [
+          {
+            "s": "Macht es die Lohnabrechnung?",
+            "c": "Nein. Das Modul umfasst nur Personal-, Urlaubs- und Schichtplanung; Lohnabrechnung und Sozialversicherungsmeldungen bleiben in Ihrer Buchhaltungssoftware."
+          },
+          {
+            "s": "Sind die Urlaubsansprüche rechtlich korrekt?",
+            "c": "Die Vorgaben des türkischen Arbeitsgesetzes Nr. 4857 sind voreingestellt und lassen sich für Ihren Betrieb anpassen. Die Berechnungen dienen nur zur Information."
+          }
+        ]
       }
     },
     "s": {

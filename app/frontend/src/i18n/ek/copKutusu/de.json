@@ -105,7 +105,11 @@
       "egitim_dersleri": "Lektion",
       "egitim_quizleri": "Quiz / Hausaufgabe",
       "belgeler": "Dokument / Strategiearbeit",
-      "belge_surumleri": "Dokumentversion"
+      "belge_surumleri": "Dokumentversion",
+      "ik_personel": "Mitarbeitende",
+      "ik_izinler": "Urlaubseintrag",
+      "ik_vardiyalar": "Schicht",
+      "ik_dosyalar": "Personaldokument"
     }
   }
 }

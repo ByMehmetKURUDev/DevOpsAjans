@@ -495,7 +495,8 @@
     "tabSahaServisi": "Выездной сервис",
     "tabEtkinlik": "Мероприятия",
     "tabStokPos": "Склад и касса",
-    "tabEgitim": "Обучение"
+    "tabEgitim": "Обучение",
+    "tabIk": "Кадры"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

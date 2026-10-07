@@ -72,7 +72,9 @@
       "stok_kritik": "Produkt hat Mindestbestand erreicht",
       "egitim_kayit": "Neue Kursanmeldung (Teilnehmende oder Warteliste)",
       "egitim_tamamlandi": "Kurs abgeschlossen, Zertifikat ausgestellt",
-      "egitim_devamsizlik": "Fehlzeitenschwelle erreicht"
+      "egitim_devamsizlik": "Fehlzeitenschwelle erreicht",
+      "ik_izin_talebi": "Neuer Urlaubsantrag (Personal)",
+      "ik_izin_karari": "Über Urlaubsantrag entschieden (genehmigt / abgelehnt)"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

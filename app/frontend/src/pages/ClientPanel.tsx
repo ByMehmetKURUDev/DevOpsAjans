@@ -32,6 +32,7 @@ import {
   Ticket,
   ScanBarcode,
   GraduationCap,
+  UsersRound,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -134,6 +135,8 @@ const Etkinlik = ekliLazy('etkinlik', () => import('@/components/Etkinlik'));
 const StokPos = ekliLazy('stokPos', () => import('@/components/StokPos'));
 // Faz 6K — eğitim (yönetici paneliyle aynı bileşen, müşteri modu; `egitim_egitmen` izinli üyeye yalnız kendi kursları).
 const Egitim = ekliLazy('egitim', () => import('@/components/Egitim'));
+// Faz 6I — insan kaynakları (yönetici paneliyle aynı bileşen, müşteri modu; ekip izni `ik`).
+const Ik = ekliLazy('ik', () => import('@/components/Ik'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -216,6 +219,7 @@ type Tab =
   | 'etkinlik'
   | 'stokPos'
   | 'egitim'
+  | 'ik'
   | 'dosyalar'
   | 'api'
   | 'profile';
@@ -246,6 +250,7 @@ const SEKMELER: Tab[] = [
   'etkinlik',
   'stokPos',
   'egitim',
+  'ik',
   'dosyalar',
   'api',
   'profile',
@@ -256,7 +261,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim', 'ik'];
 
 /**
  * `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın.
@@ -781,6 +786,7 @@ export default function ClientPanel() {
     etkinlik: { label: t('ui.tabEtkinlik'), icon: Ticket },
     stokPos: { label: t('ui.tabStokPos'), icon: ScanBarcode },
     egitim: { label: t('ui.tabEgitim'), icon: GraduationCap },
+    ik: { label: t('ui.tabIk'), icon: UsersRound },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
@@ -1532,6 +1538,18 @@ export default function ClientPanel() {
               }
             >
               <Egitim mod="musteri" />
+            </Suspense>
+          )}
+
+          {tab === 'ik' && modulBilgisi !== null && modulAcik('insan_kaynaklari') && izinVar(['ik']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <Ik mod="musteri" />
             </Suspense>
           )}
 

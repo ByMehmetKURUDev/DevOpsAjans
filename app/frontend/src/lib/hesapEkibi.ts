@@ -48,6 +48,8 @@ export const IZINLER = [
   // Faz 6K — eğitim (yönetim) ve eğitmen (yalnız kendi kursları: yoklama + not).
   'egitim',
   'egitim_egitmen',
+  // Faz 6I — insan kaynakları (personel, izin, vardiya; yönetim).
+  'ik',
   // Faz 5B — belgeler, wiki ve strateji araçları (kendi belgeleri; paylaşılanı okumak `dosyalar` ile de).
   'belgeler',
 ] as const;
@@ -218,4 +220,5 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   etkinlik: ['etkinlik', 'etkinlik_giris'],
   stokPos: ['stok', 'kasa'],
   egitim: ['egitim', 'egitim_egitmen'],
+  ik: ['ik'],
 };

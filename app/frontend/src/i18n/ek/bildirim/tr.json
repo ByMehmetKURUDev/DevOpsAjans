@@ -82,7 +82,8 @@
       "stok_kritik": "Kritik stok seviyesine inen ürünler",
       "egitim_kayit": "Eğitim: yeni öğrenci kaydı",
       "belge_paylasildi": "Belge paylaşıldı (ajans → müşteri ya da müşteri → ajans)",
-      "belge_onaylandi": "Müşteri paylaşılan belgeyi okudu ve onayladı"
+      "belge_onaylandi": "Müşteri paylaşılan belgeyi okudu ve onayladı",
+      "ik_izin_talebi": "İK: personelden yeni izin talebi"
     },
     "kanal": {
       "inapp": "Panel",

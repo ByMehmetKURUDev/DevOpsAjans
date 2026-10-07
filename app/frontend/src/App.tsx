@@ -91,6 +91,9 @@ const EtkinlikSayfasi = lazy(() => import('./pages/EtkinlikSayfasi'));
 // okutucusu ve hesabın kurs listesi. Site düzeni dışında, prerender yok, varsayılan noindex; metinleri sayfa
 // kendisi yüklüyor (ek paket `egitimSayfa`); önizleme/JSON-LD/kamera izni Pages Function'ında.
 const EgitimSayfasi = lazy(() => import('./pages/EgitimSayfasi'));
+// Faz 6I: girişsiz personel sayfası (imzalı bağlantı: vardiyalarım, izin bakiyesi, izin talebi, ICS). Site
+// düzeni dışında, prerender yok, noindex (sayfa + `_headers`); metinleri sayfa kendisi yüklüyor (ek paket `ikPortal`).
+const PersonelSayfasi = lazy(() => import('./pages/PersonelSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -206,6 +209,8 @@ const AppRoutes = () => (
       <Route path="/egitim/okut/:kid/:oid" element={<EgitimSayfasi gorunum="okut" />} />
       <Route path="/egitim/kurum/:slug" element={<EgitimSayfasi gorunum="kurum" />} />
       <Route path="/egitim/:slug" element={<EgitimSayfasi gorunum="kurs" />} />
+      {/* Faz 6I: personel portalı — imzalı jetonlu (girişsiz). */}
+      <Route path="/personel/:jeton" element={<PersonelSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

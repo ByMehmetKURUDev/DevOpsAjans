@@ -1,0 +1,91 @@
+{
+  "ikPortal": {
+    "merhaba": "Hello {{ad}}",
+    "gun": "days",
+    "bakiye": {
+      "baslik": "Annual leave left",
+      "devir": "Carried over",
+      "kazanilan": "Earned",
+      "kullanilan": "Used",
+      "bekleyen": "Pending",
+      "sonraki": "Next accrual: {{tarih}} · {{gun}} days"
+    },
+    "vardiya": {
+      "baslik": "My shifts",
+      "takvim": "Add to calendar",
+      "bos": "You have no upcoming published shifts."
+    },
+    "talep": {
+      "baslik": "Request leave",
+      "tur": "Leave type",
+      "baslangic": "Start",
+      "bitis": "End",
+      "yarim": "Half day",
+      "onizleme": "{{gun}} working days ({{takvim}} calendar days)",
+      "yasalIsGunu": "statutory {{sayi}} working days",
+      "yasalTakvim": "statutory {{sayi}} calendar days",
+      "raporNotu": "For sick leave only the date range is recorded; no diagnosis or note is written.",
+      "aciklama": "Short note (optional)",
+      "gonder": "Send request"
+    },
+    "gonderildi": "Your request was sent; the decision will be emailed to you.",
+    "zatenVar": "You have already sent this request.",
+    "geriCekOnay": "Withdraw this request?",
+    "gecmis": {
+      "baslik": "My leave history",
+      "bos": "No leave records yet.",
+      "gun": "{{sayi}} working days",
+      "not": "Note: {{not}}",
+      "geriCek": "Withdraw"
+    },
+    "tur": {
+      "yillik": "Annual leave",
+      "mazeret": "Compassionate leave",
+      "ucretsiz": "Unpaid leave",
+      "rapor": "Sick leave (medical report)",
+      "dogum": "Maternity leave",
+      "babalik": "Paternity leave",
+      "evlilik": "Marriage leave",
+      "olum": "Bereavement leave",
+      "diger": "Other leave"
+    },
+    "durumlar": {
+      "beklemede": "Pending",
+      "onaylandi": "Approved",
+      "reddedildi": "Declined",
+      "iptal": "Cancelled"
+    },
+    "durum": {
+      "gecersiz": "Invalid link",
+      "gecersizAciklama": "The link is wrong or may have been renewed. Ask your manager for a new link.",
+      "kapali": "Link closed",
+      "kapaliAciklama": "This link was revoked or is no longer in use.",
+      "hata": "Something went wrong",
+      "hataAciklama": "The page could not be opened right now. Please try again later."
+    },
+    "uyari": {
+      "cakisan_talep": "You have another request on these dates.",
+      "bakiye_yetersiz": "Your annual leave balance may not cover this request.",
+      "yasal_sure_asildi": "The requested duration exceeds the statutory duration set by your workplace.",
+      "calisma_gunu_yok": "No working days in this range (weekend or public holiday)."
+    },
+    "hata": {
+      "genel": "Something went wrong. Please try again.",
+      "ag": "Could not reach the server. Check your connection.",
+      "cok_hizli": "Too many actions; wait a moment and try again.",
+      "cok_eski": "Requests cannot be sent for such an old date.",
+      "bitis_once": "The end date cannot be before the start date.",
+      "yarim_tek_gun": "Half day can only be chosen for a single-day leave.",
+      "aralik_cok_uzun": "Date range is too long (at most {{en_cok}} days).",
+      "secim_gecersiz": "Invalid selection.",
+      "tarih_gecersiz": "Invalid date.",
+      "zorunlu": "Fill in the required fields.",
+      "govde_gecersiz": "The request could not be read.",
+      "personel_ayrildi": "This person has left; the action is not possible.",
+      "modul_kapali": "The HR module is turned off for this account.",
+      "baglanti_gecersiz": "Invalid link",
+      "baglanti_kapali": "Link closed"
+    },
+    "not": "This page is personal; do not share the link. The leave balance is for information only; ask your employer for definitive figures."
+  }
+}

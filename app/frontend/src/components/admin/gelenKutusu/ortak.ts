@@ -10,6 +10,7 @@ import {
   Mail,
   MessagesSquare,
   PenTool,
+  Plane,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -28,6 +29,7 @@ export const KAYNAK_IKONU: Record<Kaynak, LucideIcon> = {
   belge: FileUp,
   egitim: GraduationCap,
   belge_paylasim: BookText,
+  izin_talebi: Plane,
 };
 
 export const DURUM_RENGI: Record<Durum, string> = {

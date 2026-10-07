@@ -122,7 +122,11 @@
       "egitim_quizleri": "क्विज़ और असाइनमेंट",
       "egitim_duyurulari": "पाठ्यक्रम सूचनाएँ",
       "egitim_ayarlari": "शिक्षा सेटिंग्स",
-      "belgeler": "दस्तावेज़ और रणनीति कार्य"
+      "belgeler": "दस्तावेज़ और रणनीति कार्य",
+      "ik_personel": "कर्मचारी रिकॉर्ड",
+      "ik_ayarlari": "HR सेटिंग्स",
+      "ik_tatiller": "HR अवकाश दिवस",
+      "ik_vardiya_sablonlari": "शिफ्ट टेम्पलेट"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

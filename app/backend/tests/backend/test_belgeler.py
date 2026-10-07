@@ -631,7 +631,7 @@ def test_eski_varsayilan_uyeler_belgeler_iznini_alir_ozellestirilmis_almaz():
                 "kartvizit", "menu", "randevu", "asistan", "icerik", "etkinlik_giris"]
     assert "belgeler" in he.izinleri_coz(json.dumps(eski_uye), "uye")
     # Canlıdaki yönetici varsayılanı: bugünkü IZINLER'den 5B ile birlikte yayına çıkan 6P/6K izinleri de düşülür.
-    yeni = {"belgeler", "stok", "kasa", "egitim", "egitim_egitmen"}
+    yeni = {"belgeler", "stok", "kasa", "egitim", "egitim_egitmen", "ik"}  # Faz 6I: ik o gün yoktu
     assert "belgeler" in he.izinleri_coz(json.dumps(sorted(set(he.IZINLER) - yeni)), "yonetici")
     assert "belgeler" not in he.izinleri_coz(json.dumps(["projeler", "dosyalar"]), "uye")
     assert "belgeler" in he.ROL_VARSAYILAN["uye"] and "belgeler" not in he.ROL_VARSAYILAN["fatura"]

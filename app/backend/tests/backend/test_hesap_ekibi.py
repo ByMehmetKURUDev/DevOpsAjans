@@ -357,6 +357,27 @@ async def ekip(db_oturumu):
     blp = await _ekle(db, Belgeler(tur="swot", baslik="Ajansın SWOT'u", icerik='{"isletme": "", "kutular": {}}',
                                    etiketler="[]", alan="musteri", musteri_email=s, gorunurluk="paylasilan", surum=1))
     k.update(BLK=blk.id, BLP=blp.id)
+    # Faz 6I: `ik` (insan kaynakları yönetimi) üye/fatura rolünün varsayılanında yok — API üyesine (apici)
+    # ayrıca veriliyor (üye sayısı değişmesin). Sahibin İK kayıtları: personel, izin, şablon, vardiya, tatil, belge.
+    from datetime import date as _date6i
+
+    from models.ik import IkDosyalar, IkIzinler, IkPersonel, IkTatiller, IkVardiyalar, IkVardiyaSablonlari
+
+    await db.execute(_update(HesapUyeleri).where(HesapUyeleri.hesap_email == s, HesapUyeleri.uye_email == k["apici"])
+                     .values(izinler=json.dumps(["projeler", "api", "otomasyon", "ik"])))
+    await db.commit()
+    _he.onbellegi_temizle()
+    ikp = await _ekle(db, IkPersonel(hesap_email=s, ad="Sahibin personeli", eposta="personel@ornek.com",
+                                     ise_giris=_date6i(2020, 1, 15), durum="aktif"))
+    iki = await _ekle(db, IkIzinler(hesap_email=s, personel_id=ikp.id, tur="yillik", baslangic=_date6i(2030, 1, 7),
+                                    bitis=_date6i(2030, 1, 8), gun=2, durum="beklemede", kaynak="panel"))
+    iks = await _ekle(db, IkVardiyaSablonlari(hesap_email=s, ad="Sabah", baslangic="08:00", bitis="16:00", mola_dk=30))
+    ikv = await _ekle(db, IkVardiyalar(hesap_email=s, personel_id=ikp.id, tarih=_date6i(2030, 1, 7),
+                                       bas=_dt6(2030, 1, 7, 8, 0), bit=_dt6(2030, 1, 7, 16, 0), mola_dk=30, durum="taslak"))
+    ikt = await _ekle(db, IkTatiller(kapsam=s, hesap_email=s, tarih=_date6i(2030, 4, 9), ad="Arife", yarim=True))
+    ikd = await _ekle(db, IkDosyalar(hesap_email=s, personel_id=ikp.id, ad="sozlesme.txt", tur="text/plain", boyut=5,
+                                     depo="veritabani", depolama_anahtari=f"ik/test/{uuid.uuid4().hex}"))
+    k.update(IKP=ikp.id, IKI=iki.id, IKS=iks.id, IKV=ikv.id, IKT=ikt.id, IKD=ikd.id)
     return k
 
 
@@ -376,6 +397,8 @@ SP = "/api/v1/stok-pos"
 EGT = ("egitim", "egitim_egitmen")
 #: Faz 5B: ajansın paylaştığı belgeyi okumak için `belgeler` ya da `dosyalar` yeter.
 BELGE_OKU = ("belgeler", "dosyalar")
+#: Faz 6I: insan kaynakları müşteri uçları.
+IK = "/api/v1/ik"
 MUSTERI_UCLARI = [
     ("GET", "/api/v1/entities/projects", ("projeler",), None, 200),
     ("GET", "/api/v1/entities/projects/all", ("projeler",), None, 200),
@@ -938,6 +961,51 @@ MUSTERI_UCLARI = [
 ]
 
 
+#: Faz 6I — insan kaynakları uçları (`ik`: tek izin). Ayrı listede ve TEK testte (aşağıda): her satır için
+#: ayrı `ekip` kurulmasın — paylaşılan test veritabanı (belge talebi, proje sayıları) şişmesin.
+IK_UCLARI = [
+    ("GET", f"{IK}/meta", ("ik",), None, 200),
+    ("GET", f"{IK}/ayarlar", ("ik",), None, 200),
+    ("PUT", f"{IK}/ayarlar", ("ik",), {"firma_adi": "Ekip İK"}, 200),
+    ("GET", f"{IK}/gun-hesapla?bas=2030-01-07&bit=2030-01-11", ("ik",), None, 200),
+    ("GET", f"{IK}/tatiller", ("ik",), None, 200),
+    ("POST", f"{IK}/tatiller", ("ik",), {"tarih": "2030-04-10", "ad": "Bayram"}, 200),
+    ("DELETE", f"{IK}/tatiller/999999", ("ik",), None, "gecti"),
+    ("GET", f"{IK}/personel", ("ik",), None, 200),
+    ("POST", f"{IK}/personel", ("ik",), {"ad": "Ekip personeli", "ise_giris": "2024-01-01"}, "gecti"),
+    ("GET", f"{IK}/personel.csv", ("ik",), None, 200),
+    ("POST", f"{IK}/personel/ice-aktar", ("ik",), {"csv": "ad,ise_giris\nCsv Kişi,2024-01-01\n"}, "gecti"),
+    ("GET", f"{IK}/personel/{{IKP}}", ("ik",), None, 200),
+    ("PUT", f"{IK}/personel/{{IKP}}", ("ik",), {"notlar": "Ekipten"}, 200),
+    ("DELETE", f"{IK}/personel/999999", ("ik",), None, "gecti"),
+    ("POST", f"{IK}/personel/{{IKP}}/baglanti", ("ik",), {"islem": "goster"}, 200),
+    ("POST", f"{IK}/personel/{{IKP}}/dosyalar", ("ik",), GOVDE_DOSYA, "gecti"),
+    ("GET", f"{IK}/dosyalar/999999", ("ik",), None, "gecti"),
+    ("DELETE", f"{IK}/dosyalar/999999", ("ik",), None, "gecti"),
+    ("GET", f"{IK}/izinler", ("ik",), None, 200),
+    ("POST", f"{IK}/izinler", ("ik",), {"personel_id": 999999, "tur": "yillik", "baslangic": "2030-02-04"}, "gecti"),
+    ("GET", f"{IK}/izinler/takvim?ay=2030-01", ("ik",), None, 200),
+    ("GET", f"{IK}/izinler.ics", ("ik",), None, 200),
+    ("GET", f"{IK}/izinler.csv", ("ik",), None, 200),
+    ("GET", f"{IK}/izinler/{{IKI}}", ("ik",), None, 200),
+    ("POST", f"{IK}/izinler/999999/karar", ("ik",), {"karar": "onay"}, "gecti"),
+    ("POST", f"{IK}/izinler/999999/iptal", ("ik",), {}, "gecti"),
+    ("POST", f"{IK}/izinler/999999/geri-al", ("ik",), {}, "gecti"),
+    ("GET", f"{IK}/sablonlar", ("ik",), None, 200),
+    ("POST", f"{IK}/sablonlar", ("ik",), {"ad": "Akşam", "baslangic": "16:00", "bitis": "23:00"}, 200),
+    ("PUT", f"{IK}/sablonlar/{{IKS}}", ("ik",), {"mola_dk": 45}, 200),
+    ("DELETE", f"{IK}/sablonlar/999999", ("ik",), None, "gecti"),
+    ("GET", f"{IK}/vardiyalar?hafta=2030-01-07", ("ik",), None, 200),
+    ("POST", f"{IK}/vardiyalar", ("ik",), {"personel_id": 999999, "tarih": "2030-01-08", "baslangic": "09:00", "bitis": "17:00"}, "gecti"),
+    ("PUT", f"{IK}/vardiyalar/{{IKV}}", ("ik",), {"notlar": "Ekipten"}, 200),
+    ("DELETE", f"{IK}/vardiyalar/999999", ("ik",), None, "gecti"),
+    ("POST", f"{IK}/vardiyalar/kopyala", ("ik",), {"hafta": "2030-03-04"}, 200),
+    ("POST", f"{IK}/vardiyalar/yayinla", ("ik",), {"hafta": "2030-03-04", "bildir": False}, 200),
+    ("GET", f"{IK}/vardiyalar.csv?hafta=2030-01-07", ("ik",), None, 200),
+    ("GET", f"{IK}/vardiyalar.pdf?hafta=2030-01-07", ("ik",), None, 200),
+]
+
+
 def _kod(yanit) -> str:
     try:
         d = yanit.json().get("detail")
@@ -986,6 +1054,8 @@ def _izinli_uye(k, izinler):
         return k["pazarlamaci"]
     if izinler == ("stok",):  # Faz 6P: yönetim izni üyenin varsayılanında yok (pazarlamaci'ye ayrıca verildi)
         return k["pazarlamaci"]
+    if izinler == ("ik",):  # Faz 6I: üye/fatura rolünün varsayılanında yok (apici'ye ayrıca verildi)
+        return k["apici"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):
             return kisi
@@ -1016,6 +1086,26 @@ async def test_musteri_ucu_izin_matrisi(istemci, ekip, metot, yol, izinler, govd
     # 4) Üye olmayan, başlıkla → 403 hesap_uyesi_degil (kendi hesabına sessizce düşmez).
     y = await _cagir(istemci, metot, yol, govde, _b(k["yabanci"], s))
     assert y.status_code == 403 and _kod(y) == "hesap_uyesi_degil", ("yabancı", yol, y.status_code, y.text[:300])
+
+
+async def test_ik_uclari_izin_matrisi(istemci, ekip):
+    """Faz 6I — İK müşteri uçlarının hepsi tek `ekip` kurulumuyla: sahip geçer, `ik` izinli üye geçer, izinsiz üye
+    403 `hesap_izni_yok`, üye olmayan 403 `hesap_uyesi_degil` (`test_musteri_ucu_izin_matrisi` ile aynı denetimler)."""
+    from routers import ik as ik_router
+
+    k = ekip
+    s = k["sahip"]
+    for metot, yol, izinler, govde, beklenen in IK_UCLARI:
+        ik_router.hiz_sinirlarini_temizle()
+        yol = yol.format(**k)
+        y = await _cagir(istemci, metot, yol, govde, _b(s))
+        assert _beklenen(y, beklenen), (yol, y.status_code, y.text[:300])
+        y = await _cagir(istemci, metot, yol, govde, _b(_izinli_uye(k, izinler), s))
+        assert _gecti_mi(y), ("izinli üye", yol, y.status_code, y.text[:300])
+        y = await _cagir(istemci, metot, yol, govde, _b(k["kisitli"], s))
+        assert y.status_code == 403 and _kod(y) == "hesap_izni_yok", ("izinsiz üye", yol, y.status_code, y.text[:300])
+        y = await _cagir(istemci, metot, yol, govde, _b(k["yabanci"], s))
+        assert y.status_code == 403 and _kod(y) == "hesap_uyesi_degil", ("yabancı", yol, y.status_code, y.text[:300])
 
 
 async def test_uye_sahibin_kayitlarini_gorur_yabanci_kendi_bos_hesabini(istemci, ekip):

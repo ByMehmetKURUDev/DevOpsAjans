@@ -72,7 +72,9 @@
       "stok_kritik": "Ürün kritik stok seviyesine indi",
       "egitim_kayit": "Kursa yeni kayıt (öğrenci ya da bekleme listesi)",
       "egitim_tamamlandi": "Kurs tamamlandı, sertifika verildi",
-      "egitim_devamsizlik": "Öğrenci devamsızlık eşiğine ulaştı"
+      "egitim_devamsizlik": "Öğrenci devamsızlık eşiğine ulaştı",
+      "ik_izin_talebi": "Yeni izin talebi (personel)",
+      "ik_izin_karari": "İzin talebine karar verildi (onay / ret)"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

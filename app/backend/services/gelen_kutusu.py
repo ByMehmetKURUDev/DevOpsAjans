@@ -37,6 +37,9 @@ belge              belge_talepleri (teslim_edildi)              işaret; yoksa y
 belge_paylasim     belgeler (Faz 5B): müşterinin ajansla        işaret; yoksa paylaşılan → yeni,
                    paylaştığı kendi belgesi ya da ajansın       "okudum/onaylıyorum" → okundu (bilgi;
                    paylaştığı belgeye müşterinin onayı          yanıt beklemiyor)
+izin_talebi        ik_izinler (Faz 6I): ajansın KENDİ           beklemede → yeni; onay / ret / iptal →
+                   personelinin girişsiz portaldan gönderdiği   kapandi (kendi durum alanı; işaret yok)
+                   izin talebi (müşterilerinki kendi panelinde)
 =================  ==========================================  ==========================================
 
 Site analizi istekleri ayrı kaynak DEĞİL: tam rapor isteyen ziyaretçi zaten
@@ -74,6 +77,8 @@ KAYNAKLAR: Tuple[str, ...] = (
     # Faz 6K — ajansın kendi kursuna herkese açık formdan gelen kayıt başvurusu.
     "egitim",
     "belge_paylasim",
+    # Faz 6I — ajansın kendi personelinin portaldan gönderdiği izin talebi.
+    "izin_talebi",
 )
 DURUMLAR: Tuple[str, ...] = ("yeni", "yanit_bekliyor", "okundu", "kapandi")
 BEKLEYEN = frozenset({"yeni", "yanit_bekliyor"})
@@ -124,6 +129,7 @@ KAYNAK_TANIMI = {
     "egitim": "a student (or a parent, for a minor) enrolled in one of the agency's own courses via the public course page",
     "belge_paylasim": "a client shared one of their own documents with the agency, or confirmed reading a document "
                       "the agency shared",
+    "izin_talebi": "a leave request sent by one of the agency's own employees from their personal staff page",
 }
 
 
@@ -867,6 +873,50 @@ async def _belge_paylasim(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict
     return sonuc
 
 
+async def _izin_talebi(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
+    """Faz 6I — ajansın KENDİ personelinin portaldan gönderdiği izin talepleri (müşterilerinki kendi panelinde).
+    Durum kaydın kendi alanından: beklemede → yeni; onay / ret / iptal → kapandi. Eylemler İK uçları (onayla /
+    reddet). Rapor türünde yalnız tarih aralığı (açıklama gösterilmez)."""
+    from models.ik import IkIzinler as I
+    from models.ik import IkPersonel as P
+    from services import ik as ik_s
+
+    s = (select(I, P.ad, P.eposta, P.departman).join(P, P.id == I.personel_id)
+         .where(I.hesap_email.is_(None), I.kaynak == "portal"))
+    if sz.kimlik is not None:
+        s = s.where(I.id == sz.kimlik)
+    if sz.durum in ("bekleyen", "yeni"):
+        s = s.where(I.durum == "beklemede")
+    elif sz.durum in ("okundu", "yanit_bekliyor"):
+        return []
+    desen = _desen(sz.q)
+    if desen:
+        s = s.where(_benzer((P.ad, P.eposta, P.departman), desen))
+    s = s.where(*_tarih_kosullari(I.created_at, sz))
+    satirlar = (await db.execute(s.order_by(I.created_at.desc(), I.id.desc()).limit(KAYNAK_SINIRI))).all()
+    sonuc = []
+    for i, ad, eposta, departman in satirlar:
+        durum = "yeni" if i.durum == "beklemede" else "kapandi"
+        yol = f"/api/v1/ik-yonetim/izinler/{i.id}"
+        e: List[Dict[str, Any]] = []
+        if i.durum == "beklemede":
+            e.append(_istek("onayla", "POST", f"{yol}/karar", {"karar": "onay"}))
+            e.append(_istek("reddet", "POST", f"{yol}/karar", {"karar": "ret"}))
+        tur_adi = ik_s.tur_adi(i.tur, "tr")
+        aralik = ik_s.aralik_metni(i.baslangic, i.bitis)
+        aciklama = None if i.tur == "rapor" else (i.aciklama or None)
+        sonuc.append(_oge(
+            "izin_talebi", i.id, kisi_ad=ad, kisi_eposta=eposta, baslik=f"{tur_adi} — {aralik}",
+            ozet=ozet_metni(f"{ik_s.gun_metni(float(i.gun or 0))} iş günü", aciklama or ""), zaman=i.created_at, durum=durum,
+            hesap_email=None, ac="/admin?sekme=ik", eylemler=e,
+            yanit=_eposta_yaniti("izin_talebi", i.id, eposta_duzelt(eposta)),
+            ek={"tur": i.tur, "durum_ham": i.durum, "gun": float(i.gun or 0)},
+            ayrinti={"personel": ad, "departman": departman, "izin_turu": i.tur, "baslangic": i.baslangic.isoformat(),
+                     "bitis": i.bitis.isoformat(), "gun": float(i.gun or 0), "durum_ham": i.durum, "aciklama": aciklama},
+        ))
+    return sonuc
+
+
 YUKLEYICILER = {
     "iletisim": _iletisim,
     "fiyat_teklifi": _fiyat_teklifi,
@@ -879,6 +929,7 @@ YUKLEYICILER = {
     "belge": _belge,
     "egitim": _egitim,
     "belge_paylasim": _belge_paylasim,
+    "izin_talebi": _izin_talebi,
 }
 
 

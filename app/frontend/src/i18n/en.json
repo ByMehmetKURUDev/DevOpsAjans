@@ -495,7 +495,8 @@
     "tabSahaServisi": "Field service",
     "tabEtkinlik": "Events",
     "tabStokPos": "Stock & POS",
-    "tabEgitim": "Courses"
+    "tabEgitim": "Courses",
+    "tabIk": "HR"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

@@ -495,7 +495,8 @@
     "tabSahaServisi": "Außendienst",
     "tabEtkinlik": "Veranstaltungen",
     "tabStokPos": "Lager & Kasse",
-    "tabEgitim": "Kurse"
+    "tabEgitim": "Kurse",
+    "tabIk": "Personal"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

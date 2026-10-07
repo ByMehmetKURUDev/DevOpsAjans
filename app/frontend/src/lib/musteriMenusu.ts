@@ -40,6 +40,7 @@ export const MUSTERI_GRUPLARI: readonly GrupTanimi<MusteriGrubu>[] = [
       'etkinlik',
       'stokPos',
       'egitim',
+      'ik',
       'otomasyon',
       'api',
     ],

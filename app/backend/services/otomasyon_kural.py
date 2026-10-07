@@ -153,6 +153,12 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("baslik"), Alan("ad"), Alan("eposta"), Alan("telefon"), Alan("veli_ad"),
         Alan("veli_eposta"), Alan("durum"), Alan("kod"), Alan("devamsizlik", "sayi"), Alan("ilerleme", "sayi"),
     ),
+    # Faz 6I — izin talebi/kararı: personel alanları kayıttan (rapor türünde açıklama yok).
+    "izin": (
+        Alan("id", "sayi"), Alan("tur"), Alan("baslangic", "tarih"), Alan("bitis", "tarih"), Alan("gun", "sayi"),
+        Alan("durum"), Alan("kaynak"), Alan("karar_notu"), Alan("personel_ad"), Alan("personel_eposta"), Alan("departman"),
+        Alan("gorev"),
+    ),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -212,6 +218,9 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("egitim.kayit", ("egitim", "hesap")),
     OtoOlay("egitim.tamamlandi", ("egitim", "hesap")),
     OtoOlay("egitim.devamsizlik", ("egitim", "hesap")),
+    # Faz 6I — insan kaynakları: yeni izin talebi, izin kararı (onay / ret).
+    OtoOlay("ik.izin_talebi", ("izin", "hesap")),
+    OtoOlay("ik.izin_karari", ("izin", "hesap")),
     # Faz 7O — zamanlı üretilen hatırlatma olayları (yalnız ajans; webhook kataloğunda yok: durum
     # değişikliği değil, "şu kadar gündür bir şey olmadı" türevi). Eşik başına bir kez.
     OtoOlay("teklif.yanitsiz", ("teklif", "hesap"), musteri=False, yalniz_otomasyon=True),
@@ -321,6 +330,9 @@ ORNEK: Dict[str, Dict[str, Any]] = {
     "egitim": {"id": 25, "baslik": "Çocuklar için robotik kodlama", "ad": "Deniz Kaya", "eposta": None,
                "telefon": None, "veli_ad": "Elif Kaya", "veli_eposta": "elif@ornek.com", "durum": "aktif",
                "kod": "SERT1234ABCD", "devamsizlik": 3, "ilerleme": 60},
+    "izin": {"id": 41, "tur": "yillik", "baslangic": "2026-11-02", "bitis": "2026-11-06", "gun": 5, "durum": "beklemede",
+             "kaynak": "portal", "karar_notu": None, "personel_ad": "Selin Arslan", "personel_eposta": "selin@ornek.com",
+             "departman": "Mutfak", "gorev": "Aşçı"},
     "icerik": {"id": 64, "baslik": "Ekim kampanyası duyurusu", "durum": "onaylandi", "kanallar": ["instagram", "linkedin"],
                "planlanan_at": "2026-10-08T07:00:00Z", "kampanya": "Ekim", "sorumlu": None, "not": None, "yoneten": "ajans"},
     "satis": {"id": 501, "no": "S-000501", "durum": "tamamlandi", "toplam": 245.5, "kdv": 40.92, "para_birimi": "TRY",
@@ -377,6 +389,8 @@ def kisi_sec(tur: str, baglam: Dict[str, Any]) -> Dict[str, Any]:
         return {"ad": baglam["is_emri"].get("musteri_ad"), "email": baglam["is_emri"].get("musteri_eposta")}
     if on == "etkinlik" and baglam.get("etkinlik"):
         return {"ad": baglam["etkinlik"].get("ad"), "email": baglam["etkinlik"].get("eposta")}
+    if on == "ik" and baglam.get("izin"):
+        return {"ad": baglam["izin"].get("personel_ad"), "email": baglam["izin"].get("personel_eposta")}
     if on == "egitim" and baglam.get("egitim"):
         # 18 yaş altında e-posta veliye gider (öğrencinin kendi adresi yoksa).
         e = baglam["egitim"]

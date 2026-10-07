@@ -495,7 +495,8 @@
     "tabSahaServisi": "现场服务",
     "tabEtkinlik": "活动",
     "tabStokPos": "库存与收银",
-    "tabEgitim": "课程"
+    "tabEgitim": "课程",
+    "tabIk": "人力资源"
   },
   "admin": {
     "loadError": "管理数据加载失败",

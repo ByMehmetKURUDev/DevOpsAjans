@@ -105,7 +105,11 @@
       "egitim_dersleri": "课节",
       "egitim_quizleri": "测验 / 作业",
       "belgeler": "文档 / 战略分析",
-      "belge_surumleri": "文档版本"
+      "belge_surumleri": "文档版本",
+      "ik_personel": "员工",
+      "ik_izinler": "请假记录",
+      "ik_vardiyalar": "班次",
+      "ik_dosyalar": "员工文件"
     }
   }
 }

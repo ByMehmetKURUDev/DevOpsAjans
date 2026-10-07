@@ -313,6 +313,15 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
         ekle('telefon', a.telefon);
         ekle('veli', [a.veli_ad, a.veli_telefon].map(metinAl).filter(Boolean).join(' · '));
         break;
+      case 'izin_talebi':
+        ekle('personel', a.personel);
+        ekle('departman', a.departman);
+        ekle('izinTuru', a.izin_turu ? t(`gelenKutusu.izinTuru.${metinAl(a.izin_turu)}`, { defaultValue: metinAl(a.izin_turu) }) : '');
+        ekle('tarih', a.baslangic === a.bitis ? a.baslangic : `${metinAl(a.baslangic)} – ${metinAl(a.bitis)}`);
+        ekle('isGunu', a.gun);
+        ekle('kayitDurumu', a.durum_ham ? t(`gelenKutusu.izinDurum.${metinAl(a.durum_ham)}`, { defaultValue: metinAl(a.durum_ham) }) : '');
+        ekle('mesaj', a.aciklama, true);
+        break;
       case 'belge_paylasim':
         ekle('belge', a.baslik);
         ekle('olay', t(`gelenKutusu.belgeOlayi.${a.olay === 'onayladi' ? 'onayladi' : 'paylasti'}`, { sayi: a.surum ?? 1 }));

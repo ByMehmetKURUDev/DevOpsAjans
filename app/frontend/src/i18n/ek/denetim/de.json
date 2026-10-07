@@ -122,7 +122,11 @@
       "egitim_quizleri": "Quiz und Hausaufgaben",
       "egitim_duyurulari": "Kursmitteilungen",
       "egitim_ayarlari": "Kurseinstellungen",
-      "belgeler": "Dokumente und Strategiearbeiten"
+      "belgeler": "Dokumente und Strategiearbeiten",
+      "ik_personel": "Personalakten",
+      "ik_ayarlari": "Personal-Einstellungen",
+      "ik_tatiller": "Feiertage (Personal)",
+      "ik_vardiya_sablonlari": "Schichtvorlagen"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

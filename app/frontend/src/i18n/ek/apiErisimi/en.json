@@ -72,7 +72,9 @@
       "stok_kritik": "Product fell to low stock",
       "egitim_kayit": "New course enrolment (student or waiting list)",
       "egitim_tamamlandi": "Course completed, certificate issued",
-      "egitim_devamsizlik": "Student reached the absence threshold"
+      "egitim_devamsizlik": "Student reached the absence threshold",
+      "ik_izin_talebi": "New leave request (staff)",
+      "ik_izin_karari": "Leave request decided (approved / declined)"
     },
     "anahtar": {
       "yeni": "New key",

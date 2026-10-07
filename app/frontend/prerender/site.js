@@ -458,6 +458,8 @@ export const NOINDEX_ROUTES = [
   // Faz 6K: eğitim — kurs sayfası, öğrenci/yoklama/sertifika/okutucu bağlantıları, kurs listesi
   // (/egitim/...); site haritasına girmez (görünürlük kurs ayarı — robots'u Pages Function yazıyor).
   '/egitim',
+  // Faz 6I: girişsiz personel sayfası (/personel/<jeton>); kişiye özel, noindex.
+  '/personel',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

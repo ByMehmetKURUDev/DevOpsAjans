@@ -581,6 +581,27 @@
             "c": "The monthly allowance depends on your account; when it runs out you can continue with credits if you wish."
           }
         ]
+      },
+      "insan_kaynaklari": {
+        "ozet": "Staff records, leave requests and balances, a leave calendar and a weekly shift plan; staff request leave from their own page.",
+        "kimIcin": "Cafés, restaurants, shops, clinics, offices and agencies with shifts or leave to track.",
+        "ozellikler": [
+          "Data-minimised staff records, document attachments and CSV import/export",
+          "Leave request → approve/decline → email; annual balance by seniority and age",
+          "Leave days counted against public holidays and working days, leave calendar and ICS",
+          "Weekly shift grid, templates, copy last week, publish; rest and 45-hour warnings",
+          "A no-login page for each employee: my shifts, balance, leave request"
+        ],
+        "sss": [
+          {
+            "s": "Does it run payroll?",
+            "c": "No. The module covers staff, leave and shift planning only; keep using your accounting software for payroll and social security filings."
+          },
+          {
+            "s": "Are the leave entitlements legally correct?",
+            "c": "Turkish Labour Law No. 4857 entitlements come as defaults and you can adjust them in settings for your workplace. Calculations are for information only."
+          }
+        ]
       }
     },
     "s": {

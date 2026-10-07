@@ -101,6 +101,9 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/egitim/sertifika/:kod',
   '/egitim/okut/:kid/:oid',
   '/egitim/kurum/:slug',
+  // Faz 6I: girişsiz personel sayfası (vardiyalar, izin bakiyesi, izin talebi) — jetona özel, prerender
+  // yok, noindex (sayfa + `_headers` X-Robots-Tag).
+  '/personel/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

@@ -628,6 +628,25 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("kredi_ile_asim", "bool", False),
         ),
     ),
+    # Faz 6I — insan kaynakları (her sektörden KOBİ ve ajansın kendisi): personel kartı (veri azaltma: TC kimlik,
+    # doğum tarihi, sağlık, din, adres YOK; yaşa bağlı izin için yalnız yaş grubu), belge ekleri, CSV; izin talebi →
+    # onay/ret → bakiye (4857 m.53 kıdem/yaş varsayılanları ayarlardan değişir; çalışma günü + resmi tatil hariç
+    # gün hesabı), izin takvimi + ICS; vardiya şablonu, haftalık ızgara, geçen haftayı kopyala, taslak → yayınla,
+    # uyarılar (izinli kişi, çakışma, 11 saat dinlenme, 45 saat haftalık), PDF/CSV; girişsiz personel portalı
+    # (imzalı bağlantı: vardiyalarım, bakiye, izin talebi, ICS). Bordro/maaş/SGK/puantaj YOK. Varsayılan KAPALI,
+    # pakete bağlı değil, sektör paketinde YOK (ayrı satılan modül; önerilen aylık 15 $ — 25 personele kadar).
+    # Ekip izni `ik` (yönetim; üyenin varsayılanında yok). `personel_siniri`: aktif personel.
+    Modul(
+        anahtar="insan_kaynaklari",
+        ad_varsayilan={"tr": "İnsan kaynakları (personel, izin, vardiya)", "en": "HR (staff, leave, shifts)"},
+        ikon="UsersRound",
+        kategori="is_araclari",
+        musteri_sekmesi="ik",
+        yonetici_sekmesi="ik",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("personel_siniri", "int", 25, en_az=0, en_cok=5000),),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

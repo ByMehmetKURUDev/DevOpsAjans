@@ -1,0 +1,91 @@
+{
+  "ikPortal": {
+    "merhaba": "Merhaba {{ad}}",
+    "gun": "gün",
+    "bakiye": {
+      "baslik": "Kalan yıllık izin",
+      "devir": "Devir",
+      "kazanilan": "Hak edilen",
+      "kullanilan": "Kullanılan",
+      "bekleyen": "Bekleyen",
+      "sonraki": "Sonraki hak ediş: {{tarih}} · {{gun}} gün"
+    },
+    "vardiya": {
+      "baslik": "Vardiyalarım",
+      "takvim": "Takvime ekle",
+      "bos": "Yayınlanmış yaklaşan vardiyanız yok."
+    },
+    "talep": {
+      "baslik": "İzin talebi gönder",
+      "tur": "İzin türü",
+      "baslangic": "Başlangıç",
+      "bitis": "Bitiş",
+      "yarim": "Yarım gün",
+      "onizleme": "{{gun}} iş günü ({{takvim}} takvim günü)",
+      "yasalIsGunu": "yasal süre {{sayi}} iş günü",
+      "yasalTakvim": "yasal süre {{sayi}} takvim günü",
+      "raporNotu": "Rapor için yalnız tarih aralığı kaydedilir; teşhis ya da açıklama yazılmaz.",
+      "aciklama": "Kısa not (isteğe bağlı)",
+      "gonder": "Talebi gönder"
+    },
+    "gonderildi": "Talebiniz gönderildi; karar e-postayla bildirilecek.",
+    "zatenVar": "Bu talebi zaten gönderdiniz.",
+    "geriCekOnay": "Bu talep geri çekilsin mi?",
+    "gecmis": {
+      "baslik": "İzin geçmişim",
+      "bos": "Henüz izin kaydınız yok.",
+      "gun": "{{sayi}} iş günü",
+      "not": "Not: {{not}}",
+      "geriCek": "Geri çek"
+    },
+    "tur": {
+      "yillik": "Yıllık izin",
+      "mazeret": "Mazeret izni",
+      "ucretsiz": "Ücretsiz izin",
+      "rapor": "Rapor (hastalık)",
+      "dogum": "Doğum izni",
+      "babalik": "Babalık izni",
+      "evlilik": "Evlilik izni",
+      "olum": "Ölüm izni",
+      "diger": "Diğer izin"
+    },
+    "durumlar": {
+      "beklemede": "Beklemede",
+      "onaylandi": "Onaylandı",
+      "reddedildi": "Reddedildi",
+      "iptal": "İptal"
+    },
+    "durum": {
+      "gecersiz": "Bağlantı geçersiz",
+      "gecersizAciklama": "Bağlantı yanlış ya da yenilenmiş olabilir. Yöneticinizden yeni bağlantı isteyin.",
+      "kapali": "Bağlantı kapalı",
+      "kapaliAciklama": "Bu bağlantı iptal edildi ya da artık kullanılmıyor.",
+      "hata": "Bir sorun oluştu",
+      "hataAciklama": "Sayfa şu an açılamadı. Biraz sonra tekrar deneyin."
+    },
+    "uyari": {
+      "cakisan_talep": "Bu tarihlerde başka bir talebiniz de var.",
+      "bakiye_yetersiz": "Yıllık izin bakiyeniz bu talep için yetmeyebilir.",
+      "yasal_sure_asildi": "İstenen süre, işyerinin belirlediği yasal süreyi aşıyor.",
+      "calisma_gunu_yok": "Bu aralıkta çalışma günü yok (hafta sonu ya da resmi tatil)."
+    },
+    "hata": {
+      "genel": "Bir sorun oluştu. Lütfen tekrar deneyin.",
+      "ag": "Sunucuya ulaşılamadı. Bağlantınızı kontrol edin.",
+      "cok_hizli": "Çok hızlı işlem yapıldı; biraz bekleyip tekrar deneyin.",
+      "cok_eski": "Bu kadar eski bir tarih için talep gönderilemez.",
+      "bitis_once": "Bitiş tarihi başlangıçtan önce olamaz.",
+      "yarim_tek_gun": "Yarım gün yalnız tek günlük izinde seçilebilir.",
+      "aralik_cok_uzun": "Tarih aralığı çok uzun (en çok {{en_cok}} gün).",
+      "secim_gecersiz": "Geçersiz seçim.",
+      "tarih_gecersiz": "Geçersiz tarih.",
+      "zorunlu": "Zorunlu alanları doldurun.",
+      "govde_gecersiz": "İstek okunamadı.",
+      "personel_ayrildi": "Ayrılmış personele işlem yapılamaz.",
+      "modul_kapali": "İnsan kaynakları modülü bu hesapta kapalı.",
+      "baglanti_gecersiz": "Bağlantı geçersiz",
+      "baglanti_kapali": "Bağlantı kapalı"
+    },
+    "not": "Bu sayfa size özeldir; bağlantıyı kimseyle paylaşmayın. İzin bakiyesi bilgilendirme amaçlıdır; kesin bilgi için işvereninize danışın."
+  }
+}

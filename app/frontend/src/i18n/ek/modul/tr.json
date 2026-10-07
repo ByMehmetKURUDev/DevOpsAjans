@@ -200,6 +200,10 @@
       "belgeler": {
         "ad": "Belgeler ve strateji araçları",
         "aciklama": "Kendi belge, wiki ve notlarınız (yapılacaklar, sürüm geçmişi, PDF/Markdown) ve strateji şablonları: SWOT, İş Modeli Kanvası, Lean Canvas, PESTLE, Porter, McKinsey 7S, Mavi Okyanus, Ikigai; AI ile yaz, özetle, düzelt ve taslak."
+      },
+      "insan_kaynaklari": {
+        "ad": "İnsan kaynakları (personel, izin, vardiya)",
+        "aciklama": "Personel kartları, izin talebi ve onayı, yıllık izin bakiyesi (kanun varsayılanları ayarlanabilir), izin takvimi, haftalık vardiya planı ve personelin girişsiz kendi sayfası. Bordro yok."
       }
     },
     "kategori": {
@@ -265,7 +269,8 @@
       "kurs_siniri": "En çok kurs",
       "ogrenci_siniri": "En çok öğrenci (aktif + bekleme)",
       "ai_hakki": "Aylık AI soru üretimi",
-      "belge_siniri": "Hesap başına en çok kendi belgesi"
+      "belge_siniri": "Hesap başına en çok kendi belgesi",
+      "personel_siniri": "En çok aktif personel"
     },
     "musteri": {
       "baslik": "Modüllerim",

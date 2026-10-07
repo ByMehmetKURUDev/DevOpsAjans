@@ -105,7 +105,11 @@
       "egitim_dersleri": "Ders içeriği",
       "egitim_quizleri": "Quiz / ödev",
       "belgeler": "Belge / strateji çalışması",
-      "belge_surumleri": "Belge sürümü"
+      "belge_surumleri": "Belge sürümü",
+      "ik_personel": "Personel",
+      "ik_izinler": "İzin kaydı",
+      "ik_vardiyalar": "Vardiya",
+      "ik_dosyalar": "Personel belgesi"
     }
   }
 }

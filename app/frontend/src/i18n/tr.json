@@ -495,7 +495,8 @@
     "tabSahaServisi": "Saha servisi",
     "tabEtkinlik": "Etkinlikler",
     "tabStokPos": "Stok ve POS",
-    "tabEgitim": "Eğitim"
+    "tabEgitim": "Eğitim",
+    "tabIk": "İnsan kaynakları"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

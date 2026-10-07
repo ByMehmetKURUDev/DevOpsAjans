@@ -122,7 +122,11 @@
       "egitim_quizleri": "测验与作业",
       "egitim_duyurulari": "课程通知",
       "egitim_ayarlari": "课程设置",
-      "belgeler": "文档与战略分析"
+      "belgeler": "文档与战略分析",
+      "ik_personel": "员工档案",
+      "ik_ayarlari": "人力资源设置",
+      "ik_tatiller": "人力资源假日",
+      "ik_vardiya_sablonlari": "排班模板"
     },
     "hareket": {
       "baslik": "账户动态",

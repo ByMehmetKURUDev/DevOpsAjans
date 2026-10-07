@@ -16,7 +16,8 @@
       "icerik_revizyon": "内容修改",
       "belge": "文件",
       "egitim": "课程报名",
-      "belge_paylasim": "文档共享"
+      "belge_paylasim": "文档共享",
+      "izin_talebi": "请假申请"
     },
     "durumSuzgeci": {
       "etiket": "按状态筛选",
@@ -57,7 +58,9 @@
       "uzman_istem_hazir": "专家提示词（已生成）",
       "yeniden_ac": "重新打开",
       "goreve_donustur": "转为任务",
-      "paket_uygula": "为该客户应用此套餐"
+      "paket_uygula": "为该客户应用此套餐",
+      "onayla": "批准",
+      "reddet": "拒绝"
     },
     "eylemTamam": "已完成。",
     "eylemHata": "操作未能完成。",
@@ -89,7 +92,12 @@
       "ogrenci": "学员",
       "veli": "家长",
       "kayitDurumu": "报名状态",
-      "olay": "发生了什么"
+      "olay": "发生了什么",
+      "personel": "员工",
+      "departman": "部门",
+      "izinTuru": "假期类型",
+      "tarih": "日期",
+      "isGunu": "工作日"
     },
     "karar": {
       "bekliyor": "等待决定",
@@ -143,6 +151,23 @@
     "belgeOlayi": {
       "paylasti": "将自己的文档共享给了代理机构",
       "onayladi": "已阅读并确认共享文档（版本 {{sayi}}）"
+    },
+    "izinTuru": {
+      "yillik": "年假",
+      "mazeret": "事假",
+      "ucretsiz": "无薪假",
+      "rapor": "病假（医疗证明）",
+      "dogum": "产假",
+      "babalik": "陪产假",
+      "evlilik": "婚假",
+      "olum": "丧假",
+      "diger": "其他假期"
+    },
+    "izinDurum": {
+      "beklemede": "待审批",
+      "onaylandi": "已批准",
+      "reddedildi": "已拒绝",
+      "iptal": "已取消"
     }
   }
 }

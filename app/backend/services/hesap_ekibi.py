@@ -100,6 +100,9 @@ IZINLER: Tuple[str, ...] = (
     # Faz 5B — belgeler, wiki ve strateji araçları: hesabın kendi belgeleri (modül `belgeler`).
     # Ajansın paylaştığı belgeleri okumak için `belgeler` ya da `dosyalar` yeter. Üyenin varsayılanında var.
     "belgeler",
+    # Faz 6I — insan kaynakları: personel kartı (kişisel veri), izin onayı/reddi, vardiya planı, portal bağlantısı.
+    # Yönetim izni; üye ve fatura rolünün varsayılanında YOK (ayrıca verilir).
+    "ik",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -145,6 +148,11 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris"}),
+        # Faz 6P/6K/5B–6I arası varsayılan (canlıdaki: stok, kasa, egitim, egitim_egitmen ve belgeler var; ik yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
+                   "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris",
+                   "stok", "kasa", "egitim", "egitim_egitmen", "belgeler"}),
     ),
     "uye": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
@@ -242,6 +250,8 @@ OLAY_IZNI: Dict[str, str] = {
     "egitim_kayit": "egitim",
     # Faz 5B — ajans hesapla bir belge paylaştı.
     "belge_paylasildi": "belgeler",
+    # Faz 6I — personel portaldan izin talebi gönderdi (sahibine; `ik` izinli üyelere de).
+    "ik_izin_talebi": "ik",
 }
 
 DAVET_OLAYI = "hesap_davet"

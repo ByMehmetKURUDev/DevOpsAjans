@@ -105,7 +105,11 @@
       "egitim_dersleri": "पाठ",
       "egitim_quizleri": "क्विज़ / असाइनमेंट",
       "belgeler": "दस्तावेज़ / रणनीति कार्य",
-      "belge_surumleri": "दस्तावेज़ संस्करण"
+      "belge_surumleri": "दस्तावेज़ संस्करण",
+      "ik_personel": "कर्मचारी",
+      "ik_izinler": "अवकाश रिकॉर्ड",
+      "ik_vardiyalar": "शिफ्ट",
+      "ik_dosyalar": "कर्मचारी दस्तावेज़"
     }
   }
 }

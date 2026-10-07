@@ -495,7 +495,8 @@
     "tabSahaServisi": "फ़ील्ड सर्विस",
     "tabEtkinlik": "कार्यक्रम",
     "tabStokPos": "स्टॉक और POS",
-    "tabEgitim": "पाठ्यक्रम"
+    "tabEgitim": "पाठ्यक्रम",
+    "tabIk": "मानव संसाधन"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",
