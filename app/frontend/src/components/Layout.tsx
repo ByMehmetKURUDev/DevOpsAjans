@@ -346,7 +346,7 @@ export default function Layout() {
   const logoSrc = settings.brand_logo || '/assets/logo-mark-144.webp';
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div data-site-duzeni="" className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Ambient background layers */}
       <div className="pointer-events-none fixed inset-0 -z-10 noise-bg" />
       <div className="pointer-events-none fixed inset-0 -z-10 grid-bg opacity-40" />
