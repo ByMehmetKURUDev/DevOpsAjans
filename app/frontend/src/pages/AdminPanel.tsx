@@ -209,6 +209,8 @@ const ZamanTakibi = ekliLazy('zamanTakibi', () => import('@/components/admin/Zam
 const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/admin/ProjeSablonlari'));
 // Faz 5G — birleşik gelen kutusu + AI yanıt taslağı (eski "İletişim formu" sekmesinin yerine); ek paket `gelenKutusu`.
 const GelenKutusu = ekliLazy('gelenKutusu', () => import('@/components/admin/GelenKutusu'));
+// Faz 8N — Site Ayarları › Görünüm: üç seçenek (Klasik / Modern / Nebula) önizleme kartlarıyla; ek paket `gorunumSecimi`.
+const GorunumSecici = ekliLazy('gorunumSecimi', () => import('@/components/admin/GorunumSecici'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** Faz 5G: gelen kutusu sekmesi kapalıyken yanıt bekleyen sayısı (menü rozeti). */
@@ -1658,7 +1660,16 @@ export default function AdminPanel() {
                             </span>
                           )}
                         </Label>
-                        {field.options ? (
+                        {field.key === 'site_gorunum' ? (
+                          <Suspense fallback={<Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}>
+                            <GorunumSecici
+                              etiket={t(field.label)}
+                              deger={settingDraft[fieldKey] || 'klasik'}
+                              kayitli={settingRows.find((r) => r.setting_key === fieldKey)?.setting_value || 'klasik'}
+                              degistir={(v: string) => setSettingDraft({ ...settingDraft, [fieldKey]: v })}
+                            />
+                          </Suspense>
+                        ) : field.options ? (
                           <div className="flex flex-wrap gap-2" role="group" aria-label={t(field.label)}>
                             {field.options.map((opt) => {
                               const secili = (settingDraft[fieldKey] || field.options?.[0]?.value) === opt.value;

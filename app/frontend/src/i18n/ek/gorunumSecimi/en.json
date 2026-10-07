@@ -1,0 +1,14 @@
+{
+  "gorunumSecimi": {
+    "klasikAd": "Classic",
+    "klasikAciklama": "Plain purple-black background and soft glass cards; the site's original look.",
+    "modernAd": "Modern",
+    "modernAciklama": "Neon-edged cards, number badges and glowing prices; the background stays plain.",
+    "nebulaAd": "Nebula (UI/UX)",
+    "nebulaAciklama": "Deep-space background, chamfered holographic panels, neon icon chips and glowing buttons.",
+    "sitede": "Live on site",
+    "kaydetIpucu": "Pick one and press “Save”: it becomes the default look for every visitor.",
+    "dene": "Try in this browser only",
+    "sifirla": "Back to the site setting"
+  }
+}

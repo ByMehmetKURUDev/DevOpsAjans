@@ -1,0 +1,14 @@
+{
+  "gorunumSecimi": {
+    "klasikAd": "Klasik",
+    "klasikAciklama": "Sade mor-siyah zemin ve yumuşak cam kartlar; sitenin ilk görünümü.",
+    "modernAd": "Modern",
+    "modernAciklama": "Neon kenarlı kartlar, numara rozetleri ve parlayan fiyatlar; zemin sade kalır.",
+    "nebulaAd": "Nebula (UI/UX)",
+    "nebulaAciklama": "Uzay arka planı, kesik köşeli holografik paneller, neon ikon çipleri ve ışıyan düğmeler.",
+    "sitede": "Sitede açık",
+    "kaydetIpucu": "Seçip “Kaydet”e basın: bütün ziyaretçiler için varsayılan görünüm olur.",
+    "dene": "Yalnız bu tarayıcıda dene",
+    "sifirla": "Sitenin ayarına dön"
+  }
+}

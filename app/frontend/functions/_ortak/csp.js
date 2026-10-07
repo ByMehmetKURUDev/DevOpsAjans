@@ -45,7 +45,7 @@ export const RAPOR_GRUBU = 'csp';
 
 const SATIR_ICI_OZETLER = [
   "'sha256-oqFr/On43q4LbOnWpE/eciGi1ITFYFkDfTBZuPtANFA='",
-  "'sha256-NqlEXPWBrmha1dC1xVrYiUGynn+DKTXlF9l62QQtMl8='",
+  "'sha256-nPWiU7VTlliSCxnwIxvozdJFCy+9lhweBIEUkIHYEo8='",
   "'sha256-PCjmZn0yQDGBUSNPN2ty+MWlzJdvWnTmUGsuUU8TjWY='",
   "'unsafe-hashes'",
   "'sha256-F1noxsLOnJhyRSgc0zu5JgzoLjG2BBMaXaSG24k2mRM='",

@@ -1,0 +1,14 @@
+{
+  "gorunumSecimi": {
+    "klasikAd": "经典",
+    "klasikAciklama": "简洁的紫黑背景和柔和的玻璃卡片，网站最初的外观。",
+    "modernAd": "现代",
+    "modernAciklama": "霓虹边框卡片、编号徽章和发光价格；背景保持简洁。",
+    "nebulaAd": "星云 Nebula (UI/UX)",
+    "nebulaAciklama": "深空背景、切角全息面板、霓虹图标芯片和发光按钮。",
+    "sitede": "网站当前使用",
+    "kaydetIpucu": "选择后点击“保存”：它将成为所有访客的默认外观。",
+    "dene": "仅在此浏览器中试用",
+    "sifirla": "恢复网站设置"
+  }
+}

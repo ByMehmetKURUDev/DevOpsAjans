@@ -120,26 +120,31 @@
     </script>
 
     <!--
-      Site görünümü (Klasik / Modern) ilk boyamadan önce.
+      Site görünümü (Klasik / Modern / Nebula) ilk boyamadan önce.
 
-      Derleme, site ayarı Modern iken html etiketine data-gorunum="modern"
+      Derleme, site ayarı Modern/Nebula iken html etiketine data-gorunum
       yazıyor (prerender/gorunum-plugin.js). Bu betik ziyaretçinin kendi seçimini
       (?gorunum=, localStorage) ya da önbelleğe alınmış site ayarını React'ten
       önce uygular; öncelik src/lib/gorunum.ts ile aynı. Hata olursa sessiz.
-      İçerik değişirse public/_headers içindeki CSP hash'i de güncellenmeli
+      Nebula stili ayrı dosya: adresi meta gorunum-nebula-css'te (bkz. gorunum.ts);
+      derleme Nebula ise (y) bağlantı HTML'de zaten var, yeniden eklenmez.
+      İçerik değişirse functions/_ortak/csp.js içindeki CSP hash'i de güncellenmeli
       (scripts/guvenlik-basliklari.mjs derlemede uyarır).
     -->
     <script>
       (function () {
         try {
-          var g = function (v) { return v === 'klasik' || v === 'modern' ? v : null; };
+          var g = function (v) { return v === 'klasik' || v === 'modern' || v === 'nebula' ? v : null; };
+          var h = document.documentElement, y = h.getAttribute('data-gorunum');
           var p = new URLSearchParams(location.search).get('gorunum');
           var s = p === 'site' ? null : g(p) || g(localStorage.getItem('gorunum-onizleme'));
           if (!s) {
             var c = localStorage.getItem('mk_site_settings_v2');
             s = c ? g(JSON.parse(c).site_gorunum) : null;
           }
-          if (s) document.documentElement.setAttribute('data-gorunum', s);
+          if (s) h.setAttribute('data-gorunum', s);
+          var m = s === 'nebula' && y !== 'nebula' && document.querySelector('meta[name="gorunum-nebula-css"]');
+          if (m) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = m.content; l.setAttribute('blocking', 'render'); document.head.appendChild(l); }
         } catch (e) {}
       })();
     </script>

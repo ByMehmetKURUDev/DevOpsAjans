@@ -1,0 +1,893 @@
+/*
+ * Nebula (UI/UX) görünümü — Faz 8N (Ekim 2026).
+ *
+ * Kaynak: kullanıcının tanıtım filmi kareleri (yalnız stil): derin uzay zemini,
+ * mor ve neon yeşil bulutsu ışımaları, yıldız tozu; holografik cam paneller —
+ * mor ↔ yeşil neon kenar, KESİK (chamfer) köşeler, köşe braketleri, altıgen
+ * numara rozetleri, neon çizgi ikonlu "çip"ler, ışıyan birincil düğmeler.
+ *
+ * Kapsam: bütün kurallar yalnız `:root[data-gorunum="nebula"]` altında
+ * (seçim: Site Ayarları → Görünüm, `site_gorunum`; deneme `?gorunum=nebula`;
+ * bkz. src/lib/gorunum.ts). Seçiciler ve kapsam Modern'den (gorunum-modern.css)
+ * örnek alındı; ortak Tailwind sınıf birleşimleri genel seçicilerle yakalanıyor,
+ * sayfalara tek tek dokunulmadı. Klasik ve Modern bu dosyadan etkilenmez.
+ *
+ * YÜKLEME: bu dosya ana stil dosyasına GİRMEZ. `gorunum.ts` onu `?url` ile
+ * ayrı bir varlık olarak alıyor; yalnız Nebula açıkken iner:
+ *   - site ayarı Nebula → prerender HTML'inde `<link rel="stylesheet">`
+ *     (prerender/gorunum-plugin.js), kritik kuralları css-gomule gömer;
+ *   - `?gorunum=nebula` / önbellekteki ayar → index.html'deki satır içi betik
+ *     ilk boyamadan önce ekler (`blocking=render`), React'te gorunum.ts.
+ *
+ * HIZ:
+ *   - JavaScript yok, canvas yok. Uzay zemini Layout'taki SABİT (`fixed`)
+ *     `.noise-bg` katmanında: katmanlı radyal degradeler + üç küçük yıldız
+ *     karosu (satır içi SVG data URI; CSP img-src `data:` izinli). Masaüstünde
+ *     `will-change: transform` ile ayrı katmana alınıyor: kaydırmada yeniden
+ *     boyanmıyor.
+ *   - "Sürüklenme" ve "parıltı" animasyonları YALNIZ `transform`/`opacity`
+ *     ile iki sözde öğede (birleştirici katmanda çalışır, ana iş parçacığına
+ *     iş düşmez). Mobilde (< 768 px) ve `prefers-reduced-motion`da hiç yok.
+ *   - Kesik köşe `clip-path` DEĞİL: kart zemini ve kenarı köşeleri saydam
+ *     bırakan degrade katmanları (135°'lik degradede köşe çizgisi x+y=k).
+ *     clip-path kartın dışına taşan içeriği (açılır listeler, "Popüler"
+ *     etiketi) keserdi; filter/drop-shadow ise sabit konumlu çocukların
+ *     kapsayıcı bloğunu değiştirirdi. Kenar kalınlığı, dolgu ve yerleşim
+ *     değişmiyor (kenar rengi saydam, kalınlık aynı) → bölüm yükseklikleri
+ *     Modern'le aynı (Index.tsx BOLUM_YUKSEKLIKLERI.modern).
+ *   - `backdrop-filter` kartlarda kapalı (dolgu zaten %88+ opak).
+ *
+ * ERİŞİLEBİLİRLİK: vurgu metinleri koyu zeminde AA (yeşil #2ef596 ≈ 13:1, açık
+ * mor #ceaaff ≈ 10:1); birincil düğmede koyu metin neon yeşil üstünde (≈ 13:1);
+ * odak halkası her öğede görünür (`:focus-visible` yeşil çerçeve).
+ *
+ * Özgüllük: `:root[data-gorunum="nebula"] .x` en az (0,3,0); Tailwind
+ * yardımcıları bu dosyadan önce de sonra da gelse kurallar kazanır.
+ */
+
+/* ---------- Değişkenler ve palet ---------- */
+:root[data-gorunum='nebula'] {
+  --n-y: 46 245 150; /* neon yeşil #2ef596 */
+  --n-m: 178 102 255; /* neon mor #b266ff */
+  --n-mt: 206 170 255; /* koyu zeminde okunur mor metin #ceaaff */
+  --n-zemin: 3 2 10;
+  --n-panel: 9 5 22;
+  /* Kart tonu: ana kenar/ışıma (--cv), ikinci kenar rengi (--cv2), vurgu metni (--ct). */
+  --cv: var(--n-y);
+  --cv2: var(--n-m);
+  --ct: var(--n-y);
+  /* Kenar parlaklığı (üstüne gelince 1). */
+  --na: 0.62;
+  /* Kesik köşe boyu ve 135° degradedeki karşılığı (k·cos45°). */
+  --k: 14px;
+  --kk: calc(var(--k) * 0.7071);
+
+  /* shadcn temel renkleri: daha derin uzay laciverti. */
+  --background: 248 62% 3%;
+  --card: 250 45% 6%;
+  --popover: 250 50% 5%;
+  --border: 262 38% 20%;
+  --input: 262 38% 18%;
+  --primary: 152 91% 57%;
+  --primary-foreground: 150 80% 5%;
+  --ring: 152 91% 57%;
+
+  /* `pink-*` sınıfları (yan palet) Nebula'da mor eksen; `purple-*` (vurgu) yeşil kalır. */
+  --yan-50: 245 238 255;
+  --yan-100: 233 220 255;
+  --yan-200: 216 196 255;
+  --yan-300: 200 166 255;
+  --yan-400: 182 130 255;
+  --yan-500: 162 98 250;
+  --yan-600: 140 70 235;
+  --yan-700: 115 50 200;
+  --yan-800: 90 38 160;
+  --yan-900: 68 28 122;
+  --yan-950: 40 14 76;
+  --degrade-metin: linear-gradient(100deg, #c39bff 0%, #efe6ff 46%, #3ef7a3 100%);
+  --hero-a: 46 245 150;
+  --hero-b: 20 190 112;
+  --hero-a-parlak: 120 255 190;
+  --hero-b-parlak: 46 245 150;
+  color-scheme: dark;
+}
+
+/* ---------- Uzay zemini (Layout: sabit .noise-bg katmanı) ---------- */
+:root[data-gorunum='nebula'] body {
+  background-color: rgb(var(--n-zemin));
+}
+/* Layout kökünün opak zemini sabit katmanı örtüyordu (negatif z-index altta boyanır). */
+:root[data-gorunum='nebula'] .min-h-screen.bg-background {
+  background-color: transparent;
+}
+:root[data-gorunum='nebula'] .grid-bg {
+  display: none;
+}
+:root[data-gorunum='nebula'] .noise-bg {
+  overflow: hidden;
+  /* Parıltı katmanı (::after) aynı karoyu kullanıyor: bir kez tanımlı. */
+  --n-yildiz2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='720' stroke-linecap='round'%3E%3Cpath d='M521 467h0M349 574h0M547 396h0M493 20h0M166 155h0M464 691h0M623 4h0M327 298h0M369 229h0M315 701h0' stroke='%23fff' stroke-width='2' opacity='0.95'/%3E%3Cpath d='M521 467h0M349 574h0M547 396h0M493 20h0M166 155h0M464 691h0M623 4h0M327 298h0M369 229h0M315 701h0' stroke='%23fff' stroke-width='5' opacity='0.12'/%3E%3Cpath d='M138 620h0M80 219h0M529 308h0M596 575h0M187 341h0' stroke='%23c9ffe6' stroke-width='1.8' opacity='0.85'/%3E%3C/svg%3E");
+  background-color: rgb(var(--n-zemin));
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='380' stroke-linecap='round'%3E%3Cpath d='M119 192h0M195 67h0M101 363h0M25 46h0M73 129h0M262 110h0M208 331h0M18 238h0M252 235h0M202 256h0M296 101h0M209 48h0M251 122h0M13 361h0M139 269h0M211 245h0M197 374h0M61 342h0' stroke='%23fff' stroke-width='0.8' opacity='0.45'/%3E%3Cpath d='M135 52h0M35 200h0M320 196h0M58 341h0M32 176h0M123 356h0M47 257h0M335 267h0M109 300h0M75 313h0M35 279h0M22 253h0' stroke='%23e9dcff' stroke-width='1.1' opacity='0.7'/%3E%3Cpath d='M362 102h0M78 299h0M236 376h0M302 230h0M149 288h0M185 221h0M72 84h0M310 52h0' stroke='%23fff' stroke-width='1.4' opacity='0.9'/%3E%3Cpath d='M275 356h0M163 362h0M185 332h0M256 260h0M322 104h0' stroke='%23d6fff0' stroke-width='1.2' opacity='0.8'/%3E%3C/svg%3E"),
+    var(--n-yildiz2),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='560' stroke-linecap='round'%3E%3Cpath d='M131 24h0M400 400h0M273 171h0M20 550h0M349 30h0M410 257h0M294 88h0M327 282h0M62 247h0M241 557h0M167 11h0M282 439h0' stroke='%23b266ff' stroke-width='1.3' opacity='0.55'/%3E%3Cpath d='M34 29h0M492 102h0M515 21h0M51 317h0M27 117h0M229 407h0M261 79h0M113 352h0M34 327h0' stroke='%232ef596' stroke-width='1.1' opacity='0.45'/%3E%3C/svg%3E"),
+    radial-gradient(54% 44% at 6% 4%, rgb(var(--n-m) / 0.22), transparent 72%),
+    radial-gradient(40% 36% at 98% 16%, rgb(104 64 255 / 0.14), transparent 70%),
+    radial-gradient(56% 46% at 90% 98%, rgb(var(--n-y) / 0.15), transparent 72%),
+    radial-gradient(42% 36% at 14% 94%, rgb(var(--n-m) / 0.14), transparent 70%),
+    radial-gradient(120% 90% at 50% 38%, rgb(13 7 36), rgb(var(--n-zemin)) 72%);
+  background-size: 380px 380px, 720px 720px, 560px 560px, auto, auto, auto, auto, auto;
+  background-position: 0 0, 137px 211px, 263px 89px, 0 0, 0 0, 0 0, 0 0, 0 0;
+  background-repeat: repeat, repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+}
+/* Masaüstü: katman ayrı, yavaş sürüklenen bulutsu + parıldayan yıldızlar. */
+@media (min-width: 768px) {
+  :root[data-gorunum='nebula'] .noise-bg {
+    will-change: transform;
+  }
+}
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  :root[data-gorunum='nebula'] .noise-bg::before,
+  :root[data-gorunum='nebula'] .noise-bg::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+  }
+  :root[data-gorunum='nebula'] .noise-bg::before {
+    inset: -20%;
+    background:
+      radial-gradient(26% 22% at 30% 36%, rgb(var(--n-m) / 0.1), transparent 70%),
+      radial-gradient(24% 20% at 70% 64%, rgb(var(--n-y) / 0.08), transparent 70%);
+    animation: nebula-surukle 110s ease-in-out infinite alternate;
+  }
+  :root[data-gorunum='nebula'] .noise-bg::after {
+    inset: 0;
+    background-image: var(--n-yildiz2);
+    background-size: 720px 720px;
+    background-position: 431px 97px;
+    opacity: 0.2;
+    animation: nebula-parilti 6s ease-in-out infinite alternate;
+  }
+}
+@keyframes nebula-surukle {
+  from {
+    transform: translate3d(-4%, -3%, 0) rotate(-3deg);
+  }
+  to {
+    transform: translate3d(4%, 3%, 0) rotate(4deg);
+  }
+}
+@keyframes nebula-parilti {
+  from {
+    opacity: 0.12;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+/* ---------- Tonlar: ızgarada sırayla (yeşil / mor) ya da tek tek ---------- */
+:root[data-gorunum='nebula'] :where(.grid, .cam-dongu) > .cam-kart:where(:nth-child(2n)),
+:root[data-gorunum='nebula'] :where(.grid, .cam-dongu) > .glass:where(:nth-child(2n)),
+:root[data-gorunum='nebula'] :where(.grid, .cam-dongu) > .border-white\/10:where(:nth-child(2n)),
+:root[data-gorunum='nebula'] .cam-mor,
+:root[data-gorunum='nebula'] .cam-pembe,
+:root[data-gorunum='nebula'] [data-olcek='OMEGA'] {
+  --cv: var(--n-m);
+  --cv2: var(--n-y);
+  --ct: var(--n-mt);
+}
+:root[data-gorunum='nebula'] .cam-yesil,
+:root[data-gorunum='nebula'] .cam-gok,
+:root[data-gorunum='nebula'] .cam-secili,
+:root[data-gorunum='nebula'] [data-olcek='ALFA'],
+:root[data-gorunum='nebula'] [data-olcek='BETA'],
+:root[data-gorunum='nebula'] [data-olcek='SIGMA'] {
+  --cv: var(--n-y);
+  --cv2: var(--n-m);
+  --ct: var(--n-y);
+}
+
+/* ---------- Holografik panel (kart) ---------- */
+/*
+ * Katmanlar (üstten alta): sağ üst ve sol alt köşe braketleri, iç dolgu (kenar
+ * kalınlığı kadar içeride, köşeleri kesik), kenar halkası (mor ↔ yeşil, köşeleri
+ * kesik). Kesik köşe üçgenleri her iki katmanda saydam → arkadaki uzay görünür.
+ */
+:root[data-gorunum='nebula'] .cam-kart,
+:root[data-gorunum='nebula'] .rounded-xl.glass,
+:root[data-gorunum='nebula'] .rounded-2xl.glass,
+:root[data-gorunum='nebula'] .rounded-3xl.glass,
+:root[data-gorunum='nebula'] .rounded-2xl.border-white\/10,
+:root[data-gorunum='nebula'] .rounded-3xl.border-white\/10 {
+  border-color: transparent;
+  border-radius: 3px;
+  background:
+    linear-gradient(rgb(var(--cv)) 0 0) right top / 18px 2px no-repeat border-box,
+    linear-gradient(rgb(var(--cv)) 0 0) right top / 2px 18px no-repeat border-box,
+    linear-gradient(rgb(var(--cv2)) 0 0) left bottom / 18px 2px no-repeat border-box,
+    linear-gradient(rgb(var(--cv2)) 0 0) left bottom / 2px 18px no-repeat border-box,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--cv2) / 0.14) calc(var(--kk) + 0.4px),
+        rgb(var(--cv2) / 0) calc(var(--kk) + 150px)
+      )
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat border-box,
+    linear-gradient(315deg, transparent calc(var(--kk) - 0.4px), rgb(var(--cv) / 0.08) calc(var(--kk) + 0.4px), rgb(var(--cv) / 0) calc(var(--kk) + 120px))
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat border-box,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--n-panel) / 0.95) calc(var(--kk) + 0.4px),
+        rgb(var(--n-panel) / 0.95) calc(100% - var(--kk) - 0.4px),
+        transparent calc(100% - var(--kk) + 0.4px)
+      )
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat border-box,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--cv2) / var(--na)) calc(var(--kk) + 0.4px),
+        rgb(var(--cv) / var(--na)) calc(100% - var(--kk) - 0.4px),
+        transparent calc(100% - var(--kk) + 0.4px)
+      )
+      border-box;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow:
+    0 22px 44px -30px rgb(0 0 0 / 0.95),
+    0 0 26px -14px rgb(var(--cv) / 0.6);
+}
+/* Vitrin kartları (yetenekler, paketler, öne çıkan): içte ince devre ızgarası. */
+:root[data-gorunum='nebula'] .cam-kart.cam-glifli,
+:root[data-gorunum='nebula'] .cam-kart[data-olcek] {
+  background:
+    linear-gradient(rgb(var(--cv)) 0 0) right top / 18px 2px no-repeat border-box,
+    linear-gradient(rgb(var(--cv)) 0 0) right top / 2px 18px no-repeat border-box,
+    linear-gradient(rgb(var(--cv2)) 0 0) left bottom / 18px 2px no-repeat border-box,
+    linear-gradient(rgb(var(--cv2)) 0 0) left bottom / 2px 18px no-repeat border-box,
+    repeating-linear-gradient(0deg, rgb(var(--cv) / 0.045) 0 1px, transparent 1px 28px) center /
+      calc(100% - 2 * var(--k)) calc(100% - 2 * var(--k)) no-repeat border-box,
+    repeating-linear-gradient(90deg, rgb(var(--cv) / 0.045) 0 1px, transparent 1px 28px) center /
+      calc(100% - 2 * var(--k)) calc(100% - 2 * var(--k)) no-repeat border-box,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--cv2) / 0.2) calc(var(--kk) + 0.4px),
+        rgb(var(--cv2) / 0) calc(var(--kk) + 190px)
+      )
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat border-box,
+    linear-gradient(315deg, transparent calc(var(--kk) - 0.4px), rgb(var(--cv) / 0.12) calc(var(--kk) + 0.4px), rgb(var(--cv) / 0) calc(var(--kk) + 150px))
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat border-box,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--n-panel) / 0.94) calc(var(--kk) + 0.4px),
+        rgb(var(--n-panel) / 0.94) calc(100% - var(--kk) - 0.4px),
+        transparent calc(100% - var(--kk) + 0.4px)
+      )
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat border-box,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--cv2) / var(--na)) calc(var(--kk) + 0.4px),
+        rgb(var(--cv) / var(--na)) calc(100% - var(--kk) - 0.4px),
+        transparent calc(100% - var(--kk) + 0.4px)
+      )
+      border-box;
+  --na: 0.78;
+  box-shadow:
+    0 26px 50px -30px rgb(0 0 0 / 0.95),
+    0 0 34px -12px rgb(var(--cv) / 0.65);
+}
+:root[data-gorunum='nebula'] .cam-kart.cam-one,
+:root[data-gorunum='nebula'] .cam-kart.cam-secili {
+  --na: 1;
+  box-shadow:
+    0 26px 50px -30px rgb(0 0 0 / 0.95),
+    0 0 44px -10px rgb(var(--cv) / 0.8);
+}
+@media (hover: hover) {
+  :root[data-gorunum='nebula'] .cam-kart:hover,
+  :root[data-gorunum='nebula'] .rounded-2xl.glass:hover,
+  :root[data-gorunum='nebula'] .rounded-3xl.glass:hover,
+  :root[data-gorunum='nebula'] .rounded-2xl.border-white\/10:hover {
+    --na: 1;
+    box-shadow:
+      0 22px 44px -30px rgb(0 0 0 / 0.95),
+      0 0 40px -10px rgb(var(--cv) / 0.75);
+  }
+}
+/* Kart içi alt kutular ve ince çizgiler kartın tonunu alır. */
+:root[data-gorunum='nebula'] .rounded-xl.border-white\/10,
+:root[data-gorunum='nebula'] .rounded-lg.border-white\/10,
+:root[data-gorunum='nebula'] .rounded-xl.border-white\/5,
+:root[data-gorunum='nebula'] .rounded-lg.border-white\/5 {
+  border-color: rgb(var(--cv2) / 0.3);
+}
+:root[data-gorunum='nebula'] .cam-kart .border-t.border-white\/10,
+:root[data-gorunum='nebula'] .cam-kart .border-b.border-white\/10,
+:root[data-gorunum='nebula'] .glass .border-t.border-white\/10,
+:root[data-gorunum='nebula'] .glass .border-b.border-white\/10 {
+  border-color: rgb(var(--cv2) / 0.24);
+}
+/* Paket başlığının altında kartın tonunda neon çizgi; "Popüler" etiketi kesik sekme. */
+:root[data-gorunum='nebula'] [data-olcek] h3 {
+  position: relative;
+  text-shadow: 0 0 18px rgb(var(--cv) / 0.45);
+}
+:root[data-gorunum='nebula'] [data-olcek] h3::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: -3px;
+  width: 64%;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(var(--cv)), rgb(var(--cv2) / 0.6) 60%, rgb(var(--cv2) / 0));
+  box-shadow: 0 0 10px rgb(var(--cv) / 0.7);
+}
+:root[data-gorunum='nebula'] [data-olcek] > .absolute.-top-3 {
+  border-radius: 2px;
+  background: linear-gradient(
+    135deg,
+    transparent 4.5px,
+    rgb(var(--cv)) 5.5px,
+    rgb(var(--cv)) calc(100% - 5.5px),
+    transparent calc(100% - 4.5px)
+  );
+  color: #04020c;
+  box-shadow: 0 0 20px -4px rgb(var(--cv) / 0.9);
+}
+
+/* ---------- Altıgen numara rozeti ("01") ---------- */
+:root[data-gorunum='nebula'] .cam-numarali {
+  counter-reset: cam-no;
+}
+:root[data-gorunum='nebula'] .cam-numarali > * {
+  counter-increment: cam-no;
+}
+/* Yükseklik Modern'in hap rozetiyle aynı (28 px): bölüm yer tutucuları ortak. */
+:root[data-gorunum='nebula'] .cam-numarali > .cam-kart::before {
+  content: counter(cam-no, decimal-leading-zero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  width: 38px;
+  height: 28px;
+  clip-path: polygon(24% 0, 76% 0, 100% 50%, 76% 100%, 24% 100%, 0 50%);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.55), rgb(var(--cv)) 45%, rgb(var(--cv) / 0.75));
+  color: #05010a;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+:root[data-gorunum='nebula'] .cam-numarali > [data-olcek]::before {
+  margin-bottom: 14px;
+}
+:root[data-gorunum='nebula'] .cam-numarali > .cam-glifli::before {
+  position: absolute;
+  top: 1.5rem;
+  inset-inline-start: 1.5rem;
+}
+
+/* ---------- Büyük ince çizgili glif (paket kartı, sağ üst) ---------- */
+:root[data-gorunum='nebula'] [data-olcek]::after {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 18px;
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1;
+  color: rgb(var(--cv) / 0.08);
+  -webkit-text-stroke: 1.5px rgb(var(--cv));
+  text-shadow:
+    0 0 14px rgb(var(--cv) / 0.75),
+    0 0 34px rgb(var(--cv) / 0.4);
+  pointer-events: none;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans', 'DejaVu Sans', system-ui, sans-serif;
+}
+:root[data-gorunum='nebula'] [data-olcek='ALFA']::after {
+  content: 'α';
+}
+:root[data-gorunum='nebula'] [data-olcek='BETA']::after {
+  content: 'β';
+}
+:root[data-gorunum='nebula'] [data-olcek='OMEGA']::after {
+  content: 'Ω';
+}
+:root[data-gorunum='nebula'] [data-olcek='SIGMA']::after {
+  content: 'Σ';
+}
+
+/* ---------- Glifli kart: kartın lucide ikonu sağ üstte büyük holografik çip ---------- */
+:root[data-gorunum='nebula'] .cam-glifli {
+  padding-top: calc(1.5rem + 64px);
+}
+:root[data-gorunum='nebula'] .cam-glifli > .cam-ikon {
+  --k: 14px;
+  position: absolute;
+  top: 0.75rem;
+  inset-inline-end: 0.75rem;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+}
+:root[data-gorunum='nebula'] .cam-glifli > .cam-ikon > svg {
+  width: 42px;
+  height: 42px;
+  stroke-width: 1.3;
+}
+
+/* ---------- İkon çipleri: kesik köşeli neon kutucuk, ikon ışıyan çizgi ---------- */
+:root[data-gorunum='nebula'] .cam-ikon,
+:root[data-gorunum='nebula'] .rounded-xl.bg-gradient-to-br,
+:root[data-gorunum='nebula'] .rounded-lg.bg-gradient-to-br,
+:root[data-gorunum='nebula'] .rounded-xl.bg-primary\/15,
+:root[data-gorunum='nebula'] .rounded-lg.bg-primary\/15 {
+  --k: 9px;
+  --kk: calc(var(--k) * 0.7071);
+  border-radius: 2px;
+  color: rgb(var(--ct));
+  background:
+    radial-gradient(closest-side, rgb(var(--cv) / 0.22), rgb(var(--cv) / 0)) center / 80% 80% no-repeat,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--n-panel)) calc(var(--kk) + 0.4px),
+        rgb(var(--n-panel)) calc(100% - var(--kk) - 0.4px),
+        transparent calc(100% - var(--kk) + 0.4px)
+      )
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat,
+    linear-gradient(
+      135deg,
+      transparent calc(var(--kk) - 0.4px),
+      rgb(var(--cv)) calc(var(--kk) + 0.4px),
+      rgb(var(--cv2) / 0.8) calc(100% - var(--kk) - 0.4px),
+      transparent calc(100% - var(--kk) + 0.4px)
+    );
+  box-shadow: 0 0 18px -6px rgb(var(--cv) / 0.75);
+}
+:root[data-gorunum='nebula'] .cam-ikon > svg,
+:root[data-gorunum='nebula'] .rounded-xl.bg-gradient-to-br > svg,
+:root[data-gorunum='nebula'] .rounded-lg.bg-gradient-to-br > svg,
+:root[data-gorunum='nebula'] .rounded-xl.bg-primary\/15 > svg,
+:root[data-gorunum='nebula'] .rounded-lg.bg-primary\/15 > svg {
+  color: rgb(var(--ct));
+  filter: drop-shadow(0 0 4px rgb(var(--cv) / 0.85));
+}
+/* Özellik satırı ikonu: yer kaplamayan, ışıyan küçük işaret. */
+:root[data-gorunum='nebula'] li > svg.lucide:first-child {
+  color: rgb(var(--ct));
+  filter: drop-shadow(0 0 3px rgb(var(--cv) / 0.9));
+}
+
+/* ---------- Metin: başlık, üst etiket, vurgu, fiyat ---------- */
+:root[data-gorunum='nebula'] main h1,
+:root[data-gorunum='nebula'] main h2 {
+  text-shadow: 0 0 28px rgb(var(--n-m) / 0.28);
+}
+:root[data-gorunum='nebula'] .tracking-\[0\.3em\],
+:root[data-gorunum='nebula'] .tracking-\[0\.25em\],
+:root[data-gorunum='nebula'] .tracking-\[0\.4em\],
+:root[data-gorunum='nebula'] .tracking-\[0\.2em\] {
+  color: rgb(var(--ct));
+  text-shadow: 0 0 14px rgb(var(--cv) / 0.5);
+}
+:root[data-gorunum='nebula'] .cam-parla {
+  color: rgb(var(--ct));
+  text-shadow: 0 0 18px rgb(var(--cv) / 0.6);
+}
+:root[data-gorunum='nebula'] .cam-fiyat {
+  --k: 10px;
+  --kk: calc(var(--k) * 0.7071);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  padding: 10px 12px;
+  background:
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--cv) / 0.08) calc(var(--kk) + 0.4px),
+        rgb(var(--n-zemin) / 0.6) calc(100% - var(--kk) - 0.4px),
+        transparent calc(100% - var(--kk) + 0.4px)
+      )
+      padding-box,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--cv) / 0.7) calc(var(--kk) + 0.4px),
+        rgb(var(--cv2) / 0.45) calc(100% - var(--kk) - 0.4px),
+        transparent calc(100% - var(--kk) + 0.4px)
+      )
+      border-box;
+}
+:root[data-gorunum='nebula'] .cam-fiyat .gradient-text {
+  background: none;
+  color: rgb(var(--ct));
+  text-shadow: 0 0 22px rgb(var(--cv) / 0.6);
+}
+
+/* ---------- Düğmeler ---------- */
+/* Birincil: neon yeşil dolgu + ışıma (referanstaki "Keşif Görüşmesi Ayarla"). */
+:root[data-gorunum='nebula'] .bg-gradient-to-r.from-purple-600,
+:root[data-gorunum='nebula'] .from-\[rgb\(var\(--hero-a\)\)\],
+:root[data-gorunum='nebula'] button.bg-emerald-500,
+:root[data-gorunum='nebula'] a.bg-emerald-500,
+:root[data-gorunum='nebula'] button.bg-primary,
+:root[data-gorunum='nebula'] a.bg-primary {
+  background: linear-gradient(180deg, rgb(128 255 196), rgb(var(--n-y)) 46%, rgb(22 208 122));
+  color: #021309;
+  border-color: transparent;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    0 0 0 1px rgb(var(--n-y) / 0.45),
+    0 0 26px -4px rgb(var(--n-y) / 0.75);
+}
+:root[data-gorunum='nebula'] button.bg-gradient-to-r.from-purple-600,
+:root[data-gorunum='nebula'] button.from-\[rgb\(var\(--hero-a\)\)\],
+:root[data-gorunum='nebula'] button.bg-emerald-500,
+:root[data-gorunum='nebula'] button.bg-primary,
+:root[data-gorunum='nebula'] a.bg-gradient-to-r.from-purple-600,
+:root[data-gorunum='nebula'] a.from-\[rgb\(var\(--hero-a\)\)\],
+:root[data-gorunum='nebula'] a.bg-emerald-500,
+:root[data-gorunum='nebula'] a.bg-primary {
+  border-radius: 10px;
+  font-weight: 700;
+}
+@media (hover: hover) {
+  :root[data-gorunum='nebula'] button.bg-gradient-to-r.from-purple-600:hover,
+  :root[data-gorunum='nebula'] button.from-\[rgb\(var\(--hero-a\)\)\]:hover,
+  :root[data-gorunum='nebula'] button.bg-emerald-500:hover,
+  :root[data-gorunum='nebula'] button.bg-primary:hover,
+  :root[data-gorunum='nebula'] a.bg-gradient-to-r.from-purple-600:hover,
+  :root[data-gorunum='nebula'] a.from-\[rgb\(var\(--hero-a\)\)\]:hover,
+  :root[data-gorunum='nebula'] a.bg-emerald-500:hover,
+  :root[data-gorunum='nebula'] a.bg-primary:hover {
+    background: linear-gradient(180deg, rgb(170 255 214), rgb(90 255 178) 46%, rgb(var(--n-y)));
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.6),
+      0 0 0 1px rgb(var(--n-y) / 0.7),
+      0 0 34px -2px rgb(var(--n-y) / 0.9);
+  }
+}
+/* İkincil: mor neon çerçeve, üstüne gelince yeşil. */
+:root[data-gorunum='nebula'] button.border-input,
+:root[data-gorunum='nebula'] button.border-white\/25,
+:root[data-gorunum='nebula'] button.border-white\/20,
+:root[data-gorunum='nebula'] a.border-input,
+:root[data-gorunum='nebula'] a.border-white\/25,
+:root[data-gorunum='nebula'] a.border-white\/20 {
+  border-radius: 10px;
+  border-color: rgb(var(--n-m) / 0.65);
+  background-color: rgb(var(--n-m) / 0.08);
+  box-shadow: 0 0 20px -10px rgb(var(--n-m));
+}
+@media (hover: hover) {
+  :root[data-gorunum='nebula'] button.border-input:hover,
+  :root[data-gorunum='nebula'] button.border-white\/25:hover,
+  :root[data-gorunum='nebula'] button.border-white\/20:hover,
+  :root[data-gorunum='nebula'] a.border-input:hover,
+  :root[data-gorunum='nebula'] a.border-white\/25:hover,
+  :root[data-gorunum='nebula'] a.border-white\/20:hover {
+    border-color: rgb(var(--n-y) / 0.85);
+    box-shadow: 0 0 22px -6px rgb(var(--n-y) / 0.8);
+  }
+}
+
+/* ---------- Seçici gruplar (profil, ödeme şekli, filtreler) ---------- */
+:root[data-gorunum='nebula'] button[aria-pressed='true'] {
+  border-color: rgb(var(--n-y));
+  background-color: rgb(var(--n-y) / 0.1);
+  box-shadow: 0 0 22px -6px rgb(var(--n-y) / 0.9);
+}
+:root[data-gorunum='nebula'] button[aria-pressed='false'].border {
+  border-color: rgb(var(--n-m) / 0.42);
+  background-color: rgb(var(--n-m) / 0.05);
+}
+:root[data-gorunum='nebula'] [role='group'] > button[aria-pressed='false'] > .rounded-lg:first-child {
+  color: rgb(var(--n-mt));
+  background: rgb(var(--n-m) / 0.12);
+  box-shadow: inset 0 0 0 1px rgb(var(--n-m) / 0.55);
+}
+:root[data-gorunum='nebula'] [role='group'] > button[aria-pressed='true'] > .rounded-lg:first-child {
+  box-shadow: 0 0 14px -2px rgb(var(--n-y) / 0.9);
+}
+:root[data-gorunum='nebula'] [role='group'].p-1 {
+  border-color: rgb(var(--n-m) / 0.35);
+}
+
+/* ---------- Panel sekme çubukları (Faz 7Y/7M): kesik köşeli holografik çipler ---------- */
+:root[data-gorunum='nebula'] .cam-sekmeler {
+  gap: 6px;
+  padding: 6px 2px 12px;
+  border-bottom-color: rgb(var(--n-m) / 0.3);
+}
+:root[data-gorunum='nebula'] .cam-sekmeler > button {
+  --k: 9px;
+  --kk: calc(var(--k) * 0.7071);
+  --sv: var(--n-m);
+  --sa: 0.38;
+  padding-block: 8px;
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, transparent calc(var(--kk) - 0.4px), rgb(var(--sv) / 0.16) calc(var(--kk) + 0.4px), rgb(var(--sv) / 0.02) calc(100% - var(--kk) - 0.4px), transparent calc(100% - var(--kk) + 0.4px))
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat,
+    linear-gradient(
+        135deg,
+        transparent calc(var(--kk) - 0.4px),
+        rgb(var(--n-panel)) calc(var(--kk) + 0.4px),
+        rgb(var(--n-panel)) calc(100% - var(--kk) - 0.4px),
+        transparent calc(100% - var(--kk) + 0.4px)
+      )
+      center / calc(100% - 2px) calc(100% - 2px) no-repeat,
+    linear-gradient(
+      135deg,
+      transparent calc(var(--kk) - 0.4px),
+      rgb(var(--sv) / var(--sa)) calc(var(--kk) + 0.4px),
+      rgb(var(--sv) / var(--sa)) calc(100% - var(--kk) - 0.4px),
+      transparent calc(100% - var(--kk) + 0.4px)
+    );
+}
+:root[data-gorunum='nebula'] .cam-sekmeler > button.text-foreground {
+  --sv: var(--n-y);
+  --sa: 1;
+  color: rgb(var(--n-y));
+  text-shadow: 0 0 12px rgb(var(--n-y) / 0.55);
+  box-shadow: 0 0 22px -8px rgb(var(--n-y) / 0.9);
+}
+@media (hover: hover) {
+  :root[data-gorunum='nebula'] .cam-sekmeler > button:hover {
+    --sa: 0.75;
+  }
+}
+:root[data-gorunum='nebula'] .cam-sekmeler > button > span.absolute {
+  display: none;
+}
+/* Yönetici menüsü alt satırı (seçili grubun bölümleri). */
+:root[data-gorunum='nebula'] .cam-alt-sekmeler > button {
+  border-color: rgb(var(--n-m) / 0.32);
+  border-radius: 4px;
+}
+:root[data-gorunum='nebula'] .cam-alt-sekmeler > button[aria-current='page'] {
+  color: rgb(var(--n-y));
+  background: rgb(var(--n-y) / 0.1);
+  border-color: rgb(var(--n-y));
+  box-shadow: 0 0 16px -5px rgb(var(--n-y) / 0.9);
+}
+
+/* ---------- Rozetler ---------- */
+:root[data-gorunum='nebula'] .rounded-full.glass {
+  border-color: rgb(var(--n-m) / 0.55);
+  background: rgb(var(--n-m) / 0.1);
+  box-shadow: 0 0 18px -8px rgb(var(--n-m));
+}
+:root[data-gorunum='nebula'] span.rounded-full.bg-emerald-500,
+:root[data-gorunum='nebula'] div.rounded-full.bg-gradient-to-r.from-purple-600 {
+  box-shadow: 0 0 16px -2px rgb(var(--n-y) / 0.85);
+}
+
+/* ---------- Girdiler ve odak ---------- */
+:root[data-gorunum='nebula'] input:not([type='checkbox'], [type='radio'], [type='range']),
+:root[data-gorunum='nebula'] textarea,
+:root[data-gorunum='nebula'] select {
+  border-color: rgb(var(--n-m) / 0.36);
+  background-color: rgb(5 3 16 / 0.72);
+}
+:root[data-gorunum='nebula'] input:not([type='checkbox'], [type='radio'], [type='range']):focus,
+:root[data-gorunum='nebula'] textarea:focus,
+:root[data-gorunum='nebula'] select:focus {
+  border-color: rgb(var(--n-y) / 0.85);
+  box-shadow:
+    0 0 0 1px rgb(var(--n-y) / 0.4),
+    0 0 18px -6px rgb(var(--n-y) / 0.9);
+}
+:root[data-gorunum='nebula'] input[type='checkbox'],
+:root[data-gorunum='nebula'] input[type='radio'] {
+  accent-color: rgb(var(--n-y));
+}
+:root[data-gorunum='nebula'] :focus-visible {
+  outline: 2px solid rgb(var(--n-y));
+  outline-offset: 2px;
+}
+
+/* ---------- Tablolar (panel listeleri) ---------- */
+:root[data-gorunum='nebula'] thead tr {
+  border-bottom-color: rgb(var(--n-m) / 0.4);
+}
+:root[data-gorunum='nebula'] thead th {
+  color: rgb(var(--n-mt));
+}
+:root[data-gorunum='nebula'] tbody tr {
+  border-color: rgb(var(--n-m) / 0.14);
+}
+@media (hover: hover) {
+  :root[data-gorunum='nebula'] tbody tr:hover {
+    background-color: rgb(var(--n-y) / 0.04);
+  }
+}
+
+/* ---------- Üst menü, mobil menü, alt bilgi ---------- */
+:root[data-gorunum='nebula'] header.fixed.top-0 {
+  border-bottom: 1px solid rgb(var(--n-m) / 0.18);
+}
+:root[data-gorunum='nebula'] header.fixed.top-0.glass {
+  border-width: 0 0 1px;
+  border-color: rgb(var(--n-m) / 0.4);
+  background: rgb(4 2 14 / 0.74);
+  box-shadow:
+    0 1px 0 rgb(var(--n-y) / 0.12),
+    0 12px 30px -22px rgb(var(--n-m) / 0.9);
+}
+:root[data-gorunum='nebula'] header nav a.text-foreground {
+  color: rgb(var(--n-y));
+  text-shadow: 0 0 14px rgb(var(--n-y) / 0.6);
+}
+:root[data-gorunum='nebula'] header nav a > span.absolute {
+  width: 28px;
+  border-radius: 0;
+  background: linear-gradient(90deg, rgb(var(--n-m)), rgb(var(--n-y)));
+  box-shadow: 0 0 10px 1px rgb(var(--n-y) / 0.7);
+}
+/* Mobil menü ve dil menüsü içeriğin üstünde açılır: zemin opak, kesik köşe yok. */
+:root[data-gorunum='nebula'] header .rounded-2xl.glass,
+:root[data-gorunum='nebula'] header .rounded-xl.glass {
+  border-color: rgb(var(--n-m) / 0.5);
+  border-radius: 6px;
+  background: rgb(8 4 22);
+  box-shadow:
+    0 0 0 1px rgb(var(--n-y) / 0.08),
+    0 0 34px -12px rgb(var(--n-m) / 0.85);
+}
+:root[data-gorunum='nebula'] header .bg-purple-500\/15,
+:root[data-gorunum='nebula'] header .bg-purple-500\/20 {
+  color: rgb(var(--n-y));
+  box-shadow: inset 0 0 0 1px rgb(var(--n-y) / 0.55);
+}
+:root[data-gorunum='nebula'] footer {
+  border-top-color: rgb(var(--n-m) / 0.35);
+  background-color: rgb(4 2 14 / 0.7);
+  box-shadow: 0 -14px 34px -26px rgb(var(--n-m));
+}
+:root[data-gorunum='nebula'] footer h3 {
+  color: rgb(var(--n-y));
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-shadow: 0 0 12px rgb(var(--n-y) / 0.5);
+}
+:root[data-gorunum='nebula'] footer a:hover {
+  color: rgb(var(--n-y));
+}
+
+/* ---------- Ertelenmiş bölüm yer tutucusu (Modern'le aynı ölçüler) ---------- */
+:root[data-gorunum='nebula'] .bolum-yer {
+  min-height: var(--yer-mobil-m, var(--yer-mobil, 900px));
+}
+@media (min-width: 1024px) {
+  :root[data-gorunum='nebula'] .bolum-yer {
+    min-height: var(--yer-masa-m, var(--yer-masa, 850px));
+  }
+}
+
+/* ---------- Hero: uzay penceresi, devre ızgarası, büyük "mehmetkuru.dev" ---------- */
+:root[data-gorunum='nebula'] .hero-surface {
+  background-color: transparent;
+  background-image:
+    linear-gradient(180deg, rgb(14 7 38 / 0.5) 0%, rgb(var(--n-zemin) / 0) 50%, rgb(var(--n-zemin) / 0.7) 100%),
+    linear-gradient(rgb(var(--n-m) / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--n-m) / 0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 64px 64px, 64px 64px;
+}
+:root[data-gorunum='nebula'] .hero-glow-a {
+  width: 36rem;
+  height: 36rem;
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--n-m) / 0.34) 0%,
+    rgb(var(--n-m) / 0.18) 45%,
+    rgb(var(--n-m) / 0) 100%
+  );
+}
+:root[data-gorunum='nebula'] .hero-glow-b {
+  width: 30rem;
+  height: 30rem;
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--n-y) / 0.2) 0%,
+    rgb(var(--n-y) / 0.1) 45%,
+    rgb(var(--n-y) / 0) 100%
+  );
+}
+:root[data-gorunum='nebula'] .hero-marka {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: baseline;
+  max-width: 60rem;
+}
+:root[data-gorunum='nebula'] .hero-marka > * {
+  grid-column: 1 / -1;
+}
+:root[data-gorunum='nebula'] .hero-marka > :first-child {
+  grid-row: 1;
+  justify-self: start;
+}
+:root[data-gorunum='nebula'] .hero-marka > h1 {
+  grid-row: 3;
+  max-width: 21ch;
+  font-size: clamp(26px, 3.3vw, 46px);
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  text-shadow: none;
+}
+/* Başlık boyutu Modern'le aynı: hero yüksekliği Klasik'le aynı kalsın (kayma yok). */
+@media (max-width: 639px) {
+  :root[data-gorunum='nebula'] .hero-marka > h1 {
+    font-size: 28px;
+    line-height: 1.18;
+    margin-bottom: 1.75rem;
+  }
+}
+:root[data-gorunum='nebula'] .hero-marka > h1 .gradient-text {
+  background: none;
+  color: #f4f0fb;
+}
+:root[data-gorunum='nebula'] .hero-marka > p {
+  grid-row: 4;
+}
+:root[data-gorunum='nebula'] .hero-marka > div:last-child {
+  grid-row: 5;
+}
+:root[data-gorunum='nebula'] .hero-marka::before,
+:root[data-gorunum='nebula'] .hero-marka::after {
+  grid-row: 2;
+  font-size: clamp(40px, 10.2vw, 104px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  direction: ltr;
+}
+:root[data-gorunum='nebula'] .hero-marka::before {
+  content: 'mehmetkuru';
+  grid-column: 1;
+  color: #f7f3ff;
+  /* Işıma kısa tutuldu: geniş gölge yazının görünür alanını büyütüp LCP öğesini H1'den buna kaydırıyordu. */
+  text-shadow: 0 0 16px rgb(var(--n-m) / 0.6);
+}
+/* ".dev" + neon halka nokta (arka plan olarak çizilir, ek öğe yok). */
+:root[data-gorunum='nebula'] .hero-marka::after {
+  content: '.dev';
+  grid-column: 2;
+  padding-inline-end: 0.5em;
+  color: rgb(var(--n-y));
+  text-shadow: 0 0 28px rgb(var(--n-y) / 0.6);
+  background: radial-gradient(
+      circle at calc(100% - 0.17em) 58%,
+      rgb(var(--n-y) / 0) 0.1em,
+      rgb(var(--n-y)) 0.11em,
+      rgb(var(--n-y)) 0.16em,
+      rgb(var(--n-y) / 0.4) 0.18em,
+      rgb(var(--n-y) / 0) 0.32em
+    )
+    no-repeat;
+}
+[dir='rtl'][data-gorunum='nebula'] .hero-marka::before {
+  grid-column: 2;
+}
+[dir='rtl'][data-gorunum='nebula'] .hero-marka::after {
+  grid-column: 1;
+}
+/* İstatistik şeridi: holografik alt bant. */
+:root[data-gorunum='nebula'] .hero-surface > .absolute.bottom-0 {
+  border-top-color: rgb(var(--n-m) / 0.4);
+  background-color: rgb(4 2 14 / 0.66);
+  box-shadow:
+    0 -1px 0 rgb(var(--n-y) / 0.12),
+    0 -12px 30px -24px rgb(var(--n-y));
+}
+:root[data-gorunum='nebula'] .hero-surface > .absolute.bottom-0 .border-r {
+  border-color: rgb(var(--n-m) / 0.2);
+}

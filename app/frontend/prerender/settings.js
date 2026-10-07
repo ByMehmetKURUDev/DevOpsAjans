@@ -90,27 +90,52 @@ export function resolvePanelValue(settings, key, lang, fallback) {
 }
 
 /**
- * Derlemede geçerli site görünümü (`site_gorunum`): 'modern' ya da 'klasik'.
+ * Derlemede geçerli site görünümü (`site_gorunum`): 'modern', 'nebula' ya da 'klasik'.
  *
  * Tanınmayan/boş değer klasik sayılır — src/lib/gorunum.ts ile aynı kural.
  */
 export function siteGorunumu(settings = {}) {
   const deger = String(settings?.site_gorunum ?? '').trim();
-  return deger === 'modern' ? 'modern' : 'klasik';
+  return deger === 'modern' || deger === 'nebula' ? deger : 'klasik';
 }
 
 /**
  * Prerender HTML'inin `<html>` etiketine `data-gorunum` yazar.
  *
- * Yalnız Modern'de yazılıyor: Klasik varsayılan ve HTML'in eski hâlinden
- * tek bayt farkı olmasın. Modern iken ilk kez gelen ziyaretçi (önbelleği
- * yok) böylece ayar isteği dönmeden Modern görüyor; kritik CSS'i gömen
- * `scripts/css-gomule.mjs` de Modern kurallarını ilk boyamaya katıyor.
+ * Yalnız Modern ve Nebula'da yazılıyor: Klasik varsayılan ve HTML'in eski
+ * hâlinden tek bayt farkı olmasın. Modern/Nebula iken ilk kez gelen ziyaretçi
+ * (önbelleği yok) böylece ayar isteği dönmeden doğru görünümü görüyor; kritik
+ * CSS'i gömen `scripts/css-gomule.mjs` de o görünümün kurallarını ilk boyamaya
+ * katıyor.
+ *
+ * Faz 8N — Nebula'nın stili ayrı dosya (yalnız Nebula'da iner): `nebulaStili`
+ * (derlenmiş dosyanın adresi) verilirse `</head>`'den önce bağlantısı da yazılır;
+ * css-gomule onu da işleyip kritik kurallarını gömer, kalanını arkadan yükletir.
  */
-export function htmlGorunumYaz(html, gorunum) {
-  if (gorunum !== 'modern') return html;
-  return html.replace(/<html\b([^>]*)>/i, (_tam, oznitelikler) => {
+export function htmlGorunumYaz(html, gorunum, { nebulaStili } = {}) {
+  if (gorunum !== 'modern' && gorunum !== 'nebula') return html;
+  let sonuc = html.replace(/<html\b([^>]*)>/i, (_tam, oznitelikler) => {
     const temiz = oznitelikler.replace(/\s+data-gorunum=("[^"]*"|'[^']*'|\S+)/gi, '');
-    return `<html${temiz} data-gorunum="modern">`;
+    return `<html${temiz} data-gorunum="${gorunum}">`;
   });
+  if (gorunum === 'nebula' && nebulaStili && !sonuc.includes(`href="${nebulaStili}"`)) {
+    sonuc = sonuc.replace(/<\/head>/i, `  <link rel="stylesheet" href="${nebulaStili}">\n  </head>`);
+  }
+  return sonuc;
+}
+
+/**
+ * Faz 8N — Nebula stil dosyasının adresini `<meta name="gorunum-nebula-css">`
+ * olarak yazar. index.html'deki satır içi görünüm betiği (`?gorunum=nebula` ya
+ * da önbellekteki ayar Nebula iken) dosyayı ilk boyamadan önce buradan ekliyor;
+ * adres derlemeye göre değiştiği (içerik özeti) için betiğe gömülemiyor — gömülse
+ * betiğin CSP özeti her derlemede değişirdi. Etiket `<meta charset>`ın hemen
+ * ardına, yani betikten önceye yazılır.
+ */
+export function nebulaAdresiYaz(html, nebulaStili) {
+  // Satır içi betik de bu adı (seçici olarak) taşıyor: yalnız gerçek <meta> etiketine bak.
+  if (!nebulaStili || /<meta\s+name="gorunum-nebula-css"/i.test(html)) return html;
+  const etiket = `<meta name="gorunum-nebula-css" content="${nebulaStili}" />`;
+  if (/<meta\s+charset[^>]*>/i.test(html)) return html.replace(/(<meta\s+charset[^>]*>)/i, `$1\n    ${etiket}`);
+  return html.replace(/<head>/i, `<head>\n    ${etiket}`);
 }

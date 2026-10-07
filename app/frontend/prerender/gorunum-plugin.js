@@ -1,5 +1,5 @@
 /**
- * Vite eklentisi: site ayarı Modern ise derlenen HTML'e `data-gorunum` yazar.
+ * Vite eklentisi: site ayarı Modern/Nebula ise derlenen HTML'e `data-gorunum` yazar.
  *
  * `transformIndexHtml` index.html'i prerender'dan ÖNCE dönüştürüyor;
  * prerender eklentisi bütün sayfaları bu şablondan ürettiği için öznitelik
@@ -9,7 +9,7 @@
  * (prerender/settings.js). Adres yoksa ya da istek düşerse site Klasik
  * sayılır ve HTML değişmez — derleme hiçbir koşulda düşmez.
  */
-import { htmlGorunumYaz, loadPanelSettings, siteGorunumu } from './settings.js';
+import { htmlGorunumYaz, loadPanelSettings, nebulaAdresiYaz, siteGorunumu } from './settings.js';
 
 /**
  * `SITE_API_BASE_URL` derleme ortamında yoksa (Cloudflare'de tanımlı olmayabilir)
@@ -37,16 +37,34 @@ async function ayarlariYukleYedekli() {
   }
 }
 
+/**
+ * Faz 8N — derlenmiş Nebula stil dosyasının adresi (`src/lib/gorunum.ts`'teki
+ * `gorunum-nebula.css?url` içe aktarımının ürettiği `assets/gorunum-nebula-<özet>.css`).
+ * Paket bilgisi yoksa (birim testi, geliştirme) `null`: HTML'e hiçbir şey eklenmez.
+ */
+export function nebulaStilAdresiBul(bundle, taban = '/') {
+  if (!bundle) return null;
+  const dosya = Object.values(bundle).find(
+    (o) => o?.type === 'asset' && /(^|\/)gorunum-nebula[-.][^/]*\.css$/.test(o.fileName || ''),
+  );
+  return dosya ? `${taban.replace(/\/?$/, '/')}${dosya.fileName}` : null;
+}
+
 export function gorunumOzniteligi({ ayarlariYukle = ayarlariYukleYedekli } = {}) {
+  let taban = '/';
   return {
     name: 'mk-gorunum-ozniteligi',
     apply: 'build',
+    configResolved(config) {
+      taban = config.base || '/';
+    },
     transformIndexHtml: {
       order: 'post',
-      async handler(html) {
+      async handler(html, ctx) {
         const gorunum = siteGorunumu(await ayarlariYukle());
-        if (gorunum === 'modern') console.log('[prerender] Site görünümü Modern: <html data-gorunum="modern"> yazılıyor.');
-        return htmlGorunumYaz(html, gorunum);
+        const nebulaStili = nebulaStilAdresiBul(ctx?.bundle, taban);
+        if (gorunum !== 'klasik') console.log(`[prerender] Site görünümü ${gorunum}: <html data-gorunum="${gorunum}"> yazılıyor.`);
+        return htmlGorunumYaz(nebulaAdresiYaz(html, nebulaStili), gorunum, { nebulaStili });
       },
     },
   };

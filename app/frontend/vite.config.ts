@@ -134,7 +134,7 @@ export default defineConfig(async ({ command }) => {
       // Yalnız prerender betiğine `virtual:kaynaklar-veri` (istemci paketine girmez).
       kaynakVeriEklentisi(kaynakVerisi),
       vitrinFiyatEklentisi(vitrinFiyatlari),
-      // Site ayarı Modern ise prerender HTML'ine <html data-gorunum="modern">.
+      // Site ayarı Modern/Nebula ise prerender HTML'ine <html data-gorunum="…"> (Nebula'da stil bağlantısı da).
       gorunumOzniteligi(),
       ...(process.env.STATS === '1' ? [bundleStats()] : []),
       Sitemap({
