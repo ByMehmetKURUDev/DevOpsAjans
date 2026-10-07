@@ -213,6 +213,16 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "saha_sablonlari": {"sahip": "hesap_email", "sira": 10},
     "saha_malzemeleri": {"sahip": "hesap_email", "sira": 10},
     "saha_teknisyenleri": {"sahip": "hesap_email", "sira": 10},
+    # Faz 5B: belge / wiki / strateji şablonu — sürümleriyle birlikte silinir, birlikte geri gelir.
+    # Sahip `sahip_hesap`: yalnız müşterinin KENDİ belgesi onun "Silinenler"inde görünür (ajansın
+    # ekip içi müşteri belgesi müşteriye sızmasın).
+    "belgeler": {"sahip": "sahip_hesap", "sira": 10},
+    "belge_surumleri": {
+        "sahip_sorgu": "SELECT sahip_hesap FROM belgeler WHERE id = :v",
+        "sahip_alan": "belge_id",
+        "sira": 20,
+        "ebeveyn": "belgeler",
+    },
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

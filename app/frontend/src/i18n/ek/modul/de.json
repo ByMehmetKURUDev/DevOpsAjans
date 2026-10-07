@@ -196,6 +196,10 @@
       "egitim": {
         "ad": "Kurse und Lernen",
         "aciklama": "Für Kurszentren, Nachhilfeschulen, Workshops und Lehrkräfte: Kursseite und Anmeldeformular (mit Angaben der Erziehungsberechtigten), wiederkehrender Stundenplan, Anwesenheit per QR, Online-Lektionen (Video-Link, Dateien, Fortschritt), Quiz und Hausaufgaben, KI-Fragenentwürfe, Zertifikate mit Bedingungen und Prüfseite."
+      },
+      "belgeler": {
+        "ad": "Dokumente und Strategie-Tools",
+        "aciklama": "Eigene Dokumente, Wiki und Notizen (Aufgaben, Versionsverlauf, PDF/Markdown) und Strategievorlagen: SWOT, Business Model Canvas, Lean Canvas, PESTLE, Porter, McKinsey 7S, Blue Ocean, Ikigai; mit KI schreiben, zusammenfassen, korrigieren und entwerfen."
       }
     },
     "kategori": {
@@ -260,7 +264,8 @@
       "kasa_kullanici_siniri": "Max. Kassennutzer pro Monat",
       "kurs_siniri": "Höchstzahl an Kursen",
       "ogrenci_siniri": "Höchstzahl an Teilnehmenden (aktiv + wartend)",
-      "ai_hakki": "KI-Fragenerstellungen pro Monat"
+      "ai_hakki": "KI-Fragenerstellungen pro Monat",
+      "belge_siniri": "Höchstzahl eigener Dokumente pro Konto"
     },
     "musteri": {
       "baslik": "Meine Module",

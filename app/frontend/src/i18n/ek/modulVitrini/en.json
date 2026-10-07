@@ -561,6 +561,26 @@
             "c": "We never ask for a date of birth, ID number or address — only the name and the parent's contact details. Data is anonymised automatically after the period you set."
           }
         ]
+      },
+      "belgeler": {
+        "ozet": "Keep your documents, wiki and notes in one place; fill strategy templates like SWOT and Business Model Canvas with an AI draft.",
+        "kimIcin": "Small businesses and teams documenting their processes, and founders working on strategy.",
+        "ozellikler": [
+          "Markdown documents, wiki and notes; checkbox to-dos and version history",
+          "8 strategy templates: SWOT, Business Model Canvas, Lean Canvas, PESTLE, Porter, McKinsey 7S, Blue Ocean, Ikigai",
+          "Write, summarize, proofread and draft templates with AI (no invented figures)",
+          "PDF, Markdown and print; sharing with the agency"
+        ],
+        "sss": [
+          {
+            "s": "Do I need this module to read documents my agency shares with me?",
+            "c": "No. You can read documents shared by the agency in your panel without the module; the module is for creating your own."
+          },
+          {
+            "s": "How much AI can I use?",
+            "c": "The monthly allowance depends on your account; when it runs out you can continue with credits if you wish."
+          }
+        ]
       }
     },
     "s": {

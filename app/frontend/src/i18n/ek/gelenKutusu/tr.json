@@ -15,7 +15,8 @@
       "geri_bildirim": "Hata bildirimi",
       "icerik_revizyon": "İçerik revizyonu",
       "belge": "Belge",
-      "egitim": "Kurs kaydı"
+      "egitim": "Kurs kaydı",
+      "belge_paylasim": "Belge paylaşımı"
     },
     "durumSuzgeci": {
       "etiket": "Duruma göre süz",
@@ -87,7 +88,8 @@
       "kurs": "Kurs",
       "ogrenci": "Öğrenci",
       "veli": "Veli",
-      "kayitDurumu": "Kayıt durumu"
+      "kayitDurumu": "Kayıt durumu",
+      "olay": "Ne oldu"
     },
     "karar": {
       "bekliyor": "Karar bekleniyor",
@@ -137,6 +139,10 @@
       "bekleme": "Bekleme listesinde",
       "ayrildi": "Ayrıldı",
       "cocuk": "18 yaş altı"
+    },
+    "belgeOlayi": {
+      "paylasti": "Kendi belgesini ajansla paylaştı",
+      "onayladi": "Paylaşılan belgeyi okudu ve onayladı (sürüm {{sayi}})"
     }
   }
 }

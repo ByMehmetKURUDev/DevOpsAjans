@@ -15,7 +15,8 @@
       "geri_bildirim": "Fehlermeldung",
       "icerik_revizyon": "Inhaltsrevision",
       "belge": "Dokument",
-      "egitim": "Kursanmeldung"
+      "egitim": "Kursanmeldung",
+      "belge_paylasim": "Dokumentfreigabe"
     },
     "durumSuzgeci": {
       "etiket": "Nach Status filtern",
@@ -87,7 +88,8 @@
       "kurs": "Kurs",
       "ogrenci": "Teilnehmende Person",
       "veli": "Erziehungsberechtigte",
-      "kayitDurumu": "Anmeldestatus"
+      "kayitDurumu": "Anmeldestatus",
+      "olay": "Was ist passiert"
     },
     "karar": {
       "bekliyor": "Entscheidung ausstehend",
@@ -137,6 +139,10 @@
       "bekleme": "Auf der Warteliste",
       "ayrildi": "Ausgeschieden",
       "cocuk": "Unter 18"
+    },
+    "belgeOlayi": {
+      "paylasti": "Hat ein eigenes Dokument mit der Agentur geteilt",
+      "onayladi": "Hat das geteilte Dokument gelesen und bestätigt (Version {{sayi}})"
     }
   }
 }

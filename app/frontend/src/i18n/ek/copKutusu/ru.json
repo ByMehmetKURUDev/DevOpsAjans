@@ -103,7 +103,9 @@
       "egitim_kurslari": "Курс",
       "egitim_oturumlari": "Занятие курса (расписание)",
       "egitim_dersleri": "Урок",
-      "egitim_quizleri": "Тест / задание"
+      "egitim_quizleri": "Тест / задание",
+      "belgeler": "Документ / стратегическая работа",
+      "belge_surumleri": "Версия документа"
     }
   }
 }

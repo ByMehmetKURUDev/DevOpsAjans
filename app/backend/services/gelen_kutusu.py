@@ -34,6 +34,9 @@ geri_bildirim      feedback_items                               yeni → yeni, i
 icerik_revizyon    signed_actions (icerik_onay, sonuç revizyon)  gönderi artık taslak değil ya da yeniden
                                                                 onaya gönderildi → kapandi; yoksa işaret
 belge              belge_talepleri (teslim_edildi)              işaret; yoksa yeni
+belge_paylasim     belgeler (Faz 5B): müşterinin ajansla        işaret; yoksa paylaşılan → yeni,
+                   paylaştığı kendi belgesi ya da ajansın       "okudum/onaylıyorum" → okundu (bilgi;
+                   paylaştığı belgeye müşterinin onayı          yanıt beklemiyor)
 =================  ==========================================  ==========================================
 
 Site analizi istekleri ayrı kaynak DEĞİL: tam rapor isteyen ziyaretçi zaten
@@ -70,12 +73,13 @@ KAYNAKLAR: Tuple[str, ...] = (
     "iletisim", "fiyat_teklifi", "destek", "sohbet", "kartvizit", "randevu", "geri_bildirim", "icerik_revizyon", "belge",
     # Faz 6K — ajansın kendi kursuna herkese açık formdan gelen kayıt başvurusu.
     "egitim",
+    "belge_paylasim",
 )
 DURUMLAR: Tuple[str, ...] = ("yeni", "yanit_bekliyor", "okundu", "kapandi")
 BEKLEYEN = frozenset({"yeni", "yanit_bekliyor"})
 DURUM_SUZGECLERI: Tuple[str, ...] = ("bekleyen", "hepsi") + DURUMLAR
 #: Kendi "gördüm/hallettim" alanı olmayan kaynaklar → `gelen_kutusu_isaretleri`.
-ISARETLI_KAYNAKLAR: Tuple[str, ...] = ("fiyat_teklifi", "randevu", "icerik_revizyon", "belge", "egitim")
+ISARETLI_KAYNAKLAR: Tuple[str, ...] = ("fiyat_teklifi", "randevu", "icerik_revizyon", "belge", "egitim", "belge_paylasim")
 ISARET_DURUMLARI: Tuple[str, ...] = ("okundu", "kapandi", "yeni")
 #: Kendi yanıt yolu olan kaynaklar (e-posta yanıtı yerine).
 KENDI_YANITI_OLAN = frozenset({"destek", "sohbet"})
@@ -118,6 +122,8 @@ KAYNAK_TANIMI = {
     "icerik_revizyon": "a client's revision request for a social media post the agency prepared",
     "belge": "a client uploaded a document the agency had requested",
     "egitim": "a student (or a parent, for a minor) enrolled in one of the agency's own courses via the public course page",
+    "belge_paylasim": "a client shared one of their own documents with the agency, or confirmed reading a document "
+                      "the agency shared",
 }
 
 
@@ -823,6 +829,44 @@ async def _belge(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any
     return sonuc
 
 
+async def _belge_paylasim(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
+    """Faz 5B: müşterinin ajansla paylaştığı kendi belgesi (yeni) ya da ajans belgesine onayı (okundu)."""
+    from models.belgeler import Belgeler as B
+
+    paylasti = (func.coalesce(B.sahip_hesap, "") != "") & (B.gorunurluk == "paylasilan") & B.paylasildi_at.isnot(None)
+    onayladi = (func.coalesce(B.sahip_hesap, "") == "") & B.okundu_at.isnot(None)
+    s = select(B).where(or_(paylasti, onayladi))
+    if sz.kimlik is not None:
+        s = s.where(B.id == sz.kimlik)
+    desen = _desen(sz.q)
+    if desen:
+        s = s.where(_benzer((B.baslik, B.musteri_email, B.okuyan), desen))
+    zaman = func.coalesce(B.okundu_at, B.paylasildi_at, B.created_at)
+    s = s.where(*_tarih_kosullari(zaman, sz))
+    satirlar = (await db.execute(s.order_by(zaman.desc(), B.id.desc()).limit(KAYNAK_SINIRI))).scalars().all()
+    isaretler = await bg.isaretler(db, "belge_paylasim")
+    adlar = await _hesap_adlari(db, bg, (b.musteri_email for b in satirlar))
+    sonuc = []
+    for b in satirlar:
+        musteri_paylasti = bool(eposta_duzelt(b.sahip_hesap))
+        isaret = isaretler.get(int(b.id))
+        durum = isaret or ("yeni" if musteri_paylasti else "okundu")
+        hesap = eposta_duzelt(b.musteri_email)
+        kisi = eposta_duzelt(b.okuyan) if not musteri_paylasti else hesap
+        alt = "strateji" if (b.tur or "belge") != "belge" else "belgeler"
+        sonuc.append(_oge(
+            "belge_paylasim", b.id, kisi_ad=adlar.get(hesap) or kisi or hesap, kisi_eposta=kisi or hesap,
+            baslik=b.baslik, ozet=ozet_metni(b.baslik), zaman=(b.paylasildi_at if musteri_paylasti else b.okundu_at),
+            durum=durum, hesap_email=hesap, ac=f"/admin?sekme=dosyalar&alt={alt}&belge={b.id}",
+            eylemler=_isaret_eylemleri("belge_paylasim", b.id, durum, isaret is not None, False),
+            yanit=_eposta_yaniti("belge_paylasim", b.id, kisi or hesap),
+            ek={"tur": "paylasti" if musteri_paylasti else "onayladi", "belge_turu": b.tur, "surum": b.okundu_surum},
+            ayrinti={"baslik": b.baslik, "belge_turu": b.tur, "olay": "paylasti" if musteri_paylasti else "onayladi",
+                     "surum": b.okundu_surum if not musteri_paylasti else b.surum},
+        ))
+    return sonuc
+
+
 YUKLEYICILER = {
     "iletisim": _iletisim,
     "fiyat_teklifi": _fiyat_teklifi,
@@ -834,6 +878,7 @@ YUKLEYICILER = {
     "icerik_revizyon": _icerik_revizyon,
     "belge": _belge,
     "egitim": _egitim,
+    "belge_paylasim": _belge_paylasim,
 }
 
 
@@ -1179,6 +1224,8 @@ def _veri_satirlari(oge: Dict[str, Any]) -> List[Tuple[str, Any]]:
         s += [("post", a.get("gonderi_baslik")), ("revision_note", a.get("not"))]
     elif k == "belge":
         s += [("requested_document", a.get("baslik")), ("uploaded_file", a.get("dosya_adi"))]
+    elif k == "belge_paylasim":
+        s += [("document", a.get("baslik")), ("event", a.get("olay"))]
     elif k == "destek":
         s += [("service", a.get("hizmet")), ("priority", a.get("oncelik"))]
     return [(ad, deger) for ad, deger in s if deger not in (None, "", [])]

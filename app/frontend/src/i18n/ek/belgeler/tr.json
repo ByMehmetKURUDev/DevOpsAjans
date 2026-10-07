@@ -1,0 +1,346 @@
+{
+  "belgeler": {
+    "alt": {
+      "etiket": "Dosyalar ve belgeler bölümleri",
+      "dosyalar": "Dosyalar",
+      "belgeler": "Belgeler",
+      "strateji": "Strateji"
+    },
+    "baslik": {
+      "belge": "Belgeler ve wiki",
+      "strateji": "Strateji araçları"
+    },
+    "aciklama": {
+      "belge": "Ajans içi wiki, müşteri ve proje belgeleri, toplantı notları. Onay kutularıyla yapılacaklar, sürüm geçmişi, müşteriyle salt okunur paylaşım, PDF ve Markdown.",
+      "strateji": "SWOT, İş Modeli Kanvası, Lean Canvas, PESTLE, Porter'ın 5 gücü, McKinsey 7S, Mavi Okyanus ve Ikigai şablonları; AI ile taslak, paylaşım ve PDF.",
+      "musteriBelge": "Ajansınızın sizinle paylaştığı belgeler ve (modülünüz açıksa) kendi belgeleriniz, notlarınız ve yapılacaklarınız.",
+      "musteriStrateji": "Ajansınızın paylaştığı strateji çalışmaları ve (modülünüz açıksa) kendi SWOT, iş modeli ve diğer şablonlarınız."
+    },
+    "yeni": {
+      "belge": "Yeni belge",
+      "strateji": "Yeni strateji çalışması",
+      "sablonSec": "Bir şablon seçin"
+    },
+    "duzenle": {
+      "baslik": "Belgeyi düzenle"
+    },
+    "ara": "Başlıkta ve içerikte ara",
+    "etiketSuzgeci": "Etiket süzgeci",
+    "tumEtiketler": "Tümü",
+    "sayi": "{{sayi}} belge",
+    "secin": {
+      "belge": "Okumak için soldan bir belge seçin ya da yeni bir belge oluşturun.",
+      "strateji": "Açmak için soldan bir çalışma seçin ya da yeni bir şablonla başlayın."
+    },
+    "bos": {
+      "belge": "Henüz belge yok. İlk wiki sayfanızı ya da toplantı notunuzu oluşturun.",
+      "strateji": "Henüz strateji çalışması yok. Bir şablon seçerek başlayın.",
+      "musteri": "Sizinle paylaşılmış bir belge henüz yok.",
+      "arama": "Aramanıza uyan belge yok."
+    },
+    "alan": {
+      "baslik": "Alan",
+      "tumu": "Tüm alanlar",
+      "ajans": "Ajans içi wiki",
+      "musteri": "Müşteri: {{ad}}",
+      "proje": "Proje: {{ad}}",
+      "musteriSecenek": "Müşteri belgesi",
+      "projeSecenek": "Proje belgesi",
+      "musteriSec": "Müşteri e-postası",
+      "projeSec": "Proje",
+      "projeYok": "Proje seçin",
+      "projesiz": "Projeye bağlı değil"
+    },
+    "kaynak": {
+      "baslik": "Kimin belgesi",
+      "tumu": "Tümü",
+      "ajans": "Ajansın belgeleri",
+      "musteri": "Müşterilerin paylaştıkları"
+    },
+    "gorunurluk": {
+      "baslik": "Kimler görür",
+      "ekip": "Yalnız ekip",
+      "paylasilan": "Müşteriyle paylaşılan (salt okunur)",
+      "musteriEkip": "Yalnız ekibim",
+      "musteriPaylasilan": "Ajansla paylaşılan"
+    },
+    "rozet": {
+      "sabit": "Sabit",
+      "paylasilan": "Müşteriyle paylaşıldı",
+      "ajanslaPaylasilan": "Ajansla paylaşıldı",
+      "musteriBelgesi": "Müşterinin belgesi",
+      "salt": "Salt okunur",
+      "yapilacak": "{{sayi}} açık madde",
+      "surum": "Sürüm {{sayi}}"
+    },
+    "alanlar": {
+      "baslik": "Başlık",
+      "etiketler": "Etiketler",
+      "etiketIpucu": "Virgülle ayırın: süreç, ik, onboarding",
+      "icerik": "İçerik",
+      "isletme": "İşletmeyi kısaca anlatın (AI taslağı bundan yararlanır)",
+      "isletmeIpucu": "Ne satıyorsunuz, kime, nerede? Bildiğiniz rakamları yazabilirsiniz; AI uydurma rakam eklemez.",
+      "isletmeKisa": "İşletme",
+      "kutuIpucu": "Her maddeyi ayrı satıra yazın",
+      "sabit": "Listede en üstte sabitle"
+    },
+    "eylem": {
+      "duzenle": "Düzenle",
+      "kaydet": "Kaydet",
+      "vazgec": "Vazgeç",
+      "sil": "Sil",
+      "silOnay": "\"{{ad}}\" silinsin mi? Çöp kutusundan geri alınabilir.",
+      "sabitle": "Sabitle",
+      "sabitKaldir": "Sabitlemeyi kaldır",
+      "paylas": "Müşteriyle paylaş",
+      "paylasimKaldir": "Paylaşımı kaldır",
+      "ajanslaPaylas": "Ajansla paylaş",
+      "pdf": "PDF",
+      "md": "Markdown",
+      "yazdir": "Yazdır",
+      "surumler": "Sürümler",
+      "geri": "Listeye dön",
+      "yenile": "Yenile",
+      "okudum": "Okudum, onaylıyorum"
+    },
+    "durum": {
+      "kaydedildi": "Kaydedildi.",
+      "kaydedilmedi": "Kaydedilmemiş değişiklikler var.",
+      "kaydedilmediOnay": "Kaydedilmemiş değişiklikler kaybolacak. Çıkılsın mı?",
+      "silindi": "Silindi — çöp kutusundan geri alınabilir.",
+      "paylasildi": "Müşteriyle paylaşıldı; müşteriye bildirim gitti.",
+      "ajanslaPaylasildi": "Ajansla paylaşıldı.",
+      "paylasimKalkti": "Paylaşım kaldırıldı.",
+      "okundu": "Onaylandı (sürüm {{sayi}})",
+      "okunduEski": "Önceki bir sürümü onaylamıştınız; belge o tarihten sonra güncellendi.",
+      "sonDuzenleyen": "Son düzenleyen: {{kisi}} · {{zaman}}",
+      "guncellendi": "Güncellendi: {{zaman}}",
+      "musteriOnayladi": "{{kisi}} okudu ve onayladı (sürüm {{sayi}})"
+    },
+    "arac": {
+      "etiket": "Biçim araçları",
+      "baslik": "Başlık",
+      "kalin": "Kalın",
+      "egik": "Eğik",
+      "liste": "Madde listesi",
+      "numarali": "Numaralı liste",
+      "yapilacak": "Onay kutusu (yapılacak)",
+      "baglanti": "Bağlantı",
+      "tablo": "Tablo",
+      "kod": "Kod",
+      "alinti": "Alıntı",
+      "yaz": "Yaz",
+      "onizle": "Önizleme",
+      "metin": "metin",
+      "baglantiMetni": "bağlantı metni",
+      "yapilacakMetni": "yapılacak",
+      "kodMetni": "kod",
+      "sutun": "Sütun {{sayi}}",
+      "ipucu": "Markdown: ## başlık, **kalın**, - madde, - [ ] yapılacak (@eposta ile kişiye atayın), | tablo |. HTML yazılamaz. Kısayol: Ctrl+S kaydeder."
+    },
+    "ai": {
+      "baslik": "Yapay zekâ",
+      "yaz": "AI ile yaz",
+      "ozetle": "Özetle",
+      "duzelt": "Düzelt",
+      "taslak": "AI ile taslak doldur",
+      "talimat": "Ne yazılsın?",
+      "talimatIpucu": "Örn. müşteriye teslim sürecini anlatan kısa bir rehber yaz",
+      "olustur": "Oluştur",
+      "oneri": "Öneri",
+      "ekle": "Sona ekle",
+      "degistir": "Seçimin yerine koy",
+      "tumunuDegistir": "Metnin yerine koy",
+      "kabul": "Taslağın tamamını uygula",
+      "kutuyaUygula": "Bu kutuya uygula",
+      "reddet": "Kapat",
+      "taslakHazir": "Taslak hazır: kutuların altında öneriler var. Kutu kutu ya da tamamını uygulayabilirsiniz.",
+      "kapali": "Yapay zekâ bu sitede yapılandırılmamış; AI düğmeleri kapalı. Yönetici anahtarı tanımlayınca açılır.",
+      "secimNot": "Metin seçerseniz özet ve düzeltme yalnız seçime uygulanır; seçmezseniz bütün belge kullanılır.",
+      "taslakNot": "Önce işletmeyi kısaca anlatın. Taslak yalnız öneridir; uydurma rakam eklenmez, siz onaylamadan kaydedilmez.",
+      "kullanim": "Bu ay {{ay}} kullanım, bugün {{bugun}}",
+      "sahte": "test ortamı yanıtı",
+      "uyari": {
+        "genel": "Kontrol edin",
+        "kaynaksiz_sayi": "Girdide olmayan sayı — doğrulayın",
+        "saglik": "Sağlık vaadi olabilir",
+        "finans": "Finansal vaat olabilir",
+        "hukuk": "Hukuki vaat olabilir",
+        "yasakli_kelime": "Yasaklı kelime"
+      }
+    },
+    "surum": {
+      "baslik": "Sürüm geçmişi",
+      "aciklama": "Son {{sayi}} sürüm gösteriliyor; en çok 20 sürüm saklanır.",
+      "guncel": "güncel",
+      "secin": "Önizlemek için soldan bir sürüm seçin.",
+      "onizleme": "Sürüm {{sayi}}",
+      "geriYukle": "Bu sürümü geri yükle",
+      "geriYukleOnay": "Sürüm {{sayi}} geri yüklensin mi? Bugünkü hâl de geçmişte kalır.",
+      "geriYuklendi": "Sürüm {{sayi}} geri yüklendi.",
+      "kapat": "Kapat",
+      "neden": {
+        "olusturma": "Oluşturuldu",
+        "duzenleme": "Düzenlendi",
+        "geri_yukleme": "Sürüm {{sayi}} geri yüklendi",
+        "yapilacak": "Yapılacak işaretlendi",
+        "gorev": "Görev #{{sayi}} bağlandı"
+      }
+    },
+    "yapilacak": {
+      "baslik": "Yapılacaklarım",
+      "bana": "Bana atanan",
+      "hepsi": "Tüm açık maddeler",
+      "aciklama": "Belgelerdeki işaretlenmemiş onay kutuları. Maddeye @eposta yazarak kişiye atayın.",
+      "bos": "Size atanmış açık madde yok.",
+      "bosHepsi": "Açık madde yok.",
+      "banaRozet": "bana",
+      "isaretle": "Tamamlandı olarak işaretle: {{metin}}",
+      "tamamlandi": "Madde tamamlandı.",
+      "gorevOlustur": "Projeye görev yap",
+      "gorevOlustu": "Proje görevi oluşturuldu (#{{sayi}}).",
+      "gorevBagli": "Görev #{{sayi}}",
+      "gorevAciklama": "Belgeden aktarıldı: {{belge}}",
+      "projeGerekli": "Görev için belge bir projeye bağlı olmalı.",
+      "salt": "Ajansın belgesi"
+    },
+    "sablon": {
+      "swot": {
+        "ad": "SWOT analizi",
+        "aciklama": "Güçlü ve zayıf yönler, fırsatlar ve tehditler (2×2).",
+        "kutu": {
+          "guclu": "Güçlü yönler",
+          "zayif": "Zayıf yönler",
+          "firsatlar": "Fırsatlar",
+          "tehditler": "Tehditler"
+        }
+      },
+      "is_modeli": {
+        "ad": "İş Modeli Kanvası",
+        "aciklama": "Dokuz kutuda iş modeli: ortaklar, faaliyetler, değer önerisi, müşteriler, gelir ve maliyet.",
+        "kutu": {
+          "ortaklar": "Kilit ortaklar",
+          "faaliyetler": "Kilit faaliyetler",
+          "kaynaklar": "Kilit kaynaklar",
+          "deger": "Değer önerisi",
+          "iliskiler": "Müşteri ilişkileri",
+          "kanallar": "Kanallar",
+          "segmentler": "Müşteri segmentleri",
+          "maliyetler": "Maliyet yapısı",
+          "gelirler": "Gelir akışları"
+        }
+      },
+      "lean": {
+        "ad": "Lean Canvas",
+        "aciklama": "Girişimler için: problem, çözüm, metrikler, benzersiz değer önerisi ve haksız avantaj.",
+        "kutu": {
+          "problem": "Problem",
+          "cozum": "Çözüm",
+          "metrikler": "Temel metrikler",
+          "deger_onerisi": "Benzersiz değer önerisi",
+          "haksiz_avantaj": "Haksız avantaj",
+          "kanallar": "Kanallar",
+          "segmentler": "Müşteri segmentleri",
+          "maliyetler": "Maliyet yapısı",
+          "gelirler": "Gelir akışları"
+        }
+      },
+      "pestle": {
+        "ad": "PESTLE analizi",
+        "aciklama": "Dış çevre: politik, ekonomik, sosyal, teknolojik, hukuki ve çevresel etkenler.",
+        "kutu": {
+          "politik": "Politik",
+          "ekonomik": "Ekonomik",
+          "sosyal": "Sosyal",
+          "teknolojik": "Teknolojik",
+          "hukuki": "Hukuki",
+          "cevresel": "Çevresel"
+        }
+      },
+      "porter": {
+        "ad": "Porter'ın 5 gücü",
+        "aciklama": "Sektördeki rekabet baskısı: yeni girenler, tedarikçiler, alıcılar, ikameler ve rekabet.",
+        "kutu": {
+          "yeni_girenler": "Yeni girenlerin tehdidi",
+          "tedarikci_gucu": "Tedarikçilerin pazarlık gücü",
+          "rekabet": "Sektör içi rekabet",
+          "alici_gucu": "Alıcıların pazarlık gücü",
+          "ikameler": "İkame ürün tehdidi"
+        }
+      },
+      "mckinsey_7s": {
+        "ad": "McKinsey 7S",
+        "aciklama": "Kurumun yedi unsurunun uyumu: strateji, yapı, sistemler, ortak değerler, tarz, personel, yetenekler.",
+        "kutu": {
+          "strateji": "Strateji",
+          "yapi": "Yapı",
+          "sistemler": "Sistemler",
+          "ortak_degerler": "Ortak değerler",
+          "stil": "Yönetim tarzı",
+          "personel": "Personel",
+          "yetenekler": "Yetenekler"
+        }
+      },
+      "mavi_okyanus": {
+        "ad": "Mavi Okyanus — Dört Eylem",
+        "aciklama": "Rekabetsiz pazar için: neyi ortadan kaldırıp azaltacak, neyi yükseltip yaratacaksınız?",
+        "kutu": {
+          "ortadan_kaldir": "Ortadan kaldır",
+          "yukselt": "Yükselt",
+          "azalt": "Azalt",
+          "yarat": "Yarat"
+        }
+      },
+      "ikigai": {
+        "ad": "Ikigai",
+        "aciklama": "Sevdiğiniz, iyi olduğunuz, dünyanın ihtiyacı olan ve para kazandıran işin kesişimi.",
+        "kutu": {
+          "sevdigin": "Sevdiğin",
+          "tutku": "Tutku",
+          "iyi_oldugun": "İyi olduğun",
+          "misyon": "Misyon",
+          "ikigai": "Ikigai",
+          "meslek": "Meslek",
+          "dunyanin_ihtiyaci": "Dünyanın ihtiyacı",
+          "ugras": "Uğraş",
+          "para_kazandiran": "Para kazandıran"
+        }
+      }
+    },
+    "hata": {
+      "genel": "İşlem tamamlanamadı. Lütfen yeniden deneyin.",
+      "ag": "Bağlantı kurulamadı.",
+      "yetki": "Bu işlem için yetkiniz yok.",
+      "cok_hizli": "Çok sık denediniz; biraz bekleyin.",
+      "bulunamadi": "Belge bulunamadı ya da artık paylaşılmıyor.",
+      "baslikGerekli": "Başlık yazın.",
+      "metin_gerekli": "Zorunlu bir alan boş.",
+      "metin_uzun": "Metin çok uzun (en çok {{sinir}} karakter).",
+      "gecersiz": "Geçersiz değer.",
+      "cok_fazla": "En çok {{sinir}} öğe girilebilir.",
+      "gecersiz_eposta": "Geçerli bir müşteri e-postası yazın.",
+      "proje_yok": "Proje bulunamadı.",
+      "proje_musteri_uyusmuyor": "Seçilen proje bu müşterinin değil.",
+      "paylasim_icin_musteri": "Paylaşmak için belgeyi bir müşteriye ya da projeye bağlayın.",
+      "surum_catismasi": "Bu belgeyi siz düzenlerken başkası kaydetti (güncel sürüm {{guncel}}). Sayfayı yenileyip yeniden deneyin.",
+      "madde_degisti": "Madde bu arada değişmiş; liste yenilendi.",
+      "gorev_bagli": "Bu madde zaten bir göreve bağlı.",
+      "gorev_yok": "Görev bulunamadı.",
+      "musteri_belgesi": "Müşterinin belgesi salt okunurdur.",
+      "salt_okunur": "Bu belge salt okunurdur.",
+      "belge_siniri": "Belge sınırına ulaştınız (en çok {{sinir}}).",
+      "bilinmeyen_kutu": "Şablonda olmayan bir kutu gönderildi.",
+      "modul_kapali": "Belgeler modülü bu hesapta kapalı.",
+      "hesap_izni_yok": "Bu hesapta belgeler izniniz yok.",
+      "ai_kapali": "Yapay zekâ şu an kullanılamıyor.",
+      "ai_hatasi": "Yapay zekâ yanıt veremedi; hakkınız iade edildi.",
+      "ai_zaman_asimi": "Yapay zekâ zamanında yanıt vermedi; hakkınız iade edildi.",
+      "ai_bos": "Yapay zekâ boş yanıt verdi; hakkınız iade edildi.",
+      "gunluk_sinir": "Bugünkü AI kullanım sınırına ulaştınız ({{sinir}}).",
+      "butce_doldu": "Sitenin bugünkü yapay zekâ bütçesi doldu.",
+      "aylik_sinir": "Bu ayki AI kullanım hakkınız doldu ({{sinir}}).",
+      "kredi_yetersiz": "Kredi bakiyeniz yetersiz ({{blok_kredi}} kredi gerekiyor).",
+      "sayac_hatasi": "Kullanım sayacı güncellenemedi; yeniden deneyin."
+    }
+  }
+}

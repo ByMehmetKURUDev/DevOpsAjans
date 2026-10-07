@@ -1,0 +1,346 @@
+{
+  "belgeler": {
+    "alt": {
+      "etiket": "Bereiche Dateien und Dokumente",
+      "dosyalar": "Dateien",
+      "belgeler": "Dokumente",
+      "strateji": "Strategie"
+    },
+    "baslik": {
+      "belge": "Dokumente und Wiki",
+      "strateji": "Strategie-Tools"
+    },
+    "aciklama": {
+      "belge": "Internes Wiki, Kunden- und Projektdokumente, Besprechungsnotizen. Aufgaben als Checkboxen, Versionsverlauf, schreibgeschützte Freigabe für Kunden, PDF und Markdown.",
+      "strateji": "Vorlagen für SWOT, Business Model Canvas, Lean Canvas, PESTLE, Porters Five Forces, McKinsey 7S, Blue Ocean und Ikigai; KI-Entwurf, Freigabe und PDF.",
+      "musteriBelge": "Von Ihrer Agentur freigegebene Dokumente und (bei aktivem Modul) Ihre eigenen Dokumente, Notizen und Aufgaben.",
+      "musteriStrateji": "Von Ihrer Agentur freigegebene Strategiearbeiten und (bei aktivem Modul) Ihre eigenen SWOT-, Geschäftsmodell- und weiteren Vorlagen."
+    },
+    "yeni": {
+      "belge": "Neues Dokument",
+      "strateji": "Neue Strategiearbeit",
+      "sablonSec": "Vorlage wählen"
+    },
+    "duzenle": {
+      "baslik": "Dokument bearbeiten"
+    },
+    "ara": "Titel und Inhalt durchsuchen",
+    "etiketSuzgeci": "Schlagwortfilter",
+    "tumEtiketler": "Alle",
+    "sayi": "{{sayi}} Dokumente",
+    "secin": {
+      "belge": "Wählen Sie links ein Dokument zum Lesen oder legen Sie ein neues an.",
+      "strateji": "Wählen Sie links eine Arbeit oder beginnen Sie mit einer neuen Vorlage."
+    },
+    "bos": {
+      "belge": "Noch keine Dokumente. Legen Sie Ihre erste Wiki-Seite oder Besprechungsnotiz an.",
+      "strateji": "Noch keine Strategiearbeit. Wählen Sie zum Start eine Vorlage.",
+      "musteri": "Es wurden noch keine Dokumente mit Ihnen geteilt.",
+      "arama": "Keine Dokumente passen zu Ihrer Suche."
+    },
+    "alan": {
+      "baslik": "Bereich",
+      "tumu": "Alle Bereiche",
+      "ajans": "Internes Agentur-Wiki",
+      "musteri": "Kunde: {{ad}}",
+      "proje": "Projekt: {{ad}}",
+      "musteriSecenek": "Kundendokument",
+      "projeSecenek": "Projektdokument",
+      "musteriSec": "E-Mail des Kunden",
+      "projeSec": "Projekt",
+      "projeYok": "Projekt wählen",
+      "projesiz": "Keinem Projekt zugeordnet"
+    },
+    "kaynak": {
+      "baslik": "Wessen Dokument",
+      "tumu": "Alle",
+      "ajans": "Dokumente der Agentur",
+      "musteri": "Von Kunden geteilt"
+    },
+    "gorunurluk": {
+      "baslik": "Wer kann es sehen",
+      "ekip": "Nur das Team",
+      "paylasilan": "Mit dem Kunden geteilt (schreibgeschützt)",
+      "musteriEkip": "Nur mein Team",
+      "musteriPaylasilan": "Mit der Agentur geteilt"
+    },
+    "rozet": {
+      "sabit": "Angeheftet",
+      "paylasilan": "Mit Kunde geteilt",
+      "ajanslaPaylasilan": "Mit Agentur geteilt",
+      "musteriBelgesi": "Dokument des Kunden",
+      "salt": "Schreibgeschützt",
+      "yapilacak": "{{sayi}} offene Punkte",
+      "surum": "Version {{sayi}}"
+    },
+    "alanlar": {
+      "baslik": "Titel",
+      "etiketler": "Schlagwörter",
+      "etiketIpucu": "Durch Kommas trennen: Prozess, HR, Onboarding",
+      "icerik": "Inhalt",
+      "isletme": "Beschreiben Sie das Unternehmen kurz (der KI-Entwurf nutzt das)",
+      "isletmeIpucu": "Was verkaufen Sie, an wen, wo? Bekannte Zahlen dürfen Sie angeben; die KI erfindet keine Zahlen.",
+      "isletmeKisa": "Unternehmen",
+      "kutuIpucu": "Jeden Punkt in eine eigene Zeile",
+      "sabit": "Oben in der Liste anheften"
+    },
+    "eylem": {
+      "duzenle": "Bearbeiten",
+      "kaydet": "Speichern",
+      "vazgec": "Abbrechen",
+      "sil": "Löschen",
+      "silOnay": "„{{ad}}“ löschen? Es lässt sich aus dem Papierkorb wiederherstellen.",
+      "sabitle": "Anheften",
+      "sabitKaldir": "Lösen",
+      "paylas": "Mit Kunde teilen",
+      "paylasimKaldir": "Freigabe beenden",
+      "ajanslaPaylas": "Mit Agentur teilen",
+      "pdf": "PDF",
+      "md": "Markdown",
+      "yazdir": "Drucken",
+      "surumler": "Versionen",
+      "geri": "Zurück zur Liste",
+      "yenile": "Aktualisieren",
+      "okudum": "Gelesen und bestätigt"
+    },
+    "durum": {
+      "kaydedildi": "Gespeichert.",
+      "kaydedilmedi": "Es gibt ungespeicherte Änderungen.",
+      "kaydedilmediOnay": "Ungespeicherte Änderungen gehen verloren. Trotzdem verlassen?",
+      "silindi": "Gelöscht – im Papierkorb wiederherstellbar.",
+      "paylasildi": "Mit dem Kunden geteilt; er wurde benachrichtigt.",
+      "ajanslaPaylasildi": "Mit der Agentur geteilt.",
+      "paylasimKalkti": "Freigabe beendet.",
+      "okundu": "Bestätigt (Version {{sayi}})",
+      "okunduEski": "Sie haben eine frühere Version bestätigt; das Dokument wurde seitdem geändert.",
+      "sonDuzenleyen": "Zuletzt bearbeitet von {{kisi}} · {{zaman}}",
+      "guncellendi": "Aktualisiert: {{zaman}}",
+      "musteriOnayladi": "{{kisi}} hat gelesen und bestätigt (Version {{sayi}})"
+    },
+    "arac": {
+      "etiket": "Formatierungswerkzeuge",
+      "baslik": "Überschrift",
+      "kalin": "Fett",
+      "egik": "Kursiv",
+      "liste": "Aufzählung",
+      "numarali": "Nummerierte Liste",
+      "yapilacak": "Checkbox (Aufgabe)",
+      "baglanti": "Link",
+      "tablo": "Tabelle",
+      "kod": "Code",
+      "alinti": "Zitat",
+      "yaz": "Schreiben",
+      "onizle": "Vorschau",
+      "metin": "Text",
+      "baglantiMetni": "Linktext",
+      "yapilacakMetni": "Aufgabe",
+      "kodMetni": "Code",
+      "sutun": "Spalte {{sayi}}",
+      "ipucu": "Markdown: ## Überschrift, **fett**, - Punkt, - [ ] Aufgabe (mit @E-Mail zuweisen), | Tabelle |. HTML ist nicht erlaubt. Strg+S speichert."
+    },
+    "ai": {
+      "baslik": "KI",
+      "yaz": "Mit KI schreiben",
+      "ozetle": "Zusammenfassen",
+      "duzelt": "Korrigieren",
+      "taslak": "Entwurf mit KI füllen",
+      "talimat": "Was soll geschrieben werden?",
+      "talimatIpucu": "Z. B. eine kurze Anleitung zu unserem Übergabeprozess für Kunden",
+      "olustur": "Erstellen",
+      "oneri": "Vorschlag",
+      "ekle": "Anhängen",
+      "degistir": "Auswahl ersetzen",
+      "tumunuDegistir": "Text ersetzen",
+      "kabul": "Ganzen Entwurf übernehmen",
+      "kutuyaUygula": "In dieses Feld übernehmen",
+      "reddet": "Schließen",
+      "taslakHazir": "Entwurf fertig: Vorschläge stehen unter den Feldern. Einzeln oder alle auf einmal übernehmen.",
+      "kapali": "KI ist auf dieser Website nicht eingerichtet; die KI-Schaltflächen sind aus. Sie werden aktiv, sobald ein Admin einen Schlüssel hinterlegt.",
+      "secimNot": "Bei markiertem Text gelten Zusammenfassen und Korrigieren nur für die Auswahl, sonst für das ganze Dokument.",
+      "taslakNot": "Beschreiben Sie zuerst das Unternehmen. Der Entwurf ist nur ein Vorschlag; keine erfundenen Zahlen, gespeichert wird erst nach Ihrer Bestätigung.",
+      "kullanim": "Diesen Monat {{ay}} Nutzungen, heute {{bugun}}",
+      "sahte": "Antwort der Testumgebung",
+      "uyari": {
+        "genel": "Bitte prüfen",
+        "kaynaksiz_sayi": "Zahl nicht in Ihrer Eingabe – bitte prüfen",
+        "saglik": "Möglicherweise ein Gesundheitsversprechen",
+        "finans": "Möglicherweise ein finanzielles Versprechen",
+        "hukuk": "Möglicherweise ein rechtliches Versprechen",
+        "yasakli_kelime": "Gesperrtes Wort"
+      }
+    },
+    "surum": {
+      "baslik": "Versionsverlauf",
+      "aciklama": "Die letzten {{sayi}} Versionen; höchstens 20 werden aufbewahrt.",
+      "guncel": "aktuell",
+      "secin": "Wählen Sie links eine Version für die Vorschau.",
+      "onizleme": "Version {{sayi}}",
+      "geriYukle": "Diese Version wiederherstellen",
+      "geriYukleOnay": "Version {{sayi}} wiederherstellen? Der aktuelle Stand bleibt ebenfalls im Verlauf.",
+      "geriYuklendi": "Version {{sayi}} wiederhergestellt.",
+      "kapat": "Schließen",
+      "neden": {
+        "olusturma": "Erstellt",
+        "duzenleme": "Bearbeitet",
+        "geri_yukleme": "Version {{sayi}} wiederhergestellt",
+        "yapilacak": "Aufgabe abgehakt",
+        "gorev": "Mit Aufgabe #{{sayi}} verknüpft"
+      }
+    },
+    "yapilacak": {
+      "baslik": "Meine Aufgaben",
+      "bana": "Mir zugewiesen",
+      "hepsi": "Alle offenen Punkte",
+      "aciklama": "Nicht abgehakte Checkboxen in Dokumenten. Mit @E-Mail im Punkt weisen Sie ihn einer Person zu.",
+      "bos": "Keine offenen Punkte für Sie.",
+      "bosHepsi": "Keine offenen Punkte.",
+      "banaRozet": "ich",
+      "isaretle": "Als erledigt markieren: {{metin}}",
+      "tamamlandi": "Punkt erledigt.",
+      "gorevOlustur": "Als Projektaufgabe anlegen",
+      "gorevOlustu": "Projektaufgabe angelegt (#{{sayi}}).",
+      "gorevBagli": "Aufgabe #{{sayi}}",
+      "gorevAciklama": "Aus Dokument übernommen: {{belge}}",
+      "projeGerekli": "Für eine Aufgabe muss das Dokument einem Projekt zugeordnet sein.",
+      "salt": "Dokument der Agentur"
+    },
+    "sablon": {
+      "swot": {
+        "ad": "SWOT-Analyse",
+        "aciklama": "Stärken und Schwächen, Chancen und Risiken (2×2).",
+        "kutu": {
+          "guclu": "Stärken",
+          "zayif": "Schwächen",
+          "firsatlar": "Chancen",
+          "tehditler": "Risiken"
+        }
+      },
+      "is_modeli": {
+        "ad": "Business Model Canvas",
+        "aciklama": "Das Geschäftsmodell in neun Feldern: Partner, Aktivitäten, Wertangebot, Kunden, Einnahmen und Kosten.",
+        "kutu": {
+          "ortaklar": "Schlüsselpartner",
+          "faaliyetler": "Schlüsselaktivitäten",
+          "kaynaklar": "Schlüsselressourcen",
+          "deger": "Wertangebote",
+          "iliskiler": "Kundenbeziehungen",
+          "kanallar": "Kanäle",
+          "segmentler": "Kundensegmente",
+          "maliyetler": "Kostenstruktur",
+          "gelirler": "Einnahmequellen"
+        }
+      },
+      "lean": {
+        "ad": "Lean Canvas",
+        "aciklama": "Für Start-ups: Problem, Lösung, Kennzahlen, Alleinstellungsmerkmal und unfairer Vorteil.",
+        "kutu": {
+          "problem": "Problem",
+          "cozum": "Lösung",
+          "metrikler": "Schlüsselkennzahlen",
+          "deger_onerisi": "Alleinstellungsmerkmal",
+          "haksiz_avantaj": "Unfairer Vorteil",
+          "kanallar": "Kanäle",
+          "segmentler": "Kundensegmente",
+          "maliyetler": "Kostenstruktur",
+          "gelirler": "Einnahmequellen"
+        }
+      },
+      "pestle": {
+        "ad": "PESTLE-Analyse",
+        "aciklama": "Externes Umfeld: politische, wirtschaftliche, soziale, technologische, rechtliche und ökologische Faktoren.",
+        "kutu": {
+          "politik": "Politisch",
+          "ekonomik": "Wirtschaftlich",
+          "sosyal": "Sozial",
+          "teknolojik": "Technologisch",
+          "hukuki": "Rechtlich",
+          "cevresel": "Ökologisch"
+        }
+      },
+      "porter": {
+        "ad": "Porters Five Forces",
+        "aciklama": "Wettbewerbsdruck der Branche: neue Anbieter, Lieferanten, Abnehmer, Ersatzprodukte und Rivalität.",
+        "kutu": {
+          "yeni_girenler": "Bedrohung durch neue Anbieter",
+          "tedarikci_gucu": "Verhandlungsmacht der Lieferanten",
+          "rekabet": "Wettbewerb in der Branche",
+          "alici_gucu": "Verhandlungsmacht der Abnehmer",
+          "ikameler": "Bedrohung durch Ersatzprodukte"
+        }
+      },
+      "mckinsey_7s": {
+        "ad": "McKinsey 7S",
+        "aciklama": "Zusammenspiel von sieben Elementen: Strategie, Struktur, Systeme, gemeinsame Werte, Stil, Personal, Fähigkeiten.",
+        "kutu": {
+          "strateji": "Strategie",
+          "yapi": "Struktur",
+          "sistemler": "Systeme",
+          "ortak_degerler": "Gemeinsame Werte",
+          "stil": "Führungsstil",
+          "personel": "Personal",
+          "yetenekler": "Fähigkeiten"
+        }
+      },
+      "mavi_okyanus": {
+        "ad": "Blue Ocean — Vier Aktionen",
+        "aciklama": "Für Märkte ohne Konkurrenz: Was eliminieren und reduzieren, was steigern und kreieren Sie?",
+        "kutu": {
+          "ortadan_kaldir": "Eliminieren",
+          "yukselt": "Steigern",
+          "azalt": "Reduzieren",
+          "yarat": "Kreieren"
+        }
+      },
+      "ikigai": {
+        "ad": "Ikigai",
+        "aciklama": "Die Schnittmenge aus dem, was Sie lieben, gut können, die Welt braucht und wofür Sie bezahlt werden.",
+        "kutu": {
+          "sevdigin": "Was du liebst",
+          "tutku": "Leidenschaft",
+          "iyi_oldugun": "Was du gut kannst",
+          "misyon": "Mission",
+          "ikigai": "Ikigai",
+          "meslek": "Beruf",
+          "dunyanin_ihtiyaci": "Was die Welt braucht",
+          "ugras": "Berufung",
+          "para_kazandiran": "Wofür du bezahlt wirst"
+        }
+      }
+    },
+    "hata": {
+      "genel": "Der Vorgang konnte nicht abgeschlossen werden. Bitte erneut versuchen.",
+      "ag": "Keine Verbindung.",
+      "yetki": "Dafür fehlt Ihnen die Berechtigung.",
+      "cok_hizli": "Zu viele Versuche; bitte kurz warten.",
+      "bulunamadi": "Dokument nicht gefunden oder nicht mehr freigegeben.",
+      "baslikGerekli": "Bitte einen Titel eingeben.",
+      "metin_gerekli": "Ein Pflichtfeld ist leer.",
+      "metin_uzun": "Text zu lang (höchstens {{sinir}} Zeichen).",
+      "gecersiz": "Ungültiger Wert.",
+      "cok_fazla": "Höchstens {{sinir}} Einträge.",
+      "gecersiz_eposta": "Bitte eine gültige Kunden-E-Mail eingeben.",
+      "proje_yok": "Projekt nicht gefunden.",
+      "proje_musteri_uyusmuyor": "Das gewählte Projekt gehört nicht zu diesem Kunden.",
+      "paylasim_icin_musteri": "Ordnen Sie das Dokument einem Kunden oder Projekt zu, um es zu teilen.",
+      "surum_catismasi": "Jemand hat dieses Dokument während Ihrer Bearbeitung gespeichert (aktuelle Version {{guncel}}). Seite neu laden und erneut versuchen.",
+      "madde_degisti": "Der Punkt wurde inzwischen geändert; die Liste wurde aktualisiert.",
+      "gorev_bagli": "Dieser Punkt ist bereits mit einer Aufgabe verknüpft.",
+      "gorev_yok": "Aufgabe nicht gefunden.",
+      "musteri_belgesi": "Das Dokument des Kunden ist schreibgeschützt.",
+      "salt_okunur": "Dieses Dokument ist schreibgeschützt.",
+      "belge_siniri": "Dokumentenlimit erreicht (höchstens {{sinir}}).",
+      "bilinmeyen_kutu": "Es wurde ein Feld gesendet, das die Vorlage nicht hat.",
+      "modul_kapali": "Das Dokumentenmodul ist für dieses Konto deaktiviert.",
+      "hesap_izni_yok": "Sie haben in diesem Konto keine Dokumentenberechtigung.",
+      "ai_kapali": "KI ist derzeit nicht verfügbar.",
+      "ai_hatasi": "Die KI konnte nicht antworten; Ihr Kontingent wurde erstattet.",
+      "ai_zaman_asimi": "Die KI hat nicht rechtzeitig geantwortet; Ihr Kontingent wurde erstattet.",
+      "ai_bos": "Die KI lieferte eine leere Antwort; Ihr Kontingent wurde erstattet.",
+      "gunluk_sinir": "Tageslimit für KI erreicht ({{sinir}}).",
+      "butce_doldu": "Das heutige KI-Budget der Website ist aufgebraucht.",
+      "aylik_sinir": "Ihr KI-Kontingent für diesen Monat ist aufgebraucht ({{sinir}}).",
+      "kredi_yetersiz": "Nicht genug Guthaben ({{blok_kredi}} Credits nötig).",
+      "sayac_hatasi": "Der Nutzungszähler konnte nicht aktualisiert werden; bitte erneut versuchen."
+    }
+  }
+}

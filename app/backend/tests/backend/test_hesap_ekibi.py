@@ -349,6 +349,14 @@ async def ekip(db_oturumu):
     es6 = await _ekle(db, EgitimSertifikalari(kurs_id=ek6.id, ogrenci_id=eg6.id, hesap_email=s, kod=uuid.uuid4().hex[:12].upper(),
                                               ad_maskeli="Ö.", kurs_adi="Sahibin kursu", verilme_at=eb))
     k.update(EGK=ek6.id, EGO=eo6.id, EGG=eg6.id, EGD=ed6.id, EGQ=eq6.id, EGTS=et6.id, EGS=es6.id)
+    # Faz 5B: sahibin kendi belgesi ve ajansın sahiple paylaştığı belge.
+    from models.belgeler import Belgeler
+
+    blk = await _ekle(db, Belgeler(tur="belge", baslik="Sahibin notu", icerik="- [ ] madde", etiketler="[]", alan="musteri",
+                                   musteri_email=s, sahip_hesap=s, gorunurluk="ekip", surum=1))
+    blp = await _ekle(db, Belgeler(tur="swot", baslik="Ajansın SWOT'u", icerik='{"isletme": "", "kutular": {}}',
+                                   etiketler="[]", alan="musteri", musteri_email=s, gorunurluk="paylasilan", surum=1))
+    k.update(BLK=blk.id, BLP=blp.id)
     return k
 
 
@@ -366,6 +374,8 @@ POS = ("stok", "kasa")
 SP = "/api/v1/stok-pos"
 #: Faz 6K: eğitim router'ı iki izinden birini istiyor (yönetim ya da eğitmen).
 EGT = ("egitim", "egitim_egitmen")
+#: Faz 5B: ajansın paylaştığı belgeyi okumak için `belgeler` ya da `dosyalar` yeter.
+BELGE_OKU = ("belgeler", "dosyalar")
 MUSTERI_UCLARI = [
     ("GET", "/api/v1/entities/projects", ("projeler",), None, 200),
     ("GET", "/api/v1/entities/projects/all", ("projeler",), None, 200),
@@ -749,6 +759,27 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/saha-servisim/islerim", SAHA, None, 200),
     ("GET", "/api/v1/saha-servisim/raporlar", ("saha_yonetim",), None, 200),
     ("GET", "/api/v1/saha-servisim/bakim", ("saha_yonetim",), None, 200),
+    # Faz 5B — belgeler: paylaşılan belge okuma (modülden bağımsız; `belgeler` ya da `dosyalar`), kendi belgeleri
+    # (`belgeler` izni + modül). AI kapalı → 503 → "gecti".
+    ("GET", "/api/v1/belgelerim/ozet", BELGE_OKU, None, 200),
+    ("GET", "/api/v1/belgelerim/meta", BELGE_OKU, None, 200),
+    ("GET", "/api/v1/belgelerim", BELGE_OKU, None, 200),
+    ("GET", "/api/v1/belgelerim/yapilacaklar", BELGE_OKU, None, 200),
+    ("GET", "/api/v1/belgelerim/{BLP}", BELGE_OKU, None, 200),
+    ("GET", "/api/v1/belgelerim/{BLP}/pdf", BELGE_OKU, None, 200),
+    ("GET", "/api/v1/belgelerim/{BLP}/md", BELGE_OKU, None, 200),
+    ("POST", "/api/v1/belgelerim/{BLP}/okundu", BELGE_OKU, None, 200),
+    ("POST", "/api/v1/belgelerim", ("belgeler",), {"baslik": "Ekip belgesi"}, 200),
+    ("POST", "/api/v1/belgelerim/onizle", ("belgeler",), {"icerik": "**a**"}, 200),
+    ("POST", "/api/v1/belgelerim/ai", ("belgeler",), {"islem": "ozetle", "metin": "metin"}, "gecti"),
+    ("GET", "/api/v1/belgelerim/{BLK}", ("belgeler",), None, 200),
+    ("PUT", "/api/v1/belgelerim/{BLK}", ("belgeler",), {"sabit": True}, 200),
+    ("GET", "/api/v1/belgelerim/{BLK}/surumler", ("belgeler",), None, 200),
+    ("GET", "/api/v1/belgelerim/{BLK}/surumler/999999", ("belgeler",), None, "gecti"),
+    ("POST", "/api/v1/belgelerim/{BLK}/surumler/999999/geri-yukle", ("belgeler",), None, "gecti"),
+    ("POST", "/api/v1/belgelerim/{BLK}/yapilacak", ("belgeler",), {"satir": 0, "metin": "madde", "tamam": False}, 200),
+    ("GET", "/api/v1/belgelerim/{BLK}/pdf", ("belgeler",), None, 200),
+    ("DELETE", "/api/v1/belgelerim/999999", ("belgeler",), None, "gecti"),
     # Faz 6E — etkinlik ve bilet (`etkinlik` yönetim; okutma/sayaç/giriş listesi `etkinlik_giris` da yeter).
     ("GET", "/api/v1/etkinliklerim/meta", ("etkinlik",), None, 200),
     ("GET", "/api/v1/etkinliklerim/giris-listesi", ("etkinlik", "etkinlik_giris"), None, 200),

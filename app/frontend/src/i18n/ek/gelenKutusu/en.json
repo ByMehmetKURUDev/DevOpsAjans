@@ -15,7 +15,8 @@
       "geri_bildirim": "Bug report",
       "icerik_revizyon": "Content revision",
       "belge": "Document",
-      "egitim": "Course enrolment"
+      "egitim": "Course enrolment",
+      "belge_paylasim": "Document sharing"
     },
     "durumSuzgeci": {
       "etiket": "Filter by status",
@@ -87,7 +88,8 @@
       "kurs": "Course",
       "ogrenci": "Student",
       "veli": "Parent",
-      "kayitDurumu": "Enrolment status"
+      "kayitDurumu": "Enrolment status",
+      "olay": "What happened"
     },
     "karar": {
       "bekliyor": "Awaiting decision",
@@ -137,6 +139,10 @@
       "bekleme": "On the waiting list",
       "ayrildi": "Left",
       "cocuk": "Under 18"
+    },
+    "belgeOlayi": {
+      "paylasti": "Shared their own document with the agency",
+      "onayladi": "Read and approved the shared document (version {{sayi}})"
     }
   }
 }

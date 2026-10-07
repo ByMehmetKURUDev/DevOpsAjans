@@ -103,7 +103,9 @@
       "egitim_kurslari": "Kurs",
       "egitim_oturumlari": "Kurs dersi (program)",
       "egitim_dersleri": "Ders içeriği",
-      "egitim_quizleri": "Quiz / ödev"
+      "egitim_quizleri": "Quiz / ödev",
+      "belgeler": "Belge / strateji çalışması",
+      "belge_surumleri": "Belge sürümü"
     }
   }
 }

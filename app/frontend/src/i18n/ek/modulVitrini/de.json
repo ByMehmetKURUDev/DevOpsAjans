@@ -561,6 +561,26 @@
             "c": "Geburtsdatum, Ausweisnummer oder Adresse werden nie abgefragt — nur der Name und die Kontaktdaten der Erziehungsberechtigten. Nach der von Ihnen festgelegten Frist wird automatisch anonymisiert."
           }
         ]
+      },
+      "belgeler": {
+        "ozet": "Dokumente, Wiki und Notizen an einem Ort; Strategievorlagen wie SWOT und Business Model Canvas mit KI-Entwurf ausfüllen.",
+        "kimIcin": "Kleine Unternehmen und Teams, die ihre Abläufe dokumentieren, und Gründer, die an ihrer Strategie arbeiten.",
+        "ozellikler": [
+          "Markdown-Dokumente, Wiki und Notizen; Aufgaben mit Checkboxen und Versionsverlauf",
+          "8 Strategievorlagen: SWOT, Business Model Canvas, Lean Canvas, PESTLE, Porter, McKinsey 7S, Blue Ocean, Ikigai",
+          "Mit KI schreiben, zusammenfassen, korrigieren und Vorlagen entwerfen (keine erfundenen Zahlen)",
+          "PDF, Markdown und Druck; Freigabe an die Agentur"
+        ],
+        "sss": [
+          {
+            "s": "Brauche ich das Modul, um von der Agentur geteilte Dokumente zu lesen?",
+            "c": "Nein. Geteilte Dokumente lesen Sie auch ohne Modul in Ihrem Panel; das Modul dient zum Erstellen eigener Dokumente."
+          },
+          {
+            "s": "Wie viel KI kann ich nutzen?",
+            "c": "Das monatliche Kontingent hängt von Ihrem Konto ab; danach können Sie auf Wunsch mit Guthaben weitermachen."
+          }
+        ]
       }
     },
     "s": {

@@ -669,6 +669,30 @@ MODULLER: Tuple[Modul, ...] = (
         paketler=("BETA", "OMEGA", "SIGMA"),
         bagimliliklar=("projeler",),
     ),
+    # Faz 5B — belgeler, wiki ve strateji araçları: müşterinin KENDİ belge/wiki/strateji
+    # şablonlarını (SWOT, İş Modeli Kanvası …) oluşturması, sürüm geçmişi, yapılacaklar, AI ile
+    # yaz/özetle/düzelt ve strateji taslağı, PDF/Markdown. Ajansın paylaştığı belgeler bu modülden
+    # BAĞIMSIZ her müşteride görünür (Dosyalar ve belgeler sekmesi). Kendi sekmesi yok: müşteri
+    # panelinde "Dosyalar ve belgeler" (`dosyalar`) içinde alt bölüm. Varsayılan KAPALI, pakete bağlı
+    # değil (ayrı satılan modül). Ekip izni `belgeler`. `belge_siniri`: hesabın en çok kendi belgesi;
+    # `aylik_uretim` / `gunluk_uretim` / `kredi_ile_asim`: AI kullanımı (Faz 5A/5I deseni).
+    Modul(
+        anahtar="belgeler",
+        ad_varsayilan={"tr": "Belgeler ve strateji araçları", "en": "Documents and strategy tools"},
+        ikon="NotebookPen",
+        kategori="is_araclari",
+        musteri_sekmesi=None,
+        yonetici_sekmesi=None,
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("belge_siniri", "int", 200, en_az=0, en_cok=100_000),
+            AyarAlani("aylik_uretim", "int", 30, en_az=0, en_cok=1_000_000),
+            AyarAlani("gunluk_uretim", "int", 20, en_az=0, en_cok=100_000),
+            AyarAlani("kredi_ile_asim", "bool", True),
+        ),
+        yerlesim=("dosyalar",),
+    ),
     # Faz 4A — API anahtarları, imzalı webhook'lar ve uzak MCP sunucusu (Claude ile bağlama).
     # Varsayılan KAPALI, pakete bağlı değil (ayrı satılan modül; önerilen aylık 29 $ — Zapier/Make
     # entegrasyonu ve yapay zekâ asistanı bağlantısı isteyen müşteriye). Ekip izni `api`.

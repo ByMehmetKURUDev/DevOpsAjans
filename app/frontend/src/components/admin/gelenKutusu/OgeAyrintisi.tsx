@@ -313,6 +313,10 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
         ekle('telefon', a.telefon);
         ekle('veli', [a.veli_ad, a.veli_telefon].map(metinAl).filter(Boolean).join(' · '));
         break;
+      case 'belge_paylasim':
+        ekle('belge', a.baslik);
+        ekle('olay', t(`gelenKutusu.belgeOlayi.${a.olay === 'onayladi' ? 'onayladi' : 'paylasti'}`, { sayi: a.surum ?? 1 }));
+        break;
     }
     return s;
     // eslint-disable-next-line react-hooks/exhaustive-deps

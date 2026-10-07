@@ -15,7 +15,8 @@
       "geri_bildirim": "错误报告",
       "icerik_revizyon": "内容修改",
       "belge": "文件",
-      "egitim": "课程报名"
+      "egitim": "课程报名",
+      "belge_paylasim": "文档共享"
     },
     "durumSuzgeci": {
       "etiket": "按状态筛选",
@@ -87,7 +88,8 @@
       "kurs": "课程",
       "ogrenci": "学员",
       "veli": "家长",
-      "kayitDurumu": "报名状态"
+      "kayitDurumu": "报名状态",
+      "olay": "发生了什么"
     },
     "karar": {
       "bekliyor": "等待决定",
@@ -137,6 +139,10 @@
       "bekleme": "候补中",
       "ayrildi": "已退出",
       "cocuk": "未满 18 岁"
+    },
+    "belgeOlayi": {
+      "paylasti": "将自己的文档共享给了代理机构",
+      "onayladi": "已阅读并确认共享文档（版本 {{sayi}}）"
     }
   }
 }

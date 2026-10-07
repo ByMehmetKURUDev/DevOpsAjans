@@ -1,4 +1,5 @@
 import {
+  BookText,
   Bug,
   Calculator,
   CalendarCheck,
@@ -26,6 +27,7 @@ export const KAYNAK_IKONU: Record<Kaynak, LucideIcon> = {
   icerik_revizyon: PenTool,
   belge: FileUp,
   egitim: GraduationCap,
+  belge_paylasim: BookText,
 };
 
 export const DURUM_RENGI: Record<Durum, string> = {

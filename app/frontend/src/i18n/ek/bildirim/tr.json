@@ -80,7 +80,9 @@
       "etkinlik_iptal": "Etkinlik: bilet iptal edildi",
       "haftalik_ozet": "Haftalık özet (Pazartesi sabahı)",
       "stok_kritik": "Kritik stok seviyesine inen ürünler",
-      "egitim_kayit": "Eğitim: yeni öğrenci kaydı"
+      "egitim_kayit": "Eğitim: yeni öğrenci kaydı",
+      "belge_paylasildi": "Belge paylaşıldı (ajans → müşteri ya da müşteri → ajans)",
+      "belge_onaylandi": "Müşteri paylaşılan belgeyi okudu ve onayladı"
     },
     "kanal": {
       "inapp": "Panel",

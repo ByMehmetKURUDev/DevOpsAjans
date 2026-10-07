@@ -196,6 +196,10 @@
       "egitim": {
         "ad": "课程与教学",
         "aciklama": "面向培训中心、辅导班、工作坊和讲师：课程页面与报名表（含家长信息）、循环课表、二维码签到、在线课节（视频链接、文件、进度）、测验与作业、AI 出题草稿、按条件颁发证书及验证页面。"
+      },
+      "belgeler": {
+        "ad": "文档与战略工具",
+        "aciklama": "您自己的文档、知识库和笔记（待办、版本历史、PDF/Markdown）以及战略模板：SWOT、商业模式画布、精益画布、PESTLE、波特五力、麦肯锡 7S、蓝海、Ikigai；可用 AI 撰写、摘要、校对和起草。"
       }
     },
     "kategori": {
@@ -260,7 +264,8 @@
       "kasa_kullanici_siniri": "每月最多收银用户",
       "kurs_siniri": "课程数量上限",
       "ogrenci_siniri": "学员数量上限（在读 + 候补）",
-      "ai_hakki": "每月 AI 出题次数"
+      "ai_hakki": "每月 AI 出题次数",
+      "belge_siniri": "每个账户自建文档上限"
     },
     "musteri": {
       "baslik": "我的模块",

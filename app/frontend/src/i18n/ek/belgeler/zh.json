@@ -1,0 +1,346 @@
+{
+  "belgeler": {
+    "alt": {
+      "etiket": "文件与文档分区",
+      "dosyalar": "文件",
+      "belgeler": "文档",
+      "strateji": "战略"
+    },
+    "baslik": {
+      "belge": "文档与知识库",
+      "strateji": "战略工具"
+    },
+    "aciklama": {
+      "belge": "代理机构内部知识库、客户与项目文档、会议记录。复选框待办、版本历史、以只读方式共享给客户、PDF 与 Markdown。",
+      "strateji": "SWOT、商业模式画布、精益画布、PESTLE、波特五力、麦肯锡 7S、蓝海与 Ikigai 模板；AI 草稿、共享与 PDF。",
+      "musteriBelge": "代理机构与您共享的文档，以及（模块开启时）您自己的文档、笔记和待办。",
+      "musteriStrateji": "代理机构共享的战略分析，以及（模块开启时）您自己的 SWOT、商业模式等模板。"
+    },
+    "yeni": {
+      "belge": "新建文档",
+      "strateji": "新建战略分析",
+      "sablonSec": "选择模板"
+    },
+    "duzenle": {
+      "baslik": "编辑文档"
+    },
+    "ara": "搜索标题和内容",
+    "etiketSuzgeci": "标签筛选",
+    "tumEtiketler": "全部",
+    "sayi": "{{sayi}} 份文档",
+    "secin": {
+      "belge": "从左侧选择一份文档阅读，或新建文档。",
+      "strateji": "从左侧选择一项分析，或从新模板开始。"
+    },
+    "bos": {
+      "belge": "还没有文档。创建您的第一个知识库页面或会议记录。",
+      "strateji": "还没有战略分析。选择一个模板开始。",
+      "musteri": "目前还没有与您共享的文档。",
+      "arama": "没有符合搜索条件的文档。"
+    },
+    "alan": {
+      "baslik": "空间",
+      "tumu": "全部空间",
+      "ajans": "代理机构内部知识库",
+      "musteri": "客户：{{ad}}",
+      "proje": "项目：{{ad}}",
+      "musteriSecenek": "客户文档",
+      "projeSecenek": "项目文档",
+      "musteriSec": "客户邮箱",
+      "projeSec": "项目",
+      "projeYok": "选择项目",
+      "projesiz": "未关联项目"
+    },
+    "kaynak": {
+      "baslik": "文档归属",
+      "tumu": "全部",
+      "ajans": "代理机构的文档",
+      "musteri": "客户共享的文档"
+    },
+    "gorunurluk": {
+      "baslik": "可见范围",
+      "ekip": "仅团队",
+      "paylasilan": "共享给客户（只读）",
+      "musteriEkip": "仅我的团队",
+      "musteriPaylasilan": "共享给代理机构"
+    },
+    "rozet": {
+      "sabit": "已置顶",
+      "paylasilan": "已共享给客户",
+      "ajanslaPaylasilan": "已共享给代理机构",
+      "musteriBelgesi": "客户的文档",
+      "salt": "只读",
+      "yapilacak": "{{sayi}} 项待办",
+      "surum": "版本 {{sayi}}"
+    },
+    "alanlar": {
+      "baslik": "标题",
+      "etiketler": "标签",
+      "etiketIpucu": "用逗号分隔：流程, 人事, 入职",
+      "icerik": "内容",
+      "isletme": "简要描述业务（AI 草稿会用到）",
+      "isletmeIpucu": "您卖什么、卖给谁、在哪里？可以写已知的数字；AI 不会编造数字。",
+      "isletmeKisa": "业务",
+      "kutuIpucu": "每条单独一行",
+      "sabit": "在列表中置顶"
+    },
+    "eylem": {
+      "duzenle": "编辑",
+      "kaydet": "保存",
+      "vazgec": "取消",
+      "sil": "删除",
+      "silOnay": "删除“{{ad}}”？可以从回收站恢复。",
+      "sabitle": "置顶",
+      "sabitKaldir": "取消置顶",
+      "paylas": "共享给客户",
+      "paylasimKaldir": "取消共享",
+      "ajanslaPaylas": "共享给代理机构",
+      "pdf": "PDF",
+      "md": "Markdown",
+      "yazdir": "打印",
+      "surumler": "版本",
+      "geri": "返回列表",
+      "yenile": "刷新",
+      "okudum": "我已阅读并确认"
+    },
+    "durum": {
+      "kaydedildi": "已保存。",
+      "kaydedilmedi": "有未保存的更改。",
+      "kaydedilmediOnay": "未保存的更改将丢失。仍要离开吗？",
+      "silindi": "已删除——可从回收站恢复。",
+      "paylasildi": "已共享给客户，并已通知对方。",
+      "ajanslaPaylasildi": "已共享给代理机构。",
+      "paylasimKalkti": "已取消共享。",
+      "okundu": "已确认（版本 {{sayi}}）",
+      "okunduEski": "您确认的是较早版本；此后文档已有更新。",
+      "sonDuzenleyen": "最后编辑：{{kisi}} · {{zaman}}",
+      "guncellendi": "更新时间：{{zaman}}",
+      "musteriOnayladi": "{{kisi}} 已阅读并确认（版本 {{sayi}}）"
+    },
+    "arac": {
+      "etiket": "格式工具",
+      "baslik": "标题",
+      "kalin": "加粗",
+      "egik": "斜体",
+      "liste": "项目符号列表",
+      "numarali": "编号列表",
+      "yapilacak": "复选框（待办）",
+      "baglanti": "链接",
+      "tablo": "表格",
+      "kod": "代码",
+      "alinti": "引用",
+      "yaz": "编写",
+      "onizle": "预览",
+      "metin": "文字",
+      "baglantiMetni": "链接文字",
+      "yapilacakMetni": "待办",
+      "kodMetni": "代码",
+      "sutun": "第 {{sayi}} 列",
+      "ipucu": "Markdown：## 标题、**加粗**、- 列表项、- [ ] 待办（用 @邮箱 指派）、| 表格 |。不允许 HTML。Ctrl+S 保存。"
+    },
+    "ai": {
+      "baslik": "AI",
+      "yaz": "用 AI 撰写",
+      "ozetle": "摘要",
+      "duzelt": "校对",
+      "taslak": "用 AI 填写草稿",
+      "talimat": "要写什么？",
+      "talimatIpucu": "例如：写一份向客户说明交付流程的简短指南",
+      "olustur": "生成",
+      "oneri": "建议",
+      "ekle": "追加到末尾",
+      "degistir": "替换所选内容",
+      "tumunuDegistir": "替换全文",
+      "kabul": "应用整份草稿",
+      "kutuyaUygula": "应用到此方框",
+      "reddet": "关闭",
+      "taslakHazir": "草稿已就绪：建议显示在各方框下方。可逐个应用或一次全部应用。",
+      "kapali": "本网站尚未配置 AI，AI 按钮已关闭。管理员添加密钥后即可使用。",
+      "secimNot": "选中文本时，摘要和校对只作用于所选部分；否则作用于整份文档。",
+      "taslakNot": "请先简要描述业务。草稿仅为建议：不会编造数字，未经您确认不会保存。",
+      "kullanim": "本月 {{ay}} 次，今天 {{bugun}} 次",
+      "sahte": "测试环境回复",
+      "uyari": {
+        "genel": "请检查",
+        "kaynaksiz_sayi": "输入中没有的数字——请核实",
+        "saglik": "可能含有健康承诺",
+        "finans": "可能含有财务承诺",
+        "hukuk": "可能含有法律承诺",
+        "yasakli_kelime": "禁用词"
+      }
+    },
+    "surum": {
+      "baslik": "版本历史",
+      "aciklama": "显示最近 {{sayi}} 个版本；最多保留 20 个。",
+      "guncel": "当前",
+      "secin": "从左侧选择一个版本进行预览。",
+      "onizleme": "版本 {{sayi}}",
+      "geriYukle": "恢复此版本",
+      "geriYukleOnay": "恢复版本 {{sayi}}？当前状态也会保留在历史中。",
+      "geriYuklendi": "已恢复版本 {{sayi}}。",
+      "kapat": "关闭",
+      "neden": {
+        "olusturma": "已创建",
+        "duzenleme": "已编辑",
+        "geri_yukleme": "已恢复版本 {{sayi}}",
+        "yapilacak": "已勾选待办",
+        "gorev": "已关联任务 #{{sayi}}"
+      }
+    },
+    "yapilacak": {
+      "baslik": "我的待办",
+      "bana": "指派给我",
+      "hepsi": "全部未完成",
+      "aciklama": "文档中未勾选的复选框。在条目中写 @邮箱 即可指派给某人。",
+      "bos": "没有指派给您的未完成条目。",
+      "bosHepsi": "没有未完成条目。",
+      "banaRozet": "我",
+      "isaretle": "标记为完成：{{metin}}",
+      "tamamlandi": "条目已完成。",
+      "gorevOlustur": "转为项目任务",
+      "gorevOlustu": "已创建项目任务（#{{sayi}}）。",
+      "gorevBagli": "任务 #{{sayi}}",
+      "gorevAciklama": "来自文档：{{belge}}",
+      "projeGerekli": "文档需关联到项目才能创建任务。",
+      "salt": "代理机构的文档"
+    },
+    "sablon": {
+      "swot": {
+        "ad": "SWOT 分析",
+        "aciklama": "优势与劣势、机会与威胁（2×2）。",
+        "kutu": {
+          "guclu": "优势",
+          "zayif": "劣势",
+          "firsatlar": "机会",
+          "tehditler": "威胁"
+        }
+      },
+      "is_modeli": {
+        "ad": "商业模式画布",
+        "aciklama": "用九个方框描述商业模式：合作伙伴、活动、价值主张、客户、收入与成本。",
+        "kutu": {
+          "ortaklar": "重要合作",
+          "faaliyetler": "关键业务",
+          "kaynaklar": "核心资源",
+          "deger": "价值主张",
+          "iliskiler": "客户关系",
+          "kanallar": "渠道通路",
+          "segmentler": "客户细分",
+          "maliyetler": "成本结构",
+          "gelirler": "收入来源"
+        }
+      },
+      "lean": {
+        "ad": "精益画布",
+        "aciklama": "适用于初创企业：问题、解决方案、关键指标、独特价值主张和竞争壁垒。",
+        "kutu": {
+          "problem": "问题",
+          "cozum": "解决方案",
+          "metrikler": "关键指标",
+          "deger_onerisi": "独特价值主张",
+          "haksiz_avantaj": "竞争壁垒",
+          "kanallar": "渠道",
+          "segmentler": "客户细分",
+          "maliyetler": "成本结构",
+          "gelirler": "收入来源"
+        }
+      },
+      "pestle": {
+        "ad": "PESTLE 分析",
+        "aciklama": "外部环境：政治、经济、社会、技术、法律和环境因素。",
+        "kutu": {
+          "politik": "政治",
+          "ekonomik": "经济",
+          "sosyal": "社会",
+          "teknolojik": "技术",
+          "hukuki": "法律",
+          "cevresel": "环境"
+        }
+      },
+      "porter": {
+        "ad": "波特五力",
+        "aciklama": "行业竞争压力：新进入者、供应商、买方、替代品和行业内竞争。",
+        "kutu": {
+          "yeni_girenler": "新进入者的威胁",
+          "tedarikci_gucu": "供应商的议价能力",
+          "rekabet": "行业内竞争",
+          "alici_gucu": "买方的议价能力",
+          "ikameler": "替代品的威胁"
+        }
+      },
+      "mckinsey_7s": {
+        "ad": "麦肯锡 7S",
+        "aciklama": "七个要素的协调：战略、结构、制度、共同价值观、风格、员工、技能。",
+        "kutu": {
+          "strateji": "战略",
+          "yapi": "结构",
+          "sistemler": "制度",
+          "ortak_degerler": "共同价值观",
+          "stil": "管理风格",
+          "personel": "员工",
+          "yetenekler": "技能"
+        }
+      },
+      "mavi_okyanus": {
+        "ad": "蓝海——四步行动",
+        "aciklama": "开创无竞争市场：剔除和减少什么，增加和创造什么？",
+        "kutu": {
+          "ortadan_kaldir": "剔除",
+          "yukselt": "增加",
+          "azalt": "减少",
+          "yarat": "创造"
+        }
+      },
+      "ikigai": {
+        "ad": "Ikigai（生之意义）",
+        "aciklama": "您热爱的、擅长的、世界需要的以及能带来收入的事情的交集。",
+        "kutu": {
+          "sevdigin": "你热爱的",
+          "tutku": "热情",
+          "iyi_oldugun": "你擅长的",
+          "misyon": "使命",
+          "ikigai": "Ikigai",
+          "meslek": "职业",
+          "dunyanin_ihtiyaci": "世界需要的",
+          "ugras": "天职",
+          "para_kazandiran": "能带来收入的"
+        }
+      }
+    },
+    "hata": {
+      "genel": "操作未能完成，请重试。",
+      "ag": "无法连接。",
+      "yetki": "您无权执行此操作。",
+      "cok_hizli": "尝试过于频繁，请稍候。",
+      "bulunamadi": "文档不存在或已不再共享。",
+      "baslikGerekli": "请输入标题。",
+      "metin_gerekli": "有必填项为空。",
+      "metin_uzun": "文本过长（最多 {{sinir}} 个字符）。",
+      "gecersiz": "无效的值。",
+      "cok_fazla": "最多 {{sinir}} 项。",
+      "gecersiz_eposta": "请输入有效的客户邮箱。",
+      "proje_yok": "未找到项目。",
+      "proje_musteri_uyusmuyor": "所选项目不属于该客户。",
+      "paylasim_icin_musteri": "请先将文档关联到客户或项目再共享。",
+      "surum_catismasi": "您编辑期间已有其他人保存了此文档（当前版本 {{guncel}}）。请刷新后重试。",
+      "madde_degisti": "该条目已被修改，列表已刷新。",
+      "gorev_bagli": "该条目已关联任务。",
+      "gorev_yok": "未找到任务。",
+      "musteri_belgesi": "客户的文档为只读。",
+      "salt_okunur": "此文档为只读。",
+      "belge_siniri": "已达到文档数量上限（最多 {{sinir}}）。",
+      "bilinmeyen_kutu": "提交了模板中不存在的方框。",
+      "modul_kapali": "此账户的文档模块已关闭。",
+      "hesap_izni_yok": "您在此账户中没有文档权限。",
+      "ai_kapali": "AI 暂不可用。",
+      "ai_hatasi": "AI 未能响应，已退还本次额度。",
+      "ai_zaman_asimi": "AI 响应超时，已退还本次额度。",
+      "ai_bos": "AI 返回了空回复，已退还本次额度。",
+      "gunluk_sinir": "已达到今日 AI 使用上限（{{sinir}}）。",
+      "butce_doldu": "网站今日的 AI 预算已用完。",
+      "aylik_sinir": "本月 AI 额度已用完（{{sinir}}）。",
+      "kredi_yetersiz": "点数不足（需要 {{blok_kredi}} 点）。",
+      "sayac_hatasi": "无法更新使用计数，请重试。"
+    }
+  }
+}

@@ -46,7 +46,8 @@
       "stok": "Lager & Kasse — Verwaltung (Produkte, Kosten, Bestand, Berichte)",
       "kasa": "Lager & Kasse — nur Kasse (Verkaufsbildschirm)",
       "egitim": "Kurse (Verwaltung)",
-      "egitim_egitmen": "Kurse: Lehrkraft (nur eigene Kurse)"
+      "egitim_egitmen": "Kurse: Lehrkraft (nur eigene Kurse)",
+      "belgeler": "Dokumente, Wiki und Strategie-Tools"
     },
     "durum": {
       "davet": "Einladung ausstehend",

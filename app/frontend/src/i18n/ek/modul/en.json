@@ -196,6 +196,10 @@
       "egitim": {
         "ad": "Courses and learning",
         "aciklama": "For course centres, tutoring schools, workshops and instructors: course page and registration form (with parent details), recurring class schedule, QR attendance, online lessons (video link, files, progress), quizzes and assignments, AI-drafted questions, conditional certificates and a verification page."
+      },
+      "belgeler": {
+        "ad": "Documents and strategy tools",
+        "aciklama": "Your own documents, wiki and notes (to-dos, version history, PDF/Markdown) and strategy templates: SWOT, Business Model Canvas, Lean Canvas, PESTLE, Porter, McKinsey 7S, Blue Ocean, Ikigai; write, summarize, proofread and draft with AI."
       }
     },
     "kategori": {
@@ -260,7 +264,8 @@
       "kasa_kullanici_siniri": "Maximum till users per month",
       "kurs_siniri": "Maximum courses",
       "ogrenci_siniri": "Maximum students (active + waiting)",
-      "ai_hakki": "Monthly AI question generations"
+      "ai_hakki": "Monthly AI question generations",
+      "belge_siniri": "Maximum own documents per account"
     },
     "musteri": {
       "baslik": "My modules",

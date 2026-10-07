@@ -80,7 +80,9 @@
       "etkinlik_iptal": "Event: ticket cancelled",
       "haftalik_ozet": "Weekly summary (Monday morning)",
       "stok_kritik": "Products that fell to low stock",
-      "egitim_kayit": "Courses: new student enrolment"
+      "egitim_kayit": "Courses: new student enrolment",
+      "belge_paylasildi": "Document shared (agency → client or client → agency)",
+      "belge_onaylandi": "Client read and approved a shared document"
     },
     "kanal": {
       "inapp": "Panel",

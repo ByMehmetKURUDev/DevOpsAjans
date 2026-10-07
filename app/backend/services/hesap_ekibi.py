@@ -97,6 +97,9 @@ IZINLER: Tuple[str, ...] = (
     # ödev notu (iletişim/veli bilgisi görmez; üyenin varsayılanında yok — ayrıca verilir).
     "egitim",
     "egitim_egitmen",
+    # Faz 5B — belgeler, wiki ve strateji araçları: hesabın kendi belgeleri (modül `belgeler`).
+    # Ajansın paylaştığı belgeleri okumak için `belgeler` ya da `dosyalar` yeter. Üyenin varsayılanında var.
+    "belgeler",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -108,7 +111,7 @@ ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
     # Faz 4K/4M: üye kendi kartvizitini ve menü/katalog mağazalarını da yönetir.
     "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
-            "kartvizit", "menu", "randevu", "asistan", "icerik", "etkinlik_giris", "kasa"),
+            "kartvizit", "menu", "randevu", "asistan", "icerik", "etkinlik_giris", "kasa", "belgeler"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
@@ -138,7 +141,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "pazarlama"}),
-        # Faz 5I/6S/6E–6P/6K arası varsayılan (icerik, saha ve etkinlik izinleri var; stok, kasa ve egitim izinleri yok).
+        # Faz 5I/6S/6E–6P/6K/5B arası varsayılan (icerik, saha ve etkinlik izinleri var; stok, kasa, egitim ve belgeler izinleri yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris"}),
@@ -158,7 +161,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 5A–5I/6E arası varsayılan (asistan var; icerik ve etkinlik_giris yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
                    "kartvizit", "menu", "randevu", "asistan"}),
-        # Faz 5I/6E–6P arası varsayılan (icerik ve etkinlik_giris var; kasa yok).
+        # Faz 5I/6E–6P/5B arası varsayılan (icerik ve etkinlik_giris var; kasa ve belgeler yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
                    "kartvizit", "menu", "randevu", "asistan", "icerik", "etkinlik_giris"}),
     ),
@@ -237,6 +240,8 @@ OLAY_IZNI: Dict[str, str] = {
     "etkinlik_iptal": "etkinlik",
     # Faz 6K — kursa yeni kayıt (sahibine).
     "egitim_kayit": "egitim",
+    # Faz 5B — ajans hesapla bir belge paylaştı.
+    "belge_paylasildi": "belgeler",
 }
 
 DAVET_OLAYI = "hesap_davet"

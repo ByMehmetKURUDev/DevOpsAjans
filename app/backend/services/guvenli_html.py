@@ -62,12 +62,26 @@ def url_guvenli_mi(deger: str) -> bool:
     return True
 
 
+#: Faz 5B — belge kipinde ek öznitelikler: yapılacak maddesinin satır numarası ve durumu
+#: (ön yüz tıklamayla işaretlemek için). Değerleri ayrıca sınırlanıyor (`_belge_ozniteligi`).
+BELGE_EK_OZNITELIKLER: Dict[str, frozenset] = {"li": frozenset({"data-satir", "data-tamam"})}
+
+
+def _belge_ozniteligi(ad: str, deger: str) -> bool:
+    if ad == "data-satir":
+        return bool(re.fullmatch(r"\d{1,6}", deger))
+    if ad == "data-tamam":
+        return deger in ("0", "1")
+    return False
+
+
 class _Temizleyici(HTMLParser):
-    def __init__(self) -> None:
+    def __init__(self, belge: bool = False) -> None:
         super().__init__(convert_charrefs=True)
         self.cikti: List[str] = []
         self.atlama = 0  # içeriğiyle atılan etiketin derinliği
         self.acik: List[str] = []
+        self.belge = belge
 
     def handle_starttag(self, tag: str, attrs: List[Tuple[str, Optional[str]]]) -> None:
         tag = tag.lower()
@@ -78,9 +92,14 @@ class _Temizleyici(HTMLParser):
         if self.atlama or tag not in IZINLI_ETIKETLER:
             return
         izinli = IZINLI_OZNITELIKLER.get(tag, frozenset())
+        ek = BELGE_EK_OZNITELIKLER.get(tag, frozenset()) if self.belge else frozenset()
         parcalar = [tag]
         for ad, deger in attrs:
             ad = (ad or "").lower()
+            if ad in ek:
+                if _belge_ozniteligi(ad, deger or ""):
+                    parcalar.append(f'{ad}="{html.escape(deger or "", quote=True)}"')
+                continue
             if ad not in izinli or ad.startswith("on"):
                 continue
             deger = deger or ""
@@ -147,8 +166,8 @@ class _Temizleyici(HTMLParser):
         return "".join(self.cikti)
 
 
-def temizle(ham_html: str) -> str:
-    t = _Temizleyici()
+def temizle(ham_html: str, belge: bool = False) -> str:
+    t = _Temizleyici(belge=belge)
     t.feed(ham_html or "")
     t.close()
     return t.sonuc()
@@ -272,5 +291,189 @@ def markdown_html(md: str) -> str:
 def duz_metin(md: str, sinir: int = 220) -> str:
     """Özet için: işaretleri ve etiketleri atılmış kısa metin."""
     metin = re.sub(r"<[^>]*>", " ", markdown_html(md))
+    metin = html.unescape(re.sub(r"\s+", " ", metin)).strip()
+    return metin if len(metin) <= sinir else metin[: sinir - 1].rstrip() + "…"
+
+
+# ---------------------------------------------------------------------------
+# Faz 5B — belge kipi (belgeler / wiki / notlar)
+# ---------------------------------------------------------------------------
+# Bilgi bankasından farkları:
+# * Ham HTML HİÇ geçmiyor: metin önce kaçışlanıyor, yalnız Markdown işaretleri
+#   etikete dönüşüyor (`<b>` yazan kullanıcı ekranda `<b>` görür). Çıktı yine
+#   `temizle`den geçiyor — iki kat güvence.
+# * Tablo (`| a | b |` + `|---|---|`), yapılacak maddesi (`- [ ] metin`,
+#   `- [x] metin`; `<li data-satir=… data-tamam=…>` — satır numarası Markdown
+#   gövdesindeki satır, ön yüz tıklamayla işaretlemek için kullanıyor) ve
+#   ~~üstü çizili~~.
+# * Kod bloğundaki metin dokunulmadan kaçışlanıyor (``` içinde yapılacak yok).
+_DENETIM_KARAKTERI = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+_USTU_CIZILI = re.compile(r"~~(?=\S)(.+?)(?<=\S)~~")
+_YAPILACAK = re.compile(r"^[-*+]\s+\[( |x|X)\]\s+(.*)$")
+_TABLO_AYRAC = re.compile(r"^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?$")
+YAPILACAK_ACIK = "☐"
+YAPILACAK_TAMAM = "☑"
+
+
+def _vurgu(kacisli: str) -> str:
+    kacisli = _KALIN.sub(lambda m: f"<strong>{m.group(1) or m.group(2)}</strong>", kacisli)
+    kacisli = _EGIK.sub(lambda m: f"<em>{m.group(1) or m.group(2)}</em>", kacisli)
+    return _USTU_CIZILI.sub(lambda m: f"<s>{m.group(1)}</s>", kacisli)
+
+
+def _satir_ici_belge(metin: str) -> str:
+    """Satır içi Markdown → HTML; geri kalan her şey KAÇIŞLI metin."""
+    metin = _DENETIM_KARAKTERI.sub("", metin or "")
+    saklanan: List[str] = []
+
+    def sakla(parca: str) -> str:
+        saklanan.append(parca)
+        return f"\x00{len(saklanan) - 1}\x00"
+
+    metin = _KOD.sub(lambda m: sakla(f"<code>{html.escape(m.group(1), quote=False)}</code>"), metin)
+    metin = _GORSEL.sub(
+        lambda m: sakla(f'<img src="{html.escape(m.group(2), quote=True)}" alt="{html.escape(m.group(1), quote=True)}" />'),
+        metin,
+    )
+    metin = _BAGLANTI.sub(
+        lambda m: sakla(
+            f'<a href="{html.escape(m.group(2), quote=True)}"'
+            + (f' title="{html.escape(m.group(3), quote=True)}"' if m.group(3) else "")
+            + f">{_vurgu(html.escape(m.group(1), quote=False))}</a>"
+        ),
+        metin,
+    )
+    metin = _vurgu(html.escape(metin, quote=False))
+    return re.sub(r"\x00(\d+)\x00", lambda m: saklanan[int(m.group(1))], metin)
+
+
+def _tablo_hucreleri(satir: str) -> List[str]:
+    s = satir.strip()
+    if s.startswith("|"):
+        s = s[1:]
+    if s.endswith("|"):
+        s = s[:-1]
+    return [h.strip() for h in s.split("|")]
+
+
+def _belge_bloklari(satirlar: List[str], satir_no: bool) -> List[str]:
+    cikti: List[str] = []
+    paragraf: List[str] = []
+    liste: Optional[str] = None
+    alinti: List[str] = []
+    i = 0
+    n = len(satirlar)
+
+    def paragrafi_bitir() -> None:
+        nonlocal paragraf
+        if paragraf:
+            cikti.append("<p>" + "<br />".join(_satir_ici_belge(s) for s in paragraf) + "</p>")
+            paragraf = []
+
+    def listeyi_bitir() -> None:
+        nonlocal liste
+        if liste:
+            cikti.append(f"</{liste}>")
+            liste = None
+
+    def alintiyi_bitir() -> None:
+        nonlocal alinti
+        if alinti:
+            cikti.append("<blockquote>" + "".join(_belge_bloklari(alinti, False)) + "</blockquote>")
+            alinti = []
+
+    def liste_ac(tur: str) -> None:
+        nonlocal liste
+        if liste != tur:
+            listeyi_bitir()
+            cikti.append(f"<{tur}>")
+            liste = tur
+
+    while i < n:
+        satir = satirlar[i]
+        yalin = satir.strip()
+        if yalin.startswith("```"):
+            paragrafi_bitir(); listeyi_bitir(); alintiyi_bitir()
+            kod: List[str] = []
+            i += 1
+            while i < n and not satirlar[i].strip().startswith("```"):
+                kod.append(_DENETIM_KARAKTERI.sub("", satirlar[i]))
+                i += 1
+            cikti.append("<pre><code>" + html.escape("\n".join(kod), quote=False) + "</code></pre>")
+            i += 1
+            continue
+        if yalin.startswith(">"):
+            paragrafi_bitir(); listeyi_bitir()
+            alinti.append(yalin[1:].lstrip())
+            i += 1
+            continue
+        alintiyi_bitir()
+        if not yalin:
+            paragrafi_bitir(); listeyi_bitir()
+            i += 1
+            continue
+        baslik = re.match(r"^(#{1,4})\s+(.+?)\s*#*$", yalin)
+        if baslik:
+            paragrafi_bitir(); listeyi_bitir()
+            seviye = min(len(baslik.group(1)) + 1, 5)
+            cikti.append(f"<h{seviye}>{_satir_ici_belge(baslik.group(2))}</h{seviye}>")
+            i += 1
+            continue
+        if re.match(r"^(-{3,}|\*{3,}|_{3,})$", yalin):
+            paragrafi_bitir(); listeyi_bitir()
+            cikti.append("<hr />")
+            i += 1
+            continue
+        if yalin.startswith("|") and i + 1 < n and _TABLO_AYRAC.match(satirlar[i + 1].strip()):
+            paragrafi_bitir(); listeyi_bitir()
+            basliklar = _tablo_hucreleri(yalin)
+            parca = ["<table><thead><tr>"] + [f"<th>{_satir_ici_belge(h)}</th>" for h in basliklar] + ["</tr></thead><tbody>"]
+            i += 2
+            while i < n and satirlar[i].strip().startswith("|"):
+                hucreler = _tablo_hucreleri(satirlar[i])
+                hucreler = (hucreler + [""] * len(basliklar))[: max(len(basliklar), 1)]
+                parca.append("<tr>" + "".join(f"<td>{_satir_ici_belge(h)}</td>" for h in hucreler) + "</tr>")
+                i += 1
+            parca.append("</tbody></table>")
+            cikti.append("".join(parca))
+            continue
+        gorev = _YAPILACAK.match(yalin)
+        if gorev:
+            paragrafi_bitir()
+            liste_ac("ul")
+            tamam = gorev.group(1) in ("x", "X")
+            ozn = f' data-satir="{i}" data-tamam="{1 if tamam else 0}"' if satir_no else ""
+            isaret = YAPILACAK_TAMAM if tamam else YAPILACAK_ACIK
+            icerik = _satir_ici_belge(gorev.group(2))
+            if tamam:
+                icerik = f"<s>{icerik}</s>"
+            cikti.append(f"<li{ozn}>{isaret} {icerik}</li>")
+            i += 1
+            continue
+        madde = re.match(r"^([-*+])\s+(.*)$", yalin)
+        sirali = re.match(r"^\d+[.)]\s+(.*)$", yalin)
+        if madde or sirali:
+            paragrafi_bitir()
+            liste_ac("ul" if madde else "ol")
+            icerik = madde.group(2) if madde else sirali.group(1)  # type: ignore[union-attr]
+            cikti.append(f"<li>{_satir_ici_belge(icerik)}</li>")
+            i += 1
+            continue
+        listeyi_bitir()
+        paragraf.append(yalin)
+        i += 1
+    paragrafi_bitir(); listeyi_bitir(); alintiyi_bitir()
+    return cikti
+
+
+def belge_html(md: str) -> str:
+    """Belge Markdown'ı → güvenli HTML (ham HTML yok; tablo ve yapılacak maddesi var)."""
+    satirlar = (md or "").replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    return temizle("\n".join(_belge_bloklari(satirlar, True)), belge=True)
+
+
+def belge_duz_metin(md: str, sinir: int = 200) -> str:
+    """Liste özeti için işaretsiz kısa metin."""
+    metin = re.sub(r"<[^>]*>", " ", belge_html(md))
     metin = html.unescape(re.sub(r"\s+", " ", metin)).strip()
     return metin if len(metin) <= sinir else metin[: sinir - 1].rstrip() + "…"

@@ -103,7 +103,9 @@
       "egitim_kurslari": "Kurs",
       "egitim_oturumlari": "Kursstunde (Plan)",
       "egitim_dersleri": "Lektion",
-      "egitim_quizleri": "Quiz / Hausaufgabe"
+      "egitim_quizleri": "Quiz / Hausaufgabe",
+      "belgeler": "Dokument / Strategiearbeit",
+      "belge_surumleri": "Dokumentversion"
     }
   }
 }

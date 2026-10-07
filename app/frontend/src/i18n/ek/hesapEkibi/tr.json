@@ -46,7 +46,8 @@
       "stok": "Stok ve POS — yönetim (ürün, maliyet, stok, rapor)",
       "kasa": "Stok ve POS — yalnız kasa (satış ekranı)",
       "egitim": "Eğitim (yönetim)",
-      "egitim_egitmen": "Eğitim: eğitmen (yalnız kendi kursları)"
+      "egitim_egitmen": "Eğitim: eğitmen (yalnız kendi kursları)",
+      "belgeler": "Belgeler, wiki ve strateji araçları"
     },
     "durum": {
       "davet": "Davet bekliyor",

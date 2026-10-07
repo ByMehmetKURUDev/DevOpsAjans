@@ -140,6 +140,9 @@ HARIC_TABLOLAR = frozenset({
     # Faz 5I: içerik stüdyosu üretim geçmişi (yüksek hacim; girdi/çıktı metni), günlük sayaç ve
     # görsel kayıtları. Markalar, şablonlar ve gönderiler kaydediliyor.
     "icerik_uretimleri", "icerik_kullanimi", "icerik_gorselleri",
+    # Faz 5B: belge sürümleri (belgenin kendisi zaten kaydediliyor; sürüm onun tam kopyası) ve
+    # günlük AI sayacı.
+    "belge_surumleri", "belge_ai_kullanimi",
     # Faz 5M: e-posta pazarlama alıcıları (herkese açık formdan ve CSV'den, KİŞİSEL VERİ; izin
     # kanıtı kendi satırında), liste üyelikleri, ileti/teslimat satırları, dizi kayıtları,
     # bastırma listesi, tıklama/webhook olayları ve görsel kayıtları — yüksek hacimli ya da
@@ -189,6 +192,8 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
                                         "sonraki_yenileme_at"}),
     # Faz 6S: bakım taramasının "bu vade için bildirim gitti" izi.
     "saha_cihazlari": frozenset({"bakim_bildirim_tarihi"}),
+    # Faz 5B: arama için türetilmiş metin (başlık/gövde değişikliği zaten kaydediliyor).
+    "belgeler": frozenset({"arama_metni"}),
 }
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.

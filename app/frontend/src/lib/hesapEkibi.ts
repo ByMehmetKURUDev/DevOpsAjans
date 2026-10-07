@@ -48,6 +48,8 @@ export const IZINLER = [
   // Faz 6K — eğitim (yönetim) ve eğitmen (yalnız kendi kursları: yoklama + not).
   'egitim',
   'egitim_egitmen',
+  // Faz 5B — belgeler, wiki ve strateji araçları (kendi belgeleri; paylaşılanı okumak `dosyalar` ile de).
+  'belgeler',
 ] as const;
 export type Izin = (typeof IZINLER)[number];
 export type UyeRolu = 'yonetici' | 'uye' | 'fatura';
@@ -200,7 +202,7 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   raporlar: ['raporlar', 'abonelikler'],
   sitem: ['siteler'],
   analiz: ['siteler'],
-  dosyalar: ['dosyalar'],
+  dosyalar: ['dosyalar', 'belgeler'],
   mesajlar: ['mesajlar'],
   asistanlar: ['asistanlar'],
   qr: ['qr'],

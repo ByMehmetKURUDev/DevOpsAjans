@@ -82,7 +82,8 @@ const Modullerim = ekliLazy('modul', () => import('@/components/Modullerim'));
 const SitemBakim = ekliLazy('siteBakim', () => import('@/components/SitemBakim'));
 // Faz 2C: Dosyalar sekmesi; Destek'te bilgi bankası + SLA bilgisi ve talep
 // açarken makale önerisi; Raporlar'da aylık rapor arşivi.
-const Dosyalarim = ekliLazy('dosyalar', () => import('@/components/Dosyalarim'));
+// Faz 5B: "Dosyalar ve belgeler" — Dosyalar · Belgeler · Strateji alt bölümleri (yeni sekme yok).
+const DosyalarVeBelgeler = ekliLazy('belgeler', () => import('@/components/belgeler/DosyalarVeBelgeler'));
 const DestekYardim = ekliLazy('yardim', () => import('@/components/DestekYardim'));
 const KbOnerileri = ekliLazy('yardim', () => import('@/components/KbOnerileri'));
 // Faz 2F: e-postadan gelen talep rozeti ve "e-postayla da yanıtlayabilirsiniz" ipucu.
@@ -534,6 +535,38 @@ export default function ClientPanel() {
     [modulBilgisi]
   );
 
+  // Faz 5B: ajansın bu hesapla paylaştığı belge var mı? Dosyalar modülü kapalı müşteride de
+  // "Dosyalar ve belgeler" sekmesi görünsün diye tek küçük istek (sekme zaten görünüyorsa atılmıyor).
+  // Yanıt hesaba bağlı tutuluyor: yanıt gelene kadar `?sekme=dosyalar` bağlantısı ilk sekmeye atılmasın.
+  const [paylasilanBelge, setPaylasilanBelge] = useState<{ hesap: string; var: boolean } | null>(null);
+  const belgeOzetiGerekli = useMemo(() => {
+    if (!hesapHazir || !modulBilgisi || !izinVar(['dosyalar', 'belgeler'])) return false;
+    const dosyalarModulu = modulBilgisi.moduller.find((m) => m.anahtar === 'dosyalar');
+    return !(dosyalarModulu?.acik && izinVar(['dosyalar']));
+  }, [hesapHazir, modulBilgisi, izinVar]);
+  useEffect(() => {
+    if (!belgeOzetiGerekli) return;
+    let iptal = false;
+    const hesap = etkinEmail;
+    client.apiCall
+      .invoke({ method: 'GET', url: '/api/v1/belgelerim/ozet' })
+      .then((y: unknown) => {
+        const g = (y && typeof y === 'object' && 'data' in (y as Record<string, unknown>) ? (y as { data: unknown }).data : y) as
+          | { paylasilan?: number }
+          | undefined;
+        if (!iptal) setPaylasilanBelge({ hesap, var: (g?.paylasilan ?? 0) > 0 });
+      })
+      .catch(() => {
+        if (!iptal) setPaylasilanBelge({ hesap, var: false });
+      });
+    return () => {
+      iptal = true;
+    };
+  }, [belgeOzetiGerekli, etkinEmail]);
+  const paylasilanBelgeVar = belgeOzetiGerekli && paylasilanBelge?.hesap === etkinEmail && paylasilanBelge.var;
+  const belgeOzetiBekleniyor = belgeOzetiGerekli && paylasilanBelge?.hesap !== etkinEmail;
+  const belgeSekmesi = (modulAcik('belgeler') && izinVar(['belgeler'])) || paylasilanBelgeVar;
+
   /** Görünen sekmeler: sunucu sırası + açık olanlar; bilgi yoksa hepsi. */
   const gorunenSekmeler = useMemo<{ key: Tab; ikon?: string }[]>(() => {
     // Faz 2E: etkin hesaptaki rolün izni olmayan sekmeler gizli.
@@ -568,12 +601,23 @@ export default function ClientPanel() {
         liste.splice(yer, 0, { key: 'menu', ikon: katalog.ikon });
       }
     }
+    // Faz 5B: "Dosyalar ve belgeler" — dosyalar modülü kapalıyken de belgeler modülü (ya da ajansın
+    // paylaştığı belge) varsa görünür; yeri manifestteki dosyalar sırası.
+    if (!liste.some((x) => x.key === 'dosyalar') && izinli('dosyalar')) {
+      const belgeler = modulBilgisi.moduller.find((m) => m.anahtar === 'belgeler');
+      if ((belgeler?.acik && belgeler.durum !== 'yakinda' && izinVar(['belgeler'])) || paylasilanBelgeVar) {
+        const sira = modulBilgisi.moduller.findIndex((m) => m.anahtar === 'dosyalar');
+        const once = new Set(modulBilgisi.moduller.slice(0, Math.max(0, sira)).map((m) => m.musteri_sekmesi));
+        const yer = liste.filter((x) => once.has(x.key)).length;
+        liste.splice(yer, 0, { key: 'dosyalar', ikon: 'FolderOpen' });
+      }
+    }
     // Projeler ve profil çekirdek: sunucu ne derse desin sekme çubuğunda kalır
     // (projeler yalnız etkin hesapta izni varsa).
     if (!liste.some((x) => x.key === 'projects') && izinli('projects')) liste.unshift({ key: 'projects' });
     if (!liste.some((x) => x.key === 'profile')) liste.push({ key: 'profile' });
     return liste;
-  }, [modulBilgisi, izinVar]);
+  }, [modulBilgisi, izinVar, paylasilanBelgeVar]);
 
   // Faz 2G: okunmamış rozeti — sohbet kapalıyken 45 sn'de bir özet (sohbet açıkken
   // Mesajlar bileşeni kendi yoklamasıyla bildiriyor). Sekme gizliyken durur.
@@ -594,8 +638,10 @@ export default function ClientPanel() {
   useEffect(() => {
     // Varsayılan kapalı modülün sekmesi (`?sekme=asistanlar`): modül bilgisi gelene kadar bekle.
     if (!modulBilgisi && !modulHatasi && VARSAYILAN_KAPALI.includes(tab)) return;
+    // Faz 5B: paylaşılan belge sorusu sürerken "Dosyalar ve belgeler" bağlantısını bekle.
+    if (tab === 'dosyalar' && belgeOzetiBekleniyor) return;
     if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(gorunenSekmeler[0]?.key ?? 'profile');
-  }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi]);
+  }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi, belgeOzetiBekleniyor]);
 
   // Faz 7M: görünür sekme sayısı DUZ_MENU_SINIRI'nı aşınca gruplu menü; son açılan
   // sekme yalnız orada hatırlanır (düz çubuklu müşteri panele bugünkü gibi Projelerim ile girer).
@@ -1501,7 +1547,7 @@ export default function ClientPanel() {
             </Suspense>
           )}
 
-          {tab === 'dosyalar' && modulAcik('dosyalar') && (
+          {tab === 'dosyalar' && (modulAcik('dosyalar') || belgeSekmesi) && (
             <Suspense
               fallback={
                 <div className="flex items-center justify-center py-20 text-muted-foreground">
@@ -1509,7 +1555,11 @@ export default function ClientPanel() {
                 </div>
               }
             >
-              <Dosyalarim />
+              <DosyalarVeBelgeler
+                mod="musteri"
+                dosyalarAcik={modulAcik('dosyalar') && izinVar(['dosyalar'])}
+                belgelerAcik={modulAcik('belgeler') && izinVar(['belgeler'])}
+              />
             </Suspense>
           )}
 

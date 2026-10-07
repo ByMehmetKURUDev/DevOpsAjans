@@ -1,0 +1,346 @@
+{
+  "belgeler": {
+    "alt": {
+      "etiket": "Files and documents sections",
+      "dosyalar": "Files",
+      "belgeler": "Documents",
+      "strateji": "Strategy"
+    },
+    "baslik": {
+      "belge": "Documents and wiki",
+      "strateji": "Strategy tools"
+    },
+    "aciklama": {
+      "belge": "Internal wiki, client and project documents, meeting notes. Checkbox to-dos, version history, read-only sharing with the client, PDF and Markdown.",
+      "strateji": "SWOT, Business Model Canvas, Lean Canvas, PESTLE, Porter's Five Forces, McKinsey 7S, Blue Ocean and Ikigai templates; AI draft, sharing and PDF.",
+      "musteriBelge": "Documents your agency shared with you and (if your module is on) your own documents, notes and to-dos.",
+      "musteriStrateji": "Strategy work your agency shared and (if your module is on) your own SWOT, business model and other templates."
+    },
+    "yeni": {
+      "belge": "New document",
+      "strateji": "New strategy work",
+      "sablonSec": "Choose a template"
+    },
+    "duzenle": {
+      "baslik": "Edit document"
+    },
+    "ara": "Search titles and content",
+    "etiketSuzgeci": "Tag filter",
+    "tumEtiketler": "All",
+    "sayi": "{{sayi}} documents",
+    "secin": {
+      "belge": "Pick a document on the left to read it, or create a new one.",
+      "strateji": "Pick a strategy work on the left, or start with a new template."
+    },
+    "bos": {
+      "belge": "No documents yet. Create your first wiki page or meeting note.",
+      "strateji": "No strategy work yet. Choose a template to start.",
+      "musteri": "No documents have been shared with you yet.",
+      "arama": "No documents match your search."
+    },
+    "alan": {
+      "baslik": "Space",
+      "tumu": "All spaces",
+      "ajans": "Internal agency wiki",
+      "musteri": "Client: {{ad}}",
+      "proje": "Project: {{ad}}",
+      "musteriSecenek": "Client document",
+      "projeSecenek": "Project document",
+      "musteriSec": "Client email",
+      "projeSec": "Project",
+      "projeYok": "Choose a project",
+      "projesiz": "Not linked to a project"
+    },
+    "kaynak": {
+      "baslik": "Whose document",
+      "tumu": "All",
+      "ajans": "Agency documents",
+      "musteri": "Shared by clients"
+    },
+    "gorunurluk": {
+      "baslik": "Who can see it",
+      "ekip": "Team only",
+      "paylasilan": "Shared with the client (read-only)",
+      "musteriEkip": "My team only",
+      "musteriPaylasilan": "Shared with the agency"
+    },
+    "rozet": {
+      "sabit": "Pinned",
+      "paylasilan": "Shared with client",
+      "ajanslaPaylasilan": "Shared with agency",
+      "musteriBelgesi": "Client's document",
+      "salt": "Read-only",
+      "yapilacak": "{{sayi}} open items",
+      "surum": "Version {{sayi}}"
+    },
+    "alanlar": {
+      "baslik": "Title",
+      "etiketler": "Tags",
+      "etiketIpucu": "Separate with commas: process, hr, onboarding",
+      "icerik": "Content",
+      "isletme": "Describe the business briefly (the AI draft uses this)",
+      "isletmeIpucu": "What do you sell, to whom, where? You may add figures you know; the AI does not invent numbers.",
+      "isletmeKisa": "Business",
+      "kutuIpucu": "Write each item on its own line",
+      "sabit": "Pin to the top of the list"
+    },
+    "eylem": {
+      "duzenle": "Edit",
+      "kaydet": "Save",
+      "vazgec": "Cancel",
+      "sil": "Delete",
+      "silOnay": "Delete \"{{ad}}\"? It can be restored from the recycle bin.",
+      "sabitle": "Pin",
+      "sabitKaldir": "Unpin",
+      "paylas": "Share with client",
+      "paylasimKaldir": "Stop sharing",
+      "ajanslaPaylas": "Share with agency",
+      "pdf": "PDF",
+      "md": "Markdown",
+      "yazdir": "Print",
+      "surumler": "Versions",
+      "geri": "Back to list",
+      "yenile": "Refresh",
+      "okudum": "I have read and approve"
+    },
+    "durum": {
+      "kaydedildi": "Saved.",
+      "kaydedilmedi": "You have unsaved changes.",
+      "kaydedilmediOnay": "Unsaved changes will be lost. Leave anyway?",
+      "silindi": "Deleted — it can be restored from the recycle bin.",
+      "paylasildi": "Shared with the client; they have been notified.",
+      "ajanslaPaylasildi": "Shared with the agency.",
+      "paylasimKalkti": "Sharing stopped.",
+      "okundu": "Approved (version {{sayi}})",
+      "okunduEski": "You approved an earlier version; the document has been updated since.",
+      "sonDuzenleyen": "Last edited by {{kisi}} · {{zaman}}",
+      "guncellendi": "Updated: {{zaman}}",
+      "musteriOnayladi": "{{kisi}} read and approved it (version {{sayi}})"
+    },
+    "arac": {
+      "etiket": "Formatting tools",
+      "baslik": "Heading",
+      "kalin": "Bold",
+      "egik": "Italic",
+      "liste": "Bulleted list",
+      "numarali": "Numbered list",
+      "yapilacak": "Checkbox (to-do)",
+      "baglanti": "Link",
+      "tablo": "Table",
+      "kod": "Code",
+      "alinti": "Quote",
+      "yaz": "Write",
+      "onizle": "Preview",
+      "metin": "text",
+      "baglantiMetni": "link text",
+      "yapilacakMetni": "to-do",
+      "kodMetni": "code",
+      "sutun": "Column {{sayi}}",
+      "ipucu": "Markdown: ## heading, **bold**, - item, - [ ] to-do (assign with @email), | table |. HTML is not allowed. Shortcut: Ctrl+S saves."
+    },
+    "ai": {
+      "baslik": "AI",
+      "yaz": "Write with AI",
+      "ozetle": "Summarize",
+      "duzelt": "Proofread",
+      "taslak": "Fill a draft with AI",
+      "talimat": "What should be written?",
+      "talimatIpucu": "E.g. write a short guide explaining our delivery process to clients",
+      "olustur": "Generate",
+      "oneri": "Suggestion",
+      "ekle": "Append",
+      "degistir": "Replace selection",
+      "tumunuDegistir": "Replace the text",
+      "kabul": "Apply the whole draft",
+      "kutuyaUygula": "Apply to this box",
+      "reddet": "Close",
+      "taslakHazir": "Draft ready: suggestions are shown under the boxes. Apply them box by box or all at once.",
+      "kapali": "AI is not configured on this site; the AI buttons are off. They turn on once an admin adds a key.",
+      "secimNot": "If you select text, summarize and proofread apply to the selection only; otherwise the whole document is used.",
+      "taslakNot": "Describe the business first. The draft is only a suggestion; no invented figures, nothing is saved until you approve.",
+      "kullanim": "{{ay}} uses this month, {{bugun}} today",
+      "sahte": "test environment reply",
+      "uyari": {
+        "genel": "Please check",
+        "kaynaksiz_sayi": "Number not in your input — verify it",
+        "saglik": "May contain a health claim",
+        "finans": "May contain a financial promise",
+        "hukuk": "May contain a legal promise",
+        "yasakli_kelime": "Banned word"
+      }
+    },
+    "surum": {
+      "baslik": "Version history",
+      "aciklama": "Showing the last {{sayi}} versions; up to 20 are kept.",
+      "guncel": "current",
+      "secin": "Pick a version on the left to preview it.",
+      "onizleme": "Version {{sayi}}",
+      "geriYukle": "Restore this version",
+      "geriYukleOnay": "Restore version {{sayi}}? The current state also stays in the history.",
+      "geriYuklendi": "Version {{sayi}} restored.",
+      "kapat": "Close",
+      "neden": {
+        "olusturma": "Created",
+        "duzenleme": "Edited",
+        "geri_yukleme": "Version {{sayi}} restored",
+        "yapilacak": "To-do checked",
+        "gorev": "Linked to task #{{sayi}}"
+      }
+    },
+    "yapilacak": {
+      "baslik": "My to-dos",
+      "bana": "Assigned to me",
+      "hepsi": "All open items",
+      "aciklama": "Unchecked checkboxes in documents. Assign an item to someone by writing @email in it.",
+      "bos": "No open items assigned to you.",
+      "bosHepsi": "No open items.",
+      "banaRozet": "me",
+      "isaretle": "Mark as done: {{metin}}",
+      "tamamlandi": "Item completed.",
+      "gorevOlustur": "Make it a project task",
+      "gorevOlustu": "Project task created (#{{sayi}}).",
+      "gorevBagli": "Task #{{sayi}}",
+      "gorevAciklama": "Moved from document: {{belge}}",
+      "projeGerekli": "The document must be linked to a project to create a task.",
+      "salt": "Agency document"
+    },
+    "sablon": {
+      "swot": {
+        "ad": "SWOT analysis",
+        "aciklama": "Strengths and weaknesses, opportunities and threats (2×2).",
+        "kutu": {
+          "guclu": "Strengths",
+          "zayif": "Weaknesses",
+          "firsatlar": "Opportunities",
+          "tehditler": "Threats"
+        }
+      },
+      "is_modeli": {
+        "ad": "Business Model Canvas",
+        "aciklama": "The business model in nine boxes: partners, activities, value proposition, customers, revenue and costs.",
+        "kutu": {
+          "ortaklar": "Key partners",
+          "faaliyetler": "Key activities",
+          "kaynaklar": "Key resources",
+          "deger": "Value propositions",
+          "iliskiler": "Customer relationships",
+          "kanallar": "Channels",
+          "segmentler": "Customer segments",
+          "maliyetler": "Cost structure",
+          "gelirler": "Revenue streams"
+        }
+      },
+      "lean": {
+        "ad": "Lean Canvas",
+        "aciklama": "For startups: problem, solution, metrics, unique value proposition and unfair advantage.",
+        "kutu": {
+          "problem": "Problem",
+          "cozum": "Solution",
+          "metrikler": "Key metrics",
+          "deger_onerisi": "Unique value proposition",
+          "haksiz_avantaj": "Unfair advantage",
+          "kanallar": "Channels",
+          "segmentler": "Customer segments",
+          "maliyetler": "Cost structure",
+          "gelirler": "Revenue streams"
+        }
+      },
+      "pestle": {
+        "ad": "PESTLE analysis",
+        "aciklama": "External environment: political, economic, social, technological, legal and environmental factors.",
+        "kutu": {
+          "politik": "Political",
+          "ekonomik": "Economic",
+          "sosyal": "Social",
+          "teknolojik": "Technological",
+          "hukuki": "Legal",
+          "cevresel": "Environmental"
+        }
+      },
+      "porter": {
+        "ad": "Porter's Five Forces",
+        "aciklama": "Competitive pressure in the industry: new entrants, suppliers, buyers, substitutes and rivalry.",
+        "kutu": {
+          "yeni_girenler": "Threat of new entrants",
+          "tedarikci_gucu": "Bargaining power of suppliers",
+          "rekabet": "Industry rivalry",
+          "alici_gucu": "Bargaining power of buyers",
+          "ikameler": "Threat of substitutes"
+        }
+      },
+      "mckinsey_7s": {
+        "ad": "McKinsey 7S",
+        "aciklama": "Alignment of seven elements: strategy, structure, systems, shared values, style, staff, skills.",
+        "kutu": {
+          "strateji": "Strategy",
+          "yapi": "Structure",
+          "sistemler": "Systems",
+          "ortak_degerler": "Shared values",
+          "stil": "Style",
+          "personel": "Staff",
+          "yetenekler": "Skills"
+        }
+      },
+      "mavi_okyanus": {
+        "ad": "Blue Ocean — Four Actions",
+        "aciklama": "For uncontested markets: what will you eliminate and reduce, raise and create?",
+        "kutu": {
+          "ortadan_kaldir": "Eliminate",
+          "yukselt": "Raise",
+          "azalt": "Reduce",
+          "yarat": "Create"
+        }
+      },
+      "ikigai": {
+        "ad": "Ikigai",
+        "aciklama": "Where what you love, what you are good at, what the world needs and what pays meet.",
+        "kutu": {
+          "sevdigin": "What you love",
+          "tutku": "Passion",
+          "iyi_oldugun": "What you are good at",
+          "misyon": "Mission",
+          "ikigai": "Ikigai",
+          "meslek": "Profession",
+          "dunyanin_ihtiyaci": "What the world needs",
+          "ugras": "Vocation",
+          "para_kazandiran": "What you can be paid for"
+        }
+      }
+    },
+    "hata": {
+      "genel": "The action could not be completed. Please try again.",
+      "ag": "Could not connect.",
+      "yetki": "You are not allowed to do this.",
+      "cok_hizli": "Too many attempts; please wait a moment.",
+      "bulunamadi": "Document not found or no longer shared.",
+      "baslikGerekli": "Enter a title.",
+      "metin_gerekli": "A required field is empty.",
+      "metin_uzun": "Text is too long (max {{sinir}} characters).",
+      "gecersiz": "Invalid value.",
+      "cok_fazla": "At most {{sinir}} items allowed.",
+      "gecersiz_eposta": "Enter a valid client email.",
+      "proje_yok": "Project not found.",
+      "proje_musteri_uyusmuyor": "The selected project does not belong to this client.",
+      "paylasim_icin_musteri": "Link the document to a client or project to share it.",
+      "surum_catismasi": "Someone saved this document while you were editing (current version {{guncel}}). Refresh and try again.",
+      "madde_degisti": "The item changed in the meantime; the list was refreshed.",
+      "gorev_bagli": "This item is already linked to a task.",
+      "gorev_yok": "Task not found.",
+      "musteri_belgesi": "The client's document is read-only.",
+      "salt_okunur": "This document is read-only.",
+      "belge_siniri": "You have reached the document limit (max {{sinir}}).",
+      "bilinmeyen_kutu": "A box that is not in the template was sent.",
+      "modul_kapali": "The documents module is off for this account.",
+      "hesap_izni_yok": "You do not have the documents permission on this account.",
+      "ai_kapali": "AI is not available right now.",
+      "ai_hatasi": "The AI could not respond; your use was refunded.",
+      "ai_zaman_asimi": "The AI did not respond in time; your use was refunded.",
+      "ai_bos": "The AI returned an empty reply; your use was refunded.",
+      "gunluk_sinir": "You reached today's AI limit ({{sinir}}).",
+      "butce_doldu": "The site's AI budget for today is used up.",
+      "aylik_sinir": "This month's AI allowance is used up ({{sinir}}).",
+      "kredi_yetersiz": "Not enough credit ({{blok_kredi}} credits needed).",
+      "sayac_hatasi": "The usage counter could not be updated; please try again."
+    }
+  }
+}

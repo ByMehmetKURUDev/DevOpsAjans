@@ -80,7 +80,9 @@
       "etkinlik_iptal": "Veranstaltung: Ticket storniert",
       "haftalik_ozet": "Wochenübersicht (Montagmorgen)",
       "stok_kritik": "Produkte mit kritischem Bestand",
-      "egitim_kayit": "Kurse: neue Anmeldung"
+      "egitim_kayit": "Kurse: neue Anmeldung",
+      "belge_paylasildi": "Dokument geteilt (Agentur → Kunde oder Kunde → Agentur)",
+      "belge_onaylandi": "Kunde hat ein geteiltes Dokument gelesen und bestätigt"
     },
     "kanal": {
       "inapp": "Panel",

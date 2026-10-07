@@ -196,6 +196,10 @@
       "egitim": {
         "ad": "Eğitim ve kurs yönetimi",
         "aciklama": "Kurs merkezi, dershane, atölye ve eğitmenler için: kurs sayfası ve kayıt formu (veli bilgisiyle), tekrarlayan ders programı, QR ile yoklama, online dersler (video bağlantısı, dosya, ilerleme), quiz ve ödev, AI ile soru taslağı, koşullu sertifika ve doğrulama sayfası."
+      },
+      "belgeler": {
+        "ad": "Belgeler ve strateji araçları",
+        "aciklama": "Kendi belge, wiki ve notlarınız (yapılacaklar, sürüm geçmişi, PDF/Markdown) ve strateji şablonları: SWOT, İş Modeli Kanvası, Lean Canvas, PESTLE, Porter, McKinsey 7S, Mavi Okyanus, Ikigai; AI ile yaz, özetle, düzelt ve taslak."
       }
     },
     "kategori": {
@@ -260,7 +264,8 @@
       "kasa_kullanici_siniri": "Ayda en çok kasa kullanıcısı",
       "kurs_siniri": "En çok kurs",
       "ogrenci_siniri": "En çok öğrenci (aktif + bekleme)",
-      "ai_hakki": "Aylık AI soru üretimi"
+      "ai_hakki": "Aylık AI soru üretimi",
+      "belge_siniri": "Hesap başına en çok kendi belgesi"
     },
     "musteri": {
       "baslik": "Modüllerim",

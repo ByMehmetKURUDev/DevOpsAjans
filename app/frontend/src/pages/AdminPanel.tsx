@@ -148,7 +148,8 @@ const ModulYonetimi = ekliLazy('modul', () => import('@/components/admin/ModulYo
 const HesapEkibi = ekliLazy('hesapEkibi', () => import('@/components/HesapEkibi'));
 // Faz 2C: dosyalar + belge talebi; bilgi bankası; SLA/hazır cevap ayarları ve
 // talep kartındaki SLA rozeti; aylık müşteri raporu (Raporlar/abonelik sekmesinde).
-const DosyaYonetimi = ekliLazy('dosyalar', () => import('@/components/admin/DosyaYonetimi'));
+// Faz 5B: "Dosyalar ve belgeler" — Dosyalar · Belgeler (wiki/not) · Strateji alt bölümleri (yeni sekme yok).
+const DosyalarVeBelgeler = ekliLazy('belgeler', () => import('@/components/belgeler/DosyalarVeBelgeler'));
 const BilgiBankasiYonetimi = ekliLazy('yardim', () => import('@/components/admin/BilgiBankasiYonetimi'));
 const DestekAyarlari = ekliLazy('yardim', () => import('@/components/admin/DestekAyarlari'));
 const SlaRozeti = ekliLazy('yardim', () => import('@/components/admin/SlaRozeti'));
@@ -1402,7 +1403,7 @@ export default function AdminPanel() {
             </div>
           }
         >
-          <DosyaYonetimi />
+          <DosyalarVeBelgeler mod="yonetici" />
         </Suspense>
       )}
 

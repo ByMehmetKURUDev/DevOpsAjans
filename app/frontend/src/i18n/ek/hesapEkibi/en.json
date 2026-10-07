@@ -46,7 +46,8 @@
       "stok": "Stock & POS — management (products, cost, stock, reports)",
       "kasa": "Stock & POS — till only (sales screen)",
       "egitim": "Courses (management)",
-      "egitim_egitmen": "Courses: instructor (own courses only)"
+      "egitim_egitmen": "Courses: instructor (own courses only)",
+      "belgeler": "Documents, wiki and strategy tools"
     },
     "durum": {
       "davet": "Invitation pending",

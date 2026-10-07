@@ -131,6 +131,10 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "icerik_onay_istendi": {"roller": ("client",), "tetikleniyor": True},
     "icerik_karar": {"roller": ("admin",), "tetikleniyor": True},
     "icerik_hatirlatma": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 5B — belge paylaşıldı (ajans → müşteri; müşteri kendi belgesini ajansla paylaşınca
+    # yöneticilere) ve müşteri paylaşılan belgeyi "okudum / onaylıyorum" diye işaretledi.
+    "belge_paylasildi": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "belge_onaylandi": {"roller": ("admin",), "tetikleniyor": True},
     # Faz 5M — e-posta pazarlama gönderimleri otomatik askıya alındı (şikâyet / sert geri dönüş oranı).
     "pazarlama_askiya_alindi": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 6S — saha servisi: teknisyene yeni iş ataması (Web Push dahil) ve bakım zamanı gelen cihazlar.

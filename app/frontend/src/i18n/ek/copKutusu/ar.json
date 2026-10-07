@@ -103,7 +103,9 @@
       "egitim_kurslari": "دورة",
       "egitim_oturumlari": "حصة الدورة (الجدول)",
       "egitim_dersleri": "درس",
-      "egitim_quizleri": "اختبار / واجب"
+      "egitim_quizleri": "اختبار / واجب",
+      "belgeler": "مستند / عمل استراتيجي",
+      "belge_surumleri": "إصدار مستند"
     }
   }
 }

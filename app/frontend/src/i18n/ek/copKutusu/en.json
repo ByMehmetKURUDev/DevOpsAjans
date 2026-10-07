@@ -103,7 +103,9 @@
       "egitim_kurslari": "Course",
       "egitim_oturumlari": "Course class (schedule)",
       "egitim_dersleri": "Lesson",
-      "egitim_quizleri": "Quiz / assignment"
+      "egitim_quizleri": "Quiz / assignment",
+      "belgeler": "Document / strategy work",
+      "belge_surumleri": "Document version"
     }
   }
 }

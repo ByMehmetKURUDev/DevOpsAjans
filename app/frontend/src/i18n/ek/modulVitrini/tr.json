@@ -561,6 +561,26 @@
             "c": "Doğum tarihi, kimlik numarası ya da adres sorulmaz; yalnız ad ve veli iletişim bilgisi alınır. Belirlediğiniz süre dolunca veriler kendiliğinden anonimleştirilir."
           }
         ]
+      },
+      "belgeler": {
+        "ozet": "Belge, wiki ve notlarınızı tek yerde tutun; SWOT ve İş Modeli Kanvası gibi strateji şablonlarını AI taslağıyla doldurun.",
+        "kimIcin": "Süreçlerini yazıya döken küçük işletmeler, ekipler ve strateji çalışması yapan girişimciler.",
+        "ozellikler": [
+          "Markdown belge, wiki ve notlar; onay kutulu yapılacaklar ve sürüm geçmişi",
+          "8 strateji şablonu: SWOT, İş Modeli Kanvası, Lean Canvas, PESTLE, Porter, McKinsey 7S, Mavi Okyanus, Ikigai",
+          "AI ile yaz, özetle, düzelt ve şablon taslağı (uydurma rakam yok)",
+          "PDF, Markdown ve yazdırma; ajansla paylaşım"
+        ],
+        "sss": [
+          {
+            "s": "Ajansın benimle paylaştığı belgeler için bu modül gerekli mi?",
+            "c": "Hayır. Ajansın paylaştığı belgeleri modül olmadan da panelinizde okuyabilirsiniz; modül kendi belgelerinizi oluşturmak içindir."
+          },
+          {
+            "s": "AI ne kadar kullanılabilir?",
+            "c": "Aya dahil kullanım hesabınıza göre belirlenir; dolduğunda isterseniz kredi ile devam eder."
+          }
+        ]
       }
     },
     "s": {
