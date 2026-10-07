@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import { getAPIBaseURL } from '@/lib/config';
+import { KOSE_DEGERLERI, ZEMIN_RENKLERI, markaDegiskenleri, markaTemasi, markaYaziTipi, type AcikMarka } from '@/lib/marka';
 
 /**
  * Faz 4K — herkese açık kartvizit / yorum sayfasının hafif yardımcıları.
@@ -55,11 +56,13 @@ export interface AcikKart {
   index: boolean;
   vcard_adresi: string;
   qr_adresi: string;
+  /** Faz 4L: hesabın marka teması (kartın kendi teması özelse `sayfa_ozel`). */
+  marka?: AcikMarka;
 }
 
 export type KartYaniti =
   | AcikKart
-  | { durum: 'kilitli'; slug: string; dil: string; tema: AcikTema; index: false }
+  | { durum: 'kilitli'; slug: string; dil: string; tema: AcikTema; index: false; marka?: AcikMarka }
   | { durum: 'yonlendir'; yonlendir: string };
 
 export interface AcikYorum {
@@ -73,6 +76,7 @@ export interface AcikYorum {
   logo: AcikGorsel | null;
   google_adresi: string;
   geri_bildirim: { acik: boolean; jeton: string | null; aydinlatma_adresi: string };
+  marka?: AcikMarka;
 }
 
 export class AcikHata extends Error {
@@ -219,6 +223,25 @@ export function temaStili(tema: AcikTema, dil: string): CSSProperties {
     fontFamily: yazi,
     colorScheme: s.koyu ? 'dark' : 'light',
   } as CSSProperties;
+}
+
+/**
+ * Faz 4L — marka teması kartın varsayılanı: kartın kendi teması özel değilse (`sayfa_ozel` yok)
+ * marka (zemin, ana renk, köşe, yazı tipi) kart temasına çevriliyor. Döner: çizilecek tema +
+ * kart kabına eklenecek stil (marka zemini, yazı tipi, `--marka-*`); marka yoksa `ek` boş.
+ */
+export function markaliTema(tema: AcikTema, marka: AcikMarka | null | undefined, dil: string): { tema: AcikTema; ek: CSSProperties | undefined } {
+  const t = markaTemasi(marka);
+  if (!t || marka?.sayfa_ozel) return { tema, ek: undefined };
+  const kose = KOSE_DEGERLERI[t.kose] ? t.kose : 'yumusak';
+  return {
+    tema: { sablon: t.zemin === 'koyu' ? 'gece' : 'beyaz', renk: t.ana, yazi_tipi: 'jakarta', kose },
+    ek: {
+      ...markaDegiskenleri(t, dil),
+      background: ZEMIN_RENKLERI[t.zemin].zemin,
+      fontFamily: markaYaziTipi(t, dil),
+    } as CSSProperties,
+  };
 }
 
 /** Arapça / Hintçe kart için yazı tipi (site yalnız o dil seçilince indiriyor). */

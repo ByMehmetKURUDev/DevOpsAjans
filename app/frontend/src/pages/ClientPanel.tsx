@@ -80,6 +80,8 @@ const KrediOzetKarti = ekliLazy('kredi', () => import('@/components/KrediOzetKar
 const OnayBekleyenler = ekliLazy('islem', () => import('@/components/OnayBekleyenler'));
 // Profil › Modüllerim (açık / yakında / paketinize eklenebilir modüller).
 const Modullerim = ekliLazy('modul', () => import('@/components/Modullerim'));
+// Faz 4L: Profil › Marka (marka teması modülü açıksa; yeni üst sekme yok).
+const MarkaAyari = ekliLazy('markaTemasi', () => import('@/components/marka/MarkaAyari'));
 // Faz 2A: "Sitem" sekmesindeki bakım/uptime kartı (ek paket `siteBakim`).
 const SitemBakim = ekliLazy('siteBakim', () => import('@/components/SitemBakim'));
 // Faz 2C: Dosyalar sekmesi; Destek'te bilgi bankası + SLA bilgisi ve talep
@@ -1700,6 +1702,17 @@ export default function ClientPanel() {
               >
                 <HesapEkibi />
               </Suspense>
+              {modulAcik('marka_temasi') && (
+                <Suspense
+                  fallback={
+                    <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">
+                      <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+                    </div>
+                  }
+                >
+                  <MarkaAyari />
+                </Suspense>
+              )}
               <Suspense
                 fallback={
                   <div className="flex max-w-xl items-center justify-center py-10 text-muted-foreground">

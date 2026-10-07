@@ -426,6 +426,26 @@ MODULLER: Tuple[Modul, ...] = (
         ),
         yerlesim=("menu",),
     ),
+    # Faz 4L — marka teması (white-label): müşterinin herkese açık sayfalarına (kartvizit,
+    # QR menü, randevu, etkinlik, eğitim, AI asistan, saha servisi, bülten) kendi logosu,
+    # ana/vurgu rengi, zemin, köşe ve yazı tipi. Kendi sekmesi yok: müşteri panelinde
+    # Profil › "Marka" bölümü; yönetici Sistem › Modüller'de müşteri ayrıntısından düzenler.
+    # Varsayılan KAPALI, pakete ve sektör paketine bağlı değil (ayrı satılan modül;
+    # önerilen aylık 9 $ — "beyaz etiket" eklentileri 5–15 $ bandında). Özel alan adı YOK
+    # (ileride Cloudflare for SaaS). `rozet_gizle`: sayfaların altındaki "mehmetkuru.dev
+    # ile hazırlandı" rozetini gizler — modül ayarı olduğu için yalnız yönetici değiştirir.
+    Modul(
+        anahtar="marka_temasi",
+        ad_varsayilan={"tr": "Marka teması", "en": "Brand theme"},
+        ikon="Palette",
+        kategori="dijital_kimlik",
+        musteri_sekmesi=None,
+        yonetici_sekmesi=None,
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("rozet_gizle", "bool", False),),
+        yerlesim=("profil",),
+    ),
     # --- İş araçları (Faz 5) ------------------------------------------------
     # Faz 5R — takvim ve randevu + toplantılar (Calendly benzeri): herkese açık
     # `/randevu/<slug>`, etkinlik türleri, haftalık uygunluk + istisnalar, ekip

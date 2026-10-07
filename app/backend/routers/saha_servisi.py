@@ -1530,7 +1530,10 @@ async def _acik_sozluk(db: AsyncSession, ie: SahaIsEmirleri) -> Dict[str, Any]:
 @acik_router.get("/{jeton}")
 async def acik_servis(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
     ie = await _jetonlu(db, request, jeton)
-    return JSONResponse(await _acik_sozluk(db, ie), headers=ACIK_BASLIKLAR)
+    from services.marka import acik_marka
+
+    # Faz 4L: servis sayfasının kendi teması yok — marka teması varsayılan.
+    return JSONResponse({**await _acik_sozluk(db, ie), "marka": await acik_marka(db, ie.hesap_email)}, headers=ACIK_BASLIKLAR)
 
 
 @acik_router.get("/{jeton}/pdf")

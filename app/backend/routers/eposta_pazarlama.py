@@ -1658,6 +1658,10 @@ async def form_tanimi(anahtar: str, request: Request, dil: Optional[str] = Query
         "jeton": ep.form_jetonu(f.id),
         "bal_kupu": "web_adresi",
     }
+    from services.marka import acik_marka
+
+    # Faz 4L: bülten sayfasının kendi teması yok — marka teması varsayılan.
+    veri["marka"] = await acik_marka(db, f.hesap_email)
     return JSONResponse(veri, headers=ACIK_BASLIKLAR)
 
 
@@ -1780,8 +1784,11 @@ async def onay_bilgisi(jeton: str, request: Request, db: AsyncSession = Depends(
     if kisi is None or liste is None:
         raise _hata(404, "gecersiz")
     kimlik = await eg.kimlik_getir(db, kisi.hesap_email)
+    from services.marka import acik_marka
+
     return JSONResponse({"durum": _onay_durumu(u), "eposta": ep.maskeli_eposta(kisi.eposta), "liste": liste.ad,
-                         "gonderen": eg.gorunen_gonderen(kimlik, kisi.hesap_email), "dil": kisi.dil}, headers=ACIK_BASLIKLAR)
+                         "gonderen": eg.gorunen_gonderen(kimlik, kisi.hesap_email), "dil": kisi.dil,
+                         "marka": await acik_marka(db, kisi.hesap_email)}, headers=ACIK_BASLIKLAR)
 
 
 @acik_router.post("/onay/{jeton}")
@@ -1844,7 +1851,9 @@ async def _tercih_verisi(db: AsyncSession, k: EpKisiler) -> Dict[str, Any]:
 async def tercih(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
     await _kalici_hiz((_tercih_hizi, _ziyaretci(request, "tercih")))
     k = await _tercih_kisisi(db, jeton)
-    return JSONResponse(await _tercih_verisi(db, k), headers=ACIK_BASLIKLAR)
+    from services.marka import acik_marka
+
+    return JSONResponse({**await _tercih_verisi(db, k), "marka": await acik_marka(db, k.hesap_email)}, headers=ACIK_BASLIKLAR)
 
 
 @acik_router.post("/tercih/{jeton}")

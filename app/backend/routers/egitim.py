@@ -1609,10 +1609,18 @@ def _acik_kurs_ozeti(x: EgitimKurslari, oturumlar_: List[EgitimOturumlari], akti
     }
 
 
+async def _marka(db: AsyncSession, hesap: Optional[str], renk: Optional[str] = None) -> Dict[str, Any]:
+    """Faz 4L: marka teması (kursun kendi rengi varsayılandan farklıysa o öncelikli)."""
+    from services.marka import acik_marka, renk_ozel_mi
+
+    return await acik_marka(db, hesap, sayfa_ozel=renk_ozel_mi(renk, "#2563eb") if renk is not None else False)
+
+
 @acik_router.api_route("/kurs/{slug}", methods=["GET", "HEAD"])
 async def acik_kurs(slug: str, db: AsyncSession = Depends(get_db)):
     x = await _acik_kurs(db, slug)
-    return JSONResponse(_acik_kurs_ozeti(x, await k.oturumlar(db, x.id), await k.aktif_sayisi(db, x.id)),
+    return JSONResponse({**_acik_kurs_ozeti(x, await k.oturumlar(db, x.id), await k.aktif_sayisi(db, x.id)),
+                         "marka": await _marka(db, x.hesap_email, x.renk)},
                         headers={**ACIK_BASLIKLAR, "Cache-Control": "no-cache", **_robots(x)})
 
 
@@ -1622,7 +1630,7 @@ async def acik_kurs_ozet(slug: str, db: AsyncSession = Depends(get_db)):
     x = await _acik_kurs(db, slug)
     veri: Dict[str, Any] = {"slug": x.slug, "baslik": x.ad, "aciklama": (x.ozet or (x.aciklama or "")[:300])[:300],
                             "dil": x.dil, "renk": x.renk, "indekslenebilir": bool(x.arama_motoru),
-                            "adres_url": s.kurs_adresi(x.slug), "jsonld": None}
+                            "adres_url": s.kurs_adresi(x.slug), "jsonld": None, "marka": await _marka(db, x.hesap_email, x.renk)}
     if x.arama_motoru:
         ayar = await k.hesap_ayarlari(db, x.hesap_email)
         saglayici = (ayar.kurum_adi if ayar else None) or ("By Mehmet KURU Dev" if x.hesap_email is None else None)
@@ -1685,6 +1693,7 @@ async def kurum_listesi(slug: str, gecmis: bool = Query(False), db: AsyncSession
                    "baslangic_tarihi": x.baslangic_tarihi.isoformat() if x.baslangic_tarihi else None,
                    "bitis_tarihi": x.bitis_tarihi.isoformat() if x.bitis_tarihi else None, "fiyat_metni": x.fiyat_metni or "",
                    "durum": x.durum, "egitmenler": s.egitmen_adlari(x)} for x in kurslar],
+        "marka": await _marka(db, a.hesap_email),
     }, headers={**ACIK_BASLIKLAR, "Cache-Control": "no-cache", "X-Robots-Tag": "noindex"})
 
 
@@ -1783,6 +1792,7 @@ async def portal(jeton: str, request: Request, db: AsyncSession = Depends(get_db
                       if sert else None),
         "duyurular": [{"konu": d.konu, "metin": d.metin, "created_at": s.iso(d.created_at)} for d in duyurular],
         "takvim": f"/api/v1/egitim/ogrenci/{jeton}/takvim.ics",
+        "marka": await _marka(db, x.hesap_email, x.renk),
     }, headers=GIZLI_BASLIKLAR)
 
 

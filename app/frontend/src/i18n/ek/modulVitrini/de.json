@@ -628,6 +628,26 @@
             "c": "Nein. Für den Support sieht die Agentur nur Zahlen (Akten, Mandanten, anstehende Fristen, Speicher); Akteninhalte, Notizen, Dokumente und Mandantendaten werden nicht angezeigt."
           }
         ]
+      },
+      "marka_temasi": {
+        "ozet": "Ihre Kundenseiten erscheinen mit Ihrer Marke statt der Agentur: Logo, Farben, Schrift und Ecken an einem Ort.",
+        "kimIcin": "Unternehmen und Marken, die Visitenkarte, QR-Speisekarte, Terminbuchung oder Veranstaltungsseiten im eigenen Corporate Design zeigen möchten.",
+        "ozellikler": [
+          "Logo, Haupt- und Akzentfarbe, heller/dunkler Hintergrund, Ecken und Schrift",
+          "Mit einer Einstellung auf alle Kundenseiten angewendet",
+          "Kontrastprüfung (WCAG AA) und automatische Schriftfarbe",
+          "Kopfzeile mit Logo in Termin-, Ticket- und Kurs-E-Mails"
+        ],
+        "sss": [
+          {
+            "s": "Kann ich meine eigene Domain verwenden?",
+            "c": "Noch nicht: Die Seiten bleiben unter mehmetkuru.dev, sehen aber wie Ihre Marke aus. Eigene Domains werden später separat angeboten."
+          },
+          {
+            "s": "Kann eine Seite eine andere Farbe haben?",
+            "c": "Ja. Haben Sie bei Visitenkarte oder Speisekarte eine eigene Farbe gewählt, hat sie dort Vorrang; das Markendesign füllt nur den Rest."
+          }
+        ]
       }
     },
     "s": {

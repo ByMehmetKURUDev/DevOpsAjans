@@ -29,6 +29,8 @@ import { ekliLazy } from '@/i18n/ekliLazy';
 // Faz 6R: "Sektör paketi uygula" + hazır ayarlar — yalnız müşteri seçilince indirilir
 // (metinler `sektorPaketi`, paket/set adları `modulVitrini` ek paketinde).
 const SektorPaketiAlani = ekliLazy(['sektorPaketi', 'modulVitrini'], () => import('./sektorPaketi/SektorPaketiAlani'));
+// Faz 4L: "Marka teması" modülünün satırında müşterinin markası (logo/renk/yazı tipi) — tıklanınca indirilir.
+const MarkaAyari = ekliLazy('markaTemasi', () => import('@/components/marka/MarkaAyari'));
 
 /**
  * Yönetici paneli › Modüller.
@@ -198,6 +200,7 @@ export default function ModulYonetimi() {
 
   const [arama, setArama] = useState('');
   const [secili, setSecili] = useState<string | null>(null);
+  const [markaAcik, setMarkaAcik] = useState(false);
   const [ayrinti, setAyrinti] = useState<MusteriModulleri | null>(null);
   const [ayrintiYukleniyor, setAyrintiYukleniyor] = useState(false);
   const [calisan, setCalisan] = useState<string | null>(null);
@@ -581,6 +584,34 @@ export default function ModulYonetimi() {
                           <TriangleAlert className="h-3.5 w-3.5" aria-hidden="true" />
                           {t('modul.yonetim.engellendi', { moduller: m.engelleyen.map(adi).join(', ') })}
                         </p>
+                      ) : null}
+                      {m.anahtar === 'marka_temasi' ? (
+                        <div className="mt-3">
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={() => setMarkaAcik((x) => !x)}
+                            aria-expanded={markaAcik}
+                            className="gap-1.5 !bg-transparent border-white/20"
+                            data-testid="marka-duzenle-ac"
+                          >
+                            {markaAcik ? t('modul.yonetim.markaKapat') : t('modul.yonetim.markaDuzenle')}
+                          </Button>
+                          {markaAcik ? (
+                            <div className="mt-3">
+                              <Suspense
+                                fallback={
+                                  <div className="flex items-center justify-center py-6 text-muted-foreground">
+                                    <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                                  </div>
+                                }
+                              >
+                                <MarkaAyari key={ayrinti.eposta} eposta={ayrinti.eposta} />
+                              </Suspense>
+                            </div>
+                          ) : null}
+                        </div>
                       ) : null}
                       {m.ayar_alanlari.length > 0 ? (
                         <AyarFormu

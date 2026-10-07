@@ -5,7 +5,9 @@ import type { TFunction } from 'i18next';
 import { Bot, Loader2 } from 'lucide-react';
 
 import SohbetPenceresi from '@/components/aiAsistan/SohbetPenceresi';
+import { MarkaRozeti } from '@/components/marka/MarkaParcalari';
 import { AcikHata, acikIstek, asistanPaketiYukle, dilSec, type AcikYapilandirma, type AsistanDili } from '@/lib/asistanOrtak';
+import { etkinRenk, markaKabugu } from '@/lib/marka';
 
 /**
  * Faz 5A — herkese açık AI asistan sayfası.
@@ -18,6 +20,10 @@ import { AcikHata, acikIstek, asistanPaketiYukle, dilSec, type AcikYapilandirma,
  * izinli alan adlarına `frame-ancestors` veriyor; burada da üst sayfanın kökeni bulunup
  * (postMessage el sıkışması → ancestorOrigins → referrer) sunucuya bildiriliyor, sunucu
  * izinli listeye göre reddediyor. Yükseklik ve kapama üst sayfaya postMessage ile.
+ *
+ * Faz 4L — marka teması: asistanın kendi rengi seçilmediyse (varsayılandaysa) hesabın marka
+ * rengi; tam sayfada markanın yazı tipi/köşeleri ve altta rozet (yönetici gizlediyse yok).
+ * Gömülü pencerede (başka sitenin içinde) rozet yok.
  */
 
 type Durum = 'yukleniyor' | 'hazir' | 'yok' | 'pasif' | 'izinsiz' | 'hata';
@@ -175,19 +181,28 @@ export default function AsistanSayfasi() {
     );
   }
 
+  // Faz 4L: asistanın kendi rengi seçilmediyse marka rengi (sohbet penceresi `yap.renk` kullanıyor).
+  const yapM: AcikYapilandirma = { ...yap, renk: etkinRenk(yap.renk, yap.marka, yap.renk) };
+
   if (gomulu) {
     return (
       <div className="h-[100dvh]" data-testid="asistan-sayfasi" data-gomulu="1">
-        <SohbetPenceresi t={t} dil={dil} yap={yap} gomulu kaynak={kaynak} onKapat={kapat} onYukseklik={yukseklik} depoAnahtari={`mk-asistan:${yap.anahtar}`} />
+        <SohbetPenceresi t={t} dil={dil} yap={yapM} gomulu kaynak={kaynak} onKapat={kapat} onYukseklik={yukseklik} depoAnahtari={`mk-asistan:${yap.anahtar}`} />
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-[100dvh] items-stretch justify-center sm:items-center sm:p-6" data-testid="asistan-sayfasi" data-gomulu="0">
+    <div
+      className="flex min-h-[100dvh] flex-col items-stretch justify-center sm:items-center sm:p-6"
+      data-testid="asistan-sayfasi"
+      data-gomulu="0"
+      {...markaKabugu(yap.marka, dil, yapM.renk)}
+    >
       <div className="flex h-[100dvh] w-full max-w-xl flex-col overflow-hidden bg-white shadow-xl sm:h-[min(760px,92dvh)] sm:rounded-3xl">
-        <SohbetPenceresi t={t} dil={dil} yap={yap} depoAnahtari={`mk-asistan:${yap.anahtar}`} />
+        <SohbetPenceresi t={t} dil={dil} yap={yapM} depoAnahtari={`mk-asistan:${yap.anahtar}`} />
       </div>
+      <MarkaRozeti marka={yap.marka} dil={dil} className="hidden text-zinc-500 sm:block" />
     </div>
   );
 }

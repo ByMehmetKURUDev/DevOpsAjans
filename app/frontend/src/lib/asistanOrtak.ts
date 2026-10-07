@@ -28,6 +28,8 @@ export interface AcikYapilandirma {
   ajans: boolean;
   onizleme: boolean;
   aktif: boolean;
+  /** Faz 4L: hesabın marka teması (asistanın kendi rengi seçiliyse `sayfa_ozel`). */
+  marka?: import('@/lib/marka').AcikMarka;
 }
 
 export interface KaynakAtfi {

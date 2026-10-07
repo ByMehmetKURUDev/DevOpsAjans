@@ -1,0 +1,84 @@
+{
+  "markaTemasi": {
+    "baslik": "品牌",
+    "aciklama": "您的标志、颜色和字体将成为面向客户页面（电子名片、二维码菜单、预约、活动、课程等）的默认主题。若某个页面已设置您选择的专属颜色，则以该颜色为准。",
+    "modulKapali": "此账户未开启该模块：设置会被保存，但不会应用到页面。",
+    "alan": {
+      "ad": "品牌名称",
+      "adIpucu": "用作标志的替代文字，并显示在邮件页眉中。",
+      "logo": "标志",
+      "ana": "主色",
+      "vurgu": "强调色",
+      "zemin": "背景",
+      "kose": "圆角",
+      "yaziTipi": "字体"
+    },
+    "zemin": {
+      "acik": "浅色",
+      "koyu": "深色"
+    },
+    "kose": {
+      "keskin": "直角",
+      "yumusak": "柔和",
+      "yuvarlak": "圆润"
+    },
+    "yaziTipi": {
+      "jakarta": "Plus Jakarta Sans",
+      "sistem_sans": "系统字体（无衬线）",
+      "sistem_serif": "系统字体（衬线）",
+      "mono": "等宽字体"
+    },
+    "logoYukle": "上传标志",
+    "logoDegistir": "更换",
+    "logoKaldir": "移除",
+    "logoYuklendi": "标志已上传",
+    "logoNot": "支持 PNG、JPEG 或 WebP，最大 2 MB。出于安全原因不接受 SVG。",
+    "kaydet": "保存",
+    "kaydedildi": "品牌已保存",
+    "sifirla": "恢复默认",
+    "sifirlaOnay": "要删除品牌设置和标志吗？",
+    "sifirlandi": "品牌已恢复默认",
+    "kontrast": {
+      "yeterli": "对比度足够（{{oran}}:1）",
+      "yetersiz": "对比度不足（{{oran}}:1，至少需要 {{esik}}:1）",
+      "uygula": "采用建议：{{renk}}",
+      "yaziRengi": "按钮文字颜色已自动选择：{{renk}}。",
+      "beyaz": "白色",
+      "koyu": "深色"
+    },
+    "onizleme": {
+      "baslik": "实时预览",
+      "ornekBaslik": "示例标题",
+      "ornekMetin": "访客看到的页面效果如下。",
+      "dugme": "立即预约",
+      "baglanti": "示例链接"
+    },
+    "rozet": {
+      "gorunur": "您的页面底部会显示一个小小的“由 mehmetkuru.dev 提供”标识。",
+      "gizli": "“由 mehmetkuru.dev 提供”标识已隐藏。",
+      "yalnizAjans": "只有代理机构可以更改该标识。",
+      "yoneticiNot": "如需更改，请使用下方模块设置中的“隐藏标识”。"
+    },
+    "uygulananSayfalar": "适用页面：电子名片、Google 评价页、二维码菜单、预约、活动、课程、AI 助手、上门服务和新闻通讯。",
+    "hata": {
+      "genel": "操作未能完成，请重试。",
+      "ag": "无法连接。",
+      "cok_hizli": "尝试过于频繁，请稍后再试。",
+      "renk_gecersiz": "颜色须为 #rrggbb 格式（例如 #1d4ed8）。",
+      "ad_gecersiz": "品牌名称最多 80 个字符，且不能包含 < 或 >。",
+      "zemin_gecersiz": "背景无效。",
+      "kose_gecersiz": "圆角选项无效。",
+      "yazi_tipi_gecersiz": "字体无效。",
+      "svg_desteklenmiyor": "出于安全原因不接受 SVG 标志，请上传 PNG 或 WebP。",
+      "logo_buyuk": "标志最大 2 MB。",
+      "logo_bicimi": "只能上传 PNG、JPEG 或 WebP 文件。",
+      "logo_boyutu": "标志尺寸须在 16 到 4096 像素之间。",
+      "dosya_bos": "文件为空。",
+      "depo_hatasi": "文件无法保存，请稍后再试。",
+      "marka_yetkisi_yok": "只有账户所有者或账户管理员可以更改品牌。",
+      "yalniz_yonetici": "只有代理机构可以更改此设置。",
+      "modul_kapali": "您的账户未开启品牌主题模块。",
+      "hesap_uyesi_degil": "您无权访问此账户。"
+    }
+  }
+}

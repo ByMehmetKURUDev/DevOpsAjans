@@ -24,9 +24,14 @@
  * Dosya tabanlı yönlendirme yalnız TEK parçalı `/menu/<slug>`i karşılıyor.
  * `public/_headers` Function yanıtlarına uygulanmadığı için temel başlıklar (Faz 4G:
  * ve sitenin CSP'si, `_ortak/csp.js`) burada; arka uç isteği vekil imzalı.
+ *
+ * Faz 4L — marka teması: özetteki `marka` uygulanıyorsa `<head>`e `--marka-*` değişkenleri
+ * (`_ortak/marka.js`) ve iskelet sayfanın kendi açık zemininde, marka renginde (mağazanın kendi
+ * tema rengi seçiliyse o) çiziliyor — ilk boyamada React'in çizeceği görünüme yakın.
  */
 
 import { cspBasliklari } from '../_ortak/csp.js';
+import { sayfaIlkBoyama } from '../_ortak/marka.js';
 import { vekilBasliklari } from '../_ortak/vekil.js';
 
 const GUVENLIK_BASLIKLARI = {
@@ -103,8 +108,19 @@ export async function ozetAl(origin, slug, urun, dil, istek = null, env = null) 
 }
 
 /** Yükleniyor iskeleti (React ilk çizimde yerine koyar). Satır içi stil; betik yok. */
-function iskelet(ad, renk) {
+function iskelet(ad, renk, markali = false) {
   const r = /^#[0-9a-fA-F]{6}$/.test(renk || '') ? renk : '#7c3aed';
+  if (markali) {
+    // Faz 4L: menü sayfası açık zeminli; üstte markanın rengiyle şerit (kapaksız başlığın karşılığı).
+    return (
+      '<div style="min-height:100vh;background:#f7f7f8;color:#18181b;font:600 18px/1.4 var(--marka-yazi-tipi,system-ui,sans-serif)">' +
+      `<div style="height:96px;background:${r}" aria-hidden="true"></div>` +
+      '<div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:32px 24px;text-align:center">' +
+      `<div style="width:40px;height:40px;border-radius:50%;border:3px solid ${r};border-top-color:transparent" aria-hidden="true"></div>` +
+      (ad ? `<p style="margin:0">${kacis(ad)}</p>` : '') +
+      '</div></div>'
+    );
+  }
   return (
     '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;' +
     'gap:14px;background:#0b0714;color:#ece8f5;font:600 18px/1.4 system-ui,-apple-system,sans-serif;padding:24px;text-align:center">' +
@@ -175,12 +191,12 @@ export function yenidenYaz(kabuk, s) {
     })
     .on('head', {
       element(e) {
-        e.append(etiketler.join(''), { html: true });
+        e.append(etiketler.join('') + (s.markaStili || ''), { html: true });
       },
     })
     .on('div#root', {
       element(e) {
-        e.setInnerContent(iskelet(s.magazaAdi, s.renk), { html: true });
+        e.setInnerContent(iskelet(s.magazaAdi, s.renk, !!s.markaStili), { html: true });
       },
     })
     .transform(kabuk);
@@ -261,10 +277,12 @@ export async function onRequest({ request, env, params }) {
   const indekslenebilir = v.indekslenebilir === true;
   const gorsel = (u && u.gorsel) || v.gorsel || null;
 
+  // Faz 4L: marka teması (mağazanın kendi tema rengi seçiliyse halka/şerit o renkte).
+  const marka = sayfaIlkBoyama(v.marka, { sayfaRengi: v.tema_rengi });
   const yazilan = yenidenYaz(kabuk, {
     dil, robots: indekslenebilir ? 'index, follow' : 'noindex, nofollow', baslik, aciklama, adres, magazaAdi,
     ozetVar: true, urunVar: !!u, gorsel: typeof gorsel === 'string' && /^https?:\/\//.test(gorsel) ? gorsel : null,
-    renk: v.tema_rengi,
+    renk: marka.ana || v.tema_rengi, markaStili: marka.stil,
   });
   const ek = { 'Cache-Control': 'public, max-age=0, must-revalidate' };
   if (!indekslenebilir) ek['X-Robots-Tag'] = 'noindex, nofollow';

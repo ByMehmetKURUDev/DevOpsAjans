@@ -702,6 +702,10 @@ async def yapilandirma(
         "onizleme": bool(onizleme),
         "aktif": bool(a.aktif),
     }
+    from services.marka import acik_marka, renk_ozel_mi
+
+    # Faz 4L: marka teması (asistanın kendi rengi varsayılandan farklıysa o öncelikli).
+    veri["marka"] = await acik_marka(db, a.hesap_email, sayfa_ozel=renk_ozel_mi(a.renk, "#7c3aed"))
     return Response(json.dumps(veri, ensure_ascii=False), media_type="application/json", headers=ACIK_BASLIKLAR)
 
 

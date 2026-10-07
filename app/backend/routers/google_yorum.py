@@ -491,7 +491,11 @@ async def acik_sayfa(adres: str, request: Request, arka: BackgroundTasks, db: As
         return JSONResponse({"durum": "yonlendir", "yonlendir": yonlendir}, headers=ACIK_BASLIKLAR)
     if _gorunum_hizi.izin_var_mi(k.hiz_anahtari(request, "yorum", y.id)):
         arka.add_task(kk.olay_yaz, k.olay_satiri(request, "yorum", y.id, "goruntulenme", kanal=kanal))
-    return JSONResponse(_acik_sozluk(y, await kk.gorsel_bul(db, y.logo_id)), headers=ACIK_BASLIKLAR)
+    from services.marka import acik_marka
+
+    # Faz 4L: marka teması (sayfanın kendi rengi seçiliyse o öncelikli).
+    marka = await acik_marka(db, y.hesap_email, sayfa_ozel=bool(y.renk))
+    return JSONResponse({**_acik_sozluk(y, await kk.gorsel_bul(db, y.logo_id)), "marka": marka}, headers=ACIK_BASLIKLAR)
 
 
 @acik_router.post("/{adres}/olay")

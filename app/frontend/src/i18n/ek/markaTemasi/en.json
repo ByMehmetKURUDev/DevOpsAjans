@@ -1,0 +1,84 @@
+{
+  "markaTemasi": {
+    "baslik": "Brand",
+    "aciklama": "Your logo, colours and typeface become the default theme of your customer-facing pages (business card, QR menu, booking, events, courses…). If a page has its own colour that you chose, that colour wins.",
+    "modulKapali": "The module is off for this account: settings are saved but not applied to pages.",
+    "alan": {
+      "ad": "Brand name",
+      "adIpucu": "Used as the logo’s alt text and in email headers.",
+      "logo": "Logo",
+      "ana": "Primary colour",
+      "vurgu": "Accent colour",
+      "zemin": "Background",
+      "kose": "Corners",
+      "yaziTipi": "Typeface"
+    },
+    "zemin": {
+      "acik": "Light",
+      "koyu": "Dark"
+    },
+    "kose": {
+      "keskin": "Sharp",
+      "yumusak": "Soft",
+      "yuvarlak": "Round"
+    },
+    "yaziTipi": {
+      "jakarta": "Plus Jakarta Sans",
+      "sistem_sans": "System font (sans-serif)",
+      "sistem_serif": "System font (serif)",
+      "mono": "Monospace"
+    },
+    "logoYukle": "Upload logo",
+    "logoDegistir": "Replace",
+    "logoKaldir": "Remove",
+    "logoYuklendi": "Logo uploaded",
+    "logoNot": "PNG, JPEG or WebP, up to 2 MB. SVG is not accepted for security reasons.",
+    "kaydet": "Save",
+    "kaydedildi": "Brand saved",
+    "sifirla": "Reset to default",
+    "sifirlaOnay": "Delete the brand settings and logo?",
+    "sifirlandi": "Brand reset to default",
+    "kontrast": {
+      "yeterli": "Contrast is sufficient ({{oran}}:1)",
+      "yetersiz": "Low contrast ({{oran}}:1 — at least {{esik}}:1 required)",
+      "uygula": "Apply suggestion: {{renk}}",
+      "yaziRengi": "Button text colour was chosen automatically: {{renk}}.",
+      "beyaz": "white",
+      "koyu": "dark"
+    },
+    "onizleme": {
+      "baslik": "Live preview",
+      "ornekBaslik": "Sample heading",
+      "ornekMetin": "This is how your visitors will see your page.",
+      "dugme": "Book now",
+      "baglanti": "Sample link"
+    },
+    "rozet": {
+      "gorunur": "A small “Made with mehmetkuru.dev” badge is shown at the bottom of your pages.",
+      "gizli": "The “Made with mehmetkuru.dev” badge is hidden.",
+      "yalnizAjans": "Only the agency can change the badge.",
+      "yoneticiNot": "To change it, use “Hide badge” in the module settings below."
+    },
+    "uygulananSayfalar": "Applied to: digital business card, Google review page, QR menu, booking, events, courses, AI assistant, field service and newsletter pages.",
+    "hata": {
+      "genel": "The action could not be completed. Please try again.",
+      "ag": "Could not connect.",
+      "cok_hizli": "Too many attempts; please try again shortly.",
+      "renk_gecersiz": "Colours must be in #rrggbb format (e.g. #1d4ed8).",
+      "ad_gecersiz": "The brand name can be up to 80 characters and cannot contain < or >.",
+      "zemin_gecersiz": "Invalid background.",
+      "kose_gecersiz": "Invalid corner option.",
+      "yazi_tipi_gecersiz": "Invalid typeface.",
+      "svg_desteklenmiyor": "SVG logos are not accepted for security reasons; please upload PNG or WebP.",
+      "logo_buyuk": "The logo can be at most 2 MB.",
+      "logo_bicimi": "Only PNG, JPEG or WebP files can be uploaded.",
+      "logo_boyutu": "The logo must be between 16 and 4096 pixels.",
+      "dosya_bos": "The file is empty.",
+      "depo_hatasi": "The file could not be stored; please try again shortly.",
+      "marka_yetkisi_yok": "Only the account owner or an account admin can change the brand.",
+      "yalniz_yonetici": "Only the agency can change this setting.",
+      "modul_kapali": "The brand theme module is not enabled for your account.",
+      "hesap_uyesi_degil": "You do not have access to this account."
+    }
+  }
+}

@@ -4,7 +4,9 @@ import i18n from 'i18next';
 import type { TFunction } from 'i18next';
 import { CheckCircle2, Clock, Download, Loader2, MapPin, Phone, Star, Truck, Wrench } from 'lucide-react';
 
+import { MarkaBasligi, rozetGorunur } from '@/components/marka/MarkaParcalari';
 import { getAPIBaseURL } from '@/lib/config';
+import { markaKabugu, type AcikMarka } from '@/lib/marka';
 
 /**
  * Faz 6S — servis müşterisinin imzalı (girişsiz) sayfası: `/servis/<jeton>`.
@@ -52,6 +54,8 @@ interface Veri {
   memnuniyet: { acik: boolean; puan: number | null; yorum: string | null; at: string | null };
   google_yorum_url: string | null;
   aydinlatma: { firma: string; saklama_ay: number; eposta: string | null };
+  /** Faz 4L: firmanın marka teması (servis sayfasının kendi teması yok — marka varsayılan). */
+  marka?: AcikMarka;
 }
 
 const API = () => getAPIBaseURL();
@@ -181,8 +185,15 @@ export default function ServisSayfasi() {
   const puanli = !!veri.memnuniyet.puan;
 
   return (
-    <main className="min-h-screen bg-[#f5f5f7] px-4 py-8 text-slate-900 sm:py-14" dir={dil === 'ar' ? 'rtl' : 'ltr'} data-testid="servis-sayfasi" data-durum={is.durum}>
+    <main
+      className="min-h-screen bg-[#f5f5f7] px-4 py-8 text-slate-900 sm:py-14"
+      dir={dil === 'ar' ? 'rtl' : 'ltr'}
+      data-testid="servis-sayfasi"
+      data-durum={is.durum}
+      {...markaKabugu(veri.marka, dil)}
+    >
       <div className="mx-auto w-full max-w-lg space-y-4">
+        <MarkaBasligi marka={veri.marka} className="justify-center" />
         <header className="text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{t('servisSayfa.ust')}</p>
           <h1 className="mt-1 text-2xl font-bold" data-testid="servis-firma">
@@ -332,11 +343,13 @@ export default function ServisSayfasi() {
           {t('servisSayfa.aydinlatma', { firma: veri.aydinlatma.firma, ay: veri.aydinlatma.saklama_ay })}
           {veri.aydinlatma.eposta ? ` ${t('servisSayfa.aydinlatmaIletisim', { eposta: veri.aydinlatma.eposta })}` : ''}
         </p>
-        <p className="text-center text-xs text-slate-400">
-          <a href="/" className="hover:text-slate-700">
-            By Mehmet KURU Dev
-          </a>
-        </p>
+        {rozetGorunur(veri.marka) && (
+          <p className="text-center text-xs text-slate-400" data-testid="marka-rozet">
+            <a href="/" target="_blank" rel="noopener" className="hover:text-slate-700">
+              By Mehmet KURU Dev
+            </a>
+          </p>
+        )}
       </div>
     </main>
   );

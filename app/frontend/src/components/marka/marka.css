@@ -1,0 +1,91 @@
+/*
+ * Faz 4L — marka teması: herkese açık müşteri sayfalarında `data-marka` kabının içi.
+ *
+ * Sayfalar (etkinlik, eğitim, saha servisi, bülten, AI asistan, randevu, QR menü) ana
+ * düğmelerini Tailwind sınıflarıyla çiziyor (bg-purple-600, bg-blue-600 …). Her düğmeyi
+ * tek tek değiştirmek yerine marka açıkken bu sınıflar kabın içinde `--marka-*`
+ * değişkenlerine bağlanıyor; marka yoksa `data-marka` hiç yazılmıyor ve bu dosya
+ * hiçbir şeyi etkilemiyor (bugünkü görünüm aynen kalıyor). Yalnız bu sayfaların
+ * parçasıyla iniyor (ana sayfa paketine girmiyor).
+ */
+[data-marka],
+[data-marka] :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--marka-yazi-tipi);
+}
+[data-marka] .bg-purple-600,
+[data-marka] .bg-purple-700,
+[data-marka] .bg-blue-600,
+[data-marka] .bg-violet-600 {
+  background-color: var(--marka-ana) !important;
+  color: var(--marka-ana-yazi) !important;
+}
+[data-marka] .hover\:bg-purple-500:hover,
+[data-marka] .hover\:bg-purple-800:hover,
+[data-marka] .hover\:bg-blue-700:hover,
+[data-marka] .hover\:bg-violet-500:hover {
+  background-color: var(--marka-ana) !important;
+  filter: brightness(1.08);
+}
+[data-marka] .text-purple-700,
+[data-marka] .text-purple-600,
+[data-marka] .text-blue-700,
+[data-marka] .text-blue-600 {
+  color: var(--marka-ana) !important;
+}
+[data-marka] .bg-purple-100,
+[data-marka] .bg-blue-50,
+[data-marka] .bg-purple-50 {
+  background-color: color-mix(in srgb, var(--marka-ana) 12%, #ffffff) !important;
+}
+[data-marka] .text-purple-800 {
+  color: #18181b !important;
+}
+[data-marka] .border-purple-300,
+[data-marka] .border-blue-300 {
+  border-color: var(--marka-ana) !important;
+}
+[data-marka] .accent-purple-600,
+[data-marka] input[type='checkbox'],
+[data-marka] input[type='radio'] {
+  accent-color: var(--marka-ana);
+}
+[data-marka] .rounded-2xl,
+[data-marka] .rounded-3xl {
+  border-radius: var(--marka-kose) !important;
+}
+[data-marka] .rounded-xl,
+[data-marka] .rounded-lg {
+  border-radius: var(--marka-kose-dugme) !important;
+}
+[data-marka] :focus-visible {
+  outline-color: var(--marka-ana);
+}
+
+/* Logo + ad satırı ve rozet */
+.marka-baslik {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+}
+.marka-baslik img {
+  max-height: 40px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+}
+.marka-rozet {
+  display: block;
+  padding: 12px 0 4px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.4;
+  opacity: 0.75;
+}
+.marka-rozet a {
+  color: inherit;
+  text-decoration: none;
+}
+.marka-rozet a:hover {
+  text-decoration: underline;
+}

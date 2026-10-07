@@ -4,7 +4,9 @@ import i18n from 'i18next';
 import type { TFunction } from 'i18next';
 import { CheckCircle2, Loader2, MailCheck, MailX } from 'lucide-react';
 
+import { MarkaBasligi, rozetGorunur } from '@/components/marka/MarkaParcalari';
 import { getAPIBaseURL } from '@/lib/config';
+import { markaKabugu, type AcikMarka } from '@/lib/marka';
 
 /**
  * Faz 5M — herkese açık bülten sayfaları (site düzeni dışında, lazy, prerender yok, noindex):
@@ -49,6 +51,22 @@ export default function BultenSayfasi() {
   const sorgu = new URLSearchParams(search);
   const [t, setT] = useState<TFunction | null>(null);
   const [dil, setDil] = useState('tr');
+  // Faz 4L: hesabın marka teması. Onay/tercih yanıtında geliyor; barındırılan formda formu gömülü betik
+  // (`/bulten-form.js`) kendisi çizdiği için marka bilgisi tek küçük istekle (aynı form tanımı ucu).
+  const [marka, setMarka] = useState<AcikMarka | null>(null);
+  useEffect(() => {
+    if (tur !== 'form' || !anahtar) return;
+    let iptal = false;
+    fetch(`${API()}/api/v1/bulten/form/${encodeURIComponent(anahtar)}`, { headers: { accept: 'application/json' } })
+      .then((y) => (y.ok ? y.json() : null))
+      .then((g: { marka?: AcikMarka } | null) => {
+        if (!iptal) setMarka(g?.marka ?? null);
+      })
+      .catch(() => undefined);
+    return () => {
+      iptal = true;
+    };
+  }, [tur, anahtar]);
 
   // Belge: noindex, referrer yok, dil/yön, açık zemin.
   useEffect(() => {
@@ -82,16 +100,27 @@ export default function BultenSayfasi() {
   };
 
   return (
-    <main className="flex min-h-screen items-start justify-center bg-[#f7f7f8] px-4 py-10 text-slate-900 sm:py-16" dir={dil === 'ar' ? 'rtl' : 'ltr'} data-testid="bulten-sayfasi" data-tur={tur}>
+    <main
+      className="flex min-h-screen items-start justify-center bg-[#f7f7f8] px-4 py-10 text-slate-900 sm:py-16"
+      dir={dil === 'ar' ? 'rtl' : 'ltr'}
+      data-testid="bulten-sayfasi"
+      data-tur={tur}
+      {...markaKabugu(marka, dil)}
+    >
       <div className="w-full max-w-lg space-y-6">
+        <MarkaBasligi marka={marka} className="justify-center" />
         {tur === 'form' && anahtar && <FormKabi anahtar={anahtar} dil={dilSec(sorgu.get('dil'), i18n.language)} dilAyarla={dilAyarla} />}
-        {tur === 'onay' && jeton && <OnaySayfasi jeton={jeton} t={t} dilAyarla={dilAyarla} istenenDil={sorgu.get('dil')} />}
-        {tur === 'tercih' && jeton && <TercihSayfasi jeton={jeton} t={t} dilAyarla={dilAyarla} istenenDil={sorgu.get('dil')} retIstegi={sorgu.get('islem') === 'ret'} />}
-        <p className="text-center text-xs text-slate-500">
-          <a href="/" className="hover:text-slate-800">
-            By Mehmet KURU Dev
-          </a>
-        </p>
+        {tur === 'onay' && jeton && <OnaySayfasi jeton={jeton} t={t} dilAyarla={dilAyarla} istenenDil={sorgu.get('dil')} setMarka={setMarka} />}
+        {tur === 'tercih' && jeton && (
+          <TercihSayfasi jeton={jeton} t={t} dilAyarla={dilAyarla} istenenDil={sorgu.get('dil')} retIstegi={sorgu.get('islem') === 'ret'} setMarka={setMarka} />
+        )}
+        {rozetGorunur(marka) && (
+          <p className="text-center text-xs text-slate-500" data-testid="marka-rozet">
+            <a href="/" target="_blank" rel="noopener" className="hover:text-slate-800">
+              By Mehmet KURU Dev
+            </a>
+          </p>
+        )}
       </div>
     </main>
   );
@@ -139,7 +168,19 @@ function Kart({ children, testid }: { children: ReactNode; testid?: string }) {
 
 const DUGME = 'inline-flex items-center justify-center gap-2 rounded-lg bg-purple-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-purple-800 disabled:opacity-60';
 
-function OnaySayfasi({ jeton, t, dilAyarla, istenenDil }: { jeton: string; t: TFunction | null; dilAyarla: (d: string) => Promise<void>; istenenDil: string | null }) {
+function OnaySayfasi({
+  jeton,
+  t,
+  dilAyarla,
+  istenenDil,
+  setMarka,
+}: {
+  jeton: string;
+  t: TFunction | null;
+  dilAyarla: (d: string) => Promise<void>;
+  istenenDil: string | null;
+  setMarka: (m: AcikMarka | null) => void;
+}) {
   const [veri, setVeri] = useState<{ durum: string; eposta: string; liste: string; gonderen: string; dil: string } | null>(null);
   const [durum, setDurum] = useState<'yukleniyor' | 'hazir' | 'onaylandi' | 'gecersiz' | 'kullanildi' | 'suresi_doldu' | 'hata'>('yukleniyor');
   const [mesgul, setMesgul] = useState(false);
@@ -154,6 +195,7 @@ function OnaySayfasi({ jeton, t, dilAyarla, istenenDil }: { jeton: string; t: TF
         if (iptal) return;
         if (y.ok && g) {
           setVeri(g);
+          setMarka((g as { marka?: AcikMarka }).marka ?? null);
           d = g.dil;
           setDurum(g.durum === 'gecerli' ? 'hazir' : g.durum);
         } else setDurum(y.status === 404 ? 'gecersiz' : 'hata');
@@ -234,12 +276,14 @@ function TercihSayfasi({
   dilAyarla,
   istenenDil,
   retIstegi,
+  setMarka,
 }: {
   jeton: string;
   t: TFunction | null;
   dilAyarla: (d: string) => Promise<void>;
   istenenDil: string | null;
   retIstegi: boolean;
+  setMarka: (m: AcikMarka | null) => void;
 }) {
   const [veri, setVeri] = useState<TercihVeri | null>(null);
   const [durum, setDurum] = useState<'yukleniyor' | 'hazir' | 'gecersiz' | 'hata'>('yukleniyor');
@@ -267,6 +311,7 @@ function TercihSayfasi({
         if (iptal) return;
         if (y.ok && g) {
           d = g.dil;
+          setMarka((g as { marka?: AcikMarka }).marka ?? null);
           // E-postadaki "Abonelikten çık" bağlantısı: sayfa açılınca tek tıkla ret (bir kez).
           if (retIstegi && g.abone && !retYapildi.current) {
             retYapildi.current = true;

@@ -617,14 +617,18 @@ async def son_okutmalar(db: AsyncSession, e: Etkinlikler, sinir: int = 10) -> Li
 # E-postalar
 # ---------------------------------------------------------------------------
 async def _katilimciya(db: AsyncSession, alici: str, konu: str, govde: str, ref: Tuple[str, int],
-                       gizliler: Sequence[str] = (), ekler: Optional[List[Dict[str, Any]]] = None) -> None:
+                       gizliler: Sequence[str] = (), ekler: Optional[List[Dict[str, Any]]] = None,
+                       hesap: Optional[str] = None) -> None:
     """Katılımcıya yalnız e-posta: panel içi kopya silinir; bilet/davet bağlantısı (yetki belgesi)
-    kalıcı bildirim kaydından çıkarılır."""
+    kalıcı bildirim kaydından çıkarılır. Faz 4L: `hesap` (etkinliğin sahibi) marka teması açıksa
+    e-postanın HTML sürümünde marka başlığı (logo + ana renk)."""
+    from services.marka import eposta_eki
     from services.notify import dispatch
 
+    ek = await eposta_eki(db, hesap, konu, govde, {"ekler": ekler} if ekler else None)
     satirlar = await dispatch(db, event_type=KATILIMCI_OLAYI, title=konu, body=govde,
                               recipients=[{"email": alici, "role": "client"}], link=None, ref_type=ref[0], ref_id=ref[1],
-                              eposta_ek={"ekler": ekler} if ekler else None)
+                              eposta_ek=ek)
     degisti = False
     for satir in list(satirlar):
         if getattr(satir, "channel", None) == "inapp":
@@ -718,7 +722,7 @@ async def bilet_epostasi(siparis_id: int, tur: str = "onay") -> None:
                     ekler.append({"dosya_adi": f"bilet-{sp.kod}.pdf", "icerik": pdf, "tur": "application/pdf"})
                 except Exception:  # noqa: BLE001 - PDF olmadan da bilet gider
                     logger.exception("Bilet PDF'i üretilemedi (%s)", sp.id)
-            await _katilimciya(db, sp.eposta, konu, govde, ("etkinlik_siparisleri", sp.id), gizliler, ekler)
+            await _katilimciya(db, sp.eposta, konu, govde, ("etkinlik_siparisleri", sp.id), gizliler, ekler, hesap=e.hesap_email)
     except Exception:  # noqa: BLE001
         logger.exception("Bilet e-postası gönderilemedi (%s)", siparis_id)
 
@@ -743,7 +747,7 @@ async def iptal_epostasi(siparis_id: int, etkinlik_iptal: bool = False) -> None:
                                            satirlar=satirlar)
             ekler = [{"dosya_adi": "etkinlik.ics", "icerik": s.ics_uret(e, sp.kod, dil, iptal=True, sira_no=1),
                       "tur": "text/calendar; method=PUBLISH; charset=UTF-8"}]
-            await _katilimciya(db, sp.eposta, konu, govde, ("etkinlik_siparisleri", sp.id), (), ekler)
+            await _katilimciya(db, sp.eposta, konu, govde, ("etkinlik_siparisleri", sp.id), (), ekler, hesap=e.hesap_email)
     except Exception:  # noqa: BLE001
         logger.exception("İptal e-postası gönderilemedi (%s)", siparis_id)
 
@@ -773,7 +777,7 @@ async def bekleme_epostasi(bekleme_id: int, tur: str) -> None:
                 satirlar = ["", m["davet_baglanti"], adres]
                 son = s.zaman_yaz(w.davet_son, e.saat_dilimi, dil) if w.davet_son else ""
             konu, govde = s.eposta_govdesi(tur, dil, ad=w.ad or "", e=e, satirlar=satirlar, son=son)
-            await _katilimciya(db, w.eposta, konu, govde, ("etkinlik_bekleme", w.id), gizliler)
+            await _katilimciya(db, w.eposta, konu, govde, ("etkinlik_bekleme", w.id), gizliler, hesap=e.hesap_email)
     except Exception:  # noqa: BLE001
         logger.exception("Bekleme listesi e-postası gönderilemedi (%s)", bekleme_id)
 
@@ -844,7 +848,7 @@ async def toplu_eposta(etkinlik_id: int, tur: str, konu_ham: Optional[str] = Non
                     if e.iade_politikasi:
                         satirlar += ["", f"{m['iade_politikasi']}:", e.iade_politikasi]
                     konu, govde = s.eposta_govdesi("etkinlik_iptal", dil, ad=sp.ad or "", e=e, satirlar=satirlar)
-                await _katilimciya(db, sp.eposta, konu, govde, ("etkinlik_siparisleri", sp.id))
+                await _katilimciya(db, sp.eposta, konu, govde, ("etkinlik_siparisleri", sp.id), hesap=e.hesap_email)
                 gonderilen += 1
             await db.commit()
     except Exception:  # noqa: BLE001

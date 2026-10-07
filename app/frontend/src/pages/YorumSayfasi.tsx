@@ -17,6 +17,8 @@ import {
   type Cevirmen,
 } from '@/lib/kartvizitAcik';
 import '@/components/kartvizit/kartvizit.css';
+import { rozetGorunur } from '@/components/marka/MarkaParcalari';
+import { ZEMIN_RENKLERI, markaDegiskenleri, markaLogoAdresi, markaTemasi, markaYaziTipi } from '@/lib/marka';
 
 /**
  * Faz 4K — herkese açık Google yorum sayfası: `/yorum/<slug>` (masa kartı / fiş QR'ı).
@@ -27,6 +29,9 @@ import '@/components/kartvizit/kartvizit.css';
  * bir seçenek ve Google düğmesinin ALTINDA, onu gizlemeden duruyor.
  *
  * Noindex, prerender yok, site düzeni yok; metinler sayfanın kendi dilinde.
+ *
+ * Faz 4L — marka teması: sayfanın kendi rengi seçilmediyse markanın ana rengi; markanın
+ * zemini, yazı tipi ve köşeleri; sayfada logo yoksa marka logosu; rozet yönetici gizlediyse yok.
  */
 
 type Durum = 'yukleniyor' | 'aktif' | 'yok' | 'pasif' | 'hata';
@@ -94,7 +99,13 @@ export default function YorumSayfasi() {
     };
   }, [sayfa]);
 
-  const stil = temaStili({ sablon: 'beyaz', renk: sayfa?.renk || '#4285f4', yazi_tipi: 'jakarta', kose: 'yumusak' }, dil);
+  const mt = markaTemasi(sayfa?.marka);
+  const renk = mt && !sayfa?.marka?.sayfa_ozel ? mt.ana : sayfa?.renk || '#4285f4';
+  const stil = {
+    ...temaStili({ sablon: 'beyaz', renk, yazi_tipi: 'jakarta', kose: mt ? mt.kose : 'yumusak' }, dil),
+    ...(mt ? { ...markaDegiskenleri(mt, dil, renk), background: ZEMIN_RENKLERI[mt.zemin].zemin, fontFamily: markaYaziTipi(mt, dil) } : {}),
+  };
+  const markaLogo = mt ? markaLogoAdresi(mt.logo) : null;
   const yon = dil === 'ar' ? 'rtl' : 'ltr';
 
   if (durum !== 'aktif' || !sayfa) {
@@ -124,6 +135,16 @@ export default function YorumSayfasi() {
               height={sayfa.logo.yukseklik}
               className="kv-logo"
               decoding="async"
+            />
+          ) : markaLogo && mt ? (
+            <img
+              src={markaLogo}
+              alt={m('logo', { ad: sayfa.isletme_adi })}
+              width={mt.logo?.genislik ?? undefined}
+              height={mt.logo?.yukseklik ?? undefined}
+              className="kv-logo"
+              decoding="async"
+              data-testid="marka-logo"
             />
           ) : (
             <div
@@ -172,11 +193,13 @@ export default function YorumSayfasi() {
             )}
           </section>
         )}
-        <p className="kv-soluk text-center text-xs">
-          <a href="https://mehmetkuru.dev/" target="_blank" rel="noopener" className="hover:underline">
-            {m('yorum.altBilgi')}
-          </a>
-        </p>
+        {rozetGorunur(sayfa.marka) && (
+          <p className="kv-soluk text-center text-xs" style={mt ? { color: 'var(--marka-soluk)' } : undefined} data-testid="marka-rozet">
+            <a href="https://mehmetkuru.dev/" target="_blank" rel="noopener" className="hover:underline">
+              {m('yorum.altBilgi')}
+            </a>
+          </p>
+        )}
       </div>
     </main>
   );

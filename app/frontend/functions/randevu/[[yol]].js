@@ -23,9 +23,14 @@
  * açılabilsin diye `X-Frame-Options` konmuyor, `frame-ancestors *` veriliyor.
  * Arka uç kapalı/yavaşsa (ücretsiz plan uyur) kabuk + noindex döner; istemci kendisi yükler.
  * `public/_headers` Function yanıtlarına uygulanmadığı için temel başlıklar burada.
+ *
+ * Faz 4L — marka teması: özetteki `marka` uygulanıyorsa `<head>`e `--marka-*` değişkenleri ve
+ * ilk boyama zemini (`_ortak/marka.js`); iskelet markanın zemininde, markanın renginde (sayfanın
+ * kendi rengi seçiliyse o). Gömülü pencerede zemin saydam kalıyor (başka sitenin içinde).
  */
 
 import { cspBasliklari } from '../_ortak/csp.js';
+import { sayfaIlkBoyama } from '../_ortak/marka.js';
 
 const GUVENLIK_BASLIKLARI = {
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -107,11 +112,15 @@ export async function ozetAl(origin, slug, etkinlik) {
 }
 
 /** Yükleniyor iskeleti (React ilk çizimde yerine koyar). Satır içi stil; betik yok. */
-function iskelet(ad, renk, gomulu) {
+function iskelet(ad, renk, gomulu, markali = false) {
   const r = /^#[0-9a-fA-F]{6}$/.test(renk || '') ? renk : '#7c3aed';
+  // Faz 4L: marka zemini (`--marka-ilk-zemin`, `_ortak/marka.js`) varsa iskelet de onun üstünde.
+  const zemin = gomulu ? 'transparent' : markali ? 'var(--marka-ilk-zemin,#f7f7f8)' : '#f7f7f8';
+  const yazi = markali ? 'var(--marka-ilk-metin,#18181b)' : '#18181b';
+  const font = markali ? 'var(--marka-yazi-tipi,system-ui,-apple-system,sans-serif)' : 'system-ui,-apple-system,sans-serif';
   return (
     `<div style="min-height:${gomulu ? '320px' : '100vh'};display:flex;flex-direction:column;align-items:center;justify-content:center;` +
-    `gap:14px;background:${gomulu ? 'transparent' : '#f7f7f8'};color:#18181b;font:600 18px/1.4 system-ui,-apple-system,sans-serif;padding:24px;text-align:center">` +
+    `gap:14px;background:${zemin};color:${yazi};font:600 18px/1.4 ${font};padding:24px;text-align:center">` +
     `<div style="width:40px;height:40px;border-radius:50%;border:3px solid ${r};border-top-color:transparent" aria-hidden="true"></div>` +
     (ad ? `<p style="margin:0">${kacis(ad)}</p>` : '') +
     '</div>'
@@ -170,12 +179,12 @@ export function yenidenYaz(kabuk, s) {
     })
     .on('head', {
       element(e) {
-        e.append(etiketler.join(''), { html: true });
+        e.append(etiketler.join('') + (s.markaStili || ''), { html: true });
       },
     })
     .on('div#root', {
       element(e) {
-        e.setInnerContent(iskelet(s.sayfaAdi, s.renk, s.gomulu), { html: true });
+        e.setInnerContent(iskelet(s.sayfaAdi, s.renk, s.gomulu, !!s.markaStili), { html: true });
       },
     })
     .transform(kabuk);
@@ -257,9 +266,11 @@ export async function onRequest({ request, env, params }) {
   const indekslenebilir = v.indekslenebilir === true && !gomulu;
   const gorsel = typeof v.gorsel === 'string' && /^https?:\/\//.test(v.gorsel) ? v.gorsel : null;
 
+  // Faz 4L: marka teması (sayfanın kendi rengi seçiliyse halka o renkte); gömülüde zemin yazılmıyor.
+  const marka = sayfaIlkBoyama(v.marka, { sayfaRengi: v.renk, zeminUygula: !gomulu });
   const yazilan = yenidenYaz(kabuk, {
     dil, robots: indekslenebilir ? 'index, follow' : 'noindex, nofollow', baslik, aciklama, adres, sayfaAdi,
-    ozetVar: true, gorsel, renk: v.renk, gomulu,
+    ozetVar: true, gorsel, renk: marka.ana || v.renk, gomulu, markaStili: marka.stil,
   });
   const ek = { 'Cache-Control': 'public, max-age=0, must-revalidate' };
   if (!indekslenebilir) ek['X-Robots-Tag'] = 'noindex, nofollow';

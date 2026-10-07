@@ -1457,6 +1457,13 @@ async def _acik_sozluk(db: AsyncSession, e: Etkinlikler, gizli_kod: Optional[str
     }
 
 
+async def _marka(db: AsyncSession, hesap: Optional[str], renk: Optional[str] = None) -> Dict[str, Any]:
+    """Faz 4L: marka teması (etkinliğin kendi rengi varsayılandan farklıysa o öncelikli)."""
+    from services.marka import acik_marka, renk_ozel_mi
+
+    return await acik_marka(db, hesap, sayfa_ozel=renk_ozel_mi(renk, "#7c3aed") if renk is not None else False)
+
+
 @acik_router.api_route("/{slug}", methods=["GET", "HEAD"])
 async def acik_etkinlik(slug: str, request: Request, kod: Optional[str] = Query(None), davet: Optional[str] = Query(None),
                         db: AsyncSession = Depends(get_db)):
@@ -1469,7 +1476,7 @@ async def acik_etkinlik(slug: str, request: Request, kod: Optional[str] = Query(
             raise _e_hatasi(h)
     await k.suresi_dolanlari_birak(db, e.id)
     await db.commit()
-    return JSONResponse(await _acik_sozluk(db, e, kod, davet_kaydi),
+    return JSONResponse({**await _acik_sozluk(db, e, kod, davet_kaydi), "marka": await _marka(db, e.hesap_email, e.renk)},
                         headers={**ACIK_BASLIKLAR, "Cache-Control": "no-cache", **_robots(e)})
 
 
@@ -1482,7 +1489,7 @@ async def acik_ozet(slug: str, db: AsyncSession = Depends(get_db)):
         "slug": e.slug, "baslik": e.baslik, "aciklama": (e.ozet or (e.aciklama or "")[:300])[:300], "dil": e.dil,
         "gorsel": kapak, "renk": e.renk, "indekslenebilir": bool(e.arama_motoru), "adres_url": s.sayfa_adresi(e.slug),
         "baslangic": s.iso(e.baslangic), "bitis": s.iso(e.bitis), "saat_dilimi": e.saat_dilimi, "durum": e.durum,
-        "jsonld": None,
+        "jsonld": None, "marka": await _marka(db, e.hesap_email, e.renk),
     }
     if e.arama_motoru:
         turler = await k.tur_listesi(db, e.id)
@@ -1701,7 +1708,8 @@ async def _bilet_sozlugu(db: AsyncSession, sp: EtkinlikSiparisleri, e: Etkinlikl
 @bilet_router.get("/{jeton}")
 async def bilet_sayfasi(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
     sp, e = await _bilet_jetonlu(db, request, jeton)
-    return JSONResponse(await _bilet_sozlugu(db, sp, e, jeton), headers={**ACIK_BASLIKLAR, "X-Robots-Tag": "noindex"})
+    return JSONResponse({**await _bilet_sozlugu(db, sp, e, jeton), "marka": await _marka(db, e.hesap_email, e.renk)},
+                        headers={**ACIK_BASLIKLAR, "X-Robots-Tag": "noindex"})
 
 
 @bilet_router.get("/{jeton}/qr/{kod}.svg")
@@ -1873,7 +1881,7 @@ async def hesap_listesi(slug: str, gecmis: bool = Query(False), db: AsyncSession
                        "saat_dilimi": e.saat_dilimi, "durum": e.durum, "dolu": kalan is not None and kalan <= 0,
                        "ucretsiz": all(int(t.fiyat or 0) == 0 for t in await k.tur_listesi(db, e.id) if t.aktif and not t.gizli)})
     return JSONResponse({"slug": l_.slug, "baslik": l_.baslik, "aciklama": l_.aciklama or "", "adres_url": s.liste_adresi(l_.slug),
-                         "etkinlikler": ogeler, "gecmis": gecmis},
+                         "etkinlikler": ogeler, "gecmis": gecmis, "marka": await _marka(db, l_.hesap_email)},
                         headers={"Cache-Control": "public, max-age=60", "X-Content-Type-Options": "nosniff"})
 
 

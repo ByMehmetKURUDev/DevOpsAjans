@@ -141,6 +141,17 @@ def _tema(kart: Kartvizitler) -> Dict[str, Any]:
     return {**k.VARSAYILAN_TEMA, **k.json_yukle(kart.tema)}
 
 
+def tema_ozel_mi(kart: Kartvizitler) -> bool:
+    """Faz 4L: kartın kendi teması varsayılandan farklı mı (o zaman marka temasının önünde)."""
+    return _tema(kart) != k.VARSAYILAN_TEMA
+
+
+async def _marka(db: AsyncSession, kart: Kartvizitler) -> Dict[str, Any]:
+    from services.marka import acik_marka
+
+    return await acik_marka(db, kart.hesap_email, sayfa_ozel=tema_ozel_mi(kart))
+
+
 def _gorsel_haritasi(satirlar: List[KartvizitGorselleri], kart: Kartvizitler) -> Dict[str, Any]:
     by_id = {g.id: g for g in satirlar}
     return {
@@ -847,9 +858,10 @@ async def acik_kart(adres: str, request: Request, arka: BackgroundTasks, db: Asy
     kart = a.kart
     assert kart is not None
     _olay_ekle(arka, request, kart.id, "goruntulenme", kanal=a.kanal, sinir=_gorunum_hizi)
+    marka = await _marka(db, kart)
     if not _kilit_acik_mi(kart, request.query_params.get("j")):
-        return JSONResponse(_kilitli_sozluk(kart), headers=ACIK_BASLIKLAR)
-    return JSONResponse(_acik_sozluk(kart, await kk.gorseller(db, "kart", kart.id)), headers=ACIK_BASLIKLAR)
+        return JSONResponse({**_kilitli_sozluk(kart), "marka": marka}, headers=ACIK_BASLIKLAR)
+    return JSONResponse({**_acik_sozluk(kart, await kk.gorseller(db, "kart", kart.id)), "marka": marka}, headers=ACIK_BASLIKLAR)
 
 
 @acik_router.get("/{adres}/ozet")
@@ -870,6 +882,9 @@ async def acik_ozet(adres: str, db: AsyncSession = Depends(get_db)):
         "dil": dil,
         "locale": k.OG_LOCALE.get(dil, "tr_TR"),
         "kart_adresi": k.kart_adresi(kart.slug),
+        # Faz 4L: Function ilk boyamada doğru zemin/renk için (kartın teması ya da marka teması).
+        "tema": _tema(kart),
+        "marka": await _marka(db, kart),
     }
     if kart.sifre_ozet:
         baslik, aciklama = k.KILITLI_METIN.get(dil, k.KILITLI_METIN["tr"])
@@ -909,7 +924,8 @@ async def acik_parola(adres: str, request: Request, db: AsyncSession = Depends(g
     kart = a.kart
     assert kart is not None
     if not kart.sifre_ozet:
-        return JSONResponse({"jeton": None, "kart": _acik_sozluk(kart, await kk.gorseller(db, "kart", kart.id))},
+        return JSONResponse({"jeton": None, "kart": {**_acik_sozluk(kart, await kk.gorseller(db, "kart", kart.id)),
+                                                     "marka": await _marka(db, kart)}},
                             headers=ACIK_BASLIKLAR)
     await _kalici_hiz((_parola_hizi, k.hiz_anahtari(request, "parola", kart.id)))
     from services.dosyalar import sifre_dogru_mu
@@ -920,7 +936,7 @@ async def acik_parola(adres: str, request: Request, db: AsyncSession = Depends(g
     return JSONResponse(
         {
             "jeton": k.erisim_jetonu_uret(kart.id, kart.sifre_ozet),
-            "kart": _acik_sozluk(kart, await kk.gorseller(db, "kart", kart.id)),
+            "kart": {**_acik_sozluk(kart, await kk.gorseller(db, "kart", kart.id)), "marka": await _marka(db, kart)},
         },
         headers=ACIK_BASLIKLAR,
     )

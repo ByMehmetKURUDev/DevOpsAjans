@@ -628,6 +628,26 @@
             "c": "Hayır. Ajans destek için yalnız sayıları (dosya, müvekkil, yaklaşan süre, depolama) görür; dosya içeriği, notlar, belgeler ve müvekkil bilgileri gösterilmez."
           }
         ]
+      },
+      "marka_temasi": {
+        "ozet": "Müşteri sayfalarınız ajansın değil sizin markanızla açılsın: logo, renkler, yazı tipi ve köşeler tek yerden.",
+        "kimIcin": "Kartvizit, QR menü, randevu ya da etkinlik sayfalarını kendi kurumsal kimliğiyle göstermek isteyen işletmeler ve markalar.",
+        "ozellikler": [
+          "Logo, ana ve vurgu rengi, açık/koyu zemin, köşe ve yazı tipi",
+          "Bütün müşteri sayfalarına tek ayarla uygulanır",
+          "Renk kontrastı denetimi (WCAG AA) ve otomatik yazı rengi",
+          "Randevu, bilet ve kurs e-postalarında logolu başlık"
+        ],
+        "sss": [
+          {
+            "s": "Kendi alan adımı kullanabilir miyim?",
+            "c": "Şimdilik hayır: sayfalar mehmetkuru.dev adresinde kalır, görünüm sizin markanızla olur. Özel alan adı desteği ileride ayrıca sunulacak."
+          },
+          {
+            "s": "Bir sayfaya ayrı renk verebilir miyim?",
+            "c": "Evet. Kartvizit ya da menüde kendi seçtiğiniz renk varsa o sayfada öncelikli kalır; marka teması yalnız boş kalanları doldurur."
+          }
+        ]
       }
     },
     "s": {

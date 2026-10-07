@@ -560,14 +560,17 @@ def _oturum():
 
 
 async def _ogrenciye(db: AsyncSession, alici: str, konu: str, govde: str, ref_id: int, gizliler: Sequence[str] = (),
-                     ekler: Optional[List[Dict[str, Any]]] = None) -> None:
+                     ekler: Optional[List[Dict[str, Any]]] = None, hesap: Optional[str] = None) -> None:
     """Öğrenciye/veliye yalnız e-posta: panel içi kopya silinir; öğrenci bağlantısı (yetki belgesi)
-    kalıcı bildirim kaydından çıkarılır."""
+    kalıcı bildirim kaydından çıkarılır. Faz 4L: `hesap` (kursun sahibi) marka teması açıksa
+    e-postanın HTML sürümünde marka başlığı (logo + ana renk)."""
+    from services.marka import eposta_eki
     from services.notify import dispatch
 
+    ek = await eposta_eki(db, hesap, konu, govde, {"ekler": ekler} if ekler else None)
     satirlar = await dispatch(db, event_type=OGRENCI_OLAYI, title=konu, body=govde,
                               recipients=[{"email": alici, "role": "client"}], link=None, ref_type="egitim_ogrencileri",
-                              ref_id=ref_id, eposta_ek={"ekler": ekler} if ekler else None)
+                              ref_id=ref_id, eposta_ek=ek)
     degisti = False
     for satir in list(satirlar):
         if getattr(satir, "channel", None) == "inapp":
@@ -616,7 +619,7 @@ async def _gonder(db: AsyncSession, o: EgitimOgrencileri, k: EgitimKurslari, kon
         satirlar += ["", s.imza_satiri(k, ayar.kurum_adi if ayar else None)]
         konu = konu_metni or m[konu_anahtari].format(kurs=k.ad, odev="")
         try:
-            await _ogrenciye(db, alici, konu, "\n".join(satirlar), o.id, [adres, jeton, *ek_gizli], ekler)
+            await _ogrenciye(db, alici, konu, "\n".join(satirlar), o.id, [adres, jeton, *ek_gizli], ekler, hesap=k.hesap_email)
             n += 1
         except Exception:  # noqa: BLE001
             logger.exception("Eğitim e-postası gönderilemedi (%s)", o.id)
@@ -766,7 +769,8 @@ async def not_epostasi(teslim_id: int) -> None:
                 if veli:
                     govde += [m["veli_not"].format(ogrenci=o.ad or "—"), ""]
                 govde += satirlar + ["", m["portal"], adres, "", s.imza_satiri(k, ayar.kurum_adi if ayar else None)]
-                await _ogrenciye(db, alici, m["not_konu"].format(odev=q.baslik), "\n".join(govde), o.id, [adres, jeton])
+                await _ogrenciye(db, alici, m["not_konu"].format(odev=q.baslik), "\n".join(govde), o.id, [adres, jeton],
+                                 hesap=k.hesap_email)
     except Exception:  # noqa: BLE001
         logger.exception("Ödev notu e-postası gönderilemedi (%s)", teslim_id)
 

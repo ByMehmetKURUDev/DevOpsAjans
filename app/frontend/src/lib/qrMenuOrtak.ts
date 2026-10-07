@@ -145,6 +145,8 @@ export interface AcikMenu {
   indekslenebilir: boolean;
   kategoriler: MenuKategori[];
   urunler: MenuUrun[];
+  /** Faz 4L: hesabın marka teması (mağazanın kendi tema rengi seçiliyse `sayfa_ozel`). */
+  marka?: import('@/lib/marka').AcikMarka;
 }
 
 /** Sunucunun hesapladığı sepet (`/hesapla`). */

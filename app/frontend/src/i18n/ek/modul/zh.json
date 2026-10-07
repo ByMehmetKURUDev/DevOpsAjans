@@ -208,6 +208,10 @@
       "hukuk_burosu": {
         "ad": "律师事务所",
         "aciklama": "面向律师和律师事务所：客户与案件管理、对方当事人及利益冲突提醒、庭审与期限日历、期限计算器、提醒、工时与费用记录（PDF 明细）、文件附件以及客户专属状态链接。不会自动从 UYAP 获取数据。"
+      },
+      "marka_temasi": {
+        "ad": "品牌主题",
+        "aciklama": "在面向客户的页面上使用您自己的标志、颜色和字体：电子名片、二维码菜单、预约、活动、课程等，一次设置即可。"
       }
     },
     "kategori": {
@@ -275,7 +279,8 @@
       "ai_hakki": "每月 AI 出题次数",
       "belge_siniri": "每个账户自建文档上限",
       "personel_siniri": "在职员工上限",
-      "dosya_siniri": "最多未结案件（进行中 + 暂停）"
+      "dosya_siniri": "最多未结案件（进行中 + 暂停）",
+      "rozet_gizle": "隐藏页面上的“由 mehmetkuru.dev 提供”标识"
     },
     "musteri": {
       "baslik": "我的模块",
@@ -321,7 +326,9 @@
       "ayarKaydet": "保存设置",
       "ayarKaydedildi": "{{ad}} 的设置已保存。",
       "musteriHata": "无法加载该客户的模块。",
-      "bosGenel": "留空：使用通用设置"
+      "bosGenel": "留空：使用通用设置",
+      "markaDuzenle": "编辑品牌",
+      "markaKapat": "关闭品牌编辑器"
     },
     "hata": {
       "bagimlilik_kapali": "请先启用：{{moduller}}",

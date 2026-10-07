@@ -21,6 +21,8 @@ import {
 } from 'lucide-react';
 
 import GuvenliMarkdown from '@/components/asistanlar/GuvenliMarkdown';
+import { MarkaBasligi, rozetGorunur } from '@/components/marka/MarkaParcalari';
+import { etkinRenk, markaKabugu, type AcikMarka, type MarkaKabugu } from '@/lib/marka';
 import {
   DIL_ADLARI,
   ETKINLIK_DILLERI,
@@ -57,6 +59,11 @@ import {
  *   /etkinlikler/<slug>                hesabın etkinlik listesi
  *
  * Metinler sayfanın KENDİ dilinde (ziyaretçi seçimi → etkinlik dili); ek paket `etkinlikSayfa`.
+ *
+ * Faz 4L — marka teması: etkinlik / bilet / liste yanıtındaki `marka` (hesabın markası) sayfa
+ * kabına `data-marka` + `--marka-*` olarak uygulanıyor (ana düğmeler, köşeler, yazı tipi —
+ * `components/marka/marka.css`), üstte marka logosu; etkinliğin kendi rengi seçiliyse şerit o
+ * renkte. Kapı okutma ekranlarında (giriş/okut) marka yok. Rozet yönetici gizlediyse yok.
  */
 
 const Okutucu = lazy(() => import('@/components/etkinlik/Okutucu'));
@@ -225,6 +232,7 @@ export default function EtkinlikSayfasi({ gorunum }: { gorunum: EtkinlikGorunumu
   const [t, setT] = useState<TFunction | null>(null);
   const [baslik, setBaslik] = useState('');
   const [indeks, setIndeks] = useState(false);
+  const [marka, setMarka] = useState<AcikMarka | null>(null);
 
   const hazirla = useCallback(async (yedek: string) => {
     const d = dilSec(sorgu('dil'), depoOku(DIL_ANAHTARI), yedek || 'tr');
@@ -291,7 +299,8 @@ export default function EtkinlikSayfasi({ gorunum }: { gorunum: EtkinlikGorunumu
     return () => gozlemci.disconnect();
   }, [gomulu]);
 
-  const ortak = { t, dil: dil || 'tr', gomulu, hazirla, setBaslik, setIndeks };
+  const ortak = { t, dil: dil || 'tr', gomulu, hazirla, setBaslik, setIndeks, marka, setMarka };
+  const markaOz: MarkaKabugu = karanlik ? {} : markaKabugu(marka, dil || 'tr');
 
   let icerik: ReactNode;
   if (gorunum === 'etkinlik') icerik = <EtkinlikGorunum slug={p.slug || ''} {...ortak} />;
@@ -305,7 +314,10 @@ export default function EtkinlikSayfasi({ gorunum }: { gorunum: EtkinlikGorunumu
       data-testid="etkinlik-sayfasi"
       data-gorunum={gorunum}
       data-gomulu={gomulu ? '1' : '0'}
+      data-marka={markaOz['data-marka']}
+      style={markaOz.style}
     >
+      {!karanlik && <MarkaBasligi marka={marka} className="mx-auto mb-4 max-w-3xl px-1" />}
       {icerik}
       {t && dil && !gomulu && (
         <footer className={`mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-between gap-3 px-1 pb-4 text-xs ${karanlik ? 'text-zinc-500' : 'text-zinc-500'}`}>
@@ -325,9 +337,11 @@ export default function EtkinlikSayfasi({ gorunum }: { gorunum: EtkinlikGorunumu
               ))}
             </select>
           </label>
-          <a href="/" className="hover:underline">
-            {t('etkinlikSayfa.altBilgi')}
-          </a>
+          {(karanlik || rozetGorunur(marka)) && (
+            <a href="/" target="_blank" rel="noopener" className="hover:underline" data-testid="marka-rozet">
+              {t('etkinlikSayfa.altBilgi')}
+            </a>
+          )}
         </footer>
       )}
     </div>
@@ -341,6 +355,9 @@ interface OrtakOzellikler {
   hazirla: (yedek: string) => Promise<void>;
   setBaslik: (b: string) => void;
   setIndeks: (v: boolean) => void;
+  /** Faz 4L: hesabın marka teması (yanıttaki `marka`). */
+  marka: AcikMarka | null;
+  setMarka: (m: AcikMarka | null) => void;
 }
 
 function Yukleniyor({ t }: { t: TFunction | null }) {
@@ -437,7 +454,7 @@ function Konum({ t, bicim, mekan, adres, harita, online }: { t: TFunction; bicim
 // ===========================================================================
 // Etkinlik + kayıt
 // ===========================================================================
-function EtkinlikGorunum({ slug, t, dil, gomulu, hazirla, setBaslik, setIndeks }: OrtakOzellikler & { slug: string }) {
+function EtkinlikGorunum({ slug, t, dil, gomulu, hazirla, setBaslik, setIndeks, marka, setMarka }: OrtakOzellikler & { slug: string }) {
   const [yukleme, setYukleme] = useState<Yukleme>('yukleniyor');
   const [e, setE] = useState<AcikEtkinlik | null>(null);
   const [gizliKod, setGizliKod] = useState(() => sorgu('kod') || '');
@@ -480,12 +497,13 @@ function EtkinlikGorunum({ slug, t, dil, gomulu, hazirla, setBaslik, setIndeks }
     setE(v);
     setBaslik(v.baslik);
     setIndeks(v.indekslenebilir);
+    setMarka((v as { marka?: AcikMarka }).marka ?? null);
     if (v.davet) {
       setAd((x) => x || v.davet?.ad || '');
       setEposta((x) => x || v.davet?.eposta || '');
     }
     setYukleme('hazir');
-  }, [slug, gizliKod, davet, hazirla, setBaslik, setIndeks]);
+  }, [slug, gizliKod, davet, hazirla, setBaslik, setIndeks, setMarka]);
 
   useEffect(() => {
     void yukle();
@@ -708,7 +726,7 @@ function EtkinlikGorunum({ slug, t, dil, gomulu, hazirla, setBaslik, setIndeks }
         {kapak ? (
           <img src={kapak} alt="" className="aspect-[2/1] w-full object-cover" width={1200} height={600} />
         ) : (
-          <div className="h-2 w-full" style={{ background: e.renk || '#7c3aed' }} aria-hidden="true" />
+          <div className="h-2 w-full" style={{ background: etkinRenk(e.renk, marka, e.renk || '#7c3aed') }} aria-hidden="true" />
         )}
         <div className="space-y-4 p-5 sm:p-7">
           <div className="flex flex-wrap items-center gap-2">
@@ -1056,7 +1074,7 @@ function IzinVeBalKupu({ t, metin, izin, setIzin, balKupu, setBalKupu, kvkk }: {
 // ===========================================================================
 // Bilet sayfası
 // ===========================================================================
-function BiletGorunum({ jeton, t, dil, hazirla, setBaslik, setIndeks }: OrtakOzellikler & { slug: string; jeton: string }) {
+function BiletGorunum({ jeton, t, dil, hazirla, setBaslik, setIndeks, setMarka }: OrtakOzellikler & { slug: string; jeton: string }) {
   const [yukleme, setYukleme] = useState<Yukleme>('yukleniyor');
   const [v, setV] = useState<BiletVerisi | null>(null);
   const [mesgul, setMesgul] = useState(false);
@@ -1075,12 +1093,13 @@ function BiletGorunum({ jeton, t, dil, hazirla, setBaslik, setIndeks }: OrtakOze
       }
       setV(y.veri);
       setBaslik(y.veri.etkinlik.baslik);
+      setMarka((y.veri as { marka?: AcikMarka }).marka ?? null);
       setYukleme('hazir');
     })();
     return () => {
       iptal = true;
     };
-  }, [jeton, hazirla, setBaslik, setIndeks]);
+  }, [jeton, hazirla, setBaslik, setIndeks, setMarka]);
 
   if (yukleme === 'yukleniyor' || !t) return <Yukleniyor t={t} />;
   if (yukleme !== 'hazir' || !v) return <Durum t={t} durum={yukleme} />;
@@ -1218,7 +1237,7 @@ function BiletGorunum({ jeton, t, dil, hazirla, setBaslik, setIndeks }: OrtakOze
 // ===========================================================================
 // Hesabın etkinlik listesi
 // ===========================================================================
-function ListeGorunum({ slug, t, dil, gomulu, hazirla, setBaslik, setIndeks }: OrtakOzellikler & { slug: string }) {
+function ListeGorunum({ slug, t, dil, gomulu, hazirla, setBaslik, setIndeks, setMarka }: OrtakOzellikler & { slug: string }) {
   const [yukleme, setYukleme] = useState<Yukleme>('yukleniyor');
   const [v, setV] = useState<ListeVerisi | null>(null);
   const [gecmis, setGecmis] = useState(false);
@@ -1236,12 +1255,13 @@ function ListeGorunum({ slug, t, dil, gomulu, hazirla, setBaslik, setIndeks }: O
       }
       setV(y.veri);
       setBaslik(y.veri.baslik);
+      setMarka((y.veri as { marka?: AcikMarka }).marka ?? null);
       setYukleme('hazir');
     })();
     return () => {
       iptal = true;
     };
-  }, [slug, gecmis, hazirla, setBaslik, setIndeks]);
+  }, [slug, gecmis, hazirla, setBaslik, setIndeks, setMarka]);
 
   if (yukleme === 'yukleniyor' || !t) return <Yukleniyor t={t} />;
   if (yukleme !== 'hazir' || !v) return <Durum t={t} durum={yukleme} />;

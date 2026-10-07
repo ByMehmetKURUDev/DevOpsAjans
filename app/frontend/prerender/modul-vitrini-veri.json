@@ -106,6 +106,21 @@
       ]
     },
     {
+      "anahtar": "marka_temasi",
+      "slug": "marka-temasi",
+      "ikon": "Palette",
+      "kategori": "dijital_kimlik",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "dinamik_qr",
+        "dijital_kartvizit",
+        "google_yorum_sayfasi",
+        "qr_menu"
+      ],
+      "sektor_paketleri": []
+    },
+    {
       "anahtar": "randevu",
       "slug": "randevu",
       "ikon": "CalendarCheck",

@@ -1236,6 +1236,13 @@ def _acik_sayfa_sozlugu(p: RandevuSayfalari) -> Dict[str, Any]:
     }
 
 
+async def _marka(db: AsyncSession, p: RandevuSayfalari) -> Dict[str, Any]:
+    """Faz 4L: marka teması (sayfanın kendi rengi varsayılandan farklıysa o öncelikli)."""
+    from services.marka import acik_marka, renk_ozel_mi
+
+    return await acik_marka(db, p.hesap_email, sayfa_ozel=renk_ozel_mi(p.renk, "#7c3aed"))
+
+
 def _robots(p: RandevuSayfalari) -> Dict[str, str]:
     return {} if p.arama_motoru else {"X-Robots-Tag": "noindex"}
 
@@ -1246,7 +1253,8 @@ async def acik_sayfa(slug: str, request: Request, arka: BackgroundTasks, db: Asy
     turler = list((await db.execute(select(RandevuTurleri).where(RandevuTurleri.sayfa_id == p.id, RandevuTurleri.aktif.is_(True))
                                     .order_by(RandevuTurleri.sira, RandevuTurleri.id))).scalars().all())
     sahipler = await _ev_sahipleri(db, p, turler)
-    veri = {**_acik_sayfa_sozlugu(p), "turler": [_acik_tur_sozlugu(t, sahipler.get(t.id, [])) for t in turler]}
+    veri = {**_acik_sayfa_sozlugu(p), "turler": [_acik_tur_sozlugu(t, sahipler.get(t.id, [])) for t in turler],
+            "marka": await _marka(db, p)}
     _olay_ekle(arka, request, p.id, "sayfa")
     return JSONResponse(veri, headers={**ACIK_BASLIKLAR, "Cache-Control": "no-cache", **_robots(p)})
 
@@ -1258,7 +1266,7 @@ async def acik_ozet(slug: str, tur: Optional[str] = Query(None), db: AsyncSessio
     veri: Dict[str, Any] = {
         "slug": p.slug, "baslik": p.baslik, "aciklama": (p.karsilama or "")[:300], "dil": p.dil,
         "gorsel": _gorsel_adresi(p.logo, mutlak=True), "renk": p.renk, "indekslenebilir": bool(p.arama_motoru),
-        "adres_url": s.sayfa_adresi(p.slug), "tur": None,
+        "adres_url": s.sayfa_adresi(p.slug), "tur": None, "marka": await _marka(db, p),
     }
     if tur and s.SLUG_DESENI.match(tur.strip().lower()):
         t = (await db.execute(select(RandevuTurleri).where(RandevuTurleri.sayfa_id == p.id, RandevuTurleri.slug == tur.strip().lower(),
@@ -1275,7 +1283,8 @@ async def acik_tur(slug: str, tur: str, request: Request, arka: BackgroundTasks,
     t = await _yayinda_tur(db, p, tur)
     sahipler = await _ev_sahipleri(db, p, [t])
     _olay_ekle(arka, request, p.id, "tur", t.id)
-    return JSONResponse({"sayfa": _acik_sayfa_sozlugu(p), "tur": _acik_tur_sozlugu(t, sahipler.get(t.id, []), ayrintili=True)},
+    return JSONResponse({"sayfa": _acik_sayfa_sozlugu(p), "tur": _acik_tur_sozlugu(t, sahipler.get(t.id, []), ayrintili=True),
+                         "marka": await _marka(db, p)},
                         headers={**ACIK_BASLIKLAR, "Cache-Control": "no-cache", **_robots(p)})
 
 
@@ -1453,7 +1462,8 @@ def _degistirilebilir_mi(b: rk.Baglam, r: Randevular) -> None:
 @islem_router.get("/{jeton}")
 async def islem_ozeti(jeton: str, request: Request, db: AsyncSession = Depends(get_db)):
     r, b = await _jetonlu(db, request, jeton)
-    return JSONResponse(_acik_randevu_sozlugu(b, r), headers={**ACIK_BASLIKLAR, "X-Robots-Tag": "noindex"})
+    return JSONResponse({**_acik_randevu_sozlugu(b, r), "marka": await _marka(db, b.sayfa)},
+                        headers={**ACIK_BASLIKLAR, "X-Robots-Tag": "noindex"})
 
 
 @islem_router.post("/{jeton}/iptal")

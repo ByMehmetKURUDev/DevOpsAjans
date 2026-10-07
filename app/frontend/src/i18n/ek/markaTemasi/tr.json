@@ -1,0 +1,84 @@
+{
+  "markaTemasi": {
+    "baslik": "Marka",
+    "aciklama": "Logonuz, renkleriniz ve yazı tipiniz müşteri sayfalarınızda (kartvizit, QR menü, randevu, etkinlik, eğitim…) varsayılan tema olur. Bir sayfada kendi seçtiğiniz renk varsa o öncelikli kalır.",
+    "modulKapali": "Modül bu hesapta kapalı: ayarlar kaydedilir ama sayfalara uygulanmaz.",
+    "alan": {
+      "ad": "Marka adı",
+      "adIpucu": "Logonun alternatif metni ve e-posta başlığında görünür.",
+      "logo": "Logo",
+      "ana": "Ana renk",
+      "vurgu": "Vurgu rengi",
+      "zemin": "Zemin",
+      "kose": "Köşeler",
+      "yaziTipi": "Yazı tipi"
+    },
+    "zemin": {
+      "acik": "Açık",
+      "koyu": "Koyu"
+    },
+    "kose": {
+      "keskin": "Keskin",
+      "yumusak": "Yumuşak",
+      "yuvarlak": "Yuvarlak"
+    },
+    "yaziTipi": {
+      "jakarta": "Plus Jakarta Sans",
+      "sistem_sans": "Sistem yazı tipi (tırnaksız)",
+      "sistem_serif": "Sistem yazı tipi (tırnaklı)",
+      "mono": "Eş aralıklı (mono)"
+    },
+    "logoYukle": "Logo yükle",
+    "logoDegistir": "Değiştir",
+    "logoKaldir": "Kaldır",
+    "logoYuklendi": "Logo yüklendi",
+    "logoNot": "PNG, JPEG ya da WebP; en çok 2 MB. Güvenlik nedeniyle SVG kabul edilmez.",
+    "kaydet": "Kaydet",
+    "kaydedildi": "Marka kaydedildi",
+    "sifirla": "Varsayılana dön",
+    "sifirlaOnay": "Marka ayarları ve logo silinsin mi?",
+    "sifirlandi": "Marka varsayılana döndü",
+    "kontrast": {
+      "yeterli": "Kontrast yeterli ({{oran}}:1)",
+      "yetersiz": "Kontrast düşük ({{oran}}:1 — en az {{esik}}:1 olmalı)",
+      "uygula": "Öneriyi uygula: {{renk}}",
+      "yaziRengi": "Düğme yazısı otomatik seçildi: {{renk}}.",
+      "beyaz": "beyaz",
+      "koyu": "koyu"
+    },
+    "onizleme": {
+      "baslik": "Canlı önizleme",
+      "ornekBaslik": "Örnek başlık",
+      "ornekMetin": "Ziyaretçileriniz sayfanızı böyle görecek.",
+      "dugme": "Randevu al",
+      "baglanti": "Bağlantı örneği"
+    },
+    "rozet": {
+      "gorunur": "Sayfalarınızın altında küçük \"mehmetkuru.dev ile hazırlandı\" rozeti görünüyor.",
+      "gizli": "\"mehmetkuru.dev ile hazırlandı\" rozeti gizli.",
+      "yalnizAjans": "Rozeti yalnız ajans değiştirebilir.",
+      "yoneticiNot": "Değiştirmek için aşağıdaki modül ayarlarında \"Rozeti gizle\"yi kullanın."
+    },
+    "uygulananSayfalar": "Uygulandığı sayfalar: dijital kartvizit, Google yorum, QR menü, randevu, etkinlik, eğitim, AI asistan, saha servisi ve bülten.",
+    "hata": {
+      "genel": "İşlem tamamlanamadı. Lütfen yeniden deneyin.",
+      "ag": "Bağlantı kurulamadı.",
+      "cok_hizli": "Çok hızlı denendi; biraz sonra yeniden deneyin.",
+      "renk_gecersiz": "Renk #rrggbb biçiminde olmalı (ör. #1d4ed8).",
+      "ad_gecersiz": "Marka adı en çok 80 karakter olabilir ve < > içeremez.",
+      "zemin_gecersiz": "Geçersiz zemin.",
+      "kose_gecersiz": "Geçersiz köşe seçimi.",
+      "yazi_tipi_gecersiz": "Geçersiz yazı tipi.",
+      "svg_desteklenmiyor": "SVG logolar güvenlik nedeniyle kabul edilmiyor; PNG ya da WebP yükleyin.",
+      "logo_buyuk": "Logo en çok 2 MB olabilir.",
+      "logo_bicimi": "Yalnız PNG, JPEG ya da WebP yükleyebilirsiniz.",
+      "logo_boyutu": "Logo en az 16, en çok 4096 piksel olmalı.",
+      "dosya_bos": "Dosya boş.",
+      "depo_hatasi": "Dosya deposuna yazılamadı; biraz sonra yeniden deneyin.",
+      "marka_yetkisi_yok": "Markayı yalnız hesap sahibi ya da hesap yöneticisi değiştirebilir.",
+      "yalniz_yonetici": "Bu ayarı yalnız ajans değiştirebilir.",
+      "modul_kapali": "Marka teması modülü hesabınızda açık değil.",
+      "hesap_uyesi_degil": "Bu hesapta yetkiniz yok."
+    }
+  }
+}

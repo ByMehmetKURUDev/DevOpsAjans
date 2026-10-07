@@ -208,6 +208,10 @@
       "hukuk_burosu": {
         "ad": "Anwaltskanzlei",
         "aciklama": "Für Anwältinnen, Anwälte und Kanzleien: Mandanten- und Aktenverwaltung, Gegenparteien mit Hinweis auf Interessenkonflikte, Kalender für Verhandlungen und Fristen, Fristenrechner, Erinnerungen, Zeit- und Auslagenerfassung (PDF-Aufstellung), Dokumentanhänge und ein privater Statuslink für Mandanten. Ruft keine Daten automatisch aus UYAP ab."
+      },
+      "marka_temasi": {
+        "ad": "Markendesign",
+        "aciklama": "Ihr eigenes Logo, Ihre Farben und Ihre Schrift auf Ihren Kundenseiten: Visitenkarte, QR-Speisekarte, Terminbuchung, Veranstaltungen, Kurse und mehr – mit einer Einstellung."
       }
     },
     "kategori": {
@@ -275,7 +279,8 @@
       "ai_hakki": "KI-Fragenerstellungen pro Monat",
       "belge_siniri": "Höchstzahl eigener Dokumente pro Konto",
       "personel_siniri": "Höchstzahl aktives Personal",
-      "dosya_siniri": "Max. offene Akten (offen + ruhend)"
+      "dosya_siniri": "Max. offene Akten (offen + ruhend)",
+      "rozet_gizle": "Abzeichen „Erstellt mit mehmetkuru.dev“ auf Seiten ausblenden"
     },
     "musteri": {
       "baslik": "Meine Module",
@@ -321,7 +326,9 @@
       "ayarKaydet": "Einstellungen speichern",
       "ayarKaydedildi": "Einstellungen für {{ad}} gespeichert.",
       "musteriHata": "Module des Kunden konnten nicht geladen werden.",
-      "bosGenel": "Leer: allgemeine Einstellung"
+      "bosGenel": "Leer: allgemeine Einstellung",
+      "markaDuzenle": "Marke bearbeiten",
+      "markaKapat": "Markeneditor schließen"
     },
     "hata": {
       "bagimlilik_kapali": "Aktivieren Sie zuerst: {{moduller}}",

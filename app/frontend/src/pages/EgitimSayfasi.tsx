@@ -31,6 +31,8 @@ import {
 } from 'lucide-react';
 
 import GuvenliMarkdown from '@/components/asistanlar/GuvenliMarkdown';
+import { MarkaBasligi, rozetGorunur } from '@/components/marka/MarkaParcalari';
+import { etkinRenk, markaKabugu, type AcikMarka, type MarkaKabugu } from '@/lib/marka';
 import { seciliHesap } from '@/lib/hesapSecimi';
 import {
   DIL_ADLARI,
@@ -63,6 +65,10 @@ import {
  *   /egitim/kurum/<slug>           hesabın kurs listesi
  *
  * Metinler sayfanın KENDİ dilinde (ziyaretçi seçimi → kurs dili); ek paket `egitimSayfa`.
+ *
+ * Faz 4L — marka teması: kurs / öğrenci / kurum yanıtındaki `marka` sayfa kabına `data-marka` +
+ * `--marka-*` (ana düğmeler, köşeler, yazı tipi — `components/marka/marka.css`), üstte marka logosu;
+ * kursun kendi rengi seçiliyse şerit o renkte. Okutucuda marka yok. Rozet yönetici gizlediyse yok.
  */
 
 const Okutucu = lazy(() => import('@/components/etkinlik/Okutucu'));
@@ -285,6 +291,7 @@ export default function EgitimSayfasi({ gorunum }: { gorunum: EgitimGorunumu }) 
   const [t, setT] = useState<TFunction | null>(null);
   const [baslik, setBaslik] = useState('');
   const [indeks, setIndeks] = useState(false);
+  const [marka, setMarka] = useState<AcikMarka | null>(null);
 
   const hazirla = useCallback(async (yedek: string) => {
     const d = dilSec(sorgu('dil'), depoOku(DIL_ANAHTARI), yedek || 'tr');
@@ -331,7 +338,8 @@ export default function EgitimSayfasi({ gorunum }: { gorunum: EgitimGorunumu }) 
     etiket.content = indeks && gorunum === 'kurs' ? 'index, follow' : 'noindex, nofollow';
   }, [baslik, indeks, gorunum]);
 
-  const ortak = { t, dil: dil || 'tr', hazirla, setBaslik, setIndeks };
+  const ortak = { t, dil: dil || 'tr', hazirla, setBaslik, setIndeks, marka, setMarka };
+  const markaOz: MarkaKabugu = karanlik ? {} : markaKabugu(marka, dil || 'tr');
 
   let icerik: ReactNode;
   if (gorunum === 'kurs') icerik = <KursGorunum slug={p.slug || ''} {...ortak} />;
@@ -342,7 +350,14 @@ export default function EgitimSayfasi({ gorunum }: { gorunum: EgitimGorunumu }) 
   else icerik = <OkutGorunum kid={Number(p.kid || 0)} oid={Number(p.oid || 0)} t={t} dil={dil || 'tr'} setBaslik={setBaslik} />;
 
   return (
-    <div className={`${karanlik ? 'min-h-screen text-white' : 'min-h-screen px-3 py-6 text-zinc-900 sm:px-6 sm:py-10'}`} data-testid="egitim-sayfasi" data-gorunum={gorunum}>
+    <div
+      className={`${karanlik ? 'min-h-screen text-white' : 'min-h-screen px-3 py-6 text-zinc-900 sm:px-6 sm:py-10'}`}
+      data-testid="egitim-sayfasi"
+      data-gorunum={gorunum}
+      data-marka={markaOz['data-marka']}
+      style={markaOz.style}
+    >
+      {!karanlik && <MarkaBasligi marka={marka} className="mx-auto mb-4 max-w-3xl px-1" />}
       {icerik}
       {t && dil && (
         <footer className="mx-auto mt-8 flex max-w-3xl flex-wrap items-center justify-between gap-3 px-1 pb-4 text-xs text-zinc-500">
@@ -362,9 +377,11 @@ export default function EgitimSayfasi({ gorunum }: { gorunum: EgitimGorunumu }) 
               ))}
             </select>
           </label>
-          <a href="/" className="hover:underline">
-            {t('egitimSayfa.altBilgi')}
-          </a>
+          {(karanlik || rozetGorunur(marka)) && (
+            <a href="/" target="_blank" rel="noopener" className="hover:underline" data-testid="marka-rozet">
+              {t('egitimSayfa.altBilgi')}
+            </a>
+          )}
         </footer>
       )}
     </div>
@@ -377,6 +394,9 @@ interface OrtakOzellikler {
   hazirla: (yedek: string) => Promise<void>;
   setBaslik: (b: string) => void;
   setIndeks: (v: boolean) => void;
+  /** Faz 4L: hesabın marka teması (yanıttaki `marka`). */
+  marka: AcikMarka | null;
+  setMarka: (m: AcikMarka | null) => void;
 }
 
 function Yukleniyor({ t }: { t: TFunction | null }) {
@@ -422,7 +442,7 @@ function Seridi({ renk }: { renk: string }) {
 // ===========================================================================
 // Kurs + kayıt
 // ===========================================================================
-function KursGorunum({ slug, t, dil, hazirla, setBaslik, setIndeks }: OrtakOzellikler & { slug: string }) {
+function KursGorunum({ slug, t, dil, hazirla, setBaslik, setIndeks, marka, setMarka }: OrtakOzellikler & { slug: string }) {
   const [yukleme, setYukleme] = useState<Yukleme>('yukleniyor');
   const [k, setK] = useState<AcikKurs | null>(null);
   const [cocukSecimi, setCocukSecimi] = useState(false);
@@ -443,8 +463,9 @@ function KursGorunum({ slug, t, dil, hazirla, setBaslik, setIndeks }: OrtakOzell
     setK(y.veri);
     setBaslik(y.veri.ad);
     setIndeks(!!y.veri.indekslenebilir);
+    setMarka((y.veri as { marka?: AcikMarka }).marka ?? null);
     setYukleme('hazir');
-  }, [slug, hazirla, setBaslik, setIndeks]);
+  }, [slug, hazirla, setBaslik, setIndeks, setMarka]);
 
   useEffect(() => {
     void yukle();
@@ -505,7 +526,7 @@ function KursGorunum({ slug, t, dil, hazirla, setBaslik, setIndeks }: OrtakOzell
         </section>
       )}
       <article className={KART}>
-        <Seridi renk={k.renk} />
+        <Seridi renk={etkinRenk(k.renk, marka, k.renk || '#2563eb')} />
         <div className="space-y-4 p-5 sm:p-7">
           <div className="flex flex-wrap gap-1.5">
             <BicimRozeti t={t} bicim={k.bicim} />
@@ -701,7 +722,7 @@ function KursGorunum({ slug, t, dil, hazirla, setBaslik, setIndeks }: OrtakOzell
 // ===========================================================================
 type PortalSekme = 'ozet' | 'dersler' | 'quiz' | 'program';
 
-function OgrenciGorunum({ jeton, t, dil, hazirla, setBaslik, setIndeks }: OrtakOzellikler & { jeton: string }) {
+function OgrenciGorunum({ jeton, t, dil, hazirla, setBaslik, setIndeks, marka, setMarka }: OrtakOzellikler & { jeton: string }) {
   const [yukleme, setYukleme] = useState<Yukleme>('yukleniyor');
   const [v, setV] = useState<PortalVerisi | null>(null);
   const [sekme, setSekme] = useState<PortalSekme>('ozet');
@@ -720,8 +741,9 @@ function OgrenciGorunum({ jeton, t, dil, hazirla, setBaslik, setIndeks }: OrtakO
     jetonSakla(jeton);
     setV(y.veri);
     setBaslik(y.veri.kurs.ad);
+    setMarka((y.veri as { marka?: AcikMarka }).marka ?? null);
     setYukleme('hazir');
-  }, [taban, jeton, hazirla, setBaslik, setIndeks]);
+  }, [taban, jeton, hazirla, setBaslik, setIndeks, setMarka]);
 
   useEffect(() => {
     void yukle();
@@ -745,7 +767,7 @@ function OgrenciGorunum({ jeton, t, dil, hazirla, setBaslik, setIndeks }: OrtakO
   return (
     <main className="mx-auto max-w-3xl space-y-4" data-testid="egitim-portal" data-durum={v.ogrenci.durum}>
       <header className={KART}>
-        <Seridi renk={v.kurs.renk} />
+        <Seridi renk={etkinRenk(v.kurs.renk, marka, v.kurs.renk || '#2563eb')} />
         <div className="flex flex-wrap items-center gap-3 p-5">
           <div className="min-w-0 flex-1">
             <p className="text-xs text-zinc-500">{t('egitimSayfa.portal.merhaba', { ad: v.ogrenci.ad })}</p>
@@ -1598,7 +1620,7 @@ function SertifikaGorunum({ kod, t, dil, setBaslik, setIndeks }: OrtakOzellikler
 // ===========================================================================
 // Kurum kurs listesi
 // ===========================================================================
-function KurumGorunum({ slug, t, dil, hazirla, setBaslik, setIndeks }: OrtakOzellikler & { slug: string }) {
+function KurumGorunum({ slug, t, dil, hazirla, setBaslik, setIndeks, setMarka }: OrtakOzellikler & { slug: string }) {
   const [yukleme, setYukleme] = useState<Yukleme>('yukleniyor');
   const [gecmis, setGecmis] = useState(false);
   const [v, setV] = useState<{ baslik: string; aciklama: string; kurum_adi: string; items: { slug: string; ad: string; ozet: string; renk: string; bicim: Bicim; baslangic_tarihi: string | null; bitis_tarihi: string | null; fiyat_metni: string; durum: string; egitmenler: string[] }[] } | null>(null);
@@ -1616,12 +1638,13 @@ function KurumGorunum({ slug, t, dil, hazirla, setBaslik, setIndeks }: OrtakOzel
       }
       setV(y.veri);
       setBaslik(y.veri.baslik || y.veri.kurum_adi);
+      setMarka((y.veri as { marka?: AcikMarka }).marka ?? null);
       setYukleme('hazir');
     })();
     return () => {
       iptal = true;
     };
-  }, [slug, gecmis, hazirla, setBaslik, setIndeks]);
+  }, [slug, gecmis, hazirla, setBaslik, setIndeks, setMarka]);
 
   if (yukleme === 'yukleniyor' || !t) return <Yukleniyor t={t} />;
   if (yukleme !== 'hazir' || !v) return <Durum t={t} durum={yukleme} />;

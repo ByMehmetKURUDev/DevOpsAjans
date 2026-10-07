@@ -208,6 +208,10 @@
       "hukuk_burosu": {
         "ad": "Hukuk bürosu",
         "aciklama": "Avukatlar ve hukuk büroları için: müvekkil ve dosya takibi, karşı taraf ve çıkar çatışması uyarısı, duruşma ve kesin süre takvimi, süre hesaplayıcı, hatırlatmalar, saat ve masraf kaydı (PDF döküm), belge ekleri ve müvekkile özel bilgilendirme bağlantısı. UYAP'tan otomatik veri çekmez."
+      },
+      "marka_temasi": {
+        "ad": "Marka teması",
+        "aciklama": "Müşteri sayfalarınızda kendi logonuz, renkleriniz ve yazı tipiniz: kartvizit, QR menü, randevu, etkinlik, eğitim ve daha fazlası tek ayarla."
       }
     },
     "kategori": {
@@ -275,7 +279,8 @@
       "ai_hakki": "Aylık AI soru üretimi",
       "belge_siniri": "Hesap başına en çok kendi belgesi",
       "personel_siniri": "En çok aktif personel",
-      "dosya_siniri": "En çok açık dosya (açık + beklemede)"
+      "dosya_siniri": "En çok açık dosya (açık + beklemede)",
+      "rozet_gizle": "Sayfalardaki \"mehmetkuru.dev ile hazırlandı\" rozetini gizle"
     },
     "musteri": {
       "baslik": "Modüllerim",
@@ -321,7 +326,9 @@
       "ayarKaydet": "Ayarları kaydet",
       "ayarKaydedildi": "{{ad}} ayarları kaydedildi.",
       "musteriHata": "Müşterinin modülleri yüklenemedi.",
-      "bosGenel": "Boş: genel ayar"
+      "bosGenel": "Boş: genel ayar",
+      "markaDuzenle": "Markayı düzenle",
+      "markaKapat": "Marka düzenleyiciyi kapat"
     },
     "hata": {
       "bagimlilik_kapali": "Önce şunları açın: {{moduller}}",

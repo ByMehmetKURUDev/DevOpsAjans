@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from 'react';
+import { useState, type CSSProperties, type FormEvent, type ReactNode } from 'react';
 import {
   BookOpen,
   Briefcase,
@@ -148,6 +148,8 @@ export default function KartGorunumu({
   onQr,
   onGonder,
   ust,
+  stil,
+  rozet = true,
 }: {
   kart: AcikKart;
   m: Cevirmen;
@@ -158,6 +160,10 @@ export default function KartGorunumu({
   onQr?: () => void;
   onGonder?: (veri: FormVerisi) => Promise<FormSonucu>;
   ust?: ReactNode;
+  /** Faz 4L: tema stilinin üstüne eklenen stil (marka zemini, yazı tipi, `--marka-*`). */
+  stil?: CSSProperties;
+  /** Faz 4L: "mehmetkuru.dev ile hazırlandı" (yönetici marka modülünde gizleyebilir). */
+  rozet?: boolean;
 }) {
   const bio = kart.duzen === 'bio_link';
   const yon = kart.dil === 'ar' ? 'rtl' : 'ltr';
@@ -382,7 +388,7 @@ export default function KartGorunumu({
   const form = kart.form.acik && <IletisimFormu kart={kart} m={m} onizleme={onizleme} onGonder={onGonder} />;
 
   return (
-    <div lang={kart.dil} dir={yon} className="w-full" style={temaStili(kart.tema, kart.dil)} data-testid="kart-gorunumu" data-duzen={kart.duzen}>
+    <div lang={kart.dil} dir={yon} className="w-full" style={{ ...temaStili(kart.tema, kart.dil), ...stil }} data-testid="kart-gorunumu" data-duzen={kart.duzen}>
       <div className="mx-auto w-full max-w-md space-y-3 px-4 pb-10 pt-6">
         {ust}
         {profil}
@@ -420,11 +426,13 @@ export default function KartGorunumu({
         {saatler}
         {galeri}
         {form}
-        <p className="pt-2 text-center text-[11px] kv-soluk">
-          <a href="https://mehmetkuru.dev/" className="hover:underline" target="_blank" rel="noopener">
-            {m('altBilgi')}
-          </a>
-        </p>
+        {rozet && (
+          <p className="pt-2 text-center text-[11px] kv-soluk" data-testid="marka-rozet">
+            <a href="https://mehmetkuru.dev/" className="hover:underline" target="_blank" rel="noopener">
+              {m('altBilgi')}
+            </a>
+          </p>
+        )}
       </div>
     </div>
   );

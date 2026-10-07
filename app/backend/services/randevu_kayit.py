@@ -346,10 +346,14 @@ async def _ziyaretciye(db: AsyncSession, b: Baglam, r: Randevular, tur: str, onc
             "icerik": s.ics_uret([ics_etkinligi(b, r, dil, iptal=tur == "iptal")], yontem),
             "tur": f"text/calendar; method={yontem}; charset=UTF-8",
         })
+    # Faz 4L: sayfanın sahibinde marka teması açıksa HTML sürümünde marka başlığı (logo + ana renk).
+    from services.marka import eposta_eki
+
+    ek = await eposta_eki(db, b.sayfa.hesap_email, konu, govde, {"ekler": ekler} if ekler else None)
     satirlar = await dispatch(
         db, event_type=ZIYARETCI_OLAYI, title=konu, body=govde,
         recipients=[{"email": r.eposta, "role": "client"}],
-        link=None, ref_type="randevular", ref_id=r.id, eposta_ek={"ekler": ekler} if ekler else None,
+        link=None, ref_type="randevular", ref_id=r.id, eposta_ek=ek,
     )
     # Ziyaretçi bir panel kullanıcısı değil: panel içi kopyası tutulmaz (yalnız e-posta kaydı kalır).
     # Yönetim bağlantısı bir yetki belgesi: kalıcı bildirim kaydında durmasın.

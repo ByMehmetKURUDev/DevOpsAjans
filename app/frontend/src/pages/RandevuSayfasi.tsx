@@ -18,7 +18,9 @@ import {
   Video,
 } from 'lucide-react';
 
+import { rozetGorunur } from '@/components/marka/MarkaParcalari';
 import { getAPIBaseURL } from '@/lib/config';
+import { ZEMIN_RENKLERI, etkinRenk, markaKabugu, markaLogoAdresi, markaTemasi, type AcikMarka } from '@/lib/marka';
 import {
   DIL_ADLARI,
   RANDEVU_DILLERI,
@@ -453,6 +455,12 @@ export default function RandevuSayfasi() {
   const [sayfa, setSayfa] = useState<AcikSayfa | null>(null);
   const [etkinlik, setEtkinlik] = useState<AcikTur | null>(null);
   const [randevu, setRandevu] = useState<AcikRandevu | null>(null);
+  // Faz 4L: hesabın marka teması (sayfanın kendi rengi seçiliyse `sayfa_ozel`).
+  const [marka, setMarka] = useState<AcikMarka | null>(null);
+  const markaZemini = (() => {
+    const mt = markaTemasi(marka);
+    return mt ? ZEMIN_RENKLERI[mt.zemin].zemin : null;
+  })();
   const [yonetJeton, setYonetJeton] = useState<string>(jeton);
   const [dil, setDil] = useState<RandevuDili>('tr');
   const [t, setT] = useState<TFunction | null>(null);
@@ -498,6 +506,7 @@ export default function RandevuSayfasi() {
         const g = await y.json().catch(() => null);
         if (iptal) return;
         if (y.ok) {
+          setMarka((g as { marka?: AcikMarka } | null)?.marka ?? null);
           if (jeton) {
             const r = g as AcikRandevu;
             setRandevu(r);
@@ -553,14 +562,14 @@ export default function RandevuSayfasi() {
     const eski = { lang: kok.lang, dir: kok.dir, bg: document.body.style.background, baslik: document.title };
     kok.lang = dil;
     kok.dir = dil === 'ar' ? 'rtl' : 'ltr';
-    document.body.style.background = gomulu ? 'transparent' : '#f7f7f8';
+    document.body.style.background = gomulu ? 'transparent' : markaZemini || '#f7f7f8';
     return () => {
       kok.lang = eski.lang;
       kok.dir = eski.dir;
       document.body.style.background = eski.bg;
       document.title = eski.baslik;
     };
-  }, [dil, gomulu]);
+  }, [dil, gomulu, markaZemini]);
   useEffect(() => {
     const ad_ = etkinlik ? `${etkinlik.ad} — ${sayfa?.baslik || ''}` : sayfa?.baslik || randevu?.sayfa.baslik;
     if (ad_) document.title = ad_;
@@ -679,9 +688,16 @@ export default function RandevuSayfasi() {
     );
   }
 
-  const renk = (randevu?.sayfa.renk || sayfa?.renk || '#7c3aed').toLowerCase();
+  // Faz 4L: sayfanın kendi rengi seçiliyse o; değilse marka rengi. Logo yoksa marka logosu.
+  const sayfaRengi = (randevu?.sayfa.renk || sayfa?.renk || '#7c3aed').toLowerCase();
+  const renk = etkinRenk(sayfaRengi, marka, sayfaRengi).toLowerCase();
+  const markaT = markaTemasi(marka);
   const baslik = randevu?.sayfa.baslik || sayfa?.baslik || '';
-  const logo = randevu?.sayfa.logo || sayfa?.logo || null;
+  const sayfaLogosu = randevu?.sayfa.logo || sayfa?.logo || null;
+  const logo = sayfaLogosu || (markaT ? markaLogoAdresi(markaT.logo) : null);
+  // Marka logosu çoğunlukla yatay: kareye kırpılmasın.
+  const logoSinifi = sayfaLogosu ? 'h-12 w-12 flex-none rounded-xl object-cover' : 'h-12 w-auto max-w-[10rem] flex-none object-contain';
+  const markaOz = markaKabugu(marka, dil, renk);
   const dilDugmesi = (
     <label className="flex items-center gap-1 text-xs text-zinc-500">
       <Globe className="h-3.5 w-3.5" aria-hidden="true" />
@@ -697,14 +713,20 @@ export default function RandevuSayfasi() {
   );
 
   const kabuk = (icerik: ReactNode, genis = false) => (
-    <div className={`${gomulu ? 'p-2 sm:p-3' : 'min-h-screen px-3 py-6 sm:px-6 sm:py-10'} text-zinc-900`} style={{ fontFamily: 'inherit' }} data-testid="randevu-sayfasi" data-gomulu={gomulu ? '1' : '0'}>
+    <div
+      className={`${gomulu ? 'p-2 sm:p-3' : 'min-h-screen px-3 py-6 sm:px-6 sm:py-10'} text-zinc-900`}
+      style={markaT ? { ...markaOz.style, fontFamily: 'var(--marka-yazi-tipi)' } : { fontFamily: 'inherit' }}
+      data-marka={markaOz['data-marka']}
+      data-testid="randevu-sayfasi"
+      data-gomulu={gomulu ? '1' : '0'}
+    >
       <main className={`mx-auto ${genis ? 'max-w-4xl' : 'max-w-2xl'} overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-zinc-100`}>
         <div className="h-1.5" style={{ background: renk }} aria-hidden="true" />
         <div className="p-5 sm:p-8">
           <div className="mb-4 flex items-start justify-between gap-3">
             <div className="flex min-w-0 items-center gap-3">
               {logo ? (
-                <img src={logo} alt="" width={48} height={48} className="h-12 w-12 flex-none rounded-xl object-cover" />
+                <img src={logo} alt={sayfaLogosu ? '' : markaT?.ad || ''} width={48} height={48} className={logoSinifi} />
               ) : (
                 <span className="flex h-12 w-12 flex-none items-center justify-center rounded-xl text-white" style={{ background: renk }}>
                   <CalendarCheck className="h-6 w-6" aria-hidden="true" />
@@ -717,9 +739,9 @@ export default function RandevuSayfasi() {
           {icerik}
         </div>
       </main>
-      {!gomulu && (
-        <footer className="py-6 text-center text-xs text-zinc-400">
-          <a href="/" className="hover:text-zinc-600">
+      {!gomulu && rozetGorunur(marka) && (
+        <footer className="py-6 text-center text-xs text-zinc-400" style={markaT ? { color: 'var(--marka-soluk)' } : undefined} data-testid="marka-rozet">
+          <a href="/" target="_blank" rel="noopener" className="hover:text-zinc-600">
             {t('randevuSayfa.hazirlayan')}
           </a>
         </footer>
@@ -865,7 +887,7 @@ export default function RandevuSayfasi() {
                       navigate(`/randevu/${sayfa.slug}/${x.slug}${ekSorgu}`);
                     }}
                     className="flex h-full flex-col rounded-2xl border border-zinc-200 p-4 transition-shadow hover:shadow-md"
-                    style={{ borderTopColor: x.renk, borderTopWidth: 4 }}
+                    style={{ borderTopColor: markaT && (x.renk || '').toLowerCase() === '#7c3aed' ? renk : x.renk, borderTopWidth: 4 }}
                     data-tur={x.slug}
                     data-testid="randevu-tur-karti"
                   >

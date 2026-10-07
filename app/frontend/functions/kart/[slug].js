@@ -28,9 +28,15 @@
  * ekleniyor (`_ortak/csp.js` — `_headers` Function yanıtlarına uygulanmıyor).
  * Dosya tabanlı yönlendirme: yalnız TEK parçalı `/kart/<slug>` (değişmez kod da
  * buradan geçer: `/kart/AbC2xyz`).
+ *
+ * Faz 4L — marka teması: özetteki `tema` (kartın kendi teması) ve `marka` (hesabın marka
+ * teması; kartın teması özelse o öncelikli) ile `<head>`e küçük bir `<style id="marka-temasi">`
+ * ekleniyor (`_ortak/marka.js`): ilk boyamada zemin/yazı rengi ve `--marka-*` değişkenleri
+ * doğru — React çizene kadar sitenin varsayılan zemini görünüp markaya "sıçramıyor".
  */
 
 import { cspBasliklari } from '../_ortak/csp.js';
+import { kartIlkBoyama } from '../_ortak/marka.js';
 import { vekilBasliklari } from '../_ortak/vekil.js';
 
 const GUVENLIK_BASLIKLARI = {
@@ -108,6 +114,8 @@ export function etiketler(ozet, istekAdresi) {
       if (ozet.gorsel_alt) parcalar.push(p('og:image:alt', ozet.gorsel_alt), m('twitter:image:alt', ozet.gorsel_alt));
     }
   }
+  // Faz 4L: ilk boyama (kilitli kartta da — zemin kişisel bilgi değil).
+  if (aktif) parcalar.push(kartIlkBoyama(ozet));
   return { baslik, robots, dil, yon: dil === 'ar' ? 'rtl' : 'ltr', eklenecek: parcalar.join('') };
 }
 

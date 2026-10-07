@@ -208,6 +208,10 @@
       "hukuk_burosu": {
         "ad": "Law office",
         "aciklama": "For lawyers and law offices: client and matter tracking, opposing parties with conflict-of-interest warnings, hearing and deadline calendar, deadline calculator, reminders, time and expense records (PDF statement), document attachments and a private status link for clients. Does not pull data from UYAP automatically."
+      },
+      "marka_temasi": {
+        "ad": "Brand theme",
+        "aciklama": "Your own logo, colours and typeface on your customer pages: business card, QR menu, booking, events, courses and more — one setting."
       }
     },
     "kategori": {
@@ -275,7 +279,8 @@
       "ai_hakki": "Monthly AI question generations",
       "belge_siniri": "Maximum own documents per account",
       "personel_siniri": "Maximum active staff",
-      "dosya_siniri": "Maximum open matters (open + on hold)"
+      "dosya_siniri": "Maximum open matters (open + on hold)",
+      "rozet_gizle": "Hide the “Made with mehmetkuru.dev” badge on pages"
     },
     "musteri": {
       "baslik": "My modules",
@@ -321,7 +326,9 @@
       "ayarKaydet": "Save settings",
       "ayarKaydedildi": "{{ad}} settings saved.",
       "musteriHata": "Couldn't load the client's modules.",
-      "bosGenel": "Empty: general setting"
+      "bosGenel": "Empty: general setting",
+      "markaDuzenle": "Edit brand",
+      "markaKapat": "Close brand editor"
     },
     "hata": {
       "bagimlilik_kapali": "Enable these first: {{moduller}}",

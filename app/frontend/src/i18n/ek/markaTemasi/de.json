@@ -1,0 +1,84 @@
+{
+  "markaTemasi": {
+    "baslik": "Marke",
+    "aciklama": "Ihr Logo, Ihre Farben und Ihre Schrift werden zum Standarddesign Ihrer Kundenseiten (Visitenkarte, QR-Speisekarte, Terminbuchung, Veranstaltungen, Kurse …). Hat eine Seite eine eigene, von Ihnen gewählte Farbe, hat diese Vorrang.",
+    "modulKapali": "Das Modul ist für dieses Konto deaktiviert: Einstellungen werden gespeichert, aber nicht auf Seiten angewendet.",
+    "alan": {
+      "ad": "Markenname",
+      "adIpucu": "Wird als Alternativtext des Logos und im E-Mail-Kopf angezeigt.",
+      "logo": "Logo",
+      "ana": "Hauptfarbe",
+      "vurgu": "Akzentfarbe",
+      "zemin": "Hintergrund",
+      "kose": "Ecken",
+      "yaziTipi": "Schriftart"
+    },
+    "zemin": {
+      "acik": "Hell",
+      "koyu": "Dunkel"
+    },
+    "kose": {
+      "keskin": "Eckig",
+      "yumusak": "Weich",
+      "yuvarlak": "Rund"
+    },
+    "yaziTipi": {
+      "jakarta": "Plus Jakarta Sans",
+      "sistem_sans": "Systemschrift (serifenlos)",
+      "sistem_serif": "Systemschrift (mit Serifen)",
+      "mono": "Festbreitenschrift"
+    },
+    "logoYukle": "Logo hochladen",
+    "logoDegistir": "Ersetzen",
+    "logoKaldir": "Entfernen",
+    "logoYuklendi": "Logo hochgeladen",
+    "logoNot": "PNG, JPEG oder WebP, höchstens 2 MB. SVG wird aus Sicherheitsgründen nicht akzeptiert.",
+    "kaydet": "Speichern",
+    "kaydedildi": "Marke gespeichert",
+    "sifirla": "Auf Standard zurücksetzen",
+    "sifirlaOnay": "Markeneinstellungen und Logo löschen?",
+    "sifirlandi": "Marke auf Standard zurückgesetzt",
+    "kontrast": {
+      "yeterli": "Kontrast ausreichend ({{oran}}:1)",
+      "yetersiz": "Kontrast zu gering ({{oran}}:1 — mindestens {{esik}}:1 erforderlich)",
+      "uygula": "Vorschlag übernehmen: {{renk}}",
+      "yaziRengi": "Die Schriftfarbe der Schaltflächen wurde automatisch gewählt: {{renk}}.",
+      "beyaz": "weiß",
+      "koyu": "dunkel"
+    },
+    "onizleme": {
+      "baslik": "Live-Vorschau",
+      "ornekBaslik": "Beispielüberschrift",
+      "ornekMetin": "So sehen Ihre Besucher Ihre Seite.",
+      "dugme": "Termin buchen",
+      "baglanti": "Beispiel-Link"
+    },
+    "rozet": {
+      "gorunur": "Unten auf Ihren Seiten erscheint ein kleines Abzeichen „Erstellt mit mehmetkuru.dev“.",
+      "gizli": "Das Abzeichen „Erstellt mit mehmetkuru.dev“ ist ausgeblendet.",
+      "yalnizAjans": "Nur die Agentur kann das Abzeichen ändern.",
+      "yoneticiNot": "Zum Ändern „Abzeichen ausblenden“ in den Moduleinstellungen unten verwenden."
+    },
+    "uygulananSayfalar": "Angewendet auf: digitale Visitenkarte, Google-Bewertungsseite, QR-Speisekarte, Terminbuchung, Veranstaltungen, Kurse, KI-Assistent, Außendienst und Newsletter.",
+    "hata": {
+      "genel": "Der Vorgang konnte nicht abgeschlossen werden. Bitte erneut versuchen.",
+      "ag": "Keine Verbindung möglich.",
+      "cok_hizli": "Zu viele Versuche; bitte gleich noch einmal versuchen.",
+      "renk_gecersiz": "Farben müssen im Format #rrggbb angegeben werden (z. B. #1d4ed8).",
+      "ad_gecersiz": "Der Markenname darf höchstens 80 Zeichen lang sein und weder < noch > enthalten.",
+      "zemin_gecersiz": "Ungültiger Hintergrund.",
+      "kose_gecersiz": "Ungültige Eckenauswahl.",
+      "yazi_tipi_gecersiz": "Ungültige Schriftart.",
+      "svg_desteklenmiyor": "SVG-Logos werden aus Sicherheitsgründen nicht akzeptiert; bitte PNG oder WebP hochladen.",
+      "logo_buyuk": "Das Logo darf höchstens 2 MB groß sein.",
+      "logo_bicimi": "Nur PNG-, JPEG- oder WebP-Dateien sind erlaubt.",
+      "logo_boyutu": "Das Logo muss zwischen 16 und 4096 Pixel groß sein.",
+      "dosya_bos": "Die Datei ist leer.",
+      "depo_hatasi": "Die Datei konnte nicht gespeichert werden; bitte gleich erneut versuchen.",
+      "marka_yetkisi_yok": "Nur der Kontoinhaber oder ein Kontoadministrator kann die Marke ändern.",
+      "yalniz_yonetici": "Nur die Agentur kann diese Einstellung ändern.",
+      "modul_kapali": "Das Markendesign-Modul ist für Ihr Konto nicht aktiviert.",
+      "hesap_uyesi_degil": "Sie haben keinen Zugriff auf dieses Konto."
+    }
+  }
+}

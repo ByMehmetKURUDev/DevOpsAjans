@@ -1672,6 +1672,14 @@ def _hesap_ciktisi(h: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+async def _marka(db: AsyncSession, m: MenuMagazalari) -> Dict[str, Any]:
+    """Faz 4L: marka teması (mağazanın kendi tema rengi düzenin varsayılanından farklıysa o öncelikli)."""
+    from services.marka import acik_marka, renk_ozel_mi
+
+    varsayilan = "#7c3aed" if m.duzen == "menu" else "#0f766e"
+    return await acik_marka(db, m.hesap_email, sayfa_ozel=renk_ozel_mi(m.tema_rengi, varsayilan))
+
+
 def _dil(m: MenuMagazalari, ham: Any) -> str:
     d = str(ham or "").strip().lower()[:2]
     return d if d in _diller(m) else m.varsayilan_dil
@@ -1710,6 +1718,7 @@ async def acik_menu(slug: str, request: Request, arka: BackgroundTasks, db: Asyn
             {k2: v for k2, v in _urun_sozlugu(u, gorseller).items() if k2 not in ("gizli", "sira")}
             for u in urunler
         ],
+        "marka": await _marka(db, m),
     }
     _olay_ekle(arka, request, m, "goruntuleme")
     return JSONResponse(veri, headers={**ACIK_BASLIKLAR, "Cache-Control": "no-cache",
@@ -1736,6 +1745,7 @@ async def acik_ozet(slug: str, urun: Optional[str] = Query(None), dil: Optional[
         "indekslenebilir": bool(m.arama_motoru),
         "adres_url": s.menu_adresi(m.slug),
         "urun": None,
+        "marka": await _marka(db, m),
     }
     if urun and urun.isdigit():
         u = (await db.execute(select(MenuUrunleri).where(MenuUrunleri.id == int(urun), MenuUrunleri.magaza_id == m.id,

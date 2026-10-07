@@ -4,7 +4,9 @@ import i18n from 'i18next';
 import type { TFunction } from 'i18next';
 import { Clock, Info, MapPin, Minus, Phone, Plus, Search, Share2, ShoppingBag, Trash2, X } from 'lucide-react';
 
+import { rozetGorunur } from '@/components/marka/MarkaParcalari';
 import { getAPIBaseURL } from '@/lib/config';
+import { etkinRenk, markaKabugu, markaLogoAdresi, markaTemasi } from '@/lib/marka';
 import {
   DILLER,
   DIL_ADLARI,
@@ -370,9 +372,13 @@ export default function MenuSayfasi() {
   const m = menu;
   const para = (n: number) => paraYaz(n, m.para_birimi, dil);
   const katalog = m.duzen === 'katalog';
-  const vurgu = m.tema_rengi || '#7c3aed';
+  // Faz 4L: mağazanın kendi tema rengi seçiliyse o; değilse hesabın marka rengi (yoksa bugünkü renk).
+  const vurgu = etkinRenk(m.tema_rengi, m.marka, m.tema_rengi || '#7c3aed');
+  const kabuk = markaKabugu(m.marka, dil, vurgu);
+  const markaT = markaTemasi(m.marka);
+  const markaLogo = markaT ? markaLogoAdresi(markaT.logo) : null;
   // --ring: sitenin yeşil odak halkası yerine nötr gri (işletme sayfası site renklerini taşımasın).
-  const stil = { '--menu-vurgu': vurgu, '--ring': '240 4% 46%' } as CSSProperties;
+  const stil = { ...kabuk.style, '--menu-vurgu': vurgu, '--ring': '240 4% 46%' } as CSSProperties;
   const aranan = ara.trim().toLocaleLowerCase(dil);
   const eslesir = (u: MenuUrun) =>
     !aranan ||
@@ -460,7 +466,7 @@ export default function MenuSayfasi() {
   const acikGrup = acikUrun ? eksikGrup(acikUrun, secimler) : null;
 
   return (
-    <div className="min-h-screen bg-[#f7f7f8] pb-28 text-zinc-900" dir={dil === 'ar' ? 'rtl' : 'ltr'} lang={dil} style={stil} data-testid="menu-sayfasi" data-duzen={m.duzen} data-dil={dil}>
+    <div className="min-h-screen bg-[#f7f7f8] pb-28 text-zinc-900" dir={dil === 'ar' ? 'rtl' : 'ltr'} lang={dil} style={stil} data-marka={kabuk['data-marka']} data-testid="menu-sayfasi" data-duzen={m.duzen} data-dil={dil}>
       {/* Başlık */}
       <header className="relative">
         {m.kapak ? (
@@ -473,7 +479,13 @@ export default function MenuSayfasi() {
         <div className="mx-auto max-w-3xl px-4">
           <div className="-mt-10 flex items-end gap-3">
             <div className="flex h-20 w-20 flex-none items-center justify-center overflow-hidden rounded-2xl border-4 border-[#f7f7f8] bg-white shadow-sm">
-              {m.logo ? <img src={m.logo.k} alt="" width={80} height={80} className="h-full w-full object-cover" decoding="async" /> : <ShoppingBag className="h-8 w-8" style={{ color: vurgu }} aria-hidden="true" />}
+              {m.logo ? (
+                <img src={m.logo.k} alt="" width={80} height={80} className="h-full w-full object-cover" decoding="async" />
+              ) : markaLogo ? (
+                <img src={markaLogo} alt={markaT?.ad || ''} width={80} height={80} className="h-full w-full object-contain p-1.5" decoding="async" data-testid="marka-logo" />
+              ) : (
+                <ShoppingBag className="h-8 w-8" style={{ color: vurgu }} aria-hidden="true" />
+              )}
             </div>
             <div className="ms-auto flex items-center gap-2 pb-1">
               {m.diller.length > 1 && (
@@ -627,11 +639,13 @@ export default function MenuSayfasi() {
             </ul>
           </section>
         ))}
-        <div role="contentinfo" className="py-10 text-center text-xs text-zinc-400">
-          <a href="/" className="hover:text-zinc-600">
-            {t('qrMenuSayfa.hazirlayan')}
-          </a>
-        </div>
+        {rozetGorunur(m.marka) && (
+          <div role="contentinfo" className="py-10 text-center text-xs text-zinc-400" data-testid="marka-rozet">
+            <a href="/" target="_blank" rel="noopener" className="hover:text-zinc-600">
+              {t('qrMenuSayfa.hazirlayan')}
+            </a>
+          </div>
+        )}
       </main>
 
       {/* Sepet düğmesi */}

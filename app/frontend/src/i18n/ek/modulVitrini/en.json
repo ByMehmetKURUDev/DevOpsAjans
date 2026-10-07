@@ -628,6 +628,26 @@
             "c": "No. For support the agency sees only counts (matters, clients, upcoming deadlines, storage); matter content, notes, documents and client details are not shown."
           }
         ]
+      },
+      "marka_temasi": {
+        "ozet": "Open your customer pages with your brand, not the agency’s: logo, colours, typeface and corners in one place.",
+        "kimIcin": "Businesses and brands that want their business card, QR menu, booking or event pages to carry their own corporate identity.",
+        "ozellikler": [
+          "Logo, primary and accent colour, light/dark background, corners and typeface",
+          "Applied to every customer page with one setting",
+          "Colour contrast check (WCAG AA) and automatic text colour",
+          "Logo header on booking, ticket and course emails"
+        ],
+        "sss": [
+          {
+            "s": "Can I use my own domain?",
+            "c": "Not yet: pages stay on mehmetkuru.dev but look like your brand. Custom domain support will be offered separately later."
+          },
+          {
+            "s": "Can one page use a different colour?",
+            "c": "Yes. If you picked a colour on a business card or menu, it keeps priority on that page; the brand theme only fills what is left."
+          }
+        ]
       }
     },
     "s": {

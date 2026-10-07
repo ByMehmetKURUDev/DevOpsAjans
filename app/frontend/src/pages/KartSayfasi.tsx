@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 
 import KartGorunumu, { type FormSonucu, type FormVerisi } from '@/components/kartvizit/KartGorunumu';
 import '@/components/kartvizit/kartvizit.css';
+import { MarkaBasligi, rozetGorunur } from '@/components/marka/MarkaParcalari';
 import {
   AcikHata,
   apiAdresi,
@@ -14,13 +15,16 @@ import {
   kartGetir,
   kartMesaj,
   kartParola,
+  markaliTema,
   metinleriYukle,
+  SABLONLAR,
   temaStili,
   yaziTipiYukle,
   type AcikKart,
   type AcikTema,
   type Cevirmen,
 } from '@/lib/kartvizitAcik';
+import type { AcikMarka } from '@/lib/marka';
 
 /**
  * Faz 4K — herkese açık dijital kartvizit: `/kart/<slug>` (ve değişmez kodla
@@ -33,6 +37,11 @@ import {
  *
  * Parolalı kart: doğru parolayla 2 saatlik imzalı jeton (oturum deposunda);
  * vCard / QR / form / olay istekleri onu taşıyor.
+ *
+ * Faz 4L — marka teması: kartın kendi teması varsayılandaysa hesabın markası (zemin, ana
+ * renk, köşe, yazı tipi; kartta logo yoksa marka logosu) uygulanıyor; kartın özel teması
+ * varsa o öncelikli (`marka.sayfa_ozel`). Yüklenirken zemin Pages Function'ın sunucuda
+ * yazdığı `--marka-ilk-zemin` (ilk boyama ile aynı renk — sıçrama yok).
  */
 
 type Durum = 'yukleniyor' | 'aktif' | 'kilitli' | 'yok' | 'pasif' | 'hata';
@@ -61,7 +70,7 @@ export default function KartSayfasi() {
   const { i18n } = useTranslation();
   const [durum, setDurum] = useState<Durum>('yukleniyor');
   const [kart, setKart] = useState<AcikKart | null>(null);
-  const [kilit, setKilit] = useState<{ dil: string; tema: AcikTema; slug: string } | null>(null);
+  const [kilit, setKilit] = useState<{ dil: string; tema: AcikTema; slug: string; marka?: AcikMarka } | null>(null);
   const [jeton, setJeton] = useState<string | null>(() => jetonOku(slug));
   const [m, setM] = useState<Cevirmen>(() => cevirmen(null));
   const [qrAcik, setQrAcik] = useState(false);
@@ -94,7 +103,7 @@ export default function KartSayfasi() {
         if (y.durum === 'kilitli') {
           if (j) jetonYaz(slug, null);
           setJeton(null);
-          setKilit({ dil: y.dil, tema: y.tema, slug: y.slug });
+          setKilit({ dil: y.dil, tema: y.tema, slug: y.slug, marka: y.marka });
           setDurum('kilitli');
           return;
         }
@@ -175,18 +184,23 @@ export default function KartSayfasi() {
   };
 
   if (durum === 'aktif' && kart) {
+    const mt = markaliTema(kart.tema, kart.marka, kart.dil);
+    const gorunen = mt.ek ? { ...kart, tema: mt.tema } : kart;
     return (
-      <main className="min-h-screen" style={temaStili(kart.tema, kart.dil)}>
+      <main className="min-h-screen" style={{ ...temaStili(gorunen.tema, kart.dil), ...mt.ek }} data-marka-uygulandi={mt.ek ? '1' : '0'}>
         <KartGorunumu
-          kart={kart}
+          kart={gorunen}
           m={m}
           jeton={jeton}
+          stil={mt.ek}
+          rozet={rozetGorunur(kart.marka)}
+          ust={mt.ek && !kart.logo ? <MarkaBasligi marka={kart.marka} className="justify-center" /> : undefined}
           onTik={(hedef) => olay({ tur: 'tik', hedef })}
           onPaylas={() => void paylas()}
           onQr={() => setQrAcik(true)}
           onGonder={gonder}
         />
-        {qrAcik && <QrPenceresi kart={kart} m={m} jeton={jeton} onKapat={() => setQrAcik(false)} />}
+        {qrAcik && <QrPenceresi kart={gorunen} m={m} jeton={jeton} onKapat={() => setQrAcik(false)} />}
       </main>
     );
   }
@@ -195,6 +209,7 @@ export default function KartSayfasi() {
     return (
       <ParolaEkrani
         tema={kilit.tema}
+        marka={kilit.marka}
         dil={kilit.dil}
         m={m}
         onAc={async (parola) => {
@@ -210,8 +225,10 @@ export default function KartSayfasi() {
 
   const stil = temaStili(VARSAYILAN_TEMA, dil);
   if (durum === 'yukleniyor') {
+    // Faz 4L: sunucunun ilk boyama zemini (kartın/markanın rengi) varsa onunla — sıçrama yok.
+    const ilk = { ...stil, background: `var(--marka-ilk-zemin, ${SABLONLAR.gece.zemin})`, color: 'var(--marka-ilk-metin, #f4f0fb)' };
     return (
-      <main className="flex min-h-screen items-center justify-center" style={stil} aria-busy="true">
+      <main className="flex min-h-screen items-center justify-center" style={ilk} aria-busy="true">
         <Loader2 className="h-7 w-7 animate-spin opacity-70" aria-hidden="true" />
       </main>
     );
@@ -232,7 +249,20 @@ export default function KartSayfasi() {
   );
 }
 
-function ParolaEkrani({ tema, dil, m, onAc }: { tema: AcikTema; dil: string; m: Cevirmen; onAc: (parola: string) => Promise<void> }) {
+function ParolaEkrani({
+  tema,
+  marka,
+  dil,
+  m,
+  onAc,
+}: {
+  tema: AcikTema;
+  marka?: AcikMarka;
+  dil: string;
+  m: Cevirmen;
+  onAc: (parola: string) => Promise<void>;
+}) {
+  const mt = markaliTema(tema, marka, dil);
   const [parola, setParola] = useState('');
   const [hata, setHata] = useState<string | null>(null);
   const [mesgul, setMesgul] = useState(false);
@@ -250,7 +280,7 @@ function ParolaEkrani({ tema, dil, m, onAc }: { tema: AcikTema; dil: string; m: 
     }
   };
   return (
-    <main className="flex min-h-screen items-center justify-center px-4" style={temaStili(tema, dil)} lang={dil} dir={dil === 'ar' ? 'rtl' : 'ltr'}>
+    <main className="flex min-h-screen items-center justify-center px-4" style={{ ...temaStili(mt.tema, dil), ...mt.ek }} lang={dil} dir={dil === 'ar' ? 'rtl' : 'ltr'}>
       <form
         onSubmit={gonder}
         className="kv-yuzey kv-durum-kart space-y-3"
