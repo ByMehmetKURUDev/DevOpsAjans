@@ -57,6 +57,9 @@ export interface Oturum {
   beklenen_nakit: number | null;
   fark: number | null;
   notlar: string | null;
+  /** Faz 6Q: "esitleme" = kapanmış oturuma geç gelen çevrimdışı satışların oturumu. */
+  tur?: 'kasa' | 'esitleme';
+  kaynak_oturum_id?: number | null;
 }
 
 export interface Meta {
@@ -75,6 +78,9 @@ export interface Meta {
   sayilar: { urun: number; kritik: number };
   acik_oturumlar: Oturum[];
   qr_menu: boolean;
+  /** Faz 6Q: saha servisi modülü açık → stok raporlarında "saha servisi tüketimi". */
+  saha?: boolean;
+  hareket_kaynaklari?: string[];
   notlar: { fis: string; z: string };
 }
 
@@ -119,6 +125,8 @@ export interface Hareket {
   aciklama: string | null;
   kisi: string | null;
   zaman: string;
+  kaynak?: string | null;
+  kaynak_id?: number | null;
 }
 
 export interface Tedarikci {
@@ -184,6 +192,9 @@ export interface SatisOzeti {
   odeme_turu: OdemeTuru;
   fatura_no: string | null;
   para_birimi: string;
+  /** Faz 6Q: çevrimdışı kuyruktan eşitlenen satış (cihazda basılan "ÇEVRİMDIŞI-n" ve sunucuya ulaştığı an). */
+  cevrimdisi_no?: string | null;
+  esitlendi_at?: string | null;
 }
 
 export interface Satis extends SatisOzeti {
@@ -208,6 +219,9 @@ export interface Satis extends SatisOzeti {
   mali_degil: string;
   tekrar?: boolean;
   kritik?: number[];
+  eksi_stok?: { urun_id: number; ad: string; birim: Birim; miktar: number }[];
+  /** Yalnız cihazda: kuyruğa alınmış, henüz eşitlenmemiş fiş. */
+  yerel?: boolean;
 }
 
 export interface Ozet {
@@ -220,6 +234,9 @@ export interface Ozet {
   iptal_sayisi: number;
   iptal_toplam: number;
   net: number;
+  /** Faz 6Q: çevrimdışı kuyruktan eşitlenen satışlar (eski donmuş Z'lerde yok). */
+  cevrimdisi_sayisi?: number;
+  cevrimdisi_toplam?: number;
   odemeler: { nakit: number; kart: number; havale: number };
   kdv_dokumu: KdvSatiri[];
   en_cok_satanlar: { urun_id: number; ad: string; birim: Birim; adet: number; tutar: number }[];
@@ -394,7 +411,7 @@ export function stokApi(mod: StokMod, hesap?: string) {
     tedarikciEkle: (g: Partial<Tedarikci>) => istek<Tedarikci>('POST', u('/tedarikciler'), g),
     tedarikciGuncelle: (id: number, g: Partial<Tedarikci>) => istek<Tedarikci>('PUT', u(`/tedarikciler/${id}`), g),
     tedarikciSil: (id: number) => istek<{ ok: boolean; pasif: boolean }>('DELETE', u(`/tedarikciler/${id}`)),
-    hareketler: (q: { urun_id?: number; konum_id?: number; tur?: string; bas?: string; bit?: string; sayfa?: number } = {}) =>
+    hareketler: (q: { urun_id?: number; konum_id?: number; tur?: string; kaynak?: string; bas?: string; bit?: string; sayfa?: number } = {}) =>
       istek<{ items: Hareket[]; toplam: number; sayfa: number }>('GET', u('/hareketler', q)),
     hareketEkle: (g: Record<string, unknown>) => istek<{ ok: boolean; kalem: number; kritik: number[] }>('POST', u('/hareketler'), g),
     transfer: (g: Record<string, unknown>) => istek<{ ok: boolean; transfer_kodu: string }>('POST', u('/transfer'), g),
@@ -439,7 +456,12 @@ export function stokApi(mod: StokMod, hesap?: string) {
         'GET',
         u('/raporlar/hareketsiz', { gun })
       ),
-    raporCsv: (tur: 'donem' | 'kar' | 'stok-degeri' | 'hareketsiz', q: Sorgu) => indir(`/raporlar/${tur}`, { ...q, bicim: 'csv' }, `${tur}.csv`),
+    raporSahaTuketimi: (bas: string, bit: string, konum_id?: number) =>
+      istek<{ urunler: { urun_id: number; ad: string; barkod: string | null; birim: Birim; miktar: number; maliyet: number; is_emri: number }[]; toplam: { urun: number; maliyet: number; is_emri: number } }>(
+        'GET',
+        u('/raporlar/saha-tuketimi', { bas, bit, konum_id })
+      ),
+    raporCsv: (tur: 'donem' | 'kar' | 'stok-degeri' | 'hareketsiz' | 'saha-tuketimi', q: Sorgu) => indir(`/raporlar/${tur}`, { ...q, bicim: 'csv' }, `${tur}.csv`),
   };
 }
 
@@ -624,12 +646,17 @@ export function yerelSepetYaz(hesap: string, s: YerelSepet | null): void {
   }
 }
 
+/** Satışın istemci kimliği — UUID v4 (Faz 6Q; sunucu hesapta benzersiz tutar, tekrar gönderim tek kayıt). */
 export function yeniKimlik(): string {
   try {
-    const d = new Uint8Array(12);
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+    const d = new Uint8Array(16);
     crypto.getRandomValues(d);
-    return Array.from(d, (b) => b.toString(16).padStart(2, '0')).join('');
+    d[6] = (d[6] & 0x0f) | 0x40;
+    d[8] = (d[8] & 0x3f) | 0x80;
+    const h = Array.from(d, (b) => b.toString(16).padStart(2, '0')).join('');
+    return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
   } catch {
-    return `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 12)}`;
+    return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`;
   }
 }

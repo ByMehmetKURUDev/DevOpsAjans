@@ -183,7 +183,11 @@
       "konum_basla": "开工位置",
       "konum_bitir": "完工位置",
       "gecmis": "状态历史",
-      "konumAlindi": "已获取位置"
+      "konumAlindi": "已获取位置",
+      "yenidenAc": "重新打开",
+      "yenidenAcNeden": "重新打开原因（可选）：",
+      "yenidenAcildi": "工单已重新打开。",
+      "yenidenAcBilgi": "重新打开已完成的工单时，已扣减的材料会退回库存。"
     },
     "kontrol": {
       "baslik": "检查清单",
@@ -429,7 +433,32 @@
       "sablon_siniri": "模板数量已达上限。",
       "malzeme_siniri": "物料数量已达上限。",
       "tekrar_deneyin": "保存失败，请重试。",
-      "oturum_gerekli": "会话已结束；请重新登录。"
+      "oturum_gerekli": "会话已结束；请重新登录。",
+      "stok_baglantisi_kapali": "库存扣减已关闭（设置 › 库存与收银关联）。",
+      "stok_modulu_kapali": "此账户未开启库存与收银模块。",
+      "stok_konum_yok": "未找到库存位置。",
+      "stok_urun_yok": "库存商品不存在或已停用。",
+      "miktar_tam_olmali": "此单位的数量必须为整数。",
+      "miktar_gecersiz": "请输入有效数量。",
+      "miktar_cok_buyuk": "数量过大。"
+    },
+    "stok": {
+      "baslik": "库存与收银关联",
+      "dus": "从库存扣减已用材料",
+      "dusAciklama": "工单完成时，关联库存商品的材料从所选位置扣减（单据号 = 工单号）；工单重新打开时退回库存。现场消耗可能使库存为负。",
+      "konum": "扣减的门店 / 仓库",
+      "konumIpucu": "如技术员设置了车辆/仓库位置，优先使用该位置。",
+      "konumVarsayilan": "默认库存位置",
+      "konumAyardaki": "无车辆/仓库（使用设置中的位置）",
+      "teknisyenKonumu": "{{ad}} — 车辆/仓库库存位置",
+      "urunEkle": "从库存添加商品",
+      "ara": "搜索库存商品",
+      "araIpucu": "名称、条码或 SKU",
+      "stokta": "库存 {{miktar}} {{birim}}",
+      "urunYok": "未找到商品。",
+      "bilgi": "库存商品在工单完成时扣减；仍可添加自由填写项和目录材料。",
+      "dusuldu": "已从库存扣减",
+      "bitinceDusulur": "完成后扣减库存"
     }
   }
 }

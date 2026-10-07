@@ -584,17 +584,24 @@ function Gecmis({ api, meta }: { api: StokApi; meta: Meta }) {
   const { t, i18n } = useTranslation();
   const dil = i18n.language || 'tr';
   const [tur, setTur] = useState('');
+  // Faz 6Q: kaynak süzgeci — "saha" = saha servisi iş emirlerinden gelen tüketim (yalnız saha modülü açıksa).
+  const [kaynak, setKaynak] = useState('');
   const [bas, setBas] = useState(gunOnce(29));
   const [bit, setBit] = useState(bugun());
   const [sayfa, setSayfa] = useState(1);
   const [veri, setVeri] = useState<{ items: Hareket[]; toplam: number } | null>(null);
   const [hata, setHata] = useState<string | null>(null);
   useEffect(() => {
+    // Süzgeç hızlı değişirse geç gelen eski yanıt yenisinin üstüne yazmasın.
+    let gecersiz = false;
     api
-      .hareketler({ tur: tur || undefined, bas, bit, sayfa })
-      .then(setVeri)
-      .catch((e) => setHata(hataMetni(t, e)));
-  }, [api, tur, bas, bit, sayfa, t]);
+      .hareketler({ tur: tur || undefined, kaynak: kaynak || undefined, bas, bit, sayfa })
+      .then((v) => !gecersiz && setVeri(v))
+      .catch((e) => !gecersiz && setHata(hataMetni(t, e)));
+    return () => {
+      gecersiz = true;
+    };
+  }, [api, tur, kaynak, bas, bit, sayfa, t]);
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap gap-2">
@@ -606,6 +613,25 @@ function Gecmis({ api, meta }: { api: StokApi; meta: Meta }) {
             </option>
           ))}
         </select>
+        {meta.saha && (
+          <select
+            className={cn(SECIM, 'w-auto')}
+            value={kaynak}
+            onChange={(e) => {
+              setKaynak(e.target.value);
+              setSayfa(1);
+            }}
+            aria-label={t('stokPos.stok.kaynakSuzgeci')}
+            data-testid="stok-gecmis-kaynak"
+          >
+            <option value="">{t('stokPos.stok.tumKaynaklar')}</option>
+            {(meta.hareket_kaynaklari || ['saha']).map((k) => (
+              <option key={k} value={k}>
+                {t(`stokPos.stok.kaynakAdi.${k}`)}
+              </option>
+            ))}
+          </select>
+        )}
         <input type="date" className={cn(GIRDI, 'w-auto')} value={bas} onChange={(e) => setBas(e.target.value)} aria-label={t('stokPos.rapor.bas')} />
         <input type="date" className={cn(GIRDI, 'w-auto')} value={bit} onChange={(e) => setBit(e.target.value)} aria-label={t('stokPos.rapor.bit')} />
       </div>
@@ -619,6 +645,7 @@ function Gecmis({ api, meta }: { api: StokApi; meta: Meta }) {
           {veri.items.map((h) => (
             <li key={h.id} className="flex flex-wrap items-center gap-x-3 gap-y-0.5 px-3 py-2 text-sm">
               <Rozet>{t(`stokPos.hareket.${h.tur}`)}</Rozet>
+              {h.kaynak === 'saha' && <Rozet renk="border-sky-400/40 bg-sky-500/15 text-sky-200">{t('stokPos.stok.kaynakAdi.saha')}</Rozet>}
               <span className="min-w-0 flex-1 truncate">{h.urun_ad}</span>
               <span className={`font-semibold tabular-nums ${h.miktar < 0 ? 'text-red-300' : 'text-emerald-300'}`}>
                 {h.miktar > 0 ? '+' : ''}

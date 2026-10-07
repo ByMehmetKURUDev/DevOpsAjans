@@ -5,6 +5,7 @@ import {
   Camera,
   CheckCircle2,
   CloudOff,
+  CloudUpload,
   CreditCard,
   FileText,
   Landmark,
@@ -19,6 +20,7 @@ import {
   Shuffle,
   Trash2,
   UserRound,
+  Wifi,
   WifiOff,
 } from 'lucide-react';
 
@@ -26,6 +28,19 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Alan, Anahtar, DIS_DUGME, GIRDI, KART, Pencere, Rozet, SECIM } from '@/components/stokPos/ortak';
 import { Fis, ZRaporu } from '@/components/stokPos/Fis';
+import { KuyrukPaneli, useKuyruk } from '@/components/stokPos/Kuyruk';
+import {
+  cevrimdisiNo,
+  hesapOzeti,
+  katalogOku,
+  katalogUrunu,
+  katalogYaz,
+  koddanBul,
+  sonrakiSira,
+  stokDus,
+  yerelAra,
+  type Katalog,
+} from '@/lib/posKuyruk';
 import {
   StokHatasi,
   hataMetni,
@@ -51,6 +66,12 @@ import {
   type Urun,
 } from '@/lib/stokPos';
 
+/** Kasa ekranının ürün kartı: sunucudan gelen ürün ya da çevrimdışı katalog satırı. */
+type KasaUrunu = Pick<Urun, 'id' | 'ad' | 'barkod' | 'birim' | 'satis_fiyati' | 'kdv_orani' | 'stok_takibi' | 'kritik' | 'stok'>;
+type Mesaj = { tur: 'hata' | 'bilgi' | 'ag' | 'uyari'; metin: string; kuyrukTeklif?: boolean };
+/** Bağlantı varken çevrimdışı kataloğun tazelenme aralığı. */
+const KATALOG_ARALIGI_MS = 5 * 60_000;
+
 const Okutucu = lazy(() => import('@/components/stokPos/Okutucu'));
 
 const tl = (kurus: number) => (kurus / 100).toFixed(2);
@@ -65,9 +86,15 @@ const ODEMELER: { tur: OdemeTuru; ikon: typeof Banknote }[] = [
  * Faz 6P — kasa (POS) ekranı: dokunmatik/mobil uyumlu. Barkod okuyucu (USB/Bluetooth) klavye gibi yazar —
  * arama alanı odakta; Enter'da önce birebir barkod/SKU aranır. Kamera (`BarcodeDetector`) desteklenen
  * tarayıcıda. Sepet her değişimde bu cihazda saklanır (ağ koparsa satış kaybolmasın); satış sunucuda
- * yeniden hesaplanır ve `istemci_kimligi` ile tekrar gönderimde tek kayıt olur.
+ * yeniden hesaplanır ve `istemci_kimligi` (UUID) ile tekrar gönderimde tek kayıt olur.
+ *
+ * Faz 6Q — çevrimdışı kuyruk: kasa SAYFASI AÇIKKEN bağlantı koparsa satışa devam edilir. Ürün kataloğu (fiyat,
+ * KDV, şube stoku) son eşitlemede cihaza (IndexedDB; yoksa bellek) alınır; arama/okutma ondan yapılır. İlk
+ * çevrimdışı satışta kasiyer onaylar ("kuyruğa al"), sonrakiler doğrudan "ÇEVRİMDIŞI-n" fişiyle kuyruğa yazılır
+ * (fiş "çevrimdışı — eşitlenecek" notuyla basılabilir). Bağlantı gelince kuyruk sırayla gönderilir
+ * (`Kuyruk.tsx`). Sayfanın internetsiz SIFIRDAN açılması kapsam dışı (arayüzde yazılı).
  */
-export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; onMeta: () => void }) {
+export default function Kasa({ api, meta, onMeta, onKuyruk }: { api: StokApi; meta: Meta; onMeta: () => void; onKuyruk?: (sayi: number) => void }) {
   const { t, i18n } = useTranslation();
   const dil = i18n.language || 'tr';
   const pb = meta.ayarlar.para_birimi;
@@ -86,14 +113,19 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
   const [geriYuklendi] = useState(!!yerel?.kalemler.length);
 
   const [ara, setAra] = useState('');
-  const [sonuclar, setSonuclar] = useState<Urun[] | null>(null);
-  const [hizli, setHizli] = useState<Urun[]>([]);
+  const [sonuclar, setSonuclar] = useState<KasaUrunu[] | null>(null);
+  const [hizli, setHizli] = useState<KasaUrunu[]>([]);
+  const [katalog, setKatalog] = useState<Katalog | null>(null);
+  const katalogRef = useRef<Katalog | null>(null);
+  katalogRef.current = katalog;
+  /** Bu kopuşta kasiyer çevrimdışı satışı onayladı (bağlantı gelince sıfırlanır). */
+  const [cevrimdisiOnay, setCevrimdisiOnay] = useState(false);
   const [odemeTuru, setOdemeTuru] = useState<OdemeTuru>('nakit');
   const [alinan, setAlinan] = useState('');
   const [kartTutar, setKartTutar] = useState('');
   const [havaleTutar, setHavaleTutar] = useState('');
   const [mesgul, setMesgul] = useState(false);
-  const [mesaj, setMesaj] = useState<{ tur: 'hata' | 'bilgi' | 'ag'; metin: string } | null>(null);
+  const [mesaj, setMesaj] = useState<Mesaj | null>(null);
   const [fis, setFis] = useState<Satis | null>(null);
   const [sonSatislar, setSonSatislar] = useState<SatisOzeti[]>([]);
   const [okutucu, setOkutucu] = useState(false);
@@ -115,16 +147,51 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
     yerelSepetYaz(meta.hesap, { kalemler, toplamIndirim, istemciKimligi: kimlik, musteriAd, aliciId: alici?.id ?? null });
   }, [meta.hesap, kalemler, toplamIndirim, kimlik, musteriAd, alici]);
 
+  // ------------------------------------------------------------ çevrimdışı katalog (Faz 6Q)
+  const katalogEsitle = useCallback(async () => {
+    try {
+      const urunler: Urun[] = [];
+      for (let sayfa = 1; sayfa <= 20; sayfa++) {
+        const r = await api.urunler({ adet: 500, sayfa });
+        urunler.push(...r.items);
+        if (!r.items.length || urunler.length >= r.toplam) break;
+      }
+      const k: Katalog = { hesap: meta.hesap, zaman: new Date().toISOString(), urunler: urunler.map(katalogUrunu) };
+      await katalogYaz(k);
+      setKatalog(k);
+    } catch {
+      /* bağlantı yok: eldeki katalog kalır */
+    }
+  }, [api, meta.hesap]);
+
   useEffect(() => {
-    const ac = () => setCevrimici(true);
-    const kapa = () => setCevrimici(false);
-    window.addEventListener('online', ac);
-    window.addEventListener('offline', kapa);
+    let iptal = false;
+    void katalogOku(meta.hesap).then((k) => {
+      if (!iptal && k && !katalogRef.current) setKatalog(k);
+    });
+    void katalogEsitle();
+    const z = window.setInterval(() => {
+      if (navigator.onLine !== false) void katalogEsitle();
+    }, KATALOG_ARALIGI_MS);
     return () => {
-      window.removeEventListener('online', ac);
-      window.removeEventListener('offline', kapa);
+      iptal = true;
+      window.clearInterval(z);
     };
-  }, []);
+  }, [katalogEsitle, meta.hesap]);
+
+  const yerelStokDus = useCallback(
+    (satilan: { urun_id: number; adet: number }[]) => {
+      setKatalog((k) => {
+        if (!k) return k;
+        const yeni = { ...k, urunler: stokDus(k.urunler, satilan, konumId) };
+        void katalogYaz(yeni);
+        return yeni;
+      });
+      setHizli((l) => stokDus(l, satilan, konumId));
+      setSonuclar((l) => (l ? stokDus(l, satilan, konumId) : l));
+    },
+    [konumId]
+  );
 
   // Okuyucu cihaz klavye gibi yazar: odak başka bir alanda değilse arama alanına taşı.
   useEffect(() => {
@@ -156,8 +223,11 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
     api
       .urunler({ adet: 24 })
       .then((r) => setHizli(r.items))
-      .catch(() => undefined);
-  }, [api]);
+      .catch(() =>
+        // Çevrimdışı: son eşitlenen katalogdan
+        katalogOku(meta.hesap).then((k) => k && setHizli(k.urunler.slice(0, 24)))
+      );
+  }, [api, meta.hesap]);
 
   const oturumlariYenile = useCallback(async () => {
     try {
@@ -167,8 +237,50 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
     }
   }, [api, t]);
 
+  // ------------------------------------------------------------ çevrimdışı kuyruk (Faz 6Q)
+  const kuyruk = useKuyruk(api, meta, (gonderilen, hatali) => {
+    const eksi = [...new Set(gonderilen.flatMap((s) => (s.eksi_stok || []).map((e) => e.ad)))];
+    const metin = [
+      gonderilen.length ? t('stokPos.kuyruk.esitlendi', { sayi: gonderilen.length }) : '',
+      hatali ? t('stokPos.kuyruk.cozumBekliyor', { sayi: hatali }) : '',
+      eksi.length ? t('stokPos.kuyruk.eksiDustu', { urunler: eksi.join(', ') }) : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+    setMesaj({ tur: hatali || eksi.length ? 'uyari' : 'bilgi', metin });
+    void sonSatislariYukle();
+    void oturumlariYenile();
+    void katalogEsitle();
+    if (gonderilen.some((s) => s.kritik?.length)) onMeta();
+  });
+  const kuyrukEsitle = kuyruk.esitle;
+
+  useEffect(() => {
+    onKuyruk?.(kuyruk.kayitlar.length);
+  }, [kuyruk.kayitlar.length, onKuyruk]);
+
+  useEffect(() => {
+    const ac = () => {
+      setCevrimici(true);
+      setCevrimdisiOnay(false);
+      void kuyrukEsitle();
+    };
+    const kapa = () => setCevrimici(false);
+    window.addEventListener('online', ac);
+    window.addEventListener('offline', kapa);
+    return () => {
+      window.removeEventListener('online', ac);
+      window.removeEventListener('offline', kapa);
+    };
+  }, [kuyrukEsitle]);
+
+  // Kasa ekranı açılınca (bağlantı varsa) önceki oturumdan kalan kuyruk gönderilir.
+  useEffect(() => {
+    if (navigator.onLine !== false) void kuyrukEsitle();
+  }, [kuyrukEsitle]);
+
   // ------------------------------------------------------------ sepet
-  const ekle = useCallback((u: Urun) => {
+  const ekle = useCallback((u: KasaUrunu) => {
     setMesaj(null);
     setKalemler((liste) => {
       const i = liste.findIndex((k) => k.urun_id === u.id);
@@ -196,10 +308,35 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
     });
   };
 
+  /** Çevrimdışı: son eşitlenen katalogda birebir kod, yoksa ad araması. */
+  const yereldeBul = useCallback(
+    (kod: string) => {
+      const urunler = katalogRef.current?.urunler || [];
+      const u = koddanBul(urunler, kod);
+      if (u) {
+        ekle(u);
+        setAra('');
+        setSonuclar(null);
+        return;
+      }
+      const r = yerelAra(urunler, kod);
+      if (r.length === 1) {
+        ekle(r[0]);
+        setAra('');
+        setSonuclar(null);
+      } else {
+        setSonuclar(r);
+        if (!r.length) setMesaj({ tur: 'hata', metin: t('stokPos.kasa.bulunamadi', { kod }) });
+      }
+    },
+    [ekle, t]
+  );
+
   const kodlaEkle = useCallback(
     async (ham: string) => {
       const kod = ham.trim();
       if (!kod) return;
+      if (navigator.onLine === false && katalogRef.current) return yereldeBul(kod);
       try {
         const u = await api.urunKodla(kod);
         ekle(u);
@@ -218,14 +355,17 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
               if (!r.items.length) setMesaj({ tur: 'hata', metin: t('stokPos.kasa.bulunamadi', { kod }) });
             }
           } catch (e2) {
+            if (e2 instanceof StokHatasi && e2.kod === 'ag' && katalogRef.current) return yereldeBul(kod);
             setMesaj({ tur: e2 instanceof StokHatasi && e2.kod === 'ag' ? 'ag' : 'hata', metin: hataMetni(t, e2) });
           }
+        } else if (e instanceof StokHatasi && e.kod === 'ag' && katalogRef.current) {
+          yereldeBul(kod);
         } else {
           setMesaj({ tur: e instanceof StokHatasi && e.kod === 'ag' ? 'ag' : 'hata', metin: hataMetni(t, e) });
         }
       }
     },
-    [api, ekle, t]
+    [api, ekle, t, yereldeBul]
   );
 
   // Yazarken arama (rakamlı kodlarda okuyucunun Enter'ını bekle).
@@ -236,10 +376,12 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
       return;
     }
     const z = window.setTimeout(() => {
+      const yerel = () => katalogRef.current && setSonuclar(yerelAra(katalogRef.current.urunler, a));
+      if (navigator.onLine === false) return void yerel();
       api
         .urunler({ ara: a, adet: 30 })
         .then((r) => setSonuclar(r.items))
-        .catch(() => undefined);
+        .catch(yerel);
     }, 250);
     return () => window.clearTimeout(z);
   }, [api, ara]);
@@ -265,33 +407,151 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
     setKimlik(yeniKimlik());
   };
 
+  /** Sunucuya giden satış gövdesi (kişisel veri hariç — müşteri adı / alıcı ayrıca, yalnız çevrimiçi). */
+  const satisGovdesi = () => ({
+    konum_id: konumId,
+    kalemler: kalemler.map((k) => ({ urun_id: k.urun_id, adet: k.adet, indirim: k.indirim ? tl(k.indirim) : undefined })),
+    toplam_indirim: toplamIndirim ? tl(toplamIndirim) : undefined,
+    odeme: {
+      tur: odemeTuru,
+      kart: odemeTuru === 'karma' ? tl(kart) : undefined,
+      havale: odemeTuru === 'karma' ? tl(havale) : undefined,
+      nakit_alinan: nakit > 0 && alinanKurus !== null ? tl(alinanKurus) : undefined,
+    },
+    istemci_kimligi: kimlik,
+    beklenen_toplam: tl(toplam),
+  });
+
+  /** Cihazdaki fiş (kuyruktaki satış; sunucu numarası yok, "ÇEVRİMDIŞI-n"). Kişisel veri yok. */
+  const yerelFis = (no: string, zaman: string): Satis => {
+    const a = meta.ayarlar;
+    return {
+      id: 0,
+      no,
+      durum: 'tamamlandi',
+      zaman,
+      konum_id: konumId,
+      oturum_id: oturum?.id ?? 0,
+      kasiyer: '',
+      musteri_ad: null,
+      toplam,
+      iade_toplam: 0,
+      odeme_turu: odemeTuru,
+      fatura_no: null,
+      para_birimi: pb,
+      tarih_metni: '',
+      alici_id: null,
+      ara_toplam: toplamlar.ara_toplam,
+      satir_indirim: toplamlar.satir_indirim,
+      toplam_indirim: toplamlar.toplam_indirim,
+      kdv_toplam: toplamlar.kdv_dokumu.reduce((x, d) => x + d.kdv, 0),
+      kdv_dokumu: toplamlar.kdv_dokumu,
+      nakit,
+      kart,
+      havale,
+      nakit_alinan: nakit > 0 ? alinanKurus ?? nakit : 0,
+      para_ustu: Math.max(0, paraUstu),
+      notlar: null,
+      fatura_at: null,
+      fatura_alici: null,
+      kalemler: kalemler.map((k, i) => {
+        const satir = toplamlar.satirlar[i];
+        const satirIndirim = Math.max(0, Math.min(k.indirim || 0, satir?.brut ?? 0));
+        return {
+          id: -(i + 1),
+          urun_id: k.urun_id,
+          ad: k.ad,
+          barkod: k.barkod,
+          birim: k.birim,
+          adet: k.adet,
+          adet_binde: Math.round(k.adet * 1000),
+          birim_fiyat: k.birim_fiyat,
+          brut: satir?.brut ?? 0,
+          satir_indirim: satirIndirim,
+          indirim: (satir?.brut ?? 0) - (satir?.tutar ?? 0),
+          tutar: satir?.tutar ?? 0,
+          kdv_orani: k.kdv_orani,
+          kdv: 0,
+          iade_adet: 0,
+          iade_adet_binde: 0,
+          iade_tutar: 0,
+        };
+      }),
+      iadeler: [],
+      firma: { ad: a.firma_adi, adres: a.adres, telefon: a.telefon, eposta: a.eposta, vergi_dairesi: a.vergi_dairesi, vergi_no: a.vergi_no, fis_notu: a.fis_notu },
+      mali_degil: meta.notlar.fis,
+      cevrimdisi_no: no,
+      yerel: true,
+    };
+  };
+
+  /** Çevrimdışı satış: kuyruğa "ÇEVRİMDIŞI-n" fişiyle yaz (stok kuralı son eşitlenen stokla). */
+  const kuyrugaAl = async () => {
+    if (!oturum || !kalemler.length || odemeGecersiz) return;
+    const urunler = new Map((katalogRef.current?.urunler || []).map((u) => [u.id, u]));
+    const eksiler: { ad: string; mevcut: number }[] = [];
+    for (const k of kalemler) {
+      const u = urunler.get(k.urun_id);
+      if (!u || !u.stok_takibi) continue;
+      const mevcut = u.stok.konumlar[String(konumId)] ?? 0;
+      if (mevcut - k.adet < 0) eksiler.push({ ad: k.ad, mevcut });
+    }
+    if (eksiler.length && !meta.ayarlar.eksi_stok) {
+      // Ayardaki kural: eksi stok kapalıysa yetersiz stokta çevrimdışı satış da yapılmaz.
+      setMesaj({
+        tur: 'hata',
+        metin: `${hataMetni(t, new StokHatasi(409, 'yetersiz_stok', { ad: eksiler[0].ad, mevcut: miktarYaz(eksiler[0].mevcut, dil) }))} ${t('stokPos.kuyruk.sonEsitlemeyeGore')}`,
+      });
+      return;
+    }
+    setMesgul(true);
+    try {
+      const sira = await sonrakiSira(meta.hesap);
+      const no = cevrimdisiNo(sira);
+      const zaman = new Date().toISOString();
+      const fisi = yerelFis(no, zaman);
+      await kuyruk.ekle({
+        istemci_kimligi: kimlik,
+        hesap: await hesapOzeti(meta.hesap),
+        kisi_ozeti: kuyruk.benim,
+        no,
+        sira,
+        zaman,
+        toplam,
+        govde: { ...satisGovdesi(), cevrimdisi: true, cevrimdisi_no: no, istemci_zamani: zaman, oturum_id: oturum.id },
+        durum: 'bekliyor',
+        deneme: 0,
+        fis: fisi,
+      });
+      yerelStokDus(kalemler.map((k) => ({ urun_id: k.urun_id, adet: k.adet })));
+      setFis(fisi);
+      temizle();
+      setMesaj(eksiler.length ? { tur: 'uyari', metin: t('stokPos.kuyruk.eksiUyari', { urunler: eksiler.map((e) => e.ad).join(', ') }) } : null);
+    } catch (e) {
+      setMesaj({ tur: 'hata', metin: hataMetni(t, e) });
+    } finally {
+      setMesgul(false);
+    }
+  };
+
   const tamamla = async () => {
     if (!oturum || !kalemler.length || odemeGecersiz || mesgul) return;
+    if (cevrimdisiOnay && navigator.onLine === false) return void kuyrugaAl();
     setMesgul(true);
     setMesaj(null);
+    let kuyruga = false;
     try {
-      const s = await api.satisEkle({
-        konum_id: konumId,
-        kalemler: kalemler.map((k) => ({ urun_id: k.urun_id, adet: k.adet, indirim: k.indirim ? tl(k.indirim) : undefined })),
-        toplam_indirim: toplamIndirim ? tl(toplamIndirim) : undefined,
-        odeme: {
-          tur: odemeTuru,
-          kart: odemeTuru === 'karma' ? tl(kart) : undefined,
-          havale: odemeTuru === 'karma' ? tl(havale) : undefined,
-          nakit_alinan: nakit > 0 && alinanKurus !== null ? tl(alinanKurus) : undefined,
-        },
-        musteri_ad: musteriAd.trim() || undefined,
-        alici_id: alici?.id,
-        istemci_kimligi: kimlik,
-        beklenen_toplam: tl(toplam),
-      });
+      const s = await api.satisEkle({ ...satisGovdesi(), musteri_ad: musteriAd.trim() || undefined, alici_id: alici?.id });
       setFis(s);
+      yerelStokDus(kalemler.map((k) => ({ urun_id: k.urun_id, adet: k.adet })));
       temizle();
       void sonSatislariYukle();
       if (s.kritik?.length) onMeta();
     } catch (e) {
       if (e instanceof StokHatasi && e.kod === 'ag') {
-        setMesaj({ tur: 'ag', metin: t('stokPos.kasa.agYok') });
+        // Ağ yok: kasiyer bu kopuşta çevrimdışı satışı onayladıysa doğrudan kuyruğa; değilse sorulur.
+        if (cevrimdisiOnay) kuyruga = true;
+        else setMesaj({ tur: 'ag', metin: t('stokPos.kasa.agYok'), kuyrukTeklif: true });
       } else {
         setMesaj({ tur: 'hata', metin: hataMetni(t, e) });
         if (e instanceof StokHatasi && e.kod === 'kasa_kapali') void oturumlariYenile();
@@ -299,6 +559,7 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
     } finally {
       setMesgul(false);
     }
+    if (kuyruga) await kuyrugaAl();
   };
 
   const satisAc = async (id: number, hedef: 'fis' | 'iade' | 'fatura') => {
@@ -340,7 +601,12 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
   const liste = sonuclar ?? hizli;
 
   return (
-    <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(320px,400px)] lg:grid-rows-[auto_auto_1fr] lg:items-start" data-testid="pos-kasa">
+    <div
+      className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(320px,400px)] lg:grid-rows-[auto_auto_1fr] lg:items-start"
+      data-testid="pos-kasa"
+      data-katalog={katalog?.urunler.length ?? 0}
+      data-cevrimici={cevrimici ? '1' : '0'}
+    >
       {/* ----------------------------------------------------------- üst: kasa durumu + arama */}
       <div className="flex min-w-0 flex-col gap-3 lg:col-start-1 lg:row-start-1">
         <div className={`${KART} flex flex-wrap items-center gap-2 p-3`}>
@@ -367,13 +633,34 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
           ) : (
             <Rozet renk="border-amber-400/40 bg-amber-500/15 text-amber-200">{t('stokPos.kasa.kapali')}</Rozet>
           )}
-          {!cevrimici && (
+          {!cevrimici ? (
             <Rozet renk="border-red-400/40 bg-red-500/15 text-red-200" testid="pos-cevrimdisi">
               <WifiOff className="h-3 w-3" aria-hidden="true" />
               {t('stokPos.kasa.cevrimdisi')}
             </Rozet>
+          ) : (
+            <Rozet renk="border-emerald-400/30 bg-emerald-500/10 text-emerald-200" testid="pos-cevrimici">
+              <Wifi className="h-3 w-3" aria-hidden="true" />
+              {t('stokPos.kuyruk.cevrimici')}
+            </Rozet>
+          )}
+          {kuyruk.kayitlar.length > 0 && (
+            <Rozet renk="border-amber-400/40 bg-amber-500/15 text-amber-100" testid="pos-kuyruk-rozet">
+              <CloudUpload className="h-3 w-3" aria-hidden="true" />
+              {t('stokPos.kuyruk.rozet')}
+              <span className="sr-only">:</span>
+              <span className="font-semibold tabular-nums" data-testid="pos-kuyruk-sayisi">
+                {kuyruk.kayitlar.length}
+              </span>
+            </Rozet>
           )}
         </div>
+        {!cevrimici && (
+          <p className="rounded-lg border border-amber-400/30 bg-amber-500/10 p-2 text-xs text-amber-100" data-testid="pos-cevrimdisi-bilgi">
+            {t('stokPos.kuyruk.cevrimdisiBilgi')}
+            {katalog ? ` ${t('stokPos.kuyruk.katalog', { sayi: katalog.urunler.length, saat: tarihSaat(katalog.zaman, dil) })}` : ` ${t('stokPos.kuyruk.katalogYok')}`}
+          </p>
+        )}
 
         {!oturum ? (
           <div className={`${KART} p-4`} data-testid="pos-kasa-ac-kart">
@@ -417,18 +704,39 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
           </form>
         )}
         {mesaj && (
-          <p
+          <div
             role="alert"
-            className={`flex items-start gap-2 rounded-lg border p-3 text-sm ${
-              mesaj.tur === 'ag' ? 'border-amber-400/40 bg-amber-500/10 text-amber-100' : mesaj.tur === 'bilgi' ? 'border-sky-400/40 bg-sky-500/10 text-sky-100' : 'border-red-400/40 bg-red-500/10 text-red-100'
+            className={`flex flex-wrap items-start gap-2 rounded-lg border p-3 text-sm ${
+              mesaj.tur === 'ag' || mesaj.tur === 'uyari'
+                ? 'border-amber-400/40 bg-amber-500/10 text-amber-100'
+                : mesaj.tur === 'bilgi'
+                  ? 'border-sky-400/40 bg-sky-500/10 text-sky-100'
+                  : 'border-red-400/40 bg-red-500/10 text-red-100'
             }`}
             data-testid="pos-mesaj"
             data-tur={mesaj.tur}
           >
             {mesaj.tur === 'ag' && <CloudOff className="mt-0.5 h-4 w-4 flex-none" aria-hidden="true" />}
-            {mesaj.metin}
-          </p>
+            <span className="min-w-0 flex-1">{mesaj.metin}</span>
+            {mesaj.kuyrukTeklif && oturum && kalemler.length > 0 && (
+              <Button
+                size="sm"
+                className="h-9 gap-1.5"
+                disabled={mesgul || odemeGecersiz}
+                onClick={() => {
+                  setCevrimdisiOnay(true);
+                  setMesaj(null);
+                  void kuyrugaAl();
+                }}
+                data-testid="pos-kuyruga-al"
+              >
+                <CloudUpload className="h-4 w-4" aria-hidden="true" />
+                {t('stokPos.kuyruk.kuyrugaAl')}
+              </Button>
+            )}
+          </div>
         )}
+        <KuyrukPaneli kuyruk={kuyruk} para={p} cevrimici={cevrimici} onFis={setFis} />
         {geriYuklendi && kalemler.length > 0 && !mesaj && (
           <p className="text-xs text-sky-200" data-testid="pos-geri-yuklendi">
             {t('stokPos.kasa.geriYuklendi')}
@@ -548,6 +856,7 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
               <Button size="sm" variant="ghost" className="h-9" onClick={() => setAliciPencere(true)} data-testid="pos-alici-sec">
                 {t('stokPos.kasa.musteriSec')}
               </Button>
+              {!cevrimici && (musteriAd.trim() || alici) && <p className="w-full text-xs text-amber-200">{t('stokPos.kuyruk.musteriNotu')}</p>}
             </div>
 
             <dl className="space-y-1 border-t border-white/10 pt-3 text-sm">
@@ -688,6 +997,12 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
                   <span className="font-mono text-xs">{s.no}</span>
                   <span className="text-xs text-muted-foreground">{tarihSaat(s.zaman, dil)}</span>
                   {s.durum !== 'tamamlandi' && <Rozet renk="border-amber-400/40 bg-amber-500/15 text-amber-200">{t(`stokPos.durum.${s.durum}`)}</Rozet>}
+                  {s.cevrimdisi_no && (
+                    <Rozet renk="border-sky-400/40 bg-sky-500/10 text-sky-200" testid="pos-son-satis-cevrimdisi">
+                      <CloudUpload className="h-3 w-3" aria-hidden="true" />
+                      {s.cevrimdisi_no}
+                    </Rozet>
+                  )}
                   <span className="ms-auto font-semibold tabular-nums">{p(s.toplam - s.iade_toplam)}</span>
                   <div className="flex w-full justify-end gap-1 sm:w-auto">
                     <Button size="sm" variant="ghost" className="h-8 gap-1 px-2" onClick={() => void satisAc(s.id, 'fis')} data-testid="pos-fis-ac">
@@ -724,7 +1039,13 @@ export default function Kasa({ api, meta, onMeta }: { api: StokApi; meta: Meta; 
           />
         </Suspense>
       )}
-      {fis && <Fis satis={fis} onKapat={() => setFis(null)} onPdf={() => void api.fisPdf(fis, dil).catch((e) => setMesaj({ tur: 'hata', metin: hataMetni(t, e) }))} />}
+      {fis && (
+        <Fis
+          satis={fis}
+          onKapat={() => setFis(null)}
+          onPdf={fis.yerel ? undefined : () => void api.fisPdf(fis, dil).catch((e) => setMesaj({ tur: 'hata', metin: hataMetni(t, e) }))}
+        />
+      )}
       {indirimSatiri !== null && kalemler[indirimSatiri] && (
         <SatirIndirimi
           kalem={kalemler[indirimSatiri]}

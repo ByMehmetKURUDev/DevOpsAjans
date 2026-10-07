@@ -164,7 +164,9 @@
       "paraUstu": "Para üstü",
       "iade": "İade edilen",
       "kartNotu": "Kart ödemesi yalnız kayıttır.",
-      "maliDegil": "BU BELGE MALİ FİŞ DEĞİLDİR. ÖKC fişi / e-Arşiv belge yerine geçmez."
+      "maliDegil": "BU BELGE MALİ FİŞ DEĞİLDİR. ÖKC fişi / e-Arşiv belge yerine geçmez.",
+      "cevrimdisi": "ÇEVRİMDIŞI — eşitlenecek",
+      "cevrimdisiNo": "Çevrimdışı fiş no: {{no}}"
     },
     "z": {
       "baslik": "GÜN SONU RAPORU",
@@ -189,7 +191,8 @@
       "nakitIade": "Nakit iade",
       "beklenen": "Beklenen kasa",
       "sayilan": "Sayılan nakit",
-      "fark": "Fark"
+      "fark": "Fark",
+      "cevrimdisi": "Çevrimdışı eşitlenen ({{sayi}})"
     },
     "urun": {
       "araIpucu": "Ad, barkod ya da SKU",
@@ -285,7 +288,12 @@
       "yeniTedarikci": "Yeni tedarikçi",
       "tedarikciYok": "Tedarikçi yok.",
       "tedarikciSilOnay": "“{{ad}}” silinsin mi?",
-      "yetkili": "Yetkili kişi"
+      "yetkili": "Yetkili kişi",
+      "kaynakSuzgeci": "Kaynak",
+      "tumKaynaklar": "Tüm kaynaklar",
+      "kaynakAdi": {
+        "saha": "Saha servisi"
+      }
     },
     "sayim": {
       "aciklama": "Sayım başlatın, ürünleri okutun (her okutma +1) ya da miktarı yazın; onaylayınca fark stok hareketi olarak yazılır.",
@@ -316,7 +324,8 @@
         "donem": "Dönem satışları",
         "kar": "Ürün kârı",
         "stok": "Stok değeri",
-        "hareketsiz": "Hareketsiz ürünler"
+        "hareketsiz": "Hareketsiz ürünler",
+        "saha": "Saha servisi tüketimi"
       },
       "bas": "Başlangıç",
       "bit": "Bitiş",
@@ -338,7 +347,10 @@
       "oturumlar": "Kasa oturumları",
       "acik": "açık",
       "yazdir": "Gün sonu raporunu yazdır",
-      "veriYok": "Bu seçim için veri yok."
+      "veriYok": "Bu seçim için veri yok.",
+      "isEmri": "İş emri",
+      "sahaNotu": "Saha servisi iş emirlerinde stoktan düşülen malzemeler (geri alınanlar düşülmüş); maliyet düşüm anındaki alış fiyatıyla.",
+      "esitlemeOturumu": "eşitleme · #{{no}} oturumu"
     },
     "ayar": {
       "yasal": "Türkiye'de perakende satışta yasal belge ÖKC (yeni nesil yazar kasa) fişi ya da e-Arşiv faturadır. Bu modülün fişi, gün sonu raporu ve PDF faturası bilgi amaçlıdır; o belgelerin yerine geçmez. Kart ödemesi yalnız kayıttır.",
@@ -447,7 +459,38 @@
       "kalem_yok": "Satır bulunamadı.",
       "sayim_yok": "Sayım bulunamadı.",
       "tur_gecersiz": "Geçersiz tür.",
-      "hesap_uyesi_degil": "Bu hesabın ekibinde değilsiniz."
+      "hesap_uyesi_degil": "Bu hesabın ekibinde değilsiniz.",
+      "istemci_kimligi_gerekli": "Çevrimdışı satışın kimliği eksik.",
+      "istemci_kimligi_gecersiz": "Satış kimliği geçersiz.",
+      "oturum_gerekli": "Çevrimdışı satışın kasa oturumu eksik.",
+      "oturum_konum_uyusmuyor": "Satışın kasa oturumu bu şubeye ait değil.",
+      "cevrimdisi_no_gecersiz": "Çevrimdışı fiş numarası geçersiz.",
+      "istemci_zamani_gecersiz": "Satış zamanı okunamadı.",
+      "kaynak_gecersiz": "Geçersiz hareket kaynağı."
+    },
+    "kuyruk": {
+      "cevrimici": "Çevrimiçi",
+      "rozet": "Kuyrukta",
+      "baslik": "Çevrimdışı kuyruk ({{sayi}})",
+      "cevrimdisiBilgi": "Çevrimdışı: satışlar bu cihazda kuyruğa alınır ve bağlantı gelince sırayla gönderilir. Bu sekmeyi kapatmayın — kasa sayfası internetsiz sıfırdan açılamaz.",
+      "katalog": "Çevrimdışı katalog: {{sayi}} ürün ({{saat}}).",
+      "katalogYok": "Bu cihazda çevrimdışı katalog yok; yalnız ekrandaki ürünler satılabilir.",
+      "kuyrugaAl": "Çevrimdışı satış olarak kaydet",
+      "esitlendi": "{{sayi}} çevrimdışı satış eşitlendi.",
+      "cozumBekliyor": "{{sayi}} satış çözüm bekliyor.",
+      "eksiDustu": "Stok eksiye düştü: {{urunler}}.",
+      "eksiUyari": "Satış kuyruğa alındı; son eşitlemeye göre stok eksiye düşüyor: {{urunler}}.",
+      "sonEsitlemeyeGore": "(son eşitlemedeki stoka göre)",
+      "musteriNotu": "Çevrimdışı satışta müşteri bilgisi bu cihazda saklanmaz ve satışa eklenmez; fatura gerekiyorsa bağlantı gelince kesin.",
+      "simdiEsitle": "Şimdi eşitle",
+      "bellekte": "Bu tarayıcıda kalıcı depolama yok: kuyruk yalnız bu sekmenin belleğinde, sayfayı yenilemeyin.",
+      "cozumBekleyen": "Çözüm bekliyor",
+      "esitlenecek": "Eşitlenecek",
+      "tekrarDene": "Tekrar dene",
+      "guncelFiyatla": "Güncel fiyatla kaydet",
+      "iptal": "Kuyruktan sil",
+      "iptalOnay": "{{no}} kuyruktan silinsin mi? Satış sunucuya hiç gönderilmez; tahsil edilen tutarı ayrıca düzeltin.",
+      "ayrilOnay": "Kuyrukta {{sayi}} satış var; kasa ekranı açık değilken eşitlenmez. Yine de çıkılsın mı?"
     }
   }
 }

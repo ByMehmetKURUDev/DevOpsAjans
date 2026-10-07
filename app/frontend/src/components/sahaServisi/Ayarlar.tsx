@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Loader2, Save, ShieldCheck, ShieldOff, Trash2, UserPlus } from 'lucide-react';
+import { Boxes, Loader2, Save, ShieldCheck, ShieldOff, Trash2, UserPlus } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,8 @@ import { Alan, Anahtar, GIRDI, KART, METIN_ALANI, Rozet, SECIM, Yukleniyor } fro
  * Faz 6S — ayarlar: teknisyenler (hesap ekibinden; `saha_teknisyen` izni + bu listede satır), firma
  * künyesi (servis formunun başlığı), KDV, saklama süresi, servis müşterisine e-postalar, imza
  * zorunluluğu, memnuniyet + Google yorum sayfası, randevu → iş emri, bakım bildirimi.
+ * Faz 6Q: Stok ve POS modülü açıksa "kullanılan malzemeleri stoktan düş" (varsayılan kapalı), düşülecek
+ * şube/depo ve teknisyen başına araç/depo konumu (isteğe bağlı).
  */
 export default function Ayarlar({ api, saltOkunur }: { api: SahaApi; saltOkunur: boolean }) {
   const { t } = useTranslation();
@@ -38,8 +40,12 @@ export default function Ayarlar({ api, saltOkunur }: { api: SahaApi; saltOkunur:
   const kaydet = async () => {
     setMesgul(true);
     try {
-      const { yorum_sayfalari, eposta_kanali, randevu_modulu, yorum_modulu, ...govde } = a;
-      setA({ ...(await api.ayarlarKaydet(govde)), yorum_sayfalari, eposta_kanali, randevu_modulu, yorum_modulu });
+      const { yorum_sayfalari, eposta_kanali, randevu_modulu, yorum_modulu, stok_modulu, stok_konumlari, ...govde } = a;
+      if (!stok_modulu) {
+        delete govde.stoktan_dus;
+        delete govde.stok_konum_id;
+      }
+      setA({ ...(await api.ayarlarKaydet(govde)), yorum_sayfalari, eposta_kanali, randevu_modulu, yorum_modulu, stok_modulu, stok_konumlari });
       toast.success(t('sahaServisi.kaydedildi'));
     } catch (e) {
       toast.error(hataMetni(t, e));
@@ -106,6 +112,31 @@ export default function Ayarlar({ api, saltOkunur }: { api: SahaApi; saltOkunur:
                 </Rozet>
               )}
               {!x.aktif && <Rozet>{t('sahaServisi.pasif')}</Rozet>}
+              {a.stok_modulu && (
+                <select
+                  className={`${SECIM} w-auto max-w-[12rem]`}
+                  disabled={saltOkunur}
+                  value={x.stok_konum_id ?? ''}
+                  aria-label={t('sahaServisi.stok.teknisyenKonumu', { ad: x.ad })}
+                  title={t('sahaServisi.stok.teknisyenKonumu', { ad: x.ad })}
+                  onChange={async (e) => {
+                    try {
+                      await api.teknisyenGuncelle(x.id, { stok_konum_id: e.target.value ? Number(e.target.value) : null });
+                      await yukle();
+                    } catch (err) {
+                      toast.error(hataMetni(t, err));
+                    }
+                  }}
+                  data-testid="saha-teknisyen-stok-konum"
+                >
+                  <option value="">{t('sahaServisi.stok.konumAyardaki')}</option>
+                  {(a.stok_konumlari || []).map((k) => (
+                    <option key={k.id} value={k.id}>
+                      {k.ad}
+                    </option>
+                  ))}
+                </select>
+              )}
               {!saltOkunur && (
                 <span className="flex gap-1">
                   <Button
@@ -213,6 +244,35 @@ export default function Ayarlar({ api, saltOkunur }: { api: SahaApi; saltOkunur:
           </Alan>
         </div>
       </section>
+
+      {a.stok_modulu && (
+        <section className={`${KART} grid gap-3 p-4 sm:grid-cols-2`} data-testid="saha-ayar-stok">
+          <h3 className="flex items-center gap-1.5 text-base font-semibold sm:col-span-2">
+            <Boxes className="h-4 w-4 text-purple-300" aria-hidden="true" />
+            {t('sahaServisi.stok.baslik')}
+          </h3>
+          <div className="space-y-1 sm:col-span-2">
+            <Anahtar acik={!!a.stoktan_dus} devreDisi={saltOkunur} onDegis={(v) => degis('stoktan_dus', v)} etiket={t('sahaServisi.stok.dus')} testid="saha-ayar-stoktan-dus" />
+            <p className="ps-6 text-xs text-muted-foreground">{t('sahaServisi.stok.dusAciklama')}</p>
+          </div>
+          <Alan etiket={t('sahaServisi.stok.konum')} ipucu={t('sahaServisi.stok.konumIpucu')}>
+            <select
+              className={SECIM}
+              disabled={saltOkunur || !a.stoktan_dus}
+              value={a.stok_konum_id ?? ''}
+              onChange={(e) => degis('stok_konum_id', e.target.value ? Number(e.target.value) : null)}
+              data-testid="saha-ayar-stok-konum"
+            >
+              <option value="">{t('sahaServisi.stok.konumVarsayilan')}</option>
+              {(a.stok_konumlari || []).map((k) => (
+                <option key={k.id} value={k.id}>
+                  {k.ad}
+                </option>
+              ))}
+            </select>
+          </Alan>
+        </section>
+      )}
 
       <section className={`${KART} grid gap-3 p-4 sm:grid-cols-2`}>
         <h3 className="text-base font-semibold sm:col-span-2">{t('sahaServisi.ayar.isleyis')}</h3>

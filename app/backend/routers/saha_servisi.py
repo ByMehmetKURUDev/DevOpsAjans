@@ -21,6 +21,9 @@ Müşteri (`/api/v1/saha-servisim`; modül `saha_servisi` açık + hesap ekibi i
   PUT  /is-emirleri/{id}/saha                   teknisyen notu, işçilik süresi, takip gerekli
   POST /is-emirleri/{id}/fotograflar, DELETE /is-emirleri/{id}/fotograflar/{fid}  (EXIF silinir, WebP)
   POST /is-emirleri/{id}/malzemeler, DELETE /is-emirleri/{id}/malzemeler/{kid}  (stok düşümü)
+       Faz 6Q: `stok_urun_id` ile Stok ve POS ürünü (iş emri tamamlanınca stoktan `cikis`, yeniden açılınca ters)
+  GET  /stok-urunleri?ara=                      stok ürünü arama (ad/barkod/SKU; MALİYET YOK) — bağlantı açıksa
+  POST /is-emirleri/{id}/yeniden-ac             tamamlanmış işi yeniden aç (iste); düşülen stok geri  [yönetim]
   POST /is-emirleri/{id}/imza                   yerinde müşteri imzası (canvas PNG + ad + zaman)
   GET  /is-emirleri/{id}/pdf                    servis formu PDF'i
   POST /is-emirleri/{id}/musteri-baglantisi     servis müşterisinin imzalı sayfası (adres)         [yönetim]
@@ -67,6 +70,7 @@ from models.saha_servisi import (
 )
 from services import saha_kayit as sk
 from services import saha_servisi as s
+from services import saha_stok as sst
 from sqlalchemy import func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -191,7 +195,7 @@ def _tarih_param(ham: Optional[str], alan: str, varsayilan: date) -> date:
 def _teknisyen_sozlugu(t: SahaTeknisyenleri) -> Dict[str, Any]:
     return {
         "id": t.id, "eposta": t.eposta, "ad": t.ad, "telefon": t.telefon, "renk": t.renk, "aktif": bool(t.aktif),
-        "sira": int(t.sira or 0),
+        "sira": int(t.sira or 0), "stok_konum_id": t.stok_konum_id,
         "konum_rizasi": s.riza_gecerli_mi(t.konum_rizasi_at, t.konum_rizasi_surumu, t.konum_rizasi_geri_at),
         "konum_rizasi_at": s.iso(t.konum_rizasi_at), "konum_rizasi_surumu": t.konum_rizasi_surumu,
         "konum_rizasi_geri_at": s.iso(t.konum_rizasi_geri_at),
@@ -238,10 +242,14 @@ def _malzeme_sozlugu(m: SahaMalzemeleri) -> Dict[str, Any]:
 
 
 def _ayar_sozlugu(a: SahaAyarlari) -> Dict[str, Any]:
-    return {k: getattr(a, k) for k in (
+    d = {k: getattr(a, k) for k in (
         "firma_adi", "telefon", "eposta", "adres", "vergi_no", "varsayilan_dil", "para_birimi", "kdv_orani", "saklama_ay",
         "imza_zorunlu", "bildirim_planlandi", "bildirim_yolda", "bildirim_tamamlandi", "memnuniyet_acik",
         "yorum_sayfasi_id", "randevu_kancasi", "randevu_is_turu", "bakim_on_gun")}
+    # Faz 6Q: NULL (eski hesap) = kapalı.
+    d["stoktan_dus"] = bool(a.stoktan_dus)
+    d["stok_konum_id"] = a.stok_konum_id
+    return d
 
 
 async def _isleri_sozlukle(db: AsyncSession, isler: List[SahaIsEmirleri]) -> List[Dict[str, Any]]:
@@ -305,9 +313,7 @@ async def _is_ayrintisi(db: AsyncSession, k: Kapsam, ie: SahaIsEmirleri) -> Dict
                          "kucuk_url": s.gorsel_adresi(f.kucuk_anahtar), "genislik": f.genislik, "yukseklik": f.yukseklik,
                          "created_at": s.iso(f.created_at)} for f in fotolar],
         "foto_siniri": s.FOTO_SINIRI,
-        "malzemeler": [{"id": x.id, "malzeme_id": x.malzeme_id, "ad": x.ad, "birim": x.birim, "miktar": x.miktar,
-                        "birim_fiyat": int(x.birim_fiyat or 0), "tutar": int(round((x.miktar or 0) * int(x.birim_fiyat or 0)))}
-                       for x in malzemeler],
+        "malzemeler": [sst.satir_sozlugu(x) for x in malzemeler],
         "gecmis": [{"eski": g.eski, "yeni": g.yeni, "kisi": g.kisi, "neden": g.neden, "konum_alindi": bool(g.konum_alindi),
                     "zaman": s.iso(g.zaman)} for g in gecmis],
         "imza": {"ad": ie.imza_ad, "at": s.iso(ie.imza_at), "url": s.gorsel_adresi(ie.imza_anahtari)} if ie.imza_anahtari else None,
@@ -397,7 +403,10 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
         if not k.ajans and k.yonetim:
             await sk.tohumla(db, a)
         t = await _teknisyen(db, k)
+        stok_modulu = await sst.stok_modulu_acik(db, k.hesap)
         return {
+            # Faz 6Q: Stok ve POS bağlantısı (modül açık mı, "stoktan düş" açık mı → iş emrinde stok ürünü aranır).
+            "stok": {"modul": stok_modulu, "acik": bool(stok_modulu and a.stoktan_dus)},
             "hesap": k.hesap, "yonetim": k.yonetim, "teknisyen": bool(k.teknisyen_izni and t is not None and t.aktif),
             "teknisyen_izni": k.teknisyen_izni, "salt_okunur": k.ajans, "benim": _teknisyen_sozlugu(t) if t else None,
             "riza_surumu": s.RIZA_SURUMU, "konum_saklama_gun": s.KONUM_SAKLAMA_GUN,
@@ -426,10 +435,14 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
         sayfalar = (await db.execute(select(YorumSayfalari.id, YorumSayfalari.isletme_adi).where(
             YorumSayfalari.hesap_email == k.hesap, YorumSayfalari.aktif.is_(True)))).all()
         # Dış bağımlılıklar: ön yüz ilgili ayarı devre dışı bırakıp nedenini yazıyor.
+        stok_modulu = await sst.stok_modulu_acik(db, k.hesap)
         return {**_ayar_sozlugu(a), "yorum_sayfalari": [{"id": i, "ad": ad} for i, ad in sayfalar],
                 "eposta_kanali": bool(_env("RESEND_API_KEY") or _env("SMTP_HOST")),
                 "randevu_modulu": await modul_acik_mi(db, k.hesap, "randevu"),
-                "yorum_modulu": await modul_acik_mi(db, k.hesap, "google_yorum_sayfasi")}
+                "yorum_modulu": await modul_acik_mi(db, k.hesap, "google_yorum_sayfasi"),
+                # Faz 6Q: Stok ve POS modülü kapalıysa "stoktan düş" seçeneği gösterilmez (konum listesi de yok).
+                "stok_modulu": stok_modulu,
+                "stok_konumlari": [sst.konum_sozlugu(x) for x in await sst.konumlar(db, k.hesap)] if stok_modulu else []}
 
     @router.get("/teknisyenler")
     async def teknisyenler(request: Request, db: AsyncSession = Depends(get_db)):
@@ -510,6 +523,18 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
         if not k.yonetim:
             liste = [m for m in liste if m.aktif]
         return {"items": [_malzeme_sozlugu(m) for m in liste]}
+
+    @router.get("/stok-urunleri")
+    async def stok_urunleri(request: Request, ara: Optional[str] = Query(None, max_length=80), db: AsyncSession = Depends(get_db)):
+        """Faz 6Q — iş emrine eklenecek stok ürünü (ad / barkod / SKU). Teknisyen de görür; MALİYET (alış fiyatı)
+        hiçbir kapsamda dönmez. Stok, kişinin araç/depo konumunda (yoksa ayardaki konumda / toplam)."""
+        k = kapsam_al(request)
+        a = await sk.ayarlar(db, k.hesap)
+        if not await sst.baglanti_acik(db, k.hesap, a):
+            raise _hata(409, "stok_baglantisi_kapali")
+        konum = (await sst.teknisyen_konumu(db, k.hesap, k.kisi)) if not k.ajans else None
+        konum = konum or a.stok_konum_id
+        return {"items": await sst.urun_ara(db, k.hesap, ara, konum), "konum_id": konum}
 
     # ------------------------------------------------------------------ iş emirleri, pano
     @router.get("/is-emirleri")
@@ -675,6 +700,16 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
                     setattr(a, alan, s.bool_duzelt(govde.get(alan), alan))
             if "randevu_is_turu" in govde:
                 a.randevu_is_turu = s.secim(govde.get("randevu_is_turu"), "randevu_is_turu", s.IS_TURLERI)
+            # Faz 6Q: stok bağlantısı yalnız Stok ve POS modülü açıkken açılabilir / konum seçilebilir.
+            if "stoktan_dus" in govde:
+                dus = s.bool_duzelt(govde.get("stoktan_dus"), "stoktan_dus")
+                if dus and not await sst.stok_modulu_acik(db, k.hesap):
+                    raise s.SahaHatasi("stok_modulu_kapali", "stoktan_dus", durum=409)
+                a.stoktan_dus = dus
+            if "stok_konum_id" in govde:
+                if govde.get("stok_konum_id") not in (None, "") and not await sst.stok_modulu_acik(db, k.hesap):
+                    raise s.SahaHatasi("stok_modulu_kapali", "stok_konum_id", durum=409)
+                a.stok_konum_id = await sst.konum_dogrula(db, k.hesap, govde.get("stok_konum_id"))
             if "yorum_sayfasi_id" in govde:
                 yid = s.tam_sayi(govde.get("yorum_sayfasi_id"), "yorum_sayfasi_id", 1, 2_000_000_000, bos_olabilir=True)
                 if yid is not None:
@@ -742,6 +777,11 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
                 t.renk = s.renk_duzelt(govde.get("renk"))
             if "sira" in govde:
                 t.sira = s.tam_sayi(govde.get("sira"), "sira", 0, 1000)
+            if "stok_konum_id" in govde:
+                # Faz 6Q: teknisyenin araç/depo stok konumu (isteğe bağlı).
+                if govde.get("stok_konum_id") not in (None, "") and not await sst.stok_modulu_acik(db, k.hesap):
+                    raise s.SahaHatasi("stok_modulu_kapali", "stok_konum_id", durum=409)
+                t.stok_konum_id = await sst.konum_dogrula(db, k.hesap, govde.get("stok_konum_id"))
             if "aktif" in govde:
                 aktif = s.bool_duzelt(govde.get("aktif"), "aktif")
                 if aktif and not t.aktif:
@@ -1192,9 +1232,26 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
             raise _s_hatasi(h)
         if sonuc.get("musteri_bildirimi"):
             arka.add_task(sk.musteriye_bildir, ie.id, sonuc["musteri_bildirimi"])
+        await sst.gecisleri_isle(db, ie.hesap_email, sonuc.get("stok_gecisleri") or [])
         d = await _is_ayrintisi(db, k, ie)
         d["konum_kaydedildi"] = sonuc["konum_alindi"]
         return d
+
+    @router.post("/is-emirleri/{is_id}/yeniden-ac")
+    async def is_emri_yeniden_ac(is_id: int, request: Request, govde: Optional[Dict[str, Any]] = Body(None),
+                                 db: AsyncSession = Depends(get_db)):
+        """Faz 6Q — tamamlanmış işi yeniden açar (`iste`); stoktan düşülen malzemeler geri eklenir."""
+        k = kapsam_al(request)
+        _yonetim_iste(k)
+        _hiz(_yazma_hizi, k.kisi)
+        ie = await _is_emri(db, k, is_id)
+        try:
+            gecisler = await sk.yeniden_ac(db, ie, kisi=k.kisi, neden=(govde or {}).get("neden"))
+        except s.SahaHatasi as h:
+            await db.rollback()
+            raise _s_hatasi(h)
+        await sst.gecisleri_isle(db, ie.hesap_email, gecisler)
+        return await _is_ayrintisi(db, k, ie)
 
     @router.put("/is-emirleri/{is_id}/kontrol")
     async def is_emri_kontrol(is_id: int, request: Request, govde: Dict[str, Any] = Body(...), db: AsyncSession = Depends(get_db)):
@@ -1297,18 +1354,18 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
         except s.SahaHatasi as h:
             await db.rollback()
             raise _s_hatasi(h)
-        return {"id": x.id, "malzeme_id": x.malzeme_id, "ad": x.ad, "birim": x.birim, "miktar": x.miktar,
-                "birim_fiyat": int(x.birim_fiyat or 0), "tutar": int(round(x.miktar * int(x.birim_fiyat or 0)))}
+        return sst.satir_sozlugu(x)
 
     @router.delete("/is-emirleri/{is_id}/malzemeler/{kid}")
     async def kullanim_sil(is_id: int, kid: int, request: Request, db: AsyncSession = Depends(get_db)):
         k = kapsam_al(request)
         ie = await _is_emri(db, k, is_id)
         try:
-            await sk.malzeme_sil(db, ie, kid)
+            gecisler = await sk.malzeme_sil(db, ie, kid, k.kisi)
         except s.SahaHatasi as h:
             await db.rollback()
             raise _s_hatasi(h)
+        await sst.gecisleri_isle(db, ie.hesap_email, gecisler)
         return {"ok": True}
 
     @router.post("/is-emirleri/{is_id}/imza")

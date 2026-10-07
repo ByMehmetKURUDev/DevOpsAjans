@@ -811,6 +811,9 @@ MUSTERI_UCLARI = [
     ("DELETE", "/api/v1/saha-servisim/is-emirleri/{SI}/fotograflar/999999", SAHA, None, "gecti"),
     ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/malzemeler", SAHA, {"ad": "Kablo", "miktar": 1}, 200),
     ("DELETE", "/api/v1/saha-servisim/is-emirleri/{SI}/malzemeler/999999", SAHA, None, "gecti"),
+    # Faz 6Q — stok ürünü arama (stok bağlantısı kapalı → 409) ve tamamlanmış işi yeniden açma (yönetim).
+    ("GET", "/api/v1/saha-servisim/stok-urunleri", SAHA, None, "gecti"),
+    ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/yeniden-ac", ("saha_yonetim",), {}, "gecti"),
     ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/imza", SAHA, {"ad": "Ekip", "png": ""}, "gecti"),
     ("GET", "/api/v1/saha-servisim/is-emirleri/{SI}/pdf", SAHA, None, 200),
     ("POST", "/api/v1/saha-servisim/is-emirleri/{SI}/musteri-baglantisi", ("saha_yonetim",), None, 200),
@@ -937,6 +940,7 @@ MUSTERI_UCLARI = [
     ("GET", f"{SP}/raporlar/gun", ("stok",), None, 200),
     ("GET", f"{SP}/raporlar/donem", ("stok",), None, 200),
     ("GET", f"{SP}/raporlar/kar", ("stok",), None, 200),
+    ("GET", f"{SP}/raporlar/saha-tuketimi", ("stok",), None, 200),
     ("GET", f"{SP}/raporlar/stok-degeri", ("stok",), None, 200),
     ("GET", f"{SP}/raporlar/hareketsiz", ("stok",), None, 200),
     # Faz 6K — eğitim (`egitim` yönetim; okuma, yoklama ve not `egitim_egitmen` de yeter).

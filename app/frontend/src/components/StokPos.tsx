@@ -41,6 +41,13 @@ export default function StokPos({ mod }: { mod: StokMod }) {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [hata, setHata] = useState<string | null>(null);
   const [bolum, setBolum] = useState<Bolum>(() => (adresParametresi('bolum') as Bolum) || (mod === 'yonetici' ? 'urunler' : 'kasa'));
+  // Faz 6Q: kasa ekranının çevrimdışı kuyruğundaki satış sayısı — kasadan çıkarken uyarı (kuyruk cihazda kalır ama
+  // kasa ekranı kapalıyken gönderilmez).
+  const [kuyrukSayisi, setKuyrukSayisi] = useState(0);
+  const bolumSec = (b: Bolum) => {
+    if (bolum === 'kasa' && b !== 'kasa' && kuyrukSayisi > 0 && !window.confirm(t('stokPos.kuyruk.ayrilOnay', { sayi: kuyrukSayisi }))) return;
+    setBolum(b);
+  };
 
   useEffect(() => {
     if (mod !== 'yonetici') return;
@@ -127,7 +134,7 @@ export default function StokPos({ mod }: { mod: StokMod }) {
                   type="button"
                   role="tab"
                   aria-selected={bolum === anahtar}
-                  onClick={() => setBolum(anahtar)}
+                  onClick={() => bolumSec(anahtar)}
                   className={`flex min-h-[40px] flex-none items-center gap-1.5 rounded-lg px-3 py-2 text-sm transition-colors ${
                     bolum === anahtar ? 'bg-purple-500/20 text-white' : 'text-muted-foreground hover:bg-white/[0.05] hover:text-white'
                   }`}
@@ -146,7 +153,7 @@ export default function StokPos({ mod }: { mod: StokMod }) {
           )}
           <Suspense fallback={<Yukleniyor />}>
             {bolum === 'kasa' ? (
-              <Kasa api={api} meta={meta} onMeta={yukle} />
+              <Kasa api={api} meta={meta} onMeta={yukle} onKuyruk={setKuyrukSayisi} />
             ) : bolum === 'urunler' ? (
               <Urunler api={api} meta={meta} saltOkunur={saltOkunur} onMeta={yukle} baslangicKritik={adresParametresi('kritik') === '1'} />
             ) : bolum === 'stok' ? (

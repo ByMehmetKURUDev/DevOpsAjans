@@ -164,7 +164,9 @@
       "paraUstu": "Change",
       "iade": "Refunded",
       "kartNotu": "Card payment is recorded only.",
-      "maliDegil": "THIS IS NOT A FISCAL RECEIPT. It does not replace a fiscal cash register receipt or e-Archive document."
+      "maliDegil": "THIS IS NOT A FISCAL RECEIPT. It does not replace a fiscal cash register receipt or e-Archive document.",
+      "cevrimdisi": "OFFLINE — will be synced",
+      "cevrimdisiNo": "Offline receipt no: {{no}}"
     },
     "z": {
       "baslik": "END-OF-DAY REPORT",
@@ -189,7 +191,8 @@
       "nakitIade": "Cash refunds",
       "beklenen": "Expected cash",
       "sayilan": "Counted cash",
-      "fark": "Difference"
+      "fark": "Difference",
+      "cevrimdisi": "Synced offline ({{sayi}})"
     },
     "urun": {
       "araIpucu": "Name, barcode or SKU",
@@ -285,7 +288,12 @@
       "yeniTedarikci": "New supplier",
       "tedarikciYok": "No suppliers.",
       "tedarikciSilOnay": "Delete “{{ad}}”?",
-      "yetkili": "Contact person"
+      "yetkili": "Contact person",
+      "kaynakSuzgeci": "Source",
+      "tumKaynaklar": "All sources",
+      "kaynakAdi": {
+        "saha": "Field service"
+      }
     },
     "sayim": {
       "aciklama": "Start a stocktake, scan items (each scan +1) or type the quantity; on approval the difference is recorded as a stock movement.",
@@ -316,7 +324,8 @@
         "donem": "Sales by period",
         "kar": "Product profit",
         "stok": "Stock value",
-        "hareketsiz": "Slow movers"
+        "hareketsiz": "Slow movers",
+        "saha": "Field service usage"
       },
       "bas": "From",
       "bit": "To",
@@ -338,7 +347,10 @@
       "oturumlar": "Till sessions",
       "acik": "open",
       "yazdir": "Print end-of-day report",
-      "veriYok": "No data for this selection."
+      "veriYok": "No data for this selection.",
+      "isEmri": "Work orders",
+      "sahaNotu": "Materials deducted from stock by field service work orders (reversals subtracted); cost at the purchase price when deducted.",
+      "esitlemeOturumu": "sync · session #{{no}}"
     },
     "ayar": {
       "yasal": "In Turkey the legal document for retail sales is a fiscal cash register (ÖKC) receipt or an e-Archive invoice. This module's receipt, end-of-day report and PDF invoice are informational and do not replace them. Card payments are recorded only.",
@@ -447,7 +459,38 @@
       "kalem_yok": "Line not found.",
       "sayim_yok": "Stocktake not found.",
       "tur_gecersiz": "Invalid type.",
-      "hesap_uyesi_degil": "You are not a member of this account's team."
+      "hesap_uyesi_degil": "You are not a member of this account's team.",
+      "istemci_kimligi_gerekli": "The offline sale has no ID.",
+      "istemci_kimligi_gecersiz": "Invalid sale ID.",
+      "oturum_gerekli": "The offline sale has no till session.",
+      "oturum_konum_uyusmuyor": "The sale's till session does not belong to this branch.",
+      "cevrimdisi_no_gecersiz": "Invalid offline receipt number.",
+      "istemci_zamani_gecersiz": "Could not read the sale time.",
+      "kaynak_gecersiz": "Invalid movement source."
+    },
+    "kuyruk": {
+      "cevrimici": "Online",
+      "rozet": "Queued",
+      "baslik": "Offline queue ({{sayi}})",
+      "cevrimdisiBilgi": "Offline: sales are queued on this device and sent in order when the connection returns. Keep this tab open — the till page cannot be opened from scratch without internet.",
+      "katalog": "Offline catalogue: {{sayi}} products ({{saat}}).",
+      "katalogYok": "No offline catalogue on this device; only the products on screen can be sold.",
+      "kuyrugaAl": "Save as offline sale",
+      "esitlendi": "{{sayi}} offline sale(s) synced.",
+      "cozumBekliyor": "{{sayi}} sale(s) need attention.",
+      "eksiDustu": "Stock went negative: {{urunler}}.",
+      "eksiUyari": "Sale queued; based on the last sync, stock goes negative: {{urunler}}.",
+      "sonEsitlemeyeGore": "(based on stock at the last sync)",
+      "musteriNotu": "Customer details are not stored on this device or added to offline sales; issue an invoice once you are back online.",
+      "simdiEsitle": "Sync now",
+      "bellekte": "No persistent storage in this browser: the queue lives only in this tab's memory, do not reload the page.",
+      "cozumBekleyen": "Needs attention",
+      "esitlenecek": "Waiting to sync",
+      "tekrarDene": "Retry",
+      "guncelFiyatla": "Save at current price",
+      "iptal": "Remove from queue",
+      "iptalOnay": "Remove {{no}} from the queue? The sale will never reach the server; correct the collected amount separately.",
+      "ayrilOnay": "There are {{sayi}} sale(s) in the queue; they are not synced while the till screen is closed. Leave anyway?"
     }
   }
 }

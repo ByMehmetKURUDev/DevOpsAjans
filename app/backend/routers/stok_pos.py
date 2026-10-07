@@ -20,10 +20,13 @@ ayardaki sınırla). Sahip bütün izinlere sahip.
   GET  /kasa, POST /kasa/ac, GET /kasa/{oturum_id}, POST /kasa/{oturum_id}/kapat    (kasa)
   GET  /kasa-oturumlari?bas=&bit=                                                                          [stok]
   POST /satislar/onizle, POST /satislar, GET /satislar, GET /satislar/{satis_id}, GET /satislar/{satis_id}/fis.pdf
+       Faz 6Q: POST /satislar `cevrimdisi: true` = kasa ekranının çevrimdışı kuyruğu (istemci_kimligi + oturum_id
+       zorunlu; aynı kimlik ikinci kez → ilk kayıt `tekrar: true`; kapanmış oturum → "eşitleme" oturumu).
   POST /satislar/{satis_id}/iade|iptal      [stok ya da kasa + ayar `kasa_iade`]
   POST /satislar/{satis_id}/fatura, GET /satislar/{satis_id}/fatura.pdf   (bilgi amaçlı PDF fatura)
   GET|POST /alicilar (kasa), PUT|DELETE /alicilar/{alici_id}                                               [stok]
-  GET  /raporlar/gun|donem|kar|stok-degeri|hareketsiz (?bicim=csv)                                         [stok]
+  GET  /raporlar/gun|donem|kar|stok-degeri|hareketsiz|saha-tuketimi (?bicim=csv)                           [stok]
+       Faz 6Q: GET /hareketler?kaynak=saha — saha servisi iş emirlerinden gelen tüketim hareketleri.
 
 Yönetici (`/api/v1/stok-pos-yonetim`, ajans): `GET /hesaplar` + okuma uçlarının aynısı `?hesap=` ile —
 SALT OKUNUR (destek amaçlı; alıcı listesi yok).
@@ -225,13 +228,15 @@ def _hareket_sozlugu(h: StokHareketleri, adlar: Dict[int, str]) -> Dict[str, Any
     return {"id": h.id, "urun_id": h.urun_id, "urun_ad": adlar.get(h.urun_id), "konum_id": h.konum_id, "tur": h.tur,
             "miktar": s.miktar_yaz(h.miktar), "sonra": s.miktar_yaz(h.sonra), "birim_maliyet": h.birim_maliyet,
             "tedarikci_id": h.tedarikci_id, "satis_id": h.satis_id, "sayim_id": h.sayim_id, "transfer_kodu": h.transfer_kodu,
-            "belge_no": h.belge_no, "aciklama": h.aciklama, "kisi": h.kisi, "zaman": s.iso(h.zaman)}
+            "belge_no": h.belge_no, "aciklama": h.aciklama, "kisi": h.kisi, "zaman": s.iso(h.zaman),
+            "kaynak": h.kaynak, "kaynak_id": h.kaynak_id}
 
 
 def _satis_ozeti(x: PosSatislari) -> Dict[str, Any]:
     return {"id": x.id, "no": x.no, "durum": x.durum, "zaman": s.iso(x.zaman), "konum_id": x.konum_id, "oturum_id": x.oturum_id,
             "kasiyer": x.kasiyer, "musteri_ad": x.musteri_ad, "toplam": x.toplam, "iade_toplam": x.iade_toplam,
-            "odeme_turu": x.odeme_turu, "fatura_no": x.fatura_no, "para_birimi": x.para_birimi}
+            "odeme_turu": x.odeme_turu, "fatura_no": x.fatura_no, "para_birimi": x.para_birimi,
+            "cevrimdisi_no": x.cevrimdisi_no, "esitlendi_at": s.iso(x.esitlendi_at)}
 
 
 async def _satis_ayrintisi(db: AsyncSession, x: PosSatislari) -> Dict[str, Any]:
@@ -289,10 +294,12 @@ def _uclari_kur(router: APIRouter, kapsam: Callable[[Request], Yetki], yazma: bo
         kritik = int((await db.execute(select(func.count(StokUrunleri.id)).where(
             StokUrunleri.hesap_email == y.hesap, StokUrunleri.aktif.is_(True), StokUrunleri.kritik_at.isnot(None)))).scalar() or 0)
         qr = False
-        if not y.ajans and y.stok:
-            from services.moduller import modul_acik_mi
+        from services.moduller import modul_acik_mi
 
+        if not y.ajans and y.stok:
             qr = await modul_acik_mi(db, y.hesap, "qr_menu") or await modul_acik_mi(db, y.hesap, "whatsapp_katalog")
+        # Faz 6Q: saha servisi modülü açıksa raporlarda "saha servisi tüketimi" süzgeci/raporu görünür.
+        saha = bool(y.stok and await modul_acik_mi(db, y.hesap, "saha_servisi"))
         return {
             "hesap": y.hesap, "ben": y.kisi, "yetki": {"stok": y.stok, "kasa": y.kasa, "ajans": y.ajans}, "salt_okunur": y.ajans,
             "ayarlar": _ayar_sozlugu(a), "varsayilan_kdv_oranlari": list(s.KDV_ORANLARI), "birimler": list(s.BIRIMLER),
@@ -305,7 +312,8 @@ def _uclari_kur(router: APIRouter, kapsam: Callable[[Request], Yetki], yazma: bo
             },
             "sayilar": {"urun": await sk.urun_sayisi(db, y.hesap), "kritik": kritik},
             "acik_oturumlar": [sk.oturum_sozlugu(o) for o in acik],
-            "qr_menu": qr, "notlar": {"fis": s.FIS_NOTU_TR, "z": s.Z_NOTU_TR},
+            "qr_menu": qr, "saha": saha, "hareket_kaynaklari": list(s.HAREKET_KAYNAKLARI),
+            "notlar": {"fis": s.FIS_NOTU_TR, "z": s.Z_NOTU_TR},
         }
 
     # ------------------------------------------------------------- ürünler
@@ -389,6 +397,7 @@ def _uclari_kur(router: APIRouter, kapsam: Callable[[Request], Yetki], yazma: bo
     @router.get("/hareketler")
     async def hareketler(request: Request, urun_id: Optional[int] = Query(None), konum_id: Optional[int] = Query(None),
                          tur: Optional[str] = Query(None, max_length=16), bas: Optional[str] = Query(None), bit: Optional[str] = Query(None),
+                         kaynak: Optional[str] = Query(None, max_length=16),
                          sayfa: int = Query(1, ge=1, le=10000), adet: int = Query(50, ge=1, le=500), db: AsyncSession = Depends(get_db)):
         y = kapsam(request)
         _stok_iste(y)
@@ -401,6 +410,10 @@ def _uclari_kur(router: APIRouter, kapsam: Callable[[Request], Yetki], yazma: bo
             kosul.append(StokHareketleri.konum_id == konum_id)
         if tur:
             kosul.append(StokHareketleri.tur == tur)
+        if kaynak:
+            if kaynak not in s.HAREKET_KAYNAKLARI:
+                raise _hata(400, "kaynak_gecersiz", alan="kaynak")
+            kosul.append(StokHareketleri.kaynak == kaynak)
         toplam = int((await db.execute(select(func.count(StokHareketleri.id)).where(*kosul))).scalar() or 0)
         liste = (await db.execute(select(StokHareketleri).where(*kosul).order_by(StokHareketleri.id.desc())
                                   .offset((sayfa - 1) * adet).limit(adet))).scalars().all()
@@ -593,6 +606,20 @@ def _uclari_kur(router: APIRouter, kapsam: Callable[[Request], Yetki], yazma: bo
                          s.kurus_csv(u["satis_degeri"])) for u in r["urunler"]]
             return _csv_yaniti(s.csv_metni(("barkod", "urun", "miktar", "birim", "alis_fiyati", "maliyet_degeri", "satis_degeri"), satirlar),
                                "stok-degeri.csv")
+        return r
+
+    @router.get("/raporlar/saha-tuketimi")
+    async def rapor_saha_tuketimi(request: Request, bas: Optional[str] = Query(None), bit: Optional[str] = Query(None),
+                                  konum_id: Optional[int] = Query(None), bicim: Optional[str] = Query(None),
+                                  db: AsyncSession = Depends(get_db)):
+        y = kapsam(request)
+        _stok_iste(y)
+        b, e = _aralik(bas, bit)
+        r = await sk.saha_tuketimi(db, y.hesap, b, e, konum_id)
+        if bicim == "csv":
+            satirlar = [(u["barkod"], u["ad"], u["miktar"], u["birim"], u["is_emri"], s.kurus_csv(u["maliyet"])) for u in r["urunler"]]
+            return _csv_yaniti(s.csv_metni(("barkod", "urun", "miktar", "birim", "is_emri", "maliyet"), satirlar),
+                               f"saha-tuketimi-{b}-{e}.csv")
         return r
 
     @router.get("/raporlar/hareketsiz")
@@ -1130,6 +1157,7 @@ def _uclari_kur(router: APIRouter, kapsam: Callable[[Request], Yetki], yazma: bo
         d = await _satis_ayrintisi(db, sonuc.satis)
         d["tekrar"] = sonuc.tekrar
         d["kritik"] = kritik
+        d["eksi_stok"] = sonuc.eksi
         return d
 
     @router.post("/satislar/{satis_id}/iade")

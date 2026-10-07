@@ -183,7 +183,11 @@
       "konum_basla": "Start location",
       "konum_bitir": "Finish location",
       "gecmis": "Status history",
-      "konumAlindi": "Location taken"
+      "konumAlindi": "Location taken",
+      "yenidenAc": "Reopen",
+      "yenidenAcNeden": "Reason for reopening (optional):",
+      "yenidenAcildi": "Work order reopened.",
+      "yenidenAcBilgi": "If a completed job is reopened, materials deducted from stock are added back."
     },
     "kontrol": {
       "baslik": "Checklist",
@@ -429,7 +433,32 @@
       "sablon_siniri": "Template limit reached.",
       "malzeme_siniri": "Material limit reached.",
       "tekrar_deneyin": "Couldn't save, please try again.",
-      "oturum_gerekli": "Your session has ended; please sign in again."
+      "oturum_gerekli": "Your session has ended; please sign in again.",
+      "stok_baglantisi_kapali": "Stock deduction is off (Settings › Stock & POS link).",
+      "stok_modulu_kapali": "The Stock & POS module is off for this account.",
+      "stok_konum_yok": "Stock location not found.",
+      "stok_urun_yok": "Stock product not found or inactive.",
+      "miktar_tam_olmali": "Quantity must be a whole number for this unit.",
+      "miktar_gecersiz": "Enter a valid quantity.",
+      "miktar_cok_buyuk": "Quantity is too large."
+    },
+    "stok": {
+      "baslik": "Stock & POS link",
+      "dus": "Deduct used materials from stock",
+      "dusAciklama": "When a work order is completed, materials linked to stock products are deducted from the selected location (document no = work order no); if the job is reopened they are added back. Field usage may take stock negative.",
+      "konum": "Branch / warehouse to deduct from",
+      "konumIpucu": "If the technician has a van/depot location, it is used first.",
+      "konumVarsayilan": "Default stock location",
+      "konumAyardaki": "No van/depot (location in settings)",
+      "teknisyenKonumu": "{{ad}} — van/depot stock location",
+      "urunEkle": "Add product from stock",
+      "ara": "Search stock products",
+      "araIpucu": "Name, barcode or SKU",
+      "stokta": "{{miktar}} {{birim}} in stock",
+      "urunYok": "No product found.",
+      "bilgi": "Stock products are deducted when the job is completed; free-text and catalogue materials can still be added.",
+      "dusuldu": "deducted from stock",
+      "bitinceDusulur": "deducted when job is done"
     }
   }
 }

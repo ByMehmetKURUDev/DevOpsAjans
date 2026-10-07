@@ -183,7 +183,11 @@
       "konum_basla": "Standort bei Beginn",
       "konum_bitir": "Standort bei Abschluss",
       "gecmis": "Statusverlauf",
-      "konumAlindi": "Standort erfasst"
+      "konumAlindi": "Standort erfasst",
+      "yenidenAc": "Wieder öffnen",
+      "yenidenAcNeden": "Grund für das Wiederöffnen (optional):",
+      "yenidenAcildi": "Auftrag wieder geöffnet.",
+      "yenidenAcBilgi": "Wird ein abgeschlossener Auftrag wieder geöffnet, wird abgebuchtes Material zurückgebucht."
     },
     "kontrol": {
       "baslik": "Checkliste",
@@ -429,7 +433,32 @@
       "sablon_siniri": "Limit für Vorlagen erreicht.",
       "malzeme_siniri": "Limit für Material erreicht.",
       "tekrar_deneyin": "Speichern fehlgeschlagen, bitte erneut versuchen.",
-      "oturum_gerekli": "Ihre Sitzung ist abgelaufen; bitte melden Sie sich erneut an."
+      "oturum_gerekli": "Ihre Sitzung ist abgelaufen; bitte melden Sie sich erneut an.",
+      "stok_baglantisi_kapali": "Lagerabbuchung ist aus (Einstellungen › Verbindung zu Lager & Kasse).",
+      "stok_modulu_kapali": "Das Modul Lager & Kasse ist für dieses Konto deaktiviert.",
+      "stok_konum_yok": "Lagerort nicht gefunden.",
+      "stok_urun_yok": "Lagerartikel nicht gefunden oder inaktiv.",
+      "miktar_tam_olmali": "Für diese Einheit muss die Menge ganzzahlig sein.",
+      "miktar_gecersiz": "Geben Sie eine gültige Menge ein.",
+      "miktar_cok_buyuk": "Menge ist zu groß."
+    },
+    "stok": {
+      "baslik": "Verbindung zu Lager & Kasse",
+      "dus": "Verbrauchtes Material vom Bestand abbuchen",
+      "dusAciklama": "Beim Abschluss eines Auftrags wird mit Lagerartikeln verknüpftes Material am gewählten Standort abgebucht (Belegnr. = Auftragsnr.); wird der Auftrag wieder geöffnet, wird es zurückgebucht. Außendienstverbrauch kann den Bestand ins Minus bringen.",
+      "konum": "Abzubuchende Filiale / Lager",
+      "konumIpucu": "Hat der Techniker einen Fahrzeug-/Lagerstandort, wird zuerst dieser verwendet.",
+      "konumVarsayilan": "Standard-Lagerort",
+      "konumAyardaki": "Kein Fahrzeug/Lager (Standort aus Einstellungen)",
+      "teknisyenKonumu": "{{ad}} — Fahrzeug-/Lagerstandort",
+      "urunEkle": "Artikel aus Lager hinzufügen",
+      "ara": "Lagerartikel suchen",
+      "araIpucu": "Name, Barcode oder SKU",
+      "stokta": "{{miktar}} {{birim}} auf Lager",
+      "urunYok": "Kein Artikel gefunden.",
+      "bilgi": "Lagerartikel werden beim Auftragsabschluss abgebucht; freie Positionen und Katalogmaterial bleiben möglich.",
+      "dusuldu": "vom Bestand abgebucht",
+      "bitinceDusulur": "wird bei Abschluss abgebucht"
     }
   }
 }

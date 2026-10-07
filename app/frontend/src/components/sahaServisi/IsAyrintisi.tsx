@@ -17,6 +17,8 @@ import {
   Phone,
   Play,
   Plus,
+  RotateCcw,
+  Search,
   Trash2,
   Truck,
   WifiOff,
@@ -46,6 +48,7 @@ import {
   type Meta,
   type Riza,
   type SahaApi,
+  type StokUrunu,
 } from '@/lib/sahaServisi';
 import { Alan, BIRIM_SECENEKLERI, DurumRozeti, GIRDI, KART, kopyala, METIN_ALANI, OncelikRozeti, Rozet, SECIM, Yukleniyor } from './ortak';
 
@@ -228,6 +231,23 @@ export default function IsAyrintisi({
         setEksikler(((e.ek.maddeler as string[]) || []).map(String));
         listeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+      toast.error(hataMetni(t, e));
+    } finally {
+      setMesgul(null);
+    }
+  };
+
+  /** Faz 6Q — tamamlanmış işi yeniden aç (yönetim); stoktan düşülen malzemeler geri eklenir. */
+  const yenidenAc = async () => {
+    if (!is) return;
+    const girdi = window.prompt(t('sahaServisi.ayrinti.yenidenAcNeden'));
+    if (girdi === null) return;
+    setMesgul('yeniden');
+    try {
+      setIs(await api.yenidenAc(is.id, girdi.trim() || undefined));
+      toast.success(t('sahaServisi.ayrinti.yenidenAcildi'));
+      onDegisti?.();
+    } catch (e) {
       toast.error(hataMetni(t, e));
     } finally {
       setMesgul(null);
@@ -429,6 +449,16 @@ export default function IsAyrintisi({
         </section>
       )}
 
+      {yonetim && is.durum === 'tamamlandi' && (
+        <section className={`${KART} flex flex-wrap items-center gap-2 p-4`} data-testid="saha-yeniden-ac-bolumu">
+          <p className="min-w-0 flex-1 text-xs text-muted-foreground">{t('sahaServisi.ayrinti.yenidenAcBilgi')}</p>
+          <Button size="sm" variant="outline" className="min-h-[40px] gap-1 !bg-transparent border-white/20" disabled={!!mesgul} onClick={() => void yenidenAc()} data-testid="saha-yeniden-ac">
+            {mesgul === 'yeniden' ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <RotateCcw className="h-4 w-4" aria-hidden="true" />}
+            {t('sahaServisi.ayrinti.yenidenAc')}
+          </Button>
+        </section>
+      )}
+
       {/* Kontrol listesi */}
       {is.kontrol_listesi.length > 0 && (
         <section ref={listeRef} className={`${KART} p-4`} aria-labelledby="saha-kontrol-b" data-testid="saha-kontrol">
@@ -536,7 +566,7 @@ export default function IsAyrintisi({
       </section>
 
       {/* Malzeme */}
-      <MalzemeBolumu api={api} is={is} kapali={kapali} para={para} onDegis={(m) => setIs((x) => (x ? { ...x, malzemeler: m } : x))} />
+      <MalzemeBolumu api={api} is={is} kapali={kapali} para={para} stokAcik={!!meta.stok?.acik} onDegis={(m) => setIs((x) => (x ? { ...x, malzemeler: m } : x))} />
 
       {/* Not ve işçilik */}
       <section className={`${KART} space-y-3 p-4`} aria-labelledby="saha-not-b">
@@ -752,12 +782,15 @@ function MalzemeBolumu({
   is,
   kapali,
   para,
+  stokAcik,
   onDegis,
 }: {
   api: SahaApi;
   is: Ayrinti;
   kapali: boolean;
   para: string;
+  /** Faz 6Q: Stok ve POS bağlantısı açık — stok ürünü aranır, iş bitince stoktan düşer. */
+  stokAcik: boolean;
   onDegis: (m: Ayrinti['malzemeler']) => void;
 }) {
   const { t, i18n } = useTranslation();
@@ -767,6 +800,39 @@ function MalzemeBolumu({
   const [miktar, setMiktar] = useState('1');
   const [serbest, setSerbest] = useState({ ad: '', birim: 'adet', fiyat: '' });
   const [mesgul, setMesgul] = useState(false);
+  const [stokAra, setStokAra] = useState('');
+  const [stokSonuc, setStokSonuc] = useState<StokUrunu[] | null>(null);
+  const [stokSecili, setStokSecili] = useState<StokUrunu | null>(null);
+  const [stokMiktar, setStokMiktar] = useState('1');
+
+  // Stok ürünü araması (ad / barkod / SKU) — yazdıkça, kısa gecikmeyle.
+  useEffect(() => {
+    if (!acik || !stokAcik) return;
+    const z = window.setTimeout(() => {
+      api
+        .stokUrunleri(stokAra.trim() || undefined)
+        .then((r) => setStokSonuc(r.items))
+        .catch(() => setStokSonuc([]));
+    }, 250);
+    return () => window.clearTimeout(z);
+  }, [acik, api, stokAcik, stokAra]);
+
+  const stokEkle = async () => {
+    if (!stokSecili) return;
+    setMesgul(true);
+    try {
+      const k = await api.kullanimEkle(is.id, { stok_urun_id: stokSecili.id, miktar: stokMiktar.replace(',', '.') });
+      onDegis([...is.malzemeler, k]);
+      setStokSecili(null);
+      setStokMiktar('1');
+      setStokAra('');
+      toast.success(t('sahaServisi.malzeme.eklendi'));
+    } catch (e) {
+      toast.error(hataMetni(t, e));
+    } finally {
+      setMesgul(false);
+    }
+  };
 
   useEffect(() => {
     if (!acik || katalog) return;
@@ -822,8 +888,15 @@ function MalzemeBolumu({
       ) : (
         <ul className="divide-y divide-white/5 text-sm">
           {is.malzemeler.map((x) => (
-            <li key={x.id} className="flex items-center gap-2 py-2">
-              <span className="min-w-0 flex-1 truncate">{x.ad}</span>
+            <li key={x.id} className="flex flex-wrap items-center gap-2 py-2" data-testid="saha-malzeme-satiri-is" data-stok-urun-id={x.stok_urun_id ?? ''}>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate">{x.ad}</span>
+                {x.stok_urun_id ? (
+                  <span className={`mt-0.5 inline-block rounded-full border px-1.5 text-[10px] ${x.stoktan_dusuldu ? 'border-emerald-400/40 text-emerald-200' : 'border-sky-400/40 text-sky-200'}`} data-testid="saha-malzeme-stok-rozet">
+                    {x.stoktan_dusuldu ? t('sahaServisi.stok.dusuldu') : t('sahaServisi.stok.bitinceDusulur')}
+                  </span>
+                ) : null}
+              </span>
               <span className="text-muted-foreground" dir="ltr">
                 {x.miktar} {t(`sahaServisi.birim.${x.birim}`, { defaultValue: x.birim })}
               </span>
@@ -840,6 +913,69 @@ function MalzemeBolumu({
             <span className="tabular-nums">{paraYaz(toplam, para, i18n.language)}</span>
           </li>
         </ul>
+      )}
+      {acik && !kapali && stokAcik && (
+        <div className="mt-3 space-y-2 rounded-xl border border-purple-400/20 bg-purple-500/[0.06] p-3" data-testid="saha-stok-bolumu">
+          <p className="text-sm font-medium">{t('sahaServisi.stok.urunEkle')}</p>
+          <div className="relative">
+            <Search className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+            <input
+              className={`${GIRDI} ps-9 text-base`}
+              value={stokAra}
+              onChange={(e) => {
+                setStokAra(e.target.value);
+                setStokSecili(null);
+              }}
+              placeholder={t('sahaServisi.stok.araIpucu')}
+              aria-label={t('sahaServisi.stok.ara')}
+              autoComplete="off"
+              data-testid="saha-stok-ara"
+            />
+          </div>
+          {stokSecili ? (
+            <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_7rem_auto] sm:items-end">
+              <p className="text-sm" data-testid="saha-stok-secili">
+                <span className="font-medium">{stokSecili.ad}</span>
+                <span className="ms-1 text-xs text-muted-foreground">
+                  {paraYaz(stokSecili.birim_fiyat, para, i18n.language)} / {t(`sahaServisi.birim.${stokSecili.birim}`, { defaultValue: stokSecili.birim })}
+                </span>
+              </p>
+              <Alan etiket={t('sahaServisi.malzeme.miktar')}>
+                <input type="text" inputMode="decimal" className={`${GIRDI} text-base`} value={stokMiktar} onChange={(e) => setStokMiktar(e.target.value)} dir="ltr" data-testid="saha-stok-miktar" />
+              </Alan>
+              <Button className="min-h-[44px]" onClick={() => void stokEkle()} disabled={mesgul} data-testid="saha-stok-ekle">
+                {mesgul ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Plus className="h-4 w-4" aria-hidden="true" />}
+                {t('sahaServisi.ekle')}
+              </Button>
+            </div>
+          ) : (
+            <ul className="max-h-56 divide-y divide-white/5 overflow-y-auto" data-testid="saha-stok-sonuclar">
+              {(stokSonuc || []).map((u) => (
+                <li key={u.id}>
+                  <button
+                    type="button"
+                    className="flex min-h-[44px] w-full flex-wrap items-center gap-x-2 px-1 py-1.5 text-start text-sm hover:bg-white/[0.05]"
+                    onClick={() => setStokSecili(u)}
+                    data-testid="saha-stok-urun"
+                    data-urun-id={u.id}
+                  >
+                    <span className="min-w-0 flex-1 truncate font-medium">{u.ad}</span>
+                    <span className="font-mono text-[11px] text-muted-foreground" dir="ltr">
+                      {u.barkod}
+                    </span>
+                    {u.stok_takibi && (
+                      <span className={`text-xs ${u.kritik ? 'text-amber-300' : 'text-muted-foreground'}`}>
+                        {t('sahaServisi.stok.stokta', { miktar: u.stok ?? 0, birim: t(`sahaServisi.birim.${u.birim}`, { defaultValue: u.birim }) })}
+                      </span>
+                    )}
+                  </button>
+                </li>
+              ))}
+              {stokSonuc && !stokSonuc.length && <li className="py-2 text-center text-xs text-muted-foreground">{t('sahaServisi.stok.urunYok')}</li>}
+            </ul>
+          )}
+          <p className="text-xs text-muted-foreground">{t('sahaServisi.stok.bilgi')}</p>
+        </div>
       )}
       {acik && !kapali && (
         <div className="mt-3 grid gap-2 rounded-xl border border-white/10 bg-black/20 p-3 sm:grid-cols-[minmax(0,1fr)_7rem_auto] sm:items-end">

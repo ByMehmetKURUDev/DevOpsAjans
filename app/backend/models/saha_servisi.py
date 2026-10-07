@@ -33,6 +33,10 @@ Tablolar
 * `saha_is_fotograflari` — önce/sonra/madde fotoğrafları (içerik dosya deposunda;
   EXIF — konum dahil — sunucuda silinmiş, WebP).
 * `saha_malzeme_kullanimi` — iş emrinde kullanılan malzeme (stoktan düşüm).
+  Faz 6Q: hesapta Stok ve POS modülü açık ve ayarda "kullanılan malzemeleri stoktan düş" açıksa satır
+  bir stok ürününe (`stok_urun_id`) bağlanabilir; iş emri TAMAMLANINCA `stok_hareketleri`ne `cikis`
+  (belge no = iş emri no, kaynak "saha") yazılır, `stok_dusum_at` dolar (satır başına tek düşüm —
+  koşullu güncelleme). Yeniden açılınca / satır silinince ters hareket (`iade`) ve `stok_dusum_at` boşalır.
 * `saha_durum_gecmisi` — durum geçişleri (kim, ne zaman, neden).
 """
 
@@ -71,6 +75,10 @@ class SahaAyarlari(Base):
     yorum_sayfasi_id = Column(Integer, nullable=True)
     #: Faz 5R randevusu → iş emri (randevu modülü açıksa).
     randevu_kancasi = Column(Boolean, nullable=False, default=False)
+    #: Faz 6Q: tamamlanan iş emrinin stok ürününe bağlı malzemeleri stoktan düşülsün (Stok ve POS modülü açıksa).
+    #: NULL/False = kapalı (varsayılan). `stok_konum_id`: düşülecek şube/depo (boş = stoktaki varsayılan konum).
+    stoktan_dus = Column(Boolean, nullable=True, default=False)
+    stok_konum_id = Column(Integer, nullable=True)
     randevu_is_turu = Column(String(16), nullable=False, default="kesif")
     #: Bakım vadesine bu kadar gün kala "bakım zamanı" bildirimi.
     bakim_on_gun = Column(Integer, nullable=False, default=7)
@@ -99,6 +107,8 @@ class SahaTeknisyenleri(Base):
     konum_rizasi_at = Column(DateTime(timezone=True), nullable=True)
     konum_rizasi_surumu = Column(String(32), nullable=True)
     konum_rizasi_geri_at = Column(DateTime(timezone=True), nullable=True)
+    #: Faz 6Q: teknisyenin araç/depo stok konumu (isteğe bağlı; boşsa ayardaki konum).
+    stok_konum_id = Column(Integer, nullable=True)
     created_at = Column(DateTime(timezone=True), default=_simdi, nullable=False)
     updated_at = Column(DateTime(timezone=True), default=_simdi, onupdate=_simdi, nullable=True)
 
@@ -334,6 +344,12 @@ class SahaMalzemeKullanimi(Base):
     birim_fiyat = Column(Integer, nullable=False, default=0)
     #: Bu satır stoktan düştü (silinince geri eklenir).
     stoktan_dusuldu = Column(Boolean, nullable=False, default=False)
+    #: Faz 6Q: Stok ve POS ürünü bağı. `stok_miktar` binde bir (düşülecek miktar), `stok_konum_id` düşüldüğü
+    #: konum, `stok_dusum_at` düşüm anı (NULL = düşülmedi / geri alındı).
+    stok_urun_id = Column(Integer, nullable=True)
+    stok_miktar = Column(Integer, nullable=True)
+    stok_konum_id = Column(Integer, nullable=True)
+    stok_dusum_at = Column(DateTime(timezone=True), nullable=True)
     ekleyen = Column(String(254), nullable=True)
     created_at = Column(DateTime(timezone=True), default=_simdi, nullable=False)
 

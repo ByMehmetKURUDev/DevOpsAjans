@@ -183,7 +183,11 @@
       "konum_basla": "Başla konumu",
       "konum_bitir": "Bitir konumu",
       "gecmis": "Durum geçmişi",
-      "konumAlindi": "Konum alındı"
+      "konumAlindi": "Konum alındı",
+      "yenidenAc": "Yeniden aç",
+      "yenidenAcNeden": "Yeniden açma nedeni (isteğe bağlı):",
+      "yenidenAcildi": "İş emri yeniden açıldı.",
+      "yenidenAcBilgi": "Tamamlanan iş yeniden açılırsa stoktan düşülen malzemeler geri eklenir."
     },
     "kontrol": {
       "baslik": "Kontrol listesi",
@@ -429,7 +433,32 @@
       "sablon_siniri": "Şablon sınırına ulaşıldı.",
       "malzeme_siniri": "Malzeme sınırına ulaşıldı.",
       "tekrar_deneyin": "Kaydedilemedi, tekrar deneyin.",
-      "oturum_gerekli": "Oturumunuz kapanmış; tekrar giriş yapın."
+      "oturum_gerekli": "Oturumunuz kapanmış; tekrar giriş yapın.",
+      "stok_baglantisi_kapali": "Stoktan düşme kapalı (Ayarlar › Stok ve POS bağlantısı).",
+      "stok_modulu_kapali": "Stok ve POS modülü bu hesapta kapalı.",
+      "stok_konum_yok": "Stok konumu bulunamadı.",
+      "stok_urun_yok": "Stok ürünü bulunamadı ya da pasif.",
+      "miktar_tam_olmali": "Bu birimde miktar tam sayı olmalı.",
+      "miktar_gecersiz": "Geçerli bir miktar girin.",
+      "miktar_cok_buyuk": "Miktar çok büyük."
+    },
+    "stok": {
+      "baslik": "Stok ve POS bağlantısı",
+      "dus": "Kullanılan malzemeleri stoktan düş",
+      "dusAciklama": "İş emri tamamlanınca stok ürününe bağlı malzemeler seçili konumdan düşülür (belge no = iş emri no); iş yeniden açılırsa geri eklenir. Sahada kullanılan malzeme stoku eksiye düşürebilir.",
+      "konum": "Düşülecek şube / depo",
+      "konumIpucu": "Teknisyene araç/depo konumu tanımlıysa önce o kullanılır.",
+      "konumVarsayilan": "Stoktaki varsayılan konum",
+      "konumAyardaki": "Araç/depo yok (ayardaki konum)",
+      "teknisyenKonumu": "{{ad}} — araç/depo stok konumu",
+      "urunEkle": "Stoktan ürün ekle",
+      "ara": "Stok ürünü ara",
+      "araIpucu": "Ad, barkod ya da SKU",
+      "stokta": "stokta {{miktar}} {{birim}}",
+      "urunYok": "Ürün bulunamadı.",
+      "bilgi": "Stok ürünü iş tamamlanınca stoktan düşülür; serbest kalem ve katalog malzemesi yine eklenebilir.",
+      "dusuldu": "stoktan düşüldü",
+      "bitinceDusulur": "iş bitince stoktan düşülür"
     }
   }
 }

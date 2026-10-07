@@ -8,10 +8,13 @@ import { Bos, DIS_DUGME, GIRDI, KART, SECIM, Yukleniyor } from '@/components/sto
 import { ZRaporu } from '@/components/stokPos/Fis';
 import { bugun, gunOnce, hataMetni, miktarYaz, para, tarihSaat, type Meta, type Ozet, type StokApi } from '@/lib/stokPos';
 
-type Alt = 'gun' | 'donem' | 'kar' | 'stok' | 'hareketsiz';
-const ALTLAR: Alt[] = ['gun', 'donem', 'kar', 'stok', 'hareketsiz'];
+type Alt = 'gun' | 'donem' | 'kar' | 'stok' | 'hareketsiz' | 'saha';
+const ALTLAR: Alt[] = ['gun', 'donem', 'kar', 'stok', 'hareketsiz', 'saha'];
 
-/** Faz 6P — raporlar: Z-benzeri gün sonu (mali değil), dönem satışları, ürün bazlı kâr, stok değeri, hareketsiz ürünler; CSV. */
+/**
+ * Faz 6P — raporlar: Z-benzeri gün sonu (mali değil), dönem satışları, ürün bazlı kâr, stok değeri, hareketsiz ürünler; CSV.
+ * Faz 6Q — gün sonunda "çevrimdışı eşitlenen" satışlar; saha servisi modülü açıksa "saha servisi tüketimi".
+ */
 export default function Raporlar({ api, meta }: { api: StokApi; meta: Meta }) {
   const { t, i18n } = useTranslation();
   const dil = i18n.language || 'tr';
@@ -28,6 +31,7 @@ export default function Raporlar({ api, meta }: { api: StokApi; meta: Meta }) {
   const [z, setZ] = useState<Ozet | null>(null);
   const konumlar = meta.konumlar;
   const k = konum ? Number(konum) : undefined;
+  const altlar = ALTLAR.filter((a) => a !== 'saha' || meta.saha);
 
   useEffect(() => {
     setVeri(null);
@@ -41,25 +45,36 @@ export default function Raporlar({ api, meta }: { api: StokApi; meta: Meta }) {
             ? api.raporKar(bas, bit, k)
             : alt === 'stok'
               ? api.raporStokDegeri(k)
-              : api.raporHareketsiz(gun);
-    is.then(setVeri).catch((e) => setHata(hataMetni(t, e)));
+              : alt === 'saha'
+                ? api.raporSahaTuketimi(bas, bit, k)
+                : api.raporHareketsiz(gun);
+    // Sekme/tarih hızlı değişirse geç gelen eski yanıt (başka biçim) yenisinin üstüne yazmasın.
+    let gecersiz = false;
+    is.then((v: unknown) => !gecersiz && setVeri(v)).catch((e) => !gecersiz && setHata(hataMetni(t, e)));
+    return () => {
+      gecersiz = true;
+    };
   }, [api, alt, tarih, bas, bit, k, gun, t]);
 
   const csv = () => {
-    const tur = alt === 'stok' ? 'stok-degeri' : alt === 'gun' ? 'donem' : alt;
-    void api.raporCsv(tur as 'donem' | 'kar' | 'stok-degeri' | 'hareketsiz', alt === 'hareketsiz' ? { gun } : alt === 'stok' ? { konum_id: k } : { bas: alt === 'gun' ? tarih : bas, bit: alt === 'gun' ? tarih : bit, konum_id: k }).catch((e) => setHata(hataMetni(t, e)));
+    const tur = alt === 'stok' ? 'stok-degeri' : alt === 'gun' ? 'donem' : alt === 'saha' ? 'saha-tuketimi' : alt;
+    void api.raporCsv(tur as 'donem' | 'kar' | 'stok-degeri' | 'hareketsiz' | 'saha-tuketimi', alt === 'hareketsiz' ? { gun } : alt === 'stok' ? { konum_id: k } : { bas: alt === 'gun' ? tarih : bas, bit: alt === 'gun' ? tarih : bit, konum_id: k }).catch((e) => setHata(hataMetni(t, e)));
   };
 
   return (
     <div className="space-y-3" data-testid="stok-raporlar">
       <div className="flex flex-wrap gap-1" role="tablist">
-        {ALTLAR.map((a) => (
+        {altlar.map((a) => (
           <button
             key={a}
             type="button"
             role="tab"
             aria-selected={alt === a}
-            onClick={() => setAlt(a)}
+            onClick={() => {
+              // Eski verinin biçimi yeni sekmeye uymaz (ör. gün özetinde `urunler` yok): aynı çizimde boşalt.
+              setVeri(null);
+              setAlt(a);
+            }}
             className={`rounded-full border px-3 py-1.5 text-xs ${alt === a ? 'border-purple-400/60 bg-purple-500/20 text-white' : 'border-white/10 text-muted-foreground hover:text-white'}`}
             data-rapor={a}
           >
@@ -69,7 +84,7 @@ export default function Raporlar({ api, meta }: { api: StokApi; meta: Meta }) {
       </div>
       <div className="flex flex-wrap items-center gap-2">
         {alt === 'gun' && <input type="date" className={cn(GIRDI, 'w-auto')} value={tarih} onChange={(e) => setTarih(e.target.value)} aria-label={t('stokPos.z.tarih')} />}
-        {(alt === 'donem' || alt === 'kar') && (
+        {(alt === 'donem' || alt === 'kar' || alt === 'saha') && (
           <>
             <input type="date" className={cn(GIRDI, 'w-auto')} value={bas} onChange={(e) => setBas(e.target.value)} aria-label={t('stokPos.rapor.bas')} />
             <input type="date" className={cn(GIRDI, 'w-auto')} value={bit} onChange={(e) => setBit(e.target.value)} aria-label={t('stokPos.rapor.bit')} />
@@ -130,6 +145,21 @@ export default function Raporlar({ api, meta }: { api: StokApi; meta: Meta }) {
           })()}
           not={t('stokPos.rapor.karNotu')}
         />
+      ) : alt === 'saha' ? (
+        <Tablo
+          basliklar={[t('stokPos.urun.ad'), t('stokPos.stok.miktar'), t('stokPos.rapor.isEmri'), t('stokPos.rapor.maliyet')]}
+          satirlar={(veri as { urunler: { ad: string; miktar: number; birim: string; is_emri: number; maliyet: number }[] }).urunler.map((u) => [
+            u.ad,
+            `${miktarYaz(u.miktar, dil)} ${t(`stokPos.birim.${u.birim}`)}`,
+            u.is_emri,
+            p(u.maliyet),
+          ])}
+          toplam={(() => {
+            const tp = (veri as { toplam: { urun: number; maliyet: number; is_emri: number } }).toplam;
+            return [t('stokPos.rapor.urunSayisi', { sayi: tp.urun }), '', tp.is_emri, p(tp.maliyet)];
+          })()}
+          not={t('stokPos.rapor.sahaNotu')}
+        />
       ) : alt === 'stok' ? (
         <Tablo
           basliklar={[t('stokPos.urun.ad'), t('stokPos.stok.miktar'), t('stokPos.rapor.maliyetDegeri'), t('stokPos.rapor.satisDegeri')]}
@@ -180,6 +210,11 @@ function GunSonu({ ozet, p, onYazdir }: { ozet: Ozet & { not: string }; p: (n: n
         {kutu(t('stokPos.rapor.iade'), p(ozet.iade_toplam))}
         {kutu(t('stokPos.z.net'), p(ozet.net), 'stok-gun-net')}
       </div>
+      {typeof ozet.cevrimdisi_sayisi === 'number' && (
+        <p className="text-sm text-muted-foreground" data-testid="stok-gun-cevrimdisi">
+          {t('stokPos.z.cevrimdisi', { sayi: ozet.cevrimdisi_sayisi })}: <span className="tabular-nums text-white">{p(ozet.cevrimdisi_toplam ?? 0)}</span>
+        </p>
+      )}
       <div className="grid gap-3 md:grid-cols-3">
         <div className={`${KART} p-3`}>
           <h4 className="mb-2 text-sm font-semibold">{t('stokPos.z.odemeler')}</h4>
@@ -224,6 +259,7 @@ function GunSonu({ ozet, p, onYazdir }: { ozet: Ozet & { not: string }; p: (n: n
             {ozet.oturumlar.map((o) => (
               <li key={o.id} className="flex flex-wrap gap-x-3">
                 <span>#{o.id}</span>
+                {o.tur === 'esitleme' && <span className="text-amber-200">{t('stokPos.rapor.esitlemeOturumu', { no: o.kaynak_oturum_id ?? '' })}</span>}
                 <span className="text-muted-foreground">
                   {tarihSaat(o.acilis_at, dil)} – {o.kapanis_at ? tarihSaat(o.kapanis_at, dil) : t('stokPos.rapor.acik')}
                 </span>

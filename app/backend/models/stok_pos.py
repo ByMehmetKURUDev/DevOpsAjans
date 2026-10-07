@@ -34,8 +34,14 @@ Tablolar
 * `stok_sayimlari` / `stok_sayim_kalemleri` — envanter sayımı: okut-say, onayda fark hareketi.
 * `pos_kasa_oturumlari` — kasa aç/kapa: gün başı nakit, gün sonu sayım, beklenen ve fark; kapanışta
   Z-benzeri özet donar. Konum başına tek açık oturum (`acik_anahtar` benzersiz; kapanınca NULL).
+  Faz 6Q: `tur = "esitleme"` — kapanmış bir oturuma (`kaynak_oturum_id`) geç ulaşan çevrimdışı satışların
+  oturumu (kendiliğinden kapalı açılır; kapanmış oturumun donmuş Z'si değişmesin). Kaynak oturum başına
+  tek satır: `acik_anahtar = "esitleme|<kaynak_oturum_id>"` (aynı benzersiz sütun; açık kasa anahtarı
+  "<hesap>|<konum>" biçiminde olduğu için çakışmaz).
 * `pos_satislari` / `pos_satis_kalemleri` — satış (fiş). Tutarlar sunucuda hesaplanır, kuruş.
   `istemci_kimligi`: ağ koparsa aynı sepet ikinci kez gönderilse de tek satış (hesapta benzersiz).
+  Faz 6Q: çevrimdışı kuyruktan eşitlenen satışta `cevrimdisi_no` (cihazda basılan "ÇEVRİMDIŞI-n") ve
+  `esitlendi_at` (sunucuya ulaştığı an; `zaman` cihazdaki satış anıdır).
 * `pos_iadeler` — iade / iptal kayıtları (kasa mutabakatına girer).
 * `pos_alicilari` — fatura alıcısı / isteğe bağlı müşteri kaydı (KİŞİSEL VERİ; denetim dışı).
 """
@@ -170,6 +176,9 @@ class StokHareketleri(Base):
     miktar = Column(Integer, nullable=False)
     #: Hareket sonrası bu konumdaki stok (binde bir).
     sonra = Column(Integer, nullable=True)
+    #: Faz 6Q: hareketin kaynağı (NULL = stok/POS ekranı; "saha" = saha servisi iş emri) + kaynak kaydı (iş emri id).
+    kaynak = Column(String(16), nullable=True)
+    kaynak_id = Column(Integer, nullable=True)
     birim_maliyet = Column(Integer, nullable=True)
     tedarikci_id = Column(Integer, nullable=True)
     satis_id = Column(Integer, index=True, nullable=True)
@@ -259,6 +268,9 @@ class PosKasaOturumlari(Base):
     notlar = Column(Text, nullable=True)
     #: Kapanışta donan Z-benzeri özet (JSON).
     ozet = Column(Text, nullable=True)
+    #: Faz 6Q: NULL = kasa oturumu; "esitleme" = kapanmış `kaynak_oturum_id`ye geç gelen çevrimdışı satışlar.
+    tur = Column(String(10), nullable=True)
+    kaynak_oturum_id = Column(Integer, nullable=True)
 
 
 class PosSatislari(Base):
@@ -297,6 +309,9 @@ class PosSatislari(Base):
     iade_toplam = Column(Integer, nullable=False, default=0)
     para_birimi = Column(String(3), nullable=False, default="TRY")
     istemci_kimligi = Column(String(40), nullable=True)
+    #: Faz 6Q: çevrimdışı kuyruktan gelen satışın cihaz fiş numarası ve sunucuya ulaştığı an.
+    cevrimdisi_no = Column(String(24), nullable=True)
+    esitlendi_at = Column(DateTime(timezone=True), nullable=True)
     fatura_no = Column(String(24), nullable=True)
     fatura_at = Column(DateTime(timezone=True), nullable=True)
     fatura_alici = Column(Text, nullable=True)

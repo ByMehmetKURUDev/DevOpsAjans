@@ -12,14 +12,18 @@ Tutarlılık
   stok eşik üstüne çıkınca boşalır, bir sonraki düşüş yeniden uyarır.
 * QR menü bağı: bağlı ürünün toplam stoku 0'a inince menü ürünü "tükendi", yeniden artınca geri
   açılır (yalnız geçişte; ayar `qr_stok_esitle`).
-* Faz 6S saha malzemeleri (`saha_malzemeleri.stok`) bu katmanı KULLANMIYOR: orada stok bilerek eksiye
-  düşebilen basit bir sayaç. Ortaklaştırma önerisi rapor notunda (malzemeleri `stok_urunleri`ne
-  `stok_takibi` ile taşıyıp kullanımı `stok_degistir(..., tur="cikis")` ile düşmek).
+* Faz 6S saha malzemelerinin kendi kataloğu (`saha_malzemeleri.stok`) bu katmanı kullanmıyor (bilerek eksiye
+  düşebilen basit sayaç). Faz 6Q: iş emri malzemesi bir STOK ürününe bağlanırsa düşüm bu katmandan geçer
+  (`services/saha_stok.py` → `stok_degistir(..., "cikis", kaynak="saha")`).
+* Faz 6Q çevrimdışı kuyruk: kasa ekranı bağlantı koparken satışı cihazda kuyruğa yazar, bağlantı gelince
+  `satis_olustur(..., cevrimdisi=True)` ile gönderir. Tekrar gönderim `istemci_kimligi` ile tek kayıt; satış
+  zamanı cihazdaki an; oturum kuralı `_cevrimdisi_oturum` (kapanmışsa "eşitleme" oturumu); stok kuralı
+  ayardaki eksi stok izniyle aynı (izin yoksa yetersiz stokta 409 → cihazda "çözüm bekleyen").
 """
 
 import logging
 import secrets
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
@@ -185,10 +189,11 @@ async def _seviye_satiri(db: AsyncSession, hesap: str, urun_id: int, konum_id: i
 
 
 async def stok_degistir(db: AsyncSession, hesap: str, urun: StokUrunleri, konum_id: int, degisim: int, tur: str, *,
-                        kisi: Optional[str], eksi_izin: bool, **ek: Any) -> int:
+                        kisi: Optional[str], eksi_izin: bool, eksi_notu: Optional[str] = None, **ek: Any) -> int:
     """Konumdaki stoku `degisim` (binde bir, işaretli) kadar değiştirir ve hareketi yazar; yeni miktarı döner.
 
-    Eksi stok kapalıysa düşüş koşullu: yetersizse `yetersiz_stok` (409) — çağıran geri alır."""
+    Eksi stok kapalıysa düşüş koşullu: yetersizse `yetersiz_stok` (409) — çağıran geri alır. `eksi_notu`
+    verilirse ve stok bu hareketle eksiye düştüyse hareketin açıklamasına eklenir (kayıt izi)."""
     if tur not in s.HAREKET_TURLERI:
         raise ValueError(tur)
     await _seviye_satiri(db, hesap, urun.id, konum_id)
@@ -203,6 +208,8 @@ async def stok_degistir(db: AsyncSession, hesap: str, urun: StokUrunleri, konum_
         raise s.StokHatasi("yetersiz_stok", "kalemler", durum=409, urun_id=urun.id, ad=urun.ad,
                            mevcut=s.miktar_yaz(int(mevcut)), istenen=s.miktar_yaz(-degisim))
     sonra = int((await db.execute(select(StokSeviyeleri.miktar).where(*kosul[:2]))).scalar() or 0)
+    if eksi_notu and sonra < 0 and degisim < 0:
+        ek["aciklama"] = " — ".join(x for x in (ek.get("aciklama"), eksi_notu) if x)[:300]
     db.add(StokHareketleri(hesap_email=hesap, urun_id=urun.id, konum_id=konum_id, tur=tur, miktar=degisim, sonra=sonra,
                            kisi=kisi, zaman=s.simdi(), **ek))
     return sonra
@@ -323,7 +330,8 @@ async def ay_kasiyerleri(db: AsyncSession, hesap: str) -> set:
     bugun = s.tr_gunu()
     bas, _ = s.gun_araligi(bugun.replace(day=1), bugun)
     return set((await db.execute(select(PosKasaOturumlari.acan).where(
-        PosKasaOturumlari.hesap_email == hesap, PosKasaOturumlari.acilis_at >= bas))).scalars().all())
+        PosKasaOturumlari.hesap_email == hesap, PosKasaOturumlari.acilis_at >= bas,
+        or_(PosKasaOturumlari.tur.is_(None), PosKasaOturumlari.tur != s.OTURUM_ESITLEME)))).scalars().all())
 
 
 async def kasa_ac(db: AsyncSession, y: Yetki, govde: Dict[str, Any]) -> PosKasaOturumlari:
@@ -398,6 +406,8 @@ def ozet_hesapla(satislar: Sequence[PosSatislari], kalemler: Sequence[PosSatisKa
             u["tutar"] -= int(ik.get("tutar") or 0)
     en_cok = sorted((u for u in urunler.values() if u["adet"] > 0), key=lambda u: (-u["adet"], -u["tutar"]))[:10]
     satis_toplam = sum(x.toplam for x in gecerli)
+    # Faz 6Q: çevrimdışı kuyruktan eşitlenen (geçerli) satışlar — gün sonunda ayrıca görünür.
+    cevrimdisi = [x for x in gecerli if getattr(x, "esitlendi_at", None) is not None]
     iade_toplam = sum(int(i.tutar or 0) for i in gercek_iade)
     return {
         "satis_sayisi": len(gecerli),
@@ -409,6 +419,8 @@ def ozet_hesapla(satislar: Sequence[PosSatislari], kalemler: Sequence[PosSatisKa
         "iptal_sayisi": len(iptal),
         "iptal_toplam": sum(x.toplam for x in iptal),
         "net": satis_toplam - iade_toplam,
+        "cevrimdisi_sayisi": len(cevrimdisi),
+        "cevrimdisi_toplam": sum(x.toplam for x in cevrimdisi),
         "odemeler": {t: odeme[t] - iade_odeme.get(t, 0) for t in ("nakit", "kart", "havale")},
         "odemeler_brut": odeme,
         "iadeler": iade_odeme,
@@ -470,7 +482,57 @@ async def gun_ozeti(db: AsyncSession, hesap: str, gun: date, konum_id: Optional[
 def oturum_sozlugu(o: PosKasaOturumlari) -> Dict[str, Any]:
     return {"id": o.id, "konum_id": o.konum_id, "durum": o.durum, "acan": o.acan, "acilis_at": s.iso(o.acilis_at),
             "acilis_nakit": o.acilis_nakit, "kapatan": o.kapatan, "kapanis_at": s.iso(o.kapanis_at),
-            "sayilan_nakit": o.sayilan_nakit, "beklenen_nakit": o.beklenen_nakit, "fark": o.fark, "notlar": o.notlar}
+            "sayilan_nakit": o.sayilan_nakit, "beklenen_nakit": o.beklenen_nakit, "fark": o.fark, "notlar": o.notlar,
+            "tur": o.tur or "kasa", "kaynak_oturum_id": o.kaynak_oturum_id}
+
+
+async def esitleme_oturumu(db: AsyncSession, y: Yetki, kaynak: PosKasaOturumlari) -> PosKasaOturumlari:
+    """Faz 6Q — kapanmış `kaynak` oturuma geç gelen çevrimdışı satışların oturumu (kaynak başına TEK satır).
+
+    Kendiliğinden kapalı açılır: kaynak oturumun donmuş Z'si değişmez, geç gelen nakit ayrı (açılış 0) görünür.
+    Benzersizlik `acik_anahtar = "esitleme|<kaynak id>"` ile (açık kasa anahtarı "<hesap>|<konum>" biçiminde).
+    Çağıranın işlemi içinde açılır: satış geri alınırsa bu satır da geri alınır."""
+    anahtar = f"esitleme|{kaynak.id}"
+    sorgu = select(PosKasaOturumlari).where(PosKasaOturumlari.acik_anahtar == anahtar)
+    o = (await db.execute(sorgu)).scalars().first()
+    if o is not None:
+        return o
+    an = s.simdi()
+    o = PosKasaOturumlari(hesap_email=y.hesap, konum_id=kaynak.konum_id, durum="kapali", acik_anahtar=anahtar,
+                          tur=s.OTURUM_ESITLEME, kaynak_oturum_id=kaynak.id, acan=y.kisi, acilis_at=an, acilis_nakit=0,
+                          kapatan=y.kisi, kapanis_at=an)
+    try:
+        async with db.begin_nested():
+            db.add(o)
+    except IntegrityError:
+        o = (await db.execute(sorgu)).scalars().first()  # eşzamanlı eşitleme açtı
+    return o
+
+
+async def _cevrimdisi_oturum(db: AsyncSession, y: Yetki, konum: StokKonumlari,
+                             govde: Dict[str, Any]) -> Tuple[PosKasaOturumlari, datetime]:
+    """Faz 6Q — çevrimdışı satışın bağlanacağı oturum ve satış zamanı.
+
+    * Cihazın satış anında açık bildiği oturum (`oturum_id`; bu hesabın ve bu şubenin) hâlâ açıksa ona yazılır.
+    * Bu arada kapandıysa (aynı ya da başka cihazdan) o oturumun "eşitleme" oturumuna yazılır (`esitleme_oturumu`).
+    * Zaman cihazdaki satış anıdır; gelecekteyse şimdi, oturumun açılışından önceyse açılış (cihaz saati kaymış)."""
+    if govde.get("oturum_id") in (None, ""):
+        raise s.StokHatasi("oturum_gerekli", "oturum_id")
+    oturum = await oturum_bul(db, y.hesap, govde.get("oturum_id"))
+    if oturum.tur == s.OTURUM_ESITLEME:
+        raise s.StokHatasi("oturum_yok", "oturum_id", durum=404)
+    if oturum.konum_id != konum.id:
+        raise s.StokHatasi("oturum_konum_uyusmuyor", "oturum_id", durum=409)
+    an = s.simdi()
+    zaman = s.istemci_zamani_coz(govde.get("istemci_zamani")) or an
+    acilis = s.utc(oturum.acilis_at)
+    if zaman > an:
+        zaman = an
+    if acilis is not None and zaman < acilis:
+        zaman = acilis
+    if oturum.durum == "acik":
+        return oturum, zaman
+    return await esitleme_oturumu(db, y, oturum), zaman
 
 
 # ---------------------------------------------------------------------------
@@ -481,6 +543,8 @@ class SatisSonucu:
     satis: PosSatislari
     tekrar: bool
     gecisler: List[Gecis]
+    #: Faz 6Q: çevrimdışı satışla (izin varken) eksiye düşen ürünler — uyarı için.
+    eksi: List[Dict[str, Any]] = field(default_factory=list)
 
 
 async def _sayac_artir(db: AsyncSession, hesap: str, alan: str) -> int:
@@ -547,7 +611,12 @@ async def sepet_onizle(db: AsyncSession, hesap: str, govde: Dict[str, Any]) -> s
 
 
 async def satis_olustur(db: AsyncSession, y: Yetki, govde: Dict[str, Any]) -> SatisSonucu:
+    """Satış (fiş). `cevrimdisi: true` (Faz 6Q kuyruğu): `istemci_kimligi` + `oturum_id` zorunlu,
+    `istemci_zamani` / `cevrimdisi_no` isteğe bağlı; oturum ve zaman `_cevrimdisi_oturum` kuralıyla."""
     istemci = s.istemci_kimligi_duzelt(govde.get("istemci_kimligi"))
+    cevrimdisi = govde.get("cevrimdisi") is True
+    if cevrimdisi and not istemci:
+        raise s.StokHatasi("istemci_kimligi_gerekli", "istemci_kimligi")
     if istemci:
         onceki = (await db.execute(select(PosSatislari).where(PosSatislari.hesap_email == y.hesap,
                                                               PosSatislari.istemci_kimligi == istemci))).scalars().first()
@@ -555,9 +624,15 @@ async def satis_olustur(db: AsyncSession, y: Yetki, govde: Dict[str, Any]) -> Sa
             return SatisSonucu(onceki, True, [])
     a = await ayarlar(db, y.hesap)
     konum = await konum_bul(db, y.hesap, govde.get("konum_id"))
-    oturum = await acik_oturum(db, y.hesap, konum.id)
-    if oturum is None:
-        raise s.StokHatasi("kasa_kapali", "konum_id", durum=409)
+    cevrimdisi_no = None
+    if cevrimdisi:
+        cevrimdisi_no = s.cevrimdisi_no_duzelt(govde.get("cevrimdisi_no"))
+        oturum, an = await _cevrimdisi_oturum(db, y, konum, govde)
+    else:
+        oturum = await acik_oturum(db, y.hesap, konum.id)
+        if oturum is None:
+            raise s.StokHatasi("kasa_kapali", "konum_id", durum=409)
+        an = s.simdi()
     girdiler = await _kalem_girdileri(db, y.hesap, govde.get("kalemler"))
     sonuc = s.sepet_hesapla(girdiler)
     sonuc = s.sepet_hesapla(girdiler, _toplam_indirim(govde, sonuc.toplam))
@@ -574,17 +649,22 @@ async def satis_olustur(db: AsyncSession, y: Yetki, govde: Dict[str, Any]) -> Sa
         alici = await alici_bul(db, y.hesap, govde.get("alici_id"))
         alici_id, musteri_ad = alici.id, musteri_ad or alici.ad
     notlar = s.bos_ya_da(govde.get("notlar"), "notlar", 300)
+    eksi: List[Dict[str, Any]] = []
+    hareket_ek: Dict[str, Any] = {}
+    if cevrimdisi:
+        hareket_ek = {"aciklama": " ".join(x for x in ("Çevrimdışı satış", cevrimdisi_no) if x),
+                      "eksi_notu": "stok eksiye düştü"}
 
-    an = s.simdi()
     try:
         sayac = await _sayac_artir(db, y.hesap, "satis_sayac")
-        x = PosSatislari(hesap_email=y.hesap, no=s.fis_no(sayac), konum_id=konum.id, oturum_id=oturum.id, kasiyer=y.kisi,
+        x = PosSatislari(hesap_email=y.hesap, no=s.fis_no(sayac), konum_id=oturum.konum_id, oturum_id=oturum.id, kasiyer=y.kisi,
                          alici_id=alici_id, musteri_ad=musteri_ad, durum="tamamlandi", ara_toplam=sonuc.ara_toplam,
                          satir_indirim=sonuc.satir_indirim, toplam_indirim=sonuc.toplam_indirim, toplam=sonuc.toplam,
                          kdv_toplam=sonuc.kdv_toplam, kdv_dokumu=s.json_yaz(sonuc.kdv_dokumu), odeme_turu=odeme["tur"],
                          nakit=odeme["nakit"], kart=odeme["kart"], havale=odeme["havale"], nakit_alinan=odeme["nakit_alinan"],
                          para_ustu=odeme["para_ustu"], para_birimi=a.para_birimi or "TRY", istemci_kimligi=istemci,
-                         notlar=notlar, zaman=an)
+                         notlar=notlar, zaman=an, cevrimdisi_no=cevrimdisi_no,
+                         esitlendi_at=s.simdi() if cevrimdisi else None)
         db.add(x)
         await db.flush()
         urunler = {u.id: u for u in (await db.execute(select(StokUrunleri).where(
@@ -597,9 +677,11 @@ async def satis_olustur(db: AsyncSession, y: Yetki, govde: Dict[str, Any]) -> Sa
                                      kdv=k.kdv, birim_maliyet=g.birim_maliyet))
             u = urunler[g.urun_id]
             if u.stok_takibi:
-                sonra = await stok_degistir(db, y.hesap, u, konum.id, -g.adet, "satis", kisi=y.kisi, eksi_izin=bool(a.eksi_stok),
-                                            satis_id=x.id)
+                sonra = await stok_degistir(db, y.hesap, u, oturum.konum_id, -g.adet, "satis", kisi=y.kisi,
+                                            eksi_izin=bool(a.eksi_stok), satis_id=x.id, **hareket_ek)
                 gecisler.append(Gecis(u.id, sonra + g.adet, sonra))
+                if cevrimdisi and sonra < 0:
+                    eksi.append({"urun_id": u.id, "ad": u.ad, "birim": u.birim, "miktar": s.miktar_yaz(sonra)})
         from services import webhook
 
         await webhook.olay_yayinla(db, OLAY_SATIS, y.hesap, satis_verisi(x, len(sonuc.kalemler)))
@@ -616,7 +698,9 @@ async def satis_olustur(db: AsyncSession, y: Yetki, govde: Dict[str, Any]) -> Sa
                 return SatisSonucu(onceki, True, [])
         raise s.StokHatasi("cakisma", None, durum=409)
     await db.refresh(x)
-    return SatisSonucu(x, False, gecisler)
+    if eksi:
+        logger.info("Çevrimdışı satış stoğu eksiye düşürdü (%s, %s): %s", y.hesap, x.no, [e["urun_id"] for e in eksi])
+    return SatisSonucu(x, False, gecisler, eksi)
 
 
 def satis_verisi(x: PosSatislari, kalem_sayisi: int) -> Dict[str, Any]:
@@ -1233,6 +1317,41 @@ async def stok_degeri(db: AsyncSession, hesap: str, konum_id: Optional[int]) -> 
     toplam = {"maliyet_degeri": sum(r["maliyet_degeri"] for r in liste), "satis_degeri": sum(r["satis_degeri"] for r in liste),
               "urun": len(liste), "eksi": sum(1 for r in liste if r["eksi"])}
     return {"konum_id": konum_id, "urunler": liste, "toplam": toplam}
+
+
+async def saha_tuketimi(db: AsyncSession, hesap: str, bas: date, bit: date, konum_id: Optional[int]) -> Dict[str, Any]:
+    """Faz 6Q — saha servisi tüketimi: dönemdeki saha kaynaklı hareketler (çıkış − geri alınan) ürün bazında.
+
+    Maliyet hareketteki birim maliyetle (düşüm anındaki alış fiyatı, KDV hariç); iş emri sayısı düşüm yapılan
+    farklı iş emirleri."""
+    gun_bas, gun_bit = s.gun_araligi(bas, bit)
+    kosul = [StokHareketleri.hesap_email == hesap, StokHareketleri.kaynak == s.KAYNAK_SAHA,
+             StokHareketleri.zaman >= gun_bas, StokHareketleri.zaman < gun_bit]
+    if konum_id:
+        kosul.append(StokHareketleri.konum_id == konum_id)
+    hareketler = (await db.execute(select(StokHareketleri).where(*kosul))).scalars().all()
+    urunler = {u.id: u for u in (await db.execute(select(StokUrunleri).where(
+        StokUrunleri.id.in_({h.urun_id for h in hareketler} or {0})))).scalars().all()}
+    satirlar: Dict[int, Dict[str, Any]] = {}
+    isler: Dict[int, set] = {}
+    for h in hareketler:
+        u = urunler.get(h.urun_id)
+        r = satirlar.setdefault(h.urun_id, {"urun_id": h.urun_id, "ad": u.ad if u else "—", "barkod": u.barkod if u else None,
+                                            "birim": u.birim if u else "adet", "miktar": 0, "maliyet": 0})
+        r["miktar"] += -int(h.miktar or 0)
+        r["maliyet"] += s.yuvarla(int(h.birim_maliyet if h.birim_maliyet is not None else (u.alis_fiyati if u else 0)),
+                                  -int(h.miktar or 0), 1000)
+        if h.tur == "cikis" and h.kaynak_id:
+            isler.setdefault(h.urun_id, set()).add(h.kaynak_id)
+    liste = []
+    for uid, r in satirlar.items():
+        if not r["miktar"] and not r["maliyet"]:
+            continue
+        liste.append({**r, "miktar": s.miktar_yaz(r["miktar"]), "is_emri": len(isler.get(uid, ()))})
+    liste.sort(key=lambda r: (-r["maliyet"], r["ad"]))
+    tum_isler = set().union(*isler.values()) if isler else set()
+    return {"bas": bas.isoformat(), "bit": bit.isoformat(), "konum_id": konum_id, "urunler": liste,
+            "toplam": {"urun": len(liste), "maliyet": sum(r["maliyet"] for r in liste), "is_emri": len(tum_isler)}}
 
 
 async def hareketsiz(db: AsyncSession, hesap: str, gun: int) -> Dict[str, Any]:

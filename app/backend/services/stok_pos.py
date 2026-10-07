@@ -72,6 +72,12 @@ HAREKETSIZ_GUN = 30
 _SERBEST_KOD = re.compile(r"^[A-Za-z0-9\-._/+]{1,32}$")
 
 FIS_NOTU_TR = "Bu belge mali fiş değildir; ÖKC fişi / e-Arşiv belge yerine geçmez."
+
+#: Faz 6Q — stok hareketinin kaynağı: saha servisi iş emri (NULL = stok/POS ekranı).
+KAYNAK_SAHA = "saha"
+HAREKET_KAYNAKLARI: Tuple[str, ...] = (KAYNAK_SAHA,)
+#: Faz 6Q — kapanmış kasa oturumuna geç gelen çevrimdışı satışların oturumu.
+OTURUM_ESITLEME = "esitleme"
 Z_NOTU_TR = "Mali değildir: ÖKC (yazar kasa) Z raporu yerine geçmez."
 
 
@@ -628,6 +634,27 @@ def fis_no(sayac: int) -> str:
 
 def fatura_no(yil: int, sayac: int) -> str:
     return f"SF-{yil}-{sayac:06d}"
+
+
+def cevrimdisi_no_duzelt(ham: Any) -> Optional[str]:
+    """Cihazda basılan çevrimdışı fiş numarası ("ÇEVRİMDIŞI-12"): en çok 24 karakter, denetim karakteri yok."""
+    if ham in (None, ""):
+        return None
+    d = str(ham).strip()
+    if not d or len(d) > 24 or re.search(r"[\x00-\x1f\x7f]", d):
+        raise StokHatasi("cevrimdisi_no_gecersiz", "cevrimdisi_no")
+    return d
+
+
+def istemci_zamani_coz(ham: Any) -> Optional[datetime]:
+    """Cihazdaki satış anı (ISO 8601); saat dilimi yoksa UTC sayılır. Bozuksa 400."""
+    if ham in (None, ""):
+        return None
+    try:
+        an = datetime.fromisoformat(str(ham).strip().replace("Z", "+00:00"))
+    except ValueError:
+        raise StokHatasi("istemci_zamani_gecersiz", "istemci_zamani")
+    return utc(an)
 
 
 def istemci_kimligi_duzelt(ham: Any) -> Optional[str]:

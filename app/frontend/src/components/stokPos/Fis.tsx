@@ -98,7 +98,14 @@ export function Fis({ satis, onKapat, onPdf }: { satis: Satis; onKapat: () => vo
       {vergi && <div className="orta">{vergi}</div>}
       <hr />
       <div className="orta buyuk">{t('stokPos.fis.baslik')}</div>
+      {satis.yerel && (
+        // Faz 6Q: kuyruktaki (henüz sunucuya ulaşmamış) satışın fişi.
+        <div className="orta buyuk" data-testid="pos-fis-cevrimdisi">
+          {t('stokPos.fis.cevrimdisi')}
+        </div>
+      )}
       <Satir sol={`${t('stokPos.fis.no')}: ${satis.no}`} sag={tarihSaat(satis.zaman, dil)} />
+      {!satis.yerel && satis.cevrimdisi_no && <div className="kucuk">{t('stokPos.fis.cevrimdisiNo', { no: satis.cevrimdisi_no })}</div>}
       {satis.musteri_ad && <div className="kucuk">{t('stokPos.fis.musteri')}: {satis.musteri_ad}</div>}
       <hr />
       {satis.kalemler.map((k) => (
@@ -177,6 +184,9 @@ export function ZRaporu({ ozet, oturum, konum, onKapat }: { ozet: Ozet; oturum?:
       <Satir sol={t('stokPos.z.iade', { sayi: ozet.iade_sayisi })} sag={`−${p(ozet.iade_toplam)}`} />
       {ozet.iptal_sayisi > 0 && <Satir sol={t('stokPos.z.iptal', { sayi: ozet.iptal_sayisi })} sag={p(ozet.iptal_toplam)} />}
       <Satir sinif="buyuk" sol={t('stokPos.z.net')} sag={<span data-testid="pos-z-net">{p(ozet.net)}</span>} />
+      {typeof ozet.cevrimdisi_sayisi === 'number' && (
+        <Satir sinif="kucuk" sol={t('stokPos.z.cevrimdisi', { sayi: ozet.cevrimdisi_sayisi })} sag={<span data-testid="pos-z-cevrimdisi">{p(ozet.cevrimdisi_toplam ?? 0)}</span>} />
+      )}
       <hr />
       <div className="buyuk">{t('stokPos.z.odemeler')}</div>
       {(['nakit', 'kart', 'havale'] as const).map((tur) => (

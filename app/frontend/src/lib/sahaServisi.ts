@@ -37,6 +37,8 @@ export interface Teknisyen {
   konum_rizasi_at: string | null;
   konum_rizasi_surumu: string | null;
   konum_rizasi_geri_at: string | null;
+  /** Faz 6Q: araç/depo stok konumu (Stok ve POS). */
+  stok_konum_id?: number | null;
 }
 
 export interface Meta {
@@ -55,6 +57,8 @@ export interface Meta {
   teknisyen_gecisleri: [Durum, Durum][];
   foto_siniri: number;
   ayarlar: { firma_adi: string | null; para_birimi: string; kdv_orani: number; imza_zorunlu: boolean };
+  /** Faz 6Q: Stok ve POS bağlantısı — `acik` ise iş emrinde stok ürünü aranır, tamamlanınca stoktan düşer. */
+  stok?: { modul: boolean; acik: boolean };
 }
 
 export interface Lokasyon {
@@ -177,6 +181,25 @@ export interface Kullanim {
   miktar: number;
   birim_fiyat: number;
   tutar: number;
+  /** Faz 6Q: stok ürünü bağı; tamamlanınca stoktan düşüldü mü. */
+  stok_urun_id?: number | null;
+  stoktan_dusuldu?: boolean;
+  stok_konum_id?: number | null;
+}
+
+/** Faz 6Q — iş emrine eklenecek stok ürünü (maliyet YOK; birim fiyat KDV hariç). */
+export interface StokUrunu {
+  id: number;
+  ad: string;
+  barkod: string;
+  sku: string | null;
+  birim: string;
+  kdv_orani: number;
+  birim_fiyat: number;
+  stok_takibi: boolean;
+  stok: number | null;
+  stok_toplam: number | null;
+  kritik: boolean;
 }
 
 export interface IsAyrintisi extends IsOzeti {
@@ -272,6 +295,11 @@ export interface Ayarlar {
   eposta_kanali?: boolean;
   randevu_modulu?: boolean;
   yorum_modulu?: boolean;
+  /** Faz 6Q: kullanılan malzemeleri stoktan düş (Stok ve POS modülü açıksa) ve düşülecek konum. */
+  stoktan_dus?: boolean;
+  stok_konum_id?: number | null;
+  stok_modulu?: boolean;
+  stok_konumlari?: { id: number; ad: string; varsayilan: boolean }[];
 }
 
 export interface Riza {
@@ -438,6 +466,8 @@ export function sahaApi(mod: SahaMod, hesap?: string) {
     fotoSil: (id: number, fid: number) => istek<{ ok: boolean }>('DELETE', u(`/is-emirleri/${id}/fotograflar/${fid}`)),
     kullanimEkle: (id: number, g: Record<string, unknown>) => istek<Kullanim>('POST', u(`/is-emirleri/${id}/malzemeler`), g),
     kullanimSil: (id: number, kid: number) => istek<{ ok: boolean }>('DELETE', u(`/is-emirleri/${id}/malzemeler/${kid}`)),
+    stokUrunleri: (ara?: string) => istek<{ items: StokUrunu[]; konum_id: number | null }>('GET', u('/stok-urunleri', { ara })),
+    yenidenAc: (id: number, neden?: string) => istek<IsAyrintisi>('POST', u(`/is-emirleri/${id}/yeniden-ac`), { neden }),
     imza: (id: number, ad: string, png: string) => istek<{ imza: IsAyrintisi['imza'] }>('POST', u(`/is-emirleri/${id}/imza`), { ad, png }),
     async pdf(id: number, dil?: string): Promise<Blob> {
       const y = await hamIstek(u(`/is-emirleri/${id}/pdf`, { dil }), { method: 'GET' });

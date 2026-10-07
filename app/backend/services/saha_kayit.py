@@ -470,15 +470,41 @@ async def durum_degistir(db: AsyncSession, ie: SahaIsEmirleri, yeni: str, *, kis
         ie.ertele_sayisi = int(ie.ertele_sayisi or 0) + 1
     ie.updated_at = an
     _gecmis(db, ie, eski, yeni, kisi, neden_, konum_alindi)
+    stok_gecisleri: List[Any] = []
     if yeni == "tamamlandi":
         await _bakim_tarihlerini_isle(db, ie)
         m = (await db.execute(select(SahaMusterileri).where(SahaMusterileri.id == ie.musteri_id))).scalars().first()
         if m is not None:
             m.son_is_at = an
+        # Faz 6Q: stok ürününe bağlı malzemeler AYNI işlemde stoktan düşer (ayar + Stok ve POS modülü açıksa).
+        from services import saha_stok
+
+        stok_gecisleri = await saha_stok.is_tamamlandi(db, ie, kisi)
     await db.commit()
     await db.refresh(ie)
     bildirim = {"planlandi": "planlandi", "yolda": "yolda", "tamamlandi": "tamamlandi"}.get(yeni)
-    return {"konum_alindi": konum_alindi, "musteri_bildirimi": bildirim}
+    return {"konum_alindi": konum_alindi, "musteri_bildirimi": bildirim, "stok_gecisleri": stok_gecisleri}
+
+
+async def yeniden_ac(db: AsyncSession, ie: SahaIsEmirleri, *, kisi: str, neden: Any = None) -> List[Any]:
+    """Faz 6Q — tamamlanmış iş emrini yeniden açar (`tamamlandi → iste`; yalnız yönetim, ayrı uç — genel durum
+    geçişleri kapalı işi açmıyor). Stoktan düşülmüş malzemeler aynı işlemde geri eklenir (ters hareket).
+    Commit sonrası çağıranın işleyeceği stok geçişleri döner."""
+    if ie.durum != "tamamlandi":
+        raise s.SahaHatasi("gecersiz_gecis", "durum", durum=409, eski=ie.durum, yeni="iste")
+    neden_ = s.bos_ya_da(neden, "neden", 500, cok_satir=True)
+    from services import saha_stok
+
+    gecisler = await saha_stok.is_yeniden_acildi(db, ie, kisi)
+    an = s.simdi()
+    eski = ie.durum
+    ie.durum = "iste"
+    ie.bitir_at = None
+    ie.updated_at = an
+    _gecmis(db, ie, eski, "iste", kisi, neden_)
+    await db.commit()
+    await db.refresh(ie)
+    return gecisler
 
 
 async def _bakim_tarihlerini_isle(db: AsyncSession, ie: SahaIsEmirleri) -> None:
@@ -506,7 +532,12 @@ async def malzeme_ekle(db: AsyncSession, ie: SahaIsEmirleri, g: Dict[str, Any], 
     if ie.durum in s.KAPALI_DURUMLAR:
         raise s.SahaHatasi("is_kapali", durum=409)
     miktar = s.ondalik(g.get("miktar"), "miktar", 0.001, 100_000)
-    if g.get("malzeme_id") not in (None, ""):
+    if g.get("stok_urun_id") not in (None, ""):
+        # Faz 6Q: Stok ve POS ürünü (düşüm iş emri tamamlanınca).
+        from services import saha_stok
+
+        satir = await saha_stok.kullanim_satiri(db, ie, g, kisi)
+    elif g.get("malzeme_id") not in (None, ""):
         kimlik = s.tam_sayi(g.get("malzeme_id"), "malzeme_id", 1, 2_000_000_000)
         m = (await db.execute(select(SahaMalzemeleri).where(SahaMalzemeleri.id == kimlik,
                                                             SahaMalzemeleri.hesap_email == ie.hesap_email))).scalars().first()
@@ -531,7 +562,8 @@ async def malzeme_ekle(db: AsyncSession, ie: SahaIsEmirleri, g: Dict[str, Any], 
     return satir
 
 
-async def malzeme_sil(db: AsyncSession, ie: SahaIsEmirleri, kullanim_id: int) -> None:
+async def malzeme_sil(db: AsyncSession, ie: SahaIsEmirleri, kullanim_id: int, kisi: Optional[str] = None) -> List[Any]:
+    """Satırı siler; saha kataloğu stoku ve (Faz 6Q) düşülmüş stok ürünü geri eklenir. Stok geçişleri döner."""
     from models.saha_servisi import SahaMalzemeleri
 
     if ie.durum in s.KAPALI_DURUMLAR:
@@ -543,8 +575,14 @@ async def malzeme_sil(db: AsyncSession, ie: SahaIsEmirleri, kullanim_id: int) ->
     if k.stoktan_dusuldu and k.malzeme_id:
         await db.execute(update(SahaMalzemeleri).where(SahaMalzemeleri.id == k.malzeme_id, SahaMalzemeleri.stok.isnot(None))
                          .values(stok=SahaMalzemeleri.stok + k.miktar).execution_options(synchronize_session=False))
+    gecisler: List[Any] = []
+    if k.stok_urun_id and k.stok_dusum_at is not None:
+        from services import saha_stok
+
+        gecisler = await saha_stok.satir_silindi(db, ie, k, kisi or "")
     await db.delete(k)
     await db.commit()
+    return gecisler
 
 
 # ---------------------------------------------------------------------------

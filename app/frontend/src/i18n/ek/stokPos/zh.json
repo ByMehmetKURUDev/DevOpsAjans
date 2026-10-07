@@ -164,7 +164,9 @@
       "paraUstu": "找零",
       "iade": "已退",
       "kartNotu": "刷卡仅作记录。",
-      "maliDegil": "本单据不是税务小票，不能替代税控收款机小票或 e-Arşiv 单据。"
+      "maliDegil": "本单据不是税务小票，不能替代税控收款机小票或 e-Arşiv 单据。",
+      "cevrimdisi": "离线 — 待同步",
+      "cevrimdisiNo": "离线小票号：{{no}}"
     },
     "z": {
       "baslik": "日结报告",
@@ -189,7 +191,8 @@
       "nakitIade": "现金退款",
       "beklenen": "应有现金",
       "sayilan": "清点现金",
-      "fark": "差额"
+      "fark": "差额",
+      "cevrimdisi": "离线已同步（{{sayi}}）"
     },
     "urun": {
       "araIpucu": "名称、条码或 SKU",
@@ -285,7 +288,12 @@
       "yeniTedarikci": "新建供应商",
       "tedarikciYok": "暂无供应商。",
       "tedarikciSilOnay": "删除“{{ad}}”？",
-      "yetkili": "联系人"
+      "yetkili": "联系人",
+      "kaynakSuzgeci": "来源",
+      "tumKaynaklar": "全部来源",
+      "kaynakAdi": {
+        "saha": "现场服务"
+      }
     },
     "sayim": {
       "aciklama": "开始盘点，扫描商品（每扫一次 +1）或直接输入数量；确认后差额记为库存变动。",
@@ -316,7 +324,8 @@
         "donem": "期间销售",
         "kar": "商品利润",
         "stok": "库存价值",
-        "hareketsiz": "滞销商品"
+        "hareketsiz": "滞销商品",
+        "saha": "现场服务消耗"
       },
       "bas": "开始",
       "bit": "结束",
@@ -338,7 +347,10 @@
       "oturumlar": "收银班次",
       "acik": "进行中",
       "yazdir": "打印日结报告",
-      "veriYok": "所选范围无数据。"
+      "veriYok": "所选范围无数据。",
+      "isEmri": "工单",
+      "sahaNotu": "现场服务工单从库存扣减的材料（已扣除撤销部分）；成本按扣减时的采购价。",
+      "esitlemeOturumu": "同步 · 班次 #{{no}}"
     },
     "ayar": {
       "yasal": "在土耳其，零售的法定单据为税控收款机（ÖKC）小票或 e-Arşiv 发票。本模块的小票、日结报告和 PDF 发票仅供参考，不能替代上述单据。刷卡仅作记录。",
@@ -447,7 +459,38 @@
       "kalem_yok": "未找到该行。",
       "sayim_yok": "未找到盘点。",
       "tur_gecersiz": "类型无效。",
-      "hesap_uyesi_degil": "您不是此账户团队成员。"
+      "hesap_uyesi_degil": "您不是此账户团队成员。",
+      "istemci_kimligi_gerekli": "离线销售缺少标识。",
+      "istemci_kimligi_gecersiz": "销售标识无效。",
+      "oturum_gerekli": "离线销售缺少收银班次。",
+      "oturum_konum_uyusmuyor": "该销售的收银班次不属于此门店。",
+      "cevrimdisi_no_gecersiz": "离线小票号无效。",
+      "istemci_zamani_gecersiz": "无法读取销售时间。",
+      "kaynak_gecersiz": "无效的库存变动来源。"
+    },
+    "kuyruk": {
+      "cevrimici": "在线",
+      "rozet": "队列中",
+      "baslik": "离线队列（{{sayi}}）",
+      "cevrimdisiBilgi": "离线：销售保存在本设备队列中，恢复连接后按顺序发送。请勿关闭此标签页——没有网络时无法重新打开收银页面。",
+      "katalog": "离线目录：{{sayi}} 件商品（{{saat}}）。",
+      "katalogYok": "本设备没有离线目录；只能销售屏幕上的商品。",
+      "kuyrugaAl": "保存为离线销售",
+      "esitlendi": "已同步 {{sayi}} 笔离线销售。",
+      "cozumBekliyor": "{{sayi}} 笔销售需要处理。",
+      "eksiDustu": "库存变为负数：{{urunler}}。",
+      "eksiUyari": "销售已加入队列；按上次同步的库存，以下商品将为负数：{{urunler}}。",
+      "sonEsitlemeyeGore": "（按上次同步时的库存）",
+      "musteriNotu": "离线销售不会在本设备保存顾客信息，也不会附加到销售；如需发票，请在恢复连接后开具。",
+      "simdiEsitle": "立即同步",
+      "bellekte": "此浏览器没有持久存储：队列仅保存在此标签页内存中，请勿刷新页面。",
+      "cozumBekleyen": "需要处理",
+      "esitlenecek": "等待同步",
+      "tekrarDene": "重试",
+      "guncelFiyatla": "按当前价格保存",
+      "iptal": "从队列删除",
+      "iptalOnay": "从队列删除 {{no}}？该销售将不会发送到服务器；请另行更正已收金额。",
+      "ayrilOnay": "队列中有 {{sayi}} 笔销售；收银界面关闭时不会同步。仍要离开吗？"
     }
   }
 }

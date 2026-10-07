@@ -527,6 +527,25 @@ class DatabaseManager:
         # Faz 7H — otomasyon: "bekle"den sonra koşulları yeniden denetle. Dolgu YOK: eski kurallarda
         # NULL = kapalı (davranışları değişmiyor); yeni kurallar açık başlıyor.
         {"tablo": "otomasyon_kurallari", "sutun": "bekleme_sonrasi_denetim", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
+        # Faz 6Q — POS çevrimdışı satış kuyruğu: eşitlenen satışın cihazdaki fiş numarası ("ÇEVRİMDIŞI-n") ve
+        # sunucuya ulaştığı an (NULL = çevrimiçi satış). Tekrar gönderim koruması mevcut
+        # `uq_pos_satis_istemci (hesap_email, istemci_kimligi)` kısıtıyla (tablo 6P'de onunla açıldı; NULL serbest).
+        {"tablo": "pos_satislari", "sutun": "cevrimdisi_no", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "pos_satislari", "sutun": "esitlendi_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        # Kasa oturumu türü (NULL = kasa; "esitleme" = kapanmış oturuma geç gelen çevrimdışı satışlar) ve kaynağı.
+        {"tablo": "pos_kasa_oturumlari", "sutun": "tur", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "pos_kasa_oturumlari", "sutun": "kaynak_oturum_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        # Faz 6Q — stok hareketinin kaynağı (NULL = stok/POS; "saha" = saha servisi iş emri) ve kaynak kaydı.
+        {"tablo": "stok_hareketleri", "sutun": "kaynak", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "stok_hareketleri", "sutun": "kaynak_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        # Faz 6Q — saha malzemeleri ↔ stok. Dolgu YOK: eski hesaplarda NULL = kapalı (davranış değişmiyor).
+        {"tablo": "saha_ayarlari", "sutun": "stoktan_dus", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
+        {"tablo": "saha_ayarlari", "sutun": "stok_konum_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "saha_teknisyenleri", "sutun": "stok_konum_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "saha_malzeme_kullanimi", "sutun": "stok_urun_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "saha_malzeme_kullanimi", "sutun": "stok_miktar", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "saha_malzeme_kullanimi", "sutun": "stok_konum_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
+        {"tablo": "saha_malzeme_kullanimi", "sutun": "stok_dusum_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
     )
 
     async def _eksik_sutunlari_tamamla(self):

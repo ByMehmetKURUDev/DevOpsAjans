@@ -164,7 +164,9 @@
       "paraUstu": "Rückgeld",
       "iade": "Erstattet",
       "kartNotu": "Kartenzahlung wird nur erfasst.",
-      "maliDegil": "KEIN FISKALBELEG. Ersetzt weder einen Registrierkassenbeleg noch ein e-Archiv-Dokument."
+      "maliDegil": "KEIN FISKALBELEG. Ersetzt weder einen Registrierkassenbeleg noch ein e-Archiv-Dokument.",
+      "cevrimdisi": "OFFLINE — wird synchronisiert",
+      "cevrimdisiNo": "Offline-Belegnr.: {{no}}"
     },
     "z": {
       "baslik": "TAGESABSCHLUSS",
@@ -189,7 +191,8 @@
       "nakitIade": "Barerstattungen",
       "beklenen": "Soll-Bestand",
       "sayilan": "Gezählter Bestand",
-      "fark": "Differenz"
+      "fark": "Differenz",
+      "cevrimdisi": "Offline synchronisiert ({{sayi}})"
     },
     "urun": {
       "araIpucu": "Name, Barcode oder SKU",
@@ -285,7 +288,12 @@
       "yeniTedarikci": "Neuer Lieferant",
       "tedarikciYok": "Keine Lieferanten.",
       "tedarikciSilOnay": "„{{ad}}“ löschen?",
-      "yetkili": "Ansprechpartner"
+      "yetkili": "Ansprechpartner",
+      "kaynakSuzgeci": "Quelle",
+      "tumKaynaklar": "Alle Quellen",
+      "kaynakAdi": {
+        "saha": "Außendienst"
+      }
     },
     "sayim": {
       "aciklama": "Inventur starten, Artikel scannen (jeder Scan +1) oder Menge eingeben; bei Bestätigung wird die Differenz gebucht.",
@@ -316,7 +324,8 @@
         "donem": "Umsatz nach Zeitraum",
         "kar": "Produktgewinn",
         "stok": "Bestandswert",
-        "hareketsiz": "Ladenhüter"
+        "hareketsiz": "Ladenhüter",
+        "saha": "Außendienst-Verbrauch"
       },
       "bas": "Von",
       "bit": "Bis",
@@ -338,7 +347,10 @@
       "oturumlar": "Kassensitzungen",
       "acik": "offen",
       "yazdir": "Tagesabschluss drucken",
-      "veriYok": "Keine Daten für diese Auswahl."
+      "veriYok": "Keine Daten für diese Auswahl.",
+      "isEmri": "Aufträge",
+      "sahaNotu": "Durch Außendienstaufträge vom Bestand abgebuchtes Material (Stornos abgezogen); Kosten zum Einkaufspreis bei Abbuchung.",
+      "esitlemeOturumu": "Synchronisierung · Sitzung #{{no}}"
     },
     "ayar": {
       "yasal": "In der Türkei ist der gesetzliche Beleg im Einzelhandel ein Registrierkassenbeleg (ÖKC) oder eine e-Archiv-Rechnung. Beleg, Tagesabschluss und PDF-Rechnung dieses Moduls dienen nur der Information und ersetzen diese nicht. Kartenzahlungen werden nur erfasst.",
@@ -447,7 +459,38 @@
       "kalem_yok": "Position nicht gefunden.",
       "sayim_yok": "Inventur nicht gefunden.",
       "tur_gecersiz": "Ungültiger Typ.",
-      "hesap_uyesi_degil": "Sie gehören nicht zum Team dieses Kontos."
+      "hesap_uyesi_degil": "Sie gehören nicht zum Team dieses Kontos.",
+      "istemci_kimligi_gerekli": "Dem Offline-Verkauf fehlt die Kennung.",
+      "istemci_kimligi_gecersiz": "Ungültige Verkaufskennung.",
+      "oturum_gerekli": "Dem Offline-Verkauf fehlt die Kassensitzung.",
+      "oturum_konum_uyusmuyor": "Die Kassensitzung des Verkaufs gehört nicht zu dieser Filiale.",
+      "cevrimdisi_no_gecersiz": "Ungültige Offline-Belegnummer.",
+      "istemci_zamani_gecersiz": "Verkaufszeit nicht lesbar.",
+      "kaynak_gecersiz": "Ungültige Bewegungsquelle."
+    },
+    "kuyruk": {
+      "cevrimici": "Online",
+      "rozet": "In Warteschlange",
+      "baslik": "Offline-Warteschlange ({{sayi}})",
+      "cevrimdisiBilgi": "Offline: Verkäufe werden auf diesem Gerät gespeichert und der Reihe nach gesendet, sobald die Verbindung zurück ist. Lassen Sie diesen Tab offen — die Kassenseite lässt sich ohne Internet nicht neu öffnen.",
+      "katalog": "Offline-Katalog: {{sayi}} Artikel ({{saat}}).",
+      "katalogYok": "Kein Offline-Katalog auf diesem Gerät; nur die angezeigten Artikel können verkauft werden.",
+      "kuyrugaAl": "Als Offline-Verkauf speichern",
+      "esitlendi": "{{sayi}} Offline-Verkauf/Verkäufe synchronisiert.",
+      "cozumBekliyor": "{{sayi}} Verkauf/Verkäufe erfordern Prüfung.",
+      "eksiDustu": "Bestand ist negativ: {{urunler}}.",
+      "eksiUyari": "Verkauf gespeichert; laut letzter Synchronisierung wird der Bestand negativ: {{urunler}}.",
+      "sonEsitlemeyeGore": "(laut Bestand bei der letzten Synchronisierung)",
+      "musteriNotu": "Kundendaten werden bei Offline-Verkäufen weder auf diesem Gerät gespeichert noch dem Verkauf hinzugefügt; stellen Sie eine Rechnung aus, sobald Sie wieder online sind.",
+      "simdiEsitle": "Jetzt synchronisieren",
+      "bellekte": "Kein dauerhafter Speicher in diesem Browser: Die Warteschlange liegt nur im Speicher dieses Tabs, Seite nicht neu laden.",
+      "cozumBekleyen": "Prüfung nötig",
+      "esitlenecek": "Wird synchronisiert",
+      "tekrarDene": "Erneut versuchen",
+      "guncelFiyatla": "Zum aktuellen Preis speichern",
+      "iptal": "Aus Warteschlange entfernen",
+      "iptalOnay": "{{no}} aus der Warteschlange entfernen? Der Verkauf erreicht den Server nie; korrigieren Sie den kassierten Betrag separat.",
+      "ayrilOnay": "{{sayi}} Verkauf/Verkäufe in der Warteschlange; sie werden nicht synchronisiert, solange die Kasse geschlossen ist. Trotzdem verlassen?"
     }
   }
 }
