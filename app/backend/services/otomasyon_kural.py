@@ -1070,6 +1070,28 @@ SABLONLAR: Tuple[Sablon, ...] = (
                            "{{icerik.kanallar|—}}."},
         yalniz_ajans=True,
     ),
+    # --- Faz 6R: sektör setlerinin önerdiği müşteri şablonları (yerleşik bildirimlerin tekrarı DEĞİL) ---
+    # Kartvizitin "iletişim bırak" formuna yazana otomatik "mesajınızı aldık" e-postası (sahibine giden
+    # `kartvizit_mesaj` bildirimi zaten var; ziyaretçiye yerleşik bir yanıt yok).
+    Sablon(
+        "kart_mesaj_otomatik_yanit", "kart.mesaj",
+        {"baglac": "ve", "kosullar": [{"alan": "mesaj.eposta", "islec": "dolu"}]},
+        ({"tur": "eposta", "nitelik": "bilgilendirme", "alici": "kisi", "konu": "$konu", "govde": "$govde"},),
+        {"ad": "Kartvizit mesajı → otomatik \"mesajınızı aldık\" e-postası",
+         "konu": "Mesajınızı aldık",
+         "govde": "Merhaba {{mesaj.ad|}},\n\nDijital kartvizitimiz üzerinden bıraktığınız mesaj bize ulaştı. En kısa "
+                  "sürede size dönüş yapacağız.\n\nSevgiler"},
+    ),
+    # Saha servisi: öncelik "acil" iş emri açılınca hesaba bildirim (yerleşik `saha_is_atandi` yalnız atanan
+    # teknisyene gidiyor; atanmamış acil iş de görünsün).
+    Sablon(
+        "is_emri_acil_bildirim", "is_emri.olusturuldu",
+        {"baglac": "ve", "kosullar": [{"alan": "is_emri.oncelik", "islec": "esittir", "deger": "acil"}]},
+        ({"tur": "bildirim", "alici": "$bildirim_alici", "baslik": "$baslik", "govde": "$govde"},),
+        {"ad": "Acil iş emri → ekibe bildirim",
+         "baslik": "Acil iş emri: {{is_emri.no}}",
+         "govde": "{{is_emri.baslik}} — {{is_emri.musteri_ad|}} {{is_emri.adres|}}"},
+    ),
 )
 SABLON_SOZLUGU: Dict[str, Sablon] = {s.anahtar: s for s in SABLONLAR}
 

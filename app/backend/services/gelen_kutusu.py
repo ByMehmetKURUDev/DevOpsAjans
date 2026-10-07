@@ -314,6 +314,31 @@ def _crm_baglantisi(aday_id: Optional[int]) -> str:
     return f"/admin?sekme=crm&aday={aday_id}" if aday_id else "/admin?sekme=crm"
 
 
+#: Faz 6R — modül vitrininden gelen paket talebinin kaynağı (`services/modul_vitrini.kaynak_degeri`).
+VITRIN_PAKET_ONEKI = "modul_vitrini:paket:"
+
+
+def vitrin_paketi(kaynak: Any) -> Optional[str]:
+    """`modul_vitrini:paket:<anahtar>` → geçerli sektör paketi anahtarı (değilse None)."""
+    s = str(kaynak or "")
+    if not s.startswith(VITRIN_PAKET_ONEKI):
+        return None
+    from core import sektor_paketleri as sp
+
+    anahtar = s[len(VITRIN_PAKET_ONEKI):]
+    return anahtar if sp.paket(anahtar) is not None else None
+
+
+async def _paket_musterileri(db: AsyncSession, bg: Baglam, satirlar: Sequence[Any]) -> set:
+    """Vitrin paket talebi gönderenlerden hangileri bir müşteri hesabı ("Bu paketi uygula" kısayolu)."""
+    epostalar = [t.email for t in satirlar if vitrin_paketi(t.source)]
+    if bg.hafif or not epostalar:
+        return set()
+    from services.sektor_paketi import musteri_mi
+
+    return await musteri_mi(db, epostalar)
+
+
 # ---------------------------------------------------------------------------
 # Kaynaklar
 # ---------------------------------------------------------------------------
@@ -341,6 +366,7 @@ async def _iletisim(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, 
     satirlar = (await db.execute(s.order_by(T.created_at.desc(), T.id.desc()).limit(KAYNAK_SINIRI))).scalars().all()
     hesaplar = await _kayitli_hesaplar(db, bg, (t.email for t in satirlar))
     adaylar = await _crm_adaylari(db, bg, "inquiries", (t.id for t in satirlar))
+    paket_musterileri = await _paket_musterileri(db, bg, satirlar)
     sonuc = []
     for t in satirlar:
         durum = iletisim_durumu(t.status)
@@ -357,6 +383,10 @@ async def _iletisim(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, 
         if durum == "okundu" or (t.status or "") == "resolved":
             e.append(_istek("yeniden_ac", "PUT", yol, {"status": "new"}))
         eposta = eposta_duzelt(t.email)
+        # Faz 6R: vitrin paket talebi + kişi bir müşteri hesabı → Modüller ekranına derin bağlantı.
+        paket = vitrin_paketi(t.source)
+        if paket and eposta in paket_musterileri:
+            e.append(_arayuz("paket_uygula"))
         sonuc.append(_oge(
             "iletisim", t.id, kisi_ad=t.name, kisi_eposta=eposta, baslik=t.subject,
             ozet=ozet_metni(t.message), zaman=t.created_at, durum=durum,
@@ -364,7 +394,7 @@ async def _iletisim(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, 
             eylemler=e, yanit=_eposta_yaniti("iletisim", t.id, eposta),
             ek={"kaynak_etiketi": t.source or None, "telefon": t.phone or None, "brief_var": bool(t.brief),
                 "cevrildi": (t.status or "") == "converted", "durum_ham": t.status or None,
-                "crm_aday_id": adaylar.get(int(t.id))},
+                "crm_aday_id": adaylar.get(int(t.id)), "paket": paket},
             ayrinti={"ad": t.name, "eposta": t.email, "telefon": t.phone, "konu": t.subject, "mesaj": t.message,
                      "kaynak_etiketi": t.source, "brief": t.brief, "durum_ham": t.status},
         ))

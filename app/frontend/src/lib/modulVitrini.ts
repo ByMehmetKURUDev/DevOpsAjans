@@ -33,6 +33,8 @@ export interface VitrinPaketi {
   slug: string;
   ikon: string;
   moduller: string[];
+  /** Faz 6R: hazır kurulum seçenekleri (`core/sektor_ayarlari.py`; ilki varsayılan). */
+  setler?: string[];
 }
 
 export interface VitrinYapisi {

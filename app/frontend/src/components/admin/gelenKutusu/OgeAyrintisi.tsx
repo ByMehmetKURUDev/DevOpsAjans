@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
   ArrowLeft,
+  Blocks,
   Briefcase,
   CheckCheck,
   CheckCircle2,
@@ -67,6 +68,7 @@ const EYLEM_IKONU: Record<string, LucideIcon> = {
   uzman_istem: Sparkles,
   yeniden_ac: RotateCcw,
   goreve_donustur: ListTodo,
+  paket_uygula: Blocks,
 };
 
 function metinAl(deger: unknown): string {
@@ -93,6 +95,7 @@ interface Props {
 export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onDegisti, onGeri, onProjeyeCevir }: Props) {
   const { t, i18n } = useTranslation();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [veri, setVeri] = useState<AyrintiYaniti | null>(null);
   const [hata, setHata] = useState(false);
   const [yazisma, setYazisma] = useState<YazismaSatiri[] | null>(null);
@@ -179,6 +182,13 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
     }
     if (e.anahtar === 'uzman_istem') {
       setUzmanAcik(true);
+      return;
+    }
+    if (e.anahtar === 'paket_uygula') {
+      // Faz 6R: vitrin paket talebi + müşteri hesabı → Modüller ekranı, müşteri seçili, paket formu açık.
+      const eposta = oge.kisi_eposta || '';
+      const paket = typeof oge.ek.paket === 'string' ? oge.ek.paket : '';
+      navigate(`/admin?sekme=moduller&musteri=${encodeURIComponent(eposta)}&paket=${encodeURIComponent(paket)}`);
       return;
     }
     setCalisan(e.anahtar);

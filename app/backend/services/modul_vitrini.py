@@ -36,8 +36,10 @@ modülleri değil. Kayıttaki bağ `Modul.paketler` → `pricing_scales.kod`
 ----------------
 Prerender bu yapının depodaki kopyasını (`app/frontend/prerender/
 modul-vitrini-veri.json`) kullanıyor; kopya `scripts/modul_vitrini_tohum.py`
-ile üretiliyor ve test kayıtla aynı olduğunu doğruluyor (fiyat yok — fiyat
-canlı uçtan).
+ile üretiliyor ve test kayıtla aynı olduğunu doğruluyor. Fiyat derlemede canlı
+uçtan; canlı uç okunamazsa (uyuyan sunucu, derleme ağı) yanındaki fiyat anlık
+görüntüsünden (`prerender/modul-vitrini-fiyat.json`, Faz 6R — `anlik_goruntu()`:
+fiyatlandırma v5 tohumu + aynı `hesapla`, sunucusuz). İkisi de yoksa fiyatsız.
 """
 
 import json
@@ -174,8 +176,15 @@ def yapi() -> Dict[str, Any]:
             if yakinda_mi(m)
         ],
         "temeller": [{"anahtar": m.anahtar, "ikon": m.ikon} for m in manifest.MODULLER if temel_mi(m)],
-        "paketler": [p.sozluk() for p in paketler.SEKTOR_PAKETLERI],
+        # Faz 6R: paketin hazır kurulum seçenekleri (`core/sektor_ayarlari.py`; ilki varsayılan).
+        "paketler": [{**p.sozluk(), "setler": _paket_setleri(p.anahtar)} for p in paketler.SEKTOR_PAKETLERI],
     }
+
+
+def _paket_setleri(anahtar: str) -> List[str]:
+    from core.sektor_ayarlari import paket_setleri
+
+    return paket_setleri(anahtar)
 
 
 def satistaki_modul(anahtar: str) -> Optional[manifest.Modul]:
@@ -199,9 +208,42 @@ def _ceviri_adlari(ham: Optional[str], tr: str) -> Dict[str, str]:
     return adlar
 
 
+def fiyatlari_hesapla(
+    olcekler: List[Tuple[str, Optional[float], Dict[str, str]]], carpanlar: Dict[str, float]
+) -> Dict[str, Dict[str, Any]]:
+    """Saf hesap (veritabanı yok): `[(kod, baz_aylik_usd, {dil: ad}), …]` + profil çarpanları →
+    ölçek başına başlangıç aylık tutarı (profiller içinde en düşüğü; Hizmetler'le aynı `hesapla`).
+
+    Canlı uç (`fiyatlar`) ve depodaki anlık görüntü (`scripts/modul_vitrini_tohum.py` →
+    `prerender/modul-vitrini-fiyat.json`) AYNI fonksiyonu kullanıyor.
+    """
+    from core.fiyat_hesaplama import FiyatHesaplamaHatasi, hesapla
+
+    baz = {kod: float(b) for kod, b, _ in olcekler if b is not None}
+    sonuc: Dict[str, Dict[str, Any]] = {}
+    if not carpanlar:
+        return sonuc
+    for kod, _, adlar in olcekler:
+        if kod not in baz:
+            continue
+        tutarlar = []
+        for profil in carpanlar:
+            try:
+                r = hesapla(
+                    scale_kod=kod, profile_kod=profil, period="aylik", addon_kodlari=[],
+                    scale_baz_fiyatlari=baz, profile_carpanlari=carpanlar, addon_fiyatlari={},
+                )
+            except FiyatHesaplamaHatasi:
+                continue
+            if r.paket_fiyat > 0:
+                tutarlar.append(r.paket_fiyat)
+        if tutarlar:
+            sonuc[kod] = {"baslangic_aylik": min(tutarlar), "para_birimi": "USD", "ad": dict(adlar)}
+    return sonuc
+
+
 async def fiyatlar(db: AsyncSession) -> Dict[str, Dict[str, Any]]:
     """Ölçek kodu → {baslangic_aylik, para_birimi, ad: {dil: ad}}. Tablo yoksa/boşsa {} (fiyat gösterilmez)."""
-    from core.fiyat_hesaplama import FiyatHesaplamaHatasi, hesapla
     from models.pricing import Pricing_profiles, Pricing_scales
 
     try:
@@ -210,32 +252,35 @@ async def fiyatlar(db: AsyncSession) -> Dict[str, Dict[str, Any]]:
     except Exception:  # noqa: BLE001 - fiyat yoksa vitrin yine çalışır ("teklif alın")
         logger.exception("Modül vitrini: fiyat tabloları okunamadı")
         return {}
-    baz = {s.kod: float(s.baz_aylik_fiyat_usd) for s in olcekler if s.baz_aylik_fiyat_usd is not None}
     carpanlar = {p.kod: float(p.carpan) for p in profiller if p.carpan is not None}
-    sonuc: Dict[str, Dict[str, Any]] = {}
-    if not carpanlar:
-        return sonuc
-    for s in olcekler:
-        if s.kod not in baz:
-            continue
-        tutarlar = []
-        for profil in carpanlar:
-            try:
-                r = hesapla(
-                    scale_kod=s.kod, profile_kod=profil, period="aylik", addon_kodlari=[],
-                    scale_baz_fiyatlari=baz, profile_carpanlari=carpanlar, addon_fiyatlari={},
-                )
-            except FiyatHesaplamaHatasi:
-                continue
-            if r.paket_fiyat > 0:
-                tutarlar.append(r.paket_fiyat)
-        if tutarlar:
-            sonuc[s.kod] = {
-                "baslangic_aylik": min(tutarlar),
-                "para_birimi": "USD",
-                "ad": _ceviri_adlari(s.ceviriler, s.ad),
-            }
-    return sonuc
+    return fiyatlari_hesapla(
+        [(s.kod, s.baz_aylik_fiyat_usd, _ceviri_adlari(s.ceviriler, s.ad)) for s in olcekler], carpanlar
+    )
+
+
+#: Depodaki fiyat anlık görüntüsünün yapı sürümü (`prerender/modul-vitrini-fiyat.json`).
+ANLIK_SURUM = 1
+
+
+def anlik_goruntu() -> Dict[str, Any]:
+    """Sunucusuz fiyat anlık görüntüsü: fiyatlandırma v5 tohumu (`scripts/seed_pricing_v5`) + ilk çeviriler
+    (`scripts/pricing_ceviriler.json`) → `fiyatlari_hesapla`. Derlemede canlı uç okunamazsa prerender bunu
+    kullanıyor (JSON-LD `offers`). Fiyatlar panelden değişirse canlı uç önceliklidir; tohum değişince
+    `python -m scripts.modul_vitrini_tohum` dosyayı yeniden yazar (test eşitliği denetliyor)."""
+    from scripts.pricing_ceviri_doldur import katalogu_yukle
+    from scripts.seed_pricing_v5 import PROFILES, SCALES
+
+    katalog = katalogu_yukle()
+    olcekler = []
+    for s in SCALES:
+        adlar = {"tr": s["ad"]}
+        for dil, veri in katalog.items():
+            ad = ((veri.get("scales") or {}).get(s["kod"]) or {}).get("ad")
+            if isinstance(ad, str) and ad.strip():
+                adlar[dil] = ad.strip()
+        olcekler.append((s["kod"], s.get("baz_aylik_fiyat_usd"), adlar))
+    carpanlar = {p["kod"]: float(p["carpan"]) for p in PROFILES if p.get("carpan") is not None}
+    return {"surum": ANLIK_SURUM, "kaynak": "tohum", "fiyatlar": fiyatlari_hesapla(olcekler, carpanlar)}
 
 
 async def vitrin_verisi(db: AsyncSession) -> Dict[str, Any]:
@@ -387,6 +432,7 @@ async def talep_olustur(db: AsyncSession, veri: Dict[str, Any]) -> Dict[str, Any
 __all__ = [
     "SURUM", "KATEGORI_SIRASI", "ILGILI_SAYISI", "ALAN_SINIRI", "TEKRAR_SN", "DIGER_ISLETME",
     "slug", "satista_mi", "yakinda_mi", "temel_mi", "satistakiler", "en_dusuk_paket", "ilgili_moduller",
-    "yapi", "satistaki_modul", "fiyatlar", "vitrin_verisi", "TalepHatasi", "girdiyi_dogrula", "isletme_turleri",
+    "yapi", "satistaki_modul", "fiyatlari_hesapla", "fiyatlar", "anlik_goruntu", "ANLIK_SURUM", "vitrin_verisi",
+    "TalepHatasi", "girdiyi_dogrula", "isletme_turleri",
     "kaynak_degeri", "konu_ve_mesaj", "son_ayni_talep", "talep_olustur",
 ]

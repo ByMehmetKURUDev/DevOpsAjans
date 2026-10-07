@@ -83,6 +83,8 @@ export interface OtoMeta {
   projeler: { id: number; baslik: string; hesap: string | null }[];
   ekip?: string[];
   crm_asamalari?: { anahtar: string; ad: string | null; ceviriler?: Record<string, { ad?: string }> | null }[];
+  /** Faz 6R (yalnız müşteri): hesaba uygulanan sektör setinin önerdiği şablonlar (kurulmaz, işaretlenir). */
+  onerilen_sablonlar?: string[];
 }
 
 export interface Kural {

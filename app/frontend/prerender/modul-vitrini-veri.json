@@ -417,6 +417,9 @@
         "whatsapp_katalog",
         "google_yorum_sayfasi",
         "dinamik_qr"
+      ],
+      "setler": [
+        "restoran_kafe"
       ]
     },
     {
@@ -428,6 +431,12 @@
         "dijital_kartvizit",
         "ai_asistan",
         "google_yorum_sayfasi"
+      ],
+      "setler": [
+        "klinik_saglik",
+        "guzellik_kuafor",
+        "spor_studyo",
+        "danismanlik_kocluk"
       ]
     },
     {
@@ -438,6 +447,9 @@
         "saha_servisi",
         "randevu",
         "google_yorum_sayfasi"
+      ],
+      "setler": [
+        "teknik_servis"
       ]
     },
     {
@@ -448,6 +460,9 @@
         "etkinlik_bilet",
         "eposta_pazarlama",
         "randevu"
+      ],
+      "setler": [
+        "egitim_etkinlik"
       ]
     },
     {
@@ -459,6 +474,9 @@
         "randevu",
         "dijital_kartvizit",
         "otomasyon"
+      ],
+      "setler": [
+        "ajans_serbest"
       ]
     },
     {
@@ -470,6 +488,9 @@
         "ai_asistan",
         "dinamik_qr",
         "otomasyon"
+      ],
+      "setler": [
+        "eticaret_kobi"
       ]
     }
   ]

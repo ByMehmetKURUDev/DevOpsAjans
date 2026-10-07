@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Blocks, Loader2, Lock, RefreshCw, RotateCcw, Save, Search, TriangleAlert, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -23,6 +24,11 @@ import {
   type YoneticiModulu,
 } from '@/lib/moduller';
 import { modulIkonu } from '@/lib/modulIkonlari';
+import { ekliLazy } from '@/i18n/ekliLazy';
+
+// Faz 6R: "Sektör paketi uygula" + hazır ayarlar — yalnız müşteri seçilince indirilir
+// (metinler `sektorPaketi`, paket/set adları `modulVitrini` ek paketinde).
+const SektorPaketiAlani = ekliLazy(['sektorPaketi', 'modulVitrini'], () => import('./sektorPaketi/SektorPaketiAlani'));
 
 /**
  * Yönetici paneli › Modüller.
@@ -33,6 +39,10 @@ import { modulIkonu } from '@/lib/modulIkonlari';
  * bağımlılık uyarıları, "varsayılana dön" ve (manifestte tanımlıysa)
  * müşteriye özel ayarlar. Yöneticinin kendi panelinde bütün modüller her
  * zaman açık; buradaki anahtarlar yalnız müşteriyi etkiler.
+ *
+ * Faz 6R: müşteri seçiliyken "Sektör paketi uygula" (paketin modülleri + hazır
+ * sektör ayarları tek işlemde) ve geçmişten "paketi kaldır". Derin bağlantı:
+ * `/admin?sekme=moduller&musteri=<e-posta>&paket=<anahtar>` (gelen kutusu kısayolu).
  */
 
 const EPOSTA_DESENI = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -191,6 +201,8 @@ export default function ModulYonetimi() {
   const [ayrinti, setAyrinti] = useState<MusteriModulleri | null>(null);
   const [ayrintiYukleniyor, setAyrintiYukleniyor] = useState(false);
   const [calisan, setCalisan] = useState<string | null>(null);
+  const [ilkPaket, setIlkPaket] = useState<string | null>(null);
+  const location = useLocation();
 
   const adi = useCallback((anahtar: string) => t(`modul.m.${anahtar}.ad`, { defaultValue: anahtar }), [t]);
 
@@ -213,8 +225,9 @@ export default function ModulYonetimi() {
     void katalogYukle();
   }, [katalogYukle]);
 
-  const musteriSec = useCallback(async (eposta: string) => {
+  const musteriSec = useCallback(async (eposta: string, paket: string | null = null) => {
     setSecili(eposta);
+    setIlkPaket(paket);
     setAyrinti(null);
     setAyrintiYukleniyor(true);
     try {
@@ -225,6 +238,24 @@ export default function ModulYonetimi() {
       setAyrintiYukleniyor(false);
     }
   }, [t]);
+
+  // Faz 6R: derin bağlantı (`?musteri=…&paket=…`) — müşteriyi seç, paket formunu açık getir.
+  useEffect(() => {
+    const q = new URLSearchParams(location.search);
+    const musteri = (q.get('musteri') || '').trim().toLowerCase();
+    if (musteri && EPOSTA_DESENI.test(musteri)) void musteriSec(musteri, q.get('paket'));
+  }, [location.search, musteriSec]);
+
+  /** Sektör paketi uygulandı/kaldırıldı: ayrıntıyı yerinde tazele (alan kapanmasın). */
+  const ayrintiTazele = useCallback(async () => {
+    if (!secili) return;
+    try {
+      setAyrinti(await musteriModulleriGetir(secili));
+      modulOzetiGetir().then(setOzet).catch(() => {});
+    } catch {
+      toast.error(t('modul.yonetim.musteriHata'));
+    }
+  }, [secili, t]);
 
   const hataGoster = (h: unknown) => {
     if (h instanceof ModulHatasi) {
@@ -454,6 +485,15 @@ export default function ModulYonetimi() {
                     : t('modul.yonetim.paketYok')}
                 </span>
               </div>
+              <Suspense
+                fallback={
+                  <div className="flex items-center justify-center py-6 text-muted-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                  </div>
+                }
+              >
+                <SektorPaketiAlani eposta={ayrinti.eposta} ilkPaket={ilkPaket} onDegisti={() => void ayrintiTazele()} />
+              </Suspense>
               <ul className="space-y-3">
                 {ayrinti.moduller.map((m) => {
                   const Ikon = modulIkonu(m.ikon);

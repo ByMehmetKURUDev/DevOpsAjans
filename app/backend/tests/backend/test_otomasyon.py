@@ -274,7 +274,9 @@ async def test_musteri_modul_kapali_403_acik_ve_kisitlar(istemci, yonetici_basli
     assert all(not o["anahtar"].startswith("aday.") for o in meta["olaylar"])
     assert "crm_asama" not in meta["eylemler"] and "destek" not in meta["eylemler"] and "eposta" in meta["eylemler"]
     # Faz 7O: fatura_gecikti_hatirlatma artık yöneticiye bildirim + CRM notu (yalnız ajans).
-    assert {s["anahtar"] for s in meta["sablonlar"]} == {"teklif_kabul_gorev", "destek_acil_bildirim"}
+    # Faz 6R: sektör setlerinin önerdiği iki müşteri şablonu (kartvizit mesajına otomatik yanıt, acil iş emri).
+    assert {s["anahtar"] for s in meta["sablonlar"]} == {"teklif_kabul_gorev", "destek_acil_bildirim",
+                                                        "kart_mesaj_otomatik_yanit", "is_emri_acil_bildirim"}
     y = await istemci.post(f"{M}/kurallar", json={"ad": "x", "tetik": "aday.olusturuldu", "eylemler": [EPOSTA_EYLEMI]}, headers=_b(e))
     assert y.status_code == 400 and _kod(y) == "tetik_yalniz_ajans"
     y = await istemci.post(f"{M}/kurallar", json={"ad": "x", "tetik": "destek.olusturuldu",

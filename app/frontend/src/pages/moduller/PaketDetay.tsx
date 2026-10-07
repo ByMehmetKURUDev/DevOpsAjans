@@ -98,6 +98,21 @@ export default function PaketDetay() {
           </aside>
         </div>
 
+        {p.setler && p.setler.length > 0 ? (
+          <section className="mt-16" data-hazir-kurulum>
+            <h2 className="mb-2 text-2xl font-bold">{t('modulVitrini.detay.hazirKurulum')}</h2>
+            <p className="mb-6 max-w-3xl text-muted-foreground">{t('modulVitrini.detay.hazirKurulumAciklama')}</p>
+            <ul className="grid gap-4 sm:grid-cols-2">
+              {p.setler.map((s) => (
+                <li key={s} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5" data-hazir-set={s}>
+                  <h3 className="mb-1 font-semibold">{t(`modulVitrini.s.${s}.ad`)}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{t(`modulVitrini.s.${s}.ozet`)}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <section className="mt-16" data-paket-modulleri>
           <h2 className="mb-6 text-2xl font-bold">{t('modulVitrini.detay.paketModulleri')}</h2>
           <div className="grid gap-6 sm:grid-cols-2">

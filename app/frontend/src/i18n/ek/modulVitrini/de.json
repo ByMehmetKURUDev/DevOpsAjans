@@ -49,7 +49,9 @@
       "sektorPaketi": "Branchenpaket",
       "neden": "Warum diese Module?",
       "paketModulleri": "Module im Paket",
-      "digerPaketler": "Weitere Branchenpakete"
+      "digerPaketler": "Weitere Branchenpakete",
+      "hazirKurulum": "Fertige Starteinstellungen",
+      "hazirKurulumAciklama": "Beim Aktivieren des Pakets werden auch Starteinstellungen für die passende Option hinzugefügt; sie füllen nur leere Stellen, und Sie können später alles ändern."
     },
     "fiyat": {
       "baslik": "Preis",
@@ -519,6 +521,44 @@
             "c": "Ja. Veröffentlichte Berichte werden im Tab Berichte Ihres Panels archiviert."
           }
         ]
+      }
+    },
+    "s": {
+      "restoran_kafe": {
+        "ad": "Restaurant und Café",
+        "ozet": "Ein QR-Menü-Entwurf mit fertigen Kategorien (Frühstück, Vorspeisen, Hauptgerichte, Desserts, Getränke) und ein Dankestext für Ihre Google-Bewertungsseite."
+      },
+      "klinik_saglik": {
+        "ad": "Praxis und Gesundheitsberatung",
+        "ozet": "Termine für Erstbesuch (30 Min.), Kontrolle (15 Min.) und Online-Vorgespräch; ein Buchungsformular ohne Gesundheitsdaten und ein Start-FAQ rund um Termine."
+      },
+      "guzellik_kuafor": {
+        "ad": "Kosmetiksalon und Friseur",
+        "ozet": "Termine für Haarschnitt (45 Min.), Färben (120 Min.), Föhnen und Maniküre mit Pufferzeiten; Öffnungszeiten, ein Visitenkarten-Entwurf und ein Salon-FAQ."
+      },
+      "spor_studyo": {
+        "ad": "Fitnessstudio und Studio",
+        "ozet": "Personal Training (60 Min.), Gruppenkurse mit begrenzten Plätzen und Kennenlerntermine; Öffnungszeiten an sieben Tagen und ein Studio-FAQ."
+      },
+      "danismanlik_kocluk": {
+        "ad": "Beratung und Coaching",
+        "ozet": "Kennenlerngespräch (20 Min.), Beratungssitzung (60 Min.) und Folgetermin; der Videolink steht in der Bestätigungs-E-Mail, dazu ein Visitenkarten-Entwurf im Business-Stil."
+      },
+      "teknik_servis": {
+        "ad": "Technischer Service und Wartung",
+        "ozet": "Buchungen für Besichtigung, Reparatur und Wartung (Fragen zu Adresse und Gerät, telefonische Bestätigung); Checklisten für Besichtigung, Reparatur und Installation; Arbeitsaufträge aus Buchungen."
+      },
+      "egitim_etkinlik": {
+        "ad": "Schulung, Kurse und Veranstaltungen",
+        "ozet": "Buchungen für Kennenlerngespräch und Online-Probestunde; eine Newsletter-Liste und ein Entwurf einer dreistufigen Willkommens-E-Mail-Serie (es wird nichts versendet)."
+      },
+      "ajans_serbest": {
+        "ad": "Agentur und Freelancer",
+        "ozet": "Buchungen für Kennenlernen (30 Min.) und Projektgespräch (60 Min.), ein Visitenkarten-Entwurf mit Link zur Buchungsseite und Automatisierungsvorschläge."
+      },
+      "eticaret_kobi": {
+        "ad": "E-Commerce und KMU",
+        "ozet": "Ein KI-Assistent-Entwurf mit Start-FAQ zu Bestellungen und Kontakt; eine Newsletter-Liste und ein Entwurf einer Willkommens-E-Mail-Serie (es wird nichts versendet)."
       }
     }
   }

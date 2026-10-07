@@ -567,6 +567,9 @@ async def _tur_uygula(db: AsyncSession, p: RandevuSayfalari, t: RandevuTurleri, 
         t.sira = s.tam_sayi(g.get("sira"), "sira", 0, 10000)
     if int(t.kapasite or 1) > 1 and (t.atama != "kisi" or len(rk.tur_kisileri(t)) != 1):
         raise s.RandevuHatasi("grup_tek_kisi", "kapasite")
+    # Faz 6R: hazır ayarlarla adressiz (pasif) oluşturulan yüz yüze tür, adres girilmeden açılamaz.
+    if t.aktif and t.konum_turu == "yuz_yuze" and not (t.konum_degeri or "").strip():
+        raise s.RandevuHatasi("zorunlu", "konum_degeri")
     if t.konum_turu == "telefon" and not t.konum_degeri:
         # Biz arayacağız: ziyaretçinin numarası şart.
         t.telefon = "zorunlu"

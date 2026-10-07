@@ -489,7 +489,21 @@
         "aciklama": "Ne zaman: bir fatura kesildiğinde 5 gün bekler, sonra koşulları yeniden denetler. Ne yapar: fatura hâlâ ödenmemişse ve vadesine en az 2 gün varsa müşteriye nazik bir \"vade yaklaşıyor\" e-postası gönderir. Bu arada ödendiyse ya da vadesi yaklaştıysa hiçbir şey göndermez. Sistemin vade sonrası hatırlatmaları (+1, +7, +14. gün) ayrı; bu kural yalnız vadeden önce çalıştığı için aynı fatura için çift e-posta gitmez.",
         "konu": "Hatırlatma: [[fatura.no]] numaralı faturanın vadesi [[fatura.vade_tarihi]]",
         "govde": "Merhaba [[kisi.ad|]],\n\n[[fatura.no]] numaralı [[fatura.tutar]] [[fatura.para_birimi]] tutarındaki faturanızın son ödeme tarihi [[fatura.vade_tarihi]]. Faturanızı müşteri panelinizden görüntüleyebilirsiniz.\n\nÖdemeyi yaptıysanız bu e-postayı dikkate almayın. Sorunuz olursa bu e-postayı yanıtlamanız yeterli.\n\nSevgiler"
-      }
+      },
+      "kart_mesaj_otomatik_yanit": {
+        "ad": "Kartvizit mesajı → otomatik \"mesajınızı aldık\" e-postası",
+        "aciklama": "Dijital kartvizitinizin iletişim formuna e-posta adresiyle yazan kişiye hemen kısa bir \"mesajınızı aldık\" e-postası gider. Size giden yeni mesaj bildirimi zaten var.",
+        "konu": "Mesajınızı aldık",
+        "govde": "Merhaba [[mesaj.ad|]],\n\nDijital kartvizitimiz üzerinden bıraktığınız mesaj bize ulaştı. En kısa sürede size dönüş yapacağız.\n\nSevgiler"
+      },
+      "is_emri_acil_bildirim": {
+        "ad": "Acil iş emri → ekibe bildirim",
+        "aciklama": "Önceliği \"acil\" olan yeni iş emri açılınca panel bildirimi gelir; henüz teknisyen atanmamış acil işler de gözden kaçmaz.",
+        "baslik": "Acil iş emri: [[is_emri.no]]",
+        "govde": "[[is_emri.baslik]] — [[is_emri.musteri_ad|]] [[is_emri.adres|]]"
+      },
+      "onerilen": "Sektörünüz için önerilen",
+      "onerilenAciklama": "Hesabınıza uygulanan sektör paketine göre önerilir; kendiliğinden kurulmaz."
     },
     "hata": {
       "genel": "İşlem yapılamadı.",

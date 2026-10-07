@@ -222,6 +222,12 @@ def _uclari_kur(r: APIRouter, sahip_bul: Callable[[Request], Sahip]) -> None:
             yanit["ekip"] = sorted(await _ekip(db))
             yanit["crm_asamalari"] = [{"anahtar": a["anahtar"], "ad": a.get("ad"), "ceviriler": a.get("ceviriler")}
                                       for a in await _crm_asamalari(db)]
+        else:
+            # Faz 6R: hesaba uygulanmış sektör setinin önerdiği şablonlar ("Hazır şablonlar"da işaretli; kurulmaz).
+            from services.sektor_paketi import onerilen_sablonlar
+
+            mevcut = {x["anahtar"] for x in yanit["sablonlar"]}
+            yanit["onerilen_sablonlar"] = [k for k in await onerilen_sablonlar(db, sahip.hesap) if k in mevcut]
         return yanit
 
     @r.get("/ornek-baglam")

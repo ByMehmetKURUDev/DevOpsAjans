@@ -54,7 +54,8 @@
       "uzman_istem": "विशेषज्ञ प्रॉम्प्ट",
       "uzman_istem_hazir": "विशेषज्ञ प्रॉम्प्ट (तैयार)",
       "yeniden_ac": "फिर से खोलें",
-      "goreve_donustur": "कार्य में बदलें"
+      "goreve_donustur": "कार्य में बदलें",
+      "paket_uygula": "यह पैकेज इस क्लाइंट पर लागू करें"
     },
     "eylemTamam": "हो गया।",
     "eylemHata": "कार्रवाई पूरी नहीं हो सकी।",

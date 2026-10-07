@@ -489,7 +489,21 @@
         "aciklama": "When: an invoice is issued; it waits 5 days and re-checks the conditions. What it does: if the invoice is still unpaid and due in at least 2 days, it sends the client a friendly \"due date approaching\" email. If it was paid in the meantime or the due date is too close, nothing is sent. The system's after-due reminders (+1, +7, +14 days) are separate; this rule only runs before the due date, so the same invoice never gets duplicate emails.",
         "konu": "Reminder: invoice [[fatura.no]] is due on [[fatura.vade_tarihi]]",
         "govde": "Hello [[kisi.ad|]],\n\nYour invoice [[fatura.no]] for [[fatura.tutar]] [[fatura.para_birimi]] is due on [[fatura.vade_tarihi]]. You can view it in your client panel.\n\nIf you have already paid, please disregard this email. If you have any questions, simply reply to this email.\n\nBest regards"
-      }
+      },
+      "kart_mesaj_otomatik_yanit": {
+        "ad": "Business card message → automatic \"we got your message\" email",
+        "aciklama": "Anyone who writes to you through your digital business card's contact form with an email address immediately gets a short \"we got your message\" email. You are already notified of new messages.",
+        "konu": "We got your message",
+        "govde": "Hello [[mesaj.ad|]],\n\nYour message from our digital business card has reached us. We'll get back to you as soon as possible.\n\nBest regards"
+      },
+      "is_emri_acil_bildirim": {
+        "ad": "Urgent work order → team notification",
+        "aciklama": "A panel notification arrives when a new work order with \"urgent\" priority is opened, so urgent jobs without a technician don't get missed.",
+        "baslik": "Urgent work order: [[is_emri.no]]",
+        "govde": "[[is_emri.baslik]] — [[is_emri.musteri_ad|]] [[is_emri.adres|]]"
+      },
+      "onerilen": "Recommended for your industry",
+      "onerilenAciklama": "Suggested based on the industry pack applied to your account; it isn't set up automatically."
     },
     "hata": {
       "genel": "The operation could not be completed.",

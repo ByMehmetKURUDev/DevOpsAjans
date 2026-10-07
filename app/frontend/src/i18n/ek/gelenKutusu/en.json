@@ -54,7 +54,8 @@
       "uzman_istem": "Expert prompts",
       "uzman_istem_hazir": "Expert prompts (ready)",
       "yeniden_ac": "Reopen",
-      "goreve_donustur": "Convert to task"
+      "goreve_donustur": "Convert to task",
+      "paket_uygula": "Apply this pack to this client"
     },
     "eylemTamam": "Done.",
     "eylemHata": "The action could not be completed.",

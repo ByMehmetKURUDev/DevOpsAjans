@@ -49,7 +49,9 @@
       "sektorPaketi": "Sektör paketi",
       "neden": "Neden bu modüller?",
       "paketModulleri": "Paketteki modüller",
-      "digerPaketler": "Diğer sektör paketleri"
+      "digerPaketler": "Diğer sektör paketleri",
+      "hazirKurulum": "Hazır başlangıç ayarları",
+      "hazirKurulumAciklama": "Paket açılırken işletmenize uygun seçenekle başlangıç ayarları da eklenir; yalnız boş alanlara yazılır ve hepsini sonradan değiştirebilirsiniz."
     },
     "fiyat": {
       "baslik": "Fiyat",
@@ -519,6 +521,44 @@
             "c": "Evet. Yayınlanan raporlar panelinizdeki Raporlar sekmesinde arşivlenir."
           }
         ]
+      }
+    },
+    "s": {
+      "restoran_kafe": {
+        "ad": "Restoran ve kafe",
+        "ozet": "QR menü taslağı ve hazır kategoriler (kahvaltı, başlangıçlar, ana yemekler, tatlılar, içecekler), Google yorum sayfası için teşekkür metni."
+      },
+      "klinik_saglik": {
+        "ad": "Klinik ve sağlık danışmanlığı",
+        "ozet": "İlk muayene (30 dk), kontrol (15 dk) ve online ön görüşme randevuları; sağlık bilgisi istemeyen randevu formu ve randevu odaklı başlangıç SSS'si."
+      },
+      "guzellik_kuafor": {
+        "ad": "Güzellik salonu ve kuaför",
+        "ozet": "Saç kesimi (45 dk), boya (120 dk), fön ve manikür randevuları tampon süreleriyle; çalışma saatleri, kartvizit taslağı ve salon SSS'si."
+      },
+      "spor_studyo": {
+        "ad": "Spor salonu ve stüdyo",
+        "ozet": "Kişisel antrenman (60 dk), kontenjanlı grup dersi ve tanışma randevuları; haftanın her günü çalışma saatleri ve stüdyo SSS'si."
+      },
+      "danismanlik_kocluk": {
+        "ad": "Danışmanlık ve koçluk",
+        "ozet": "Tanışma (20 dk), danışmanlık seansı (60 dk) ve takip görüşmesi; görüntülü görüşme bağlantısı onay e-postasında, kurumsal kartvizit taslağı."
+      },
+      "teknik_servis": {
+        "ad": "Teknik servis ve bakım",
+        "ozet": "Keşif, arıza ve bakım randevuları (adres ve cihaz soruları, sizi arayarak teyit); keşif, arıza ve kurulum kontrol listeleri; randevudan iş emri."
+      },
+      "egitim_etkinlik": {
+        "ad": "Eğitim, kurs ve etkinlik",
+        "ozet": "Tanışma görüşmesi ve online deneme dersi randevuları; bülten listesi ve üç adımlı hoş geldin e-posta dizisi taslağı (gönderilmez)."
+      },
+      "ajans_serbest": {
+        "ad": "Ajans ve serbest çalışan",
+        "ozet": "Tanışma (30 dk) ve proje görüşmesi (60 dk) randevuları, randevu bağlantılı kurumsal kartvizit taslağı ve otomasyon önerileri."
+      },
+      "eticaret_kobi": {
+        "ad": "E-ticaret ve KOBİ",
+        "ozet": "Sipariş ve iletişim odaklı başlangıç SSS'siyle AI asistan taslağı; bülten listesi ve hoş geldin e-posta dizisi taslağı (gönderilmez)."
       }
     }
   }

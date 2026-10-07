@@ -48,10 +48,28 @@ export default function Sablonlar({
       </div>
     );
   }
+  // Faz 6R: sektör setinin önerdikleri önce ve rozetli (kurulmaz; müşteri isterse tek tıkla kurar).
+  const onerilen = meta.onerilen_sablonlar ?? [];
+  const sirali = [...meta.sablonlar].sort(
+    (a, b) => Number(onerilen.includes(b.anahtar)) - Number(onerilen.includes(a.anahtar))
+  );
   return (
     <div className="grid gap-3 md:grid-cols-2" data-testid="oto-sablonlar">
-      {meta.sablonlar.map((s) => (
-        <article key={s.anahtar} className={`${KART} flex flex-col p-4`} data-oto-sablon={s.anahtar}>
+      {sirali.map((s) => (
+        <article
+          key={s.anahtar}
+          className={`${KART} flex flex-col p-4 ${onerilen.includes(s.anahtar) ? 'ring-1 ring-purple-400/50' : ''}`}
+          data-oto-sablon={s.anahtar}
+          data-onerilen={onerilen.includes(s.anahtar) ? 'evet' : undefined}
+        >
+          {onerilen.includes(s.anahtar) ? (
+            <span
+              className="mb-2 inline-flex w-fit items-center rounded-full border border-purple-400/40 bg-purple-500/15 px-2 py-0.5 text-[10px] uppercase tracking-wider text-purple-100"
+              title={t('otomasyon.sablon.onerilenAciklama')}
+            >
+              {t('otomasyon.sablon.onerilen')}
+            </span>
+          ) : null}
           <h3 className="flex items-start gap-2 font-semibold">
             <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-purple-300" aria-hidden="true" />
             {t(`otomasyon.sablon.${s.anahtar}.ad`)}

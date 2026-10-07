@@ -54,7 +54,8 @@
       "uzman_istem": "专家提示词",
       "uzman_istem_hazir": "专家提示词（已生成）",
       "yeniden_ac": "重新打开",
-      "goreve_donustur": "转为任务"
+      "goreve_donustur": "转为任务",
+      "paket_uygula": "为该客户应用此套餐"
     },
     "eylemTamam": "已完成。",
     "eylemHata": "操作未能完成。",

@@ -49,7 +49,9 @@
       "sektorPaketi": "Industry package",
       "neden": "Why these modules?",
       "paketModulleri": "Modules in this package",
-      "digerPaketler": "Other industry packages"
+      "digerPaketler": "Other industry packages",
+      "hazirKurulum": "Ready-made starter settings",
+      "hazirKurulumAciklama": "When the pack is enabled, starter settings for the option that fits your business are added too; they only fill empty places and you can change everything later."
     },
     "fiyat": {
       "baslik": "Price",
@@ -519,6 +521,44 @@
             "c": "Yes. Published reports are archived in the Reports tab of your panel."
           }
         ]
+      }
+    },
+    "s": {
+      "restoran_kafe": {
+        "ad": "Restaurant and café",
+        "ozet": "A draft QR menu with ready categories (breakfast, starters, mains, desserts, drinks) and a thank-you text for your Google review page."
+      },
+      "klinik_saglik": {
+        "ad": "Clinic and health consulting",
+        "ozet": "First visit (30 min), follow-up (15 min) and online pre-consultation appointments; a booking form that asks for no health data and a starter FAQ about bookings."
+      },
+      "guzellik_kuafor": {
+        "ad": "Beauty salon and hairdresser",
+        "ozet": "Haircut (45 min), colouring (120 min), blow-dry and manicure appointments with buffer times; opening hours, a business card draft and a salon FAQ."
+      },
+      "spor_studyo": {
+        "ad": "Gym and studio",
+        "ozet": "Personal training (60 min), group classes with limited places and intro appointments; seven-day opening hours and a studio FAQ."
+      },
+      "danismanlik_kocluk": {
+        "ad": "Consulting and coaching",
+        "ozet": "Intro call (20 min), consulting session (60 min) and follow-up; the video link goes out in the confirmation email, plus a corporate business card draft."
+      },
+      "teknik_servis": {
+        "ad": "Field service and maintenance",
+        "ozet": "Survey, repair and maintenance bookings (address and appliance questions, confirmed by phone); survey, repair and installation checklists; work orders from bookings."
+      },
+      "egitim_etkinlik": {
+        "ad": "Training, courses and events",
+        "ozet": "Intro call and online trial lesson bookings; a newsletter list and a three-step welcome email series draft (nothing is sent)."
+      },
+      "ajans_serbest": {
+        "ad": "Agency and freelancer",
+        "ozet": "Intro (30 min) and project call (60 min) bookings, a corporate business card draft linked to your booking page, and automation suggestions."
+      },
+      "eticaret_kobi": {
+        "ad": "E-commerce and SMB",
+        "ozet": "An AI assistant draft with a starter FAQ on orders and contact; a newsletter list and a welcome email series draft (nothing is sent)."
       }
     }
   }

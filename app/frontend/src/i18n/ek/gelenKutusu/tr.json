@@ -54,7 +54,8 @@
       "uzman_istem": "Uzman istemleri",
       "uzman_istem_hazir": "Uzman istemleri (hazır)",
       "yeniden_ac": "Yeniden aç",
-      "goreve_donustur": "Göreve dönüştür"
+      "goreve_donustur": "Göreve dönüştür",
+      "paket_uygula": "Bu paketi bu müşteriye uygula"
     },
     "eylemTamam": "İşlem yapıldı.",
     "eylemHata": "İşlem yapılamadı.",

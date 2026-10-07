@@ -54,7 +54,8 @@
       "uzman_istem": "Experten-Prompts",
       "uzman_istem_hazir": "Experten-Prompts (fertig)",
       "yeniden_ac": "Wieder öffnen",
-      "goreve_donustur": "In Aufgabe umwandeln"
+      "goreve_donustur": "In Aufgabe umwandeln",
+      "paket_uygula": "Dieses Paket für diesen Kunden anwenden"
     },
     "eylemTamam": "Erledigt.",
     "eylemHata": "Die Aktion konnte nicht ausgeführt werden.",

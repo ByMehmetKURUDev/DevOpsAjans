@@ -489,7 +489,21 @@
         "aciklama": "Wann: eine Rechnung wird erstellt; die Regel wartet 5 Tage und prüft die Bedingungen erneut. Was passiert: Ist die Rechnung noch unbezahlt und erst in mindestens 2 Tagen fällig, erhält der Kunde eine freundliche E-Mail „Fälligkeit naht“. Wurde sie inzwischen bezahlt oder ist die Fälligkeit zu nah, wird nichts gesendet. Die Erinnerungen des Systems nach Fälligkeit (+1, +7, +14 Tage) sind getrennt; diese Regel läuft nur vor der Fälligkeit, daher gibt es für dieselbe Rechnung keine doppelten E-Mails.",
         "konu": "Erinnerung: Rechnung [[fatura.no]] ist am [[fatura.vade_tarihi]] fällig",
         "govde": "Hallo [[kisi.ad|]],\n\nIhre Rechnung [[fatura.no]] über [[fatura.tutar]] [[fatura.para_birimi]] ist am [[fatura.vade_tarihi]] fällig. Sie finden sie in Ihrem Kundenbereich.\n\nFalls Sie bereits bezahlt haben, betrachten Sie diese E-Mail bitte als gegenstandslos. Bei Fragen antworten Sie einfach auf diese E-Mail.\n\nViele Grüße"
-      }
+      },
+      "kart_mesaj_otomatik_yanit": {
+        "ad": "Visitenkarten-Nachricht → automatische E-Mail „Nachricht erhalten“",
+        "aciklama": "Wer Ihnen über das Kontaktformular Ihrer digitalen Visitenkarte mit E-Mail-Adresse schreibt, erhält sofort eine kurze E-Mail „Wir haben Ihre Nachricht erhalten“. Über neue Nachrichten werden Sie bereits benachrichtigt.",
+        "konu": "Wir haben Ihre Nachricht erhalten",
+        "govde": "Hallo [[mesaj.ad|]],\n\nIhre Nachricht über unsere digitale Visitenkarte ist bei uns angekommen. Wir melden uns so bald wie möglich bei Ihnen.\n\nViele Grüße"
+      },
+      "is_emri_acil_bildirim": {
+        "ad": "Dringender Arbeitsauftrag → Benachrichtigung ans Team",
+        "aciklama": "Bei einem neuen Arbeitsauftrag mit Priorität „dringend“ kommt eine Panel-Benachrichtigung; so werden dringende Aufträge ohne zugewiesenen Techniker nicht übersehen.",
+        "baslik": "Dringender Arbeitsauftrag: [[is_emri.no]]",
+        "govde": "[[is_emri.baslik]] — [[is_emri.musteri_ad|]] [[is_emri.adres|]]"
+      },
+      "onerilen": "Für Ihre Branche empfohlen",
+      "onerilenAciklama": "Vorgeschlagen anhand des Branchenpakets Ihres Kontos; wird nicht automatisch eingerichtet."
     },
     "hata": {
       "genel": "Der Vorgang konnte nicht abgeschlossen werden.",
