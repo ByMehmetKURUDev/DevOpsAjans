@@ -32,7 +32,15 @@ def test_fonksiyon_dosyasi():
     assert "env.API_ORIGIN" in metin and "IZINLER_KAMERA" in metin and "no-referrer" in metin
     assert "noindex, nofollow" in metin and "/api/v1/egitim/kurs/" in metin
     basliklar = (ON_YUZ / "public" / "_headers").read_text(encoding="utf-8")
-    assert "camera=()" in basliklar and "camera=(self)" not in basliklar
+    assert "camera=()" in basliklar
+    # Kamera statik başlıklarda yalnız müşteri panelinde açık (Faz 6P: POS barkod okutma); /egitim/* izni fonksiyondan.
+    yol, kamerali = None, []
+    for satir in basliklar.splitlines():
+        if satir.startswith("/"):
+            yol = satir.strip()
+        elif satir.strip().startswith("Permissions-Policy:") and "camera=(self)" in satir:
+            kamerali.append(yol)
+    assert kamerali == ["/client"], kamerali
 
 
 def test_rotalar_lazy_prerender_disi_ve_site_haritasinda_yok():
