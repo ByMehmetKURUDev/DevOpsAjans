@@ -139,6 +139,12 @@
         "ozet": "E-Mail-Kampagnen, ein KI-Assistent für Fragen auf Ihrer Website, messbare QR-Codes und Automatisierung.",
         "kimIcin": "Onlineshops sowie kleine und mittlere Unternehmen, die regelmäßig mit ihren Kunden in Kontakt bleiben möchten.",
         "neden": "Das E-Mail-Marketing versendet Kampagnen und automatische E-Mail-Serien an Ihre Kundenliste, der KI-Assistent beantwortet häufige Fragen auf Ihrer Website, dynamische QR-Codes messen Besuche von Verpackungen und Broschüren, und Automatisierungsregeln übernehmen wiederkehrende Aufgaben wie die Antwort auf neue Anfragen und Erinnerungen."
+      },
+      "hukuk_burosu": {
+        "ad": "Anwaltskanzlei",
+        "ozet": "Akten- und Fristenverwaltung, Buchungen für Erstgespräche und Beratungen, inaktiver Visitenkarten-Entwurf, interne Dokumente und Notizen.",
+        "kimIcin": "Anwältinnen, Anwälte und Kanzleien.",
+        "neden": "Das Kanzleimodul verwaltet Mandanten, Akten, Verhandlungen und Fristen; Terminbuchung dient Besprechungen, die digitale Visitenkarte den Kontaktdaten und Dokumente den internen Notizen. Wegen des Werbeverbots sind Bewertungsanfragen und Werbewerkzeuge nicht enthalten."
       }
     },
     "m": {
@@ -602,6 +608,26 @@
             "c": "Die Vorgaben des türkischen Arbeitsgesetzes Nr. 4857 sind voreingestellt und lassen sich für Ihren Betrieb anpassen. Die Berechnungen dienen nur zur Information."
           }
         ]
+      },
+      "hukuk_burosu": {
+        "ozet": "Mandanten- und Aktenverwaltung, Kalender für Verhandlungen und Fristen mit Fristenrechner, Zeit- und Auslagenerfassung, privater Statuslink für Mandanten.",
+        "kimIcin": "Anwältinnen und Anwälte, Kanzleien und Rechtsberatung in Unternehmen.",
+        "ozellikler": [
+          "Mandanten (Person/Unternehmen) und Akten: Art, Aktenzeichen, Gericht oder Vollstreckungsamt, Gegenparteien und deren Anwälte, zuständige Person",
+          "Hinweis auf Interessenkonflikte: Name/Steuernummer neuer Mandanten oder Gegenparteien wird mit vorhandenen Einträgen abgeglichen",
+          "Kalender für Verhandlungen und Fristen, ICS, Erinnerungen 7/3/1 Tage vorher; unterstützende Fristberechnung nach türk. ZPO Art. 92/93/104",
+          "Zeit- und Auslagenerfassung mit PDF-Aufstellung; ein Link, über den Mandanten nur das sehen, was Sie teilen. Kein automatischer Datenabruf aus UYAP"
+        ],
+        "sss": [
+          {
+            "s": "Kommen Akten aus UYAP automatisch herein?",
+            "c": "Nein. UYAP hat keine offene Schnittstelle, daher wird nichts automatisch abgerufen und kein Scraping betrieben; die Kanzlei erfasst die Aktendaten."
+          },
+          {
+            "s": "Kann die Agentur unsere Akten sehen?",
+            "c": "Nein. Für den Support sieht die Agentur nur Zahlen (Akten, Mandanten, anstehende Fristen, Speicher); Akteninhalte, Notizen, Dokumente und Mandantendaten werden nicht angezeigt."
+          }
+        ]
       }
     },
     "s": {
@@ -640,6 +666,10 @@
       "eticaret_kobi": {
         "ad": "E-Commerce und KMU",
         "ozet": "Ein KI-Assistent-Entwurf mit Start-FAQ zu Bestellungen und Kontakt; eine Newsletter-Liste und ein Entwurf einer Willkommens-E-Mail-Serie (es wird nichts versendet)."
+      },
+      "hukuk_burosu": {
+        "ad": "Anwaltskanzlei",
+        "ozet": "Buchungsarten Erstgespräch (30 Min.), Beratung (60 Min.) und Online-Gespräch; inaktiver Visitenkarten-Entwurf; sachlicher FAQ-Entwurf nur für das Team."
       }
     }
   }

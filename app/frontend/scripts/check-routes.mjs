@@ -104,6 +104,8 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   // Faz 6I: girişsiz personel sayfası (vardiyalar, izin bakiyesi, izin talebi) — jetona özel, prerender
   // yok, noindex (sayfa + `_headers` X-Robots-Tag).
   '/personel/:jeton',
+  // Faz 6H: hukuk bürosunun imzalı müvekkil portalı; kişiye özel, her zaman noindex (functions/hukuk/[[yol]].js).
+  '/hukuk/muvekkil/:jeton',
 ]);
 
 const missing = [...appRoutes].filter(

@@ -48,7 +48,8 @@
       "egitim": "Eğitim (yönetim)",
       "egitim_egitmen": "Eğitim: eğitmen (yalnız kendi kursları)",
       "belgeler": "Belgeler, wiki ve strateji araçları",
-      "ik": "İnsan kaynakları (personel, izin, vardiya)"
+      "ik": "İnsan kaynakları (personel, izin, vardiya)",
+      "hukuk": "Hukuk bürosu (müvekkil, dosya, takvim; gizli dosya yalnız sahip ve sorumlu avukat)"
     },
     "durum": {
       "davet": "Davet bekliyor",

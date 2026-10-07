@@ -496,7 +496,8 @@
     "tabEtkinlik": "कार्यक्रम",
     "tabStokPos": "स्टॉक और POS",
     "tabEgitim": "पाठ्यक्रम",
-    "tabIk": "मानव संसाधन"
+    "tabIk": "मानव संसाधन",
+    "tabHukuk": "विधि कार्यालय"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

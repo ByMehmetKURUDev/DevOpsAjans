@@ -126,7 +126,16 @@
       "ik_personel": "कर्मचारी रिकॉर्ड",
       "ik_ayarlari": "HR सेटिंग्स",
       "ik_tatiller": "HR अवकाश दिवस",
-      "ik_vardiya_sablonlari": "शिफ्ट टेम्पलेट"
+      "ik_vardiya_sablonlari": "शिफ्ट टेम्पलेट",
+      "hukuk_ayarlari": "विधि कार्यालय सेटिंग्स",
+      "hukuk_tatilleri": "सार्वजनिक अवकाश (विधि कार्यालय)",
+      "hukuk_muvekkilleri": "मुवक्किल",
+      "hukuk_dosyalari": "कानूनी मामले",
+      "hukuk_olaylari": "सुनवाई और समय-सीमाएँ",
+      "hukuk_zaman_kayitlari": "मामला समय प्रविष्टियाँ",
+      "hukuk_masraflari": "मामला खर्च",
+      "hukuk_ekleri": "मामला संलग्नक",
+      "hukuk_mesajlari": "मुवक्किल संदेश"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

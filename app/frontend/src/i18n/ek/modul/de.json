@@ -204,6 +204,10 @@
       "insan_kaynaklari": {
         "ad": "Personalwesen (Personal, Urlaub, Schichten)",
         "aciklama": "Personalakten, Urlaubsanträge und Genehmigung, Urlaubskonten (anpassbare gesetzliche Vorgaben), Urlaubskalender, wöchentlicher Schichtplan und eine Seite ohne Login für jede Person. Keine Lohnabrechnung."
+      },
+      "hukuk_burosu": {
+        "ad": "Anwaltskanzlei",
+        "aciklama": "Für Anwältinnen, Anwälte und Kanzleien: Mandanten- und Aktenverwaltung, Gegenparteien mit Hinweis auf Interessenkonflikte, Kalender für Verhandlungen und Fristen, Fristenrechner, Erinnerungen, Zeit- und Auslagenerfassung (PDF-Aufstellung), Dokumentanhänge und ein privater Statuslink für Mandanten. Ruft keine Daten automatisch aus UYAP ab."
       }
     },
     "kategori": {
@@ -270,7 +274,8 @@
       "ogrenci_siniri": "Höchstzahl an Teilnehmenden (aktiv + wartend)",
       "ai_hakki": "KI-Fragenerstellungen pro Monat",
       "belge_siniri": "Höchstzahl eigener Dokumente pro Konto",
-      "personel_siniri": "Höchstzahl aktives Personal"
+      "personel_siniri": "Höchstzahl aktives Personal",
+      "dosya_siniri": "Max. offene Akten (offen + ruhend)"
     },
     "musteri": {
       "baslik": "Meine Module",

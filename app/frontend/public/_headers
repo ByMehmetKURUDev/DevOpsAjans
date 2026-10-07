@@ -79,3 +79,12 @@
   ! Referrer-Policy
   Referrer-Policy: no-referrer
   X-Robots-Tag: noindex, nofollow
+
+# Faz 6H: müvekkil portalı (/hukuk/muvekkil/<jeton>) — avukat–müvekkil sırrı: dizine girmez, adres jeton
+# taşıdığı için yönlendiren (Referer) hiç gönderilmez, ara bellekte tutulmaz. (Pages Function aynı
+# başlıkları yanıta da koyuyor; bu kural statik yanıt için ikinci kat.)
+/hukuk/*
+  ! Referrer-Policy
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store

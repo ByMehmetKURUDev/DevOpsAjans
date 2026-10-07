@@ -126,7 +126,16 @@
       "ik_personel": "سجلات الموظفين",
       "ik_ayarlari": "إعدادات الموارد البشرية",
       "ik_tatiller": "عطل الموارد البشرية",
-      "ik_vardiya_sablonlari": "قوالب المناوبات"
+      "ik_vardiya_sablonlari": "قوالب المناوبات",
+      "hukuk_ayarlari": "إعدادات مكتب المحاماة",
+      "hukuk_tatilleri": "العطل الرسمية (المحاماة)",
+      "hukuk_muvekkilleri": "الموكلون",
+      "hukuk_dosyalari": "القضايا القانونية",
+      "hukuk_olaylari": "الجلسات والمهل",
+      "hukuk_zaman_kayitlari": "قيود الوقت للقضايا",
+      "hukuk_masraflari": "مصروفات القضايا",
+      "hukuk_ekleri": "مرفقات القضايا",
+      "hukuk_mesajlari": "رسائل الموكلين"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

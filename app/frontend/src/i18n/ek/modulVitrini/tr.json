@@ -139,6 +139,12 @@
         "ozet": "E-posta kampanyaları, sitenizde soruları yanıtlayan AI asistan, ölçülebilir QR ve otomasyon.",
         "kimIcin": "Online satış yapan mağazalar ve müşterisiyle düzenli iletişim kurmak isteyen küçük ve orta ölçekli işletmeler.",
         "neden": "E-posta pazarlama müşteri listenize kampanya ve otomatik e-posta dizileri gönderir, AI asistan sitenizdeki sık soruları yanıtlar, dinamik QR ambalaj ve broşürden gelen ziyareti ölçer, otomasyon kuralları yeni talebe yanıt ve hatırlatma gibi tekrar eden işleri üstlenir."
+      },
+      "hukuk_burosu": {
+        "ad": "Hukuk bürosu",
+        "ozet": "Dosya ve süre takibi, ilk görüşme ve danışmanlık randevuları, pasif kartvizit taslağı, ekip içi belgeler ve notlar.",
+        "kimIcin": "Avukatlar ve hukuk büroları.",
+        "neden": "Hukuk bürosu modülü müvekkil, dosya, duruşma ve süreleri yönetir; randevu modülü görüşmeler, dijital kartvizit iletişim bilgisi, belgeler modülü büro içi notlar için kullanılır. Reklam yasağı gereği yorum isteme ve tanıtım araçları pakette yoktur."
       }
     },
     "m": {
@@ -602,6 +608,26 @@
             "c": "4857 sayılı İş Kanunu'nun yıllık izin ve yasal izin süreleri varsayılan olarak gelir; işyerinize göre ayarlardan değiştirebilirsiniz. Hesaplar bilgilendirme amaçlıdır."
           }
         ]
+      },
+      "hukuk_burosu": {
+        "ozet": "Müvekkil ve dosya takibi, duruşma/süre takvimi ve süre hesaplayıcı, saat ve masraf kaydı, müvekkile özel bilgilendirme bağlantısı.",
+        "kimIcin": "Avukatlar, hukuk büroları ve hukuk müşavirlikleri.",
+        "ozellikler": [
+          "Müvekkil (kişi/şirket) ve dosya: tür, esas no, mahkeme ya da icra dairesi, karşı taraf ve vekilleri, sorumlu avukat",
+          "Çıkar çatışması uyarısı: yeni müvekkil ya da karşı tarafın adı/vergi no'su mevcut kayıtlarla karşılaştırılır",
+          "Duruşma ve kesin süre takvimi, ICS, 7/3/1 gün önce hatırlatma; HMK m.92/93/104'e göre yardımcı süre hesabı",
+          "Saat ve masraf kaydı, PDF döküm; müvekkilin yalnız paylaştığınız bilgileri gördüğü bağlantı. UYAP'tan otomatik veri çekmez"
+        ],
+        "sss": [
+          {
+            "s": "UYAP'taki dosyalar otomatik gelir mi?",
+            "c": "Hayır. UYAP'ın açık bir arayüzü olmadığı için veri otomatik çekilmez ve kazıma yapılmaz; dosya bilgilerini büro girer."
+          },
+          {
+            "s": "Ajans dosyalarımızı görebilir mi?",
+            "c": "Hayır. Ajans destek için yalnız sayıları (dosya, müvekkil, yaklaşan süre, depolama) görür; dosya içeriği, notlar, belgeler ve müvekkil bilgileri gösterilmez."
+          }
+        ]
       }
     },
     "s": {
@@ -640,6 +666,10 @@
       "eticaret_kobi": {
         "ad": "E-ticaret ve KOBİ",
         "ozet": "Sipariş ve iletişim odaklı başlangıç SSS'siyle AI asistan taslağı; bülten listesi ve hoş geldin e-posta dizisi taslağı (gönderilmez)."
+      },
+      "hukuk_burosu": {
+        "ad": "Hukuk bürosu",
+        "ozet": "İlk görüşme (30 dk), danışmanlık (60 dk) ve online görüşme randevu türleri; pasif kartvizit taslağı; ekibe görünen ölçülü SSS taslağı."
       }
     }
   }

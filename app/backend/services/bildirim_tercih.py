@@ -124,6 +124,10 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Faz 6I — İK: personel portaldan izin talebi gönderdi (hesap sahibine / ajans personelinde yöneticilere).
     # Personele giden e-postalar katalog dışı (`ik_personel`: yalnız e-posta).
     "ik_izin_talebi": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 6H — hukuk bürosu: duruşma/süre hatırlatması (7/3/1 gün + aynı gün; sorumlu avukata) ve müvekkil
+    # portalından mesaj (büroya; ajansın gelen kutusuna düşmez). İkisi de İÇERİKSİZ (tür + tarih).
+    "hukuk_hatirlatma": {"roller": ("client",), "tetikleniyor": True},
+    "hukuk_portal_mesaj": {"roller": ("client",), "tetikleniyor": True},
     # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (yöneticilere / müşteri hesabına).
     "otomasyon_bildirimi": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,

@@ -73,8 +73,15 @@ def test_satistaki_moduller_kayittan_turuyor():
     assert "profil" not in temeller and "bildirimler" not in temeller and "denetim" not in temeller and "crm" not in temeller
     # Kategoriler yalnız dolu olanlar, slug'lar benzersiz ve URL'ye uygun.
     assert set(y["kategoriler"]) == {m["kategori"] for m in y["moduller"]}
-    sluglar = [m["slug"] for m in y["moduller"]] + [p["slug"] for p in y["paketler"]]
-    assert len(set(sluglar)) == len(sluglar)
+    modul_sluglari = [m["slug"] for m in y["moduller"]]
+    paket_sluglari = [p["slug"] for p in y["paketler"]]
+    sluglar = modul_sluglari + paket_sluglari
+    assert len(set(modul_sluglari)) == len(modul_sluglari) and len(set(paket_sluglari)) == len(paket_sluglari)
+    # Adresler ayrı (/moduller/<slug> ve /moduller/paket/<slug>); bir paket slug'ı bir modülünkiyle yalnız o modül
+    # paketin KENDİ ana modülüyse aynı olabilir (Faz 6H: `hukuk-burosu` paketi `hukuk_burosu` modülünü içeriyor).
+    for p in y["paketler"]:
+        if p["slug"] in modul_sluglari:
+            assert p["slug"].replace("-", "_") in p["moduller"], p["slug"]
     assert all(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", s) for s in sluglar)
     assert y["olcekler"] == list(manifest.PAKETLER)
 
@@ -104,7 +111,8 @@ def test_on_yuz_kopyasi_kayitla_ayni():
 # ---------------------------------------------------------------------------
 def test_sektor_paketleri_tutarli():
     assert sp.paket_hatalari() == []
-    assert 5 <= len(sp.SEKTOR_PAKETLERI) <= 6
+    # Faz 6H: yedinci paket `hukuk_burosu`.
+    assert 5 <= len(sp.SEKTOR_PAKETLERI) <= 7
     for p in sp.SEKTOR_PAKETLERI:
         for k in p.moduller:
             m = manifest.modul(k)
@@ -128,7 +136,27 @@ def test_paketi_ac_listesi_bagimliliklarla():
         if m.anahtar in {"qr_menu", "whatsapp_katalog", "google_yorum_sayfasi", "dinamik_qr", "stok_pos"}
     ]
     assert sp.acilacak_moduller("yok") == []
-    assert [p.anahtar for p in sp.iceren_paketler("randevu")] == ["klinik_guzellik", "teknik_servis", "egitim_etkinlik", "ajans_serbest"]
+    assert [p.anahtar for p in sp.iceren_paketler("randevu")] == ["klinik_guzellik", "teknik_servis", "egitim_etkinlik", "ajans_serbest",
+                                                                   "hukuk_burosu"]
+    # Faz 6H: hukuk bürosu paketi — ana modül + randevu + kartvizit + belgeler; reklam yasağı yüzünden yorum
+    # sayfası, AI asistan ve e-posta pazarlama YOK (paket_hatalari bunu zorluyor).
+    assert sp.acilacak_moduller("hukuk_burosu") == [
+        m.anahtar for m in manifest.sirali() if m.anahtar in {"hukuk_burosu", "randevu", "dijital_kartvizit", "belgeler"}
+    ]
+    assert not set(sp.paket("hukuk_burosu").moduller) & sp.REKLAM_YASAKLI_MODULLER
+    eski = sp.SEKTOR_PAKETLERI
+    try:
+        sp.SEKTOR_PAKETLERI = tuple(p for p in eski if p.anahtar != "hukuk_burosu") + (
+            sp.SektorPaketi("hukuk_burosu", {"tr": "Hukuk bürosu", "en": "Law office"}, "Scale",
+                            ("hukuk_burosu", "google_yorum_sayfasi")),
+            # Modül anahtarıyla çakışan ama o modülü içermeyen paket hâlâ hata.
+            sp.SektorPaketi("randevu", {"tr": "x", "en": "y"}, "Wrench", ("qr_menu", "dinamik_qr")),
+        )
+        hatalar = sp.paket_hatalari()
+    finally:
+        sp.SEKTOR_PAKETLERI = eski
+    assert any("google_yorum_sayfasi reklam yasağı" in h for h in hatalar)
+    assert any("randevu: modül anahtarıyla çakışıyor" in h for h in hatalar)
 
 
 def test_paket_ikonlari_on_yuz_eslemesinde_var():

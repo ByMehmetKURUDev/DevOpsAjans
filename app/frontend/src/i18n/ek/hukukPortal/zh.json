@@ -1,0 +1,63 @@
+{
+  "hukukPortal": {
+    "baslik": "客户信息页面",
+    "altBaslik": "您的专属信息页面",
+    "yukleniyor": "加载中…",
+    "merhaba": "{{ad}}，您好：",
+    "gizlilik": "此页面仅供您本人使用。请勿与他人分享链接；律所可更新或关闭该链接。",
+    "dosyaYok": "目前没有与您共享的案件信息。",
+    "dosyaNo": "案件 {{sira}}",
+    "tur": {
+      "dava": "诉讼",
+      "icra": "执行",
+      "arabuluculuk": "调解",
+      "danismanlik": "咨询",
+      "sozlesme": "合同",
+      "diger": "其他"
+    },
+    "durumEtiket": "状态",
+    "dosyaDurum": {
+      "acik": "进行中",
+      "beklemede": "暂停",
+      "kapandi": "已结案"
+    },
+    "sonrakiDurusma": "下次庭审",
+    "durusmaYok": "暂无已安排的庭审",
+    "belgeler": "共享文件",
+    "belgeYok": "暂无共享文件。",
+    "indir": "下载",
+    "masraf": "费用明细",
+    "masrafYok": "暂无费用记录。",
+    "masrafToplam": "合计 {{tutar}}（{{sayi}} 项）",
+    "masrafPdf": "下载明细（PDF）",
+    "masrafNot": "明细仅供参考；本页面不收取付款。",
+    "mesaj": {
+      "baslik": "给律所留言",
+      "yer": "您的留言",
+      "not": "您的留言只发送给律所。紧急或有期限的事项请致电律所。",
+      "gonder": "发送",
+      "gonderildi": "您的留言已发送。",
+      "siz": "您",
+      "buro": "律所",
+      "dosya": "相关案件",
+      "dosyaGenel": "一般"
+    },
+    "durum": {
+      "gecersiz": "此链接无效。",
+      "kapali": "此链接已不可用。请联系律所获取最新链接。",
+      "hata": "页面暂时无法打开，请稍后重试。",
+      "yukleniyor": "加载中…",
+      "hazir": "就绪"
+    },
+    "hata": {
+      "genel": "发送失败，请重试。",
+      "cok_hizli": "留言过于频繁，请稍后重试。",
+      "zorunlu": "留言不能为空。",
+      "cok_uzun": "留言过长。",
+      "baglanti_kapali": "链接已关闭。",
+      "baglanti_gecersiz": "链接无效。"
+    },
+    "dil": "语言",
+    "altBilgi": "本页面仅供参考。"
+  }
+}

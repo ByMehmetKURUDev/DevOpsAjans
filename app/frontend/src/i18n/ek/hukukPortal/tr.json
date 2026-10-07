@@ -1,0 +1,63 @@
+{
+  "hukukPortal": {
+    "baslik": "Müvekkil bilgilendirme sayfası",
+    "altBaslik": "Size özel bilgilendirme sayfası",
+    "yukleniyor": "Yükleniyor…",
+    "merhaba": "Merhaba {{ad}},",
+    "gizlilik": "Bu sayfa yalnız size özeldir. Bağlantıyı başkalarıyla paylaşmayın; büro bağlantıyı yenileyebilir ya da kapatabilir.",
+    "dosyaYok": "Şu an sizinle paylaşılan dosya bilgisi yok.",
+    "dosyaNo": "Dosya {{sira}}",
+    "tur": {
+      "dava": "Dava",
+      "icra": "İcra",
+      "arabuluculuk": "Arabuluculuk",
+      "danismanlik": "Danışmanlık",
+      "sozlesme": "Sözleşme",
+      "diger": "Diğer"
+    },
+    "durumEtiket": "Durum",
+    "dosyaDurum": {
+      "acik": "Devam ediyor",
+      "beklemede": "Beklemede",
+      "kapandi": "Kapandı"
+    },
+    "sonrakiDurusma": "Sonraki duruşma",
+    "durusmaYok": "Planlanmış duruşma yok",
+    "belgeler": "Paylaşılan belgeler",
+    "belgeYok": "Paylaşılan belge yok.",
+    "indir": "İndir",
+    "masraf": "Masraf dökümü",
+    "masrafYok": "Kayıtlı masraf yok.",
+    "masrafToplam": "Toplam {{tutar}} ({{sayi}} kalem)",
+    "masrafPdf": "Dökümü indir (PDF)",
+    "masrafNot": "Döküm bilgilendirme amaçlıdır; bu sayfadan ödeme alınmaz.",
+    "mesaj": {
+      "baslik": "Büroya mesaj",
+      "yer": "Mesajınız",
+      "not": "Mesajınız yalnız büroya iletilir. Süreli ve acil konular için büroyu telefonla arayın.",
+      "gonder": "Gönder",
+      "gonderildi": "Mesajınız iletildi.",
+      "siz": "Siz",
+      "buro": "Büro",
+      "dosya": "İlgili dosya",
+      "dosyaGenel": "Genel"
+    },
+    "durum": {
+      "gecersiz": "Bu bağlantı geçersiz.",
+      "kapali": "Bu bağlantı artık kullanılamıyor. Güncel bağlantı için büroyla iletişime geçin.",
+      "hata": "Sayfa şu an açılamadı. Lütfen biraz sonra yeniden deneyin.",
+      "yukleniyor": "Yükleniyor…",
+      "hazir": "Hazır"
+    },
+    "hata": {
+      "genel": "Gönderilemedi. Lütfen yeniden deneyin.",
+      "cok_hizli": "Çok sık mesaj gönderildi; biraz sonra yeniden deneyin.",
+      "zorunlu": "Mesaj boş olamaz.",
+      "cok_uzun": "Mesaj çok uzun.",
+      "baglanti_kapali": "Bağlantı kapalı.",
+      "baglanti_gecersiz": "Bağlantı geçersiz."
+    },
+    "dil": "Dil",
+    "altBilgi": "Bu sayfa bilgilendirme amaçlıdır."
+  }
+}

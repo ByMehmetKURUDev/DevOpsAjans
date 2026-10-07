@@ -71,7 +71,8 @@
       "liste": "E-Mail-Liste",
       "dizi": "Willkommensserie (Entwurf, wird nicht versendet)",
       "dizi_adimi": "Serien-E-Mail",
-      "oneri": "Vorschlag"
+      "oneri": "Vorschlag",
+      "belge": "Dokument (Entwurf, nur Team)"
     },
     "ayrinti": {
       "sure": "{{sayi}} Min.",
@@ -128,7 +129,10 @@
       "abone_var": "Hat Abonnenten",
       "kayit_var": "Personen sind in der Serie eingetragen",
       "gonderim_var": "E-Mails wurden bereits versendet",
-      "bilinmeyen_tablo": "Unbekannter Eintrag"
+      "bilinmeyen_tablo": "Unbekannter Eintrag",
+      "belge_var": "Ein Dokument mit demselben Titel existiert bereits",
+      "belge_siniri": "Dokumentlimit erreicht",
+      "paylasildi": "Geteilt"
     },
     "uyari": {
       "kvkk_ozel": "Gesundheit/Kosmetik/Fitness: Das Buchungsformular fragt keine Gesundheitsdaten ab (besondere Datenkategorie nach KVKK/DSGVO). Falls nötig, wird beim Termin eine ausdrückliche Einwilligung eingeholt.",
@@ -136,7 +140,9 @@
       "asistan_taslak": "Der KI-Assistent wird inaktiv angelegt; nach Prüfung des FAQ aktivieren.",
       "kartvizit_taslak": "Die Visitenkarte wird inaktiv angelegt.",
       "menu_taslak": "Das QR-Menü wird inaktiv angelegt; Produkte und Preise fügt der Kunde hinzu.",
-      "eposta_taslak": "Die E-Mail-Serie ist nur ein Entwurf; es wird keine E-Mail versendet."
+      "eposta_taslak": "Die E-Mail-Serie ist nur ein Entwurf; es wird keine E-Mail versendet.",
+      "reklam_yasagi": "Kanzlei: Wegen Art. 55 des türkischen Anwaltsgesetzes und des Werbeverbots der Anwaltskammer werden keine Werbeseite, keine Bewertungsanfrage, kein KI-Assistent und kein Newsletter eingerichtet; die Visitenkarte ist ein inaktiver Entwurf ohne Leistungsliste. Das Buchungsformular fragt keine Falldetails ab.",
+      "belge_taslak": "Mandanteninformationen (FAQ) werden unter Dokumente als Entwurf nur für das Team angelegt."
     },
     "oneri": {
       "kart_mesaj_otomatik_yanit": "Automatische E-Mail „Nachricht erhalten“ bei Visitenkarten-Nachrichten",

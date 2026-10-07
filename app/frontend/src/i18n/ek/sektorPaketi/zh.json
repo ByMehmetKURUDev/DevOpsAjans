@@ -71,7 +71,8 @@
       "liste": "邮件列表",
       "dizi": "欢迎邮件序列（草稿，不发送）",
       "dizi_adimi": "序列邮件",
-      "oneri": "建议"
+      "oneri": "建议",
+      "belge": "文档（草稿，仅团队可见）"
     },
     "ayrinti": {
       "sure": "{{sayi}} 分钟",
@@ -128,7 +129,10 @@
       "abone_var": "有订阅者",
       "kayit_var": "序列中已有人员",
       "gonderim_var": "已发送过邮件",
-      "bilinmeyen_tablo": "未知记录"
+      "bilinmeyen_tablo": "未知记录",
+      "belge_var": "已存在同名文档",
+      "belge_siniri": "已达文档上限",
+      "paylasildi": "已共享"
     },
     "uyari": {
       "kvkk_ozel": "健康/美容/健身：预约表单不收集健康信息（KVKK/GDPR 规定的特殊类别数据）。如有需要，会在面谈时取得明确同意。",
@@ -136,7 +140,9 @@
       "asistan_taslak": "AI 助手以停用状态创建；请审阅常见问题后再启用。",
       "kartvizit_taslak": "名片以停用状态创建。",
       "menu_taslak": "二维码菜单以停用状态创建；商品和价格由客户添加。",
-      "eposta_taslak": "邮件序列仅为草稿；不会发送任何邮件。"
+      "eposta_taslak": "邮件序列仅为草稿；不会发送任何邮件。",
+      "reklam_yasagi": "律所：根据《律师法》第 55 条及律师协会广告禁令，不设置宣传页面、评价请求、AI 助手或电子报；名片为未启用的草稿，不含服务列表。预约表单不询问案件细节。",
+      "belge_taslak": "客户须知（常见问题）将作为仅团队可见的草稿创建在“文档”中。"
     },
     "oneri": {
       "kart_mesaj_otomatik_yanit": "名片留言自动回复“已收到您的留言”邮件",

@@ -647,6 +647,27 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=False,
         ayarlar=(AyarAlani("personel_siniri", "int", 25, en_az=0, en_cok=5000),),
     ),
+    # Faz 6H — hukuk bürosu: müvekkil (kişi/şirket), dosya (dava, icra, arabuluculuk, danışmanlık, sözleşme),
+    # karşı taraf + vekili, çıkar çatışması uyarısı, duruşma/keşif/bilirkişi/kesin süre takvimi (ay/hafta, ICS),
+    # süre hesaplayıcı (HMK m.92/93/104; yardımcıdır, kesin süreyi avukat doğrular), 7/3/1 gün + aynı gün
+    # hatırlatma, saat kaydı ve masraf (PDF döküm; tahsilat YOK), belge ekleri, girişsiz müvekkil portalı.
+    # Avukat–müvekkil sırrı: gizli dosya yalnız hesap sahibi + sorumlu avukat; ajans yöneticisi yalnız meta veri
+    # (sayılar, depolama) görür. AI YOK, UYAP entegrasyonu YOK, herkese açık tanıtım/yorum sayfası YOK
+    # (Avukatlık Kanunu m.55, TBB reklam yasağı). Varsayılan KAPALI, pakete bağlı değil (ayrı satılan modül).
+    # Ekip izni `hukuk` (üyenin varsayılanında yok). `dosya_siniri`: açık + beklemedeki dosya sayısı.
+    Modul(
+        anahtar="hukuk_burosu",
+        ad_varsayilan={"tr": "Hukuk bürosu", "en": "Law office"},
+        ikon="Scale",
+        kategori="sektorel",
+        musteri_sekmesi="hukuk",
+        yonetici_sekmesi="hukuk",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("dosya_siniri", "int", 200, en_az=0, en_cok=100000),
+        ),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

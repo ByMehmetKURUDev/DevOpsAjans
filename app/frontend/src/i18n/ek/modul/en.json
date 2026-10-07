@@ -204,6 +204,10 @@
       "insan_kaynaklari": {
         "ad": "HR (staff, leave, shifts)",
         "aciklama": "Staff records, leave requests and approval, annual leave balances (adjustable legal defaults), leave calendar, weekly shift plan and a no-login page for each employee. No payroll."
+      },
+      "hukuk_burosu": {
+        "ad": "Law office",
+        "aciklama": "For lawyers and law offices: client and matter tracking, opposing parties with conflict-of-interest warnings, hearing and deadline calendar, deadline calculator, reminders, time and expense records (PDF statement), document attachments and a private status link for clients. Does not pull data from UYAP automatically."
       }
     },
     "kategori": {
@@ -270,7 +274,8 @@
       "ogrenci_siniri": "Maximum students (active + waiting)",
       "ai_hakki": "Monthly AI question generations",
       "belge_siniri": "Maximum own documents per account",
-      "personel_siniri": "Maximum active staff"
+      "personel_siniri": "Maximum active staff",
+      "dosya_siniri": "Maximum open matters (open + on hold)"
     },
     "musteri": {
       "baslik": "My modules",

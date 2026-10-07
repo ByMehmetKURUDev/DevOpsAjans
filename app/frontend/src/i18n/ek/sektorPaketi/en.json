@@ -71,7 +71,8 @@
       "liste": "Email list",
       "dizi": "Welcome series (draft, not sent)",
       "dizi_adimi": "Series email",
-      "oneri": "Suggestion"
+      "oneri": "Suggestion",
+      "belge": "Document (draft, team only)"
     },
     "ayrinti": {
       "sure": "{{sayi}} min",
@@ -128,7 +129,10 @@
       "abone_var": "Has subscribers",
       "kayit_var": "People are enrolled in the series",
       "gonderim_var": "Emails have been sent",
-      "bilinmeyen_tablo": "Unknown record"
+      "bilinmeyen_tablo": "Unknown record",
+      "belge_var": "A document with the same title already exists",
+      "belge_siniri": "Document limit reached",
+      "paylasildi": "Shared"
     },
     "uyari": {
       "kvkk_ozel": "Health/beauty/fitness: the booking form asks for no health information (special category data under KVKK/GDPR). If needed, explicit consent is obtained during the visit.",
@@ -136,7 +140,9 @@
       "asistan_taslak": "The AI assistant is created inactive; enable it after reviewing the FAQ.",
       "kartvizit_taslak": "The business card is created inactive.",
       "menu_taslak": "The QR menu is created inactive; the client adds products and prices.",
-      "eposta_taslak": "The email series is only a draft; no email is sent."
+      "eposta_taslak": "The email series is only a draft; no email is sent.",
+      "reklam_yasagi": "Law office: under Article 55 of the Attorneys' Act and the Bar's advertising ban, no promotional page, review request, AI assistant or newsletter is set up; the business card is an inactive draft without a list of services. The booking form does not ask for case details.",
+      "belge_taslak": "Client information notes (FAQ) are created in Documents as a team-only draft."
     },
     "oneri": {
       "kart_mesaj_otomatik_yanit": "Automatic \"we got your message\" email for business card messages",

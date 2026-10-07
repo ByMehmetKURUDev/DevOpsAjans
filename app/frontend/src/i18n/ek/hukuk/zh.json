@@ -1,0 +1,382 @@
+{
+  "hukuk": {
+    "baslik": "律师事务所",
+    "aciklama": "客户与案件、庭审与期限跟踪、工时与费用记录，以及客户专属信息链接。",
+    "aciklamaYonetici": "支持视图：基于律师与客户保密特权，仅显示数量。",
+    "uyap": "不会自动从 UYAP 获取任何数据：UYAP 没有开放接口，也不进行网页抓取。案件信息由律所录入。",
+    "bilgilendirme": "这些工具仅供参考，不构成法律意见。",
+    "alt": {
+      "dosyalar": "案件",
+      "muvekkiller": "客户",
+      "takvim": "日历",
+      "sure": "期限计算器",
+      "mesajlar": "留言",
+      "ayarlar": "设置"
+    },
+    "ozet": {
+      "acikDosya": "{{sayi}} 个未结案件",
+      "sinir": "上限 {{sinir}}",
+      "yaklasan": "未来 14 天内 {{sayi}} 项事件",
+      "okunmamis": "{{sayi}} 条未读留言"
+    },
+    "ortak": {
+      "kaydet": "保存",
+      "vazgec": "取消",
+      "sil": "删除",
+      "ekle": "添加",
+      "geri": "返回",
+      "ara": "搜索",
+      "hepsi": "全部",
+      "kopyala": "复制",
+      "kopyalandi": "已复制",
+      "kopyalanamadi": "无法复制，请手动选择链接。",
+      "indir": "下载",
+      "onaySil": "确定删除？",
+      "silindi": "已删除；{{gun}} 天内可在“设置 › 已删除”中恢复。",
+      "kaydedildi": "已保存",
+      "zorunlu": "请填写必填字段。"
+    },
+    "muvekkil": {
+      "yeni": "新客户",
+      "bos": "暂无客户。",
+      "secin": "请选择客户或添加新客户。",
+      "turEtiket": "类型",
+      "tur": {
+        "kisi": "个人",
+        "sirket": "公司"
+      },
+      "ad": "姓名",
+      "adSirket": "公司名称",
+      "yetkili": "联系人",
+      "vergiNo": "税号 / 证件号",
+      "vergiNoIpucu": "税号、身份证号或外国证件/税号；用于利益冲突检查。",
+      "eposta": "电子邮件",
+      "telefon": "电话",
+      "adres": "地址",
+      "notlar": "备注（仅律所可见）",
+      "randevudan": "从预约记录填写",
+      "randevuSec": "选择预约",
+      "dosyaSayisi": "{{sayi}} 个案件",
+      "okunmamis": "{{sayi}} 条新",
+      "portal": {
+        "baslik": "客户门户",
+        "aciklama": "客户通过此链接只能看到您标记为“客户可见”的信息，并可留言。请仅发送给客户；更新后旧链接将失效。",
+        "olustur": "创建链接",
+        "yenile": "更新（旧链接失效）",
+        "iptal": "撤销链接",
+        "kapali": "没有有效链接。",
+        "olusturuldu": "链接已就绪。",
+        "iptalEdildi": "链接已撤销。",
+        "sonGiris": "最近打开：{{zaman}}"
+      }
+    },
+    "catisma": {
+      "baslik": "利益冲突检查",
+      "aciklama": "这只是提醒，不会阻止保存。请核查匹配项。",
+      "yok": "现有记录中没有匹配项。",
+      "rol": {
+        "muvekkil": "客户",
+        "karsi_taraf": "对方当事人"
+      },
+      "eslesme": {
+        "vergi_no": "相同税号/证件号",
+        "tam": "相同名称",
+        "kismi": "相似名称"
+      },
+      "onem": {
+        "catisma": "可能冲突",
+        "bilgi": "信息"
+      },
+      "satir": "{{ad}} — 已登记为{{rol}}（{{eslesme}}）",
+      "dosyada": "案件：{{dosya}}",
+      "gizli": "在保密案件中有匹配项；详情请咨询账户所有者。"
+    },
+    "dosya": {
+      "baslik": "案件",
+      "yeni": "新案件",
+      "bos": "暂无案件。",
+      "once": "请先添加客户再创建案件。",
+      "muvekkilSec": "选择客户",
+      "sinirDolu": "已达未结案件上限（{{sinir}}）。",
+      "sonrakiOlay": "{{tur}}：{{tarih}}",
+      "gizliRozet": "保密案件",
+      "tur": {
+        "dava": "诉讼",
+        "icra": "执行",
+        "arabuluculuk": "调解",
+        "danismanlik": "咨询",
+        "sozlesme": "合同",
+        "diger": "其他"
+      },
+      "durum": {
+        "acik": "进行中",
+        "beklemede": "暂停",
+        "kapandi": "已结案"
+      },
+      "alan": {
+        "muvekkil": "客户",
+        "tur": "类型",
+        "durum": "状态",
+        "dosyaNo": "律所档案号",
+        "esasNo": "案号",
+        "mahkeme": "法院 / 执行机构",
+        "konu": "事由",
+        "sorumlu": "负责律师",
+        "acilis": "立案日期",
+        "kapanis": "结案日期",
+        "etiketler": "标签（用逗号分隔）",
+        "notlar": "备注（仅律所可见）",
+        "gizli": "保密案件",
+        "gizliIpucu": "仅账户所有者和负责律师可见，其他团队成员不可见。"
+      },
+      "karsi": {
+        "baslik": "对方当事人",
+        "ad": "名称",
+        "vergiNo": "税号 / 证件号",
+        "vekil": "代理律师",
+        "ekle": "添加对方当事人"
+      },
+      "alt": {
+        "genel": "概况",
+        "olaylar": "日程",
+        "zaman": "工时",
+        "masraf": "费用",
+        "belgeler": "文件",
+        "portal": "门户"
+      },
+      "portal": {
+        "acik": "在客户门户中显示此案件",
+        "alanlar": "客户可见字段",
+        "alan": {
+          "konu": "事由",
+          "durum": "状态",
+          "durusma": "下次庭审日期",
+          "belgeler": "共享文件",
+          "masraf": "费用明细",
+          "not": "给客户的备注"
+        },
+        "not": "给客户的备注",
+        "notIpucu": "此文字会显示在客户链接中。",
+        "gizlilik": "备注、对方当事人、案号、法院和工时记录永远不会在门户中显示。"
+      }
+    },
+    "olay": {
+      "yeni": "添加事件",
+      "bos": "暂无事件。",
+      "tur": {
+        "durusma": "庭审",
+        "kesif": "现场勘验",
+        "bilirkisi": "鉴定",
+        "kesin_sure": "期限（最后一天）",
+        "gorev": "任务"
+      },
+      "alan": {
+        "tur": "类型",
+        "baslik": "标题",
+        "tarih": "日期",
+        "saat": "时间",
+        "yer": "地点 / 法庭",
+        "sorumlu": "负责人",
+        "dosya": "案件",
+        "dosyaYok": "无案件（一般任务）"
+      },
+      "tamamla": "标记为完成",
+      "geriAl": "撤销",
+      "tamamlandi": "已完成",
+      "kalan": "剩余 {{sayi}} 天",
+      "bugun": "今天",
+      "gecti": "已过"
+    },
+    "takvim": {
+      "ay": "月",
+      "hafta": "周",
+      "onceki": "上一个",
+      "sonraki": "下一个",
+      "bugun": "今天",
+      "sorumlu": "负责律师",
+      "ics": "下载日历（ICS）",
+      "icsIpucu": "ICS 文件包含所选律师过去 30 天和未来一年的事件，可导入手机或电脑日历。",
+      "yaklasan": "即将到来的事件"
+    },
+    "sure": {
+      "baslik": "期限计算器",
+      "baslangic": "送达 / 起算日期",
+      "miktar": "期限",
+      "birimEtiket": "单位",
+      "birim": {
+        "gun": "天",
+        "hafta": "周",
+        "ay": "个月"
+      },
+      "adliTatil": "适用司法休庭期（《民事诉讼法》第 104 条）",
+      "adliTatilIpucu": "对休庭期内仍可审理的案件（如紧急案件）请关闭此项。",
+      "hesapla": "计算",
+      "tatilNotu": "法定节假日取自“设置”中的列表：已包含固定的国家节日；开斋节和宰牲节需每年自行添加。",
+      "sonuc": "期限最后一天",
+      "sonucMetni": "期限于当日工作时间结束时届满。",
+      "adimlar": "适用的规则",
+      "kural": {
+        "hmk92": "第 92 条：起算日不计入；以周/月计算的期限于对应日届满，无对应日则于该月最后一天届满 → {{tarih}}",
+        "hmk93": "第 93 条：最后一天为法定节假日或周末，顺延至下一个工作日 → {{tarih}}",
+        "hmk104": "第 104 条：期限落在司法休庭期内，自休庭期结束（{{bitis}}）起延长 {{gun}} 天 → {{tarih}}"
+      },
+      "atlanan": {
+        "hafta_sonu": "{{tarih}}：周末",
+        "tatil": "{{tarih}}：{{ad}}"
+      },
+      "uyari": {
+        "adli_tatil_icinde": "最后一天落在司法休庭期内，请核实该案件是否适用休庭期。",
+        "yarim_gun": "最后一天为半天假日（节日前夕），期限可能在中午届满。"
+      },
+      "not": "计算仅供辅助，确切期限须由律师确认。仅供参考，不构成法律意见。",
+      "olayEkle": "作为期限添加到日历",
+      "olayEklendi": "已添加到日历。"
+    },
+    "zaman": {
+      "ekle": "添加工时",
+      "tarih": "日期",
+      "saatEtiket": "小时",
+      "dkEtiket": "分钟",
+      "saat": "小时",
+      "dk": "分",
+      "aciklama": "说明",
+      "faturalanabilir": "可计费",
+      "toplam": "合计 {{sure}} · 可计费 {{fat}}",
+      "bos": "暂无工时记录。"
+    },
+    "masraf": {
+      "turEtiket": "类型",
+      "tur": {
+        "harc": "诉讼费",
+        "tebligat": "送达费",
+        "bilirkisi": "鉴定费",
+        "yol": "交通",
+        "diger": "其他"
+      },
+      "tutar": "金额",
+      "para": "币种",
+      "tarih": "日期",
+      "aciklama": "说明",
+      "avanstan": "从预付款支出",
+      "ekle": "添加费用",
+      "pdf": "明细 PDF（费用 + 工时）",
+      "makbuz": "更换收据",
+      "makbuzYukle": "添加收据",
+      "makbuzVar": "收据已添加。",
+      "toplam": "合计 {{tutar}}",
+      "avansToplam": "预付款支出 {{tutar}}",
+      "tahsilatYok": "不收取任何款项；明细仅供参考。",
+      "bos": "暂无费用。"
+    },
+    "belge": {
+      "yukle": "上传文件",
+      "gorunurYukle": "以客户可见方式上传",
+      "boyutIpucu": "最大 {{mb}} MB；支持 PDF、Office、图片和文本文件。",
+      "baglanti": "从“文档”关联",
+      "baglantiSec": "选择文档",
+      "baglantiYok": "“文档”中没有可关联的文档（模块可能未开启）。",
+      "baglantiRozet": "文档记录",
+      "makbuzRozet": "收据",
+      "gorunur": "客户可见",
+      "gizli": "仅律所",
+      "bos": "暂无文件。"
+    },
+    "mesaj": {
+      "aciklama": "来自客户门户的留言显示在这里，不会进入代理机构的收件箱。您的回复会显示在客户链接中，不发送电子邮件。",
+      "bos": "暂无留言。",
+      "secin": "请选择一个会话。",
+      "yeniMesaj": "新",
+      "burodan": "律所",
+      "muvekkilden": "客户",
+      "yanit": "您的回复",
+      "gonder": "发送",
+      "gonderildi": "已发送。"
+    },
+    "ayar": {
+      "baslik": "设置",
+      "buroAdi": "律所名称（PDF 与门户标题）",
+      "hatirlatma": "提醒天数",
+      "hatirlatmaIpucu": "提前几天提醒（0 = 当天早上）。每个事件每项提醒只发送一次；若未配置电子邮件，则以面板通知发送。",
+      "sabah": "当天提醒时间",
+      "adliBas": "休庭期开始（MM-DD）",
+      "adliBit": "休庭期结束（MM-DD）",
+      "adliUzatma": "延长（天）",
+      "adliVarsayilan": "期限计算器中默认适用司法休庭期",
+      "yasalNot": "默认值依据《民事诉讼法》第 102 条（7 月 20 日至 8 月 31 日）和第 104 条（一周）；如法规变化请在此更新。仅供参考，不构成法律意见。",
+      "tatil": {
+        "baslik": "法定节假日",
+        "aciklama": "已添加固定的国家节日（第 2429 号法律）。开斋节和宰牲节日期每年变化，需您自行添加；节日前夕请标记为半天。",
+        "ad": "名称",
+        "tarih": "开始",
+        "bitis": "结束（如为多日）",
+        "turEtiket": "类型",
+        "tur": {
+          "sabit": "固定国家节日",
+          "dini": "宗教节日",
+          "diger": "其他"
+        },
+        "yarim": "半天",
+        "tekrar": "每年",
+        "ekle": "添加节假日",
+        "bos": "暂无节假日。"
+      },
+      "silinenler": {
+        "baslik": "已删除",
+        "aciklama": "已删除的客户和案件可在 {{gun}} 天内恢复，之后将被永久删除。",
+        "geriAl": "恢复",
+        "bos": "没有已删除的记录。"
+      }
+    },
+    "yonetim": {
+      "baslik": "律所客户",
+      "gizlilik": "律师与客户保密特权：本页仅显示数量。管理员接口不会返回案件内容、备注、文件及客户个人数据。",
+      "hesap": "账户",
+      "modul": "模块",
+      "muvekkil": "客户",
+      "dosya": "案件（进行中/已结）",
+      "yaklasan": "临近期限（14 天）",
+      "depolama": "存储",
+      "portal": "门户链接",
+      "bos": "暂无律所客户。",
+      "acik": "开启",
+      "kapali": "关闭",
+      "toplam": "合计"
+    },
+    "hata": {
+      "genel": "操作失败，请重试。",
+      "ag": "无法连接。",
+      "cok_hizli": "操作过快，请稍等几秒。",
+      "bulunamadi": "未找到记录。",
+      "zorunlu": "请填写必填字段。",
+      "eposta_gecersiz": "电子邮件无效。",
+      "telefon_gecersiz": "电话号码无效。",
+      "vergi_no_gecersiz": "税号/证件号无效（5–20 位字母或数字）。",
+      "tarih_gecersiz": "日期无效。",
+      "saat_gecersiz": "时间无效。",
+      "secim_gecersiz": "选择无效。",
+      "aralik_disi": "数值须在 {{en_az}}–{{en_cok}} 之间。",
+      "sayi_gecersiz": "数字无效。",
+      "bitis_once": "结束时间不能早于开始时间。",
+      "cok_uzun": "文本过长（最多 {{sinir}}）。",
+      "cok_fazla": "已达上限。",
+      "gecersiz": "值无效。",
+      "liste_gecersiz": "列表无效。",
+      "govde_gecersiz": "请求无效。",
+      "govde_buyuk": "内容过大。",
+      "dosya_siniri": "未结案件已达上限（{{sinir}}）。",
+      "muvekkilin_dosyasi_var": "该客户有 {{sayi}} 个案件，请先删除。",
+      "muvekkil_silindi": "该客户已删除，请先恢复客户。",
+      "gizli_erisim_kaybi": "保密案件仅账户所有者和负责律师可见；请先将自己设为负责人再设为保密。",
+      "sorumlu_gecersiz": "负责律师须在此账户中拥有律所权限。",
+      "baglanti_paylasilamaz": "“文档”关联无法在门户中共享，请上传文件。",
+      "modul_kapali": "此账户未开启律所模块。",
+      "hesap_izni_yok": "您无权访问此部分。",
+      "depo_hatasi": "文件无法存储。",
+      "tur_izinsiz": "不支持此文件类型。",
+      "icerik_uyusmuyor": "文件内容与扩展名不符。",
+      "bos_dosya": "文件为空。",
+      "boyut_asildi": "文件过大（最多 {{sinir_mb}} MB）。",
+      "tatil_listesi_gecersiz": "节假日列表有误（连续超过 60 天）。"
+    }
+  }
+}

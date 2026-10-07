@@ -496,7 +496,8 @@
     "tabEtkinlik": "活动",
     "tabStokPos": "库存与收银",
     "tabEgitim": "课程",
-    "tabIk": "人力资源"
+    "tabIk": "人力资源",
+    "tabHukuk": "律所"
   },
   "admin": {
     "loadError": "管理数据加载失败",

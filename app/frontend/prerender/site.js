@@ -460,6 +460,8 @@ export const NOINDEX_ROUTES = [
   '/egitim',
   // Faz 6I: girişsiz personel sayfası (/personel/<jeton>); kişiye özel, noindex.
   '/personel',
+  // Faz 6H: hukuk bürosu müvekkil portalı (/hukuk/muvekkil/<jeton>) — imzalı, kişiye özel; hiçbir zaman indekslenmez.
+  '/hukuk',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

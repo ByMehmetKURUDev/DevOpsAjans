@@ -496,7 +496,8 @@
     "tabEtkinlik": "Veranstaltungen",
     "tabStokPos": "Lager & Kasse",
     "tabEgitim": "Kurse",
-    "tabIk": "Personal"
+    "tabIk": "Personal",
+    "tabHukuk": "Kanzlei"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

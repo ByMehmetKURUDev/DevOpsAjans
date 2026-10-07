@@ -71,7 +71,8 @@
       "liste": "E-posta listesi",
       "dizi": "Hoş geldin dizisi (taslak, gönderilmez)",
       "dizi_adimi": "Dizi e-postası",
-      "oneri": "Öneri"
+      "oneri": "Öneri",
+      "belge": "Belge (taslak, yalnız ekip)"
     },
     "ayrinti": {
       "sure": "{{sayi}} dk",
@@ -128,7 +129,10 @@
       "abone_var": "Abonesi var",
       "kayit_var": "Dizide kayıtlı kişi var",
       "gonderim_var": "Gönderim yapılmış",
-      "bilinmeyen_tablo": "Tanınmayan kayıt"
+      "bilinmeyen_tablo": "Tanınmayan kayıt",
+      "belge_var": "Aynı başlıkta belge zaten var",
+      "belge_siniri": "Belge sınırı dolu",
+      "paylasildi": "Paylaşılmış"
     },
     "uyari": {
       "kvkk_ozel": "Sağlık/güzellik/spor: randevu formunda sağlık bilgisi istenmez (KVKK özel nitelikli veri). Gerekirse görüşmede açık rıza alınır.",
@@ -136,7 +140,9 @@
       "asistan_taslak": "AI asistan pasif oluşturulur; SSS gözden geçirildikten sonra açılmalı.",
       "kartvizit_taslak": "Kartvizit pasif oluşturulur.",
       "menu_taslak": "QR menü pasif oluşturulur; ürünleri ve fiyatları müşteri ekler.",
-      "eposta_taslak": "E-posta dizisi yalnız taslak; hiçbir e-posta gönderilmez."
+      "eposta_taslak": "E-posta dizisi yalnız taslak; hiçbir e-posta gönderilmez.",
+      "reklam_yasagi": "Hukuk bürosu: Avukatlık Kanunu m.55 ve TBB reklam yasağı gereği tanıtım sayfası, yorum isteme, AI asistan ya da bülten kurulmaz; kartvizit pasif taslaktır ve hizmet listesi içermez. Randevu formu dosya ayrıntısı istemez.",
+      "belge_taslak": "Bilgilendirme notları (SSS) Belgeler'de yalnız ekibe görünen taslak olarak oluşturulur."
     },
     "oneri": {
       "kart_mesaj_otomatik_yanit": "Kartvizit mesajına otomatik \"mesajınızı aldık\" e-postası",

@@ -126,7 +126,16 @@
       "ik_personel": "Карточки сотрудников",
       "ik_ayarlari": "Настройки кадров",
       "ik_tatiller": "Праздники (кадры)",
-      "ik_vardiya_sablonlari": "Шаблоны смен"
+      "ik_vardiya_sablonlari": "Шаблоны смен",
+      "hukuk_ayarlari": "Настройки юр. конторы",
+      "hukuk_tatilleri": "Праздники (юр. контора)",
+      "hukuk_muvekkilleri": "Клиенты",
+      "hukuk_dosyalari": "Юридические дела",
+      "hukuk_olaylari": "Заседания и сроки",
+      "hukuk_zaman_kayitlari": "Учёт времени по делам",
+      "hukuk_masraflari": "Расходы по делам",
+      "hukuk_ekleri": "Вложения к делам",
+      "hukuk_mesajlari": "Сообщения клиентов"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

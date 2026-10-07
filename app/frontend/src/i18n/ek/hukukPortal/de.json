@@ -1,0 +1,63 @@
+{
+  "hukukPortal": {
+    "baslik": "Mandanteninformationsseite",
+    "altBaslik": "Ihre persönliche Informationsseite",
+    "yukleniyor": "Wird geladen…",
+    "merhaba": "Hallo {{ad}},",
+    "gizlilik": "Diese Seite ist nur für Sie. Geben Sie den Link nicht weiter; die Kanzlei kann ihn erneuern oder schließen.",
+    "dosyaYok": "Derzeit sind keine Aktenangaben für Sie freigegeben.",
+    "dosyaNo": "Akte {{sira}}",
+    "tur": {
+      "dava": "Klage",
+      "icra": "Vollstreckung",
+      "arabuluculuk": "Mediation",
+      "danismanlik": "Beratung",
+      "sozlesme": "Vertrag",
+      "diger": "Sonstiges"
+    },
+    "durumEtiket": "Status",
+    "dosyaDurum": {
+      "acik": "Laufend",
+      "beklemede": "Ruhend",
+      "kapandi": "Abgeschlossen"
+    },
+    "sonrakiDurusma": "Nächste Verhandlung",
+    "durusmaYok": "Keine Verhandlung angesetzt",
+    "belgeler": "Geteilte Dokumente",
+    "belgeYok": "Keine geteilten Dokumente.",
+    "indir": "Herunterladen",
+    "masraf": "Auslagenaufstellung",
+    "masrafYok": "Keine erfassten Auslagen.",
+    "masrafToplam": "Gesamt {{tutar}} ({{sayi}} Posten)",
+    "masrafPdf": "Aufstellung herunterladen (PDF)",
+    "masrafNot": "Die Aufstellung dient nur der Information; auf dieser Seite werden keine Zahlungen angenommen.",
+    "mesaj": {
+      "baslik": "Nachricht an die Kanzlei",
+      "yer": "Ihre Nachricht",
+      "not": "Ihre Nachricht geht nur an die Kanzlei. Bei eiligen oder fristgebundenen Anliegen rufen Sie bitte an.",
+      "gonder": "Senden",
+      "gonderildi": "Ihre Nachricht wurde gesendet.",
+      "siz": "Sie",
+      "buro": "Kanzlei",
+      "dosya": "Betreffende Akte",
+      "dosyaGenel": "Allgemein"
+    },
+    "durum": {
+      "gecersiz": "Dieser Link ist ungültig.",
+      "kapali": "Dieser Link ist nicht mehr gültig. Wenden Sie sich für einen aktuellen Link an die Kanzlei.",
+      "hata": "Die Seite konnte gerade nicht geöffnet werden. Bitte später erneut versuchen.",
+      "yukleniyor": "Wird geladen…",
+      "hazir": "Bereit"
+    },
+    "hata": {
+      "genel": "Senden fehlgeschlagen. Bitte erneut versuchen.",
+      "cok_hizli": "Zu viele Nachrichten; bitte später erneut versuchen.",
+      "zorunlu": "Die Nachricht darf nicht leer sein.",
+      "cok_uzun": "Die Nachricht ist zu lang.",
+      "baglanti_kapali": "Der Link ist geschlossen.",
+      "baglanti_gecersiz": "Der Link ist ungültig."
+    },
+    "dil": "Sprache",
+    "altBilgi": "Diese Seite dient nur der Information."
+  }
+}

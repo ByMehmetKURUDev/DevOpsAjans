@@ -83,7 +83,9 @@
       "egitim_kayit": "Courses: new student enrolment",
       "belge_paylasildi": "Document shared (agency → client or client → agency)",
       "belge_onaylandi": "Client read and approved a shared document",
-      "ik_izin_talebi": "HR: new leave request from staff"
+      "ik_izin_talebi": "HR: new leave request from staff",
+      "hukuk_hatirlatma": "Law office: hearing and deadline reminder",
+      "hukuk_portal_mesaj": "Law office: message from the client portal"
     },
     "kanal": {
       "inapp": "Panel",

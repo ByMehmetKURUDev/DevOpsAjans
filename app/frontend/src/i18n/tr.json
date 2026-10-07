@@ -496,7 +496,8 @@
     "tabEtkinlik": "Etkinlikler",
     "tabStokPos": "Stok ve POS",
     "tabEgitim": "Eğitim",
-    "tabIk": "İnsan kaynakları"
+    "tabIk": "İnsan kaynakları",
+    "tabHukuk": "Hukuk"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

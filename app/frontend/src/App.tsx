@@ -94,6 +94,9 @@ const EgitimSayfasi = lazy(() => import('./pages/EgitimSayfasi'));
 // Faz 6I: girişsiz personel sayfası (imzalı bağlantı: vardiyalarım, izin bakiyesi, izin talebi, ICS). Site
 // düzeni dışında, prerender yok, noindex (sayfa + `_headers`); metinleri sayfa kendisi yüklüyor (ek paket `ikPortal`).
 const PersonelSayfasi = lazy(() => import('./pages/PersonelSayfasi'));
+// Faz 6H: hukuk bürosunun girişsiz müvekkil portalı (imzalı jeton). Site düzeni dışında, prerender yok, HER ZAMAN
+// noindex (Pages Function `functions/hukuk/[[yol]].js` X-Robots-Tag + no-referrer); metinler ek paket `hukukPortal`.
+const HukukPortal = lazy(() => import('./pages/HukukPortal'));
 
 const queryClient = new QueryClient();
 
@@ -211,6 +214,8 @@ const AppRoutes = () => (
       <Route path="/egitim/:slug" element={<EgitimSayfasi gorunum="kurs" />} />
       {/* Faz 6I: personel portalı — imzalı jetonlu (girişsiz). */}
       <Route path="/personel/:jeton" element={<PersonelSayfasi />} />
+      {/* Faz 6H: müvekkil portalı — imzalı jetonlu (girişsiz), yalnız "müvekkile görünür" alanlar. */}
+      <Route path="/hukuk/muvekkil/:jeton" element={<HukukPortal />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

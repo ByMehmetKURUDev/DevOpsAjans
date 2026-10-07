@@ -52,6 +52,8 @@ export const IZINLER = [
   'ik',
   // Faz 5B — belgeler, wiki ve strateji araçları (kendi belgeleri; paylaşılanı okumak `dosyalar` ile de).
   'belgeler',
+  // Faz 6H — hukuk bürosu (üyenin varsayılanında yok; gizli dosya yalnız sahip + sorumlu avukat).
+  'hukuk',
 ] as const;
 export type Izin = (typeof IZINLER)[number];
 export type UyeRolu = 'yonetici' | 'uye' | 'fatura';
@@ -221,4 +223,5 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   stokPos: ['stok', 'kasa'],
   egitim: ['egitim', 'egitim_egitmen'],
   ik: ['ik'],
+  hukuk: ['hukuk'],
 };

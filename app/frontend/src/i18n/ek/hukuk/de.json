@@ -1,0 +1,382 @@
+{
+  "hukuk": {
+    "baslik": "Anwaltskanzlei",
+    "aciklama": "Mandanten und Akten, Verhandlungs- und Fristenkontrolle, Zeit- und Auslagenerfassung sowie ein privater Informationslink für Mandanten.",
+    "aciklamaYonetici": "Support-Ansicht: Wegen des Anwaltsgeheimnisses werden nur Zahlen angezeigt.",
+    "uyap": "Aus UYAP wird nichts automatisch abgerufen: Es gibt keine offene Schnittstelle, und es wird kein Scraping betrieben. Die Kanzlei erfasst die Aktendaten.",
+    "bilgilendirme": "Diese Werkzeuge dienen nur der Information und sind keine Rechtsberatung.",
+    "alt": {
+      "dosyalar": "Akten",
+      "muvekkiller": "Mandanten",
+      "takvim": "Kalender",
+      "sure": "Fristenrechner",
+      "mesajlar": "Nachrichten",
+      "ayarlar": "Einstellungen"
+    },
+    "ozet": {
+      "acikDosya": "{{sayi}} offene Akten",
+      "sinir": "Limit {{sinir}}",
+      "yaklasan": "{{sayi}} Termine in den nächsten 14 Tagen",
+      "okunmamis": "{{sayi}} ungelesene Nachrichten"
+    },
+    "ortak": {
+      "kaydet": "Speichern",
+      "vazgec": "Abbrechen",
+      "sil": "Löschen",
+      "ekle": "Hinzufügen",
+      "geri": "Zurück",
+      "ara": "Suchen",
+      "hepsi": "Alle",
+      "kopyala": "Kopieren",
+      "kopyalandi": "Kopiert",
+      "kopyalanamadi": "Kopieren fehlgeschlagen; markieren Sie den Link manuell.",
+      "indir": "Herunterladen",
+      "onaySil": "Wirklich löschen?",
+      "silindi": "Gelöscht; Sie können es innerhalb von {{gun}} Tagen unter Einstellungen › Gelöscht wiederherstellen.",
+      "kaydedildi": "Gespeichert",
+      "zorunlu": "Bitte füllen Sie die Pflichtfelder aus."
+    },
+    "muvekkil": {
+      "yeni": "Neuer Mandant",
+      "bos": "Noch keine Mandanten.",
+      "secin": "Wählen Sie einen Mandanten oder legen Sie einen neuen an.",
+      "turEtiket": "Art",
+      "tur": {
+        "kisi": "Person",
+        "sirket": "Unternehmen"
+      },
+      "ad": "Vor- und Nachname",
+      "adSirket": "Firmenname",
+      "yetkili": "Ansprechperson",
+      "vergiNo": "Steuer-/Ausweisnummer",
+      "vergiNoIpucu": "Steuernummer, Personalausweis- oder ausländische Ausweis-/Steuernummer; wird für die Konfliktprüfung verwendet.",
+      "eposta": "E-Mail",
+      "telefon": "Telefon",
+      "adres": "Adresse",
+      "notlar": "Notizen (nur Kanzlei)",
+      "randevudan": "Aus einer Buchung übernehmen",
+      "randevuSec": "Buchung wählen",
+      "dosyaSayisi": "{{sayi}} Akten",
+      "okunmamis": "{{sayi}} neu",
+      "portal": {
+        "baslik": "Mandantenportal",
+        "aciklama": "Über diesen Link sieht der Mandant nur die Angaben, die Sie als für Mandanten sichtbar markieren, und kann eine Nachricht hinterlassen. Geben Sie ihn nur dem Mandanten; nach einer Erneuerung funktioniert der alte nicht mehr.",
+        "olustur": "Link erstellen",
+        "yenile": "Erneuern (alter Link wird ungültig)",
+        "iptal": "Link widerrufen",
+        "kapali": "Kein aktiver Link.",
+        "olusturuldu": "Link bereit.",
+        "iptalEdildi": "Link widerrufen.",
+        "sonGiris": "Zuletzt geöffnet: {{zaman}}"
+      }
+    },
+    "catisma": {
+      "baslik": "Prüfung auf Interessenkonflikte",
+      "aciklama": "Dies ist ein Hinweis und verhindert das Speichern nicht. Prüfen Sie die Treffer.",
+      "yok": "Keine Treffer in vorhandenen Einträgen.",
+      "rol": {
+        "muvekkil": "Mandant",
+        "karsi_taraf": "Gegenpartei"
+      },
+      "eslesme": {
+        "vergi_no": "gleiche Steuer-/Ausweisnummer",
+        "tam": "gleicher Name",
+        "kismi": "ähnlicher Name"
+      },
+      "onem": {
+        "catisma": "Möglicher Konflikt",
+        "bilgi": "Hinweis"
+      },
+      "satir": "{{ad}} — erfasst als {{rol}} ({{eslesme}})",
+      "dosyada": "Akte: {{dosya}}",
+      "gizli": "Es gibt einen Treffer in einer vertraulichen Akte; fragen Sie den Kontoinhaber nach Details."
+    },
+    "dosya": {
+      "baslik": "Akten",
+      "yeni": "Neue Akte",
+      "bos": "Keine Akten.",
+      "once": "Legen Sie zuerst einen Mandanten an, um eine Akte zu eröffnen.",
+      "muvekkilSec": "Mandant wählen",
+      "sinirDolu": "Das Limit für offene Akten ist erreicht ({{sinir}}).",
+      "sonrakiOlay": "{{tur}}: {{tarih}}",
+      "gizliRozet": "Vertrauliche Akte",
+      "tur": {
+        "dava": "Klage",
+        "icra": "Vollstreckung",
+        "arabuluculuk": "Mediation",
+        "danismanlik": "Beratung",
+        "sozlesme": "Vertrag",
+        "diger": "Sonstiges"
+      },
+      "durum": {
+        "acik": "Offen",
+        "beklemede": "Ruhend",
+        "kapandi": "Geschlossen"
+      },
+      "alan": {
+        "muvekkil": "Mandant",
+        "tur": "Art",
+        "durum": "Status",
+        "dosyaNo": "Kanzlei-Aktenzeichen",
+        "esasNo": "Aktenzeichen (Gericht)",
+        "mahkeme": "Gericht / Vollstreckungsamt",
+        "konu": "Gegenstand",
+        "sorumlu": "Zuständige Anwältin/zuständiger Anwalt",
+        "acilis": "Eröffnet am",
+        "kapanis": "Geschlossen am",
+        "etiketler": "Schlagwörter (durch Komma getrennt)",
+        "notlar": "Notizen (nur Kanzlei)",
+        "gizli": "Vertrauliche Akte",
+        "gizliIpucu": "Nur Kontoinhaber und zuständige Anwältin bzw. zuständiger Anwalt sehen sie; andere Teammitglieder nicht."
+      },
+      "karsi": {
+        "baslik": "Gegenparteien",
+        "ad": "Name",
+        "vergiNo": "Steuer-/Ausweisnummer",
+        "vekil": "Prozessbevollmächtigte",
+        "ekle": "Gegenpartei hinzufügen"
+      },
+      "alt": {
+        "genel": "Allgemein",
+        "olaylar": "Kalender",
+        "zaman": "Zeit",
+        "masraf": "Auslagen",
+        "belgeler": "Dokumente",
+        "portal": "Portal"
+      },
+      "portal": {
+        "acik": "Diese Akte im Mandantenportal zeigen",
+        "alanlar": "Für Mandanten sichtbare Felder",
+        "alan": {
+          "konu": "Gegenstand",
+          "durum": "Status",
+          "durusma": "Nächster Verhandlungstermin",
+          "belgeler": "Geteilte Dokumente",
+          "masraf": "Auslagenaufstellung",
+          "not": "Hinweis an Mandanten"
+        },
+        "not": "Hinweis an Mandanten",
+        "notIpucu": "Dieser Text erscheint im Link des Mandanten.",
+        "gizlilik": "Notizen, Gegenparteien, Aktenzeichen, Gericht und Zeiteinträge werden im Portal nie angezeigt."
+      }
+    },
+    "olay": {
+      "yeni": "Termin hinzufügen",
+      "bos": "Keine Termine.",
+      "tur": {
+        "durusma": "Verhandlung",
+        "kesif": "Ortsbesichtigung",
+        "bilirkisi": "Sachverständigentermin",
+        "kesin_sure": "Frist (letzter Tag)",
+        "gorev": "Aufgabe"
+      },
+      "alan": {
+        "tur": "Art",
+        "baslik": "Titel",
+        "tarih": "Datum",
+        "saat": "Uhrzeit",
+        "yer": "Ort / Saal",
+        "sorumlu": "Zuständig",
+        "dosya": "Akte",
+        "dosyaYok": "Ohne Akte (allgemeine Aufgabe)"
+      },
+      "tamamla": "Als erledigt markieren",
+      "geriAl": "Rückgängig",
+      "tamamlandi": "Erledigt",
+      "kalan": "noch {{sayi}} Tage",
+      "bugun": "Heute",
+      "gecti": "Vorbei"
+    },
+    "takvim": {
+      "ay": "Monat",
+      "hafta": "Woche",
+      "onceki": "Zurück",
+      "sonraki": "Weiter",
+      "bugun": "Heute",
+      "sorumlu": "Zuständige Person",
+      "ics": "Kalender herunterladen (ICS)",
+      "icsIpucu": "Die ICS-Datei enthält die Termine der gewählten Person aus den letzten 30 Tagen und dem nächsten Jahr; importieren Sie sie in Ihren Telefon- oder Computerkalender.",
+      "yaklasan": "Anstehende Termine"
+    },
+    "sure": {
+      "baslik": "Fristenrechner",
+      "baslangic": "Zustellungs-/Beginndatum",
+      "miktar": "Frist",
+      "birimEtiket": "Einheit",
+      "birim": {
+        "gun": "Tage",
+        "hafta": "Wochen",
+        "ay": "Monate"
+      },
+      "adliTatil": "Gerichtsferien anwenden (türk. ZPO Art. 104)",
+      "adliTatilIpucu": "Für Sachen, die in den Gerichtsferien weiterlaufen (z. B. Eilsachen), ausschalten.",
+      "hesapla": "Berechnen",
+      "tatilNotu": "Feiertage stammen aus der Liste in den Einstellungen: feste Nationalfeiertage sind enthalten; Ramadan- und Opferfest müssen Sie jedes Jahr selbst eintragen.",
+      "sonuc": "Letzter Tag der Frist",
+      "sonucMetni": "Die Frist endet mit Dienstschluss an diesem Tag.",
+      "adimlar": "Angewendete Regeln",
+      "kural": {
+        "hmk92": "Art. 92: Der Anfangstag zählt nicht; Wochen-/Monatsfristen enden am entsprechenden Tag, fehlt dieser, am Monatsletzten → {{tarih}}",
+        "hmk93": "Art. 93: Der letzte Tag fiel auf einen Feiertag oder ein Wochenende; verschoben auf den nächsten Werktag → {{tarih}}",
+        "hmk104": "Art. 104: Die Frist fiel in die Gerichtsferien; ab deren Ende ({{bitis}}) um {{gun}} Tage verlängert → {{tarih}}"
+      },
+      "atlanan": {
+        "hafta_sonu": "{{tarih}}: Wochenende",
+        "tatil": "{{tarih}}: {{ad}}"
+      },
+      "uyari": {
+        "adli_tatil_icinde": "Der letzte Tag fällt in die Gerichtsferien; prüfen Sie, ob die Sache den Gerichtsferien unterliegt.",
+        "yarim_gun": "Der letzte Tag ist ein halber Feiertag (Vorabend); die Frist kann mittags enden."
+      },
+      "not": "Die Berechnung ist eine Hilfe; die genaue Frist bestätigt die Anwältin bzw. der Anwalt. Nur zur Information, keine Rechtsberatung.",
+      "olayEkle": "Als Frist in den Kalender eintragen",
+      "olayEklendi": "In den Kalender eingetragen."
+    },
+    "zaman": {
+      "ekle": "Zeit erfassen",
+      "tarih": "Datum",
+      "saatEtiket": "Stunden",
+      "dkEtiket": "Minuten",
+      "saat": "Std.",
+      "dk": "Min.",
+      "aciklama": "Beschreibung",
+      "faturalanabilir": "Abrechenbar",
+      "toplam": "Gesamt {{sure}} · abrechenbar {{fat}}",
+      "bos": "Keine Zeiteinträge."
+    },
+    "masraf": {
+      "turEtiket": "Art",
+      "tur": {
+        "harc": "Gerichtsgebühr",
+        "tebligat": "Zustellung",
+        "bilirkisi": "Sachverständiger",
+        "yol": "Reisekosten",
+        "diger": "Sonstiges"
+      },
+      "tutar": "Betrag",
+      "para": "Währung",
+      "tarih": "Datum",
+      "aciklama": "Beschreibung",
+      "avanstan": "Aus Vorschuss",
+      "ekle": "Auslage erfassen",
+      "pdf": "Aufstellung als PDF (Auslagen + Zeit)",
+      "makbuz": "Beleg ersetzen",
+      "makbuzYukle": "Beleg anhängen",
+      "makbuzVar": "Beleg angehängt.",
+      "toplam": "Gesamt {{tutar}}",
+      "avansToplam": "aus Vorschuss {{tutar}}",
+      "tahsilatYok": "Es werden keine Zahlungen eingezogen; die Aufstellung dient nur der Information.",
+      "bos": "Keine Auslagen."
+    },
+    "belge": {
+      "yukle": "Datei hochladen",
+      "gorunurYukle": "Für Mandanten sichtbar hochladen",
+      "boyutIpucu": "Bis {{mb}} MB; PDF-, Office-, Bild- und Textdateien.",
+      "baglanti": "Aus Dokumenten verknüpfen",
+      "baglantiSec": "Dokument wählen",
+      "baglantiYok": "In Dokumente gibt es nichts zu verknüpfen (Modul ist evtl. aus).",
+      "baglantiRozet": "Dokumenteneintrag",
+      "makbuzRozet": "Beleg",
+      "gorunur": "Für Mandanten sichtbar",
+      "gizli": "Nur Kanzlei",
+      "bos": "Keine Dokumente."
+    },
+    "mesaj": {
+      "aciklama": "Nachrichten aus dem Mandantenportal erscheinen hier; sie landen nicht im Posteingang der Agentur. Ihre Antwort erscheint im Link des Mandanten; es wird keine E-Mail gesendet.",
+      "bos": "Keine Nachrichten.",
+      "secin": "Unterhaltung wählen.",
+      "yeniMesaj": "Neu",
+      "burodan": "Kanzlei",
+      "muvekkilden": "Mandant",
+      "yanit": "Ihre Antwort",
+      "gonder": "Senden",
+      "gonderildi": "Gesendet."
+    },
+    "ayar": {
+      "baslik": "Einstellungen",
+      "buroAdi": "Kanzleiname (PDF- und Portalüberschrift)",
+      "hatirlatma": "Erinnerungstage",
+      "hatirlatmaIpucu": "Wie viele Tage vorher erinnert wird (0 = am Morgen des Tages). Jede Erinnerung wird einmal pro Termin gesendet; ohne E-Mail-Konfiguration als Panel-Benachrichtigung.",
+      "sabah": "Uhrzeit der Erinnerung am selben Tag",
+      "adliBas": "Beginn Gerichtsferien (MM-TT)",
+      "adliBit": "Ende Gerichtsferien (MM-TT)",
+      "adliUzatma": "Verlängerung (Tage)",
+      "adliVarsayilan": "Gerichtsferien im Fristenrechner standardmäßig an",
+      "yasalNot": "Die Vorgaben folgen türk. ZPO Art. 102 (20. Juli–31. August) und Art. 104 (eine Woche); bei Gesetzesänderungen hier anpassen. Nur zur Information, keine Rechtsberatung.",
+      "tatil": {
+        "baslik": "Feiertage",
+        "aciklama": "Feste Nationalfeiertage (Gesetz Nr. 2429) sind bereits eingetragen. Ramadan- und Opferfest verschieben sich jedes Jahr, daher müssen Sie sie selbst eintragen; Vorabende als halbe Tage markieren.",
+        "ad": "Name",
+        "tarih": "Beginn",
+        "bitis": "Ende (bei mehreren Tagen)",
+        "turEtiket": "Art",
+        "tur": {
+          "sabit": "Fester Nationalfeiertag",
+          "dini": "Religiöser Feiertag",
+          "diger": "Sonstiges"
+        },
+        "yarim": "Halber Tag",
+        "tekrar": "Jedes Jahr",
+        "ekle": "Feiertag hinzufügen",
+        "bos": "Keine Feiertage."
+      },
+      "silinenler": {
+        "baslik": "Gelöscht",
+        "aciklama": "Gelöschte Mandanten und Akten können innerhalb von {{gun}} Tagen wiederhergestellt werden, danach werden sie endgültig gelöscht.",
+        "geriAl": "Wiederherstellen",
+        "bos": "Nichts gelöscht."
+      }
+    },
+    "yonetim": {
+      "baslik": "Kanzlei-Kunden",
+      "gizlilik": "Anwaltsgeheimnis: Diese Ansicht zeigt nur Zahlen. Akteninhalte, Notizen, Dokumente und personenbezogene Mandantendaten werden von Admin-Schnittstellen nie geliefert.",
+      "hesap": "Konto",
+      "modul": "Modul",
+      "muvekkil": "Mandanten",
+      "dosya": "Akten (offen/geschlossen)",
+      "yaklasan": "Anstehende Fristen (14 Tage)",
+      "depolama": "Speicher",
+      "portal": "Portal-Links",
+      "bos": "Noch keine Kanzlei-Kunden.",
+      "acik": "An",
+      "kapali": "Aus",
+      "toplam": "Gesamt"
+    },
+    "hata": {
+      "genel": "Das hat nicht geklappt. Bitte erneut versuchen.",
+      "ag": "Keine Verbindung.",
+      "cok_hizli": "Zu schnell; bitte kurz warten.",
+      "bulunamadi": "Eintrag nicht gefunden.",
+      "zorunlu": "Bitte Pflichtfelder ausfüllen.",
+      "eposta_gecersiz": "Ungültige E-Mail.",
+      "telefon_gecersiz": "Ungültige Telefonnummer.",
+      "vergi_no_gecersiz": "Ungültige Steuer-/Ausweisnummer (5–20 Buchstaben oder Ziffern).",
+      "tarih_gecersiz": "Ungültiges Datum.",
+      "saat_gecersiz": "Ungültige Uhrzeit.",
+      "secim_gecersiz": "Ungültige Auswahl.",
+      "aralik_disi": "Der Wert muss zwischen {{en_az}} und {{en_cok}} liegen.",
+      "sayi_gecersiz": "Ungültige Zahl.",
+      "bitis_once": "Das Ende darf nicht vor dem Beginn liegen.",
+      "cok_uzun": "Text zu lang (max. {{sinir}}).",
+      "cok_fazla": "Limit erreicht.",
+      "gecersiz": "Ungültiger Wert.",
+      "liste_gecersiz": "Ungültige Liste.",
+      "govde_gecersiz": "Ungültige Anfrage.",
+      "govde_buyuk": "Inhalt zu groß.",
+      "dosya_siniri": "Limit für offene Akten erreicht ({{sinir}}).",
+      "muvekkilin_dosyasi_var": "Der Mandant hat {{sayi}} Akten; löschen Sie diese zuerst.",
+      "muvekkil_silindi": "Der Mandant wurde gelöscht; stellen Sie ihn zuerst wieder her.",
+      "gizli_erisim_kaybi": "Vertrauliche Akten sehen nur Kontoinhaber und zuständige Person; tragen Sie sich zuerst als zuständig ein.",
+      "sorumlu_gecersiz": "Die zuständige Person braucht in diesem Konto die Kanzlei-Berechtigung.",
+      "baglanti_paylasilamaz": "Ein Dokumente-Link kann im Portal nicht geteilt werden; laden Sie die Datei hoch.",
+      "modul_kapali": "Das Kanzleimodul ist für dieses Konto aus.",
+      "hesap_izni_yok": "Keine Berechtigung für diesen Bereich.",
+      "depo_hatasi": "Die Datei konnte nicht gespeichert werden.",
+      "tur_izinsiz": "Dieser Dateityp wird nicht unterstützt.",
+      "icerik_uyusmuyor": "Der Dateiinhalt passt nicht zur Endung.",
+      "bos_dosya": "Die Datei ist leer.",
+      "boyut_asildi": "Datei zu groß (max. {{sinir_mb}} MB).",
+      "tatil_listesi_gecersiz": "Feiertagsliste fehlerhaft (über 60 aufeinanderfolgende Tage)."
+    }
+  }
+}

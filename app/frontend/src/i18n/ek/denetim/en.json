@@ -126,7 +126,16 @@
       "ik_personel": "Staff records",
       "ik_ayarlari": "HR settings",
       "ik_tatiller": "HR holidays",
-      "ik_vardiya_sablonlari": "Shift templates"
+      "ik_vardiya_sablonlari": "Shift templates",
+      "hukuk_ayarlari": "Law office settings",
+      "hukuk_tatilleri": "Public holidays (law office)",
+      "hukuk_muvekkilleri": "Clients",
+      "hukuk_dosyalari": "Legal matters",
+      "hukuk_olaylari": "Hearings and deadlines",
+      "hukuk_zaman_kayitlari": "Matter time entries",
+      "hukuk_masraflari": "Matter expenses",
+      "hukuk_ekleri": "Matter attachments",
+      "hukuk_mesajlari": "Client messages"
     },
     "hareket": {
       "baslik": "Account activity",

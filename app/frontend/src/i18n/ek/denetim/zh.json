@@ -126,7 +126,16 @@
       "ik_personel": "员工档案",
       "ik_ayarlari": "人力资源设置",
       "ik_tatiller": "人力资源假日",
-      "ik_vardiya_sablonlari": "排班模板"
+      "ik_vardiya_sablonlari": "排班模板",
+      "hukuk_ayarlari": "律所设置",
+      "hukuk_tatilleri": "法定节假日（律所）",
+      "hukuk_muvekkilleri": "客户",
+      "hukuk_dosyalari": "法律案件",
+      "hukuk_olaylari": "庭审与期限",
+      "hukuk_zaman_kayitlari": "案件工时",
+      "hukuk_masraflari": "案件费用",
+      "hukuk_ekleri": "案件附件",
+      "hukuk_mesajlari": "客户留言"
     },
     "hareket": {
       "baslik": "账户动态",

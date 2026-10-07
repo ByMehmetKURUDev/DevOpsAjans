@@ -126,7 +126,16 @@
       "ik_personel": "Personel kartları",
       "ik_ayarlari": "İK ayarları",
       "ik_tatiller": "İK tatil günleri",
-      "ik_vardiya_sablonlari": "Vardiya şablonları"
+      "ik_vardiya_sablonlari": "Vardiya şablonları",
+      "hukuk_ayarlari": "Hukuk ayarları",
+      "hukuk_tatilleri": "Resmî tatiller (hukuk)",
+      "hukuk_muvekkilleri": "Müvekkiller",
+      "hukuk_dosyalari": "Hukuk dosyaları",
+      "hukuk_olaylari": "Duruşma ve süreler",
+      "hukuk_zaman_kayitlari": "Dosya saat kayıtları",
+      "hukuk_masraflari": "Dosya masrafları",
+      "hukuk_ekleri": "Dosya ekleri",
+      "hukuk_mesajlari": "Müvekkil mesajları"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

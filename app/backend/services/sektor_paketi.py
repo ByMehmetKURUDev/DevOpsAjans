@@ -308,6 +308,8 @@ def _modul_acma_denetimi(anahtar: str) -> None:
 
 
 async def _hazir_calistir(b: hazir.Baglam) -> None:
+    if b.set.reklam_yasagi:  # Faz 6H: Av. K. m.55 — tanıtım/yorum/reklam öğesi kurulmadığını panel de söylesin
+        b.uyar("reklam_yasagi")
     for modul in b.set.moduller():
         try:
             await hazir.UYGULAYICILAR[modul](b)

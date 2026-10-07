@@ -188,11 +188,22 @@ class EpostaSeti:
 
 
 @dataclass(frozen=True)
+class BelgeSeti:
+    """Faz 6H — Belgeler (5B) modülüne yalnız EKİBE görünen (paylaşılmamış) taslak belge (Markdown)."""
+
+    baslik: Metin
+    icerik: Metin
+
+
+@dataclass(frozen=True)
 class HazirSet:
     anahtar: str
     paket: str
     ikon: str  # src/lib/modulIkonlari.ts'te olan bir lucide adı
     kvkk_ozel: bool = False
+    #: Faz 6H — meslek reklam yasağı (Avukatlık Kanunu m.55, TBB Reklam Yasağı Yönetmeliği): yorum metni,
+    #: AI asistan, e-posta dizisi yazılamaz; metinlerde övgü/vaat/karşılaştırma ifadesi taranır.
+    reklam_yasagi: bool = False
     randevu: Optional[RandevuSeti] = None
     asistan: Optional[AsistanSeti] = None
     kartvizit: Optional[KartSeti] = None
@@ -200,6 +211,7 @@ class HazirSet:
     menu: Optional[MenuSeti] = None
     saha: Optional[SahaSeti] = None
     eposta: Optional[EpostaSeti] = None
+    belge: Optional[BelgeSeti] = None
     #: Otomasyon › Hazır şablonlar'da "sektörünüz için önerilen" işaretlenecek şablonlar (kurulmaz).
     otomasyon: Tuple[str, ...] = ()
 
@@ -212,6 +224,8 @@ class HazirSet:
             sira.append("ai_asistan")
         if self.kartvizit:
             sira.append("dijital_kartvizit")
+        if self.belge:
+            sira.append("belgeler")
         if self.yorum_tesekkur:
             sira.append("google_yorum_sayfasi")
         if self.menu:
@@ -226,7 +240,7 @@ class HazirSet:
 
     def sozluk(self) -> Dict[str, object]:
         return {"anahtar": self.anahtar, "paket": self.paket, "ikon": self.ikon, "kvkk_ozel": self.kvkk_ozel,
-                "moduller": self.moduller(), "otomasyon": list(self.otomasyon)}
+                "reklam_yasagi": self.reklam_yasagi, "moduller": self.moduller(), "otomasyon": list(self.otomasyon)}
 
 
 # ---------------------------------------------------------------------------
@@ -792,6 +806,89 @@ HAZIR_SETLER: Tuple[HazirSet, ...] = (
         ),
         otomasyon=("destek_acil_bildirim",),
     ),
+    # --- Hukuk bürosu (Faz 6H) ------------------------------------------------------------------------
+    # Reklam yasağı (Avukatlık Kanunu m.55, TBB Reklam Yasağı Yönetmeliği): yorum isteme, AI asistan, bülten
+    # yok; kartvizit pasif taslak ve hizmet listesi yok (yalnız iletişim + çalışma saatleri + randevu bağlantısı);
+    # "ücretsiz", "uzman", "en iyi", "garanti" gibi ifadeler yok (`reklam_ifadeleri`). Randevu formu dosya
+    # ayrıntısı İSTEMEZ (avukat–müvekkil sırrı görüşmede konuşulur). SSS ekibe görünen bir Belgeler taslağı.
+    HazirSet(
+        anahtar="hukuk_burosu",
+        paket="hukuk_burosu",
+        ikon="Scale",
+        reklam_yasagi=True,
+        randevu=RandevuSeti(
+            karsilama=_m("Görüşme türünü ve size uygun saati seçin. Lütfen bu formda dosya ayrıntısı ya da hassas bilgi "
+                         "paylaşmayın; ayrıntılar görüşmede konuşulur.",
+                         "Choose a meeting type and a time that suits you. Please do not share case details or sensitive "
+                         "information in this form; details are discussed in the meeting."),
+            haftalik=_gunler(HAFTA_ICI, ("09:00", "12:30"), ("13:30", "18:00")),
+            turler=(
+                RandevuTuru(
+                    "ilk-gorusme", _m("İlk görüşme", "Initial meeting"),
+                    _m("Büromuzda 30 dakikalık tanışma ve ön bilgilendirme görüşmesi.",
+                       "A 30-minute introductory meeting at our office."),
+                    sure_dk=30, adim_dk=30, konum_turu="yuz_yuze", tampon_sonra_dk=15,
+                    sorular=(Soru("konu", "metin", _m("Görüşmek istediğiniz konunun genel başlığı (ayrıntı yazmayın)",
+                                                     "General topic you would like to discuss (please no details)")),),
+                    renk="#475569",
+                ),
+                RandevuTuru(
+                    "danismanlik", _m("Danışmanlık görüşmesi", "Consultation meeting"),
+                    _m("Büromuzda 60 dakikalık görüşme.", "A 60-minute meeting at our office."),
+                    sure_dk=60, adim_dk=30, konum_turu="yuz_yuze", tampon_sonra_dk=15,
+                    sorular=(Soru("konu", "metin", _m("Görüşmek istediğiniz konunun genel başlığı (ayrıntı yazmayın)",
+                                                     "General topic you would like to discuss (please no details)")),),
+                    renk="#1e3a8a",
+                ),
+                RandevuTuru(
+                    "online-gorusme", _m("Online görüşme", "Online meeting"),
+                    _m("45 dakikalık görüntülü görüşme; bağlantı onay e-postasında yer alır.",
+                       "A 45-minute video call; the link is in your confirmation email."),
+                    sure_dk=45, adim_dk=15, konum_turu="jitsi", tampon_sonra_dk=15, renk="#0f766e",
+                ),
+            ),
+        ),
+        kartvizit=KartSeti(sablon="kurumsal", hizmetler_randevudan=False, calisma_saatleri=True, randevu_baglantisi=True),
+        belge=BelgeSeti(
+            baslik=_m("Müvekkil bilgilendirme notları (taslak)", "Client information notes (draft)"),
+            icerik=_m(
+                "Bu taslak hazır ayarlarla oluşturuldu ve yalnız büro ekibine görünür. Büronuzun uygulamasına göre "
+                "düzenleyin; Avukatlık Kanunu m.55 ve TBB Reklam Yasağı Yönetmeliği gereği tanıtım, vaat ya da "
+                "karşılaştırma içermemelidir.\n\n"
+                "## Sık sorulan sorular\n\n"
+                "**Randevu nasıl alınır?**\n"
+                "Randevu sayfasından uygun gün ve saati seçebilirsiniz; onay e-postası gelir. Formda dosya ayrıntısı "
+                "paylaşmanız gerekmez.\n\n"
+                "**Görüşmeye hangi belgelerle gelmeliyim?**\n"
+                "Elinizdeki tebligat, sözleşme ve yazışmaları getirmeniz görüşmeyi kolaylaştırır.\n\n"
+                "**Ücret nasıl belirlenir?**\n"
+                "Avukatlık ücreti, Avukatlık Asgari Ücret Tarifesi'nin altında olmamak üzere görüşmede yazılı olarak "
+                "kararlaştırılır.\n\n"
+                "**Dosyamın durumunu nasıl takip ederim?**\n"
+                "Büro size özel bir bağlantı paylaşırsa dosyanızın durumunu, duruşma tarihini ve paylaşılan belgeleri bu "
+                "bağlantıdan görebilirsiniz. Bağlantıyı başkalarıyla paylaşmayın.\n\n"
+                "**Bilgilerim nasıl korunuyor?**\n"
+                "Paylaştığınız bilgiler avukatlık meslek kuralları ve KVKK çerçevesinde gizli tutulur.\n",
+                "This draft was created by the starter setup and is visible only to the office team. Edit it to match "
+                "your practice; under Article 55 of the Attorneys' Act and the Turkish Bar Association advertising "
+                "rules it must not contain promotion, promises or comparisons.\n\n"
+                "## Frequently asked questions\n\n"
+                "**How do I book a meeting?**\n"
+                "Pick a day and time on the booking page; a confirmation email follows. You do not need to share case "
+                "details in the form.\n\n"
+                "**Which documents should I bring?**\n"
+                "Bringing any notices, contracts and correspondence you have makes the meeting easier.\n\n"
+                "**How is the fee set?**\n"
+                "The attorney's fee is agreed in writing at the meeting and cannot be below the statutory minimum fee "
+                "tariff.\n\n"
+                "**How can I follow my matter?**\n"
+                "If the office shares a personal link with you, you can see the status of your matter, the hearing date "
+                "and shared documents there. Do not share the link with others.\n\n"
+                "**How is my information protected?**\n"
+                "The information you share is kept confidential under professional rules and data protection law.\n",
+            ),
+        ),
+    ),
 )
 
 SET_SOZLUGU: Dict[str, HazirSet] = {s.anahtar: s for s in HAZIR_SETLER}
@@ -974,14 +1071,44 @@ def set_hatalari() -> List[str]:
             sablon = SABLON_SOZLUGU.get(k)
             if sablon is None or sablon.yalniz_ajans:
                 hatalar.append(f"{s.anahtar}: otomasyon şablonu {k} müşteride yok")
+        if s.belge:
+            hatalar += _metin_hatasi(s.belge.baslik, f"{s.anahtar}.belge.baslik")
+            hatalar += _metin_hatasi(s.belge.icerik, f"{s.anahtar}.belge.icerik")
+            if any(len(v) > 200 for v in s.belge.baslik.values()) or any(len(v) > 20000 for v in s.belge.icerik.values()):
+                hatalar.append(f"{s.anahtar}: belge metni uzun")
         if s.kvkk_ozel:
             hatalar += yasak_ifadeler(s)
+        if s.reklam_yasagi:
+            # Avukatlık Kanunu m.55 + TBB Reklam Yasağı Yönetmeliği: yorum isteme, AI asistan, bülten, hizmet listesi
+            # yok; övgü/vaat/karşılaştırma ifadesi yok.
+            if s.yorum_tesekkur or s.asistan or s.eposta:
+                hatalar.append(f"{s.anahtar}: reklam yasağı — yorum/asistan/bülten içeremez")
+            if s.kartvizit and s.kartvizit.hizmetler_randevudan:
+                hatalar.append(f"{s.anahtar}: reklam yasağı — kartvizitte hizmet listesi olamaz")
+            hatalar += reklam_ifadeleri(s)
     return hatalar
+
+
+#: Faz 6H — reklam yasağı olan meslek setlerinde geçmemesi gereken övgü/vaat/karşılaştırma ifadeleri.
+REKLAM_IFADELERI: Tuple[str, ...] = (
+    r"en\s+iyi", r"garanti", r"\bkazan", r"ba[şs]ar[ıi]", r"uzman", r"\blider", r"(?:1|bir)\s+numara", r"%\s?100",
+    r"y[üu]zde\s+y[üu]z", r"[üu]cretsiz", r"bedava", r"indirim", r"kampanya", r"\bbest\b", r"guarantee", r"\bwin",
+    r"success", r"\bexpert", r"\bfree\b", r"discount", r"number\s+one", r"\bno\.?\s?1\b", r"\bleading\b",
+)
+
+
+def reklam_ifadeleri(s: HazirSet) -> List[str]:
+    bulunan = []
+    for metin in metinleri(s):
+        for desen in REKLAM_IFADELERI:
+            if re.search(desen, metin, flags=re.IGNORECASE):
+                bulunan.append(f"{s.anahtar}: reklam '{desen}' → {metin[:80]}")
+    return bulunan
 
 
 __all__ = [
     "DILLER", "ICERIK_DILLERI", "icerik_dili", "dil_duzelt", "Soru", "RandevuTuru", "RandevuSeti", "SssMaddesi",
     "AsistanSeti", "KartSeti", "MenuSeti", "SahaMaddesi", "SahaSablonu", "SahaSeti", "EpostaAdimi", "EpostaSeti",
-    "HazirSet", "HAZIR_SETLER", "SET_SOZLUGU", "hazir_set", "paket_setleri", "varsayilan_set", "YASAK_IFADELER",
-    "metinleri", "yasak_ifadeler", "set_hatalari",
+    "BelgeSeti", "HazirSet", "HAZIR_SETLER", "SET_SOZLUGU", "hazir_set", "paket_setleri", "varsayilan_set",
+    "YASAK_IFADELER", "REKLAM_IFADELERI", "metinleri", "yasak_ifadeler", "reklam_ifadeleri", "set_hatalari",
 ]

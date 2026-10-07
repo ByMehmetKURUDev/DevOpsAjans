@@ -1,0 +1,382 @@
+{
+  "hukuk": {
+    "baslik": "Law office",
+    "aciklama": "Clients and matters, hearing and deadline tracking, time and expense records, and a private information link for clients.",
+    "aciklamaYonetici": "Support view: because of attorney–client privilege, only counts are shown.",
+    "uyap": "Nothing is pulled automatically from UYAP: it has no open interface and no scraping is done. The office enters matter details.",
+    "bilgilendirme": "These tools are for information only and are not legal advice.",
+    "alt": {
+      "dosyalar": "Matters",
+      "muvekkiller": "Clients",
+      "takvim": "Calendar",
+      "sure": "Deadline calculator",
+      "mesajlar": "Messages",
+      "ayarlar": "Settings"
+    },
+    "ozet": {
+      "acikDosya": "{{sayi}} open matters",
+      "sinir": "limit {{sinir}}",
+      "yaklasan": "{{sayi}} events in the next 14 days",
+      "okunmamis": "{{sayi}} unread messages"
+    },
+    "ortak": {
+      "kaydet": "Save",
+      "vazgec": "Cancel",
+      "sil": "Delete",
+      "ekle": "Add",
+      "geri": "Back",
+      "ara": "Search",
+      "hepsi": "All",
+      "kopyala": "Copy",
+      "kopyalandi": "Copied",
+      "kopyalanamadi": "Could not copy; select the link manually.",
+      "indir": "Download",
+      "onaySil": "Delete this?",
+      "silindi": "Deleted; you can restore it from Settings › Deleted within {{gun}} days.",
+      "kaydedildi": "Saved",
+      "zorunlu": "Please fill in the required fields."
+    },
+    "muvekkil": {
+      "yeni": "New client",
+      "bos": "No clients yet.",
+      "secin": "Select a client or add a new one.",
+      "turEtiket": "Type",
+      "tur": {
+        "kisi": "Individual",
+        "sirket": "Company"
+      },
+      "ad": "Full name",
+      "adSirket": "Company name",
+      "yetkili": "Contact person",
+      "vergiNo": "Tax / ID number",
+      "vergiNoIpucu": "Tax number, national ID or foreign ID/tax number; used for the conflict-of-interest check.",
+      "eposta": "Email",
+      "telefon": "Phone",
+      "adres": "Address",
+      "notlar": "Notes (office only)",
+      "randevudan": "Fill from a booking",
+      "randevuSec": "Select a booking",
+      "dosyaSayisi": "{{sayi}} matters",
+      "okunmamis": "{{sayi}} new",
+      "portal": {
+        "baslik": "Client portal",
+        "aciklama": "With this link the client sees only the information you mark as visible to the client and can leave a message. Share it only with the client; renewing it disables the old one.",
+        "olustur": "Create link",
+        "yenile": "Renew (old link stops working)",
+        "iptal": "Revoke link",
+        "kapali": "No active link.",
+        "olusturuldu": "Link ready.",
+        "iptalEdildi": "Link revoked.",
+        "sonGiris": "Last opened: {{zaman}}"
+      }
+    },
+    "catisma": {
+      "baslik": "Conflict-of-interest check",
+      "aciklama": "This is a warning and does not block saving. Please review the matches.",
+      "yok": "No matches in existing records.",
+      "rol": {
+        "muvekkil": "client",
+        "karsi_taraf": "opposing party"
+      },
+      "eslesme": {
+        "vergi_no": "same tax/ID number",
+        "tam": "same name",
+        "kismi": "similar name"
+      },
+      "onem": {
+        "catisma": "Possible conflict",
+        "bilgi": "Info"
+      },
+      "satir": "{{ad}} — recorded as {{rol}} ({{eslesme}})",
+      "dosyada": "matter: {{dosya}}",
+      "gizli": "There is a match in a confidential matter; ask the account owner for details."
+    },
+    "dosya": {
+      "baslik": "Matters",
+      "yeni": "New matter",
+      "bos": "No matters.",
+      "once": "Add a client first to open a matter.",
+      "muvekkilSec": "Select a client",
+      "sinirDolu": "The open matter limit has been reached ({{sinir}}).",
+      "sonrakiOlay": "{{tur}}: {{tarih}}",
+      "gizliRozet": "Confidential matter",
+      "tur": {
+        "dava": "Lawsuit",
+        "icra": "Enforcement",
+        "arabuluculuk": "Mediation",
+        "danismanlik": "Advisory",
+        "sozlesme": "Contract",
+        "diger": "Other"
+      },
+      "durum": {
+        "acik": "Open",
+        "beklemede": "On hold",
+        "kapandi": "Closed"
+      },
+      "alan": {
+        "muvekkil": "Client",
+        "tur": "Type",
+        "durum": "Status",
+        "dosyaNo": "Office file no.",
+        "esasNo": "Case / file number",
+        "mahkeme": "Court / enforcement office",
+        "konu": "Subject",
+        "sorumlu": "Responsible lawyer",
+        "acilis": "Opened on",
+        "kapanis": "Closed on",
+        "etiketler": "Tags (comma separated)",
+        "notlar": "Notes (office only)",
+        "gizli": "Confidential matter",
+        "gizliIpucu": "Only the account owner and the responsible lawyer can see it; other team members cannot."
+      },
+      "karsi": {
+        "baslik": "Opposing parties",
+        "ad": "Name",
+        "vergiNo": "Tax / ID number",
+        "vekil": "Their counsel",
+        "ekle": "Add opposing party"
+      },
+      "alt": {
+        "genel": "General",
+        "olaylar": "Calendar",
+        "zaman": "Time",
+        "masraf": "Expenses",
+        "belgeler": "Documents",
+        "portal": "Portal"
+      },
+      "portal": {
+        "acik": "Show this matter in the client portal",
+        "alanlar": "Fields visible to the client",
+        "alan": {
+          "konu": "Subject",
+          "durum": "Status",
+          "durusma": "Next hearing date",
+          "belgeler": "Shared documents",
+          "masraf": "Expense statement",
+          "not": "Note to client"
+        },
+        "not": "Note to client",
+        "notIpucu": "This text is shown on the client's link.",
+        "gizlilik": "Notes, opposing parties, case number, court and time entries are never shown in the portal."
+      }
+    },
+    "olay": {
+      "yeni": "Add event",
+      "bos": "No events.",
+      "tur": {
+        "durusma": "Hearing",
+        "kesif": "Site inspection",
+        "bilirkisi": "Expert examination",
+        "kesin_sure": "Deadline (last day)",
+        "gorev": "Task"
+      },
+      "alan": {
+        "tur": "Type",
+        "baslik": "Title",
+        "tarih": "Date",
+        "saat": "Time",
+        "yer": "Place / room",
+        "sorumlu": "Responsible",
+        "dosya": "Matter",
+        "dosyaYok": "No matter (general task)"
+      },
+      "tamamla": "Mark as done",
+      "geriAl": "Undo",
+      "tamamlandi": "Done",
+      "kalan": "{{sayi}} days left",
+      "bugun": "Today",
+      "gecti": "Past"
+    },
+    "takvim": {
+      "ay": "Month",
+      "hafta": "Week",
+      "onceki": "Previous",
+      "sonraki": "Next",
+      "bugun": "Today",
+      "sorumlu": "Responsible lawyer",
+      "ics": "Download calendar (ICS)",
+      "icsIpucu": "The ICS file contains the selected lawyer's events from the last 30 days and the next year; import it into your phone or computer calendar.",
+      "yaklasan": "Upcoming events"
+    },
+    "sure": {
+      "baslik": "Deadline calculator",
+      "baslangic": "Service / start date",
+      "miktar": "Period",
+      "birimEtiket": "Unit",
+      "birim": {
+        "gun": "days",
+        "hafta": "weeks",
+        "ay": "months"
+      },
+      "adliTatil": "Apply judicial recess (Civil Procedure Code Art. 104)",
+      "adliTatilIpucu": "Turn this off for matters that proceed during the recess (e.g. urgent matters).",
+      "hesapla": "Calculate",
+      "tatilNotu": "Public holidays come from the list in Settings: fixed national days are included; you must add the Ramadan and Sacrifice holidays yourself each year.",
+      "sonuc": "Last day of the period",
+      "sonucMetni": "The period ends at the close of business on this day.",
+      "adimlar": "Rules applied",
+      "kural": {
+        "hmk92": "Art. 92: the starting day is not counted; week/month periods end on the corresponding day, or on the last day of the month if there is none → {{tarih}}",
+        "hmk93": "Art. 93: the last day fell on a public holiday or weekend; moved to the next working day → {{tarih}}",
+        "hmk104": "Art. 104: the period fell within the judicial recess; extended by {{gun}} days from the end of the recess ({{bitis}}) → {{tarih}}"
+      },
+      "atlanan": {
+        "hafta_sonu": "{{tarih}}: weekend",
+        "tatil": "{{tarih}}: {{ad}}"
+      },
+      "uyari": {
+        "adli_tatil_icinde": "The last day falls within the judicial recess; check whether the matter is subject to the recess.",
+        "yarim_gun": "The last day is a half-day holiday (eve); the period may end at midday."
+      },
+      "not": "The calculation is an aid; the lawyer confirms the exact deadline. It is for information only and is not legal advice.",
+      "olayEkle": "Add to calendar as a deadline",
+      "olayEklendi": "Added to the calendar."
+    },
+    "zaman": {
+      "ekle": "Add time",
+      "tarih": "Date",
+      "saatEtiket": "Hours",
+      "dkEtiket": "Minutes",
+      "saat": "h",
+      "dk": "min",
+      "aciklama": "Description",
+      "faturalanabilir": "Billable",
+      "toplam": "Total {{sure}} · billable {{fat}}",
+      "bos": "No time entries."
+    },
+    "masraf": {
+      "turEtiket": "Type",
+      "tur": {
+        "harc": "Court fee",
+        "tebligat": "Service of process",
+        "bilirkisi": "Expert",
+        "yol": "Travel",
+        "diger": "Other"
+      },
+      "tutar": "Amount",
+      "para": "Currency",
+      "tarih": "Date",
+      "aciklama": "Description",
+      "avanstan": "From advance",
+      "ekle": "Add expense",
+      "pdf": "Statement PDF (expenses + time)",
+      "makbuz": "Replace receipt",
+      "makbuzYukle": "Add receipt",
+      "makbuzVar": "Receipt added.",
+      "toplam": "Total {{tutar}}",
+      "avansToplam": "from advance {{tutar}}",
+      "tahsilatYok": "No payment is collected; the statement is for information only.",
+      "bos": "No expenses."
+    },
+    "belge": {
+      "yukle": "Upload file",
+      "gorunurYukle": "Upload as visible to client",
+      "boyutIpucu": "Up to {{mb}} MB; PDF, Office, image and text files.",
+      "baglanti": "Link from Documents",
+      "baglantiSec": "Select a document",
+      "baglantiYok": "There are no documents to link in Documents (the module may be off).",
+      "baglantiRozet": "Documents record",
+      "makbuzRozet": "Receipt",
+      "gorunur": "Visible to client",
+      "gizli": "Office only",
+      "bos": "No documents."
+    },
+    "mesaj": {
+      "aciklama": "Messages from the client portal appear here; they do not go to the agency inbox. Your reply appears on the client's link; no email is sent.",
+      "bos": "No messages.",
+      "secin": "Select a conversation.",
+      "yeniMesaj": "New",
+      "burodan": "Office",
+      "muvekkilden": "Client",
+      "yanit": "Your reply",
+      "gonder": "Send",
+      "gonderildi": "Sent."
+    },
+    "ayar": {
+      "baslik": "Settings",
+      "buroAdi": "Office name (PDF and portal heading)",
+      "hatirlatma": "Reminder days",
+      "hatirlatmaIpucu": "How many days before to remind (0 = morning of the day). Each reminder is sent once per event; as a panel notification if email is not configured.",
+      "sabah": "Same-day reminder time",
+      "adliBas": "Recess start (MM-DD)",
+      "adliBit": "Recess end (MM-DD)",
+      "adliUzatma": "Extension (days)",
+      "adliVarsayilan": "Judicial recess on by default in the deadline calculator",
+      "yasalNot": "Defaults follow Civil Procedure Code Art. 102 (20 July–31 August) and Art. 104 (one week); update them here if the law changes. For information only, not legal advice.",
+      "tatil": {
+        "baslik": "Public holidays",
+        "aciklama": "Fixed national days (Law No. 2429) are already added. The Ramadan and Sacrifice holidays change every year, so you must add them yourself; mark the eves as half days.",
+        "ad": "Name",
+        "tarih": "Start",
+        "bitis": "End (if several days)",
+        "turEtiket": "Type",
+        "tur": {
+          "sabit": "Fixed national day",
+          "dini": "Religious holiday",
+          "diger": "Other"
+        },
+        "yarim": "Half day",
+        "tekrar": "Every year",
+        "ekle": "Add holiday",
+        "bos": "No holidays."
+      },
+      "silinenler": {
+        "baslik": "Deleted",
+        "aciklama": "Deleted clients and matters can be restored within {{gun}} days, then they are removed permanently.",
+        "geriAl": "Restore",
+        "bos": "Nothing deleted."
+      }
+    },
+    "yonetim": {
+      "baslik": "Law office clients",
+      "gizlilik": "Attorney–client privilege: this screen shows counts only. Matter content, notes, documents and client personal data are never returned by admin endpoints.",
+      "hesap": "Account",
+      "modul": "Module",
+      "muvekkil": "Clients",
+      "dosya": "Matters (open/closed)",
+      "yaklasan": "Upcoming deadlines (14 days)",
+      "depolama": "Storage",
+      "portal": "Portal links",
+      "bos": "No law office clients yet.",
+      "acik": "On",
+      "kapali": "Off",
+      "toplam": "Total"
+    },
+    "hata": {
+      "genel": "Something went wrong. Please try again.",
+      "ag": "Could not connect.",
+      "cok_hizli": "Too fast; wait a few seconds.",
+      "bulunamadi": "Record not found.",
+      "zorunlu": "Please fill in the required fields.",
+      "eposta_gecersiz": "Invalid email.",
+      "telefon_gecersiz": "Invalid phone number.",
+      "vergi_no_gecersiz": "Invalid tax/ID number (5–20 letters or digits).",
+      "tarih_gecersiz": "Invalid date.",
+      "saat_gecersiz": "Invalid time.",
+      "secim_gecersiz": "Invalid choice.",
+      "aralik_disi": "The value must be between {{en_az}} and {{en_cok}}.",
+      "sayi_gecersiz": "Invalid number.",
+      "bitis_once": "The end cannot be before the start.",
+      "cok_uzun": "Text too long (max {{sinir}}).",
+      "cok_fazla": "Limit reached.",
+      "gecersiz": "Invalid value.",
+      "liste_gecersiz": "Invalid list.",
+      "govde_gecersiz": "Invalid request.",
+      "govde_buyuk": "Content too large.",
+      "dosya_siniri": "Open matter limit reached ({{sinir}}).",
+      "muvekkilin_dosyasi_var": "The client has {{sayi}} matters; delete them first.",
+      "muvekkil_silindi": "The client was deleted; restore the client first.",
+      "gizli_erisim_kaybi": "Only the account owner and the responsible lawyer see a confidential matter; make yourself responsible before marking it confidential.",
+      "sorumlu_gecersiz": "The responsible lawyer must have the law office permission on this account.",
+      "baglanti_paylasilamaz": "A Documents link cannot be shared in the portal; upload the file instead.",
+      "modul_kapali": "The law office module is off for this account.",
+      "hesap_izni_yok": "You do not have permission for this section.",
+      "depo_hatasi": "The file could not be stored.",
+      "tur_izinsiz": "This file type is not supported.",
+      "icerik_uyusmuyor": "The file content does not match its extension.",
+      "bos_dosya": "The file is empty.",
+      "boyut_asildi": "File too large (max {{sinir_mb}} MB).",
+      "tatil_listesi_gecersiz": "The holiday list is invalid (more than 60 consecutive days)."
+    }
+  }
+}

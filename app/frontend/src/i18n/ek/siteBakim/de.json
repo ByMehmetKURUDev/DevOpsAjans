@@ -196,7 +196,8 @@
         "etkinlik_bakimi": "Veranstaltungswartung (Zahlungsreservierungen, Wartelisten-Einladungen, Dankes-E-Mail)",
         "haftalik_ozet": "Wochenübersicht (an Admins, Montag 08:00)",
         "saklama_temizligi": "Aufbewahrungsbereinigung alter Besuchs- und Klickdaten (13 Monate)",
-        "egitim_bakimi": "Kurswartung"
+        "egitim_bakimi": "Kurswartung",
+        "hukuk_bakimi": "Kanzleiwartung"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich",
@@ -237,7 +238,8 @@
         "haftalik_ozet": "Schickt Ihnen jeden Montagmorgen eine Übersicht über das, was diese Woche ansteht (bei lauter Nullen nichts).",
         "aylik_site_analizi": "Führt monatlich eine automatische Website-Analyse für Kundenwebsites durch (höchstens eine Seite pro Lauf).",
         "saklama_temizligi": "Bewahrt Besuchsdaten von QR-Scans, digitalen Visitenkarten, Bewertungsseiten, QR-Menüs und Buchungsseiten sowie Klicks aus E-Mail-Kampagnen 13 Monate auf; ältere Daten werden vor dem Löschen zu Tagessummen zusammengefasst, sodass die Summen im Panel gleich bleiben. Löscht außerdem abgelaufene Zähler der Anfragebegrenzung. Läuft einmal täglich.",
-        "egitim_bakimi": "Kurswartung (Erinnerungen an Stunden, Fehlzeitenwarnungen, automatische Zertifikate, Anonymisierung abgelaufener Teilnehmerdaten)"
+        "egitim_bakimi": "Kurswartung (Erinnerungen an Stunden, Fehlzeitenwarnungen, automatische Zertifikate, Anonymisierung abgelaufener Teilnehmerdaten)",
+        "hukuk_bakimi": "Kanzleiwartung (Erinnerungen an Verhandlungen und Fristen: 7/3/1 Tage vorher und am Morgen des Tages, jeweils einmal; endgültiges Löschen von Mandanten und Akten, die vor mehr als 30 Tagen gelöscht wurden)"
       }
     },
     "musteri": {

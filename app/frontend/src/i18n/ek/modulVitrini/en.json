@@ -139,6 +139,12 @@
         "ozet": "Email campaigns, an AI assistant that answers questions on your site, measurable QR codes and automation.",
         "kimIcin": "Online stores and small and medium-sized businesses that want to stay in regular touch with their customers.",
         "neden": "Email marketing sends campaigns and automated email sequences to your customer list, the AI assistant answers common questions on your site, dynamic QR codes measure visits from packaging and brochures, and automation rules take over repetitive work such as replying to new enquiries and sending reminders."
+      },
+      "hukuk_burosu": {
+        "ad": "Law office",
+        "ozet": "Matter and deadline tracking, initial meeting and consultation bookings, an inactive business card draft, internal documents and notes.",
+        "kimIcin": "Lawyers and law offices.",
+        "neden": "The law office module manages clients, matters, hearings and deadlines; booking is used for meetings, the digital business card for contact details and documents for internal notes. Because of the advertising ban, review requests and promotional tools are not included."
       }
     },
     "m": {
@@ -602,6 +608,26 @@
             "c": "Turkish Labour Law No. 4857 entitlements come as defaults and you can adjust them in settings for your workplace. Calculations are for information only."
           }
         ]
+      },
+      "hukuk_burosu": {
+        "ozet": "Client and matter tracking, hearing/deadline calendar with a deadline calculator, time and expense records, and a private status link for clients.",
+        "kimIcin": "Lawyers, law offices and in-house legal advisers.",
+        "ozellikler": [
+          "Clients (individual/company) and matters: type, case number, court or enforcement office, opposing parties and their counsel, responsible lawyer",
+          "Conflict-of-interest warning: a new client's or opposing party's name/tax number is checked against existing records",
+          "Hearing and deadline calendar, ICS, reminders 7/3/1 days before; a helper deadline calculation based on Civil Procedure Code Art. 92/93/104",
+          "Time and expense records with a PDF statement; a link where clients see only what you share. Does not pull data from UYAP automatically"
+        ],
+        "sss": [
+          {
+            "s": "Do matters from UYAP come in automatically?",
+            "c": "No. UYAP has no open interface, so nothing is pulled automatically and no scraping is done; the office enters matter details."
+          },
+          {
+            "s": "Can the agency see our files?",
+            "c": "No. For support the agency sees only counts (matters, clients, upcoming deadlines, storage); matter content, notes, documents and client details are not shown."
+          }
+        ]
       }
     },
     "s": {
@@ -640,6 +666,10 @@
       "eticaret_kobi": {
         "ad": "E-commerce and SMB",
         "ozet": "An AI assistant draft with a starter FAQ on orders and contact; a newsletter list and a welcome email series draft (nothing is sent)."
+      },
+      "hukuk_burosu": {
+        "ad": "Law office",
+        "ozet": "Initial meeting (30 min), consultation (60 min) and online meeting booking types; an inactive business card draft; a measured FAQ draft visible to the team."
       }
     }
   }

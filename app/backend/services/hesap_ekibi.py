@@ -103,6 +103,9 @@ IZINLER: Tuple[str, ...] = (
     # Faz 6I — insan kaynakları: personel kartı (kişisel veri), izin onayı/reddi, vardiya planı, portal bağlantısı.
     # Yönetim izni; üye ve fatura rolünün varsayılanında YOK (ayrıca verilir).
     "ik",
+    # Faz 6H — hukuk bürosu (müvekkil, dosya, takvim, masraf, portal). Avukat–müvekkil sırrı: üyenin
+    # varsayılanında YOK (ayrıca verilir); `gizli` dosyayı izin de yetmez (yalnız sahip + sorumlu avukat).
+    "hukuk",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -148,7 +151,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris"}),
-        # Faz 6P/6K/5B–6I arası varsayılan (canlıdaki: stok, kasa, egitim, egitim_egitmen ve belgeler var; ik yok).
+        # Faz 6P/6K/5B–6I/6H arası varsayılan (canlıdaki: stok, kasa, egitim, egitim_egitmen ve belgeler var; ik ve hukuk yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris",
@@ -252,6 +255,9 @@ OLAY_IZNI: Dict[str, str] = {
     "belge_paylasildi": "belgeler",
     # Faz 6I — personel portaldan izin talebi gönderdi (sahibine; `ik` izinli üyelere de).
     "ik_izin_talebi": "ik",
+    # Faz 6H — müvekkil portalından mesaj (içeriksiz bildirim; `hukuk` izinli üyelere de). Süre/duruşma
+    # hatırlatması (`hukuk_hatirlatma`) BİLEREK yok: yalnız sorumlu avukata (ya da hesap sahibine) gider.
+    "hukuk_portal_mesaj": "hukuk",
 }
 
 DAVET_OLAYI = "hesap_davet"

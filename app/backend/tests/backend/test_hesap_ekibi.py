@@ -349,6 +349,40 @@ async def ekip(db_oturumu):
     es6 = await _ekle(db, EgitimSertifikalari(kurs_id=ek6.id, ogrenci_id=eg6.id, hesap_email=s, kod=uuid.uuid4().hex[:12].upper(),
                                               ad_maskeli="Ö.", kurs_adi="Sahibin kursu", verilme_at=eb))
     k.update(EGK=ek6.id, EGO=eo6.id, EGG=eg6.id, EGD=ed6.id, EGQ=eq6.id, EGTS=et6.id, EGS=es6.id)
+    # Faz 6H: `hukuk` izni üye/fatura rolünün varsayılanında yok — saha üyesine (sahaci) ayrıca veriliyor (üye sayısı
+    # değişmesin). Sahibin hukuk kayıtları: müvekkil, (gizli OLMAYAN) dosya, duruşma, zaman, masraf, ek, mesaj, tatil.
+    from models.hukuk import (
+        HukukDosyalari,
+        HukukEkleri,
+        HukukMasraflari,
+        HukukMesajlari,
+        HukukMuvekkilleri,
+        HukukOlaylari,
+        HukukTatilleri,
+        HukukZamanKayitlari,
+    )
+
+    await db.execute(_update(HesapUyeleri).where(HesapUyeleri.hesap_email == s, HesapUyeleri.uye_email == k["sahaci"])
+                     .values(izinler=json.dumps(["projeler", "saha_yonetim", "saha_teknisyen", "egitim", "egitim_egitmen",
+                                                 "hukuk"])))
+    await db.commit()
+    _he.onbellegi_temizle()
+    hm = await _ekle(db, HukukMuvekkilleri(hesap_email=s, tur="kisi", ad="Sahibin müvekkili", ad_normal="sahibin muvekkili",
+                                           kaynak="elle", portal_acik=False, portal_surum=0, olusturan=s))
+    hd = await _ekle(db, HukukDosyalari(hesap_email=s, muvekkil_id=hm.id, tur="dava", dosya_no="2030/1", durum="acik",
+                                       karsi_taraflar="[]", etiketler="[]", gizli=False, portal_acik=False, olusturan=s))
+    ho = await _ekle(db, HukukOlaylari(hesap_email=s, dosya_id=hd.id, tur="durusma", baslik="Ön inceleme",
+                                       tarih=_date6k(2030, 1, 9), saat="10:00", olusturan=s))
+    hz = await _ekle(db, HukukZamanKayitlari(hesap_email=s, dosya_id=hd.id, tarih=_date6k(2030, 1, 2), sure_dk=30,
+                                             faturalanabilir=True, kisi_email=s))
+    hms = await _ekle(db, HukukMasraflari(hesap_email=s, dosya_id=hd.id, tur="harc", tutar_kurus=10000, para_birimi="TRY",
+                                          tarih=_date6k(2030, 1, 2), avanstan=False, kisi_email=s))
+    he = await _ekle(db, HukukEkleri(hesap_email=s, dosya_id=hd.id, tip="belge", ad="dilekce.pdf", tur="application/pdf",
+                                     boyut=10, muvekkile_gorunur=False, yukleyen=s))
+    hmj = await _ekle(db, HukukMesajlari(hesap_email=s, muvekkil_id=hm.id, dosya_id=hd.id, yon="muvekkil", metin="Merhaba"))
+    ht = await _ekle(db, HukukTatilleri(hesap_email=s, ad="Ekip tatili", tarih=_date6k(2030, 2, 1), tekrar=False, yarim=False,
+                                        tur="diger"))
+    k.update(HM=hm.id, HD=hd.id, HO=ho.id, HZ=hz.id, HMS=hms.id, HE=he.id, HMJ=hmj.id, HT=ht.id)
     # Faz 5B: sahibin kendi belgesi ve ajansın sahiple paylaştığı belge.
     from models.belgeler import Belgeler
 
@@ -399,6 +433,8 @@ EGT = ("egitim", "egitim_egitmen")
 BELGE_OKU = ("belgeler", "dosyalar")
 #: Faz 6I: insan kaynakları müşteri uçları.
 IK = "/api/v1/ik"
+#: Faz 6H: hukuk bürosu (yalnız `hukuk`).
+HUK = ("hukuk",)
 MUSTERI_UCLARI = [
     ("GET", "/api/v1/entities/projects", ("projeler",), None, 200),
     ("GET", "/api/v1/entities/projects/all", ("projeler",), None, 200),
@@ -958,6 +994,55 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/egitimim/{EGK}/sertifikalar/{EGS}/pdf", ("egitim",), None, 200),
     ("GET", "/api/v1/egitimim/{EGK}/duyurular", ("egitim",), None, 200),
     ("POST", "/api/v1/egitimim/{EGK}/duyuru", ("egitim",), {"konu": "Bilgi", "metin": "Ekip duyurusu"}, "gecti"),
+    # Faz 6H — hukuk bürosu (`hukuk`; üye/fatura rolünün varsayılanında yok). Gizli OLMAYAN dosya izinli üyeye açık.
+    ("GET", "/api/v1/hukukum/meta", HUK, None, 200),
+    ("GET", "/api/v1/hukukum/ayarlar", HUK, None, 200),
+    ("PUT", "/api/v1/hukukum/ayarlar", HUK, {"buro_adi": "Ekip Hukuk"}, 200),
+    ("GET", "/api/v1/hukukum/tatiller", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/tatiller", HUK, {"ad": "Ekip günü", "tarih": "2030-03-01", "tur": "diger"}, 200),
+    ("PUT", "/api/v1/hukukum/tatiller/{HT}", HUK, {"ad": "Ekip tatili 2"}, 200),
+    ("DELETE", "/api/v1/hukukum/tatiller/999999", HUK, None, "gecti"),
+    ("POST", "/api/v1/hukukum/sure-hesapla", HUK, {"baslangic": "2030-01-07", "miktar": 7, "birim": "gun"}, 200),
+    ("GET", "/api/v1/hukukum/muvekkiller", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/muvekkiller", HUK, {"ad": "Ekip Müvekkili"}, 200),
+    ("GET", "/api/v1/hukukum/muvekkiller/{HM}", HUK, None, 200),
+    ("PUT", "/api/v1/hukukum/muvekkiller/{HM}", HUK, {"telefon": "+905551112233"}, 200),
+    ("DELETE", "/api/v1/hukukum/muvekkiller/999999", HUK, None, "gecti"),
+    ("POST", "/api/v1/hukukum/muvekkiller/999999/geri-al", HUK, None, "gecti"),
+    ("POST", "/api/v1/hukukum/muvekkiller/{HM}/portal", HUK, None, 200),
+    ("DELETE", "/api/v1/hukukum/muvekkiller/{HM}/portal", HUK, None, 200),
+    ("GET", "/api/v1/hukukum/randevu-kayitlari", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/catisma", HUK, {"ad": "Karşı Taraf Ltd"}, 200),
+    ("GET", "/api/v1/hukukum/dosyalar", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/dosyalar", HUK, {"muvekkil_id": 999999}, "gecti"),
+    ("GET", "/api/v1/hukukum/dosyalar/{HD}", HUK, None, 200),
+    ("PUT", "/api/v1/hukukum/dosyalar/{HD}", HUK, {"konu": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/hukukum/dosyalar/999999", HUK, None, "gecti"),
+    ("POST", "/api/v1/hukukum/dosyalar/999999/geri-al", HUK, None, "gecti"),
+    ("GET", "/api/v1/hukukum/silinenler", HUK, None, 200),
+    ("GET", "/api/v1/hukukum/dosyalar/{HD}/zaman", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/dosyalar/{HD}/zaman", HUK, {"sure_dk": 30}, 200),
+    ("DELETE", "/api/v1/hukukum/dosyalar/{HD}/zaman/999999", HUK, None, "gecti"),
+    ("GET", "/api/v1/hukukum/dosyalar/{HD}/masraflar", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/dosyalar/{HD}/masraflar", HUK, {"tur": "harc", "tutar": "10"}, 200),
+    ("DELETE", "/api/v1/hukukum/dosyalar/{HD}/masraflar/999999", HUK, None, "gecti"),
+    ("POST", "/api/v1/hukukum/dosyalar/{HD}/masraflar/{HMS}/makbuz", HUK, GOVDE_DOSYA, "gecti"),
+    ("GET", "/api/v1/hukukum/dosyalar/{HD}/ekler", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/dosyalar/{HD}/ekler", HUK, GOVDE_DOSYA, "gecti"),
+    ("POST", "/api/v1/hukukum/dosyalar/{HD}/ekler/baglanti", HUK, {"belge_id": 999999}, "gecti"),
+    ("PUT", "/api/v1/hukukum/dosyalar/{HD}/ekler/{HE}", HUK, {"muvekkile_gorunur": True}, 200),
+    ("DELETE", "/api/v1/hukukum/dosyalar/{HD}/ekler/999999", HUK, None, "gecti"),
+    ("GET", "/api/v1/hukukum/dosyalar/{HD}/ekler/999999/indir", HUK, None, "gecti"),
+    ("GET", "/api/v1/hukukum/belgelerim", HUK, None, 200),
+    ("GET", "/api/v1/hukukum/dosyalar/{HD}/dokum.pdf", HUK, None, 200),
+    ("GET", "/api/v1/hukukum/olaylar", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/olaylar", HUK, {"tur": "gorev", "tarih": "2030-01-08", "baslik": "Ekip görevi"}, 200),
+    ("PUT", "/api/v1/hukukum/olaylar/{HO}", HUK, {"yer": "Salon 3"}, 200),
+    ("DELETE", "/api/v1/hukukum/olaylar/999999", HUK, None, "gecti"),
+    ("GET", "/api/v1/hukukum/takvim.ics", HUK, None, 200),
+    ("GET", "/api/v1/hukukum/mesajlar", HUK, None, 200),
+    ("POST", "/api/v1/hukukum/mesajlar", HUK, {"muvekkil_id": 999999, "metin": "Ekipten"}, "gecti"),
+    ("POST", "/api/v1/hukukum/mesajlar/okundu", HUK, {}, "gecti"),
 ]
 
 
@@ -1056,6 +1141,8 @@ def _izinli_uye(k, izinler):
         return k["pazarlamaci"]
     if izinler == ("ik",):  # Faz 6I: üye/fatura rolünün varsayılanında yok (apici'ye ayrıca verildi)
         return k["apici"]
+    if izinler == HUK:  # Faz 6H: üye/fatura rolünün varsayılanında yok (sahaci'ye ayrıca verildi)
+        return k["sahaci"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):
             return kisi

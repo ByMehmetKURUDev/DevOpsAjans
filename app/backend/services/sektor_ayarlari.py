@@ -485,6 +485,30 @@ async def _otomasyon(b: Baglam) -> None:
         _atla(bolum, "modul_kapali_oneri")
 
 
+async def _belgeler(b: Baglam) -> None:
+    """Faz 6H — Belgeler (5B) modülüne yalnız EKİBE görünen taslak belge (paylaşılmaz). Aynı başlıkta belge varsa atlanır."""
+    from models.belgeler import Belgeler
+    from services import belgeler as bs
+
+    b_set = b.set.belge
+    bolum = b.bolum("belgeler")
+    if "belgeler" not in b.acik:
+        return _atla(bolum, "modul_kapali")
+    baslik = b.metin(b_set.baslik)
+    db = b.db
+    if (await db.execute(select(Belgeler.id).where(Belgeler.sahip_hesap == b.hesap, Belgeler.baslik == baslik).limit(1))).first():
+        return _atla(bolum, "belge_var")
+    sinir = await _modul_ayari(db, b.hesap, "belgeler", "belge_siniri", 200)
+    if int((await db.execute(select(func.count(Belgeler.id)).where(Belgeler.sahip_hesap == b.hesap))).scalar() or 0) >= sinir:
+        return _atla(bolum, "belge_siniri", sinir=sinir)
+    nesne = Belgeler(tur="belge", baslik=baslik, icerik=b.metin(b_set.icerik), etiketler=json_yaz(["hazir"]), alan="musteri",
+                     musteri_email=b.hesap, sahip_hesap=b.hesap, gorunurluk="ekip", sabit=False, surum=1, olusturan=b.kisi,
+                     son_duzenleyen=b.kisi, son_duzenleyen_rol="admin", created_at=b.an, updated_at=b.an)
+    bs.arama_metnini_kur(nesne)
+    b.uyar("belge_taslak")
+    await b.kaydet(bolum, nesne, "belge", baslik, taslak=True)
+
+
 UYGULAYICILAR: Dict[str, Callable[[Baglam], Any]] = {
     "randevu": _randevu,
     "ai_asistan": _ai_asistan,
@@ -493,6 +517,7 @@ UYGULAYICILAR: Dict[str, Callable[[Baglam], Any]] = {
     "qr_menu": _qr_menu,
     "saha_servisi": _saha,
     "eposta_pazarlama": _eposta,
+    "belgeler": _belgeler,
     "otomasyon": _otomasyon,
 }
 
@@ -501,6 +526,8 @@ async def uygula(b: Baglam) -> Baglam:
     """Setin bütün uygulayıcıları sırayla (kuru ya da gerçek). Commit ETMEZ."""
     if b.set.kvkk_ozel:
         b.uyar("kvkk_ozel")
+    if b.set.reklam_yasagi:
+        b.uyar("reklam_yasagi")
     for modul in b.set.moduller():
         await UYGULAYICILAR[modul](b)
     return b
@@ -529,6 +556,7 @@ async def sonradan_isle(db: AsyncSession, isler: List[Tuple[str, int]]) -> None:
 # ---------------------------------------------------------------------------
 def _model(tablo: str):
     from models.ai_asistan import AiAsistanKaynaklari, AiAsistanlar
+    from models.belgeler import Belgeler
     from models.eposta_pazarlama import EpDiziAdimlari, EpDiziler, EpListeler
     from models.kartvizit import Kartvizitler, YorumSayfalari
     from models.qr_menu import MenuKategorileri, MenuMagazalari
@@ -538,6 +566,7 @@ def _model(tablo: str):
     return {m.__tablename__: m for m in (
         AiAsistanKaynaklari, AiAsistanlar, EpDiziAdimlari, EpDiziler, EpListeler, Kartvizitler, YorumSayfalari,
         MenuKategorileri, MenuMagazalari, RandevuKisileri, RandevuSayfalari, RandevuTurleri, SahaAyarlari, SahaSablonlari,
+        Belgeler,
     )}.get(tablo)
 
 
@@ -628,6 +657,13 @@ async def _kullanim_nedeni(db: AsyncSession, tablo: str, n: Any) -> Optional[str
         from models.eposta_pazarlama import EpGonderimler
 
         return "gonderim_var" if await _sayi(db, select(func.count(EpGonderimler.id)).where(EpGonderimler.adim_id == n.id)) else None
+    if tablo == "belgeler":
+        # Faz 6H: sürümü yazılmış (düzenlenmiş) ya da paylaşılmış taslak korunur.
+        from models.belgeler import BelgeSurumleri
+
+        if n.paylasildi_at is not None or n.gorunurluk != "ekip":
+            return "paylasildi"
+        return "bagli_kayit_var" if await _sayi(db, select(func.count(BelgeSurumleri.id)).where(BelgeSurumleri.belge_id == n.id)) else None
     return None
 
 

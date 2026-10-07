@@ -1,0 +1,382 @@
+{
+  "hukuk": {
+    "baslik": "Hukuk bürosu",
+    "aciklama": "Müvekkiller ve dosyalar, duruşma ve süre takibi, saat ve masraf kaydı, müvekkile özel bilgilendirme bağlantısı.",
+    "aciklamaYonetici": "Destek görünümü: avukat–müvekkil sırrı gereği yalnız sayılar gösterilir.",
+    "uyap": "UYAP'tan otomatik veri çekilmez: UYAP'ın açık bir arayüzü yok ve kazıma yapılmaz. Dosya bilgilerini büro girer.",
+    "bilgilendirme": "Bu araçlar bilgilendirme amaçlıdır, hukuki danışmanlık değildir.",
+    "alt": {
+      "dosyalar": "Dosyalar",
+      "muvekkiller": "Müvekkiller",
+      "takvim": "Takvim",
+      "sure": "Süre hesaplayıcı",
+      "mesajlar": "Mesajlar",
+      "ayarlar": "Ayarlar"
+    },
+    "ozet": {
+      "acikDosya": "{{sayi}} açık dosya",
+      "sinir": "sınır {{sinir}}",
+      "yaklasan": "Önümüzdeki 14 günde {{sayi}} olay",
+      "okunmamis": "{{sayi}} okunmamış mesaj"
+    },
+    "ortak": {
+      "kaydet": "Kaydet",
+      "vazgec": "Vazgeç",
+      "sil": "Sil",
+      "ekle": "Ekle",
+      "geri": "Geri",
+      "ara": "Ara",
+      "hepsi": "Hepsi",
+      "kopyala": "Kopyala",
+      "kopyalandi": "Kopyalandı",
+      "kopyalanamadi": "Kopyalanamadı; bağlantıyı elle seçin.",
+      "indir": "İndir",
+      "onaySil": "Silinsin mi?",
+      "silindi": "Silindi; {{gun}} gün içinde Ayarlar › Silinenler'den geri alabilirsiniz.",
+      "kaydedildi": "Kaydedildi",
+      "zorunlu": "Zorunlu alanları doldurun."
+    },
+    "muvekkil": {
+      "yeni": "Yeni müvekkil",
+      "bos": "Henüz müvekkil yok.",
+      "secin": "Bir müvekkil seçin ya da yeni müvekkil ekleyin.",
+      "turEtiket": "Tür",
+      "tur": {
+        "kisi": "Kişi",
+        "sirket": "Şirket"
+      },
+      "ad": "Ad soyad",
+      "adSirket": "Unvan",
+      "yetkili": "Yetkili kişi",
+      "vergiNo": "Vergi / kimlik no",
+      "vergiNoIpucu": "VKN, TCKN ya da yabancı kimlik/vergi no; çıkar çatışması kontrolünde kullanılır.",
+      "eposta": "E-posta",
+      "telefon": "Telefon",
+      "adres": "Adres",
+      "notlar": "Notlar (yalnız büro)",
+      "randevudan": "Randevu kaydından doldur",
+      "randevuSec": "Randevu seçin",
+      "dosyaSayisi": "{{sayi}} dosya",
+      "okunmamis": "{{sayi}} yeni",
+      "portal": {
+        "baslik": "Müvekkil portalı",
+        "aciklama": "Müvekkil bu bağlantıyla yalnız 'müvekkile görünür' işaretlediğiniz bilgileri görür ve mesaj bırakabilir. Bağlantıyı yalnız müvekkile iletin; yenilerseniz eskisi çalışmaz.",
+        "olustur": "Bağlantı oluştur",
+        "yenile": "Yenile (eskisi çalışmaz)",
+        "iptal": "Bağlantıyı iptal et",
+        "kapali": "Etkin bağlantı yok.",
+        "olusturuldu": "Bağlantı hazır.",
+        "iptalEdildi": "Bağlantı iptal edildi.",
+        "sonGiris": "Son açılış: {{zaman}}"
+      }
+    },
+    "catisma": {
+      "baslik": "Çıkar çatışması kontrolü",
+      "aciklama": "Uyarıdır, kaydı engellemez. Eşleşmeleri kontrol edin.",
+      "yok": "Mevcut kayıtlarda eşleşme bulunmadı.",
+      "rol": {
+        "muvekkil": "müvekkil",
+        "karsi_taraf": "karşı taraf"
+      },
+      "eslesme": {
+        "vergi_no": "aynı vergi/kimlik no",
+        "tam": "aynı ad",
+        "kismi": "benzer ad"
+      },
+      "onem": {
+        "catisma": "Olası çatışma",
+        "bilgi": "Bilgi"
+      },
+      "satir": "{{ad}} — {{rol}} olarak kayıtlı ({{eslesme}})",
+      "dosyada": "dosya: {{dosya}}",
+      "gizli": "Gizli bir dosyada eşleşme var; ayrıntı için hesap sahibine danışın."
+    },
+    "dosya": {
+      "baslik": "Dosyalar",
+      "yeni": "Yeni dosya",
+      "bos": "Dosya yok.",
+      "once": "Dosya açmak için önce bir müvekkil ekleyin.",
+      "muvekkilSec": "Müvekkil seçin",
+      "sinirDolu": "Açık dosya sınırına ulaşıldı ({{sinir}}).",
+      "sonrakiOlay": "{{tur}}: {{tarih}}",
+      "gizliRozet": "Gizli dosya",
+      "tur": {
+        "dava": "Dava",
+        "icra": "İcra",
+        "arabuluculuk": "Arabuluculuk",
+        "danismanlik": "Danışmanlık",
+        "sozlesme": "Sözleşme",
+        "diger": "Diğer"
+      },
+      "durum": {
+        "acik": "Açık",
+        "beklemede": "Beklemede",
+        "kapandi": "Kapandı"
+      },
+      "alan": {
+        "muvekkil": "Müvekkil",
+        "tur": "Tür",
+        "durum": "Durum",
+        "dosyaNo": "Büro dosya no",
+        "esasNo": "Esas / dosya no",
+        "mahkeme": "Mahkeme / icra dairesi",
+        "konu": "Konu",
+        "sorumlu": "Sorumlu avukat",
+        "acilis": "Açılış tarihi",
+        "kapanis": "Kapanış tarihi",
+        "etiketler": "Etiketler (virgülle ayırın)",
+        "notlar": "Notlar (yalnız büro)",
+        "gizli": "Gizli dosya",
+        "gizliIpucu": "Yalnız hesap sahibi ve sorumlu avukat görür; ekipteki diğer kişiler göremez."
+      },
+      "karsi": {
+        "baslik": "Karşı taraflar",
+        "ad": "Ad / unvan",
+        "vergiNo": "Vergi / kimlik no",
+        "vekil": "Vekili",
+        "ekle": "Karşı taraf ekle"
+      },
+      "alt": {
+        "genel": "Genel",
+        "olaylar": "Takvim",
+        "zaman": "Saat",
+        "masraf": "Masraf",
+        "belgeler": "Belgeler",
+        "portal": "Portal"
+      },
+      "portal": {
+        "acik": "Bu dosya müvekkil portalında görünsün",
+        "alanlar": "Müvekkile görünür alanlar",
+        "alan": {
+          "konu": "Konu",
+          "durum": "Durum",
+          "durusma": "Sonraki duruşma tarihi",
+          "belgeler": "Paylaşılan belgeler",
+          "masraf": "Masraf dökümü",
+          "not": "Müvekkile not"
+        },
+        "not": "Müvekkile not",
+        "notIpucu": "Bu metin müvekkilin bağlantısında görünür.",
+        "gizlilik": "Notlar, karşı taraflar, esas no, mahkeme ve saat kayıtları portalda hiçbir zaman gösterilmez."
+      }
+    },
+    "olay": {
+      "yeni": "Olay ekle",
+      "bos": "Olay yok.",
+      "tur": {
+        "durusma": "Duruşma",
+        "kesif": "Keşif",
+        "bilirkisi": "Bilirkişi",
+        "kesin_sure": "Kesin süre (son gün)",
+        "gorev": "Görev"
+      },
+      "alan": {
+        "tur": "Tür",
+        "baslik": "Başlık",
+        "tarih": "Tarih",
+        "saat": "Saat",
+        "yer": "Yer / salon",
+        "sorumlu": "Sorumlu",
+        "dosya": "Dosya",
+        "dosyaYok": "Dosyasız (genel görev)"
+      },
+      "tamamla": "Tamamlandı olarak işaretle",
+      "geriAl": "Geri al",
+      "tamamlandi": "Tamamlandı",
+      "kalan": "{{sayi}} gün kaldı",
+      "bugun": "Bugün",
+      "gecti": "Geçti"
+    },
+    "takvim": {
+      "ay": "Ay",
+      "hafta": "Hafta",
+      "onceki": "Önceki",
+      "sonraki": "Sonraki",
+      "bugun": "Bugün",
+      "sorumlu": "Sorumlu avukat",
+      "ics": "Takvimi indir (ICS)",
+      "icsIpucu": "ICS dosyası seçili sorumlu avukatın son 30 gün ve gelecek bir yıldaki olaylarını içerir; telefonunuzun ya da bilgisayarınızın takvimine aktarabilirsiniz.",
+      "yaklasan": "Yaklaşan olaylar"
+    },
+    "sure": {
+      "baslik": "Süre hesaplayıcı",
+      "baslangic": "Tebliğ / başlangıç tarihi",
+      "miktar": "Süre",
+      "birimEtiket": "Birim",
+      "birim": {
+        "gun": "gün",
+        "hafta": "hafta",
+        "ay": "ay"
+      },
+      "adliTatil": "Adli tatil uygulansın (HMK m.104)",
+      "adliTatilIpucu": "Adli tatilde görülebilecek işlerde (ör. ivedi işler) kapatın.",
+      "hesapla": "Hesapla",
+      "tatilNotu": "Resmî tatiller Ayarlar'daki listeden alınır: sabit ulusal günler hazırdır; Ramazan ve Kurban bayramlarını her yıl siz eklemelisiniz.",
+      "sonuc": "Sürenin son günü",
+      "sonucMetni": "Süre bu günün çalışma saati bitiminde dolar.",
+      "adimlar": "Uygulanan kurallar",
+      "kural": {
+        "hmk92": "HMK m.92: başlangıç günü sayılmaz; hafta/ay süresi karşılık gelen günde, o gün yoksa ayın son gününde biter → {{tarih}}",
+        "hmk93": "HMK m.93: son gün resmî tatil ya da hafta sonuna rastladı; izleyen ilk iş günü → {{tarih}}",
+        "hmk104": "HMK m.104: süre adli tatile rastladı; adli tatilin bittiği günden ({{bitis}}) itibaren {{gun}} gün uzatıldı → {{tarih}}"
+      },
+      "atlanan": {
+        "hafta_sonu": "{{tarih}}: hafta sonu",
+        "tatil": "{{tarih}}: {{ad}}"
+      },
+      "uyari": {
+        "adli_tatil_icinde": "Son gün adli tatile denk geliyor; işin adli tatile tabi olup olmadığını kontrol edin.",
+        "yarim_gun": "Son gün yarım gün tatile (arife) denk geliyor; süre öğleden önce dolabilir."
+      },
+      "not": "Hesaplama yardımcıdır; kesin süreyi avukat doğrular. Bilgilendirme amaçlıdır, hukuki danışmanlık değildir.",
+      "olayEkle": "Kesin süre olarak takvime ekle",
+      "olayEklendi": "Takvime eklendi."
+    },
+    "zaman": {
+      "ekle": "Saat ekle",
+      "tarih": "Tarih",
+      "saatEtiket": "Saat",
+      "dkEtiket": "Dakika",
+      "saat": "sa",
+      "dk": "dk",
+      "aciklama": "Açıklama",
+      "faturalanabilir": "Faturalanabilir",
+      "toplam": "Toplam {{sure}} · faturalanabilir {{fat}}",
+      "bos": "Saat kaydı yok."
+    },
+    "masraf": {
+      "turEtiket": "Tür",
+      "tur": {
+        "harc": "Harç",
+        "tebligat": "Tebligat",
+        "bilirkisi": "Bilirkişi",
+        "yol": "Yol",
+        "diger": "Diğer"
+      },
+      "tutar": "Tutar",
+      "para": "Para birimi",
+      "tarih": "Tarih",
+      "aciklama": "Açıklama",
+      "avanstan": "Avanstan",
+      "ekle": "Masraf ekle",
+      "pdf": "Döküm PDF (masraf + saat)",
+      "makbuz": "Makbuzu değiştir",
+      "makbuzYukle": "Makbuz ekle",
+      "makbuzVar": "Makbuz eklendi.",
+      "toplam": "Toplam {{tutar}}",
+      "avansToplam": "avanstan {{tutar}}",
+      "tahsilatYok": "Tahsilat ya da ödeme alınmaz; döküm bilgilendirme amaçlıdır.",
+      "bos": "Masraf yok."
+    },
+    "belge": {
+      "yukle": "Dosya yükle",
+      "gorunurYukle": "Müvekkile görünür yükle",
+      "boyutIpucu": "En çok {{mb}} MB; PDF, Office, görsel ve metin dosyaları.",
+      "baglanti": "Belgeler'den bağla",
+      "baglantiSec": "Belge seçin",
+      "baglantiYok": "Belgeler modülünde bağlanacak belge yok (modül kapalı olabilir).",
+      "baglantiRozet": "Belgeler kaydı",
+      "makbuzRozet": "Makbuz",
+      "gorunur": "Müvekkile görünür",
+      "gizli": "Yalnız büro",
+      "bos": "Belge yok."
+    },
+    "mesaj": {
+      "aciklama": "Müvekkil portalından gelen mesajlar burada görünür; ajansın gelen kutusuna düşmez. Yanıtınız müvekkilin bağlantısında görünür, e-posta gönderilmez.",
+      "bos": "Mesaj yok.",
+      "secin": "Bir konuşma seçin.",
+      "yeniMesaj": "Yeni",
+      "burodan": "Büro",
+      "muvekkilden": "Müvekkil",
+      "yanit": "Yanıtınız",
+      "gonder": "Gönder",
+      "gonderildi": "Gönderildi."
+    },
+    "ayar": {
+      "baslik": "Ayarlar",
+      "buroAdi": "Büro adı (PDF ve portal başlığı)",
+      "hatirlatma": "Hatırlatma günleri",
+      "hatirlatmaIpucu": "Kaç gün önce hatırlatılsın (0 = aynı gün sabah). Her hatırlatma olay başına bir kez gider; e-posta yapılandırılmamışsa panel bildirimi olarak.",
+      "sabah": "Aynı gün hatırlatma saati",
+      "adliBas": "Adli tatil başı (AA-GG)",
+      "adliBit": "Adli tatil sonu (AA-GG)",
+      "adliUzatma": "Uzatma (gün)",
+      "adliVarsayilan": "Süre hesaplayıcıda adli tatil varsayılan olarak açık",
+      "yasalNot": "Varsayılanlar HMK m.102 (20 Temmuz–31 Ağustos) ve m.104'e (bir hafta) göredir; mevzuat değişirse buradan güncelleyin. Bilgilendirme amaçlıdır, hukuki danışmanlık değildir.",
+      "tatil": {
+        "baslik": "Resmî tatiller",
+        "aciklama": "Sabit ulusal günler (2429 sayılı Kanun) hazır eklendi. Ramazan ve Kurban bayramlarının tarihleri her yıl değiştiği için kendiniz eklemelisiniz; arife günlerini yarım gün olarak işaretleyin.",
+        "ad": "Ad",
+        "tarih": "Başlangıç",
+        "bitis": "Bitiş (çok günlüyse)",
+        "turEtiket": "Tür",
+        "tur": {
+          "sabit": "Sabit ulusal gün",
+          "dini": "Dini bayram",
+          "diger": "Diğer"
+        },
+        "yarim": "Yarım gün",
+        "tekrar": "Her yıl",
+        "ekle": "Tatil ekle",
+        "bos": "Tatil yok."
+      },
+      "silinenler": {
+        "baslik": "Silinenler",
+        "aciklama": "Silinen müvekkil ve dosyalar {{gun}} gün içinde geri alınabilir, sonra kalıcı silinir.",
+        "geriAl": "Geri al",
+        "bos": "Silinen kayıt yok."
+      }
+    },
+    "yonetim": {
+      "baslik": "Hukuk bürosu müşterileri",
+      "gizlilik": "Avukat–müvekkil sırrı: bu ekranda yalnız sayılar var. Dosya içeriği, notlar, belgeler ve müvekkil kişisel verisi yönetici uçlarından dönmez.",
+      "hesap": "Hesap",
+      "modul": "Modül",
+      "muvekkil": "Müvekkil",
+      "dosya": "Dosya (açık/kapanan)",
+      "yaklasan": "Yaklaşan süre (14 gün)",
+      "depolama": "Depolama",
+      "portal": "Portal bağlantısı",
+      "bos": "Henüz hukuk bürosu müşterisi yok.",
+      "acik": "Açık",
+      "kapali": "Kapalı",
+      "toplam": "Toplam"
+    },
+    "hata": {
+      "genel": "İşlem yapılamadı. Lütfen yeniden deneyin.",
+      "ag": "Bağlantı kurulamadı.",
+      "cok_hizli": "Çok hızlı; birkaç saniye bekleyin.",
+      "bulunamadi": "Kayıt bulunamadı.",
+      "zorunlu": "Zorunlu alanları doldurun.",
+      "eposta_gecersiz": "E-posta geçersiz.",
+      "telefon_gecersiz": "Telefon geçersiz.",
+      "vergi_no_gecersiz": "Vergi/kimlik no geçersiz (5–20 harf ya da rakam).",
+      "tarih_gecersiz": "Tarih geçersiz.",
+      "saat_gecersiz": "Saat geçersiz.",
+      "secim_gecersiz": "Geçersiz seçim.",
+      "aralik_disi": "Değer {{en_az}}–{{en_cok}} aralığında olmalı.",
+      "sayi_gecersiz": "Sayı geçersiz.",
+      "bitis_once": "Bitiş başlangıçtan önce olamaz.",
+      "cok_uzun": "Metin çok uzun (en çok {{sinir}}).",
+      "cok_fazla": "Sınıra ulaşıldı.",
+      "gecersiz": "Geçersiz değer.",
+      "liste_gecersiz": "Liste geçersiz.",
+      "govde_gecersiz": "İstek geçersiz.",
+      "govde_buyuk": "İçerik çok büyük.",
+      "dosya_siniri": "Açık dosya sınırı dolu ({{sinir}}).",
+      "muvekkilin_dosyasi_var": "Müvekkilin {{sayi}} dosyası var; önce dosyaları silin.",
+      "muvekkil_silindi": "Müvekkil silinmiş; önce müvekkili geri alın.",
+      "gizli_erisim_kaybi": "Gizli dosyayı yalnız hesap sahibi ve sorumlu avukat görür; kendinizi sorumlu yapmadan gizleyemezsiniz.",
+      "sorumlu_gecersiz": "Sorumlu avukat bu hesapta hukuk izni olan biri olmalı.",
+      "baglanti_paylasilamaz": "Belgeler bağlantısı portalda paylaşılamaz; dosyayı yükleyin.",
+      "modul_kapali": "Hukuk bürosu modülü bu hesapta kapalı.",
+      "hesap_izni_yok": "Bu bölüm için izniniz yok.",
+      "depo_hatasi": "Dosya depolanamadı.",
+      "tur_izinsiz": "Bu dosya türü desteklenmiyor.",
+      "icerik_uyusmuyor": "Dosyanın içeriği uzantısıyla uyuşmuyor.",
+      "bos_dosya": "Dosya boş.",
+      "boyut_asildi": "Dosya çok büyük (en çok {{sinir_mb}} MB).",
+      "tatil_listesi_gecersiz": "Tatil listesi hatalı (60 günden uzun ardışık tatil)."
+    }
+  }
+}

@@ -126,7 +126,16 @@
       "ik_personel": "Personalakten",
       "ik_ayarlari": "Personal-Einstellungen",
       "ik_tatiller": "Feiertage (Personal)",
-      "ik_vardiya_sablonlari": "Schichtvorlagen"
+      "ik_vardiya_sablonlari": "Schichtvorlagen",
+      "hukuk_ayarlari": "Kanzleieinstellungen",
+      "hukuk_tatilleri": "Feiertage (Kanzlei)",
+      "hukuk_muvekkilleri": "Mandanten",
+      "hukuk_dosyalari": "Akten",
+      "hukuk_olaylari": "Verhandlungen und Fristen",
+      "hukuk_zaman_kayitlari": "Zeiterfassung zu Akten",
+      "hukuk_masraflari": "Auslagen zu Akten",
+      "hukuk_ekleri": "Aktenanhänge",
+      "hukuk_mesajlari": "Mandantennachrichten"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

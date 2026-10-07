@@ -48,7 +48,8 @@
       "egitim": "Courses (management)",
       "egitim_egitmen": "Courses: instructor (own courses only)",
       "belgeler": "Documents, wiki and strategy tools",
-      "ik": "HR (staff, leave, shifts)"
+      "ik": "HR (staff, leave, shifts)",
+      "hukuk": "Law office (clients, matters, calendar; confidential matters only for the owner and the responsible lawyer)"
     },
     "durum": {
       "davet": "Invitation pending",

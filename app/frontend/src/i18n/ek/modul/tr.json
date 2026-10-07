@@ -204,6 +204,10 @@
       "insan_kaynaklari": {
         "ad": "İnsan kaynakları (personel, izin, vardiya)",
         "aciklama": "Personel kartları, izin talebi ve onayı, yıllık izin bakiyesi (kanun varsayılanları ayarlanabilir), izin takvimi, haftalık vardiya planı ve personelin girişsiz kendi sayfası. Bordro yok."
+      },
+      "hukuk_burosu": {
+        "ad": "Hukuk bürosu",
+        "aciklama": "Avukatlar ve hukuk büroları için: müvekkil ve dosya takibi, karşı taraf ve çıkar çatışması uyarısı, duruşma ve kesin süre takvimi, süre hesaplayıcı, hatırlatmalar, saat ve masraf kaydı (PDF döküm), belge ekleri ve müvekkile özel bilgilendirme bağlantısı. UYAP'tan otomatik veri çekmez."
       }
     },
     "kategori": {
@@ -270,7 +274,8 @@
       "ogrenci_siniri": "En çok öğrenci (aktif + bekleme)",
       "ai_hakki": "Aylık AI soru üretimi",
       "belge_siniri": "Hesap başına en çok kendi belgesi",
-      "personel_siniri": "En çok aktif personel"
+      "personel_siniri": "En çok aktif personel",
+      "dosya_siniri": "En çok açık dosya (açık + beklemede)"
     },
     "musteri": {
       "baslik": "Modüllerim",

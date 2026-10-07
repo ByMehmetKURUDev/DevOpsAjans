@@ -496,7 +496,8 @@
     "tabEtkinlik": "Events",
     "tabStokPos": "Stock & POS",
     "tabEgitim": "Courses",
-    "tabIk": "HR"
+    "tabIk": "HR",
+    "tabHukuk": "Law office"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

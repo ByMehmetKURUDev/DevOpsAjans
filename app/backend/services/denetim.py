@@ -37,6 +37,7 @@ ile elle kaydediliyor.
 
 import json
 import logging
+import re
 from contextvars import ContextVar
 from datetime import date, datetime
 from decimal import Decimal
@@ -132,6 +133,9 @@ HARIC_TABLOLAR = frozenset({
     # kendi satırında) ve personel belge ekleri (dosya içeriği kişisel). Personel kartı, ayarlar, tatil günleri
     # ve vardiya şablonları kaydediliyor.
     "ik_izinler", "ik_vardiyalar", "ik_dosyalar",
+    # Faz 6H: hukuk — hatırlatma kilidi (olay × eşik; teknik iz). Diğer hukuk tabloları KAYDEDİLİYOR ama
+    # değerleri maskeli (`ICERIKSIZ_TABLOLAR`).
+    "hukuk_hatirlatmalari",
     # Faz 4W: otomasyon kuyruğu/günlüğü (her olayda satır; kendi 30 günlük günlüğü var).
     # Kurallar, özel alan tanımları ve değerleri kaydediliyor.
     "otomasyon_calismalari",
@@ -197,11 +201,23 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
                                         "sonraki_yenileme_at"}),
     # Faz 6S: bakım taramasının "bu vade için bildirim gitti" izi.
     "saha_cihazlari": frozenset({"bakim_bildirim_tarihi"}),
+    # Faz 6H: müvekkil portalının "son görülme" zamanı (her açılışta güncelleniyor).
+    "hukuk_muvekkilleri": frozenset({"portal_son_at", "ad_normal"}),
     # Faz 5B: arama için türetilmiş metin (başlık/gövde değişikliği zaten kaydediliyor).
     "belgeler": frozenset({"arama_metni"}),
     # Faz 6I: personelin portalı son açtığı an (her ziyarette yazılıyor).
     "ik_personel": frozenset({"portal_son_at"}),
 }
+
+#: Faz 6H — avukat–müvekkil sırrı: bu tablolarda denetim satırı yazılıyor (kim, ne zaman, hangi kayıt, hangi
+#: alanlar) ama alan DEĞERLERİ ve kaydın etiketi yazılmıyor. Denetim kaydını ajans yöneticisi de okuyabildiği
+#: için dosya içeriği, not, müvekkil adı buraya kopyalanmamalı.
+ICERIKSIZ_TABLOLAR = frozenset({
+    "hukuk_ayarlari", "hukuk_tatilleri", "hukuk_muvekkilleri", "hukuk_dosyalari", "hukuk_olaylari",
+    "hukuk_zaman_kayitlari", "hukuk_masraflari", "hukuk_ekleri", "hukuk_mesajlari",
+})
+#: İstek yolunda imzalı portal jetonu (`<id>-<sürüm>-<32 hex>`).
+_JETON_DESENI = re.compile(r"\d{1,12}-\d{1,6}-[0-9a-f]{32}")
 
 #: Adında bunlardan biri geçen alanın değeri "***" olarak saklanıyor.
 HASSAS_PARCALAR = ("password", "sifre", "token", "jeton", "secret", "api_key", "anahtar", "kart")
@@ -482,17 +498,27 @@ def _nesne_satiri(obj: Any, tur: str, baglam: DenetimBaglami) -> Optional[Dict[s
         ilgili = sozluk.get("hesap_email")
     ilgili = (str(ilgili).strip().lower() or None) if ilgili else None
 
-    maskeli = _maskele(fark)
+    istek_yolu = baglam.istek_yolu
+    if tablo in ICERIKSIZ_TABLOLAR:
+        # Faz 6H — avukat–müvekkil sırrı: kim, ne zaman, hangi kayıt, HANGİ ALANLAR değişti yazılır; değerler
+        # ve kaydın adı (müvekkil adı, esas no…) yazılmaz. Portal jetonu (bir yetki belgesi) yoldan silinir.
+        maskeli = {alan: [None if e is None else "***", None if y is None else "***"] for alan, (e, y) in fark.items()}
+        ozet = _ozet_uret(tur, "", fark)
+        if istek_yolu:
+            istek_yolu = _JETON_DESENI.sub("***", istek_yolu)
+    else:
+        maskeli = _maskele(fark)
+        ozet = _ozet_uret(tur, _etiket(sozluk), fark)
     return {
         "aktor_eposta": aktor_eposta,
         "aktor_rol": aktor_rol,
         "islem": islem,
         "tablo": tablo,
         "kayit_id": kimlik[:64] if kimlik else None,
-        "ozet": _ozet_uret(tur, _etiket(sozluk), fark),
+        "ozet": ozet,
         "degisiklik_json": json.dumps(maskeli, ensure_ascii=False) if maskeli else None,
         "ip_ozeti": baglam.ip_ozeti,
-        "istek_yolu": baglam.istek_yolu,
+        "istek_yolu": istek_yolu,
         "ilgili_eposta": ilgili,
     }
 

@@ -85,7 +85,22 @@ SEKTOR_PAKETLERI: Tuple[SektorPaketi, ...] = (
         ikon="ShoppingBag",
         moduller=("eposta_pazarlama", "ai_asistan", "dinamik_qr", "otomasyon", "stok_pos"),
     ),
+    # Faz 6H — hukuk bürosu. Paket anahtarı paketin ana modülüyle aynı (`hukuk_burosu`; adresler ayrı:
+    # /moduller/hukuk-burosu ve /moduller/paket/hukuk-burosu). Avukatlık Kanunu m.55 ve TBB reklam yasağı
+    # yüzünden yorum sayfası (google_yorum_sayfasi), AI asistan ve e-posta pazarlama BİLEREK yok; kartvizit
+    # pasif taslak olarak kurulur. `zaman_takibi` eklenmedi: ajansın kendi proje saatleri içindir (müşteri
+    # sekmesi yok); büronun dosya saatleri modülün kendi zaman kaydında.
+    SektorPaketi(
+        anahtar="hukuk_burosu",
+        ad_varsayilan={"tr": "Hukuk bürosu", "en": "Law office"},
+        ikon="Scale",
+        moduller=("hukuk_burosu", "randevu", "dijital_kartvizit", "belgeler"),
+    ),
 )
+
+#: Reklam yasağı olan meslek paketleri: yorum isteme / AI asistan / e-posta pazarlama modülü içeremez.
+REKLAM_YASAKLI_PAKETLER = frozenset({"hukuk_burosu"})
+REKLAM_YASAKLI_MODULLER = frozenset({"google_yorum_sayfasi", "ai_asistan", "eposta_pazarlama"})
 
 PAKET_SOZLUGU: Dict[str, SektorPaketi] = {p.anahtar: p for p in SEKTOR_PAKETLERI}
 
@@ -142,8 +157,14 @@ def paket_hatalari() -> List[str]:
             hatalar.append(f"{p.anahtar}: en az iki modül")
         if len(set(p.moduller)) != len(p.moduller):
             hatalar.append(f"{p.anahtar}: modül tekrarı")
-        if manifest.modul(p.anahtar) is not None:
+        # Paket anahtarı bir modül anahtarıyla aynı olamaz — paketin KENDİ ana modülü değilse (Faz 6H:
+        # `hukuk_burosu` paketi `hukuk_burosu` modülünü içeriyor; vitrin adresleri ve i18n anahtarları ayrı).
+        if manifest.modul(p.anahtar) is not None and p.anahtar not in p.moduller:
             hatalar.append(f"{p.anahtar}: modül anahtarıyla çakışıyor")
+        if p.anahtar in REKLAM_YASAKLI_PAKETLER:
+            for k in p.moduller:
+                if k in REKLAM_YASAKLI_MODULLER:
+                    hatalar.append(f"{p.anahtar}: {k} reklam yasağı olan pakette olamaz")
         for k in p.moduller:
             m = manifest.modul(k)
             if m is None:
@@ -155,5 +176,6 @@ def paket_hatalari() -> List[str]:
 
 __all__ = [
     "SektorPaketi", "SEKTOR_PAKETLERI", "PAKET_SOZLUGU", "paket", "satilabilir_mi", "iceren_paketler",
+    "REKLAM_YASAKLI_PAKETLER", "REKLAM_YASAKLI_MODULLER",
     "acilacak_moduller", "paket_hatalari",
 ]

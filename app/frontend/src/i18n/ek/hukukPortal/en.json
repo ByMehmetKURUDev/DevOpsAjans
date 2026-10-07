@@ -1,0 +1,63 @@
+{
+  "hukukPortal": {
+    "baslik": "Client information page",
+    "altBaslik": "Your private information page",
+    "yukleniyor": "Loading…",
+    "merhaba": "Hello {{ad}},",
+    "gizlilik": "This page is for you only. Do not share the link with others; the office can renew or close it.",
+    "dosyaYok": "No matter information is shared with you at the moment.",
+    "dosyaNo": "Matter {{sira}}",
+    "tur": {
+      "dava": "Lawsuit",
+      "icra": "Enforcement",
+      "arabuluculuk": "Mediation",
+      "danismanlik": "Advisory",
+      "sozlesme": "Contract",
+      "diger": "Other"
+    },
+    "durumEtiket": "Status",
+    "dosyaDurum": {
+      "acik": "In progress",
+      "beklemede": "On hold",
+      "kapandi": "Closed"
+    },
+    "sonrakiDurusma": "Next hearing",
+    "durusmaYok": "No hearing scheduled",
+    "belgeler": "Shared documents",
+    "belgeYok": "No shared documents.",
+    "indir": "Download",
+    "masraf": "Expense statement",
+    "masrafYok": "No recorded expenses.",
+    "masrafToplam": "Total {{tutar}} ({{sayi}} items)",
+    "masrafPdf": "Download statement (PDF)",
+    "masrafNot": "The statement is for information only; no payment is taken on this page.",
+    "mesaj": {
+      "baslik": "Message to the office",
+      "yer": "Your message",
+      "not": "Your message goes only to the office. For urgent or time-sensitive matters, please call the office.",
+      "gonder": "Send",
+      "gonderildi": "Your message has been sent.",
+      "siz": "You",
+      "buro": "Office",
+      "dosya": "Related matter",
+      "dosyaGenel": "General"
+    },
+    "durum": {
+      "gecersiz": "This link is not valid.",
+      "kapali": "This link can no longer be used. Contact the office for a current link.",
+      "hata": "The page could not be opened right now. Please try again later.",
+      "yukleniyor": "Loading…",
+      "hazir": "Ready"
+    },
+    "hata": {
+      "genel": "Could not send. Please try again.",
+      "cok_hizli": "Too many messages; please try again later.",
+      "zorunlu": "The message cannot be empty.",
+      "cok_uzun": "The message is too long.",
+      "baglanti_kapali": "The link is closed.",
+      "baglanti_gecersiz": "The link is not valid."
+    },
+    "dil": "Language",
+    "altBilgi": "This page is for information only."
+  }
+}

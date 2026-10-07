@@ -48,7 +48,8 @@
       ],
       "sektor_paketleri": [
         "klinik_guzellik",
-        "ajans_serbest"
+        "ajans_serbest",
+        "hukuk_burosu"
       ]
     },
     {
@@ -121,7 +122,8 @@
         "klinik_guzellik",
         "teknik_servis",
         "egitim_etkinlik",
-        "ajans_serbest"
+        "ajans_serbest",
+        "hukuk_burosu"
       ]
     },
     {
@@ -218,12 +220,14 @@
       "durum": "yayinda",
       "paket": null,
       "ilgili": [
+        "hukuk_burosu",
         "randevu",
-        "otomasyon",
-        "ai_asistan",
-        "eposta_pazarlama"
+        "dijital_kartvizit",
+        "otomasyon"
       ],
-      "sektor_paketleri": []
+      "sektor_paketleri": [
+        "hukuk_burosu"
+      ]
     },
     {
       "anahtar": "icerik_studyosu",
@@ -291,6 +295,23 @@
       ],
       "sektor_paketleri": [
         "egitim_etkinlik"
+      ]
+    },
+    {
+      "anahtar": "hukuk_burosu",
+      "slug": "hukuk-burosu",
+      "ikon": "Scale",
+      "kategori": "sektorel",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "randevu",
+        "dijital_kartvizit",
+        "belgeler",
+        "saha_servisi"
+      ],
+      "sektor_paketleri": [
+        "hukuk_burosu"
       ]
     },
     {
@@ -561,6 +582,20 @@
       ],
       "setler": [
         "eticaret_kobi"
+      ]
+    },
+    {
+      "anahtar": "hukuk_burosu",
+      "slug": "hukuk-burosu",
+      "ikon": "Scale",
+      "moduller": [
+        "hukuk_burosu",
+        "randevu",
+        "dijital_kartvizit",
+        "belgeler"
+      ],
+      "setler": [
+        "hukuk_burosu"
       ]
     }
   ]
