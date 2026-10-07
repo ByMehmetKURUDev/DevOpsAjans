@@ -192,6 +192,10 @@
       "stok_pos": {
         "ad": "Stok ve satış noktası (POS)",
         "aciklama": "Kafe, butik, küçük market ve kuaför ürün satışı için: barkodlu ürün ve varyant, şube başına stok, giriş/çıkış/sayım/transfer, kritik stok uyarısı, dokunmatik kasa ekranı, mali olmayan fiş, iade, gün sonu raporu, kâr ve stok değeri raporları; QR menü ürünleriyle bağlı çalışır."
+      },
+      "egitim": {
+        "ad": "Eğitim ve kurs yönetimi",
+        "aciklama": "Kurs merkezi, dershane, atölye ve eğitmenler için: kurs sayfası ve kayıt formu (veli bilgisiyle), tekrarlayan ders programı, QR ile yoklama, online dersler (video bağlantısı, dosya, ilerleme), quiz ve ödev, AI ile soru taslağı, koşullu sertifika ve doğrulama sayfası."
       }
     },
     "kategori": {
@@ -253,7 +257,10 @@
       "aylik_etkinlik_siniri": "Ayda en çok yeni etkinlik",
       "kapasite_siniri": "Etkinlik başına en çok katılımcı",
       "sube_siniri": "En çok aktif şube / depo",
-      "kasa_kullanici_siniri": "Ayda en çok kasa kullanıcısı"
+      "kasa_kullanici_siniri": "Ayda en çok kasa kullanıcısı",
+      "kurs_siniri": "En çok kurs",
+      "ogrenci_siniri": "En çok öğrenci (aktif + bekleme)",
+      "ai_hakki": "Aylık AI soru üretimi"
     },
     "musteri": {
       "baslik": "Modüllerim",

@@ -192,6 +192,10 @@
       "stok_pos": {
         "ad": "Lager und Kasse (POS)",
         "aciklama": "Für Cafés, Boutiquen, kleine Läden und Friseure mit Produktverkauf: Produkte mit Barcode und Varianten, Bestand je Filiale, Ein-/Ausgang, Inventur, Umlagerung, Mindestbestandswarnung, Touch-Kasse, nicht-fiskalischer Beleg, Erstattungen, Tagesabschluss, Gewinn- und Bestandswertberichte; arbeitet mit verknüpften QR-Menüprodukten."
+      },
+      "egitim": {
+        "ad": "Kurse und Lernen",
+        "aciklama": "Für Kurszentren, Nachhilfeschulen, Workshops und Lehrkräfte: Kursseite und Anmeldeformular (mit Angaben der Erziehungsberechtigten), wiederkehrender Stundenplan, Anwesenheit per QR, Online-Lektionen (Video-Link, Dateien, Fortschritt), Quiz und Hausaufgaben, KI-Fragenentwürfe, Zertifikate mit Bedingungen und Prüfseite."
       }
     },
     "kategori": {
@@ -253,7 +257,10 @@
       "aylik_etkinlik_siniri": "Höchstens neue Veranstaltungen pro Monat",
       "kapasite_siniri": "Höchstens Teilnehmende pro Veranstaltung",
       "sube_siniri": "Max. aktive Filialen / Lager",
-      "kasa_kullanici_siniri": "Max. Kassennutzer pro Monat"
+      "kasa_kullanici_siniri": "Max. Kassennutzer pro Monat",
+      "kurs_siniri": "Höchstzahl an Kursen",
+      "ogrenci_siniri": "Höchstzahl an Teilnehmenden (aktiv + wartend)",
+      "ai_hakki": "KI-Fragenerstellungen pro Monat"
     },
     "musteri": {
       "baslik": "Meine Module",

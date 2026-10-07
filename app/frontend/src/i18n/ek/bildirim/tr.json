@@ -79,7 +79,8 @@
       "etkinlik_kayit": "Etkinlik: yeni kayıt",
       "etkinlik_iptal": "Etkinlik: bilet iptal edildi",
       "haftalik_ozet": "Haftalık özet (Pazartesi sabahı)",
-      "stok_kritik": "Kritik stok seviyesine inen ürünler"
+      "stok_kritik": "Kritik stok seviyesine inen ürünler",
+      "egitim_kayit": "Eğitim: yeni öğrenci kaydı"
     },
     "kanal": {
       "inapp": "Panel",

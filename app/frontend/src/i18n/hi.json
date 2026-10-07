@@ -494,7 +494,8 @@
     "tabEpostaPazarlama": "ईमेल मार्केटिंग",
     "tabSahaServisi": "फ़ील्ड सर्विस",
     "tabEtkinlik": "कार्यक्रम",
-    "tabStokPos": "स्टॉक और POS"
+    "tabStokPos": "स्टॉक और POS",
+    "tabEgitim": "पाठ्यक्रम"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

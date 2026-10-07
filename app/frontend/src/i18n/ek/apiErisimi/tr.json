@@ -69,7 +69,10 @@
       "etkinlik_giris": "Etkinlikte kapıda giriş",
       "etkinlik_iptal": "Etkinlik bileti iptal edildi",
       "pos_satis": "POS satışı tamamlandı (yüksek hacim)",
-      "stok_kritik": "Ürün kritik stok seviyesine indi"
+      "stok_kritik": "Ürün kritik stok seviyesine indi",
+      "egitim_kayit": "Kursa yeni kayıt (öğrenci ya da bekleme listesi)",
+      "egitim_tamamlandi": "Kurs tamamlandı, sertifika verildi",
+      "egitim_devamsizlik": "Öğrenci devamsızlık eşiğine ulaştı"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

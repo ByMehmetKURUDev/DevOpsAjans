@@ -124,9 +124,9 @@
       },
       "egitim_etkinlik": {
         "ad": "Bildung, Kurse und Veranstaltungen",
-        "ozet": "Anmeldeseite und QR-Tickets, ein regelmäßiger Newsletter und Termine für Kennenlerngespräche oder Probestunden.",
+        "ozet": "Kursseite, Stundenplan, Anwesenheit und Zertifikate; Veranstaltungsanmeldung und QR-Tickets, regelmäßiger Newsletter, Kennenlerngespräch oder Probestunde.",
         "kimIcin": "Kurse, Bildungszentren, Workshops, Vereine und alle, die Seminare oder Tage der offenen Tür veranstalten.",
-        "neden": "Das Modul Veranstaltungen und Tickets übernimmt Anmeldung und Einlass, das E-Mail-Marketing hält regelmäßig Kontakt zu den Teilnehmenden, und die Terminbuchung dient für Kennenlerngespräche oder Probestunden."
+        "neden": "Das Kursmodul verwaltet Kurse, Teilnehmende, Anwesenheit und Zertifikate; das Veranstaltungs- und Ticketmodul übernimmt Anmeldung und Einlass bei Seminaren und Infotagen, E-Mail-Marketing hält den Kontakt zu den Teilnehmenden, und das Terminmodul dient für Kennenlerngespräche oder Probestunden."
       },
       "ajans_serbest": {
         "ad": "Agentur und Freelancer",
@@ -539,6 +539,26 @@
           {
             "s": "Muss ich meine QR-Menüprodukte neu eingeben?",
             "c": "Nein. Sie übernehmen QR-Menüprodukte mit einem Klick verknüpft; bei Nullbestand erscheinen sie im Menü als „ausverkauft“."
+          }
+        ]
+      },
+      "egitim": {
+        "ozet": "Kursseite und Anmeldung, Stundenplan, Anwesenheit per QR, Online-Lektionen, Quiz/Hausaufgaben und prüfbare Zertifikate.",
+        "kimIcin": "Kurszentren, Nachhilfeschulen, Sprachschulen, Workshops, Coaches und freie Lehrkräfte.",
+        "ozellikler": [
+          "Kursseite, Anmeldeformular, Plätze und Warteliste; Angaben der Erziehungsberechtigten bei Minderjährigen",
+          "Wiederkehrender Stundenplan, Kalender und Anwesenheit per QR oder Code",
+          "Online-Lektionen, Dateien, Quiz und Hausaufgaben; KI-Fragenentwürfe",
+          "Zertifikat mit Bedingungen (PDF) und öffentliche Prüfseite"
+        ],
+        "sss": [
+          {
+            "s": "Kann ich Kursgebühren über die Website einziehen?",
+            "c": "Derzeit nicht: Die Gebühr wird als Text angezeigt, den Zahlungsweg beschreiben Sie selbst. Wenn Sie Online-Zahlung brauchen, vermerken Sie es im Angebotsformular."
+          },
+          {
+            "s": "Wie werden Daten von Kindern geschützt?",
+            "c": "Geburtsdatum, Ausweisnummer oder Adresse werden nie abgefragt — nur der Name und die Kontaktdaten der Erziehungsberechtigten. Nach der von Ihnen festgelegten Frist wird automatisch anonymisiert."
           }
         ]
       }

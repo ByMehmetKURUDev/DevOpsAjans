@@ -69,7 +69,10 @@
       "etkinlik_giris": "活动现场入场",
       "etkinlik_iptal": "活动门票已取消",
       "pos_satis": "收银销售完成（高频）",
-      "stok_kritik": "商品降至库存预警线"
+      "stok_kritik": "商品降至库存预警线",
+      "egitim_kayit": "新的课程报名（学员或候补）",
+      "egitim_tamamlandi": "课程完成，已颁发证书",
+      "egitim_devamsizlik": "学员缺勤达到阈值"
     },
     "anahtar": {
       "yeni": "新建密钥",

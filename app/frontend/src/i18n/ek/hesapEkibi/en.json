@@ -44,7 +44,9 @@
       "etkinlik": "Events and tickets (management)",
       "etkinlik_giris": "Events: ticket check-in at the door",
       "stok": "Stock & POS — management (products, cost, stock, reports)",
-      "kasa": "Stock & POS — till only (sales screen)"
+      "kasa": "Stock & POS — till only (sales screen)",
+      "egitim": "Courses (management)",
+      "egitim_egitmen": "Courses: instructor (own courses only)"
     },
     "durum": {
       "davet": "Invitation pending",

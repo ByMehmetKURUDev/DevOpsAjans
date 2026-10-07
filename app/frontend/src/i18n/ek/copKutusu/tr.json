@@ -99,7 +99,11 @@
       "saha_teknisyenleri": "Teknisyen",
       "etkinlikler": "Etkinlik",
       "etkinlik_bilet_turleri": "Bilet türü",
-      "etkinlik_indirim_kodlari": "İndirim kodu (etkinlik)"
+      "etkinlik_indirim_kodlari": "İndirim kodu (etkinlik)",
+      "egitim_kurslari": "Kurs",
+      "egitim_oturumlari": "Kurs dersi (program)",
+      "egitim_dersleri": "Ders içeriği",
+      "egitim_quizleri": "Quiz / ödev"
     }
   }
 }

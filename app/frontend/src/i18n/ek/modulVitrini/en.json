@@ -124,9 +124,9 @@
       },
       "egitim_etkinlik": {
         "ad": "Training, courses and events",
-        "ozet": "Registration page and QR tickets, a regular newsletter, and bookings for intro calls or trial lessons.",
+        "ozet": "Course page, class schedule, attendance and certificates; event registration and QR tickets, a regular newsletter, intro calls or trial lesson bookings.",
         "kimIcin": "Courses, training centres, workshops, associations and anyone running seminars or open days.",
-        "neden": "Events and tickets handles registration and door check-in, email marketing keeps you in regular touch with attendees, and the booking module is used for intro calls or trial lessons."
+        "neden": "The courses module manages courses, students, attendance and certificates; the events and tickets module handles registration and check-in for seminars and open days, email marketing keeps in touch with participants, and the booking module is used for intro calls or trial lessons."
       },
       "ajans_serbest": {
         "ad": "Agency and freelancer",
@@ -539,6 +539,26 @@
           {
             "s": "Do I have to re-enter my QR menu products?",
             "c": "No. Import QR menu products as linked items in one click; when stock runs out they show as “sold out” on the menu."
+          }
+        ]
+      },
+      "egitim": {
+        "ozet": "Course page and registration, class schedule, QR attendance, online lessons, quizzes/assignments and verifiable certificates.",
+        "kimIcin": "Course centres, tutoring schools, language schools, workshops, coaches and independent instructors.",
+        "ozellikler": [
+          "Course page, registration form, capacity and waiting list; parent details for under-18s",
+          "Recurring class schedule, calendar and attendance by QR or code",
+          "Online lessons, files, quizzes and assignments; AI-drafted questions",
+          "Conditional certificate (PDF) and a public verification page"
+        ],
+        "sss": [
+          {
+            "s": "Can I take course fees through the site?",
+            "c": "Not yet: the fee is shown as text and you describe how to pay. If you need online payments, mention it in the quote form."
+          },
+          {
+            "s": "How is children's data protected?",
+            "c": "We never ask for a date of birth, ID number or address — only the name and the parent's contact details. Data is anonymised automatically after the period you set."
           }
         ]
       }

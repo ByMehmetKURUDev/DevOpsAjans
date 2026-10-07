@@ -3,6 +3,7 @@ import {
   Calculator,
   CalendarCheck,
   FileUp,
+  GraduationCap,
   IdCard,
   LifeBuoy,
   Mail,
@@ -24,6 +25,7 @@ export const KAYNAK_IKONU: Record<Kaynak, LucideIcon> = {
   geri_bildirim: Bug,
   icerik_revizyon: PenTool,
   belge: FileUp,
+  egitim: GraduationCap,
 };
 
 export const DURUM_RENGI: Record<Durum, string> = {

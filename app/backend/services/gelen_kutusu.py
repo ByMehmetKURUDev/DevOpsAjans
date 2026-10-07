@@ -68,12 +68,14 @@ logger = logging.getLogger(__name__)
 
 KAYNAKLAR: Tuple[str, ...] = (
     "iletisim", "fiyat_teklifi", "destek", "sohbet", "kartvizit", "randevu", "geri_bildirim", "icerik_revizyon", "belge",
+    # Faz 6K — ajansın kendi kursuna herkese açık formdan gelen kayıt başvurusu.
+    "egitim",
 )
 DURUMLAR: Tuple[str, ...] = ("yeni", "yanit_bekliyor", "okundu", "kapandi")
 BEKLEYEN = frozenset({"yeni", "yanit_bekliyor"})
 DURUM_SUZGECLERI: Tuple[str, ...] = ("bekleyen", "hepsi") + DURUMLAR
 #: Kendi "gördüm/hallettim" alanı olmayan kaynaklar → `gelen_kutusu_isaretleri`.
-ISARETLI_KAYNAKLAR: Tuple[str, ...] = ("fiyat_teklifi", "randevu", "icerik_revizyon", "belge")
+ISARETLI_KAYNAKLAR: Tuple[str, ...] = ("fiyat_teklifi", "randevu", "icerik_revizyon", "belge", "egitim")
 ISARET_DURUMLARI: Tuple[str, ...] = ("okundu", "kapandi", "yeni")
 #: Kendi yanıt yolu olan kaynaklar (e-posta yanıtı yerine).
 KENDI_YANITI_OLAN = frozenset({"destek", "sohbet"})
@@ -115,6 +117,7 @@ KAYNAK_TANIMI = {
     "geri_bildirim": "a bug report / feedback from an existing client",
     "icerik_revizyon": "a client's revision request for a social media post the agency prepared",
     "belge": "a client uploaded a document the agency had requested",
+    "egitim": "a student (or a parent, for a minor) enrolled in one of the agency's own courses via the public course page",
 }
 
 
@@ -657,6 +660,42 @@ async def _randevu(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, A
     return sonuc
 
 
+async def _egitim(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
+    """Faz 6K — ajansın KENDİ kurslarına formdan gelen kayıt (müşterilerin kursları kendi panellerinde).
+    Öğrenci ayrıldıysa kapandı; yoksa işaret; yoksa yeni. 18 yaş altında yanıt veliye gider."""
+    from models.egitim import EgitimKurslari as K
+    from models.egitim import EgitimOgrencileri as O
+
+    s = (select(O, K.ad).join(K, K.id == O.kurs_id)
+         .where(K.hesap_email.is_(None), O.kaynak == "form", O.anonim.is_(False)))
+    if sz.kimlik is not None:
+        s = s.where(O.id == sz.kimlik)
+    if sz.durum in ("bekleyen", "yeni", "okundu"):
+        s = s.where(O.durum != "ayrildi")
+    desen = _desen(sz.q)
+    if desen:
+        s = s.where(_benzer((O.ad, O.eposta, O.telefon, O.veli_ad, O.veli_eposta, K.ad), desen))
+    s = s.where(*_tarih_kosullari(O.created_at, sz))
+    satirlar = (await db.execute(s.order_by(O.created_at.desc(), O.id.desc()).limit(KAYNAK_SINIRI))).all()
+    isaretler = await bg.isaretler(db, "egitim")
+    sonuc = []
+    for o, kurs_adi in satirlar:
+        kendi_kapali = o.durum == "ayrildi"
+        isaret = isaretler.get(int(o.id))
+        durum = "kapandi" if kendi_kapali else (isaret or "yeni")
+        eposta = eposta_duzelt(o.veli_eposta if o.cocuk and o.veli_eposta else o.eposta)
+        sonuc.append(_oge(
+            "egitim", o.id, kisi_ad=(o.veli_ad if o.cocuk and o.veli_ad else o.ad), kisi_eposta=eposta, baslik=kurs_adi,
+            ozet=ozet_metni(o.ad, "(bekleme listesi)" if o.durum == "bekleme" else ""), zaman=o.created_at, durum=durum,
+            hesap_email=None, ac="/admin?sekme=egitim", eylemler=_isaret_eylemleri("egitim", o.id, durum, isaret is not None, kendi_kapali),
+            yanit=_eposta_yaniti("egitim", o.id, eposta),
+            ek={"kurs": kurs_adi, "durum_ham": o.durum, "cocuk": bool(o.cocuk), "telefon": o.telefon or None, "dil": o.dil or None},
+            ayrinti={"kurs": kurs_adi, "ogrenci": o.ad, "durum_ham": o.durum, "cocuk": bool(o.cocuk), "telefon": o.telefon,
+                     "veli_ad": o.veli_ad, "veli_telefon": o.veli_telefon, "dil": o.dil},
+        ))
+    return sonuc
+
+
 async def _geri_bildirim(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
     from models.geri_bildirim import FeedbackItems as F
 
@@ -794,6 +833,7 @@ YUKLEYICILER = {
     "geri_bildirim": _geri_bildirim,
     "icerik_revizyon": _icerik_revizyon,
     "belge": _belge,
+    "egitim": _egitim,
 }
 
 

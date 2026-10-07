@@ -299,6 +299,15 @@ async def _etkinlik_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_bakim(db)
 
 
+async def _egitim_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 6K: ders hatırlatmaları (oturum başına bir kez), devamsızlık eşiği (öğrenci başına bir kez
+    # bilgilendirme + `egitim.devamsizlik`), biten kurs → tamamlandı (+ "otomatik sertifika"), saklama süresi
+    # dolan öğrenci/veli kişisel verisinin anonimleştirilmesi.
+    from services.egitim_kayit import zamanli_bakim
+
+    return await zamanli_bakim(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -342,6 +351,7 @@ GOREVLER: List[Gorev] = [
     Gorev("eposta_pazarlama", timedelta(0), _eposta_pazarlama),
     Gorev("saha_servisi", timedelta(hours=20), _saha_servisi),
     Gorev("etkinlik_bakimi", timedelta(0), _etkinlik_bakimi),
+    Gorev("egitim_bakimi", timedelta(0), _egitim_bakimi),
     Gorev("haftalik_ozet", timedelta(minutes=30), _haftalik_ozet, plan="haftalik_pazartesi"),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),

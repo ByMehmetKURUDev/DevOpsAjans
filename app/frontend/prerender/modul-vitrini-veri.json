@@ -168,10 +168,10 @@
       "durum": "yayinda",
       "paket": null,
       "ilgili": [
+        "egitim",
         "etkinlik_bilet",
         "randevu",
-        "ai_asistan",
-        "dinamik_qr"
+        "ai_asistan"
       ],
       "sektor_paketleri": [
         "egitim_etkinlik",
@@ -186,10 +186,10 @@
       "durum": "yayinda",
       "paket": null,
       "ilgili": [
+        "egitim",
         "eposta_pazarlama",
         "randevu",
-        "otomasyon",
-        "ai_asistan"
+        "otomasyon"
       ],
       "sektor_paketleri": [
         "egitim_etkinlik"
@@ -221,7 +221,8 @@
       "ilgili": [
         "randevu",
         "google_yorum_sayfasi",
-        "stok_pos"
+        "stok_pos",
+        "egitim"
       ],
       "sektor_paketleri": [
         "teknik_servis"
@@ -243,6 +244,23 @@
       "sektor_paketleri": [
         "restoran_kafe",
         "eticaret_kobi"
+      ]
+    },
+    {
+      "anahtar": "egitim",
+      "slug": "egitim",
+      "ikon": "GraduationCap",
+      "kategori": "sektorel",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "etkinlik_bilet",
+        "eposta_pazarlama",
+        "randevu",
+        "saha_servisi"
+      ],
+      "sektor_paketleri": [
+        "egitim_etkinlik"
       ]
     },
     {
@@ -477,6 +495,7 @@
       "slug": "egitim-etkinlik",
       "ikon": "Ticket",
       "moduller": [
+        "egitim",
         "etkinlik_bilet",
         "eposta_pazarlama",
         "randevu"

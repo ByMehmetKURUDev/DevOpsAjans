@@ -104,7 +104,8 @@
       "is_emri": "Saha iş emri",
       "etkinlik": "Etkinlik kaydı",
       "satis": "POS satışı",
-      "stok": "Stok ürünü"
+      "stok": "Stok ürünü",
+      "egitim": "Kurs öğrencisi"
     },
     "alan": {
       "id": "Kimlik",
@@ -178,7 +179,10 @@
       "sku": "SKU",
       "birim": "Birim",
       "miktar": "Miktar",
-      "esik": "Kritik eşik"
+      "esik": "Kritik eşik",
+      "veli_ad": "Veli adı",
+      "veli_eposta": "Veli e-postası",
+      "devamsizlik": "Devamsızlık (ders)"
     },
     "olay": {
       "aday_olusturuldu": "Yeni CRM adayı",
@@ -210,7 +214,10 @@
       "teklif_yanitsiz": "Teklif yanıtsız kaldı",
       "aday_hareketsiz": "Aday hareketsiz kaldı",
       "pos_satis": "POS satışı yapıldı",
-      "stok_kritik": "Ürün kritik stoka indi"
+      "stok_kritik": "Ürün kritik stoka indi",
+      "egitim_kayit": "Kursa kayıt",
+      "egitim_tamamlandi": "Kurs tamamlandı (sertifika)",
+      "egitim_devamsizlik": "Devamsızlık eşiği aşıldı"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Form, iletişim, site analizi ya da elle eklenen aday.",
@@ -242,7 +249,10 @@
       "teklif_yanitsiz": "Gönderilen teklif 3 ya da 7 gündür kabul ya da ret almadı (eşik başına bir kez; yeniden gönderilirse sayaç baştan başlar).",
       "aday_hareketsiz": "Açık aşamadaki adayda 7 ya da 14 gündür hareket yok (not, arama, aşama değişimi…). Yeni hareket sayacı sıfırlar.",
       "pos_satis": "Kasada satış tamamlandı (her fişte bir kez; müşteri adı bağlamda yok).",
-      "stok_kritik": "Ürünün toplam stoku kritik eşiğe indi (eşik üstüne çıkana kadar bir kez)."
+      "stok_kritik": "Ürünün toplam stoku kritik eşiğe indi (eşik üstüne çıkana kadar bir kez).",
+      "egitim_kayit": "Öğrenci kursa kaydoldu ya da bekleme listesine girdi (form, elle ya da CSV); 18 yaş altında kişi velidir.",
+      "egitim_tamamlandi": "Öğrenciye sertifika verildi (koşul sağlanınca kendiliğinden ya da elle).",
+      "egitim_devamsizlik": "Öğrenci kursta belirlenen sayıda derse gelmedi (her öğrenci için bir kez)."
     },
     "eylem": {
       "eposta": "E-posta gönder",

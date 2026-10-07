@@ -115,7 +115,13 @@
       "stok_urunleri": "منتج المخزون",
       "stok_tedarikcileri": "المورد",
       "stok_sayimlari": "جرد المخزون",
-      "pos_kasa_oturumlari": "جلسة الصندوق"
+      "pos_kasa_oturumlari": "جلسة الصندوق",
+      "egitim_kurslari": "الدورات",
+      "egitim_oturumlari": "جدول حصص الدورة",
+      "egitim_dersleri": "دروس الدورة",
+      "egitim_quizleri": "الاختبارات والواجبات",
+      "egitim_duyurulari": "إعلانات الدورة",
+      "egitim_ayarlari": "إعدادات التعليم"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

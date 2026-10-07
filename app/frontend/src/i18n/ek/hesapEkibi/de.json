@@ -44,7 +44,9 @@
       "etkinlik": "Veranstaltungen und Tickets (Verwaltung)",
       "etkinlik_giris": "Veranstaltungen: Ticketkontrolle am Einlass",
       "stok": "Lager & Kasse — Verwaltung (Produkte, Kosten, Bestand, Berichte)",
-      "kasa": "Lager & Kasse — nur Kasse (Verkaufsbildschirm)"
+      "kasa": "Lager & Kasse — nur Kasse (Verkaufsbildschirm)",
+      "egitim": "Kurse (Verwaltung)",
+      "egitim_egitmen": "Kurse: Lehrkraft (nur eigene Kurse)"
     },
     "durum": {
       "davet": "Einladung ausstehend",

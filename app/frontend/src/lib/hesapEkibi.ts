@@ -45,6 +45,9 @@ export const IZINLER = [
   // Faz 6P — stok ve POS: yönetim ve yalnız satış ekranı (kasa).
   'stok',
   'kasa',
+  // Faz 6K — eğitim (yönetim) ve eğitmen (yalnız kendi kursları: yoklama + not).
+  'egitim',
+  'egitim_egitmen',
 ] as const;
 export type Izin = (typeof IZINLER)[number];
 export type UyeRolu = 'yonetici' | 'uye' | 'fatura';
@@ -212,4 +215,5 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   sahaServisi: ['saha_yonetim', 'saha_teknisyen'],
   etkinlik: ['etkinlik', 'etkinlik_giris'],
   stokPos: ['stok', 'kasa'],
+  egitim: ['egitim', 'egitim_egitmen'],
 };

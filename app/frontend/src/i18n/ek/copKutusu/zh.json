@@ -99,7 +99,11 @@
       "saha_teknisyenleri": "技术人员",
       "etkinlikler": "活动",
       "etkinlik_bilet_turleri": "门票类型",
-      "etkinlik_indirim_kodlari": "折扣码（活动）"
+      "etkinlik_indirim_kodlari": "折扣码（活动）",
+      "egitim_kurslari": "课程",
+      "egitim_oturumlari": "课次（课表）",
+      "egitim_dersleri": "课节",
+      "egitim_quizleri": "测验 / 作业"
     }
   }
 }

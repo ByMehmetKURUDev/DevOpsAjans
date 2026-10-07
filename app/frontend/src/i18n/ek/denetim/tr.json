@@ -115,7 +115,13 @@
       "stok_urunleri": "Stok ürünü",
       "stok_tedarikcileri": "Tedarikçi",
       "stok_sayimlari": "Stok sayımı",
-      "pos_kasa_oturumlari": "Kasa oturumu"
+      "pos_kasa_oturumlari": "Kasa oturumu",
+      "egitim_kurslari": "Kurslar",
+      "egitim_oturumlari": "Kurs ders programı",
+      "egitim_dersleri": "Kurs ders içerikleri",
+      "egitim_quizleri": "Quiz ve ödevler",
+      "egitim_duyurulari": "Kurs duyuruları",
+      "egitim_ayarlari": "Eğitim ayarları"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

@@ -115,7 +115,13 @@
       "stok_urunleri": "Lagerprodukt",
       "stok_tedarikcileri": "Lieferant",
       "stok_sayimlari": "Inventur",
-      "pos_kasa_oturumlari": "Kassensitzung"
+      "pos_kasa_oturumlari": "Kassensitzung",
+      "egitim_kurslari": "Kurse",
+      "egitim_oturumlari": "Kurs-Stundenplan",
+      "egitim_dersleri": "Kurslektionen",
+      "egitim_quizleri": "Quiz und Hausaufgaben",
+      "egitim_duyurulari": "Kursmitteilungen",
+      "egitim_ayarlari": "Kurseinstellungen"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

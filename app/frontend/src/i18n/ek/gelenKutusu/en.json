@@ -14,7 +14,8 @@
       "randevu": "Booking",
       "geri_bildirim": "Bug report",
       "icerik_revizyon": "Content revision",
-      "belge": "Document"
+      "belge": "Document",
+      "egitim": "Course enrolment"
     },
     "durumSuzgeci": {
       "etiket": "Filter by status",
@@ -82,7 +83,11 @@
       "dosya": "Uploaded file",
       "yazisma": "Conversation",
       "ajans": "Agency",
-      "musteri": "Client"
+      "musteri": "Client",
+      "kurs": "Course",
+      "ogrenci": "Student",
+      "veli": "Parent",
+      "kayitDurumu": "Enrolment status"
     },
     "karar": {
       "bekliyor": "Awaiting decision",
@@ -126,6 +131,12 @@
       "oge_yok": "This item no longer exists.",
       "genel": "Something went wrong."
     },
-    "cevrildi": "Converted to project"
+    "cevrildi": "Converted to project",
+    "egitimDurum": {
+      "aktif": "Enrolled",
+      "bekleme": "On the waiting list",
+      "ayrildi": "Left",
+      "cocuk": "Under 18"
+    }
   }
 }

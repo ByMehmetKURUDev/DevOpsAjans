@@ -99,7 +99,11 @@
       "saha_teknisyenleri": "Technician",
       "etkinlikler": "Event",
       "etkinlik_bilet_turleri": "Ticket type",
-      "etkinlik_indirim_kodlari": "Discount code (event)"
+      "etkinlik_indirim_kodlari": "Discount code (event)",
+      "egitim_kurslari": "Course",
+      "egitim_oturumlari": "Course class (schedule)",
+      "egitim_dersleri": "Lesson",
+      "egitim_quizleri": "Quiz / assignment"
     }
   }
 }

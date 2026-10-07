@@ -167,6 +167,27 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 20,
         "ebeveyn": "etkinlikler",
     },
+    # Faz 6K: kurs — oturumları, dersleri ve quiz/ödevleriyle birlikte silinir, birlikte geri gelir.
+    # Öğrenci kayıtları silinmiyor (kişisel alanları silme anında anonimleşiyor).
+    "egitim_kurslari": {"sahip": "hesap_email", "sira": 10},
+    "egitim_oturumlari": {
+        "sahip_sorgu": "SELECT hesap_email FROM egitim_kurslari WHERE id = :v",
+        "sahip_alan": "kurs_id",
+        "sira": 20,
+        "ebeveyn": "egitim_kurslari",
+    },
+    "egitim_dersleri": {
+        "sahip_sorgu": "SELECT hesap_email FROM egitim_kurslari WHERE id = :v",
+        "sahip_alan": "kurs_id",
+        "sira": 20,
+        "ebeveyn": "egitim_kurslari",
+    },
+    "egitim_quizleri": {
+        "sahip_sorgu": "SELECT hesap_email FROM egitim_kurslari WHERE id = :v",
+        "sahip_alan": "kurs_id",
+        "sira": 20,
+        "ebeveyn": "egitim_kurslari",
+    },
     # Faz 4W: otomasyon kuralı (müşteride hesabın) ve özel alan tanımı (ajans; değerler kalıyor).
     "otomasyon_kurallari": {"sahip": "hesap_email", "sira": 10},
     "ozel_alanlar": {"sira": 10},

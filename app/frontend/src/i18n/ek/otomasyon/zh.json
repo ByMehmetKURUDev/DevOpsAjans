@@ -104,7 +104,8 @@
       "is_emri": "现场服务工单",
       "etkinlik": "活动报名",
       "satis": "收银销售",
-      "stok": "库存商品"
+      "stok": "库存商品",
+      "egitim": "课程学员"
     },
     "alan": {
       "id": "编号",
@@ -178,7 +179,10 @@
       "sku": "SKU",
       "birim": "单位",
       "miktar": "数量",
-      "esik": "阈值"
+      "esik": "阈值",
+      "veli_ad": "家长姓名",
+      "veli_eposta": "家长邮箱",
+      "devamsizlik": "缺勤（节）"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -210,7 +214,10 @@
       "teklif_yanitsiz": "报价未获回复",
       "aday_hareketsiz": "线索无进展",
       "pos_satis": "完成一笔收银销售",
-      "stok_kritik": "商品降至库存预警线"
+      "stok_kritik": "商品降至库存预警线",
+      "egitim_kayit": "课程报名",
+      "egitim_tamamlandi": "完成课程（证书）",
+      "egitim_devamsizlik": "缺勤达到阈值"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -242,7 +249,10 @@
       "teklif_yanitsiz": "已发送的报价在 3 天或 7 天内既未接受也未拒绝（每个阈值一次；重新发送后重新计时）。",
       "aday_hareketsiz": "处于进行中阶段的线索已 7 天或 14 天没有动态（备注、电话、阶段变更…）。有新动态后重新计时。",
       "pos_satis": "收银完成一笔销售（每张小票一次；上下文不含顾客姓名）。",
-      "stok_kritik": "商品总库存降至阈值（回升前只触发一次）。"
+      "stok_kritik": "商品总库存降至阈值（回升前只触发一次）。",
+      "egitim_kayit": "学员报名课程或加入候补名单（表单、手动或 CSV）；未满 18 岁时联系人为家长。",
+      "egitim_tamamlandi": "已向学员颁发证书（满足条件自动颁发或手动颁发）。",
+      "egitim_devamsizlik": "学员缺勤达到设定的节数（每名学员一次）。"
     },
     "eylem": {
       "eposta": "发送邮件",

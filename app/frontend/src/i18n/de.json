@@ -494,7 +494,8 @@
     "tabEpostaPazarlama": "E-Mail-Marketing",
     "tabSahaServisi": "Außendienst",
     "tabEtkinlik": "Veranstaltungen",
-    "tabStokPos": "Lager & Kasse"
+    "tabStokPos": "Lager & Kasse",
+    "tabEgitim": "Kurse"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

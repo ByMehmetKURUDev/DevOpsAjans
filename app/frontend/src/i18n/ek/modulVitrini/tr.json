@@ -124,9 +124,9 @@
       },
       "egitim_etkinlik": {
         "ad": "Eğitim, kurs ve etkinlik",
-        "ozet": "Kayıt sayfası ve QR bilet, düzenli bülten, tanışma görüşmesi ya da deneme dersi randevusu.",
+        "ozet": "Kurs sayfası, ders programı, yoklama ve sertifika; etkinlik kaydı ve QR bilet, düzenli bülten, tanışma görüşmesi ya da deneme dersi randevusu.",
         "kimIcin": "Kurslar, eğitim merkezleri, atölyeler, dernekler ve seminer ya da tanıtım günü düzenleyenler.",
-        "neden": "Etkinlik ve bilet modülü kaydı ve kapı girişini yönetir, e-posta pazarlama katılımcılarla düzenli iletişim kurar, randevu modülü tanışma görüşmesi ya da deneme dersi için kullanılır."
+        "neden": "Eğitim modülü kursları, öğrencileri, yoklamayı ve sertifikayı yönetir; etkinlik ve bilet modülü seminer ve tanıtım günlerinin kaydını ve kapı girişini yönetir, e-posta pazarlama katılımcılarla düzenli iletişim kurar, randevu modülü tanışma görüşmesi ya da deneme dersi için kullanılır."
       },
       "ajans_serbest": {
         "ad": "Ajans ve serbest çalışan",
@@ -539,6 +539,26 @@
           {
             "s": "QR menüdeki ürünleri yeniden girmem gerekir mi?",
             "c": "Hayır. QR menü ürünlerini tek tıkla bağlı olarak aktarırsınız; stok bitince menüde “tükendi” görünür."
+          }
+        ]
+      },
+      "egitim": {
+        "ozet": "Kurs sayfası ve kayıt, ders programı, QR ile yoklama, online dersler, quiz/ödev ve doğrulanabilir sertifika.",
+        "kimIcin": "Kurs merkezleri, dershaneler, dil okulları, atölyeler, koçlar ve bağımsız eğitmenler.",
+        "ozellikler": [
+          "Kurs sayfası, kayıt formu, kontenjan ve bekleme listesi; 18 yaş altında veli bilgisi",
+          "Tekrarlayan ders programı, takvim ve QR ya da kodla yoklama",
+          "Online dersler, dosyalar, quiz ve ödev; AI ile soru taslağı",
+          "Koşullu sertifika (PDF) ve herkese açık doğrulama sayfası"
+        ],
+        "sss": [
+          {
+            "s": "Kurs ücretini site üzerinden alabilir miyim?",
+            "c": "Şu an hayır: ücret bilgisi metin olarak gösterilir, ödeme yolunu siz belirtirsiniz. Online tahsilat ihtiyacınızı teklif formunda yazın."
+          },
+          {
+            "s": "Çocuk öğrencilerin verisi nasıl korunuyor?",
+            "c": "Doğum tarihi, kimlik numarası ya da adres sorulmaz; yalnız ad ve veli iletişim bilgisi alınır. Belirlediğiniz süre dolunca veriler kendiliğinden anonimleştirilir."
           }
         ]
       }

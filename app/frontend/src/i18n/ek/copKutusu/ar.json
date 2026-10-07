@@ -99,7 +99,11 @@
       "saha_teknisyenleri": "فني",
       "etkinlikler": "فعالية",
       "etkinlik_bilet_turleri": "نوع التذكرة",
-      "etkinlik_indirim_kodlari": "كود خصم (فعالية)"
+      "etkinlik_indirim_kodlari": "كود خصم (فعالية)",
+      "egitim_kurslari": "دورة",
+      "egitim_oturumlari": "حصة الدورة (الجدول)",
+      "egitim_dersleri": "درس",
+      "egitim_quizleri": "اختبار / واجب"
     }
   }
 }

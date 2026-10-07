@@ -455,6 +455,9 @@ export const NOINDEX_ROUTES = [
   // (/etkinlikler/...); site haritasına girmez (görünürlük etkinlik ayarı — robots'u Pages Function yazıyor).
   '/etkinlik',
   '/etkinlikler',
+  // Faz 6K: eğitim — kurs sayfası, öğrenci/yoklama/sertifika/okutucu bağlantıları, kurs listesi
+  // (/egitim/...); site haritasına girmez (görünürlük kurs ayarı — robots'u Pages Function yazıyor).
+  '/egitim',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

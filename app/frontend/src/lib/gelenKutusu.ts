@@ -17,6 +17,7 @@ export const KAYNAKLAR = [
   'geri_bildirim',
   'icerik_revizyon',
   'belge',
+  'egitim',
 ] as const;
 export type Kaynak = (typeof KAYNAKLAR)[number];
 

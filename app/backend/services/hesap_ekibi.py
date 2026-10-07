@@ -92,6 +92,11 @@ IZINLER: Tuple[str, ...] = (
     # varsayılanında yok) ve `kasa` YALNIZ satış ekranı (üyenin varsayılanında var: kasiyer = üye).
     "stok",
     "kasa",
+    # Faz 6K — eğitim: `egitim` yönetim (kurs, öğrenci + veli kişisel verisi, duyuru, sertifika; üyenin
+    # varsayılanında yok), `egitim_egitmen` YALNIZ e-postası kursun eğitmen listesinde geçen kurslarda yoklama +
+    # ödev notu (iletişim/veli bilgisi görmez; üyenin varsayılanında yok — ayrıca verilir).
+    "egitim",
+    "egitim_egitmen",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -133,7 +138,7 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "pazarlama"}),
-        # Faz 5I/6S/6E–6P arası varsayılan (icerik, saha ve etkinlik izinleri var; stok ve kasa yok).
+        # Faz 5I/6S/6E–6P/6K arası varsayılan (icerik, saha ve etkinlik izinleri var; stok, kasa ve egitim izinleri yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris"}),
@@ -230,6 +235,8 @@ OLAY_IZNI: Dict[str, str] = {
     # Faz 6E — etkinliğe yeni kayıt / katılımcı iptali (sahibine).
     "etkinlik_kayit": "etkinlik",
     "etkinlik_iptal": "etkinlik",
+    # Faz 6K — kursa yeni kayıt (sahibine).
+    "egitim_kayit": "egitim",
 }
 
 DAVET_OLAYI = "hesap_davet"

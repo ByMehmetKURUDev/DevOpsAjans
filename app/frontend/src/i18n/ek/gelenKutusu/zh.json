@@ -14,7 +14,8 @@
       "randevu": "预约",
       "geri_bildirim": "错误报告",
       "icerik_revizyon": "内容修改",
-      "belge": "文件"
+      "belge": "文件",
+      "egitim": "课程报名"
     },
     "durumSuzgeci": {
       "etiket": "按状态筛选",
@@ -82,7 +83,11 @@
       "dosya": "已上传文件",
       "yazisma": "对话记录",
       "ajans": "机构",
-      "musteri": "客户"
+      "musteri": "客户",
+      "kurs": "课程",
+      "ogrenci": "学员",
+      "veli": "家长",
+      "kayitDurumu": "报名状态"
     },
     "karar": {
       "bekliyor": "等待决定",
@@ -126,6 +131,12 @@
       "oge_yok": "此项目已不存在。",
       "genel": "出现问题。"
     },
-    "cevrildi": "已转为项目"
+    "cevrildi": "已转为项目",
+    "egitimDurum": {
+      "aktif": "已报名",
+      "bekleme": "候补中",
+      "ayrildi": "已退出",
+      "cocuk": "未满 18 岁"
+    }
   }
 }

@@ -99,7 +99,11 @@
       "saha_teknisyenleri": "तकनीशियन",
       "etkinlikler": "कार्यक्रम",
       "etkinlik_bilet_turleri": "टिकट प्रकार",
-      "etkinlik_indirim_kodlari": "डिस्काउंट कोड (कार्यक्रम)"
+      "etkinlik_indirim_kodlari": "डिस्काउंट कोड (कार्यक्रम)",
+      "egitim_kurslari": "पाठ्यक्रम",
+      "egitim_oturumlari": "कक्षा (कार्यक्रम)",
+      "egitim_dersleri": "पाठ",
+      "egitim_quizleri": "क्विज़ / असाइनमेंट"
     }
   }
 }

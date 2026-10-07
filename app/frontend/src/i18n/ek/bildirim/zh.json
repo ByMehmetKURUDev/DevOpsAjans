@@ -79,7 +79,8 @@
       "etkinlik_kayit": "活动：新报名",
       "etkinlik_iptal": "活动：门票已取消",
       "haftalik_ozet": "每周摘要（周一早上）",
-      "stok_kritik": "降至库存预警线的商品"
+      "stok_kritik": "降至库存预警线的商品",
+      "egitim_kayit": "课程：新学员报名"
     },
     "kanal": {
       "inapp": "面板",

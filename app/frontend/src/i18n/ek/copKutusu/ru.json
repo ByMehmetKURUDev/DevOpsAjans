@@ -99,7 +99,11 @@
       "saha_teknisyenleri": "Техник",
       "etkinlikler": "Мероприятие",
       "etkinlik_bilet_turleri": "Тип билета",
-      "etkinlik_indirim_kodlari": "Промокод (мероприятие)"
+      "etkinlik_indirim_kodlari": "Промокод (мероприятие)",
+      "egitim_kurslari": "Курс",
+      "egitim_oturumlari": "Занятие курса (расписание)",
+      "egitim_dersleri": "Урок",
+      "egitim_quizleri": "Тест / задание"
     }
   }
 }

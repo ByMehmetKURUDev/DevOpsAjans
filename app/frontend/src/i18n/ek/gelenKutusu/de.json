@@ -14,7 +14,8 @@
       "randevu": "Termin",
       "geri_bildirim": "Fehlermeldung",
       "icerik_revizyon": "Inhaltsrevision",
-      "belge": "Dokument"
+      "belge": "Dokument",
+      "egitim": "Kursanmeldung"
     },
     "durumSuzgeci": {
       "etiket": "Nach Status filtern",
@@ -82,7 +83,11 @@
       "dosya": "Hochgeladene Datei",
       "yazisma": "Verlauf",
       "ajans": "Agentur",
-      "musteri": "Kunde"
+      "musteri": "Kunde",
+      "kurs": "Kurs",
+      "ogrenci": "Teilnehmende Person",
+      "veli": "Erziehungsberechtigte",
+      "kayitDurumu": "Anmeldestatus"
     },
     "karar": {
       "bekliyor": "Entscheidung ausstehend",
@@ -126,6 +131,12 @@
       "oge_yok": "Dieser Eintrag existiert nicht mehr.",
       "genel": "Etwas ist schiefgelaufen."
     },
-    "cevrildi": "In Projekt umgewandelt"
+    "cevrildi": "In Projekt umgewandelt",
+    "egitimDurum": {
+      "aktif": "Angemeldet",
+      "bekleme": "Auf der Warteliste",
+      "ayrildi": "Ausgeschieden",
+      "cocuk": "Unter 18"
+    }
   }
 }

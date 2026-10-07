@@ -79,7 +79,8 @@
       "etkinlik_kayit": "Veranstaltung: neue Anmeldung",
       "etkinlik_iptal": "Veranstaltung: Ticket storniert",
       "haftalik_ozet": "Wochenübersicht (Montagmorgen)",
-      "stok_kritik": "Produkte mit kritischem Bestand"
+      "stok_kritik": "Produkte mit kritischem Bestand",
+      "egitim_kayit": "Kurse: neue Anmeldung"
     },
     "kanal": {
       "inapp": "Panel",

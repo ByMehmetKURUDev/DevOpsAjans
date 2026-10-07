@@ -104,7 +104,8 @@
       "is_emri": "Field work order",
       "etkinlik": "Event registration",
       "satis": "POS sale",
-      "stok": "Stock item"
+      "stok": "Stock item",
+      "egitim": "Course student"
     },
     "alan": {
       "id": "ID",
@@ -178,7 +179,10 @@
       "sku": "SKU",
       "birim": "Unit",
       "miktar": "Quantity",
-      "esik": "Threshold"
+      "esik": "Threshold",
+      "veli_ad": "Parent name",
+      "veli_eposta": "Parent email",
+      "devamsizlik": "Absences (classes)"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -210,7 +214,10 @@
       "teklif_yanitsiz": "Quote left unanswered",
       "aday_hareketsiz": "Lead went quiet",
       "pos_satis": "POS sale completed",
-      "stok_kritik": "Product fell to low stock"
+      "stok_kritik": "Product fell to low stock",
+      "egitim_kayit": "Course enrolment",
+      "egitim_tamamlandi": "Course completed (certificate)",
+      "egitim_devamsizlik": "Absence threshold reached"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -242,7 +249,10 @@
       "teklif_yanitsiz": "A sent quote has had no accept or decline for 3 or 7 days (once per threshold; resending restarts the count).",
       "aday_hareketsiz": "An open lead has had no activity (note, call, stage change…) for 7 or 14 days. New activity resets the count.",
       "pos_satis": "A sale was completed at the till (once per receipt; no customer name in the context).",
-      "stok_kritik": "A product's total stock fell to its threshold (once until it rises above it again)."
+      "stok_kritik": "A product's total stock fell to its threshold (once until it rises above it again).",
+      "egitim_kayit": "A student enrolled or joined the waiting list (form, manual or CSV); for under-18s the contact person is the parent.",
+      "egitim_tamamlandi": "A certificate was issued to the student (automatically when conditions are met, or manually).",
+      "egitim_devamsizlik": "The student missed the set number of classes (once per student)."
     },
     "eylem": {
       "eposta": "Send email",

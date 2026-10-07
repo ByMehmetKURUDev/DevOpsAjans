@@ -494,7 +494,8 @@
     "tabEpostaPazarlama": "Email-маркетинг",
     "tabSahaServisi": "Выездной сервис",
     "tabEtkinlik": "Мероприятия",
-    "tabStokPos": "Склад и касса"
+    "tabStokPos": "Склад и касса",
+    "tabEgitim": "Обучение"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

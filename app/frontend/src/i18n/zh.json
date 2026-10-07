@@ -494,7 +494,8 @@
     "tabEpostaPazarlama": "邮件营销",
     "tabSahaServisi": "现场服务",
     "tabEtkinlik": "活动",
-    "tabStokPos": "库存与收银"
+    "tabStokPos": "库存与收银",
+    "tabEgitim": "课程"
   },
   "admin": {
     "loadError": "管理数据加载失败",

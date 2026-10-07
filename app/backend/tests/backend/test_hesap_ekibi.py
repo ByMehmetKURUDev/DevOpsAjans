@@ -319,6 +319,36 @@ async def ekip(db_oturumu):
                                       tutar=1000, kdv_orani=10, kdv=91))
     spa = await _ekle(db, PosAlicilari(hesap_email=s, ad="Sahibin alıcısı"))
     k.update(SPK=spk.id, SPU=spu.id, SPT=spt.id, SPS=sps.id, SPO=spo.id, SPX=spx.id, SPA=spa.id)
+    # Faz 6K: eğitim izinleri (`egitim` yönetim, `egitim_egitmen` yalnız kendi kursu) üye/fatura rolünün
+    # varsayılanında yok — saha üyesine (sahaci) ayrıca veriliyor (üye sayısı değişmesin). Sahibin bir kursu
+    # (oturum + öğrenci + ders + ödev + teslim + sertifika).
+    from datetime import date as _date6k
+
+    from models.egitim import (
+        EgitimDersleri,
+        EgitimKurslari,
+        EgitimOgrencileri,
+        EgitimOturumlari,
+        EgitimQuizleri,
+        EgitimSertifikalari,
+        EgitimTeslimleri,
+    )
+
+    await db.execute(_update(HesapUyeleri).where(HesapUyeleri.hesap_email == s, HesapUyeleri.uye_email == k["sahaci"])
+                     .values(izinler=json.dumps(["projeler", "saha_yonetim", "saha_teknisyen", "egitim", "egitim_egitmen"])))
+    await db.commit()
+    _he.onbellegi_temizle()
+    ek6 = await _ekle(db, EgitimKurslari(hesap_email=s, slug=f"ekip-{uuid.uuid4().hex[:8]}", ad="Sahibin kursu", durum="yayinda",
+                                         kapasite=30, baslangic_tarihi=_date6k(2030, 1, 1), bitis_tarihi=_date6k(2030, 3, 1)))
+    eo6 = await _ekle(db, EgitimOturumlari(kurs_id=ek6.id, baslangic=eb, bitis=eb + timedelta(hours=2), durum="planli"))
+    eg6 = await _ekle(db, EgitimOgrencileri(kurs_id=ek6.id, hesap_email=s, kod=uuid.uuid4().hex[:8].upper(), ad="Öğrenci",
+                                            eposta="ogrenci@ornek.com", durum="aktif", kaynak="elle", koltuk=0))
+    ed6 = await _ekle(db, EgitimDersleri(kurs_id=ek6.id, baslik="Ders 1", sira=0))
+    eq6 = await _ekle(db, EgitimQuizleri(kurs_id=ek6.id, tur="odev", baslik="Ödev 1", yayinda=True))
+    et6 = await _ekle(db, EgitimTeslimleri(kurs_id=ek6.id, quiz_id=eq6.id, ogrenci_id=eg6.id, metin="Teslim", teslim_at=eb))
+    es6 = await _ekle(db, EgitimSertifikalari(kurs_id=ek6.id, ogrenci_id=eg6.id, hesap_email=s, kod=uuid.uuid4().hex[:12].upper(),
+                                              ad_maskeli="Ö.", kurs_adi="Sahibin kursu", verilme_at=eb))
+    k.update(EGK=ek6.id, EGO=eo6.id, EGG=eg6.id, EGD=ed6.id, EGQ=eq6.id, EGTS=et6.id, EGS=es6.id)
     return k
 
 
@@ -334,6 +364,8 @@ SAHA = ("saha_yonetim", "saha_teknisyen")
 #: Faz 6P: satış ekranı uçları — `stok` ya da `kasa` yeter.
 POS = ("stok", "kasa")
 SP = "/api/v1/stok-pos"
+#: Faz 6K: eğitim router'ı iki izinden birini istiyor (yönetim ya da eğitmen).
+EGT = ("egitim", "egitim_egitmen")
 MUSTERI_UCLARI = [
     ("GET", "/api/v1/entities/projects", ("projeler",), None, 200),
     ("GET", "/api/v1/entities/projects/all", ("projeler",), None, 200),
@@ -817,6 +849,61 @@ MUSTERI_UCLARI = [
     ("GET", f"{SP}/raporlar/kar", ("stok",), None, 200),
     ("GET", f"{SP}/raporlar/stok-degeri", ("stok",), None, 200),
     ("GET", f"{SP}/raporlar/hareketsiz", ("stok",), None, 200),
+    # Faz 6K — eğitim (`egitim` yönetim; okuma, yoklama ve not `egitim_egitmen` de yeter).
+    ("GET", "/api/v1/egitimim/meta", EGT, None, 200),
+    ("GET", "/api/v1/egitimim/ayarlar", ("egitim",), None, 200),
+    ("PUT", "/api/v1/egitimim/ayarlar", ("egitim",), {"kurum_adi": "Ekip Akademi"}, 200),
+    ("GET", "/api/v1/egitimim", EGT, None, 200),
+    ("POST", "/api/v1/egitimim", ("egitim",), {"ad": "Ekip kursu"}, "gecti"),
+    ("GET", "/api/v1/egitimim/{EGK}", EGT, None, 200),
+    ("PUT", "/api/v1/egitimim/{EGK}", ("egitim",), {"ozet": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/egitimim/999999", ("egitim",), None, "gecti"),
+    ("GET", "/api/v1/egitimim/{EGK}/qr?bicim=svg", EGT, None, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/takvim.ics", EGT, None, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/oturumlar", EGT, None, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/oturumlar", ("egitim",), {"baslangic": "2030-01-09T09:00:00Z", "bitis": "2030-01-09T10:00:00Z"}, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/oturumlar/uret", ("egitim",),
+     {"bas_tarih": "2030-02-04", "bit_tarih": "2030-02-04", "gunler": [0], "saat": "10:00", "sure_dk": 60}, 200),
+    ("PUT", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}", ("egitim",), {"konu": "Ekip"}, 200),
+    ("DELETE", "/api/v1/egitimim/{EGK}/oturumlar/999999", ("egitim",), None, "gecti"),
+    ("GET", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}/yoklama", EGT, None, 200),
+    ("PUT", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}/yoklama/{EGG}", EGT, {"durum": "var"}, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}/yoklama-kapat", EGT, None, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}/qr", EGT, None, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}/qr-yenile", EGT, None, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}/okutucu", EGT, None, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}/sayac", EGT, None, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/oturumlar/{EGO}/okut", EGT, {"kod": "ZZZZZZZZ"}, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/ogrenciler", EGT, None, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/ogrenciler", ("egitim",), {"ad": "Ekip öğrencisi", "eposta": "ekip-ogr@ornek.com", "bildir": False}, "gecti"),
+    ("POST", "/api/v1/egitimim/{EGK}/ogrenciler/csv", ("egitim",), {"csv": "ad,eposta\nCsv,csv-ekip@ornek.com\n"}, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/ogrenciler.csv", ("egitim",), None, 200),
+    ("PUT", "/api/v1/egitimim/{EGK}/ogrenciler/{EGG}", ("egitim",), {"notlar": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/egitimim/{EGK}/ogrenciler/999999", ("egitim",), None, "gecti"),
+    ("POST", "/api/v1/egitimim/{EGK}/ogrenciler/{EGG}/baglanti", ("egitim",), {}, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/ilerleme", EGT, None, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/dersler", EGT, None, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/dersler", ("egitim",), {"baslik": "Ekip dersi"}, 200),
+    ("PUT", "/api/v1/egitimim/{EGK}/dersler-sira", ("egitim",), {"sira": []}, 200),
+    ("PUT", "/api/v1/egitimim/{EGK}/dersler/{EGD}", ("egitim",), {"bolum": "Ekip"}, 200),
+    ("DELETE", "/api/v1/egitimim/{EGK}/dersler/999999", ("egitim",), None, "gecti"),
+    ("POST", "/api/v1/egitimim/{EGK}/dersler/{EGD}/dosyalar", ("egitim",), GOVDE_DOSYA, "gecti"),
+    ("GET", "/api/v1/egitimim/{EGK}/dosyalar/999999", EGT, None, "gecti"),
+    ("DELETE", "/api/v1/egitimim/{EGK}/dosyalar/999999", ("egitim",), None, "gecti"),
+    ("GET", "/api/v1/egitimim/{EGK}/quizler", EGT, None, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/quizler", ("egitim",), {"baslik": "Ekip quizi"}, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/quizler/ai", ("egitim",), {"ders_id": 999999}, "gecti"),
+    ("PUT", "/api/v1/egitimim/{EGK}/quizler/{EGQ}", ("egitim",), {"aciklama": "Ekipten"}, 200),
+    ("DELETE", "/api/v1/egitimim/{EGK}/quizler/999999", ("egitim",), None, "gecti"),
+    ("GET", "/api/v1/egitimim/{EGK}/quizler/{EGQ}/sonuclar", EGT, None, 200),
+    ("PUT", "/api/v1/egitimim/{EGK}/teslimler/{EGTS}", EGT, {"puan": 70, "bildir": False}, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/sertifikalar", ("egitim",), None, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/sertifikalar", ("egitim",), {"ogrenci_id": 999999}, "gecti"),
+    ("POST", "/api/v1/egitimim/{EGK}/sertifikalar/toplu", ("egitim",), {"bildir": False}, 200),
+    ("DELETE", "/api/v1/egitimim/{EGK}/sertifikalar/999999", ("egitim",), None, "gecti"),
+    ("GET", "/api/v1/egitimim/{EGK}/sertifikalar/{EGS}/pdf", ("egitim",), None, 200),
+    ("GET", "/api/v1/egitimim/{EGK}/duyurular", ("egitim",), None, 200),
+    ("POST", "/api/v1/egitimim/{EGK}/duyuru", ("egitim",), {"konu": "Bilgi", "metin": "Ekip duyurusu"}, "gecti"),
 ]
 
 
@@ -861,6 +948,8 @@ def _izinli_uye(k, izinler):
     if izinler == ("pazarlama",):  # Faz 5M: üye/fatura rolünün varsayılanında yok
         return k["pazarlamaci"]
     if set(izinler) <= set(SAHA):  # Faz 6S: üye/fatura rolünün varsayılanında yok
+        return k["sahaci"]
+    if set(izinler) <= set(EGT):  # Faz 6K: üye/fatura rolünün varsayılanında yok (sahaci'ye ayrıca verildi)
         return k["sahaci"]
     if izinler == ("etkinlik",):  # Faz 6E: yönetim izni üyenin varsayılanında yok (pazarlamaci'ye ayrıca verildi)
         return k["pazarlamaci"]

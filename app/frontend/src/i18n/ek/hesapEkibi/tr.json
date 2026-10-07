@@ -44,7 +44,9 @@
       "etkinlik": "Etkinlik ve bilet (yönetim)",
       "etkinlik_giris": "Etkinlik: kapıda bilet okutma",
       "stok": "Stok ve POS — yönetim (ürün, maliyet, stok, rapor)",
-      "kasa": "Stok ve POS — yalnız kasa (satış ekranı)"
+      "kasa": "Stok ve POS — yalnız kasa (satış ekranı)",
+      "egitim": "Eğitim (yönetim)",
+      "egitim_egitmen": "Eğitim: eğitmen (yalnız kendi kursları)"
     },
     "durum": {
       "davet": "Davet bekliyor",

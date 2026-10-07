@@ -122,6 +122,11 @@ HARIC_TABLOLAR = frozenset({
     # konumlar, ürünler, tedarikçiler, sayım başlıkları ve kasa oturumları kaydediliyor.
     "pos_satislari", "pos_satis_kalemleri", "pos_iadeler", "pos_alicilari", "stok_hareketleri", "stok_seviyeleri",
     "stok_sayim_kalemleri",
+    # Faz 6K: eğitim — öğrenci kayıtları (herkese açık formdan, KİŞİSEL VERİ, 18 yaş altında veli bilgisi;
+    # saklama süresi dolunca anonimleşiyor), yoklama, ilerleme, quiz denemeleri, ödev teslimleri ve dosyalar,
+    # sertifika satırları, AI sayacı. Kurs, oturum, ders, quiz, duyuru ve hesap ayarı kaydediliyor.
+    "egitim_ogrencileri", "egitim_yoklama", "egitim_ilerleme", "egitim_denemeleri", "egitim_teslimleri",
+    "egitim_dosyalari", "egitim_sertifikalari", "egitim_ai_kullanimi",
     # Faz 4W: otomasyon kuyruğu/günlüğü (her olayda satır; kendi 30 günlük günlüğü var).
     # Kurallar, özel alan tanımları ve değerleri kaydediliyor.
     "otomasyon_calismalari",

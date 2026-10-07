@@ -104,7 +104,8 @@
       "is_emri": "Außendienst-Arbeitsauftrag",
       "etkinlik": "Veranstaltungsanmeldung",
       "satis": "Kassenverkauf",
-      "stok": "Lagerartikel"
+      "stok": "Lagerartikel",
+      "egitim": "Kursteilnehmende"
     },
     "alan": {
       "id": "ID",
@@ -178,7 +179,10 @@
       "sku": "SKU",
       "birim": "Einheit",
       "miktar": "Menge",
-      "esik": "Schwellenwert"
+      "esik": "Schwellenwert",
+      "veli_ad": "Name Erziehungsberechtigte",
+      "veli_eposta": "E-Mail Erziehungsberechtigte",
+      "devamsizlik": "Fehlstunden"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -210,7 +214,10 @@
       "teklif_yanitsiz": "Angebot unbeantwortet",
       "aday_hareketsiz": "Lead ohne Aktivität",
       "pos_satis": "Kassenverkauf abgeschlossen",
-      "stok_kritik": "Produkt hat Mindestbestand erreicht"
+      "stok_kritik": "Produkt hat Mindestbestand erreicht",
+      "egitim_kayit": "Kursanmeldung",
+      "egitim_tamamlandi": "Kurs abgeschlossen (Zertifikat)",
+      "egitim_devamsizlik": "Fehlzeitenschwelle erreicht"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -242,7 +249,10 @@
       "teklif_yanitsiz": "Ein gesendetes Angebot wurde seit 3 oder 7 Tagen weder angenommen noch abgelehnt (je Schwelle einmal; erneutes Senden startet die Zählung neu).",
       "aday_hareketsiz": "Ein offener Lead hat seit 7 oder 14 Tagen keine Aktivität (Notiz, Anruf, Phasenwechsel …). Neue Aktivität setzt die Zählung zurück.",
       "pos_satis": "An der Kasse wurde ein Verkauf abgeschlossen (einmal je Beleg; kein Kundenname im Kontext).",
-      "stok_kritik": "Der Gesamtbestand eines Produkts hat den Mindestbestand erreicht (einmal, bis er wieder darüber liegt)."
+      "stok_kritik": "Der Gesamtbestand eines Produkts hat den Mindestbestand erreicht (einmal, bis er wieder darüber liegt).",
+      "egitim_kayit": "Eine Person hat sich angemeldet oder steht auf der Warteliste (Formular, manuell oder CSV); bei Minderjährigen ist die Kontaktperson erziehungsberechtigt.",
+      "egitim_tamamlandi": "Ein Zertifikat wurde ausgestellt (automatisch bei erfüllten Bedingungen oder manuell).",
+      "egitim_devamsizlik": "Die Person hat die festgelegte Zahl an Stunden verpasst (einmal pro Person)."
     },
     "eylem": {
       "eposta": "E-Mail senden",

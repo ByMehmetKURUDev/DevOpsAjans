@@ -494,7 +494,8 @@
     "tabEpostaPazarlama": "E-posta pazarlama",
     "tabSahaServisi": "Saha servisi",
     "tabEtkinlik": "Etkinlikler",
-    "tabStokPos": "Stok ve POS"
+    "tabStokPos": "Stok ve POS",
+    "tabEgitim": "Eğitim"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

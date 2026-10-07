@@ -69,7 +69,10 @@
       "etkinlik_giris": "Event door check-in",
       "etkinlik_iptal": "Event ticket cancelled",
       "pos_satis": "POS sale completed (high volume)",
-      "stok_kritik": "Product fell to low stock"
+      "stok_kritik": "Product fell to low stock",
+      "egitim_kayit": "New course enrolment (student or waiting list)",
+      "egitim_tamamlandi": "Course completed, certificate issued",
+      "egitim_devamsizlik": "Student reached the absence threshold"
     },
     "anahtar": {
       "yeni": "New key",

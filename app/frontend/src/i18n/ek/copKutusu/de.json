@@ -99,7 +99,11 @@
       "saha_teknisyenleri": "Techniker",
       "etkinlikler": "Veranstaltung",
       "etkinlik_bilet_turleri": "Ticketart",
-      "etkinlik_indirim_kodlari": "Rabattcode (Veranstaltung)"
+      "etkinlik_indirim_kodlari": "Rabattcode (Veranstaltung)",
+      "egitim_kurslari": "Kurs",
+      "egitim_oturumlari": "Kursstunde (Plan)",
+      "egitim_dersleri": "Lektion",
+      "egitim_quizleri": "Quiz / Hausaufgabe"
     }
   }
 }

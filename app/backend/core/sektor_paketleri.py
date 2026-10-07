@@ -70,7 +70,8 @@ SEKTOR_PAKETLERI: Tuple[SektorPaketi, ...] = (
         anahtar="egitim_etkinlik",
         ad_varsayilan={"tr": "Eğitim, kurs ve etkinlik", "en": "Training, courses and events"},
         ikon="Ticket",
-        moduller=("etkinlik_bilet", "eposta_pazarlama", "randevu"),
+        # Faz 6K: eğitim modülü (kurs, ders, yoklama, quiz, sertifika) paketin başında.
+        moduller=("egitim", "etkinlik_bilet", "eposta_pazarlama", "randevu"),
     ),
     SektorPaketi(
         anahtar="ajans_serbest",

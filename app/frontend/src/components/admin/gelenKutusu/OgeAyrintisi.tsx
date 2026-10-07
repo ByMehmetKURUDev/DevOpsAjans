@@ -306,6 +306,13 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
         ekle('dosya', a.dosya_adi);
         ekle('mesaj', a.aciklama, true);
         break;
+      case 'egitim':
+        ekle('kurs', a.kurs);
+        ekle('ogrenci', a.cocuk ? `${metinAl(a.ogrenci)} (${t('gelenKutusu.egitimDurum.cocuk')})` : a.ogrenci);
+        ekle('kayitDurumu', a.durum_ham ? t(`gelenKutusu.egitimDurum.${metinAl(a.durum_ham)}`, { defaultValue: metinAl(a.durum_ham) }) : '');
+        ekle('telefon', a.telefon);
+        ekle('veli', [a.veli_ad, a.veli_telefon].map(metinAl).filter(Boolean).join(' · '));
+        break;
     }
     return s;
     // eslint-disable-next-line react-hooks/exhaustive-deps

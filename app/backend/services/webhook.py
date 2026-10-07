@@ -162,6 +162,11 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     # kapalı — yüksek hacim) ve ürün kritik stok seviyesine indi (ürün başına tek olay). Kişisel veri yok.
     OlayTuru("pos.satis", varsayilan=False, yuksek_hacim=True),
     OlayTuru("stok.kritik"),
+    # Faz 6K — eğitim (flush kancası, `_egitim_olaylari`): kursa yeni kayıt (aktif ya da bekleme listesi),
+    # kurs tamamlandı (sertifika verildi), devamsızlık eşiği aşıldı (öğrenci başına bir kez). Kişisel veri yok.
+    OlayTuru("egitim.kayit"),
+    OlayTuru("egitim.tamamlandi"),
+    OlayTuru("egitim.devamsizlik"),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.
@@ -682,6 +687,8 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
             etkinlik_gecerli.setdefault(obj.siparis_id, []).append(obj)
         elif tablo == "etkinlik_okutmalar" and obj.sonuc == "gecerli" and obj.bilet_id:
             olaylar.extend(_etkinlik_giris(baglanti, obj))
+        elif tablo in ("egitim_ogrencileri", "egitim_sertifikalari"):
+            olaylar.extend(_egitim_olaylari(baglanti, tablo, obj, yeni=True))
 
     for obj in list(session.dirty):
         tablo = getattr(type(obj), "__tablename__", "")
@@ -760,6 +767,11 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
             elif degisti and yeni == "iptal" and eski == "gecerli":
                 # Yalnız onaylı biletin iptali; ödenmemiş tutmanın süresi dolması olay değil.
                 etkinlik_iptal.setdefault(obj.siparis_id, []).append(obj)
+        elif tablo == "egitim_ogrencileri":
+            # Faz 6K: devamsızlık uyarısı zamanı ilk kez yazıldı (eşik aşıldı) → olay bir kez.
+            degisti, eski, yeni = _gecmis(obj, "devamsizlik_uyari_at")
+            if degisti and eski is None and yeni is not None:
+                olaylar.extend(_egitim_olaylari(baglanti, "devamsizlik", obj, yeni=False))
     if etkinlik_gecerli or etkinlik_iptal:
         olaylar.extend(_etkinlik_olaylari(baglanti, etkinlik_gecerli, etkinlik_iptal))
     return olaylar
@@ -792,6 +804,27 @@ def _etkinlik_olaylari(baglanti, gecerli: Dict[int, List[Any]], iptal: Dict[int,
             if tur == "etkinlik.kayit" and int(toplam or 0) > 0:
                 olaylar.append(("etkinlik.bilet_satildi", hesap, dict(veri), True))
     return olaylar
+
+
+def _egitim_olaylari(baglanti, tur: str, obj: Any, yeni: bool) -> List[Tuple[str, Optional[str], Dict[str, Any], bool]]:
+    """Faz 6K — `egitim.kayit` (yeni öğrenci satırı), `egitim.tamamlandi` (yeni sertifika satırı),
+    `egitim.devamsizlik` (uyarı zamanı ilk kez yazıldı). Ad/e-posta yok (otomasyon kişi alanlarını kayıttan okur)."""
+    from models.egitim import EgitimKurslari
+
+    satir = baglanti.execute(select(EgitimKurslari.id, EgitimKurslari.slug, EgitimKurslari.hesap_email)
+                             .where(EgitimKurslari.id == obj.kurs_id)).first()
+    if satir is None:
+        return []
+    kid, slug, hesap = satir
+    veri: Dict[str, Any] = {"kurs_id": kid, "kurs_slug": slug, "ogrenci_id": obj.id if tur != "egitim_sertifikalari" else obj.ogrenci_id}
+    if tur == "egitim_ogrencileri":
+        veri.update({"durum": obj.durum, "kaynak": obj.kaynak, "cocuk": bool(obj.cocuk)})
+        return [("egitim.kayit", hesap, veri, True)]
+    if tur == "egitim_sertifikalari":
+        veri.update({"sertifika_kod": obj.kod, "kaynak": obj.kaynak, "verilme_at": iso(obj.verilme_at)})
+        return [("egitim.tamamlandi", hesap, veri, True)]
+    veri.update({"devamsizlik": int(obj.devamsizlik_sayisi or 0)})
+    return [("egitim.devamsizlik", hesap, veri, True)]
 
 
 def _etkinlik_giris(baglanti, okutma: Any) -> List[Tuple[str, Optional[str], Dict[str, Any], bool]]:
@@ -838,6 +871,8 @@ IZLENEN_TABLOLAR = frozenset({
     # Faz 6S — saha servisi iş emri.
     "saha_is_emirleri",
     "etkinlik_biletleri", "etkinlik_okutmalar",
+    # Faz 6K — eğitim kaydı, sertifika, devamsızlık uyarısı.
+    "egitim_ogrencileri", "egitim_sertifikalari",
 })
 
 

@@ -14,7 +14,8 @@
       "randevu": "Randevu",
       "geri_bildirim": "Hata bildirimi",
       "icerik_revizyon": "İçerik revizyonu",
-      "belge": "Belge"
+      "belge": "Belge",
+      "egitim": "Kurs kaydı"
     },
     "durumSuzgeci": {
       "etiket": "Duruma göre süz",
@@ -82,7 +83,11 @@
       "dosya": "Yüklenen dosya",
       "yazisma": "Yazışma",
       "ajans": "Ajans",
-      "musteri": "Müşteri"
+      "musteri": "Müşteri",
+      "kurs": "Kurs",
+      "ogrenci": "Öğrenci",
+      "veli": "Veli",
+      "kayitDurumu": "Kayıt durumu"
     },
     "karar": {
       "bekliyor": "Karar bekleniyor",
@@ -126,6 +131,12 @@
       "oge_yok": "Bu öğe artık yok.",
       "genel": "Bir sorun oluştu."
     },
-    "cevrildi": "Projeye dönüştürüldü"
+    "cevrildi": "Projeye dönüştürüldü",
+    "egitimDurum": {
+      "aktif": "Kayıtlı",
+      "bekleme": "Bekleme listesinde",
+      "ayrildi": "Ayrıldı",
+      "cocuk": "18 yaş altı"
+    }
   }
 }

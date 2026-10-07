@@ -92,6 +92,15 @@ const INTENTIONALLY_NOT_PRERENDERED = new Set([
   '/etkinlik/giris/:jeton',
   '/etkinlik/okut/:eid',
   '/etkinlikler/:slug',
+  // Faz 6K: eğitim — kurs sayfası, imzalı öğrenci sayfası, oturum QR yoklaması, sertifika doğrulama,
+  // panel okutucusu, hesabın kurs listesi; dinamik, sahibine ait; önizleme/robots/JSON-LD'yi Pages
+  // Function yazıyor (functions/egitim/[[yol]].js).
+  '/egitim/:slug',
+  '/egitim/ogrenci/:jeton',
+  '/egitim/yoklama/:jeton',
+  '/egitim/sertifika/:kod',
+  '/egitim/okut/:kid/:oid',
+  '/egitim/kurum/:slug',
 ]);
 
 const missing = [...appRoutes].filter(

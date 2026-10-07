@@ -602,6 +602,32 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("kasa_kullanici_siniri", "int", 3, en_az=0, en_cok=500),
         ),
     ),
+    # Faz 6K — eğitim: kurs merkezi, dershane, atölye, eğitmen, okul için kurs/sınıf (tekrarlayan ders programı,
+    # takvim + ICS, herkese açık kurs sayfası ve kayıt formu, bekleme listesi), öğrenci + veli (18 yaş altı; KVKK:
+    # en az veri, saklama süresi, anonimleştirme), girişsiz öğrenci portalı, LMS dersleri (metin, video bağlantısı,
+    # dosya), oturum QR'ı / öğrenci QR'ı ile yoklama ve devamsızlık uyarısı, quiz (otomatik puan, süre) + ödev
+    # (dosya, not), "AI ile soru üret", şablonlu sertifika PDF'i + doğrulama sayfası, bilgilendirme duyurusu ve
+    # ders hatırlatması. Ücretli tahsilat yok (fiyat yalnız metin). Varsayılan KAPALI, pakete bağlı değil (ayrı
+    # satılan modül; önerilen aylık 19 $ — 200 öğrenciye kadar). Ekip izinleri `egitim` (yönetim) ve
+    # `egitim_egitmen` (yalnız eğitmeni olduğu kurslar: yoklama + not). `kurs_siniri`: arşivlenmemiş kurs;
+    # `ogrenci_siniri`: aktif + bekleyen öğrenci (bütün kurslar); `ai_hakki`: aylık AI soru üretimi;
+    # `kredi_ile_asim`: hak bitince üretim başına kredi.
+    Modul(
+        anahtar="egitim",
+        ad_varsayilan={"tr": "Eğitim ve kurs yönetimi", "en": "Courses and learning"},
+        ikon="GraduationCap",
+        kategori="sektorel",
+        musteri_sekmesi="egitim",
+        yonetici_sekmesi="egitim",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("kurs_siniri", "int", 10, en_az=0, en_cok=1000),
+            AyarAlani("ogrenci_siniri", "int", 200, en_az=0, en_cok=100000),
+            AyarAlani("ai_hakki", "int", 50, en_az=0, en_cok=100000),
+            AyarAlani("kredi_ile_asim", "bool", False),
+        ),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

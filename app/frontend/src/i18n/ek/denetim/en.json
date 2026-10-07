@@ -115,7 +115,13 @@
       "stok_urunleri": "Stock product",
       "stok_tedarikcileri": "Supplier",
       "stok_sayimlari": "Stocktake",
-      "pos_kasa_oturumlari": "Till session"
+      "pos_kasa_oturumlari": "Till session",
+      "egitim_kurslari": "Courses",
+      "egitim_oturumlari": "Course class schedule",
+      "egitim_dersleri": "Course lessons",
+      "egitim_quizleri": "Quizzes and assignments",
+      "egitim_duyurulari": "Course announcements",
+      "egitim_ayarlari": "Course settings"
     },
     "hareket": {
       "baslik": "Account activity",

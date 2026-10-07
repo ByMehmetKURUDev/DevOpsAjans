@@ -69,7 +69,10 @@
       "etkinlik_giris": "Einlass bei der Veranstaltung",
       "etkinlik_iptal": "Veranstaltungsticket storniert",
       "pos_satis": "Kassenverkauf abgeschlossen (hohes Volumen)",
-      "stok_kritik": "Produkt hat Mindestbestand erreicht"
+      "stok_kritik": "Produkt hat Mindestbestand erreicht",
+      "egitim_kayit": "Neue Kursanmeldung (Teilnehmende oder Warteliste)",
+      "egitim_tamamlandi": "Kurs abgeschlossen, Zertifikat ausgestellt",
+      "egitim_devamsizlik": "Fehlzeitenschwelle erreicht"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

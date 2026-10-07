@@ -115,7 +115,13 @@
       "stok_urunleri": "Складской товар",
       "stok_tedarikcileri": "Поставщик",
       "stok_sayimlari": "Инвентаризация",
-      "pos_kasa_oturumlari": "Кассовая смена"
+      "pos_kasa_oturumlari": "Кассовая смена",
+      "egitim_kurslari": "Курсы",
+      "egitim_oturumlari": "Расписание курса",
+      "egitim_dersleri": "Уроки курса",
+      "egitim_quizleri": "Тесты и задания",
+      "egitim_duyurulari": "Объявления курса",
+      "egitim_ayarlari": "Настройки обучения"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

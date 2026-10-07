@@ -613,6 +613,26 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             miktar = round(await toplam_stok(db, u.id) / 1000, 3)
         b["stok"] = {"urun_id": u.id, "ad": u.ad, "barkod": u.barkod, "sku": u.sku, "kategori": u.kategori, "birim": u.birim,
                      "miktar": miktar, "esik": round(u.kritik_esik / 1000, 3) if u.kritik_esik is not None else None}
+    elif on == "egitim":
+        # Faz 6K — kayıt / tamamlandı / devamsızlık: olay verisinde öğrenci kimliği var (kişi alanları kayıttan).
+        from models.egitim import EgitimKurslari, EgitimOgrencileri, EgitimSertifikalari
+        from services import egitim_kayit as _ek
+
+        og = await _kayit(db, EgitimOgrencileri, veri.get("ogrenci_id"))
+        ku = await _kayit(db, EgitimKurslari, veri.get("kurs_id"))
+        if og is None or ku is None:
+            return None
+        ist = (await _ek.istatistik(db, ku, [og])).get(og.id, {})
+        sk = veri.get("sertifika_kod")
+        if not sk:
+            c = (await db.execute(select(EgitimSertifikalari.kod).where(EgitimSertifikalari.ogrenci_id == og.id,
+                                                                        EgitimSertifikalari.iptal_at.is_(None)))).scalar()
+            sk = c
+        b["egitim"] = {"id": og.id, "baslik": ku.ad, "ad": None if og.anonim else og.ad,
+                       "eposta": None if og.anonim else og.eposta, "telefon": None if og.anonim else og.telefon,
+                       "veli_ad": None if og.anonim else og.veli_ad, "veli_eposta": None if og.anonim else og.veli_eposta,
+                       "durum": og.durum, "kod": sk, "devamsizlik": int(veri.get("devamsizlik") or og.devamsizlik_sayisi or 0),
+                       "ilerleme": ist.get("ilerleme")}
     if proje_id:
         from models.projects import Projects
 

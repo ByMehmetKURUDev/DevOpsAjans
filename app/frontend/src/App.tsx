@@ -87,6 +87,10 @@ const ServisSayfasi = lazy(() => import('./pages/ServisSayfasi'));
 // ve hesabın etkinlik listesi. Site düzeni dışında, prerender yok, varsayılan noindex; metinleri sayfa
 // kendisi yüklüyor (ek paket `etkinlikSayfa`); önizleme/JSON-LD/kamera izni Pages Function'ında.
 const EtkinlikSayfasi = lazy(() => import('./pages/EtkinlikSayfasi'));
+// Faz 6K: eğitim — kurs + kayıt, imzalı öğrenci sayfası, oturum QR yoklaması, sertifika doğrulama, panel
+// okutucusu ve hesabın kurs listesi. Site düzeni dışında, prerender yok, varsayılan noindex; metinleri sayfa
+// kendisi yüklüyor (ek paket `egitimSayfa`); önizleme/JSON-LD/kamera izni Pages Function'ında.
+const EgitimSayfasi = lazy(() => import('./pages/EgitimSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -195,6 +199,13 @@ const AppRoutes = () => (
       <Route path="/etkinlik/:slug/bilet/:jeton" element={<EtkinlikSayfasi gorunum="bilet" />} />
       <Route path="/etkinlik/:slug" element={<EtkinlikSayfasi gorunum="etkinlik" />} />
       <Route path="/etkinlikler/:slug" element={<EtkinlikSayfasi gorunum="liste" />} />
+      {/* Faz 6K: eğitim — öğrenci/yoklama bağlantıları imzalı jetonlu (girişsiz). */}
+      <Route path="/egitim/ogrenci/:jeton" element={<EgitimSayfasi gorunum="ogrenci" />} />
+      <Route path="/egitim/yoklama/:jeton" element={<EgitimSayfasi gorunum="yoklama" />} />
+      <Route path="/egitim/sertifika/:kod" element={<EgitimSayfasi gorunum="sertifika" />} />
+      <Route path="/egitim/okut/:kid/:oid" element={<EgitimSayfasi gorunum="okut" />} />
+      <Route path="/egitim/kurum/:slug" element={<EgitimSayfasi gorunum="kurum" />} />
+      <Route path="/egitim/:slug" element={<EgitimSayfasi gorunum="kurs" />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

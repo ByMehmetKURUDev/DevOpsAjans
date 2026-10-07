@@ -115,7 +115,13 @@
       "stok_urunleri": "库存商品",
       "stok_tedarikcileri": "供应商",
       "stok_sayimlari": "库存盘点",
-      "pos_kasa_oturumlari": "收银班次"
+      "pos_kasa_oturumlari": "收银班次",
+      "egitim_kurslari": "课程",
+      "egitim_oturumlari": "课程课表",
+      "egitim_dersleri": "课程课节",
+      "egitim_quizleri": "测验与作业",
+      "egitim_duyurulari": "课程通知",
+      "egitim_ayarlari": "课程设置"
     },
     "hareket": {
       "baslik": "账户动态",

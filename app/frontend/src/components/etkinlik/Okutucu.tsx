@@ -65,7 +65,11 @@ function barkodSinifi(): BarkodSinifi | null {
   return typeof w.BarcodeDetector === 'function' && !!navigator.mediaDevices?.getUserMedia ? w.BarcodeDetector : null;
 }
 
-export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { istemci: OkutmaIstemcisi; t: TFunction; dil: string; panelAdresi?: string; onBaslik?: (b: string) => void }) {
+/**
+ * `onek`: metin anahtarlarının ek paketi (varsayılan `etkinlikSayfa`). Faz 6K eğitim yoklaması aynı okutucuyu
+ * `egitimSayfa` paketiyle kullanıyor (aynı `okut.*` anahtarları; öğrenci kodu / yoklama metinleri).
+ */
+export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik, onek = 'etkinlikSayfa' }: { istemci: OkutmaIstemcisi; t: TFunction; dil: string; panelAdresi?: string; onBaslik?: (b: string) => void; onek?: string }) {
   const [durum, setDurum] = useState<Durum>('yukleniyor');
   const [ozet, setOzet] = useState<{ baslik: string; baslangic: string; bitis: string; saat_dilimi: string } | null>(null);
   const [sayac, setSayac] = useState<Sayac | null>(null);
@@ -269,7 +273,7 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
   if (durum === 'yukleniyor') {
     return (
       <div className="flex min-h-[60vh] items-center justify-center" data-testid="etkinlik-okutucu-yukleniyor">
-        <Loader2 className="h-8 w-8 animate-spin text-zinc-400" aria-label={t('etkinlikSayfa.yukleniyor')} />
+        <Loader2 className="h-8 w-8 animate-spin text-zinc-400" aria-label={t(`${onek}.yukleniyor`)} />
       </div>
     );
   }
@@ -279,10 +283,10 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
     return (
       <div className="mx-auto max-w-md px-4 py-16 text-center" data-testid="etkinlik-okutucu-hata" data-durum={durum}>
         <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-amber-400" aria-hidden="true" />
-        <p className="text-lg">{t(`etkinlikSayfa.${metin}`)}</p>
+        <p className="text-lg">{t(`${onek}.${metin}`)}</p>
         {durum === 'yetki' && panelAdresi && (
           <a href={panelAdresi} className="mt-4 inline-block rounded-lg bg-white/10 px-4 py-2 text-sm hover:bg-white/20">
-            {t('etkinlikSayfa.okut.panelGiris')}
+            {t(`${onek}.okut.panelGiris`)}
           </a>
         )}
       </div>
@@ -307,7 +311,7 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
 
       {sayac && (
         <div className="mb-3 flex items-center justify-between rounded-2xl bg-white/5 px-4 py-3" aria-live="polite">
-          <span className="text-sm text-zinc-300">{t('etkinlikSayfa.okut.girenler')}</span>
+          <span className="text-sm text-zinc-300">{t(`${onek}.okut.girenler`)}</span>
           <span className="text-2xl font-bold tabular-nums" data-testid="etkinlik-okutucu-sayac">
             {sayac.giren} / {sayac.toplam}
           </span>
@@ -324,23 +328,23 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
         {sonuc ? (
           <>
             {ikon(sonuc.sonuc)}
-            <div className="text-2xl font-extrabold uppercase tracking-wide sm:text-3xl">{t(`etkinlikSayfa.okut.sonuc.${sonuc.sonuc}`)}</div>
-            {sonuc.sonuc === 'zaten_girdi' && sonuc.giris && <div className="text-base font-semibold">{t('etkinlikSayfa.okut.girisSaati', { saat: saatYaz(sonuc.giris, tz, dil) })}</div>}
+            <div className="text-2xl font-extrabold uppercase tracking-wide sm:text-3xl">{t(`${onek}.okut.sonuc.${sonuc.sonuc}`)}</div>
+            {sonuc.sonuc === 'zaten_girdi' && sonuc.giris && <div className="text-base font-semibold">{t(`${onek}.okut.girisSaati`, { saat: saatYaz(sonuc.giris, tz, dil) })}</div>}
             {(sonuc.ad || sonuc.tur) && <div className="text-base">{[sonuc.ad, sonuc.tur].filter(Boolean).join(' · ')}</div>}
             <code className="text-xs opacity-80">{sonuc.kod}</code>
           </>
         ) : (
-          <p className="text-sm">{t('etkinlikSayfa.okut.bekliyor')}</p>
+          <p className="text-sm">{t(`${onek}.okut.bekliyor`)}</p>
         )}
       </div>
 
       {kameraDestek ? (
         <div className="mb-3">
-          <video ref={video} className={`aspect-square w-full rounded-2xl bg-black object-cover ${kamera === 'acik' ? '' : 'hidden'}`} muted playsInline aria-label={t('etkinlikSayfa.okut.kamera')} />
+          <video ref={video} className={`aspect-square w-full rounded-2xl bg-black object-cover ${kamera === 'acik' ? '' : 'hidden'}`} muted playsInline aria-label={t(`${onek}.okut.kamera`)} />
           {kamera === 'acik' ? (
             <button type="button" onClick={kameraKapat} className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white/10 px-4 py-3 text-sm font-medium hover:bg-white/20">
               <CameraOff className="h-5 w-5" aria-hidden="true" />
-              {t('etkinlikSayfa.okut.kameraKapat')}
+              {t(`${onek}.okut.kameraKapat`)}
             </button>
           ) : (
             <button
@@ -351,14 +355,14 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
               data-testid="etkinlik-kamera-ac"
             >
               {kamera === 'aciliyor' ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" /> : <Camera className="h-5 w-5" aria-hidden="true" />}
-              {t('etkinlikSayfa.okut.kameraAc')}
+              {t(`${onek}.okut.kameraAc`)}
             </button>
           )}
-          {kamera === 'izin_yok' && <p className="mt-2 text-sm text-amber-300">{t('etkinlikSayfa.okut.kameraIzin')}</p>}
+          {kamera === 'izin_yok' && <p className="mt-2 text-sm text-amber-300">{t(`${onek}.okut.kameraIzin`)}</p>}
         </div>
       ) : (
         <p className="mb-3 rounded-xl bg-white/5 px-3 py-2 text-sm text-zinc-300" data-testid="etkinlik-kamera-yok">
-          {t('etkinlikSayfa.okut.kameraYok')}
+          {t(`${onek}.okut.kameraYok`)}
         </p>
       )}
 
@@ -370,13 +374,13 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
         }}
       >
         <label className="sr-only" htmlFor="etkinlik-okut-kod">
-          {t('etkinlikSayfa.okut.kod')}
+          {t(`${onek}.okut.kod`)}
         </label>
         <input
           id="etkinlik-okut-kod"
           value={kod}
           onChange={(e) => setKod(e.target.value.toUpperCase())}
-          placeholder={t('etkinlikSayfa.okut.kodIpucu')}
+          placeholder={t(`${onek}.okut.kodIpucu`)}
           autoCapitalize="characters"
           autoComplete="off"
           spellCheck={false}
@@ -388,7 +392,7 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
         />
         <button type="submit" disabled={mesgul || !kod.trim()} className="inline-flex items-center gap-1.5 rounded-xl bg-white px-4 py-3 font-semibold text-zinc-900 disabled:opacity-50" data-testid="etkinlik-okut-gonder">
           {mesgul ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" /> : <Send className="h-5 w-5 rtl:rotate-180" aria-hidden="true" />}
-          {t('etkinlikSayfa.okut.denetle')}
+          {t(`${onek}.okut.denetle`)}
         </button>
       </form>
 
@@ -396,18 +400,18 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
         <div className="mb-4 flex items-center justify-between gap-2 rounded-xl border border-sky-400/40 bg-sky-500/10 px-3 py-2 text-sm" data-testid="etkinlik-okut-kuyruk">
           <span className="inline-flex items-center gap-1.5">
             <CloudOff className="h-4 w-4" aria-hidden="true" />
-            {t('etkinlikSayfa.okut.kuyruk', { sayi: kuyruk.length })}
+            {t(`${onek}.okut.kuyruk`, { sayi: kuyruk.length })}
           </span>
           <button type="button" onClick={() => void kuyruguGonder()} className="rounded-lg bg-white/10 px-3 py-1 hover:bg-white/20">
-            {t('etkinlikSayfa.okut.kuyrukGonder')}
+            {t(`${onek}.okut.kuyrukGonder`)}
           </button>
         </div>
       )}
 
       <section>
-        <h2 className="mb-2 text-sm font-semibold text-zinc-300">{t('etkinlikSayfa.okut.sonOkutmalar')}</h2>
+        <h2 className="mb-2 text-sm font-semibold text-zinc-300">{t(`${onek}.okut.sonOkutmalar`)}</h2>
         {gecmis.length === 0 ? (
-          <p className="text-sm text-zinc-500">{t('etkinlikSayfa.okut.bos')}</p>
+          <p className="text-sm text-zinc-500">{t(`${onek}.okut.bos`)}</p>
         ) : (
           <ul className="space-y-1 text-sm" data-testid="etkinlik-okut-gecmis">
             {gecmis.map((g, i) => (
@@ -416,9 +420,9 @@ export default function Okutucu({ istemci, t, dil, panelAdresi, onBaslik }: { is
                 <span className="tabular-nums text-zinc-400" dir="ltr">
                   {saatYaz(g.zaman, tz, dil)}
                 </span>
-                <span className="truncate">{t(`etkinlikSayfa.okut.sonuc.${g.sonuc}`)}</span>
+                <span className="truncate">{t(`${onek}.okut.sonuc.${g.sonuc}`)}</span>
                 <span className="ms-auto truncate text-zinc-400">{g.ad || g.kod}</span>
-                {g.cevrimdisi && <CloudOff className="h-3.5 w-3.5 shrink-0 text-sky-300" aria-label={t('etkinlikSayfa.okut.cevrimdisi')} />}
+                {g.cevrimdisi && <CloudOff className="h-3.5 w-3.5 shrink-0 text-sky-300" aria-label={t(`${onek}.okut.cevrimdisi`)} />}
               </li>
             ))}
           </ul>

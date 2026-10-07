@@ -115,7 +115,13 @@
       "stok_urunleri": "स्टॉक उत्पाद",
       "stok_tedarikcileri": "आपूर्तिकर्ता",
       "stok_sayimlari": "स्टॉक गिनती",
-      "pos_kasa_oturumlari": "कैश सत्र"
+      "pos_kasa_oturumlari": "कैश सत्र",
+      "egitim_kurslari": "पाठ्यक्रम",
+      "egitim_oturumlari": "पाठ्यक्रम कक्षा कार्यक्रम",
+      "egitim_dersleri": "पाठ्यक्रम पाठ",
+      "egitim_quizleri": "क्विज़ और असाइनमेंट",
+      "egitim_duyurulari": "पाठ्यक्रम सूचनाएँ",
+      "egitim_ayarlari": "शिक्षा सेटिंग्स"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

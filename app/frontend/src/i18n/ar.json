@@ -494,7 +494,8 @@
     "tabEpostaPazarlama": "التسويق عبر البريد",
     "tabSahaServisi": "الخدمة الميدانية",
     "tabEtkinlik": "الفعاليات",
-    "tabStokPos": "المخزون ونقطة البيع"
+    "tabStokPos": "المخزون ونقطة البيع",
+    "tabEgitim": "الدورات التعليمية"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",
