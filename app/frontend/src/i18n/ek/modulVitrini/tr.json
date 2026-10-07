@@ -521,6 +521,26 @@
             "c": "Evet. Yayınlanan raporlar panelinizdeki Raporlar sekmesinde arşivlenir."
           }
         ]
+      },
+      "stok_pos": {
+        "ozet": "Barkodlu ürün, şube başına stok ve dokunmatik kasa: satıştan gün sonuna kadar işletmenizin stoku ve kasası tek ekranda.",
+        "kimIcin": "Kafe, butik, küçük market, kuaför ve güzellik salonu gibi ürün satan küçük işletmeler.",
+        "ozellikler": [
+          "Barkod okutma (kamera ya da okuyucu), sepet, indirim, nakit/kart/havale ve para üstü",
+          "Şube başına stok, giriş/çıkış/fire, transfer ve okut-say envanter sayımı",
+          "Kritik stok uyarısı, A4 barkod etiketi ve CSV içe/dışa aktarma",
+          "Gün sonu raporu, ürün bazlı kâr, stok değeri ve hareketsiz ürün raporları"
+        ],
+        "sss": [
+          {
+            "s": "Bu fiş yazar kasa fişi yerine geçer mi?",
+            "c": "Hayır. Fiş ve gün sonu raporu bilgi amaçlıdır; yasal ÖKC fişi ya da e-Arşiv faturanın yerine geçmez."
+          },
+          {
+            "s": "QR menüdeki ürünleri yeniden girmem gerekir mi?",
+            "c": "Hayır. QR menü ürünlerini tek tıkla bağlı olarak aktarırsınız; stok bitince menüde “tükendi” görünür."
+          }
+        ]
       }
     },
     "s": {

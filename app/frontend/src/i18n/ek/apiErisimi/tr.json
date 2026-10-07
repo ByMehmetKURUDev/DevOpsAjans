@@ -67,7 +67,9 @@
       "etkinlik_kayit": "Etkinliğe kayıt onaylandı",
       "etkinlik_bilet_satildi": "Etkinlik için ücretli bilet satıldı",
       "etkinlik_giris": "Etkinlikte kapıda giriş",
-      "etkinlik_iptal": "Etkinlik bileti iptal edildi"
+      "etkinlik_iptal": "Etkinlik bileti iptal edildi",
+      "pos_satis": "POS satışı tamamlandı (yüksek hacim)",
+      "stok_kritik": "Ürün kritik stok seviyesine indi"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

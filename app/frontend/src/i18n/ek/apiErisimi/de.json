@@ -67,7 +67,9 @@
       "etkinlik_kayit": "Veranstaltungsanmeldung bestätigt",
       "etkinlik_bilet_satildi": "Kostenpflichtiges Veranstaltungsticket verkauft",
       "etkinlik_giris": "Einlass bei der Veranstaltung",
-      "etkinlik_iptal": "Veranstaltungsticket storniert"
+      "etkinlik_iptal": "Veranstaltungsticket storniert",
+      "pos_satis": "Kassenverkauf abgeschlossen (hohes Volumen)",
+      "stok_kritik": "Produkt hat Mindestbestand erreicht"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

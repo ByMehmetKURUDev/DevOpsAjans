@@ -79,7 +79,7 @@ const OLAYLAR = [
   'fatura.odendi', 'destek.olusturuldu', 'destek.yanitlandi', 'gorev.olusturuldu', 'gorev.tamamlandi',
   'proje.asama_degisti', 'menu.siparis', 'kart.mesaj', 'qr.tarama', 'asistan.devredildi',
   'is_emri.olusturuldu', 'is_emri.tamamlandi', 'etkinlik.kayit', 'etkinlik.bilet_satildi', 'etkinlik.giris',
-  'etkinlik.iptal', 'ping',
+  'etkinlik.iptal', 'pos.satis', 'stok.kritik', 'ping',
 ];
 
 /** "GET /api/public/v1/projeler/{proje_id}" → "get_projeler_proje_id" (ek paketteki açıklama anahtarı). */

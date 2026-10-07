@@ -158,6 +158,10 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     OlayTuru("etkinlik.bilet_satildi", musteri=False),
     OlayTuru("etkinlik.giris", varsayilan=False),
     OlayTuru("etkinlik.iptal"),
+    # Faz 6P — stok ve POS (`services/stok_kayit.py`, olay_yayinla): satış tamamlandı (her fişte; varsayılan
+    # kapalı — yüksek hacim) ve ürün kritik stok seviyesine indi (ürün başına tek olay). Kişisel veri yok.
+    OlayTuru("pos.satis", varsayilan=False, yuksek_hacim=True),
+    OlayTuru("stok.kritik"),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.

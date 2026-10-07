@@ -61,6 +61,7 @@ import {
   Send,
   Wrench,
   Ticket,
+  ScanBarcode,
   Inbox,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -187,6 +188,8 @@ const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/E
 const SahaServisi = ekliLazy('sahaServisi', () => import('@/components/SahaServisi'));
 // Faz 6E — etkinlik ve bilet (müşteri paneliyle aynı bileşen, yönetici modu).
 const Etkinlik = ekliLazy('etkinlik', () => import('@/components/Etkinlik'));
+// Faz 6P — stok ve POS: müşteri hesabı seçerek salt okunur destek görünümü (müşteri paneliyle aynı bileşen).
+const StokPos = ekliLazy('stokPos', () => import('@/components/StokPos'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
@@ -357,6 +360,7 @@ type Tab =
   | 'epostaPazarlama'
   | 'sahaServisi'
   | 'etkinlik'
+  | 'stokPos'
   | 'baglantilar'
   | 'crm'
   | 'zaman'
@@ -1080,6 +1084,7 @@ export default function AdminPanel() {
     { key: 'epostaPazarlama', label: t('ui.tabEpostaPazarlama'), icon: Send },
     { key: 'sahaServisi', label: t('ui.tabSahaServisi'), icon: Wrench },
     { key: 'etkinlik', label: t('ui.tabEtkinlik'), icon: Ticket },
+    { key: 'stokPos', label: t('ui.tabStokPos'), icon: ScanBarcode },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('yonetimMenusu.tabFiyat'), icon: DollarSign },
@@ -1272,6 +1277,18 @@ export default function AdminPanel() {
           }
         >
           <Etkinlik mod="yonetici" />
+        </Suspense>
+      )}
+
+      {tab === 'stokPos' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <StokPos mod="yonetici" />
         </Suspense>
       )}
 

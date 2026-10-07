@@ -109,7 +109,13 @@
       "etkinlikler": "الفعاليات",
       "etkinlik_bilet_turleri": "أنواع تذاكر الفعاليات",
       "etkinlik_indirim_kodlari": "أكواد خصم الفعاليات",
-      "etkinlik_listeleri": "قائمة الفعاليات"
+      "etkinlik_listeleri": "قائمة الفعاليات",
+      "stok_ayarlari": "إعدادات المخزون ونقطة البيع",
+      "stok_konumlari": "الفرع / المستودع",
+      "stok_urunleri": "منتج المخزون",
+      "stok_tedarikcileri": "المورد",
+      "stok_sayimlari": "جرد المخزون",
+      "pos_kasa_oturumlari": "جلسة الصندوق"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

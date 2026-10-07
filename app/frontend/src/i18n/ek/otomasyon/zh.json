@@ -102,7 +102,9 @@
       "kisi": "事件中的人",
       "olay": "事件",
       "is_emri": "现场服务工单",
-      "etkinlik": "活动报名"
+      "etkinlik": "活动报名",
+      "satis": "收银销售",
+      "stok": "库存商品"
     },
     "alan": {
       "id": "编号",
@@ -168,7 +170,15 @@
       "baglanti": "链接",
       "yoneten": "管理方（代理/客户）",
       "acik": "未结（未付款）",
-      "vadeye_kalan_gun": "距到期日（天）"
+      "vadeye_kalan_gun": "距到期日（天）",
+      "kdv": "增值税",
+      "odeme_turu": "支付方式",
+      "urun_id": "商品 ID",
+      "barkod": "条码",
+      "sku": "SKU",
+      "birim": "单位",
+      "miktar": "数量",
+      "esik": "阈值"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -198,7 +208,9 @@
       "etkinlik_giris": "已现场入场",
       "etkinlik_iptal": "活动门票已取消",
       "teklif_yanitsiz": "报价未获回复",
-      "aday_hareketsiz": "线索无进展"
+      "aday_hareketsiz": "线索无进展",
+      "pos_satis": "完成一笔收银销售",
+      "stok_kritik": "商品降至库存预警线"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -228,7 +240,9 @@
       "etkinlik_giris": "门票在入口被扫描（首次入场）。",
       "etkinlik_iptal": "参与者或主办方取消了门票。",
       "teklif_yanitsiz": "已发送的报价在 3 天或 7 天内既未接受也未拒绝（每个阈值一次；重新发送后重新计时）。",
-      "aday_hareketsiz": "处于进行中阶段的线索已 7 天或 14 天没有动态（备注、电话、阶段变更…）。有新动态后重新计时。"
+      "aday_hareketsiz": "处于进行中阶段的线索已 7 天或 14 天没有动态（备注、电话、阶段变更…）。有新动态后重新计时。",
+      "pos_satis": "收银完成一笔销售（每张小票一次；上下文不含顾客姓名）。",
+      "stok_kritik": "商品总库存降至阈值（回升前只触发一次）。"
     },
     "eylem": {
       "eposta": "发送邮件",
@@ -631,7 +645,8 @@
           "belgeler": "待提交的文件请求",
           "yenilemeler": "14 天内到期的续费",
           "siteler": "当前无法访问的网站",
-          "gelen_kutusu": "收件箱中待回复"
+          "gelen_kutusu": "收件箱中待回复",
+          "stok_kritik": "客户低库存商品（收银）"
         },
         "ek": {
           "toplam": "未付总额：{{tutar}}",
@@ -664,7 +679,9 @@
           "kaldi": "剩余 {{sayi}} 天",
           "doldu": "已于 {{sayi}} 天前到期",
           "yanit_bekliyor": "已等待回复 {{sayi}} 天",
-          "yanit_bekliyor_bugun": "今天收到"
+          "yanit_bekliyor_bugun": "今天收到",
+          "kritik_stok": "已低库存 {{sayi}} 天",
+          "kritik_stok_bugun": "今天降至低库存"
         }
       }
     }

@@ -78,7 +78,8 @@
       "saha_bakim_zamani": "需要保养的设备",
       "etkinlik_kayit": "活动：新报名",
       "etkinlik_iptal": "活动：门票已取消",
-      "haftalik_ozet": "每周摘要（周一早上）"
+      "haftalik_ozet": "每周摘要（周一早上）",
+      "stok_kritik": "降至库存预警线的商品"
     },
     "kanal": {
       "inapp": "面板",

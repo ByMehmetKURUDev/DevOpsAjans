@@ -19,7 +19,8 @@ saatiyle PAZARTESİ 08:00'den sonraki ilk turda; ISO hafta başına BİR kez. Ki
 açık destek talepleri ve SLA ihlalleri, gelen kutusunda yanıt bekleyenler (Faz 5G; destek talepleri ve
 CRM bölümündeki adayların talepleri hariç — çift sayım yok, bkz. `_gelen_kutusu`), sonraki adımı gelmiş / 7+ gündür hareketsiz CRM adayları, 3+
 gündür yanıtsız teklifler, müşteri onayı bekleyen içerikler, bekleyen belge talepleri, 14 gün içinde
-yenilenecek alan adı / SSL (elle yenilenen) / hosting, şu an erişilemeyen siteler.
+yenilenecek alan adı / SSL (elle yenilenen) / hosting, şu an erişilemeyen siteler, müşterilerin POS'unda
+kritik stok seviyesindeki ürünler (Faz 6P).
 
 Dil: diğer yönetici bildirimleri gibi Türkçe; başlık/gövde panelden `notify_tpl_haftalik_ozet_*`
 ile değiştirilebilir (`render`). Önizleme (`ozet_hazirla`) yapılandırılmış veri döner; panel kendi
@@ -363,7 +364,31 @@ async def _siteler(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     return _bolum("siteler", "siteler", len(satirlar), satirlar)
 
 
-BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler)
+async def _stok_kritik(db: AsyncSession, an: datetime) -> Dict[str, Any]:
+    """Faz 6P — müşterilerin POS'unda kritik stok seviyesindeki ürünler (uyarısı gitmiş, hâlâ eşik altında).
+    Modülü kapatılmış hesaplar sayılmaz; örnek satırda ürün + hesap."""
+    from models.stok_pos import StokUrunleri
+    from services.moduller import modul_acik_mi
+
+    liste = (
+        await db.execute(
+            select(StokUrunleri).where(StokUrunleri.kritik_at.isnot(None), StokUrunleri.aktif.is_(True))
+            .order_by(StokUrunleri.kritik_at.asc()).limit(500)
+        )
+    ).scalars().all()
+    acik: Dict[str, bool] = {}
+    satirlar = []
+    for u in liste:
+        if u.hesap_email not in acik:
+            acik[u.hesap_email] = await modul_acik_mi(db, u.hesap_email, "stok_pos")
+        if not acik[u.hesap_email]:
+            continue
+        satirlar.append(_satir(u.ad, ayrinti=u.hesap_email, tur="kritik_stok", gun=max(0, (an - (_utc(u.kritik_at) or an)).days)))
+    hesap_sayisi = len({s["ayrinti"] for s in satirlar})
+    return _bolum("stok_kritik", "stokPos", len(satirlar), satirlar, hesap=hesap_sayisi)
+
+
+BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler, _stok_kritik)
 
 
 async def ozet_hazirla(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
@@ -400,6 +425,7 @@ BASLIKLAR = {
     "belgeler": "Bekleyen belge talepleri",
     "yenilemeler": f"{YENILEME_GUN} gün içinde yenilenecekler (alan adı, SSL, hosting)",
     "siteler": "Şu an erişilemeyen siteler",
+    "stok_kritik": "Müşterilerde kritik stok seviyesindeki ürünler (POS)",
 }
 YENILEME_ADLARI = {"alan": "Alan adı", "ssl": "SSL", "hosting": "Hosting"}
 
@@ -420,6 +446,8 @@ def _bolum_ek_metni(b: Dict[str, Any]) -> str:
         return f"{ek.get('sonraki_adim', 0)} sonraki adımı gelmiş, {ek.get('hareketsiz', 0)} {HAREKETSIZ_GUN}+ gündür hareketsiz"
     if b["anahtar"] == "belgeler" and ek.get("geciken"):
         return f"{ek['geciken']} talebin son tarihi geçti"
+    if b["anahtar"] == "stok_kritik" and ek.get("hesap"):
+        return f"{ek['hesap']} hesapta"
     if b["anahtar"] == "gelen_kutusu" and ek.get("kaynaklar"):
         return ", ".join(f"{GELEN_KAYNAK_ADLARI.get(k, k)} {n}" for k, n in ek["kaynaklar"].items())
     return ""
@@ -440,6 +468,7 @@ def _satir_metni(s: Dict[str, Any]) -> str:
         "bekliyor": "bekliyor" if gun is None else f"son tarihe {gun} gün",
         "kapali": f"{gun} gündür erişilemiyor" if gun else "bugün erişilemiyor",
         "yanit_bekliyor": f"{gun} gündür yanıt bekliyor" if gun else "bugün geldi",
+        "kritik_stok": f"{gun} gündür kritik seviyede" if gun else "bugün kritik seviyeye indi",
     }.get(tur or "")
     if tur in YENILEME_ADLARI:
         durum = f"{YENILEME_ADLARI[tur]}: " + (f"{gun} gün kaldı" if (gun or 0) >= 0 else f"süresi {-(gun or 0)} gün önce doldu")

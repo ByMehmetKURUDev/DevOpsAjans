@@ -493,7 +493,8 @@
     "tabAiAsistan": "AI assistant",
     "tabEpostaPazarlama": "Email marketing",
     "tabSahaServisi": "Field service",
-    "tabEtkinlik": "Events"
+    "tabEtkinlik": "Events",
+    "tabStokPos": "Stock & POS"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

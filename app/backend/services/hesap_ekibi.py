@@ -88,6 +88,10 @@ IZINLER: Tuple[str, ...] = (
     # varsayılanında yok), `etkinlik_giris` YALNIZ kapıda okutma (üyenin varsayılanında var).
     "etkinlik",
     "etkinlik_giris",
+    # Faz 6P — stok ve satış noktası: `stok` yönetim (ürün, maliyet, stok hareketi, sayım, rapor, ayar; üyenin
+    # varsayılanında yok) ve `kasa` YALNIZ satış ekranı (üyenin varsayılanında var: kasiyer = üye).
+    "stok",
+    "kasa",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -99,7 +103,7 @@ ROL_VARSAYILAN: Dict[str, Tuple[str, ...]] = {
     "yonetici": IZINLER,
     # Faz 4K/4M: üye kendi kartvizitini ve menü/katalog mağazalarını da yönetir.
     "uye": ("projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
-            "kartvizit", "menu", "randevu", "asistan", "icerik", "etkinlik_giris"),
+            "kartvizit", "menu", "randevu", "asistan", "icerik", "etkinlik_giris", "kasa"),
     "fatura": ("faturalar", "krediler", "abonelikler"),
 }
 
@@ -129,6 +133,10 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "pazarlama"}),
+        # Faz 5I/6S/6E–6P arası varsayılan (icerik, saha ve etkinlik izinleri var; stok ve kasa yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
+                   "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris"}),
     ),
     "uye": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
@@ -145,6 +153,9 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
         # Faz 5A–5I/6E arası varsayılan (asistan var; icerik ve etkinlik_giris yok).
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
                    "kartvizit", "menu", "randevu", "asistan"}),
+        # Faz 5I/6E–6P arası varsayılan (icerik ve etkinlik_giris var; kasa yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar", "mesajlar", "asistanlar", "qr",
+                   "kartvizit", "menu", "randevu", "asistan", "icerik", "etkinlik_giris"}),
     ),
 }
 
@@ -214,6 +225,8 @@ OLAY_IZNI: Dict[str, str] = {
     # Faz 6S — bakım zamanı gelen cihazlar (hesaba; sevk/yönetim izni olan üyelere de).
     # Teknisyene "yeni iş" (`saha_is_atandi`) kişisel: yalnız atanan kişiye gider (burada yok).
     "saha_bakim_zamani": "saha_yonetim",
+    # Faz 6P — kritik stok seviyesine inen ürünler (stok yönetimi izni olan üyelere de).
+    "stok_kritik": "stok",
     # Faz 6E — etkinliğe yeni kayıt / katılımcı iptali (sahibine).
     "etkinlik_kayit": "etkinlik",
     "etkinlik_iptal": "etkinlik",

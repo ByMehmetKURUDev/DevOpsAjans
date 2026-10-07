@@ -109,7 +109,13 @@
       "etkinlikler": "Мероприятия",
       "etkinlik_bilet_turleri": "Типы билетов",
       "etkinlik_indirim_kodlari": "Промокоды мероприятий",
-      "etkinlik_listeleri": "Список мероприятий"
+      "etkinlik_listeleri": "Список мероприятий",
+      "stok_ayarlari": "Настройки склада и кассы",
+      "stok_konumlari": "Филиал / склад",
+      "stok_urunleri": "Складской товар",
+      "stok_tedarikcileri": "Поставщик",
+      "stok_sayimlari": "Инвентаризация",
+      "pos_kasa_oturumlari": "Кассовая смена"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

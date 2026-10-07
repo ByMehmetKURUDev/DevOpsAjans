@@ -493,7 +493,8 @@
     "tabAiAsistan": "AI सहायक",
     "tabEpostaPazarlama": "ईमेल मार्केटिंग",
     "tabSahaServisi": "फ़ील्ड सर्विस",
-    "tabEtkinlik": "कार्यक्रम"
+    "tabEtkinlik": "कार्यक्रम",
+    "tabStokPos": "स्टॉक और POS"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

@@ -109,7 +109,13 @@
       "etkinlikler": "Etkinlikler",
       "etkinlik_bilet_turleri": "Etkinlik bilet türleri",
       "etkinlik_indirim_kodlari": "Etkinlik indirim kodları",
-      "etkinlik_listeleri": "Etkinlik listesi"
+      "etkinlik_listeleri": "Etkinlik listesi",
+      "stok_ayarlari": "Stok ve POS ayarları",
+      "stok_konumlari": "Şube / depo",
+      "stok_urunleri": "Stok ürünü",
+      "stok_tedarikcileri": "Tedarikçi",
+      "stok_sayimlari": "Stok sayımı",
+      "pos_kasa_oturumlari": "Kasa oturumu"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

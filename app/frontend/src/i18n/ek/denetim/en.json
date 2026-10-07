@@ -109,7 +109,13 @@
       "etkinlikler": "Events",
       "etkinlik_bilet_turleri": "Event ticket types",
       "etkinlik_indirim_kodlari": "Event discount codes",
-      "etkinlik_listeleri": "Event list"
+      "etkinlik_listeleri": "Event list",
+      "stok_ayarlari": "Stock & POS settings",
+      "stok_konumlari": "Branch / warehouse",
+      "stok_urunleri": "Stock product",
+      "stok_tedarikcileri": "Supplier",
+      "stok_sayimlari": "Stocktake",
+      "pos_kasa_oturumlari": "Till session"
     },
     "hareket": {
       "baslik": "Account activity",

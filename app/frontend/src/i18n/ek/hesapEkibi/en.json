@@ -42,7 +42,9 @@
       "saha_yonetim": "Field service — management and dispatch",
       "saha_teknisyen": "Field service — technician",
       "etkinlik": "Events and tickets (management)",
-      "etkinlik_giris": "Events: ticket check-in at the door"
+      "etkinlik_giris": "Events: ticket check-in at the door",
+      "stok": "Stock & POS — management (products, cost, stock, reports)",
+      "kasa": "Stock & POS — till only (sales screen)"
     },
     "durum": {
       "davet": "Invitation pending",

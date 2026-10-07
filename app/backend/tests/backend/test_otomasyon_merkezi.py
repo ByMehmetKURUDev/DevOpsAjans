@@ -535,6 +535,13 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     site = await _ekle(db_oturumu, Client_sites(client_email=e, ad="ornek-kafe.com", adres="https://ornek-kafe.com"))
     await _ekle(db_oturumu, SiteIzleme(site_id=site.id, alan_adi="ornek-kafe.com", alan_bitis=an + timedelta(days=10)))
     await _ekle(db_oturumu, UptimeKesintisi(kontrol_id=0, site_id=site.id, baslangic=an - timedelta(hours=2)))
+    # Faz 6P: POS'u açık bir müşteride kritik stok uyarısı gitmiş ürün.
+    from models.stok_pos import StokUrunleri
+
+    y = await istemci.put(f"/api/v1/moduller/musteri/{e}/stok_pos", json={"acik": True}, headers=yonetici_basligi)
+    assert y.status_code == 200, y.text
+    await _ekle(db_oturumu, StokUrunleri(hesap_email=e, ad="Filtre kahve", barkod="2000000000008", satis_fiyati=100,
+                                         kritik_esik=2000, kritik_at=an - timedelta(days=1)))
 
     from models.sozlesmeler import HatirlatmaIzleri
 
@@ -545,7 +552,7 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     o = y.json()
     bolumler = {b["anahtar"]: b for b in o["bolumler"]}
     assert list(bolumler) == ["faturalar", "destek", "gelen_kutusu", "crm", "teklifler", "icerik", "belgeler",
-                              "yenilemeler", "siteler"]
+                              "yenilemeler", "siteler", "stok_kritik"]
     for b in bolumler.values():
         assert b["sayi"] >= 1 and len(b["ornekler"]) <= ho.ORNEK_SINIRI, b
     assert any(t["para_birimi"] == "USD" for t in bolumler["faturalar"]["ek"]["toplamlar"])
@@ -554,7 +561,7 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     assert any(s["ad"] == "ornek-kafe.com" and s["tur"] == "alan" for s in bolumler["yenilemeler"]["ornekler"])
     assert any(s["ad"] == "ornek-kafe.com" for s in bolumler["siteler"]["ornekler"])
     assert {b["sekme"] for b in o["bolumler"]} <= {"invoices", "tickets", "gelenKutusu", "crm", "teklifler", "icerik",
-                                                   "dosyalar", "siteler"}
+                                                   "dosyalar", "siteler", "stokPos"}
     assert bolumler["gelen_kutusu"]["ek"]["kaynaklar"].get("kartvizit", 0) >= 1
     assert o["bos"] is False and o["eposta"]["konu"].startswith("Haftalık özet")
     # Önizleme gönderim izi yazmaz.

@@ -124,7 +124,8 @@ def test_sektor_paketleri_tutarli():
 
 def test_paketi_ac_listesi_bagimliliklarla():
     assert sp.acilacak_moduller("restoran_kafe") == [
-        m.anahtar for m in manifest.sirali() if m.anahtar in {"qr_menu", "whatsapp_katalog", "google_yorum_sayfasi", "dinamik_qr"}
+        m.anahtar for m in manifest.sirali()
+        if m.anahtar in {"qr_menu", "whatsapp_katalog", "google_yorum_sayfasi", "dinamik_qr", "stok_pos"}
     ]
     assert sp.acilacak_moduller("yok") == []
     assert [p.anahtar for p in sp.iceren_paketler("randevu")] == ["klinik_guzellik", "teknik_servis", "egitim_etkinlik", "ajans_serbest"]

@@ -30,6 +30,7 @@ import {
   BotMessageSquare,
   Wrench,
   Ticket,
+  ScanBarcode,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -127,6 +128,8 @@ const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/E
 const SahaServisi = ekliLazy('sahaServisi', () => import('@/components/SahaServisi'));
 // Faz 6E — etkinlik ve bilet (yönetici paneliyle aynı bileşen, müşteri modu; `etkinlik_giris` izinli üyeye yalnız okutma).
 const Etkinlik = ekliLazy('etkinlik', () => import('@/components/Etkinlik'));
+// Faz 6P — stok ve POS (yönetici paneliyle aynı bileşen, müşteri modu; `kasa` izinli üyeye yalnız satış ekranı).
+const StokPos = ekliLazy('stokPos', () => import('@/components/StokPos'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -207,6 +210,7 @@ type Tab =
   | 'epostaPazarlama'
   | 'sahaServisi'
   | 'etkinlik'
+  | 'stokPos'
   | 'dosyalar'
   | 'api'
   | 'profile';
@@ -235,6 +239,7 @@ const SEKMELER: Tab[] = [
   'epostaPazarlama',
   'sahaServisi',
   'etkinlik',
+  'stokPos',
   'dosyalar',
   'api',
   'profile',
@@ -245,7 +250,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos'];
 
 /**
  * `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın.
@@ -723,6 +728,7 @@ export default function ClientPanel() {
     epostaPazarlama: { label: t('ui.tabEpostaPazarlama'), icon: Send },
     sahaServisi: { label: t('ui.tabSahaServisi'), icon: Wrench },
     etkinlik: { label: t('ui.tabEtkinlik'), icon: Ticket },
+    stokPos: { label: t('ui.tabStokPos'), icon: ScanBarcode },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
@@ -1450,6 +1456,18 @@ export default function ClientPanel() {
               }
             >
               <Etkinlik mod="musteri" yalnizGiris={!izinVar(['etkinlik'])} />
+            </Suspense>
+          )}
+
+          {tab === 'stokPos' && modulBilgisi !== null && modulAcik('stok_pos') && izinVar(['stok', 'kasa']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <StokPos mod="musteri" />
             </Suspense>
           )}
 

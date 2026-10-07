@@ -493,7 +493,8 @@
     "tabAiAsistan": "AI 助手",
     "tabEpostaPazarlama": "邮件营销",
     "tabSahaServisi": "现场服务",
-    "tabEtkinlik": "活动"
+    "tabEtkinlik": "活动",
+    "tabStokPos": "库存与收银"
   },
   "admin": {
     "loadError": "管理数据加载失败",

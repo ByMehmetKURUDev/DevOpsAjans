@@ -139,6 +139,15 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("baslik"), Alan("baslangic", "tarih"), Alan("durum"), Alan("kod"), Alan("ad"),
         Alan("eposta"), Alan("telefon"), Alan("bilet_sayisi", "sayi"), Alan("toplam", "sayi"), Alan("para_birimi"),
     ),
+    # Faz 6P — POS satışı (fiş; müşteri adı/alıcı YOK) ve kritik stoka inen ürün.
+    "satis": (
+        Alan("id", "sayi"), Alan("no"), Alan("durum"), Alan("toplam", "sayi"), Alan("kdv", "sayi"), Alan("para_birimi"),
+        Alan("kalem_sayisi", "sayi"), Alan("odeme_turu"), Alan("konum"),
+    ),
+    "stok": (
+        Alan("urun_id", "sayi"), Alan("ad"), Alan("barkod"), Alan("sku"), Alan("kategori"), Alan("birim"),
+        Alan("miktar", "sayi"), Alan("esik", "sayi"),
+    ),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -191,6 +200,9 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("etkinlik.bilet_satildi", ("etkinlik", "aday", "hesap"), musteri=False),
     OtoOlay("etkinlik.giris", ("etkinlik", "hesap")),
     OtoOlay("etkinlik.iptal", ("etkinlik", "hesap")),
+    # Faz 6P — stok ve POS.
+    OtoOlay("pos.satis", ("satis", "hesap")),
+    OtoOlay("stok.kritik", ("stok", "hesap")),
     # Faz 7O — zamanlı üretilen hatırlatma olayları (yalnız ajans; webhook kataloğunda yok: durum
     # değişikliği değil, "şu kadar gündür bir şey olmadı" türevi). Eşik başına bir kez.
     OtoOlay("teklif.yanitsiz", ("teklif", "hesap"), musteri=False, yalniz_otomasyon=True),
@@ -299,6 +311,10 @@ ORNEK: Dict[str, Dict[str, Any]] = {
                  "toplam": 0, "para_birimi": "TRY"},
     "icerik": {"id": 64, "baslik": "Ekim kampanyası duyurusu", "durum": "onaylandi", "kanallar": ["instagram", "linkedin"],
                "planlanan_at": "2026-10-08T07:00:00Z", "kampanya": "Ekim", "sorumlu": None, "not": None, "yoneten": "ajans"},
+    "satis": {"id": 501, "no": "S-000501", "durum": "tamamlandi", "toplam": 245.5, "kdv": 40.92, "para_birimi": "TRY",
+              "kalem_sayisi": 3, "odeme_turu": "nakit", "konum": "Merkez"},
+    "stok": {"urun_id": 77, "ad": "Filtre kahve 250 g", "barkod": "8690000000012", "sku": "FK-250", "kategori": "Kahve",
+             "birim": "adet", "miktar": 2, "esik": 5},
     "hesap": {"email": "musteri@ornek.com", "ad": "Örnek A.Ş."},
 }
 

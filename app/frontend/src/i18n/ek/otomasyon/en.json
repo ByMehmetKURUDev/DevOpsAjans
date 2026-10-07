@@ -102,7 +102,9 @@
       "kisi": "Person in the event",
       "olay": "Event",
       "is_emri": "Field work order",
-      "etkinlik": "Event registration"
+      "etkinlik": "Event registration",
+      "satis": "POS sale",
+      "stok": "Stock item"
     },
     "alan": {
       "id": "ID",
@@ -168,7 +170,15 @@
       "baglanti": "Link",
       "yoneten": "Managed by (agency/client)",
       "acik": "Open (unpaid)",
-      "vadeye_kalan_gun": "Days until due"
+      "vadeye_kalan_gun": "Days until due",
+      "kdv": "VAT",
+      "odeme_turu": "Payment method",
+      "urun_id": "Product ID",
+      "barkod": "Barcode",
+      "sku": "SKU",
+      "birim": "Unit",
+      "miktar": "Quantity",
+      "esik": "Threshold"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -198,7 +208,9 @@
       "etkinlik_giris": "Checked in at the door",
       "etkinlik_iptal": "Event ticket cancelled",
       "teklif_yanitsiz": "Quote left unanswered",
-      "aday_hareketsiz": "Lead went quiet"
+      "aday_hareketsiz": "Lead went quiet",
+      "pos_satis": "POS sale completed",
+      "stok_kritik": "Product fell to low stock"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -228,7 +240,9 @@
       "etkinlik_giris": "A ticket was scanned at the door (first entry).",
       "etkinlik_iptal": "The attendee or the organiser cancelled a ticket.",
       "teklif_yanitsiz": "A sent quote has had no accept or decline for 3 or 7 days (once per threshold; resending restarts the count).",
-      "aday_hareketsiz": "An open lead has had no activity (note, call, stage change…) for 7 or 14 days. New activity resets the count."
+      "aday_hareketsiz": "An open lead has had no activity (note, call, stage change…) for 7 or 14 days. New activity resets the count.",
+      "pos_satis": "A sale was completed at the till (once per receipt; no customer name in the context).",
+      "stok_kritik": "A product's total stock fell to its threshold (once until it rises above it again)."
     },
     "eylem": {
       "eposta": "Send email",
@@ -631,7 +645,8 @@
           "belgeler": "Pending document requests",
           "yenilemeler": "Renewals due within 14 days",
           "siteler": "Sites currently unreachable",
-          "gelen_kutusu": "Waiting for a reply in the inbox"
+          "gelen_kutusu": "Waiting for a reply in the inbox",
+          "stok_kritik": "Customers' products at low stock (POS)"
         },
         "ek": {
           "toplam": "Total outstanding: {{tutar}}",
@@ -664,7 +679,9 @@
           "kaldi": "{{sayi}} days left",
           "doldu": "expired {{sayi}} days ago",
           "yanit_bekliyor": "waiting for a reply for {{sayi}} days",
-          "yanit_bekliyor_bugun": "arrived today"
+          "yanit_bekliyor_bugun": "arrived today",
+          "kritik_stok": "at low stock for {{sayi}} days",
+          "kritik_stok_bugun": "fell to low stock today"
         }
       }
     }

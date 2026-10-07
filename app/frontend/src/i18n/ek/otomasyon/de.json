@@ -102,7 +102,9 @@
       "kisi": "Person im Ereignis",
       "olay": "Ereignis",
       "is_emri": "Außendienst-Arbeitsauftrag",
-      "etkinlik": "Veranstaltungsanmeldung"
+      "etkinlik": "Veranstaltungsanmeldung",
+      "satis": "Kassenverkauf",
+      "stok": "Lagerartikel"
     },
     "alan": {
       "id": "ID",
@@ -168,7 +170,15 @@
       "baglanti": "Link",
       "yoneten": "Verwaltet von (Agentur/Kunde)",
       "acik": "Offen (unbezahlt)",
-      "vadeye_kalan_gun": "Tage bis Fälligkeit"
+      "vadeye_kalan_gun": "Tage bis Fälligkeit",
+      "kdv": "MwSt.",
+      "odeme_turu": "Zahlungsart",
+      "urun_id": "Produkt-ID",
+      "barkod": "Barcode",
+      "sku": "SKU",
+      "birim": "Einheit",
+      "miktar": "Menge",
+      "esik": "Schwellenwert"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -198,7 +208,9 @@
       "etkinlik_giris": "Einlass erfolgt",
       "etkinlik_iptal": "Veranstaltungsticket storniert",
       "teklif_yanitsiz": "Angebot unbeantwortet",
-      "aday_hareketsiz": "Lead ohne Aktivität"
+      "aday_hareketsiz": "Lead ohne Aktivität",
+      "pos_satis": "Kassenverkauf abgeschlossen",
+      "stok_kritik": "Produkt hat Mindestbestand erreicht"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -228,7 +240,9 @@
       "etkinlik_giris": "Ein Ticket wurde am Einlass gescannt (erster Einlass).",
       "etkinlik_iptal": "Teilnehmende oder Veranstalter haben ein Ticket storniert.",
       "teklif_yanitsiz": "Ein gesendetes Angebot wurde seit 3 oder 7 Tagen weder angenommen noch abgelehnt (je Schwelle einmal; erneutes Senden startet die Zählung neu).",
-      "aday_hareketsiz": "Ein offener Lead hat seit 7 oder 14 Tagen keine Aktivität (Notiz, Anruf, Phasenwechsel …). Neue Aktivität setzt die Zählung zurück."
+      "aday_hareketsiz": "Ein offener Lead hat seit 7 oder 14 Tagen keine Aktivität (Notiz, Anruf, Phasenwechsel …). Neue Aktivität setzt die Zählung zurück.",
+      "pos_satis": "An der Kasse wurde ein Verkauf abgeschlossen (einmal je Beleg; kein Kundenname im Kontext).",
+      "stok_kritik": "Der Gesamtbestand eines Produkts hat den Mindestbestand erreicht (einmal, bis er wieder darüber liegt)."
     },
     "eylem": {
       "eposta": "E-Mail senden",
@@ -631,7 +645,8 @@
           "belgeler": "Ausstehende Dokumentanfragen",
           "yenilemeler": "Verlängerungen in den nächsten 14 Tagen",
           "siteler": "Derzeit nicht erreichbare Websites",
-          "gelen_kutusu": "Im Posteingang wartet auf Antwort"
+          "gelen_kutusu": "Im Posteingang wartet auf Antwort",
+          "stok_kritik": "Kundenprodukte mit kritischem Bestand (Kasse)"
         },
         "ek": {
           "toplam": "Offen insgesamt: {{tutar}}",
@@ -664,7 +679,9 @@
           "kaldi": "noch {{sayi}} Tage",
           "doldu": "vor {{sayi}} Tagen abgelaufen",
           "yanit_bekliyor": "wartet seit {{sayi}} Tagen auf Antwort",
-          "yanit_bekliyor_bugun": "heute eingegangen"
+          "yanit_bekliyor_bugun": "heute eingegangen",
+          "kritik_stok": "seit {{sayi}} Tagen kritisch",
+          "kritik_stok_bugun": "heute kritisch geworden"
         }
       }
     }

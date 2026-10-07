@@ -52,7 +52,7 @@ SEKTOR_PAKETLERI: Tuple[SektorPaketi, ...] = (
         anahtar="restoran_kafe",
         ad_varsayilan={"tr": "Restoran ve kafe", "en": "Restaurant and café"},
         ikon="UtensilsCrossed",
-        moduller=("qr_menu", "whatsapp_katalog", "google_yorum_sayfasi", "dinamik_qr"),
+        moduller=("qr_menu", "whatsapp_katalog", "google_yorum_sayfasi", "dinamik_qr", "stok_pos"),
     ),
     SektorPaketi(
         anahtar="klinik_guzellik",
@@ -82,7 +82,7 @@ SEKTOR_PAKETLERI: Tuple[SektorPaketi, ...] = (
         anahtar="eticaret_kobi",
         ad_varsayilan={"tr": "E-ticaret ve KOBİ", "en": "E-commerce and SMB"},
         ikon="ShoppingBag",
-        moduller=("eposta_pazarlama", "ai_asistan", "dinamik_qr", "otomasyon"),
+        moduller=("eposta_pazarlama", "ai_asistan", "dinamik_qr", "otomasyon", "stok_pos"),
     ),
 )
 

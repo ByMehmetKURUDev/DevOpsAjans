@@ -42,7 +42,9 @@
       "saha_yonetim": "Saha servisi — yönetim ve sevk",
       "saha_teknisyen": "Saha servisi — teknisyen",
       "etkinlik": "Etkinlik ve bilet (yönetim)",
-      "etkinlik_giris": "Etkinlik: kapıda bilet okutma"
+      "etkinlik_giris": "Etkinlik: kapıda bilet okutma",
+      "stok": "Stok ve POS — yönetim (ürün, maliyet, stok, rapor)",
+      "kasa": "Stok ve POS — yalnız kasa (satış ekranı)"
     },
     "durum": {
       "davet": "Davet bekliyor",

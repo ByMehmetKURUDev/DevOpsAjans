@@ -521,6 +521,26 @@
             "c": "Yes. Published reports are archived in the Reports tab of your panel."
           }
         ]
+      },
+      "stok_pos": {
+        "ozet": "Barcoded products, stock per branch and a touch-friendly till: from sale to end of day, your stock and cash in one screen.",
+        "kimIcin": "Small businesses that sell products, such as cafés, boutiques, corner shops, hairdressers and beauty salons.",
+        "ozellikler": [
+          "Barcode scanning (camera or scanner), basket, discounts, cash/card/transfer and change",
+          "Stock per branch, stock in/out/wastage, transfers and scan-and-count stocktakes",
+          "Low-stock alerts, A4 barcode labels and CSV import/export",
+          "End-of-day report, product profit, stock value and slow-mover reports"
+        ],
+        "sss": [
+          {
+            "s": "Does this receipt replace a fiscal cash register receipt?",
+            "c": "No. Receipts and end-of-day reports are informational; they do not replace a legal fiscal receipt or an e-Archive invoice."
+          },
+          {
+            "s": "Do I have to re-enter my QR menu products?",
+            "c": "No. Import QR menu products as linked items in one click; when stock runs out they show as “sold out” on the menu."
+          }
+        ]
       }
     },
     "s": {

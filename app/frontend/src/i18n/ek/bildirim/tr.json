@@ -78,7 +78,8 @@
       "saha_bakim_zamani": "Bakım zamanı gelen cihazlar",
       "etkinlik_kayit": "Etkinlik: yeni kayıt",
       "etkinlik_iptal": "Etkinlik: bilet iptal edildi",
-      "haftalik_ozet": "Haftalık özet (Pazartesi sabahı)"
+      "haftalik_ozet": "Haftalık özet (Pazartesi sabahı)",
+      "stok_kritik": "Kritik stok seviyesine inen ürünler"
     },
     "kanal": {
       "inapp": "Panel",

@@ -78,7 +78,8 @@
       "saha_bakim_zamani": "Equipment due for maintenance",
       "etkinlik_kayit": "Event: new registration",
       "etkinlik_iptal": "Event: ticket cancelled",
-      "haftalik_ozet": "Weekly summary (Monday morning)"
+      "haftalik_ozet": "Weekly summary (Monday morning)",
+      "stok_kritik": "Products that fell to low stock"
     },
     "kanal": {
       "inapp": "Panel",

@@ -46,9 +46,18 @@ def test_fonksiyon_dosyalari():
     assert "frame-ancestors *" in metin and "SAMEORIGIN" in metin
     liste = (ON_YUZ / "functions" / "etkinlikler" / "[slug].js").read_text(encoding="utf-8")
     assert "export async function onRequest" in liste and "noindex, nofollow" in liste
-    # Sitenin geri kalanında kamera kapalı kalıyor (yalnız Function okutucu sayfalarında açıyor).
+    # Sitenin geri kalanında kamera kapalı kalıyor (Function okutucu sayfalarında açık; Faz 6P: bir de müşteri
+    # panelinde — kasa ekranının barkod okutucusu — `/client` kuralında `camera=(self)`).
     basliklar = (ON_YUZ / "public" / "_headers").read_text(encoding="utf-8")
-    assert "camera=()" in basliklar and "camera=(self)" not in basliklar
+    kamerali, kural = set(), None
+    for satir in basliklar.splitlines():
+        if not satir.strip() or satir.strip().startswith("#"):
+            continue
+        if not satir[0].isspace():
+            kural = satir.strip()
+        elif satir.strip().lower().startswith("permissions-policy:") and "camera=(self)" in satir:
+            kamerali.add(kural)
+    assert "camera=()" in basliklar and kamerali == {"/client"}, kamerali
 
 
 def test_gomme_betigi_depoda_ve_kucuk():

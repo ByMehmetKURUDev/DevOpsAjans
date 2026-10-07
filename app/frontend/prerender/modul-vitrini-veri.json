@@ -26,7 +26,7 @@
         "qr_menu",
         "whatsapp_katalog",
         "google_yorum_sayfasi",
-        "eposta_pazarlama"
+        "stok_pos"
       ],
       "sektor_paketleri": [
         "restoran_kafe",
@@ -62,7 +62,7 @@
         "qr_menu",
         "whatsapp_katalog",
         "dinamik_qr",
-        "randevu"
+        "stok_pos"
       ],
       "sektor_paketleri": [
         "restoran_kafe",
@@ -81,7 +81,7 @@
         "whatsapp_katalog",
         "google_yorum_sayfasi",
         "dinamik_qr",
-        "dijital_kartvizit"
+        "stok_pos"
       ],
       "sektor_paketleri": [
         "restoran_kafe"
@@ -98,7 +98,7 @@
         "qr_menu",
         "google_yorum_sayfasi",
         "dinamik_qr",
-        "dijital_kartvizit"
+        "stok_pos"
       ],
       "sektor_paketleri": [
         "restoran_kafe"
@@ -220,10 +220,29 @@
       "paket": null,
       "ilgili": [
         "randevu",
-        "google_yorum_sayfasi"
+        "google_yorum_sayfasi",
+        "stok_pos"
       ],
       "sektor_paketleri": [
         "teknik_servis"
+      ]
+    },
+    {
+      "anahtar": "stok_pos",
+      "slug": "stok-pos",
+      "ikon": "ScanBarcode",
+      "kategori": "sektorel",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "qr_menu",
+        "whatsapp_katalog",
+        "google_yorum_sayfasi",
+        "dinamik_qr"
+      ],
+      "sektor_paketleri": [
+        "restoran_kafe",
+        "eticaret_kobi"
       ]
     },
     {
@@ -416,7 +435,8 @@
         "qr_menu",
         "whatsapp_katalog",
         "google_yorum_sayfasi",
-        "dinamik_qr"
+        "dinamik_qr",
+        "stok_pos"
       ],
       "setler": [
         "restoran_kafe"
@@ -487,7 +507,8 @@
         "eposta_pazarlama",
         "ai_asistan",
         "dinamik_qr",
-        "otomasyon"
+        "otomasyon",
+        "stok_pos"
       ],
       "setler": [
         "eticaret_kobi"

@@ -59,9 +59,12 @@
 # SEFERLİK konum (uygulama içi açık rıza + tarayıcı izni). Konum izni yalnız kendi kökenine ve yalnız
 # panelde açılıyor; sitenin geri kalanında `geolocation=()` kalıyor. Kamera API'si yine kapalı
 # (fotoğraf dosya seçicinin `capture` özniteliğiyle telefonun kendi kamerasından geliyor).
+# Faz 6P: stok ve satış noktası — kasa ekranında kamerayla barkod okutma (BarcodeDetector, Faz 6E
+# okutucu deseni) için kamera da yalnız kendi kökenine ve yalnız panelde açık (`camera=(self)`);
+# tarayıcı yine izin sorar. Sitenin geri kalanında `camera=()` kalıyor.
 /client
   ! Permissions-Policy
-  Permissions-Policy: camera=(), microphone=(), geolocation=(self), interest-cohort=()
+  Permissions-Policy: camera=(self), microphone=(), geolocation=(self), interest-cohort=()
 
 # Faz 6S: servis müşterisinin imzalı sayfası (/servis/<jeton>) — dizine girmez; adres jeton taşıdığı
 # için yönlendiren (Referer) hiç gönderilmez.

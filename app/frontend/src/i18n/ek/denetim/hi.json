@@ -109,7 +109,13 @@
       "etkinlikler": "कार्यक्रम",
       "etkinlik_bilet_turleri": "कार्यक्रम टिकट प्रकार",
       "etkinlik_indirim_kodlari": "कार्यक्रम डिस्काउंट कोड",
-      "etkinlik_listeleri": "कार्यक्रम सूची"
+      "etkinlik_listeleri": "कार्यक्रम सूची",
+      "stok_ayarlari": "स्टॉक और POS सेटिंग्स",
+      "stok_konumlari": "शाखा / गोदाम",
+      "stok_urunleri": "स्टॉक उत्पाद",
+      "stok_tedarikcileri": "आपूर्तिकर्ता",
+      "stok_sayimlari": "स्टॉक गिनती",
+      "pos_kasa_oturumlari": "कैश सत्र"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

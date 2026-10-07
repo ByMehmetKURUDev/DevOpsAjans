@@ -493,7 +493,8 @@
     "tabAiAsistan": "مساعد الذكاء الاصطناعي",
     "tabEpostaPazarlama": "التسويق عبر البريد",
     "tabSahaServisi": "الخدمة الميدانية",
-    "tabEtkinlik": "الفعاليات"
+    "tabEtkinlik": "الفعاليات",
+    "tabStokPos": "المخزون ونقطة البيع"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

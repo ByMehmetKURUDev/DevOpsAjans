@@ -67,7 +67,9 @@
       "etkinlik_kayit": "Event registration confirmed",
       "etkinlik_bilet_satildi": "Paid event ticket sold",
       "etkinlik_giris": "Event door check-in",
-      "etkinlik_iptal": "Event ticket cancelled"
+      "etkinlik_iptal": "Event ticket cancelled",
+      "pos_satis": "POS sale completed (high volume)",
+      "stok_kritik": "Product fell to low stock"
     },
     "anahtar": {
       "yeni": "New key",

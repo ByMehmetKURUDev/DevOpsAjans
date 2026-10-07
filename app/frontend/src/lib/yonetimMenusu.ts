@@ -55,7 +55,7 @@ export const GRUPLAR: readonly GrupTanimi[] = [
   },
   {
     anahtar: 'araclar',
-    sekmeler: ['aiAsistan', 'uzmanAsistanlar', 'randevu', 'qrMenu', 'etkinlik', 'sahaServisi'],
+    sekmeler: ['aiAsistan', 'uzmanAsistanlar', 'randevu', 'qrMenu', 'etkinlik', 'sahaServisi', 'stokPos'],
   },
   {
     anahtar: 'otomasyon',

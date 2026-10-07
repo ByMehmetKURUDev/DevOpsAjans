@@ -109,7 +109,13 @@
       "etkinlikler": "活动",
       "etkinlik_bilet_turleri": "活动门票类型",
       "etkinlik_indirim_kodlari": "活动折扣码",
-      "etkinlik_listeleri": "活动列表"
+      "etkinlik_listeleri": "活动列表",
+      "stok_ayarlari": "库存与收银设置",
+      "stok_konumlari": "门店 / 仓库",
+      "stok_urunleri": "库存商品",
+      "stok_tedarikcileri": "供应商",
+      "stok_sayimlari": "库存盘点",
+      "pos_kasa_oturumlari": "收银班次"
     },
     "hareket": {
       "baslik": "账户动态",

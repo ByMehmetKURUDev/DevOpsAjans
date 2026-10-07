@@ -588,6 +588,31 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             if a is not None:
                 b["aday"] = aday_sozlugu(a)
                 await _aday_hareketi(db, b["aday"], a)
+    elif on == "pos":
+        # Faz 6P — POS satışı (müşteri adı / alıcı bağlamda YOK).
+        from models.stok_pos import PosSatislari, StokKonumlari
+
+        x = await _kayit(db, PosSatislari, veri.get("satis_id"))
+        if x is None or (not ajans and eposta_duzelt(x.hesap_email) != eposta_duzelt(olay_hesap)):
+            return None
+        k = await _kayit(db, StokKonumlari, x.konum_id)
+        b["satis"] = {"id": x.id, "no": x.no, "durum": x.durum, "toplam": round((x.toplam or 0) / 100, 2),
+                      "kdv": round((x.kdv_toplam or 0) / 100, 2), "para_birimi": x.para_birimi,
+                      "kalem_sayisi": int(veri.get("kalem_sayisi") or 0), "odeme_turu": x.odeme_turu, "konum": k.ad if k else None}
+    elif on == "stok":
+        # Faz 6P — kritik stok: olay anındaki miktar (bekleme sonrası yeniden denetimde güncel toplam).
+        from models.stok_pos import StokUrunleri
+
+        u = await _kayit(db, StokUrunleri, veri.get("urun_id"))
+        if u is None or (not ajans and eposta_duzelt(u.hesap_email) != eposta_duzelt(olay_hesap)):
+            return None
+        miktar = veri.get("miktar")
+        if taze or miktar is None:
+            from services.stok_kayit import toplam_stok
+
+            miktar = round(await toplam_stok(db, u.id) / 1000, 3)
+        b["stok"] = {"urun_id": u.id, "ad": u.ad, "barkod": u.barkod, "sku": u.sku, "kategori": u.kategori, "birim": u.birim,
+                     "miktar": miktar, "esik": round(u.kritik_esik / 1000, 3) if u.kritik_esik is not None else None}
     if proje_id:
         from models.projects import Projects
 

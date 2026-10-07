@@ -42,7 +42,9 @@
       "saha_yonetim": "现场服务 —— 管理与调度",
       "saha_teknisyen": "现场服务 —— 技术人员",
       "etkinlik": "活动与门票（管理）",
-      "etkinlik_giris": "活动：现场检票"
+      "etkinlik_giris": "活动：现场检票",
+      "stok": "库存与收银 — 管理（商品、成本、库存、报表）",
+      "kasa": "库存与收银 — 仅收银（销售界面）"
     },
     "durum": {
       "davet": "等待接受邀请",

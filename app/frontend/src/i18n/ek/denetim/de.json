@@ -109,7 +109,13 @@
       "etkinlikler": "Veranstaltungen",
       "etkinlik_bilet_turleri": "Ticketarten",
       "etkinlik_indirim_kodlari": "Rabattcodes für Veranstaltungen",
-      "etkinlik_listeleri": "Veranstaltungsliste"
+      "etkinlik_listeleri": "Veranstaltungsliste",
+      "stok_ayarlari": "Lager- und Kasseneinstellungen",
+      "stok_konumlari": "Filiale / Lager",
+      "stok_urunleri": "Lagerprodukt",
+      "stok_tedarikcileri": "Lieferant",
+      "stok_sayimlari": "Inventur",
+      "pos_kasa_oturumlari": "Kassensitzung"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

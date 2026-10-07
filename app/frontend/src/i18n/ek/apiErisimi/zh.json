@@ -67,7 +67,9 @@
       "etkinlik_kayit": "活动报名已确认",
       "etkinlik_bilet_satildi": "活动付费门票已售出",
       "etkinlik_giris": "活动现场入场",
-      "etkinlik_iptal": "活动门票已取消"
+      "etkinlik_iptal": "活动门票已取消",
+      "pos_satis": "收银销售完成（高频）",
+      "stok_kritik": "商品降至库存预警线"
     },
     "anahtar": {
       "yeni": "新建密钥",

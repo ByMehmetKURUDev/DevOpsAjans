@@ -493,7 +493,8 @@
     "tabAiAsistan": "ИИ-ассистент",
     "tabEpostaPazarlama": "Email-маркетинг",
     "tabSahaServisi": "Выездной сервис",
-    "tabEtkinlik": "Мероприятия"
+    "tabEtkinlik": "Мероприятия",
+    "tabStokPos": "Склад и касса"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

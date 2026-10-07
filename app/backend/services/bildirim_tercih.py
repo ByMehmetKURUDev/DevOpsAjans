@@ -134,6 +134,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Servis müşterisine giden e-postalar katalog dışı (`saha_musteri`: yalnız e-posta).
     "saha_is_atandi": {"roller": ("client",), "tetikleniyor": True},
     "saha_bakim_zamani": {"roller": ("client",), "tetikleniyor": True},
+    # Faz 6P — stok ve POS: ürün kritik stok seviyesine indi (ürün başına tek bildirim; eşik üstüne çıkınca yeniden kurulur).
+    "stok_kritik": {"roller": ("client",), "tetikleniyor": True},
     # Faz 7O — Pazartesi sabahı yöneticiye haftalık özet. Bu satırın yönetici × e-posta hücresi özetin
     # açık/kapalı anahtarı (Otomasyon › Sistem kartındaki düğme de bunu değiştirir; tek kaynak).
     "haftalik_ozet": {"roller": ("admin",), "tetikleniyor": True},

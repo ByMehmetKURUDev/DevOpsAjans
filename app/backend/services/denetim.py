@@ -117,6 +117,11 @@ HARIC_TABLOLAR = frozenset({
     # saklama süresi dolunca anonimleşiyor), kapı okutmaları ve kapak görselleri. Etkinlik, bilet
     # türü ve indirim kodu kaydediliyor; liste ayarı da.
     "etkinlik_siparisleri", "etkinlik_biletleri", "etkinlik_bekleme", "etkinlik_okutmalar", "etkinlik_gorselleri",
+    # Faz 6P: stok/POS — yüksek hacimli işlem kayıtları (satış, satış satırı, iade, stok hareketi, seviye, sayım
+    # satırı: kendi geçmiş tabloları zaten kim + ne zaman tutuyor) ve fatura alıcıları (KİŞİSEL VERİ). Ayarlar,
+    # konumlar, ürünler, tedarikçiler, sayım başlıkları ve kasa oturumları kaydediliyor.
+    "pos_satislari", "pos_satis_kalemleri", "pos_iadeler", "pos_alicilari", "stok_hareketleri", "stok_seviyeleri",
+    "stok_sayim_kalemleri",
     # Faz 4W: otomasyon kuyruğu/günlüğü (her olayda satır; kendi 30 günlük günlüğü var).
     # Kurallar, özel alan tanımları ve değerleri kaydediliyor.
     "otomasyon_calismalari",

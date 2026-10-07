@@ -493,7 +493,8 @@
     "tabAiAsistan": "AI asistan",
     "tabEpostaPazarlama": "E-posta pazarlama",
     "tabSahaServisi": "Saha servisi",
-    "tabEtkinlik": "Etkinlikler"
+    "tabEtkinlik": "Etkinlikler",
+    "tabStokPos": "Stok ve POS"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

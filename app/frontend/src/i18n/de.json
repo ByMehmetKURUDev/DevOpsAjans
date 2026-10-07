@@ -493,7 +493,8 @@
     "tabAiAsistan": "KI-Assistent",
     "tabEpostaPazarlama": "E-Mail-Marketing",
     "tabSahaServisi": "Außendienst",
-    "tabEtkinlik": "Veranstaltungen"
+    "tabEtkinlik": "Veranstaltungen",
+    "tabStokPos": "Lager & Kasse"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

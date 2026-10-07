@@ -42,7 +42,9 @@
       "saha_yonetim": "Außendienst — Verwaltung und Disposition",
       "saha_teknisyen": "Außendienst — Techniker",
       "etkinlik": "Veranstaltungen und Tickets (Verwaltung)",
-      "etkinlik_giris": "Veranstaltungen: Ticketkontrolle am Einlass"
+      "etkinlik_giris": "Veranstaltungen: Ticketkontrolle am Einlass",
+      "stok": "Lager & Kasse — Verwaltung (Produkte, Kosten, Bestand, Berichte)",
+      "kasa": "Lager & Kasse — nur Kasse (Verkaufsbildschirm)"
     },
     "durum": {
       "davet": "Einladung ausstehend",

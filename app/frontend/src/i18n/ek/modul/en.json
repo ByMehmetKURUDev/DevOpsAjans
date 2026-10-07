@@ -188,6 +188,10 @@
       "etkinlik_bilet": {
         "ad": "Events and tickets",
         "aciklama": "Registration pages for seminars, workshops, concerts, webinars and open days: ticket types (early bird, student, hidden), discount codes, quotas and a waiting list, QR tickets (PDF + calendar), door check-in with a phone camera, announcements and a post-event survey email."
+      },
+      "stok_pos": {
+        "ad": "Inventory and point of sale (POS)",
+        "aciklama": "For cafés, boutiques, small shops and salons selling products: barcoded products and variants, stock per branch, stock in/out/count/transfer, low-stock alerts, a touch-friendly till, non-fiscal receipts, refunds, end-of-day report, profit and stock value reports; works with linked QR menu products."
       }
     },
     "kategori": {
@@ -247,7 +251,9 @@
       "teknisyen_siniri": "Maximum active technicians",
       "aylik_is_emri_siniri": "Maximum work orders per month",
       "aylik_etkinlik_siniri": "Maximum new events per month",
-      "kapasite_siniri": "Maximum attendees per event"
+      "kapasite_siniri": "Maximum attendees per event",
+      "sube_siniri": "Maximum active branches / warehouses",
+      "kasa_kullanici_siniri": "Maximum till users per month"
     },
     "musteri": {
       "baslik": "My modules",

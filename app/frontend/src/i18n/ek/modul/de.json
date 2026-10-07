@@ -188,6 +188,10 @@
       "etkinlik_bilet": {
         "ad": "Veranstaltungen und Tickets",
         "aciklama": "Anmeldeseiten für Seminare, Workshops, Konzerte, Webinare und Infotage: Ticketarten (Frühbucher, Studierende, versteckt), Rabattcodes, Kontingente und Warteliste, QR-Tickets (PDF + Kalender), Einlasskontrolle mit der Handykamera, Ankündigungen und eine Umfrage-E-Mail nach der Veranstaltung."
+      },
+      "stok_pos": {
+        "ad": "Lager und Kasse (POS)",
+        "aciklama": "Für Cafés, Boutiquen, kleine Läden und Friseure mit Produktverkauf: Produkte mit Barcode und Varianten, Bestand je Filiale, Ein-/Ausgang, Inventur, Umlagerung, Mindestbestandswarnung, Touch-Kasse, nicht-fiskalischer Beleg, Erstattungen, Tagesabschluss, Gewinn- und Bestandswertberichte; arbeitet mit verknüpften QR-Menüprodukten."
       }
     },
     "kategori": {
@@ -247,7 +251,9 @@
       "teknisyen_siniri": "Höchstzahl aktiver Techniker",
       "aylik_is_emri_siniri": "Höchstzahl an Arbeitsaufträgen pro Monat",
       "aylik_etkinlik_siniri": "Höchstens neue Veranstaltungen pro Monat",
-      "kapasite_siniri": "Höchstens Teilnehmende pro Veranstaltung"
+      "kapasite_siniri": "Höchstens Teilnehmende pro Veranstaltung",
+      "sube_siniri": "Max. aktive Filialen / Lager",
+      "kasa_kullanici_siniri": "Max. Kassennutzer pro Monat"
     },
     "musteri": {
       "baslik": "Meine Module",

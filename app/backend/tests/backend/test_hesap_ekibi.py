@@ -290,6 +290,35 @@ async def ekip(db_oturumu):
     etb = await _ekle(db, EtkinlikBiletleri(etkinlik_id=et.id, siparis_id=ets.id, tur_id=ett.id,
                                             kod=uuid.uuid4().hex[:10].upper(), durum="gecerli", koltuk=0))
     k.update(ET=et.id, ETT=ett.id, ETI=eti.id, ETS=ets.id, ETB=etb.id)
+    # Faz 6P: `stok` (yönetim) izni üyenin varsayılanında yok — pazarlama üyesine (pazarlamaci) ayrıca veriliyor
+    # (üye sayısı değişmesin); `kasa` (yalnız satış ekranı) üyede var. Sahibin POS kayıtları: konum, ürün,
+    # tedarikçi, açık sayım, açık kasa + bir satış, alıcı.
+    from models.stok_pos import (
+        PosAlicilari,
+        PosKasaOturumlari,
+        PosSatisKalemleri,
+        PosSatislari,
+        StokKonumlari,
+        StokSayimlari,
+        StokTedarikcileri,
+        StokUrunleri,
+    )
+
+    await db.execute(_update(HesapUyeleri).where(HesapUyeleri.hesap_email == s, HesapUyeleri.uye_email == k["pazarlamaci"])
+                     .values(izinler=json.dumps(["projeler", "pazarlama", "etkinlik", "stok"])))
+    await db.commit()
+    _he.onbellegi_temizle()
+    spk = await _ekle(db, StokKonumlari(hesap_email=s, ad="Merkez", varsayilan=True, aktif=True))
+    spu = await _ekle(db, StokUrunleri(hesap_email=s, ad="Ekip kahvesi", barkod="2000000000008", satis_fiyati=1000, kdv_orani=10))
+    spt = await _ekle(db, StokTedarikcileri(hesap_email=s, ad="Sahibin tedarikçisi"))
+    sps = await _ekle(db, StokSayimlari(hesap_email=s, konum_id=spk.id, durum="acik"))
+    spo = await _ekle(db, PosKasaOturumlari(hesap_email=s, konum_id=spk.id, durum="acik", acik_anahtar=f"{s}|{spk.id}", acan=s))
+    spx = await _ekle(db, PosSatislari(hesap_email=s, no="S-000001", konum_id=spk.id, oturum_id=spo.id, kasiyer=s, toplam=1000,
+                                       nakit=1000, nakit_alinan=1000, kdv_dokumu="[]"))
+    await _ekle(db, PosSatisKalemleri(satis_id=spx.id, hesap_email=s, urun_id=spu.id, ad="Ekip kahvesi", adet=1000, birim_fiyat=1000,
+                                      tutar=1000, kdv_orani=10, kdv=91))
+    spa = await _ekle(db, PosAlicilari(hesap_email=s, ad="Sahibin alıcısı"))
+    k.update(SPK=spk.id, SPU=spu.id, SPT=spt.id, SPS=sps.id, SPO=spo.id, SPX=spx.id, SPA=spa.id)
     return k
 
 
@@ -302,6 +331,9 @@ async def ekip(db_oturumu):
 GOVDE_DOSYA = "__dosya__"
 #: Faz 6S: router düzeyinde iki izinden biri yeterli (yönetim ya da teknisyen).
 SAHA = ("saha_yonetim", "saha_teknisyen")
+#: Faz 6P: satış ekranı uçları — `stok` ya da `kasa` yeter.
+POS = ("stok", "kasa")
+SP = "/api/v1/stok-pos"
 MUSTERI_UCLARI = [
     ("GET", "/api/v1/entities/projects", ("projeler",), None, 200),
     ("GET", "/api/v1/entities/projects/all", ("projeler",), None, 200),
@@ -730,6 +762,61 @@ MUSTERI_UCLARI = [
     ("POST", "/api/v1/etkinliklerim/{ET}/gorevli", ("etkinlik",), {}, 200),
     ("GET", "/api/v1/etkinliklerim/{ET}/pazarlama", ("etkinlik",), None, 200),
     ("POST", "/api/v1/etkinliklerim/{ET}/pazarlama", ("etkinlik",), {"liste_id": 999999}, "gecti"),
+    # Faz 6P — stok ve POS (`stok` yönetim; satış ekranı uçlarında `kasa` da yeter).
+    ("GET", f"{SP}/meta", POS, None, 200),
+    ("GET", f"{SP}/ayarlar", ("stok",), None, 200),
+    ("PUT", f"{SP}/ayarlar", ("stok",), {"fis_notu": "Ekipten"}, 200),
+    ("POST", f"{SP}/konumlar", ("stok",), {"ad": "Ekip şubesi"}, "gecti"),
+    ("PUT", f"{SP}/konumlar/{{SPK}}", ("stok",), {"adres": "Ekip Sk."}, 200),
+    ("DELETE", f"{SP}/konumlar/999999", ("stok",), None, "gecti"),
+    ("GET", f"{SP}/urunler", POS, None, 200),
+    ("GET", f"{SP}/urunler/kod/2000000000008", POS, None, 200),
+    ("GET", f"{SP}/urunler/{{SPU}}", POS, None, 200),
+    ("GET", f"{SP}/urunler.csv", ("stok",), None, 200),
+    ("POST", f"{SP}/urunler", ("stok",), {"ad": "Ekip ürünü", "satis_fiyati": 10}, 200),
+    ("PUT", f"{SP}/urunler/{{SPU}}", ("stok",), {"notlar": "Ekipten"}, 200),
+    ("DELETE", f"{SP}/urunler/999999", ("stok",), None, "gecti"),
+    ("POST", f"{SP}/urunler/{{SPU}}/varyant", ("stok",), {"varyant": {"beden": "M"}}, 200),
+    ("POST", f"{SP}/barkod-uret", ("stok",), None, 200),
+    ("POST", f"{SP}/urunler/ice-aktar", ("stok",), GOVDE_DOSYA, "gecti"),
+    ("GET", f"{SP}/menu-kaynaklari", ("stok",), None, 200),
+    ("POST", f"{SP}/menuden-aktar", ("stok",), {"magaza_id": 999999}, "gecti"),
+    ("GET", f"{SP}/tedarikciler", ("stok",), None, 200),
+    ("POST", f"{SP}/tedarikciler", ("stok",), {"ad": "Ekip tedarikçisi"}, 200),
+    ("PUT", f"{SP}/tedarikciler/{{SPT}}", ("stok",), {"notlar": "Ekipten"}, 200),
+    ("DELETE", f"{SP}/tedarikciler/999999", ("stok",), None, "gecti"),
+    ("GET", f"{SP}/hareketler", ("stok",), None, 200),
+    ("POST", f"{SP}/hareketler", ("stok",), {"tur": "uydurma"}, "gecti"),
+    ("POST", f"{SP}/transfer", ("stok",), {"kalemler": []}, "gecti"),
+    ("GET", f"{SP}/sayimlar", ("stok",), None, 200),
+    ("POST", f"{SP}/sayimlar", ("stok",), {}, "gecti"),
+    ("GET", f"{SP}/sayimlar/{{SPS}}", ("stok",), None, 200),
+    ("POST", f"{SP}/sayimlar/{{SPS}}/okut", ("stok",), {"kod": "2000000000008"}, 200),
+    ("POST", f"{SP}/sayimlar/999999/onayla", ("stok",), {}, "gecti"),
+    ("POST", f"{SP}/sayimlar/999999/iptal", ("stok",), None, "gecti"),
+    ("GET", f"{SP}/kasa", POS, None, 200),
+    ("POST", f"{SP}/kasa/ac", POS, {}, "gecti"),
+    ("GET", f"{SP}/kasa/{{SPO}}", POS, None, 200),
+    ("POST", f"{SP}/kasa/999999/kapat", POS, {"sayilan_nakit": 0}, "gecti"),
+    ("GET", f"{SP}/kasa-oturumlari", ("stok",), None, 200),
+    ("POST", f"{SP}/satislar/onizle", POS, {"kalemler": []}, "gecti"),
+    ("POST", f"{SP}/satislar", POS, {"kalemler": []}, "gecti"),
+    ("GET", f"{SP}/satislar", POS, None, 200),
+    ("GET", f"{SP}/satislar/{{SPX}}", POS, None, 200),
+    ("GET", f"{SP}/satislar/{{SPX}}/fis.pdf", POS, None, 200),
+    ("POST", f"{SP}/satislar/999999/iade", POS, {}, "gecti"),
+    ("POST", f"{SP}/satislar/999999/iptal", POS, {}, "gecti"),
+    ("POST", f"{SP}/satislar/999999/fatura", POS, {}, "gecti"),
+    ("GET", f"{SP}/satislar/{{SPX}}/fatura.pdf", POS, None, "gecti"),
+    ("GET", f"{SP}/alicilar", POS, None, 200),
+    ("POST", f"{SP}/alicilar", POS, {"ad": "Ekip alıcısı"}, 200),
+    ("PUT", f"{SP}/alicilar/{{SPA}}", ("stok",), {"telefon": "555"}, 200),
+    ("DELETE", f"{SP}/alicilar/999999", ("stok",), None, "gecti"),
+    ("GET", f"{SP}/raporlar/gun", ("stok",), None, 200),
+    ("GET", f"{SP}/raporlar/donem", ("stok",), None, 200),
+    ("GET", f"{SP}/raporlar/kar", ("stok",), None, 200),
+    ("GET", f"{SP}/raporlar/stok-degeri", ("stok",), None, 200),
+    ("GET", f"{SP}/raporlar/hareketsiz", ("stok",), None, 200),
 ]
 
 
@@ -776,6 +863,8 @@ def _izinli_uye(k, izinler):
     if set(izinler) <= set(SAHA):  # Faz 6S: üye/fatura rolünün varsayılanında yok
         return k["sahaci"]
     if izinler == ("etkinlik",):  # Faz 6E: yönetim izni üyenin varsayılanında yok (pazarlamaci'ye ayrıca verildi)
+        return k["pazarlamaci"]
+    if izinler == ("stok",):  # Faz 6P: yönetim izni üyenin varsayılanında yok (pazarlamaci'ye ayrıca verildi)
         return k["pazarlamaci"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):

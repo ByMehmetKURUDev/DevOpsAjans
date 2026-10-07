@@ -102,7 +102,9 @@
       "kisi": "Olaydaki kişi",
       "olay": "Olay",
       "is_emri": "Saha iş emri",
-      "etkinlik": "Etkinlik kaydı"
+      "etkinlik": "Etkinlik kaydı",
+      "satis": "POS satışı",
+      "stok": "Stok ürünü"
     },
     "alan": {
       "id": "Kimlik",
@@ -168,7 +170,15 @@
       "baglanti": "Bağlantı",
       "yoneten": "Yöneten (ajans/müşteri)",
       "acik": "Açık (ödenmemiş)",
-      "vadeye_kalan_gun": "Vadeye kalan (gün)"
+      "vadeye_kalan_gun": "Vadeye kalan (gün)",
+      "kdv": "KDV",
+      "odeme_turu": "Ödeme türü",
+      "urun_id": "Ürün kimliği",
+      "barkod": "Barkod",
+      "sku": "SKU",
+      "birim": "Birim",
+      "miktar": "Miktar",
+      "esik": "Kritik eşik"
     },
     "olay": {
       "aday_olusturuldu": "Yeni CRM adayı",
@@ -198,7 +208,9 @@
       "etkinlik_giris": "Kapıda giriş yapıldı",
       "etkinlik_iptal": "Etkinlik bileti iptal edildi",
       "teklif_yanitsiz": "Teklif yanıtsız kaldı",
-      "aday_hareketsiz": "Aday hareketsiz kaldı"
+      "aday_hareketsiz": "Aday hareketsiz kaldı",
+      "pos_satis": "POS satışı yapıldı",
+      "stok_kritik": "Ürün kritik stoka indi"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Form, iletişim, site analizi ya da elle eklenen aday.",
@@ -228,7 +240,9 @@
       "etkinlik_giris": "Bilet kapıda okutuldu (ilk giriş).",
       "etkinlik_iptal": "Katılımcı ya da organizatör bileti iptal etti.",
       "teklif_yanitsiz": "Gönderilen teklif 3 ya da 7 gündür kabul ya da ret almadı (eşik başına bir kez; yeniden gönderilirse sayaç baştan başlar).",
-      "aday_hareketsiz": "Açık aşamadaki adayda 7 ya da 14 gündür hareket yok (not, arama, aşama değişimi…). Yeni hareket sayacı sıfırlar."
+      "aday_hareketsiz": "Açık aşamadaki adayda 7 ya da 14 gündür hareket yok (not, arama, aşama değişimi…). Yeni hareket sayacı sıfırlar.",
+      "pos_satis": "Kasada satış tamamlandı (her fişte bir kez; müşteri adı bağlamda yok).",
+      "stok_kritik": "Ürünün toplam stoku kritik eşiğe indi (eşik üstüne çıkana kadar bir kez)."
     },
     "eylem": {
       "eposta": "E-posta gönder",
@@ -631,7 +645,8 @@
           "belgeler": "Bekleyen belge talepleri",
           "yenilemeler": "14 gün içinde yenilenecekler",
           "siteler": "Şu an erişilemeyen siteler",
-          "gelen_kutusu": "Gelen kutusunda yanıt bekleyenler"
+          "gelen_kutusu": "Gelen kutusunda yanıt bekleyenler",
+          "stok_kritik": "Müşterilerde kritik stoktaki ürünler (POS)"
         },
         "ek": {
           "toplam": "Toplam kalan: {{tutar}}",
@@ -664,7 +679,9 @@
           "kaldi": "{{sayi}} gün kaldı",
           "doldu": "süresi {{sayi}} gün önce doldu",
           "yanit_bekliyor": "{{sayi}} gündür yanıt bekliyor",
-          "yanit_bekliyor_bugun": "bugün geldi"
+          "yanit_bekliyor_bugun": "bugün geldi",
+          "kritik_stok": "{{sayi}} gündür kritik seviyede",
+          "kritik_stok_bugun": "bugün kritik seviyeye indi"
         }
       }
     }

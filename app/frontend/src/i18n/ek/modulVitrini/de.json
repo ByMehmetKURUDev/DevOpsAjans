@@ -521,6 +521,26 @@
             "c": "Ja. Veröffentlichte Berichte werden im Tab Berichte Ihres Panels archiviert."
           }
         ]
+      },
+      "stok_pos": {
+        "ozet": "Produkte mit Barcode, Bestand je Filiale und eine Touch-Kasse: vom Verkauf bis zum Tagesabschluss Lager und Kasse auf einem Bildschirm.",
+        "kimIcin": "Kleine Betriebe mit Produktverkauf wie Cafés, Boutiquen, Kioske, Friseure und Kosmetiksalons.",
+        "ozellikler": [
+          "Barcode-Scan (Kamera oder Scanner), Warenkorb, Rabatte, Bar/Karte/Überweisung und Rückgeld",
+          "Bestand je Filiale, Ein-/Ausgang/Schwund, Umlagerung und Inventur per Scan",
+          "Mindestbestandswarnung, A4-Barcode-Etiketten und CSV-Import/-Export",
+          "Tagesabschluss, Gewinn je Produkt, Bestandswert und Ladenhüter-Berichte"
+        ],
+        "sss": [
+          {
+            "s": "Ersetzt dieser Beleg einen Registrierkassenbeleg?",
+            "c": "Nein. Belege und Tagesabschluss dienen nur der Information und ersetzen keinen gesetzlichen Fiskalbeleg oder keine e-Archiv-Rechnung."
+          },
+          {
+            "s": "Muss ich meine QR-Menüprodukte neu eingeben?",
+            "c": "Nein. Sie übernehmen QR-Menüprodukte mit einem Klick verknüpft; bei Nullbestand erscheinen sie im Menü als „ausverkauft“."
+          }
+        ]
       }
     },
     "s": {

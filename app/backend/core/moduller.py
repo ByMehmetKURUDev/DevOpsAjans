@@ -578,6 +578,30 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("kapasite_siniri", "int", 500, en_az=1, en_cok=100000),
         ),
     ),
+    # Faz 6P — stok ve satış noktası (POS): kafe, butik, küçük market, kuaför ürün satışı. Ürün + barkod
+    # (EAN-13 kontrol hanesi; yoksa iç kod), SKU, birim, maliyet, KDV, şube başına stok, varyant, CSV, A4 barkod
+    # etiketi; stok hareketleri (giriş/çıkış/fire/transfer/sayım), kritik stok uyarısı; dokunmatik kasa ekranı
+    # (barkod okutma, sepet, indirim, nakit/kart/havale/karma, para üstü), MALİ OLMAYAN fiş (80 mm + PDF),
+    # iade/iptal, kasa aç/kapa, Z-benzeri gün sonu; raporlar (kâr, stok değeri, hareketsiz) ve bilgi amaçlı
+    # PDF fatura. QR menü ürünleri bağlı olarak aktarılabilir. Varsayılan KAPALI, pakete bağlı değil (ayrı
+    # satılan modül; önerilen aylık 19 $ — 1 şube, 3 kasa kullanıcısı; ek şube aylık 7 $). Ekip izinleri
+    # `stok` (yönetim) ve `kasa` (yalnız satış ekranı). `urun_siniri`: aktif ürün; `sube_siniri`: aktif
+    # konum; `kasa_kullanici_siniri`: ay içinde kasa açan farklı kişi.
+    Modul(
+        anahtar="stok_pos",
+        ad_varsayilan={"tr": "Stok ve satış noktası (POS)", "en": "Inventory and point of sale (POS)"},
+        ikon="ScanBarcode",
+        kategori="sektorel",
+        musteri_sekmesi="stokPos",
+        yonetici_sekmesi="stokPos",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(
+            AyarAlani("urun_siniri", "int", 1000, en_az=0, en_cok=100000),
+            AyarAlani("sube_siniri", "int", 1, en_az=0, en_cok=100),
+            AyarAlani("kasa_kullanici_siniri", "int", 3, en_az=0, en_cok=500),
+        ),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},
