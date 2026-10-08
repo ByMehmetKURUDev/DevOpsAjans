@@ -178,6 +178,11 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("tur"), Alan("tutar", "sayi"), Alan("para_birimi"), Alan("durum"), Alan("fatura_no"),
     ),
     "odeme": (Alan("id", "sayi"), Alan("tutar", "sayi"), Alan("para_birimi"), Alan("durum")),
+    # Faz 6T — toplantı (zaman UTC; notlar bağlamda YOK — paylaşılmamış ekip notu otomasyon e-postasına sızmasın).
+    "toplanti": (
+        Alan("id", "sayi"), Alan("baslik"), Alan("baslangic", "tarih"), Alan("sure_dk", "sayi"), Alan("durum"),
+        Alan("yer_turu"), Alan("baglanti"), Alan("adres"), Alan("katilimci_sayisi", "sayi"), Alan("iptal_nedeni"),
+    ),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -253,6 +258,11 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("ortaklik.basvuru", ("ortak",), musteri=False),
     OtoOlay("ortaklik.komisyon", ("ortak", "komisyon"), musteri=False),
     OtoOlay("ortaklik.odeme_talebi", ("ortak", "odeme"), musteri=False),
+    # Faz 6T — toplantılar (yalnız ajans; webhook kataloğunda da var): planlandı (yeni toplantı), yapıldı, iptal.
+    # Kişi: müşteri hesabı; hesap yoksa CRM adayı. Görev eyleminde "olaydaki proje" toplantının projesi.
+    OtoOlay("toplanti.planlandi", ("toplanti", "proje", "aday", "hesap"), musteri=False, proje_var=True),
+    OtoOlay("toplanti.yapildi", ("toplanti", "proje", "aday", "hesap"), musteri=False, proje_var=True),
+    OtoOlay("toplanti.iptal", ("toplanti", "proje", "aday", "hesap"), musteri=False, proje_var=True),
 )
 OLAY_SOZLUGU: Dict[str, OtoOlay] = {o.anahtar: o for o in OLAYLAR}
 #: `fatura.gecikti` hangi gecikme günlerinde üretiliyor (her biri fatura başına bir kez).
@@ -376,6 +386,9 @@ ORNEK: Dict[str, Dict[str, Any]] = {
     "komisyon": {"id": 17, "tur": "komisyon", "tutar": 1500, "para_birimi": "TRY", "durum": "beklemede",
                  "fatura_no": "TKF-20261008-A1B2C"},
     "odeme": {"id": 3, "tutar": 2250, "para_birimi": "TRY", "durum": "bekliyor"},
+    "toplanti": {"id": 14, "baslik": "Haftalık durum toplantısı", "baslangic": "2026-10-12T07:00:00Z", "sure_dk": 45,
+                 "durum": "planlandi", "yer_turu": "cevrimici", "baglanti": "https://meet.jit.si/mk-ornek", "adres": None,
+                 "katilimci_sayisi": 3, "iptal_nedeni": None},
     "hesap": {"email": "musteri@ornek.com", "ad": "Örnek A.Ş."},
 }
 
@@ -413,6 +426,10 @@ def ornek_baglam(tur: str, ajans: bool, ozel: Optional[Dict[str, List[Dict[str, 
         baglam["fatura"].update({"durum": "paid", "acik": False})
     if tur == "ortaklik.basvuru":
         baglam["ortak"].update({"durum": "beklemede", "kod": None})
+    if tur == "toplanti.yapildi":
+        baglam["toplanti"].update({"durum": "yapildi"})
+    if tur == "toplanti.iptal":
+        baglam["toplanti"].update({"durum": "iptal", "iptal_nedeni": "Müşterinin isteğiyle"})
     return baglam
 
 
@@ -436,6 +453,9 @@ def kisi_sec(tur: str, baglam: Dict[str, Any]) -> Dict[str, Any]:
         if not e.get("eposta") and e.get("veli_eposta"):
             return {"ad": e.get("veli_ad"), "email": e.get("veli_eposta")}
         return {"ad": e.get("ad"), "email": e.get("eposta")}
+    if on == "toplanti" and not (baglam.get("hesap") or {}).get("email") and baglam.get("aday"):
+        # Faz 6T: müşteri hesabı olmayan (yalnız CRM adaylı) toplantıda kişi aday.
+        return {"ad": baglam["aday"].get("ad"), "email": baglam["aday"].get("email")}
     if on == "ortaklik" and baglam.get("ortak"):
         return {"ad": baglam["ortak"].get("ad"), "email": baglam["ortak"].get("email")}
     if on == "kart" and baglam.get("mesaj"):

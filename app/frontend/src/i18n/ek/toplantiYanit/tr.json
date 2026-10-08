@@ -1,0 +1,52 @@
+{
+  "toplantiYanit": {
+    "ust": "Toplantı daveti",
+    "merhaba": "Merhaba {{ad}},",
+    "soru": "Katılacak mısınız?",
+    "not": "Kısa not (isteğe bağlı)",
+    "kaydedildi": "Yanıtınız kaydedildi. Teşekkürler!",
+    "mevcut": "Şu anki yanıtınız: {{yanit}}",
+    "katil": "Toplantıya katıl",
+    "ics": "Takvime ekle (.ics)",
+    "gundem": "Gündem",
+    "dk": "{{sayi}} dk",
+    "istanbul": "İstanbul",
+    "yerel": "yerel saatiniz",
+    "dil": "Dil",
+    "gizlilik": "Bu sayfa yalnız {{eposta}} adresine gönderilen kişiye özel bağlantıyla açılır; bağlantıyı paylaşmayın.",
+    "yanit": {
+      "katilacak": "Katılacağım",
+      "katilamayacak": "Katılamayacağım",
+      "belki": "Belki",
+      "bekliyor": "Yanıt verilmedi"
+    },
+    "yer": {
+      "cevrimici": "Çevrim içi",
+      "yuz_yuze": "Yüz yüze",
+      "telefon": "Telefon"
+    },
+    "hata": {
+      "genel": "Yanıt kaydedilemedi. Lütfen yeniden deneyin.",
+      "cok_hizli": "Çok sık denendi; biraz sonra yeniden deneyin.",
+      "ag": "Bağlantı kurulamadı."
+    },
+    "durum": {
+      "gecersiz": {
+        "baslik": "Bağlantı geçersiz",
+        "aciklama": "Bu bağlantı geçerli değil ya da yerine yeni bir davet gönderildi. En son gelen davet e-postasındaki bağlantıyı kullanın."
+      },
+      "suresi_doldu": {
+        "baslik": "Toplantı sona erdi",
+        "aciklama": "Bu toplantının zamanı geçtiği için artık yanıt verilemiyor."
+      },
+      "iptal": {
+        "baslik": "Toplantı iptal edildi",
+        "aciklama": "Bu toplantı iptal edildi; yanıt vermenize gerek yok."
+      },
+      "hata": {
+        "baslik": "Bir sorun oluştu",
+        "aciklama": "Sayfa yüklenemedi. Lütfen biraz sonra yeniden deneyin."
+      }
+    }
+  }
+}

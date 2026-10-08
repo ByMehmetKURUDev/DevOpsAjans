@@ -47,6 +47,9 @@ teklif_karari      teklifler (Faz 7K): müşterinin kabul/ret     BİLGİ (yanı
                    kararı (notuyla)                             işaretlenince (okundu) kapandi
 ortak_basvurusu    ortaklar (Faz 5K): herkese açık /ortaklik    beklemede → yeni; onay / ret → kapandi
                    sayfasından gelen ortaklık başvurusu         (kendi durum alanı; işaret yok)
+toplanti_talebi    toplanti_talepleri (Faz 6T): müşterinin      bekliyor → yeni; planlandı / kapatıldı →
+                   panelden "Toplantı iste" talebi (konu +      kapandi (kendi durum alanı; işaret yok).
+                   en çok 3 zaman aralığı + not)                "Toplantı planla" ön doldurulmuş form açar
 =================  ==========================================  ==========================================
 
 Faz 7K — çift sayım yok: CRM formu gönderimi `inquiries`'e düşmüyor (iletişim formu öğesi olmaz); öğe
@@ -98,6 +101,8 @@ KAYNAKLAR: Tuple[str, ...] = (
     "crm_form", "teklif_karari",
     # Faz 5K — herkese açık /ortaklik sayfasından gelen ortaklık başvurusu.
     "ortak_basvurusu",
+    # Faz 6T — müşterinin panelden gönderdiği toplantı talebi.
+    "toplanti_talebi",
 )
 DURUMLAR: Tuple[str, ...] = ("yeni", "yanit_bekliyor", "okundu", "kapandi")
 BEKLEYEN = frozenset({"yeni", "yanit_bekliyor"})
@@ -155,6 +160,8 @@ KAYNAK_TANIMI = {
     "crm_form": "a lead form (embedded on a website) filled in by a prospective client",
     "teklif_karari": "a client's decision (accepted or declined) on a price quote the agency sent, with their note",
     "ortak_basvurusu": "an application to the agency's affiliate (referral) program sent from the public partner page",
+    "toplanti_talebi": "an existing client asked for a meeting from the client panel (topic, up to three preferred time "
+                       "ranges and a note); the agency will schedule it",
 }
 
 
@@ -1076,6 +1083,49 @@ async def _ortak_basvurusu(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dic
     return sonuc
 
 
+async def _toplanti_talebi(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
+    """Faz 6T — müşterinin "Toplantı iste" talebi. Durum kendi alanından: bekliyor → yeni; planlandı (toplantı
+    oluşturuldu) / kapatıldı → kapandi. "Toplantı planla" ön yüzde talepten ön doldurulmuş toplantı formunu açar."""
+    import json as _json
+
+    from models.toplantilar import ToplantiTalepleri as T
+
+    s = select(T)
+    if sz.kimlik is not None:
+        s = s.where(T.id == sz.kimlik)
+    if sz.durum in ("bekleyen", "yeni"):
+        s = s.where(T.durum == "bekliyor")
+    elif sz.durum in ("okundu", "yanit_bekliyor"):
+        return []
+    desen = _desen(sz.q)
+    if desen:
+        s = s.where(_benzer((T.konu, T.notlar, T.kisi_email, T.hesap_email), desen))
+    s = s.where(*_tarih_kosullari(T.created_at, sz))
+    satirlar = (await db.execute(s.order_by(T.created_at.desc(), T.id.desc()).limit(KAYNAK_SINIRI))).scalars().all()
+    adlar = await _hesap_adlari(db, bg, (t.hesap_email for t in satirlar))
+    sonuc = []
+    for t in satirlar:
+        durum = "yeni" if t.durum == "bekliyor" else "kapandi"
+        e: List[Dict[str, Any]] = []
+        if t.durum == "bekliyor":
+            e.append(_arayuz("toplanti_planla"))
+            e.append(_istek("kapat", "POST", f"/api/v1/toplantilar/talepler/{t.id}/kapat"))
+        try:
+            araliklar = _json.loads(t.araliklar or "[]")
+        except ValueError:
+            araliklar = []
+        sonuc.append(_oge(
+            "toplanti_talebi", t.id, kisi_ad=adlar.get(eposta_duzelt(t.hesap_email)), kisi_eposta=t.kisi_email,
+            baslik=t.konu, ozet=ozet_metni(t.notlar or ""), zaman=t.created_at, durum=durum, hesap_email=t.hesap_email,
+            ac=f"/admin?sekme=toplantilar&talep={t.id}", eylemler=e,
+            yanit=_eposta_yaniti("toplanti_talebi", t.id, eposta_duzelt(t.kisi_email)),
+            ek={"durum_ham": t.durum, "toplanti_id": t.toplanti_id},
+            ayrinti={"konu": t.konu, "araliklar": araliklar if isinstance(araliklar, list) else [], "not": t.notlar,
+                     "durum_ham": t.durum, "toplanti_id": t.toplanti_id, "hesap": t.hesap_email},
+        ))
+    return sonuc
+
+
 YUKLEYICILER = {
     "iletisim": _iletisim,
     "fiyat_teklifi": _fiyat_teklifi,
@@ -1092,6 +1142,7 @@ YUKLEYICILER = {
     "crm_form": _crm_form,
     "teklif_karari": _teklif_karari,
     "ortak_basvurusu": _ortak_basvurusu,
+    "toplanti_talebi": _toplanti_talebi,
 }
 
 
@@ -1487,6 +1538,10 @@ def _veri_satirlari(oge: Dict[str, Any]) -> List[Tuple[str, Any]]:
     elif k == "crm_form":
         s += [("form", a.get("form_baslik") or a.get("form")), ("message", a.get("mesaj")), ("company", a.get("firma")),
               ("budget", a.get("butce"))]
+    elif k == "toplanti_talebi":
+        s += [("note", a.get("not")),
+              ("preferred_time_ranges_utc", "; ".join(f"{x.get('bas')} – {x.get('bit')}" for x in a.get("araliklar") or []
+                                                      if isinstance(x, dict)))]
     elif k == "teklif_karari":
         s += [("quote_no", a.get("no")), ("decision", "accepted" if a.get("karar") == "kabul" else "declined"),
               ("client_note", a.get("karar_notu")),

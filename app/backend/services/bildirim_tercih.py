@@ -133,6 +133,14 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "ortaklik_basvuru": {"roller": ("admin",), "tetikleniyor": True},
     "ortaklik_odeme_talebi": {"roller": ("admin",), "tetikleniyor": True},
     "ortaklik_durum": {"roller": ("client",), "tetikleniyor": True},
+    # Faz 6T — toplantılar: davet / güncelleme (kişiye özel yanıt bağlantılı; ekip üyesine ya da dış katılımcıya),
+    # iptal, 24 saat / 1 saat önce hatırlatma (katılımcıya), notların müşteriyle paylaşılması (hesaba; `projeler`
+    # izinli üyelere de) ve müşterinin toplantı talebi (yöneticilere).
+    "toplanti_davet": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "toplanti_iptal": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "toplanti_hatirlatma": {"roller": ("admin", "client"), "tetikleniyor": True},
+    "toplanti_notlari": {"roller": ("client",), "tetikleniyor": True},
+    "toplanti_talebi": {"roller": ("admin",), "tetikleniyor": True},
     # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (yöneticilere / müşteri hesabına).
     "otomasyon_bildirimi": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,

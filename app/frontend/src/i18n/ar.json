@@ -437,7 +437,8 @@
     "tabIk": "الموارد البشرية",
     "tabHukuk": "المحاماة",
     "tabOnMuhasebe": "المحاسبة المبسطة",
-    "tabOrtaklik": "الشراكة"
+    "tabOrtaklik": "الشراكة",
+    "tabToplantilar": "الاجتماعات"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

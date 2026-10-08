@@ -79,7 +79,10 @@
       "muhasebe_alacak_gecikti": "Eine Kontaktforderung in der Buchhaltung ist überfällig (1 / 30 / 60 / 90 Tage)",
       "ortaklik_basvuru": "Neue Partnerbewerbung",
       "ortaklik_komisyon": "Partnerprovision gebucht (Provision oder Storno bei Erstattung)",
-      "ortaklik_odeme_talebi": "Partner hat eine Provisionsauszahlung angefordert"
+      "ortaklik_odeme_talebi": "Partner hat eine Provisionsauszahlung angefordert",
+      "toplanti_planlandi": "Besprechung geplant",
+      "toplanti_yapildi": "Besprechung als stattgefunden markiert",
+      "toplanti_iptal": "Besprechung abgesagt"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

@@ -237,6 +237,11 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
         "sira": 20,
         "ebeveyn": "belgeler",
     },
+    # Faz 6T: toplantı — katılımcıları ve aksiyonlarıyla birlikte silinir, birlikte geri gelir. Sahip YOK: tutanağın
+    # paylaşılmamış ekip notları müşterinin "Silinenler"inde de görünmesin (yalnız yönetici geri alır).
+    "toplantilar": {"sira": 10},
+    "toplanti_katilimcilari": {"sira": 20, "ebeveyn": "toplantilar"},
+    "toplanti_aksiyonlari": {"sira": 20, "ebeveyn": "toplantilar"},
     "files": {"sahip": "client_email", "sira": 20},
     "project_tasks": {
         "sahip_sorgu": "SELECT client_email FROM projects WHERE id = :v",

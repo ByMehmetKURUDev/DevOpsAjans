@@ -44,7 +44,8 @@ export const GRUPLAR: readonly GrupTanimi[] = [
   },
   {
     anahtar: 'projeler',
-    sekmeler: ['projects', 'zaman', 'projeSablonlari', 'dosyalar'],
+    // Faz 6T: toplantılar (planlama, davet, tutanak, takvim aboneliği) — grubun sonunda.
+    sekmeler: ['projects', 'zaman', 'projeSablonlari', 'dosyalar', 'toplantilar'],
   },
   {
     anahtar: 'finans',

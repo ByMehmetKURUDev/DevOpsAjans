@@ -79,7 +79,10 @@
       "muhasebe_alacak_gecikti": "बहीखाते में पक्षकार की प्राप्य राशि अतिदेय है (1 / 30 / 60 / 90 दिन)",
       "ortaklik_basvuru": "नया एफ़िलिएट आवेदन",
       "ortaklik_komisyon": "एफ़िलिएट कमीशन दर्ज हुआ (कमीशन या रिफ़ंड पर उलटी प्रविष्टि)",
-      "ortaklik_odeme_talebi": "एफ़िलिएट ने कमीशन भुगतान का अनुरोध किया"
+      "ortaklik_odeme_talebi": "एफ़िलिएट ने कमीशन भुगतान का अनुरोध किया",
+      "toplanti_planlandi": "बैठक निर्धारित हुई",
+      "toplanti_yapildi": "बैठक संपन्न के रूप में चिह्नित",
+      "toplanti_iptal": "बैठक रद्द हुई"
     },
     "anahtar": {
       "yeni": "नई कुंजी",

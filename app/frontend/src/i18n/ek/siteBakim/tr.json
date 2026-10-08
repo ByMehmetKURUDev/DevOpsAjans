@@ -199,7 +199,8 @@
         "egitim_bakimi": "Eğitim bakımı",
         "hukuk_bakimi": "Hukuk bakımı",
         "muhasebe_bakimi": "Ön muhasebe bakımı",
-        "ortaklik_bakimi": "Ortaklık bakımı"
+        "ortaklik_bakimi": "Ortaklık bakımı",
+        "toplanti_hatirlatmalari": "Toplantı hatırlatmaları"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir",
@@ -243,7 +244,8 @@
         "egitim_bakimi": "Eğitim bakımı (ders hatırlatmaları, devamsızlık uyarıları, otomatik sertifika, saklama süresi dolan öğrenci verisinin anonimleştirilmesi)",
         "hukuk_bakimi": "Hukuk bakımı (duruşma ve süre hatırlatmaları: 7/3/1 gün önce ve aynı gün sabah, her biri bir kez; 30 günü dolan silinen müvekkil ve dosyaların kalıcı silinmesi)",
         "muhasebe_bakimi": "Ön muhasebe bakımı (vadesi gelen tekrarlayan kayıtlar, otomatik aktarımlar ve onay bekleyen öneriler, bütçe aşımı ve geciken alacak olayları)",
-        "ortaklik_bakimi": "Ortaklık bakımı (iade süresi dolan komisyonların onaylanması; 6 saatte bir, ortak paneli açılınca da)"
+        "ortaklik_bakimi": "Ortaklık bakımı (iade süresi dolan komisyonların onaylanması; 6 saatte bir, ortak paneli açılınca da)",
+        "toplanti_hatirlatmalari": "Toplantı hatırlatmaları (davet edilmiş katılımcılara 24 saat ve 1 saat önce, her biri bir kez; her turda ve Toplantılar sekmesi açılınca)"
       }
     },
     "musteri": {

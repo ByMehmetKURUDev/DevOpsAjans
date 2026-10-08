@@ -437,7 +437,8 @@
     "tabIk": "Personal",
     "tabHukuk": "Kanzlei",
     "tabOnMuhasebe": "Buchhaltung",
-    "tabOrtaklik": "Partnerprogramm"
+    "tabOrtaklik": "Partnerprogramm",
+    "tabToplantilar": "Besprechungen"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

@@ -79,7 +79,10 @@
       "muhasebe_alacak_gecikti": "Ön muhasebede cari alacağın vadesi geçti (1 / 30 / 60 / 90 gün)",
       "ortaklik_basvuru": "Yeni ortaklık başvurusu",
       "ortaklik_komisyon": "Ortaklık komisyonu deftere yazıldı (komisyon ya da iade ters kaydı)",
-      "ortaklik_odeme_talebi": "Ortak, komisyon ödemesi istedi"
+      "ortaklik_odeme_talebi": "Ortak, komisyon ödemesi istedi",
+      "toplanti_planlandi": "Toplantı planlandı",
+      "toplanti_yapildi": "Toplantı yapıldı olarak işaretlendi",
+      "toplanti_iptal": "Toplantı iptal edildi"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

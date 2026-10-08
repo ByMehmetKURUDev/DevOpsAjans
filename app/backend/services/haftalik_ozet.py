@@ -22,7 +22,9 @@ gündür yanıtsız teklifler, müşteri onayı bekleyen içerikler, bekleyen be
 yenilenecek alan adı / SSL (elle yenilenen) / hosting, şu an erişilemeyen siteler, müşterilerin POS'unda
 kritik stok seviyesindeki ürünler (Faz 6P), ajansın kendi personelinin bekleyen izin talepleri (Faz 6I; gelen
 kutusu bölümünde sayılmaz), ajansın kendi ön muhasebesinde bu ay aşılan bütçeler ve vadesi geçen cari alacaklar (Faz 6M),
-bekleyen ortaklık başvuruları ve komisyon ödeme talepleri (Faz 5K; başvurular gelen kutusu bölümünde sayılmaz).
+bekleyen ortaklık başvuruları ve komisyon ödeme talepleri (Faz 5K; başvurular gelen kutusu bölümünde sayılmaz),
+son 30 günde yapılmış ama notu / kararı yazılmamış toplantılar (Faz 6T; müşterinin toplantı talepleri gelen kutusu
+bölümünde "yanıt bekleyen" olarak sayılır).
 
 Dil: diğer yönetici bildirimleri gibi Türkçe; başlık/gövde panelden `notify_tpl_haftalik_ozet_*`
 ile değiştirilebilir (`render`). Önizleme (`ozet_hazirla`) yapılandırılmış veri döner; panel kendi
@@ -192,7 +194,7 @@ GELEN_KAYNAK_ADLARI = {
     "iletisim": "İletişim formu", "fiyat_teklifi": "Fiyat teklifi isteği", "sohbet": "Müşteri sohbeti",
     "kartvizit": "Kartvizit mesajı", "randevu": "Randevu", "geri_bildirim": "Hata bildirimi",
     "icerik_revizyon": "İçerik revizyonu", "belge": "Yüklenen belge", "egitim": "Kurs başvurusu",
-    "belge_paylasim": "Paylaşılan belge", "crm_form": "CRM formu",
+    "belge_paylasim": "Paylaşılan belge", "crm_form": "CRM formu", "toplanti_talebi": "Toplantı talebi",
 }
 
 
@@ -442,8 +444,18 @@ async def _ortaklik(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     return _bolum("ortaklik", "ortaklik", len(satirlar), satirlar, basvuru=len(basvurular), talep=len(talepler))
 
 
+async def _toplantilar(db: AsyncSession, an: datetime) -> Dict[str, Any]:
+    """Faz 6T — son 30 günde yapılmış (ya da saati geçmiş) ama notu / kararı yazılmamış toplantılar (en eskisi önce)."""
+    from services import toplantilar as tp
+
+    liste = await tp.notsuz_gecmis(db, an)
+    satirlar = [_satir(t.baslik, ayrinti=t.hesap_email, tur="not_yok", gun=max(0, (an - tp.bitis(t)).days))
+                for t in liste]
+    return _bolum("toplantilar", "toplantilar", len(satirlar), satirlar)
+
+
 BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler, _stok_kritik,
-            _ik_izin, _muhasebe, _ortaklik)
+            _ik_izin, _muhasebe, _ortaklik, _toplantilar)
 
 
 async def ozet_hazirla(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
@@ -484,6 +496,7 @@ BASLIKLAR = {
     "ik_izin": "Bekleyen izin talepleri (ajans personeli)",
     "muhasebe": "Ön muhasebe: bütçe aşımı ve vadesi geçen cari alacaklar",
     "ortaklik": "Ortaklık: bekleyen başvurular ve ödeme talepleri",
+    "toplantilar": "Notu yazılmamış geçmiş toplantılar",
 }
 YENILEME_ADLARI = {"alan": "Alan adı", "ssl": "SSL", "hosting": "Hosting"}
 
@@ -536,6 +549,7 @@ def _satir_metni(s: Dict[str, Any]) -> str:
         "cari_gecikme": f"vadesi {gun} gün geçti",
         "basvuru_bekliyor": f"başvuru {gun} gündür bekliyor" if gun else "başvuru bugün geldi",
         "odeme_bekliyor": f"ödeme talebi {gun} gündür bekliyor" if gun else "ödeme talebi bugün geldi",
+        "not_yok": f"{gun} gün önce yapıldı, not yok" if gun else "bugün yapıldı, not yok",
     }.get(tur or "")
     if tur in YENILEME_ADLARI:
         durum = f"{YENILEME_ADLARI[tur]}: " + (f"{gun} gün kaldı" if (gun or 0) >= 0 else f"süresi {-(gun or 0)} gün önce doldu")

@@ -437,7 +437,8 @@
     "tabIk": "人力资源",
     "tabHukuk": "律所",
     "tabOnMuhasebe": "简易记账",
-    "tabOrtaklik": "推广合作"
+    "tabOrtaklik": "推广合作",
+    "tabToplantilar": "会议"
   },
   "admin": {
     "loadError": "管理数据加载失败",

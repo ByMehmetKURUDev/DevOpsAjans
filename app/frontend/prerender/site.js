@@ -478,6 +478,8 @@ export const NOINDEX_ROUTES = [
   '/personel',
   // Faz 6H: hukuk bürosu müvekkil portalı (/hukuk/muvekkil/<jeton>) — imzalı, kişiye özel; hiçbir zaman indekslenmez.
   '/hukuk',
+  // Faz 6T: toplantı katılım yanıtı (/toplanti-yanit/<jeton>) — davetteki kişiye özel bağlantı; noindex.
+  '/toplanti-yanit',
 ];
 
 /** Ana sayfada yayınlanan yapısal veri. */

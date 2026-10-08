@@ -89,7 +89,12 @@
       "muhasebe_butce": "简易记账中超出预算的类别",
       "ortaklik_basvuru": "推广计划：新申请",
       "ortaklik_odeme_talebi": "推广计划：佣金提现申请",
-      "ortaklik_durum": "推广计划：申请结果与付款状态（发给推广者本人）"
+      "ortaklik_durum": "推广计划：申请结果与付款状态（发给推广者本人）",
+      "toplanti_davet": "会议：邀请 / 更新",
+      "toplanti_iptal": "会议：已取消",
+      "toplanti_hatirlatma": "会议：提醒（提前 24 小时 / 1 小时）",
+      "toplanti_notlari": "会议：已分享纪要",
+      "toplanti_talebi": "会议：客户的新请求"
     },
     "kanal": {
       "inapp": "面板",

@@ -103,6 +103,9 @@ const PersonelSayfasi = lazy(() => import('./pages/PersonelSayfasi'));
 // Faz 6H: hukuk bürosunun girişsiz müvekkil portalı (imzalı jeton). Site düzeni dışında, prerender yok, HER ZAMAN
 // noindex (Pages Function `functions/hukuk/[[yol]].js` X-Robots-Tag + no-referrer); metinler ek paket `hukukPortal`.
 const HukukPortal = lazy(() => import('./pages/HukukPortal'));
+// Faz 6T: girişsiz toplantı katılım yanıtı (davetteki kişiye özel imzalı bağlantı). Site düzeni dışında, prerender
+// yok, noindex; metinleri sayfa kendisi yüklüyor (ek paket `toplantiYanit`).
+const ToplantiYanitSayfasi = lazy(() => import('./pages/ToplantiYanitSayfasi'));
 
 const queryClient = new QueryClient();
 
@@ -228,6 +231,8 @@ const AppRoutes = () => (
       <Route path="/personel/:jeton" element={<PersonelSayfasi />} />
       {/* Faz 6H: müvekkil portalı — imzalı jetonlu (girişsiz), yalnız "müvekkile görünür" alanlar. */}
       <Route path="/hukuk/muvekkil/:jeton" element={<HukukPortal />} />
+      {/* Faz 6T: toplantı katılım yanıtı — imzalı jetonlu (girişsiz). */}
+      <Route path="/toplanti-yanit/:jeton" element={<ToplantiYanitSayfasi />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
       <Route path="/auth/error" element={<AuthError />} />
     </Routes>

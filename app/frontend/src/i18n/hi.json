@@ -437,7 +437,8 @@
     "tabIk": "मानव संसाधन",
     "tabHukuk": "विधि कार्यालय",
     "tabOnMuhasebe": "बहीखाता",
-    "tabOrtaklik": "एफ़िलिएट"
+    "tabOrtaklik": "एफ़िलिएट",
+    "tabToplantilar": "बैठकें"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

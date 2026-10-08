@@ -465,6 +465,27 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             if t_ is None:
                 return None
             b["odeme"] = {"id": t_.id, "tutar": t_.tutar, "para_birimi": t_.para_birimi, "durum": t_.durum}
+    elif on == "toplanti":
+        # Faz 6T — toplantı (notlar/kararlar bağlamda YOK). Proje → "olaydaki proje"; ajansta CRM adayı.
+        from models.toplantilar import ToplantiKatilimcilari, Toplantilar
+        from services.toplantilar import iso as _t_iso
+
+        tp = await _kayit(db, Toplantilar, veri.get("toplanti_id"))
+        if tp is None:
+            return None
+        sayi = (await db.execute(select(func.count(ToplantiKatilimcilari.id))
+                                 .where(ToplantiKatilimcilari.toplanti_id == tp.id))).scalar() or 0
+        b["toplanti"] = {"id": tp.id, "baslik": tp.baslik, "baslangic": _t_iso(tp.baslangic), "sure_dk": tp.sure_dk,
+                         "durum": tp.durum, "yer_turu": tp.yer_turu, "baglanti": tp.baglanti, "adres": tp.adres,
+                         "katilimci_sayisi": int(sayi), "iptal_nedeni": tp.iptal_nedeni}
+        proje_id = tp.proje_id
+        if ajans and tp.crm_aday_id:
+            from models.crm import CrmAdaylari
+
+            a = await _kayit(db, CrmAdaylari, tp.crm_aday_id)
+            if a is not None:
+                b["aday"] = aday_sozlugu(a)
+                await _aday_hareketi(db, b["aday"], a)
     elif on == "teklif":
         from models.teklifler import Teklifler
 

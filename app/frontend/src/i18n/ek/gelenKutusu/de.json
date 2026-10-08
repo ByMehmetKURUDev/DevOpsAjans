@@ -20,7 +20,8 @@
       "izin_talebi": "Urlaubsantrag",
       "crm_form": "CRM-Formular",
       "teklif_karari": "Angebotsentscheidung",
-      "ortak_basvurusu": "Partnerbewerbung"
+      "ortak_basvurusu": "Partnerbewerbung",
+      "toplanti_talebi": "Besprechungsanfrage"
     },
     "durumSuzgeci": {
       "etiket": "Nach Status filtern",
@@ -63,7 +64,8 @@
       "goreve_donustur": "In Aufgabe umwandeln",
       "paket_uygula": "Dieses Paket für diesen Kunden anwenden",
       "onayla": "Genehmigen",
-      "reddet": "Ablehnen"
+      "reddet": "Ablehnen",
+      "toplanti_planla": "Besprechung planen"
     },
     "eylemTamam": "Erledigt.",
     "eylemHata": "Die Aktion konnte nicht ausgeführt werden.",
@@ -109,7 +111,9 @@
       "pazarlamaIzni": "Marketing-Einwilligung",
       "web": "Web / Social Media",
       "tanitim": "Wie beworben wird",
-      "pazarlama": "Marketing-Einwilligung"
+      "pazarlama": "Marketing-Einwilligung",
+      "araliklar": "Bevorzugte Zeiten (Istanbuler Zeit)",
+      "talepDurumu": "Anfragestatus"
     },
     "karar": {
       "bekliyor": "Entscheidung ausstehend",
@@ -193,6 +197,11 @@
     "yanitNeden": {
       "eposta_kapali": "kein E-Mail-Anbieter eingerichtet",
       "eposta_gitmedi": "vom Anbieter abgelehnt"
+    },
+    "toplantiTalebiDurum": {
+      "bekliyor": "Wartet",
+      "planlandi": "Geplant",
+      "kapandi": "Geschlossen"
     }
   }
 }

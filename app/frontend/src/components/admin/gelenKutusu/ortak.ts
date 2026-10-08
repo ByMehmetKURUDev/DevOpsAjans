@@ -3,6 +3,7 @@ import {
   Bug,
   Calculator,
   CalendarCheck,
+  CalendarClock,
   ClipboardList,
   FileSignature,
   FileUp,
@@ -36,6 +37,7 @@ export const KAYNAK_IKONU: Record<Kaynak, LucideIcon> = {
   crm_form: ClipboardList,
   teklif_karari: FileSignature,
   ortak_basvurusu: HandCoins,
+  toplanti_talebi: CalendarClock,
 };
 
 export const DURUM_RENGI: Record<Durum, string> = {

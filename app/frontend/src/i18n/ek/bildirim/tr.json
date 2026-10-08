@@ -89,7 +89,12 @@
       "muhasebe_butce": "Ön muhasebede bütçesi aşılan kategoriler",
       "ortaklik_basvuru": "Ortaklık: yeni başvuru",
       "ortaklik_odeme_talebi": "Ortaklık: komisyon ödeme talebi",
-      "ortaklik_durum": "Ortaklık: başvuru kararı ve ödeme durumu (ortağın kendisine)"
+      "ortaklik_durum": "Ortaklık: başvuru kararı ve ödeme durumu (ortağın kendisine)",
+      "toplanti_davet": "Toplantı: davet / güncelleme",
+      "toplanti_iptal": "Toplantı: iptal edildi",
+      "toplanti_hatirlatma": "Toplantı: hatırlatma (24 sa / 1 sa önce)",
+      "toplanti_notlari": "Toplantı: notlar paylaşıldı",
+      "toplanti_talebi": "Toplantı: müşteriden yeni talep"
     },
     "kanal": {
       "inapp": "Panel",

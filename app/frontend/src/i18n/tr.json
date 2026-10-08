@@ -437,7 +437,8 @@
     "tabIk": "İnsan kaynakları",
     "tabHukuk": "Hukuk",
     "tabOnMuhasebe": "Ön muhasebe",
-    "tabOrtaklik": "Ortaklık"
+    "tabOrtaklik": "Ortaklık",
+    "tabToplantilar": "Toplantılar"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

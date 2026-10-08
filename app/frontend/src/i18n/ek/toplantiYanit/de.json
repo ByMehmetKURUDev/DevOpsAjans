@@ -1,0 +1,52 @@
+{
+  "toplantiYanit": {
+    "ust": "Besprechungseinladung",
+    "merhaba": "Hallo {{ad}},",
+    "soru": "Nehmen Sie teil?",
+    "not": "Kurze Notiz (optional)",
+    "kaydedildi": "Ihre Antwort wurde gespeichert. Vielen Dank!",
+    "mevcut": "Ihre aktuelle Antwort: {{yanit}}",
+    "katil": "An der Besprechung teilnehmen",
+    "ics": "Zum Kalender hinzufügen (.ics)",
+    "gundem": "Tagesordnung",
+    "dk": "{{sayi}} Min.",
+    "istanbul": "Istanbul",
+    "yerel": "Ihre Ortszeit",
+    "dil": "Sprache",
+    "gizlilik": "Diese Seite öffnet sich nur mit dem persönlichen Link, der an {{eposta}} gesendet wurde; bitte geben Sie den Link nicht weiter.",
+    "yanit": {
+      "katilacak": "Ich nehme teil",
+      "katilamayacak": "Ich kann nicht teilnehmen",
+      "belki": "Vielleicht",
+      "bekliyor": "Noch keine Antwort"
+    },
+    "yer": {
+      "cevrimici": "Online",
+      "yuz_yuze": "Vor Ort",
+      "telefon": "Telefon"
+    },
+    "hata": {
+      "genel": "Ihre Antwort konnte nicht gespeichert werden. Bitte erneut versuchen.",
+      "cok_hizli": "Zu viele Versuche; bitte gleich noch einmal.",
+      "ag": "Keine Verbindung möglich."
+    },
+    "durum": {
+      "gecersiz": {
+        "baslik": "Ungültiger Link",
+        "aciklama": "Dieser Link ist ungültig oder wurde durch eine neuere Einladung ersetzt. Bitte nutzen Sie den Link aus der neuesten Einladungs-E-Mail."
+      },
+      "suresi_doldu": {
+        "baslik": "Die Besprechung ist vorbei",
+        "aciklama": "Diese Besprechung hat bereits stattgefunden; Antworten sind nicht mehr möglich."
+      },
+      "iptal": {
+        "baslik": "Die Besprechung wurde abgesagt",
+        "aciklama": "Diese Besprechung wurde abgesagt; Sie müssen nicht antworten."
+      },
+      "hata": {
+        "baslik": "Es ist ein Fehler aufgetreten",
+        "aciklama": "Die Seite konnte nicht geladen werden. Bitte versuchen Sie es gleich noch einmal."
+      }
+    }
+  }
+}

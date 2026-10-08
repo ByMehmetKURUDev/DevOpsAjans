@@ -26,6 +26,7 @@ import {
   BellRing,
   Boxes,
   CalendarDays,
+  CalendarClock,
   Globe,
   Sparkles,
   DollarSign,
@@ -212,6 +213,8 @@ const TeklifYonetimi = ekliLazy(['teklif', 'indirimKodu'], () => import('@/compo
 // Faz 5K: ortaklık programı + indirim kodları (Satış grubunun sonunda; alt bölümler bileşenin içinde).
 const Ortaklik = ekliLazy(['ortaklik', 'indirimKodu'], () => import('@/components/admin/Ortaklik'));
 const SozlesmeYonetimi = ekliLazy('sozlesme', () => import('@/components/admin/SozlesmeYonetimi'));
+// Faz 6T: toplantılar (Projeler grubunun sonunda; liste, form, tutanak, takvim aboneliği bileşenin içinde).
+const Toplantilar = ekliLazy('toplantilar', () => import('@/components/admin/Toplantilar'));
 const FaturaAraclari = ekliLazy(['fatura', 'teklif'], () => import('@/components/admin/FaturaAraclari'));
 const FaturaAyrinti = ekliLazy(['fatura', 'teklif', 'indirimKodu'], () => import('@/components/admin/FaturaAyrinti'));
 // Faz 3Y: Site Ayarları › Yasal bilgiler (veri sorumlusu; etiketler ek pakette).
@@ -388,6 +391,7 @@ type Tab =
   | 'zaman'
   | 'projeSablonlari'
   | 'ortaklik'
+  | 'toplantilar'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -1087,6 +1091,7 @@ export default function AdminPanel() {
     { key: 'teklifler', label: t('ui.tabTeklifler'), icon: FileCheck2 },
     { key: 'sozlesmeler', label: t('ui.tabSozlesmeler'), icon: FileSignature },
     { key: 'ortaklik', label: t('ui.tabOrtaklik'), icon: HandCoins },
+    { key: 'toplantilar', label: t('ui.tabToplantilar'), icon: CalendarClock },
     { key: 'odeme', label: t('ui.tabOdeme'), icon: CreditCard },
     { key: 'krediler', label: t('ui.tabKrediler'), icon: Coins },
     { key: 'abonelik', label: t('abonelik.sekme'), icon: CalendarDays },
@@ -1528,6 +1533,12 @@ export default function AdminPanel() {
       {tab === 'ortaklik' && (
         <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
           <Ortaklik />
+        </Suspense>
+      )}
+
+      {tab === 'toplantilar' && (
+        <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
+          <Toplantilar />
         </Suspense>
       )}
 

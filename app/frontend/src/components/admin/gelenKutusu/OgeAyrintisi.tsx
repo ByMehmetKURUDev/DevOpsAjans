@@ -7,6 +7,7 @@ import {
   ArrowLeft,
   Blocks,
   Briefcase,
+  CalendarClock,
   CheckCheck,
   CheckCircle2,
   Copy,
@@ -26,6 +27,7 @@ import { Textarea } from '@/components/ui/textarea';
 import UzmanPromptlari from '@/components/admin/UzmanPromptlari';
 import { SUPPORTED_LANGUAGES } from '@/i18n';
 import { tamZaman } from '@/lib/denetim';
+import { zamanYaz } from '@/lib/toplantiZaman';
 import {
   ayrintiGetir,
   epostaGonder,
@@ -69,6 +71,7 @@ const EYLEM_IKONU: Record<string, LucideIcon> = {
   yeniden_ac: RotateCcw,
   goreve_donustur: ListTodo,
   paket_uygula: Blocks,
+  toplanti_planla: CalendarClock,
 };
 
 function metinAl(deger: unknown): string {
@@ -200,6 +203,11 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
     }
     if (e.anahtar === 'uzman_istem') {
       setUzmanAcik(true);
+      return;
+    }
+    if (e.anahtar === 'toplanti_planla') {
+      // Faz 6T: müşterinin toplantı talebi → Toplantılar, talepten ön doldurulmuş form açık.
+      navigate(`/admin?sekme=toplantilar&talep=${oge.kimlik}`);
       return;
     }
     if (e.anahtar === 'paket_uygula') {
@@ -359,6 +367,19 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
         ekle('butce', a.butce);
         ekle('pazarlamaIzni', a.pazarlama_izni ? t('gelenKutusu.evet') : '');
         break;
+      case 'toplanti_talebi': {
+        // Faz 6T: tercih edilen zaman aralıkları İstanbul saatiyle (UTC saklanıyor).
+        const araliklar = Array.isArray(a.araliklar) ? (a.araliklar as { bas?: string; bit?: string }[]) : [];
+        ekle('konu', a.konu);
+        ekle(
+          'araliklar',
+          araliklar.map((x) => `${zamanYaz(metinAl(x.bas), dil)} – ${zamanYaz(metinAl(x.bit), dil)}`).join('\n'),
+          true
+        );
+        ekle('mesaj', a.not, true);
+        ekle('talepDurumu', a.durum_ham ? t(`gelenKutusu.toplantiTalebiDurum.${metinAl(a.durum_ham)}`) : '');
+        break;
+      }
       case 'teklif_karari':
         ekle('teklif', [a.no, a.baslik].map(metinAl).filter(Boolean).join(' — '));
         ekle('karar', a.karar ? t(`gelenKutusu.karar.${metinAl(a.karar) === 'ret' ? 'red' : metinAl(a.karar)}`) : '');

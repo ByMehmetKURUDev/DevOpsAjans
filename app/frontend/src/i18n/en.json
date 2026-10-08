@@ -437,7 +437,8 @@
     "tabIk": "HR",
     "tabHukuk": "Law office",
     "tabOnMuhasebe": "Bookkeeping",
-    "tabOrtaklik": "Affiliates"
+    "tabOrtaklik": "Affiliates",
+    "tabToplantilar": "Meetings"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

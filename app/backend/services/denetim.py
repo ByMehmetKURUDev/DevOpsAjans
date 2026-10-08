@@ -211,6 +211,9 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     "belgeler": frozenset({"arama_metni"}),
     # Faz 6I: personelin portalı son açtığı an (her ziyarette yazılıyor).
     "ik_personel": frozenset({"portal_son_at"}),
+    # Faz 6T: hatırlatma izleri (zamanlı iş) ve akışın son erişim zamanı (her takvim çekişinde).
+    "toplanti_katilimcilari": frozenset({"hatirlatma_24_at", "hatirlatma_1_at"}),
+    "toplanti_takvim_abonelikleri": frozenset({"son_erisim_at"}),
     # Faz 6M: her eşitlemede yazılan özet/zaman ve CSV içe aktarmada hatırlanan sütun eşlemesi.
     "muhasebe_ayarlari": frozenset({"son_esitleme", "son_esitleme_at", "csv_esleme"}),
 }

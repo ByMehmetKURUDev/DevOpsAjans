@@ -1,0 +1,52 @@
+{
+  "toplantiYanit": {
+    "ust": "会议邀请",
+    "merhaba": "{{ad}}，您好：",
+    "soru": "您会参加吗？",
+    "not": "简短备注（可选）",
+    "kaydedildi": "您的回复已保存，谢谢！",
+    "mevcut": "您当前的回复：{{yanit}}",
+    "katil": "加入会议",
+    "ics": "添加到日历（.ics）",
+    "gundem": "议程",
+    "dk": "{{sayi}} 分钟",
+    "istanbul": "伊斯坦布尔",
+    "yerel": "您的本地时间",
+    "dil": "语言",
+    "gizlilik": "此页面只能通过发送至 {{eposta}} 的个人链接打开；请勿分享该链接。",
+    "yanit": {
+      "katilacak": "我会参加",
+      "katilamayacak": "我无法参加",
+      "belki": "可能",
+      "bekliyor": "尚未回复"
+    },
+    "yer": {
+      "cevrimici": "线上",
+      "yuz_yuze": "面对面",
+      "telefon": "电话"
+    },
+    "hata": {
+      "genel": "无法保存您的回复，请重试。",
+      "cok_hizli": "尝试次数过多，请稍后再试。",
+      "ag": "无法连接。"
+    },
+    "durum": {
+      "gecersiz": {
+        "baslik": "链接无效",
+        "aciklama": "此链接无效，或已被更新的邀请取代。请使用最新邀请邮件中的链接。"
+      },
+      "suresi_doldu": {
+        "baslik": "会议已结束",
+        "aciklama": "会议时间已过，无法再回复。"
+      },
+      "iptal": {
+        "baslik": "会议已取消",
+        "aciklama": "此会议已取消，无需回复。"
+      },
+      "hata": {
+        "baslik": "出现问题",
+        "aciklama": "页面无法加载，请稍后再试。"
+      }
+    }
+  }
+}

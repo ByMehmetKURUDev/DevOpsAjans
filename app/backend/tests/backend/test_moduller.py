@@ -93,9 +93,13 @@ def test_sekme_anahtarlari_panellerde_gercekten_var():
     # Tersine: müşteri panelindeki her sekme bir modüle ait (manifest-güdümlü sekme çubuğu).
     # Faz 5K: "Ortaklık" modül DEĞİL (ajansın kendi programı, satılmıyor) — kişiye ait sekme, yalnız onaylı ortakta.
     KISIYE_AIT_SEKMELER = {"ortaklik"}
+    # Faz 6T: "Toplantılar" da modül DEĞİL (portalın parçası, satılmıyor; `projeler` izniyle) — hesabın
+    # toplantısı ya da toplantı talebi varken görünür.
+    HESABA_AIT_SEKMELER = {"toplantilar"}
+    serbest = KISIYE_AIT_SEKMELER | HESABA_AIT_SEKMELER
     tanimli = {m.musteri_sekmesi for m in mf.MODULLER if m.musteri_sekmesi}
-    assert musteri <= tanimli | KISIYE_AIT_SEKMELER, musteri - tanimli - KISIYE_AIT_SEKMELER
-    assert not (KISIYE_AIT_SEKMELER & tanimli)
+    assert musteri <= tanimli | serbest, musteri - tanimli - serbest
+    assert not (serbest & tanimli)
     # Yönetici panelinde modül yönetimi sekmesi var.
     assert "moduller" in yonetici
 

@@ -27,6 +27,8 @@ export const KAYNAKLAR = [
   'teklif_karari',
   // Faz 5K: herkese açık /ortaklik sayfasından gelen ortaklık başvurusu.
   'ortak_basvurusu',
+  // Faz 6T: müşterinin panelden gönderdiği toplantı talebi ("Toplantı planla" ön doldurulmuş form açar).
+  'toplanti_talebi',
 ] as const;
 export type Kaynak = (typeof KAYNAKLAR)[number];
 

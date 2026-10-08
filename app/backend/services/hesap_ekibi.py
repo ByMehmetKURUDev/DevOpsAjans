@@ -270,6 +270,9 @@ OLAY_IZNI: Dict[str, str] = {
     "hukuk_portal_mesaj": "hukuk",
     # Faz 6M — ön muhasebe: kategori bütçesi aşıldı (hesaba; `muhasebe` izinli üyelere de — okur değil).
     "muhasebe_butce": "muhasebe",
+    # Faz 6T — toplantı notları müşteriyle paylaşıldı (hesaba; `projeler` izinli üyelere de). Davet / hatırlatma /
+    # iptal BİLEREK yok: kişiye özel (davet imzalı yanıt bağlantısı taşır), yalnız adı geçen katılımcıya gider.
+    "toplanti_notlari": "projeler",
 }
 
 DAVET_OLAYI = "hesap_davet"

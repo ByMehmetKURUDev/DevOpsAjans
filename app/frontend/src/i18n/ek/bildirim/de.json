@@ -89,7 +89,12 @@
       "muhasebe_butce": "Kategorien mit überschrittenem Budget in der Buchhaltung",
       "ortaklik_basvuru": "Partnerprogramm: neue Bewerbung",
       "ortaklik_odeme_talebi": "Partnerprogramm: Auszahlungsanfrage",
-      "ortaklik_durum": "Partnerprogramm: Bewerbungsentscheidung und Auszahlungsstatus (an den Partner)"
+      "ortaklik_durum": "Partnerprogramm: Bewerbungsentscheidung und Auszahlungsstatus (an den Partner)",
+      "toplanti_davet": "Besprechungen: Einladung / Aktualisierung",
+      "toplanti_iptal": "Besprechungen: abgesagt",
+      "toplanti_hatirlatma": "Besprechungen: Erinnerung (24 Std. / 1 Std. vorher)",
+      "toplanti_notlari": "Besprechungen: Notizen geteilt",
+      "toplanti_talebi": "Besprechungen: neue Kundenanfrage"
     },
     "kanal": {
       "inapp": "Panel",

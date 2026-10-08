@@ -437,7 +437,8 @@
     "tabIk": "Кадры",
     "tabHukuk": "Юр. контора",
     "tabOnMuhasebe": "Бухгалтерия",
-    "tabOrtaklik": "Партнёрство"
+    "tabOrtaklik": "Партнёрство",
+    "tabToplantilar": "Встречи"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",

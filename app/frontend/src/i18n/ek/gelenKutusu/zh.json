@@ -20,7 +20,8 @@
       "izin_talebi": "请假申请",
       "crm_form": "CRM 表单",
       "teklif_karari": "报价决定",
-      "ortak_basvurusu": "推广合作申请"
+      "ortak_basvurusu": "推广合作申请",
+      "toplanti_talebi": "会议请求"
     },
     "durumSuzgeci": {
       "etiket": "按状态筛选",
@@ -63,7 +64,8 @@
       "goreve_donustur": "转为任务",
       "paket_uygula": "为该客户应用此套餐",
       "onayla": "批准",
-      "reddet": "拒绝"
+      "reddet": "拒绝",
+      "toplanti_planla": "安排会议"
     },
     "eylemTamam": "已完成。",
     "eylemHata": "操作未能完成。",
@@ -109,7 +111,9 @@
       "pazarlamaIzni": "营销同意",
       "web": "网站 / 社交媒体",
       "tanitim": "推广方式",
-      "pazarlama": "营销许可"
+      "pazarlama": "营销许可",
+      "araliklar": "首选时间（伊斯坦布尔时间）",
+      "talepDurumu": "请求状态"
     },
     "karar": {
       "bekliyor": "等待决定",
@@ -193,6 +197,11 @@
     "yanitNeden": {
       "eposta_kapali": "未配置邮件服务",
       "eposta_gitmedi": "被邮件服务商拒绝"
+    },
+    "toplantiTalebiDurum": {
+      "bekliyor": "等待中",
+      "planlandi": "已安排",
+      "kapandi": "已关闭"
     }
   }
 }

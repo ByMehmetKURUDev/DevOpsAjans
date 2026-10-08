@@ -1,0 +1,52 @@
+{
+  "toplantiYanit": {
+    "ust": "Meeting invitation",
+    "merhaba": "Hello {{ad}},",
+    "soru": "Will you attend?",
+    "not": "Short note (optional)",
+    "kaydedildi": "Your response has been saved. Thank you!",
+    "mevcut": "Your current response: {{yanit}}",
+    "katil": "Join the meeting",
+    "ics": "Add to calendar (.ics)",
+    "gundem": "Agenda",
+    "dk": "{{sayi}} min",
+    "istanbul": "Istanbul",
+    "yerel": "your local time",
+    "dil": "Language",
+    "gizlilik": "This page opens only with the personal link sent to {{eposta}}; please do not share the link.",
+    "yanit": {
+      "katilacak": "I will attend",
+      "katilamayacak": "I can't attend",
+      "belki": "Maybe",
+      "bekliyor": "No response yet"
+    },
+    "yer": {
+      "cevrimici": "Online",
+      "yuz_yuze": "In person",
+      "telefon": "Phone"
+    },
+    "hata": {
+      "genel": "Your response could not be saved. Please try again.",
+      "cok_hizli": "Too many attempts; please try again shortly.",
+      "ag": "Could not connect."
+    },
+    "durum": {
+      "gecersiz": {
+        "baslik": "Invalid link",
+        "aciklama": "This link is not valid or a newer invitation has replaced it. Please use the link in the latest invitation email."
+      },
+      "suresi_doldu": {
+        "baslik": "The meeting has ended",
+        "aciklama": "This meeting is over, so responses are no longer accepted."
+      },
+      "iptal": {
+        "baslik": "The meeting was cancelled",
+        "aciklama": "This meeting has been cancelled; no response is needed."
+      },
+      "hata": {
+        "baslik": "Something went wrong",
+        "aciklama": "The page could not be loaded. Please try again shortly."
+      }
+    }
+  }
+}

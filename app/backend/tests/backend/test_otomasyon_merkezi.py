@@ -596,6 +596,11 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     from models.ortaklik import Ortaklar
 
     await _ekle(db_oturumu, Ortaklar(eposta=_e("ortak"), ad="Özet Ortağı", durum="beklemede", basvuru_at=an - timedelta(days=1)))
+    # Faz 6T: dün yapılmış, notu yazılmamış toplantı.
+    from models.toplantilar import Toplantilar
+
+    await _ekle(db_oturumu, Toplantilar(uid=uuid.uuid4().hex[:24], baslik="Özet toplantısı", baslangic=an - timedelta(days=1),
+                                        sure_dk=30, yer_turu="cevrimici", durum="yapildi", sira_no=0))
 
     from models.sozlesmeler import HatirlatmaIzleri
 
@@ -606,7 +611,7 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     o = y.json()
     bolumler = {b["anahtar"]: b for b in o["bolumler"]}
     assert list(bolumler) == ["faturalar", "destek", "gelen_kutusu", "crm", "teklifler", "icerik", "belgeler",
-                              "yenilemeler", "siteler", "stok_kritik", "ik_izin", "muhasebe", "ortaklik"]
+                              "yenilemeler", "siteler", "stok_kritik", "ik_izin", "muhasebe", "ortaklik", "toplantilar"]
     for b in bolumler.values():
         assert b["sayi"] >= 1 and len(b["ornekler"]) <= ho.ORNEK_SINIRI, b
     assert any(t["para_birimi"] == "USD" for t in bolumler["faturalar"]["ek"]["toplamlar"])
@@ -615,7 +620,8 @@ async def test_haftalik_ozet_icerik_butun_bolumler(db_oturumu, istemci, yonetici
     assert any(s["ad"] == "ornek-kafe.com" and s["tur"] == "alan" for s in bolumler["yenilemeler"]["ornekler"])
     assert any(s["ad"] == "ornek-kafe.com" for s in bolumler["siteler"]["ornekler"])
     assert {b["sekme"] for b in o["bolumler"]} <= {"invoices", "tickets", "gelenKutusu", "crm", "teklifler", "icerik",
-                                                   "dosyalar", "siteler", "stokPos", "ik", "onMuhasebe", "ortaklik"}
+                                                   "dosyalar", "siteler", "stokPos", "ik", "onMuhasebe", "ortaklik",
+                                                   "toplantilar"}
     assert bolumler["gelen_kutusu"]["ek"]["kaynaklar"].get("kartvizit", 0) >= 1
     assert "izin_talebi" not in bolumler["gelen_kutusu"]["ek"]["kaynaklar"]
     assert any(s["ad"] == "Özet Personeli" and s["tur"] == "izin_bekliyor" for s in bolumler["ik_izin"]["ornekler"]) or \

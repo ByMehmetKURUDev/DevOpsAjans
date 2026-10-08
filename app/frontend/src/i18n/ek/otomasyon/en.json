@@ -111,7 +111,8 @@
       "alacak": "Overdue receivable",
       "ortak": "Partner",
       "komisyon": "Commission",
-      "odeme": "Payout request"
+      "odeme": "Payout request",
+      "toplanti": "Meeting"
     },
     "alan": {
       "id": "ID",
@@ -202,7 +203,10 @@
       "yuzde": "Percentage used",
       "oran": "Rate (%)",
       "web": "Web / social",
-      "fatura_no": "Invoice no."
+      "fatura_no": "Invoice no.",
+      "yer_turu": "Location type",
+      "katilimci_sayisi": "Number of attendees",
+      "iptal_nedeni": "Cancellation reason"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -244,7 +248,10 @@
       "muhasebe_alacak_gecikti": "Receivable overdue",
       "ortaklik_basvuru": "New affiliate application",
       "ortaklik_komisyon": "Affiliate commission recorded",
-      "ortaklik_odeme_talebi": "Affiliate payout request"
+      "ortaklik_odeme_talebi": "Affiliate payout request",
+      "toplanti_planlandi": "Meeting scheduled",
+      "toplanti_yapildi": "Meeting held",
+      "toplanti_iptal": "Meeting cancelled"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -286,7 +293,10 @@
       "muhasebe_alacak_gecikti": "A contact's receivable in bookkeeping is 1, 30, 60 or 90 days past due (once per open item and threshold). The “person in the event” is the contact.",
       "ortaklik_basvuru": "An application arrived from the /ortaklik page (awaiting a decision).",
       "ortaklik_komisyon": "A referred customer's invoice was paid (commission) or refunded / its payment reversed (reversal entry).",
-      "ortaklik_odeme_talebi": "A partner asked for their approved balance to be paid out."
+      "ortaklik_odeme_talebi": "A partner asked for their approved balance to be paid out.",
+      "toplanti_planlandi": "A new meeting was created in the admin panel. The “person in the event” is the client account, or the CRM lead if there is no account.",
+      "toplanti_yapildi": "The meeting was marked as held (e.g. send a thank-you email or create a minutes task).",
+      "toplanti_iptal": "The meeting was cancelled with a reason; attendees received a cancellation (ICS)."
     },
     "eylem": {
       "eposta": "Send email",
@@ -694,7 +704,8 @@
           "stok_kritik": "Customers' products at low stock (POS)",
           "ik_izin": "Pending leave requests (agency staff)",
           "muhasebe": "Bookkeeping: budget overruns and overdue receivables",
-          "ortaklik": "Affiliates: pending applications and payout requests"
+          "ortaklik": "Affiliates: pending applications and payout requests",
+          "toplantilar": "Past meetings without notes"
         },
         "ek": {
           "toplam": "Total outstanding: {{tutar}}",
@@ -739,7 +750,9 @@
           "basvuru_bekliyor": "application waiting for {{sayi}} days",
           "basvuru_bekliyor_bugun": "application arrived today",
           "odeme_bekliyor": "payout request waiting for {{sayi}} days",
-          "odeme_bekliyor_bugun": "payout request arrived today"
+          "odeme_bekliyor_bugun": "payout request arrived today",
+          "not_yok": "held {{sayi}} days ago, no notes",
+          "not_yok_bugun": "held today, no notes"
         }
       }
     }

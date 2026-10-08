@@ -20,7 +20,8 @@
       "izin_talebi": "İzin talebi",
       "crm_form": "CRM formu",
       "teklif_karari": "Teklif kararı",
-      "ortak_basvurusu": "Ortaklık başvurusu"
+      "ortak_basvurusu": "Ortaklık başvurusu",
+      "toplanti_talebi": "Toplantı talebi"
     },
     "durumSuzgeci": {
       "etiket": "Duruma göre süz",
@@ -63,7 +64,8 @@
       "goreve_donustur": "Göreve dönüştür",
       "paket_uygula": "Bu paketi bu müşteriye uygula",
       "onayla": "Onayla",
-      "reddet": "Reddet"
+      "reddet": "Reddet",
+      "toplanti_planla": "Toplantı planla"
     },
     "eylemTamam": "İşlem yapıldı.",
     "eylemHata": "İşlem yapılamadı.",
@@ -109,7 +111,9 @@
       "pazarlamaIzni": "Pazarlama izni",
       "web": "Web / sosyal medya",
       "tanitim": "Nasıl tanıtacak",
-      "pazarlama": "Pazarlama izni"
+      "pazarlama": "Pazarlama izni",
+      "araliklar": "Tercih edilen zamanlar (İstanbul saati)",
+      "talepDurumu": "Talep durumu"
     },
     "karar": {
       "bekliyor": "Karar bekleniyor",
@@ -193,6 +197,11 @@
     "yanitNeden": {
       "eposta_kapali": "e-posta sağlayıcısı kurulu değil",
       "eposta_gitmedi": "sağlayıcı reddetti"
+    },
+    "toplantiTalebiDurum": {
+      "bekliyor": "Bekliyor",
+      "planlandi": "Planlandı",
+      "kapandi": "Kapatıldı"
     }
   }
 }

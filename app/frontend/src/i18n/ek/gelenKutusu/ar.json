@@ -20,7 +20,8 @@
       "izin_talebi": "طلب إجازة",
       "crm_form": "نموذج CRM",
       "teklif_karari": "قرار عرض السعر",
-      "ortak_basvurusu": "طلب شراكة"
+      "ortak_basvurusu": "طلب شراكة",
+      "toplanti_talebi": "طلب اجتماع"
     },
     "durumSuzgeci": {
       "etiket": "التصفية حسب الحالة",
@@ -63,7 +64,8 @@
       "goreve_donustur": "تحويل إلى مهمة",
       "paket_uygula": "طبّق هذه الباقة على هذا العميل",
       "onayla": "موافقة",
-      "reddet": "رفض"
+      "reddet": "رفض",
+      "toplanti_planla": "جدولة اجتماع"
     },
     "eylemTamam": "تمّ.",
     "eylemHata": "تعذّر تنفيذ الإجراء.",
@@ -109,7 +111,9 @@
       "pazarlamaIzni": "موافقة التسويق",
       "web": "الموقع / التواصل الاجتماعي",
       "tanitim": "طريقة الترويج",
-      "pazarlama": "موافقة التسويق"
+      "pazarlama": "موافقة التسويق",
+      "araliklar": "الأوقات المفضلة (بتوقيت إسطنبول)",
+      "talepDurumu": "حالة الطلب"
     },
     "karar": {
       "bekliyor": "بانتظار القرار",
@@ -193,6 +197,11 @@
     "yanitNeden": {
       "eposta_kapali": "لم يُضبط مزوّد البريد",
       "eposta_gitmedi": "رفضه مزوّد البريد"
+    },
+    "toplantiTalebiDurum": {
+      "bekliyor": "قيد الانتظار",
+      "planlandi": "تمت الجدولة",
+      "kapandi": "مغلق"
     }
   }
 }

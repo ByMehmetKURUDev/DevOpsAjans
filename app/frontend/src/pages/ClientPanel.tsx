@@ -25,6 +25,7 @@ import {
   UtensilsCrossed,
   KeyRound,
   CalendarCheck,
+  CalendarClock,
   Workflow,
   PenTool,
   BotMessageSquare,
@@ -82,6 +83,9 @@ const Kredilerim = ekliLazy('kredi', () => import('@/components/Kredilerim'));
 // Faz 5K: ortaklık paneli — yalnız onaylı ortakta (kişiye ait; `ortaklik` ek paketi).
 const OrtaklikPaneli = ekliLazy('ortaklik', () => import('@/components/ortaklik/OrtaklikPaneli'));
 const KrediOzetKarti = ekliLazy('kredi', () => import('@/components/KrediOzetKarti'));
+// Faz 6T: toplantılar — sekme yalnız hesabın toplantısı / talebi varken; yoksa Projelerim'de "Toplantı iste" kartı.
+const MusteriToplantilari = ekliLazy('toplantilar', () => import('@/components/toplantilar/MusteriToplantilari'));
+const ToplantiIsteKarti = ekliLazy('toplantilar', () => import('@/components/toplantilar/ToplantiIsteKarti'));
 // Onay bekleyen imzalı işlemler (teklif kabulü, teslim onayı) — yoksa hiç çizilmez.
 const OnayBekleyenler = ekliLazy('islem', () => import('@/components/OnayBekleyenler'));
 // Profil › Modüllerim (açık / yakında / paketinize eklenebilir modüller).
@@ -238,6 +242,7 @@ type Tab =
   | 'dosyalar'
   | 'api'
   | 'ortaklik'
+  | 'toplantilar'
   | 'profile';
 
 /**
@@ -272,6 +277,7 @@ const SEKMELER: Tab[] = [
   'dosyalar',
   'api',
   'ortaklik',
+  'toplantilar',
   'profile',
 ];
 
@@ -280,7 +286,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim', 'ik', 'hukuk', 'onMuhasebe', 'ortaklik'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim', 'ik', 'hukuk', 'onMuhasebe', 'ortaklik', 'toplantilar'];
 
 /**
  * `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın.
@@ -564,6 +570,29 @@ export default function ClientPanel() {
   }, [user, hesapHazir]);
   const ortakMi = ortakDurumu === 'onaylandi' || ortakDurumu === 'askida';
 
+  // Faz 6T: toplantılar sekmesi yalnız hesabın toplantısı ya da toplantı talebi varken (veri yok, yalnız sayılar).
+  // undefined = soruluyor (`?sekme=toplantilar` bağlantısı beklesin); 0 = yok (Projelerim'de "Toplantı iste" kartı).
+  const [toplantiSayisi, setToplantiSayisi] = useState<{ hesap: string; sayi: number } | undefined>(undefined);
+  const toplantiIzni = izinVar(['projeler']);
+  const toplantiOzetiniYukle = useCallback(() => {
+    if (!user || !hesapHazir || !toplantiIzni) return;
+    const hesap = etkinEmail;
+    client.apiCall
+      .invoke({ method: 'GET', url: '/api/v1/toplantilarim/ozet' })
+      .then((y: unknown) => {
+        const g = (y && typeof y === 'object' && 'data' in (y as Record<string, unknown>) ? (y as { data: unknown }).data : y) as
+          | { toplanti?: number; talep?: number }
+          | undefined;
+        setToplantiSayisi({ hesap, sayi: (g?.toplanti ?? 0) + (g?.talep ?? 0) });
+      })
+      .catch(() => setToplantiSayisi({ hesap, sayi: 0 }));
+  }, [user, hesapHazir, toplantiIzni, etkinEmail]);
+  useEffect(() => {
+    toplantiOzetiniYukle();
+  }, [toplantiOzetiniYukle]);
+  const toplantiVar = toplantiIzni && toplantiSayisi?.hesap === etkinEmail && toplantiSayisi.sayi > 0;
+  const toplantiBekleniyor = toplantiIzni && toplantiSayisi?.hesap !== etkinEmail;
+
   // Faz 5K — kayıt referansı: ortaklık bağlantısıyla (`?ref=`) gelip giriş yapan kişinin kodu bu oturumda bir kez
   // gönderilir; sunucu atfı yalnız YENİ açılmış hesaba yazar (eski müşteri sonradan tıklayıp atıf kazandırmasın).
   useEffect(() => {
@@ -664,11 +693,16 @@ export default function ClientPanel() {
     // Projeler ve profil çekirdek: sunucu ne derse desin sekme çubuğunda kalır
     // (projeler yalnız etkin hesapta izni varsa).
     if (!liste.some((x) => x.key === 'projects') && izinli('projects')) liste.unshift({ key: 'projects' });
+    // Faz 6T: toplantılar (modül değil, hesabın işi) — Projelerim'in hemen ardından; yalnız toplantı/talep varken.
+    if (toplantiVar && izinli('toplantilar') && !liste.some((x) => x.key === 'toplantilar')) {
+      const yer = liste.findIndex((x) => x.key === 'projects');
+      liste.splice(yer < 0 ? 0 : yer + 1, 0, { key: 'toplantilar' });
+    }
     // Faz 5K: ortaklık (modül değil, kişiye ait) — profilden hemen önce.
     if (ortakMi && !liste.some((x) => x.key === 'ortaklik')) liste.push({ key: 'ortaklik' });
     if (!liste.some((x) => x.key === 'profile')) liste.push({ key: 'profile' });
     return liste;
-  }, [modulBilgisi, izinVar, paylasilanBelgeVar, ortakMi]);
+  }, [modulBilgisi, izinVar, paylasilanBelgeVar, ortakMi, toplantiVar]);
 
   // Faz 2G: okunmamış rozeti — sohbet kapalıyken 45 sn'de bir özet (sohbet açıkken
   // Mesajlar bileşeni kendi yoklamasıyla bildiriyor). Sekme gizliyken durur.
@@ -693,8 +727,10 @@ export default function ClientPanel() {
     if (tab === 'dosyalar' && belgeOzetiBekleniyor) return;
     // Faz 5K: ortaklık sorusu sürerken `?sekme=ortaklik` bağlantısını bekle.
     if (tab === 'ortaklik' && ortakDurumu === undefined) return;
+    // Faz 6T: toplantı sorusu sürerken `?sekme=toplantilar` bağlantısını bekle.
+    if (tab === 'toplantilar' && toplantiBekleniyor) return;
     if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(gorunenSekmeler[0]?.key ?? 'profile');
-  }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi, belgeOzetiBekleniyor, ortakDurumu]);
+  }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi, belgeOzetiBekleniyor, ortakDurumu, toplantiBekleniyor]);
 
   // Faz 7M: görünür sekme sayısı DUZ_MENU_SINIRI'nı aşınca gruplu menü; son açılan
   // sekme yalnız orada hatırlanır (düz çubuklu müşteri panele bugünkü gibi Projelerim ile girer).
@@ -881,6 +917,7 @@ export default function ClientPanel() {
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
     ortaklik: { label: t('ui.tabOrtaklik'), icon: HandCoins },
+    toplantilar: { label: t('ui.tabToplantilar'), icon: CalendarClock },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
   };
   const TABS: { key: Tab; label: string; icon: typeof Briefcase }[] = gorunenSekmeler.map((s) => ({
@@ -1109,6 +1146,20 @@ export default function ClientPanel() {
           {tab === 'projects' && modulAcik('gorevler') && izinVar(['gorevler']) && projects.length > 0 && (
             <Suspense fallback={null}>
               <RevizyonGostergesi />
+            </Suspense>
+          )}
+
+          {/* Faz 6T: toplantı/talep yokken Toplantılar sekmesi gizli; "Toplantı iste" buradan (talep sonrası sekme açılır). */}
+          {tab === 'projects' && toplantiIzni && toplantiSayisi?.hesap === etkinEmail && toplantiSayisi.sayi === 0 && (
+            <Suspense fallback={null}>
+              <ToplantiIsteKarti
+                onGonderildi={() => {
+                  // Talep sayısı artık > 0: sekme hemen görünsün (sunucu özeti de tazelenir).
+                  setToplantiSayisi({ hesap: etkinEmail, sayi: 1 });
+                  setTab('toplantilar');
+                  toplantiOzetiniYukle();
+                }}
+              />
             </Suspense>
           )}
 
@@ -1721,6 +1772,18 @@ export default function ClientPanel() {
               }
             >
               <OrtaklikPaneli />
+            </Suspense>
+          )}
+
+          {tab === 'toplantilar' && toplantiVar && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <MusteriToplantilari />
             </Suspense>
           )}
 

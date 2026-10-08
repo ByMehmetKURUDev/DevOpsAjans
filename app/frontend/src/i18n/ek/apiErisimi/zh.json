@@ -79,7 +79,10 @@
       "muhasebe_alacak_gecikti": "简易记账中往来单位应收款已逾期（1 / 30 / 60 / 90 天）",
       "ortaklik_basvuru": "新的推广合作申请",
       "ortaklik_komisyon": "推广佣金已入账（佣金或退款冲销）",
-      "ortaklik_odeme_talebi": "推广者申请提取佣金"
+      "ortaklik_odeme_talebi": "推广者申请提取佣金",
+      "toplanti_planlandi": "会议已安排",
+      "toplanti_yapildi": "会议已标记为已举行",
+      "toplanti_iptal": "会议已取消"
     },
     "anahtar": {
       "yeni": "新建密钥",

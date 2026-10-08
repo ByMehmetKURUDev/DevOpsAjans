@@ -79,7 +79,10 @@
       "muhasebe_alacak_gecikti": "A contact receivable in bookkeeping is past due (1 / 30 / 60 / 90 days)",
       "ortaklik_basvuru": "New affiliate application",
       "ortaklik_komisyon": "Affiliate commission recorded (commission or refund reversal)",
-      "ortaklik_odeme_talebi": "Affiliate requested a commission payout"
+      "ortaklik_odeme_talebi": "Affiliate requested a commission payout",
+      "toplanti_planlandi": "Meeting scheduled",
+      "toplanti_yapildi": "Meeting marked as held",
+      "toplanti_iptal": "Meeting cancelled"
     },
     "anahtar": {
       "yeni": "New key",

@@ -199,7 +199,8 @@
         "egitim_bakimi": "课程维护",
         "hukuk_bakimi": "律所维护",
         "muhasebe_bakimi": "记账维护",
-        "ortaklik_bakimi": "推广计划维护"
+        "ortaklik_bakimi": "推广计划维护",
+        "toplanti_hatirlatmalari": "会议提醒"
       },
       "gunluk": "每天",
       "haftalik": "每周",
@@ -243,7 +244,8 @@
         "egitim_bakimi": "课程维护（上课提醒、缺勤提醒、自动颁发证书、匿名化超过保存期限的学员数据）",
         "hukuk_bakimi": "律所维护（庭审与期限提醒：提前 7/3/1 天及当天早上，各发送一次；永久删除已删除超过 30 天的客户和案件）",
         "muhasebe_bakimi": "简易记账维护（到期的周期性记录、自动导入与待审批建议、超预算及应收款逾期事件）",
-        "ortaklik_bakimi": "推广计划维护（退款期结束的佣金自动确认；每 6 小时一次，打开推广者面板时也会执行）"
+        "ortaklik_bakimi": "推广计划维护（退款期结束的佣金自动确认；每 6 小时一次，打开推广者面板时也会执行）",
+        "toplanti_hatirlatmalari": "会议提醒（提前 24 小时和 1 小时发给已邀请的参会者，每种仅一次；每轮运行以及打开“会议”标签页时）"
       }
     },
     "musteri": {

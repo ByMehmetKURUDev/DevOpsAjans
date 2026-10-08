@@ -228,4 +228,6 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   ik: ['ik'],
   hukuk: ['hukuk'],
   onMuhasebe: ['muhasebe', 'muhasebe_okur'],
+  // Faz 6T: toplantılar proje/hesap işinin parçası — `projeler` izni (ayrı izin yok).
+  toplantilar: ['projeler'],
 };

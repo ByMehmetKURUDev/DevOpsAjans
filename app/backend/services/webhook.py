@@ -182,6 +182,11 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     OlayTuru("ortaklik.basvuru", musteri=False),
     OlayTuru("ortaklik.komisyon", musteri=False),
     OlayTuru("ortaklik.odeme_talebi", musteri=False),
+    # Faz 6T — toplantılar (flush kancası, `_toplanti_verisi`): yeni toplantı planlandı, yapıldı, iptal edildi. Yalnız
+    # ajans uç noktaları (toplantı ajansın kaydı). Başlık, not, katılımcı e-postası YOK — kimlikler, zaman, durum.
+    OlayTuru("toplanti.planlandi", musteri=False),
+    OlayTuru("toplanti.yapildi", musteri=False),
+    OlayTuru("toplanti.iptal", musteri=False),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.
@@ -708,6 +713,8 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
             olaylar.extend(_etkinlik_giris(baglanti, obj))
         elif tablo in ("egitim_ogrencileri", "egitim_sertifikalari"):
             olaylar.extend(_egitim_olaylari(baglanti, tablo, obj, yeni=True))
+        elif tablo == "toplantilar" and obj.durum in ("planlandi", "ertelendi"):
+            olaylar.append(("toplanti.planlandi", obj.hesap_email, _toplanti_verisi(obj), False))
         elif tablo == "ik_izinler":
             if obj.durum == "beklemede":
                 olaylar.append(("ik.izin_talebi", obj.hesap_email, _ik_izin_verisi(obj), True))
@@ -794,6 +801,11 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
             elif degisti and yeni == "iptal" and eski == "gecerli":
                 # Yalnız onaylı biletin iptali; ödenmemiş tutmanın süresi dolması olay değil.
                 etkinlik_iptal.setdefault(obj.siparis_id, []).append(obj)
+        elif tablo == "toplantilar":
+            # Faz 6T: yapıldı / iptal geçişi (erteleme ve düzenleme olay değil).
+            degisti, eski, yeni = _gecmis(obj, "durum")
+            if degisti and yeni != eski and yeni in ("yapildi", "iptal"):
+                olaylar.append((f"toplanti.{yeni}", obj.hesap_email, _toplanti_verisi(obj), False))
         elif tablo == "ik_izinler":
             # Faz 6I: bekleyen talebe karar verildi (onay / ret). Geri alma ve iptal olay değil.
             degisti, eski, yeni = _gecmis(obj, "durum")
@@ -859,6 +871,12 @@ def _egitim_olaylari(baglanti, tur: str, obj: Any, yeni: bool) -> List[Tuple[str
     return [("egitim.devamsizlik", hesap, veri, True)]
 
 
+def _toplanti_verisi(obj: Any) -> Dict[str, Any]:
+    """Faz 6T — toplantı: kimlikler, zaman (UTC), süre, yer türü, durum. Başlık/not/katılımcı YOK (API'den)."""
+    return {"toplanti_id": obj.id, "baslangic": iso(obj.baslangic), "sure_dk": obj.sure_dk, "yer_turu": obj.yer_turu,
+            "durum": obj.durum, "proje_id": obj.proje_id, "crm_aday_id": obj.crm_aday_id, "sira_no": obj.sira_no}
+
+
 def _ik_izin_verisi(obj: Any) -> Dict[str, Any]:
     """Faz 6I — izin kaydı: kimlikler, tür, tarih aralığı, gün, durum, kaynak. Personelin adı/e-postası ve
     açıklama YOK (rapor türünde zaten yalnız tarih aralığı tutuluyor)."""
@@ -916,6 +934,8 @@ IZLENEN_TABLOLAR = frozenset({
     "egitim_ogrencileri", "egitim_sertifikalari",
     # Faz 6I — izin talebi ve kararı.
     "ik_izinler",
+    # Faz 6T — toplantı planlandı / yapıldı / iptal.
+    "toplantilar",
 })
 
 

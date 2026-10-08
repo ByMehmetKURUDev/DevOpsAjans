@@ -20,7 +20,8 @@
       "izin_talebi": "Заявка на отпуск",
       "crm_form": "Форма CRM",
       "teklif_karari": "Решение по предложению",
-      "ortak_basvurusu": "Заявка на партнёрство"
+      "ortak_basvurusu": "Заявка на партнёрство",
+      "toplanti_talebi": "Запрос встречи"
     },
     "durumSuzgeci": {
       "etiket": "Фильтр по статусу",
@@ -63,7 +64,8 @@
       "goreve_donustur": "Превратить в задачу",
       "paket_uygula": "Применить этот пакет к клиенту",
       "onayla": "Одобрить",
-      "reddet": "Отклонить"
+      "reddet": "Отклонить",
+      "toplanti_planla": "Запланировать встречу"
     },
     "eylemTamam": "Готово.",
     "eylemHata": "Не удалось выполнить действие.",
@@ -109,7 +111,9 @@
       "pazarlamaIzni": "Согласие на рассылку",
       "web": "Сайт / соцсети",
       "tanitim": "Как будет продвигать",
-      "pazarlama": "Согласие на рассылку"
+      "pazarlama": "Согласие на рассылку",
+      "araliklar": "Удобное время (по Стамбулу)",
+      "talepDurumu": "Статус запроса"
     },
     "karar": {
       "bekliyor": "Ожидает решения",
@@ -193,6 +197,11 @@
     "yanitNeden": {
       "eposta_kapali": "почтовый сервис не настроен",
       "eposta_gitmedi": "отклонено почтовым сервисом"
+    },
+    "toplantiTalebiDurum": {
+      "bekliyor": "Ожидает",
+      "planlandi": "Запланирована",
+      "kapandi": "Закрыт"
     }
   }
 }

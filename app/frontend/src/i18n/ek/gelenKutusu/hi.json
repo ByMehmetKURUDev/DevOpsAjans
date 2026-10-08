@@ -20,7 +20,8 @@
       "izin_talebi": "अवकाश अनुरोध",
       "crm_form": "CRM फ़ॉर्म",
       "teklif_karari": "कोटेशन पर निर्णय",
-      "ortak_basvurusu": "एफ़िलिएट आवेदन"
+      "ortak_basvurusu": "एफ़िलिएट आवेदन",
+      "toplanti_talebi": "बैठक अनुरोध"
     },
     "durumSuzgeci": {
       "etiket": "स्थिति के अनुसार फ़िल्टर करें",
@@ -63,7 +64,8 @@
       "goreve_donustur": "कार्य में बदलें",
       "paket_uygula": "यह पैकेज इस क्लाइंट पर लागू करें",
       "onayla": "स्वीकृत करें",
-      "reddet": "अस्वीकार करें"
+      "reddet": "अस्वीकार करें",
+      "toplanti_planla": "बैठक निर्धारित करें"
     },
     "eylemTamam": "हो गया।",
     "eylemHata": "कार्रवाई पूरी नहीं हो सकी।",
@@ -109,7 +111,9 @@
       "pazarlamaIzni": "मार्केटिंग सहमति",
       "web": "वेब / सोशल मीडिया",
       "tanitim": "कैसे प्रचार करेंगे",
-      "pazarlama": "मार्केटिंग अनुमति"
+      "pazarlama": "मार्केटिंग अनुमति",
+      "araliklar": "पसंदीदा समय (इस्तांबुल समय)",
+      "talepDurumu": "अनुरोध की स्थिति"
     },
     "karar": {
       "bekliyor": "निर्णय बाकी",
@@ -193,6 +197,11 @@
     "yanitNeden": {
       "eposta_kapali": "ईमेल प्रदाता सेट नहीं है",
       "eposta_gitmedi": "प्रदाता ने अस्वीकार किया"
+    },
+    "toplantiTalebiDurum": {
+      "bekliyor": "प्रतीक्षा में",
+      "planlandi": "निर्धारित",
+      "kapandi": "बंद"
     }
   }
 }

@@ -36,7 +36,8 @@ export const DUZ_MENU_EN_DAR = 768;
 
 /** Grupların ve içlerindeki sekmelerin sırası (tek kaynak; anahtarlar `ClientPanel` `Tab`). */
 export const MUSTERI_GRUPLARI: readonly GrupTanimi<MusteriGrubu>[] = [
-  { anahtar: 'projeler', sekmeler: ['projects', 'dosyalar', 'raporlar'] },
+  // Faz 6T: toplantılar — yalnız hesabın toplantısı ya da toplantı talebi varken görünür (ClientPanel).
+  { anahtar: 'projeler', sekmeler: ['projects', 'dosyalar', 'raporlar', 'toplantilar'] },
   { anahtar: 'destek', sekmeler: ['tickets', 'mesajlar', 'asistanlar'] },
   { anahtar: 'sitem', sekmeler: ['sitem', 'analiz'] },
   {
