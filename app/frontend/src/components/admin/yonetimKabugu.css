@@ -713,7 +713,12 @@ html[data-panel-kabugu] [data-site-duzeni] > main {
   min-width: 0;
   width: 100%;
   max-width: 1600px;
-  padding: 22px 26px 56px;
+  /* Alt boşluk: sitenin alt bilgisi panelde gizli; sabit alt öğeler (AI asistan, Hata bildir düğmeleri) ve
+     rıza bandı son içeriği kalıcı olarak örtmesin — son satır onların üstüne kaydırılabilsin. */
+  padding: 22px 26px 150px;
+}
+html:has([data-riza-politika]) .pk-icerik {
+  padding-bottom: 240px;
 }
 
 /* ---------- Alt sekme çubuğu (telefon) ---------- */
@@ -775,7 +780,10 @@ html[data-panel-kabugu] [data-site-duzeni] > main {
     display: none;
   }
   .pk-icerik {
-    padding: 12px 16px calc(100px + env(safe-area-inset-bottom));
+    padding: 12px 16px calc(150px + env(safe-area-inset-bottom));
+  }
+  html:has([data-riza-politika]) .pk-icerik {
+    padding-bottom: calc(360px + env(safe-area-inset-bottom));
   }
 
   /* Şerit: grup çipleri yatay; açık grubun bölümleri altında ayrı satırda. */
