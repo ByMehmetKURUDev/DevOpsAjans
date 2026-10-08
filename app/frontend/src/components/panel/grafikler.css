@@ -1,0 +1,42 @@
+/*
+ * Panel Genel bakış grafikleri (`grafikler.tsx`) — yönetici (Faz 11A) ve müşteri (Faz 11B) ortak.
+ * Kurallar Faz 11A'da `admin/genelBakis/genelBakis.css`'teydi; aynen buraya taşındı (yönetici çizimi aynı).
+ * Rakamlar JetBrains Mono (`--pk-mono` yöneticide kabuktan; tanımlı değilse aynı yazı ailesi).
+ */
+.gb-isik-nokta {
+  filter: drop-shadow(0 0 5px currentColor);
+}
+.gb-kivilcim svg {
+  display: block;
+}
+.gb-alan svg {
+  display: block;
+}
+.gb-izgara-cizgi {
+  stroke: rgb(140 170 255 / 0.1);
+}
+.gb-eksen-yazi {
+  font-family: var(--pk-mono, 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 10px;
+  fill: #7f90bd;
+}
+.gb-halka {
+  flex: none;
+}
+.gb-halka-dilim {
+  filter: drop-shadow(0 0 5px color-mix(in srgb, currentColor 55%, transparent));
+}
+.gb-halka-ust {
+  font-family: var(--pk-mono, 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 28px;
+  font-weight: 500;
+  fill: #fff;
+}
+.gb-halka-alt {
+  font-size: 11px;
+  fill: #8ea2d6;
+}
+/* Faz 11B — tek değerli ilerleme halkasında ortadaki yüzde daha küçük. */
+.gb-halka-ust.gb-halka-ust-kucuk {
+  font-size: 21px;
+}

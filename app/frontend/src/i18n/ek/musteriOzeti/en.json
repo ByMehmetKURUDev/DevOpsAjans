@@ -1,0 +1,185 @@
+{
+  "musteriOzeti": {
+    "bolgeEtiketi": "Overview",
+    "yukleniyor": "Loading overview…",
+    "yenidenDene": "Try again",
+    "vazgec": "Cancel",
+    "karsilama": {
+      "merhaba": "Hello,",
+      "merhabaAd": "Hello {{ad}},",
+      "hazir": "ready",
+      "devamEdiyor": "{{proje}} is in progress",
+      "panel": "Welcome to your dashboard",
+      "siradaki": "Next delivery:",
+      "onayBekleyen": "items awaiting your approval: {{sayi}}",
+      "teslimler": "Review deliveries",
+      "ekibeYaz": "Message the team"
+    },
+    "ilerleme": {
+      "baslik": "Project progress",
+      "etkinProjeler": "Active projects: {{sayi}}",
+      "isKalemi": "work items: {{sayi}}",
+      "kilometre": "milestones: {{sayi}}",
+      "halkaEtiketi": "{{ad}}: {{deger}} complete ({{tamam}}/{{toplam}})",
+      "halkaEtiketiKisa": "{{ad}}: {{deger}} complete",
+      "sonTeslim": "Last delivery",
+      "siradaki": "Up next"
+    },
+    "kalan": {
+      "baslik": "Remaining work",
+      "gercek": "Actual",
+      "plan": "Plan",
+      "gorev": "open tasks",
+      "onde": "{{sayi}} days ahead of plan",
+      "geride": "{{sayi}} days behind plan",
+      "planda": "on plan",
+      "grafikEtiketi": "Open tasks, {{bas}} – {{son}}: {{ilk}} → {{sayi}}"
+    },
+    "ekip": {
+      "baslik": "Your team",
+      "mesajGonder": "Send a message",
+      "ortYanitDk": "avg. reply {{sayi}} min",
+      "ortYanitSa": "avg. reply {{sayi}} h",
+      "rol": {
+        "yonetici": "Project lead",
+        "calisan": "Team member"
+      },
+      "hizmet": {
+        "website": "Web",
+        "seo": "SEO",
+        "google_ads": "Search ads",
+        "sosyal_ads": "Social ads",
+        "sosyal_pr": "Social media",
+        "sosyal_tasarim": "Design",
+        "youtube_pr": "Video promotion",
+        "youtube_gelistirme": "Video channel",
+        "youtube_otomasyon": "Video automation",
+        "basin_pr": "Press & PR",
+        "yeni_ozellik": "Development",
+        "genel": "General"
+      }
+    },
+    "onay": {
+      "baslik": "Awaiting your approval",
+      "tumu": "All ({{sayi}})",
+      "tur": {
+        "teslimat": "Delivery approval",
+        "teklif_kabul": "Price quote",
+        "icerik": "Content",
+        "teklif": "Proposal",
+        "sozlesme": "Contract",
+        "belge": "Document"
+      },
+      "gorsel": "images: {{sayi}}",
+      "kelime": "{{deger}} words",
+      "surum": "version {{sayi}}",
+      "onayBekliyor": "Awaiting approval",
+      "imzaBekliyor": "Awaiting signature",
+      "okumaBekliyor": "Awaiting reading",
+      "onayla": "Approve",
+      "revizyonIste": "Request changes",
+      "kabulEt": "Accept",
+      "reddet": "Decline",
+      "okudum": "I have read and approve",
+      "incele": "Review",
+      "imzala": "Sign",
+      "eminMisiniz": "Confirmation",
+      "onayEmin": "Do you approve? Your decision is sent to the agency right away.",
+      "kabulEmin": "Do you accept the quote? Your decision is sent to the agency right away.",
+      "evetOnayla": "Yes, approve",
+      "evetKabul": "Yes, accept",
+      "revizyonNotu": "What should change? (required)",
+      "redNotu": "Reason (optional)",
+      "revizyonGonder": "Send change request",
+      "revizyonKalan": "{{sure}} h of revisions left",
+      "revizyonBitti": "This month's revision allowance is used up",
+      "basarili": {
+        "onay": "Approved.",
+        "revizyon": "Your change request was sent.",
+        "kabul": "Quote accepted.",
+        "red": "Quote declined.",
+        "okundu": "Marked as read."
+      }
+    },
+    "toplanti": {
+      "baslik": "Upcoming meeting",
+      "yer": {
+        "cevrimici": "online",
+        "yuz_yuze": "in person",
+        "telefon": "by phone"
+      },
+      "yanit": {
+        "bekliyor": "your reply is pending",
+        "katilacak": "I'll attend ✓",
+        "katilamayacak": "I can't attend",
+        "belki": "maybe"
+      },
+      "katilimci": "participants: {{sayi}}",
+      "katil": "Join",
+      "takvimeEkle": "Add to calendar",
+      "ayrinti": "Details",
+      "katilYakinda": "The join link appears here 15 minutes before the meeting."
+    },
+    "bakiye": {
+      "baslik": "My balance",
+      "otomatikAcik": "New invoices are paid automatically from your balance",
+      "otomatikKapali": "Automatic payment is off",
+      "bekleyen": "top-up notices awaiting approval: {{sayi}}",
+      "yukle": "Top up",
+      "hareketler": "Transactions"
+    },
+    "hedef": {
+      "kendiBaslik": "Our goal",
+      "beklenen": "expected {{deger}}",
+      "gerceklesen": "achieved {{deger}}",
+      "dahaFazla": "+{{sayi}} more key results"
+    },
+    "faturaDestek": {
+      "baslik": "Invoices and support",
+      "vade": "due {{tarih}}",
+      "gecikti": "overdue · {{tarih}}",
+      "acik": "open",
+      "bakiyedenOde": "Pay from balance",
+      "odeEmin": "Pay {{tutar}} from your balance?",
+      "ode": "Pay",
+      "odemeYap": "Pay now",
+      "odendi": "{{kod}} was paid from your balance.",
+      "siziBekliyor": "answered · waiting for you",
+      "acikTalep": "open request",
+      "yanitVerin": "Reply",
+      "ac": "Open"
+    },
+    "hosGeldin": {
+      "baslik": "Welcome",
+      "metin": "As your projects, pending approvals, meetings, invoices and requests come in, they will be summarised here on a single screen.",
+      "ilkAdimlar": "First steps",
+      "adim": {
+        "projeler": {
+          "baslik": "My projects",
+          "metin": "See your projects and their stages"
+        },
+        "talep": {
+          "baslik": "Create a request",
+          "metin": "Write to us about new work or a question"
+        },
+        "mesaj": {
+          "baslik": "Message the team",
+          "metin": "Chat directly with the agency team"
+        },
+        "faturalar": {
+          "baslik": "My invoices",
+          "metin": "Your proposals, contracts, invoices and balance"
+        },
+        "profil": {
+          "baslik": "My profile",
+          "metin": "Edit your details and notification preferences"
+        }
+      }
+    },
+    "hata": {
+      "genel": "The action could not be completed. Please try again.",
+      "artikBeklemiyor": "This item is no longer pending (it expired or was already decided); the list was refreshed.",
+      "yuklenemedi": "The overview could not be loaded."
+    }
+  }
+}

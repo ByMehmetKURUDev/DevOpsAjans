@@ -2,6 +2,7 @@
   "panelKabugu": {
     "menu": {
       "menu": "Panel menu",
+      "genelBakis": "Overview",
       "bolumler": "Sections",
       "ara": "Find a section… ( / )",
       "temizle": "Clear search",
@@ -30,6 +31,13 @@
       "iskeletBaslik": "The panel opened offline",
       "iskeletMetin": "An internet connection is needed to show your information. The panel will load by itself when the connection is back.",
       "yenidenDene": "Try again"
+    },
+    "kabuk": {
+      "hesapMenusu": "Account menu",
+      "dil": "Language",
+      "profil": "My profile",
+      "siteyeDon": "Back to site",
+      "cikis": "Sign out"
     }
   }
 }

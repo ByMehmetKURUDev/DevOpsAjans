@@ -1,0 +1,185 @@
+{
+  "musteriOzeti": {
+    "bolgeEtiketi": "Genel bakış",
+    "yukleniyor": "Genel bakış yükleniyor…",
+    "yenidenDene": "Yeniden dene",
+    "vazgec": "Vazgeç",
+    "karsilama": {
+      "merhaba": "Merhaba,",
+      "merhabaAd": "Merhaba {{ad}},",
+      "hazir": "hazır",
+      "devamEdiyor": "{{proje}} devam ediyor",
+      "panel": "Panelinize hoş geldiniz",
+      "siradaki": "Sıradaki teslim:",
+      "onayBekleyen": "onayınızı bekleyen {{sayi}} iş var",
+      "teslimler": "Teslimleri incele",
+      "ekibeYaz": "Ekibe yaz"
+    },
+    "ilerleme": {
+      "baslik": "Proje ilerlemesi",
+      "etkinProjeler": "Etkin projeleriniz: {{sayi}}",
+      "isKalemi": "{{sayi}} iş kalemi",
+      "kilometre": "{{sayi}} kilometre taşı",
+      "halkaEtiketi": "{{ad}}: {{deger}} tamamlandı ({{tamam}}/{{toplam}})",
+      "halkaEtiketiKisa": "{{ad}}: {{deger}} tamamlandı",
+      "sonTeslim": "Son teslim",
+      "siradaki": "Sıradaki"
+    },
+    "kalan": {
+      "baslik": "Kalan iş",
+      "gercek": "Gerçek",
+      "plan": "Plan",
+      "gorev": "açık görev",
+      "onde": "planın {{sayi}} gün önünde",
+      "geride": "planın {{sayi}} gün gerisinde",
+      "planda": "planla aynı hizada",
+      "grafikEtiketi": "Açık görev sayısı, {{bas}} – {{son}}: {{ilk}} → {{sayi}}"
+    },
+    "ekip": {
+      "baslik": "Ekibiniz",
+      "mesajGonder": "Mesaj gönder",
+      "ortYanitDk": "ort. yanıt {{sayi}} dk",
+      "ortYanitSa": "ort. yanıt {{sayi}} sa",
+      "rol": {
+        "yonetici": "Proje lideri",
+        "calisan": "Ekip üyesi"
+      },
+      "hizmet": {
+        "website": "Web",
+        "seo": "SEO",
+        "google_ads": "Arama reklamları",
+        "sosyal_ads": "Sosyal reklam",
+        "sosyal_pr": "Sosyal medya",
+        "sosyal_tasarim": "Tasarım",
+        "youtube_pr": "Video tanıtım",
+        "youtube_gelistirme": "Video kanalı",
+        "youtube_otomasyon": "Video otomasyonu",
+        "basin_pr": "Basın ve PR",
+        "yeni_ozellik": "Geliştirme",
+        "genel": "Genel"
+      }
+    },
+    "onay": {
+      "baslik": "Onayınızı bekleyen",
+      "tumu": "Tümü ({{sayi}})",
+      "tur": {
+        "teslimat": "Teslim onayı",
+        "teklif_kabul": "Fiyat teklifi",
+        "icerik": "İçerik",
+        "teklif": "Teklif",
+        "sozlesme": "Sözleşme",
+        "belge": "Belge"
+      },
+      "gorsel": "{{sayi}} görsel",
+      "kelime": "{{deger}} kelime",
+      "surum": "sürüm {{sayi}}",
+      "onayBekliyor": "Onay bekliyor",
+      "imzaBekliyor": "İmza bekliyor",
+      "okumaBekliyor": "Okunmayı bekliyor",
+      "onayla": "Onayla",
+      "revizyonIste": "Revizyon iste",
+      "kabulEt": "Kabul et",
+      "reddet": "Reddet",
+      "okudum": "Okudum, onaylıyorum",
+      "incele": "İncele",
+      "imzala": "İmzala",
+      "eminMisiniz": "Onay",
+      "onayEmin": "Onaylıyor musunuz? Kararınız ajansa hemen iletilir.",
+      "kabulEmin": "Teklifi kabul ediyor musunuz? Kararınız ajansa hemen iletilir.",
+      "evetOnayla": "Evet, onayla",
+      "evetKabul": "Evet, kabul et",
+      "revizyonNotu": "Ne değişsin? (zorunlu)",
+      "redNotu": "Gerekçe (isteğe bağlı)",
+      "revizyonGonder": "Revizyon isteğini gönder",
+      "revizyonKalan": "{{sure}} sa revizyon hakkı kaldı",
+      "revizyonBitti": "Bu ayın revizyon hakkı doldu",
+      "basarili": {
+        "onay": "Onaylandı.",
+        "revizyon": "Revizyon isteğiniz gönderildi.",
+        "kabul": "Teklif kabul edildi.",
+        "red": "Teklif reddedildi.",
+        "okundu": "Okundu olarak işaretlendi."
+      }
+    },
+    "toplanti": {
+      "baslik": "Yaklaşan toplantı",
+      "yer": {
+        "cevrimici": "çevrim içi",
+        "yuz_yuze": "yüz yüze",
+        "telefon": "telefonla"
+      },
+      "yanit": {
+        "bekliyor": "yanıtınız bekleniyor",
+        "katilacak": "katılacağım ✓",
+        "katilamayacak": "katılamayacağım",
+        "belki": "belki katılırım"
+      },
+      "katilimci": "{{sayi}} katılımcı",
+      "katil": "Katıl",
+      "takvimeEkle": "Takvime ekle",
+      "ayrinti": "Ayrıntı",
+      "katilYakinda": "Katılım bağlantısı toplantıya 15 dakika kala burada görünür."
+    },
+    "bakiye": {
+      "baslik": "Bakiyem",
+      "otomatikAcik": "Yeni faturalar bakiyeden otomatik ödeniyor",
+      "otomatikKapali": "Otomatik ödeme kapalı",
+      "bekleyen": "onay bekleyen yükleme bildirimi: {{sayi}}",
+      "yukle": "Bakiye yükle",
+      "hareketler": "Hareketler"
+    },
+    "hedef": {
+      "kendiBaslik": "Hedefimiz",
+      "beklenen": "beklenen {{deger}}",
+      "gerceklesen": "gerçekleşen {{deger}}",
+      "dahaFazla": "+{{sayi}} anahtar sonuç daha"
+    },
+    "faturaDestek": {
+      "baslik": "Faturalar ve destek",
+      "vade": "vade {{tarih}}",
+      "gecikti": "vadesi geçti · {{tarih}}",
+      "acik": "açık",
+      "bakiyedenOde": "Bakiyeden öde",
+      "odeEmin": "{{tutar}} bakiyenizden ödensin mi?",
+      "ode": "Öde",
+      "odemeYap": "Ödeme yap",
+      "odendi": "{{kod}} bakiyeden ödendi.",
+      "siziBekliyor": "yanıtlandı · sizi bekliyor",
+      "acikTalep": "açık talep",
+      "yanitVerin": "Yanıt verin",
+      "ac": "Aç"
+    },
+    "hosGeldin": {
+      "baslik": "Hoş geldiniz",
+      "metin": "Projeleriniz, onayınızı bekleyen işler, toplantılar, faturalar ve talepleriniz oluştukça burada tek ekranda özetlenecek.",
+      "ilkAdimlar": "İlk adımlar",
+      "adim": {
+        "projeler": {
+          "baslik": "Projelerim",
+          "metin": "Projelerinizi ve aşamalarını görün"
+        },
+        "talep": {
+          "baslik": "Talep oluşturun",
+          "metin": "Yeni bir iş ya da sorunuz için bize yazın"
+        },
+        "mesaj": {
+          "baslik": "Ekibe yazın",
+          "metin": "Ajans ekibiyle doğrudan yazışın"
+        },
+        "faturalar": {
+          "baslik": "Faturalarım",
+          "metin": "Teklif, sözleşme, fatura ve bakiyeniz"
+        },
+        "profil": {
+          "baslik": "Profilim",
+          "metin": "Bilgilerinizi ve bildirim tercihlerinizi düzenleyin"
+        }
+      }
+    },
+    "hata": {
+      "genel": "İşlem tamamlanamadı. Lütfen yeniden deneyin.",
+      "artikBeklemiyor": "Bu öğe artık beklemiyor (süresi dolmuş ya da karara bağlanmış); liste yenilendi.",
+      "yuklenemedi": "Genel bakış yüklenemedi."
+    }
+  }
+}

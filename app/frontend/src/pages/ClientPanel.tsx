@@ -38,6 +38,7 @@ import {
   Calculator,
   Target,
   HandCoins,
+  LayoutDashboard,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -51,7 +52,7 @@ import RaporArsivi from '@/components/RaporArsivi';
 import SiteBakimIzni from '@/components/SiteBakimIzni';
 import { HIZMETLER } from '@/lib/talepler';
 import { useStageLabels } from '@/lib/projectEvents';
-import { client, oturumIziVarMi } from '@/lib/sdkClient';
+import { client, oturumIziVarMi, sunucuOturumunuKapat } from '@/lib/sdkClient';
 import { isAdminUser, useSiteSettings } from '@/lib/siteSettings';
 import { modullerimiGetir, type Modullerim as ModulBilgisi } from '@/lib/moduller';
 import { modulIkonu } from '@/lib/modulIkonlari';
@@ -61,11 +62,11 @@ import { kayitReferansiBekliyor, kayitReferansiGonderildi } from '@/lib/referans
 import { hesapSec, seciliHesap } from '@/lib/hesapSecimi';
 import { ozetGetir as mesajOzeti } from '@/lib/mesajlar';
 import { useYoklama } from '@/hooks/useYoklama';
-import { DUZ_MENU_EN_DAR, grupluMenuMu, sonMusteriSekmesi, sonMusteriSekmesiniYaz } from '@/lib/musteriMenusu';
+import { DUZ_MENU_EN_DAR, GENEL_BAKIS, grupluMenuMu, sonMusteriSekmesi, sonMusteriSekmesiniYaz } from '@/lib/musteriMenusu';
+import MusteriKabugu from '@/components/MusteriKabugu';
 import {
   CevrimdisiIskelet,
   CevrimdisiSerit,
-  UygulamaYukleDugmesi,
   useCevrimdisiAcilis,
   usePanelKabugu,
 } from '@/lib/uygulamaKabugu';
@@ -166,8 +167,8 @@ const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme', 'cuzdan'], () => i
 // personelinin kendi zaman kayıtları (yalnız personele; ek paket `zamanTakibi`).
 const HarcananSureKarti = ekliLazy('zamanTakibi', () => import('@/components/HarcananSureKarti'));
 const PersonelZaman = ekliLazy('zamanTakibi', () => import('@/components/PersonelZaman'));
-// Faz 7M — sekme sayısı DUZ_MENU_SINIRI'nı aşınca gruplu menü (yönetici menüsüyle aynı bileşen).
-const MusteriMenusu = ekliLazy('panelKabugu', () => import('@/components/MusteriMenusu'));
+// Faz 11B — "Genel bakış" (Panel v2 komuta ekranı): ayrı parça + ek paketler (`musteriOzeti`, hedef kartı durum adları).
+const MusteriGenelBakis = ekliLazy(['musteriOzeti', 'hedefKarti'], () => import('@/components/musteriGenelBakis/MusteriGenelBakis'));
 /** Panel açık, Mesajlar sekmesi kapalıyken yalnız okunmamış sayısı (30–60 sn). */
 const MESAJ_OZETI_ARALIGI = 45000;
 
@@ -221,6 +222,7 @@ interface Ticket {
 }
 
 type Tab =
+  | 'genelBakis'
   | 'projects'
   | 'invoices'
   | 'krediler'
@@ -296,16 +298,22 @@ const SEKMELER: Tab[] = [
  */
 const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim', 'ik', 'hukuk', 'onMuhasebe', 'hedefler', 'ortaklik', 'toplantilar'];
 
+/** Ad geçerli bir panel bölümü mü (Genel bakış ya da sekmelerden biri). */
+function gecerliSekme(ad: string | null | undefined): ad is Tab {
+  return !!ad && (ad === GENEL_BAKIS || SEKMELER.includes(ad as Tab));
+}
+
 /**
  * `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın.
- * Bağlantı yoksa gruplu menüde son açılan sekme (Faz 7M; düz çubukta yazılmaz).
+ * Bağlantı yoksa gruplu menüde son açılan sekme (Faz 7M; düz çubukta yazılmaz); o da yoksa
+ * Genel bakış (Faz 11B — önceden Projelerim).
  */
 function ilkSekme(): Tab {
-  if (typeof window === 'undefined') return 'projects';
-  const istenen = new URLSearchParams(window.location.search).get('sekme') as Tab | null;
-  if (istenen && SEKMELER.includes(istenen)) return istenen;
-  const son = sonMusteriSekmesi() as Tab | null;
-  return son && SEKMELER.includes(son) ? son : 'projects';
+  if (typeof window === 'undefined') return GENEL_BAKIS;
+  const istenen = new URLSearchParams(window.location.search).get('sekme');
+  if (gecerliSekme(istenen)) return istenen;
+  const son = sonMusteriSekmesi();
+  return gecerliSekme(son) ? son : GENEL_BAKIS;
 }
 
 
@@ -327,8 +335,8 @@ export default function ClientPanel() {
   // Bildirim bağlantısı panel açıkken tıklanırsa (aynı rota, yeni `?sekme=`) sekmeye geç.
   useEffect(() => {
     try {
-      const istenen = new URLSearchParams(location.search).get('sekme') as Tab | null;
-      if (istenen && SEKMELER.includes(istenen)) setTab(istenen);
+      const istenen = new URLSearchParams(location.search).get('sekme');
+      if (gecerliSekme(istenen)) setTab(istenen);
     } catch {
       /* tarayıcı dışı */
     }
@@ -729,6 +737,8 @@ export default function ClientPanel() {
 
   // Açık sekme kapatılmış bir modüle (ya da izni olmayan bölüme) aitse ilk görünen sekmeye dön.
   useEffect(() => {
+    // Faz 11B: Genel bakış her zaman açık (gruba girmez, modüle bağlı değil).
+    if (tab === GENEL_BAKIS) return;
     // Varsayılan kapalı modülün sekmesi (`?sekme=asistanlar`): modül bilgisi gelene kadar bekle.
     if (!modulBilgisi && !modulHatasi && VARSAYILAN_KAPALI.includes(tab)) return;
     // Faz 5B: paylaşılan belge sorusu sürerken "Dosyalar ve belgeler" bağlantısını bekle.
@@ -737,14 +747,15 @@ export default function ClientPanel() {
     if (tab === 'ortaklik' && ortakDurumu === undefined) return;
     // Faz 6T: toplantı sorusu sürerken `?sekme=toplantilar` bağlantısını bekle.
     if (tab === 'toplantilar' && toplantiBekleniyor) return;
-    if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(gorunenSekmeler[0]?.key ?? 'profile');
+    // Kapatılmış/izinsiz bölümün bağlantısı panelin ilk bölümüne (Genel bakış) düşer.
+    if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(GENEL_BAKIS);
   }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi, belgeOzetiBekleniyor, ortakDurumu, toplantiBekleniyor]);
 
   // Faz 7M: görünür sekme sayısı DUZ_MENU_SINIRI'nı aşınca gruplu menü; son açılan
   // sekme yalnız orada hatırlanır (düz çubuklu müşteri panele bugünkü gibi Projelerim ile girer).
   const grupluSayi = grupluMenuMu(gorunenSekmeler.length);
   useEffect(() => {
-    if (grupluSayi && gorunenSekmeler.some((x) => x.key === tab)) sonMusteriSekmesiniYaz(tab);
+    if (grupluSayi && (tab === GENEL_BAKIS || gorunenSekmeler.some((x) => x.key === tab))) sonMusteriSekmesiniYaz(tab);
   }, [grupluSayi, tab, gorunenSekmeler]);
   // Faz 7K: düz çubuk (≤ 10 sekme) DUZ_MENU_EN_DAR ve üstünde sığmıyorsa (1024 px, uzun Almanca/Rusça adlar,
   // Modern/Nebula'nın geniş aralığı) sekmeler çubuğun dışına taşıyordu (yatay kaydırmada gizli). Ölçülür;
@@ -789,6 +800,34 @@ export default function ClientPanel() {
   const grupluMenu = grupluSayi || duzGerekli !== null;
   // Panel iskeleti ve yüklenen parçalar çevrimdışı açılış için saklansın (servis çalışanı).
   usePanelKabugu('/client', tab);
+
+  // Faz 11B — Genel bakıştan bir bölüme gidilince (ör. Faturalar › Bakiyem, bir teklif) hedef öğe çizilince oraya kaydır.
+  const [kaydirHedefi, setKaydirHedefi] = useState<string | null>(null);
+  useEffect(() => {
+    if (!kaydirHedefi) return;
+    let kalan = 40;
+    const zamanlayici = window.setInterval(() => {
+      const el = document.querySelector<HTMLElement>(kaydirHedefi);
+      if (el || --kalan <= 0) {
+        window.clearInterval(zamanlayici);
+        el?.scrollIntoView({ block: 'start', behavior: 'auto' });
+        setKaydirHedefi(null);
+      }
+    }, 150);
+    return () => window.clearInterval(zamanlayici);
+  }, [kaydirHedefi, tab]);
+
+  /** Faz 11B — panel tam ekran olduğu için çıkış hesap menüsünde (site menüsündekiyle aynı yol). */
+  const cikisYap = async () => {
+    try {
+      await sunucuOturumunuKapat();
+      await client.auth.logout();
+    } catch {
+      /* oturum zaten düşmüş olabilir */
+    } finally {
+      window.location.href = '/';
+    }
+  };
 
   const submitTicket = async () => {
     if (!ticketForm.subject.trim() || !ticketForm.message.trim()) {
@@ -898,6 +937,7 @@ export default function ClientPanel() {
   // Sekme anahtarı → etiket ve varsayılan ikon (bileşen eşlemesi aşağıda, kodda).
   // Görünürlük, sıra ve ikon adı sunucudaki modül kaydından geliyor.
   const SEKME_TANIMLARI: Record<Tab, { label: string; icon: typeof Briefcase }> = {
+    genelBakis: { label: t('panelKabugu.menu.genelBakis'), icon: LayoutDashboard },
     projects: { label: t('ui.tabMyProjects'), icon: Briefcase },
     invoices: { label: t('ui.tabInvoices'), icon: Receipt },
     krediler: { label: t('ui.tabKredilerim'), icon: Coins },
@@ -935,28 +975,37 @@ export default function ClientPanel() {
     icon: s.ikon ? modulIkonu(s.ikon) : SEKME_TANIMLARI[s.key].icon,
   }));
 
+  const genelBakis = tab === GENEL_BAKIS;
+  /** Genel bakıştan bir bölüme geçiş; `hedef` verilirse (CSS seçici) bölüm çizilince oraya kaydırılır. */
+  const bolumeGit = (sekme: string, hedef?: string) => {
+    if (sekme !== GENEL_BAKIS && !gorunenSekmeler.some((x) => x.key === sekme)) return;
+    setTab(sekme as Tab);
+    setKaydirHedefi(hedef ?? null);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+  const mesajSekmesi = gorunenSekmeler.some((x) => x.key === 'mesajlar') && izinVar(['mesajlar']);
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="mb-10 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-purple-400 mb-2">
-            {t('ui.clientPanelTitle')}
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold">
-            {t('ui.controlCenter')} <span className="gradient-text">{t('ui.controlCenterHighlight')}</span>
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            {t('ui.session')}:{' '}
-            <span className="text-foreground">
-              {user.email || user.name}
-            </span>
-          </p>
-        </div>
-        {/* Faz 7M: "Uygulama olarak yükle" (yüklüyse, gizlendiyse ya da tarayıcı desteklemiyorsa çizilmez). */}
-        <Suspense fallback={null}>
-          <UygulamaYukleDugmesi />
-        </Suspense>
-      </div>
+    /*
+      Faz 11B — Panel v2 kabuğu: üst çubuk (logo, menü — gruplar yatay ya da düz çubuk, en başta Genel bakış —,
+      bildirim zili, hesap menüsü) + içerik. Menü düzeni kararı (Faz 7M/7K) burada; DOM sözleşmesi MusteriKabugu'nda.
+    */
+    <MusteriKabugu<Tab>
+      sekmeler={TABS}
+      aktif={tab}
+      onSec={(k) => setTab(k as Tab)}
+      rozetler={{ mesajlar: okunmamisMesaj }}
+      modulDurumu={modulBilgisi ? 'sunucu' : modulHatasi ? 'hata' : 'yukleniyor'}
+      gruplu={grupluMenu}
+      kabukDurumu={grupluMenu ? (grupluSayi ? 'gruplu' : 'gruplu-genislik') : 'duz'}
+      satirRef={setMenuKabugu}
+      duzCubukRef={setDuzCubuk}
+      kullanici={{ email: user.email, name: user.name }}
+      hesapAdi={etkin.ad}
+      onCikis={() => void cikisYap()}
+    >
+      {/* Sayfanın başlığı: Genel bakışta karşılama başlığı (h1); diğer bölümlerde ekran okuyucu için bölüm adı. */}
+      {!genelBakis && <h1 className="sr-only">{SEKME_TANIMLARI[tab]?.label ?? t('ui.clientPanelTitle')}</h1>}
       <Suspense fallback={null}>
         <CevrimdisiSerit />
       </Suspense>
@@ -987,25 +1036,30 @@ export default function ClientPanel() {
         </Suspense>
       )}
 
+      {/*
+        Faz 11B: aşağıdaki "genel görünüm" blokları (onay bekleyenler, paylaşılan hedefler, içerik onayları, sayaçlar,
+        kredi özeti) Genel bakışta YOK — oradaki kartlar onların yerini tutuyor; diğer bölümlerde eskisi gibi üstte.
+      */}
       {/* Genel görünümün en üstü: müşterinin kararını bekleyen işler. */}
-      {modulAcik('islem') && izinVar(['faturalar', 'projeler', 'raporlar']) && (
+      {!genelBakis && modulAcik('islem') && izinVar(['faturalar', 'projeler', 'raporlar']) && (
         <Suspense fallback={null}>
           <OnayBekleyenler onDegisti={loadData} />
         </Suspense>
       )}
       {/* Faz 6O: ajansın bu hesapla paylaştığı hedefler (salt okunur) — Hedefler modülü kapalı olsa da. */}
-      {izinVar(['projeler', 'hedefler', 'hedefler_okur']) && (
+      {!genelBakis && izinVar(['projeler', 'hedefler', 'hedefler_okur']) && (
         <Suspense fallback={null}>
           <PaylasilanHedefler />
         </Suspense>
       )}
       {/* Faz 5I: ajansın onaya sunduğu içerikler — İçerik stüdyosu modülü kapalı olsa da. */}
-      {izinVar(['icerik']) && tab !== 'icerik' && (
+      {!genelBakis && izinVar(['icerik']) && tab !== 'icerik' && (
         <Suspense fallback={null}>
           <IcerikOnaylari />
         </Suspense>
       )}
 
+      {!genelBakis && (
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-10">
         {[
           {
@@ -1054,69 +1108,19 @@ export default function ClientPanel() {
           </div>
         ))}
       </div>
+      )}
 
-      {modulAcik('krediler') && izinVar(['krediler']) && (
+      {!genelBakis && modulAcik('krediler') && izinVar(['krediler']) && (
         <Suspense fallback={null}>
           <KrediOzetKarti onAc={() => setTab('krediler')} />
         </Suspense>
       )}
 
-      {/* Tabs — kalabalıksa (Faz 7M) ya da düz çubuk sığmıyorsa (Faz 7K) gruplu menü, değilse bugünkü düz çubuk. */}
-      <div ref={setMenuKabugu} data-menu-kabugu={grupluMenu ? (grupluSayi ? 'gruplu' : 'gruplu-genislik') : 'duz'}>
-      {grupluMenu ? (
-        <Suspense fallback={<div className="mb-8 h-24" aria-hidden="true" />}>
-          <MusteriMenusu
-            sekmeler={TABS}
-            aktif={tab}
-            onSec={(k) => setTab(k as Tab)}
-            rozetler={{ mesajlar: okunmamisMesaj }}
-            modulDurumu={modulBilgisi ? 'sunucu' : modulHatasi ? 'hata' : 'yukleniyor'}
-          />
-        </Suspense>
-      ) : (
-      <div
-        ref={setDuzCubuk}
-        className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto"
-        data-sekme-cubugu
-        data-moduller={modulBilgisi ? 'sunucu' : modulHatasi ? 'hata' : 'yukleniyor'}
-      >
-        {TABS.map((tItem) => (
-          <button
-            key={tItem.key}
-            data-sekme={tItem.key}
-            data-secili={tab === tItem.key ? 'evet' : undefined}
-            onClick={() => setTab(tItem.key)}
-            className={`px-5 py-3 text-sm font-medium transition-colors relative inline-flex items-center gap-2 whitespace-nowrap max-2xl:px-4 max-xl:px-3 ${
-              tab === tItem.key
-                ? 'text-foreground'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <tItem.icon className="h-4 w-4" />
-            {tItem.label}
-            {tItem.key === 'mesajlar' && okunmamisMesaj > 0 && (
-              <span
-                className="inline-flex min-w-[1.25rem] items-center justify-center rounded-full bg-pink-600 px-1.5 text-[11px] font-semibold leading-5 text-white"
-                data-rozet={okunmamisMesaj}
-                aria-label={t('ui.tabMesajlar') + ': ' + okunmamisMesaj}
-              >
-                {okunmamisMesaj > 99 ? '99+' : okunmamisMesaj}
-              </span>
-            )}
-            {tab === tItem.key && (
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500" />
-            )}
-          </button>
-        ))}
-      </div>
-      )}
-      </div>
-
-      {dataLoading ? (
+      {dataLoading && !genelBakis ? (
         <div className="py-16 flex items-center justify-center text-muted-foreground">
           <Loader2 className="h-5 w-5 animate-spin mr-2" /> {t('ui.loading')}
         </div>
-      ) : error ? (
+      ) : error && !genelBakis ? (
         <div className="p-6 rounded-xl bg-destructive/10 border border-destructive/30 text-destructive text-sm">
           {error}
           <Button
@@ -1138,7 +1142,7 @@ export default function ClientPanel() {
             müşteri "panel çalışmıyor" diye arıyordu. Boş bir ekranın
             "kaydınız yok" mu "yanlış hesap" mı demek olduğu belli olmalı.
           */}
-          {etkin.kendi && projects.length === 0 && invoices.length === 0 && tickets.length === 0 && (
+          {!dataLoading && !error && etkin.kendi && projects.length === 0 && invoices.length === 0 && tickets.length === 0 && (
             <div className="mb-6 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-5">
               <p className="text-sm font-medium text-amber-200">
                 {t('ui.emailMismatchTitle')}
@@ -1156,6 +1160,42 @@ export default function ClientPanel() {
                 </Button>
               </Link>
             </div>
+          )}
+
+          {/* Faz 11B — Genel bakış: tek istekle (`/api/v1/musteri-ozeti`) kartlar; boş kalemin kartı çizilmez. */}
+          {genelBakis && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <MusteriGenelBakis
+                hesap={etkinEmail}
+                bolumler={gorunenSekmeler.map((x) => x.key)}
+                mesajSekmesi={mesajSekmesi}
+                onBolumeGit={bolumeGit}
+                onTalepAc={(id) => {
+                  setAcikTalep(id);
+                  bolumeGit('tickets', `[data-talep="${id}"]`);
+                }}
+                onDegisti={loadData}
+                toplantiIste={
+                  toplantiIzni && toplantiSayisi?.hesap === etkinEmail && toplantiSayisi.sayi === 0 ? (
+                    <Suspense fallback={null}>
+                      <ToplantiIsteKarti
+                        onGonderildi={() => {
+                          setToplantiSayisi({ hesap: etkinEmail, sayi: 1 });
+                          setTab('toplantilar');
+                          toplantiOzetiniYukle();
+                        }}
+                      />
+                    </Suspense>
+                  ) : null
+                }
+              />
+            </Suspense>
           )}
 
           {tab === 'projects' && modulAcik('gorevler') && izinVar(['gorevler']) && projects.length > 0 && (
@@ -1440,7 +1480,7 @@ export default function ClientPanel() {
                   </div>
                 ) : (
                   tickets.map((tk) => (
-                    <div key={tk.id} className="p-5 rounded-2xl glass">
+                    <div key={tk.id} className="p-5 rounded-2xl glass" data-talep={tk.id}>
                       <div className="flex items-center gap-2 mb-2">
                         <h4 className="font-semibold">{tk.subject}</h4>
                         <span
@@ -1977,6 +2017,6 @@ export default function ClientPanel() {
       )}
       </div>
       )}
-    </div>
+    </MusteriKabugu>
   );
 }

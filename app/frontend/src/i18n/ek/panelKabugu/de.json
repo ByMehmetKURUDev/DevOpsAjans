@@ -2,6 +2,7 @@
   "panelKabugu": {
     "menu": {
       "menu": "Panelmenü",
+      "genelBakis": "Übersicht",
       "bolumler": "Bereiche",
       "ara": "Bereich suchen… ( / )",
       "temizle": "Suche leeren",
@@ -30,6 +31,13 @@
       "iskeletBaslik": "Der Bereich wurde offline geöffnet",
       "iskeletMetin": "Um Ihre Daten anzuzeigen, ist eine Internetverbindung nötig. Sobald die Verbindung zurück ist, lädt der Bereich von selbst.",
       "yenidenDene": "Erneut versuchen"
+    },
+    "kabuk": {
+      "hesapMenusu": "Kontomenü",
+      "dil": "Sprache",
+      "profil": "Mein Profil",
+      "siteyeDon": "Zur Website",
+      "cikis": "Abmelden"
     }
   }
 }

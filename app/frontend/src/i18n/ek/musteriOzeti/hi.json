@@ -1,0 +1,185 @@
+{
+  "musteriOzeti": {
+    "bolgeEtiketi": "अवलोकन",
+    "yukleniyor": "अवलोकन लोड हो रहा है…",
+    "yenidenDene": "फिर से कोशिश करें",
+    "vazgec": "रद्द करें",
+    "karsilama": {
+      "merhaba": "नमस्ते,",
+      "merhabaAd": "नमस्ते {{ad}},",
+      "hazir": "तैयार",
+      "devamEdiyor": "{{proje}} पर काम जारी है",
+      "panel": "आपके डैशबोर्ड में स्वागत है",
+      "siradaki": "अगली डिलीवरी:",
+      "onayBekleyen": "आपकी स्वीकृति की प्रतीक्षा में: {{sayi}}",
+      "teslimler": "डिलीवरी देखें",
+      "ekibeYaz": "टीम को लिखें"
+    },
+    "ilerleme": {
+      "baslik": "प्रोजेक्ट प्रगति",
+      "etkinProjeler": "सक्रिय प्रोजेक्ट: {{sayi}}",
+      "isKalemi": "कार्य मद: {{sayi}}",
+      "kilometre": "माइलस्टोन: {{sayi}}",
+      "halkaEtiketi": "{{ad}}: {{deger}} पूरा ({{tamam}}/{{toplam}})",
+      "halkaEtiketiKisa": "{{ad}}: {{deger}} पूरा",
+      "sonTeslim": "अंतिम डिलीवरी",
+      "siradaki": "अगला"
+    },
+    "kalan": {
+      "baslik": "शेष काम",
+      "gercek": "वास्तविक",
+      "plan": "योजना",
+      "gorev": "खुले कार्य",
+      "onde": "योजना से {{sayi}} दिन आगे",
+      "geride": "योजना से {{sayi}} दिन पीछे",
+      "planda": "योजना के अनुसार",
+      "grafikEtiketi": "खुले कार्य, {{bas}} – {{son}}: {{ilk}} → {{sayi}}"
+    },
+    "ekip": {
+      "baslik": "आपकी टीम",
+      "mesajGonder": "संदेश भेजें",
+      "ortYanitDk": "औसत जवाब {{sayi}} मिनट",
+      "ortYanitSa": "औसत जवाब {{sayi}} घंटे",
+      "rol": {
+        "yonetici": "प्रोजेक्ट लीड",
+        "calisan": "टीम सदस्य"
+      },
+      "hizmet": {
+        "website": "वेब",
+        "seo": "SEO",
+        "google_ads": "सर्च विज्ञापन",
+        "sosyal_ads": "सोशल विज्ञापन",
+        "sosyal_pr": "सोशल मीडिया",
+        "sosyal_tasarim": "डिज़ाइन",
+        "youtube_pr": "वीडियो प्रचार",
+        "youtube_gelistirme": "वीडियो चैनल",
+        "youtube_otomasyon": "वीडियो ऑटोमेशन",
+        "basin_pr": "प्रेस और PR",
+        "yeni_ozellik": "डेवलपमेंट",
+        "genel": "सामान्य"
+      }
+    },
+    "onay": {
+      "baslik": "आपकी स्वीकृति की प्रतीक्षा में",
+      "tumu": "सभी ({{sayi}})",
+      "tur": {
+        "teslimat": "डिलीवरी स्वीकृति",
+        "teklif_kabul": "मूल्य कोटेशन",
+        "icerik": "कंटेंट",
+        "teklif": "प्रस्ताव",
+        "sozlesme": "अनुबंध",
+        "belge": "दस्तावेज़"
+      },
+      "gorsel": "चित्र: {{sayi}}",
+      "kelime": "{{deger}} शब्द",
+      "surum": "संस्करण {{sayi}}",
+      "onayBekliyor": "स्वीकृति लंबित",
+      "imzaBekliyor": "हस्ताक्षर लंबित",
+      "okumaBekliyor": "पढ़ना लंबित",
+      "onayla": "स्वीकृत करें",
+      "revizyonIste": "बदलाव माँगें",
+      "kabulEt": "स्वीकार करें",
+      "reddet": "अस्वीकार करें",
+      "okudum": "मैंने पढ़ा और स्वीकार किया",
+      "incele": "देखें",
+      "imzala": "हस्ताक्षर करें",
+      "eminMisiniz": "पुष्टि",
+      "onayEmin": "क्या आप स्वीकृत करते हैं? आपका निर्णय तुरंत एजेंसी को भेजा जाएगा।",
+      "kabulEmin": "क्या आप कोटेशन स्वीकार करते हैं? आपका निर्णय तुरंत एजेंसी को भेजा जाएगा।",
+      "evetOnayla": "हाँ, स्वीकृत करें",
+      "evetKabul": "हाँ, स्वीकार करें",
+      "revizyonNotu": "क्या बदलना है? (आवश्यक)",
+      "redNotu": "कारण (वैकल्पिक)",
+      "revizyonGonder": "बदलाव अनुरोध भेजें",
+      "revizyonKalan": "{{sure}} घंटे का संशोधन शेष",
+      "revizyonBitti": "इस महीने का संशोधन कोटा समाप्त",
+      "basarili": {
+        "onay": "स्वीकृत।",
+        "revizyon": "आपका बदलाव अनुरोध भेज दिया गया।",
+        "kabul": "कोटेशन स्वीकार किया गया।",
+        "red": "कोटेशन अस्वीकार किया गया।",
+        "okundu": "पढ़ा हुआ चिह्नित।"
+      }
+    },
+    "toplanti": {
+      "baslik": "आगामी मीटिंग",
+      "yer": {
+        "cevrimici": "ऑनलाइन",
+        "yuz_yuze": "आमने-सामने",
+        "telefon": "फ़ोन पर"
+      },
+      "yanit": {
+        "bekliyor": "आपके जवाब की प्रतीक्षा",
+        "katilacak": "मैं शामिल होऊँगा ✓",
+        "katilamayacak": "मैं शामिल नहीं हो सकता",
+        "belki": "शायद"
+      },
+      "katilimci": "प्रतिभागी: {{sayi}}",
+      "katil": "जुड़ें",
+      "takvimeEkle": "कैलेंडर में जोड़ें",
+      "ayrinti": "विवरण",
+      "katilYakinda": "मीटिंग से 15 मिनट पहले जुड़ने का लिंक यहाँ दिखेगा।"
+    },
+    "bakiye": {
+      "baslik": "मेरा बैलेंस",
+      "otomatikAcik": "नए इनवॉइस बैलेंस से अपने आप भुगतान होते हैं",
+      "otomatikKapali": "स्वचालित भुगतान बंद है",
+      "bekleyen": "स्वीकृति की प्रतीक्षा में टॉप-अप सूचनाएँ: {{sayi}}",
+      "yukle": "बैलेंस जोड़ें",
+      "hareketler": "लेन-देन"
+    },
+    "hedef": {
+      "kendiBaslik": "हमारा लक्ष्य",
+      "beklenen": "अपेक्षित {{deger}}",
+      "gerceklesen": "प्राप्त {{deger}}",
+      "dahaFazla": "+{{sayi}} और मुख्य परिणाम"
+    },
+    "faturaDestek": {
+      "baslik": "इनवॉइस और सहायता",
+      "vade": "देय {{tarih}}",
+      "gecikti": "अतिदेय · {{tarih}}",
+      "acik": "खुला",
+      "bakiyedenOde": "बैलेंस से भुगतान",
+      "odeEmin": "{{tutar}} आपके बैलेंस से भुगतान करें?",
+      "ode": "भुगतान करें",
+      "odemeYap": "अभी भुगतान करें",
+      "odendi": "{{kod}} का भुगतान बैलेंस से हो गया।",
+      "siziBekliyor": "जवाब दिया गया · आपकी प्रतीक्षा",
+      "acikTalep": "खुला अनुरोध",
+      "yanitVerin": "जवाब दें",
+      "ac": "खोलें"
+    },
+    "hosGeldin": {
+      "baslik": "स्वागत है",
+      "metin": "जैसे-जैसे आपके प्रोजेक्ट, लंबित स्वीकृतियाँ, मीटिंग, इनवॉइस और अनुरोध आएँगे, वे यहाँ एक ही स्क्रीन पर दिखेंगे।",
+      "ilkAdimlar": "पहले कदम",
+      "adim": {
+        "projeler": {
+          "baslik": "मेरे प्रोजेक्ट",
+          "metin": "अपने प्रोजेक्ट और उनके चरण देखें"
+        },
+        "talep": {
+          "baslik": "अनुरोध बनाएँ",
+          "metin": "नए काम या प्रश्न के लिए हमें लिखें"
+        },
+        "mesaj": {
+          "baslik": "टीम को लिखें",
+          "metin": "एजेंसी टीम से सीधे बात करें"
+        },
+        "faturalar": {
+          "baslik": "मेरे इनवॉइस",
+          "metin": "प्रस्ताव, अनुबंध, इनवॉइस और बैलेंस"
+        },
+        "profil": {
+          "baslik": "मेरी प्रोफ़ाइल",
+          "metin": "जानकारी और सूचना वरीयताएँ बदलें"
+        }
+      }
+    },
+    "hata": {
+      "genel": "कार्रवाई पूरी नहीं हो सकी। कृपया फिर से कोशिश करें।",
+      "artikBeklemiyor": "यह आइटम अब लंबित नहीं है (समय समाप्त या पहले ही निर्णय हो चुका); सूची ताज़ा की गई।",
+      "yuklenemedi": "अवलोकन लोड नहीं हो सका।"
+    }
+  }
+}

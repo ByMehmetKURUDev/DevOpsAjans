@@ -1,0 +1,623 @@
+/*
+ * Faz 11B — müşteri paneli kabuğu (üst çubuk + menü). YALNIZ müşteri paneli parçasıyla iner (ClientPanel tembel
+ * yükleniyor → ayrı CSS dosyası); herkese açık sayfaların ana stil dosyasına girmez. Sınıflar `mpk-` önekli.
+ *
+ * Görünümler: renkler değişkenlerde. Nebula (canlı) = önizleme 5: mor/pembe ton, koyu cam, ince ışıyan kenar.
+ * Klasik: aynı mor/pembe dil, daha sakin zemin. Modern: camgöbeği/yeşil vurgu (Modern'in kendi paleti).
+ * Yön: kenar boşlukları/konumlar mantıksal (inline-start/end) — Arapçada ayna.
+ */
+
+/* ---------- Site düzeni: panel tam ekran (Layout.tsx'e dokunmadan; yöneticideki 11A kuralının aynısı) ---------- */
+html[data-panel-kabugu] [data-site-duzeni] > header,
+html[data-panel-kabugu] [data-site-duzeni] > footer {
+  display: none !important;
+}
+html[data-panel-kabugu] [data-site-duzeni] > main {
+  padding-top: 0 !important;
+}
+
+/* ---------- Değişkenler ---------- */
+.mpk {
+  --mpk-mor: 168 85 247;
+  --mpk-pembe: 255 79 216;
+  --mpk-mavi: 96 165 250;
+  --mpk-yesil: 46 245 150;
+  --mpk-sari: 253 230 138;
+  --mpk-turuncu: 251 146 60;
+  --mpk-kirmizi: 255 107 122;
+  --mpk-kart1: 80 40 160;
+  --mpk-kart2: 22 12 52;
+  --mpk-cizgi: 200 150 255;
+  --mpk-metin: 243 232 255;
+  --mpk-soluk: 203 182 245;
+  --mpk-cubuk: 30 14 70;
+  --mpk-panel: 18 9 42;
+  --mpk-vurgu: var(--mpk-mor);
+  --mpk-vurgu2: var(--mpk-pembe);
+  --mpk-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --pk-mono: var(--mpk-mono);
+  /* Yığın bağlamı KURMUYOR (isolation/z-index yok): panel içindeki sabit katmanlar (Hata bildir penceresi z-70,
+     açılır pencereler) kökte kalsın ve sitenin rıza bandının (z-60) üstüne çıkabilsin. */
+  position: relative;
+  min-height: 100vh;
+  /* Alt boşluk: sitenin alt bilgisi panelde gizli; sabit alt öğeler (AI asistan, Hata bildir düğmeleri) son içeriği
+     kalıcı olarak örtmesin — son kart onların üstüne kaydırılabilsin. */
+  padding: 18px clamp(16px, 2.2vw, 30px) 150px;
+  color: rgb(var(--mpk-metin));
+}
+/* Rıza bandı (sabit, altta) açıkken de son içerik bandın üstüne kaydırılabilsin. */
+html:has([data-riza-politika]) .mpk {
+  padding-bottom: 240px;
+}
+@media (max-width: 639.98px) {
+  .mpk {
+    padding-bottom: 220px;
+  }
+  html:has([data-riza-politika]) .mpk {
+    padding-bottom: 360px;
+  }
+}
+/* Zemin ışıması (önizleme 5): sayfanın kendi zemininin üstünde, içeriğin altında. z-index 0 + ağaç sırası: içerik
+   (`.mpk-icerik` konumlu) ve üst çubuk ışımadan sonra boyanır. */
+.mpk::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1000px 500px at 50% -5%, rgb(var(--mpk-mor) / 0.3), transparent 65%),
+    radial-gradient(800px 600px at 0% 100%, rgb(var(--mpk-pembe) / 0.12), transparent 60%),
+    radial-gradient(800px 600px at 100% 80%, rgb(var(--mpk-mavi) / 0.11), transparent 60%);
+}
+:root[data-gorunum='nebula'] .mpk::before {
+  background:
+    radial-gradient(1000px 500px at 50% -5%, rgb(var(--mpk-mor) / 0.45), transparent 65%),
+    radial-gradient(800px 600px at 0% 100%, rgb(var(--mpk-pembe) / 0.18), transparent 60%),
+    radial-gradient(800px 600px at 100% 80%, rgb(var(--mpk-mavi) / 0.16), transparent 60%),
+    linear-gradient(180deg, rgb(26 11 61 / 0.55), rgb(11 6 32 / 0.35) 45%, transparent);
+}
+:root[data-gorunum='modern'] .mpk {
+  --mpk-mor: 34 211 238;
+  --mpk-pembe: 16 227 154;
+  --mpk-mavi: 96 165 250;
+  --mpk-kart1: 24 48 82;
+  --mpk-kart2: 9 14 32;
+  --mpk-cizgi: 120 200 235;
+  --mpk-soluk: 160 196 222;
+  --mpk-metin: 232 244 252;
+  --mpk-cubuk: 12 24 44;
+  --mpk-panel: 8 14 30;
+}
+
+.mpk [hidden] {
+  display: none !important;
+}
+
+/* ---------- Üst çubuk ---------- */
+.mpk-ust {
+  position: relative;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-areas:
+    'logo menu arama sag'
+    'satir2 satir2 satir2 satir2';
+  align-items: center;
+  column-gap: 14px;
+  margin-bottom: 22px;
+  padding: 10px 16px;
+  border-radius: 18px;
+  background: rgb(var(--mpk-cubuk) / 0.62);
+  border: 1px solid rgb(var(--mpk-cizgi) / 0.2);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 18px 40px -26px rgb(0 0 0 / 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.mpk-ust-duz {
+  grid-template-areas:
+    'logo bosluk sag sag'
+    'satir2 satir2 satir2 satir2';
+}
+@media (min-width: 768px) {
+  .mpk-ust {
+    position: sticky;
+    top: 10px;
+  }
+}
+.mpk-logo {
+  grid-area: logo;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  border-radius: 12px;
+}
+.mpk-logo:focus-visible,
+.mpk-grup:focus-visible,
+.mpk-bolum:focus-visible,
+.mpk-kullanici:focus-visible,
+.mpk-acilir-oge:focus-visible,
+.mpk-dil:focus-visible {
+  outline: 2px solid rgb(var(--mpk-pembe));
+  outline-offset: 2px;
+}
+.mpk-menu {
+  grid-area: menu;
+  min-width: 0;
+}
+.mpk-gruplar {
+  display: flex;
+  gap: 4px;
+  min-width: 0;
+  overflow-x: auto;
+  /* Uzun dillerde sığmazsa yatay kaydırılır; ince kaydırma çubuğu yalnız taşınca görünür (ipucu). */
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--mpk-cizgi) / 0.35) transparent;
+  margin-inline-start: 10px;
+  padding-block: 2px;
+}
+.mpk-grup {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: rgb(var(--mpk-soluk));
+  transition:
+    color 0.15s,
+    background-color 0.15s;
+}
+.mpk-grup svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  opacity: 0.85;
+}
+.mpk-grup:hover {
+  color: #fff;
+  background: rgb(255 255 255 / 0.04);
+}
+.mpk-grup[aria-current] {
+  color: #fff;
+  background: rgb(var(--mpk-mor) / 0.2);
+  box-shadow: inset 0 -2px 0 rgb(var(--mpk-pembe));
+}
+.mpk-rozet {
+  display: inline-flex;
+  min-width: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #fff;
+  background: rgb(var(--mpk-pembe));
+  box-shadow: 0 0 10px rgb(var(--mpk-pembe) / 0.6);
+}
+
+/* Arama */
+.mpk-arama {
+  grid-area: arama;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 210px;
+}
+.mpk-arama-ikon {
+  position: absolute;
+  inset-inline-start: 11px;
+  width: 15px;
+  height: 15px;
+  color: rgb(var(--mpk-soluk));
+  pointer-events: none;
+}
+:root .mpk .mpk-arama input.mpk-arama-girdi[data-menu-arama] {
+  width: 100%;
+  height: 38px;
+  padding-inline: 34px 36px;
+  border-radius: 11px;
+  background: rgb(255 255 255 / 0.05);
+  border: 1px solid rgb(var(--mpk-cizgi) / 0.18);
+  color: #fff;
+  font-size: 13px;
+  box-shadow: none;
+}
+:root .mpk .mpk-arama input.mpk-arama-girdi[data-menu-arama]::placeholder {
+  color: rgb(var(--mpk-soluk) / 0.85);
+}
+:root .mpk .mpk-arama input.mpk-arama-girdi[data-menu-arama]:focus {
+  outline: none;
+  border-color: rgb(var(--mpk-pembe) / 0.6);
+  box-shadow: 0 0 0 3px rgb(var(--mpk-pembe) / 0.16);
+}
+.mpk-arama-girdi::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+.mpk-kbd {
+  position: absolute;
+  inset-inline-end: 9px;
+  font-family: var(--mpk-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 1px 6px;
+  border-radius: 6px;
+  border: 1px solid rgb(var(--mpk-cizgi) / 0.25);
+  color: rgb(var(--mpk-soluk));
+}
+.mpk-arama-temizle {
+  position: absolute;
+  inset-inline-end: 5px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  color: rgb(var(--mpk-soluk));
+}
+.mpk-arama-temizle:hover {
+  color: #fff;
+  background: rgb(255 255 255 / 0.06);
+}
+.mpk-arama-temizle svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Sağ taraf: yükle, zil, hesap */
+.mpk-sag {
+  grid-area: sag;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-width: 0;
+}
+.mpk-zil button {
+  color: rgb(var(--mpk-metin));
+}
+.mpk-acilir {
+  position: relative;
+}
+.mpk-kullanici {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 240px;
+  padding: 3px 8px 3px 3px;
+  border-radius: 14px;
+  text-align: start;
+}
+.mpk-kullanici:hover {
+  background: rgb(255 255 255 / 0.05);
+}
+.mpk-avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+  color: #1a0b2e;
+  background: linear-gradient(135deg, #f9a8d4, rgb(var(--mpk-mor)));
+  box-shadow: 0 0 14px rgb(var(--mpk-mor) / 0.45);
+}
+.mpk-kullanici-yazi {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  line-height: 1.3;
+}
+.mpk-kullanici-ad,
+.mpk-kullanici-alt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mpk-kullanici-ad {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #fff;
+}
+.mpk-kullanici-alt {
+  font-size: 11.5px;
+  color: rgb(var(--mpk-soluk));
+}
+.mpk-acilir-panel {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 8px);
+  z-index: 60;
+  width: min(260px, calc(100vw - 32px));
+  padding: 6px;
+  border-radius: 14px;
+  background: rgb(var(--mpk-panel) / 0.98);
+  border: 1px solid rgb(var(--mpk-cizgi) / 0.22);
+  box-shadow: 0 20px 50px -10px rgb(0 0 0 / 0.85);
+}
+.mpk-acilir-oge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: rgb(var(--mpk-metin));
+  text-align: start;
+}
+.mpk-acilir-oge:hover {
+  background: rgb(255 255 255 / 0.06);
+  color: #fff;
+}
+.mpk-acilir-oge svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: rgb(var(--mpk-mor));
+}
+.mpk-cikis svg {
+  color: rgb(var(--mpk-kirmizi));
+}
+.mpk-acilir-not {
+  margin: 4px 10px 8px;
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgb(var(--mpk-soluk));
+}
+.mpk-acilir-baslik {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 10px 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--mpk-soluk));
+}
+.mpk-acilir-baslik svg {
+  width: 13px;
+  height: 13px;
+}
+.mpk-diller {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 4px;
+  padding: 0 2px 6px;
+  border-bottom: 1px solid rgb(var(--mpk-cizgi) / 0.12);
+}
+.mpk-dil {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: rgb(var(--mpk-metin) / 0.85);
+  text-align: start;
+}
+.mpk-dil:hover {
+  background: rgb(255 255 255 / 0.06);
+}
+.mpk-dil[aria-checked='true'] {
+  font-weight: 700;
+  color: rgb(var(--mpk-pembe));
+}
+.mpk-dil svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ---------- İkinci satır: açık grubun bölümleri / düz sekme çubuğu ---------- */
+.mpk-satir2 {
+  grid-area: satir2;
+  min-width: 0;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgb(var(--mpk-cizgi) / 0.12);
+}
+.mpk-satir2[data-bos] {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.mpk-bolumler {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  /* Genel bakışta bölüm satırı boş kalır; çubuk yine "görünür" sayılsın
+     (ortak e2e'ler [data-sekme-cubugu] görünürlüğünü bekliyor). */
+  min-height: 1px;
+}
+.mpk-bolum {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  white-space: nowrap;
+  color: rgb(var(--mpk-soluk));
+  border: 1px solid rgb(var(--mpk-cizgi) / 0.16);
+  transition:
+    color 0.15s,
+    background-color 0.15s,
+    border-color 0.15s;
+}
+.mpk-bolum svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.mpk-bolum:hover {
+  color: #fff;
+  background: rgb(255 255 255 / 0.05);
+}
+:root .mpk .mpk-bolumler > .mpk-bolum[aria-current='page'] {
+  color: #fff;
+  border-color: rgb(var(--mpk-pembe) / 0.55);
+  background: linear-gradient(90deg, rgb(var(--mpk-mor) / 0.26), rgb(var(--mpk-pembe) / 0.2));
+  box-shadow: 0 0 16px -6px rgb(var(--mpk-pembe) / 0.8);
+}
+.mpk-bolum-grup {
+  font-size: 12px;
+  color: rgb(var(--mpk-soluk) / 0.8);
+}
+.mpk-arama-bos {
+  padding: 6px 2px;
+  font-size: 13px;
+  color: rgb(var(--mpk-soluk));
+}
+
+/* Düz sekme çubuğu: sınıfları ve DOM'u eskisi gibi (paylaşılan e2e sözleşmesi); görünüm burada üst çubuğun diline
+   taşınıyor. Seçiciler görünümlerin `.cam-sekmeler` kurallarından daha özgül (`:root .mpk …`). */
+:root .mpk .mpk-satir2-duz .cam-sekmeler {
+  gap: 4px;
+  margin-bottom: 0;
+  padding: 0 0 2px;
+  border-bottom: 0;
+  scrollbar-width: thin;
+}
+:root .mpk .mpk-satir2-duz .cam-sekmeler > button {
+  /* Sığmayınca düğmeler (ve simgeleri) büzülmesin; çubuk eskisi gibi yatay kaydırılır. */
+  flex: none;
+  padding-block: 8px;
+  padding-inline: 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  color: rgb(var(--mpk-soluk));
+  background: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+:root .mpk .mpk-satir2-duz .cam-sekmeler > button > svg {
+  flex: none;
+}
+@media (max-width: 1535.98px) {
+  :root .mpk .mpk-satir2-duz .cam-sekmeler > button {
+    padding-inline: 11px;
+  }
+}
+:root .mpk .mpk-satir2-duz .cam-sekmeler > button:hover {
+  color: #fff;
+  background: rgb(255 255 255 / 0.04);
+}
+:root .mpk .mpk-satir2-duz .cam-sekmeler > button[data-secili='evet'],
+:root .mpk .mpk-satir2-duz .cam-sekmeler > button[aria-current='page'] {
+  color: #fff;
+  background: rgb(var(--mpk-mor) / 0.2);
+  box-shadow: inset 0 -2px 0 rgb(var(--mpk-pembe));
+}
+:root .mpk .mpk-satir2-duz .cam-sekmeler > button > span.absolute {
+  display: none;
+}
+:root .mpk .mpk-satir2-duz .cam-sekmeler > button > [data-rozet] {
+  background: rgb(var(--mpk-pembe));
+}
+
+/* ---------- İçerik ---------- */
+.mpk-icerik {
+  position: relative;
+  min-width: 0;
+}
+
+/* ---------- Dar ekranlar ---------- */
+/* Masaüstünde (768–1599) grup düğmeleri önizlemedeki gibi yalnız yazı: logo + 6 düğme + arama + hesap 1280'e
+   kadar tek satıra sığsın. Telefonda (grup satırı tam genişlik) ve geniş ekranda simgeler kalır. */
+@media (min-width: 768px) and (max-width: 1599.98px) {
+  /* Düz çubukta da: Genel bakış + 10 bölüm 1366'da sığsın (sığmazsa Faz 7K ölçümü gruplu menüye geçirir). */
+  .mpk-grup > svg,
+  :root .mpk .mpk-satir2-duz .cam-sekmeler > button > svg {
+    display: none;
+  }
+  .mpk-grup {
+    padding-inline: 11px;
+  }
+}
+@media (max-width: 1439.98px) {
+  .mpk-kullanici-alt {
+    display: none;
+  }
+}
+@media (max-width: 1279.98px) {
+  .mpk-kullanici-yazi {
+    display: none;
+  }
+  .mpk-arama {
+    width: 170px;
+  }
+}
+@media (max-width: 1199.98px) {
+  .mpk-ust {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'logo arama sag'
+      'menu menu menu'
+      'satir2 satir2 satir2';
+    row-gap: 8px;
+  }
+  .mpk-ust-duz {
+    grid-template-areas:
+      'logo bosluk sag'
+      'satir2 satir2 satir2';
+  }
+  .mpk-arama {
+    justify-self: end;
+  }
+  .mpk-gruplar {
+    margin-inline-start: 0;
+  }
+}
+/* Telefon (<768): menü bugünkü gibi üst üste (gruplar yatay kaydırılır, arama tam genişlik); yapışkan değil. */
+@media (max-width: 767.98px) {
+  .mpk {
+    padding-top: 10px;
+  }
+  .mpk-ust {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'logo sag'
+      'menu menu'
+      'arama arama'
+      'satir2 satir2';
+    margin-bottom: 16px;
+    padding: 8px 12px;
+  }
+  .mpk-ust-duz {
+    grid-template-areas:
+      'logo sag'
+      'satir2 satir2';
+  }
+  .mpk-arama {
+    width: 100%;
+    justify-self: stretch;
+  }
+  .mpk-kullanici {
+    padding: 2px;
+  }
+  .mpk-logo :is(span, p, div) {
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mpk-grup,
+  .mpk-bolum {
+    transition: none;
+  }
+}

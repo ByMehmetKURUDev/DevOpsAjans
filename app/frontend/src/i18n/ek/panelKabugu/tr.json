@@ -2,6 +2,7 @@
   "panelKabugu": {
     "menu": {
       "menu": "Panel menüsü",
+      "genelBakis": "Genel bakış",
       "bolumler": "Bölümler",
       "ara": "Bölüm ara… ( / )",
       "temizle": "Aramayı temizle",
@@ -30,6 +31,13 @@
       "iskeletBaslik": "Panel çevrimdışı açıldı",
       "iskeletMetin": "Bilgilerinizi göstermek için internet bağlantısı gerekiyor. Bağlantı gelince panel kendiliğinden yüklenecek.",
       "yenidenDene": "Yeniden dene"
+    },
+    "kabuk": {
+      "hesapMenusu": "Hesap menüsü",
+      "dil": "Dil",
+      "profil": "Profilim",
+      "siteyeDon": "Siteye dön",
+      "cikis": "Çıkış yap"
     }
   }
 }

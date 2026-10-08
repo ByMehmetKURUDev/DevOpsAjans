@@ -23,7 +23,8 @@ const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
 // Faz 3Y: iletişim formunun altındaki kısa aydınlatma satırı (ek paket 'aydinlatma');
 // Faz 4G: rızaya bağlı harita yer tutucusu (ek paket 'iletisimHarita').
 const Contact = ekliLazy(['aydinlatma', 'iletisimHarita', 'indirimKodu'], () => import('./pages/Contact'));
-const ClientPanel = lazy(() => import('./pages/ClientPanel'));
+// Faz 11B: panel kabuğu (üst çubuk menüsü, hesap menüsü) `panelKabugu` metinleriyle ilk çizimde hazır olsun.
+const ClientPanel = ekliLazy('panelKabugu', () => import('./pages/ClientPanel'));
 // Yönetim menüsünün grup adları ek pakette (giriş paketine eklenmesin).
 const AdminPanel = ekliLazy('yonetimMenusu', () => import('./pages/AdminPanel'));
 const OdemeSayfasi = lazy(() => import('./pages/OdemeSayfasi'));

@@ -1,0 +1,185 @@
+{
+  "musteriOzeti": {
+    "bolgeEtiketi": "نظرة عامة",
+    "yukleniyor": "جارٍ تحميل النظرة العامة…",
+    "yenidenDene": "إعادة المحاولة",
+    "vazgec": "إلغاء",
+    "karsilama": {
+      "merhaba": "مرحبًا،",
+      "merhabaAd": "مرحبًا {{ad}}،",
+      "hazir": "جاهز",
+      "devamEdiyor": "العمل جارٍ على {{proje}}",
+      "panel": "مرحبًا بك في لوحة التحكم",
+      "siradaki": "التسليم التالي:",
+      "onayBekleyen": "بانتظار موافقتك: {{sayi}}",
+      "teslimler": "مراجعة التسليمات",
+      "ekibeYaz": "راسل الفريق"
+    },
+    "ilerleme": {
+      "baslik": "تقدّم المشروع",
+      "etkinProjeler": "المشاريع النشطة: {{sayi}}",
+      "isKalemi": "بنود العمل: {{sayi}}",
+      "kilometre": "المراحل الرئيسية: {{sayi}}",
+      "halkaEtiketi": "{{ad}}: اكتمل {{deger}} ({{tamam}}/{{toplam}})",
+      "halkaEtiketiKisa": "{{ad}}: اكتمل {{deger}}",
+      "sonTeslim": "آخر تسليم",
+      "siradaki": "التالي"
+    },
+    "kalan": {
+      "baslik": "العمل المتبقي",
+      "gercek": "الفعلي",
+      "plan": "الخطة",
+      "gorev": "مهام مفتوحة",
+      "onde": "متقدّم على الخطة بـ {{sayi}} يوم",
+      "geride": "متأخر عن الخطة بـ {{sayi}} يوم",
+      "planda": "وفق الخطة",
+      "grafikEtiketi": "المهام المفتوحة، {{bas}} – {{son}}: {{ilk}} ← {{sayi}}"
+    },
+    "ekip": {
+      "baslik": "فريقك",
+      "mesajGonder": "أرسل رسالة",
+      "ortYanitDk": "متوسط الرد {{sayi}} دقيقة",
+      "ortYanitSa": "متوسط الرد {{sayi}} ساعة",
+      "rol": {
+        "yonetici": "قائد المشروع",
+        "calisan": "عضو الفريق"
+      },
+      "hizmet": {
+        "website": "الويب",
+        "seo": "تحسين محركات البحث",
+        "google_ads": "إعلانات البحث",
+        "sosyal_ads": "إعلانات التواصل",
+        "sosyal_pr": "وسائل التواصل",
+        "sosyal_tasarim": "التصميم",
+        "youtube_pr": "ترويج الفيديو",
+        "youtube_gelistirme": "قناة الفيديو",
+        "youtube_otomasyon": "أتمتة الفيديو",
+        "basin_pr": "الصحافة والعلاقات العامة",
+        "yeni_ozellik": "التطوير",
+        "genel": "عام"
+      }
+    },
+    "onay": {
+      "baslik": "بانتظار موافقتك",
+      "tumu": "الكل ({{sayi}})",
+      "tur": {
+        "teslimat": "موافقة التسليم",
+        "teklif_kabul": "عرض سعر",
+        "icerik": "محتوى",
+        "teklif": "عرض",
+        "sozlesme": "عقد",
+        "belge": "مستند"
+      },
+      "gorsel": "الصور: {{sayi}}",
+      "kelime": "{{deger}} كلمة",
+      "surum": "الإصدار {{sayi}}",
+      "onayBekliyor": "بانتظار الموافقة",
+      "imzaBekliyor": "بانتظار التوقيع",
+      "okumaBekliyor": "بانتظار القراءة",
+      "onayla": "موافقة",
+      "revizyonIste": "طلب تعديل",
+      "kabulEt": "قبول",
+      "reddet": "رفض",
+      "okudum": "قرأت وأوافق",
+      "incele": "مراجعة",
+      "imzala": "توقيع",
+      "eminMisiniz": "تأكيد",
+      "onayEmin": "هل توافق؟ يصل قرارك إلى الوكالة فورًا.",
+      "kabulEmin": "هل تقبل العرض؟ يصل قرارك إلى الوكالة فورًا.",
+      "evetOnayla": "نعم، موافقة",
+      "evetKabul": "نعم، قبول",
+      "revizyonNotu": "ما الذي يجب تغييره؟ (مطلوب)",
+      "redNotu": "السبب (اختياري)",
+      "revizyonGonder": "إرسال طلب التعديل",
+      "revizyonKalan": "المتبقي من التعديلات: {{sure}} ساعة",
+      "revizyonBitti": "نفد رصيد التعديلات لهذا الشهر",
+      "basarili": {
+        "onay": "تمت الموافقة.",
+        "revizyon": "تم إرسال طلب التعديل.",
+        "kabul": "تم قبول العرض.",
+        "red": "تم رفض العرض.",
+        "okundu": "تم التعليم كمقروء."
+      }
+    },
+    "toplanti": {
+      "baslik": "الاجتماع القادم",
+      "yer": {
+        "cevrimici": "عبر الإنترنت",
+        "yuz_yuze": "حضوريًا",
+        "telefon": "عبر الهاتف"
+      },
+      "yanit": {
+        "bekliyor": "بانتظار ردك",
+        "katilacak": "سأحضر ✓",
+        "katilamayacak": "لن أتمكن من الحضور",
+        "belki": "ربما"
+      },
+      "katilimci": "المشاركون: {{sayi}}",
+      "katil": "انضمام",
+      "takvimeEkle": "أضف إلى التقويم",
+      "ayrinti": "التفاصيل",
+      "katilYakinda": "يظهر رابط الانضمام هنا قبل الاجتماع بـ 15 دقيقة."
+    },
+    "bakiye": {
+      "baslik": "رصيدي",
+      "otomatikAcik": "تُدفع الفواتير الجديدة تلقائيًا من الرصيد",
+      "otomatikKapali": "الدفع التلقائي متوقف",
+      "bekleyen": "إشعارات شحن بانتظار الموافقة: {{sayi}}",
+      "yukle": "شحن الرصيد",
+      "hareketler": "الحركات"
+    },
+    "hedef": {
+      "kendiBaslik": "هدفنا",
+      "beklenen": "المتوقع {{deger}}",
+      "gerceklesen": "المُنجز {{deger}}",
+      "dahaFazla": "+{{sayi}} نتائج رئيسية أخرى"
+    },
+    "faturaDestek": {
+      "baslik": "الفواتير والدعم",
+      "vade": "الاستحقاق {{tarih}}",
+      "gecikti": "متأخرة · {{tarih}}",
+      "acik": "مفتوحة",
+      "bakiyedenOde": "ادفع من الرصيد",
+      "odeEmin": "هل تريد دفع {{tutar}} من رصيدك؟",
+      "ode": "ادفع",
+      "odemeYap": "ادفع الآن",
+      "odendi": "تم دفع {{kod}} من الرصيد.",
+      "siziBekliyor": "تم الرد · بانتظارك",
+      "acikTalep": "طلب مفتوح",
+      "yanitVerin": "رد",
+      "ac": "فتح"
+    },
+    "hosGeldin": {
+      "baslik": "أهلًا بك",
+      "metin": "ستظهر هنا في شاشة واحدة مشاريعك والأعمال التي تنتظر موافقتك والاجتماعات والفواتير والطلبات عند توفرها.",
+      "ilkAdimlar": "الخطوات الأولى",
+      "adim": {
+        "projeler": {
+          "baslik": "مشاريعي",
+          "metin": "اطّلع على مشاريعك ومراحلها"
+        },
+        "talep": {
+          "baslik": "أنشئ طلبًا",
+          "metin": "راسلنا بشأن عمل جديد أو سؤال"
+        },
+        "mesaj": {
+          "baslik": "راسل الفريق",
+          "metin": "تواصل مباشرة مع فريق الوكالة"
+        },
+        "faturalar": {
+          "baslik": "فواتيري",
+          "metin": "العروض والعقود والفواتير والرصيد"
+        },
+        "profil": {
+          "baslik": "ملفي",
+          "metin": "عدّل بياناتك وتفضيلات الإشعارات"
+        }
+      }
+    },
+    "hata": {
+      "genel": "تعذّر إتمام العملية. يُرجى المحاولة مرة أخرى.",
+      "artikBeklemiyor": "لم يعد هذا العنصر معلّقًا (انتهت صلاحيته أو اتُّخذ القرار بشأنه)؛ تم تحديث القائمة.",
+      "yuklenemedi": "تعذّر تحميل النظرة العامة."
+    }
+  }
+}

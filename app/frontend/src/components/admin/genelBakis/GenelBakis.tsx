@@ -34,7 +34,7 @@ import {
   type SonIs,
   type YonetimOzeti,
 } from '@/lib/yonetimOzeti';
-import { AlanGrafik, HALKA_RENKLERI, Halka, Kivilcim } from './grafikler';
+import { AlanGrafik, HALKA_RENKLERI, Halka, Kivilcim } from '@/components/panel/grafikler';
 import './genelBakis.css';
 
 /**

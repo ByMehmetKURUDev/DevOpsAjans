@@ -1,0 +1,185 @@
+{
+  "musteriOzeti": {
+    "bolgeEtiketi": "Übersicht",
+    "yukleniyor": "Übersicht wird geladen…",
+    "yenidenDene": "Erneut versuchen",
+    "vazgec": "Abbrechen",
+    "karsilama": {
+      "merhaba": "Hallo,",
+      "merhabaAd": "Hallo {{ad}},",
+      "hazir": "fertig",
+      "devamEdiyor": "{{proje}} läuft",
+      "panel": "Willkommen in Ihrem Kundenbereich",
+      "siradaki": "Nächste Lieferung:",
+      "onayBekleyen": "warten auf Ihre Freigabe: {{sayi}}",
+      "teslimler": "Lieferungen prüfen",
+      "ekibeYaz": "Dem Team schreiben"
+    },
+    "ilerleme": {
+      "baslik": "Projektfortschritt",
+      "etkinProjeler": "Aktive Projekte: {{sayi}}",
+      "isKalemi": "Arbeitspakete: {{sayi}}",
+      "kilometre": "Meilensteine: {{sayi}}",
+      "halkaEtiketi": "{{ad}}: {{deger}} erledigt ({{tamam}}/{{toplam}})",
+      "halkaEtiketiKisa": "{{ad}}: {{deger}} erledigt",
+      "sonTeslim": "Letzte Lieferung",
+      "siradaki": "Als Nächstes"
+    },
+    "kalan": {
+      "baslik": "Verbleibende Arbeit",
+      "gercek": "Ist",
+      "plan": "Plan",
+      "gorev": "offene Aufgaben",
+      "onde": "{{sayi}} Tage vor dem Plan",
+      "geride": "{{sayi}} Tage hinter dem Plan",
+      "planda": "im Plan",
+      "grafikEtiketi": "Offene Aufgaben, {{bas}} – {{son}}: {{ilk}} → {{sayi}}"
+    },
+    "ekip": {
+      "baslik": "Ihr Team",
+      "mesajGonder": "Nachricht senden",
+      "ortYanitDk": "Ø Antwort {{sayi}} Min.",
+      "ortYanitSa": "Ø Antwort {{sayi}} Std.",
+      "rol": {
+        "yonetici": "Projektleitung",
+        "calisan": "Teammitglied"
+      },
+      "hizmet": {
+        "website": "Web",
+        "seo": "SEO",
+        "google_ads": "Suchanzeigen",
+        "sosyal_ads": "Social Ads",
+        "sosyal_pr": "Social Media",
+        "sosyal_tasarim": "Design",
+        "youtube_pr": "Videowerbung",
+        "youtube_gelistirme": "Videokanal",
+        "youtube_otomasyon": "Videoautomatisierung",
+        "basin_pr": "Presse & PR",
+        "yeni_ozellik": "Entwicklung",
+        "genel": "Allgemein"
+      }
+    },
+    "onay": {
+      "baslik": "Wartet auf Ihre Freigabe",
+      "tumu": "Alle ({{sayi}})",
+      "tur": {
+        "teslimat": "Lieferfreigabe",
+        "teklif_kabul": "Preisangebot",
+        "icerik": "Inhalt",
+        "teklif": "Angebot",
+        "sozlesme": "Vertrag",
+        "belge": "Dokument"
+      },
+      "gorsel": "Bilder: {{sayi}}",
+      "kelime": "{{deger}} Wörter",
+      "surum": "Version {{sayi}}",
+      "onayBekliyor": "Freigabe ausstehend",
+      "imzaBekliyor": "Unterschrift ausstehend",
+      "okumaBekliyor": "Lesebestätigung ausstehend",
+      "onayla": "Freigeben",
+      "revizyonIste": "Änderung anfordern",
+      "kabulEt": "Annehmen",
+      "reddet": "Ablehnen",
+      "okudum": "Gelesen und bestätigt",
+      "incele": "Ansehen",
+      "imzala": "Unterschreiben",
+      "eminMisiniz": "Bestätigung",
+      "onayEmin": "Möchten Sie freigeben? Ihre Entscheidung geht sofort an die Agentur.",
+      "kabulEmin": "Nehmen Sie das Angebot an? Ihre Entscheidung geht sofort an die Agentur.",
+      "evetOnayla": "Ja, freigeben",
+      "evetKabul": "Ja, annehmen",
+      "revizyonNotu": "Was soll geändert werden? (Pflichtfeld)",
+      "redNotu": "Begründung (optional)",
+      "revizyonGonder": "Änderungswunsch senden",
+      "revizyonKalan": "noch {{sure}} Std. Korrekturkontingent",
+      "revizyonBitti": "Das Korrekturkontingent dieses Monats ist aufgebraucht",
+      "basarili": {
+        "onay": "Freigegeben.",
+        "revizyon": "Ihr Änderungswunsch wurde gesendet.",
+        "kabul": "Angebot angenommen.",
+        "red": "Angebot abgelehnt.",
+        "okundu": "Als gelesen markiert."
+      }
+    },
+    "toplanti": {
+      "baslik": "Nächstes Meeting",
+      "yer": {
+        "cevrimici": "online",
+        "yuz_yuze": "vor Ort",
+        "telefon": "telefonisch"
+      },
+      "yanit": {
+        "bekliyor": "Ihre Antwort steht aus",
+        "katilacak": "ich nehme teil ✓",
+        "katilamayacak": "ich kann nicht",
+        "belki": "vielleicht"
+      },
+      "katilimci": "Teilnehmende: {{sayi}}",
+      "katil": "Beitreten",
+      "takvimeEkle": "Zum Kalender",
+      "ayrinti": "Details",
+      "katilYakinda": "Der Teilnahmelink erscheint hier 15 Minuten vor Beginn."
+    },
+    "bakiye": {
+      "baslik": "Mein Guthaben",
+      "otomatikAcik": "Neue Rechnungen werden automatisch aus dem Guthaben bezahlt",
+      "otomatikKapali": "Automatische Zahlung ist aus",
+      "bekleyen": "Aufladungsmeldungen in Prüfung: {{sayi}}",
+      "yukle": "Guthaben aufladen",
+      "hareketler": "Buchungen"
+    },
+    "hedef": {
+      "kendiBaslik": "Unser Ziel",
+      "beklenen": "erwartet {{deger}}",
+      "gerceklesen": "erreicht {{deger}}",
+      "dahaFazla": "+{{sayi}} weitere Schlüsselergebnisse"
+    },
+    "faturaDestek": {
+      "baslik": "Rechnungen und Support",
+      "vade": "fällig {{tarih}}",
+      "gecikti": "überfällig · {{tarih}}",
+      "acik": "offen",
+      "bakiyedenOde": "Aus Guthaben zahlen",
+      "odeEmin": "{{tutar}} aus Ihrem Guthaben zahlen?",
+      "ode": "Zahlen",
+      "odemeYap": "Jetzt zahlen",
+      "odendi": "{{kod}} wurde aus dem Guthaben bezahlt.",
+      "siziBekliyor": "beantwortet · wartet auf Sie",
+      "acikTalep": "offene Anfrage",
+      "yanitVerin": "Antworten",
+      "ac": "Öffnen"
+    },
+    "hosGeldin": {
+      "baslik": "Willkommen",
+      "metin": "Sobald Projekte, offene Freigaben, Meetings, Rechnungen und Anfragen vorliegen, sehen Sie sie hier auf einen Blick.",
+      "ilkAdimlar": "Erste Schritte",
+      "adim": {
+        "projeler": {
+          "baslik": "Meine Projekte",
+          "metin": "Projekte und ihre Phasen ansehen"
+        },
+        "talep": {
+          "baslik": "Anfrage stellen",
+          "metin": "Schreiben Sie uns zu neuer Arbeit oder einer Frage"
+        },
+        "mesaj": {
+          "baslik": "Dem Team schreiben",
+          "metin": "Direkt mit dem Agenturteam chatten"
+        },
+        "faturalar": {
+          "baslik": "Meine Rechnungen",
+          "metin": "Angebote, Verträge, Rechnungen und Guthaben"
+        },
+        "profil": {
+          "baslik": "Mein Profil",
+          "metin": "Angaben und Benachrichtigungen bearbeiten"
+        }
+      }
+    },
+    "hata": {
+      "genel": "Der Vorgang konnte nicht abgeschlossen werden. Bitte erneut versuchen.",
+      "artikBeklemiyor": "Dieser Eintrag ist nicht mehr offen (abgelaufen oder bereits entschieden); die Liste wurde aktualisiert.",
+      "yuklenemedi": "Die Übersicht konnte nicht geladen werden."
+    }
+  }
+}

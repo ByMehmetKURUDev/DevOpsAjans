@@ -286,9 +286,6 @@
   background: var(--gb-renk);
   box-shadow: 0 0 8px var(--gb-renk);
 }
-.gb-isik-nokta {
-  filter: drop-shadow(0 0 5px currentColor);
-}
 
 /* ---------- ACİL ---------- */
 .gb-acil {
@@ -529,9 +526,6 @@
   height: 44px;
   margin-top: 6px;
 }
-.gb-kivilcim svg {
-  display: block;
-}
 .gb-kpi-cubuk {
   height: 8px;
   margin: 22px 0 14px;
@@ -709,17 +703,6 @@
   border-radius: 50%;
   box-shadow: 0 0 8px currentColor;
 }
-.gb-alan svg {
-  display: block;
-}
-.gb-izgara-cizgi {
-  stroke: rgb(140 170 255 / 0.1);
-}
-.gb-eksen-yazi {
-  font-family: var(--pk-mono);
-  font-size: 10px;
-  fill: #7f90bd;
-}
 .gb-aktivite .gb-kucuk {
   margin-top: 6px;
 }
@@ -728,22 +711,6 @@
   align-items: center;
   gap: 16px;
   margin-top: 4px;
-}
-.gb-halka {
-  flex: none;
-}
-.gb-halka-dilim {
-  filter: drop-shadow(0 0 5px color-mix(in srgb, currentColor 55%, transparent));
-}
-.gb-halka-ust {
-  font-family: var(--pk-mono);
-  font-size: 28px;
-  font-weight: 500;
-  fill: #fff;
-}
-.gb-halka-alt {
-  font-size: 11px;
-  fill: #8ea2d6;
 }
 .gb-lejant {
   flex: 1;

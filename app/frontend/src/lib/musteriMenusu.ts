@@ -15,6 +15,10 @@
  * Faz 7K: sayı sınırın altında kalsa da düz çubuk ekrana sığmıyorsa (dar pencere, uzun dil) gruplu menü
  * (`DUZ_MENU_EN_DAR`).
  *
+ * Faz 11B: menü panel kabuğunun üst çubuğunda (`components/MusteriKabugu.tsx`): gruplar yatay, en başta grupsuz
+ * "Genel bakış" (`GENEL_BAKIS`, `data-ust-sekme`); düz çubukta da ilk düğme Genel bakış. Genel bakış hiçbir gruba
+ * girmez ve sekme sayısına (`DUZ_MENU_SINIRI`, e2e `[data-sekme]` sayımı) katılmaz.
+ *
  * Tanımda adı geçmeyen yeni bir sekme kaybolmaz: "Diğer" grubunda görünür.
  */
 import { yerelOku, yerelYaz, type GrupTanimi } from '@/lib/grupluMenu';
@@ -66,13 +70,20 @@ export const MUSTERI_GRUPLARI: readonly GrupTanimi<MusteriGrubu>[] = [
   { anahtar: 'hesap', sekmeler: ['invoices', 'krediler', 'ortaklik', 'profile'] },
 ];
 
+/**
+ * Faz 11B — grupların ÜSTÜNDE duran, hiçbir gruba girmeyen bölüm (yönetici panelindeki 11A deseni). Kayıtlı sekme
+ * yoksa panel bununla açılır; `?sekme=genelBakis` ve hatırlanan sekme için de geçerli ad.
+ */
+export const GENEL_BAKIS = 'genelBakis' as const;
+
 export function grupluMenuMu(gorunurSekmeSayisi: number): boolean {
   return gorunurSekmeSayisi > DUZ_MENU_SINIRI;
 }
 
 /**
  * Son açılan sekme — yönetici panelinden AYRI anahtar. Yalnız gruplu menüde
- * yazılır: düz çubuklu müşteride panel bugünkü gibi Projelerim ile açılır.
+ * yazılır (Genel bakış dahil): düz çubuklu müşteride panel her girişte Genel bakış ile açılır (Faz 11B;
+ * önceden Projelerim).
  */
 const SON_SEKME_ANAHTARI = 'mk_musteri_son_sekme';
 

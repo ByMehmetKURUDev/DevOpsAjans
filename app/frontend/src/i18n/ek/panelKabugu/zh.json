@@ -2,6 +2,7 @@
   "panelKabugu": {
     "menu": {
       "menu": "面板菜单",
+      "genelBakis": "概览",
       "bolumler": "栏目",
       "ara": "查找栏目…（/）",
       "temizle": "清除搜索",
@@ -30,6 +31,13 @@
       "iskeletBaslik": "面板已在离线状态下打开",
       "iskeletMetin": "显示您的信息需要网络连接。连接恢复后，面板会自动加载。",
       "yenidenDene": "重试"
+    },
+    "kabuk": {
+      "hesapMenusu": "账户菜单",
+      "dil": "语言",
+      "profil": "我的资料",
+      "siteyeDon": "返回网站",
+      "cikis": "退出登录"
     }
   }
 }

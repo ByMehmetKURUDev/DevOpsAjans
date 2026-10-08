@@ -30,8 +30,8 @@ import { GENEL_BAKIS, type GrupAnahtari } from '@/lib/yonetimMenusu';
  * Faz 11A — yönetici paneli sol kenar çubuğu (`<nav data-yonetim-menusu>`).
  *
  * Tek kaynak yine `lib/yonetimMenusu.ts` GRUPLAR; durum/arama/rozet mantığı ortak
- * `useGrupluMenu`'de (müşteri paneli aynı kancayı üst çubuk düzeniyle kullanıyor, onun
- * görünümü değişmedi). Kabuk (`YonetimKabugu.tsx`) bu menüyü beş kipte gösterir:
+ * `useGrupluMenu`'de (müşteri paneli aynı kancayı Faz 11B'de kendi üst çubuğuyla kullanıyor —
+ * `components/MusteriKabugu.tsx`). Kabuk (`YonetimKabugu.tsx`) bu menüyü beş kipte gösterir:
  *   genis    ≥1024 px: logo, Genel bakış, Gelen kutusu, 9 grup akordeon, hızlı işlemler;
  *   ray      768–1023 px ya da kullanıcı daralttıysa: yalnız ikonlar (etiketler ekran okuyucuda);
  *   ray-acik ray'de bir gruba tıklanınca / arama yapılırken içeriğin üstüne açılan geniş hâli;

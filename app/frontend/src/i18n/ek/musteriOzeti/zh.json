@@ -1,0 +1,185 @@
+{
+  "musteriOzeti": {
+    "bolgeEtiketi": "概览",
+    "yukleniyor": "正在加载概览…",
+    "yenidenDene": "重试",
+    "vazgec": "取消",
+    "karsilama": {
+      "merhaba": "您好，",
+      "merhabaAd": "{{ad}}，您好，",
+      "hazir": "已完成",
+      "devamEdiyor": "{{proje}} 进行中",
+      "panel": "欢迎来到您的控制台",
+      "siradaki": "下一项交付：",
+      "onayBekleyen": "待您审批：{{sayi}} 项",
+      "teslimler": "查看交付",
+      "ekibeYaz": "联系团队"
+    },
+    "ilerleme": {
+      "baslik": "项目进度",
+      "etkinProjeler": "进行中的项目：{{sayi}} 个",
+      "isKalemi": "{{sayi}} 个工作项",
+      "kilometre": "{{sayi}} 个里程碑",
+      "halkaEtiketi": "{{ad}}：已完成 {{deger}}（{{tamam}}/{{toplam}}）",
+      "halkaEtiketiKisa": "{{ad}}：已完成 {{deger}}",
+      "sonTeslim": "最近交付",
+      "siradaki": "下一项"
+    },
+    "kalan": {
+      "baslik": "剩余工作",
+      "gercek": "实际",
+      "plan": "计划",
+      "gorev": "项未完成任务",
+      "onde": "比计划提前 {{sayi}} 天",
+      "geride": "比计划落后 {{sayi}} 天",
+      "planda": "与计划一致",
+      "grafikEtiketi": "未完成任务数，{{bas}} – {{son}}：{{ilk}} → {{sayi}}"
+    },
+    "ekip": {
+      "baslik": "您的团队",
+      "mesajGonder": "发送消息",
+      "ortYanitDk": "平均回复 {{sayi}} 分钟",
+      "ortYanitSa": "平均回复 {{sayi}} 小时",
+      "rol": {
+        "yonetici": "项目负责人",
+        "calisan": "团队成员"
+      },
+      "hizmet": {
+        "website": "网站",
+        "seo": "SEO",
+        "google_ads": "搜索广告",
+        "sosyal_ads": "社交广告",
+        "sosyal_pr": "社交媒体",
+        "sosyal_tasarim": "设计",
+        "youtube_pr": "视频推广",
+        "youtube_gelistirme": "视频频道",
+        "youtube_otomasyon": "视频自动化",
+        "basin_pr": "媒体与公关",
+        "yeni_ozellik": "开发",
+        "genel": "综合"
+      }
+    },
+    "onay": {
+      "baslik": "待您审批",
+      "tumu": "全部（{{sayi}}）",
+      "tur": {
+        "teslimat": "交付确认",
+        "teklif_kabul": "报价",
+        "icerik": "内容",
+        "teklif": "方案报价",
+        "sozlesme": "合同",
+        "belge": "文档"
+      },
+      "gorsel": "{{sayi}} 张图片",
+      "kelime": "{{deger}} 字",
+      "surum": "第 {{sayi}} 版",
+      "onayBekliyor": "待审批",
+      "imzaBekliyor": "待签署",
+      "okumaBekliyor": "待阅读",
+      "onayla": "批准",
+      "revizyonIste": "要求修改",
+      "kabulEt": "接受",
+      "reddet": "拒绝",
+      "okudum": "已阅读并确认",
+      "incele": "查看",
+      "imzala": "签署",
+      "eminMisiniz": "确认",
+      "onayEmin": "确认批准吗？您的决定将立即发送给代理商。",
+      "kabulEmin": "确认接受该报价吗？您的决定将立即发送给代理商。",
+      "evetOnayla": "是，批准",
+      "evetKabul": "是，接受",
+      "revizyonNotu": "需要修改什么？（必填）",
+      "redNotu": "原因（可选）",
+      "revizyonGonder": "发送修改请求",
+      "revizyonKalan": "剩余修改额度 {{sure}} 小时",
+      "revizyonBitti": "本月修改额度已用完",
+      "basarili": {
+        "onay": "已批准。",
+        "revizyon": "修改请求已发送。",
+        "kabul": "已接受报价。",
+        "red": "已拒绝报价。",
+        "okundu": "已标记为已读。"
+      }
+    },
+    "toplanti": {
+      "baslik": "即将召开的会议",
+      "yer": {
+        "cevrimici": "线上",
+        "yuz_yuze": "面对面",
+        "telefon": "电话"
+      },
+      "yanit": {
+        "bekliyor": "等待您的回复",
+        "katilacak": "我会参加 ✓",
+        "katilamayacak": "我无法参加",
+        "belki": "可能参加"
+      },
+      "katilimci": "{{sayi}} 位参与者",
+      "katil": "加入",
+      "takvimeEkle": "添加到日历",
+      "ayrinti": "详情",
+      "katilYakinda": "会议开始前 15 分钟，加入链接会显示在这里。"
+    },
+    "bakiye": {
+      "baslik": "我的余额",
+      "otomatikAcik": "新发票将自动从余额支付",
+      "otomatikKapali": "自动支付已关闭",
+      "bekleyen": "待审核的充值通知：{{sayi}}",
+      "yukle": "充值",
+      "hareketler": "交易记录"
+    },
+    "hedef": {
+      "kendiBaslik": "我们的目标",
+      "beklenen": "预期 {{deger}}",
+      "gerceklesen": "已达成 {{deger}}",
+      "dahaFazla": "另有 {{sayi}} 个关键结果"
+    },
+    "faturaDestek": {
+      "baslik": "发票与支持",
+      "vade": "到期 {{tarih}}",
+      "gecikti": "已逾期 · {{tarih}}",
+      "acik": "未结",
+      "bakiyedenOde": "用余额支付",
+      "odeEmin": "从余额支付 {{tutar}}？",
+      "ode": "支付",
+      "odemeYap": "去支付",
+      "odendi": "{{kod}} 已用余额支付。",
+      "siziBekliyor": "已回复 · 等待您",
+      "acikTalep": "未关闭的请求",
+      "yanitVerin": "回复",
+      "ac": "打开"
+    },
+    "hosGeldin": {
+      "baslik": "欢迎",
+      "metin": "您的项目、待审批事项、会议、发票和请求出现后，都会在这里一屏汇总。",
+      "ilkAdimlar": "第一步",
+      "adim": {
+        "projeler": {
+          "baslik": "我的项目",
+          "metin": "查看项目及其阶段"
+        },
+        "talep": {
+          "baslik": "提交请求",
+          "metin": "告诉我们新的工作或问题"
+        },
+        "mesaj": {
+          "baslik": "联系团队",
+          "metin": "直接与代理团队沟通"
+        },
+        "faturalar": {
+          "baslik": "我的发票",
+          "metin": "报价、合同、发票和余额"
+        },
+        "profil": {
+          "baslik": "我的资料",
+          "metin": "编辑资料和通知偏好"
+        }
+      }
+    },
+    "hata": {
+      "genel": "操作未能完成，请重试。",
+      "artikBeklemiyor": "此项已不再待处理（已过期或已决定）；列表已刷新。",
+      "yuklenemedi": "无法加载概览。"
+    }
+  }
+}

@@ -96,7 +96,9 @@ def test_sekme_anahtarlari_panellerde_gercekten_var():
     # Faz 6T: "Toplantılar" da modül DEĞİL (portalın parçası, satılmıyor; `projeler` izniyle) — hesabın
     # toplantısı ya da toplantı talebi varken görünür.
     HESABA_AIT_SEKMELER = {"toplantilar"}
-    serbest = KISIYE_AIT_SEKMELER | HESABA_AIT_SEKMELER
+    # Faz 11B: "Genel bakış" modül DEĞİL — panelin ana bölümü (grupların üstünde, her hesapta açık).
+    PANEL_SEKMELERI = {"genelBakis"}
+    serbest = KISIYE_AIT_SEKMELER | HESABA_AIT_SEKMELER | PANEL_SEKMELERI
     tanimli = {m.musteri_sekmesi for m in mf.MODULLER if m.musteri_sekmesi}
     assert musteri <= tanimli | serbest, musteri - tanimli - serbest
     assert not (serbest & tanimli)

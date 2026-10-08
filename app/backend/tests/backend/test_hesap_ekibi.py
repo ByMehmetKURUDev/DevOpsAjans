@@ -522,6 +522,8 @@ MUSTERI_UCLARI = [
     ("POST", "/api/v1/duyurularim/999999/okundu", None, None, "gecti"),
     ("POST", "/api/v1/duyurularim/999999/kapat", None, None, "gecti"),
     ("GET", "/api/v1/hesabim/uyeler", None, None, 200),
+    # Faz 11B: Genel bakış özeti — uç izin istemez; izni olmayan kalem `null` (test_musteri_ozeti.py).
+    ("GET", "/api/v1/musteri-ozeti", None, None, 200),
     # Faz 2G — mesajlaşma (`mesajlar` izni).
     ("GET", "/api/v1/mesajlarim/ozet", ("mesajlar",), None, 200),
     ("GET", "/api/v1/mesajlarim/konusmalar", ("mesajlar",), None, 200),
