@@ -1,0 +1,160 @@
+{
+  "genelBakis": {
+    "baslik": "Übersicht",
+    "bolgeEtiketi": "Kommandozentrale",
+    "yukleniyor": "Übersicht wird geladen…",
+    "hata": "Die Übersicht konnte nicht geladen werden. Prüfen Sie die Verbindung und versuchen Sie es erneut.",
+    "yenidenDene": "Erneut versuchen",
+    "veriYok": "Keine Daten",
+    "guncellendi": "Aktualisiert {{saat}}",
+    "acil": {
+      "baslik": "DRINGEND",
+      "siradakiBaslik": "Nächstes SLA",
+      "yokBaslik": "Nichts Dringendes",
+      "yokMetin": "Kein offenes Support-Ticket hat ein ausstehendes SLA-Ziel.",
+      "destek": "Support",
+      "kalan": "Verbleibende Zeit",
+      "gecen": "Überschritten um",
+      "simdiYanitla": "Jetzt antworten",
+      "siradaki": "{{sayi}} weitere gefährdete Tickets in der Warteschlange",
+      "siradakiYok": "Keine weiteren gefährdeten Tickets",
+      "tumu": "Alle",
+      "hedef": {
+        "ilk_yanit": "Ziel für erste Antwort",
+        "cozum": "Ziel für Lösung"
+      },
+      "oncelik": {
+        "acil": "Dringende Priorität",
+        "yuksek": "Hohe Priorität",
+        "normal": "Normale Priorität",
+        "dusuk": "Niedrige Priorität"
+      },
+      "durum": {
+        "asildi": "SLA überschritten",
+        "yaklasiyor": "SLA läuft bald ab",
+        "zamaninda": "SLA im Plan"
+      }
+    },
+    "kpi": {
+      "tahsilat": "Eingänge diesen Monat",
+      "tahsilatKisa": "Eingänge",
+      "acikIsler": "Offene Arbeiten",
+      "tamamlanan": "Abgeschlossen",
+      "sla": "SLA-Einhaltung",
+      "slaKisa": "SLA",
+      "gecenAyaGore": "ggü. Vormonat",
+      "otuzGunOnceye": "ggü. vor 30 Tagen",
+      "oncekiOtuzGune": "ggü. vorherigen 30 Tagen",
+      "ilkYanitOrt": "Ø erste Antwort {{dk}} Min. (Geschäftszeit)",
+      "acikDokum": "{{gorev}} Aufgaben · {{destek}} Tickets · {{is}} Arbeitsaufträge",
+      "tamamDokum": "diesen Monat: {{gorev}} Aufgaben · {{destek}} Tickets · {{is}} Arbeitsaufträge",
+      "seriEtiketi": "Letzte 14 Tage",
+      "puan": "{{deger}} Pkt."
+    },
+    "hat": {
+      "baslik": "Service-Pipeline",
+      "aciklama": "Von der Anfrage bis zur Rechnung — wartende Arbeiten je Stufe",
+      "kaydir": "wischen",
+      "yeniTalep": "Neue Anfrage",
+      "teklif": "Angebot",
+      "sozlesme": "Vertrag",
+      "proje": "Projekt",
+      "teslim": "Lieferung",
+      "fatura": "Rechnung",
+      "yeniTalepAlt": "letzte 24 Stunden",
+      "teklifAlt": "wartet auf Antwort",
+      "sozlesmeAlt": "wartet auf Unterschrift",
+      "projeAlt": "{{yuzde}} % Fortschritt",
+      "projeAltYok": "aktive Projekte",
+      "teslimAlt": "wartet auf Freigabe",
+      "faturaAlt": "{{tutar}} offen",
+      "faturaAltYok": "offene Rechnungen",
+      "donusum": "Durchschnittliche Konversion (90 Tage)",
+      "talepTeklif": "Anfrage → Angebot {{yuzde}} %",
+      "teklifKabul": "Angebot → angenommen {{yuzde}} %",
+      "tahsilatGun": "Rechnung → bezahlt {{gun}} Tage",
+      "git": "{{ad}}: Bereich öffnen",
+      "huniyeGit": "Zum Trichter"
+    },
+    "aktivite": {
+      "baslik": "Aktivität (heute)",
+      "bugun": "Heute",
+      "dun": "Gestern",
+      "aciklama": "Erfasste Ereignisse pro Stunde (Prüfprotokoll)",
+      "ozet": "Heute {{bugun}} Ereignisse, gestern {{dun}}"
+    },
+    "kategori": {
+      "baslik": "Arbeiten · nach Kategorie",
+      "toplamIs": "Aufträge gesamt",
+      "buAyYeni": "Neu diesen Monat",
+      "ortSure": "Ø Dauer",
+      "gun": "{{sayi}} Tage",
+      "enHizli": "Am schnellsten wachsend",
+      "aciklama": "Aktive und diesen Monat eröffnete Kundenprojekte"
+    },
+    "saha": {
+      "baslik": "Außendienst · heute",
+      "aktif": "{{sayi}} aktiv",
+      "isler": "{{sayi}} Arbeitsaufträge",
+      "panoyaGit": "Zum Außendienst",
+      "teknisyenYok": "Kein Techniker zugewiesen"
+    },
+    "son": {
+      "baslik": "Neueste Arbeiten",
+      "tumu": "Alle anzeigen",
+      "kod": "Code",
+      "musteri": "Kunde",
+      "hizmet": "Leistung",
+      "durum": "Status",
+      "sorumlu": "Zuständig",
+      "tutar": "Betrag",
+      "tur": {
+        "proje": "Projekt",
+        "destek": "Support",
+        "is_emri": "Arbeitsauftrag",
+        "teklif": "Angebot"
+      }
+    },
+    "durum": {
+      "proje": {
+        "planning": "Planung",
+        "in_progress": "In Arbeit",
+        "completed": "Abgeschlossen"
+      },
+      "destek": {
+        "open": "Offen",
+        "answered": "Beantwortet",
+        "closed": "Geschlossen",
+        "acil": "Dringend"
+      },
+      "is_emri": {
+        "yeni": "Neu",
+        "planlandi": "Geplant",
+        "yolda": "Unterwegs",
+        "iste": "Vor Ort",
+        "tamamlandi": "Abgeschlossen",
+        "iptal": "Storniert",
+        "ertelendi": "Verschoben"
+      },
+      "teklif": {
+        "taslak": "Entwurf",
+        "gonderildi": "Gesendet",
+        "goruntulendi": "Angesehen",
+        "kabul": "Angenommen",
+        "ret": "Abgelehnt",
+        "suresi_doldu": "Abgelaufen",
+        "revize": "Überarbeitet"
+      }
+    },
+    "bildirim": {
+      "baslik": "Benachrichtigungen",
+      "tumu": "Alle",
+      "yok": "Keine Benachrichtigungen",
+      "simdi": "jetzt",
+      "dk": "{{sayi}} Min.",
+      "sa": "{{sayi}} Std.",
+      "gun": "{{sayi}} T.",
+      "okunmamis": "ungelesen"
+    }
+  }
+}

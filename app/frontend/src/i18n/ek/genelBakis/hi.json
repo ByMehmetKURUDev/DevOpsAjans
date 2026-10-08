@@ -1,0 +1,160 @@
+{
+  "genelBakis": {
+    "baslik": "अवलोकन",
+    "bolgeEtiketi": "कमांड स्क्रीन",
+    "yukleniyor": "अवलोकन लोड हो रहा है…",
+    "hata": "अवलोकन लोड नहीं हो सका। कनेक्शन जाँचें और फिर से कोशिश करें।",
+    "yenidenDene": "फिर से कोशिश करें",
+    "veriYok": "कोई डेटा नहीं",
+    "guncellendi": "{{saat}} पर अपडेट",
+    "acil": {
+      "baslik": "तत्काल",
+      "siradakiBaslik": "अगला SLA",
+      "yokBaslik": "कुछ भी तत्काल नहीं",
+      "yokMetin": "किसी खुले सपोर्ट टिकट का SLA लक्ष्य लंबित नहीं है।",
+      "destek": "सपोर्ट",
+      "kalan": "शेष समय",
+      "gecen": "समय से अधिक",
+      "simdiYanitla": "अभी जवाब दें",
+      "siradaki": "कतार में {{sayi}} और जोखिम वाले टिकट",
+      "siradakiYok": "कोई और जोखिम वाला टिकट नहीं",
+      "tumu": "सभी",
+      "hedef": {
+        "ilk_yanit": "पहले जवाब का लक्ष्य",
+        "cozum": "समाधान का लक्ष्य"
+      },
+      "oncelik": {
+        "acil": "तत्काल प्राथमिकता",
+        "yuksek": "उच्च प्राथमिकता",
+        "normal": "सामान्य प्राथमिकता",
+        "dusuk": "कम प्राथमिकता"
+      },
+      "durum": {
+        "asildi": "SLA पार हो गया",
+        "yaklasiyor": "SLA नज़दीक",
+        "zamaninda": "SLA समय पर"
+      }
+    },
+    "kpi": {
+      "tahsilat": "इस महीने की वसूली",
+      "tahsilatKisa": "वसूली",
+      "acikIsler": "खुले काम",
+      "tamamlanan": "पूरे हुए",
+      "sla": "SLA अनुपालन",
+      "slaKisa": "SLA",
+      "gecenAyaGore": "पिछले महीने की तुलना में",
+      "otuzGunOnceye": "30 दिन पहले की तुलना में",
+      "oncekiOtuzGune": "पिछले 30 दिनों की तुलना में",
+      "ilkYanitOrt": "औसत पहला जवाब {{dk}} मिनट (कार्य समय)",
+      "acikDokum": "{{gorev}} कार्य · {{destek}} टिकट · {{is}} वर्क ऑर्डर",
+      "tamamDokum": "इस महीने: {{gorev}} कार्य · {{destek}} टिकट · {{is}} वर्क ऑर्डर",
+      "seriEtiketi": "पिछले 14 दिन",
+      "puan": "{{deger}} अंक"
+    },
+    "hat": {
+      "baslik": "सेवा पाइपलाइन",
+      "aciklama": "अनुरोध से इनवॉइस तक — हर चरण में प्रतीक्षारत काम",
+      "kaydir": "स्क्रॉल करें",
+      "yeniTalep": "नया अनुरोध",
+      "teklif": "प्रस्ताव",
+      "sozlesme": "अनुबंध",
+      "proje": "प्रोजेक्ट",
+      "teslim": "डिलीवरी",
+      "fatura": "इनवॉइस",
+      "yeniTalepAlt": "पिछले 24 घंटे",
+      "teklifAlt": "जवाब की प्रतीक्षा",
+      "sozlesmeAlt": "हस्ताक्षर की प्रतीक्षा",
+      "projeAlt": "{{yuzde}}% प्रगति",
+      "projeAltYok": "सक्रिय प्रोजेक्ट",
+      "teslimAlt": "स्वीकृति की प्रतीक्षा",
+      "faturaAlt": "{{tutar}} बकाया",
+      "faturaAltYok": "खुले इनवॉइस",
+      "donusum": "औसत रूपांतरण (90 दिन)",
+      "talepTeklif": "अनुरोध → प्रस्ताव {{yuzde}}%",
+      "teklifKabul": "प्रस्ताव → स्वीकृत {{yuzde}}%",
+      "tahsilatGun": "इनवॉइस → भुगतान {{gun}} दिन",
+      "git": "{{ad}}: अनुभाग खोलें",
+      "huniyeGit": "फ़नल पर जाएँ"
+    },
+    "aktivite": {
+      "baslik": "गतिविधि (आज)",
+      "bugun": "आज",
+      "dun": "कल",
+      "aciklama": "प्रति घंटे दर्ज घटनाएँ (ऑडिट लॉग)",
+      "ozet": "आज {{bugun}} घटनाएँ, कल {{dun}}"
+    },
+    "kategori": {
+      "baslik": "काम · श्रेणी अनुसार",
+      "toplamIs": "कुल काम",
+      "buAyYeni": "इस महीने नए",
+      "ortSure": "औसत अवधि",
+      "gun": "{{sayi}} दिन",
+      "enHizli": "सबसे तेज़ बढ़ने वाला",
+      "aciklama": "सक्रिय और इस महीने खुले क्लाइंट प्रोजेक्ट"
+    },
+    "saha": {
+      "baslik": "फ़ील्ड टीम · आज",
+      "aktif": "{{sayi}} सक्रिय",
+      "isler": "{{sayi}} वर्क ऑर्डर",
+      "panoyaGit": "फ़ील्ड सर्विस पर जाएँ",
+      "teknisyenYok": "कोई तकनीशियन नियुक्त नहीं"
+    },
+    "son": {
+      "baslik": "हाल के काम",
+      "tumu": "सभी देखें",
+      "kod": "कोड",
+      "musteri": "क्लाइंट",
+      "hizmet": "सेवा",
+      "durum": "स्थिति",
+      "sorumlu": "ज़िम्मेदार",
+      "tutar": "राशि",
+      "tur": {
+        "proje": "प्रोजेक्ट",
+        "destek": "सपोर्ट",
+        "is_emri": "वर्क ऑर्डर",
+        "teklif": "प्रस्ताव"
+      }
+    },
+    "durum": {
+      "proje": {
+        "planning": "योजना",
+        "in_progress": "जारी",
+        "completed": "पूरा"
+      },
+      "destek": {
+        "open": "खुला",
+        "answered": "जवाब दिया गया",
+        "closed": "बंद",
+        "acil": "तत्काल"
+      },
+      "is_emri": {
+        "yeni": "नया",
+        "planlandi": "निर्धारित",
+        "yolda": "रास्ते में",
+        "iste": "साइट पर",
+        "tamamlandi": "पूरा",
+        "iptal": "रद्द",
+        "ertelendi": "स्थगित"
+      },
+      "teklif": {
+        "taslak": "ड्राफ़्ट",
+        "gonderildi": "भेजा गया",
+        "goruntulendi": "देखा गया",
+        "kabul": "स्वीकृत",
+        "ret": "अस्वीकृत",
+        "suresi_doldu": "समाप्त",
+        "revize": "संशोधित"
+      }
+    },
+    "bildirim": {
+      "baslik": "सूचनाएँ",
+      "tumu": "सभी",
+      "yok": "कोई सूचना नहीं",
+      "simdi": "अभी",
+      "dk": "{{sayi}} मिनट",
+      "sa": "{{sayi}} घंटे",
+      "gun": "{{sayi}} दिन",
+      "okunmamis": "अपठित"
+    }
+  }
+}

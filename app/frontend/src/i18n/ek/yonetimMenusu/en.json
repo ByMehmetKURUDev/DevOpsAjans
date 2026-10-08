@@ -17,6 +17,34 @@
       "otomasyon": "Automation",
       "sistem": "System",
       "diger": "Other"
+    },
+    "kabuk": {
+      "komutaMerkezi": "Command centre",
+      "genelBakis": "Overview",
+      "gelenKutusu": "Inbox",
+      "hizliIslemler": "Quick actions",
+      "yeniTeklif": "New proposal",
+      "projeAc": "Open a project",
+      "faturaKes": "Issue an invoice",
+      "toplantiPlanla": "Schedule a meeting",
+      "daralt": "Collapse menu",
+      "genislet": "Expand menu",
+      "canli": "Live",
+      "canliAciklama": "Data refreshes every minute",
+      "hizliMenu": "Quick action",
+      "hesapMenusu": "Account menu",
+      "yonetici": "Administrator",
+      "siteyeDon": "Back to site",
+      "dil": "Language",
+      "cikis": "Sign out",
+      "altMenu": "Panel shortcuts",
+      "sekmeGenel": "Overview",
+      "sekmeGelen": "Inbox",
+      "sekmeAra": "Search",
+      "sekmeBildirim": "Alerts",
+      "sekmeMenu": "Menu",
+      "menuKapat": "Close menu",
+      "anaIcerik": "Panel content"
     }
   }
 }

@@ -1,0 +1,160 @@
+{
+  "genelBakis": {
+    "baslik": "总览",
+    "bolgeEtiketi": "指挥屏",
+    "yukleniyor": "正在加载总览…",
+    "hata": "无法加载总览。请检查网络连接后重试。",
+    "yenidenDene": "重试",
+    "veriYok": "暂无数据",
+    "guncellendi": "更新于 {{saat}}",
+    "acil": {
+      "baslik": "紧急",
+      "siradakiBaslik": "下一个 SLA",
+      "yokBaslik": "没有紧急事项",
+      "yokMetin": "没有带待达成 SLA 目标的未结支持工单。",
+      "destek": "支持",
+      "kalan": "剩余时间",
+      "gecen": "已超时",
+      "simdiYanitla": "立即回复",
+      "siradaki": "队列中还有 {{sayi}} 个有风险的工单",
+      "siradakiYok": "没有其他有风险的工单",
+      "tumu": "全部",
+      "hedef": {
+        "ilk_yanit": "首次响应目标",
+        "cozum": "解决目标"
+      },
+      "oncelik": {
+        "acil": "紧急优先级",
+        "yuksek": "高优先级",
+        "normal": "普通优先级",
+        "dusuk": "低优先级"
+      },
+      "durum": {
+        "asildi": "SLA 已超时",
+        "yaklasiyor": "SLA 即将到期",
+        "zamaninda": "SLA 正常"
+      }
+    },
+    "kpi": {
+      "tahsilat": "本月收款",
+      "tahsilatKisa": "收款",
+      "acikIsler": "未完成工作",
+      "tamamlanan": "已完成",
+      "sla": "SLA 达成率",
+      "slaKisa": "SLA",
+      "gecenAyaGore": "较上月",
+      "otuzGunOnceye": "较 30 天前",
+      "oncekiOtuzGune": "较前 30 天",
+      "ilkYanitOrt": "平均首次响应 {{dk}} 分钟（工作时间）",
+      "acikDokum": "{{gorev}} 个任务 · {{destek}} 个工单 · {{is}} 个工单派工",
+      "tamamDokum": "本月：{{gorev}} 个任务 · {{destek}} 个工单 · {{is}} 个派工",
+      "seriEtiketi": "最近 14 天",
+      "puan": "{{deger}} 个百分点"
+    },
+    "hat": {
+      "baslik": "服务流程",
+      "aciklama": "从需求到发票 — 各阶段待处理的工作",
+      "kaydir": "滑动",
+      "yeniTalep": "新需求",
+      "teklif": "报价",
+      "sozlesme": "合同",
+      "proje": "项目",
+      "teslim": "交付",
+      "fatura": "发票",
+      "yeniTalepAlt": "最近 24 小时",
+      "teklifAlt": "等待回复",
+      "sozlesmeAlt": "等待签署",
+      "projeAlt": "进度 {{yuzde}}%",
+      "projeAltYok": "进行中的项目",
+      "teslimAlt": "等待确认",
+      "faturaAlt": "未付 {{tutar}}",
+      "faturaAltYok": "未结发票",
+      "donusum": "平均转化（90 天）",
+      "talepTeklif": "需求 → 报价 {{yuzde}}%",
+      "teklifKabul": "报价 → 接受 {{yuzde}}%",
+      "tahsilatGun": "发票 → 收款 {{gun}} 天",
+      "git": "{{ad}}：打开板块",
+      "huniyeGit": "查看漏斗"
+    },
+    "aktivite": {
+      "baslik": "活动（今天）",
+      "bugun": "今天",
+      "dun": "昨天",
+      "aciklama": "每小时记录的事件（审计日志）",
+      "ozet": "今天 {{bugun}} 个事件，昨天 {{dun}} 个"
+    },
+    "kategori": {
+      "baslik": "工作 · 按类别",
+      "toplamIs": "工作总数",
+      "buAyYeni": "本月新增",
+      "ortSure": "平均时长",
+      "gun": "{{sayi}} 天",
+      "enHizli": "增长最快",
+      "aciklama": "进行中及本月新建的客户项目"
+    },
+    "saha": {
+      "baslik": "外勤团队 · 今天",
+      "aktif": "{{sayi}} 人在岗",
+      "isler": "{{sayi}} 个派工",
+      "panoyaGit": "前往外勤服务",
+      "teknisyenYok": "未分配技术员"
+    },
+    "son": {
+      "baslik": "最近工作",
+      "tumu": "查看全部",
+      "kod": "编号",
+      "musteri": "客户",
+      "hizmet": "服务",
+      "durum": "状态",
+      "sorumlu": "负责人",
+      "tutar": "金额",
+      "tur": {
+        "proje": "项目",
+        "destek": "支持",
+        "is_emri": "派工单",
+        "teklif": "报价"
+      }
+    },
+    "durum": {
+      "proje": {
+        "planning": "规划中",
+        "in_progress": "进行中",
+        "completed": "已完成"
+      },
+      "destek": {
+        "open": "未结",
+        "answered": "已回复",
+        "closed": "已关闭",
+        "acil": "紧急"
+      },
+      "is_emri": {
+        "yeni": "新建",
+        "planlandi": "已排期",
+        "yolda": "在途",
+        "iste": "现场",
+        "tamamlandi": "已完成",
+        "iptal": "已取消",
+        "ertelendi": "已推迟"
+      },
+      "teklif": {
+        "taslak": "草稿",
+        "gonderildi": "已发送",
+        "goruntulendi": "已查看",
+        "kabul": "已接受",
+        "ret": "已拒绝",
+        "suresi_doldu": "已过期",
+        "revize": "已修订"
+      }
+    },
+    "bildirim": {
+      "baslik": "通知",
+      "tumu": "全部",
+      "yok": "暂无通知",
+      "simdi": "刚刚",
+      "dk": "{{sayi}} 分钟",
+      "sa": "{{sayi}} 小时",
+      "gun": "{{sayi}} 天",
+      "okunmamis": "未读"
+    }
+  }
+}

@@ -17,6 +17,34 @@
       "otomasyon": "Otomasyon",
       "sistem": "Sistem",
       "diger": "Diğer"
+    },
+    "kabuk": {
+      "komutaMerkezi": "Komuta merkezi",
+      "genelBakis": "Genel bakış",
+      "gelenKutusu": "Gelen kutusu",
+      "hizliIslemler": "Hızlı işlemler",
+      "yeniTeklif": "Yeni teklif",
+      "projeAc": "Proje aç",
+      "faturaKes": "Fatura kes",
+      "toplantiPlanla": "Toplantı planla",
+      "daralt": "Menüyü daralt",
+      "genislet": "Menüyü genişlet",
+      "canli": "Canlı",
+      "canliAciklama": "Veriler dakikada bir yenilenir",
+      "hizliMenu": "Hızlı işlem",
+      "hesapMenusu": "Hesap menüsü",
+      "yonetici": "Yönetici",
+      "siteyeDon": "Siteye dön",
+      "dil": "Dil",
+      "cikis": "Çıkış yap",
+      "altMenu": "Panel kısayolları",
+      "sekmeGenel": "Genel",
+      "sekmeGelen": "Gelen",
+      "sekmeAra": "Ara",
+      "sekmeBildirim": "Bildirim",
+      "sekmeMenu": "Menü",
+      "menuKapat": "Menüyü kapat",
+      "anaIcerik": "Panel içeriği"
     }
   }
 }

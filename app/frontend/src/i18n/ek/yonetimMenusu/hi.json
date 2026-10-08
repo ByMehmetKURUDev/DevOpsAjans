@@ -17,6 +17,34 @@
       "otomasyon": "स्वचालन",
       "sistem": "सिस्टम",
       "diger": "अन्य"
+    },
+    "kabuk": {
+      "komutaMerkezi": "कमांड सेंटर",
+      "genelBakis": "अवलोकन",
+      "gelenKutusu": "इनबॉक्स",
+      "hizliIslemler": "त्वरित कार्य",
+      "yeniTeklif": "नया प्रस्ताव",
+      "projeAc": "प्रोजेक्ट खोलें",
+      "faturaKes": "इनवॉइस बनाएँ",
+      "toplantiPlanla": "मीटिंग तय करें",
+      "daralt": "मेनू छोटा करें",
+      "genislet": "मेनू बड़ा करें",
+      "canli": "लाइव",
+      "canliAciklama": "डेटा हर मिनट ताज़ा होता है",
+      "hizliMenu": "त्वरित कार्य",
+      "hesapMenusu": "खाता मेनू",
+      "yonetici": "व्यवस्थापक",
+      "siteyeDon": "साइट पर लौटें",
+      "dil": "भाषा",
+      "cikis": "साइन आउट",
+      "altMenu": "पैनल शॉर्टकट",
+      "sekmeGenel": "अवलोकन",
+      "sekmeGelen": "इनबॉक्स",
+      "sekmeAra": "खोजें",
+      "sekmeBildirim": "सूचना",
+      "sekmeMenu": "मेनू",
+      "menuKapat": "मेनू बंद करें",
+      "anaIcerik": "पैनल सामग्री"
     }
   }
 }

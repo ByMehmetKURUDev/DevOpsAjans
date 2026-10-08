@@ -17,6 +17,34 @@
       "otomasyon": "الأتمتة",
       "sistem": "النظام",
       "diger": "أخرى"
+    },
+    "kabuk": {
+      "komutaMerkezi": "مركز القيادة",
+      "genelBakis": "نظرة عامة",
+      "gelenKutusu": "صندوق الوارد",
+      "hizliIslemler": "إجراءات سريعة",
+      "yeniTeklif": "عرض سعر جديد",
+      "projeAc": "فتح مشروع",
+      "faturaKes": "إصدار فاتورة",
+      "toplantiPlanla": "جدولة اجتماع",
+      "daralt": "طيّ القائمة",
+      "genislet": "توسيع القائمة",
+      "canli": "مباشر",
+      "canliAciklama": "تُحدَّث البيانات كل دقيقة",
+      "hizliMenu": "إجراء سريع",
+      "hesapMenusu": "قائمة الحساب",
+      "yonetici": "مسؤول",
+      "siteyeDon": "العودة إلى الموقع",
+      "dil": "اللغة",
+      "cikis": "تسجيل الخروج",
+      "altMenu": "اختصارات اللوحة",
+      "sekmeGenel": "عامة",
+      "sekmeGelen": "الوارد",
+      "sekmeAra": "بحث",
+      "sekmeBildirim": "إشعارات",
+      "sekmeMenu": "القائمة",
+      "menuKapat": "إغلاق القائمة",
+      "anaIcerik": "محتوى اللوحة"
     }
   }
 }

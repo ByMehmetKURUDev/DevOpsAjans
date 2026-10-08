@@ -1,0 +1,160 @@
+{
+  "genelBakis": {
+    "baslik": "Overview",
+    "bolgeEtiketi": "Command screen",
+    "yukleniyor": "Loading overview…",
+    "hata": "Could not load the overview. Check your connection and try again.",
+    "yenidenDene": "Try again",
+    "veriYok": "No data",
+    "guncellendi": "Updated {{saat}}",
+    "acil": {
+      "baslik": "URGENT",
+      "siradakiBaslik": "Next SLA",
+      "yokBaslik": "Nothing urgent",
+      "yokMetin": "No open support ticket has a pending SLA target.",
+      "destek": "Support",
+      "kalan": "Time left",
+      "gecen": "Overdue by",
+      "simdiYanitla": "Reply now",
+      "siradaki": "{{sayi}} more at-risk tickets in the queue",
+      "siradakiYok": "No other at-risk tickets",
+      "tumu": "All",
+      "hedef": {
+        "ilk_yanit": "First response target",
+        "cozum": "Resolution target"
+      },
+      "oncelik": {
+        "acil": "Urgent priority",
+        "yuksek": "High priority",
+        "normal": "Normal priority",
+        "dusuk": "Low priority"
+      },
+      "durum": {
+        "asildi": "SLA breached",
+        "yaklasiyor": "SLA approaching",
+        "zamaninda": "SLA on track"
+      }
+    },
+    "kpi": {
+      "tahsilat": "Collected this month",
+      "tahsilatKisa": "Collected",
+      "acikIsler": "Open work",
+      "tamamlanan": "Completed",
+      "sla": "SLA compliance",
+      "slaKisa": "SLA",
+      "gecenAyaGore": "vs last month",
+      "otuzGunOnceye": "vs 30 days ago",
+      "oncekiOtuzGune": "vs previous 30 days",
+      "ilkYanitOrt": "avg. first response {{dk}} min (business hours)",
+      "acikDokum": "{{gorev}} tasks · {{destek}} tickets · {{is}} work orders",
+      "tamamDokum": "this month: {{gorev}} tasks · {{destek}} tickets · {{is}} work orders",
+      "seriEtiketi": "Last 14 days",
+      "puan": "{{deger}} pts"
+    },
+    "hat": {
+      "baslik": "Service pipeline",
+      "aciklama": "From request to invoice — work waiting at each stage",
+      "kaydir": "scroll",
+      "yeniTalep": "New request",
+      "teklif": "Proposal",
+      "sozlesme": "Contract",
+      "proje": "Project",
+      "teslim": "Delivery",
+      "fatura": "Invoice",
+      "yeniTalepAlt": "last 24 hours",
+      "teklifAlt": "awaiting reply",
+      "sozlesmeAlt": "awaiting signature",
+      "projeAlt": "{{yuzde}}% progress",
+      "projeAltYok": "active projects",
+      "teslimAlt": "awaiting approval",
+      "faturaAlt": "{{tutar}} open",
+      "faturaAltYok": "open invoices",
+      "donusum": "Average conversion (90 days)",
+      "talepTeklif": "request → proposal {{yuzde}}%",
+      "teklifKabul": "proposal → accepted {{yuzde}}%",
+      "tahsilatGun": "invoice → paid {{gun}} days",
+      "git": "{{ad}}: open section",
+      "huniyeGit": "Go to funnel"
+    },
+    "aktivite": {
+      "baslik": "Activity (today)",
+      "bugun": "Today",
+      "dun": "Yesterday",
+      "aciklama": "Recorded events per hour (audit log)",
+      "ozet": "{{bugun}} events today, {{dun}} yesterday"
+    },
+    "kategori": {
+      "baslik": "Work · by category",
+      "toplamIs": "total jobs",
+      "buAyYeni": "New this month",
+      "ortSure": "Avg. duration",
+      "gun": "{{sayi}} days",
+      "enHizli": "Fastest growing",
+      "aciklama": "Active client projects and those opened this month"
+    },
+    "saha": {
+      "baslik": "Field team · today",
+      "aktif": "{{sayi}} active",
+      "isler": "{{sayi}} work orders",
+      "panoyaGit": "Go to field service",
+      "teknisyenYok": "No technician assigned"
+    },
+    "son": {
+      "baslik": "Recent work",
+      "tumu": "See all",
+      "kod": "Code",
+      "musteri": "Client",
+      "hizmet": "Service",
+      "durum": "Status",
+      "sorumlu": "Owner",
+      "tutar": "Amount",
+      "tur": {
+        "proje": "Project",
+        "destek": "Support",
+        "is_emri": "Work order",
+        "teklif": "Proposal"
+      }
+    },
+    "durum": {
+      "proje": {
+        "planning": "Planning",
+        "in_progress": "In progress",
+        "completed": "Completed"
+      },
+      "destek": {
+        "open": "Open",
+        "answered": "Answered",
+        "closed": "Closed",
+        "acil": "Urgent"
+      },
+      "is_emri": {
+        "yeni": "New",
+        "planlandi": "Scheduled",
+        "yolda": "En route",
+        "iste": "On site",
+        "tamamlandi": "Completed",
+        "iptal": "Cancelled",
+        "ertelendi": "Postponed"
+      },
+      "teklif": {
+        "taslak": "Draft",
+        "gonderildi": "Sent",
+        "goruntulendi": "Viewed",
+        "kabul": "Accepted",
+        "ret": "Declined",
+        "suresi_doldu": "Expired",
+        "revize": "Revised"
+      }
+    },
+    "bildirim": {
+      "baslik": "Notifications",
+      "tumu": "All",
+      "yok": "No notifications",
+      "simdi": "now",
+      "dk": "{{sayi}} min",
+      "sa": "{{sayi}} h",
+      "gun": "{{sayi}} d",
+      "okunmamis": "unread"
+    }
+  }
+}

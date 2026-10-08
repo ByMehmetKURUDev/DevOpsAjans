@@ -17,6 +17,34 @@
       "otomasyon": "Automatisierung",
       "sistem": "System",
       "diger": "Weitere"
+    },
+    "kabuk": {
+      "komutaMerkezi": "Kommandozentrale",
+      "genelBakis": "Übersicht",
+      "gelenKutusu": "Posteingang",
+      "hizliIslemler": "Schnellaktionen",
+      "yeniTeklif": "Neues Angebot",
+      "projeAc": "Projekt anlegen",
+      "faturaKes": "Rechnung stellen",
+      "toplantiPlanla": "Termin planen",
+      "daralt": "Menü einklappen",
+      "genislet": "Menü ausklappen",
+      "canli": "Live",
+      "canliAciklama": "Daten werden jede Minute aktualisiert",
+      "hizliMenu": "Schnellaktion",
+      "hesapMenusu": "Kontomenü",
+      "yonetici": "Administrator",
+      "siteyeDon": "Zur Website",
+      "dil": "Sprache",
+      "cikis": "Abmelden",
+      "altMenu": "Panel-Verknüpfungen",
+      "sekmeGenel": "Übersicht",
+      "sekmeGelen": "Eingang",
+      "sekmeAra": "Suche",
+      "sekmeBildirim": "Hinweise",
+      "sekmeMenu": "Menü",
+      "menuKapat": "Menü schließen",
+      "anaIcerik": "Panel-Inhalt"
     }
   }
 }

@@ -1,0 +1,160 @@
+{
+  "genelBakis": {
+    "baslik": "نظرة عامة",
+    "bolgeEtiketi": "شاشة القيادة",
+    "yukleniyor": "جارٍ تحميل النظرة العامة…",
+    "hata": "تعذّر تحميل النظرة العامة. تحقّق من الاتصال وأعد المحاولة.",
+    "yenidenDene": "أعد المحاولة",
+    "veriYok": "لا توجد بيانات",
+    "guncellendi": "آخر تحديث {{saat}}",
+    "acil": {
+      "baslik": "عاجل",
+      "siradakiBaslik": "اتفاقية الخدمة التالية",
+      "yokBaslik": "لا شيء عاجل",
+      "yokMetin": "لا توجد تذكرة دعم مفتوحة لها هدف SLA معلّق.",
+      "destek": "الدعم",
+      "kalan": "الوقت المتبقي",
+      "gecen": "متأخر بمقدار",
+      "simdiYanitla": "ردّ الآن",
+      "siradaki": "{{sayi}} تذاكر أخرى معرّضة للخطر في الانتظار",
+      "siradakiYok": "لا توجد تذاكر أخرى معرّضة للخطر",
+      "tumu": "الكل",
+      "hedef": {
+        "ilk_yanit": "هدف الرد الأول",
+        "cozum": "هدف الحل"
+      },
+      "oncelik": {
+        "acil": "أولوية عاجلة",
+        "yuksek": "أولوية عالية",
+        "normal": "أولوية عادية",
+        "dusuk": "أولوية منخفضة"
+      },
+      "durum": {
+        "asildi": "تم تجاوز SLA",
+        "yaklasiyor": "اقتراب موعد SLA",
+        "zamaninda": "SLA ضمن الموعد"
+      }
+    },
+    "kpi": {
+      "tahsilat": "التحصيل هذا الشهر",
+      "tahsilatKisa": "التحصيل",
+      "acikIsler": "الأعمال المفتوحة",
+      "tamamlanan": "المكتملة",
+      "sla": "الالتزام بـ SLA",
+      "slaKisa": "SLA",
+      "gecenAyaGore": "مقارنةً بالشهر الماضي",
+      "otuzGunOnceye": "مقارنةً بما قبل 30 يومًا",
+      "oncekiOtuzGune": "مقارنةً بالـ 30 يومًا السابقة",
+      "ilkYanitOrt": "متوسط الرد الأول {{dk}} دقيقة (ساعات العمل)",
+      "acikDokum": "{{gorev}} مهام · {{destek}} تذاكر · {{is}} أوامر عمل",
+      "tamamDokum": "هذا الشهر: {{gorev}} مهام · {{destek}} تذاكر · {{is}} أوامر عمل",
+      "seriEtiketi": "آخر 14 يومًا",
+      "puan": "{{deger}} نقطة"
+    },
+    "hat": {
+      "baslik": "مسار الخدمة",
+      "aciklama": "من الطلب إلى الفاتورة — الأعمال المنتظرة في كل مرحلة",
+      "kaydir": "مرّر",
+      "yeniTalep": "طلب جديد",
+      "teklif": "عرض سعر",
+      "sozlesme": "عقد",
+      "proje": "مشروع",
+      "teslim": "تسليم",
+      "fatura": "فاتورة",
+      "yeniTalepAlt": "آخر 24 ساعة",
+      "teklifAlt": "بانتظار الرد",
+      "sozlesmeAlt": "بانتظار التوقيع",
+      "projeAlt": "تقدّم {{yuzde}}%",
+      "projeAltYok": "مشاريع نشطة",
+      "teslimAlt": "بانتظار الموافقة",
+      "faturaAlt": "{{tutar}} مستحق",
+      "faturaAltYok": "فواتير مفتوحة",
+      "donusum": "متوسط التحويل (90 يومًا)",
+      "talepTeklif": "طلب ← عرض {{yuzde}}%",
+      "teklifKabul": "عرض ← قبول {{yuzde}}%",
+      "tahsilatGun": "فاتورة ← تحصيل {{gun}} يومًا",
+      "git": "{{ad}}: افتح القسم",
+      "huniyeGit": "إلى قمع المبيعات"
+    },
+    "aktivite": {
+      "baslik": "النشاط (اليوم)",
+      "bugun": "اليوم",
+      "dun": "أمس",
+      "aciklama": "الأحداث المسجّلة لكل ساعة (سجل التدقيق)",
+      "ozet": "اليوم {{bugun}} حدثًا، أمس {{dun}}"
+    },
+    "kategori": {
+      "baslik": "الأعمال · حسب الفئة",
+      "toplamIs": "إجمالي الأعمال",
+      "buAyYeni": "جديد هذا الشهر",
+      "ortSure": "متوسط المدة",
+      "gun": "{{sayi}} يومًا",
+      "enHizli": "الأسرع نموًا",
+      "aciklama": "مشاريع العملاء النشطة والمفتوحة هذا الشهر"
+    },
+    "saha": {
+      "baslik": "الفريق الميداني · اليوم",
+      "aktif": "{{sayi}} نشط",
+      "isler": "{{sayi}} أوامر عمل",
+      "panoyaGit": "إلى الخدمة الميدانية",
+      "teknisyenYok": "لم يُعيَّن فنّي"
+    },
+    "son": {
+      "baslik": "أحدث الأعمال",
+      "tumu": "عرض الكل",
+      "kod": "الرمز",
+      "musteri": "العميل",
+      "hizmet": "الخدمة",
+      "durum": "الحالة",
+      "sorumlu": "المسؤول",
+      "tutar": "المبلغ",
+      "tur": {
+        "proje": "مشروع",
+        "destek": "دعم",
+        "is_emri": "أمر عمل",
+        "teklif": "عرض سعر"
+      }
+    },
+    "durum": {
+      "proje": {
+        "planning": "تخطيط",
+        "in_progress": "قيد التنفيذ",
+        "completed": "مكتمل"
+      },
+      "destek": {
+        "open": "مفتوحة",
+        "answered": "تم الرد",
+        "closed": "مغلقة",
+        "acil": "عاجل"
+      },
+      "is_emri": {
+        "yeni": "جديد",
+        "planlandi": "مجدول",
+        "yolda": "في الطريق",
+        "iste": "في الموقع",
+        "tamamlandi": "مكتمل",
+        "iptal": "ملغى",
+        "ertelendi": "مؤجل"
+      },
+      "teklif": {
+        "taslak": "مسودة",
+        "gonderildi": "مُرسل",
+        "goruntulendi": "تمت المشاهدة",
+        "kabul": "مقبول",
+        "ret": "مرفوض",
+        "suresi_doldu": "منتهي الصلاحية",
+        "revize": "معدّل"
+      }
+    },
+    "bildirim": {
+      "baslik": "الإشعارات",
+      "tumu": "الكل",
+      "yok": "لا توجد إشعارات",
+      "simdi": "الآن",
+      "dk": "{{sayi}} د",
+      "sa": "{{sayi}} س",
+      "gun": "{{sayi}} ي",
+      "okunmamis": "غير مقروء"
+    }
+  }
+}

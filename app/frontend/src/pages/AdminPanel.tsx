@@ -77,14 +77,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import PageSectionsPanel from '@/components/admin/PageSectionsPanel';
-import YonetimMenusu from '@/components/admin/YonetimMenusu';
-import { sekmeyiCoz, sonSekmeyiOku, sonSekmeyiYaz } from '@/lib/yonetimMenusu';
+// Faz 11A — yönetici kabuğu: sol kenar çubuğu + üst çubuk (+ telefonda alt sekme çubuğu).
+import YonetimKabugu from '@/components/admin/YonetimKabugu';
+import type { HizliIslem } from '@/components/admin/YonetimMenusu';
+import { GENEL_BAKIS, menudeVar, sekmeyiCoz, sonSekmeyiOku, sonSekmeyiYaz } from '@/lib/yonetimMenusu';
 import { sayacGetir as gelenKutusuSayaci } from '@/lib/gelenKutusu';
 // Faz 7M — mobil kabuk: "Uygulama olarak yükle", çevrimdışı şeridi ve iskeleti.
 import {
   CevrimdisiIskelet,
   CevrimdisiSerit,
-  UygulamaYukleDugmesi,
   useCevrimdisiAcilis,
   usePanelKabugu,
 } from '@/lib/uygulamaKabugu';
@@ -101,7 +102,7 @@ import ProjectStageManager from '@/components/admin/ProjectStageManager';
 import { asamaAnahtari, useStageLabels, useStages } from '@/lib/projectEvents';
 import { musteriyiDavetEt, type DavetSonucu } from '@/lib/musteriDaveti';
 import { useTranslation } from 'react-i18next';
-import { client, oturumIziVarMi } from '@/lib/sdkClient';
+import { client, oturumIziVarMi, sunucuOturumunuKapat } from '@/lib/sdkClient';
 import {
   SETTING_GROUPS,
   fetchSettingRows,
@@ -230,6 +231,8 @@ const ProjeSablonlari = ekliLazy('projeSablonlari', () => import('@/components/a
 const GelenKutusu = ekliLazy('gelenKutusu', () => import('@/components/admin/GelenKutusu'));
 // Faz 8N — Site Ayarları › Görünüm: üç seçenek (Klasik / Modern / Nebula) önizleme kartlarıyla; ek paket `gorunumSecimi`.
 const GorunumSecici = ekliLazy('gorunumSecimi', () => import('@/components/admin/GorunumSecici'));
+// Faz 11A — Genel bakış (komuta ekranı): metinleri `genelBakis` ek paketinde, grafikleri hafif SVG.
+const GenelBakis = ekliLazy('genelBakis', () => import('@/components/admin/genelBakis/GenelBakis'));
 /** Panel açık, sohbet sekmesi kapalıyken yalnız okunmamış sayısı. */
 const MESAJ_OZETI_ARALIGI = 45000;
 /** Faz 5G: gelen kutusu sekmesi kapalıyken yanıt bekleyen sayısı (menü rozeti). */
@@ -248,6 +251,12 @@ function istenenDestekBolumu(arama: string): DestekBolumu | null {
  */
 function istenenSekme(arama: string): string | null {
   return sekmeyiCoz(new URLSearchParams(arama).get('sekme'));
+}
+/** Faz 11A: `?sekme=tickets&talep=<id>` — destek listesinde o talebin yazışması açılır. */
+function istenenTalep(arama: string): number | null {
+  const q = new URLSearchParams(arama);
+  const n = Number(q.get('talep'));
+  return q.get('sekme') === 'tickets' && Number.isInteger(n) && n > 0 ? n : null;
 }
 
 /** Ayar formundaki dil sekmeleri: varsayılan + desteklenen 7 dil. */
@@ -344,6 +353,7 @@ interface Ticket {
 }
 
 type Tab =
+  | 'genelBakis'
   | 'analytics'
   | 'marketplace'
   | 'kaynaklar'
@@ -494,7 +504,7 @@ export default function AdminPanel() {
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   // Bildirim bağlantıları (`/admin?sekme=guvenlik`) doğrudan sekmeyi açsın.
-  // Bağlantı yoksa bu tarayıcıda en son açılan sekme (yoksa Analitik).
+  // Bağlantı yoksa bu tarayıcıda en son açılan sekme; ilk kez açılıyorsa Genel bakış (Faz 11A).
   const [tab, setTab] = useState<Tab>(() => {
     try {
       const istenen = istenenSekme(window.location.search) || sekmeyiCoz(sonSekmeyiOku());
@@ -502,7 +512,7 @@ export default function AdminPanel() {
     } catch {
       /* sunucuda çizim: pencere yok */
     }
-    return 'analytics';
+    return GENEL_BAKIS;
   });
   const location = useLocation();
   // Panel açıkken bildirim bağlantısına tıklanırsa (aynı rota, yeni `?sekme=`).
@@ -550,6 +560,19 @@ export default function AdminPanel() {
   // Yazismasi acik olan talep. Eski "tek cevap" modali kaldirildi:
   // her cevap ticket_replies tablosuna ayri satir olarak dusuyor.
   const [acikTalep, setAcikTalep] = useState<number | null>(null);
+  // Faz 11A: Genel bakış "Şimdi yanıtla" / `?talep=` — liste yüklenince o talebe gidilir.
+  const [hedefTalep, setHedefTalep] = useState<number | null>(() => {
+    try {
+      return istenenTalep(window.location.search);
+    } catch {
+      return null;
+    }
+  });
+  // Faz 11A: hızlı işlemler — "Yeni teklif" / "Toplantı planla" formu açtırma istekleri (sayaç).
+  const [yeniTeklifIstegi, setYeniTeklifIstegi] = useState(0);
+  const [yeniToplantiIstegi, setYeniToplantiIstegi] = useState(0);
+  // İlk toplu yükleme bitti mi (derin bağlantı listeyi beklesin).
+  const [ilkYuklemeBitti, setIlkYuklemeBitti] = useState(false);
   // Destek sekmesinin alt bolumu: musteri talepleri / ekip / raporlar.
   // Faz 2E: ekibi açık olan müşteri kartı (tek seferde bir tane).
   const [ekipAcik, setEkipAcik] = useState<string | null>(null);
@@ -559,6 +582,16 @@ export default function AdminPanel() {
     const b = istenenDestekBolumu(location.search);
     if (b) setDestekBolumu(b);
   }, [location.search]);
+  // Faz 11A: panel açıkken `?sekme=tickets&talep=<id>` bağlantısı.
+  useEffect(() => {
+    const n = istenenTalep(location.search);
+    if (n) setHedefTalep(n);
+  }, [location.search]);
+  // Hızlı işlem isteği yalnız o sekme açıkken geçerli: sekmeden çıkınca sıfırlanır (geri dönünce form kendiliğinden açılmasın).
+  useEffect(() => {
+    if (tab !== 'teklifler') setYeniTeklifIstegi(0);
+    if (tab !== 'toplantilar') setYeniToplantiIstegi(0);
+  }, [tab]);
   // Faz 2C: talep başına SLA durumu (rozet). Destek sekmesi açıkken çekiliyor.
   const [slaHaritasi, setSlaHaritasi] = useState<Record<string, SlaDurumu>>({});
   // Atama seciciyi doldurmak icin ekip listesi. Yalnizca Destek
@@ -671,6 +704,7 @@ export default function AdminPanel() {
       toast.error(err?.message || t('admin.loadError'));
     } finally {
       setLoading(false);
+      setIlkYuklemeBitti(true);
     }
   }, []);
 
@@ -705,6 +739,19 @@ export default function AdminPanel() {
       loadSettings();
     }
   }, [user, isAdmin, loadAll, loadSettings]);
+
+  // Faz 11A: hedef talep — Destek › Kullanıcı talepleri, yazışması açık, kartına kaydırılmış.
+  useEffect(() => {
+    if (hedefTalep === null || tab !== 'tickets' || !ilkYuklemeBitti || loading) return;
+    setDestekBolumu('kullanici');
+    setAcikTalep(hedefTalep);
+    const hedef = hedefTalep;
+    setHedefTalep(null);
+    // Kart çizildikten sonra kaydır (temizlemiyoruz: hedef sıfırlanınca efekt yeniden çalışıyor).
+    window.setTimeout(() => {
+      document.querySelector(`[data-talep-id="${hedef}"]`)?.scrollIntoView({ block: 'start', behavior: 'auto' });
+    }, 80);
+  }, [hedefTalep, tab, ilkYuklemeBitti, loading]);
 
   // Faz 2C: Destek sekmesi açılınca talep listesinin SLA durumları (rozet).
   useEffect(() => {
@@ -1135,27 +1182,59 @@ export default function AdminPanel() {
     { key: 'duyurular', label: t('ui.tabDuyurular'), icon: Megaphone },
   ];
 
+  /** Faz 11A — hızlı işlemler: ilgili sekme + form (proje/fatura modalı, teklif/toplantı formu). */
+  const hizliIslem = (tur: HizliIslem) => {
+    if (tur === 'proje') {
+      setTab('projects');
+      setEditProject({ ...emptyProject });
+    } else if (tur === 'fatura') {
+      setTab('invoices');
+      setEditInvoice({
+        ...emptyInvoice,
+        invoice_no: `INV-${Date.now().toString().slice(-6)}`,
+        issue_date: new Date().toISOString().slice(0, 10),
+      });
+    } else if (tur === 'teklif') {
+      setTab('teklifler');
+      setYeniTeklifIstegi((n) => n + 1);
+    } else {
+      setTab('toplantilar');
+      setYeniToplantiIstegi((n) => n + 1);
+    }
+  };
+
+  /** Faz 11A — panel tam ekran olduğu için çıkış üst çubukta (site menüsündekiyle aynı yol). */
+  const cikisYap = async () => {
+    try {
+      await sunucuOturumunuKapat();
+      await client.auth.logout();
+    } catch {
+      /* oturum zaten düşmüş olabilir */
+    } finally {
+      window.location.href = '/';
+    }
+  };
+
+  const baslik =
+    tab === GENEL_BAKIS ? t('yonetimMenusu.kabuk.genelBakis') : (TABS.find((x) => x.key === tab)?.label ?? t('ui.controlCenter'));
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-pink-400 mb-2">
-            {t('ui.management')}
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold">
-            {t('ui.controlCenter')} <span className="gradient-text">{t('ui.controlCenterHighlight')}</span>
-          </h1>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <Suspense fallback={null}>
-            <UygulamaYukleDugmesi />
-          </Suspense>
-          <div className="text-sm text-muted-foreground">
-            {t('ui.session')}:{' '}
-            <span className="text-foreground">{user.email || user.name}</span>
-          </div>
-        </div>
-      </div>
+    /*
+      Faz 11A — kabuk: sol kenar çubuğu (lib/yonetimMenusu.ts GRUPLAR), üst çubuk, içerik.
+      Faz 5G: sohbetler gelen kutusu sayısında da var — Destek grubunun toplamı onları bir kez sayar.
+    */
+    <YonetimKabugu<Tab>
+      sekmeler={TABS}
+      aktif={tab}
+      onSec={setTab}
+      rozetler={{ mesajlar: okunmamisMesaj, gelenKutusu: gelenSayisi }}
+      grubaKatilmayan={['mesajlar']}
+      baslik={baslik}
+      canli={tab === GENEL_BAKIS}
+      kullanici={{ email: user.email, name: user.name }}
+      onHizli={hizliIslem}
+      onCikis={() => void cikisYap()}
+    >
       <Suspense fallback={null}>
         <CevrimdisiSerit />
       </Suspense>
@@ -1165,15 +1244,25 @@ export default function AdminPanel() {
         <DuyuruSeridi />
       </Suspense>
 
-      {/* Menü: gruplar + seçili grubun bölümleri (lib/yonetimMenusu.ts). */}
-      {/* Faz 5G: sohbetler gelen kutusu sayısında da var — Destek grubunun toplamı onları bir kez sayar. */}
-      <YonetimMenusu<Tab>
-        sekmeler={TABS}
-        aktif={tab}
-        onSec={setTab}
-        rozetler={{ mesajlar: okunmamisMesaj, gelenKutusu: gelenSayisi }}
-        grubaKatilmayan={['mesajlar']}
-      />
+      {tab === GENEL_BAKIS && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <GenelBakis
+            onSekmeGit={(s) => {
+              if (menudeVar(s)) setTab(s as Tab);
+            }}
+            onTalepAc={(id) => {
+              setHedefTalep(id);
+              setTab('tickets');
+            }}
+          />
+        </Suspense>
+      )}
 
       {tab === 'mesajlar' && (
         <Suspense
@@ -1556,13 +1645,13 @@ export default function AdminPanel() {
 
       {tab === 'toplantilar' && (
         <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
-          <Toplantilar />
+          <Toplantilar yeniIstek={yeniToplantiIstegi} />
         </Suspense>
       )}
 
       {(tab === 'teklifler' || tab === 'sozlesmeler') && (
         <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
-          {tab === 'teklifler' ? <TeklifYonetimi /> : <SozlesmeYonetimi />}
+          {tab === 'teklifler' ? <TeklifYonetimi yeniIstek={yeniTeklifIstegi} /> : <SozlesmeYonetimi />}
         </Suspense>
       )}
 
@@ -2344,7 +2433,12 @@ export default function AdminPanel() {
               ) : (
               <div className="grid gap-3">
                 {tickets.map((tk) => (
-                  <div key={tk.id} className="p-5 rounded-xl glass">
+                  <div
+                    key={tk.id}
+                    className="p-5 rounded-xl glass"
+                    data-talep-id={tk.id}
+                    data-acik={acikTalep === Number(tk.id) ? 'evet' : undefined}
+                  >
                     <div className="flex items-start justify-between gap-4 mb-3">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
@@ -3153,6 +3247,6 @@ export default function AdminPanel() {
           </div>
         </div>
       )}
-    </div>
+    </YonetimKabugu>
   );
 }

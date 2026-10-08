@@ -17,6 +17,34 @@
       "otomasyon": "自动化",
       "sistem": "系统",
       "diger": "其他"
+    },
+    "kabuk": {
+      "komutaMerkezi": "指挥中心",
+      "genelBakis": "总览",
+      "gelenKutusu": "收件箱",
+      "hizliIslemler": "快捷操作",
+      "yeniTeklif": "新建报价",
+      "projeAc": "新建项目",
+      "faturaKes": "开具发票",
+      "toplantiPlanla": "安排会议",
+      "daralt": "收起菜单",
+      "genislet": "展开菜单",
+      "canli": "实时",
+      "canliAciklama": "数据每分钟刷新一次",
+      "hizliMenu": "快捷操作",
+      "hesapMenusu": "账户菜单",
+      "yonetici": "管理员",
+      "siteyeDon": "返回网站",
+      "dil": "语言",
+      "cikis": "退出登录",
+      "altMenu": "面板快捷方式",
+      "sekmeGenel": "总览",
+      "sekmeGelen": "收件箱",
+      "sekmeAra": "搜索",
+      "sekmeBildirim": "通知",
+      "sekmeMenu": "菜单",
+      "menuKapat": "关闭菜单",
+      "anaIcerik": "面板内容"
     }
   }
 }

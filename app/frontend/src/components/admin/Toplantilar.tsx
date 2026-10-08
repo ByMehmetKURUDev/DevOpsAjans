@@ -57,7 +57,8 @@ const Bekle = () => (
  * `?talep=<id>` (gelen kutusundaki "Toplantı planla") talepten ön doldurulmuş formu, `?toplanti=<id>` ayrıntıyı açar.
  * Metinler `toplantilar` ek paketinde.
  */
-export default function Toplantilar() {
+/** `yeniIstek`: Faz 11A hızlı işlem ("Toplantı planla") — her artışta yeni toplantı formu (meta gelince çizilir). */
+export default function Toplantilar({ yeniIstek = 0 }: { yeniIstek?: number } = {}) {
   const { t, i18n } = useTranslation();
   const [alt, setAlt] = useState<Alt>('liste');
   const [meta, setMeta] = useState<Meta | null>(null);
@@ -68,6 +69,9 @@ export default function Toplantilar() {
   const [hata, setHata] = useState(false);
   const [secili, setSecili] = useState<number | null>(() => Number(param('toplanti')) || null);
   const [form, setForm] = useState<{ mevcut?: Ayrinti | null; talep?: Talep | null } | null>(null);
+  useEffect(() => {
+    if (yeniIstek) setForm({});
+  }, [yeniIstek]);
 
   useEffect(() => {
     metaGetir()

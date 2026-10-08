@@ -134,7 +134,8 @@ function formdan(t: Teklif): Form {
   };
 }
 
-export default function TeklifYonetimi() {
+/** `yeniIstek`: Faz 11A hızlı işlem ("Yeni teklif") — her artışta boş form açılır. */
+export default function TeklifYonetimi({ yeniIstek = 0 }: { yeniIstek?: number } = {}) {
   const { t, i18n } = useTranslation();
   const dil = i18n.language;
   const [liste, setListe] = useState<Teklif[]>([]);
@@ -149,6 +150,9 @@ export default function TeklifYonetimi() {
   const [baglanti, setBaglanti] = useState<{ teklif: Teklif; adres: string; eposta: boolean } | null>(null);
   const [epostaGonder, setEpostaGonder] = useState(true);
   const [mesgul, setMesgul] = useState<number | null>(null);
+  useEffect(() => {
+    if (yeniIstek) setForm(bosForm());
+  }, [yeniIstek]);
 
   const hata = useCallback(
     (h: unknown) => {

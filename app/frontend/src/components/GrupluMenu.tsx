@@ -54,18 +54,27 @@ function Rozet({ sayi }: { sayi: number }) {
   );
 }
 
-export default function GrupluMenu<K extends string, G extends string>({
+/** `useGrupluMenu` girdisi: menünün verisi (düzen bağımsız). */
+export type GrupluMenuGirdisi<K extends string, G extends string> = Pick<
+  GrupluMenuOzellikleri<K, G>,
+  'sekmeler' | 'aktif' | 'onSec' | 'rozetler' | 'grubaKatilmayan' | 'tanim' | 'paket'
+>;
+
+/**
+ * Gruplu menünün durumu ve davranışı (Faz 11A: düzenden ayrıldı). Aynı mantığı iki düzen
+ * kullanıyor: bu dosyadaki üst çubuk (müşteri paneli) ve yönetici panelinin sol kenar
+ * çubuğu (`components/admin/YonetimKabugu.tsx`). Grup başına son bölüm hafızası, arama
+ * ("/" kısayolu, Enter ilk sonuç, Esc temizler) ve grup rozet toplamı burada.
+ */
+export function useGrupluMenu<K extends string, G extends string>({
   sekmeler,
   aktif,
   onSec,
   rozetler = {},
   grubaKatilmayan = [],
   tanim,
-  ikonlar,
   paket,
-  kimlik,
-  cubukOznitelikleri,
-}: GrupluMenuOzellikleri<K, G>) {
+}: GrupluMenuGirdisi<K, G>) {
   const { t } = useTranslation();
   const [aranan, setAranan] = useState('');
   const aramaRef = useRef<HTMLInputElement>(null);
@@ -74,10 +83,11 @@ export default function GrupluMenu<K extends string, G extends string>({
 
   const gruplar = useMemo(() => grupla(sekmeler, tanim), [sekmeler, tanim]);
   const grupAdi = (g: G | typeof DIGER) => t(`${paket}.grup.${g}`);
-  const aktifGrup = grubunuBul(gruplar, aktif) ?? gruplar[0]?.anahtar;
+  /** Etkin bölümün grubu; bölüm hiçbir grupta değilse (ör. yönetici "Genel bakış") null. */
+  const bulunanGrup = grubunuBul(gruplar, aktif);
   useEffect(() => {
-    if (aktifGrup) sonBolum.current[aktifGrup] = aktif;
-  }, [aktif, aktifGrup]);
+    if (bulunanGrup) sonBolum.current[bulunanGrup] = aktif;
+  }, [aktif, bulunanGrup]);
 
   const arama = aranan.trim();
   const sonuclar = useMemo(
@@ -106,6 +116,12 @@ export default function GrupluMenu<K extends string, G extends string>({
     onSec(k);
   };
 
+  /** Grubun en son açılan (yoksa ilk) bölümüne geçer. */
+  const grubaGit = (g: G | typeof DIGER) => {
+    const grup = gruplar.find((x) => x.anahtar === g);
+    if (grup) sec(sonBolum.current[g] ?? grup.sekmeler[0].key);
+  };
+
   const aramaTusu = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && sonuclar[0]) {
       e.preventDefault();
@@ -118,6 +134,43 @@ export default function GrupluMenu<K extends string, G extends string>({
 
   const grubunRozeti = (anahtar: G | typeof DIGER) =>
     gruplar.find((g) => g.anahtar === anahtar)?.sekmeler.reduce((top, s) => top + (grubaKatilmayan.includes(s.key) ? 0 : rozetler[s.key] || 0), 0) || 0;
+
+  return {
+    t,
+    gruplar,
+    grupAdi,
+    bulunanGrup,
+    aranan,
+    setAranan,
+    arama,
+    sonuclar,
+    sonucAnahtarlari,
+    aramaRef,
+    sec,
+    grubaGit,
+    aramaTusu,
+    grubunRozeti,
+    rozetler,
+  };
+}
+
+export type GrupluMenuDurumu<K extends string, G extends string> = ReturnType<typeof useGrupluMenu<K, G>>;
+
+export default function GrupluMenu<K extends string, G extends string>({
+  sekmeler,
+  aktif,
+  onSec,
+  rozetler = {},
+  grubaKatilmayan = [],
+  tanim,
+  ikonlar,
+  paket,
+  kimlik,
+  cubukOznitelikleri,
+}: GrupluMenuOzellikleri<K, G>) {
+  const { t, gruplar, grupAdi, bulunanGrup, aranan, setAranan, arama, sonuclar, sonucAnahtarlari, aramaRef, sec, grubaGit, aramaTusu, grubunRozeti } =
+    useGrupluMenu<K, G>({ sekmeler, aktif, onSec, rozetler, grubaKatilmayan, tanim, paket });
+  const aktifGrup = bulunanGrup ?? gruplar[0]?.anahtar;
 
   const kokOzniteligi = { [`data-${kimlik}-menusu`]: true };
 
@@ -135,7 +188,7 @@ export default function GrupluMenu<K extends string, G extends string>({
               data-grup={g.anahtar}
               data-grup-sekmeler={g.sekmeler.map((s) => s.key).join(' ')}
               aria-current={secili ? 'true' : undefined}
-              onClick={() => sec(sonBolum.current[g.anahtar] ?? g.sekmeler[0].key)}
+              onClick={() => grubaGit(g.anahtar)}
               className={`relative inline-flex shrink-0 items-center gap-2 whitespace-nowrap px-4 py-3 text-sm font-medium transition-colors ${
                 secili ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
               }`}

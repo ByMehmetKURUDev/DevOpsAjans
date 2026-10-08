@@ -10,8 +10,8 @@ import {
 
 /**
  * Yönetici paneli menüsü: 46 sekme tek satırda kalabalıktı. Sekmeler burada
- * dokuz gruba ayrılıyor; üst satırda gruplar, alt satırda seçili grubun
- * bölümleri görünüyor.
+ * dokuz gruba ayrılıyor. Faz 11A: gruplar sol kenar çubuğunda akordeon
+ * (`components/admin/YonetimKabugu.tsx`); en üstte grupsuz "Genel bakış".
  *
  * Yeni bir sekme eklenip buraya yazılmazsa kaybolmaz: "Diğer" grubunda
  * görünür (bkz. `gruplariKur`). Böylece menü düzeni hiçbir sekmeyi gizlemez.
@@ -108,9 +108,28 @@ export function sonSekmeyiYaz(sekme: string): void {
   yerelYaz(SON_SEKME_ANAHTARI, sekme);
 }
 
+/**
+ * Faz 11A — grupların ÜSTÜNDE duran, hiçbir gruba girmeyen bölümler (kenar çubuğunun en
+ * üstünde). Gruplu menünün sayımına (GRUPLAR, e2e `yonetimBolumSayisi`) girmez; `?sekme=`
+ * ve hatırlanan sekme için yine geçerli ad.
+ */
+export const GENEL_BAKIS = 'genelBakis' as const;
+export const UST_SEKMELER: readonly string[] = [GENEL_BAKIS];
+
 /** Ad menü tanımındaki bir sekme mi (`?sekme=` ve hatırlanan sekme için). */
 export function menudeVar(sekme: string | null | undefined): boolean {
-  return !!sekme && GRUPLAR.some((g) => g.sekmeler.includes(sekme));
+  return !!sekme && (UST_SEKMELER.includes(sekme) || GRUPLAR.some((g) => g.sekmeler.includes(sekme)));
+}
+
+/** Faz 11A — kenar çubuğu daraltma tercihi (yalnız ikonlar); bu tarayıcıya özel kolaylık. */
+const KENAR_DAR_ANAHTARI = 'mk_yonetim_kenar_dar';
+
+export function kenarDarOku(): boolean {
+  return yerelOku(KENAR_DAR_ANAHTARI) === '1';
+}
+
+export function kenarDarYaz(dar: boolean): void {
+  yerelYaz(KENAR_DAR_ANAHTARI, dar ? '1' : '0');
 }
 
 /**

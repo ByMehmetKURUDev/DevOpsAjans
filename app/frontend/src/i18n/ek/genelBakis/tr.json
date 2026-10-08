@@ -1,0 +1,160 @@
+{
+  "genelBakis": {
+    "baslik": "Genel bakış",
+    "bolgeEtiketi": "Komuta ekranı",
+    "yukleniyor": "Özet yükleniyor…",
+    "hata": "Özet alınamadı. Bağlantıyı kontrol edip yeniden deneyin.",
+    "yenidenDene": "Yeniden dene",
+    "veriYok": "Veri yok",
+    "guncellendi": "Son güncelleme {{saat}}",
+    "acil": {
+      "baslik": "ACİL",
+      "siradakiBaslik": "Sıradaki SLA",
+      "yokBaslik": "Acil iş yok",
+      "yokMetin": "Bekleyen SLA hedefi olan açık destek talebi yok.",
+      "destek": "Destek",
+      "kalan": "Kalan süre",
+      "gecen": "Aşım süresi",
+      "simdiYanitla": "Şimdi yanıtla",
+      "siradaki": "Sırada {{sayi}} riskli talep daha",
+      "siradakiYok": "Başka riskli talep yok",
+      "tumu": "Tümü",
+      "hedef": {
+        "ilk_yanit": "İlk yanıt hedefi",
+        "cozum": "Çözüm hedefi"
+      },
+      "oncelik": {
+        "acil": "Acil öncelik",
+        "yuksek": "Yüksek öncelik",
+        "normal": "Normal öncelik",
+        "dusuk": "Düşük öncelik"
+      },
+      "durum": {
+        "asildi": "SLA aşıldı",
+        "yaklasiyor": "SLA yaklaşıyor",
+        "zamaninda": "SLA zamanında"
+      }
+    },
+    "kpi": {
+      "tahsilat": "Bu ay tahsilat",
+      "tahsilatKisa": "Tahsilat",
+      "acikIsler": "Açık işler",
+      "tamamlanan": "Tamamlanan",
+      "sla": "SLA uyumu",
+      "slaKisa": "SLA",
+      "gecenAyaGore": "geçen aya göre",
+      "otuzGunOnceye": "30 gün öncesine göre",
+      "oncekiOtuzGune": "önceki 30 güne göre",
+      "ilkYanitOrt": "ilk yanıt ort. {{dk}} dk (mesai)",
+      "acikDokum": "{{gorev}} görev · {{destek}} destek · {{is}} iş emri",
+      "tamamDokum": "bu ay: {{gorev}} görev · {{destek}} destek · {{is}} iş emri",
+      "seriEtiketi": "Son 14 gün",
+      "puan": "{{deger}} puan"
+    },
+    "hat": {
+      "baslik": "Hizmet hattı",
+      "aciklama": "Talepten faturaya — her aşamada bekleyen işler",
+      "kaydir": "kaydır",
+      "yeniTalep": "Yeni talep",
+      "teklif": "Teklif",
+      "sozlesme": "Sözleşme",
+      "proje": "Proje",
+      "teslim": "Teslim",
+      "fatura": "Fatura",
+      "yeniTalepAlt": "son 24 saat",
+      "teklifAlt": "yanıt bekliyor",
+      "sozlesmeAlt": "imza bekliyor",
+      "projeAlt": "%{{yuzde}} ilerleme",
+      "projeAltYok": "etkin proje",
+      "teslimAlt": "onay bekliyor",
+      "faturaAlt": "{{tutar}} açık",
+      "faturaAltYok": "açık fatura",
+      "donusum": "Ortalama dönüşüm (90 gün)",
+      "talepTeklif": "talep → teklif %{{yuzde}}",
+      "teklifKabul": "teklif → kabul %{{yuzde}}",
+      "tahsilatGun": "fatura → tahsilat {{gun}} gün",
+      "git": "{{ad}}: bölümü aç",
+      "huniyeGit": "Huniye git"
+    },
+    "aktivite": {
+      "baslik": "Aktivite (bugün)",
+      "bugun": "Bugün",
+      "dun": "Dün",
+      "aciklama": "Saat başına kayıt olayı (denetim kaydı)",
+      "ozet": "Bugün {{bugun}} olay, dün {{dun}} olay"
+    },
+    "kategori": {
+      "baslik": "İşler · kategori",
+      "toplamIs": "toplam iş",
+      "buAyYeni": "Bu ay yeni",
+      "ortSure": "Ort. süre",
+      "gun": "{{sayi}} gün",
+      "enHizli": "En hızlı büyüyen",
+      "aciklama": "Etkin ve bu ay açılan müşteri projeleri"
+    },
+    "saha": {
+      "baslik": "Saha ekibi · bugün",
+      "aktif": "{{sayi}} aktif",
+      "isler": "{{sayi}} iş emri",
+      "panoyaGit": "Saha servisine git",
+      "teknisyenYok": "Atanmış teknisyen yok"
+    },
+    "son": {
+      "baslik": "Son işler",
+      "tumu": "Tümünü gör",
+      "kod": "Kod",
+      "musteri": "Müşteri",
+      "hizmet": "Hizmet",
+      "durum": "Durum",
+      "sorumlu": "Sorumlu",
+      "tutar": "Tutar",
+      "tur": {
+        "proje": "Proje",
+        "destek": "Destek",
+        "is_emri": "İş emri",
+        "teklif": "Teklif"
+      }
+    },
+    "durum": {
+      "proje": {
+        "planning": "Planlama",
+        "in_progress": "Sürüyor",
+        "completed": "Tamamlandı"
+      },
+      "destek": {
+        "open": "Açık",
+        "answered": "Yanıtlandı",
+        "closed": "Kapalı",
+        "acil": "Acil"
+      },
+      "is_emri": {
+        "yeni": "Yeni",
+        "planlandi": "Planlandı",
+        "yolda": "Yolda",
+        "iste": "Sahada",
+        "tamamlandi": "Tamamlandı",
+        "iptal": "İptal",
+        "ertelendi": "Ertelendi"
+      },
+      "teklif": {
+        "taslak": "Taslak",
+        "gonderildi": "Gönderildi",
+        "goruntulendi": "Görüntülendi",
+        "kabul": "Kabul",
+        "ret": "Ret",
+        "suresi_doldu": "Süresi doldu",
+        "revize": "Revize"
+      }
+    },
+    "bildirim": {
+      "baslik": "Bildirimler",
+      "tumu": "Tümü",
+      "yok": "Bildirim yok",
+      "simdi": "şimdi",
+      "dk": "{{sayi}} dk",
+      "sa": "{{sayi}} sa",
+      "gun": "{{sayi}} g",
+      "okunmamis": "okunmamış"
+    }
+  }
+}

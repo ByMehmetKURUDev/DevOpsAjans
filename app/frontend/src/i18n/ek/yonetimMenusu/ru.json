@@ -17,6 +17,34 @@
       "otomasyon": "Автоматизация",
       "sistem": "Система",
       "diger": "Другое"
+    },
+    "kabuk": {
+      "komutaMerkezi": "Командный центр",
+      "genelBakis": "Обзор",
+      "gelenKutusu": "Входящие",
+      "hizliIslemler": "Быстрые действия",
+      "yeniTeklif": "Новое предложение",
+      "projeAc": "Открыть проект",
+      "faturaKes": "Выставить счёт",
+      "toplantiPlanla": "Назначить встречу",
+      "daralt": "Свернуть меню",
+      "genislet": "Развернуть меню",
+      "canli": "Онлайн",
+      "canliAciklama": "Данные обновляются каждую минуту",
+      "hizliMenu": "Быстрое действие",
+      "hesapMenusu": "Меню аккаунта",
+      "yonetici": "Администратор",
+      "siteyeDon": "Вернуться на сайт",
+      "dil": "Язык",
+      "cikis": "Выйти",
+      "altMenu": "Ярлыки панели",
+      "sekmeGenel": "Обзор",
+      "sekmeGelen": "Входящие",
+      "sekmeAra": "Поиск",
+      "sekmeBildirim": "Уведомл.",
+      "sekmeMenu": "Меню",
+      "menuKapat": "Закрыть меню",
+      "anaIcerik": "Содержимое панели"
     }
   }
 }
