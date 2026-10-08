@@ -1582,6 +1582,12 @@
   },
   "genel": {
     "kapat": "Close",
-    "cokHizli": "Too many attempts. Please try again in a few minutes."
+    "cokHizli": "Too many attempts. Please try again in a few minutes.",
+    "yukleniyor": "Loading…",
+    "vazgec": "Cancel",
+    "iptal": "Cancel",
+    "kaydet": "Save",
+    "sil": "Delete",
+    "duzenle": "Edit"
   }
 }

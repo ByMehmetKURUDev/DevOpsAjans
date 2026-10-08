@@ -1582,6 +1582,12 @@
   },
   "genel": {
     "kapat": "关闭",
-    "cokHizli": "尝试次数过多，请几分钟后再试。"
+    "cokHizli": "尝试次数过多，请几分钟后再试。",
+    "yukleniyor": "加载中…",
+    "vazgec": "取消",
+    "iptal": "取消",
+    "kaydet": "保存",
+    "sil": "删除",
+    "duzenle": "编辑"
   }
 }

@@ -821,6 +821,50 @@ PDF_ETIKET: Dict[str, Dict[str, str]] = {
         "not": "Dieses Dokument dient nur zur Information und ersetzt keine amtlichen Aufzeichnungen oder Erklärungen.",
         "bos": "Keine Buchungen in diesem Zeitraum.",
     },
+    "ru": {
+        "ekstre": "ВЫПИСКА ПО СЧЁТУ КОНТРАГЕНТА", "hareketler": "СПИСОК ОПЕРАЦИЙ", "cari": "Контрагент", "donem": "Период",
+        "tarih": "Дата", "aciklama": "Описание", "belge": "№ документа", "vade": "Срок", "borc": "Дебет", "alacak": "Кредит",
+        "bakiye": "Сальдо", "devreden": "Входящее сальдо", "kapanis": "Исходящее сальдо", "toplam": "Итого",
+        "tur": "Тип", "kategori": "Категория", "hesap": "Счёт", "tutar": "Сумма", "kdv": "НДС",
+        "borclu": "(долг контрагента)", "alacakli": "(наш долг)", "vergi": "Налоговая инспекция / ИНН",
+        "olusturma": "Создано", "gelir": "Доход", "gider": "Расход", "tahsilat": "Поступление", "odeme": "Платёж",
+        "virman": "Перевод", "ters": "Сторно",
+        "not": "Документ носит информационный характер и не заменяет официальный учёт и отчётность.",
+        "bos": "За этот период операций нет.",
+    },
+    "ar": {
+        "ekstre": "كشف حساب جارٍ", "hareketler": "قائمة الحركات", "cari": "الطرف", "donem": "الفترة",
+        "tarih": "التاريخ", "aciklama": "الوصف", "belge": "رقم المستند", "vade": "الاستحقاق", "borc": "مدين", "alacak": "دائن",
+        "bakiye": "الرصيد", "devreden": "الرصيد الافتتاحي", "kapanis": "الرصيد الختامي", "toplam": "الإجمالي",
+        "tur": "النوع", "kategori": "الفئة", "hesap": "الحساب", "tutar": "المبلغ", "kdv": "ضريبة القيمة المضافة",
+        "borclu": "(مستحق على الطرف)", "alacakli": "(مستحق علينا)", "vergi": "مكتب الضرائب / الرقم",
+        "olusturma": "تاريخ الإنشاء", "gelir": "إيراد", "gider": "مصروف", "tahsilat": "تحصيل", "odeme": "دفعة",
+        "virman": "تحويل", "ters": "قيد عكسي",
+        "not": "هذا المستند للعلم فقط ولا يحل محل السجلات أو الإقرارات الرسمية.",
+        "bos": "لا توجد حركات في هذه الفترة.",
+    },
+    "zh": {
+        "ekstre": "往来账户对账单", "hareketler": "流水明细", "cari": "往来方", "donem": "期间",
+        "tarih": "日期", "aciklama": "说明", "belge": "单据号", "vade": "到期", "borc": "借方", "alacak": "贷方",
+        "bakiye": "余额", "devreden": "期初余额", "kapanis": "期末余额", "toplam": "合计",
+        "tur": "类型", "kategori": "类别", "hesap": "账户", "tutar": "金额", "kdv": "增值税",
+        "borclu": "（对方欠款）", "alacakli": "（我方欠款）", "vergi": "税务局 / 税号",
+        "olusturma": "生成日期", "gelir": "收入", "gider": "支出", "tahsilat": "收款", "odeme": "付款",
+        "virman": "转账", "ters": "冲销",
+        "not": "本文件仅供参考，不能替代正式账簿和申报。",
+        "bos": "本期间无流水。",
+    },
+    "hi": {
+        "ekstre": "खाता विवरण", "hareketler": "लेन-देन सूची", "cari": "पक्ष", "donem": "अवधि",
+        "tarih": "तारीख", "aciklama": "विवरण", "belge": "दस्तावेज़ सं.", "vade": "देय तिथि", "borc": "नामे", "alacak": "जमा",
+        "bakiye": "शेष", "devreden": "प्रारंभिक शेष", "kapanis": "अंतिम शेष", "toplam": "कुल",
+        "tur": "प्रकार", "kategori": "श्रेणी", "hesap": "खाता", "tutar": "राशि", "kdv": "कर (VAT)",
+        "borclu": "(पक्ष पर बकाया)", "alacakli": "(हम पर बकाया)", "vergi": "कर कार्यालय / संख्या",
+        "olusturma": "बनाया गया", "gelir": "आय", "gider": "व्यय", "tahsilat": "प्राप्ति", "odeme": "भुगतान",
+        "virman": "स्थानांतरण", "ters": "उलट प्रविष्टि",
+        "not": "यह दस्तावेज़ केवल जानकारी के लिए है; यह आधिकारिक रिकॉर्ड या रिटर्न का स्थान नहीं लेता।",
+        "bos": "इस अवधि में कोई लेन-देन नहीं।",
+    },
 }
 
 
@@ -843,7 +887,9 @@ def ekstre_pdf(v: Dict[str, Any], dil: str = "tr") -> bytes:
     """`v`: {"firma", "cari": {...}, "bas", "bit", "para_birimi", "devreden", "satirlar": [...], "toplam_borc",
     "toplam_alacak", "kapanis"} (tutarlar kuruş, tarihler date)."""
     from reportlab.lib.units import mm
-    from reportlab.platypus import KeepTogether, Paragraph, Spacer, Table, TableStyle
+    from reportlab.platypus import KeepTogether, Spacer, Table, TableStyle
+
+    from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf (Faz 7K yazı tipi yedeği)
     from services import pdf_belge as pb
 
     dil = pdf_dili(dil)
@@ -884,7 +930,7 @@ def ekstre_pdf(v: Dict[str, Any], dil: str = "tr") -> bytes:
     if not v.get("satirlar"):
         veri.append([Paragraph("", st["govde"]), Paragraph(m(e["bos"]), st["kucuk"]), Paragraph("", st["govde"]),
                      Paragraph("", st["sag"]), Paragraph("", st["sag"]), Paragraph("", st["sag"])])
-    t = Table(veri, colWidths=[20 * mm, 66 * mm, 20 * mm, 25 * mm, 25 * mm, 24 * mm], repeatRows=1)
+    t = Table(veri, colWidths=[23 * mm, 63 * mm, 23 * mm, 24 * mm, 24 * mm, 23 * mm], repeatRows=1)
     t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), pb.VURGU_ACIK), ("LINEBELOW", (0, 0), (-1, 0), 0.8, pb.VURGU),
                            ("LINEBELOW", (0, 1), (-1, -1), 0.3, pb.CIZGI), ("VALIGN", (0, 0), (-1, -1), "TOP")]))
     parcalar += [t, Spacer(1, 3 * mm)]
@@ -901,7 +947,9 @@ def hareketler_pdf(v: Dict[str, Any], dil: str = "tr") -> bytes:
     """`v`: {"firma", "bas", "bit", "satirlar": [{tarih, tur, aciklama, kategori, hesap, tutar, kdv, para_birimi}],
     "toplamlar": [{para_birimi, gelir, gider, net}]}."""
     from reportlab.lib.units import mm
-    from reportlab.platypus import KeepTogether, Paragraph, Spacer, Table, TableStyle
+    from reportlab.platypus import KeepTogether, Spacer, Table, TableStyle
+
+    from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf (Faz 7K yazı tipi yedeği)
     from services import pdf_belge as pb
 
     dil = pdf_dili(dil)
@@ -927,7 +975,7 @@ def hareketler_pdf(v: Dict[str, Any], dil: str = "tr") -> bytes:
     if not v.get("satirlar"):
         veri.append([Paragraph("", st["govde"]), Paragraph("", st["govde"]), Paragraph(m(e["bos"]), st["kucuk"]),
                      Paragraph("", st["govde"]), Paragraph("", st["sag"]), Paragraph("", st["sag"])])
-    t = Table(veri, colWidths=[20 * mm, 24 * mm, 62 * mm, 34 * mm, 18 * mm, 22 * mm], repeatRows=1)
+    t = Table(veri, colWidths=[23 * mm, 24 * mm, 59 * mm, 34 * mm, 18 * mm, 22 * mm], repeatRows=1)
     t.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), pb.VURGU_ACIK), ("LINEBELOW", (0, 0), (-1, 0), 0.8, pb.VURGU),
                            ("LINEBELOW", (0, 1), (-1, -1), 0.3, pb.CIZGI), ("VALIGN", (0, 0), (-1, -1), "TOP")]))
     parcalar += [t, Spacer(1, 3 * mm)]

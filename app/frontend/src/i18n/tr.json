@@ -1582,6 +1582,12 @@
   },
   "genel": {
     "kapat": "Kapat",
-    "cokHizli": "Çok fazla deneme yapıldı. Lütfen birkaç dakika sonra tekrar deneyin."
+    "cokHizli": "Çok fazla deneme yapıldı. Lütfen birkaç dakika sonra tekrar deneyin.",
+    "yukleniyor": "Yükleniyor…",
+    "vazgec": "Vazgeç",
+    "iptal": "İptal",
+    "kaydet": "Kaydet",
+    "sil": "Sil",
+    "duzenle": "Düzenle"
   }
 }

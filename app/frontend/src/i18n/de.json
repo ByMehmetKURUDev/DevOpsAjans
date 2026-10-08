@@ -1582,6 +1582,12 @@
   },
   "genel": {
     "kapat": "Schließen",
-    "cokHizli": "Zu viele Versuche. Bitte versuchen Sie es in ein paar Minuten erneut."
+    "cokHizli": "Zu viele Versuche. Bitte versuchen Sie es in ein paar Minuten erneut.",
+    "yukleniyor": "Wird geladen…",
+    "vazgec": "Abbrechen",
+    "iptal": "Abbrechen",
+    "kaydet": "Speichern",
+    "sil": "Löschen",
+    "duzenle": "Bearbeiten"
   }
 }
