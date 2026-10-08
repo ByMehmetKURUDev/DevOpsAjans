@@ -114,7 +114,11 @@
       "muhasebe_ekleri": "Muhasebe belge eki",
       "muhasebe_tekrarlar": "Tekrarlayan muhasebe kaydı",
       "muhasebe_cariler": "Cari hesap",
-      "muhasebe_hesaplari": "Kasa/banka hesabı"
+      "muhasebe_hesaplari": "Kasa/banka hesabı",
+      "okr_donemler": "OKR dönemi",
+      "okr_hedefler": "OKR hedefi",
+      "okr_anahtar_sonuclar": "Anahtar sonuç (OKR)",
+      "okr_checkinler": "OKR check-in kaydı"
     }
   }
 }

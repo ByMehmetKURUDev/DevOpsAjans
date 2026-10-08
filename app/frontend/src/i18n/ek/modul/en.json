@@ -216,6 +216,10 @@
       "marka_temasi": {
         "ad": "Brand theme",
         "aciklama": "Your own logo, colours and typeface on your customer pages: business card, QR menu, booking, events, courses and more — one setting."
+      },
+      "hedefler": {
+        "ad": "Goals and OKRs",
+        "aciklama": "Period objectives (quarter, year, custom), measurable key results (number, percentage, money, yes/no, milestones), check-ins and value history, comparison with expected progress, an alignment tree, period close and carry-over; automatic KRs from bookkeeping, POS, appointment and course data, AI key result suggestions, weekly check-in reminders, a focus timer and PDF/CSV reports."
       }
     },
     "kategori": {
@@ -285,7 +289,8 @@
       "personel_siniri": "Maximum active staff",
       "dosya_siniri": "Maximum open matters (open + on hold)",
       "rozet_gizle": "Hide the “Made with mehmetkuru.dev” badge on pages",
-      "hesap_siniri": "Maximum cash/bank/card accounts"
+      "hesap_siniri": "Maximum cash/bank/card accounts",
+      "hedef_siniri": "Maximum objectives per period"
     },
     "musteri": {
       "baslik": "My modules",

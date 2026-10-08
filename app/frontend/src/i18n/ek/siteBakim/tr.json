@@ -200,7 +200,8 @@
         "hukuk_bakimi": "Hukuk bakımı",
         "muhasebe_bakimi": "Ön muhasebe bakımı",
         "ortaklik_bakimi": "Ortaklık bakımı",
-        "toplanti_hatirlatmalari": "Toplantı hatırlatmaları"
+        "toplanti_hatirlatmalari": "Toplantı hatırlatmaları",
+        "okr_bakimi": "OKR bakımı"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir",
@@ -245,7 +246,8 @@
         "hukuk_bakimi": "Hukuk bakımı (duruşma ve süre hatırlatmaları: 7/3/1 gün önce ve aynı gün sabah, her biri bir kez; 30 günü dolan silinen müvekkil ve dosyaların kalıcı silinmesi)",
         "muhasebe_bakimi": "Ön muhasebe bakımı (vadesi gelen tekrarlayan kayıtlar, otomatik aktarımlar ve onay bekleyen öneriler, bütçe aşımı ve geciken alacak olayları)",
         "ortaklik_bakimi": "Ortaklık bakımı (iade süresi dolan komisyonların onaylanması; 6 saatte bir, ortak paneli açılınca da)",
-        "toplanti_hatirlatmalari": "Toplantı hatırlatmaları (davet edilmiş katılımcılara 24 saat ve 1 saat önce, her biri bir kez; her turda ve Toplantılar sekmesi açılınca)"
+        "toplanti_hatirlatmalari": "Toplantı hatırlatmaları (davet edilmiş katılımcılara 24 saat ve 1 saat önce, her biri bir kez; her turda ve Toplantılar sekmesi açılınca)",
+        "okr_bakimi": "OKR bakımı (açık dönemlerin otomatik anahtar sonuçlarını saatte bir yeniler; 7 gündür check-in almamış anahtar sonuçların sahibine haftalık hatırlatma, her KR için 7 günde en çok bir kez)"
       }
     },
     "musteri": {

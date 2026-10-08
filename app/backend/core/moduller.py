@@ -709,6 +709,26 @@ MODULLER: Tuple[Modul, ...] = (
         varsayilan_acik=False,
         ayarlar=(AyarAlani("hesap_siniri", "int", 10, en_az=0, en_cok=500),),
     ),
+    # Faz 6O — hedefler ve OKR (her sektörden KOBİ, ekip ve ajansın kendisi): dönem (çeyrek / yıl / özel), hedef
+    # (sahibi, üst hedefle hizalama ağacı — döngü yasak, görünürlük ekip / yalnız ben, taslak / etkin / kapandı), anahtar
+    # sonuç (sayı, yüzde, para — kuruş + para birimi, evet/hayır, kilometre taşı; başlangıç, hedef, mevcut, artır/azalt,
+    # ağırlık), check-in (değer + güven + not; geçmiş ve küçük grafik), beklenen ilerlemeyle kıyas, dönem kapanışı (0–1
+    # puan, not, açık KR'leri sonraki döneme taşıma), otomatik KR kaynakları (yalnız hesabın KENDİ verisi ve AÇIK
+    # modüllerden: ön muhasebe gelir/gider/kâr, POS satış, randevu, eğitim kaydı), "AI ile KR öner" (kaydedilmez),
+    # haftalık check-in hatırlatması, odak sayacı, PDF/CSV rapor. Ajansın paylaştığı hedef kartı bu modül KAPALI olsa da
+    # müşteri panelinde görünür (portal parçası). Varsayılan KAPALI, pakete bağlı değil (ayrı satılan modül; önerilen
+    # aylık 9 $). Ekip izinleri `hedefler` (yönetim) ve `hedefler_okur` (yalnız okuma). `hedef_siniri`: dönem başına hedef.
+    Modul(
+        anahtar="hedefler",
+        ad_varsayilan={"tr": "Hedefler ve OKR", "en": "Goals and OKRs"},
+        ikon="Target",
+        kategori="is_araclari",
+        musteri_sekmesi="hedefler",
+        yonetici_sekmesi="hedefler",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("hedef_siniri", "int", 30, en_az=0, en_cok=1000),),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

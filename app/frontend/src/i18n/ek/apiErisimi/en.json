@@ -82,7 +82,9 @@
       "ortaklik_odeme_talebi": "Affiliate requested a commission payout",
       "toplanti_planlandi": "Meeting scheduled",
       "toplanti_yapildi": "Meeting marked as held",
-      "toplanti_iptal": "Meeting cancelled"
+      "toplanti_iptal": "Meeting cancelled",
+      "okr_kr_riskte": "OKR: a key result's confidence changed to “off track”",
+      "okr_hedef_tamamlandi": "OKR: an objective's progress reached 100%"
     },
     "anahtar": {
       "yeni": "New key",

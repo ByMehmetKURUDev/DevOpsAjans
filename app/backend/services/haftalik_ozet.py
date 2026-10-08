@@ -24,7 +24,7 @@ kritik stok seviyesindeki ürünler (Faz 6P), ajansın kendi personelinin bekley
 kutusu bölümünde sayılmaz), ajansın kendi ön muhasebesinde bu ay aşılan bütçeler ve vadesi geçen cari alacaklar (Faz 6M),
 bekleyen ortaklık başvuruları ve komisyon ödeme talepleri (Faz 5K; başvurular gelen kutusu bölümünde sayılmaz),
 son 30 günde yapılmış ama notu / kararı yazılmamış toplantılar (Faz 6T; müşterinin toplantı talepleri gelen kutusu
-bölümünde "yanıt bekleyen" olarak sayılır).
+bölümünde "yanıt bekleyen" olarak sayılır), ajansın kendi OKR'larında 7+ gündür check-in almamış anahtar sonuçlar (Faz 6O).
 
 Dil: diğer yönetici bildirimleri gibi Türkçe; başlık/gövde panelden `notify_tpl_haftalik_ozet_*`
 ile değiştirilebilir (`render`). Önizleme (`ozet_hazirla`) yapılandırılmış veri döner; panel kendi
@@ -454,8 +454,18 @@ async def _toplantilar(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     return _bolum("toplantilar", "toplantilar", len(satirlar), satirlar)
 
 
+async def _okr(db: AsyncSession, an: datetime) -> Dict[str, Any]:
+    """Faz 6O — ajansın KENDİ OKR'ları: 7+ gündür check-in almamış etkin elle KR'ler (müşterilerinki kendi
+    panellerinde). En uzun güncellenmeyen önce; satırda KR + hedef."""
+    from services.okr_kayit import haftalik_ozet_satirlari
+
+    satirlar = await haftalik_ozet_satirlari(db, an)
+    ornekler = [_satir(x["kr"], ayrinti=x["hedef"], tur="kr_guncellenmedi", gun=x["gun"]) for x in satirlar]
+    return _bolum("okr", "hedefler", len(ornekler), ornekler)
+
+
 BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler, _stok_kritik,
-            _ik_izin, _muhasebe, _ortaklik, _toplantilar)
+            _ik_izin, _muhasebe, _ortaklik, _toplantilar, _okr)
 
 
 async def ozet_hazirla(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
@@ -497,6 +507,7 @@ BASLIKLAR = {
     "muhasebe": "Ön muhasebe: bütçe aşımı ve vadesi geçen cari alacaklar",
     "ortaklik": "Ortaklık: bekleyen başvurular ve ödeme talepleri",
     "toplantilar": "Notu yazılmamış geçmiş toplantılar",
+    "okr": "Güncellenmemiş anahtar sonuçlar (OKR, 7+ gün)",
 }
 YENILEME_ADLARI = {"alan": "Alan adı", "ssl": "SSL", "hosting": "Hosting"}
 
@@ -550,6 +561,7 @@ def _satir_metni(s: Dict[str, Any]) -> str:
         "basvuru_bekliyor": f"başvuru {gun} gündür bekliyor" if gun else "başvuru bugün geldi",
         "odeme_bekliyor": f"ödeme talebi {gun} gündür bekliyor" if gun else "ödeme talebi bugün geldi",
         "not_yok": f"{gun} gün önce yapıldı, not yok" if gun else "bugün yapıldı, not yok",
+        "kr_guncellenmedi": f"{gun} gündür check-in yok",
     }.get(tur or "")
     if tur in YENILEME_ADLARI:
         durum = f"{YENILEME_ADLARI[tur]}: " + (f"{gun} gün kaldı" if (gun or 0) >= 0 else f"süresi {-(gun or 0)} gün önce doldu")

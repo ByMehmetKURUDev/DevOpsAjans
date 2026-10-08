@@ -1,0 +1,17 @@
+{
+  "hedefKarti": {
+    "baslik": "أهداف مشتركة مع وكالتك",
+    "aciklama": "الأهداف التي شاركتها وكالتك معك وتقدّم نتائجها الرئيسية.",
+    "ceyrek": "{{yil}} الربع {{ceyrek}}",
+    "kapandi": "مغلقة",
+    "kilometre": "{{tamam}}/{{toplam}}",
+    "tamamlandi": "مكتمل",
+    "bekliyor": "قيد الانتظار",
+    "durum": {
+      "tamam": "مكتمل",
+      "yolunda": "على المسار",
+      "riskli": "متأخر قليلًا",
+      "geride": "متأخر"
+    }
+  }
+}

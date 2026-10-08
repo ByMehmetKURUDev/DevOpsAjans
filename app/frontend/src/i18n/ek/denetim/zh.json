@@ -142,7 +142,10 @@
       "muhasebe_cariler": "往来账户",
       "muhasebe_hareketleri": "记账记录",
       "muhasebe_tekrarlar": "周期性记录",
-      "muhasebe_butceler": "预算"
+      "muhasebe_butceler": "预算",
+      "okr_donemler": "OKR 周期",
+      "okr_hedefler": "OKR 目标",
+      "okr_anahtar_sonuclar": "关键结果（OKR）"
     },
     "hareket": {
       "baslik": "账户动态",

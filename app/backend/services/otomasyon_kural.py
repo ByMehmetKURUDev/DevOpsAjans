@@ -170,6 +170,12 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("ad"), Alan("eposta"), Alan("telefon"), Alan("no"), Alan("vade_tarihi", "tarih"),
         Alan("gecikme_gun", "sayi"), Alan("tutar", "sayi"), Alan("para_birimi"),
     ),
+    # Faz 6O — OKR: hedef (kimlik, başlık, dönem, sahibi, ilerleme %) ve olayın KR'si (başlık, ilerleme %, güven; hedef
+    # tamamlandığında KR alanları boş). "Olaydaki kişi" KR'nin (yoksa hedefin) sahibi.
+    "okr": (
+        Alan("hedef_id", "sayi"), Alan("hedef"), Alan("donem"), Alan("sahip"), Alan("hedef_ilerleme", "sayi"),
+        Alan("kr"), Alan("ilerleme", "sayi"), Alan("guven"),
+    ),
     # Faz 5K — ortaklık programı (yalnız ajans): ortak, komisyon defteri kaydı, ödeme talebi. IBAN YOK.
     "ortak": (
         Alan("id", "sayi"), Alan("ad"), Alan("email"), Alan("kod"), Alan("durum"), Alan("oran", "sayi"), Alan("web"),
@@ -250,6 +256,9 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("muhasebe.butce_asildi", ("butce", "hesap")),
     # Faz 6M — vadesi geçen cari alacak (1 / 30 / 60 / 90. gün; kalem × eşik başına bir kez). "Olaydaki kişi" cari.
     OtoOlay("muhasebe.alacak_gecikti", ("alacak", "hesap")),
+    # Faz 6O — OKR: KR'nin güveni "tehlikede"ye geçti; hedefin ilerlemesi %100'e ulaştı (ikisi de geçişte bir kez).
+    OtoOlay("okr.kr_riskte", ("okr", "hesap")),
+    OtoOlay("okr.hedef_tamamlandi", ("okr", "hesap")),
     # Faz 7O — zamanlı üretilen hatırlatma olayları (yalnız ajans; webhook kataloğunda yok: durum
     # değişikliği değil, "şu kadar gündür bir şey olmadı" türevi). Eşik başına bir kez.
     OtoOlay("teklif.yanitsiz", ("teklif", "hesap"), musteri=False, yalniz_otomasyon=True),
@@ -381,6 +390,8 @@ ORNEK: Dict[str, Dict[str, Any]] = {
               "yuzde": 115, "para_birimi": "TRY"},
     "alacak": {"id": 12, "ad": "Ada Kafe Ltd.", "eposta": "muhasebe@adakafe.com", "telefon": "+90 555 000 00 00", "no": "F-2026-014",
                "vade_tarihi": "2026-09-05", "gecikme_gun": 30, "tutar": 12500.0, "para_birimi": "TRY"},
+    "okr": {"hedef_id": 7, "hedef": "Yeni müşteri kazanımını artır", "donem": "2026 Ç4", "sahip": "satis@ornek.com",
+            "hedef_ilerleme": 45.0, "kr": "Ayda 10 yeni teklif gönder", "ilerleme": 20.0, "guven": "tehlikede"},
     "ortak": {"id": 5, "ad": "Can Yıldız", "email": "can@ornek.com", "kod": "CANYILDIZ2048", "durum": "onaylandi",
               "oran": 10, "web": "https://ornek.com"},
     "komisyon": {"id": 17, "tur": "komisyon", "tutar": 1500, "para_birimi": "TRY", "durum": "beklemede",
@@ -462,6 +473,8 @@ def kisi_sec(tur: str, baglam: Dict[str, Any]) -> Dict[str, Any]:
         return {"ad": baglam["mesaj"].get("ad"), "email": baglam["mesaj"].get("eposta")}
     if on == "menu" and baglam.get("siparis"):
         return {"ad": baglam["siparis"].get("musteri_ad"), "email": None}
+    if on == "okr" and baglam.get("okr") and baglam["okr"].get("sahip"):
+        return {"ad": None, "email": baglam["okr"].get("sahip")}
     if tur == "muhasebe.alacak_gecikti" and baglam.get("alacak"):
         return {"ad": baglam["alacak"].get("ad"), "email": baglam["alacak"].get("eposta")}
     if on == "teklif" and baglam.get("teklif") and baglam["teklif"].get("aday_eposta"):

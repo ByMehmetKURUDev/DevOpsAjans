@@ -82,7 +82,9 @@
       "ortaklik_odeme_talebi": "طلب الشريك صرف العمولة",
       "toplanti_planlandi": "تمت جدولة اجتماع",
       "toplanti_yapildi": "تم وضع علامة «عُقد» على الاجتماع",
-      "toplanti_iptal": "أُلغي الاجتماع"
+      "toplanti_iptal": "أُلغي الاجتماع",
+      "okr_kr_riskte": "OKR: تغيّرت ثقة نتيجة رئيسية إلى «متأخر»",
+      "okr_hedef_tamamlandi": "OKR: بلغ تقدّم الهدف 100%"
     },
     "anahtar": {
       "yeni": "مفتاح جديد",

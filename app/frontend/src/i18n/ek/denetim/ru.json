@@ -142,7 +142,10 @@
       "muhasebe_cariler": "Счета контрагентов",
       "muhasebe_hareketleri": "Бухгалтерские операции",
       "muhasebe_tekrarlar": "Регулярные записи",
-      "muhasebe_butceler": "Бюджеты"
+      "muhasebe_butceler": "Бюджеты",
+      "okr_donemler": "Периоды OKR",
+      "okr_hedefler": "Цели OKR",
+      "okr_anahtar_sonuclar": "Ключевые результаты (OKR)"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

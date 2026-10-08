@@ -297,7 +297,7 @@ def test_modul_kaydi_ve_eski_yonetici_varsayilani():
     assert all("on_muhasebe" not in p.moduller for p in sektor_paketleri.SEKTOR_PAKETLERI)
     # Canlıdaki (muhasebe / muhasebe_okur'suz; ik ve hukuk VAR) yönetici varsayılanı olduğu gibi kayıtlı üye yeni
     # izinleri de alır; üye ve fatura rolünün varsayılanında ikisi de yok.
-    eski = sorted(set(he.IZINLER) - {"muhasebe", "muhasebe_okur"})
+    eski = sorted(set(he.IZINLER) - {"muhasebe", "muhasebe_okur", "hedefler", "hedefler_okur"})  # Faz 6O: hedefler(_okur) da yoktu
     coz = he.izinleri_coz(_json.dumps(eski), "yonetici")
     assert "muhasebe" in coz and "muhasebe_okur" in coz
     for rol in ("uye", "fatura"):

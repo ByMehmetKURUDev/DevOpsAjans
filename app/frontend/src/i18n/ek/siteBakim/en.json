@@ -200,7 +200,8 @@
         "hukuk_bakimi": "Law office maintenance",
         "muhasebe_bakimi": "Bookkeeping maintenance",
         "ortaklik_bakimi": "Affiliate maintenance",
-        "toplanti_hatirlatmalari": "Meeting reminders"
+        "toplanti_hatirlatmalari": "Meeting reminders",
+        "okr_bakimi": "OKR maintenance"
       },
       "gunluk": "daily",
       "haftalik": "weekly",
@@ -245,7 +246,8 @@
         "hukuk_bakimi": "Law office maintenance (hearing and deadline reminders: 7/3/1 days before and on the morning of the day, each sent once; permanent removal of clients and matters deleted more than 30 days ago)",
         "muhasebe_bakimi": "Bookkeeping maintenance (due recurring entries, automatic imports and suggestions awaiting approval, budget overrun and overdue receivable events)",
         "ortaklik_bakimi": "Affiliate maintenance (approves commissions whose refund window has ended; every 6 hours and whenever a partner dashboard opens)",
-        "toplanti_hatirlatmalari": "Meeting reminders (to invited attendees 24 hours and 1 hour before, each only once; every run and whenever the Meetings tab opens)"
+        "toplanti_hatirlatmalari": "Meeting reminders (to invited attendees 24 hours and 1 hour before, each only once; every run and whenever the Meetings tab opens)",
+        "okr_bakimi": "OKR maintenance (refreshes automatic key results of open periods hourly; weekly reminder to owners of key results without a check-in for 7 days, at most once per KR every 7 days)"
       }
     },
     "musteri": {

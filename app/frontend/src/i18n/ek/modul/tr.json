@@ -216,6 +216,10 @@
       "marka_temasi": {
         "ad": "Marka teması",
         "aciklama": "Müşteri sayfalarınızda kendi logonuz, renkleriniz ve yazı tipiniz: kartvizit, QR menü, randevu, etkinlik, eğitim ve daha fazlası tek ayarla."
+      },
+      "hedefler": {
+        "ad": "Hedefler ve OKR",
+        "aciklama": "Dönem (çeyrek, yıl, özel) hedefleri, ölçülebilir anahtar sonuçlar (sayı, yüzde, para, evet/hayır, kilometre taşı), check-in ve değer geçmişi, beklenen ilerlemeyle kıyas, hizalama ağacı, dönem kapanışı ve taşıma; ön muhasebe, POS, randevu ve eğitim verisinden otomatik KR, AI ile KR önerisi, haftalık check-in hatırlatması, odak sayacı ve PDF/CSV rapor."
       }
     },
     "kategori": {
@@ -285,7 +289,8 @@
       "personel_siniri": "En çok aktif personel",
       "dosya_siniri": "En çok açık dosya (açık + beklemede)",
       "rozet_gizle": "Sayfalardaki \"mehmetkuru.dev ile hazırlandı\" rozetini gizle",
-      "hesap_siniri": "En çok kasa/banka/kart hesabı"
+      "hesap_siniri": "En çok kasa/banka/kart hesabı",
+      "hedef_siniri": "Dönem başına en çok hedef"
     },
     "musteri": {
       "baslik": "Modüllerim",

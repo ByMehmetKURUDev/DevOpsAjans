@@ -438,7 +438,8 @@
     "tabHukuk": "律所",
     "tabOnMuhasebe": "简易记账",
     "tabOrtaklik": "推广合作",
-    "tabToplantilar": "会议"
+    "tabToplantilar": "会议",
+    "tabHedefler": "目标"
   },
   "admin": {
     "loadError": "管理数据加载失败",

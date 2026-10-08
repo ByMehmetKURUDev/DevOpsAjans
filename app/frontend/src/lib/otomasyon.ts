@@ -243,7 +243,7 @@ export interface OzetSatiri {
 export interface OzetBolumu {
   anahtar:
     | 'faturalar' | 'destek' | 'crm' | 'teklifler' | 'icerik' | 'belgeler' | 'yenilemeler' | 'siteler' | 'gelen_kutusu'
-    | 'stok_kritik' | 'ik_izin' | 'muhasebe' | 'ortaklik';
+    | 'stok_kritik' | 'ik_izin' | 'muhasebe' | 'ortaklik' | 'okr';
   sekme: string;
   sayi: number;
   ek: {

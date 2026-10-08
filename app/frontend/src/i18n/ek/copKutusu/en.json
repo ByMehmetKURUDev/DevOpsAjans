@@ -114,7 +114,11 @@
       "muhasebe_ekleri": "Bookkeeping attachment",
       "muhasebe_tekrarlar": "Recurring bookkeeping entry",
       "muhasebe_cariler": "Contact account",
-      "muhasebe_hesaplari": "Cash/bank account"
+      "muhasebe_hesaplari": "Cash/bank account",
+      "okr_donemler": "OKR period",
+      "okr_hedefler": "OKR objective",
+      "okr_anahtar_sonuclar": "Key result (OKR)",
+      "okr_checkinler": "OKR check-in"
     }
   }
 }

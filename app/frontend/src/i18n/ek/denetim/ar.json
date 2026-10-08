@@ -142,7 +142,10 @@
       "muhasebe_cariler": "حسابات الجهات المتعاملة",
       "muhasebe_hareketleri": "الحركات المحاسبية",
       "muhasebe_tekrarlar": "القيود المتكررة",
-      "muhasebe_butceler": "الميزانيات"
+      "muhasebe_butceler": "الميزانيات",
+      "okr_donemler": "فترات OKR",
+      "okr_hedefler": "أهداف OKR",
+      "okr_anahtar_sonuclar": "النتائج الرئيسية (OKR)"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

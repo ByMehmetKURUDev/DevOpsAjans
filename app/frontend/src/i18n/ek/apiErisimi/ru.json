@@ -82,7 +82,9 @@
       "ortaklik_odeme_talebi": "Партнёр запросил выплату комиссии",
       "toplanti_planlandi": "Встреча запланирована",
       "toplanti_yapildi": "Встреча отмечена как проведённая",
-      "toplanti_iptal": "Встреча отменена"
+      "toplanti_iptal": "Встреча отменена",
+      "okr_kr_riskte": "OKR: уверенность ключевого результата сменилась на «отстаёт»",
+      "okr_hedef_tamamlandi": "OKR: прогресс цели достиг 100%"
     },
     "anahtar": {
       "yeni": "Новый ключ",

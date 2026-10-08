@@ -50,7 +50,9 @@
       "ik": "İnsan kaynakları (personel, izin, vardiya)",
       "hukuk": "Hukuk bürosu (müvekkil, dosya, takvim; gizli dosya yalnız sahip ve sorumlu avukat)",
       "muhasebe": "Ön muhasebe (kasa, banka, gelir-gider, cari, bütçe)",
-      "muhasebe_okur": "Ön muhasebe — yalnız rapor (özet, bütçe, raporlar; ör. mali müşavir)"
+      "muhasebe_okur": "Ön muhasebe — yalnız rapor (özet, bütçe, raporlar; ör. mali müşavir)",
+      "hedefler": "Hedefler ve OKR (dönem, hedef, anahtar sonuç, check-in)",
+      "hedefler_okur": "Hedefler ve OKR — yalnız okuma (liste, ağaç, rapor)"
     },
     "durum": {
       "davet": "Davet bekliyor",

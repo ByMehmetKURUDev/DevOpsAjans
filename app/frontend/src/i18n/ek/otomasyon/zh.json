@@ -112,7 +112,8 @@
       "ortak": "推广者",
       "komisyon": "佣金",
       "odeme": "提现申请",
-      "toplanti": "会议"
+      "toplanti": "会议",
+      "okr": "OKR 目标"
     },
     "alan": {
       "id": "编号",
@@ -206,7 +207,14 @@
       "fatura_no": "发票号",
       "yer_turu": "地点类型",
       "katilimci_sayisi": "参会人数",
-      "iptal_nedeni": "取消原因"
+      "iptal_nedeni": "取消原因",
+      "hedef_id": "目标 ID",
+      "hedef": "目标",
+      "donem": "周期",
+      "sahip": "负责人",
+      "hedef_ilerleme": "目标进度（%）",
+      "kr": "关键结果",
+      "guven": "信心"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -251,7 +259,9 @@
       "ortaklik_odeme_talebi": "推广者提现申请",
       "toplanti_planlandi": "会议已安排",
       "toplanti_yapildi": "会议已举行",
-      "toplanti_iptal": "会议已取消"
+      "toplanti_iptal": "会议已取消",
+      "okr_kr_riskte": "关键结果落后",
+      "okr_hedef_tamamlandi": "目标已完成"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -296,7 +306,9 @@
       "ortaklik_odeme_talebi": "推广者申请支付其已确认的余额。",
       "toplanti_planlandi": "管理面板中新建了一场会议。“事件中的人员”为客户账户；如无账户，则为 CRM 线索。",
       "toplanti_yapildi": "会议被标记为已举行（例如发送感谢邮件、创建纪要任务）。",
-      "toplanti_iptal": "会议已说明原因取消；参会者已收到取消通知（ICS）。"
+      "toplanti_iptal": "会议已说明原因取消；参会者已收到取消通知（ICS）。",
+      "okr_kr_riskte": "某个关键结果在签到中将信心改为“落后”（每次变更一次）。“事件中的人”是 KR 负责人。",
+      "okr_hedef_tamamlandi": "某个目标的进度达到 100%（每次达到时一次）。“事件中的人”是目标负责人。"
     },
     "eylem": {
       "eposta": "发送邮件",
@@ -705,7 +717,8 @@
           "ik_izin": "待审批请假申请（代理机构员工）",
           "muhasebe": "简易记账：预算超支和逾期应收款",
           "ortaklik": "推广计划：待处理的申请和提现请求",
-          "toplantilar": "未写纪要的过往会议"
+          "toplantilar": "未写纪要的过往会议",
+          "okr": "未更新的关键结果（OKR，7 天以上）"
         },
         "ek": {
           "toplam": "未付总额：{{tutar}}",
@@ -752,7 +765,8 @@
           "odeme_bekliyor": "提现请求已等待 {{sayi}} 天",
           "odeme_bekliyor_bugun": "提现请求今天到达",
           "not_yok": "{{sayi}} 天前举行，无纪要",
-          "not_yok_bugun": "今天举行，无纪要"
+          "not_yok_bugun": "今天举行，无纪要",
+          "kr_guncellenmedi": "{{sayi}} 天未签到"
         }
       }
     }

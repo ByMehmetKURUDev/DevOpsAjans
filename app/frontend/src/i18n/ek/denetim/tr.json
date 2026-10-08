@@ -142,7 +142,10 @@
       "muhasebe_cariler": "Cari hesaplar",
       "muhasebe_hareketleri": "Muhasebe hareketleri",
       "muhasebe_tekrarlar": "Tekrarlayan kayıtlar",
-      "muhasebe_butceler": "Bütçeler"
+      "muhasebe_butceler": "Bütçeler",
+      "okr_donemler": "OKR dönemleri",
+      "okr_hedefler": "OKR hedefleri",
+      "okr_anahtar_sonuclar": "Anahtar sonuçlar (OKR)"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

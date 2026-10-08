@@ -44,8 +44,8 @@ export const GRUPLAR: readonly GrupTanimi[] = [
   },
   {
     anahtar: 'projeler',
-    // Faz 6T: toplantılar (planlama, davet, tutanak, takvim aboneliği) — grubun sonunda.
-    sekmeler: ['projects', 'zaman', 'projeSablonlari', 'dosyalar', 'toplantilar'],
+    // Faz 6T: toplantılar (planlama, davet, tutanak, takvim aboneliği); Faz 6O: hedefler ve OKR (ajansın kendi OKR'ları).
+    sekmeler: ['projects', 'zaman', 'projeSablonlari', 'dosyalar', 'toplantilar', 'hedefler'],
   },
   {
     anahtar: 'finans',

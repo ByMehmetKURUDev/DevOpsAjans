@@ -36,6 +36,7 @@ import {
   UsersRound,
   Scale,
   Calculator,
+  Target,
   HandCoins,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -154,6 +155,10 @@ const Ik = ekliLazy('ik', () => import('@/components/Ik'));
 const Hukuk = ekliLazy('hukuk', () => import('@/components/Hukuk'));
 // Faz 6M — ön muhasebe (yönetici paneliyle aynı bileşen, müşteri modu; ekip izni `muhasebe`).
 const OnMuhasebe = ekliLazy('onMuhasebe', () => import('@/components/OnMuhasebe'));
+// Faz 6O — hedefler ve OKR (yönetici paneliyle aynı bileşen, müşteri modu; ekip izni `hedefler` / `hedefler_okur`).
+const Hedefler = ekliLazy('hedefler', () => import('@/components/Hedefler'));
+// Faz 6O — ajansın bu hesapla PAYLAŞTIĞI hedefler (genel görünüm kartı; modül kapalı olsa da; yoksa hiç çizilmez).
+const PaylasilanHedefler = ekliLazy('hedefKarti', () => import('@/components/PaylasilanHedefler'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
 const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
@@ -239,6 +244,7 @@ type Tab =
   | 'ik'
   | 'hukuk'
   | 'onMuhasebe'
+  | 'hedefler'
   | 'dosyalar'
   | 'api'
   | 'ortaklik'
@@ -274,6 +280,7 @@ const SEKMELER: Tab[] = [
   'ik',
   'hukuk',
   'onMuhasebe',
+  'hedefler',
   'dosyalar',
   'api',
   'ortaklik',
@@ -286,7 +293,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim', 'ik', 'hukuk', 'onMuhasebe', 'ortaklik', 'toplantilar'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim', 'ik', 'hukuk', 'onMuhasebe', 'hedefler', 'ortaklik', 'toplantilar'];
 
 /**
  * `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın.
@@ -914,6 +921,7 @@ export default function ClientPanel() {
     ik: { label: t('ui.tabIk'), icon: UsersRound },
     hukuk: { label: t('ui.tabHukuk'), icon: Scale },
     onMuhasebe: { label: t('ui.tabOnMuhasebe'), icon: Calculator },
+    hedefler: { label: t('ui.tabHedefler'), icon: Target },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
     ortaklik: { label: t('ui.tabOrtaklik'), icon: HandCoins },
@@ -982,6 +990,12 @@ export default function ClientPanel() {
       {modulAcik('islem') && izinVar(['faturalar', 'projeler', 'raporlar']) && (
         <Suspense fallback={null}>
           <OnayBekleyenler onDegisti={loadData} />
+        </Suspense>
+      )}
+      {/* Faz 6O: ajansın bu hesapla paylaştığı hedefler (salt okunur) — Hedefler modülü kapalı olsa da. */}
+      {izinVar(['projeler', 'hedefler', 'hedefler_okur']) && (
+        <Suspense fallback={null}>
+          <PaylasilanHedefler />
         </Suspense>
       )}
       {/* Faz 5I: ajansın onaya sunduğu içerikler — İçerik stüdyosu modülü kapalı olsa da. */}
@@ -1720,6 +1734,18 @@ export default function ClientPanel() {
               }
             >
               <OnMuhasebe mod="musteri" />
+            </Suspense>
+          )}
+
+          {tab === 'hedefler' && modulBilgisi !== null && modulAcik('hedefler') && izinVar(['hedefler', 'hedefler_okur']) && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <Hedefler mod="musteri" />
             </Suspense>
           )}
 

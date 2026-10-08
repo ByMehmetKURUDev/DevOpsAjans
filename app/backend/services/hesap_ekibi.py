@@ -111,6 +111,11 @@ IZINLER: Tuple[str, ...] = (
     # durumu, yaşlandırma, aylık / kategori / nakit akışı / KDV ve CSV'leri) — örn. mali müşavir; yazamaz.
     "muhasebe",
     "muhasebe_okur",
+    # Faz 6O — hedefler ve OKR: `hedefler` yönetim (dönem, hedef, KR, check-in, kapanış, AI öneri) — üye ve fatura rolünün
+    # varsayılanında YOK (ayrıca verilir; check-in yapacak üyeye bu izin verilir). `hedefler_okur`: yalnız okuma (dönem
+    # listesi, ağaç, ayrıntı, rapor PDF/CSV); yazamaz.
+    "hedefler",
+    "hedefler_okur",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -166,6 +171,11 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris",
                    "stok", "kasa", "egitim", "egitim_egitmen", "belgeler", "ik", "hukuk"}),
+        # Faz 6M–6O arası varsayılan (canlıdaki: muhasebe ve muhasebe_okur var; hedefler ve hedefler_okur yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
+                   "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris",
+                   "stok", "kasa", "egitim", "egitim_egitmen", "belgeler", "ik", "hukuk", "muhasebe", "muhasebe_okur"}),
     ),
     "uye": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),

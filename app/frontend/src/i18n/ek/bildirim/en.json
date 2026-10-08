@@ -94,7 +94,8 @@
       "toplanti_iptal": "Meetings: cancelled",
       "toplanti_hatirlatma": "Meetings: reminder (24 h / 1 h before)",
       "toplanti_notlari": "Meetings: notes shared",
-      "toplanti_talebi": "Meetings: new request from a client"
+      "toplanti_talebi": "Meetings: new request from a client",
+      "okr_hatirlatma": "OKR: weekly check-in reminder (key results not updated for 7 days)"
     },
     "kanal": {
       "inapp": "Panel",

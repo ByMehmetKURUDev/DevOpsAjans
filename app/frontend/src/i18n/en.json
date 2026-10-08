@@ -438,7 +438,8 @@
     "tabHukuk": "Law office",
     "tabOnMuhasebe": "Bookkeeping",
     "tabOrtaklik": "Affiliates",
-    "tabToplantilar": "Meetings"
+    "tabToplantilar": "Meetings",
+    "tabHedefler": "Goals"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

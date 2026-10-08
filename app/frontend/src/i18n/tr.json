@@ -438,7 +438,8 @@
     "tabHukuk": "Hukuk",
     "tabOnMuhasebe": "Ön muhasebe",
     "tabOrtaklik": "Ortaklık",
-    "tabToplantilar": "Toplantılar"
+    "tabToplantilar": "Toplantılar",
+    "tabHedefler": "Hedefler"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",

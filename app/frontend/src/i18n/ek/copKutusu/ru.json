@@ -114,7 +114,11 @@
       "muhasebe_ekleri": "Документ к операции",
       "muhasebe_tekrarlar": "Регулярная запись",
       "muhasebe_cariler": "Счёт контрагента",
-      "muhasebe_hesaplari": "Кассовый/банковский счёт"
+      "muhasebe_hesaplari": "Кассовый/банковский счёт",
+      "okr_donemler": "Период OKR",
+      "okr_hedefler": "Цель OKR",
+      "okr_anahtar_sonuclar": "Ключевой результат (OKR)",
+      "okr_checkinler": "Чек-ин OKR"
     }
   }
 }

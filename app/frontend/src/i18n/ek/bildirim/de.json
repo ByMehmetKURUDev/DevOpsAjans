@@ -94,7 +94,8 @@
       "toplanti_iptal": "Besprechungen: abgesagt",
       "toplanti_hatirlatma": "Besprechungen: Erinnerung (24 Std. / 1 Std. vorher)",
       "toplanti_notlari": "Besprechungen: Notizen geteilt",
-      "toplanti_talebi": "Besprechungen: neue Kundenanfrage"
+      "toplanti_talebi": "Besprechungen: neue Kundenanfrage",
+      "okr_hatirlatma": "OKR: wöchentliche Check-in-Erinnerung (seit 7 Tagen nicht aktualisierte Schlüsselergebnisse)"
     },
     "kanal": {
       "inapp": "Panel",

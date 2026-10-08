@@ -57,6 +57,9 @@ export const IZINLER = [
   // Faz 6M — ön muhasebe (hesaplar, gelir-gider, cari, bütçe; üyenin varsayılanında yok) ve yalnız rapor (ör. mali müşavir).
   'muhasebe',
   'muhasebe_okur',
+  // Faz 6O — hedefler ve OKR (yönetim; üyenin varsayılanında yok) ve yalnız okuma.
+  'hedefler',
+  'hedefler_okur',
 ] as const;
 export type Izin = (typeof IZINLER)[number];
 export type UyeRolu = 'yonetici' | 'uye' | 'fatura';
@@ -230,4 +233,5 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   onMuhasebe: ['muhasebe', 'muhasebe_okur'],
   // Faz 6T: toplantılar proje/hesap işinin parçası — `projeler` izni (ayrı izin yok).
   toplantilar: ['projeler'],
+  hedefler: ['hedefler', 'hedefler_okur'],
 };

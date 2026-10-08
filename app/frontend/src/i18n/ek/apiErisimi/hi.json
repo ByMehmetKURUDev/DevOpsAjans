@@ -82,7 +82,9 @@
       "ortaklik_odeme_talebi": "एफ़िलिएट ने कमीशन भुगतान का अनुरोध किया",
       "toplanti_planlandi": "बैठक निर्धारित हुई",
       "toplanti_yapildi": "बैठक संपन्न के रूप में चिह्नित",
-      "toplanti_iptal": "बैठक रद्द हुई"
+      "toplanti_iptal": "बैठक रद्द हुई",
+      "okr_kr_riskte": "OKR: मुख्य परिणाम का भरोसा “पीछे” पर बदला",
+      "okr_hedef_tamamlandi": "OKR: लक्ष्य की प्रगति 100% पहुँची"
     },
     "anahtar": {
       "yeni": "नई कुंजी",

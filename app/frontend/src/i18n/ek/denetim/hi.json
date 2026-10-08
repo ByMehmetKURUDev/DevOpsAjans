@@ -142,7 +142,10 @@
       "muhasebe_cariler": "पक्षकार खाते",
       "muhasebe_hareketleri": "बहीखाता लेनदेन",
       "muhasebe_tekrarlar": "आवर्ती प्रविष्टियाँ",
-      "muhasebe_butceler": "बजट"
+      "muhasebe_butceler": "बजट",
+      "okr_donemler": "OKR अवधियाँ",
+      "okr_hedefler": "OKR लक्ष्य",
+      "okr_anahtar_sonuclar": "मुख्य परिणाम (OKR)"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

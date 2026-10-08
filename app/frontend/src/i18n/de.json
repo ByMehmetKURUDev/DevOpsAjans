@@ -438,7 +438,8 @@
     "tabHukuk": "Kanzlei",
     "tabOnMuhasebe": "Buchhaltung",
     "tabOrtaklik": "Partnerprogramm",
-    "tabToplantilar": "Besprechungen"
+    "tabToplantilar": "Besprechungen",
+    "tabHedefler": "Ziele"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

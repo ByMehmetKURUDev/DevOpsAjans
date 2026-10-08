@@ -438,7 +438,8 @@
     "tabHukuk": "विधि कार्यालय",
     "tabOnMuhasebe": "बहीखाता",
     "tabOrtaklik": "एफ़िलिएट",
-    "tabToplantilar": "बैठकें"
+    "tabToplantilar": "बैठकें",
+    "tabHedefler": "लक्ष्य"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

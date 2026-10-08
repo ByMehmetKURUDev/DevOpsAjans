@@ -137,6 +137,9 @@ HARIC_TABLOLAR = frozenset({
     # ve öneriler (eşitlemenin ürettiği onay kuyruğu; onay → hareket satırı denetimde). Hesap, kategori, cari, hareket
     # (otomatik yansıma, onaylanan öneri ve ters kayıt dahil), tekrar, bütçe ve ayarlar kaydediliyor.
     "muhasebe_butce_asimlari", "muhasebe_ekleri", "muhasebe_gecikme_izleri", "muhasebe_oneriler",
+    # Faz 6O: OKR check-in geçmişi (kendisi bir iz: yazan + tarih + önceki değer; otomatik kaynak her değişimde satır
+    # yazıyor). Dönem, hedef ve KR kaydediliyor.
+    "okr_checkinler",
     # Faz 6H: hukuk — hatırlatma kilidi (olay × eşik; teknik iz). Diğer hukuk tabloları KAYDEDİLİYOR ama
     # değerleri maskeli (`ICERIKSIZ_TABLOLAR`).
     "hukuk_hatirlatmalari",
@@ -216,6 +219,9 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     "toplanti_takvim_abonelikleri": frozenset({"son_erisim_at"}),
     # Faz 6M: her eşitlemede yazılan özet/zaman ve CSV içe aktarmada hatırlanan sütun eşlemesi.
     "muhasebe_ayarlari": frozenset({"son_esitleme", "son_esitleme_at", "csv_esleme"}),
+    # Faz 6O: otomatik kaynağın her yenilemede yazdığı zaman/hata, check-in ve hatırlatma izleri (KR'nin değeri, güveni ve
+    # tanımı değişince yine kaydediliyor).
+    "okr_anahtar_sonuclar": frozenset({"kaynak_son_yenileme", "kaynak_hata", "son_checkin_at", "son_hatirlatma_at"}),
 }
 
 #: Faz 6H — avukat–müvekkil sırrı: bu tablolarda denetim satırı yazılıyor (kim, ne zaman, hangi kayıt, hangi

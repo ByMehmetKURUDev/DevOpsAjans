@@ -187,6 +187,10 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     OlayTuru("toplanti.planlandi", musteri=False),
     OlayTuru("toplanti.yapildi", musteri=False),
     OlayTuru("toplanti.iptal", musteri=False),
+    # Faz 6O — OKR (`services/okr_kayit.py`, olay_yayinla): bir KR'nin güveni "tehlikede"ye GEÇTİ (check-in; geçişte bir
+    # kez) ve hedefin ilerlemesi 1'e ULAŞTI (geçişte bir kez). Veride kimlikler, başlıklar, ilerleme; kişisel veri yok.
+    OlayTuru("okr.kr_riskte"),
+    OlayTuru("okr.hedef_tamamlandi"),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.

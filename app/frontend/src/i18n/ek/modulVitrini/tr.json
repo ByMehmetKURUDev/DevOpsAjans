@@ -674,6 +674,27 @@
             "c": "Evet. Kartvizit ya da menüde kendi seçtiğiniz renk varsa o sayfada öncelikli kalır; marka teması yalnız boş kalanları doldurur."
           }
         ]
+      },
+      "hedefler": {
+        "ozet": "Ekibinizin çeyrek ve yıl hedeflerini ölçülebilir anahtar sonuçlarla takip edin; ilerleme kendi verinizden de hesaplanır.",
+        "kimIcin": "Hedef koyup düzenli takip etmek isteyen KOBİ'ler, ekipler, ajanslar ve serbest çalışanlar.",
+        "ozellikler": [
+          "Çeyrek / yıl / özel dönem, hedef ve hizalama ağacı (ekip ya da yalnız ben görünürlüğü)",
+          "Anahtar sonuç türleri: sayı, yüzde, para, evet/hayır, kilometre taşı; ağırlıklı ilerleme ve beklenen ilerlemeyle kıyas",
+          "Check-in (değer, güven, not), küçük grafikli geçmiş ve haftalık hatırlatma",
+          "Ön muhasebe, POS, randevu ve eğitim modüllerinden otomatik anahtar sonuç (yalnız kendi verinizden)",
+          "Dönem kapanışı (puan, not, açık KR'leri taşıma), AI ile KR önerisi, PDF/CSV rapor"
+        ],
+        "sss": [
+          {
+            "s": "Otomatik anahtar sonuç başka hesabın verisini görür mü?",
+            "c": "Hayır. Yalnız hesabınızın kendi verisinden ve yalnız açık modüllerinizden hesaplanır."
+          },
+          {
+            "s": "AI önerileri kendiliğinden eklenir mi?",
+            "c": "Hayır. Öneriler siz seçip kaydetmeden eklenmez; değerleri gözden geçirip düzenleyebilirsiniz."
+          }
+        ]
       }
     },
     "s": {

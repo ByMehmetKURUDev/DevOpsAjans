@@ -1,0 +1,17 @@
+{
+  "hedefKarti": {
+    "baslik": "与代理机构的共同目标",
+    "aciklama": "代理机构与您共享的目标及其关键结果的进度。",
+    "ceyrek": "{{yil}}年第{{ceyrek}}季度",
+    "kapandi": "已关闭",
+    "kilometre": "{{tamam}}/{{toplam}}",
+    "tamamlandi": "已完成",
+    "bekliyor": "待完成",
+    "durum": {
+      "tamam": "已完成",
+      "yolunda": "正常",
+      "riskli": "略有落后",
+      "geride": "落后"
+    }
+  }
+}

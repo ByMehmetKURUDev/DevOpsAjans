@@ -114,7 +114,11 @@
       "muhasebe_ekleri": "Buchungsbeleg",
       "muhasebe_tekrarlar": "Wiederkehrende Buchung",
       "muhasebe_cariler": "Kontaktkonto",
-      "muhasebe_hesaplari": "Kassen-/Bankkonto"
+      "muhasebe_hesaplari": "Kassen-/Bankkonto",
+      "okr_donemler": "OKR-Periode",
+      "okr_hedefler": "OKR-Ziel",
+      "okr_anahtar_sonuclar": "Schlüsselergebnis (OKR)",
+      "okr_checkinler": "OKR-Check-in"
     }
   }
 }

@@ -112,7 +112,8 @@
       "ortak": "Ortak",
       "komisyon": "Komisyon",
       "odeme": "Ödeme talebi",
-      "toplanti": "Toplantı"
+      "toplanti": "Toplantı",
+      "okr": "OKR hedefi"
     },
     "alan": {
       "id": "Kimlik",
@@ -206,7 +207,14 @@
       "fatura_no": "Fatura no",
       "yer_turu": "Yer türü",
       "katilimci_sayisi": "Katılımcı sayısı",
-      "iptal_nedeni": "İptal nedeni"
+      "iptal_nedeni": "İptal nedeni",
+      "hedef_id": "Hedef kimliği",
+      "hedef": "Hedef",
+      "donem": "Dönem",
+      "sahip": "Sahibi",
+      "hedef_ilerleme": "Hedef ilerlemesi (%)",
+      "kr": "Anahtar sonuç",
+      "guven": "Güven"
     },
     "olay": {
       "aday_olusturuldu": "Yeni CRM adayı",
@@ -251,7 +259,9 @@
       "ortaklik_odeme_talebi": "Ortağın ödeme talebi",
       "toplanti_planlandi": "Toplantı planlandı",
       "toplanti_yapildi": "Toplantı yapıldı",
-      "toplanti_iptal": "Toplantı iptal edildi"
+      "toplanti_iptal": "Toplantı iptal edildi",
+      "okr_kr_riskte": "Anahtar sonuç tehlikede",
+      "okr_hedef_tamamlandi": "Hedef tamamlandı"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Form, iletişim, site analizi ya da elle eklenen aday.",
@@ -296,7 +306,9 @@
       "ortaklik_odeme_talebi": "Ortak, onaylı bakiyesinin ödenmesini istedi.",
       "toplanti_planlandi": "Yönetici panelinde yeni bir toplantı oluşturuldu. “Olaydaki kişi” müşteri hesabıdır; hesap yoksa CRM adayı.",
       "toplanti_yapildi": "Toplantı “yapıldı” olarak işaretlendi (ör. teşekkür e-postası, tutanak görevi).",
-      "toplanti_iptal": "Toplantı gerekçesiyle iptal edildi; katılımcılara iptal daveti (ICS) gitti."
+      "toplanti_iptal": "Toplantı gerekçesiyle iptal edildi; katılımcılara iptal daveti (ICS) gitti.",
+      "okr_kr_riskte": "Bir anahtar sonucun güveni check-in'de “tehlikede”ye geçti (her geçişte bir kez). “Olaydaki kişi” KR'nin sahibidir.",
+      "okr_hedef_tamamlandi": "Bir hedefin ilerlemesi %100'e ulaştı (her ulaşmada bir kez). “Olaydaki kişi” hedefin sahibidir."
     },
     "eylem": {
       "eposta": "E-posta gönder",
@@ -705,7 +717,8 @@
           "ik_izin": "Bekleyen izin talepleri (ajans personeli)",
           "muhasebe": "Ön muhasebe: bütçe aşımı ve vadesi geçen alacaklar",
           "ortaklik": "Ortaklık: bekleyen başvurular ve ödeme talepleri",
-          "toplantilar": "Notu yazılmamış geçmiş toplantılar"
+          "toplantilar": "Notu yazılmamış geçmiş toplantılar",
+          "okr": "Güncellenmemiş anahtar sonuçlar (OKR, 7+ gün)"
         },
         "ek": {
           "toplam": "Toplam kalan: {{tutar}}",
@@ -752,7 +765,8 @@
           "odeme_bekliyor": "ödeme talebi {{sayi}} gündür bekliyor",
           "odeme_bekliyor_bugun": "ödeme talebi bugün geldi",
           "not_yok": "{{sayi}} gün önce yapıldı, not yok",
-          "not_yok_bugun": "bugün yapıldı, not yok"
+          "not_yok_bugun": "bugün yapıldı, not yok",
+          "kr_guncellenmedi": "{{sayi}} gündür check-in yok"
         }
       }
     }

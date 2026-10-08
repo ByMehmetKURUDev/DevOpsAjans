@@ -229,6 +229,21 @@
       "sektor_paketleri": []
     },
     {
+      "anahtar": "hedefler",
+      "slug": "hedefler",
+      "ikon": "Target",
+      "kategori": "is_araclari",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [
+        "randevu",
+        "otomasyon",
+        "ai_asistan",
+        "eposta_pazarlama"
+      ],
+      "sektor_paketleri": []
+    },
+    {
       "anahtar": "belgeler",
       "slug": "belgeler",
       "ikon": "NotebookPen",

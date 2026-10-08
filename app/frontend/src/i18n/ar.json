@@ -438,7 +438,8 @@
     "tabHukuk": "المحاماة",
     "tabOnMuhasebe": "المحاسبة المبسطة",
     "tabOrtaklik": "الشراكة",
-    "tabToplantilar": "الاجتماعات"
+    "tabToplantilar": "الاجتماعات",
+    "tabHedefler": "الأهداف"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",

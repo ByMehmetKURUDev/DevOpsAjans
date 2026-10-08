@@ -112,7 +112,8 @@
       "ortak": "Partner",
       "komisyon": "Provision",
       "odeme": "Auszahlungsanfrage",
-      "toplanti": "Besprechung"
+      "toplanti": "Besprechung",
+      "okr": "OKR-Ziel"
     },
     "alan": {
       "id": "ID",
@@ -206,7 +207,14 @@
       "fatura_no": "Rechnungsnr.",
       "yer_turu": "Ortsart",
       "katilimci_sayisi": "Anzahl Teilnehmende",
-      "iptal_nedeni": "Absagegrund"
+      "iptal_nedeni": "Absagegrund",
+      "hedef_id": "Ziel-ID",
+      "hedef": "Ziel",
+      "donem": "Periode",
+      "sahip": "Verantwortlich",
+      "hedef_ilerleme": "Zielfortschritt (%)",
+      "kr": "Schlüsselergebnis",
+      "guven": "Zuversicht"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -251,7 +259,9 @@
       "ortaklik_odeme_talebi": "Auszahlungsanfrage eines Partners",
       "toplanti_planlandi": "Besprechung geplant",
       "toplanti_yapildi": "Besprechung hat stattgefunden",
-      "toplanti_iptal": "Besprechung abgesagt"
+      "toplanti_iptal": "Besprechung abgesagt",
+      "okr_kr_riskte": "Schlüsselergebnis kritisch",
+      "okr_hedef_tamamlandi": "Ziel erreicht"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -296,7 +306,9 @@
       "ortaklik_odeme_talebi": "Ein Partner hat die Auszahlung seines freigegebenen Guthabens angefordert.",
       "toplanti_planlandi": "Im Verwaltungsbereich wurde eine neue Besprechung angelegt. Die „Person im Ereignis“ ist das Kundenkonto, ohne Konto der CRM-Lead.",
       "toplanti_yapildi": "Die Besprechung wurde als stattgefunden markiert (z. B. Dankes-E-Mail, Protokollaufgabe).",
-      "toplanti_iptal": "Die Besprechung wurde mit Begründung abgesagt; die Teilnehmenden erhielten eine Absage (ICS)."
+      "toplanti_iptal": "Die Besprechung wurde mit Begründung abgesagt; die Teilnehmenden erhielten eine Absage (ICS).",
+      "okr_kr_riskte": "Die Zuversicht eines Schlüsselergebnisses wurde in einem Check-in auf „kritisch“ gesetzt (einmal pro Wechsel). Die „Person im Ereignis“ ist die KR-Verantwortliche.",
+      "okr_hedef_tamamlandi": "Der Fortschritt eines Ziels hat 100 % erreicht (einmal pro Erreichen). Die „Person im Ereignis“ ist die Zielverantwortliche."
     },
     "eylem": {
       "eposta": "E-Mail senden",
@@ -705,7 +717,8 @@
           "ik_izin": "Offene Urlaubsanträge (Agenturpersonal)",
           "muhasebe": "Buchhaltung: Budgetüberschreitungen und überfällige Forderungen",
           "ortaklik": "Partnerprogramm: offene Bewerbungen und Auszahlungsanfragen",
-          "toplantilar": "Vergangene Besprechungen ohne Notizen"
+          "toplantilar": "Vergangene Besprechungen ohne Notizen",
+          "okr": "Nicht aktualisierte Schlüsselergebnisse (OKR, 7+ Tage)"
         },
         "ek": {
           "toplam": "Offen insgesamt: {{tutar}}",
@@ -752,7 +765,8 @@
           "odeme_bekliyor": "Auszahlungsanfrage wartet seit {{sayi}} Tagen",
           "odeme_bekliyor_bugun": "Auszahlungsanfrage heute eingegangen",
           "not_yok": "vor {{sayi}} Tagen, keine Notizen",
-          "not_yok_bugun": "heute stattgefunden, keine Notizen"
+          "not_yok_bugun": "heute stattgefunden, keine Notizen",
+          "kr_guncellenmedi": "seit {{sayi}} Tagen kein Check-in"
         }
       }
     }

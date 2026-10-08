@@ -82,7 +82,9 @@
       "ortaklik_odeme_talebi": "Ortak, komisyon ödemesi istedi",
       "toplanti_planlandi": "Toplantı planlandı",
       "toplanti_yapildi": "Toplantı yapıldı olarak işaretlendi",
-      "toplanti_iptal": "Toplantı iptal edildi"
+      "toplanti_iptal": "Toplantı iptal edildi",
+      "okr_kr_riskte": "OKR: anahtar sonucun güveni “tehlikede”ye geçti",
+      "okr_hedef_tamamlandi": "OKR: hedefin ilerlemesi %100'e ulaştı"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

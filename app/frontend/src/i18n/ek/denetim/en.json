@@ -142,7 +142,10 @@
       "muhasebe_cariler": "Contact accounts",
       "muhasebe_hareketleri": "Bookkeeping transactions",
       "muhasebe_tekrarlar": "Recurring entries",
-      "muhasebe_butceler": "Budgets"
+      "muhasebe_butceler": "Budgets",
+      "okr_donemler": "OKR periods",
+      "okr_hedefler": "OKR objectives",
+      "okr_anahtar_sonuclar": "Key results (OKR)"
     },
     "hareket": {
       "baslik": "Account activity",

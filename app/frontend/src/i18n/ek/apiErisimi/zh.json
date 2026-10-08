@@ -82,7 +82,9 @@
       "ortaklik_odeme_talebi": "推广者申请提取佣金",
       "toplanti_planlandi": "会议已安排",
       "toplanti_yapildi": "会议已标记为已举行",
-      "toplanti_iptal": "会议已取消"
+      "toplanti_iptal": "会议已取消",
+      "okr_kr_riskte": "OKR：关键结果的信心变为“落后”",
+      "okr_hedef_tamamlandi": "OKR：目标进度达到 100%"
     },
     "anahtar": {
       "yeni": "新建密钥",

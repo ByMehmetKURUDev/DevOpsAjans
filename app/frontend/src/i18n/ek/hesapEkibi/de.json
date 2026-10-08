@@ -50,7 +50,9 @@
       "ik": "Personalwesen (Personal, Urlaub, Schichten)",
       "hukuk": "Kanzlei (Mandanten, Akten, Kalender; vertrauliche Akten nur für Inhaber und zuständige Anwältin bzw. zuständigen Anwalt)",
       "muhasebe": "Buchhaltung (Kasse, Bank, Einnahmen/Ausgaben, Kontakte, Budget)",
-      "muhasebe_okur": "Buchhaltung — nur Berichte (Übersicht, Budget, Berichte; z. B. Steuerberatung)"
+      "muhasebe_okur": "Buchhaltung — nur Berichte (Übersicht, Budget, Berichte; z. B. Steuerberatung)",
+      "hedefler": "Ziele und OKR (Perioden, Ziele, Schlüsselergebnisse, Check-ins)",
+      "hedefler_okur": "Ziele und OKR — nur lesen (Liste, Baum, Berichte)"
     },
     "durum": {
       "davet": "Einladung ausstehend",

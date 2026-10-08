@@ -114,7 +114,11 @@
       "muhasebe_ekleri": "बहीखाता संलग्नक",
       "muhasebe_tekrarlar": "आवर्ती बहीखाता प्रविष्टि",
       "muhasebe_cariler": "पक्षकार खाता",
-      "muhasebe_hesaplari": "नकद/बैंक खाता"
+      "muhasebe_hesaplari": "नकद/बैंक खाता",
+      "okr_donemler": "OKR अवधि",
+      "okr_hedefler": "OKR लक्ष्य",
+      "okr_anahtar_sonuclar": "मुख्य परिणाम (OKR)",
+      "okr_checkinler": "OKR चेक-इन"
     }
   }
 }

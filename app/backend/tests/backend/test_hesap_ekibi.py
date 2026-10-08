@@ -398,7 +398,7 @@ async def ekip(db_oturumu):
     from models.ik import IkDosyalar, IkIzinler, IkPersonel, IkTatiller, IkVardiyalar, IkVardiyaSablonlari
 
     await db.execute(_update(HesapUyeleri).where(HesapUyeleri.hesap_email == s, HesapUyeleri.uye_email == k["apici"])
-                     .values(izinler=json.dumps(["projeler", "api", "otomasyon", "ik", "muhasebe"])))
+                     .values(izinler=json.dumps(["projeler", "api", "otomasyon", "ik", "muhasebe", "hedefler"])))
     await db.commit()
     _he.onbellegi_temizle()
     ikp = await _ekle(db, IkPersonel(hesap_email=s, ad="Sahibin personeli", eposta="personel@ornek.com",
@@ -424,6 +424,17 @@ async def ekip(db_oturumu):
     mht = await _ekle(db, MuhasebeTekrarlar(kapsam=s, hesap_email=s, tur="gider", aciklama="Kira", tutar=1000, para_birimi="TRY",
                                             hesap_id=mhh.id, periyot="aylik", baslangic=_date6i(2030, 1, 1), sonraki=_date6i(2030, 1, 1)))
     k.update(MHH=mhh.id, MHK=mhk.id, MHC=mhc.id, MHX=mhx.id, MHT=mht.id)
+    # Faz 6O: `hedefler` (OKR) üye/fatura rolünün varsayılanında yok — API üyesine (apici) yukarıda ayrıca verildi.
+    # Sahibin OKR kayıtları: dönem, hedef, KR (elle).
+    from models.okr import OkrAnahtarSonuclar, OkrDonemler, OkrHedefler
+
+    okd = await _ekle(db, OkrDonemler(kapsam=s, hesap_email=s, tur="ozel", baslangic=_date6i(2030, 1, 1), bitis=_date6i(2030, 3, 31),
+                                      etkin=True, durum="acik"))
+    okh = await _ekle(db, OkrHedefler(kapsam=s, hesap_email=s, donem_id=okd.id, baslik="Sahibin hedefi", sahip=s, gorunurluk="ekip",
+                                      durum="etkin", olusturan=s))
+    okk = await _ekle(db, OkrAnahtarSonuclar(kapsam=s, hesap_email=s, hedef_id=okh.id, baslik="Sahibin KR'si", tur="sayi",
+                                             baslangic_deger=0, hedef_deger=10, mevcut_deger=2))
+    k.update(OKD=okd.id, OKH=okh.id, OKK=okk.id)
     return k
 
 
@@ -451,6 +462,11 @@ HUK = ("hukuk",)
 MH = "/api/v1/muhasebe"
 MUH = ("muhasebe",)
 MUH_R = ("muhasebe", "muhasebe_okur")
+#: Faz 6O: hedefler ve OKR (yazma `hedefler`; okuma `hedefler_okur` ile de — OKR_R); paylaşılan kart (`projeler` de yeter).
+OK = "/api/v1/okr"
+OKR = ("hedefler",)
+OKR_R = ("hedefler", "hedefler_okur")
+OKR_P = ("projeler", "hedefler", "hedefler_okur")
 MUSTERI_UCLARI = [
     ("GET", "/api/v1/entities/projects", ("projeler",), None, 200),
     ("GET", "/api/v1/entities/projects/all", ("projeler",), None, 200),
@@ -1168,6 +1184,35 @@ MUHASEBE_UCLARI = [
     ("POST", f"{MH}/oneriler/toplu", MUH, {"islem": "yoksay", "idler": [999999]}, 200),
 ]
 
+#: Faz 6O — hedefler ve OKR uçları (yazma `hedefler`, okuma `hedefler_okur` ile de). İK / muhasebe gibi TEK testte.
+OKR_UCLARI = [
+    ("GET", f"{OK}/meta", OKR_R, None, 200),
+    ("GET", f"{OK}/donemler", OKR_R, None, 200),
+    ("POST", f"{OK}/donemler", OKR, {"tur": "yil", "yil": 2031}, 200),
+    ("PUT", f"{OK}/donemler/{{OKD}}", OKR, {"ad": "Ekip dönemi"}, 200),
+    ("DELETE", f"{OK}/donemler/999999", OKR, None, "gecti"),
+    ("GET", f"{OK}/donemler/{{OKD}}/ozet", OKR_R, None, 200),
+    ("POST", f"{OK}/donemler/{{OKD}}/yenile", OKR, {}, 200),
+    ("GET", f"{OK}/donemler/{{OKD}}/kapanis", OKR_R, None, 200),
+    ("POST", f"{OK}/donemler/999999/kapat", OKR, {}, "gecti"),
+    ("GET", f"{OK}/donemler/{{OKD}}/rapor.pdf", OKR_R, None, 200),
+    ("GET", f"{OK}/donemler/{{OKD}}/rapor.csv", OKR_R, None, 200),
+    ("GET", f"{OK}/agac", OKR_R, None, 200),
+    ("POST", f"{OK}/hedefler", OKR, {"donem_id": 999999, "baslik": "X"}, "gecti"),
+    ("GET", f"{OK}/hedefler/{{OKH}}", OKR_R, None, 200),
+    ("PUT", f"{OK}/hedefler/{{OKH}}", OKR, {"aciklama": "Ekipten"}, 200),
+    ("DELETE", f"{OK}/hedefler/999999", OKR, None, "gecti"),
+    ("POST", f"{OK}/hedefler/{{OKH}}/krler", OKR, {"baslik": "Ekip KR'si", "baslangic": 0, "hedef": 5}, 200),
+    ("PUT", f"{OK}/krler/{{OKK}}", OKR, {"agirlik": 2}, 200),
+    ("DELETE", f"{OK}/krler/999999", OKR, None, "gecti"),
+    ("POST", f"{OK}/krler/{{OKK}}/checkin", OKR, {"deger": 3}, 200),
+    ("GET", f"{OK}/krler/{{OKK}}/checkinler", OKR_R, None, 200),
+    ("POST", f"{OK}/krler/{{OKK}}/yenile", OKR, {}, "gecti"),
+    ("POST", f"{OK}/krler/{{OKK}}/odak", OKR, {"sure_dk": 25}, 200),
+    ("POST", f"{OK}/ai/kr-oner", OKR, {"baslik": "X"}, "gecti"),
+    ("GET", "/api/v1/okr-paylasilan", OKR_P, None, 200),
+]
+
 
 def _kod(yanit) -> str:
     try:
@@ -1223,6 +1268,8 @@ def _izinli_uye(k, izinler):
         return k["sahaci"]
     if izinler in (MUH, MUH_R):  # Faz 6M: üye/fatura rolünün varsayılanında yok (apici'ye ayrıca verildi)
         return k["apici"]
+    if izinler in (OKR, OKR_R):  # Faz 6O: üye/fatura rolünün varsayılanında yok (apici'ye ayrıca verildi)
+        return k["apici"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):
             return kisi
@@ -1256,18 +1303,20 @@ async def test_musteri_ucu_izin_matrisi(istemci, ekip, metot, yol, izinler, govd
 
 
 async def test_ik_ve_muhasebe_uclari_izin_matrisi(istemci, ekip):
-    """Faz 6I — İK ve Faz 6M — ön muhasebe müşteri uçlarının hepsi TEK `ekip` kurulumuyla (yeni bir `ekip` paylaşılan
+    """Faz 6I — İK, Faz 6M — ön muhasebe ve Faz 6O — OKR müşteri uçlarının hepsi TEK `ekip` kurulumuyla (yeni bir `ekip` paylaşılan
     test veritabanını büyütür: belge talebi / proje listesi sınırlarına dayanan testler bozulur): sahip geçer, izinli
     üye geçer, izinsiz üye 403 `hesap_izni_yok`, üye olmayan 403 `hesap_uyesi_degil` (`test_musteri_ucu_izin_matrisi`
     ile aynı denetimler)."""
     from routers import ik as ik_router
     from routers import muhasebe as mh_router
+    from routers import okr as okr_router
 
     k = ekip
     s = k["sahip"]
-    for metot, yol, izinler, govde, beklenen in IK_UCLARI + MUHASEBE_UCLARI:
+    for metot, yol, izinler, govde, beklenen in IK_UCLARI + MUHASEBE_UCLARI + OKR_UCLARI:
         ik_router.hiz_sinirlarini_temizle()
         mh_router.hiz_sinirlarini_temizle()
+        okr_router.hiz_sinirlarini_temizle()
         yol = yol.format(**k)
         y = await _cagir(istemci, metot, yol, govde, _b(s))
         assert _beklenen(y, beklenen), (yol, y.status_code, y.text[:300])

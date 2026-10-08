@@ -683,6 +683,29 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
         b["butce"] = {"kategori": kat.ad if kat else veri.get("kategori"), "ay": iz.ay, "butce": round(butce / 100, 2),
                       "gerceklesen": round(ger / 100, 2), "asim": round((ger - butce) / 100, 2),
                       "yuzde": int(round(ger * 100 / butce)) if butce else None, "para_birimi": iz.para_birimi}
+    elif on == "okr":
+        # Faz 6O — OKR: hedef (ve `okr.kr_riskte`te KR) güncel kayıttan; başka hesabın kaydı bağlama girmez.
+        from models.okr import OkrAnahtarSonuclar, OkrDonemler, OkrHedefler
+        from services import okr as _okr
+        from services import okr_kayit as _okk
+
+        h = await _kayit(db, OkrHedefler, veri.get("hedef_id"))
+        if h is None or (not ajans and eposta_duzelt(h.hesap_email) != eposta_duzelt(olay_hesap)) or (ajans and h.hesap_email):
+            return None
+        d = await _kayit(db, OkrDonemler, h.donem_id)
+        krler = (await _okk.krler_haritasi(db, [h.id])).get(h.id, [])
+        hi = _okr.hedef_ilerleme((_okk.kr_ilerlemesi(x), int(x.agirlik or 1)) for x in krler)
+        kr = None
+        if veri.get("kr_id"):
+            kr = await _kayit(db, OkrAnahtarSonuclar, veri.get("kr_id"))
+            if kr is None or kr.hedef_id != h.id:
+                return None
+        b["okr"] = {"hedef_id": h.id, "hedef": h.baslik, "donem": _okk.donem_sozlugu(d)["etiket"] if d else None,
+                    "sahip": (kr.sahip if kr is not None and kr.sahip else h.sahip) or None,
+                    "hedef_ilerleme": None if hi is None else round(hi * 100, 1),
+                    "kr": kr.baslik if kr is not None else None,
+                    "ilerleme": round(_okk.kr_ilerlemesi(kr) * 100, 1) if kr is not None else None,
+                    "guven": kr.guven if kr is not None else None}
     elif on == "ik":
         # Faz 6I — izin talebi / kararı: olay verisinde izin ve personel kimliği (kişi alanları kayıttan).
         from models.ik import IkIzinler, IkPersonel

@@ -114,7 +114,11 @@
       "muhasebe_ekleri": "记账附件",
       "muhasebe_tekrarlar": "周期性记账记录",
       "muhasebe_cariler": "往来账户",
-      "muhasebe_hesaplari": "现金/银行账户"
+      "muhasebe_hesaplari": "现金/银行账户",
+      "okr_donemler": "OKR 周期",
+      "okr_hedefler": "OKR 目标",
+      "okr_anahtar_sonuclar": "关键结果（OKR）",
+      "okr_checkinler": "OKR 签到记录"
     }
   }
 }

@@ -1,0 +1,17 @@
+{
+  "hedefKarti": {
+    "baslik": "आपकी एजेंसी के साथ साझा लक्ष्य",
+    "aciklama": "आपकी एजेंसी द्वारा आपके साथ साझा किए गए लक्ष्य और उनके मुख्य परिणामों की प्रगति।",
+    "ceyrek": "{{yil}} तिमाही {{ceyrek}}",
+    "kapandi": "बंद",
+    "kilometre": "{{tamam}}/{{toplam}}",
+    "tamamlandi": "पूरा",
+    "bekliyor": "बाकी",
+    "durum": {
+      "tamam": "पूरा हुआ",
+      "yolunda": "सही दिशा में",
+      "riskli": "थोड़ा पीछे",
+      "geride": "पीछे"
+    }
+  }
+}

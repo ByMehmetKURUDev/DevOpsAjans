@@ -1,0 +1,17 @@
+{
+  "hedefKarti": {
+    "baslik": "Ajansınızla ortak hedefler",
+    "aciklama": "Ajansınızın sizinle paylaştığı hedefler ve anahtar sonuçların ilerlemesi.",
+    "ceyrek": "{{yil}} Ç{{ceyrek}}",
+    "kapandi": "kapandı",
+    "kilometre": "{{tamam}}/{{toplam}}",
+    "tamamlandi": "Tamamlandı",
+    "bekliyor": "Bekliyor",
+    "durum": {
+      "tamam": "Tamamlandı",
+      "yolunda": "Yolunda",
+      "riskli": "Biraz geride",
+      "geride": "Geride"
+    }
+  }
+}

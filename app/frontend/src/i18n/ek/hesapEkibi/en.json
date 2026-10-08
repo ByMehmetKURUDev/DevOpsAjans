@@ -50,7 +50,9 @@
       "ik": "HR (staff, leave, shifts)",
       "hukuk": "Law office (clients, matters, calendar; confidential matters only for the owner and the responsible lawyer)",
       "muhasebe": "Bookkeeping (cash, bank, income & expenses, contacts, budget)",
-      "muhasebe_okur": "Bookkeeping — reports only (summary, budget, reports; e.g. your accountant)"
+      "muhasebe_okur": "Bookkeeping — reports only (summary, budget, reports; e.g. your accountant)",
+      "hedefler": "Goals and OKRs (periods, objectives, key results, check-ins)",
+      "hedefler_okur": "Goals and OKRs — read only (list, tree, reports)"
     },
     "durum": {
       "davet": "Invitation pending",

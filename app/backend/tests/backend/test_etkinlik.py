@@ -895,7 +895,8 @@ async def test_ekip_etkinlik_giris_izni_yalniz_okutma(istemci, yonetici_basligi,
     # 5M dönemi yönetici varsayılanı (o günkü bütün izinler; 5I/6S/6E — ve sonraki 6P/6K/5B/6H — izinleri henüz yoktu).
     yeni_izinler = {"etkinlik", "etkinlik_giris", "icerik", "saha_yonetim", "saha_teknisyen",
                     "stok", "kasa", "egitim", "egitim_egitmen", "belgeler", "ik", "hukuk",
-                    "muhasebe", "muhasebe_okur"}  # Faz 6I/6H: ik, hukuk; Faz 6M: muhasebe, muhasebe_okur da o gün yoktu
+                    "muhasebe", "muhasebe_okur",
+                    "hedefler", "hedefler_okur"}  # Faz 6I/6H: ik, hukuk; Faz 6M: muhasebe(_okur); Faz 6O: hedefler(_okur) da o gün yoktu
     assert "etkinlik" in he.izinleri_coz(json.dumps(sorted(set(he.IZINLER) - yeni_izinler)), "yonetici")
 
 

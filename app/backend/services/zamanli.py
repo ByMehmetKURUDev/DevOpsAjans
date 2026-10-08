@@ -339,6 +339,14 @@ async def _muhasebe_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_bakim(db)
 
 
+async def _okr_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 6O: OKR — açık dönemlerin otomatik KR kaynaklarını yenile (KR başına saatte bir) ve 7 gündür check-in almamış
+    # etkin elle KR'lerin sahibine haftalık hatırlatma (KR başına 7 günde en çok bir).
+    from services.okr_kayit import zamanli_bakim
+
+    return await zamanli_bakim(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -385,6 +393,7 @@ GOREVLER: List[Gorev] = [
     Gorev("egitim_bakimi", timedelta(0), _egitim_bakimi),
     Gorev("hukuk_bakimi", timedelta(0), _hukuk_bakimi),
     Gorev("muhasebe_bakimi", timedelta(minutes=30), _muhasebe_bakimi),
+    Gorev("okr_bakimi", timedelta(minutes=30), _okr_bakimi),
     Gorev("ortaklik_bakimi", timedelta(hours=6), _ortaklik_bakimi),
     # Faz 6T: her turda (ucuz sorgu; 24 sa / 1 sa eşiği kaçmasın).
     Gorev("toplanti_hatirlatmalari", timedelta(0), _toplanti_hatirlatmalari),

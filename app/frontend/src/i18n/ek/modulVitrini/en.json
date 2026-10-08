@@ -674,6 +674,27 @@
             "c": "Yes. If you picked a colour on a business card or menu, it keeps priority on that page; the brand theme only fills what is left."
           }
         ]
+      },
+      "hedefler": {
+        "ozet": "Track your team's quarterly and yearly objectives with measurable key results; progress can also be calculated from your own data.",
+        "kimIcin": "SMBs, teams, agencies and freelancers who want to set goals and follow them regularly.",
+        "ozellikler": [
+          "Quarter / year / custom periods, objectives and an alignment tree (team or only-me visibility)",
+          "Key result types: number, percentage, money, yes/no, milestones; weighted progress compared with expected progress",
+          "Check-ins (value, confidence, note), history with a small chart and weekly reminders",
+          "Automatic key results from bookkeeping, POS, appointments and courses (only from your own data)",
+          "Period close (scores, notes, carrying open KRs over), AI key result suggestions, PDF/CSV reports"
+        ],
+        "sss": [
+          {
+            "s": "Can an automatic key result see another account's data?",
+            "c": "No. It is calculated only from your own account's data and only from modules you have enabled."
+          },
+          {
+            "s": "Are AI suggestions added automatically?",
+            "c": "No. Suggestions are only added when you pick and save them; you can review and edit the values."
+          }
+        ]
       }
     },
     "s": {

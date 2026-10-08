@@ -1,0 +1,17 @@
+{
+  "hedefKarti": {
+    "baslik": "Shared goals with your agency",
+    "aciklama": "Objectives your agency has shared with you and the progress of their key results.",
+    "ceyrek": "{{yil}} Q{{ceyrek}}",
+    "kapandi": "closed",
+    "kilometre": "{{tamam}}/{{toplam}}",
+    "tamamlandi": "Done",
+    "bekliyor": "Pending",
+    "durum": {
+      "tamam": "Completed",
+      "yolunda": "On track",
+      "riskli": "Slightly behind",
+      "geride": "Behind"
+    }
+  }
+}

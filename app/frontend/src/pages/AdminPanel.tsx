@@ -68,6 +68,7 @@ import {
   UsersRound,
   Scale,
   Calculator,
+  Target,
   Inbox,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -205,6 +206,8 @@ const Ik = ekliLazy('ik', () => import('@/components/Ik'));
 const Hukuk = ekliLazy('hukuk', () => import('@/components/Hukuk'));
 // Faz 6M — ön muhasebe: ajansın kendi defteri (tam yönetim) + müşteri hesabı seçerek salt okunur destek.
 const OnMuhasebe = ekliLazy('onMuhasebe', () => import('@/components/OnMuhasebe'));
+// Faz 6O — hedefler ve OKR: ajansın KENDİ OKR'ları (dönem, hedef, KR, check-in, kapanış; hedef müşteriyle paylaşılabilir).
+const Hedefler = ekliLazy('hedefler', () => import('@/components/Hedefler'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
@@ -386,6 +389,7 @@ type Tab =
   | 'ik'
   | 'hukuk'
   | 'onMuhasebe'
+  | 'hedefler'
   | 'baglantilar'
   | 'crm'
   | 'zaman'
@@ -1118,6 +1122,7 @@ export default function AdminPanel() {
     { key: 'ik', label: t('ui.tabIk'), icon: UsersRound },
     { key: 'hukuk', label: t('ui.tabHukuk'), icon: Scale },
     { key: 'onMuhasebe', label: t('ui.tabOnMuhasebe'), icon: Calculator },
+    { key: 'hedefler', label: t('ui.tabHedefler'), icon: Target },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('yonetimMenusu.tabFiyat'), icon: DollarSign },
@@ -1370,6 +1375,18 @@ export default function AdminPanel() {
           }
         >
           <OnMuhasebe mod="yonetici" />
+        </Suspense>
+      )}
+
+      {tab === 'hedefler' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <Hedefler mod="yonetici" />
         </Suspense>
       )}
 

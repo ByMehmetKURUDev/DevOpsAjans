@@ -82,7 +82,9 @@
       "ortaklik_odeme_talebi": "Partner hat eine Provisionsauszahlung angefordert",
       "toplanti_planlandi": "Besprechung geplant",
       "toplanti_yapildi": "Besprechung als stattgefunden markiert",
-      "toplanti_iptal": "Besprechung abgesagt"
+      "toplanti_iptal": "Besprechung abgesagt",
+      "okr_kr_riskte": "OKR: Zuversicht eines Schlüsselergebnisses auf „kritisch“ gesetzt",
+      "okr_hedef_tamamlandi": "OKR: Fortschritt eines Ziels hat 100 % erreicht"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

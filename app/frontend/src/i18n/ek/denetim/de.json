@@ -142,7 +142,10 @@
       "muhasebe_cariler": "Kontaktkonten",
       "muhasebe_hareketleri": "Buchungen",
       "muhasebe_tekrarlar": "Wiederkehrende Buchungen",
-      "muhasebe_butceler": "Budgets"
+      "muhasebe_butceler": "Budgets",
+      "okr_donemler": "OKR-Perioden",
+      "okr_hedefler": "OKR-Ziele",
+      "okr_anahtar_sonuclar": "Schlüsselergebnisse (OKR)"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

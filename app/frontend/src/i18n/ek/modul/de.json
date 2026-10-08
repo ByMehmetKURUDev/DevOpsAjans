@@ -216,6 +216,10 @@
       "marka_temasi": {
         "ad": "Markendesign",
         "aciklama": "Ihr eigenes Logo, Ihre Farben und Ihre Schrift auf Ihren Kundenseiten: Visitenkarte, QR-Speisekarte, Terminbuchung, Veranstaltungen, Kurse und mehr – mit einer Einstellung."
+      },
+      "hedefler": {
+        "ad": "Ziele und OKR",
+        "aciklama": "Periodenziele (Quartal, Jahr, eigener Zeitraum), messbare Schlüsselergebnisse (Zahl, Prozent, Geld, Ja/Nein, Meilensteine), Check-ins und Werteverlauf, Vergleich mit dem erwarteten Fortschritt, Zielbaum, Periodenabschluss und Übernahme; automatische KR aus Buchhaltungs-, Kassen-, Termin- und Kursdaten, KI-Vorschläge für KR, wöchentliche Check-in-Erinnerung, Fokus-Timer und PDF/CSV-Berichte."
       }
     },
     "kategori": {
@@ -285,7 +289,8 @@
       "personel_siniri": "Höchstzahl aktives Personal",
       "dosya_siniri": "Max. offene Akten (offen + ruhend)",
       "rozet_gizle": "Abzeichen „Erstellt mit mehmetkuru.dev“ auf Seiten ausblenden",
-      "hesap_siniri": "Max. Kassen-/Bank-/Kartenkonten"
+      "hesap_siniri": "Max. Kassen-/Bank-/Kartenkonten",
+      "hedef_siniri": "Höchstzahl an Zielen pro Periode"
     },
     "musteri": {
       "baslik": "Meine Module",

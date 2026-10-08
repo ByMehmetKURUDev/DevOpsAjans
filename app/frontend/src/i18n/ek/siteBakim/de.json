@@ -200,7 +200,8 @@
         "hukuk_bakimi": "Kanzleiwartung",
         "muhasebe_bakimi": "Buchhaltungswartung",
         "ortaklik_bakimi": "Partnerprogramm-Wartung",
-        "toplanti_hatirlatmalari": "Besprechungserinnerungen"
+        "toplanti_hatirlatmalari": "Besprechungserinnerungen",
+        "okr_bakimi": "OKR-Wartung"
       },
       "gunluk": "täglich",
       "haftalik": "wöchentlich",
@@ -245,7 +246,8 @@
         "hukuk_bakimi": "Kanzleiwartung (Erinnerungen an Verhandlungen und Fristen: 7/3/1 Tage vorher und am Morgen des Tages, jeweils einmal; endgültiges Löschen von Mandanten und Akten, die vor mehr als 30 Tagen gelöscht wurden)",
         "muhasebe_bakimi": "Buchhaltungswartung (fällige wiederkehrende Einträge, automatische Übernahmen und Vorschläge zur Freigabe, Ereignisse zu Budgetüberschreitung und überfälligen Forderungen)",
         "ortaklik_bakimi": "Partnerprogramm-Wartung (gibt Provisionen frei, deren Erstattungsfrist abgelaufen ist; alle 6 Stunden und beim Öffnen eines Partner-Dashboards)",
-        "toplanti_hatirlatmalari": "Besprechungserinnerungen (an eingeladene Teilnehmende 24 Stunden und 1 Stunde vorher, jeweils nur einmal; bei jedem Lauf und beim Öffnen des Reiters Besprechungen)"
+        "toplanti_hatirlatmalari": "Besprechungserinnerungen (an eingeladene Teilnehmende 24 Stunden und 1 Stunde vorher, jeweils nur einmal; bei jedem Lauf und beim Öffnen des Reiters Besprechungen)",
+        "okr_bakimi": "OKR-Wartung (aktualisiert automatische Schlüsselergebnisse offener Perioden stündlich; wöchentliche Erinnerung an Verantwortliche von Schlüsselergebnissen ohne Check-in seit 7 Tagen, höchstens einmal pro KR alle 7 Tage)"
       }
     },
     "musteri": {

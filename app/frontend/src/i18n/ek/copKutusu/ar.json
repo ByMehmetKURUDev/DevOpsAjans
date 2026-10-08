@@ -114,7 +114,11 @@
       "muhasebe_ekleri": "مرفق محاسبي",
       "muhasebe_tekrarlar": "قيد محاسبي متكرر",
       "muhasebe_cariler": "حساب جهة متعاملة",
-      "muhasebe_hesaplari": "حساب صندوق/بنك"
+      "muhasebe_hesaplari": "حساب صندوق/بنك",
+      "okr_donemler": "فترة OKR",
+      "okr_hedefler": "هدف OKR",
+      "okr_anahtar_sonuclar": "نتيجة رئيسية (OKR)",
+      "okr_checkinler": "تسجيل تقدّم OKR"
     }
   }
 }

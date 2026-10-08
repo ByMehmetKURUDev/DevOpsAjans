@@ -112,7 +112,8 @@
       "ortak": "Partner",
       "komisyon": "Commission",
       "odeme": "Payout request",
-      "toplanti": "Meeting"
+      "toplanti": "Meeting",
+      "okr": "OKR objective"
     },
     "alan": {
       "id": "ID",
@@ -206,7 +207,14 @@
       "fatura_no": "Invoice no.",
       "yer_turu": "Location type",
       "katilimci_sayisi": "Number of attendees",
-      "iptal_nedeni": "Cancellation reason"
+      "iptal_nedeni": "Cancellation reason",
+      "hedef_id": "Objective ID",
+      "hedef": "Objective",
+      "donem": "Period",
+      "sahip": "Owner",
+      "hedef_ilerleme": "Objective progress (%)",
+      "kr": "Key result",
+      "guven": "Confidence"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -251,7 +259,9 @@
       "ortaklik_odeme_talebi": "Affiliate payout request",
       "toplanti_planlandi": "Meeting scheduled",
       "toplanti_yapildi": "Meeting held",
-      "toplanti_iptal": "Meeting cancelled"
+      "toplanti_iptal": "Meeting cancelled",
+      "okr_kr_riskte": "Key result off track",
+      "okr_hedef_tamamlandi": "Objective completed"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -296,7 +306,9 @@
       "ortaklik_odeme_talebi": "A partner asked for their approved balance to be paid out.",
       "toplanti_planlandi": "A new meeting was created in the admin panel. The “person in the event” is the client account, or the CRM lead if there is no account.",
       "toplanti_yapildi": "The meeting was marked as held (e.g. send a thank-you email or create a minutes task).",
-      "toplanti_iptal": "The meeting was cancelled with a reason; attendees received a cancellation (ICS)."
+      "toplanti_iptal": "The meeting was cancelled with a reason; attendees received a cancellation (ICS).",
+      "okr_kr_riskte": "A key result's confidence changed to “off track” in a check-in (once per change). The “person in the event” is the KR owner.",
+      "okr_hedef_tamamlandi": "An objective's progress reached 100% (once each time it is reached). The “person in the event” is the objective owner."
     },
     "eylem": {
       "eposta": "Send email",
@@ -705,7 +717,8 @@
           "ik_izin": "Pending leave requests (agency staff)",
           "muhasebe": "Bookkeeping: budget overruns and overdue receivables",
           "ortaklik": "Affiliates: pending applications and payout requests",
-          "toplantilar": "Past meetings without notes"
+          "toplantilar": "Past meetings without notes",
+          "okr": "Key results not updated (OKR, 7+ days)"
         },
         "ek": {
           "toplam": "Total outstanding: {{tutar}}",
@@ -752,7 +765,8 @@
           "odeme_bekliyor": "payout request waiting for {{sayi}} days",
           "odeme_bekliyor_bugun": "payout request arrived today",
           "not_yok": "held {{sayi}} days ago, no notes",
-          "not_yok_bugun": "held today, no notes"
+          "not_yok_bugun": "held today, no notes",
+          "kr_guncellenmedi": "no check-in for {{sayi}} days"
         }
       }
     }

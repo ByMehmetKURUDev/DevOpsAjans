@@ -202,6 +202,12 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "muhasebe_tekrarlar": {"sahip": "hesap_email", "sira": 10},
     "muhasebe_cariler": {"sahip": "hesap_email", "sira": 10},
     "muhasebe_hesaplari": {"sahip": "hesap_email", "sira": 10},
+    # Faz 6O: OKR — dönem (boşsa silinir), hedef ve anahtar sonuç (hedef silinince KR'leri aynı işlemde; KR tek başına da
+    # çöpe düşer) ve check-in geçmişi (yalnız KR'siyle birlikte). Ajans OKR'larında sahip boş (yalnız yönetici).
+    "okr_donemler": {"sahip": "hesap_email", "sira": 5},
+    "okr_hedefler": {"sahip": "hesap_email", "sira": 10},
+    "okr_anahtar_sonuclar": {"sahip": "hesap_email", "sira": 20},
+    "okr_checkinler": {"sahip": "hesap_email", "sira": 30, "ebeveyn": "okr_anahtar_sonuclar"},
     # Faz 4W: otomasyon kuralı (müşteride hesabın) ve özel alan tanımı (ajans; değerler kalıyor).
     "otomasyon_kurallari": {"sahip": "hesap_email", "sira": 10},
     "ozel_alanlar": {"sira": 10},

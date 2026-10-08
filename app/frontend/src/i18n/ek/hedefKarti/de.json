@@ -1,0 +1,17 @@
+{
+  "hedefKarti": {
+    "baslik": "Gemeinsame Ziele mit Ihrer Agentur",
+    "aciklama": "Ziele, die Ihre Agentur mit Ihnen teilt, und der Fortschritt ihrer Schlüsselergebnisse.",
+    "ceyrek": "{{yil}} Q{{ceyrek}}",
+    "kapandi": "abgeschlossen",
+    "kilometre": "{{tamam}}/{{toplam}}",
+    "tamamlandi": "Erledigt",
+    "bekliyor": "Ausstehend",
+    "durum": {
+      "tamam": "Abgeschlossen",
+      "yolunda": "Im Plan",
+      "riskli": "Etwas im Rückstand",
+      "geride": "Im Rückstand"
+    }
+  }
+}

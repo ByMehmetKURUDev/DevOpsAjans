@@ -166,6 +166,8 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # Faz 6M — ön muhasebe: kategori bütçesi aşıldı ((kategori, ay, para birimi) başına bir kez; ajansın kendi
     # defterinde yöneticilere, müşteride hesaba).
     "muhasebe_butce": {"roller": ("admin", "client"), "tetikleniyor": True},
+    # Faz 6O — OKR: 7 gündür check-in almamış etkin KR'ler (KR sahibine; kişi başına tek ileti, KR başına haftada en çok bir).
+    "okr_hatirlatma": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 7O — Pazartesi sabahı yöneticiye haftalık özet. Bu satırın yönetici × e-posta hücresi özetin
     # açık/kapalı anahtarı (Otomasyon › Sistem kartındaki düğme de bunu değiştirir; tek kaynak).
     "haftalik_ozet": {"roller": ("admin",), "tetikleniyor": True},

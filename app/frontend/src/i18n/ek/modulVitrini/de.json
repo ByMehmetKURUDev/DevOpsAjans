@@ -674,6 +674,27 @@
             "c": "Ja. Haben Sie bei Visitenkarte oder Speisekarte eine eigene Farbe gewählt, hat sie dort Vorrang; das Markendesign füllt nur den Rest."
           }
         ]
+      },
+      "hedefler": {
+        "ozet": "Verfolgen Sie Quartals- und Jahresziele Ihres Teams mit messbaren Schlüsselergebnissen; der Fortschritt kann auch aus Ihren Daten berechnet werden.",
+        "kimIcin": "KMU, Teams, Agenturen und Selbstständige, die Ziele setzen und regelmäßig verfolgen möchten.",
+        "ozellikler": [
+          "Quartal / Jahr / eigener Zeitraum, Ziele und Zielbaum (Sichtbarkeit Team oder nur ich)",
+          "Arten von Schlüsselergebnissen: Zahl, Prozent, Geld, Ja/Nein, Meilensteine; gewichteter Fortschritt im Vergleich zum erwarteten",
+          "Check-ins (Wert, Zuversicht, Notiz), Verlauf mit kleinem Diagramm und wöchentliche Erinnerung",
+          "Automatische Schlüsselergebnisse aus Buchhaltung, Kasse, Terminen und Kursen (nur aus Ihren eigenen Daten)",
+          "Periodenabschluss (Bewertung, Notiz, Übernahme offener KR), KI-Vorschläge, PDF/CSV-Berichte"
+        ],
+        "sss": [
+          {
+            "s": "Sieht ein automatisches Schlüsselergebnis Daten anderer Konten?",
+            "c": "Nein. Es wird nur aus den Daten Ihres eigenen Kontos und nur aus aktivierten Modulen berechnet."
+          },
+          {
+            "s": "Werden KI-Vorschläge automatisch hinzugefügt?",
+            "c": "Nein. Vorschläge werden erst hinzugefügt, wenn Sie sie auswählen und speichern; Sie können die Werte prüfen und anpassen."
+          }
+        ]
       }
     },
     "s": {

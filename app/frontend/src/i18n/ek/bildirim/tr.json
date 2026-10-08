@@ -94,7 +94,8 @@
       "toplanti_iptal": "Toplantı: iptal edildi",
       "toplanti_hatirlatma": "Toplantı: hatırlatma (24 sa / 1 sa önce)",
       "toplanti_notlari": "Toplantı: notlar paylaşıldı",
-      "toplanti_talebi": "Toplantı: müşteriden yeni talep"
+      "toplanti_talebi": "Toplantı: müşteriden yeni talep",
+      "okr_hatirlatma": "OKR: haftalık check-in hatırlatması (7 gündür güncellenmeyen anahtar sonuçlar)"
     },
     "kanal": {
       "inapp": "Panel",
