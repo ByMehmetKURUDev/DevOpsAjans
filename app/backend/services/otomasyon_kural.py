@@ -197,11 +197,12 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("proje.asama_degisti", ("proje", "hesap"), proje_var=True),
     OtoOlay("menu.siparis", ("siparis", "hesap")),
     OtoOlay("kart.mesaj", ("mesaj", "hesap")),
-    # Faz 5I — içerik stüdyosu (webhook kataloğunda da var).
-    OtoOlay("icerik.onaylandi", ("icerik", "hesap")),
-    OtoOlay("icerik.revizyon_istendi", ("icerik", "hesap")),
-    OtoOlay("icerik.yayin_zamani", ("icerik", "hesap")),
-    OtoOlay("icerik.yayinlandi", ("icerik", "hesap")),
+    # Faz 5I — içerik stüdyosu (webhook kataloğunda da var). Faz 7K: gönderiye isteğe bağlı proje
+    # bağlanabiliyor → bağlamda "proje" ve görev eyleminde "olaydaki proje" (yoksa görev "proje_yok").
+    OtoOlay("icerik.onaylandi", ("icerik", "proje", "hesap"), proje_var=True),
+    OtoOlay("icerik.revizyon_istendi", ("icerik", "proje", "hesap"), proje_var=True),
+    OtoOlay("icerik.yayin_zamani", ("icerik", "proje", "hesap"), proje_var=True),
+    OtoOlay("icerik.yayinlandi", ("icerik", "proje", "hesap"), proje_var=True),
     OtoOlay("randevu.olusturuldu", ("randevu", "aday", "hesap"), yalniz_otomasyon=True),
     # Faz 6S — saha servisi.
     OtoOlay("is_emri.olusturuldu", ("is_emri", "hesap")),
@@ -1107,15 +1108,18 @@ SABLONLAR: Tuple[Sablon, ...] = (
                   "e-postayı yanıtlamanız yeterli.\n\nSevgiler"},
         yalniz_ajans=True,
     ),
-    # `icerik.onaylandi` olayında proje yok → görev yerine sorumluya (yoksa yöneticilere) bildirim.
+    # Faz 7K: gönderiye proje bağlıysa projeye "Paylaş" görevi açılır (son tarih: 1 gün); proje yoksa görev
+    # adımı "proje_yok" ile atlanır. Sorumluya (yoksa yöneticilere) bildirim her durumda gider (bugünkü davranış).
     Sablon(
         "icerik_onaylandi_gorev", "icerik.onaylandi",
         {"baglac": "ve", "kosullar": [{"alan": "icerik.yoneten", "islec": "esittir", "deger": "ajans"}]},
-        ({"tur": "bildirim", "alici": "sorumlu_yonetici", "baslik": "$bildirim", "govde": "$bildirim_govde"},),
+        ({"tur": "bildirim", "alici": "sorumlu_yonetici", "baslik": "$bildirim", "govde": "$bildirim_govde"},
+         {"tur": "gorev", "proje": "olay", "baslik": "$gorev", "son_tarih_gun": 1, "oncelik": "normal"}),
         {"ad": "İçerik onaylandı → \"Paylaş\" hatırlatması",
          "bildirim": "Paylaş: {{icerik.baslik}}",
          "bildirim_govde": "Gönderi onaylandı. Planlanan zaman: {{icerik.planlanan_at|belirlenmemiş}}; kanallar: "
-                           "{{icerik.kanallar|—}}."},
+                           "{{icerik.kanallar|—}}.",
+         "gorev": "Paylaş: {{icerik.baslik}}"},
         yalniz_ajans=True,
     ),
     # --- Faz 6R: sektör setlerinin önerdiği müşteri şablonları (yerleşik bildirimlerin tekrarı DEĞİL) ---

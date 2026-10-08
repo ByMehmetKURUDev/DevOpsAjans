@@ -11,6 +11,8 @@
  * Kimlik başlığına da gerek yok.
  */
 
+import { govdeyiTuket } from '@/lib/yanit';
+
 export type UrunKategorisi = 'tool' | 'plugin' | 'website' | 'ecommerce' | 'saas';
 
 export interface MarketplaceUrunu {
@@ -100,7 +102,10 @@ export async function urunleriGetir(signal?: AbortSignal): Promise<MarketplaceUr
       headers: { accept: 'application/json' },
       signal,
     });
-    if (!yanit.ok) return [];
+    if (!yanit.ok) {
+      await govdeyiTuket(yanit);
+      return [];
+    }
     const govde = (await yanit.json()) as ListeYaniti;
     return Array.isArray(govde.items) ? govde.items : [];
   } catch {

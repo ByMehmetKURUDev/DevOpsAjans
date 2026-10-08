@@ -352,6 +352,14 @@ def _uclar(router: APIRouter, yon: _Yon) -> None:
         except StudyoHatasi as h:
             raise _sh(h)
 
+    @router.get("/projeler")
+    async def projeler(request: Request, hesap: Optional[str] = Query(None), db: AsyncSession = Depends(get_db)):
+        """Faz 7K — gönderiye bağlanabilecek projeler (seçili hesabın; ajansın kendi içeriğinde hepsi).
+        `hesap`: liste tek bir hesabınsa o hesap (ön yüz yalnız o zaman "tek açık proje" önerisi gösterir)."""
+        k = kapsam_al(request, hesap)
+        tum = k.yonetici and not k.hesap
+        return {"items": await pl.projeler(db, k.hesap, tum=tum), "hesap": None if tum else k.hesap}
+
     async def _sozluk(db: AsyncSession, g: Content_posts, k: Kapsam) -> Dict[str, Any]:
         onaylar = await pl.onay_bilgileri(db, [g]) if k.yonetici else {}
         markalar = await pl.marka_adlari(db, [g.marka_id])

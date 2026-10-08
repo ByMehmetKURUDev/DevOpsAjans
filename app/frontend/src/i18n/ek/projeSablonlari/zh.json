@@ -69,8 +69,6 @@
       "gorevler_gecersiz": "任务列表无效。",
       "gorev_gecersiz": "无法读取任务。",
       "saat_gecersiz": "预估工时无效。"
-    },
-    "kopyaAdi": "{{ad}}（副本）",
-    "onizlemeYok": "添加任务后，这里会显示其日期。"
+    }
   }
 }

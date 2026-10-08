@@ -16,7 +16,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 
 import pytest
-from sqlalchemy import select
+from sqlalchemy import func, select
 
 from conftest import jeton_uret
 
@@ -328,7 +328,7 @@ async def test_suzgecler_ve_sayfa(istemci, db_oturumu, yonetici_basligi):
     for p in ({"durum": "uydurma"}, {"kaynak": "yok"}, {"bas": "2026-13-40"}, {"bas": "2026-02-02", "bit": "2026-01-01"}):
         assert (await istemci.get(Y, params=p, headers=yb)).status_code == 400, p
     # Meta
-    assert set(g1["meta"]) >= {"ai_hazir", "eposta_hazir", "kaynaklar"} and len(g1["meta"]["kaynaklar"]) == 12  # Faz 6K + 5B + 6I: egitim, belge_paylasim, izin_talebi
+    assert set(g1["meta"]) >= {"ai_hazir", "eposta_hazir", "kaynaklar"} and len(g1["meta"]["kaynaklar"]) == 14  # Faz 6K + 5B + 6I: egitim, belge_paylasim, izin_talebi; 7K: crm_form, teklif_karari
 
 
 async def test_sayac_kaynak_basina(istemci, db_oturumu, yonetici_basligi):
@@ -677,6 +677,137 @@ async def test_eposta_yaniti(istemci, db_oturumu, yonetici_basligi, monkeypatch)
     b = await _belge(db, ek)
     y = await istemci.post(f"{Y}/belge/{b.id}/eposta", json=govde, headers=yb)
     assert y.status_code == 200 and y.json()["oge"]["durum"] == "okundu"
+
+
+async def test_eposta_yaniti_yazisma_gecmisine_kaydedilir(istemci, db_oturumu, yonetici_basligi, monkeypatch):
+    """Faz 7K: e-posta yanıtı öğenin yazışma geçmişinde (kim, kime, ne zaman, metin); sağlayıcı yoksa
+    "gonderilemedi" (metin kaybolmuyor), sağlayıcı reddederse yine "gonderilemedi"; AI geçmişi gidenleri görüyor."""
+    from services import gelen_kutusu as gk
+    from services import notify
+
+    db, yb, ek = db_oturumu, yonetici_basligi, _ek()
+    t = await _talep(db, ek)
+    monkeypatch.delenv("RESEND_API_KEY", raising=False)
+    monkeypatch.delenv("SMTP_HOST", raising=False)
+    y = await istemci.post(f"{Y}/iletisim/{t.id}/eposta", json={"konu": "Re: 1", "metin": f"Taslak {ek}"}, headers=yb)
+    assert y.status_code == 409
+    monkeypatch.setenv("RESEND_API_KEY", "re_test")
+    sonuclar = iter([("failed", "429"), ("sent", "ok")])
+
+    async def _sahte(alici, baslik, metin, ek_=None):
+        return next(sonuclar)
+
+    monkeypatch.setattr(notify, "_eposta_gonder", _sahte)
+    y = await istemci.post(f"{Y}/iletisim/{t.id}/eposta", json={"konu": "Re: 2", "metin": "Reddedilen"}, headers=yb)
+    assert y.status_code == 502 and y.json()["detail"]["kod"] == "eposta_gitmedi"
+    y = await istemci.post(f"{Y}/iletisim/{t.id}/eposta", json={"konu": "Re: 3", "metin": f"Giden {ek}"}, headers=yb)
+    assert y.status_code == 200 and [x["durum"] for x in y.json()["yanitlar"]] == ["gonderilemedi", "gonderilemedi",
+                                                                                     "gonderildi"]
+    gecmis = (await istemci.get(f"{Y}/iletisim/{t.id}", headers=yb)).json()["yanitlar"]
+    assert [(x["durum"], x["neden"], x["metin"]) for x in gecmis] == [
+        ("gonderilemedi", "eposta_kapali", f"Taslak {ek}"), ("gonderilemedi", "eposta_gitmedi", "Reddedilen"),
+        ("gonderildi", None, f"Giden {ek}")]
+    assert all(x["yazan"] == "yonetici@test.dev" and x["alici"] == f"ayse-{ek}@ornek.dev" and x["zaman"] for x in gecmis)
+    oge = await gk.oge_bul(db, "yonetici@test.dev", "iletisim", t.id)
+    assert await gk._gecmis(db, "yonetici@test.dev", oge) == [("agency", f"Giden {ek}")]
+    # Başka öğenin geçmişi boş.
+    t2 = await _talep(db, ek)
+    assert (await istemci.get(f"{Y}/iletisim/{t2.id}", headers=yb)).json()["yanitlar"] == []
+
+
+async def test_crm_formu_gonderimi_adaya_bagli_cift_kayit_yok(istemci, db_oturumu, yonetici_basligi):
+    """Faz 7K: gömülebilir CRM formu gönderimi gelen kutusunda (kaynak crm_form) — aday zaten CRM'de: öğe
+    adaya bağlı, `inquiries`'e (iletişim formu öğesi) düşmüyor, aynı kişinin ikinci gönderimi aynı adaya
+    ikinci öğe; aday kapanınca öğe kapanır."""
+    import time
+
+    from models.crm import CrmAdaylari, CrmFormGonderimleri
+    from models.inquiries import Inquiries
+    from services.crm_form import jeton_uret
+
+    db, yb, ek = db_oturumu, yonetici_basligi, _ek()
+    y = await istemci.post("/api/v1/crm/formlar", json={"ad": f"Site formu {ek}", "baslik": "Bize yazın"}, headers=yb)
+    assert y.status_code == 201, y.text
+    f = y.json()
+    oncesi = (await db.execute(select(func.count(Inquiries.id)))).scalar()
+
+    async def gonder(mesaj):
+        veri = {"ad": f"Form Kişisi {ek}", "email": f"form-{ek}@ornek.dev", "mesaj": mesaj, "telefon": "+90 555 000 00 00",
+                "jeton": jeton_uret(f["id"], an=time.time() - 5), "dil": "tr"}
+        r = await istemci.post(f"/api/v1/crm/form/{f['genel_anahtar']}", content=json.dumps(veri).encode(),
+                               headers={"content-type": "text/plain;charset=UTF-8"})
+        assert r.status_code == 200, r.text
+
+    await gonder(f"İlk mesaj {ek}")
+    await gonder(f"İkinci mesaj {ek}")
+    gonderimler = (await db.execute(select(CrmFormGonderimleri).where(CrmFormGonderimleri.form_id == f["id"])
+                                    .order_by(CrmFormGonderimleri.id))).scalars().all()
+    assert len(gonderimler) == 2 and gonderimler[0].aday_id == gonderimler[1].aday_id  # aynı aday
+    assert (await db.execute(select(func.count(Inquiries.id)))).scalar() == oncesi  # iletişim formu kaydı yok
+    govde = await _liste(istemci, yb, q=ek)
+    ogeler = [o for o in govde["ogeler"] if o["kaynak"] == "crm_form"]
+    assert {o["kimlik"] for o in ogeler} == {g.id for g in gonderimler}
+    assert not [o for o in govde["ogeler"] if o["kaynak"] == "iletisim"]
+    ilk = _bul(govde, "crm_form", gonderimler[0].id)
+    aday_id = gonderimler[0].aday_id
+    assert ilk["durum"] == "yeni" and ilk["ozet"] == f"İlk mesaj {ek}" and ilk["baslik"] == "Bize yazın"
+    assert ilk["kisi_eposta"] == f"form-{ek}@ornek.dev" and ilk["ek"]["crm_aday_id"] == aday_id
+    assert ilk["ac_baglantisi"] == f"/admin?sekme=crm&aday={aday_id}" and ilk["yanit"]["tur"] == "eposta"
+    assert _bul(govde, "crm_form", gonderimler[1].id)["ozet"] == f"İkinci mesaj {ek}"
+    ayr = (await istemci.get(f"{Y}/crm_form/{gonderimler[0].id}", headers=yb)).json()["ayrinti"]
+    assert ayr["mesaj"] == f"İlk mesaj {ek}" and ayr["form"] == f"Site formu {ek}" and ayr["telefon"]
+    # Haftalık özet: adayı "takip bekleyen CRM adayları"nda olan form öğeleri gelen kutusunda ikinci kez sayılmaz.
+    from services import haftalik_ozet as ho
+
+    def form_sayisi(o):
+        return {b["anahtar"]: b for b in o["bolumler"]}["gelen_kutusu"]["ek"].get("kaynaklar", {}).get("crm_form", 0)
+
+    s1 = form_sayisi(await ho.ozet_hazirla(db))
+    aday = (await db.execute(select(CrmAdaylari).where(CrmAdaylari.id == aday_id))).scalars().one()
+    aday.sonraki_adim_tarihi = (_simdi() - timedelta(days=2)).date()
+    await db.commit()
+    assert form_sayisi(await ho.ozet_hazirla(db)) == s1 - 2
+    # İşaret: okundu → kapandi; aday kazanıldı aşamasına geçince öğeler kapanır.
+    await _eylem(istemci, yb, ilk, "okundu")
+    assert (await _oge(istemci, yb, "crm_form", gonderimler[0].id))["durum"] == "okundu"
+    aday.asama = "kazanildi"
+    await db.commit()
+    assert (await _oge(istemci, yb, "crm_form", gonderimler[1].id))["durum"] == "kapandi"
+
+
+async def test_teklif_karari_bilgi_ogesi(istemci, db_oturumu, yonetici_basligi):
+    """Faz 7K: müşterinin teklif kararı (kabul / ret + not) "bilgi" öğesi: yanıt beklemez, okununca kapanır;
+    haftalık özetin "yanıt bekleyenler"inde yok."""
+    from models.teklifler import Teklifler
+    from services import haftalik_ozet as ho
+
+    db, yb, ek = db_oturumu, yonetici_basligi, _ek()
+    kabul = await _ekle(db, Teklifler(no=f"TKL-K-{ek}", baslik=f"Kurumsal site {ek}", durum="kabul", karar_at=_simdi(),
+                                      karar_ad="Ayşe Yılmaz", aday_eposta=f"ayse-{ek}@ornek.dev", genel_toplam=48000,
+                                      para_birimi="TRY"))
+    ret = await _ekle(db, Teklifler(no=f"TKL-R-{ek}", baslik=f"Mağaza {ek}", durum="ret", karar_at=_simdi(),
+                                    karar_notu=f"Bütçemizi aşıyor {ek}", aday_eposta=f"veli-{ek}@ornek.dev",
+                                    genel_toplam=90000, para_birimi="TRY"))
+    acik = await _ekle(db, Teklifler(no=f"TKL-A-{ek}", baslik=f"Açık {ek}", durum="gonderildi", genel_toplam=1,
+                                     para_birimi="TRY"))
+    govde = await _liste(istemci, yb, q=ek, durum="bekleyen")
+    k, r = _bul(govde, "teklif_karari", kabul.id), _bul(govde, "teklif_karari", ret.id)
+    assert _bul(govde, "teklif_karari", acik.id) is None
+    assert k["durum"] == "yeni" and k["ek"]["bilgi"] is True and k["ek"]["karar"] == "kabul" and k["kisi_ad"] == "Ayşe Yılmaz"
+    assert r["ek"]["karar"] == "ret" and r["ozet"] == f"Bütçemizi aşıyor {ek}" and r["baslik"].startswith(f"TKL-R-{ek}")
+    assert [e["anahtar"] for e in r["eylemler"]] == ["okundu"]
+    # Haftalık özet: bilgi öğesi "yanıt bekleyenler"de yok.
+    ozet = await ho.ozet_hazirla(db)
+    assert "teklif_karari" not in {b["anahtar"]: b for b in ozet["bolumler"]}["gelen_kutusu"]["ek"].get("kaynaklar", {})
+    # Okundu → kapandı (bilgi); yeniden aç → yeni.
+    await _eylem(istemci, yb, r, "okundu")
+    r2 = await _oge(istemci, yb, "teklif_karari", ret.id)
+    assert r2["durum"] == "kapandi" and [e["anahtar"] for e in r2["eylemler"]] == ["yeniden_ac"]
+    assert _bul(await _liste(istemci, yb, q=ek, durum="bekleyen"), "teklif_karari", ret.id) is None
+    await _eylem(istemci, yb, r2, "yeniden_ac")
+    assert (await _oge(istemci, yb, "teklif_karari", ret.id))["durum"] == "yeni"
+    sayac = (await istemci.get(f"{Y}/sayac", headers=yb)).json()
+    assert sayac["kaynaklar"]["teklif_karari"] >= 2 and "crm_form" in sayac["kaynaklar"]
 
 
 # ---------------------------------------------------------------------------

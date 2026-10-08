@@ -69,8 +69,6 @@
       "gorevler_gecersiz": "Ungültige Aufgabenliste.",
       "gorev_gecersiz": "Aufgabe konnte nicht gelesen werden.",
       "saat_gecersiz": "Ungültige geschätzte Stunden."
-    },
-    "kopyaAdi": "{{ad}} (Kopie)",
-    "onizlemeYok": "Fügen Sie Aufgaben hinzu, um hier ihre Termine zu sehen."
+    }
   }
 }

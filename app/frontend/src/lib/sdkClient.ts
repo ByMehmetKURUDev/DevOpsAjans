@@ -1,5 +1,6 @@
 import { createClient } from '@metagptx/web-sdk';
 import { hesapBasliklari } from '@/lib/hesapSecimi';
+import { govdeyiTuket } from '@/lib/yanit';
 
 type SdkClient = ReturnType<typeof createClient>;
 
@@ -104,10 +105,11 @@ export async function sunucuOturumunuKapat(): Promise<void> {
   const kontrol = typeof AbortController !== 'undefined' ? new AbortController() : null;
   const zaman = window.setTimeout(() => kontrol?.abort(), 2000);
   try {
-    await fetch('/api/v1/auth/logout', {
+    const y = await fetch('/api/v1/auth/logout', {
       headers: { Authorization: `Bearer ${jeton}` },
       signal: kontrol?.signal,
     });
+    await govdeyiTuket(y);
   } catch {
     /* ağ hatası: çıkış yine yapılır */
   } finally {

@@ -41,8 +41,14 @@ stripe>=12.0.0
 
 # Faz 3T — fatura/teklif/sözleşme PDF'i (saf Python; Chromium yok). Yazı tipi
 # data/fonts (Plus Jakarta Sans, OFL). pypdf yalnız testte PDF metnini okumak için.
-reportlab>=4.0
+reportlab>=4.2
 pypdf>=3.0
+# Faz 7K — çok dilli PDF (services/pdf_yazi.py): Arapça birleşik biçimler (arabic-reshaper), Devanagari
+# şekillendirmesi (uharfbuzz; ReportLab 4'ün HarfBuzz desteği). Sağdan sola sıralama pdf_yazi'de;
+# python-bidi testte karşılaştırma ölçütü. Yazı tipleri data/fonts (Noto, OFL).
+arabic-reshaper>=3.0
+uharfbuzz>=0.39
+python-bidi>=0.6
 
 # Faz 4Q — dinamik QR: SVG/PNG üretimi (saf Python). Pillow logolu PNG için
 # (reportlab'ın bağımlılığı olarak zaten kurulu; doğrudan kullanıldığı için ayrıca yazıldı).

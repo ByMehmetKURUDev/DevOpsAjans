@@ -1,5 +1,6 @@
 import { client } from '@/lib/sdkClient';
 import { getAPIBaseURL } from '@/lib/config';
+import { govdeyiTuket } from '@/lib/yanit';
 
 /**
  * Faz 2A — müşteri sitesi bakımı: bitiş tarihleri, uptime, durum sayfası,
@@ -284,7 +285,10 @@ export async function acikDurumGetir(slug: string): Promise<AcikDurum> {
   const yanit = await fetch(`${getAPIBaseURL()}/api/v1/durum/${encodeURIComponent(slug)}`, {
     headers: { accept: 'application/json' },
   });
-  if (!yanit.ok) throw new BakimHatasi(yanit.status, yanit.status === 404 ? 'sayfa_yok' : 'genel');
+  if (!yanit.ok) {
+    await govdeyiTuket(yanit);
+    throw new BakimHatasi(yanit.status, yanit.status === 404 ? 'sayfa_yok' : 'genel');
+  }
   return (await yanit.json()) as AcikDurum;
 }
 

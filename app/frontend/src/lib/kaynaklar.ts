@@ -14,6 +14,8 @@
  * `fetch` doğrudan: uç girişsiz ve aynı origin'de; SDK gerekmiyor.
  */
 
+import { govdeyiTuket } from '@/lib/yanit';
+
 export interface KaynakOzeti {
   slug: string;
   kategori: string;
@@ -132,8 +134,11 @@ export class KaynakBulunamadi extends Error {}
 
 async function getir<T>(adres: string, signal?: AbortSignal): Promise<T> {
   const yanit = await fetch(adres, { headers: { accept: 'application/json' }, signal });
-  if (yanit.status === 404) throw new KaynakBulunamadi('bulunamadi');
-  if (!yanit.ok) throw new Error(`HTTP ${yanit.status}`);
+  if (!yanit.ok) {
+    await govdeyiTuket(yanit);
+    if (yanit.status === 404) throw new KaynakBulunamadi('bulunamadi');
+    throw new Error(`HTTP ${yanit.status}`);
+  }
   return (await yanit.json()) as T;
 }
 

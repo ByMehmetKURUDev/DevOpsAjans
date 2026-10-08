@@ -12,6 +12,9 @@
  * çoğunluk — düz çubukta kalır; ek araç modülleri açıldıkça gruplu menüye
  * geçilir.
  *
+ * Faz 7K: sayı sınırın altında kalsa da düz çubuk ekrana sığmıyorsa (dar pencere, uzun dil) gruplu menü
+ * (`DUZ_MENU_EN_DAR`).
+ *
  * Tanımda adı geçmeyen yeni bir sekme kaybolmaz: "Diğer" grubunda görünür.
  */
 import { yerelOku, yerelYaz, type GrupTanimi } from '@/lib/grupluMenu';
@@ -20,6 +23,16 @@ export type MusteriGrubu = 'projeler' | 'destek' | 'sitem' | 'araclar' | 'hesap'
 
 /** Görünür sekme sayısı bunu aşarsa gruplu menü. */
 export const DUZ_MENU_SINIRI = 10;
+
+/**
+ * Faz 7K — düz çubuğun sığma denetimi bu genişlikten (px) itibaren: sınırın altındaki (≤ 10 sekmeli) müşteride
+ * düz çubuk bu genişlikte ve üstünde sığmıyorsa gruplu menü (ClientPanel ölçüyor). Ölçüm (7K): 1024 px'te 9
+ * sekme Türkçe 75 px, Almanca 1280/1366'da da 22 px; 10 sekmede 1366'da Türkçe 6, İngilizce 71, Rusça 167,
+ * Almanca 235 px taşıyordu — son sekmeler çubuğun yatay kaydırmasında gizli kalıyordu. Ayrıca 1536 px'in
+ * altında sekme iç boşluğu daraltıldı (1280–1535: 16 px, 1280 altı: 12 px). Altında (telefon) düz çubuk
+ * eskisi gibi yatay kaydırılır.
+ */
+export const DUZ_MENU_EN_DAR = 768;
 
 /** Grupların ve içlerindeki sekmelerin sırası (tek kaynak; anahtarlar `ClientPanel` `Tab`). */
 export const MUSTERI_GRUPLARI: readonly GrupTanimi<MusteriGrubu>[] = [

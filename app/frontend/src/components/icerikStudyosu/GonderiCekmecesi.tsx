@@ -23,6 +23,7 @@ import {
   uzunluk,
   type Durum,
   type Gonderi,
+  type GonderiProjesi,
   type Gorsel,
   type Marka,
   type Meta,
@@ -53,6 +54,7 @@ interface Form {
   kampanya: string;
   notlar: string;
   marka_id: number | null;
+  proje_id: number | null;
   sorumlu_eposta: string;
   planlanan: string;
   saat_dilimi: string;
@@ -72,6 +74,7 @@ function formdan(g: Gonderi | null, taslak: PlanTaslagi | null, varsayilanTz: st
     kampanya: g?.kampanya ?? '',
     notlar: g?.notlar ?? '',
     marka_id: g?.marka_id ?? taslak?.marka_id ?? null,
+    proje_id: g?.proje_id ?? null,
     sorumlu_eposta: g?.sorumlu_eposta ?? '',
     planlanan: g?.planlanan ?? (gun ? `${gun}T10:00` : ''),
     saat_dilimi: g?.saat_dilimi ?? varsayilanTz,
@@ -107,6 +110,9 @@ export default function GonderiCekmecesi({
   const [form, setForm] = useState<Form>(() => formdan(gonderi, taslak, varsayilanTz, gun));
   const [seciliKanal, setSeciliKanal] = useState<string>(() => (gonderi?.kanallar ?? taslak?.kanallar ?? ['instagram'])[0]);
   const [markalar, setMarkalar] = useState<Marka[]>([]);
+  const [projeler, setProjeler] = useState<GonderiProjesi[]>([]);
+  /** Proje listesi tek bir hesabın mı (ajans içeriğinde bütün projeler gelir; öneri yalnız hesaplıda). */
+  const [projeHesapli, setProjeHesapli] = useState(false);
   const [kitaplik, setKitaplik] = useState<Gorsel[] | null>(null);
   const [calisiyor, setCalisiyor] = useState<string | null>(null);
   const [retNotu, setRetNotu] = useState<string | null>(null);
@@ -118,6 +124,22 @@ export default function GonderiCekmecesi({
   useEffect(() => {
     api.markalar().then((r) => setMarkalar(r.items)).catch(() => setMarkalar([]));
   }, [api]);
+
+  // Faz 7K — isteğe bağlı proje: var olan gönderide gönderinin hesabının projeleri (ajans içeriği: hepsi).
+  const projeHesabi = gonderi ? gonderi.hesap_email : undefined;
+  useEffect(() => {
+    api
+      .projeler(projeHesabi)
+      .then((r) => {
+        setProjeler(r.items);
+        setProjeHesapli(Boolean(r.hesap));
+      })
+      .catch(() => setProjeler([]));
+  }, [api, projeHesabi]);
+
+  // Faz 7K — hesabın TEK açık projesi varsa ve gönderiye proje bağlanmamışsa öneri (tek tıkla bağlanır).
+  const acikProjeler = projeler.filter((p) => p.acik);
+  const onerilenProje = projeHesapli && !form.proje_id && acikProjeler.length === 1 ? acikProjeler[0] : null;
 
   const durum: Durum = g?.durum ?? 'taslak';
   const saltOkunur = meta.yonetici ? false : g?.yoneten === 'ajans';
@@ -143,6 +165,7 @@ export default function GonderiCekmecesi({
       kampanya: form.kampanya,
       notlar: form.notlar,
       sorumlu_eposta: form.sorumlu_eposta,
+      proje_id: form.proje_id,
     };
     if (!icerikKilitli) {
       Object.assign(d, {
@@ -477,6 +500,34 @@ export default function GonderiCekmecesi({
           <Alan etiket={t('icerikStudyosu.form.sorumlu')} ipucu={t('icerikStudyosu.form.sorumluIpucu')}>
             <input className={GIRDI} type="email" value={form.sorumlu_eposta} onChange={(e) => yaz('sorumlu_eposta', e.target.value)} disabled={saltOkunur} dir="ltr" />
           </Alan>
+          <div className="min-w-0">
+            <Alan etiket={t('icerikStudyosu.form.proje')} ipucu={t('icerikStudyosu.form.projeIpucu')}>
+              <select className={SECIM} value={form.proje_id ?? ''} disabled={saltOkunur} data-testid="is-form-proje"
+                onChange={(e) => yaz('proje_id', e.target.value ? Number(e.target.value) : null)}>
+                <option value="">{t('icerikStudyosu.form.projeYok')}</option>
+                {form.proje_id && !projeler.some((p) => p.id === form.proje_id) && <option value={form.proje_id}>#{form.proje_id}</option>}
+                {projeler.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.baslik}
+                  </option>
+                ))}
+              </select>
+            </Alan>
+            {onerilenProje && !saltOkunur && (
+              <p className="mt-1.5 flex flex-wrap items-center gap-2 text-xs text-sky-200" data-testid="is-proje-onerisi">
+                <span>
+                  {t('icerikStudyosu.form.projeOnerisi', { proje: onerilenProje.baslik })}
+                </span>
+                <button
+                  type="button"
+                  className="rounded-full border border-sky-400/40 px-2 py-0.5 font-medium hover:bg-sky-500/10"
+                  onClick={() => yaz('proje_id', onerilenProje.id)}
+                >
+                  {t('icerikStudyosu.form.projeBagla')}
+                </button>
+              </p>
+            )}
+          </div>
         </div>
         <Alan etiket={t('icerikStudyosu.form.notlar')}>
           <textarea className={METIN_ALANI + ' min-h-[56px]'} value={form.notlar} onChange={(e) => yaz('notlar', e.target.value)} disabled={saltOkunur} />

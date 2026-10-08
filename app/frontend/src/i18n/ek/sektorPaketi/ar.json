@@ -153,7 +153,6 @@
     "gecmis": {
       "baslik": "السجل",
       "bos": "لم تُطبَّق على هذا العميل أي باقة قطاع أو إعدادات أولية بعد.",
-      "tur_paket": "باقة قطاع",
       "tur_hazir": "إعدادات أولية",
       "uygulandi": "مطبّقة",
       "kaldirildi": "أُزيلت",
@@ -168,9 +167,7 @@
       "hazirGeriAlOnay": "تراجع",
       "kaldirildiMesaj": "أُعيدت {{sayi}} وحدات إلى حالتها السابقة.",
       "hazirGeriAlindiMesaj": "حُذف {{silinen}} من السجلات، وحُفظ {{korunan}}.",
-      "kapatilan": "أُعيدت إلى حالتها",
-      "korunan": "محفوظة",
-      "silinen": "محذوفة"
+      "korunan": "محفوظة"
     }
   }
 }

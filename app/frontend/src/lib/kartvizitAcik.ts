@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 
 import { getAPIBaseURL } from '@/lib/config';
 import { KOSE_DEGERLERI, ZEMIN_RENKLERI, markaDegiskenleri, markaTemasi, markaYaziTipi, type AcikMarka } from '@/lib/marka';
+import { govdeyiTuket } from '@/lib/yanit';
 
 /**
  * Faz 4K — herkese açık kartvizit / yorum sayfasının hafif yardımcıları.
@@ -125,9 +126,9 @@ export function isaretGonder(yol: string, veri: Record<string, unknown>): void {
   } catch {
     /* fetch'e düş */
   }
-  void fetch(adres, { method: 'POST', body: metin, keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' } }).catch(
-    () => undefined
-  );
+  void fetch(adres, { method: 'POST', body: metin, keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' } })
+    .then(govdeyiTuket)
+    .catch(() => undefined);
 }
 
 export const apiAdresi = (yol: string) => `${getAPIBaseURL()}${yol}`;

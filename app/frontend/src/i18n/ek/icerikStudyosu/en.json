@@ -109,7 +109,12 @@
       "kaydedildi": "Saved.",
       "silOnay": "Delete \"{{baslik}}\"? (It can be restored from the trash.)",
       "silindi": "Deleted.",
-      "durumDegisti": "Status: {{durum}}"
+      "durumDegisti": "Status: {{durum}}",
+      "proje": "Project (optional)",
+      "projeYok": "No project linked",
+      "projeIpucu": "When approved, the \"Publish\" automation can open a task in this project.",
+      "projeOnerisi": "Suggestion: this account's only open project is “{{proje}}”.",
+      "projeBagla": "Link"
     },
     "gecis": {
       "taslak": "Move to draft",

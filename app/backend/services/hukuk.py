@@ -531,17 +531,41 @@ OLAY_ADI = {
 MASRAF_ADI = {
     "tr": {"harc": "Harç", "tebligat": "Tebligat", "bilirkisi": "Bilirkişi", "yol": "Yol", "diger": "Diğer"},
     "en": {"harc": "Court fee", "tebligat": "Service of process", "bilirkisi": "Expert", "yol": "Travel", "diger": "Other"},
+    "de": {"harc": "Gerichtsgebühr", "tebligat": "Zustellung", "bilirkisi": "Sachverständiger", "yol": "Reisekosten",
+           "diger": "Sonstiges"},
+    "ru": {"harc": "Госпошлина", "tebligat": "Вручение документов", "bilirkisi": "Эксперт", "yol": "Проезд",
+           "diger": "Прочее"},
+    "zh": {"harc": "诉讼费", "tebligat": "送达费", "bilirkisi": "鉴定费", "yol": "差旅费", "diger": "其他"},
+    "hi": {"harc": "न्यायालय शुल्क", "tebligat": "समन तामील", "bilirkisi": "विशेषज्ञ", "yol": "यात्रा",
+           "diger": "अन्य"},
+    "ar": {"harc": "رسوم المحكمة", "tebligat": "التبليغ", "bilirkisi": "الخبير", "yol": "السفر", "diger": "أخرى"},
 }
 DOSYA_TURU_ADI = {
     "tr": {"dava": "Dava", "icra": "İcra", "arabuluculuk": "Arabuluculuk", "danismanlik": "Danışmanlık",
            "sozlesme": "Sözleşme", "diger": "Diğer"},
     "en": {"dava": "Lawsuit", "icra": "Enforcement", "arabuluculuk": "Mediation", "danismanlik": "Advisory",
            "sozlesme": "Contract", "diger": "Other"},
+    "de": {"dava": "Klage", "icra": "Zwangsvollstreckung", "arabuluculuk": "Mediation", "danismanlik": "Beratung",
+           "sozlesme": "Vertrag", "diger": "Sonstiges"},
+    "ru": {"dava": "Иск", "icra": "Исполнительное производство", "arabuluculuk": "Медиация",
+           "danismanlik": "Консультация", "sozlesme": "Договор", "diger": "Прочее"},
+    "zh": {"dava": "诉讼", "icra": "强制执行", "arabuluculuk": "调解", "danismanlik": "咨询", "sozlesme": "合同",
+           "diger": "其他"},
+    "hi": {"dava": "मुकदमा", "icra": "निष्पादन", "arabuluculuk": "मध्यस्थता", "danismanlik": "परामर्श",
+           "sozlesme": "अनुबंध", "diger": "अन्य"},
+    "ar": {"dava": "دعوى", "icra": "تنفيذ", "arabuluculuk": "وساطة", "danismanlik": "استشارة", "sozlesme": "عقد",
+           "diger": "أخرى"},
 }
 
 
 def _dil(dil: Optional[str]) -> str:
     return "tr" if (dil or "tr")[:2] == "tr" else "en"
+
+
+def _pdf_dil(dil: Optional[str]) -> str:
+    """PDF dökümü ve dosya adı 7 dilde (Faz 7K); listede olmayan dil İngilizce."""
+    d = (dil or "tr")[:2].lower()
+    return d if d in PDF_ETIKET else "en"
 
 
 def olay_basligi(o: Any, dil: str = "tr") -> str:
@@ -605,11 +629,46 @@ PDF_ETIKET = {
            "diger_toplam": "Covered by the firm", "saat": "h", "dk": "min", "olusturma": "Created",
            "yok": "No entries.",
            "not": "This statement is for information only; it is not a receipt or payment document."},
+    "de": {"baslik": "Kosten- und Zeitaufstellung", "baslik_masraf": "Kostenaufstellung", "muvekkil": "Mandant",
+           "dosya": "Akte", "mahkeme": "Gericht / Behörde", "tarih": "Datum", "tur": "Art", "aciklama": "Beschreibung",
+           "tutar": "Betrag", "avans": "Aus Vorschuss", "evet": "Ja", "masraflar": "Auslagen", "zaman": "Zeiterfassung",
+           "sure": "Dauer", "faturalanabilir": "Abrechenbar", "toplam": "Summe",
+           "avans_toplam": "Aus Vorschuss gedeckt",
+           "diger_toplam": "Von der Kanzlei gedeckt", "saat": "Std.", "dk": "Min.", "olusturma": "Erstellt",
+           "yok": "Keine Einträge.",
+           "not": "Diese Aufstellung dient nur zur Information; sie ist keine Quittung und kein Zahlungsbeleg."},
+    "ru": {"baslik": "Выписка расходов и времени", "baslik_masraf": "Выписка расходов", "muvekkil": "Доверитель",
+           "dosya": "Дело", "mahkeme": "Суд / орган", "tarih": "Дата", "tur": "Вид", "aciklama": "Описание",
+           "tutar": "Сумма", "avans": "Из аванса", "evet": "Да", "masraflar": "Расходы", "zaman": "Учёт времени",
+           "sure": "Длительность", "faturalanabilir": "Оплачиваемое", "toplam": "Итого",
+           "avans_toplam": "Покрыто авансом", "diger_toplam": "Покрыто бюро", "saat": "ч", "dk": "мин",
+           "olusturma": "Создано", "yok": "Записей нет.",
+           "not": "Эта выписка носит информационный характер; она не является квитанцией или платёжным документом."},
+    "zh": {"baslik": "费用与工时明细", "baslik_masraf": "费用明细", "muvekkil": "委托人", "dosya": "案件",
+           "mahkeme": "法院 / 机关", "tarih": "日期", "tur": "类型", "aciklama": "描述", "tutar": "金额",
+           "avans": "从预付款扣除", "evet": "是", "masraflar": "费用", "zaman": "工时记录", "sure": "时长",
+           "faturalanabilir": "可计费", "toplam": "合计", "avans_toplam": "由预付款承担", "diger_toplam": "由律所承担",
+           "saat": "小时", "dk": "分钟", "olusturma": "生成日期", "yok": "暂无记录。",
+           "not": "本明细仅供参考，不是收据或付款凭证。"},
+    "hi": {"baslik": "व्यय और समय विवरण", "baslik_masraf": "व्यय विवरण", "muvekkil": "मुवक्किल", "dosya": "मामला",
+           "mahkeme": "न्यायालय / कार्यालय", "tarih": "दिनांक", "tur": "प्रकार", "aciklama": "विवरण", "tutar": "राशि",
+           "avans": "अग्रिम से", "evet": "हाँ", "masraflar": "व्यय", "zaman": "समय प्रविष्टियाँ", "sure": "अवधि",
+           "faturalanabilir": "बिल योग्य", "toplam": "कुल", "avans_toplam": "अग्रिम से वहन",
+           "diger_toplam": "फ़र्म द्वारा वहन", "saat": "घं", "dk": "मिनट", "olusturma": "निर्मित",
+           "yok": "कोई प्रविष्टि नहीं।",
+           "not": "यह विवरण केवल जानकारी के लिए है; यह रसीद या भुगतान दस्तावेज़ नहीं है।"},
+    "ar": {"baslik": "كشف المصروفات والوقت", "baslik_masraf": "كشف المصروفات", "muvekkil": "الموكل", "dosya": "الملف",
+           "mahkeme": "المحكمة / الجهة", "tarih": "التاريخ", "tur": "النوع", "aciklama": "الوصف", "tutar": "المبلغ",
+           "avans": "من الدفعة المقدمة", "evet": "نعم", "masraflar": "المصروفات", "zaman": "سجلات الوقت",
+           "sure": "المدة", "faturalanabilir": "قابل للفوترة", "toplam": "الإجمالي",
+           "avans_toplam": "مغطى من الدفعة المقدمة", "diger_toplam": "مغطى من المكتب", "saat": "س", "dk": "د",
+           "olusturma": "تاريخ الإنشاء", "yok": "لا توجد سجلات.",
+           "not": "هذا الكشف للعلم فقط؛ وليس إيصالًا أو مستند دفع."},
 }
 
 
 def sure_yaz(dk: int, dil: str = "tr") -> str:
-    e = PDF_ETIKET[_dil(dil)]
+    e = PDF_ETIKET[_pdf_dil(dil)]
     sa, kalan = divmod(int(dk or 0), 60)
     if sa and kalan:
         return f"{sa} {e['saat']} {kalan} {e['dk']}"
@@ -624,11 +683,13 @@ def dokum_pdf(*, buro_adi: str, muvekkil_adi: str, dosya: Dict[str, Any], masraf
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4
     from reportlab.lib.units import mm
-    from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+    from reportlab.platypus import SimpleDocTemplate, Spacer, Table, TableStyle
 
     from services import pdf_belge as pb
+    from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf
+    from services.pdf_yazi import metin_ciz
 
-    d = _dil(dil)
+    d = _pdf_dil(dil)
     e = PDF_ETIKET[d]
     st = pb._stiller()  # noqa: SLF001 — sitenin Türkçe destekli yazı tipi ve stilleri
     an = an or simdi()
@@ -667,7 +728,7 @@ def dokum_pdf(*, buro_adi: str, muvekkil_adi: str, dosya: Dict[str, Any], masraf
                 avans[pbirim] = avans.get(pbirim, 0) + int(x["tutar_kurus"])
             veri.append([
                 Paragraph(pb.tarih(x.get("tarih")), st["govde"]),
-                Paragraph(m(MASRAF_ADI[d].get(x.get("tur"), x.get("tur"))), st["govde"]),
+                Paragraph(m(MASRAF_ADI.get(d, MASRAF_ADI["en"]).get(x.get("tur"), x.get("tur"))), st["govde"]),
                 Paragraph(m(x.get("aciklama") or ""), st["govde"]),
                 Paragraph(m(e["evet"] if x.get("avanstan") else "—"), st["sag"]),
                 Paragraph(m(pb.para(int(x["tutar_kurus"]) / 100, pbirim, d)), st["sag"]),
@@ -709,10 +770,9 @@ def dokum_pdf(*, buro_adi: str, muvekkil_adi: str, dosya: Dict[str, Any], masraf
         canvas.setStrokeColor(pb.CIZGI)
         canvas.setLineWidth(0.4)
         canvas.line(15 * mm, 14 * mm, 195 * mm, 14 * mm)
-        canvas.setFont(pb.YAZI, 7)
         canvas.setFillColor(colors.HexColor("#5B5368"))
-        canvas.drawString(15 * mm, 10 * mm, e["not"][:180])
-        canvas.drawRightString(195 * mm, 10 * mm, str(doc_.page))
+        metin_ciz(canvas, 15 * mm, 10 * mm, e["not"][:180], pb.YAZI, 7)
+        metin_ciz(canvas, 195 * mm, 10 * mm, str(doc_.page), pb.YAZI, 7, "sag")
         canvas.restoreState()
 
     doc.build(parcalar, onFirstPage=alt, onLaterPages=alt)
@@ -722,7 +782,7 @@ def dokum_pdf(*, buro_adi: str, muvekkil_adi: str, dosya: Dict[str, Any], masraf
 def dosya_basligi(d: Any, dil: str = "tr") -> str:
     """Dosyanın kısa adı: iç no / esas no + konu (yoksa tür)."""
     no = " · ".join(x for x in (d.dosya_no or "", d.esas_no or "") if x)
-    konu = d.konu or DOSYA_TURU_ADI[_dil(dil)].get(d.tur, d.tur)
+    konu = d.konu or DOSYA_TURU_ADI[_pdf_dil(dil)].get(d.tur, d.tur)
     return f"{no} — {konu}" if no else konu
 
 

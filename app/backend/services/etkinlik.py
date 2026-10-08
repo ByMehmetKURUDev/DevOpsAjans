@@ -828,23 +828,41 @@ PDF_ETIKET = {
     "en": {"bilet": "Ticket", "etkinlik": "Event", "zaman": "When", "yer": "Where", "katilimci": "Attendee",
            "tur": "Ticket type", "kod": "Ticket code", "goster": "Show this QR code at the entrance (on screen or printed).",
            "siparis": "Registration", "iptal": "CANCELLED", "odeme": "PAYMENT PENDING"},
+    "de": {"bilet": "Ticket", "etkinlik": "Veranstaltung", "zaman": "Wann", "yer": "Wo", "katilimci": "Teilnehmer",
+           "tur": "Ticketart", "kod": "Ticketcode",
+           "goster": "Zeigen Sie diesen QR-Code am Eingang (auf dem Bildschirm oder ausgedruckt).",
+           "siparis": "Anmeldung", "iptal": "STORNIERT", "odeme": "ZAHLUNG AUSSTEHEND"},
+    "ru": {"bilet": "Билет", "etkinlik": "Мероприятие", "zaman": "Когда", "yer": "Где", "katilimci": "Участник",
+           "tur": "Тип билета", "kod": "Код билета",
+           "goster": "Покажите этот QR-код на входе (на экране или распечатанным).",
+           "siparis": "Регистрация", "iptal": "ОТМЕНЁН", "odeme": "ОЖИДАЕТСЯ ОПЛАТА"},
+    "zh": {"bilet": "门票", "etkinlik": "活动", "zaman": "时间", "yer": "地点", "katilimci": "参加者", "tur": "票种",
+           "kod": "票码", "goster": "入场时请出示此二维码（屏幕或打印件均可）。", "siparis": "报名", "iptal": "已取消",
+           "odeme": "待付款"},
+    "hi": {"bilet": "टिकट", "etkinlik": "कार्यक्रम", "zaman": "कब", "yer": "कहाँ", "katilimci": "प्रतिभागी",
+           "tur": "टिकट प्रकार", "kod": "टिकट कोड", "goster": "प्रवेश पर यह QR कोड दिखाएँ (स्क्रीन पर या प्रिंट किया हुआ)।",
+           "siparis": "पंजीकरण", "iptal": "रद्द", "odeme": "भुगतान लंबित"},
+    "ar": {"bilet": "تذكرة", "etkinlik": "الفعالية", "zaman": "الوقت", "yer": "المكان", "katilimci": "المشارك",
+           "tur": "نوع التذكرة", "kod": "رمز التذكرة", "goster": "اعرض رمز QR هذا عند المدخل (على الشاشة أو مطبوعًا).",
+           "siparis": "التسجيل", "iptal": "ملغاة", "odeme": "بانتظار الدفع"},
 }
 
 
 def bilet_pdf(e: Any, siparis: Any, biletler: Sequence[Tuple[Any, str]], dil: str = "tr") -> bytes:
     """Her bilet ayrı sayfa: künye, etkinlik bilgisi, büyük QR (vektör), kod.
 
-    `biletler`: [(bilet, tür adı)]. Yazı tipi Latin alfabesini kapsıyor; Kiril/Arap/Çin/Devanagari
-    karakterli başlıklar PDF'te eksik görünebilir (bilinen sınır — bilet sayfası ve e-posta tam).
+    `biletler`: [(bilet, tür adı)]. Etiketler 7 dilde; Kiril/Arap/Çin/Devanagari adlar Faz 7K'dan beri
+    `services/pdf_yazi.py`'nin yazı tipi zinciriyle doğru çıkıyor.
     """
     from reportlab.graphics.barcode.qr import QrCodeWidget
     from reportlab.graphics.shapes import Drawing
     from reportlab.lib.units import mm
-    from reportlab.platypus import PageBreak, Paragraph, Spacer, Table, TableStyle
+    from reportlab.platypus import PageBreak, Spacer, Table, TableStyle
 
     from services import pdf_belge as pb
+    from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf
 
-    d = "tr" if dil == "tr" else "en"
+    d = dil if dil in PDF_ETIKET else "en"
     et = PDF_ETIKET[d]
     st = pb._stiller()
     parcalar: List[Any] = []

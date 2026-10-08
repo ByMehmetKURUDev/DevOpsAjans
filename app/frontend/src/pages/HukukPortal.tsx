@@ -5,6 +5,7 @@ import type { TFunction } from 'i18next';
 import { AlertTriangle, CalendarDays, Download, FileText, Globe, Loader2, Lock, MessageSquare, Receipt, Scale, Send } from 'lucide-react';
 
 import { DIL_ADLARI, ETKINLIK_DILLERI, api, depoOku, depoYaz, dilSec, hataKodu, sorgu, type EtkinlikDili } from '@/lib/etkinlikOrtak';
+import { govdeyiTuket } from '@/lib/yanit';
 
 /**
  * Faz 6H — hukuk bürosunun girişsiz müvekkil portalı `/hukuk/muvekkil/<jeton>` (imzalı, kişiye özel; site düzeni
@@ -140,9 +141,11 @@ export default function HukukPortal() {
   const yukle = useCallback(async () => {
     try {
       const y = await fetch(`${api()}/api/v1/hukuk/muvekkil/${encodeURIComponent(jeton)}`, { cache: 'no-store', referrerPolicy: 'no-referrer' });
-      if (y.status === 404) return setDurum('gecersiz');
-      if (y.status === 410) return setDurum('kapali');
-      if (!y.ok) return setDurum('hata');
+      if (!y.ok) {
+        // 404/410 durum sayfaları gövdeyi kullanmıyor; yine de okunmalı (yoksa istek açık kalıyor).
+        await govdeyiTuket(y);
+        return setDurum(y.status === 404 ? 'gecersiz' : y.status === 410 ? 'kapali' : 'hata');
+      }
       setVeri((await y.json()) as PortalVerisi);
       setDurum('hazir');
     } catch {
@@ -170,6 +173,7 @@ export default function HukukPortal() {
         const kod = hataKodu(await y.json().catch(() => null));
         setBildiri({ tur: 'hata', metin: t(`hukukPortal.hata.${kod}`, { defaultValue: t('hukukPortal.hata.genel') }) as string });
       } else {
+        await govdeyiTuket(y);
         setMetin('');
         setBildiri({ tur: 'ok', metin: t('hukukPortal.mesaj.gonderildi') });
         await yukle();

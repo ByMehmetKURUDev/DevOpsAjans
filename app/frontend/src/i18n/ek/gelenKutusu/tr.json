@@ -1,7 +1,7 @@
 {
   "gelenKutusu": {
     "baslik": "Gelen kutusu",
-    "aciklama": "Yanıt bekleyen her şey tek listede: iletişim formu, fiyat teklifi istekleri, destek talepleri, müşteri sohbetleri, kartvizit mesajları, randevular, hata bildirimleri, içerik revizyonları ve yüklenen belgeler.",
+    "aciklama": "Yanıt bekleyen her şey tek listede: iletişim formu, fiyat teklifi istekleri, destek talepleri, müşteri sohbetleri, kartvizit mesajları, randevular, hata bildirimleri, içerik revizyonları ve yüklenen belgeler. CRM form gönderimleri ve teklif kararları da burada.",
     "yenile": "Yenile",
     "kaynakSuzgeci": "Kaynağa göre süz",
     "tumKaynaklar": "Tümü",
@@ -17,7 +17,9 @@
       "belge": "Belge",
       "egitim": "Kurs kaydı",
       "belge_paylasim": "Belge paylaşımı",
-      "izin_talebi": "İzin talebi"
+      "izin_talebi": "İzin talebi",
+      "crm_form": "CRM formu",
+      "teklif_karari": "Teklif kararı"
     },
     "durumSuzgeci": {
       "etiket": "Duruma göre süz",
@@ -97,12 +99,19 @@
       "departman": "Departman",
       "izinTuru": "İzin türü",
       "tarih": "Tarih",
-      "isGunu": "İş günü"
+      "isGunu": "İş günü",
+      "form": "Form",
+      "firma": "Firma",
+      "butce": "Bütçe",
+      "teklif": "Teklif",
+      "kararVeren": "Karar veren",
+      "pazarlamaIzni": "Pazarlama izni"
     },
     "karar": {
       "bekliyor": "Karar bekleniyor",
       "kabul": "Kabul etti",
-      "red": "Reddetti"
+      "red": "Reddetti",
+      "ret": "Reddetti"
     },
     "yanit": {
       "baslik": "Yanıt",
@@ -168,6 +177,18 @@
       "onaylandi": "Onaylandı",
       "reddedildi": "Reddedildi",
       "iptal": "İptal"
+    },
+    "bilgi": "Bilgi",
+    "bilgiNotu": "Yanıt beklemiyor; açınca okundu sayılır ve kapanır.",
+    "evet": "Evet",
+    "epostaGecmisi": "E-posta yanıtları",
+    "yanitDurum": {
+      "gonderildi": "Gönderildi",
+      "gonderilemedi": "Gönderilemedi"
+    },
+    "yanitNeden": {
+      "eposta_kapali": "e-posta sağlayıcısı kurulu değil",
+      "eposta_gitmedi": "sağlayıcı reddetti"
     }
   }
 }

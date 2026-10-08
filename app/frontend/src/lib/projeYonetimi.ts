@@ -1,6 +1,7 @@
 import { client } from '@/lib/sdkClient';
 import { hesapBasliklari } from '@/lib/hesapSecimi';
 import { getAPIBaseURL } from '@/lib/config';
+import { govdeyiTuket } from '@/lib/yanit';
 
 /**
  * Faz 2B — proje yönetimi: görevler (Kanban), revizyon sayacı, hata/geri
@@ -392,7 +393,10 @@ export async function geriBildirimlerim(): Promise<GeriBildirim[]> {
 /** Ek görseli oturumla indirip nesne adresine çevirir (img src için). */
 export async function ekAdresi(adres: string): Promise<string> {
   const yanit = await oturumluFetch(adres);
-  if (!yanit.ok) throw new ProjeHatasi(yanit.status, 'ek_okunamadi');
+  if (!yanit.ok) {
+    await govdeyiTuket(yanit);
+    throw new ProjeHatasi(yanit.status, 'ek_okunamadi');
+  }
   return URL.createObjectURL(await yanit.blob());
 }
 
@@ -491,7 +495,10 @@ export function toplulukAyari(acik: boolean): Promise<{ topluluk_yol_haritasi: b
 export async function toplulukOnerileri(): Promise<{ baslik: string; oy_sayisi: number }[]> {
   try {
     const y = await fetch(`${getAPIBaseURL()}/api/v1/topluluk-onerileri`);
-    if (!y.ok) return [];
+    if (!y.ok) {
+      await govdeyiTuket(y);
+      return [];
+    }
     const g = (await y.json()) as { acik?: boolean; oneriler?: { baslik: string; oy_sayisi: number }[] };
     return g?.acik && Array.isArray(g.oneriler) ? g.oneriler : [];
   } catch {

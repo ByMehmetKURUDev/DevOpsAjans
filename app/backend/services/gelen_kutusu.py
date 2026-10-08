@@ -40,7 +40,20 @@ belge_paylasim     belgeler (Faz 5B): müşterinin ajansla        işaret; yoksa
 izin_talebi        ik_izinler (Faz 6I): ajansın KENDİ           beklemede → yeni; onay / ret / iptal →
                    personelinin girişsiz portaldan gönderdiği   kapandi (kendi durum alanı; işaret yok)
                    izin talebi (müşterilerinki kendi panelinde)
+crm_form           crm_form_gonderimleri (Faz 7K): gömülebilir  işaret; yoksa aday kapalı aşamada
+                   CRM formunun her gönderimi (aday zaten       (kazanıldı/kaybedildi) → kapandi; yoksa
+                   CRM'de: öğe ADAYA bağlı, yeni kayıt yok)      yeni
+teklif_karari      teklifler (Faz 7K): müşterinin kabul/ret     BİLGİ (yanıt beklemez): işaret yoksa yeni,
+                   kararı (notuyla)                             işaretlenince (okundu) kapandi
 =================  ==========================================  ==========================================
+
+Faz 7K — çift sayım yok: CRM formu gönderimi `inquiries`'e düşmüyor (iletişim formu öğesi olmaz); öğe
+adaya bağlı (`ek.crm_aday_id`), haftalık özet adayı "takip bekleyen CRM adayları"nda zaten sayıyorsa
+gelen kutusu bölümünde ikinci kez saymıyor. Teklif kararı "bilgi" öğesi (`ek.bilgi`): yanıt beklemediği
+için haftalık özetin "yanıt bekleyenler"inde yok; ayrıntısı açılınca kapanır.
+
+E-posta yanıtları (Faz 7K) `gelen_kutusu_yanitlari`'na yazılıyor (kim, kime, ne zaman, metin, sonuç);
+ayrıntıdaki `yanitlar` listesi öğenin yazışma geçmişi. Sağlayıcı yoksa satır "gonderilemedi" olur.
 
 Site analizi istekleri ayrı kaynak DEĞİL: tam rapor isteyen ziyaretçi zaten
 ``inquiries``'e ``source="site_analizi"`` adayı olarak düşüyor (iletisim).
@@ -79,12 +92,17 @@ KAYNAKLAR: Tuple[str, ...] = (
     "belge_paylasim",
     # Faz 6I — ajansın kendi personelinin portaldan gönderdiği izin talebi.
     "izin_talebi",
+    # Faz 7K — gömülebilir CRM formu gönderimi (adaya bağlı) ve teklif kararı (bilgi).
+    "crm_form", "teklif_karari",
 )
 DURUMLAR: Tuple[str, ...] = ("yeni", "yanit_bekliyor", "okundu", "kapandi")
 BEKLEYEN = frozenset({"yeni", "yanit_bekliyor"})
 DURUM_SUZGECLERI: Tuple[str, ...] = ("bekleyen", "hepsi") + DURUMLAR
 #: Kendi "gördüm/hallettim" alanı olmayan kaynaklar → `gelen_kutusu_isaretleri`.
-ISARETLI_KAYNAKLAR: Tuple[str, ...] = ("fiyat_teklifi", "randevu", "icerik_revizyon", "belge", "egitim", "belge_paylasim")
+ISARETLI_KAYNAKLAR: Tuple[str, ...] = ("fiyat_teklifi", "randevu", "icerik_revizyon", "belge", "egitim", "belge_paylasim",
+                                       "crm_form", "teklif_karari")
+#: Yanıt beklemeyen "bilgi" kaynakları: okununca (işaretlenince) kapanır.
+BILGI_KAYNAKLARI = frozenset({"teklif_karari"})
 ISARET_DURUMLARI: Tuple[str, ...] = ("okundu", "kapandi", "yeni")
 #: Kendi yanıt yolu olan kaynaklar (e-posta yanıtı yerine).
 KENDI_YANITI_OLAN = frozenset({"destek", "sohbet"})
@@ -130,6 +148,8 @@ KAYNAK_TANIMI = {
     "belge_paylasim": "a client shared one of their own documents with the agency, or confirmed reading a document "
                       "the agency shared",
     "izin_talebi": "a leave request sent by one of the agency's own employees from their personal staff page",
+    "crm_form": "a lead form (embedded on a website) filled in by a prospective client",
+    "teklif_karari": "a client's decision (accepted or declined) on a price quote the agency sent, with their note",
 }
 
 
@@ -917,6 +937,102 @@ async def _izin_talebi(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[st
     return sonuc
 
 
+async def _crm_form(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
+    """Faz 7K — gömülebilir CRM formu gönderimleri. Gönderim zaten CRM adayı (yeni ya da aynı e-postalı
+    açık adaya eklenmiş): öğe o ADAYA bağlı, gelen kutusu kopya kayıt açmıyor. Ad / e-posta / telefon
+    adaydan; mesaj o gönderimin aday aktivitesinden (`crm_aktiviteler.veri.kayit_id`)."""
+    import json
+
+    from models.crm import CrmAdaylari as A
+    from models.crm import CrmAktiviteler as K
+    from models.crm import CrmFormGonderimleri as G
+    from models.crm import CrmFormlari as F
+    from services import crm
+
+    s = select(G, F.ad, F.baslik, A).join(F, F.id == G.form_id).join(A, A.id == G.aday_id)
+    if sz.kimlik is not None:
+        s = s.where(G.id == sz.kimlik)
+    desen = _desen(sz.q)
+    if desen:
+        s = s.where(_benzer((A.ad, A.email, A.firma, A.telefon, F.ad, F.baslik), desen))
+    s = s.where(*_tarih_kosullari(G.created_at, sz))
+    satirlar = (await db.execute(s.order_by(G.created_at.desc(), G.id.desc()).limit(KAYNAK_SINIRI))).all()
+    if not satirlar:
+        return []
+    isaretler = await bg.isaretler(db, "crm_form")
+    acik = set(await crm.acik_asama_anahtarlari(db))
+    mesajlar: Dict[int, str] = {}
+    if not bg.hafif:
+        aday_idleri = sorted({int(a.id) for _, _, _, a in satirlar})
+        for veri, metin in (await db.execute(
+            select(K.veri, K.metin).where(K.aday_id.in_(aday_idleri), K.olay.in_(("aday_olustu", "talep_eklendi")))
+        )).all():
+            try:
+                v = json.loads(veri or "{}")
+            except (TypeError, ValueError):
+                continue
+            if v.get("tablo") == "crm_form_gonderimleri" and v.get("kayit_id") is not None:
+                mesajlar[int(v["kayit_id"])] = metin or ""
+    hesaplar = await _kayitli_hesaplar(db, bg, (a.email for _, _, _, a in satirlar))
+    sonuc = []
+    for g, form_ad, form_baslik, a in satirlar:
+        kendi_kapali = bool(acik) and a.asama not in acik
+        isaret = isaretler.get(int(g.id))
+        durum = "kapandi" if kendi_kapali else (isaret or "yeni")
+        eposta = eposta_duzelt(a.email)
+        mesaj = mesajlar.get(int(g.id), "")
+        sonuc.append(_oge(
+            "crm_form", g.id, kisi_ad=a.ad, kisi_eposta=eposta, baslik=form_baslik or form_ad,
+            ozet=ozet_metni(mesaj) or ozet_metni(form_baslik or form_ad), zaman=g.created_at, durum=durum,
+            hesap_email=eposta if eposta in hesaplar else None, ac=_crm_baglantisi(int(a.id)),
+            eylemler=_isaret_eylemleri("crm_form", g.id, durum, isaret is not None, kendi_kapali),
+            yanit=_eposta_yaniti("crm_form", g.id, eposta),
+            ek={"form": form_ad, "crm_aday_id": int(a.id), "aday_asama": a.asama, "telefon": a.telefon or None,
+                "firma": a.firma or None, "pazarlama_izni": bool(g.pazarlama_izni)},
+            ayrinti={"form": form_ad, "form_baslik": form_baslik, "ad": a.ad, "eposta": a.email, "telefon": a.telefon,
+                     "firma": a.firma, "mesaj": mesaj, "butce": a.butce, "koken": g.koken,
+                     "pazarlama_izni": bool(g.pazarlama_izni), "aday_id": int(a.id), "aday_asama": a.asama},
+        ))
+    return sonuc
+
+
+async def _teklif_karari(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
+    """Faz 7K — müşterinin teklif kararı (kabul / ret + notu). BİLGİ öğesi: yanıt beklemiyor; işaret yoksa
+    "yeni", okunduğunda (işaret okundu ya da kapandı) "kapandi". Ayrıntı açılınca ön yüz kapatıyor."""
+    from models.teklifler import Teklifler as T
+
+    if sz.durum in ("okundu", "yanit_bekliyor"):
+        return []
+    s = select(T).where(T.durum.in_(("kabul", "ret")), T.karar_at.isnot(None))
+    if sz.kimlik is not None:
+        s = s.where(T.id == sz.kimlik)
+    desen = _desen(sz.q)
+    if desen:
+        s = s.where(_benzer((T.no, T.baslik, T.aday_ad, T.aday_eposta, T.hesap_email, T.karar_ad, T.karar_notu), desen))
+    s = s.where(*_tarih_kosullari(T.karar_at, sz))
+    satirlar = (await db.execute(s.order_by(T.karar_at.desc(), T.id.desc()).limit(KAYNAK_SINIRI))).scalars().all()
+    isaretler = await bg.isaretler(db, "teklif_karari")
+    sonuc = []
+    for t in satirlar:
+        isaret = isaretler.get(int(t.id))
+        durum = "kapandi" if isaret in ("okundu", "kapandi") else "yeni"
+        eposta = eposta_duzelt(t.aday_eposta or t.hesap_email)
+        yol = f"/api/v1/gelen-kutusu/teklif_karari/{t.id}/isaret"
+        e = [_istek("okundu", "POST", yol, {"durum": "kapandi"})] if durum == "yeni" else \
+            [_istek("yeniden_ac", "POST", yol, {"durum": "yeni"})]
+        tutar = float(t.genel_toplam or 0)
+        sonuc.append(_oge(
+            "teklif_karari", t.id, kisi_ad=t.karar_ad or t.aday_ad, kisi_eposta=eposta, baslik=f"{t.no} — {t.baslik}",
+            ozet=ozet_metni(t.karar_notu or ""), zaman=t.karar_at, durum=durum,
+            hesap_email=eposta_duzelt(t.hesap_email) or None, ac="/admin?sekme=teklifler", eylemler=e,
+            yanit=_eposta_yaniti("teklif_karari", t.id, eposta),
+            ek={"bilgi": True, "karar": t.durum, "no": t.no, "tutar": tutar, "para_birimi": t.para_birimi},
+            ayrinti={"no": t.no, "baslik": t.baslik, "karar": t.durum, "karar_notu": t.karar_notu, "karar_ad": t.karar_ad,
+                     "tutar": tutar, "para_birimi": t.para_birimi},
+        ))
+    return sonuc
+
+
 YUKLEYICILER = {
     "iletisim": _iletisim,
     "fiyat_teklifi": _fiyat_teklifi,
@@ -930,6 +1046,8 @@ YUKLEYICILER = {
     "egitim": _egitim,
     "belge_paylasim": _belge_paylasim,
     "izin_talebi": _izin_talebi,
+    "crm_form": _crm_form,
+    "teklif_karari": _teklif_karari,
 }
 
 
@@ -1016,9 +1134,21 @@ async def oge_bul(db: AsyncSession, kisi: str, kaynak: str, kimlik: int, *, bg: 
     return ogeler[0]
 
 
+async def yanitlar(db: AsyncSession, kaynak: str, kimlik: int) -> List[Dict[str, Any]]:
+    """Faz 7K — öğenin e-posta yanıtları (eskiden yeniye): kim, kime, ne zaman, konu, metin, sonuç."""
+    from models.gelen_kutusu import GelenKutusuYanitlari as Y
+
+    satirlar = (await db.execute(
+        select(Y).where(Y.kaynak == kaynak, Y.kimlik == int(kimlik)).order_by(Y.created_at, Y.id).limit(200)
+    )).scalars().all()
+    return [{"id": y.id, "yazan": y.yazan, "alici": y.alici, "konu": y.konu, "metin": y.metin, "durum": y.durum,
+             "neden": y.neden, "zaman": _iso(y.created_at)} for y in satirlar]
+
+
 async def ayrinti(db: AsyncSession, kisi: str, kaynak: str, kimlik: int) -> Dict[str, Any]:
     o = await oge_bul(db, kisi, kaynak, kimlik)
-    return {"oge": disari(o), "ayrinti": o["_ayrinti"], "meta": {"ai_hazir": ai_hazir(), "eposta_hazir": await eposta_hazir(db)}}
+    return {"oge": disari(o), "ayrinti": o["_ayrinti"], "yanitlar": await yanitlar(db, kaynak, kimlik),
+            "meta": {"ai_hazir": ai_hazir(), "eposta_hazir": await eposta_hazir(db)}}
 
 
 async def isaretle(db: AsyncSession, kisi: str, kaynak: str, kimlik: int, durum: str) -> Dict[str, Any]:
@@ -1116,15 +1246,37 @@ async def eposta_gonder(db: AsyncSession, kisi: str, kaynak: str, kimlik: int, k
     if "@" not in alici:
         raise GelenKutusuHatasi("eposta_yok", 409)
     if not await eposta_hazir(db):
+        # Faz 7K: metin kaybolmasın — "gönderilemedi" olarak yazışma geçmişinde (elle gönderilebilir).
+        await _yanit_kaydet(db, kisi, kaynak, kimlik, alici, konu, metin, "gonderilemedi", "eposta_kapali")
         raise GelenKutusuHatasi("eposta_kapali", 409)
     # Yanıtlar yöneticinin kendi adresine dönsün (gönderen adres bildirim adresi).
     ek = {"reply_to": eposta_duzelt(kisi)} if "@" in eposta_duzelt(kisi) else None
     durum, ayrinti_ = await _eposta_gonder(alici, konu or "mehmetkuru.dev", metin, ek)
     if durum != "sent":
         logger.warning("Gelen kutusu e-posta yanıtı gitmedi (%s %s): %s", kaynak, kimlik, ayrinti_)
+        await _yanit_kaydet(db, kisi, kaynak, kimlik, alici, konu, metin, "gonderilemedi", "eposta_gitmedi")
         raise GelenKutusuHatasi("eposta_gitmedi", 502)
+    await _yanit_kaydet(db, kisi, kaynak, kimlik, alici, konu, metin, "gonderildi", None)
     await okundu_say(db, kisi, oge)
-    return {"gonderildi": True, "alici": alici, "oge": disari(await oge_bul(db, kisi, kaynak, kimlik))}
+    return {"gonderildi": True, "alici": alici, "oge": disari(await oge_bul(db, kisi, kaynak, kimlik)),
+            "yanitlar": await yanitlar(db, kaynak, kimlik)}
+
+
+async def _yanit_kaydet(db: AsyncSession, kisi: str, kaynak: str, kimlik: int, alici: str, konu: str, metin: str,
+                        durum: str, neden: Optional[str]) -> None:
+    """Faz 7K — e-posta yanıtı denemesini yazışma geçmişine yazar (hata yanıtı bozmasın)."""
+    from models.gelen_kutusu import GelenKutusuYanitlari as Y
+
+    try:
+        db.add(Y(kaynak=kaynak, kimlik=int(kimlik), yazan=eposta_duzelt(kisi) or None, alici=alici, konu=konu or None,
+                 metin=metin, durum=durum, neden=neden, created_at=simdi()))
+        await db.commit()
+    except Exception:  # noqa: BLE001
+        logger.exception("Gelen kutusu: yanıt geçmişe yazılamadı (%s %s)", kaynak, kimlik)
+        try:
+            await db.rollback()
+        except Exception:  # noqa: BLE001
+            pass
 
 
 # ---------------------------------------------------------------------------
@@ -1231,7 +1383,8 @@ def sistem_istemi(dil: str, marka: Optional[Dict[str, Any]]) -> str:
 
 
 async def _gecmis(db: AsyncSession, kisi: str, oge: Dict[str, Any]) -> List[Tuple[str, str]]:
-    """Destek ve sohbette yazışma geçmişi (eskiden yeniye, son GECMIS_SINIRI mesaj)."""
+    """Yazışma geçmişi (eskiden yeniye, son GECMIS_SINIRI mesaj): destek ve sohbette kendi tabloları,
+    diğerlerinde gelen kutusundan giden e-posta yanıtları (Faz 7K)."""
     kaynak, kimlik = oge["kaynak"], int(oge["kimlik"])
     satirlar: List[Tuple[str, str]] = []
     if kaynak == "destek":
@@ -1250,6 +1403,14 @@ async def _gecmis(db: AsyncSession, kisi: str, oge: Dict[str, Any]) -> List[Tupl
         ).scalars().all()
         for m in reversed(son):
             satirlar.append(("customer" if m.yazan_rol == "client" else "agency", m.metin or ""))
+    else:
+        # Faz 7K: e-postayla yanıtlanan kaynaklarda daha önce GİDEN yanıtlar (yazışma geçmişi).
+        from models.gelen_kutusu import GelenKutusuYanitlari as Y
+
+        son_yanitlar = (await db.execute(select(Y).where(Y.kaynak == kaynak, Y.kimlik == kimlik, Y.durum == "gonderildi")
+                                         .order_by(Y.id.desc()).limit(GECMIS_SINIRI))).scalars().all()
+        for y in reversed(son_yanitlar):
+            satirlar.append(("agency", y.metin or ""))
     return [(t, duz_metin(m)[:1500]) for t, m in satirlar if (m or "").strip()][-GECMIS_SINIRI:]
 
 
@@ -1279,6 +1440,13 @@ def _veri_satirlari(oge: Dict[str, Any]) -> List[Tuple[str, Any]]:
         s += [("document", a.get("baslik")), ("event", a.get("olay"))]
     elif k == "destek":
         s += [("service", a.get("hizmet")), ("priority", a.get("oncelik"))]
+    elif k == "crm_form":
+        s += [("form", a.get("form_baslik") or a.get("form")), ("message", a.get("mesaj")), ("company", a.get("firma")),
+              ("budget", a.get("butce"))]
+    elif k == "teklif_karari":
+        s += [("quote_no", a.get("no")), ("decision", "accepted" if a.get("karar") == "kabul" else "declined"),
+              ("client_note", a.get("karar_notu")),
+              ("quote_total", f"{a.get('tutar')} {a.get('para_birimi')}" if a.get("tutar") else None)]
     return [(ad, deger) for ad, deger in s if deger not in (None, "", [])]
 
 

@@ -323,6 +323,40 @@ ICERIK_ALANLARI = ("baslik", "metin", "kanallar", "kanal_metinleri", "hashtagler
 ZAMAN_ALANLARI = ("planlanan", "saat_dilimi")
 
 
+async def proje_dogrula(db: AsyncSession, deger: Any, hesap: Optional[str]) -> Optional[int]:
+    """Faz 7K — gönderinin isteğe bağlı projesi: boş → None; yoksa gönderinin HESABININ projesi olmalı
+    (`projects.client_email`). Ajansın kendi içeriğinde (hesap boş) her proje seçilebilir."""
+    if deger in (None, "", 0):
+        return None
+    if isinstance(deger, bool) or not str(deger).strip().isdigit():
+        raise StudyoHatasi("gecersiz", alan="proje_id")
+    from models.projects import Projects
+
+    p = (await db.execute(select(Projects.id, Projects.client_email).where(Projects.id == int(str(deger).strip())))).first()
+    if p is None or (hesap and st.eposta_duzelt(p.client_email) != st.eposta_duzelt(hesap)):
+        raise StudyoHatasi("proje_yok", 404, alan="proje_id")
+    return int(p.id)
+
+
+#: Kapanmış proje durumları (açık proje önerisinde sayılmaz; aylık rapor da "completed"ı kapalı sayıyor).
+KAPALI_PROJE_DURUMLARI = ("completed", "cancelled", "tamamlandi", "iptal")
+
+
+async def projeler(db: AsyncSession, hesap: Optional[str], tum: bool = False) -> List[Dict[str, Any]]:
+    """Gönderiye bağlanabilecek projeler (en yeni önce): hesabın projeleri; `tum` (ajansın kendi içeriği) → hepsi.
+    `acik`: proje kapanmamış (ön yüz, hesabın TEK açık projesi varsa onu öneriyor)."""
+    from models.projects import Projects
+
+    sorgu = select(Projects.id, Projects.title, Projects.client_email, Projects.status)
+    if not tum:
+        if not hesap:
+            return []
+        sorgu = sorgu.where(func.lower(Projects.client_email) == st.eposta_duzelt(hesap))
+    satirlar = (await db.execute(sorgu.order_by(Projects.id.desc()).limit(300))).all()
+    return [{"id": r.id, "baslik": r.title, "hesap": r.client_email or None,
+             "acik": (r.status or "").strip().lower() not in KAPALI_PROJE_DURUMLARI} for r in satirlar]
+
+
 async def gonderi_dogrula(db: AsyncSession, govde: Dict[str, Any], g: Optional[Content_posts], hesap: Optional[str]) -> Dict[str, Any]:
     """API alanları → sütun değerleri (yalnız gönderilenler; yeni kayıtta zorunlular)."""
     d: Dict[str, Any] = {}
@@ -373,6 +407,8 @@ async def gonderi_dogrula(db: AsyncSession, govde: Dict[str, Any], g: Optional[C
     if "marka_id" in govde:
         m = await st.marka_bul(db, govde.get("marka_id"), hesap)
         d["marka_id"] = m.id if m else None
+    if "proje_id" in govde:
+        d["proje_id"] = await proje_dogrula(db, govde.get("proje_id"), hesap)
     if "sorumlu_eposta" in govde:
         e = st.eposta_duzelt(govde.get("sorumlu_eposta"))
         if e and not _EPOSTA.match(e):
@@ -518,6 +554,7 @@ def gonderi_sozlugu(g: Content_posts, *, onay: Optional[Dict[str, Any]] = None, 
         "notlar": g.notes or "",
         "marka_id": g.marka_id,
         "marka_adi": marka_adi,
+        "proje_id": g.proje_id,
         "sorumlu_eposta": g.sorumlu_eposta or "",
         "olusturan_eposta": g.olusturan_eposta or "",
         "durum": g.status or "taslak",
@@ -1072,7 +1109,8 @@ def olay_verisi(g: Content_posts, ek: Optional[Dict[str, Any]] = None) -> Dict[s
     except Exception:  # noqa: BLE001
         u = None
     d = {"gonderi_id": g.id, "baslik": g.title, "durum": g.status, "kanallar": kanal_listesi(g),
-         "planlanan_at": st.iso(u), "kampanya": g.campaign, "marka_id": g.marka_id, "yoneten": g.yoneten or "ajans"}
+         "planlanan_at": st.iso(u), "kampanya": g.campaign, "marka_id": g.marka_id, "yoneten": g.yoneten or "ajans",
+         "proje_id": g.proje_id}
     if ek:
         d.update(ek)
     return d

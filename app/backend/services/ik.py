@@ -722,13 +722,26 @@ def csv_tarih(ham: str, alan: str, bos_olabilir: bool = True) -> Optional[date]:
 PDF_ETIKET: Dict[str, Dict[str, Any]] = {
     "tr": {"baslik": "Haftalık vardiya planı", "personel": "Personel", "toplam": "Toplam",
            "gunler": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"], "taslak": "taslak", "izin": "İzin",
+           "saat_kisa": "s",
            "not": "Bilgilendirme amaçlıdır. Saatler molasız toplam değil, mola düşülmüş net süredir."},
     "en": {"baslik": "Weekly shift plan", "personel": "Employee", "toplam": "Total",
            "gunler": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], "taslak": "draft", "izin": "Leave",
-           "not": "For information only. Hours are net of breaks."},
+           "saat_kisa": "h", "not": "For information only. Hours are net of breaks."},
     "de": {"baslik": "Wöchentlicher Schichtplan", "personel": "Mitarbeiter", "toplam": "Summe",
            "gunler": ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"], "taslak": "Entwurf", "izin": "Urlaub",
-           "not": "Nur zur Information. Stunden ohne Pausen (netto)."},
+           "saat_kisa": "Std.", "not": "Nur zur Information. Stunden ohne Pausen (netto)."},
+    "ru": {"baslik": "Недельный график смен", "personel": "Сотрудник", "toplam": "Итого",
+           "gunler": ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"], "taslak": "черновик", "izin": "Отпуск",
+           "saat_kisa": "ч", "not": "Для информации. Часы указаны за вычетом перерывов."},
+    "zh": {"baslik": "每周排班表", "personel": "员工", "toplam": "合计",
+           "gunler": ["周一", "周二", "周三", "周四", "周五", "周六", "周日"], "taslak": "草稿", "izin": "休假",
+           "saat_kisa": "小时", "not": "仅供参考。工时为扣除休息后的净时长。"},
+    "hi": {"baslik": "साप्ताहिक शिफ्ट योजना", "personel": "कर्मचारी", "toplam": "कुल",
+           "gunler": ["सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि", "रवि"], "taslak": "मसौदा", "izin": "अवकाश",
+           "saat_kisa": "घं", "not": "केवल जानकारी के लिए। घंटे विराम घटाकर शुद्ध समय हैं।"},
+    "ar": {"baslik": "جدول المناوبات الأسبوعي", "personel": "الموظف", "toplam": "الإجمالي",
+           "gunler": ["الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت", "الأحد"], "taslak": "مسودة",
+           "izin": "إجازة", "saat_kisa": "س", "not": "للعلم فقط. الساعات صافية بعد خصم فترات الراحة."},
 }
 
 
@@ -743,8 +756,9 @@ def plan_pdf(*, firma: str, hafta_bas: date, satirlar: Sequence[Dict[str, Any]],
     from reportlab.lib.pagesizes import A4, landscape
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib.units import mm
-    from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+    from reportlab.platypus import SimpleDocTemplate, Spacer, Table, TableStyle
     from services import pdf_belge as pb
+    from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf (Faz 7K)
 
     dil = pdf_dili(dil)
     e = PDF_ETIKET[dil]
@@ -769,7 +783,7 @@ def plan_pdf(*, firma: str, hafta_bas: date, satirlar: Sequence[Dict[str, Any]],
         satir = [Paragraph(m(s.get("ad") or "—"), govde)]
         for hucre in s.get("gunler") or [[] for _ in range(7)]:
             satir.append(Paragraph("<br/>".join(m(x) for x in hucre) or "—", kucuk))
-        satir.append(Paragraph(m(f"{s.get('toplam_saat', 0):g} s"), govde))
+        satir.append(Paragraph(m(f"{s.get('toplam_saat', 0):g} {e['saat_kisa']}"), govde))
         tablo.append(satir)
     genislik = landscape(A4)[0] - 24 * mm
     sutun = [genislik * 0.16] + [genislik * 0.11] * 7 + [genislik * 0.07]

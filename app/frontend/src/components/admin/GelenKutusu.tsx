@@ -288,6 +288,11 @@ export default function GelenKutusu({ onProjeyeCevir, onSayac }: Props) {
                             <span className="shrink-0 rounded-full border border-white/10 px-1.5 py-px uppercase tracking-wider">
                               {t(`gelenKutusu.kaynak.${o.kaynak}`)}
                             </span>
+                            {o.ek.bilgi ? (
+                              <span className="shrink-0 rounded-full bg-sky-500/15 px-1.5 py-px text-sky-200" data-gk-bilgi>
+                                {t('gelenKutusu.bilgi')}
+                              </span>
+                            ) : null}
                             {o.baslik ? (
                               <span className="truncate">
                                 <bdi>{o.baslik}</bdi>

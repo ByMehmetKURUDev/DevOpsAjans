@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ekliLazy } from '@/i18n/ekliLazy';
-import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import {
   Loader2,
   LogIn,
@@ -55,7 +55,7 @@ import { IZINLER, SEKME_IZINLERI, hesaplarimiGetir, type Hesap } from '@/lib/hes
 import { hesapSec, seciliHesap } from '@/lib/hesapSecimi';
 import { ozetGetir as mesajOzeti } from '@/lib/mesajlar';
 import { useYoklama } from '@/hooks/useYoklama';
-import { grupluMenuMu, sonMusteriSekmesi, sonMusteriSekmesiniYaz } from '@/lib/musteriMenusu';
+import { DUZ_MENU_EN_DAR, grupluMenuMu, sonMusteriSekmesi, sonMusteriSekmesiniYaz } from '@/lib/musteriMenusu';
 import {
   CevrimdisiIskelet,
   CevrimdisiSerit,
@@ -284,7 +284,7 @@ function ilkSekme(): Tab {
 
 
 export default function ClientPanel() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const stageLabel = useStageLabels();
   const { settings } = useSiteSettings();
 
@@ -657,10 +657,51 @@ export default function ClientPanel() {
 
   // Faz 7M: görünür sekme sayısı DUZ_MENU_SINIRI'nı aşınca gruplu menü; son açılan
   // sekme yalnız orada hatırlanır (düz çubuklu müşteri panele bugünkü gibi Projelerim ile girer).
-  const grupluMenu = grupluMenuMu(gorunenSekmeler.length);
+  const grupluSayi = grupluMenuMu(gorunenSekmeler.length);
   useEffect(() => {
-    if (grupluMenu && gorunenSekmeler.some((x) => x.key === tab)) sonMusteriSekmesiniYaz(tab);
-  }, [grupluMenu, tab, gorunenSekmeler]);
+    if (grupluSayi && gorunenSekmeler.some((x) => x.key === tab)) sonMusteriSekmesiniYaz(tab);
+  }, [grupluSayi, tab, gorunenSekmeler]);
+  // Faz 7K: düz çubuk (≤ 10 sekme) DUZ_MENU_EN_DAR ve üstünde sığmıyorsa (1024 px, uzun Almanca/Rusça adlar,
+  // Modern/Nebula'nın geniş aralığı) sekmeler çubuğun dışına taşıyordu (yatay kaydırmada gizli). Ölçülür;
+  // sığmıyorsa gruplu menüye geçilir, kabuk o genişliğe ulaşınca düz çubuğa dönülür (salınım yok: gereken
+  // genişlik ölçülmüş). Dil ya da sekme listesi değişince yeniden ölçülür. Mobilde düz çubuk kaydırılır (eskisi gibi).
+  // Durum olarak tutulan öğeler (geri çağırmalı ref): çubuk giriş ekranından sonra belirince de ölçülsün.
+  const [menuKabugu, setMenuKabugu] = useState<HTMLDivElement | null>(null);
+  const [duzCubuk, setDuzCubuk] = useState<HTMLDivElement | null>(null);
+  const sekmeImzasi = `${i18n.language}|${gorunenSekmeler.map((x) => x.key).join(',')}`;
+  // Ölçüm hangi dil/sekme listesi için yapıldıysa yalnız onda geçerli (değişince kendiliğinden düz çubuk + yeni ölçüm).
+  const [duzOlcum, setDuzOlcum] = useState<{ imza: string; gerekli: number } | null>(null);
+  const duzGerekli = duzOlcum && duzOlcum.imza === sekmeImzasi ? duzOlcum.gerekli : null;
+  useLayoutEffect(() => {
+    const c = duzCubuk;
+    if (grupluSayi || duzGerekli !== null || !c) return;
+    let bitti = false;
+    const olc = () => {
+      if (!bitti && window.innerWidth >= DUZ_MENU_EN_DAR && c.scrollWidth > c.clientWidth + 1) {
+        setDuzOlcum({ imza: sekmeImzasi, gerekli: c.scrollWidth });
+      }
+    };
+    olc();
+    if (typeof ResizeObserver === 'undefined') return;
+    const izle = new ResizeObserver(olc);
+    izle.observe(c);
+    for (const d of Array.from(c.children)) izle.observe(d);
+    document.fonts?.ready.then(olc).catch(() => undefined);
+    return () => {
+      bitti = true;
+      izle.disconnect();
+    };
+  }, [grupluSayi, duzGerekli, sekmeImzasi, duzCubuk]);
+  useEffect(() => {
+    const k = menuKabugu;
+    if (duzGerekli === null || !k || typeof ResizeObserver === 'undefined') return;
+    const izle = new ResizeObserver(() => {
+      if (window.innerWidth < DUZ_MENU_EN_DAR || k.clientWidth >= duzGerekli) setDuzOlcum(null);
+    });
+    izle.observe(k);
+    return () => izle.disconnect();
+  }, [duzGerekli, menuKabugu]);
+  const grupluMenu = grupluSayi || duzGerekli !== null;
   // Panel iskeleti ve yüklenen parçalar çevrimdışı açılış için saklansın (servis çalışanı).
   usePanelKabugu('/client', tab);
 
@@ -925,7 +966,8 @@ export default function ClientPanel() {
         </Suspense>
       )}
 
-      {/* Tabs — kalabalıksa (Faz 7M) gruplu menü, değilse bugünkü düz çubuk. */}
+      {/* Tabs — kalabalıksa (Faz 7M) ya da düz çubuk sığmıyorsa (Faz 7K) gruplu menü, değilse bugünkü düz çubuk. */}
+      <div ref={setMenuKabugu} data-menu-kabugu={grupluMenu ? (grupluSayi ? 'gruplu' : 'gruplu-genislik') : 'duz'}>
       {grupluMenu ? (
         <Suspense fallback={<div className="mb-8 h-24" aria-hidden="true" />}>
           <MusteriMenusu
@@ -938,6 +980,7 @@ export default function ClientPanel() {
         </Suspense>
       ) : (
       <div
+        ref={setDuzCubuk}
         className="cam-sekmeler flex gap-1 mb-8 border-b border-white/10 overflow-x-auto"
         data-sekme-cubugu
         data-moduller={modulBilgisi ? 'sunucu' : modulHatasi ? 'hata' : 'yukleniyor'}
@@ -948,7 +991,7 @@ export default function ClientPanel() {
             data-sekme={tItem.key}
             data-secili={tab === tItem.key ? 'evet' : undefined}
             onClick={() => setTab(tItem.key)}
-            className={`px-5 py-3 text-sm font-medium transition-colors relative inline-flex items-center gap-2 whitespace-nowrap ${
+            className={`px-5 py-3 text-sm font-medium transition-colors relative inline-flex items-center gap-2 whitespace-nowrap max-2xl:px-4 max-xl:px-3 ${
               tab === tItem.key
                 ? 'text-foreground'
                 : 'text-muted-foreground hover:text-foreground'
@@ -972,6 +1015,7 @@ export default function ClientPanel() {
         ))}
       </div>
       )}
+      </div>
 
       {dataLoading ? (
         <div className="py-16 flex items-center justify-center text-muted-foreground">

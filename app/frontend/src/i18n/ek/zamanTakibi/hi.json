@@ -46,7 +46,6 @@
       "durum": "स्थिति",
       "baslangic": "से",
       "bitis": "तक",
-      "ucret": "प्रति घंटा दर",
       "paraBirimi": "मुद्रा",
       "tutar": "राशि"
     },
@@ -77,11 +76,9 @@
       "toplam": "कुल: {{sure}}",
       "csv": "CSV डाउनलोड करें",
       "csvIndirildi": "CSV डाउनलोड हुआ",
-      "gorevsiz": "बिना कार्य",
       "faturaNo": "इनवॉइस #{{id}}",
       "geriAl": "स्वीकृति वापस लें",
-      "geriAlindi": "स्वीकृति वापस ली गई",
-      "sure": "{{sure}} घं"
+      "geriAlindi": "स्वीकृति वापस ली गई"
     },
     "cizelge": {
       "baslik": "साप्ताहिक टाइमशीट",

@@ -153,7 +153,6 @@
     "gecmis": {
       "baslik": "Uygulama geçmişi",
       "bos": "Bu müşteriye henüz sektör paketi ya da hazır ayar uygulanmadı.",
-      "tur_paket": "Sektör paketi",
       "tur_hazir": "Hazır ayarlar",
       "uygulandi": "Uygulandı",
       "kaldirildi": "Kaldırıldı",
@@ -168,9 +167,7 @@
       "hazirGeriAlOnay": "Geri al",
       "kaldirildiMesaj": "{{sayi}} modül eski haline döndü.",
       "hazirGeriAlindiMesaj": "{{silinen}} kayıt silindi, {{korunan}} kayıt korundu.",
-      "kapatilan": "Eski haline dönen",
-      "korunan": "Korunan",
-      "silinen": "Silinen"
+      "korunan": "Korunan"
     }
   }
 }

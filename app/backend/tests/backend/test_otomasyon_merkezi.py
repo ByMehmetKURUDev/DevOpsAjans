@@ -416,6 +416,41 @@ async def test_icerik_onaylandi_sablonu_yalniz_ajans_icerigi(istemci, yonetici_b
     assert json.loads(c.eylem_sonuclari)[0]["ozet"]["baslik"] == "Paylaş: Ekim duyurusu"
 
 
+async def test_icerik_onaylandi_projeli_gonderi_gorev_acar(istemci, yonetici_basligi, db_oturumu):
+    """Faz 7K: gönderiye proje bağlıysa şablon projeye "Paylaş" görevi açar (+ bildirim); bağlı değilse görev
+    adımı "proje_yok" ile atlanır, bildirim bugünkü gibi gider."""
+    from models.content_posts import Content_posts
+    from models.proje_gorevleri import ProjectTasks
+    from models.projects import Projects
+    from services import otomasyon_kural as kk
+
+    s = kk.SABLON_SOZLUGU["icerik_onaylandi_gorev"]
+    assert kk.OLAY_SOZLUGU["icerik.onaylandi"].proje_var and [e["tur"] for e in s.eylemler] == ["bildirim", "gorev"]
+    k = await _sablondan(istemci, yonetici_basligi, "icerik_onaylandi_gorev")
+    hesap = _e("icp")
+    p = await _ekle(db_oturumu, Projects(title="Sosyal medya yönetimi", description="-", category="sosyal",
+                                         client_email=hesap, status="active"))
+    projeli = await _ekle(db_oturumu, Content_posts(title="Kasım kampanyası", status="taslak", yoneten="ajans",
+                                                   hesap_email=hesap, proje_id=p.id, sorumlu_eposta="icerikci@ajans.dev"))
+    projesiz = await _ekle(db_oturumu, Content_posts(title="Projesiz gönderi", status="taslak", yoneten="ajans",
+                                                    hesap_email=hesap))
+    for g in (projeli, projesiz):
+        g.status = "onaylandi"
+    await db_oturumu.commit()
+    await _isle()
+    calismalar = {json.loads(c.veri)["gonderi_id"]: c for c in await _calismalar(db_oturumu, k["id"])}
+    assert json.loads(calismalar[projeli.id].veri)["proje_id"] == p.id  # olay verisinde proje kimliği
+    sonuc = json.loads(calismalar[projeli.id].eylem_sonuclari)
+    assert calismalar[projeli.id].durum == "tamam" and [x["durum"] for x in sonuc] == ["basarili", "basarili"], sonuc
+    gorevler = (await db_oturumu.execute(select(ProjectTasks).where(ProjectTasks.proje_id == p.id))).scalars().all()
+    assert [g.baslik for g in gorevler] == ["Paylaş: Kasım kampanyası"]
+    assert gorevler[0].bitis_tarihi == date.today() + timedelta(days=1) and "otomasyon" in gorevler[0].etiketler
+    sonuc = json.loads(calismalar[projesiz.id].eylem_sonuclari)
+    assert calismalar[projesiz.id].durum == "tamam"
+    assert sonuc[0]["durum"] == "basarili" and sonuc[0]["ozet"]["baslik"] == "Paylaş: Projesiz gönderi"
+    assert sonuc[1]["durum"] == "atlandi" and sonuc[1]["neden"] == "proje_yok", sonuc
+
+
 async def test_sozlesme_imzalandi_sablonu_bildirim(istemci, yonetici_basligi, db_oturumu):
     from services import otomasyon_kural as k
 

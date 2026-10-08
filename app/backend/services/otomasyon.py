@@ -536,6 +536,8 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
         b["icerik"] = {"id": g.id, "baslik": g.title, "durum": g.status, "kanallar": ov["kanallar"],
                        "planlanan_at": ov["planlanan_at"], "kampanya": g.campaign, "sorumlu": g.sorumlu_eposta,
                        "not": veri.get("not") or g.durum_notu, "yoneten": ov.get("yoneten") or "ajans"}
+        # Faz 7K: gönderiye bağlı proje (isteğe bağlı) — görev eylemi "olaydaki proje".
+        proje_id = g.proje_id
     elif on == "randevu":
         from models.randevu import Randevular, RandevuTurleri
 

@@ -153,7 +153,6 @@
     "gecmis": {
       "baslik": "History",
       "bos": "No industry pack or starter settings have been applied to this client yet.",
-      "tur_paket": "Industry pack",
       "tur_hazir": "Starter settings",
       "uygulandi": "Applied",
       "kaldirildi": "Removed",
@@ -168,9 +167,7 @@
       "hazirGeriAlOnay": "Undo",
       "kaldirildiMesaj": "{{sayi}} modules restored to their previous state.",
       "hazirGeriAlindiMesaj": "{{silinen}} records deleted, {{korunan}} kept.",
-      "kapatilan": "Restored",
-      "korunan": "Kept",
-      "silinen": "Deleted"
+      "korunan": "Kept"
     }
   }
 }

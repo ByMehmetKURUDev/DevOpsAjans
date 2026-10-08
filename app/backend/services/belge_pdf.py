@@ -6,9 +6,8 @@
   okuyucuda aynı görünmüyor).
 * Strateji: şablonun ızgarası (`STRATEJI_SABLONLARI`) tablo + birleştirilmiş hücrelerle
   korunuyor; kanvaslar yatay A4.
-* Yazı tipi yalnız Latin harflerini taşıyor (tr/en/de etiketleri; diğer dillerde İngilizce).
-  Kiril/Çince/Hintçe/Arapça içerik PDF'te kutucuk olarak çıkabilir — o dillerde "Yazdır"
-  görünümü (tarayıcının PDF'i) önerilir.
+* Faz 7K: metin `services/pdf_yazi.py`'nin yazı tipi zincirinden geçiyor (Kiril, Arapça — birleşik
+  biçim + sağdan sola —, Devanagari, Çince); etiketler ve strateji şablonu adları 7 dilde.
 """
 
 import io
@@ -19,10 +18,12 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import Flowable, Paragraph, Preformatted, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.platypus import Flowable, SimpleDocTemplate, Spacer, Table, TableStyle
 from xml.sax.saxutils import escape
 
 from services import pdf_belge as pb
+from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf
+from services.pdf_yazi import kod_blogu, metin_ciz
 from services.belgeler import STRATEJI_SABLONLARI, kutu_adi, pdf_dili, sablon_adi
 
 ETIKET: Dict[str, Dict[str, str]] = {
@@ -32,6 +33,14 @@ ETIKET: Dict[str, Dict[str, str]] = {
            "musteri": "Client", "proje": "Project", "isletme": "Business", "sayfa": "Page", "ajans": "Internal"},
     "de": {"belge": "DOKUMENT", "surum": "Version", "guncellendi": "Aktualisiert", "etiketler": "Schlagwörter",
            "musteri": "Kunde", "proje": "Projekt", "isletme": "Unternehmen", "sayfa": "Seite", "ajans": "Intern"},
+    "ru": {"belge": "ДОКУМЕНТ", "surum": "Версия", "guncellendi": "Обновлено", "etiketler": "Теги",
+           "musteri": "Клиент", "proje": "Проект", "isletme": "Компания", "sayfa": "Стр.", "ajans": "Внутренний"},
+    "zh": {"belge": "文档", "surum": "版本", "guncellendi": "更新于", "etiketler": "标签", "musteri": "客户",
+           "proje": "项目", "isletme": "企业", "sayfa": "页", "ajans": "内部"},
+    "hi": {"belge": "दस्तावेज़", "surum": "संस्करण", "guncellendi": "अद्यतन", "etiketler": "टैग", "musteri": "ग्राहक",
+           "proje": "परियोजना", "isletme": "व्यवसाय", "sayfa": "पृष्ठ", "ajans": "आंतरिक"},
+    "ar": {"belge": "مستند", "surum": "الإصدار", "guncellendi": "آخر تحديث", "etiketler": "الوسوم", "musteri": "العميل",
+           "proje": "المشروع", "isletme": "النشاط التجاري", "sayfa": "صفحة", "ajans": "داخلي"},
 }
 
 #: Yazı tipinde olmayan sık işaretler → karşılığı olan glif.
@@ -150,7 +159,7 @@ def markdown_parcalari(md: str, st: Dict[str, ParagraphStyle], genislik: float) 
             while i < n and not satirlar[i].strip().startswith("```"):
                 kod.append(satirlar[i])
                 i += 1
-            parcalar.append(Preformatted("\n".join(kod).translate(_GLIF), st["kod"]))
+            parcalar.append(kod_blogu("\n".join(kod).translate(_GLIF), st["kod"]))
             i += 1
             continue
         if not yalin:
@@ -295,10 +304,9 @@ def _sayfa_alti(not_metni: str, dil: str, sayfa_boyu):
         canvas.setStrokeColor(pb.CIZGI)
         canvas.setLineWidth(0.4)
         canvas.line(15 * mm, 12 * mm, genislik - 15 * mm, 12 * mm)
-        canvas.setFont(pb.YAZI, 7)
         canvas.setFillColor(pb.GRI)
-        canvas.drawString(15 * mm, 8 * mm, not_metni.translate(_GLIF)[:150])
-        canvas.drawRightString(genislik - 15 * mm, 8 * mm, f"{e['sayfa']} {doc.page}")
+        metin_ciz(canvas, 15 * mm, 8 * mm, not_metni.translate(_GLIF)[:150], pb.YAZI, 7)
+        metin_ciz(canvas, genislik - 15 * mm, 8 * mm, f"{e['sayfa']} {doc.page}", pb.YAZI, 7, "sag")
         canvas.restoreState()
 
     return ciz

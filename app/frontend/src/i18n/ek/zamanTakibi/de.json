@@ -46,7 +46,6 @@
       "durum": "Status",
       "baslangic": "Von",
       "bitis": "Bis",
-      "ucret": "Stundensatz",
       "paraBirimi": "Währung",
       "tutar": "Betrag"
     },
@@ -77,11 +76,9 @@
       "toplam": "Gesamt: {{sure}}",
       "csv": "CSV herunterladen",
       "csvIndirildi": "CSV heruntergeladen",
-      "gorevsiz": "Ohne Aufgabe",
       "faturaNo": "Rechnung #{{id}}",
       "geriAl": "Freigabe zurücknehmen",
-      "geriAlindi": "Freigabe zurückgenommen",
-      "sure": "{{sure}} Std."
+      "geriAlindi": "Freigabe zurückgenommen"
     },
     "cizelge": {
       "baslik": "Wochenstundenzettel",

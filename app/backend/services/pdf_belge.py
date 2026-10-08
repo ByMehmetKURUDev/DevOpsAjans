@@ -21,6 +21,9 @@ Helvetica ise ğ, ı, İ, ş harflerini taşımıyor (WinAnsi). TTF gömülü al
 olarak PDF'e giriyor ve ToUnicode tablosu yazılıyor: metin seçilip
 kopyalanabiliyor, aranabiliyor (test metni çıkarıp Türkçe harfleri arıyor).
 
+Faz 7K: bütün metin `services/pdf_yazi.py`'nin yazı tipi yedek zincirinden geçiyor (Kiril,
+Arapça — birleşik biçim + sağdan sola —, Devanagari, Çince); etiketler 7 dilde.
+
 Marka künyesi vektör olarak çiziliyor (görsel dosyası yok): yuvarlatılmış
 kare içinde `</>`, yanında "By Mehmet KURU Dev" — sitedeki `MarkaLogosu`
 ile aynı biçim, kırpılmadan.
@@ -31,7 +34,6 @@ import logging
 import re
 from datetime import datetime
 from decimal import Decimal
-from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
 from reportlab.graphics.shapes import Drawing, Line
@@ -41,13 +43,10 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.lib.utils import ImageReader
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     Flowable,
     Image,
     KeepTogether,
-    Paragraph,
     SimpleDocTemplate,
     Spacer,
     Table,
@@ -55,11 +54,15 @@ from reportlab.platypus import (
 )
 from xml.sax.saxutils import escape
 
+from services import pdf_yazi
+from services.pdf_yazi import KALIN, YAZI, metin_ciz
+from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf (yazı tipi yedeği, Arapça, Hintçe)
+
 logger = logging.getLogger(__name__)
 
-FONT_DIZINI = Path(__file__).resolve().parents[1] / "data" / "fonts"
-YAZI = "MKSans"
-KALIN = "MKSans-Bold"
+FONT_DIZINI = pdf_yazi.FONT_DIZINI
+#: PDF etiketlerinin dilleri (sitenin 7 dili).
+PDF_DILLERI = ("tr", "en", "de", "ru", "zh", "hi", "ar")
 
 # Marka renkleri (sitedeki --primary yeşili ve mor-siyah zemin; kâğıtta okunur tonlar).
 VURGU = colors.HexColor("#00A86B")
@@ -71,6 +74,11 @@ CIZGI = colors.HexColor("#D9D4E0")
 E_FATURA_NOTU = {
     "tr": "Bu belge e-Fatura/e-Arşiv fatura yerine geçmez; bilgilendirme amaçlıdır.",
     "en": "This document does not replace an e-Invoice/e-Archive invoice; it is for information only.",
+    "de": "Dieses Dokument ersetzt keine E-Rechnung/e-Archiv-Rechnung; es dient nur zur Information.",
+    "ru": "Этот документ не заменяет электронный счёт-фактуру (e-Fatura/e-Arşiv) и носит информационный характер.",
+    "zh": "本文件不能替代电子发票（e-Fatura/e-Arşiv），仅供参考。",
+    "hi": "यह दस्तावेज़ ई-इनवॉइस/ई-आर्काइव चालान का स्थान नहीं लेता; यह केवल जानकारी के लिए है।",
+    "ar": "لا يحل هذا المستند محل الفاتورة الإلكترونية (e-Fatura/e-Arşiv)؛ وهو للعلم فقط.",
 }
 IMZA_NOTU = {
     "tr": (
@@ -80,6 +88,23 @@ IMZA_NOTU = {
     "en": (
         "This is not a secure electronic signature under Turkish Law No. 5070; "
         "it is a simple electronic consent record between the parties."
+    ),
+    "de": (
+        "Dies ist keine sichere elektronische Signatur im Sinne des türkischen Gesetzes Nr. 5070, sondern ein "
+        "einfacher elektronischer Zustimmungsnachweis zwischen den Parteien."
+    ),
+    "ru": (
+        "Это не квалифицированная электронная подпись по смыслу Закона Турции № 5070, а простая электронная запись "
+        "о согласии сторон."
+    ),
+    "zh": "这不是土耳其第 5070 号《电子签名法》意义上的安全电子签名，而是双方之间的简单电子同意记录。",
+    "hi": (
+        "यह तुर्की कानून संख्या 5070 के अंतर्गत सुरक्षित इलेक्ट्रॉनिक हस्ताक्षर नहीं है; यह पक्षों के बीच एक "
+        "साधारण इलेक्ट्रॉनिक सहमति रिकॉर्ड है।"
+    ),
+    "ar": (
+        "هذا ليس توقيعًا إلكترونيًا آمنًا بالمعنى الوارد في القانون التركي رقم 5070؛ بل هو سجل موافقة إلكتروني "
+        "بسيط بين الطرفين."
     ),
 }
 
@@ -114,30 +139,89 @@ ETIKET: Dict[str, Dict[str, str]] = {
         "kabul": "Accepted by", "kabul_zamani": "Accepted at (UTC)", "yontem": "Method",
         "bagli_fatura": "Related invoice", "donem": "Period", "cizim_yok": "(no drawn signature)",
     },
+    "de": {
+        "fatura": "RECHNUNG", "iade_faturasi": "GUTSCHRIFT", "teklif": "ANGEBOT", "sozlesme": "VERTRAG", "no": "Nr.",
+        "tarih": "Datum", "vade": "Fällig am", "gecerlilik": "Gültig bis", "musteri": "An",
+        "aciklama": "Beschreibung", "adet": "Menge", "birim": "Einzelpreis", "indirim": "Rab. %", "kdv": "MwSt. %",
+        "tutar": "Betrag", "ara_toplam": "Zwischensumme", "indirim_toplam": "Rabatt", "kdv_satir": "MwSt. ({oran} %)",
+        "genel_toplam": "Gesamtbetrag", "odemeler": "Zahlungen", "odenen": "Bezahlt", "kalan": "Offener Betrag",
+        "iade": "Erstattung", "notlar": "Anmerkungen", "sartlar": "Geschäftsbedingungen",
+        "vergi": "Finanzamt / Steuernummer", "iban": "IBAN", "sayfa": "Seite", "durum": "Status",
+        "imza": "Unterschrift", "imzalayan": "Unterzeichnet von", "imza_zamani": "Unterzeichnet am (UTC)",
+        "ip": "IP-Prüfsumme", "tarayici": "Browser", "metin_ozeti": "Text-Prüfsumme (SHA-256)",
+        "dogrulama": "Prüfung", "imzalanmadi": "Noch nicht unterzeichnet.", "surum": "Version", "baslangic": "Beginn",
+        "bitis": "Ende", "kabul": "Angenommen von", "kabul_zamani": "Angenommen am (UTC)", "yontem": "Methode",
+        "bagli_fatura": "Zugehörige Rechnung", "donem": "Zeitraum", "cizim_yok": "(keine gezeichnete Unterschrift)",
+    },
+    "ru": {
+        "fatura": "СЧЁТ", "iade_faturasi": "КРЕДИТ-НОТА", "teklif": "ПРЕДЛОЖЕНИЕ", "sozlesme": "ДОГОВОР", "no": "№",
+        "tarih": "Дата", "vade": "Срок оплаты", "gecerlilik": "Действительно до", "musteri": "Кому",
+        "aciklama": "Описание", "adet": "Кол-во", "birim": "Цена за ед.", "indirim": "Скидка %", "kdv": "НДС %",
+        "tutar": "Сумма", "ara_toplam": "Промежуточный итог", "indirim_toplam": "Скидка",
+        "kdv_satir": "НДС ({oran}%)", "genel_toplam": "Итого", "odemeler": "Платежи", "odenen": "Оплачено",
+        "kalan": "К оплате", "iade": "Возврат", "notlar": "Примечания", "sartlar": "Условия",
+        "vergi": "Налоговая инспекция / ИНН", "iban": "IBAN", "sayfa": "Стр.", "durum": "Статус", "imza": "Подпись",
+        "imzalayan": "Подписал(а)", "imza_zamani": "Время подписи (UTC)", "ip": "Хеш IP", "tarayici": "Браузер",
+        "metin_ozeti": "Хеш текста (SHA-256)", "dogrulama": "Проверка", "imzalanmadi": "Ещё не подписано.",
+        "surum": "Версия", "baslangic": "Начало", "bitis": "Окончание", "kabul": "Принял(а)",
+        "kabul_zamani": "Время принятия (UTC)", "yontem": "Способ", "bagli_fatura": "Связанный счёт",
+        "donem": "Период", "cizim_yok": "(без рисованной подписи)",
+    },
+    "zh": {
+        "fatura": "发票", "iade_faturasi": "退款发票", "teklif": "报价单", "sozlesme": "合同", "no": "编号", "tarih": "日期",
+        "vade": "付款截止日", "gecerlilik": "有效期至", "musteri": "致", "aciklama": "描述", "adet": "数量", "birim": "单价",
+        "indirim": "折扣 %", "kdv": "增值税 %", "tutar": "金额", "ara_toplam": "小计", "indirim_toplam": "折扣",
+        "kdv_satir": "增值税（{oran}%）", "genel_toplam": "总计", "odemeler": "付款记录", "odenen": "已付", "kalan": "应付余额",
+        "iade": "退款", "notlar": "备注", "sartlar": "条款与条件", "vergi": "税务机关 / 税号", "iban": "IBAN", "sayfa": "页",
+        "durum": "状态", "imza": "签名", "imzalayan": "签署人", "imza_zamani": "签署时间（UTC）", "ip": "IP 摘要", "tarayici": "浏览器",
+        "metin_ozeti": "文本摘要（SHA-256）", "dogrulama": "验证", "imzalanmadi": "尚未签署。", "surum": "版本", "baslangic": "开始",
+        "bitis": "结束", "kabul": "接受人", "kabul_zamani": "接受时间（UTC）", "yontem": "方式", "bagli_fatura": "关联发票",
+        "donem": "期间", "cizim_yok": "（无手写签名）",
+    },
+    "hi": {
+        "fatura": "चालान", "iade_faturasi": "क्रेडिट नोट", "teklif": "कोटेशन", "sozlesme": "अनुबंध", "no": "क्रमांक",
+        "tarih": "दिनांक", "vade": "भुगतान की अंतिम तिथि", "gecerlilik": "वैध तक", "musteri": "प्राप्तकर्ता",
+        "aciklama": "विवरण", "adet": "मात्रा", "birim": "इकाई मूल्य", "indirim": "छूट %", "kdv": "वैट %",
+        "tutar": "राशि", "ara_toplam": "उप-योग", "indirim_toplam": "छूट", "kdv_satir": "वैट ({oran}%)",
+        "genel_toplam": "कुल योग", "odemeler": "भुगतान", "odenen": "भुगतान किया गया", "kalan": "शेष राशि",
+        "iade": "धनवापसी", "notlar": "टिप्पणियाँ", "sartlar": "नियम और शर्तें", "vergi": "कर कार्यालय / कर संख्या",
+        "iban": "IBAN", "sayfa": "पृष्ठ", "durum": "स्थिति", "imza": "हस्ताक्षर", "imzalayan": "हस्ताक्षरकर्ता",
+        "imza_zamani": "हस्ताक्षर का समय (UTC)", "ip": "IP सारांश", "tarayici": "ब्राउज़र",
+        "metin_ozeti": "पाठ सारांश (SHA-256)", "dogrulama": "सत्यापन", "imzalanmadi": "अभी हस्ताक्षर नहीं हुए।",
+        "surum": "संस्करण", "baslangic": "आरंभ", "bitis": "समाप्ति", "kabul": "स्वीकारकर्ता",
+        "kabul_zamani": "स्वीकृति का समय (UTC)", "yontem": "तरीका", "bagli_fatura": "संबंधित चालान", "donem": "अवधि",
+        "cizim_yok": "(हाथ से बना हस्ताक्षर नहीं)",
+    },
+    "ar": {
+        "fatura": "فاتورة", "iade_faturasi": "إشعار دائن", "teklif": "عرض سعر", "sozlesme": "عقد", "no": "رقم",
+        "tarih": "التاريخ", "vade": "تاريخ الاستحقاق", "gecerlilik": "صالح حتى", "musteri": "إلى",
+        "aciklama": "الوصف", "adet": "الكمية", "birim": "سعر الوحدة", "indirim": "الخصم %", "kdv": "الضريبة %",
+        "tutar": "المبلغ", "ara_toplam": "المجموع الفرعي", "indirim_toplam": "الخصم",
+        "kdv_satir": "ضريبة القيمة المضافة ({oran}%)", "genel_toplam": "الإجمالي", "odemeler": "المدفوعات",
+        "odenen": "المدفوع", "kalan": "الرصيد المستحق", "iade": "استرداد", "notlar": "ملاحظات",
+        "sartlar": "الشروط والأحكام", "vergi": "مكتب الضرائب / الرقم الضريبي", "iban": "IBAN", "sayfa": "صفحة",
+        "durum": "الحالة", "imza": "التوقيع", "imzalayan": "الموقِّع", "imza_zamani": "وقت التوقيع (UTC)",
+        "ip": "ملخص IP", "tarayici": "المتصفح", "metin_ozeti": "ملخص النص (SHA-256)", "dogrulama": "التحقق",
+        "imzalanmadi": "لم يُوقَّع بعد.", "surum": "الإصدار", "baslangic": "البداية", "bitis": "النهاية",
+        "kabul": "قبِله", "kabul_zamani": "وقت القبول (UTC)", "yontem": "الطريقة",
+        "bagli_fatura": "الفاتورة المرتبطة", "donem": "الفترة", "cizim_yok": "(لا يوجد توقيع مرسوم)",
+    },
 }
-
-_KAYITLI = False
 
 
 def fontlari_kaydet() -> None:
-    """TTF'leri bir kez kaydeder (süreç başına)."""
-    global _KAYITLI
-    if _KAYITLI:
-        return
-    from reportlab.lib.fonts import addMapping
+    """Yazı tipi zincirini bir kez kaydeder (süreç başına) — `services/pdf_yazi.kaydet`."""
+    pdf_yazi.kaydet()
 
-    pdfmetrics.registerFont(TTFont(YAZI, str(FONT_DIZINI / "PlusJakartaSans-Regular.ttf")))
-    pdfmetrics.registerFont(TTFont(KALIN, str(FONT_DIZINI / "PlusJakartaSans-Bold.ttf")))
-    # <b> etiketi kalın dosyaya düşsün (italik dosya yok: düz kalıyor).
-    addMapping(YAZI, 0, 0, YAZI)
-    addMapping(YAZI, 1, 0, KALIN)
-    addMapping(YAZI, 0, 1, YAZI)
-    addMapping(YAZI, 1, 1, KALIN)
-    _KAYITLI = True
+
+def pdf_dili(dil: Optional[str]) -> str:
+    """İstenen dil 7 dilden biriyse o; değilse İngilizce (boşsa Türkçe)."""
+    d = (dil or "tr")[:2].lower()
+    return d if d in PDF_DILLERI else "en"
 
 
 def _dil(dil: Optional[str]) -> str:
-    return "en" if (dil or "").lower().startswith("en") else "tr"
+    return pdf_dili(dil)
 
 
 # ---------------------------------------------------------------------------
@@ -147,7 +231,7 @@ PARA_SIMGESI = {"TRY": "₺", "USD": "$", "EUR": "€", "GBP": "£"}
 
 
 def para(deger: Any, para_birimi: Optional[str], dil: str = "tr") -> str:
-    """1250.5, TRY → "1.250,50 ₺" (tr) / "₺1,250.50" (en)."""
+    """1250.5, TRY → "1.250,50 ₺" (tr, de) / "1 250,50 ₺" (ru) / "₺1,250.50" (en, zh, hi, ar)."""
     try:
         d = Decimal(str(deger if deger is not None else 0)).quantize(Decimal("0.01"))
     except Exception:  # noqa: BLE001
@@ -161,10 +245,13 @@ def para(deger: Any, para_birimi: Optional[str], dil: str = "tr") -> str:
         tam = tam[:-3]
     birim = (para_birimi or "TRY").upper()
     simge = PARA_SIMGESI.get(birim, birim + " ")
-    if _dil(dil) == "en":
-        metin = f"{simge}{','.join(gruplar)}.{kesir}"
-    else:
+    d = _dil(dil)
+    if d in ("tr", "de"):
         metin = f"{'.'.join(gruplar)},{kesir} {simge.strip()}"
+    elif d == "ru":
+        metin = f"{chr(0xA0).join(gruplar)},{kesir} {simge.strip()}"
+    else:
+        metin = f"{simge}{','.join(gruplar)}.{kesir}"
     return f"−{metin}" if eksi else metin
 
 
@@ -254,11 +341,9 @@ class MarkaKunyesi(Flowable):
         c.circle(k - 0.2 * mm, k + 0.3 * mm, 1.1 * mm, stroke=0, fill=1)
         # yazı
         c.setFillColor(KOYU)
-        c.setFont(KALIN, 12.5)
-        c.drawString(k + 3 * mm, 6.4 * mm, self.unvan)
+        metin_ciz(c, k + 3 * mm, 6.4 * mm, self.unvan, KALIN, 12.5)
         c.setFillColor(GRI)
-        c.setFont(YAZI, 7)
-        c.drawString(k + 3 * mm, 2.4 * mm, self.alt_satir.upper())
+        metin_ciz(c, k + 3 * mm, 2.4 * mm, self.alt_satir.upper(), YAZI, 7)
 
 
 def _ust_bilgi(ajans: Dict[str, Any], st: Dict[str, ParagraphStyle], dil: str) -> List[Any]:
@@ -381,10 +466,9 @@ def _sayfa_alti(not_metni: str, dil: str):
         canvas.setStrokeColor(CIZGI)
         canvas.setLineWidth(0.4)
         canvas.line(15 * mm, 14 * mm, 195 * mm, 14 * mm)
-        canvas.setFont(YAZI, 7)
         canvas.setFillColor(GRI)
-        canvas.drawString(15 * mm, 10 * mm, not_metni[:180])
-        canvas.drawRightString(195 * mm, 10 * mm, f"{e['sayfa']} {doc.page}")
+        metin_ciz(canvas, 15 * mm, 10 * mm, not_metni[:180], YAZI, 7)
+        metin_ciz(canvas, 195 * mm, 10 * mm, f"{e['sayfa']} {doc.page}", YAZI, 7, "sag")
         canvas.restoreState()
 
     return ciz

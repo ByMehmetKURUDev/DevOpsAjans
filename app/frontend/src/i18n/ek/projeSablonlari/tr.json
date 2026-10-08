@@ -69,8 +69,6 @@
       "gorevler_gecersiz": "Görev listesi geçersiz.",
       "gorev_gecersiz": "Görev okunamadı.",
       "saat_gecersiz": "Tahmini saat geçersiz."
-    },
-    "kopyaAdi": "{{ad}} (kopya)",
-    "onizlemeYok": "Görev ekleyince tarihler burada görünür."
+    }
   }
 }

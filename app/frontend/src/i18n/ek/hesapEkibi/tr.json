@@ -4,8 +4,7 @@
       "etiket": "Çalışılan hesap",
       "kendiHesabim": "Kendi hesabım",
       "serit": "{{hesap}} hesabında çalışıyorsunuz (rolünüz: {{rol}})",
-      "donus": "Kendi hesabıma dön",
-      "degisti": "{{hesap}} hesabına geçildi"
+      "donus": "Kendi hesabıma dön"
     },
     "rol": {
       "sahip": "Hesap sahibi",
@@ -89,8 +88,7 @@
       "hicKullanmadi": "Henüz kullanmadı",
       "sen": "siz",
       "yukleniyor": "Yükleniyor…",
-      "yenile": "Yenile",
-      "uyeSayisi": "{{sayi}} üye"
+      "yenile": "Yenile"
     },
     "hata": {
       "genel": "İşlem tamamlanamadı. Lütfen tekrar deneyin.",

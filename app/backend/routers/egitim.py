@@ -1539,7 +1539,7 @@ async def _sertifika_pdf_yaniti(db: AsyncSession, x: EgitimKurslari, o: EgitimOg
     ayar = await k.hesap_ayarlari(db, x.hesap_email)
     tarih = None
     if x.baslangic_tarihi and x.bitis_tarihi:
-        tarih = f"{s.tarih_yaz(x.baslangic_tarihi, 'tr' if x.dil == 'tr' else 'en')} – {s.tarih_yaz(x.bitis_tarihi, 'tr' if x.dil == 'tr' else 'en')}"
+        tarih = f"{s.tarih_yaz(x.baslangic_tarihi, x.dil)} – {s.tarih_yaz(x.bitis_tarihi, x.dil)}"
     pdf = s.sertifika_pdf(ad=o.ad or "—", kurs_adi=c.kurs_adi, kurum=(ayar.kurum_adi if ayar else None) or c.kurum_adi,
                           kod=c.kod, verilme=s.utc(c.verilme_at), sablon=x.sertifika_sablon, renk=x.renk, dil=x.dil,
                           saat=x.sertifika_saat, egitmenler=s.egitmen_adlari(x), imza_adi=ayar.imza_adi if ayar else None,

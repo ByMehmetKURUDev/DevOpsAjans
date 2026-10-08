@@ -156,6 +156,24 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
     void yazismayiYukle();
   }, [yukle, yazismayiYukle]);
 
+  // Faz 7K — "bilgi" öğesi (teklif kararı) yanıt beklemiyor: ayrıntısı açılınca okundu sayılıp kapanır.
+  const bilgiKapat = veri?.oge.ek.bilgi && veri.oge.durum === 'yeni' ? veri.oge.eylemler.find((e) => e.anahtar === 'okundu') : undefined;
+  useEffect(() => {
+    if (!bilgiKapat) return;
+    let iptal = false;
+    eylemiCalistir(bilgiKapat)
+      .then(async () => {
+        if (iptal) return;
+        await yukle();
+        onDegisti();
+      })
+      .catch(() => undefined);
+    return () => {
+      iptal = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bilgiKapat?.istek?.yol]);
+
   const oge = veri?.oge;
   const ayrinti = veri?.ayrinti || {};
   const aiAcik = aiHazir ?? veri?.meta.ai_hazir ?? false;
@@ -237,6 +255,8 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
       onDegisti();
     } catch (h) {
       toast.error(hataMetni(h, t('gelenKutusu.yanit.gonderilemedi')));
+      // Faz 7K: gönderilemeyen e-posta yanıtı da yazışma geçmişinde ("gönderilemedi").
+      if (oge.yanit.tur === 'eposta') void yukle();
     } finally {
       setGonderiliyor(false);
     }
@@ -325,6 +345,21 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
       case 'belge_paylasim':
         ekle('belge', a.baslik);
         ekle('olay', t(`gelenKutusu.belgeOlayi.${a.olay === 'onayladi' ? 'onayladi' : 'paylasti'}`, { sayi: a.surum ?? 1 }));
+        break;
+      case 'crm_form':
+        ekle('form', a.form_baslik && a.form_baslik !== a.form ? `${metinAl(a.form)} — ${metinAl(a.form_baslik)}` : a.form);
+        ekle('mesaj', a.mesaj, true);
+        ekle('telefon', a.telefon);
+        ekle('firma', a.firma);
+        ekle('butce', a.butce);
+        ekle('pazarlamaIzni', a.pazarlama_izni ? t('gelenKutusu.evet') : '');
+        break;
+      case 'teklif_karari':
+        ekle('teklif', [a.no, a.baslik].map(metinAl).filter(Boolean).join(' — '));
+        ekle('karar', a.karar ? t(`gelenKutusu.karar.${metinAl(a.karar) === 'ret' ? 'red' : metinAl(a.karar)}`) : '');
+        ekle('kararVeren', a.karar_ad);
+        ekle('tutar', a.tutar ? `${metinAl(a.tutar)} ${metinAl(a.para_birimi)}` : '');
+        ekle('karar_notu', a.karar_notu, true);
         break;
     }
     return s;
@@ -442,6 +477,53 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
             ))}
           </div>
         </section>
+      ) : null}
+
+      {/* Faz 7K — e-postayla verilen yanıtlar (kim, kime, ne zaman; gönderilemeyenler de). */}
+      {veri?.yanitlar?.length ? (
+        <section aria-label={t('gelenKutusu.epostaGecmisi')}>
+          <h4 className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">{t('gelenKutusu.epostaGecmisi')}</h4>
+          <div className="max-h-72 space-y-2 overflow-y-auto pe-1" data-testid="gk-eposta-gecmisi">
+            {veri.yanitlar.map((y) => (
+              <div key={y.id} className="flex justify-end" data-gk-yanit-durum={y.durum}>
+                <div
+                  className={`max-w-[85%] rounded-xl px-3 py-2 text-sm ${
+                    y.durum === 'gonderildi' ? 'bg-primary/15' : 'border border-amber-400/40 bg-amber-500/10'
+                  }`}
+                >
+                  <p className="mb-1 flex flex-wrap items-center gap-x-1.5 text-[10px] uppercase tracking-wider text-muted-foreground">
+                    <span className={y.yazan ? 'normal-case tracking-normal' : undefined} dir={y.yazan ? 'ltr' : undefined}>
+                      {y.yazan || t('gelenKutusu.alan.ajans')}
+                    </span>
+                    <span aria-hidden="true">→</span>
+                    <span className="normal-case tracking-normal" dir="ltr">
+                      {y.alici}
+                    </span>
+                    {y.zaman ? <span>• {tamZaman(y.zaman, dil)}</span> : null}
+                    <span className={y.durum === 'gonderildi' ? 'text-emerald-300' : 'text-amber-200'}>
+                      • {t(`gelenKutusu.yanitDurum.${y.durum}`)}
+                      {y.neden ? ` (${t(`gelenKutusu.yanitNeden.${y.neden}`, { defaultValue: y.neden })})` : ''}
+                    </span>
+                  </p>
+                  {y.konu ? (
+                    <p className="text-xs font-medium">
+                      <bdi>{y.konu}</bdi>
+                    </p>
+                  ) : null}
+                  <p className="whitespace-pre-wrap break-words">
+                    <bdi>{y.metin}</bdi>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {oge.ek.bilgi ? (
+        <p className="rounded-xl border border-sky-400/30 bg-sky-500/10 px-3 py-2 text-xs text-sky-100" data-testid="gk-bilgi-notu">
+          {t('gelenKutusu.bilgiNotu')}
+        </p>
       ) : null}
 
       {/* Eylemler */}

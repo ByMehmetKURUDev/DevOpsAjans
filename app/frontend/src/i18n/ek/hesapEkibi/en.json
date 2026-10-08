@@ -4,8 +4,7 @@
       "etiket": "Working account",
       "kendiHesabim": "My own account",
       "serit": "You are working in the {{hesap}} account (your role: {{rol}})",
-      "donus": "Back to my account",
-      "degisti": "Switched to {{hesap}}"
+      "donus": "Back to my account"
     },
     "rol": {
       "sahip": "Account owner",
@@ -89,8 +88,7 @@
       "hicKullanmadi": "Not used yet",
       "sen": "you",
       "yukleniyor": "Loading…",
-      "yenile": "Refresh",
-      "uyeSayisi": "{{sayi}} members"
+      "yenile": "Refresh"
     },
     "hata": {
       "genel": "The action could not be completed. Please try again.",

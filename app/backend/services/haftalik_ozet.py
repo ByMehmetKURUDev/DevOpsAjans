@@ -190,7 +190,8 @@ async def _destek(db: AsyncSession, an: datetime) -> Dict[str, Any]:
 GELEN_KAYNAK_ADLARI = {
     "iletisim": "İletişim formu", "fiyat_teklifi": "Fiyat teklifi isteği", "sohbet": "Müşteri sohbeti",
     "kartvizit": "Kartvizit mesajı", "randevu": "Randevu", "geri_bildirim": "Hata bildirimi",
-    "icerik_revizyon": "İçerik revizyonu", "belge": "Yüklenen belge",
+    "icerik_revizyon": "İçerik revizyonu", "belge": "Yüklenen belge", "egitim": "Kurs başvurusu",
+    "belge_paylasim": "Paylaşılan belge", "crm_form": "CRM formu",
 }
 
 
@@ -202,6 +203,8 @@ async def _gelen_kutusu(db: AsyncSession, an: datetime) -> Dict[str, Any]:
       görünüyorsa (sonraki adımı gelmiş ya da 7+ gündür hareketsiz) burada sayılmıyor.
     * Müşteri onayı bekleyen içerik / bekleyen belge talebi (top müşteride) ile gelen kutusundaki
       içerik revizyonu / yüklenen belge (top bizde) zaten ayrık kümeler.
+    * Faz 7K: CRM formu gönderimi de adaya bağlı — adayı CRM bölümündeyse burada sayılmıyor; teklif kararı
+      "bilgi" öğesi (yanıt beklemiyor) bu bölümde hiç yok ("yanıtsız teklifler" ayrı bölüm).
     """
     from models.crm import CrmAdaylari
     from services import crm
@@ -214,8 +217,11 @@ async def _gelen_kutusu(db: AsyncSession, an: datetime) -> Dict[str, Any]:
         # Faz 6I: izin talepleri kendi bölümünde ("Bekleyen izin talepleri") — çift sayım yok.
         if kaynak in ("destek", "izin_talebi"):
             continue
+        if kaynak in gk.BILGI_KAYNAKLARI:
+            continue
         ogeler += [o for o in await gk._kaynagi_yukle(db, kaynak, sz, bg) if o["durum"] in gk.BEKLEYEN]
-    aday_idleri = {o["ek"].get("crm_aday_id") for o in ogeler if o["kaynak"] in ("iletisim", "fiyat_teklifi")} - {None}
+    aday_idleri = {o["ek"].get("crm_aday_id") for o in ogeler
+                   if o["kaynak"] in ("iletisim", "fiyat_teklifi", "crm_form")} - {None}
     crmde: set = set()
     if aday_idleri:
         acik = await crm.acik_asama_anahtarlari(db)

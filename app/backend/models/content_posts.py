@@ -90,3 +90,6 @@ class Content_posts(Base):
     hatirlatma_at = Column(DateTime(timezone=True), nullable=True)
     #: `icerik.yayin_zamani` olayı üretildi mi (tek kez; tarih değişince sıfırlanır).
     yayin_olayi_at = Column(DateTime(timezone=True), nullable=True)
+    #: Faz 7K — isteğe bağlı proje (`projects.id`; gönderinin hesabının projesi). Otomasyonda `icerik.*`
+    #: olaylarının "olaydaki proje"si: "İçerik onaylandı → Paylaş" şablonu projeye görev açar.
+    proje_id = Column(Integer, nullable=True)

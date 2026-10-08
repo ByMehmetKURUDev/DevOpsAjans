@@ -153,7 +153,6 @@
     "gecmis": {
       "baslik": "इतिहास",
       "bos": "इस क्लाइंट पर अभी तक कोई उद्योग पैकेज या शुरुआती सेटिंग लागू नहीं की गई।",
-      "tur_paket": "उद्योग पैकेज",
       "tur_hazir": "शुरुआती सेटिंग्स",
       "uygulandi": "लागू",
       "kaldirildi": "हटाया गया",
@@ -168,9 +167,7 @@
       "hazirGeriAlOnay": "पूर्ववत करें",
       "kaldirildiMesaj": "{{sayi}} मॉड्यूल पहले जैसी स्थिति में लौटे।",
       "hazirGeriAlindiMesaj": "{{silinen}} रिकॉर्ड हटाए गए, {{korunan}} रखे गए।",
-      "kapatilan": "पहले जैसे किए गए",
-      "korunan": "रखे गए",
-      "silinen": "हटाए गए"
+      "korunan": "रखे गए"
     }
   }
 }

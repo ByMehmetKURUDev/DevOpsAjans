@@ -1,6 +1,7 @@
 import type { TFunction } from 'i18next';
 
 import { getAPIBaseURL } from '@/lib/config';
+import { govdeyiTuket } from '@/lib/yanit';
 import { client } from '@/lib/sdkClient';
 
 /**
@@ -243,7 +244,10 @@ export async function openapiGetir(): Promise<OpenApiBelgesi> {
   } catch {
     throw new ApiErisimHatasi(0, 'ag');
   }
-  if (!yanit.ok) throw new ApiErisimHatasi(yanit.status, 'genel');
+  if (!yanit.ok) {
+    await govdeyiTuket(yanit);
+    throw new ApiErisimHatasi(yanit.status, 'genel');
+  }
   return (await yanit.json()) as OpenApiBelgesi;
 }
 

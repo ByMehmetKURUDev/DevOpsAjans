@@ -41,9 +41,7 @@
       "baslik": "Wichtigste Befunde",
       "yok": "Es wurden keine wesentlichen Probleme gefunden.",
       "kritik": "Kritisch",
-      "hata": "Fehler",
-      "uyari": "Warnung",
-      "bilgi": "Hinweis"
+      "hata": "Fehler"
     },
     "tara": {
       "dugme": "Jetzt scannen",

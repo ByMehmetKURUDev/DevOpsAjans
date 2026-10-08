@@ -41,9 +41,7 @@
       "baslik": "Most important findings",
       "yok": "No significant issues were found.",
       "kritik": "Critical",
-      "hata": "Error",
-      "uyari": "Warning",
-      "bilgi": "Info"
+      "hata": "Error"
     },
     "tara": {
       "dugme": "Scan now",

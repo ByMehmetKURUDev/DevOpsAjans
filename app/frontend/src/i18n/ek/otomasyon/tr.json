@@ -516,9 +516,10 @@
       },
       "icerik_onaylandi_gorev": {
         "ad": "İçerik onaylandı → \"Paylaş\" hatırlatması",
-        "aciklama": "Ne zaman: ajansın yönettiği bir içerik gönderisi onaylandığında (müşterinin kendi içerikleri hariç). Ne yapar: içeriğin sorumlusuna (yoksa yöneticilere) \"Paylaş: <başlık>\" panel bildirimi gönderir. Olayda proje olmadığı için görev yerine bildirim kullanılır.",
+        "aciklama": "Ne zaman: ajansın yönettiği bir içerik gönderisi onaylandığında (müşterinin kendi içerikleri hariç). Ne yapar: içeriğin sorumlusuna (yoksa yöneticilere) \"Paylaş: <başlık>\" panel bildirimi gönderir; gönderiye bir proje bağlıysa o projeye ertesi gün bitişli \"Paylaş\" görevi de açar (proje bağlı değilse görev adımı atlanır). Projeyi içerik stüdyosunda gönderinin ayrıntısından bağlayabilirsiniz.",
         "bildirim": "Paylaş: [[icerik.baslik]]",
-        "bildirim_govde": "Gönderi onaylandı. Planlanan zaman: [[icerik.planlanan_at|belirlenmemiş]]; kanallar: [[icerik.kanallar|—]]."
+        "bildirim_govde": "Gönderi onaylandı. Planlanan zaman: [[icerik.planlanan_at|belirlenmemiş]]; kanallar: [[icerik.kanallar|—]].",
+        "gorev": "Paylaş: [[icerik.baslik]]"
       },
       "fatura_vade_oncesi_hatirlatma": {
         "ad": "Fatura kesildi → 5 gün sonra hâlâ açıksa vade öncesi hatırlatma",

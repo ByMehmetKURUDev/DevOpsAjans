@@ -46,7 +46,6 @@
       "durum": "Status",
       "baslangic": "From",
       "bitis": "To",
-      "ucret": "Hourly rate",
       "paraBirimi": "Currency",
       "tutar": "Amount"
     },
@@ -77,11 +76,9 @@
       "toplam": "Total: {{sure}}",
       "csv": "Download CSV",
       "csvIndirildi": "CSV downloaded",
-      "gorevsiz": "No task",
       "faturaNo": "Invoice #{{id}}",
       "geriAl": "Undo approval",
-      "geriAlindi": "Approval undone",
-      "sure": "{{sure}} h"
+      "geriAlindi": "Approval undone"
     },
     "cizelge": {
       "baslik": "Weekly timesheet",

@@ -22,6 +22,9 @@ export const KAYNAKLAR = [
   'belge_paylasim',
   // Faz 6I: ajansın kendi personelinin portaldan gönderdiği izin talebi.
   'izin_talebi',
+  // Faz 7K: gömülebilir CRM formu gönderimi (adaya bağlı) ve teklif kararı (bilgi öğesi).
+  'crm_form',
+  'teklif_karari',
 ] as const;
 export type Kaynak = (typeof KAYNAKLAR)[number];
 
@@ -77,9 +80,22 @@ export interface ListeYaniti {
   meta: Meta & { kaynaklar: Kaynak[] };
 }
 
+/** Faz 7K — gelen kutusundan giden e-posta yanıtı (öğenin yazışma geçmişi). */
+export interface YanitKaydi {
+  id: number;
+  yazan: string | null;
+  alici: string;
+  konu: string | null;
+  metin: string;
+  durum: 'gonderildi' | 'gonderilemedi';
+  neden: string | null;
+  zaman: string | null;
+}
+
 export interface AyrintiYaniti {
   oge: Oge;
   ayrinti: Record<string, unknown>;
+  yanitlar?: YanitKaydi[];
   meta: Meta;
 }
 

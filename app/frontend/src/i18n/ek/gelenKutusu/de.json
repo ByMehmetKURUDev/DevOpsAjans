@@ -1,7 +1,7 @@
 {
   "gelenKutusu": {
     "baslik": "Posteingang",
-    "aciklama": "Alles, was auf eine Antwort wartet, in einer Liste: Kontaktformular, Angebotsanfragen, Support-Tickets, Kundenchats, Nachrichten über die Visitenkarte, Terminbuchungen, Fehlermeldungen, Inhaltsrevisionen und hochgeladene Dokumente.",
+    "aciklama": "Alles, was auf eine Antwort wartet, in einer Liste: Kontaktformular, Angebotsanfragen, Support-Tickets, Kundenchats, Nachrichten über die Visitenkarte, Terminbuchungen, Fehlermeldungen, Inhaltsrevisionen und hochgeladene Dokumente. Auch Einsendungen von CRM-Formularen und Angebotsentscheidungen landen hier.",
     "yenile": "Aktualisieren",
     "kaynakSuzgeci": "Nach Quelle filtern",
     "tumKaynaklar": "Alle",
@@ -17,7 +17,9 @@
       "belge": "Dokument",
       "egitim": "Kursanmeldung",
       "belge_paylasim": "Dokumentfreigabe",
-      "izin_talebi": "Urlaubsantrag"
+      "izin_talebi": "Urlaubsantrag",
+      "crm_form": "CRM-Formular",
+      "teklif_karari": "Angebotsentscheidung"
     },
     "durumSuzgeci": {
       "etiket": "Nach Status filtern",
@@ -97,12 +99,19 @@
       "departman": "Abteilung",
       "izinTuru": "Urlaubsart",
       "tarih": "Zeitraum",
-      "isGunu": "Arbeitstage"
+      "isGunu": "Arbeitstage",
+      "form": "Formular",
+      "firma": "Firma",
+      "butce": "Budget",
+      "teklif": "Angebot",
+      "kararVeren": "Entschieden von",
+      "pazarlamaIzni": "Marketing-Einwilligung"
     },
     "karar": {
       "bekliyor": "Entscheidung ausstehend",
       "kabul": "Angenommen",
-      "red": "Abgelehnt"
+      "red": "Abgelehnt",
+      "ret": "Abgelehnt"
     },
     "yanit": {
       "baslik": "Antwort",
@@ -168,6 +177,18 @@
       "onaylandi": "Genehmigt",
       "reddedildi": "Abgelehnt",
       "iptal": "Storniert"
+    },
+    "bilgi": "Info",
+    "bilgiNotu": "Keine Antwort nötig; beim Öffnen gilt es als gelesen und wird geschlossen.",
+    "evet": "Ja",
+    "epostaGecmisi": "E-Mail-Antworten",
+    "yanitDurum": {
+      "gonderildi": "Gesendet",
+      "gonderilemedi": "Nicht gesendet"
+    },
+    "yanitNeden": {
+      "eposta_kapali": "kein E-Mail-Anbieter eingerichtet",
+      "eposta_gitmedi": "vom Anbieter abgelehnt"
     }
   }
 }

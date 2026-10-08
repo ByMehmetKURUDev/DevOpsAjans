@@ -46,7 +46,6 @@
       "durum": "状态",
       "baslangic": "从",
       "bitis": "至",
-      "ucret": "小时费率",
       "paraBirimi": "币种",
       "tutar": "金额"
     },
@@ -77,11 +76,9 @@
       "toplam": "合计：{{sure}}",
       "csv": "下载 CSV",
       "csvIndirildi": "CSV 已下载",
-      "gorevsiz": "无任务",
       "faturaNo": "发票 #{{id}}",
       "geriAl": "撤销批准",
-      "geriAlindi": "已撤销批准",
-      "sure": "{{sure}} 小时"
+      "geriAlindi": "已撤销批准"
     },
     "cizelge": {
       "baslik": "每周工时表",

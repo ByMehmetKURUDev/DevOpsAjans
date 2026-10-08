@@ -4,8 +4,7 @@
       "etiket": "Aktives Konto",
       "kendiHesabim": "Mein eigenes Konto",
       "serit": "Sie arbeiten im Konto {{hesap}} (Ihre Rolle: {{rol}})",
-      "donus": "Zurück zu meinem Konto",
-      "degisti": "Zu {{hesap}} gewechselt"
+      "donus": "Zurück zu meinem Konto"
     },
     "rol": {
       "sahip": "Kontoinhaber",
@@ -89,8 +88,7 @@
       "hicKullanmadi": "Noch nicht genutzt",
       "sen": "Sie",
       "yukleniyor": "Wird geladen…",
-      "yenile": "Aktualisieren",
-      "uyeSayisi": "{{sayi}} Mitglieder"
+      "yenile": "Aktualisieren"
     },
     "hata": {
       "genel": "Der Vorgang konnte nicht abgeschlossen werden. Bitte erneut versuchen.",

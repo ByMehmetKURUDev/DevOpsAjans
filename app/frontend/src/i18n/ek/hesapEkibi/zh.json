@@ -4,8 +4,7 @@
       "etiket": "当前账户",
       "kendiHesabim": "我自己的账户",
       "serit": "您正在 {{hesap}} 账户中工作（您的角色：{{rol}}）",
-      "donus": "返回我的账户",
-      "degisti": "已切换到 {{hesap}}"
+      "donus": "返回我的账户"
     },
     "rol": {
       "sahip": "账户所有者",
@@ -89,8 +88,7 @@
       "hicKullanmadi": "尚未使用",
       "sen": "您",
       "yukleniyor": "加载中…",
-      "yenile": "刷新",
-      "uyeSayisi": "{{sayi}} 名成员"
+      "yenile": "刷新"
     },
     "hata": {
       "genel": "操作未能完成，请重试。",

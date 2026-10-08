@@ -10,6 +10,8 @@
  * bunu açıkça gösteriyor — uydurma bir cevap üretmiyor.
  */
 
+import { govdeyiTuket } from '@/lib/yanit';
+
 export interface Mesaj {
   rol: 'kullanici' | 'asistan';
   metin: string;
@@ -44,7 +46,10 @@ export async function asistanaSor(
     }),
   });
 
-  if (!yanit.ok) throw new AsistanHatasi(yanit.status);
+  if (!yanit.ok) {
+    await govdeyiTuket(yanit);
+    throw new AsistanHatasi(yanit.status);
+  }
 
   const govde = (await yanit.json()) as { icerik?: unknown };
   const metin = typeof govde.icerik === 'string' ? govde.icerik.trim() : '';

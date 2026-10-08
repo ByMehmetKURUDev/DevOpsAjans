@@ -109,7 +109,12 @@
       "kaydedildi": "已保存。",
       "silOnay": "删除“{{baslik}}”？（可从回收站恢复。）",
       "silindi": "已删除。",
-      "durumDegisti": "状态：{{durum}}"
+      "durumDegisti": "状态：{{durum}}",
+      "proje": "项目（可选）",
+      "projeYok": "未关联项目",
+      "projeIpucu": "获批后，“发布”自动化可在该项目中创建任务。",
+      "projeOnerisi": "建议：该账户唯一进行中的项目是“{{proje}}”。",
+      "projeBagla": "关联"
     },
     "gecis": {
       "taslak": "改回草稿",

@@ -3,6 +3,8 @@ import {
   Bug,
   Calculator,
   CalendarCheck,
+  ClipboardList,
+  FileSignature,
   FileUp,
   GraduationCap,
   IdCard,
@@ -30,6 +32,8 @@ export const KAYNAK_IKONU: Record<Kaynak, LucideIcon> = {
   egitim: GraduationCap,
   belge_paylasim: BookText,
   izin_talebi: Plane,
+  crm_form: ClipboardList,
+  teklif_karari: FileSignature,
 };
 
 export const DURUM_RENGI: Record<Durum, string> = {

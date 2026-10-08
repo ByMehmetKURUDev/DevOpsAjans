@@ -15,6 +15,7 @@
 import { getAPIBaseURL } from '@/lib/config';
 
 import VERI from '../../prerender/modul-vitrini-veri.json';
+import { govdeyiTuket } from '@/lib/yanit';
 
 export interface VitrinModulu {
   anahtar: string;
@@ -97,7 +98,10 @@ export function eldekiFiyatlar(): VitrinFiyatlari {
 
 export async function fiyatlariGetir(signal?: AbortSignal): Promise<VitrinFiyatlari> {
   const yanit = await fetch(`${getAPIBaseURL()}/api/v1/modul-vitrini`, { headers: { accept: 'application/json' }, signal });
-  if (!yanit.ok) throw new Error(`HTTP ${yanit.status}`);
+  if (!yanit.ok) {
+    await govdeyiTuket(yanit);
+    throw new Error(`HTTP ${yanit.status}`);
+  }
   const veri = (await yanit.json()) as { fiyatlar?: VitrinFiyatlari };
   const fiyatlar = veri?.fiyatlar && typeof veri.fiyatlar === 'object' ? veri.fiyatlar : {};
   if (typeof window !== 'undefined') bellek = fiyatlar;
@@ -140,7 +144,10 @@ export async function talepGonder(govde: TalepGovdesi): Promise<void> {
   } catch {
     throw new TalepHatasi('ag');
   }
-  if (yanit.ok) return;
+  if (yanit.ok) {
+    await govdeyiTuket(yanit);
+    return;
+  }
   let kod = 'genel';
   try {
     const veri = (await yanit.json()) as { detail?: { kod?: string } };

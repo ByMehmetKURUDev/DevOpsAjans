@@ -516,9 +516,10 @@
       },
       "icerik_onaylandi_gorev": {
         "ad": "Inhalt freigegeben → „Veröffentlichen“-Erinnerung",
-        "aciklama": "Wann: ein von der Agentur verwalteter Beitrag wird freigegeben (eigene Inhalte der Kunden ausgenommen). Was passiert: die verantwortliche Person (sonst die Admins) erhält die Panel-Benachrichtigung „Veröffentlichen: <Titel>“. Das Ereignis hat kein Projekt, daher eine Benachrichtigung statt einer Aufgabe.",
+        "aciklama": "Wann: ein von der Agentur verwalteter Beitrag wird freigegeben (eigene Inhalte der Kunden ausgenommen). Was passiert: die verantwortliche Person (sonst die Admins) erhält die Panel-Benachrichtigung „Veröffentlichen: <Titel>“; ist dem Beitrag ein Projekt zugeordnet, wird dort zusätzlich eine „Veröffentlichen“-Aufgabe mit Fälligkeit am nächsten Tag angelegt (ohne Projekt wird der Aufgabenschritt übersprungen). Das Projekt ordnen Sie im Content-Studio in den Details des Beitrags zu.",
         "bildirim": "Veröffentlichen: [[icerik.baslik]]",
-        "bildirim_govde": "Beitrag freigegeben. Geplant für: [[icerik.planlanan_at|nicht festgelegt]]; Kanäle: [[icerik.kanallar|—]]."
+        "bildirim_govde": "Beitrag freigegeben. Geplant für: [[icerik.planlanan_at|nicht festgelegt]]; Kanäle: [[icerik.kanallar|—]].",
+        "gorev": "Veröffentlichen: [[icerik.baslik]]"
       },
       "fatura_vade_oncesi_hatirlatma": {
         "ad": "Rechnung erstellt → Erinnerung vor Fälligkeit, wenn nach 5 Tagen noch offen",

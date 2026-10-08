@@ -12,6 +12,7 @@ import { client } from '@/lib/sdkClient';
 import { VITRIN } from '@/lib/modulVitrini';
 import { modulYolu } from '../../prerender/moduller-veri.js';
 import { DEFAULT_LANGUAGE, LANGUAGE_CODES, localizedPath } from '../../prerender/site.js';
+import { jsonVeyaBos } from '@/lib/yanit';
 
 // Faz 2B — "Topluluktan" (planlanan müşteri önerileri). Yalnız yönetici
 // ayarı açıksa ve liste boş değilse, istemcide yükleniyor; prerender ve
@@ -76,8 +77,8 @@ export default function YolHaritasi() {
   useEffect(() => {
     let iptal = false;
     fetch(`${getAPIBaseURL()}/api/v1/topluluk-onerileri`)
-      .then((y) => (y.ok ? y.json() : null))
-      .then((g: { acik?: boolean; oneriler?: ToplulukOnerisi[] } | null) => {
+      .then((y) => jsonVeyaBos<{ acik?: boolean; oneriler?: ToplulukOnerisi[] }>(y))
+      .then((g) => {
         if (!iptal && g?.acik && Array.isArray(g.oneriler)) setTopluluk(g.oneriler);
       })
       .catch(() => {});

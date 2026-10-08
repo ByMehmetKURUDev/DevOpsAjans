@@ -153,7 +153,6 @@
     "gecmis": {
       "baslik": "Verlauf",
       "bos": "Für diesen Kunden wurde noch kein Branchenpaket und keine Starteinstellung angewendet.",
-      "tur_paket": "Branchenpaket",
       "tur_hazir": "Starteinstellungen",
       "uygulandi": "Angewendet",
       "kaldirildi": "Entfernt",
@@ -168,9 +167,7 @@
       "hazirGeriAlOnay": "Rückgängig machen",
       "kaldirildiMesaj": "{{sayi}} Module auf den vorherigen Zustand zurückgesetzt.",
       "hazirGeriAlindiMesaj": "{{silinen}} Einträge gelöscht, {{korunan}} behalten.",
-      "kapatilan": "Zurückgesetzt",
-      "korunan": "Behalten",
-      "silinen": "Gelöscht"
+      "korunan": "Behalten"
     }
   }
 }

@@ -27,6 +27,7 @@ import {
   type Teslimat,
 } from '@/lib/qrMenuOrtak';
 import { LANGUAGE_CODES, localizedPath } from '../../prerender/site.js';
+import { govdeyiTuket } from '@/lib/yanit';
 
 /**
  * Faz 4M — herkese açık menü / katalog sayfası: `/menu/<slug>`.
@@ -102,7 +103,9 @@ function olayGonder(slug: string, tur: 'urun' | 'sepet', urun_id: number) {
       keepalive: true,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tur, urun_id }),
-    }).catch(() => undefined);
+    })
+      .then(govdeyiTuket)
+      .catch(() => undefined);
   } catch {
     /* analitik menüyü asla bozmasın */
   }
@@ -189,6 +192,7 @@ export default function MenuSayfasi() {
     (async () => {
       try {
         const y = await fetch(`${API()}/api/v1/menu/${encodeURIComponent(slug)}`, { headers: { accept: 'application/json' } });
+        if (!y.ok) await govdeyiTuket(y);
         if (y.status === 404 || y.status === 410) {
           // Sade durum sayfası: ziyaretçinin dili (7 dilden biri) ya da Türkçe.
           const tarayiciDili = (typeof navigator !== 'undefined' ? (navigator.languages || [navigator.language]) : [])

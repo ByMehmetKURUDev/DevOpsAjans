@@ -46,7 +46,6 @@
       "durum": "Статус",
       "baslangic": "С",
       "bitis": "По",
-      "ucret": "Почасовая ставка",
       "paraBirimi": "Валюта",
       "tutar": "Сумма"
     },
@@ -77,11 +76,9 @@
       "toplam": "Итого: {{sure}}",
       "csv": "Скачать CSV",
       "csvIndirildi": "CSV скачан",
-      "gorevsiz": "Без задачи",
       "faturaNo": "Счёт №{{id}}",
       "geriAl": "Отменить утверждение",
-      "geriAlindi": "Утверждение отменено",
-      "sure": "{{sure}} ч"
+      "geriAlindi": "Утверждение отменено"
     },
     "cizelge": {
       "baslik": "Недельный табель",

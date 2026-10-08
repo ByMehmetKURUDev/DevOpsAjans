@@ -46,7 +46,6 @@
       "durum": "Durum",
       "baslangic": "Başlangıç",
       "bitis": "Bitiş",
-      "ucret": "Saatlik ücret",
       "paraBirimi": "Para birimi",
       "tutar": "Tutar"
     },
@@ -77,11 +76,9 @@
       "toplam": "Toplam: {{sure}}",
       "csv": "CSV indir",
       "csvIndirildi": "CSV indirildi",
-      "gorevsiz": "Görevsiz",
       "faturaNo": "Fatura #{{id}}",
       "geriAl": "Onayı geri al",
-      "geriAlindi": "Onay geri alındı",
-      "sure": "{{sure}} saat"
+      "geriAlindi": "Onay geri alındı"
     },
     "cizelge": {
       "baslik": "Haftalık çizelge",

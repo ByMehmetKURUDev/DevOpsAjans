@@ -69,8 +69,6 @@
       "gorevler_gecersiz": "Invalid task list.",
       "gorev_gecersiz": "Could not read a task.",
       "saat_gecersiz": "Invalid estimated hours."
-    },
-    "kopyaAdi": "{{ad}} (copy)",
-    "onizlemeYok": "Add tasks to see their dates here."
+    }
   }
 }

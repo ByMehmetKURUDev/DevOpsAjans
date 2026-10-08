@@ -109,7 +109,12 @@
       "kaydedildi": "Gespeichert.",
       "silOnay": "„{{baslik}}“ löschen? (Kann aus dem Papierkorb wiederhergestellt werden.)",
       "silindi": "Gelöscht.",
-      "durumDegisti": "Status: {{durum}}"
+      "durumDegisti": "Status: {{durum}}",
+      "proje": "Projekt (optional)",
+      "projeYok": "Kein Projekt zugeordnet",
+      "projeIpucu": "Nach der Freigabe kann die „Veröffentlichen“-Automation in diesem Projekt eine Aufgabe anlegen.",
+      "projeOnerisi": "Vorschlag: Das einzige offene Projekt dieses Kontos ist „{{proje}}“.",
+      "projeBagla": "Zuordnen"
     },
     "gecis": {
       "taslak": "Auf Entwurf setzen",

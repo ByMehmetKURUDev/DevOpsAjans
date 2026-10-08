@@ -1,8 +1,9 @@
 """Faz 6S — servis formu / fiş PDF'i (ReportLab; Faz 3T altyapısı: yazı tipi, stiller, sayfa altı).
 
 Belge servis FİRMASININ belgesi: başlıkta firmanın künyesi (ajansın markası değil).
-Yazı tipi yalnız Latin harflerini taşıyor (Plus Jakarta Sans): tr / en / de; diğer dillerde
-İngilizce. E-fatura / e-arşiv yerine geçmez (sayfa altında yazıyor) — gerçek e-fatura ileride.
+Etiketler 7 dilde; metin `services/pdf_yazi.py`'nin yazı tipi zincirinden geçiyor (Faz 7K: Kiril,
+Arapça, Devanagari, Çince). E-fatura / e-arşiv yerine geçmez (sayfa altında yazıyor) — gerçek
+e-fatura ileride.
 """
 
 import io
@@ -11,8 +12,9 @@ from typing import Any, Dict, List, Optional
 
 from reportlab.lib.units import mm
 from reportlab.lib.utils import ImageReader
-from reportlab.platypus import Image, KeepTogether, Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import Image, KeepTogether, Spacer, Table, TableStyle
 from services import pdf_belge as pb
+from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf
 
 logger = logging.getLogger(__name__)
 
@@ -68,6 +70,74 @@ ETIKET: Dict[str, Dict[str, str]] = {
         "yeni": "Neu", "planlandi": "Geplant", "yolda": "Unterwegs", "iste": "In Arbeit", "tamamlandi": "Abgeschlossen",
         "iptal": "Storniert", "ertelendi": "Verschoben",
     },
+    "ru": {
+        "baslik": "СЕРВИСНЫЙ ОТЧЁТ", "no": "№", "tarih": "Дата", "durum": "Статус", "musteri": "Клиент",
+        "adres": "Адрес", "telefon": "Телефон", "is": "Сведения о работе", "tur": "Тип", "oncelik": "Приоритет",
+        "teknisyen": "Техник", "plan": "Запланировано", "basla": "Начало", "bitir": "Окончание", "sure": "Длительность",
+        "dk": "мин", "cihazlar": "Оборудование", "cihaz": "Оборудование", "marka": "Марка / модель",
+        "seri": "Серийный №", "aciklama": "Описание", "kontrol": "Контрольный список", "madde": "Пункт",
+        "sonuc": "Результат", "evet": "Да", "hayir": "Нет", "foto_var": "фото приложено", "foto_yok": "нет фото",
+        "bos": "—", "malzeme": "Материалы и работа", "kalem": "Позиция", "miktar": "Кол-во",
+        "birim_fiyat": "Цена за ед.", "tutar": "Сумма", "iscilik": "Работа", "ara_toplam": "Промежуточный итог",
+        "kdv": "НДС ({oran}%)", "genel_toplam": "Итого", "not": "Примечание техника", "imza": "Подтверждение клиента",
+        "imzalayan": "Подписал(а)", "imza_zamani": "Время подписи", "imzasiz": "Подпись не получена.",
+        "fotograflar": "Фото",
+        "alt": ("Этот сервисный отчёт носит информационный характер и не заменяет электронный счёт-фактуру "
+                "(e-Fatura/e-Arşiv)."),
+        "kurulum": "Установка", "ariza": "Ремонт", "bakim": "Обслуживание", "temizlik": "Чистка",
+        "kesif": "Осмотр объекта", "dusuk": "Низкий", "normal": "Обычный", "yuksek": "Высокий", "acil": "Срочный",
+        "yeni": "Новый", "planlandi": "Запланирован", "yolda": "В пути", "iste": "В работе", "tamamlandi": "Завершён",
+        "iptal": "Отменён", "ertelendi": "Отложен",
+    },
+    "zh": {
+        "baslik": "服务报告", "no": "编号", "tarih": "日期", "durum": "状态", "musteri": "客户", "adres": "地址",
+        "telefon": "电话", "is": "工单信息", "tur": "类型", "oncelik": "优先级", "teknisyen": "技术员", "plan": "计划时间",
+        "basla": "开始", "bitir": "结束", "sure": "时长", "dk": "分钟", "cihazlar": "设备", "cihaz": "设备",
+        "marka": "品牌 / 型号", "seri": "序列号", "aciklama": "描述", "kontrol": "检查清单", "madde": "项目",
+        "sonuc": "结果", "evet": "是", "hayir": "否", "foto_var": "已附照片", "foto_yok": "无照片", "bos": "—",
+        "malzeme": "材料与人工", "kalem": "项目", "miktar": "数量", "birim_fiyat": "单价", "tutar": "金额",
+        "iscilik": "人工", "ara_toplam": "小计", "kdv": "增值税（{oran}%）", "genel_toplam": "总计",
+        "not": "技术员备注", "imza": "客户确认", "imzalayan": "签署人", "imza_zamani": "签署时间",
+        "imzasiz": "未取得签名。", "fotograflar": "照片", "alt": "本服务报告仅供参考，不能替代电子发票（e-Fatura/e-Arşiv）。",
+        "kurulum": "安装", "ariza": "维修", "bakim": "保养", "temizlik": "清洁", "kesif": "现场勘查",
+        "dusuk": "低", "normal": "普通", "yuksek": "高", "acil": "紧急",
+        "yeni": "新建", "planlandi": "已安排", "yolda": "在途中", "iste": "进行中", "tamamlandi": "已完成",
+        "iptal": "已取消", "ertelendi": "已推迟",
+    },
+    "hi": {
+        "baslik": "सेवा रिपोर्ट", "no": "क्रमांक", "tarih": "दिनांक", "durum": "स्थिति", "musteri": "ग्राहक",
+        "adres": "पता", "telefon": "फ़ोन", "is": "कार्य विवरण", "tur": "प्रकार", "oncelik": "प्राथमिकता",
+        "teknisyen": "तकनीशियन", "plan": "निर्धारित", "basla": "आरंभ", "bitir": "समाप्त", "sure": "अवधि",
+        "dk": "मिनट", "cihazlar": "उपकरण", "cihaz": "उपकरण", "marka": "ब्रांड / मॉडल", "seri": "सीरियल नंबर",
+        "aciklama": "विवरण", "kontrol": "जाँच सूची", "madde": "मद", "sonuc": "परिणाम", "evet": "हाँ", "hayir": "नहीं",
+        "foto_var": "फ़ोटो संलग्न", "foto_yok": "फ़ोटो नहीं", "bos": "—", "malzeme": "प्रयुक्त सामग्री और श्रम",
+        "kalem": "मद", "miktar": "मात्रा", "birim_fiyat": "इकाई मूल्य", "tutar": "राशि", "iscilik": "श्रम",
+        "ara_toplam": "उप-योग", "kdv": "वैट ({oran}%)", "genel_toplam": "कुल योग", "not": "तकनीशियन की टिप्पणी",
+        "imza": "ग्राहक की स्वीकृति", "imzalayan": "हस्ताक्षरकर्ता", "imza_zamani": "हस्ताक्षर का समय",
+        "imzasiz": "हस्ताक्षर नहीं लिया गया।", "fotograflar": "फ़ोटो",
+        "alt": "यह सेवा रिपोर्ट केवल जानकारी के लिए है; यह ई-इनवॉइस/ई-आर्काइव चालान का स्थान नहीं लेती।",
+        "kurulum": "स्थापना", "ariza": "मरम्मत", "bakim": "रखरखाव", "temizlik": "सफ़ाई", "kesif": "स्थल निरीक्षण",
+        "dusuk": "निम्न", "normal": "सामान्य", "yuksek": "उच्च", "acil": "अत्यावश्यक",
+        "yeni": "नया", "planlandi": "निर्धारित", "yolda": "रास्ते में", "iste": "प्रगति में", "tamamlandi": "पूर्ण",
+        "iptal": "रद्द", "ertelendi": "स्थगित",
+    },
+    "ar": {
+        "baslik": "تقرير الخدمة", "no": "رقم", "tarih": "التاريخ", "durum": "الحالة", "musteri": "العميل",
+        "adres": "العنوان", "telefon": "الهاتف", "is": "تفاصيل العمل", "tur": "النوع", "oncelik": "الأولوية",
+        "teknisyen": "الفني", "plan": "الموعد المقرر", "basla": "البدء", "bitir": "الانتهاء", "sure": "المدة",
+        "dk": "دقيقة", "cihazlar": "الأجهزة", "cihaz": "الجهاز", "marka": "العلامة / الطراز", "seri": "الرقم التسلسلي",
+        "aciklama": "الوصف", "kontrol": "قائمة التحقق", "madde": "البند", "sonuc": "النتيجة", "evet": "نعم",
+        "hayir": "لا", "foto_var": "صورة مرفقة", "foto_yok": "لا توجد صورة", "bos": "—", "malzeme": "المواد والعمالة",
+        "kalem": "البند", "miktar": "الكمية", "birim_fiyat": "سعر الوحدة", "tutar": "المبلغ", "iscilik": "العمالة",
+        "ara_toplam": "المجموع الفرعي", "kdv": "ضريبة القيمة المضافة ({oran}%)", "genel_toplam": "الإجمالي",
+        "not": "ملاحظة الفني", "imza": "موافقة العميل", "imzalayan": "الموقِّع", "imza_zamani": "وقت التوقيع",
+        "imzasiz": "لم يُؤخذ توقيع.", "fotograflar": "الصور",
+        "alt": "تقرير الخدمة هذا للعلم فقط؛ ولا يحل محل الفاتورة الإلكترونية (e-Fatura/e-Arşiv).",
+        "kurulum": "تركيب", "ariza": "إصلاح", "bakim": "صيانة", "temizlik": "تنظيف", "kesif": "معاينة الموقع",
+        "dusuk": "منخفضة", "normal": "عادية", "yuksek": "عالية", "acil": "عاجلة",
+        "yeni": "جديد", "planlandi": "مجدول", "yolda": "في الطريق", "iste": "قيد التنفيذ", "tamamlandi": "مكتمل",
+        "iptal": "ملغى", "ertelendi": "مؤجل",
+    },
 }
 
 
@@ -111,7 +181,7 @@ def servis_formu_pdf(v: Dict[str, Any], dil: str = "tr") -> bytes:
     e = ETIKET[dil]
     st = pb._stiller()  # noqa: SLF001
     para_birimi = v.get("para_birimi") or "TRY"
-    para_dili = "tr" if dil == "tr" else "en"
+    para_dili = dil  # tutar biçimi dile göre (pdf_belge.para)
     ie = v["is"]
     bilgiler = [
         (e["no"], ie.get("no")),

@@ -171,8 +171,13 @@ export async function pdfIndir(url: string, dosyaAdi: string, oturumsuz = false)
   window.setTimeout(() => URL.revokeObjectURL(adres), 30000);
 }
 
-export function pdfDili(dil: string): 'tr' | 'en' {
-  return dil === 'tr' ? 'tr' : 'en';
+/** PDF etiketlerinin dili: sitenin 7 dili (Faz 7K — sunucu bütün dillerde etiket ve yazı tipi taşıyor). */
+export const PDF_DILLERI = ['tr', 'en', 'de', 'ru', 'zh', 'hi', 'ar'] as const;
+export type PdfDili = (typeof PDF_DILLERI)[number];
+
+export function pdfDili(dil: string): PdfDili {
+  const d = (dil || 'tr').slice(0, 2).toLowerCase();
+  return (PDF_DILLERI as readonly string[]).includes(d) ? (d as PdfDili) : 'en';
 }
 
 // ---------------------------------------------------------------------------

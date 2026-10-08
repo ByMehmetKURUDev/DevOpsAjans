@@ -153,7 +153,6 @@
     "gecmis": {
       "baslik": "应用记录",
       "bos": "尚未向该客户应用行业套餐或初始设置。",
-      "tur_paket": "行业套餐",
       "tur_hazir": "初始设置",
       "uygulandi": "已应用",
       "kaldirildi": "已移除",
@@ -168,9 +167,7 @@
       "hazirGeriAlOnay": "撤销",
       "kaldirildiMesaj": "{{sayi}} 个模块已恢复原状。",
       "hazirGeriAlindiMesaj": "已删除 {{silinen}} 条记录，保留 {{korunan}} 条。",
-      "kapatilan": "已恢复",
-      "korunan": "已保留",
-      "silinen": "已删除"
+      "korunan": "已保留"
     }
   }
 }

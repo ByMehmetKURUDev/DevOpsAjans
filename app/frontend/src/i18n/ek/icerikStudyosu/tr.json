@@ -109,7 +109,12 @@
       "kaydedildi": "Kaydedildi.",
       "silOnay": "\"{{baslik}}\" silinsin mi? (Çöp kutusundan geri alınabilir.)",
       "silindi": "Silindi.",
-      "durumDegisti": "Durum: {{durum}}"
+      "durumDegisti": "Durum: {{durum}}",
+      "proje": "Proje (isteğe bağlı)",
+      "projeYok": "Proje bağlı değil",
+      "projeIpucu": "Onaylanınca \"Paylaş\" otomasyonu bu projeye görev açabilir.",
+      "projeOnerisi": "Öneri: bu hesabın tek açık projesi “{{proje}}”.",
+      "projeBagla": "Bağla"
     },
     "gecis": {
       "taslak": "Taslağa al",

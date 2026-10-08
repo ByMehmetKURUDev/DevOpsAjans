@@ -7,6 +7,7 @@ import { CheckCircle2, Loader2, MailCheck, MailX } from 'lucide-react';
 import { MarkaBasligi, rozetGorunur } from '@/components/marka/MarkaParcalari';
 import { getAPIBaseURL } from '@/lib/config';
 import { markaKabugu, type AcikMarka } from '@/lib/marka';
+import { govdeyiTuket, jsonVeyaBos } from '@/lib/yanit';
 
 /**
  * Faz 5M — herkese açık bülten sayfaları (site düzeni dışında, lazy, prerender yok, noindex):
@@ -58,8 +59,8 @@ export default function BultenSayfasi() {
     if (tur !== 'form' || !anahtar) return;
     let iptal = false;
     fetch(`${API()}/api/v1/bulten/form/${encodeURIComponent(anahtar)}`, { headers: { accept: 'application/json' } })
-      .then((y) => (y.ok ? y.json() : null))
-      .then((g: { marka?: AcikMarka } | null) => {
+      .then((y) => jsonVeyaBos<{ marka?: AcikMarka }>(y))
+      .then((g) => {
         if (!iptal) setMarka(g?.marka ?? null);
       })
       .catch(() => undefined);
@@ -214,6 +215,7 @@ function OnaySayfasi({
     setMesgul(true);
     try {
       const y = await fetch(`${API()}/api/v1/bulten/onay/${encodeURIComponent(jeton)}`, { method: 'POST', headers: { accept: 'application/json' } });
+      await govdeyiTuket(y);
       if (y.ok) setDurum('onaylandi');
       else if (y.status === 409) setDurum('kullanildi');
       else if (y.status === 410) setDurum('suresi_doldu');
@@ -297,7 +299,10 @@ function TercihSayfasi({
       headers: { accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify(govde),
     });
-    if (!y.ok) throw new Error(String(y.status));
+    if (!y.ok) {
+      await govdeyiTuket(y);
+      throw new Error(String(y.status));
+    }
     return (await y.json()) as TercihVeri;
   };
 

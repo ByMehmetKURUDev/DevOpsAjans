@@ -393,6 +393,52 @@ async def test_ince_ayar_cevir_uyarla_ve_test_ortami_sahte_yanit(istemci, yoneti
 # ---------------------------------------------------------------------------
 # Planlayıcı: durum akışı, kilit, takvim, CSV, kısa link
 # ---------------------------------------------------------------------------
+async def test_gonderiye_istege_bagli_proje(istemci, yonetici_basligi, db_oturumu):
+    """Faz 7K — gönderiye proje bağlama: yalnız gönderinin hesabının projesi; müşteri başkasınınkini bağlayamaz;
+    yönetici ajans içeriğinde her projeyi seçebilir; proje listesi ucu kapsamlı."""
+    from models.projects import Projects
+
+    a, b = await _musteri(istemci, yonetici_basligi), await _musteri(istemci, yonetici_basligi)
+    pa = Projects(title="A sosyal medya", description="-", category="sosyal", client_email=a, status="active")
+    pb = Projects(title="B web sitesi", description="-", category="web", client_email=b, status="active")
+    db_oturumu.add_all([pa, pb])
+    await db_oturumu.commit()
+    # Müşteri: liste yalnız kendi projeleri; kendi projesini bağlar, başkasınınkini bağlayamaz.
+    y = await istemci.get(f"{M}/projeler", headers=_b(a))
+    assert y.status_code == 200 and [p["id"] for p in y.json()["items"]] == [pa.id]
+    g = await _gonderi(istemci, _b(a), M, proje_id=pa.id)
+    assert g["proje_id"] == pa.id
+    y = await istemci.put(f"{M}/gonderiler/{g['id']}", json={"proje_id": pb.id}, headers=_b(a))
+    assert y.status_code == 404 and _kod(y) == "proje_yok"
+    y = await istemci.put(f"{M}/gonderiler/{g['id']}", json={"proje_id": "x"}, headers=_b(a))
+    assert y.status_code == 400
+    y = await istemci.put(f"{M}/gonderiler/{g['id']}", json={"proje_id": None}, headers=_b(a))
+    assert y.status_code == 200 and y.json()["proje_id"] is None
+    # Yönetici: müşteri hesabı adına yalnız o hesabın projesi; ajansın kendi içeriğinde her proje.
+    y = await istemci.post(f"{Y}/gonderiler", json={"baslik": "x", "hesap": a, "proje_id": pb.id}, headers=yonetici_basligi)
+    assert y.status_code == 404 and _kod(y) == "proje_yok"
+    y = await istemci.get(f"{Y}/projeler", params={"hesap": a}, headers=yonetici_basligi)
+    assert [p["id"] for p in y.json()["items"]] == [pa.id]
+    assert y.json()["hesap"] == a and y.json()["items"][0]["acik"] is True
+    y = await istemci.get(f"{Y}/projeler", params={"hesap": "*"}, headers=yonetici_basligi)
+    assert {pa.id, pb.id} <= {p["id"] for p in y.json()["items"]} and y.json()["hesap"] is None
+    # "Tek açık proje" önerisi için: kapanmış proje `acik: false` (müşteri listesinde de).
+    pk = Projects(title="A eski kampanya", description="-", category="sosyal", client_email=a, status="completed")
+    db_oturumu.add(pk)
+    await db_oturumu.commit()
+    y = await istemci.get(f"{M}/projeler", headers=_b(a))
+    assert {p["id"]: p["acik"] for p in y.json()["items"]} == {pa.id: True, pk.id: False} and y.json()["hesap"] == a
+    g = await _gonderi(istemci, yonetici_basligi, Y, proje_id=pb.id)
+    assert g["hesap_email"] is None and g["proje_id"] == pb.id
+    # Onaylı (içerik kilitli) gönderide de proje değiştirilebilir (içerik alanı değil).
+    assert (await istemci.post(f"{Y}/gonderiler/{g['id']}/durum", json={"durum": "onaylandi"},
+                               headers=yonetici_basligi)).status_code == 200
+    y = await istemci.put(f"{Y}/gonderiler/{g['id']}", json={"proje_id": pa.id}, headers=yonetici_basligi)
+    assert y.status_code == 200 and y.json()["proje_id"] == pa.id
+    # Oturumsuz 401
+    assert (await istemci.get(f"{M}/projeler")).status_code == 401
+
+
 async def test_gonderi_durum_akisi_ve_gecersiz_gecisler(istemci, yonetici_basligi):
     a = await _musteri(istemci, yonetici_basligi)
     g = await _gonderi(istemci, _b(a), M, kanal_metinleri={"linkedin": "LinkedIn'e özel uzun metin", "x": "yok sayılır"})
@@ -720,7 +766,9 @@ async def test_hatirlatma_tek_kez_ve_yayin_zamani_olayi(istemci, yonetici_baslig
         assert [o[0] for o in yakalanan] == ["icerik.yayinlandi"]
     finally:
         webhook._EK_ABONELER[:] = [x for x in webhook._EK_ABONELER if x.ad != "test_icerik"]
-    assert otomasyon.kural.OLAY_SOZLUGU["icerik.yayin_zamani"].nesneler == ("icerik", "hesap")
+    # Faz 7K: gönderiye isteğe bağlı proje bağlanabildiği için içerik olaylarının bağlamında "proje" de var.
+    assert otomasyon.kural.OLAY_SOZLUGU["icerik.yayin_zamani"].nesneler == ("icerik", "proje", "hesap")
+    assert otomasyon.kural.OLAY_SOZLUGU["icerik.yayin_zamani"].proje_var
 
 
 async def test_olaylar_webhook_ve_otomasyon_katalogunda_ve_teslimat(istemci, yonetici_basligi, db_oturumu, monkeypatch):

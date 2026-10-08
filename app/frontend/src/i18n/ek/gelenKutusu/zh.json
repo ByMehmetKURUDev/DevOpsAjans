@@ -1,7 +1,7 @@
 {
   "gelenKutusu": {
     "baslik": "收件箱",
-    "aciklama": "所有等待回复的内容都在一个列表中：联系表单、报价请求、支持工单、客户聊天、名片留言、预约、错误报告、内容修改请求和已上传的文件。",
+    "aciklama": "所有等待回复的内容都在一个列表中：联系表单、报价请求、支持工单、客户聊天、名片留言、预约、错误报告、内容修改请求和已上传的文件。 CRM 表单提交和报价决定也会出现在这里。",
     "yenile": "刷新",
     "kaynakSuzgeci": "按来源筛选",
     "tumKaynaklar": "全部",
@@ -17,7 +17,9 @@
       "belge": "文件",
       "egitim": "课程报名",
       "belge_paylasim": "文档共享",
-      "izin_talebi": "请假申请"
+      "izin_talebi": "请假申请",
+      "crm_form": "CRM 表单",
+      "teklif_karari": "报价决定"
     },
     "durumSuzgeci": {
       "etiket": "按状态筛选",
@@ -97,12 +99,19 @@
       "departman": "部门",
       "izinTuru": "假期类型",
       "tarih": "日期",
-      "isGunu": "工作日"
+      "isGunu": "工作日",
+      "form": "表单",
+      "firma": "公司",
+      "butce": "预算",
+      "teklif": "报价",
+      "kararVeren": "决定人",
+      "pazarlamaIzni": "营销同意"
     },
     "karar": {
       "bekliyor": "等待决定",
       "kabul": "已接受",
-      "red": "已拒绝"
+      "red": "已拒绝",
+      "ret": "已拒绝"
     },
     "yanit": {
       "baslik": "回复",
@@ -168,6 +177,18 @@
       "onaylandi": "已批准",
       "reddedildi": "已拒绝",
       "iptal": "已取消"
+    },
+    "bilgi": "通知",
+    "bilgiNotu": "无需回复；打开即视为已读并关闭。",
+    "evet": "是",
+    "epostaGecmisi": "邮件回复",
+    "yanitDurum": {
+      "gonderildi": "已发送",
+      "gonderilemedi": "未发送"
+    },
+    "yanitNeden": {
+      "eposta_kapali": "未配置邮件服务",
+      "eposta_gitmedi": "被邮件服务商拒绝"
     }
   }
 }

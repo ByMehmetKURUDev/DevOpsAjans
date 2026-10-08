@@ -886,6 +886,24 @@ PDF_ETIKET = {
     "en": {"baslik": "CERTIFICATE", "alt": "Certificate of completion", "onay": "This is to certify that", "tamamladi": "",
            "kursu": "has successfully completed the course.", "tarih": "Date", "saat": "Duration", "saat_birim": "hours",
            "egitmen": "Instructor", "kod": "Verification code", "dogrula": "Scan the QR code or open the address to verify:"},
+    "de": {"baslik": "ZERTIFIKAT", "alt": "Abschlusszertifikat", "onay": "Hiermit wird bestätigt, dass", "tamamladi": "",
+           "kursu": "den Kurs erfolgreich abgeschlossen hat.", "tarih": "Datum", "saat": "Dauer", "saat_birim": "Stunden",
+           "egitmen": "Dozent", "kod": "Prüfcode",
+           "dogrula": "QR-Code scannen oder Adresse öffnen, um das Zertifikat zu prüfen:"},
+    "ru": {"baslik": "СЕРТИФИКАТ", "alt": "Свидетельство об окончании курса", "onay": "Настоящим подтверждается, что",
+           "tamamladi": "успешно завершил(а) курс", "kursu": "", "tarih": "Дата", "saat": "Продолжительность",
+           "saat_birim": "ч", "egitmen": "Преподаватель", "kod": "Код проверки",
+           "dogrula": "Для проверки отсканируйте QR-код или откройте адрес:"},
+    "zh": {"baslik": "证书", "alt": "结业证书", "onay": "兹证明", "tamamladi": "已成功完成", "kursu": "课程。",
+           "tarih": "日期", "saat": "总时长", "saat_birim": "小时", "egitmen": "讲师", "kod": "验证码",
+           "dogrula": "扫描二维码或打开以下地址进行验证："},
+    "hi": {"baslik": "प्रमाणपत्र", "alt": "पाठ्यक्रम पूर्णता प्रमाणपत्र", "onay": "यह प्रमाणित किया जाता है कि",
+           "tamamladi": "ने", "kursu": "पाठ्यक्रम सफलतापूर्वक पूरा कर लिया है।", "tarih": "दिनांक", "saat": "कुल अवधि",
+           "saat_birim": "घंटे", "egitmen": "प्रशिक्षक", "kod": "सत्यापन कोड",
+           "dogrula": "सत्यापन के लिए QR कोड स्कैन करें या पता खोलें:"},
+    "ar": {"baslik": "شهادة", "alt": "شهادة إتمام دورة", "onay": "تشهد هذه الوثيقة بأن", "tamamladi": "قد أتمّ بنجاح دورة",
+           "kursu": "", "tarih": "التاريخ", "saat": "المدة الإجمالية", "saat_birim": "ساعة", "egitmen": "المدرّب",
+           "kod": "رمز التحقق", "dogrula": "امسح رمز QR أو افتح العنوان للتحقق:"},
 }
 
 
@@ -893,8 +911,8 @@ def sertifika_pdf(*, ad: str, kurs_adi: str, kurum: Optional[str], kod: str, ver
                   renk: str = "#2563eb", dil: str = "tr", saat: Optional[int] = None, egitmenler: Sequence[str] = (),
                   imza_adi: Optional[str] = None, imza_unvan: Optional[str] = None,
                   tarih_araligi: Optional[str] = None) -> bytes:
-    """Yatay A4, iki şablon (klasik: çift çerçeve; modern: sol renk şeridi). Yazı tipi Latin alfabesini
-    kapsıyor; Kiril/Arap/Çin/Devanagari adlar PDF'te eksik görünebilir (etkinlik biletindeki bilinen sınır)."""
+    """Yatay A4, iki şablon (klasik: çift çerçeve; modern: sol renk şeridi). Etiketler 7 dilde; metin
+    `services/pdf_yazi.metin_ciz` ile çiziliyor (Faz 7K: Kiril, Arapça, Devanagari, Çince adlar doğru)."""
     from reportlab.graphics import renderPDF
     from reportlab.graphics.barcode.qr import QrCodeWidget
     from reportlab.graphics.shapes import Drawing
@@ -904,9 +922,10 @@ def sertifika_pdf(*, ad: str, kurs_adi: str, kurum: Optional[str], kod: str, ver
     from reportlab.pdfgen import canvas
 
     from services import pdf_belge as pb
+    from services.pdf_yazi import metin_ciz, metin_genisligi
 
     pb.fontlari_kaydet()
-    d = "tr" if dil == "tr" else "en"
+    d = dil if dil in PDF_ETIKET else "en"
     et = PDF_ETIKET[d]
     try:
         vurgu = colors.HexColor(renk if re.match(r"^#[0-9a-fA-F]{6}$", renk or "") else "#2563eb")
@@ -934,14 +953,12 @@ def sertifika_pdf(*, ad: str, kurs_adi: str, kurum: Optional[str], kod: str, ver
 
     def ortala(metin_: str, y: float, font: str, boyut: float, renk_=koyu) -> None:
         c.setFillColor(renk_)
-        c.setFont(font, boyut)
-        genislik = c.stringWidth(metin_, font, boyut)
+        genislik = metin_genisligi(metin_, font, boyut)
         sinir = gen - 2 * sol
         while genislik > sinir and boyut > 9:
             boyut -= 1
-            c.setFont(font, boyut)
-            genislik = c.stringWidth(metin_, font, boyut)
-        c.drawCentredString(merkez, y, metin_)
+            genislik = metin_genisligi(metin_, font, boyut)
+        metin_ciz(c, merkez, y, metin_, font, boyut, "orta")
 
     ortala((kurum or "By Mehmet KURU Dev")[:80], yuk - 34 * mm, pb.KALIN, 14, gri)
     ortala(et["baslik"], yuk - 56 * mm, pb.KALIN, 40, vurgu)
@@ -964,12 +981,10 @@ def sertifika_pdf(*, ad: str, kurs_adi: str, kurum: Optional[str], kod: str, ver
         c.setLineWidth(0.6)
         c.line(sol + 6 * mm, 40 * mm, sol + 76 * mm, 40 * mm)
         c.setFillColor(koyu)
-        c.setFont(pb.KALIN, 11)
-        c.drawCentredString(sol + 41 * mm, 34 * mm, imza_adi[:60])
+        metin_ciz(c, sol + 41 * mm, 34 * mm, imza_adi[:60], pb.KALIN, 11, "orta")
         if imza_unvan:
             c.setFillColor(gri)
-            c.setFont(pb.YAZI, 9)
-            c.drawCentredString(sol + 41 * mm, 29 * mm, imza_unvan[:60])
+            metin_ciz(c, sol + 41 * mm, 29 * mm, imza_unvan[:60], pb.YAZI, 9, "orta")
     adres = sertifika_adresi(kod)
     kenar = 30 * mm
     w = QrCodeWidget(adres, barLevel="M")
@@ -979,11 +994,9 @@ def sertifika_pdf(*, ad: str, kurs_adi: str, kurum: Optional[str], kod: str, ver
     qx = gen - sol - kenar
     renderPDF.draw(ciz, c, qx, 24 * mm)
     c.setFillColor(gri)
-    c.setFont(pb.YAZI, 8)
-    c.drawRightString(qx - 4 * mm, 44 * mm, f"{et['kod']}: {sertifika_kodu_yaz(kod)}")
-    c.drawRightString(qx - 4 * mm, 39 * mm, et["dogrula"])
-    c.setFont(pb.YAZI, 7.5)
-    c.drawRightString(qx - 4 * mm, 34 * mm, adres[:90])
+    metin_ciz(c, qx - 4 * mm, 44 * mm, f"{et['kod']}: {sertifika_kodu_yaz(kod)}", pb.YAZI, 8, "sag")
+    metin_ciz(c, qx - 4 * mm, 39 * mm, et["dogrula"], pb.YAZI, 8, "sag")
+    metin_ciz(c, qx - 4 * mm, 34 * mm, adres[:90], pb.YAZI, 7.5, "sag")
     c.showPage()
     c.save()
     return tampon.getvalue()

@@ -163,6 +163,14 @@ export interface Gorsel {
   yukseklik?: number;
 }
 
+/** Faz 7K — gönderiye bağlanabilecek proje (`acik`: kapanmamış; hesabın tek açık projesi öneriliyor). */
+export interface GonderiProjesi {
+  id: number;
+  baslik: string;
+  hesap: string | null;
+  acik: boolean;
+}
+
 export interface Gonderi {
   id: number;
   hesap_email: string | null;
@@ -181,6 +189,8 @@ export interface Gonderi {
   notlar: string;
   marka_id: number | null;
   marka_adi: string | null;
+  /** Faz 7K — isteğe bağlı proje (otomasyon "İçerik onaylandı → Paylaş" görevi buraya açılır). */
+  proje_id: number | null;
   sorumlu_eposta: string;
   olusturan_eposta: string;
   durum: Durum;
@@ -340,6 +350,9 @@ export function studyoApi(mod: StudyoMod, hesap: string | null = null) {
     meta: () => istek<Meta>('GET', `${T}/meta${q()}`),
     kullanim: () => istek<Kullanim>('GET', `${T}/kullanim${q()}`),
     markalar: () => istek<{ items: Marka[]; sinir: number | null }>('GET', `${T}/markalar${q()}`),
+    /** Gönderiye bağlanabilecek projeler; yönetici `hesap` verirse o hesabınki ("*" = ajansın kendi içeriği: hepsi). */
+    projeler: (hesap?: string | null) =>
+      istek<{ items: GonderiProjesi[]; hesap: string | null }>('GET', `${T}/projeler${q(mod === 'yonetici' && hesap !== undefined ? { hesap: hesap ?? '*' } : {})}`),
     markaEkle: (g: Partial<Marka>) => istek<Marka>('POST', `${T}/markalar`, govde(g as Record<string, unknown>)),
     markaGuncelle: (id: number, g: Partial<Marka>) => istek<Marka>('PUT', `${T}/markalar/${id}`, g),
     markaSil: (id: number) => istek<{ ok: boolean }>('DELETE', `${T}/markalar/${id}`),

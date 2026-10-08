@@ -1,7 +1,7 @@
 {
   "gelenKutusu": {
     "baslik": "Inbox",
-    "aciklama": "Everything waiting for a reply in one list: contact form, quote requests, support tickets, client chats, business card messages, bookings, bug reports, content revisions and uploaded documents.",
+    "aciklama": "Everything waiting for a reply in one list: contact form, quote requests, support tickets, client chats, business card messages, bookings, bug reports, content revisions and uploaded documents. CRM form submissions and quote decisions show up here too.",
     "yenile": "Refresh",
     "kaynakSuzgeci": "Filter by source",
     "tumKaynaklar": "All",
@@ -17,7 +17,9 @@
       "belge": "Document",
       "egitim": "Course enrolment",
       "belge_paylasim": "Document sharing",
-      "izin_talebi": "Leave request"
+      "izin_talebi": "Leave request",
+      "crm_form": "CRM form",
+      "teklif_karari": "Quote decision"
     },
     "durumSuzgeci": {
       "etiket": "Filter by status",
@@ -97,12 +99,19 @@
       "departman": "Department",
       "izinTuru": "Leave type",
       "tarih": "Dates",
-      "isGunu": "Working days"
+      "isGunu": "Working days",
+      "form": "Form",
+      "firma": "Company",
+      "butce": "Budget",
+      "teklif": "Quote",
+      "kararVeren": "Decided by",
+      "pazarlamaIzni": "Marketing consent"
     },
     "karar": {
       "bekliyor": "Awaiting decision",
       "kabul": "Accepted",
-      "red": "Declined"
+      "red": "Declined",
+      "ret": "Declined"
     },
     "yanit": {
       "baslik": "Reply",
@@ -168,6 +177,18 @@
       "onaylandi": "Approved",
       "reddedildi": "Declined",
       "iptal": "Cancelled"
+    },
+    "bilgi": "Info",
+    "bilgiNotu": "No reply needed; it is marked as read and closed when opened.",
+    "evet": "Yes",
+    "epostaGecmisi": "Email replies",
+    "yanitDurum": {
+      "gonderildi": "Sent",
+      "gonderilemedi": "Not sent"
+    },
+    "yanitNeden": {
+      "eposta_kapali": "no email provider configured",
+      "eposta_gitmedi": "rejected by the provider"
     }
   }
 }

@@ -11,6 +11,8 @@
  * anahtar olmadan da çalışmaya devam eder, sadece metin üretmez.
  */
 
+import { govdeyiTuket } from '@/lib/yanit';
+
 export interface KesifGirdisi {
   amac: string;
   serbest: string;
@@ -84,6 +86,7 @@ export async function kesifAnaliziIste(
   });
 
   if (!yanit.ok) {
+    await govdeyiTuket(yanit);
     throw new Error(`kesif ${yanit.status}`);
   }
 

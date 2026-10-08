@@ -1,7 +1,8 @@
 """Faz 6P — satış fişi (80 mm termal) ve satıştan bilgi amaçlı fatura PDF'i (ReportLab; Faz 3T altyapısı).
 
 Belgeler İŞLETMENİN (ajansın müşterisinin) belgesi: başlıkta işletmenin künyesi, ajansın markası yok.
-Yazı tipi yalnız Latin harflerini taşıyor (Plus Jakarta Sans): tr / en / de; diğer dillerde İngilizce.
+Etiketler 7 dilde; metin `services/pdf_yazi.py`'nin yazı tipi zincirinden geçiyor (Faz 7K: Kiril, Arapça,
+Devanagari, Çince).
 
 Yasal ibare (her belgede): fiş MALİ DEĞİLDİR (ÖKC fişi / e-Arşiv belge yerine geçmez); fatura bilgi
 amaçlıdır (e-Fatura / e-Arşiv fatura yerine geçmez). Kart ödemesi yalnız kayıttır.
@@ -13,8 +14,9 @@ from typing import Any, Dict, List, Optional
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import KeepTogether, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.platypus import KeepTogether, SimpleDocTemplate, Spacer, Table, TableStyle
 from services import pdf_belge as pb
+from services.pdf_yazi import Paragraf as Paragraph  # çok dilli paragraf
 
 ETIKET: Dict[str, Dict[str, str]] = {
     "tr": {
@@ -54,6 +56,59 @@ ETIKET: Dict[str, Dict[str, str]] = {
         "genel_toplam": "Gesamt (inkl. MwSt.)", "odeme": "Zahlung",
         "fatura_notu": "Dieses Dokument dient nur zur Information und ersetzt keine E-Rechnung/e-Archiv-Rechnung.",
     },
+    "ru": {
+        "fis": "ТОВАРНЫЙ ЧЕК", "no": "Чек №", "tarih": "Дата", "kasiyer": "Кассир", "musteri": "Покупатель",
+        "ara_toplam": "Промежуточный итог", "indirim": "Скидка", "toplam": "ИТОГО", "kdv": "НДС {oran}%",
+        "kdv_toplam": "Всего НДС", "nakit": "Наличные", "kart": "Карта", "havale": "Банковский перевод",
+        "alinan": "Получено", "para_ustu": "Сдача", "iade": "Возвращено", "iptal": "АННУЛИРОВАН",
+        "mali_degil": "ЭТО НЕ ФИСКАЛЬНЫЙ ЧЕК. Не заменяет чек контрольно-кассовой техники или документ e-Arşiv.",
+        "kart_notu": "Оплата картой только зарегистрирована.",
+        "fatura": "СЧЁТ НА ПРОДАЖУ", "fatura_no": "Счёт №", "fatura_tarihi": "Дата счёта",
+        "ilgili_fis": "Связанный чек",
+        "alici": "Покупатель", "vergi": "Налоговая инспекция / ИНН", "aciklama": "Описание", "miktar": "Кол-во",
+        "birim_fiyat": "Цена за ед. (с НДС)", "oran": "НДС %", "tutar": "Сумма", "matrah": "Без НДС",
+        "genel_toplam": "Итого (с НДС)", "odeme": "Оплата",
+        "fatura_notu": ("Этот документ носит информационный характер и не заменяет электронный счёт-фактуру "
+                        "(e-Fatura/e-Arşiv)."),
+    },
+    "zh": {
+        "fis": "销售小票", "no": "小票号", "tarih": "日期", "kasiyer": "收银员", "musteri": "顾客",
+        "ara_toplam": "小计", "indirim": "折扣", "toplam": "合计", "kdv": "增值税 {oran}%", "kdv_toplam": "增值税合计",
+        "nakit": "现金", "kart": "银行卡", "havale": "银行转账", "alinan": "实收", "para_ustu": "找零",
+        "iade": "已退款", "iptal": "已作废",
+        "mali_degil": "本单据不是税务小票，不能替代收银机税票或 e-Arşiv 凭证。",
+        "kart_notu": "刷卡付款仅作记录。",
+        "fatura": "销售发票", "fatura_no": "发票号", "fatura_tarihi": "开票日期", "ilgili_fis": "关联小票",
+        "alici": "购买方", "vergi": "税务机关 / 税号", "aciklama": "描述", "miktar": "数量", "birim_fiyat": "单价（含税）",
+        "oran": "税率 %", "tutar": "金额", "matrah": "不含税金额", "genel_toplam": "总计（含税）", "odeme": "付款",
+        "fatura_notu": "本文件仅供参考，不能替代电子发票（e-Fatura/e-Arşiv）。",
+    },
+    "hi": {
+        "fis": "बिक्री रसीद", "no": "रसीद क्रमांक", "tarih": "दिनांक", "kasiyer": "कैशियर", "musteri": "ग्राहक",
+        "ara_toplam": "उप-योग", "indirim": "छूट", "toplam": "कुल", "kdv": "वैट {oran}%", "kdv_toplam": "कुल वैट",
+        "nakit": "नकद", "kart": "कार्ड", "havale": "बैंक ट्रांसफ़र", "alinan": "प्राप्त", "para_ustu": "वापसी राशि",
+        "iade": "धनवापसी", "iptal": "रद्द",
+        "mali_degil": "यह राजकोषीय रसीद नहीं है। यह कैश रजिस्टर रसीद या ई-आर्काइव दस्तावेज़ का स्थान नहीं लेती।",
+        "kart_notu": "कार्ड भुगतान केवल दर्ज किया गया है।",
+        "fatura": "बिक्री चालान", "fatura_no": "चालान क्रमांक", "fatura_tarihi": "चालान दिनांक",
+        "ilgili_fis": "संबंधित रसीद", "alici": "प्राप्तकर्ता", "vergi": "कर कार्यालय / कर संख्या", "aciklama": "विवरण",
+        "miktar": "मात्रा", "birim_fiyat": "इकाई मूल्य (वैट सहित)", "oran": "वैट %", "tutar": "राशि",
+        "matrah": "कर-योग्य राशि", "genel_toplam": "कुल योग (वैट सहित)", "odeme": "भुगतान",
+        "fatura_notu": "यह दस्तावेज़ केवल जानकारी के लिए है; यह ई-इनवॉइस/ई-आर्काइव चालान का स्थान नहीं लेता।",
+    },
+    "ar": {
+        "fis": "إيصال بيع", "no": "رقم الإيصال", "tarih": "التاريخ", "kasiyer": "أمين الصندوق", "musteri": "العميل",
+        "ara_toplam": "المجموع الفرعي", "indirim": "الخصم", "toplam": "الإجمالي", "kdv": "الضريبة {oran}%",
+        "kdv_toplam": "إجمالي الضريبة", "nakit": "نقدًا", "kart": "بطاقة", "havale": "تحويل بنكي", "alinan": "المستلَم",
+        "para_ustu": "الباقي", "iade": "المسترَد", "iptal": "ملغى",
+        "mali_degil": "هذا المستند ليس إيصالًا ضريبيًا، ولا يحل محل إيصال آلة تسجيل النقد أو مستند الأرشيف الإلكتروني.",
+        "kart_notu": "الدفع بالبطاقة مسجَّل فقط.",
+        "fatura": "فاتورة بيع", "fatura_no": "رقم الفاتورة", "fatura_tarihi": "تاريخ الفاتورة",
+        "ilgili_fis": "الإيصال المرتبط", "alici": "إلى", "vergi": "مكتب الضرائب / الرقم الضريبي", "aciklama": "الوصف",
+        "miktar": "الكمية", "birim_fiyat": "سعر الوحدة (شامل الضريبة)", "oran": "الضريبة %", "tutar": "المبلغ",
+        "matrah": "المبلغ الخاضع للضريبة", "genel_toplam": "الإجمالي (شامل الضريبة)", "odeme": "الدفع",
+        "fatura_notu": "هذا المستند للعلم فقط؛ ولا يحل محل الفاتورة الإلكترونية (e-Fatura/e-Arşiv).",
+    },
 }
 
 
@@ -67,7 +122,7 @@ def _m(deger: Any) -> str:
 
 
 def _para(kurus: int, para_birimi: str, dil: str) -> str:
-    return pb.para((kurus or 0) / 100, para_birimi, "tr" if dil in ("tr", "de") else "en")
+    return pb.para((kurus or 0) / 100, para_birimi, dil)
 
 
 def _miktar(binde: int, birim: str) -> str:
@@ -216,4 +271,4 @@ def fatura_pdf(v: Dict[str, Any], dil: str = "tr") -> bytes:
     odeme = " · ".join(f"{e[t]}: {_para(v[t], pb_, dil)}" for t in ("nakit", "kart", "havale") if v.get(t))
     if odeme:
         parcalar += [Spacer(1, 3 * mm), Paragraph(f"{_m(e['odeme'])}: {_m(odeme)}", st["kucuk"])]
-    return pb._uret(parcalar, e["fatura_notu"], "tr" if dil == "tr" else "en", f"{e['fatura']} {v.get('fatura_no') or ''}")  # noqa: SLF001
+    return pb._uret(parcalar, e["fatura_notu"], dil, f"{e['fatura']} {v.get('fatura_no') or ''}")  # noqa: SLF001

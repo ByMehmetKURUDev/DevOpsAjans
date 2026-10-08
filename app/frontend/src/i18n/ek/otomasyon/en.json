@@ -516,9 +516,10 @@
       },
       "icerik_onaylandi_gorev": {
         "ad": "Content approved → \"Publish\" reminder",
-        "aciklama": "When: a content post managed by the agency is approved (clients' own content excluded). What it does: sends the content owner (or admins if none) a \"Publish: <title>\" panel notification. The event has no project, so a notification is used instead of a task.",
+        "aciklama": "When: a content post managed by the agency is approved (clients' own content excluded). What it does: sends the content owner (or admins if none) a \"Publish: <title>\" panel notification; if a project is linked to the post, it also opens a \"Publish\" task in that project due the next day (without a linked project the task step is skipped). Link a project from the post's details in the content studio.",
         "bildirim": "Publish: [[icerik.baslik]]",
-        "bildirim_govde": "Post approved. Scheduled for: [[icerik.planlanan_at|not set]]; channels: [[icerik.kanallar|—]]."
+        "bildirim_govde": "Post approved. Scheduled for: [[icerik.planlanan_at|not set]]; channels: [[icerik.kanallar|—]].",
+        "gorev": "Publish: [[icerik.baslik]]"
       },
       "fatura_vade_oncesi_hatirlatma": {
         "ad": "Invoice issued → reminder before due date if still open after 5 days",

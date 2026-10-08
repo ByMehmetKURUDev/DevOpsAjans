@@ -5,6 +5,7 @@ import type { TFunction } from 'i18next';
 import { CalendarPlus, CheckCircle2, Clock, Loader2, Send, Undo2 } from 'lucide-react';
 
 import { getAPIBaseURL } from '@/lib/config';
+import { govdeyiTuket, jsonVeyaBos } from '@/lib/yanit';
 
 /**
  * Faz 6I — girişsiz personel sayfası: `/personel/<jeton>` (imzalı; işveren yenileyebilir/iptal edebilir).
@@ -190,7 +191,7 @@ export default function PersonelSayfasi() {
     let iptal = false;
     const q = new URLSearchParams({ bas, bit, yarim: String(yarim && bas === bit) });
     fetch(`${API()}/api/v1/ik-portal/${encodeURIComponent(jeton)}/gun-hesapla?${q}`, { headers: { accept: 'application/json' } })
-      .then((y) => (y.ok ? y.json() : null))
+      .then((y) => jsonVeyaBos<typeof onizleme>(y))
       .then((g) => !iptal && setOnizleme(g))
       .catch(() => !iptal && setOnizleme(null));
     return () => {
@@ -237,6 +238,7 @@ export default function PersonelSayfasi() {
     if (!t || !window.confirm(t('ikPortal.geriCekOnay'))) return;
     try {
       const y = await fetch(`${API()}/api/v1/ik-portal/${encodeURIComponent(jeton)}/izin/${id}/geri-cek`, { method: 'POST', headers: { accept: 'application/json' } });
+      await govdeyiTuket(y);
       if (y.ok) await yukle();
     } catch {
       /* yoksay */

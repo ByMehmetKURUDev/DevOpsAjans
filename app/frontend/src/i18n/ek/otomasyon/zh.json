@@ -516,9 +516,10 @@
       },
       "icerik_onaylandi_gorev": {
         "ad": "内容已批准 → “发布”提醒",
-        "aciklama": "何时：代理管理的内容帖子获得批准时（客户自己的内容除外）。做什么：向内容负责人（无则管理员）发送“发布：<标题>”面板通知。该事件不含项目，因此用通知代替任务。",
+        "aciklama": "何时：代理管理的内容帖子获得批准时（客户自己的内容除外）。做什么：向内容负责人（无则管理员）发送“发布：<标题>”面板通知；如果帖子关联了项目，还会在该项目中创建一个次日到期的“发布”任务（未关联项目时跳过任务步骤）。可在内容工作室的帖子详情中关联项目。",
         "bildirim": "发布：[[icerik.baslik]]",
-        "bildirim_govde": "帖子已批准。计划时间：[[icerik.planlanan_at|未设定]]；渠道：[[icerik.kanallar|—]]。"
+        "bildirim_govde": "帖子已批准。计划时间：[[icerik.planlanan_at|未设定]]；渠道：[[icerik.kanallar|—]]。",
+        "gorev": "发布：[[icerik.baslik]]"
       },
       "fatura_vade_oncesi_hatirlatma": {
         "ad": "开具发票 → 5 天后仍未付款则在到期前提醒",

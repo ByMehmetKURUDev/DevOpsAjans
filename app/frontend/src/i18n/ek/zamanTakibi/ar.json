@@ -46,7 +46,6 @@
       "durum": "الحالة",
       "baslangic": "من",
       "bitis": "إلى",
-      "ucret": "السعر بالساعة",
       "paraBirimi": "العملة",
       "tutar": "المبلغ"
     },
@@ -77,11 +76,9 @@
       "toplam": "الإجمالي: {{sure}}",
       "csv": "تنزيل CSV",
       "csvIndirildi": "نُزّل ملف CSV",
-      "gorevsiz": "بدون مهمة",
       "faturaNo": "فاتورة رقم {{id}}",
       "geriAl": "التراجع عن الاعتماد",
-      "geriAlindi": "أُلغي الاعتماد",
-      "sure": "{{sure}} س"
+      "geriAlindi": "أُلغي الاعتماد"
     },
     "cizelge": {
       "baslik": "الجدول الأسبوعي",

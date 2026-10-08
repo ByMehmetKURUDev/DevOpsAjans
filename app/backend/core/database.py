@@ -473,6 +473,8 @@ class DatabaseManager:
         {"tablo": "content_posts", "sutun": "onay_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
         {"tablo": "content_posts", "sutun": "hatirlatma_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
         {"tablo": "content_posts", "sutun": "yayin_olayi_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        # Faz 7K — gönderiye isteğe bağlı proje (otomasyon "İçerik onaylandı → Paylaş" görevi).
+        {"tablo": "content_posts", "sutun": "proje_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
         # Faz 3T — fatura kalemleri + KDV dökümü, iade (alacak) faturası,
         # tekrarlayan fatura bağı. Eski (tek tutarlı) faturalarda hepsi NULL:
         # `amount` tek gerçek kaynak olarak kalıyor; kalemli faturada `amount`
