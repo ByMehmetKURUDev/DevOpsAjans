@@ -86,7 +86,10 @@
       "ik_izin_talebi": "İK: personelden yeni izin talebi",
       "hukuk_hatirlatma": "Hukuk: duruşma ve süre hatırlatması",
       "hukuk_portal_mesaj": "Hukuk: müvekkil portalından mesaj",
-      "muhasebe_butce": "Ön muhasebede bütçesi aşılan kategoriler"
+      "muhasebe_butce": "Ön muhasebede bütçesi aşılan kategoriler",
+      "ortaklik_basvuru": "Ortaklık: yeni başvuru",
+      "ortaklik_odeme_talebi": "Ortaklık: komisyon ödeme talebi",
+      "ortaklik_durum": "Ortaklık: başvuru kararı ve ödeme durumu (ortağın kendisine)"
     },
     "kanal": {
       "inapp": "Panel",

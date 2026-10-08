@@ -35,6 +35,7 @@ import {
   UsersRound,
   Scale,
   Calculator,
+  HandCoins,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -53,6 +54,8 @@ import { isAdminUser, useSiteSettings } from '@/lib/siteSettings';
 import { modullerimiGetir, type Modullerim as ModulBilgisi } from '@/lib/moduller';
 import { modulIkonu } from '@/lib/modulIkonlari';
 import { IZINLER, SEKME_IZINLERI, hesaplarimiGetir, type Hesap } from '@/lib/hesapEkibi';
+import { kayitReferansi, ortaklikDurumum } from '@/lib/ortaklik';
+import { kayitReferansiBekliyor, kayitReferansiGonderildi } from '@/lib/referans';
 import { hesapSec, seciliHesap } from '@/lib/hesapSecimi';
 import { ozetGetir as mesajOzeti } from '@/lib/mesajlar';
 import { useYoklama } from '@/hooks/useYoklama';
@@ -76,6 +79,8 @@ const Silinenlerim = ekliLazy('copKutusu', () => import('@/components/Silinenler
 const BildirimTercihleri = ekliLazy('bildirim', () => import('@/components/BildirimTercihleri'));
 // Kredilerim (Kullandıkça Öde) ve genel görünümdeki küçük bakiye kartı.
 const Kredilerim = ekliLazy('kredi', () => import('@/components/Kredilerim'));
+// Faz 5K: ortaklık paneli — yalnız onaylı ortakta (kişiye ait; `ortaklik` ek paketi).
+const OrtaklikPaneli = ekliLazy('ortaklik', () => import('@/components/ortaklik/OrtaklikPaneli'));
 const KrediOzetKarti = ekliLazy('kredi', () => import('@/components/KrediOzetKarti'));
 // Onay bekleyen imzalı işlemler (teklif kabulü, teslim onayı) — yoksa hiç çizilmez.
 const OnayBekleyenler = ekliLazy('islem', () => import('@/components/OnayBekleyenler'));
@@ -232,6 +237,7 @@ type Tab =
   | 'onMuhasebe'
   | 'dosyalar'
   | 'api'
+  | 'ortaklik'
   | 'profile';
 
 /**
@@ -265,6 +271,7 @@ const SEKMELER: Tab[] = [
   'onMuhasebe',
   'dosyalar',
   'api',
+  'ortaklik',
   'profile',
 ];
 
@@ -273,7 +280,7 @@ const SEKMELER: Tab[] = [
  * gelmezse) gösterilmiyor — açık olduğu bilinmeden sekme 403 alan bir ekran
  * açmasın. `?sekme=` ile istenmişse bilgi gelince açılıyor.
  */
-const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim', 'ik', 'hukuk', 'onMuhasebe'];
+const VARSAYILAN_KAPALI: Tab[] = ['asistanlar', 'qr', 'kartvizit', 'menu', 'api', 'randevu', 'otomasyon', 'aiAsistan', 'icerik', 'epostaPazarlama', 'sahaServisi', 'etkinlik', 'stokPos', 'egitim', 'ik', 'hukuk', 'onMuhasebe', 'ortaklik'];
 
 /**
  * `/client?sekme=krediler` gibi bildirim bağlantıları doğrudan sekmeyi açsın.
@@ -542,6 +549,31 @@ export default function ClientPanel() {
     };
   }, [user, hesapHazir, etkinEmail]);
 
+  // Faz 5K: ortaklık sekmesi yalnız onaylı (ya da askıdaki) ortakta — kişiye ait küçük soru (veri yok).
+  // undefined = soruluyor (`?sekme=ortaklik` bağlantısı beklesin), null = ortak değil.
+  const [ortakDurumu, setOrtakDurumu] = useState<string | null | undefined>(undefined);
+  useEffect(() => {
+    if (!user || !hesapHazir) return;
+    let iptal = false;
+    ortaklikDurumum()
+      .then((g) => !iptal && setOrtakDurumu(g?.durum ?? null))
+      .catch(() => !iptal && setOrtakDurumu(null));
+    return () => {
+      iptal = true;
+    };
+  }, [user, hesapHazir]);
+  const ortakMi = ortakDurumu === 'onaylandi' || ortakDurumu === 'askida';
+
+  // Faz 5K — kayıt referansı: ortaklık bağlantısıyla (`?ref=`) gelip giriş yapan kişinin kodu bu oturumda bir kez
+  // gönderilir; sunucu atfı yalnız YENİ açılmış hesaba yazar (eski müşteri sonradan tıklayıp atıf kazandırmasın).
+  useEffect(() => {
+    if (!user || !hesapHazir) return;
+    const kod = kayitReferansiBekliyor();
+    if (!kod) return;
+    kayitReferansiGonderildi(kod);
+    kayitReferansi(kod).catch(() => undefined);
+  }, [user, hesapHazir]);
+
   /** Modül açık mı? Bilgi yoksa (yükleniyor/hata) açık say: bugünkü davranış. */
   const modulAcik = useCallback(
     (anahtar: string) => {
@@ -632,9 +664,11 @@ export default function ClientPanel() {
     // Projeler ve profil çekirdek: sunucu ne derse desin sekme çubuğunda kalır
     // (projeler yalnız etkin hesapta izni varsa).
     if (!liste.some((x) => x.key === 'projects') && izinli('projects')) liste.unshift({ key: 'projects' });
+    // Faz 5K: ortaklık (modül değil, kişiye ait) — profilden hemen önce.
+    if (ortakMi && !liste.some((x) => x.key === 'ortaklik')) liste.push({ key: 'ortaklik' });
     if (!liste.some((x) => x.key === 'profile')) liste.push({ key: 'profile' });
     return liste;
-  }, [modulBilgisi, izinVar, paylasilanBelgeVar]);
+  }, [modulBilgisi, izinVar, paylasilanBelgeVar, ortakMi]);
 
   // Faz 2G: okunmamış rozeti — sohbet kapalıyken 45 sn'de bir özet (sohbet açıkken
   // Mesajlar bileşeni kendi yoklamasıyla bildiriyor). Sekme gizliyken durur.
@@ -657,8 +691,10 @@ export default function ClientPanel() {
     if (!modulBilgisi && !modulHatasi && VARSAYILAN_KAPALI.includes(tab)) return;
     // Faz 5B: paylaşılan belge sorusu sürerken "Dosyalar ve belgeler" bağlantısını bekle.
     if (tab === 'dosyalar' && belgeOzetiBekleniyor) return;
+    // Faz 5K: ortaklık sorusu sürerken `?sekme=ortaklik` bağlantısını bekle.
+    if (tab === 'ortaklik' && ortakDurumu === undefined) return;
     if (!gorunenSekmeler.some((x) => x.key === tab)) setTab(gorunenSekmeler[0]?.key ?? 'profile');
-  }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi, belgeOzetiBekleniyor]);
+  }, [gorunenSekmeler, tab, modulBilgisi, modulHatasi, belgeOzetiBekleniyor, ortakDurumu]);
 
   // Faz 7M: görünür sekme sayısı DUZ_MENU_SINIRI'nı aşınca gruplu menü; son açılan
   // sekme yalnız orada hatırlanır (düz çubuklu müşteri panele bugünkü gibi Projelerim ile girer).
@@ -844,6 +880,7 @@ export default function ClientPanel() {
     onMuhasebe: { label: t('ui.tabOnMuhasebe'), icon: Calculator },
     dosyalar: { label: t('ui.tabDosyalar'), icon: FolderOpen },
     api: { label: t('ui.tabApi'), icon: KeyRound },
+    ortaklik: { label: t('ui.tabOrtaklik'), icon: HandCoins },
     profile: { label: t('ui.tabProfile'), icon: UserCog },
   };
   const TABS: { key: Tab; label: string; icon: typeof Briefcase }[] = gorunenSekmeler.map((s) => ({
@@ -1672,6 +1709,18 @@ export default function ClientPanel() {
               }
             >
               <Kredilerim eposta={etkinEmail || user.email} ad={etkin.kendi ? user.name : etkin.ad || undefined} />
+            </Suspense>
+          )}
+
+          {tab === 'ortaklik' && ortakMi && (
+            <Suspense
+              fallback={
+                <div className="flex items-center justify-center py-20 text-muted-foreground">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <OrtaklikPaneli />
             </Suspense>
           )}
 

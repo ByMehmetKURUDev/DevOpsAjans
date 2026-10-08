@@ -305,6 +305,10 @@
       "rozet": "营销许可",
       "kaynakModulVitrini": "模块展示页（{{anahtar}}）",
       "kaynakSeoAraci": "免费 SEO 工具（{{arac}}）"
+    },
+    "kod": {
+      "referans": "推荐码：{{kod}}",
+      "indirim": "优惠码：{{kod}}"
     }
   }
 }

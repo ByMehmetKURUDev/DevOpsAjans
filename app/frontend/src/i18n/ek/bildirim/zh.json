@@ -86,7 +86,10 @@
       "ik_izin_talebi": "人力资源：员工新请假申请",
       "hukuk_hatirlatma": "律所：庭审与期限提醒",
       "hukuk_portal_mesaj": "律所：客户门户留言",
-      "muhasebe_butce": "简易记账中超出预算的类别"
+      "muhasebe_butce": "简易记账中超出预算的类别",
+      "ortaklik_basvuru": "推广计划：新申请",
+      "ortaklik_odeme_talebi": "推广计划：佣金提现申请",
+      "ortaklik_durum": "推广计划：申请结果与付款状态（发给推广者本人）"
     },
     "kanal": {
       "inapp": "面板",

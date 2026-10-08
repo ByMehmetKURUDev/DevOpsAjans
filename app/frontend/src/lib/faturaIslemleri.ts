@@ -54,6 +54,8 @@ export interface FaturaAyrintisi {
   tekrarlayan_id?: number | null;
   donem?: string | null;
   notlar?: string | null;
+  /** Faz 5K */
+  indirim_kodu?: string | null;
   kalemler: Kalem[];
   ozet: BelgeOzeti | null;
   bakiye: Bakiye | null;
@@ -177,8 +179,12 @@ export const tekrarlayanCalistir = () =>
   istek<{ abonelik: number; kesilen: number; hata: number; faturalar: string[] }>('POST', `${YONETIM}/tekrarlayan/calistir`);
 
 /** Kalemleri faturaya yazar (entity ucu; sunucu toplamı hesaplar). */
-export const faturaKalemleriniYaz = (id: number, kalemler: Kalem[]) =>
-  istek<unknown>('PUT', `/api/v1/entities/invoices/${id}`, { kalemler: kalemler.map(kalemGirdisi) });
+export const faturaKalemleriniYaz = (id: number, kalemler: Kalem[], indirim_kodu?: string) =>
+  istek<unknown>('PUT', `/api/v1/entities/invoices/${id}`, {
+    kalemler: kalemler.map(kalemGirdisi),
+    // Faz 5K: "" kodu kaldırır; gönderilmezse kayıttaki kod yeni kalemlere yeniden uygulanır.
+    ...(indirim_kodu !== undefined ? { indirim_kodu } : {}),
+  });
 
 // Müşteri
 export async function faturalarim(): Promise<{ faturalar: FaturaSatiri[]; ozet: { para_birimi: string; kalan: number; adet: number }[] }> {

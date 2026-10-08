@@ -436,7 +436,8 @@
     "tabEgitim": "Eğitim",
     "tabIk": "İnsan kaynakları",
     "tabHukuk": "Hukuk",
-    "tabOnMuhasebe": "Ön muhasebe"
+    "tabOnMuhasebe": "Ön muhasebe",
+    "tabOrtaklik": "Ortaklık"
   },
   "admin": {
     "loadError": "Yönetim verileri yüklenemedi",
@@ -559,7 +560,8 @@
     "kullanimKosullari": "Kullanım Koşulları",
     "cerezPolitikasi": "Çerez Politikası",
     "moduller": "Modüller",
-    "seoAraclari": "Ücretsiz SEO araçları"
+    "seoAraclari": "Ücretsiz SEO araçları",
+    "ortaklik": "Ortaklık programı"
   },
   "settingsForm": {
     "brandTitle": "Marka",

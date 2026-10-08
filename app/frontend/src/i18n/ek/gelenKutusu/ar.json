@@ -19,7 +19,8 @@
       "belge_paylasim": "مشاركة المستندات",
       "izin_talebi": "طلب إجازة",
       "crm_form": "نموذج CRM",
-      "teklif_karari": "قرار عرض السعر"
+      "teklif_karari": "قرار عرض السعر",
+      "ortak_basvurusu": "طلب شراكة"
     },
     "durumSuzgeci": {
       "etiket": "التصفية حسب الحالة",
@@ -105,7 +106,10 @@
       "butce": "الميزانية",
       "teklif": "عرض السعر",
       "kararVeren": "صاحب القرار",
-      "pazarlamaIzni": "موافقة التسويق"
+      "pazarlamaIzni": "موافقة التسويق",
+      "web": "الموقع / التواصل الاجتماعي",
+      "tanitim": "طريقة الترويج",
+      "pazarlama": "موافقة التسويق"
     },
     "karar": {
       "bekliyor": "بانتظار القرار",

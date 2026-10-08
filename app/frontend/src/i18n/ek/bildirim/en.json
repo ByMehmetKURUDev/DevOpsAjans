@@ -86,7 +86,10 @@
       "ik_izin_talebi": "HR: new leave request from staff",
       "hukuk_hatirlatma": "Law office: hearing and deadline reminder",
       "hukuk_portal_mesaj": "Law office: message from the client portal",
-      "muhasebe_butce": "Categories over budget in bookkeeping"
+      "muhasebe_butce": "Categories over budget in bookkeeping",
+      "ortaklik_basvuru": "Affiliates: new application",
+      "ortaklik_odeme_talebi": "Affiliates: commission payout request",
+      "ortaklik_durum": "Affiliates: application decision and payout status (to the partner)"
     },
     "kanal": {
       "inapp": "Panel",

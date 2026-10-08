@@ -125,6 +125,9 @@ class FiyatTeklifRequest(BaseModel):
     kredi_paketi: Optional[int] = None
     musteri_eposta: EmailStr
     musteri_adi: Optional[str] = None
+    #: Faz 5K: formdaki "indirim / referans kodu" — CRM adayına ve ortak atfına işlenir. Ödeme sayfasına
+    #: (Lemon Squeezy / Shopier) indirim AKTARILMAZ.
+    referans_kodu: Optional[str] = None
 
 
 def _fatura_no_uret() -> str:
@@ -246,7 +249,13 @@ async def fiyat_teklif(req: FiyatTeklifRequest, request: Request, db: AsyncSessi
     if await _son_ayni_kayit(db, req, tur):
         raise HTTPException(status_code=409, detail="Bu teklif az önce zaten gönderildi.")
     invoice, inquiry, toplam = await _kayit_olustur(db, req, tur, "website")
-    return {"inquiry_id": inquiry.id, "invoice_id": invoice.id, "toplam": toplam}
+    sonuc = {"inquiry_id": inquiry.id, "invoice_id": invoice.id, "toplam": toplam}
+    if req.referans_kodu:
+        from services import ortaklik
+
+        await ortaklik.formdan_isle(db, tablo="pricing_inquiries", kayit_id=sonuc["inquiry_id"],
+                                    eposta=str(req.musteri_eposta), ham_kod=str(req.referans_kodu)[:64])
+    return sonuc
 
 
 async def _bekleyen_odeme(db: AsyncSession, invoice: Invoices) -> Payments:
@@ -291,6 +300,13 @@ async def fiyat_satin_al(req: FiyatTeklifRequest, request: Request, db: AsyncSes
         toplam = onceki.hesaplanan_tutar
     else:
         invoice, _inquiry, toplam = await _kayit_olustur(db, req, tur, "website_satin_al")
+        if req.referans_kodu:
+            from services import ortaklik
+
+            kayit_id = _inquiry.id
+            await ortaklik.formdan_isle(db, tablo="pricing_inquiries", kayit_id=kayit_id,
+                                        eposta=str(req.musteri_eposta), ham_kod=str(req.referans_kodu)[:64])
+            invoice = (await db.execute(select(Invoices).where(Invoices.id == invoice.id))).scalars().first()
     if invoice is None:
         raise HTTPException(status_code=500, detail="Fatura bulunamadı")
     odeme = await _bekleyen_odeme(db, invoice)

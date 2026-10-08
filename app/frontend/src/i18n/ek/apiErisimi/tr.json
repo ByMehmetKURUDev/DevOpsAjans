@@ -76,7 +76,10 @@
       "ik_izin_talebi": "Yeni izin talebi (personel)",
       "ik_izin_karari": "İzin talebine karar verildi (onay / ret)",
       "muhasebe_butce_asildi": "Ön muhasebede kategori bütçesi aşıldı",
-      "muhasebe_alacak_gecikti": "Ön muhasebede cari alacağın vadesi geçti (1 / 30 / 60 / 90 gün)"
+      "muhasebe_alacak_gecikti": "Ön muhasebede cari alacağın vadesi geçti (1 / 30 / 60 / 90 gün)",
+      "ortaklik_basvuru": "Yeni ortaklık başvurusu",
+      "ortaklik_komisyon": "Ortaklık komisyonu deftere yazıldı (komisyon ya da iade ters kaydı)",
+      "ortaklik_odeme_talebi": "Ortak, komisyon ödemesi istedi"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

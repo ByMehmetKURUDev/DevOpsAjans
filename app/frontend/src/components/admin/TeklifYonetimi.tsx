@@ -16,7 +16,9 @@ import {
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
+import IndirimKoduGirdisi from '@/components/belge/IndirimKoduGirdisi';
 import KalemDuzenleyici from '@/components/belge/KalemDuzenleyici';
+import { indirimSatiriMi } from '@/lib/indirimKodu';
 import TekSeferlikBaglanti from '@/components/belge/TekSeferlikBaglanti';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -84,6 +86,8 @@ interface Form {
   otomatik_proje: boolean;
   /** Faz 3Z: kabulde oluşan projeye uygulanacak proje şablonu. */
   proje_sablon_id: string;
+  /** Faz 5K: indirim kodu (satırı sunucu ekler; boş = kod yok). */
+  indirim_kodu: string;
 }
 
 const bosForm = (): Form => ({
@@ -103,6 +107,7 @@ const bosForm = (): Form => ({
   pesinat_yuzde: '100',
   otomatik_proje: false,
   proje_sablon_id: '',
+  indirim_kodu: '',
 });
 
 function formdan(t: Teklif): Form {
@@ -115,7 +120,8 @@ function formdan(t: Teklif): Form {
     aday_eposta: t.aday_eposta || '',
     para_birimi: t.para_birimi,
     gecerlilik: t.gecerlilik || '',
-    kalemler: t.kalemler.length ? t.kalemler : [bosKalem()],
+    // Faz 5K: sunucunun eklediği "İndirim (KOD)" satırları düzenleyicide gösterilmez (kayıtta yeniden kurulur).
+    kalemler: t.kalemler.filter((k) => !indirimSatiriMi(k)).length ? t.kalemler.filter((k) => !indirimSatiriMi(k)) : [bosKalem()],
     notlar: t.notlar || '',
     sartlar: t.sartlar || '',
     otomatik_sozlesme: !!t.otomatik_sozlesme,
@@ -124,6 +130,7 @@ function formdan(t: Teklif): Form {
     pesinat_yuzde: t.pesinat_yuzde != null ? String(t.pesinat_yuzde) : '100',
     otomatik_proje: !!t.otomatik_proje,
     proje_sablon_id: t.proje_sablon_id ? String(t.proje_sablon_id) : '',
+    indirim_kodu: t.indirim_kodu || '',
   };
 }
 
@@ -146,7 +153,9 @@ export default function TeklifYonetimi() {
   const hata = useCallback(
     (h: unknown) => {
       const kod = h instanceof BelgeHatasi ? h.kod : 'genel';
-      toast.error(t(`teklif.hata.${kod}`, { defaultValue: t('teklif.hata.genel') }));
+      // Faz 5K: indirim kodu hataları (`kod_*`) `indirimKodu` ek paketinde.
+      const ek = h instanceof BelgeHatasi ? h.ek : {};
+      toast.error(t(`teklif.hata.${kod}`, { defaultValue: t(`indirimKodu.hata.${kod}`, { ...ek, defaultValue: t('teklif.hata.genel') }) }));
     },
     [t],
   );
@@ -198,6 +207,7 @@ export default function TeklifYonetimi() {
       pesinat_yuzde: form.otomatik_fatura ? form.pesinat_yuzde : null,
       otomatik_proje: form.otomatik_proje,
       proje_sablon_id: form.otomatik_proje && form.proje_sablon_id ? Number(form.proje_sablon_id) : null,
+      indirim_kodu: form.indirim_kodu.trim(),
     };
     try {
       if (form.id) await teklifGuncelle(form.id, girdi);
@@ -386,6 +396,11 @@ export default function TeklifYonetimi() {
             <span className="text-sm font-medium">{t('teklif.alan.kalemler')}</span>
             <KalemDuzenleyici kalemler={form.kalemler} onChange={(k) => alan('kalemler', k)} paraBirimi={form.para_birimi}
               hesapUrl="/api/v1/teklif-yonetim/hesapla" />
+          </div>
+          <div className="md:col-span-2">
+            <IndirimKoduGirdisi deger={form.indirim_kodu} onDegis={(v) => alan('indirim_kodu', v)} kalemler={form.kalemler}
+              paraBirimi={form.para_birimi} belgeTuru="teklif" belgeId={form.id}
+              eposta={form.aliciTuru === 'hesap' ? form.hesap_email.trim() : form.aday_eposta.trim()} />
           </div>
           <div className="grid gap-2">
             <label htmlFor="teklif-notlar" className="text-sm font-medium">{t('teklif.alan.notlar')}</label>

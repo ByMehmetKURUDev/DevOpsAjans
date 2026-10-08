@@ -95,8 +95,14 @@ async def _sablon_var_mi(db: AsyncSession, sablon_id: Optional[int]) -> bool:
     return (await db.execute(select(SozlesmeSablonlari.id).where(SozlesmeSablonlari.id == sablon_id))).scalar() is not None
 
 
-async def alanlari_uygula(db: AsyncSession, teklif: Teklifler, govde: Dict[str, Any], *, yeni: bool) -> None:
-    """Gövdeyi doğrular ve teklife yazar; toplamlar sunucuda (istemci toplamı yok sayılır)."""
+async def alanlari_uygula(db: AsyncSession, teklif: Teklifler, govde: Dict[str, Any], *, yeni: bool):
+    """Gövdeyi doğrular ve teklife yazar; toplamlar sunucuda (istemci toplamı yok sayılır).
+
+    Faz 5K: indirim kodu varsa (gövdede ya da kayıtta) dönen değer `indirim_kodlari.Uygulama`
+    (kullanım kaydı teklifin kimliği belli olunca `kullanimi_isle` ile yazılır); yoksa None.
+    """
+    from services import indirim_kodlari as ik
+
     if "baslik" in govde or yeni:
         baslik = _metin(govde.get("baslik"), BASLIK_SINIRI)
         if not baslik:
@@ -104,7 +110,8 @@ async def alanlari_uygula(db: AsyncSession, teklif: Teklifler, govde: Dict[str, 
         teklif.baslik = baslik
     if "kalemler" in govde or yeni:
         try:
-            belge = belge_hesapla(govde.get("kalemler"))
+            # İstemcinin gönderdiği "İndirim (KOD)" satırları atılır; kod aşağıda yeniden uygulanır.
+            belge = belge_hesapla(ik.isaretlileri_at(govde.get("kalemler")))
         except HesapHatasi as h:
             raise TeklifHatasi(400, h.kod, **({"sira": h.sira} if h.sira is not None else {}))
         teklif.kalemler = json.dumps(belge.kalem_listesi(), ensure_ascii=False)
@@ -178,11 +185,37 @@ async def alanlari_uygula(db: AsyncSession, teklif: Teklifler, govde: Dict[str, 
             teklif.pesinat_yuzde = yuzde
     if not teklif.hesap_email and not teklif.aday_eposta:
         raise TeklifHatasi(400, "alici_gerekli")
+    # Faz 5K — indirim kodu: alıcı ve para birimi belli olduktan sonra (kişi başı sınır, para birimi uyumu).
+    if "indirim_kodu" not in govde and not teklif.indirim_kodu:
+        return None
+    temel = govde.get("kalemler") if ("kalemler" in govde or yeni) else kayitli_kalemler(teklif.kalemler)
+    # "Teklif al" talebinden açılan teklif: hizmet paketi kapsamı + talebin paketi (paketle sınırlı kodlar için).
+    talep_id = govde.get("pricing_inquiry_id") or teklif.pricing_inquiry_id
+    ek_kapsam = tuple(govde.get("_ek_kapsam") or ()) + (("paket",) if talep_id else ())
+    try:
+        u = await ik.belgeye_uygula(
+            db, kalemler=temel, ham_kod=govde.get("indirim_kodu") if "indirim_kodu" in govde else None,
+            mevcut_kod=teklif.indirim_kodu, belge_turu="teklif", belge_id=teklif.id, para_birimi=teklif.para_birimi,
+            eposta=alici(teklif), ek_kapsam=ek_kapsam,
+            paket=await ik.belge_paketi(db, pricing_inquiry_id=talep_id) if talep_id else None,
+        )
+        belge = belge_hesapla(u.kalemler)
+    except ik.KodHatasi as h:
+        raise TeklifHatasi(h.durum, h.kod, **h.ek)
+    except HesapHatasi as h:
+        raise TeklifHatasi(400, h.kod, **({"sira": h.sira} if h.sira is not None else {}))
+    teklif.kalemler = json.dumps(belge.kalem_listesi(), ensure_ascii=False)
+    teklif.ara_toplam = belge.ara_toplam
+    teklif.indirim_toplam = belge.indirim_toplam
+    teklif.kdv_toplam = belge.kdv_toplam
+    teklif.genel_toplam = belge.genel_toplam
+    teklif.indirim_kodu = u.kod.kod if u.kod is not None else None
+    return u
 
 
 async def olustur(db: AsyncSession, govde: Dict[str, Any], olusturan: Optional[str]) -> Teklifler:
     teklif = Teklifler(durum="taslak", surum=1, goruntulenme_sayisi=0, olusturan_eposta=bo.eposta_duzelt(olusturan) or None)
-    await alanlari_uygula(db, teklif, govde, yeni=True)
+    uygulama = await alanlari_uygula(db, teklif, govde, yeni=True)
     if govde.get("pricing_inquiry_id"):
         teklif.pricing_inquiry_id = int(govde["pricing_inquiry_id"])
     if govde.get("fatura_id"):
@@ -198,6 +231,10 @@ async def olustur(db: AsyncSession, govde: Dict[str, Any], olusturan: Optional[s
             if deneme == 4:
                 raise
     teklif.kok_id = teklif.id
+    if uygulama is not None:
+        from services import indirim_kodlari as ik
+
+        await ik.kullanimi_isle(db, uygulama, "teklif", teklif.id, alici(teklif), teklif.para_birimi)
     await db.commit()
     await db.refresh(teklif)
     return teklif
@@ -207,7 +244,11 @@ async def guncelle(db: AsyncSession, teklif: Teklifler, govde: Dict[str, Any]) -
     if teklif.durum != "taslak":
         # Gönderilmiş teklifin metni/tutarı değişmez: "revize et" yeni sürüm açar.
         raise TeklifHatasi(409, "revize_gerekli")
-    await alanlari_uygula(db, teklif, govde, yeni=False)
+    uygulama = await alanlari_uygula(db, teklif, govde, yeni=False)
+    if uygulama is not None:
+        from services import indirim_kodlari as ik
+
+        await ik.kullanimi_isle(db, uygulama, "teklif", teklif.id, alici(teklif), teklif.para_birimi)
     await db.commit()
     await db.refresh(teklif)
     return teklif
@@ -218,6 +259,10 @@ async def sil(db: AsyncSession, teklif: Teklifler) -> None:
         # Kabul kaydı (ad, zaman, IP özeti) sözleşmenin dayanağı: silinmiyor.
         raise TeklifHatasi(409, "kabul_silinemez")
     await _baglantiyi_iptal_et(db, teklif)
+    if teklif.indirim_kodu:
+        from services import indirim_kodlari as ik
+
+        await ik.kullanim_sil(db, "teklif", teklif.id)
     await db.delete(teklif)
     await db.commit()
 
@@ -356,10 +401,16 @@ async def revize_et(db: AsyncSession, teklif: Teklifler, olusturan: Optional[str
         proje_sablon_id=teklif.proje_sablon_id,
         pricing_inquiry_id=teklif.pricing_inquiry_id, fatura_id=None,
         kok_id=kok_id, onceki_id=teklif.id, surum=son_surum + 1,
-        olusturan_eposta=bo.eposta_duzelt(olusturan) or None,
+        olusturan_eposta=bo.eposta_duzelt(olusturan) or None, indirim_kodu=teklif.indirim_kodu,
     )
     teklif.durum = "revize"
     db.add(yeni)
+    if teklif.indirim_kodu:
+        # Faz 5K: kodun kullanımı yeni sürüme geçer (eski sürüm "revize" — sayımda zaten ölü).
+        from services import indirim_kodlari as ik
+
+        await db.flush()
+        await ik.kullanim_tasi(db, "teklif", teklif.id, yeni.id)
     await db.commit()
     await db.refresh(yeni)
     return yeni
@@ -520,7 +571,11 @@ async def _kabul_otomasyonu(db: AsyncSession, teklif: Teklifler) -> List[str]:
     olusanlar: List[str] = []
     if teklif.otomatik_fatura:
         if teklif.fatura_id:
-            olusanlar.append("fatura (mevcut)")
+            # Faz 5K: "Teklif al" talebinin faturası teklifin indirimini taşır (ödeme alınmamışsa).
+            if await _mevcut_faturaya_indirim(db, teklif):
+                olusanlar.append("fatura (mevcut; indirim kodu uygulandı)")
+            else:
+                olusanlar.append("fatura (mevcut)")
         else:
             fatura = await _ilk_fatura(db, teklif)
             teklif.fatura_id = fatura.id
@@ -579,6 +634,40 @@ async def _sablonu_uygula(db: AsyncSession, teklif: Teklifler, proje) -> List[st
     return [f"şablon «{sablon.ad}» ({len(gorevler)} görev)"]
 
 
+async def _mevcut_faturaya_indirim(db: AsyncSession, teklif: Teklifler) -> bool:
+    """Faz 5K — teklifin önceden bağlı faturası (sitedeki "Teklif al" talebinin faturası) indirim kodunu taşımıyorsa,
+    faturayı teklifin indirimli kalemleriyle eşitler: kalemler, toplamlar, para birimi, kod; bekleyen ödeme
+    bağlantısı yeni tutara çekilir (sağlayıcıda açılmışsa iptal → yeni bağlantı). Ödeme alınmış, iptal edilmiş ya da
+    iade faturasına dokunulmaz. Kullanım teklifte sayıldı; fatura yalnız kodu taşır. Commit ETMEZ."""
+    from models.invoices import Invoices
+    from services import faturalar as fs
+
+    if not teklif.indirim_kodu or not teklif.fatura_id:
+        return False
+    f = (await db.execute(select(Invoices).where(Invoices.id == teklif.fatura_id))).scalars().first()
+    if f is None or (f.tur or "") == "iade" or (f.status or "") in ("paid", "cancelled", "iptal", "kismi_odendi"):
+        return False
+    if f.indirim_kodu == teklif.indirim_kodu:
+        return False
+    if (await fs.bakiye(db, f)).odenen > 0:
+        return False
+    kalemler = [{k: v for k, v in kalem.items()
+                 if k in ("aciklama", "adet", "birim_fiyat", "kdv_orani", "indirim", "indirim_kodu")}
+                for kalem in kayitli_kalemler(teklif.kalemler)]
+    belge = belge_hesapla(kalemler)
+    f.kalemler = json.dumps(belge.kalem_listesi(), ensure_ascii=False)
+    f.ara_toplam = float(belge.ara_toplam)
+    f.kdv_toplam = float(belge.kdv_toplam)
+    f.amount = float(belge.genel_toplam)
+    f.currency = teklif.para_birimi or f.currency
+    f.indirim_kodu = teklif.indirim_kodu
+    f.teklif_id = f.teklif_id or teklif.id
+    _, b = await fs.durumu_guncelle(db, f)
+    await fs.bekleyen_baglantiyi_esitle(db, f, b)
+    await db.flush()
+    return True
+
+
 async def _ilk_fatura(db: AsyncSession, teklif: Teklifler):
     """Peşinat yüzdesi kadar ilk fatura + bekleyen ödeme bağlantısı."""
     from models.invoices import Invoices
@@ -592,7 +681,8 @@ async def _ilk_fatura(db: AsyncSession, teklif: Teklifler):
         kalemler = oranla_bol(belge, yuzde, f"Peşinat %{yuzde.normalize():f} — {teklif.no} (KDV %{{oran}})")
         aciklama = f"{teklif.baslik} — peşinat %{yuzde.normalize():f} ({teklif.no})"
     else:
-        kalemler = [{k: v for k, v in kalem.items() if k in ("aciklama", "adet", "birim_fiyat", "kdv_orani", "indirim")}
+        kalemler = [{k: v for k, v in kalem.items()
+                     if k in ("aciklama", "adet", "birim_fiyat", "kdv_orani", "indirim", "indirim_kodu")}
                     for kalem in kalemler]
         aciklama = f"{teklif.baslik} ({teklif.no})"
     belge = belge_hesapla(kalemler)
@@ -611,6 +701,8 @@ async def _ilk_fatura(db: AsyncSession, teklif: Teklifler):
         ara_toplam=float(belge.ara_toplam),
         kdv_toplam=float(belge.kdv_toplam),
         teklif_id=teklif.id,
+        # Faz 5K: kullanım teklifte sayıldı; fatura yalnız kodu taşır (komisyonda ortak bağı için).
+        indirim_kodu=teklif.indirim_kodu,
     )
     db.add(fatura)
     await db.flush()
@@ -675,6 +767,22 @@ async def fiyat_talebinden(db: AsyncSession, talep_id: int, olusturan: Optional[
         "fatura_id": talep.invoice_id,
         "otomatik_fatura": bool(talep.invoice_id),
     }
+    # Faz 5K: "Teklif al" formunda girilen indirim kodu (CRM adayında) — hâlâ geçerliyse uygulanır
+    # (hizmet paketi kapsamı da sayılır); değilse teklif kodsuz açılır.
+    from services.pazarlama_izni import bagli_adayi_bul
+
+    aday_id = await bagli_adayi_bul(db, "pricing_inquiries", talep.id)
+    if aday_id:
+        from models.crm import CrmAdaylari
+
+        kod = (await db.execute(select(CrmAdaylari.indirim_kodu).where(CrmAdaylari.id == aday_id))).scalar()
+        if kod:
+            try:
+                return await olustur(db, {**govde, "indirim_kodu": kod, "_ek_kapsam": ("paket",)}, olusturan)
+            except TeklifHatasi as h:
+                if not (h.kod.startswith("kod_") or h.kod == "kendi_referansi"):
+                    raise
+                await db.rollback()
     return await olustur(db, govde, olusturan)
 
 
@@ -716,6 +824,7 @@ def sozluk(teklif: Teklifler, *, yonetici: bool = False) -> Dict[str, Any]:
         "fatura_id": teklif.fatura_id,
         "sozlesme_id": teklif.sozlesme_id,
         "proje_id": teklif.proje_id,
+        "indirim_kodu": teklif.indirim_kodu,
         "tarih": (bo.utc(teklif.gonderildi_at) or bo.utc(teklif.created_at) or bo.simdi()).date().isoformat(),
         "created_at": bo.iso(teklif.created_at),
     }

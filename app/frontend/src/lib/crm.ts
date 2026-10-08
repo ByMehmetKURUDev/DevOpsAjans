@@ -57,6 +57,9 @@ export interface Aday {
   created_at: string | null;
   updated_at: string | null;
   asama_degisme_at: string | null;
+  /** Faz 5K: sitedeki formdan gelen ortaklık (referans) / indirim kodu. */
+  referans_kodu?: string | null;
+  indirim_kodu?: string | null;
 }
 
 export interface PuanSatiri {

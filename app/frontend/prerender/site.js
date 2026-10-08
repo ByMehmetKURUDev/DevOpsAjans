@@ -62,6 +62,9 @@ export function getLanguage(code) {
  * (`/seo-araclari/<slug>`) sabit listeden üretiliyor (prerender/seo-araclari-veri.js);
  * metinleri ek pakette (`src/i18n/ek/seoAraclari`). Üst menüde YOK; alt bilgi,
  * Kaynaklar ve Site analizi sayfalarından bağlantı var.
+ * `ortaklik` (Faz 5K): ortaklık (referans) programı. Başlık/açıklama ek pakette
+ * (`src/i18n/ek/ortaklik` → `ortaklik.seo`; ana pakete girmesin) — PAGE_SEO'da
+ * YOK, prerender `getHead` ve sayfa kendisi yazıyor. Üst menüde YOK, alt bilgide var.
  */
 export const PAGE_KEYS = [
   'home',
@@ -74,6 +77,7 @@ export const PAGE_KEYS = [
   'kaynaklar',
   'moduller',
   'seoAraclari',
+  'ortaklik',
   'gizlilik',
   'kullanimKosullari',
   'cerezPolitikasi',
@@ -94,6 +98,7 @@ export const PAGE_PATHS = {
   kaynaklar: '/kaynaklar',
   moduller: '/moduller',
   seoAraclari: '/seo-araclari',
+  ortaklik: '/ortaklik',
   gizlilik: '/gizlilik',
   kullanimKosullari: '/kullanim-kosullari',
   cerezPolitikasi: '/cerez-politikasi',
@@ -110,6 +115,7 @@ export const PAGE_PRIORITY = {
   kaynaklar: 0.75,
   moduller: 0.8,
   seoAraclari: 0.75,
+  ortaklik: 0.6,
   gizlilik: 0.3,
   kullanimKosullari: 0.3,
   cerezPolitikasi: 0.3,
@@ -404,6 +410,7 @@ export const PAGE_SEO_KEYS = {
   kaynaklar: { title: 'seo_title_kaynaklar', description: 'seo_desc_kaynaklar' },
   moduller: { title: 'seo_title_moduller', description: 'seo_desc_moduller' },
   seoAraclari: { title: 'seo_title_seo_araclari', description: 'seo_desc_seo_araclari' },
+  ortaklik: { title: 'seo_title_ortaklik', description: 'seo_desc_ortaklik' },
   gizlilik: { title: 'seo_title_gizlilik', description: 'seo_desc_gizlilik' },
   kullanimKosullari: { title: 'seo_title_kullanim_kosullari', description: 'seo_desc_kullanim_kosullari' },
   cerezPolitikasi: { title: 'seo_title_cerez_politikasi', description: 'seo_desc_cerez_politikasi' },

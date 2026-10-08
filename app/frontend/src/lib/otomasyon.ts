@@ -241,7 +241,9 @@ export interface OzetSatiri {
 }
 
 export interface OzetBolumu {
-  anahtar: 'faturalar' | 'destek' | 'crm' | 'teklifler' | 'icerik' | 'belgeler' | 'yenilemeler' | 'siteler' | 'muhasebe';
+  anahtar:
+    | 'faturalar' | 'destek' | 'crm' | 'teklifler' | 'icerik' | 'belgeler' | 'yenilemeler' | 'siteler' | 'gelen_kutusu'
+    | 'stok_kritik' | 'ik_izin' | 'muhasebe' | 'ortaklik';
   sekme: string;
   sayi: number;
   ek: {
@@ -250,6 +252,9 @@ export interface OzetBolumu {
     sonraki_adim?: number;
     hareketsiz?: number;
     geciken?: number;
+    /** Faz 5K — ortaklık bölümü: bekleyen başvuru ve ödeme talebi sayısı. */
+    basvuru?: number;
+    talep?: number;
     hata?: boolean;
     // Faz 6M — ön muhasebe: bütçe aşımı ve vadesi geçmiş alacağı olan cari sayısı.
     butce?: number;

@@ -128,6 +128,11 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     # portalından mesaj (büroya; ajansın gelen kutusuna düşmez). İkisi de İÇERİKSİZ (tür + tarih).
     "hukuk_hatirlatma": {"roller": ("client",), "tetikleniyor": True},
     "hukuk_portal_mesaj": {"roller": ("client",), "tetikleniyor": True},
+    # Faz 5K — ortaklık programı: yeni başvuru ve komisyon ödeme talebi (yöneticilere); başvuru kararı ve
+    # ödeme yapıldı / talep geri çevrildi (ortağın kendisine — kişisel, ekip üyelerine genişlemez).
+    "ortaklik_basvuru": {"roller": ("admin",), "tetikleniyor": True},
+    "ortaklik_odeme_talebi": {"roller": ("admin",), "tetikleniyor": True},
+    "ortaklik_durum": {"roller": ("client",), "tetikleniyor": True},
     # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (yöneticilere / müşteri hesabına).
     "otomasyon_bildirimi": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,

@@ -85,5 +85,7 @@ class Teklifler(Base):
     surum = Column(Integer, nullable=False, default=1)
 
     olusturan_eposta = Column(String, nullable=True)
+    #: Faz 5K — uygulanan indirim kodu (görünen biçim); satırı kalemlerde `indirim_kodu` işaretli.
+    indirim_kodu = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=_simdi)
     updated_at = Column(DateTime(timezone=True), default=_simdi, onupdate=_simdi)

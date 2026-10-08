@@ -1,4 +1,5 @@
 import { getAPIBaseURL } from '@/lib/config';
+import { referansOku } from '@/lib/referans';
 import { client } from '@/lib/sdkClient';
 import type { AracYonetimOzeti } from '@/lib/seoAraclari';
 
@@ -201,7 +202,9 @@ export function tamRaporIste(
   // Faz 4G: onay kutusu yok (aydınlatma); pazarlama izni ayrı ve isteğe bağlı.
   girdi: { eposta: string; ad?: string; pazarlama_izni?: boolean; dil?: string },
 ): Promise<{ gonderildi: boolean }> {
-  return acikIstek(`/${id}/tam-rapor`, { method: 'POST', govde: girdi });
+  // Faz 5K: ortaklık bağlantısından gelen kod gizli alan olarak (rıza yoksa yalnız bu oturumdaki).
+  const referans_kodu = referansOku();
+  return acikIstek(`/${id}/tam-rapor`, { method: 'POST', govde: referans_kodu ? { ...girdi, referans_kodu } : girdi });
 }
 
 export function raporGetir(jeton: string): Promise<TamRapor> {

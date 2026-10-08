@@ -21,7 +21,8 @@ CRM bölümündeki adayların talepleri hariç — çift sayım yok, bkz. `_gele
 gündür yanıtsız teklifler, müşteri onayı bekleyen içerikler, bekleyen belge talepleri, 14 gün içinde
 yenilenecek alan adı / SSL (elle yenilenen) / hosting, şu an erişilemeyen siteler, müşterilerin POS'unda
 kritik stok seviyesindeki ürünler (Faz 6P), ajansın kendi personelinin bekleyen izin talepleri (Faz 6I; gelen
-kutusu bölümünde sayılmaz), ajansın kendi ön muhasebesinde bu ay aşılan bütçeler ve vadesi geçen cari alacaklar (Faz 6M).
+kutusu bölümünde sayılmaz), ajansın kendi ön muhasebesinde bu ay aşılan bütçeler ve vadesi geçen cari alacaklar (Faz 6M),
+bekleyen ortaklık başvuruları ve komisyon ödeme talepleri (Faz 5K; başvurular gelen kutusu bölümünde sayılmaz).
 
 Dil: diğer yönetici bildirimleri gibi Türkçe; başlık/gövde panelden `notify_tpl_haftalik_ozet_*`
 ile değiştirilebilir (`render`). Önizleme (`ozet_hazirla`) yapılandırılmış veri döner; panel kendi
@@ -215,7 +216,8 @@ async def _gelen_kutusu(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     ogeler: List[Dict[str, Any]] = []
     for kaynak in gk.KAYNAKLAR:
         # Faz 6I: izin talepleri kendi bölümünde ("Bekleyen izin talepleri") — çift sayım yok.
-        if kaynak in ("destek", "izin_talebi"):
+        # Faz 5K: ortaklık başvuruları da kendi bölümünde ("Ortaklık").
+        if kaynak in ("destek", "izin_talebi", "ortak_basvurusu"):
             continue
         if kaynak in gk.BILGI_KAYNAKLARI:
             continue
@@ -427,8 +429,21 @@ async def _muhasebe(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     return _bolum("muhasebe", "onMuhasebe", len(satirlar), satirlar, butce=len(asimlar), alacak=len(alacaklar))
 
 
+async def _ortaklik(db: AsyncSession, an: datetime) -> Dict[str, Any]:
+    """Faz 5K — bekleyen ortaklık başvuruları ve komisyon ödeme talepleri (yalnız ajans; en uzun bekleyen önce)."""
+    from services import ortaklik
+
+    basvurular = await ortaklik.bekleyen_basvurular(db)
+    talepler = await ortaklik.bekleyen_talepler(db)
+    satirlar = [_satir(o.ad, ayrinti=o.web or o.eposta, tur="basvuru_bekliyor",
+                       gun=max(0, (an - (_utc(o.basvuru_at) or an)).days)) for o in basvurular]
+    satirlar += [_satir(ad or f"#{t.ortak_id}", tur="odeme_bekliyor", tutar=t.tutar, para_birimi=t.para_birimi,
+                        gun=max(0, (an - (_utc(t.created_at) or an)).days)) for t, ad in talepler]
+    return _bolum("ortaklik", "ortaklik", len(satirlar), satirlar, basvuru=len(basvurular), talep=len(talepler))
+
+
 BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler, _stok_kritik,
-            _ik_izin, _muhasebe)
+            _ik_izin, _muhasebe, _ortaklik)
 
 
 async def ozet_hazirla(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
@@ -468,6 +483,7 @@ BASLIKLAR = {
     "stok_kritik": "Müşterilerde kritik stok seviyesindeki ürünler (POS)",
     "ik_izin": "Bekleyen izin talepleri (ajans personeli)",
     "muhasebe": "Ön muhasebe: bütçe aşımı ve vadesi geçen cari alacaklar",
+    "ortaklik": "Ortaklık: bekleyen başvurular ve ödeme talepleri",
 }
 YENILEME_ADLARI = {"alan": "Alan adı", "ssl": "SSL", "hosting": "Hosting"}
 
@@ -494,6 +510,8 @@ def _bolum_ek_metni(b: Dict[str, Any]) -> str:
         return f"{ek['hesap']} hesapta"
     if b["anahtar"] == "gelen_kutusu" and ek.get("kaynaklar"):
         return ", ".join(f"{GELEN_KAYNAK_ADLARI.get(k, k)} {n}" for k, n in ek["kaynaklar"].items())
+    if b["anahtar"] == "ortaklik" and (ek.get("basvuru") or ek.get("talep")):
+        return f"{ek.get('basvuru', 0)} başvuru, {ek.get('talep', 0)} ödeme talebi"
     return ""
 
 
@@ -516,6 +534,8 @@ def _satir_metni(s: Dict[str, Any]) -> str:
         "izin_bekliyor": f"{gun} gündür karar bekliyor" if gun else "bugün geldi",
         "butce_asimi": "bu ay bütçe aşıldı",
         "cari_gecikme": f"vadesi {gun} gün geçti",
+        "basvuru_bekliyor": f"başvuru {gun} gündür bekliyor" if gun else "başvuru bugün geldi",
+        "odeme_bekliyor": f"ödeme talebi {gun} gündür bekliyor" if gun else "ödeme talebi bugün geldi",
     }.get(tur or "")
     if tur in YENILEME_ADLARI:
         durum = f"{YENILEME_ADLARI[tur]}: " + (f"{gun} gün kaldı" if (gun or 0) >= 0 else f"süresi {-(gun or 0)} gün önce doldu")

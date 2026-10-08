@@ -76,7 +76,10 @@
       "ik_izin_talebi": "New leave request (staff)",
       "ik_izin_karari": "Leave request decided (approved / declined)",
       "muhasebe_butce_asildi": "Category budget exceeded in bookkeeping",
-      "muhasebe_alacak_gecikti": "A contact receivable in bookkeeping is past due (1 / 30 / 60 / 90 days)"
+      "muhasebe_alacak_gecikti": "A contact receivable in bookkeeping is past due (1 / 30 / 60 / 90 days)",
+      "ortaklik_basvuru": "New affiliate application",
+      "ortaklik_komisyon": "Affiliate commission recorded (commission or refund reversal)",
+      "ortaklik_odeme_talebi": "Affiliate requested a commission payout"
     },
     "anahtar": {
       "yeni": "New key",

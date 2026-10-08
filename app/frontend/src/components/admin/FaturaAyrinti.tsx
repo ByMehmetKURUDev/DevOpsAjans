@@ -3,7 +3,9 @@ import { ChevronDown, ChevronUp, FileDown, Loader2, Paperclip, Pencil, Trash2, U
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
+import IndirimKoduGirdisi from '@/components/belge/IndirimKoduGirdisi';
 import KalemDuzenleyici from '@/components/belge/KalemDuzenleyici';
+import { indirimSatiriMi } from '@/lib/indirimKodu';
 import KalemTablosu from '@/components/belge/KalemTablosu';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -41,6 +43,7 @@ export default function FaturaAyrinti({ faturaId, onDegisti }: { faturaId: numbe
   const [veri, setVeri] = useState<FaturaAyrintisi | null>(null);
   const [yukleniyor, setYukleniyor] = useState(false);
   const [kalemDuzen, setKalemDuzen] = useState<Kalem[] | null>(null);
+  const [indirimKodu, setIndirimKodu] = useState('');
   const [odeme, setOdeme] = useState({ tutar: '', yontem: 'havale', tarih: bugunIso(), notu: '', geri: false });
   const [dekont, setDekont] = useState<File | null>(null);
   const [iade, setIade] = useState({ tutar: '', neden: '' });
@@ -49,7 +52,9 @@ export default function FaturaAyrinti({ faturaId, onDegisti }: { faturaId: numbe
   const hata = useCallback(
     (h: unknown) => {
       const kod = h instanceof BelgeHatasi ? h.kod : 'genel';
-      toast.error(t(`fatura.hata.${kod}`, { defaultValue: t('fatura.hata.genel') }));
+      // Faz 5K: indirim kodu hataları (`kod_*`) `indirimKodu` ek paketinde.
+      const ek = h instanceof BelgeHatasi ? h.ek : {};
+      toast.error(t(`fatura.hata.${kod}`, { defaultValue: t(`indirimKodu.hata.${kod}`, { ...ek, defaultValue: t('fatura.hata.genel') }) }));
     },
     [t],
   );
@@ -154,7 +159,12 @@ export default function FaturaAyrinti({ faturaId, onDegisti }: { faturaId: numbe
                 <div className="mb-2 flex items-center justify-between gap-2">
                   <h4 className="text-sm font-semibold">{t('fatura.ayrinti.kalemler')}</h4>
                   {veri.tur !== 'iade' && !kalemDuzen && (
-                    <Button size="sm" variant="ghost" className="gap-1" onClick={() => setKalemDuzen(veri.kalemler.length ? veri.kalemler : [{ ...bosKalem(), aciklama: veri.description || '', birim_fiyat: veri.amount, kdv_orani: 0 }])}
+                    <Button size="sm" variant="ghost" className="gap-1" onClick={() => {
+                      // Faz 5K: "İndirim (KOD)" satırları düzenleyicide gösterilmez; kod ayrı alanda (kayıtta yeniden kurulur).
+                      const normal = veri.kalemler.filter((k) => !indirimSatiriMi(k));
+                      setIndirimKodu(veri.indirim_kodu || '');
+                      setKalemDuzen(normal.length ? normal : [{ ...bosKalem(), aciklama: veri.description || '', birim_fiyat: veri.amount, kdv_orani: 0 }]);
+                    }}
                       data-testid="fatura-kalem-duzenle">
                       <Pencil className="h-3.5 w-3.5" aria-hidden="true" />{t('fatura.ayrinti.kalemDuzenle')}
                     </Button>
@@ -163,10 +173,14 @@ export default function FaturaAyrinti({ faturaId, onDegisti }: { faturaId: numbe
                 {kalemDuzen ? (
                   <div className="space-y-3">
                     <KalemDuzenleyici kalemler={kalemDuzen} onChange={setKalemDuzen} paraBirimi={veri.currency} hesapUrl="/api/v1/fatura-yonetim/hesapla" />
+                    {veri.tur !== 'iade' && (
+                      <IndirimKoduGirdisi deger={indirimKodu} onDegis={setIndirimKodu} kalemler={kalemDuzen} paraBirimi={veri.currency}
+                        belgeTuru="fatura" belgeId={faturaId} eposta={veri.client_email || undefined} />
+                    )}
                     <div className="flex gap-2">
                       <Button size="sm" disabled={mesgul} data-testid="fatura-kalem-kaydet"
                         onClick={() => void calistir(async () => {
-                          await faturaKalemleriniYaz(faturaId, kalemDuzen.filter((k) => k.aciklama.trim()));
+                          await faturaKalemleriniYaz(faturaId, kalemDuzen.filter((k) => k.aciklama.trim()), indirimKodu.trim());
                           setKalemDuzen(null);
                           toast.success(t('fatura.ayrinti.kalemKaydedildi'));
                         })}>

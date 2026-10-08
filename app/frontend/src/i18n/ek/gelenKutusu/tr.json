@@ -19,7 +19,8 @@
       "belge_paylasim": "Belge paylaşımı",
       "izin_talebi": "İzin talebi",
       "crm_form": "CRM formu",
-      "teklif_karari": "Teklif kararı"
+      "teklif_karari": "Teklif kararı",
+      "ortak_basvurusu": "Ortaklık başvurusu"
     },
     "durumSuzgeci": {
       "etiket": "Duruma göre süz",
@@ -105,7 +106,10 @@
       "butce": "Bütçe",
       "teklif": "Teklif",
       "kararVeren": "Karar veren",
-      "pazarlamaIzni": "Pazarlama izni"
+      "pazarlamaIzni": "Pazarlama izni",
+      "web": "Web / sosyal medya",
+      "tanitim": "Nasıl tanıtacak",
+      "pazarlama": "Pazarlama izni"
     },
     "karar": {
       "bekliyor": "Karar bekleniyor",

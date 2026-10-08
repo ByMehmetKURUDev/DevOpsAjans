@@ -19,7 +19,8 @@
       "belge_paylasim": "दस्तावेज़ साझाकरण",
       "izin_talebi": "अवकाश अनुरोध",
       "crm_form": "CRM फ़ॉर्म",
-      "teklif_karari": "कोटेशन पर निर्णय"
+      "teklif_karari": "कोटेशन पर निर्णय",
+      "ortak_basvurusu": "एफ़िलिएट आवेदन"
     },
     "durumSuzgeci": {
       "etiket": "स्थिति के अनुसार फ़िल्टर करें",
@@ -105,7 +106,10 @@
       "butce": "बजट",
       "teklif": "कोटेशन",
       "kararVeren": "निर्णय लेने वाले",
-      "pazarlamaIzni": "मार्केटिंग सहमति"
+      "pazarlamaIzni": "मार्केटिंग सहमति",
+      "web": "वेब / सोशल मीडिया",
+      "tanitim": "कैसे प्रचार करेंगे",
+      "pazarlama": "मार्केटिंग अनुमति"
     },
     "karar": {
       "bekliyor": "निर्णय बाकी",

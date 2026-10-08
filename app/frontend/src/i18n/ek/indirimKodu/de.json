@@ -1,0 +1,109 @@
+{
+  "indirimKodu": {
+    "alan": {
+      "etiket": "Rabatt- / Empfehlungscode",
+      "istege": "optional",
+      "yerTutucu": "z. B. SOMMER2026",
+      "denetleniyor": "Wird geprüft…",
+      "indirim": "Rabattcode gültig: {{deger}}",
+      "referans": "Empfehlungscode gültig",
+      "gecersiz": "Diesen Code haben wir nicht gefunden; Sie können das Formular trotzdem senden.",
+      "cokHizli": "Zu viele Versuche; der Code wird beim Senden trotzdem übermittelt.",
+      "referansEtiket": "Empfehlungscode",
+      "satinAlNotu": "Rabattcodes gelten nicht beim Direktkauf; für einen rabattierten Preis nutzen Sie „Angebot anfordern“.",
+      "satinAlIndirim": "Dies ist ein Rabattcode: Er gilt nicht beim Direktkauf. Für den rabattierten Preis fahren Sie mit „Angebot anfordern“ fort."
+    },
+    "belge": {
+      "baslik": "Rabattcode",
+      "yerTutucu": "Code",
+      "uygula": "Vorschau",
+      "kaldir": "Entfernen",
+      "onizleme": "Rabatt: −{{tutar}} · neue Summe {{toplam}}",
+      "ipucu": "Der Code gilt für den Nettobetrag (ohne MwSt.); die Zeile „Rabatt (CODE)“ fügt der Server beim Speichern hinzu. Leer lassen entfernt den Code."
+    },
+    "yonetim": {
+      "aciklama": "Codes für die eigenen Verkäufe der Agentur: Sie erscheinen in Angeboten und Rechnungen als Zeile „Rabatt (CODE)“ und im PDF. In Formularen der Website eingegebene Codes werden beim CRM-Lead gespeichert.",
+      "yeni": "Neuer Code",
+      "vazgec": "Abbrechen",
+      "kod": "Code",
+      "turEtiket": "Art",
+      "tur": {
+        "yuzde": "Prozent",
+        "sabit": "Fester Betrag"
+      },
+      "deger": "Wert",
+      "paraBirimi": "Währung",
+      "paraIpucu": "Erforderlich bei festem Betrag und Mindestbetrag.",
+      "paraHepsi": "Alle",
+      "baslangic": "Beginn",
+      "bitis": "Ende",
+      "toplamSinir": "Gesamtlimit der Nutzungen",
+      "kisiBasiSinir": "Limit pro Person",
+      "sinirsiz": "unbegrenzt",
+      "enAz": "Mindestbetrag (netto)",
+      "kapsam": "Gilt für",
+      "kapsamlar": {
+        "teklif": "Angebot",
+        "fatura": "Rechnung",
+        "paket": "Leistungspaket"
+      },
+      "paketNotu": "Leistungspaket: Der Code wird aus dem Formular „Angebot anfordern“ ins Angebot übernommen. An den Checkout von Lemon Squeezy / Shopier wird der Rabatt noch nicht übergeben.",
+      "ortak": "Verknüpfter Partner",
+      "ortakYok": "Kein Partner",
+      "aciklamaAlani": "Beschreibung (nur für Sie)",
+      "aktif": "Aktiv",
+      "kaydet": "Speichern",
+      "kaydedildi": "Code gespeichert.",
+      "silOnay": "{{kod}} löschen?",
+      "silindi": "Code gelöscht.",
+      "kullanim": "{{sayi}} Nutzungen",
+      "durum": {
+        "gecerli": "Gültig",
+        "pasif": "Inaktiv",
+        "kod_baslamadi": "Noch nicht gestartet",
+        "kod_suresi_doldu": "Abgelaufen"
+      },
+      "duzenle": "Bearbeiten",
+      "sil": "Löschen",
+      "yok": "Noch keine Rabattcodes.",
+      "paketler": "Gültige Pakete (leer = alle)",
+      "paketIpucu": "Wenn ausgewählt, gilt der Code nur für Angebote und Rechnungen aus einer „Angebot anfordern“-Anfrage für diese Pakete; für manuell erstellte Dokumente gilt er nicht.",
+      "ozelPaket": {
+        "KREDI": "Pay-as-you-go-Guthabenpaket",
+        "AI_PM": "KI-/PM-Paket"
+      }
+    },
+    "hata": {
+      "genel": "Der Vorgang konnte nicht ausgeführt werden.",
+      "kod_yok": "Dieser Rabattcode wurde nicht gefunden.",
+      "kod_pasif": "Dieser Rabattcode ist inaktiv.",
+      "kod_baslamadi": "Dieser Rabattcode gilt noch nicht.",
+      "kod_suresi_doldu": "Dieser Rabattcode ist abgelaufen.",
+      "kod_kapsam_disi": "Dieser Code kann für diese Belegart nicht verwendet werden.",
+      "kod_para_birimi": "Dieser Code gilt nur für Belege in {{para_birimi}}.",
+      "kod_en_az_tutar": "Für diesen Code muss die Zwischensumme (netto) mindestens {{en_az}} {{para_birimi}} betragen.",
+      "kod_tukendi": "Das Nutzungslimit dieses Codes ist erreicht.",
+      "kod_kisi_siniri": "Dieser Empfänger hat das Nutzungslimit des Codes erreicht.",
+      "kendi_referansi": "Ein Code, der mit einem Partner verknüpft ist, kann nicht auf den Partner selbst angewendet werden.",
+      "kod_gecersiz": "Ungültiges Codeformat (3–32 Zeichen: Buchstaben, Ziffern, - oder _).",
+      "kod_kullaniliyor": "Dieser Code wird bereits von einem anderen Rabattcode oder einem Partner verwendet.",
+      "deger_gecersiz": "Ungültiger Wert (Prozent 0–100, Betrag größer als null).",
+      "para_birimi_gerekli": "Wählen Sie bei festem Betrag oder Mindestbetrag eine Währung.",
+      "para_birimi_gecersiz": "Die Währung ist ungültig.",
+      "tarih_gecersiz": "Ungültige Daten (das Ende darf nicht vor dem Beginn liegen).",
+      "kapsam_gerekli": "Wählen Sie mindestens einen Anwendungsbereich.",
+      "sinir_gecersiz": "Das Limit muss eine ganze Zahl ab 1 sein.",
+      "en_az_gecersiz": "Der Mindestbetrag ist ungültig.",
+      "kullanilmis_kod_silinemez": "Ein bereits genutzter Code kann nicht gelöscht werden; deaktivieren Sie ihn.",
+      "kullanilmis_kod_adi": "Ein bereits genutzter Code kann nicht umbenannt werden; legen Sie einen neuen Code an.",
+      "kalem_gerekli": "Ein Rabattcode kann nur auf eine Rechnung mit Positionen angewendet werden.",
+      "iade_faturasina_kod": "Auf Erstattungsrechnungen werden keine Rabattcodes angewendet.",
+      "tur_gecersiz": "Ungültige Art.",
+      "ortak_yok": "Partner nicht gefunden.",
+      "belge_turu_gecersiz": "Ungültige Belegart.",
+      "indirim_satiri_gecersiz": "Ungültige Rabattzeile.",
+      "kod_paket_disi": "Dieser Code gilt nicht für dieses Paket.",
+      "paket_gecersiz": "Ungültige Paketkennung."
+    }
+  }
+}

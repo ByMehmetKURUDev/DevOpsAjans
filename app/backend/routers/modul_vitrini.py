@@ -10,6 +10,7 @@
   gidiyor. İsteğe bağlı pazarlama izni Faz 4G deseniyle adaya yazılıyor.
   Hız sınırı herkese açık CRM formuyla aynı (IP başına 10 dakikada 5);
   bal küpü alanı (`web_sitesi`) doluysa "başarılı" dönüp hiçbir şey kaydetmiyor.
+  Faz 5K: isteğe bağlı gizli `referans_kodu` (ortaklık bağlantısı) adaya ve ortak atfına işleniyor.
 
 Yetki: ikisi de herkese açık (entity_guard'a bağlı değil); veri okuma uçu
 yalnız kayıttan türeyen genel bilgiyi ve ölçek fiyatını döndürüyor.
@@ -83,6 +84,12 @@ async def talep(request: Request, db: AsyncSession = Depends(get_db)):
         return {"ok": True}
 
     g = sonuc["girdi"]
+    if govde.get("referans_kodu") and sonuc.get("talep_id"):
+        # Faz 5K: ortaklık bağlantısından gelen kod (gizli alan) adaya + ortak atfına; hata yutulur.
+        from services import ortaklik
+
+        await ortaklik.formdan_isle(db, tablo="inquiries", kayit_id=sonuc["talep_id"], eposta=g["eposta"],
+                                    ham_kod=str(govde.get("referans_kodu"))[:64])
     # Yöneticiye iletişim formuyla aynı bildirim (şablon panelde düzenlenebiliyor).
     try:
         baslik, metin = await render(

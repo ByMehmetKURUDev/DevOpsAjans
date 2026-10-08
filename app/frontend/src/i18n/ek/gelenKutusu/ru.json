@@ -19,7 +19,8 @@
       "belge_paylasim": "Обмен документами",
       "izin_talebi": "Заявка на отпуск",
       "crm_form": "Форма CRM",
-      "teklif_karari": "Решение по предложению"
+      "teklif_karari": "Решение по предложению",
+      "ortak_basvurusu": "Заявка на партнёрство"
     },
     "durumSuzgeci": {
       "etiket": "Фильтр по статусу",
@@ -105,7 +106,10 @@
       "butce": "Бюджет",
       "teklif": "Предложение",
       "kararVeren": "Решение принял(а)",
-      "pazarlamaIzni": "Согласие на рассылку"
+      "pazarlamaIzni": "Согласие на рассылку",
+      "web": "Сайт / соцсети",
+      "tanitim": "Как будет продвигать",
+      "pazarlama": "Согласие на рассылку"
     },
     "karar": {
       "bekliyor": "Ожидает решения",

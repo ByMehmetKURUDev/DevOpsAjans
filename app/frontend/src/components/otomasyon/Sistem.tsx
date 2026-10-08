@@ -313,6 +313,8 @@ function BolumEki({ bolum }: { bolum: OzetBolumu }) {
     metin = t('otomasyon.sistem.ozet.ek.geciken', { sayi: ek.geciken });
   } else if (bolum.anahtar === 'muhasebe') {
     metin = t('otomasyon.sistem.ozet.ek.muhasebe', { butce: ek.butce ?? 0, alacak: ek.alacak ?? 0 });
+  } else if (bolum.anahtar === 'ortaklik' && (ek.basvuru || ek.talep)) {
+    metin = t('otomasyon.sistem.ozet.ek.ortaklik', { basvuru: ek.basvuru ?? 0, talep: ek.talep ?? 0 });
   }
   return metin ? <p className="mt-0.5 text-xs text-muted-foreground">{metin}</p> : null;
 }

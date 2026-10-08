@@ -305,6 +305,10 @@
       "rozet": "إذن تسويقي",
       "kaynakModulVitrini": "معرض الوحدات ({{anahtar}})",
       "kaynakSeoAraci": "أداة SEO مجانية ({{arac}})"
+    },
+    "kod": {
+      "referans": "رمز الإحالة: {{kod}}",
+      "indirim": "رمز الخصم: {{kod}}"
     }
   }
 }

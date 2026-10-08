@@ -100,6 +100,8 @@ export interface FiyatTeklifIstegi {
   kredi_paketi?: number;
   musteri_eposta: string;
   musteri_adi?: string;
+  /** Faz 5K: formdaki isteğe bağlı "indirim / referans kodu" (CRM adayına ve ortak atfına işlenir). */
+  referans_kodu?: string;
 }
 
 export interface FiyatSatinAlSonucu {

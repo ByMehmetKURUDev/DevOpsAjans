@@ -123,6 +123,7 @@ ETIKET: Dict[str, Dict[str, str]] = {
         "imzalanmadi": "Henüz imzalanmadı.", "surum": "Sürüm", "baslangic": "Başlangıç", "bitis": "Bitiş",
         "kabul": "Kabul eden", "kabul_zamani": "Kabul zamanı (UTC)", "yontem": "Yöntem",
         "bagli_fatura": "İlgili fatura", "donem": "Dönem", "cizim_yok": "(çizim imzası yok)",
+        "indirim_kodu_satir": "İndirim ({kod})",
     },
     "en": {
         "fatura": "INVOICE", "iade_faturasi": "CREDIT NOTE", "teklif": "QUOTE", "sozlesme": "CONTRACT",
@@ -138,6 +139,7 @@ ETIKET: Dict[str, Dict[str, str]] = {
         "imzalanmadi": "Not signed yet.", "surum": "Version", "baslangic": "Start", "bitis": "End",
         "kabul": "Accepted by", "kabul_zamani": "Accepted at (UTC)", "yontem": "Method",
         "bagli_fatura": "Related invoice", "donem": "Period", "cizim_yok": "(no drawn signature)",
+        "indirim_kodu_satir": "Discount ({kod})",
     },
     "de": {
         "fatura": "RECHNUNG", "iade_faturasi": "GUTSCHRIFT", "teklif": "ANGEBOT", "sozlesme": "VERTRAG", "no": "Nr.",
@@ -400,6 +402,17 @@ def _musteri_blogu(musteri: Dict[str, Any], st: Dict[str, ParagraphStyle], dil: 
     ]
 
 
+def _kalem_aciklamasi(k: Dict[str, Any], e: Dict[str, str]) -> Any:
+    """Faz 5K: indirim kodu satırı belgenin dilinde ("İndirim (KOD)" / "Discount (KOD)", çok oranlıysa + KDV)."""
+    kod = k.get("indirim_kodu")
+    if not kod:
+        return k.get("aciklama")
+    metin = e["indirim_kodu_satir"].format(kod=kod)
+    if "—" in str(k.get("aciklama") or ""):
+        metin += " — " + e["kdv_satir"].format(oran=sayi(k.get("kdv_orani") or 0))
+    return metin
+
+
 def _kalem_tablosu(kalemler: List[Dict[str, Any]], para_birimi: str, st, dil: str) -> Table:
     e = ETIKET[dil]
     basliklar = ["#", e["aciklama"], e["adet"], e["birim"], e["indirim"], e["kdv"], e["tutar"]]
@@ -407,7 +420,7 @@ def _kalem_tablosu(kalemler: List[Dict[str, Any]], para_birimi: str, st, dil: st
     for i, k in enumerate(kalemler, 1):
         veri.append([
             Paragraph(str(i), st["govde"]),
-            Paragraph(_metin(k.get("aciklama")), st["govde"]),
+            Paragraph(_metin(_kalem_aciklamasi(k, e)), st["govde"]),
             Paragraph(sayi(k.get("adet")), st["sag"]),
             Paragraph(para(k.get("birim_fiyat"), para_birimi, dil), st["sag"]),
             Paragraph(sayi(k.get("indirim") or 0), st["sag"]),

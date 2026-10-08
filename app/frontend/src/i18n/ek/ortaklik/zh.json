@@ -1,0 +1,302 @@
+{
+  "ortaklik": {
+    "seo": {
+      "baslik": "联盟推广计划：推荐客户，赚取佣金 | By Mehmet KURU Dev",
+      "aciklama": "推荐我们的网站开发与数字营销服务，通过您的专属链接到来的客户付款后，您即可获得佣金。免费加入。"
+    },
+    "sayfa": {
+      "etiket": "联盟推广计划",
+      "baslik": "推荐客户，",
+      "vurgu": "赚取佣金",
+      "aciklama": "身边有人需要网站、网店或数字营销吗？通过您的专属链接到来的客户接受我们的报价并支付发票后，按不含增值税金额计算的佣金将记入您的账户。",
+      "basvur": "立即申请",
+      "nasil": "如何运作？",
+      "kapali": "本计划目前暂不接受新申请，请稍后再试。",
+      "girisMetni": "已经是推广伙伴？",
+      "girisBaglanti": "前往您的面板"
+    },
+    "ozellik": {
+      "oranBaslik": "{{oran}}% 佣金",
+      "oranMetin": "按您推荐的每位客户首笔销售的不含增值税金额计算，也可约定专属比例。",
+      "cerezBaslik": "{{gun}} 天追踪",
+      "cerezMetin": "若访客同意使用 Cookie，您链接中的代码会在其设备上保存 {{gun}} 天；访客也可在我们表单的代码栏中手动填写。",
+      "odemeBaslik": "透明结算",
+      "odemeMetin": "面板中可查看点击、潜在客户、成交和余额。余额达到 {{en_az}} 后即可申请提现，我们将转账至您的 IBAN。",
+      "tekrarMetin": "订阅发票：首笔销售后 {{ay}} 个月内按 {{oran}}% 计算。"
+    },
+    "adim": {
+      "baslik": "如何运作？",
+      "b1": "提交申请",
+      "m1": "填写简短表单；我们审核后通过电子邮件回复。",
+      "b2": "分享链接",
+      "m2": "审核通过后，您的专属代码和分享链接会出现在面板中。",
+      "b3": "客户下单",
+      "m3": "通过您的链接到来的客户接受我们的报价并支付发票。",
+      "b4": "佣金入账",
+      "m4": "退款期（{{gun}} 天）结束后佣金即被确认；您可随时申请提现。"
+    },
+    "kosul": {
+      "baslik": "计划条款",
+      "varsayilan": [
+        "佣金按通过您的合作链接或代码到来、且此前未被其他合作伙伴推荐的客户首笔销售的不含增值税金额计算（即客户接受我们的报价或在我们网站购买后支付的发票，包括同一报价的定金和尾款发票）。",
+        "为您本人、您的公司或您所在团队的账户进行的购买不计佣金。",
+        "佣金在退款期（{{gun}} 天）内处于待定状态；如发票被退款或付款被撤回，将以冲销记录扣除。",
+        "提现以人工方式转账至您提供的 IBAN；税务及法律义务由您自行承担。",
+        "禁止误导性广告、垃圾信息、使用我们品牌名称投放关键词广告及虚假申请；如有违反，合作可能被暂停，相关佣金将被取消。",
+        "计划条款可能变更；变更自在本页发布之时起生效。"
+      ],
+      "bilgi": "佣金付款的纳税义务由合作伙伴承担。本文仅供参考，不构成法律或财务意见。",
+      "tekrar": "同一客户在首笔销售后 {{ay}} 个月内支付的周期性（订阅）发票，按 {{oran}}% 记入佣金。"
+    },
+    "sss": {
+      "baslik": "常见问题",
+      "liste": [
+        {
+          "s": "加入需要付费吗？",
+          "c": "不需要。申请和参与均免费。"
+        },
+        {
+          "s": "我什么时候能拿到佣金？",
+          "c": "发票付款后，退款期（{{gun}} 天）结束时佣金即被确认。已确认余额达到最低提现金额后，可在面板中申请提现；我们会人工转账至您的 IBAN，并将转账凭证上传到您的面板。"
+        },
+        {
+          "s": "你们如何追踪访客的代码？",
+          "c": "若访客在 Cookie 横幅中表示同意，您链接中的代码会在其设备上保存 {{cerez}} 天；否则代码仅在本次访问中有效。访客也可在我们表单的“优惠码 / 推荐码”栏中手动填写您的代码。我们不保存访客的 IP 地址。"
+        },
+        {
+          "s": "如果两位推广伙伴带来同一位客户呢？",
+          "c": "默认以最先推荐该客户的推广伙伴为准。"
+        }
+      ]
+    },
+    "form": {
+      "baslik": "推广伙伴申请",
+      "aciklama": "简短表单；我们审核后通过电子邮件回复。",
+      "ad": "姓名",
+      "eposta": "电子邮件",
+      "epostaIpucu": "审核通过后，您将使用此地址登录面板。",
+      "web": "网站或社交媒体",
+      "webYerTutucu": "example.com 或 @用户名",
+      "tanitim": "您打算如何推广我们？",
+      "tanitimYerTutucu": "博客、YouTube 频道、您的客户、社群……",
+      "kosullar": "我已阅读并接受计划条款。",
+      "pazarlama": "我希望通过电子邮件接收优惠活动和公告。",
+      "gonder": "提交申请",
+      "gonderiliyor": "正在提交……",
+      "basarili": "申请已收到",
+      "basariliMetin": "我们将进行审核并回复至 {{eposta}}。审核通过后，请使用该地址登录（如尚无账户，请用该地址注册）查看您的面板。",
+      "aydinlatma": "您的信息仅用于审核申请及开展推广合作。",
+      "hata": {
+        "genel": "申请提交失败，请重试。",
+        "cok_hizli": "尝试次数过多，请稍后再试。",
+        "ad_gerekli": "请填写姓名。",
+        "eposta_gecersiz": "请填写有效的电子邮件地址。",
+        "web_gecersiz": "网址无效。",
+        "tanitim_gerekli": "请简要说明您将如何推广我们。",
+        "kosullar_gerekli": "请先接受计划条款再继续。",
+        "program_kapali": "本计划目前暂不接受新申请。"
+      }
+    },
+    "panel": {
+      "baslik": "联盟推广",
+      "aciklama": "分享您的链接，从您推荐的客户所付发票中赚取佣金。",
+      "yukleniyor": "加载中……",
+      "yenile": "刷新",
+      "askida": "您的合作已暂停：不再记录新佣金。详情请与我们联系。",
+      "kod": "您的推荐码",
+      "baglanti": "您的分享链接",
+      "kopyala": "复制",
+      "kopyalandi": "已复制",
+      "oran": "您的佣金比例：{{oran}}%",
+      "nasil": "通过您的链接到来的客户接受我们的报价或在我们网站购买并支付首张发票后，系统将按不含增值税金额记录您的佣金。",
+      "kart": {
+        "tiklama": "点击（30 天）",
+        "tiklamaAlt": "累计 {{sayi}}",
+        "aday": "潜在客户",
+        "adayAlt": "通过您的链接到来",
+        "satis": "成交",
+        "satisAlt": "已付发票",
+        "kazanc": "收益",
+        "bakiye": "可提现余额",
+        "bekleyen": "退款期内",
+        "talepte": "提现申请中",
+        "odenen": "已支付"
+      },
+      "kazancYok": "暂无佣金。",
+      "komisyonlar": "佣金",
+      "komisyonYok": "暂无佣金记录。",
+      "sutun": {
+        "tarih": "日期",
+        "fatura": "发票",
+        "musteri": "客户",
+        "tutar": "金额",
+        "durum": "状态"
+      },
+      "tur": {
+        "komisyon": "佣金",
+        "ters": "冲销（退款）"
+      },
+      "bekleme": "将于 {{tarih}} 确认",
+      "durum": {
+        "beklemede": "待定",
+        "onaylandi": "已确认",
+        "odeme_talebinde": "提现申请中",
+        "odendi": "已支付",
+        "iptal": "已取消"
+      },
+      "talepDurum": {
+        "bekliyor": "等待中",
+        "odendi": "已支付",
+        "reddedildi": "已拒绝"
+      },
+      "odeme": {
+        "baslik": "余额与提现",
+        "iban": "IBAN",
+        "ibanAd": "账户持有人",
+        "ibanIpucu": "请输入 IBAN，而非银行卡号。该信息仅用于支付佣金。",
+        "kaydet": "保存",
+        "kaydedildi": "收款信息已保存。",
+        "kayitli": "已保存账户：{{iban}}（{{ad}}）",
+        "iste": "申请提现（{{tutar}}）",
+        "enAz": "最低提现金额：{{tutar}}",
+        "istendi": "已收到您的提现申请。",
+        "talepler": "提现申请",
+        "talepYok": "暂无提现申请。",
+        "dekont": "转账凭证"
+      },
+      "hata": {
+        "genel": "操作未能完成。",
+        "iban_gerekli": "请先保存收款信息（IBAN）。",
+        "iban_gecersiz": "IBAN 无效，请检查国家代码和校验位。",
+        "kart_numarasi_degil": "这看起来像银行卡号，请输入 IBAN。",
+        "iban_ad_gerekli": "请填写账户持有人姓名。",
+        "en_az_tutar": "您的可提现余额（{{bakiye}}）低于最低提现金额（{{en_az}}）。",
+        "bekleyen_talep_var": "您在该币种下已有一笔待处理的提现申请。",
+        "ortak_degil": "未找到推广伙伴记录。",
+        "durum_askida": "您的合作已暂停。",
+        "para_birimi_gecersiz": "币种无效。"
+      },
+      "tekrar": "订阅发票：首笔销售后 {{ay}} 个月内 {{oran}}%。",
+      "kural": {
+        "ilk": "首笔销售",
+        "tekrar": "订阅"
+      }
+    },
+    "yonetim": {
+      "baslik": "联盟推广计划",
+      "aciklama": "推广伙伴、申请、佣金账簿、提现申请和优惠码。此处不进行转账：请通过银行付款，并在此将申请标记为“已支付”。",
+      "alt": {
+        "ortaklar": "推广伙伴",
+        "basvurular": "申请",
+        "komisyonlar": "佣金",
+        "talepler": "提现申请",
+        "kodlar": "优惠码",
+        "ayarlar": "设置"
+      },
+      "yenile": "刷新",
+      "kaydet": "保存",
+      "vazgec": "取消",
+      "kaydedildi": "已保存。",
+      "durum": {
+        "beklemede": "待审核",
+        "onaylandi": "已批准",
+        "reddedildi": "已拒绝",
+        "askida": "已暂停"
+      },
+      "ortak": {
+        "yok": "暂无已批准的推广伙伴。",
+        "ad": "推广伙伴",
+        "kod": "代码",
+        "oran": "比例（%）",
+        "varsayilan": "默认",
+        "tiklama": "点击",
+        "aday": "潜在客户",
+        "bakiye": "已确认 / 总收益",
+        "duzenle": "编辑",
+        "oranIpucu": "留空则使用计划默认值。",
+        "kodIpucu": "修改后旧链接将失效。",
+        "askiyaAl": "暂停",
+        "yenidenAc": "恢复",
+        "supheliTemizle": "清除标记",
+        "notlar": "备注（仅您可见）"
+      },
+      "basvuru": {
+        "yok": "此列表中没有申请。",
+        "onayla": "批准",
+        "reddet": "拒绝",
+        "neden": "拒绝原因（将发送给申请人，可选）",
+        "oran": "比例（%）— 留空 = 默认",
+        "kod": "代码 — 留空 = 自动生成",
+        "onaylandi": "已批准推广伙伴，并已发送邮件。",
+        "reddedildi": "申请已拒绝。",
+        "pazarlama": "已同意接收营销邮件",
+        "kosul": "接受条款时间：{{tarih}}",
+        "tanitim": "推广方式"
+      },
+      "komisyon": {
+        "yok": "暂无记录。",
+        "filtre": {
+          "hepsi": "全部",
+          "supheli": "可疑"
+        },
+        "onayla": "提前确认",
+        "iptal": "取消",
+        "iptalOnay": "确定取消这条佣金记录吗？",
+        "matrah": "不含税 {{tutar}} × {{oran}}%"
+      },
+      "supheli": {
+        "kendi_referansi": "试图自我推荐",
+        "ayni_alan_adi": "推广伙伴与客户使用相同的企业域名",
+        "odendikten_sonra_iade": "佣金支付后发票被退款"
+      },
+      "talep": {
+        "yok": "暂无提现申请。",
+        "odendi": "标记为已支付",
+        "dekont": "转账凭证（PDF 或图片，可选）",
+        "not": "备注（将发送给推广伙伴）",
+        "gonder": "保存为已支付",
+        "reddet": "拒绝",
+        "neden": "原因（将发送给推广伙伴）",
+        "odendiOldu": "已标记为已支付，并已邮件通知推广伙伴。",
+        "reddedildi": "申请已拒绝，金额已退回余额。",
+        "iban": "IBAN",
+        "kopyala": "复制",
+        "dekontAc": "凭证"
+      },
+      "ayar": {
+        "acik": "接受新申请",
+        "oran": "首笔销售佣金（%）",
+        "bekleme": "退款期（天）",
+        "beklemeIpucu": "佣金在此天数内保持待定，之后自动确认。",
+        "enAz": "最低提现金额（按币种）",
+        "atif": "两位推广伙伴带来同一客户时",
+        "atif_ilk": "以首次推荐为准",
+        "atif_son": "以最后一次推荐为准",
+        "tumFaturalar": "首笔销售不设条件：被推荐客户的首张已付发票即计佣金（关闭时，仅限关联已接受报价、带有合作伙伴优惠码或来自网站“获取报价”/“立即购买”流程的发票）。",
+        "kosullar": "计划条款文本",
+        "kosullarIpucu": "留空的语言将显示页面默认文本。段落之间请用空行分隔。",
+        "bilgi": "仅供参考，不构成法律意见。默认条款为草稿，发布前请交由您的律师审核。佣金付款的税务与会计记录由您负责。",
+        "dil": "语言",
+        "tekrarOran": "订阅佣金（%）",
+        "tekrarAy": "订阅佣金期限（月）",
+        "tekrarIpucu": "适用于首笔销售后该月数内支付的周期性（订阅）发票；0 = 关闭。"
+      },
+      "hata": {
+        "genel": "操作未能完成。",
+        "kod_gecersiz": "代码格式无效（3–32 个字符：字母、数字、- 或 _）。",
+        "kod_kullaniliyor": "该代码已被其他推广伙伴或优惠码使用。",
+        "oran_gecersiz": "比例必须在 0 到 90 之间。",
+        "durum_gecersiz": "当前状态下无法执行此操作。",
+        "karar_gecersiz": "无效的决定。",
+        "dekont_yok": "没有转账凭证。",
+        "talep_yok": "未找到申请。",
+        "ortak_yok": "未找到推广伙伴。",
+        "komisyon_yok": "未找到佣金记录。",
+        "durum_odendi": "该申请已支付。",
+        "durum_reddedildi": "该记录已被拒绝。",
+        "durum_onaylandi": "该记录已确认。"
+      },
+      "csv": "下载 CSV"
+    }
+  }
+}

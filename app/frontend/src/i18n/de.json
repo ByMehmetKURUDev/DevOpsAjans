@@ -436,7 +436,8 @@
     "tabEgitim": "Kurse",
     "tabIk": "Personal",
     "tabHukuk": "Kanzlei",
-    "tabOnMuhasebe": "Buchhaltung"
+    "tabOnMuhasebe": "Buchhaltung",
+    "tabOrtaklik": "Partnerprogramm"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",
@@ -559,7 +560,8 @@
     "kullanimKosullari": "Nutzungsbedingungen",
     "cerezPolitikasi": "Cookie-Richtlinie",
     "moduller": "Module",
-    "seoAraclari": "Kostenlose SEO-Tools"
+    "seoAraclari": "Kostenlose SEO-Tools",
+    "ortaklik": "Partnerprogramm"
   },
   "settingsForm": {
     "brandTitle": "Marke",

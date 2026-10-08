@@ -177,6 +177,11 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     # Faz 6M — vadesi geçen cari alacak (açık kalem başına 1 / 30 / 60 / 90. günde BİR kez; FIFO yaşlandırma). Veride
     # cari adı, eşik günü, açık tutar, vade; e-posta / telefon YOK (otomasyon kayıttan okur).
     OlayTuru("muhasebe.alacak_gecikti"),
+    # Faz 5K — ortaklık programı (yalnız ajans; `services/ortaklik.py`): yeni başvuru, komisyon defterine kayıt
+    # (komisyon ya da iade/geri alma ters kaydı) ve ortağın ödeme talebi. Ad/e-posta/IBAN YOK — kimlik ve tutarlar.
+    OlayTuru("ortaklik.basvuru", musteri=False),
+    OlayTuru("ortaklik.komisyon", musteri=False),
+    OlayTuru("ortaklik.odeme_talebi", musteri=False),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.
@@ -650,6 +655,10 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
                 olaylar.append(("fatura.olusturuldu", obj.client_email, _fatura_verisi(obj), True))
                 if (obj.status or "") == "paid":
                     olaylar.append(("fatura.odendi", obj.client_email, _fatura_verisi(obj), True))
+            if (obj.tur or "") == "iade" and obj.bagli_fatura_id:
+                # Faz 5K: yalnız ek aboneler (ortaklık ters kaydı); webhook kataloğunda yok.
+                olaylar.append(("fatura.iade_edildi", obj.client_email, {
+                    "fatura_id": obj.bagli_fatura_id, "iade_fatura_id": obj.id, "tutar": _sayi(obj.amount)}, True))
         elif tablo == "support_tickets":
             olaylar.append((
                 "destek.olusturuldu",
@@ -714,6 +723,9 @@ def _olaylari_cikar(session: Session, baglanti) -> List[Tuple[str, Optional[str]
                     olaylar.append(("fatura.olusturuldu", obj.client_email, _fatura_verisi(obj), True))
                 if yeni == "paid" and eski != "paid":
                     olaylar.append(("fatura.odendi", obj.client_email, _fatura_verisi(obj), True))
+                elif eski == "paid" and yeni != "paid":
+                    # Faz 5K: ödeme geri alındı / silindi (yalnız ek aboneler: ortaklık ters kaydı).
+                    olaylar.append(("fatura.odeme_geri_alindi", obj.client_email, _fatura_verisi(obj), True))
         elif tablo == "project_tasks":
             degisti, eski, yeni = _gecmis(obj, "durum")
             if degisti and yeni == "tamam" and eski != "tamam":

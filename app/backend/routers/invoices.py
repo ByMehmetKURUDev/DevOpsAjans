@@ -101,6 +101,64 @@ def _kalemleri_isle(veri: Dict[str, Any], mevcut: Any = None) -> Dict[str, Any]:
     return veri
 
 
+async def _indirim_kodu_isle(db: AsyncSession, veri: Dict[str, Any], mevcut: Any = None):
+    """Faz 5K: indirim kodunu kalemlere uygular (sunucu satırı). (veri, uygulama | None) döner.
+
+    İstemcinin gönderdiği "İndirim (KOD)" satırları her durumda atılır. Kod gönderilmediyse ve
+    kayıtta kod varsa yeni kalemlere yeniden uygulanır (kullanım zaten sayılmıştı); "" kaldırır.
+    """
+    from services import indirim_kodlari as ik
+    from services.belge_hesap import HesapHatasi, kayitli_kalemler
+
+    veri = dict(veri)
+    gonderildi = veri.get("indirim_kodu") is not None
+    mevcut_kod = getattr(mevcut, "indirim_kodu", None)
+    if isinstance(veri.get("kalemler"), list):
+        veri["kalemler"] = ik.isaretlileri_at(veri["kalemler"])
+    if not gonderildi and not mevcut_kod:
+        veri.pop("indirim_kodu", None)
+        return veri, None
+    if gonderildi and not (veri.get("indirim_kodu") or "").strip() and not mevcut_kod:
+        veri["indirim_kodu"] = None
+        return veri, None
+    if (veri.get("tur") or getattr(mevcut, "tur", None)) == "iade":
+        raise HTTPException(status_code=400, detail={"kod": "iade_faturasina_kod"})
+    temel = veri.get("kalemler") if isinstance(veri.get("kalemler"), list) and veri.get("kalemler") else (
+        kayitli_kalemler(getattr(mevcut, "kalemler", None)) if mevcut is not None else [])
+    if not ik.isaretlileri_at(temel):
+        if gonderildi and (veri.get("indirim_kodu") or "").strip():
+            raise HTTPException(status_code=400, detail={"kod": "kalem_gerekli"})
+        veri["indirim_kodu"] = None
+        return veri, None
+    eposta = (veri.get("client_email") or getattr(mevcut, "client_email", None) or "").strip().lower()
+    para = (veri.get("currency") or getattr(mevcut, "currency", None) or "TRY").upper()
+    fid = getattr(mevcut, "id", None)
+    try:
+        u = await ik.belgeye_uygula(
+            db, kalemler=temel, ham_kod=veri.get("indirim_kodu") if gonderildi else None, mevcut_kod=mevcut_kod,
+            belge_turu="fatura", belge_id=fid, para_birimi=para, eposta=eposta,
+            # "Teklif al" talebinin faturası: talebin paketi (paketle sınırlı kodlar için).
+            paket=await ik.belge_paketi(db, fatura_id=fid) if fid else None,
+        )
+    except ik.KodHatasi as h:
+        raise HTTPException(status_code=h.durum, detail=h.detay())
+    except HesapHatasi as h:
+        raise HTTPException(status_code=400, detail=h.detay())
+    veri["kalemler"] = u.kalemler
+    veri["indirim_kodu"] = u.kod.kod if u.kod is not None else None
+    return veri, u
+
+
+async def _kullanim_yaz(db: AsyncSession, u: Any, fatura: Any) -> None:
+    if u is None or fatura is None:
+        return
+    from services import indirim_kodlari as ik
+
+    await ik.kullanimi_isle(db, u, "fatura", fatura.id, (fatura.client_email or "").strip().lower(),
+                            (fatura.currency or "TRY").upper())
+    await db.commit()
+
+
 # ---------- Pydantic Schemas ----------
 class InvoicesData(BaseModel):
     """Entity data schema (for create/update)"""
@@ -124,6 +182,8 @@ class InvoicesData(BaseModel):
     tekrarlayan_id: Optional[int] = None
     donem: Optional[str] = None
     notlar: Optional[str] = None
+    #: Faz 5K: indirim kodu (kalemli faturada; satırı sunucu ekler).
+    indirim_kodu: Optional[str] = None
 
 
 class InvoicesUpdateData(BaseModel):
@@ -147,6 +207,8 @@ class InvoicesUpdateData(BaseModel):
     tekrarlayan_id: Optional[int] = None
     donem: Optional[str] = None
     notlar: Optional[str] = None
+    #: Faz 5K: "" kodu kaldırır; gönderilmezse kayıttaki kod yeni kalemlere yeniden uygulanır.
+    indirim_kodu: Optional[str] = None
 
 
 class InvoicesResponse(BaseModel):
@@ -171,6 +233,7 @@ class InvoicesResponse(BaseModel):
     tekrarlayan_id: Optional[int] = None
     donem: Optional[str] = None
     notlar: Optional[str] = None
+    indirim_kodu: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -350,12 +413,14 @@ async def create_invoices(
     
     service = InvoicesService(db)
     try:
-        veri = _kalemleri_isle(data.model_dump())
+        veri, uygulama = await _indirim_kodu_isle(db, data.model_dump())
+        veri = _kalemleri_isle(veri)
         if veri.get("amount") is None:
             raise HTTPException(status_code=400, detail={"kod": "tutar_gerekli"})
         result = await service.create(veri)
         if not result:
             raise HTTPException(status_code=400, detail="Failed to create invoices")
+        await _kullanim_yaz(db, uygulama, result)
         
         logger.info(f"Invoices created successfully with id: {result.id}")
         return result
@@ -382,7 +447,8 @@ async def create_invoicess_batch(
     
     try:
         for item_data in request.items:
-            veri = _kalemleri_isle(item_data.model_dump())
+            veri, _ = await _indirim_kodu_isle(db, {**item_data.model_dump(), "indirim_kodu": None})
+            veri = _kalemleri_isle(veri)
             if veri.get("amount") is None:
                 raise HTTPException(status_code=400, detail={"kod": "tutar_gerekli"})
             result = await service.create(veri)
@@ -414,8 +480,11 @@ async def update_invoicess_batch(
     try:
         for item in request.items:
             # Only include non-None values for partial updates
-            update_dict = {k: v for k, v in item.updates.model_dump().items() if v is not None}
-            update_dict = _kalemleri_isle(update_dict, await service.get_by_id(item.id))
+            update_dict = {k: v for k, v in item.updates.model_dump().items() if v is not None and k != "indirim_kodu"}
+            mevcut_kayit = await service.get_by_id(item.id)
+            if "kalemler" in update_dict and mevcut_kayit is not None and mevcut_kayit.indirim_kodu:
+                update_dict, _ = await _indirim_kodu_isle(db, update_dict, mevcut_kayit)
+            update_dict = _kalemleri_isle(update_dict, mevcut_kayit)
             result = await service.update(item.id, update_dict)
             if result:
                 await _odendiyse_kredi_yukle(db, result)
@@ -445,11 +514,17 @@ async def update_invoices(
     try:
         # Only include non-None values for partial updates
         update_dict = {k: v for k, v in data.model_dump().items() if v is not None}
-        update_dict = _kalemleri_isle(update_dict, await service.get_by_id(id))
+        mevcut_kayit = await service.get_by_id(id)
+        uygulama = None
+        if mevcut_kayit is not None and ("indirim_kodu" in update_dict or "kalemler" in update_dict or mevcut_kayit.indirim_kodu):
+            if "kalemler" in update_dict or "indirim_kodu" in update_dict:
+                update_dict, uygulama = await _indirim_kodu_isle(db, update_dict, mevcut_kayit)
+        update_dict = _kalemleri_isle(update_dict, mevcut_kayit)
         result = await service.update(id, update_dict)
         if not result:
             logger.warning(f"Invoices with id {id} not found for update")
             raise HTTPException(status_code=404, detail="Invoices not found")
+        await _kullanim_yaz(db, uygulama, result)
         await _odendiyse_kredi_yukle(db, result)
         
         logger.info(f"Invoices {id} updated successfully")

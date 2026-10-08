@@ -6,6 +6,7 @@ import AsistanSohbeti from '@/components/AsistanSohbeti';
 import PazarlamaEtiketleri from '@/components/PazarlamaEtiketleri';
 import RizaBandi from '@/components/RizaBandi';
 import { rizayiSifirla } from '@/lib/riza';
+import { referansRizaDinle, referansYakala } from '@/lib/referans';
 import { Button } from '@/components/ui/button';
 import NotificationBell from '@/components/NotificationBell';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -53,6 +54,8 @@ const KAYNAK_YOLU = /^(?:\/([a-z]{2}))?\/kaynaklar(?:\/([^/]+))?$/;
 const MODUL_YOLU = /^(?:\/([a-z]{2}))?\/moduller((?:\/paket)?\/[^/]+)?$/;
 /** Faz 4S — ücretsiz SEO araçları (dizin + araç): başlığını sayfa kendisi yazıyor. Eşleşmede [, dil?, slug?]. */
 const SEO_ARAC_YOLU = /^(?:\/([a-z]{2}))?\/seo-araclari(?:\/([^/]+))?$/;
+/** Faz 5K — ortaklık programı sayfası: başlığını (ek paketten) sayfa kendisi yazıyor. */
+const ORTAKLIK_YOLU = /^(?:\/([a-z]{2}))?\/ortaklik$/;
 
 /**
  * Yola karşılık gelen başlık/açıklama.
@@ -200,6 +203,19 @@ export default function Layout() {
     setLangOpen(false);
   }, [location.pathname]);
 
+  // Faz 5K — ortaklık bağlantısı (`?ref=<kod>`): kod yakalanır (rıza varsa cihazda 30 gün, yoksa yalnız
+  // bu oturumda), tıklama bir kez sayılır, adres çubuğundan `ref` temizlenir (paylaşılınca yeniden sayılmasın).
+  useEffect(() => referansRizaDinle(), []);
+  useEffect(() => {
+    if (!location.search.includes('ref=')) return;
+    if (!referansYakala(location.search)) return;
+    const arama = new URLSearchParams(location.search);
+    arama.delete('ref');
+    const kalan = arama.toString();
+    navigate({ pathname: location.pathname, search: kalan ? `?${kalan}` : '', hash: location.hash }, { replace: true, state: location.state });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search]);
+
   const handleLogin = () => client.auth.toLogin();
   const handleRegister = () => client.auth.toLogin();
   const handleLogout = async () => {
@@ -261,6 +277,7 @@ export default function Layout() {
 
     // Tekil blog yazısı, Kaynaklar ve yasal sayfalar (Faz 3Y) başlığını kendisi yönetiyor.
     if (isBlogPostPath(currentPath) || KAYNAK_YOLU.test(currentPath) || MODUL_YOLU.test(currentPath) || SEO_ARAC_YOLU.test(currentPath)) return;
+    if (ORTAKLIK_YOLU.test(currentPath)) return;
     if (YASAL_SAYFALAR.includes(resolveRoute(currentPath).pageKey ?? '')) return;
 
     const routeMeta = getRouteMeta(currentPath, settings);
@@ -656,6 +673,16 @@ export default function Layout() {
                   data-alt-seo-araclari
                 >
                   {t('footer.seoAraclari')}
+                </Link>
+              </li>
+              {/* Faz 5K: ortaklık programı — yalnız alt bilgide. */}
+              <li>
+                <Link
+                  to={localizedPath(activeLang, 'ortaklik')}
+                  className="inline-block py-2 hover:text-foreground transition-colors"
+                  data-alt-ortaklik
+                >
+                  {t('footer.ortaklik')}
                 </Link>
               </li>
             </ul>

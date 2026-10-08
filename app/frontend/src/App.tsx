@@ -22,7 +22,7 @@ const BlogIndexPage = lazy(() => import('./pages/blog/BlogIndexPage'));
 const BlogPostPage = lazy(() => import('./pages/blog/BlogPostPage'));
 // Faz 3Y: iletişim formunun altındaki kısa aydınlatma satırı (ek paket 'aydinlatma');
 // Faz 4G: rızaya bağlı harita yer tutucusu (ek paket 'iletisimHarita').
-const Contact = ekliLazy(['aydinlatma', 'iletisimHarita'], () => import('./pages/Contact'));
+const Contact = ekliLazy(['aydinlatma', 'iletisimHarita', 'indirimKodu'], () => import('./pages/Contact'));
 const ClientPanel = lazy(() => import('./pages/ClientPanel'));
 // Yönetim menüsünün grup adları ek pakette (giriş paketine eklenmesin).
 const AdminPanel = ekliLazy('yonetimMenusu', () => import('./pages/AdminPanel'));
@@ -59,6 +59,8 @@ const PaketDetay = ekliLazy(['modul', 'modulVitrini', 'aydinlatma'], () => impor
 // sonuç görünümü, e-posta formu ve metinleri (`seoAracSonuc`, `aydinlatma`) ilk sonuçta iner.
 const SeoAraclariDizini = ekliLazy('seoAraclari', () => import('./pages/seoAraclari/SeoAraclariDizini'));
 const SeoAracSayfasi = ekliLazy('seoAraclari', () => import('./pages/seoAraclari/SeoAracSayfasi'));
+// Faz 5K: ortaklık (referans) programı — 7 dil, prerender. Metinleri `ortaklik` ek paketinde.
+const Ortaklik = ekliLazy(['ortaklik', 'aydinlatma'], () => import('./pages/Ortaklik'));
 // Faz 3Y: yasal sayfalar (Gizlilik/KVKK, Kullanım Koşulları, Çerez Politikası) — tek bileşen,
 // metinleri ek pakette (7 dil), prerender + SEO. Veri sorumlusu bilgileri site ayarlarından.
 const YasalSayfa = ekliLazy('yasal', () => import('./pages/yasal/YasalSayfa'));
@@ -131,6 +133,7 @@ const AppRoutes = () => (
         <Route path="/moduller/paket/:slug" element={<PaketDetay />} />
         <Route path="/seo-araclari" element={<SeoAraclariDizini />} />
         <Route path="/seo-araclari/:slug" element={<SeoAracSayfasi />} />
+        <Route path="/ortaklik" element={<Ortaklik />} />
         <Route path="/gizlilik" element={<YasalSayfa sayfa="gizlilik" />} />
         <Route path="/kullanim-kosullari" element={<YasalSayfa sayfa="kullanimKosullari" />} />
         <Route path="/cerez-politikasi" element={<YasalSayfa sayfa="cerezPolitikasi" />} />
@@ -177,6 +180,7 @@ const AppRoutes = () => (
         <Route path="moduller/paket/:slug" element={<PaketDetay />} />
         <Route path="seo-araclari" element={<SeoAraclariDizini />} />
         <Route path="seo-araclari/:slug" element={<SeoAracSayfasi />} />
+        <Route path="ortaklik" element={<Ortaklik />} />
         <Route path="gizlilik" element={<YasalSayfa sayfa="gizlilik" />} />
         <Route path="kullanim-kosullari" element={<YasalSayfa sayfa="kullanimKosullari" />} />
         <Route path="cerez-politikasi" element={<YasalSayfa sayfa="cerezPolitikasi" />} />

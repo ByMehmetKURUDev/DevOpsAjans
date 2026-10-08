@@ -76,7 +76,10 @@
       "ik_izin_talebi": "新请假申请（员工）",
       "ik_izin_karari": "请假申请已审批（批准 / 拒绝）",
       "muhasebe_butce_asildi": "简易记账中类别预算超支",
-      "muhasebe_alacak_gecikti": "简易记账中往来单位应收款已逾期（1 / 30 / 60 / 90 天）"
+      "muhasebe_alacak_gecikti": "简易记账中往来单位应收款已逾期（1 / 30 / 60 / 90 天）",
+      "ortaklik_basvuru": "新的推广合作申请",
+      "ortaklik_komisyon": "推广佣金已入账（佣金或退款冲销）",
+      "ortaklik_odeme_talebi": "推广者申请提取佣金"
     },
     "anahtar": {
       "yeni": "新建密钥",

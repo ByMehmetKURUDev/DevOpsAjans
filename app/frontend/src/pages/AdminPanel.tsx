@@ -46,6 +46,7 @@ import {
   Bot,
   Plug,
   Handshake,
+  HandCoins,
   FileCheck2,
   FileSignature,
   Timer,
@@ -207,10 +208,12 @@ const OnMuhasebe = ekliLazy('onMuhasebe', () => import('@/components/OnMuhasebe'
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
 // (tekrarlayan, yaşlandırma, ajans bilgileri) + satır ayrıntısı (kalemler, ödemeler, iade, PDF).
-const TeklifYonetimi = ekliLazy('teklif', () => import('@/components/admin/TeklifYonetimi'));
+const TeklifYonetimi = ekliLazy(['teklif', 'indirimKodu'], () => import('@/components/admin/TeklifYonetimi'));
+// Faz 5K: ortaklık programı + indirim kodları (Satış grubunun sonunda; alt bölümler bileşenin içinde).
+const Ortaklik = ekliLazy(['ortaklik', 'indirimKodu'], () => import('@/components/admin/Ortaklik'));
 const SozlesmeYonetimi = ekliLazy('sozlesme', () => import('@/components/admin/SozlesmeYonetimi'));
 const FaturaAraclari = ekliLazy(['fatura', 'teklif'], () => import('@/components/admin/FaturaAraclari'));
-const FaturaAyrinti = ekliLazy(['fatura', 'teklif'], () => import('@/components/admin/FaturaAyrinti'));
+const FaturaAyrinti = ekliLazy(['fatura', 'teklif', 'indirimKodu'], () => import('@/components/admin/FaturaAyrinti'));
 // Faz 3Y: Site Ayarları › Yasal bilgiler (veri sorumlusu; etiketler ek pakette).
 const YasalBilgilerAyari = ekliLazy('yasalAyar', () => import('@/components/admin/YasalBilgilerAyari'));
 // Faz 3Z — Zaman (sayaç, kayıtlar, çizelge, iş yükü, onay, faturaya aktar) ve Proje şablonları.
@@ -384,6 +387,7 @@ type Tab =
   | 'crm'
   | 'zaman'
   | 'projeSablonlari'
+  | 'ortaklik'
   | 'fiyatlandirmaV5';
 
 const emptyProject: Partial<Project> = {
@@ -1082,6 +1086,7 @@ export default function AdminPanel() {
     { key: 'invoices', label: t('ui.tabInvoices'), icon: Receipt },
     { key: 'teklifler', label: t('ui.tabTeklifler'), icon: FileCheck2 },
     { key: 'sozlesmeler', label: t('ui.tabSozlesmeler'), icon: FileSignature },
+    { key: 'ortaklik', label: t('ui.tabOrtaklik'), icon: HandCoins },
     { key: 'odeme', label: t('ui.tabOdeme'), icon: CreditCard },
     { key: 'krediler', label: t('ui.tabKrediler'), icon: Coins },
     { key: 'abonelik', label: t('abonelik.sekme'), icon: CalendarDays },
@@ -1517,6 +1522,12 @@ export default function AdminPanel() {
       {tab === 'projeSablonlari' && (
         <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
           <ProjeSablonlari onProjeOlustu={() => void loadAll()} />
+        </Suspense>
+      )}
+
+      {tab === 'ortaklik' && (
+        <Suspense fallback={<div className="flex items-center justify-center py-20 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>}>
+          <Ortaklik />
         </Suspense>
       )}
 

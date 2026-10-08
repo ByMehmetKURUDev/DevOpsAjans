@@ -82,6 +82,8 @@ class TeklifGirdisi(BaseModel):
     otomatik_proje: Optional[bool] = None
     #: Faz 3Z: kabulde oluşan projeye uygulanacak proje şablonu.
     proje_sablon_id: Optional[int] = None
+    #: Faz 5K: indirim kodu ("" kaldırır; gönderilmezse kayıttaki kod yeni kalemlere yeniden uygulanır).
+    indirim_kodu: Optional[str] = None
 
 
 class HesapGirdisi(BaseModel):

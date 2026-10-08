@@ -436,7 +436,8 @@
     "tabEgitim": "الدورات التعليمية",
     "tabIk": "الموارد البشرية",
     "tabHukuk": "المحاماة",
-    "tabOnMuhasebe": "المحاسبة المبسطة"
+    "tabOnMuhasebe": "المحاسبة المبسطة",
+    "tabOrtaklik": "الشراكة"
   },
   "admin": {
     "loadError": "تعذّر تحميل بيانات الإدارة",
@@ -559,7 +560,8 @@
     "kullanimKosullari": "شروط الاستخدام",
     "cerezPolitikasi": "سياسة ملفات تعريف الارتباط",
     "moduller": "الوحدات",
-    "seoAraclari": "أدوات SEO مجانية"
+    "seoAraclari": "أدوات SEO مجانية",
+    "ortaklik": "برنامج الشراكة"
   },
   "settingsForm": {
     "brandTitle": "الهوية",

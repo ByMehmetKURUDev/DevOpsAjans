@@ -1,0 +1,302 @@
+{
+  "ortaklik": {
+    "seo": {
+      "baslik": "Affiliate Program: Refer Clients, Earn Commission | By Mehmet KURU Dev",
+      "aciklama": "Recommend our web development and digital marketing services and earn commission on paid work from clients who arrive through your personal link. Joining is free."
+    },
+    "sayfa": {
+      "etiket": "Affiliate program",
+      "baslik": "Refer clients,",
+      "vurgu": "earn commission",
+      "aciklama": "Know someone who needs a website, an online store or digital marketing? When a client who comes through your personal link accepts our proposal and pays the invoice, your commission on the amount excluding VAT is credited to your account.",
+      "basvur": "Apply now",
+      "nasil": "How does it work?",
+      "kapali": "The program is not accepting new applications right now. Please try again later.",
+      "girisMetni": "Already an affiliate?",
+      "girisBaglanti": "Go to your dashboard"
+    },
+    "ozellik": {
+      "oranBaslik": "{{oran}}% commission",
+      "oranMetin": "On the amount excluding VAT of the first sale to each customer you refer. A personal rate can also be agreed.",
+      "cerezBaslik": "{{gun}}-day tracking",
+      "cerezMetin": "If the visitor accepts cookies, the code from your link is kept on their device for {{gun}} days; it can also be typed into the code field on our forms.",
+      "odemeBaslik": "Transparent payouts",
+      "odemeMetin": "Your dashboard shows clicks, leads, sales and balance. Once your balance reaches {{en_az}}, request a payout and we send it to your IBAN.",
+      "tekrarMetin": "On subscription invoices, {{oran}}% for {{ay}} months after the first sale."
+    },
+    "adim": {
+      "baslik": "How does it work?",
+      "b1": "Apply",
+      "m1": "Fill in the short form; we review your application and reply by email.",
+      "b2": "Share your link",
+      "m2": "After approval, your personal code and sharing link are ready in your dashboard.",
+      "b3": "A client hires us",
+      "m3": "The person who came through your link accepts our proposal and pays the invoice.",
+      "b4": "You earn commission",
+      "m4": "The commission is approved once the refund period ({{gun}} days) ends; request a payout whenever you like."
+    },
+    "kosul": {
+      "baslik": "Program terms",
+      "varsayilan": [
+        "Commission is calculated on the amount excluding VAT of the first sale (the invoice paid after accepting our proposal or buying on our website, including the deposit and balance invoices of the same proposal) to a customer who came through your partner link or code and was not referred by another partner before.",
+        "Purchases made for yourself, your company or an account whose team you belong to do not earn commission.",
+        "Commission stays pending during the refund period ({{gun}} days); if the invoice is refunded or the payment is reversed, it is deducted with a reversal entry.",
+        "Payouts are made manually to the IBAN you provide; you are responsible for your own taxes and legal obligations.",
+        "Misleading advertising, unsolicited messages (spam), keyword ads using our brand name and fake applications are prohibited; in such cases the partnership may be suspended and the related commissions cancelled.",
+        "The program terms may change; changes take effect as soon as they are published on this page."
+      ],
+      "bilgi": "Tax obligations for commission payments belong to the partner. This text is for information only and is not legal or financial advice.",
+      "tekrar": "On recurring (subscription) invoices the same customer pays within {{ay}} months after the first sale, a {{oran}}% commission is recorded."
+    },
+    "sss": {
+      "baslik": "Frequently asked questions",
+      "liste": [
+        {
+          "s": "Does it cost anything to join?",
+          "c": "No. Applying and taking part are free."
+        },
+        {
+          "s": "When do I get my commission?",
+          "c": "After the invoice is paid, the commission is approved once the refund period ({{gun}} days) ends. When your approved balance reaches the minimum payout amount, request a payout from your dashboard; we pay it manually to your IBAN and attach the receipt to your dashboard."
+        },
+        {
+          "s": "How do you track a visitor's code?",
+          "c": "If the visitor accepts cookies in the cookie banner, the code from your link is kept on their device for {{cerez}} days. Otherwise the code is valid only for that visit; the visitor can also type your code into the \"discount / referral code\" field on our forms. We do not store visitors' IP addresses."
+        },
+        {
+          "s": "What if two affiliates bring the same client?",
+          "c": "By default, the affiliate who referred the client first gets the credit."
+        }
+      ]
+    },
+    "form": {
+      "baslik": "Affiliate application",
+      "aciklama": "A short form; we review your application and reply by email.",
+      "ad": "Full name",
+      "eposta": "Email",
+      "epostaIpucu": "After approval you will sign in to your dashboard with this address.",
+      "web": "Website or social media",
+      "webYerTutucu": "example.com or @username",
+      "tanitim": "How will you promote us?",
+      "tanitimYerTutucu": "Blog, YouTube channel, your clients, a community…",
+      "kosullar": "I have read and accept the program terms.",
+      "pazarlama": "I would like to hear about campaigns and announcements by email.",
+      "gonder": "Send application",
+      "gonderiliyor": "Sending…",
+      "basarili": "Application received",
+      "basariliMetin": "We will review it and reply to {{eposta}}. After approval, sign in with this address (or register with it if you have no account) to see your dashboard.",
+      "aydinlatma": "Your details are processed only to assess your application and to run the affiliate relationship.",
+      "hata": {
+        "genel": "The application could not be sent. Please try again.",
+        "cok_hizli": "Too many attempts; please try again a little later.",
+        "ad_gerekli": "Enter your name.",
+        "eposta_gecersiz": "Enter a valid email address.",
+        "web_gecersiz": "The web address is not valid.",
+        "tanitim_gerekli": "Briefly describe how you will promote us.",
+        "kosullar_gerekli": "Accept the program terms to continue.",
+        "program_kapali": "The program is not accepting new applications right now."
+      }
+    },
+    "panel": {
+      "baslik": "Affiliate",
+      "aciklama": "Share your link and earn commission on invoices paid by the clients you refer.",
+      "yukleniyor": "Loading…",
+      "yenile": "Refresh",
+      "askida": "Your partnership is suspended: no new commission is being recorded. Please contact us for details.",
+      "kod": "Your referral code",
+      "baglanti": "Your sharing link",
+      "kopyala": "Copy",
+      "kopyalandi": "Copied",
+      "oran": "Your commission rate: {{oran}}%",
+      "nasil": "When a customer who came through your link accepts our proposal or buys on our website and pays their first invoice, your commission on the amount excluding VAT is recorded.",
+      "kart": {
+        "tiklama": "Clicks (30 days)",
+        "tiklamaAlt": "{{sayi}} in total",
+        "aday": "Leads",
+        "adayAlt": "people who came via your link",
+        "satis": "Sales",
+        "satisAlt": "paid invoices",
+        "kazanc": "Earnings",
+        "bakiye": "Available balance",
+        "bekleyen": "In refund period",
+        "talepte": "In payout request",
+        "odenen": "Paid out"
+      },
+      "kazancYok": "No commission yet.",
+      "komisyonlar": "Commissions",
+      "komisyonYok": "No commission entries yet.",
+      "sutun": {
+        "tarih": "Date",
+        "fatura": "Invoice",
+        "musteri": "Client",
+        "tutar": "Amount",
+        "durum": "Status"
+      },
+      "tur": {
+        "komisyon": "Commission",
+        "ters": "Reversal (refund)"
+      },
+      "bekleme": "Approved on {{tarih}}",
+      "durum": {
+        "beklemede": "Pending",
+        "onaylandi": "Approved",
+        "odeme_talebinde": "In payout request",
+        "odendi": "Paid",
+        "iptal": "Cancelled"
+      },
+      "talepDurum": {
+        "bekliyor": "Waiting",
+        "odendi": "Paid",
+        "reddedildi": "Declined"
+      },
+      "odeme": {
+        "baslik": "Balance and payout",
+        "iban": "IBAN",
+        "ibanAd": "Account holder",
+        "ibanIpucu": "Enter an IBAN, not a card number. It is used only to pay your commission.",
+        "kaydet": "Save",
+        "kaydedildi": "Payout details saved.",
+        "kayitli": "Saved account: {{iban}} ({{ad}})",
+        "iste": "Request payout ({{tutar}})",
+        "enAz": "Minimum payout: {{tutar}}",
+        "istendi": "Your payout request has been received.",
+        "talepler": "Payout requests",
+        "talepYok": "No payout requests yet.",
+        "dekont": "Receipt"
+      },
+      "hata": {
+        "genel": "The action could not be completed.",
+        "iban_gerekli": "Save your payout details (IBAN) first.",
+        "iban_gecersiz": "The IBAN is not valid; check the country code and check digits.",
+        "kart_numarasi_degil": "This looks like a card number; please enter an IBAN.",
+        "iban_ad_gerekli": "Enter the account holder's name.",
+        "en_az_tutar": "Your available balance ({{bakiye}}) is below the minimum payout ({{en_az}}).",
+        "bekleyen_talep_var": "You already have a pending payout request in this currency.",
+        "ortak_degil": "No affiliate record was found.",
+        "durum_askida": "Your partnership is suspended.",
+        "para_birimi_gecersiz": "The currency is not valid."
+      },
+      "tekrar": "Subscription invoices: {{oran}}% for {{ay}} months after the first sale.",
+      "kural": {
+        "ilk": "First sale",
+        "tekrar": "Subscription"
+      }
+    },
+    "yonetim": {
+      "baslik": "Affiliate program",
+      "aciklama": "Affiliates, applications, the commission ledger, payout requests and discount codes. No money is transferred here: pay from your bank and mark the request as \"paid\".",
+      "alt": {
+        "ortaklar": "Affiliates",
+        "basvurular": "Applications",
+        "komisyonlar": "Commissions",
+        "talepler": "Payout requests",
+        "kodlar": "Discount codes",
+        "ayarlar": "Settings"
+      },
+      "yenile": "Refresh",
+      "kaydet": "Save",
+      "vazgec": "Cancel",
+      "kaydedildi": "Saved.",
+      "durum": {
+        "beklemede": "Pending",
+        "onaylandi": "Approved",
+        "reddedildi": "Rejected",
+        "askida": "Suspended"
+      },
+      "ortak": {
+        "yok": "No approved affiliates yet.",
+        "ad": "Affiliate",
+        "kod": "Code",
+        "oran": "Rate (%)",
+        "varsayilan": "default",
+        "tiklama": "Clicks",
+        "aday": "Leads",
+        "bakiye": "Approved / total earnings",
+        "duzenle": "Edit",
+        "oranIpucu": "Leave empty to use the program default.",
+        "kodIpucu": "If you change it, the old link stops working.",
+        "askiyaAl": "Suspend",
+        "yenidenAc": "Reactivate",
+        "supheliTemizle": "Clear flag",
+        "notlar": "Note (visible only to you)"
+      },
+      "basvuru": {
+        "yok": "No applications in this list.",
+        "onayla": "Approve",
+        "reddet": "Reject",
+        "neden": "Reason for rejection (sent to the applicant, optional)",
+        "oran": "Rate (%) — empty = default",
+        "kod": "Code — empty = automatic",
+        "onaylandi": "Affiliate approved; email sent.",
+        "reddedildi": "Application rejected.",
+        "pazarlama": "gave marketing consent",
+        "kosul": "Accepted terms: {{tarih}}",
+        "tanitim": "How they will promote"
+      },
+      "komisyon": {
+        "yok": "No entries.",
+        "filtre": {
+          "hepsi": "All",
+          "supheli": "Suspicious"
+        },
+        "onayla": "Approve early",
+        "iptal": "Cancel",
+        "iptalOnay": "Cancel this commission entry?",
+        "matrah": "{{tutar}} excl. VAT × {{oran}}%"
+      },
+      "supheli": {
+        "kendi_referansi": "Self-referral attempt",
+        "ayni_alan_adi": "Affiliate and client share the same company domain",
+        "odendikten_sonra_iade": "Invoice refunded after the commission was paid"
+      },
+      "talep": {
+        "yok": "No payout requests.",
+        "odendi": "Mark as paid",
+        "dekont": "Receipt (PDF or image, optional)",
+        "not": "Note (sent to the affiliate)",
+        "gonder": "Save as paid",
+        "reddet": "Decline",
+        "neden": "Reason (sent to the affiliate)",
+        "odendiOldu": "Marked as paid; the affiliate has been emailed.",
+        "reddedildi": "Request declined; the amount is back in the balance.",
+        "iban": "IBAN",
+        "kopyala": "Copy",
+        "dekontAc": "Receipt"
+      },
+      "ayar": {
+        "acik": "Accept new applications",
+        "oran": "First-sale commission (%)",
+        "bekleme": "Refund period (days)",
+        "beklemeIpucu": "Commission stays pending for this many days, then it is approved.",
+        "enAz": "Minimum payout (per currency)",
+        "atif": "If two affiliates bring the same client",
+        "atif_ilk": "First referral wins",
+        "atif_son": "Last referral wins",
+        "tumFaturalar": "No conditions for the first sale: commission on the referred customer's first paid invoice (when off, only invoices tied to an accepted proposal, carrying the partner's discount code or coming from the website's “Get a quote” / “Buy now” flow).",
+        "kosullar": "Program terms text",
+        "kosullarIpucu": "Languages left empty show the page's default text. Separate paragraphs with a blank line.",
+        "bilgi": "For information only, not legal advice. The default terms are a draft; have them approved by your lawyer before publishing. Tax and accounting records of commission payments are your responsibility.",
+        "dil": "Language",
+        "tekrarOran": "Subscription commission (%)",
+        "tekrarAy": "Subscription commission period (months)",
+        "tekrarIpucu": "Recorded on recurring (subscription) invoices paid within this many months after the first sale; 0 = off."
+      },
+      "hata": {
+        "genel": "The action could not be completed.",
+        "kod_gecersiz": "Invalid code format (3–32 characters: letters, digits, - or _).",
+        "kod_kullaniliyor": "This code is already used by another affiliate or a discount code.",
+        "oran_gecersiz": "The rate must be between 0 and 90.",
+        "durum_gecersiz": "This action is not possible in the current status.",
+        "karar_gecersiz": "Invalid decision.",
+        "dekont_yok": "No receipt.",
+        "talep_yok": "Request not found.",
+        "ortak_yok": "Affiliate not found.",
+        "komisyon_yok": "Commission entry not found.",
+        "durum_odendi": "This request has already been paid.",
+        "durum_reddedildi": "This entry has been rejected.",
+        "durum_onaylandi": "This entry is already approved."
+      },
+      "csv": "Download CSV"
+    }
+  }
+}

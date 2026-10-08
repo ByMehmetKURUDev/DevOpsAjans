@@ -305,6 +305,10 @@
       "rozet": "Marketing-Einwilligung",
       "kaynakModulVitrini": "Modul-Übersicht ({{anahtar}})",
       "kaynakSeoAraci": "kostenloses SEO-Tool ({{arac}})"
+    },
+    "kod": {
+      "referans": "Empfehlungscode: {{kod}}",
+      "indirim": "Rabattcode: {{kod}}"
     }
   }
 }

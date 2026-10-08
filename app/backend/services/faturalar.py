@@ -529,6 +529,7 @@ async def fatura_ozeti(db: AsyncSession, fatura: Invoices, *, yonetici: bool = F
         "tekrarlayan_id": fatura.tekrarlayan_id,
         "donem": fatura.donem,
         "notlar": fatura.notlar,
+        "indirim_kodu": fatura.indirim_kodu,
         "kalemler": kalemler,
         "ozet": ozet,
         "bakiye": b.sozluk() if b else None,

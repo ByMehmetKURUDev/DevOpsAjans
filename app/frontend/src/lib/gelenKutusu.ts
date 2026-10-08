@@ -25,6 +25,8 @@ export const KAYNAKLAR = [
   // Faz 7K: gömülebilir CRM formu gönderimi (adaya bağlı) ve teklif kararı (bilgi öğesi).
   'crm_form',
   'teklif_karari',
+  // Faz 5K: herkese açık /ortaklik sayfasından gelen ortaklık başvurusu.
+  'ortak_basvurusu',
 ] as const;
 export type Kaynak = (typeof KAYNAKLAR)[number];
 

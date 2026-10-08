@@ -108,7 +108,10 @@
       "egitim": "Course student",
       "izin": "Leave record",
       "butce": "Budget overrun",
-      "alacak": "Overdue receivable"
+      "alacak": "Overdue receivable",
+      "ortak": "Partner",
+      "komisyon": "Commission",
+      "odeme": "Payout request"
     },
     "alan": {
       "id": "ID",
@@ -196,7 +199,10 @@
       "ay": "Month",
       "gerceklesen": "Actual",
       "asim": "Overrun amount",
-      "yuzde": "Percentage used"
+      "yuzde": "Percentage used",
+      "oran": "Rate (%)",
+      "web": "Web / social",
+      "fatura_no": "Invoice no."
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -235,7 +241,10 @@
       "ik_izin_talebi": "New leave request",
       "ik_izin_karari": "Leave request decided",
       "muhasebe_butce_asildi": "Budget exceeded",
-      "muhasebe_alacak_gecikti": "Receivable overdue"
+      "muhasebe_alacak_gecikti": "Receivable overdue",
+      "ortaklik_basvuru": "New affiliate application",
+      "ortaklik_komisyon": "Affiliate commission recorded",
+      "ortaklik_odeme_talebi": "Affiliate payout request"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -274,7 +283,10 @@
       "ik_izin_talebi": "An employee sent a leave request, or a pending request was created in the panel (sick leave: dates only).",
       "ik_izin_karari": "A pending leave request was approved or declined (also leave added directly as approved).",
       "muhasebe_butce_asildi": "In bookkeeping, this month's actual spending in an expense category went over its budget (once per category and month).",
-      "muhasebe_alacak_gecikti": "A contact's receivable in bookkeeping is 1, 30, 60 or 90 days past due (once per open item and threshold). The “person in the event” is the contact."
+      "muhasebe_alacak_gecikti": "A contact's receivable in bookkeeping is 1, 30, 60 or 90 days past due (once per open item and threshold). The “person in the event” is the contact.",
+      "ortaklik_basvuru": "An application arrived from the /ortaklik page (awaiting a decision).",
+      "ortaklik_komisyon": "A referred customer's invoice was paid (commission) or refunded / its payment reversed (reversal entry).",
+      "ortaklik_odeme_talebi": "A partner asked for their approved balance to be paid out."
     },
     "eylem": {
       "eposta": "Send email",
@@ -681,14 +693,16 @@
           "gelen_kutusu": "Waiting for a reply in the inbox",
           "stok_kritik": "Customers' products at low stock (POS)",
           "ik_izin": "Pending leave requests (agency staff)",
-          "muhasebe": "Bookkeeping: budget overruns and overdue receivables"
+          "muhasebe": "Bookkeeping: budget overruns and overdue receivables",
+          "ortaklik": "Affiliates: pending applications and payout requests"
         },
         "ek": {
           "toplam": "Total outstanding: {{tutar}}",
           "sla": "SLA breached on {{sayi}} request(s)",
           "crm": "{{adim}} with a due next step, {{hareketsiz}} inactive for 7+ days",
           "geciken": "{{sayi}} past their due date",
-          "muhasebe": "{{butce}} budget overruns, {{alacak}} overdue receivables"
+          "muhasebe": "{{butce}} budget overruns, {{alacak}} overdue receivables",
+          "ortaklik": "{{basvuru}} applications, {{talep}} payout requests"
         },
         "tur": {
           "alan": "Domain",
@@ -721,7 +735,11 @@
           "izin_bekliyor": "awaiting a decision for {{sayi}} days",
           "izin_bekliyor_bugun": "arrived today",
           "butce_asimi": "over budget",
-          "cari_gecikme": "{{sayi}} days overdue"
+          "cari_gecikme": "{{sayi}} days overdue",
+          "basvuru_bekliyor": "application waiting for {{sayi}} days",
+          "basvuru_bekliyor_bugun": "application arrived today",
+          "odeme_bekliyor": "payout request waiting for {{sayi}} days",
+          "odeme_bekliyor_bugun": "payout request arrived today"
         }
       }
     }

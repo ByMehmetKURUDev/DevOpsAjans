@@ -39,7 +39,8 @@ export const GRUPLAR: readonly GrupTanimi[] = [
   {
     anahtar: 'satis',
     // Faz 5G: eski "İletişim formu" (`inquiries`) sekmesi kalktı — öğeleri Destek › Gelen kutusunda.
-    sekmeler: ['crm', 'siteAnalizleri', 'clients', 'teklifler', 'sozlesmeler'],
+    // Faz 5K: ortaklık programı (ortaklar, başvurular, komisyonlar, ödeme talepleri, indirim kodları) — grubun sonunda.
+    sekmeler: ['crm', 'siteAnalizleri', 'clients', 'teklifler', 'sozlesmeler', 'ortaklik'],
   },
   {
     anahtar: 'projeler',

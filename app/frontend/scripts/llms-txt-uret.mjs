@@ -55,6 +55,7 @@ const SAYFALAR = [
   ['Kaynaklar', '/kaynaklar', 'Kullandığımız ve önerdiğimiz yapay zekâ araçları, Claude becerileri ve açık kaynak projeler (7 dilde).'],
   ['Modüller', '/moduller', 'Müşteri portalı modülleri ve sektöre göre hazır paketler; her modülün tanıtımı ve teklif formu (7 dilde).'],
   ['Ücretsiz SEO araçları', '/seo-araclari', 'Kayıt istemeyen ücretsiz SEO kontrol araçları: meta etiketi, Open Graph, Schema, robots.txt, site haritası, yönlendirme, güvenlik başlıkları, SSL, başlık yapısı ve kelime yoğunluğu (7 dilde).'],
+  ['Ortaklık programı', '/ortaklik', 'Hizmetlerimizi tavsiye edenler için referans (ortaklık) programı: komisyon koşulları ve başvuru formu (7 dilde).'],
   ['İletişim', '/contact', 'İletişim bilgileri ve teklif formu.'],
   ['Gizlilik Politikası ve KVKK Aydınlatma Metni', '/gizlilik', 'Hangi kişisel verilerin, hangi amaç ve hukuki sebeple işlendiği; aktarım, saklama ve KVKK hakları.'],
   ['Kullanım Koşulları', '/kullanim-kosullari', 'Site, müşteri paneli ve hizmetlerin kullanım koşulları.'],

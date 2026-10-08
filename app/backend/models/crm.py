@@ -110,6 +110,9 @@ class CrmAdaylari(Base):
     pazarlama_izni_at = Column(DateTime(timezone=True), nullable=True)
     pazarlama_izni_kaynak = Column(String, nullable=True)
     pazarlama_metin_surumu = Column(String, nullable=True)
+    #: Faz 5K — formda girilen / bağlantıdan gelen ortak referans kodu ve indirim kodu (görünen biçim).
+    referans_kodu = Column(String, nullable=True)
+    indirim_kodu = Column(String, nullable=True)
 
 
 class CrmAktiviteler(Base):

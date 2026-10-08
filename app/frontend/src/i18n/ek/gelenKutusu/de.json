@@ -19,7 +19,8 @@
       "belge_paylasim": "Dokumentfreigabe",
       "izin_talebi": "Urlaubsantrag",
       "crm_form": "CRM-Formular",
-      "teklif_karari": "Angebotsentscheidung"
+      "teklif_karari": "Angebotsentscheidung",
+      "ortak_basvurusu": "Partnerbewerbung"
     },
     "durumSuzgeci": {
       "etiket": "Nach Status filtern",
@@ -105,7 +106,10 @@
       "butce": "Budget",
       "teklif": "Angebot",
       "kararVeren": "Entschieden von",
-      "pazarlamaIzni": "Marketing-Einwilligung"
+      "pazarlamaIzni": "Marketing-Einwilligung",
+      "web": "Web / Social Media",
+      "tanitim": "Wie beworben wird",
+      "pazarlama": "Marketing-Einwilligung"
     },
     "karar": {
       "bekliyor": "Entscheidung ausstehend",

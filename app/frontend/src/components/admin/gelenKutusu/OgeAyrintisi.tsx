@@ -342,6 +342,11 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
         ekle('kayitDurumu', a.durum_ham ? t(`gelenKutusu.izinDurum.${metinAl(a.durum_ham)}`, { defaultValue: metinAl(a.durum_ham) }) : '');
         ekle('mesaj', a.aciklama, true);
         break;
+      case 'ortak_basvurusu':
+        ekle('web', a.web);
+        ekle('tanitim', a.tanitim, true);
+        ekle('pazarlama', a.pazarlama_izni ? '✓' : '');
+        break;
       case 'belge_paylasim':
         ekle('belge', a.baslik);
         ekle('olay', t(`gelenKutusu.belgeOlayi.${a.olay === 'onayladi' ? 'onayladi' : 'paylasti'}`, { sayi: a.surum ?? 1 }));

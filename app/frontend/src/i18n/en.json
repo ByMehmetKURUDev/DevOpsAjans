@@ -436,7 +436,8 @@
     "tabEgitim": "Courses",
     "tabIk": "HR",
     "tabHukuk": "Law office",
-    "tabOnMuhasebe": "Bookkeeping"
+    "tabOnMuhasebe": "Bookkeeping",
+    "tabOrtaklik": "Affiliates"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",
@@ -559,7 +560,8 @@
     "kullanimKosullari": "Terms of Use",
     "cerezPolitikasi": "Cookie Policy",
     "moduller": "Modules",
-    "seoAraclari": "Free SEO tools"
+    "seoAraclari": "Free SEO tools",
+    "ortaklik": "Affiliate program"
   },
   "settingsForm": {
     "brandTitle": "Brand",

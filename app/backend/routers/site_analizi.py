@@ -100,6 +100,8 @@ class TamRaporGirdisi(BaseModel):
     pazarlama_izni: Any = None
     #: Sayfanın dili: izin metninin hangi dilde gösterildiği kayda yazılıyor.
     dil: Optional[str] = None
+    #: Faz 5K: ortaklık bağlantısından (`?ref=`) gelen kod — gizli alan; CRM adayına ve ortak atfına işlenir.
+    referans_kodu: Optional[str] = None
 
 
 # --------------------------------------------------------------------------
@@ -416,6 +418,13 @@ async def tam_rapor_iste(
     kayit.gonderildi_at = simdi
     await db.commit()
     await db.refresh(kayit)
+    if govde.referans_kodu and kayit.inquiry_id:
+        # Faz 5K: kod adaya + ortak atfına (hata yutulur; rapor isteği zaten kaydedildi).
+        from services import ortaklik
+
+        await ortaklik.formdan_isle(db, tablo="inquiries", kayit_id=kayit.inquiry_id, eposta=eposta,
+                                    ham_kod=str(govde.referans_kodu)[:64])
+        await db.refresh(kayit)
 
     baglanti = f"{_site_adresi()}/rapor/{kayit.jeton}"
     selam = f"Merhaba {ad}," if ad else "Merhaba,"

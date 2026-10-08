@@ -550,6 +550,12 @@ class DatabaseManager:
         {"tablo": "saha_malzeme_kullanimi", "sutun": "stok_miktar", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
         {"tablo": "saha_malzeme_kullanimi", "sutun": "stok_konum_id", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER"},
         {"tablo": "saha_malzeme_kullanimi", "sutun": "stok_dusum_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        # Faz 5K — indirim kodu (teklif / fatura satırı `indirim_kodu` işaretli) ve CRM adayında formdan gelen
+        # referans / indirim kodu. Dolgu YOK: eski kayıtlarda NULL = kod yok.
+        {"tablo": "teklifler", "sutun": "indirim_kodu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "invoices", "sutun": "indirim_kodu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "crm_adaylar", "sutun": "referans_kodu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        {"tablo": "crm_adaylar", "sutun": "indirim_kodu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
     )
 
     async def _eksik_sutunlari_tamamla(self):

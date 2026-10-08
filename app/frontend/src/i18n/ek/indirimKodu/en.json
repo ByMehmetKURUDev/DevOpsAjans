@@ -1,0 +1,109 @@
+{
+  "indirimKodu": {
+    "alan": {
+      "etiket": "Discount / referral code",
+      "istege": "optional",
+      "yerTutucu": "e.g. SUMMER2026",
+      "denetleniyor": "Checking…",
+      "indirim": "Discount code is valid: {{deger}}",
+      "referans": "Referral code is valid",
+      "gecersiz": "We couldn't find this code; you can still send the form.",
+      "cokHizli": "Too many attempts; the code will still be sent with the form.",
+      "referansEtiket": "Referral code",
+      "satinAlNotu": "Discount codes don't apply to direct purchases; use “Get a quote” for a discounted price.",
+      "satinAlIndirim": "This is a discount code: it doesn't apply to direct purchases. Continue with “Get a quote” for the discounted price."
+    },
+    "belge": {
+      "baslik": "Discount code",
+      "yerTutucu": "Code",
+      "uygula": "Preview",
+      "kaldir": "Remove",
+      "onizleme": "Discount: −{{tutar}} · new total {{toplam}}",
+      "ipucu": "The code applies to the amount excluding VAT; the server adds the \"Discount (CODE)\" line when you save. Leave it empty to remove the code."
+    },
+    "yonetim": {
+      "aciklama": "Codes for the agency's own sales: they appear as a \"Discount (CODE)\" line on proposals and invoices and in the PDF. Codes entered on the site's forms are saved to the CRM lead.",
+      "yeni": "New code",
+      "vazgec": "Cancel",
+      "kod": "Code",
+      "turEtiket": "Type",
+      "tur": {
+        "yuzde": "Percentage",
+        "sabit": "Fixed amount"
+      },
+      "deger": "Value",
+      "paraBirimi": "Currency",
+      "paraIpucu": "Required for a fixed amount and for a minimum amount.",
+      "paraHepsi": "All",
+      "baslangic": "Starts",
+      "bitis": "Ends",
+      "toplamSinir": "Total usage limit",
+      "kisiBasiSinir": "Limit per person",
+      "sinirsiz": "unlimited",
+      "enAz": "Minimum amount (excl. VAT)",
+      "kapsam": "Applies to",
+      "kapsamlar": {
+        "teklif": "Proposal",
+        "fatura": "Invoice",
+        "paket": "Service package"
+      },
+      "paketNotu": "Service package: the code is carried from the \"Get a quote\" form into the proposal. The discount is not yet passed to the Lemon Squeezy / Shopier checkout.",
+      "ortak": "Linked affiliate",
+      "ortakYok": "No affiliate",
+      "aciklamaAlani": "Description (visible only to you)",
+      "aktif": "Active",
+      "kaydet": "Save",
+      "kaydedildi": "Code saved.",
+      "silOnay": "Delete {{kod}}?",
+      "silindi": "Code deleted.",
+      "kullanim": "{{sayi}} uses",
+      "durum": {
+        "gecerli": "Valid",
+        "pasif": "Inactive",
+        "kod_baslamadi": "Not started",
+        "kod_suresi_doldu": "Expired"
+      },
+      "duzenle": "Edit",
+      "sil": "Delete",
+      "yok": "No discount codes yet.",
+      "paketler": "Valid packages (empty = all)",
+      "paketIpucu": "If selected, the code only applies to proposals and invoices opened from a “Get a quote” request for these packages; it does not apply to manually created documents.",
+      "ozelPaket": {
+        "KREDI": "Pay-as-you-go credit pack",
+        "AI_PM": "AI / PM package"
+      }
+    },
+    "hata": {
+      "genel": "The action could not be completed.",
+      "kod_yok": "This discount code was not found.",
+      "kod_pasif": "This discount code is inactive.",
+      "kod_baslamadi": "This discount code has not started yet.",
+      "kod_suresi_doldu": "This discount code has expired.",
+      "kod_kapsam_disi": "This code cannot be used on this type of document.",
+      "kod_para_birimi": "This code is valid only for documents in {{para_birimi}}.",
+      "kod_en_az_tutar": "This code requires a subtotal (excl. VAT) of at least {{en_az}} {{para_birimi}}.",
+      "kod_tukendi": "This code has reached its usage limit.",
+      "kod_kisi_siniri": "This recipient has reached the usage limit for the code.",
+      "kendi_referansi": "A code linked to an affiliate cannot be applied to the affiliate themselves.",
+      "kod_gecersiz": "Invalid code format (3–32 characters: letters, digits, - or _).",
+      "kod_kullaniliyor": "This code is already used by another discount code or an affiliate.",
+      "deger_gecersiz": "Invalid value (percentage 0–100, amount greater than zero).",
+      "para_birimi_gerekli": "Choose a currency for a fixed amount or a minimum amount.",
+      "para_birimi_gecersiz": "The currency is not valid.",
+      "tarih_gecersiz": "Invalid dates (the end cannot be before the start).",
+      "kapsam_gerekli": "Choose at least one place where it applies.",
+      "sinir_gecersiz": "The limit must be a whole number of 1 or more.",
+      "en_az_gecersiz": "The minimum amount is not valid.",
+      "kullanilmis_kod_silinemez": "A code that has been used cannot be deleted; deactivate it instead.",
+      "kullanilmis_kod_adi": "A used code cannot be renamed; create a new code.",
+      "kalem_gerekli": "A discount code can only be applied to an invoice with line items.",
+      "iade_faturasina_kod": "Discount codes are not applied to refund invoices.",
+      "tur_gecersiz": "Invalid type.",
+      "ortak_yok": "Affiliate not found.",
+      "belge_turu_gecersiz": "Invalid document type.",
+      "indirim_satiri_gecersiz": "Invalid discount line.",
+      "kod_paket_disi": "This code is not valid for this package.",
+      "paket_gecersiz": "Invalid package identifier."
+    }
+  }
+}

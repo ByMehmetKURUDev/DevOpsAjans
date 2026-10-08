@@ -108,7 +108,10 @@
       "egitim": "Kursteilnehmende",
       "izin": "Urlaubseintrag",
       "butce": "Budgetüberschreitung",
-      "alacak": "Überfällige Forderung"
+      "alacak": "Überfällige Forderung",
+      "ortak": "Partner",
+      "komisyon": "Provision",
+      "odeme": "Auszahlungsanfrage"
     },
     "alan": {
       "id": "ID",
@@ -196,7 +199,10 @@
       "ay": "Monat",
       "gerceklesen": "Ist",
       "asim": "Überschreitungsbetrag",
-      "yuzde": "Ausschöpfung in Prozent"
+      "yuzde": "Ausschöpfung in Prozent",
+      "oran": "Satz (%)",
+      "web": "Web / Social Media",
+      "fatura_no": "Rechnungsnr."
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -235,7 +241,10 @@
       "ik_izin_talebi": "Neuer Urlaubsantrag",
       "ik_izin_karari": "Über Urlaubsantrag entschieden",
       "muhasebe_butce_asildi": "Budget überschritten",
-      "muhasebe_alacak_gecikti": "Forderung überfällig"
+      "muhasebe_alacak_gecikti": "Forderung überfällig",
+      "ortaklik_basvuru": "Neue Partnerbewerbung",
+      "ortaklik_komisyon": "Partnerprovision gebucht",
+      "ortaklik_odeme_talebi": "Auszahlungsanfrage eines Partners"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -274,7 +283,10 @@
       "ik_izin_talebi": "Eine Person hat Urlaub beantragt oder im Panel wurde ein offener Antrag angelegt (Krankmeldung: nur Zeitraum).",
       "ik_izin_karari": "Ein offener Urlaubsantrag wurde genehmigt oder abgelehnt (auch direkt genehmigt eingetragener Urlaub).",
       "muhasebe_butce_asildi": "In der Buchhaltung haben die Ist-Ausgaben einer Kategorie in diesem Monat das Budget überschritten (einmal pro Kategorie und Monat).",
-      "muhasebe_alacak_gecikti": "Eine Forderung an einen Kontakt ist in der Buchhaltung 1, 30, 60 oder 90 Tage überfällig (einmal je offenem Posten und Schwelle). Die „Person im Ereignis“ ist der Kontakt."
+      "muhasebe_alacak_gecikti": "Eine Forderung an einen Kontakt ist in der Buchhaltung 1, 30, 60 oder 90 Tage überfällig (einmal je offenem Posten und Schwelle). Die „Person im Ereignis“ ist der Kontakt.",
+      "ortaklik_basvuru": "Über die Seite /ortaklik ist eine Bewerbung eingegangen (Entscheidung ausstehend).",
+      "ortaklik_komisyon": "Die Rechnung eines vermittelten Kunden wurde bezahlt (Provision) oder erstattet bzw. die Zahlung zurückgenommen (Storno).",
+      "ortaklik_odeme_talebi": "Ein Partner hat die Auszahlung seines freigegebenen Guthabens angefordert."
     },
     "eylem": {
       "eposta": "E-Mail senden",
@@ -681,14 +693,16 @@
           "gelen_kutusu": "Im Posteingang wartet auf Antwort",
           "stok_kritik": "Kundenprodukte mit kritischem Bestand (Kasse)",
           "ik_izin": "Offene Urlaubsanträge (Agenturpersonal)",
-          "muhasebe": "Buchhaltung: Budgetüberschreitungen und überfällige Forderungen"
+          "muhasebe": "Buchhaltung: Budgetüberschreitungen und überfällige Forderungen",
+          "ortaklik": "Partnerprogramm: offene Bewerbungen und Auszahlungsanfragen"
         },
         "ek": {
           "toplam": "Offen insgesamt: {{tutar}}",
           "sla": "SLA bei {{sayi}} Anfrage(n) überschritten",
           "crm": "{{adim}} mit fälligem nächsten Schritt, {{hareketsiz}} seit 7+ Tagen inaktiv",
           "geciken": "{{sayi}} über der Frist",
-          "muhasebe": "{{butce}} Budgetüberschreitungen, {{alacak}} überfällige Forderungen"
+          "muhasebe": "{{butce}} Budgetüberschreitungen, {{alacak}} überfällige Forderungen",
+          "ortaklik": "{{basvuru}} Bewerbungen, {{talep}} Auszahlungsanfragen"
         },
         "tur": {
           "alan": "Domain",
@@ -721,7 +735,11 @@
           "izin_bekliyor": "wartet seit {{sayi}} Tagen auf Entscheidung",
           "izin_bekliyor_bugun": "heute eingegangen",
           "butce_asimi": "Budget überschritten",
-          "cari_gecikme": "{{sayi}} Tage überfällig"
+          "cari_gecikme": "{{sayi}} Tage überfällig",
+          "basvuru_bekliyor": "Bewerbung wartet seit {{sayi}} Tagen",
+          "basvuru_bekliyor_bugun": "Bewerbung heute eingegangen",
+          "odeme_bekliyor": "Auszahlungsanfrage wartet seit {{sayi}} Tagen",
+          "odeme_bekliyor_bugun": "Auszahlungsanfrage heute eingegangen"
         }
       }
     }

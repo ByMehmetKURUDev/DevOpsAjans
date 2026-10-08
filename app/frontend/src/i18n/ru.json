@@ -436,7 +436,8 @@
     "tabEgitim": "Обучение",
     "tabIk": "Кадры",
     "tabHukuk": "Юр. контора",
-    "tabOnMuhasebe": "Бухгалтерия"
+    "tabOnMuhasebe": "Бухгалтерия",
+    "tabOrtaklik": "Партнёрство"
   },
   "admin": {
     "loadError": "Не удалось загрузить данные администрирования",
@@ -559,7 +560,8 @@
     "kullanimKosullari": "Условия использования",
     "cerezPolitikasi": "Политика cookie",
     "moduller": "Модули",
-    "seoAraclari": "Бесплатные SEO-инструменты"
+    "seoAraclari": "Бесплатные SEO-инструменты",
+    "ortaklik": "Партнёрская программа"
   },
   "settingsForm": {
     "brandTitle": "Бренд",

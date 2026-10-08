@@ -86,7 +86,10 @@
       "ik_izin_talebi": "Personal: neuer Urlaubsantrag",
       "hukuk_hatirlatma": "Kanzlei: Erinnerung an Verhandlung und Frist",
       "hukuk_portal_mesaj": "Kanzlei: Nachricht aus dem Mandantenportal",
-      "muhasebe_butce": "Kategorien mit überschrittenem Budget in der Buchhaltung"
+      "muhasebe_butce": "Kategorien mit überschrittenem Budget in der Buchhaltung",
+      "ortaklik_basvuru": "Partnerprogramm: neue Bewerbung",
+      "ortaklik_odeme_talebi": "Partnerprogramm: Auszahlungsanfrage",
+      "ortaklik_durum": "Partnerprogramm: Bewerbungsentscheidung und Auszahlungsstatus (an den Partner)"
     },
     "kanal": {
       "inapp": "Panel",

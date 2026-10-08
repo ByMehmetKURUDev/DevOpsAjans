@@ -305,6 +305,10 @@
       "rozet": "разрешение на маркетинг",
       "kaynakModulVitrini": "витрина модулей ({{anahtar}})",
       "kaynakSeoAraci": "бесплатный SEO-инструмент ({{arac}})"
+    },
+    "kod": {
+      "referans": "Реферальный код: {{kod}}",
+      "indirim": "Код скидки: {{kod}}"
     }
   }
 }

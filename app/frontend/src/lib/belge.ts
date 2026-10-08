@@ -21,6 +21,8 @@ export interface Kalem {
   kdv?: number;
   toplam?: number;
   indirim_tutari?: number;
+  /** Faz 5K: sunucunun eklediği "İndirim (KOD)" satırı (düzenleyicide gösterilmez). */
+  indirim_kodu?: string;
 }
 
 export interface KdvSatiri {

@@ -7,6 +7,7 @@ import {
   FileSignature,
   FileUp,
   GraduationCap,
+  HandCoins,
   IdCard,
   LifeBuoy,
   Mail,
@@ -34,6 +35,7 @@ export const KAYNAK_IKONU: Record<Kaynak, LucideIcon> = {
   izin_talebi: Plane,
   crm_form: ClipboardList,
   teklif_karari: FileSignature,
+  ortak_basvurusu: HandCoins,
 };
 
 export const DURUM_RENGI: Record<Durum, string> = {

@@ -32,5 +32,7 @@ class Invoices(Base):
     tekrarlayan_id = Column(Integer, nullable=True)
     donem = Column(String, nullable=True)
     notlar = Column(Text, nullable=True)
+    #: Faz 5K — uygulanan indirim kodu (görünen biçim); satırı kalemlerde `indirim_kodu` işaretli.
+    indirim_kodu = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=datetime.now)
     updated_at = Column(DateTime(timezone=True), default=datetime.now, onupdate=datetime.now)

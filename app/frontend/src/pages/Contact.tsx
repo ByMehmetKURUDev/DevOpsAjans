@@ -13,6 +13,8 @@ import StoreBadges from '@/components/StoreBadges';
 import { useSiteSettings } from '@/lib/siteSettings';
 import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 import IletisimHaritasi from '@/components/IletisimHaritasi';
+// Faz 5K: isteğe bağlı "indirim / referans kodu" (metni `indirimKodu` ek paketinde — App.tsx yüklüyor).
+import IndirimKoduAlani from '@/components/IndirimKoduAlani';
 
 
 
@@ -80,6 +82,7 @@ export default function Contact() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [referansKodu, setReferansKodu] = useState('');
   /*
    * Gönderilen adres formu temizledikten sonra da lazım.
    *
@@ -112,11 +115,13 @@ export default function Contact() {
           message: form.message.trim(),
           status: 'new',
           source: kaynak,
+          ...(referansKodu.trim() ? { referans_kodu: referansKodu.trim() } : {}),
         },
       });
       setGonderilenEposta(form.email.trim());
       setSuccess(true);
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
+      setReferansKodu('');
       toast.success(t('contact.success'));
     } catch (err) {
       const anyErr = err as { status?: number; response?: { status?: number; data?: { detail?: unknown } }; data?: { detail?: unknown } };
@@ -305,6 +310,12 @@ export default function Contact() {
                     className="bg-white/5 border-white/10 focus:border-purple-500 resize-none"
                   />
                 </div>
+                <IndirimKoduAlani
+                  deger={referansKodu}
+                  onDegis={setReferansKodu}
+                  id="contact-referans-kodu"
+                  sinif="flex h-10 w-full rounded-md border border-white/10 bg-white/5 px-3 py-2 text-sm uppercase tracking-wide placeholder:normal-case placeholder:tracking-normal placeholder:text-muted-foreground focus:border-purple-500 focus:outline-none"
+                />
                 <Button
                   type="submit"
                   disabled={submitting}

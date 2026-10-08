@@ -28,6 +28,15 @@ KDV dökümü oran başına (matrah, KDV) — PDF'te ve ekranda gösteriliyor.
 
 İade (alacak) faturası için `eksi_olabilir=True`: adet eksi verilebiliyor,
 toplamlar eksi çıkıyor.
+
+Faz 5K — indirim kodu satırı
+----------------------------
+Kalemde `indirim_kodu` işareti varsa satır bir indirim kodunun KDV oranı
+başına düşen indirimidir (`services/indirim_kodlari.py` üretir; istemcinin
+gönderdiği işaretli satırlar uç noktalarında atılıp koddan yeniden kurulur).
+Yalnız bu satırlarda birim fiyat eksi olabilir (adet 1, satır indirimi 0):
+matrah ve KDV eksi çıkar, belge toplamları ve KDV dökümü indirimi kendiliğinden
+düşer; tutar `indirim_toplam`a da (bilgi) eklenir.
 """
 
 from dataclasses import dataclass, field
@@ -104,10 +113,12 @@ class KalemSonucu:
     matrah: Decimal
     kdv: Decimal
     toplam: Decimal
+    #: Faz 5K: indirim kodu satırı ise kodun görünen biçimi.
+    indirim_kodu: Optional[str] = None
 
     def sozluk(self) -> Dict[str, Any]:
         """Kayda (JSON) yazılan ve API'nin döndürdüğü biçim — sayılar metin değil sayı."""
-        return {
+        d: Dict[str, Any] = {
             "aciklama": self.aciklama,
             "adet": _sayi(self.adet),
             "birim_fiyat": _sayi(self.birim_fiyat),
@@ -118,6 +129,9 @@ class KalemSonucu:
             "kdv": _sayi(self.kdv),
             "toplam": _sayi(self.toplam),
         }
+        if self.indirim_kodu:
+            d["indirim_kodu"] = self.indirim_kodu
+        return d
 
 
 @dataclass
@@ -160,11 +174,16 @@ def kalem_hesapla(ham: Any, sira: int = 0, *, eksi_olabilir: bool = False) -> Ka
     kdv_orani = ondalik(ham.get("kdv_orani", 0) if ham.get("kdv_orani") is not None else 0, "kdv_gecersiz", sira)
     indirim = ondalik(ham.get("indirim", 0) if ham.get("indirim") is not None else 0, "indirim_gecersiz", sira)
 
+    kod_satiri = " ".join(str(ham.get("indirim_kodu") or "").split())[:40] or None
     if adet == 0 or abs(adet) > ADET_SINIRI or (adet < 0 and not eksi_olabilir):
         raise HesapHatasi("adet_gecersiz", sira)
     if adet.as_tuple().exponent < -4:
         raise HesapHatasi("adet_gecersiz", sira)
-    if birim < 0 or birim > TUTAR_SINIRI:
+    if kod_satiri:
+        # Faz 5K: indirim kodu satırı — yalnız burada eksi birim fiyat (adet 1, satır indirimi yok).
+        if adet != 1 or birim > 0 or birim < -TUTAR_SINIRI or indirim != 0:
+            raise HesapHatasi("indirim_satiri_gecersiz", sira)
+    elif birim < 0 or birim > TUTAR_SINIRI:
         raise HesapHatasi("birim_fiyat_gecersiz", sira)
     if kdv_orani < 0 or kdv_orani > YUZ:
         raise HesapHatasi("kdv_gecersiz", sira)
@@ -186,6 +205,7 @@ def kalem_hesapla(ham: Any, sira: int = 0, *, eksi_olabilir: bool = False) -> Ka
         matrah=matrah,
         kdv=kdv,
         toplam=matrah + kdv,
+        indirim_kodu=kod_satiri,
     )
 
 
@@ -205,7 +225,7 @@ def belge_hesapla(kalemler: Any, *, eksi_olabilir: bool = False, bos_olabilir: b
         k = kalem_hesapla(ham, i, eksi_olabilir=eksi_olabilir)
         sonuc.kalemler.append(k)
         sonuc.ara_toplam += k.matrah
-        sonuc.indirim_toplam += k.indirim_tutari
+        sonuc.indirim_toplam += (-k.matrah) if k.indirim_kodu else k.indirim_tutari
         sonuc.kdv_toplam += k.kdv
         satir = dokum.setdefault(k.kdv_orani.normalize(), {"matrah": SIFIR, "kdv": SIFIR})
         satir["matrah"] += k.matrah

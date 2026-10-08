@@ -19,7 +19,8 @@
       "belge_paylasim": "文档共享",
       "izin_talebi": "请假申请",
       "crm_form": "CRM 表单",
-      "teklif_karari": "报价决定"
+      "teklif_karari": "报价决定",
+      "ortak_basvurusu": "推广合作申请"
     },
     "durumSuzgeci": {
       "etiket": "按状态筛选",
@@ -105,7 +106,10 @@
       "butce": "预算",
       "teklif": "报价",
       "kararVeren": "决定人",
-      "pazarlamaIzni": "营销同意"
+      "pazarlamaIzni": "营销同意",
+      "web": "网站 / 社交媒体",
+      "tanitim": "推广方式",
+      "pazarlama": "营销许可"
     },
     "karar": {
       "bekliyor": "等待决定",

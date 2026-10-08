@@ -305,6 +305,10 @@
       "rozet": "pazarlama izni",
       "kaynakModulVitrini": "modül vitrini ({{anahtar}})",
       "kaynakSeoAraci": "ücretsiz SEO aracı ({{arac}})"
+    },
+    "kod": {
+      "referans": "Referans kodu: {{kod}}",
+      "indirim": "İndirim kodu: {{kod}}"
     }
   }
 }

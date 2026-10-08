@@ -19,7 +19,8 @@
       "belge_paylasim": "Document sharing",
       "izin_talebi": "Leave request",
       "crm_form": "CRM form",
-      "teklif_karari": "Quote decision"
+      "teklif_karari": "Quote decision",
+      "ortak_basvurusu": "Affiliate application"
     },
     "durumSuzgeci": {
       "etiket": "Filter by status",
@@ -105,7 +106,10 @@
       "butce": "Budget",
       "teklif": "Quote",
       "kararVeren": "Decided by",
-      "pazarlamaIzni": "Marketing consent"
+      "pazarlamaIzni": "Marketing consent",
+      "web": "Web / social",
+      "tanitim": "How they will promote",
+      "pazarlama": "Marketing consent"
     },
     "karar": {
       "bekliyor": "Awaiting decision",

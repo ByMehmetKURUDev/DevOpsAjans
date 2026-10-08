@@ -76,7 +76,10 @@
       "ik_izin_talebi": "Neuer Urlaubsantrag (Personal)",
       "ik_izin_karari": "Über Urlaubsantrag entschieden (genehmigt / abgelehnt)",
       "muhasebe_butce_asildi": "Kategoriebudget in der Buchhaltung überschritten",
-      "muhasebe_alacak_gecikti": "Eine Kontaktforderung in der Buchhaltung ist überfällig (1 / 30 / 60 / 90 Tage)"
+      "muhasebe_alacak_gecikti": "Eine Kontaktforderung in der Buchhaltung ist überfällig (1 / 30 / 60 / 90 Tage)",
+      "ortaklik_basvuru": "Neue Partnerbewerbung",
+      "ortaklik_komisyon": "Partnerprovision gebucht (Provision oder Storno bei Erstattung)",
+      "ortaklik_odeme_talebi": "Partner hat eine Provisionsauszahlung angefordert"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

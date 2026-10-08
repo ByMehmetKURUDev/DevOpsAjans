@@ -1,0 +1,302 @@
+{
+  "ortaklik": {
+    "seo": {
+      "baslik": "Partnerprogramm: Kunden empfehlen, Provision verdienen | By Mehmet KURU Dev",
+      "aciklama": "Empfehlen Sie unsere Leistungen in Webentwicklung und digitalem Marketing und verdienen Sie Provision auf bezahlte Aufträge von Kunden, die über Ihren persönlichen Link kommen. Die Teilnahme ist kostenlos."
+    },
+    "sayfa": {
+      "etiket": "Partnerprogramm",
+      "baslik": "Empfehlen Sie uns,",
+      "vurgu": "verdienen Sie Provision",
+      "aciklama": "Kennen Sie jemanden, der eine Website, einen Onlineshop oder digitales Marketing braucht? Wenn ein Kunde über Ihren persönlichen Link unser Angebot annimmt und die Rechnung bezahlt, wird Ihnen die Provision auf den Nettobetrag (ohne MwSt.) gutgeschrieben.",
+      "basvur": "Jetzt bewerben",
+      "nasil": "Wie funktioniert es?",
+      "kapali": "Das Programm nimmt derzeit keine neuen Bewerbungen an. Bitte versuchen Sie es später erneut.",
+      "girisMetni": "Schon Partner?",
+      "girisBaglanti": "Zu Ihrem Dashboard"
+    },
+    "ozellik": {
+      "oranBaslik": "{{oran}} % Provision",
+      "oranMetin": "Auf den Nettobetrag (ohne MwSt.) des ersten Kaufs jedes von Ihnen empfohlenen Kunden. Ein persönlicher Satz kann vereinbart werden.",
+      "cerezBaslik": "{{gun}} Tage Tracking",
+      "cerezMetin": "Hat der Besucher Cookies zugestimmt, bleibt der Code aus Ihrem Link {{gun}} Tage auf seinem Gerät gespeichert; er kann auch von Hand in das Codefeld unserer Formulare eingegeben werden.",
+      "odemeBaslik": "Transparente Auszahlung",
+      "odemeMetin": "Im Dashboard sehen Sie Klicks, Leads, Verkäufe und Guthaben. Ab einem Guthaben von {{en_az}} fordern Sie die Auszahlung an; wir überweisen auf Ihre IBAN.",
+      "tekrarMetin": "Bei Abonnementrechnungen {{oran}} % für {{ay}} Monate nach dem ersten Kauf."
+    },
+    "adim": {
+      "baslik": "Wie funktioniert es?",
+      "b1": "Bewerben",
+      "m1": "Füllen Sie das kurze Formular aus; wir prüfen Ihre Bewerbung und antworten per E-Mail.",
+      "b2": "Link teilen",
+      "m2": "Nach der Freigabe finden Sie Ihren persönlichen Code und Ihren Link im Dashboard.",
+      "b3": "Ein Kunde beauftragt uns",
+      "m3": "Die Person, die über Ihren Link kam, nimmt unser Angebot an und bezahlt die Rechnung.",
+      "b4": "Ihre Provision wird gutgeschrieben",
+      "m4": "Nach Ablauf der Rückerstattungsfrist ({{gun}} Tage) wird die Provision freigegeben; die Auszahlung fordern Sie an, wann Sie möchten."
+    },
+    "kosul": {
+      "baslik": "Programmbedingungen",
+      "varsayilan": [
+        "Die Provision wird auf den Nettobetrag (ohne MwSt.) des ersten Kaufs eines Kunden berechnet, der über Ihren Partnerlink oder -code kam und zuvor von keinem anderen Partner vermittelt wurde (die nach Annahme unseres Angebots oder einem Kauf auf unserer Website bezahlte Rechnung, einschließlich Anzahlungs- und Restrechnung desselben Angebots).",
+        "Käufe für Sie selbst, Ihr Unternehmen oder ein Konto, in dessen Team Sie Mitglied sind, werden nicht verprovisioniert.",
+        "Die Provision bleibt während der Rückerstattungsfrist ({{gun}} Tage) ausstehend; wird die Rechnung erstattet oder die Zahlung zurückgebucht, wird sie per Gegenbuchung abgezogen.",
+        "Auszahlungen erfolgen manuell auf die von Ihnen angegebene IBAN; für Ihre Steuern und rechtlichen Pflichten sind Sie selbst verantwortlich.",
+        "Irreführende Werbung, unerwünschte Nachrichten (Spam), Keyword-Anzeigen mit unserem Markennamen und gefälschte Bewerbungen sind untersagt; in diesem Fall kann die Partnerschaft ausgesetzt und die betroffenen Provisionen storniert werden.",
+        "Die Programmbedingungen können geändert werden; Änderungen gelten ab ihrer Veröffentlichung auf dieser Seite."
+      ],
+      "bilgi": "Steuerpflichten aus Provisionszahlungen liegen beim Partner. Dieser Text dient nur der Information und ist keine Rechts- oder Steuerberatung.",
+      "tekrar": "Für wiederkehrende (Abonnement-)Rechnungen, die derselbe Kunde innerhalb von {{ay}} Monaten nach dem ersten Kauf bezahlt, wird eine Provision von {{oran}} % erfasst."
+    },
+    "sss": {
+      "baslik": "Häufige Fragen",
+      "liste": [
+        {
+          "s": "Kostet die Teilnahme etwas?",
+          "c": "Nein. Bewerbung und Teilnahme sind kostenlos."
+        },
+        {
+          "s": "Wann erhalte ich meine Provision?",
+          "c": "Nach Zahlung der Rechnung wird die Provision mit Ablauf der Rückerstattungsfrist ({{gun}} Tage) freigegeben. Erreicht Ihr freigegebenes Guthaben den Mindestbetrag, fordern Sie die Auszahlung im Dashboard an; wir überweisen manuell auf Ihre IBAN und hinterlegen den Beleg im Dashboard."
+        },
+        {
+          "s": "Wie verfolgen Sie den Code eines Besuchers?",
+          "c": "Hat der Besucher im Cookie-Banner zugestimmt, bleibt der Code aus Ihrem Link {{cerez}} Tage auf seinem Gerät gespeichert. Andernfalls gilt der Code nur für diesen Besuch; der Besucher kann Ihren Code auch im Formularfeld „Rabatt- / Empfehlungscode“ eingeben. IP-Adressen von Besuchern speichern wir nicht."
+        },
+        {
+          "s": "Was, wenn zwei Partner denselben Kunden bringen?",
+          "c": "Standardmäßig zählt der Partner, der den Kunden zuerst vermittelt hat."
+        }
+      ]
+    },
+    "form": {
+      "baslik": "Bewerbung als Partner",
+      "aciklama": "Ein kurzes Formular; wir prüfen Ihre Bewerbung und antworten per E-Mail.",
+      "ad": "Vor- und Nachname",
+      "eposta": "E-Mail",
+      "epostaIpucu": "Nach der Freigabe melden Sie sich mit dieser Adresse in Ihrem Dashboard an.",
+      "web": "Website oder Social Media",
+      "webYerTutucu": "beispiel.de oder @benutzername",
+      "tanitim": "Wie werden Sie uns bewerben?",
+      "tanitimYerTutucu": "Blog, YouTube-Kanal, Ihre Kunden, eine Community…",
+      "kosullar": "Ich habe die Programmbedingungen gelesen und akzeptiere sie.",
+      "pazarlama": "Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden.",
+      "gonder": "Bewerbung senden",
+      "gonderiliyor": "Wird gesendet…",
+      "basarili": "Bewerbung erhalten",
+      "basariliMetin": "Wir prüfen sie und antworten an {{eposta}}. Nach der Freigabe melden Sie sich mit dieser Adresse an (oder registrieren sich damit, falls Sie noch kein Konto haben), um Ihr Dashboard zu sehen.",
+      "aydinlatma": "Ihre Angaben werden nur zur Prüfung Ihrer Bewerbung und zur Durchführung der Partnerschaft verarbeitet.",
+      "hata": {
+        "genel": "Die Bewerbung konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
+        "cok_hizli": "Zu viele Versuche; bitte versuchen Sie es etwas später erneut.",
+        "ad_gerekli": "Geben Sie Ihren Namen ein.",
+        "eposta_gecersiz": "Geben Sie eine gültige E-Mail-Adresse ein.",
+        "web_gecersiz": "Die Webadresse ist ungültig.",
+        "tanitim_gerekli": "Beschreiben Sie kurz, wie Sie uns bewerben werden.",
+        "kosullar_gerekli": "Akzeptieren Sie die Programmbedingungen, um fortzufahren.",
+        "program_kapali": "Das Programm nimmt derzeit keine neuen Bewerbungen an."
+      }
+    },
+    "panel": {
+      "baslik": "Partnerprogramm",
+      "aciklama": "Teilen Sie Ihren Link und verdienen Sie Provision auf Rechnungen, die von Ihnen vermittelte Kunden bezahlen.",
+      "yukleniyor": "Wird geladen…",
+      "yenile": "Aktualisieren",
+      "askida": "Ihre Partnerschaft ist ausgesetzt: Es werden keine neuen Provisionen erfasst. Für Details kontaktieren Sie uns bitte.",
+      "kod": "Ihr Empfehlungscode",
+      "baglanti": "Ihr Partnerlink",
+      "kopyala": "Kopieren",
+      "kopyalandi": "Kopiert",
+      "oran": "Ihr Provisionssatz: {{oran}} %",
+      "nasil": "Wenn ein Kunde über Ihren Link unser Angebot annimmt oder auf unserer Website kauft und seine erste Rechnung bezahlt, wird Ihre Provision auf den Nettobetrag (ohne MwSt.) erfasst.",
+      "kart": {
+        "tiklama": "Klicks (30 Tage)",
+        "tiklamaAlt": "insgesamt {{sayi}}",
+        "aday": "Leads",
+        "adayAlt": "über Ihren Link gekommen",
+        "satis": "Verkäufe",
+        "satisAlt": "bezahlte Rechnungen",
+        "kazanc": "Verdienst",
+        "bakiye": "Auszahlbares Guthaben",
+        "bekleyen": "In der Rückerstattungsfrist",
+        "talepte": "In Auszahlungsanfrage",
+        "odenen": "Ausgezahlt"
+      },
+      "kazancYok": "Noch keine Provision.",
+      "komisyonlar": "Provisionen",
+      "komisyonYok": "Noch keine Provisionsbuchungen.",
+      "sutun": {
+        "tarih": "Datum",
+        "fatura": "Rechnung",
+        "musteri": "Kunde",
+        "tutar": "Betrag",
+        "durum": "Status"
+      },
+      "tur": {
+        "komisyon": "Provision",
+        "ters": "Gegenbuchung (Erstattung)"
+      },
+      "bekleme": "Freigabe am {{tarih}}",
+      "durum": {
+        "beklemede": "Ausstehend",
+        "onaylandi": "Freigegeben",
+        "odeme_talebinde": "In Auszahlungsanfrage",
+        "odendi": "Ausgezahlt",
+        "iptal": "Storniert"
+      },
+      "talepDurum": {
+        "bekliyor": "Offen",
+        "odendi": "Ausgezahlt",
+        "reddedildi": "Abgelehnt"
+      },
+      "odeme": {
+        "baslik": "Guthaben und Auszahlung",
+        "iban": "IBAN",
+        "ibanAd": "Kontoinhaber",
+        "ibanIpucu": "Geben Sie eine IBAN ein, keine Kartennummer. Sie wird nur für die Auszahlung der Provision verwendet.",
+        "kaydet": "Speichern",
+        "kaydedildi": "Auszahlungsdaten gespeichert.",
+        "kayitli": "Gespeichertes Konto: {{iban}} ({{ad}})",
+        "iste": "Auszahlung anfordern ({{tutar}})",
+        "enAz": "Mindestbetrag für die Auszahlung: {{tutar}}",
+        "istendi": "Ihre Auszahlungsanfrage ist eingegangen.",
+        "talepler": "Auszahlungsanfragen",
+        "talepYok": "Noch keine Auszahlungsanfragen.",
+        "dekont": "Beleg"
+      },
+      "hata": {
+        "genel": "Der Vorgang konnte nicht ausgeführt werden.",
+        "iban_gerekli": "Speichern Sie zuerst Ihre Auszahlungsdaten (IBAN).",
+        "iban_gecersiz": "Die IBAN ist ungültig; prüfen Sie Ländercode und Prüfziffern.",
+        "kart_numarasi_degil": "Das sieht nach einer Kartennummer aus; bitte geben Sie eine IBAN ein.",
+        "iban_ad_gerekli": "Geben Sie den Namen des Kontoinhabers ein.",
+        "en_az_tutar": "Ihr auszahlbares Guthaben ({{bakiye}}) liegt unter dem Mindestbetrag ({{en_az}}).",
+        "bekleyen_talep_var": "Sie haben in dieser Währung bereits eine offene Auszahlungsanfrage.",
+        "ortak_degil": "Kein Partnerkonto gefunden.",
+        "durum_askida": "Ihre Partnerschaft ist ausgesetzt.",
+        "para_birimi_gecersiz": "Die Währung ist ungültig."
+      },
+      "tekrar": "Abonnementrechnungen: {{oran}} % für {{ay}} Monate nach dem ersten Kauf.",
+      "kural": {
+        "ilk": "Erstkauf",
+        "tekrar": "Abonnement"
+      }
+    },
+    "yonetim": {
+      "baslik": "Partnerprogramm",
+      "aciklama": "Partner, Bewerbungen, Provisionsbuch, Auszahlungsanfragen und Rabattcodes. Hier wird kein Geld überwiesen: Zahlen Sie über Ihre Bank und markieren Sie die Anfrage hier als „ausgezahlt“.",
+      "alt": {
+        "ortaklar": "Partner",
+        "basvurular": "Bewerbungen",
+        "komisyonlar": "Provisionen",
+        "talepler": "Auszahlungsanfragen",
+        "kodlar": "Rabattcodes",
+        "ayarlar": "Einstellungen"
+      },
+      "yenile": "Aktualisieren",
+      "kaydet": "Speichern",
+      "vazgec": "Abbrechen",
+      "kaydedildi": "Gespeichert.",
+      "durum": {
+        "beklemede": "Ausstehend",
+        "onaylandi": "Freigegeben",
+        "reddedildi": "Abgelehnt",
+        "askida": "Ausgesetzt"
+      },
+      "ortak": {
+        "yok": "Noch keine freigegebenen Partner.",
+        "ad": "Partner",
+        "kod": "Code",
+        "oran": "Satz (%)",
+        "varsayilan": "Standard",
+        "tiklama": "Klicks",
+        "aday": "Leads",
+        "bakiye": "Freigegeben / gesamt verdient",
+        "duzenle": "Bearbeiten",
+        "oranIpucu": "Leer lassen für den Programmstandard.",
+        "kodIpucu": "Wenn Sie ihn ändern, funktioniert der alte Link nicht mehr.",
+        "askiyaAl": "Aussetzen",
+        "yenidenAc": "Wieder aktivieren",
+        "supheliTemizle": "Markierung entfernen",
+        "notlar": "Notiz (nur für Sie)"
+      },
+      "basvuru": {
+        "yok": "Keine Bewerbungen in dieser Liste.",
+        "onayla": "Freigeben",
+        "reddet": "Ablehnen",
+        "neden": "Ablehnungsgrund (geht an den Bewerber, optional)",
+        "oran": "Satz (%) — leer = Standard",
+        "kod": "Code — leer = automatisch",
+        "onaylandi": "Partner freigegeben; E-Mail gesendet.",
+        "reddedildi": "Bewerbung abgelehnt.",
+        "pazarlama": "Marketing-Einwilligung erteilt",
+        "kosul": "Bedingungen akzeptiert: {{tarih}}",
+        "tanitim": "Geplante Bewerbung"
+      },
+      "komisyon": {
+        "yok": "Keine Einträge.",
+        "filtre": {
+          "hepsi": "Alle",
+          "supheli": "Verdächtig"
+        },
+        "onayla": "Vorzeitig freigeben",
+        "iptal": "Stornieren",
+        "iptalOnay": "Diese Provisionsbuchung stornieren?",
+        "matrah": "{{tutar}} netto × {{oran}} %"
+      },
+      "supheli": {
+        "kendi_referansi": "Versuch der Selbstempfehlung",
+        "ayni_alan_adi": "Partner und Kunde haben dieselbe Firmendomain",
+        "odendikten_sonra_iade": "Rechnung nach Auszahlung der Provision erstattet"
+      },
+      "talep": {
+        "yok": "Keine Auszahlungsanfragen.",
+        "odendi": "Als ausgezahlt markieren",
+        "dekont": "Beleg (PDF oder Bild, optional)",
+        "not": "Notiz (geht an den Partner)",
+        "gonder": "Als ausgezahlt speichern",
+        "reddet": "Ablehnen",
+        "neden": "Grund (geht an den Partner)",
+        "odendiOldu": "Als ausgezahlt markiert; der Partner wurde per E-Mail informiert.",
+        "reddedildi": "Anfrage abgelehnt; der Betrag ist zurück im Guthaben.",
+        "iban": "IBAN",
+        "kopyala": "Kopieren",
+        "dekontAc": "Beleg"
+      },
+      "ayar": {
+        "acik": "Neue Bewerbungen annehmen",
+        "oran": "Provision Erstkauf (%)",
+        "bekleme": "Rückerstattungsfrist (Tage)",
+        "beklemeIpucu": "Die Provision bleibt so viele Tage ausstehend und wird dann freigegeben.",
+        "enAz": "Mindestauszahlung (je Währung)",
+        "atif": "Wenn zwei Partner denselben Kunden bringen",
+        "atif_ilk": "Erste Empfehlung zählt",
+        "atif_son": "Letzte Empfehlung zählt",
+        "tumFaturalar": "Keine Bedingungen beim Erstkauf: Provision auf die erste bezahlte Rechnung des empfohlenen Kunden (wenn aus, nur Rechnungen zu einem angenommenen Angebot, mit dem Rabattcode des Partners oder aus dem Ablauf „Angebot anfordern“ / „Jetzt kaufen“ der Website).",
+        "kosullar": "Text der Programmbedingungen",
+        "kosullarIpucu": "Für leer gelassene Sprachen wird der Standardtext der Seite angezeigt. Absätze durch eine Leerzeile trennen.",
+        "bilgi": "Nur zur Information, keine Rechtsberatung. Die Standardbedingungen sind ein Entwurf; lassen Sie sie vor der Veröffentlichung von Ihrem Anwalt prüfen. Steuer- und Buchhaltungsnachweise der Provisionszahlungen liegen bei Ihnen.",
+        "dil": "Sprache",
+        "tekrarOran": "Abonnement-Provision (%)",
+        "tekrarAy": "Dauer der Abonnement-Provision (Monate)",
+        "tekrarIpucu": "Gilt für wiederkehrende (Abonnement-)Rechnungen, die innerhalb so vieler Monate nach dem Erstkauf bezahlt werden; 0 = aus."
+      },
+      "hata": {
+        "genel": "Der Vorgang konnte nicht ausgeführt werden.",
+        "kod_gecersiz": "Ungültiges Codeformat (3–32 Zeichen: Buchstaben, Ziffern, - oder _).",
+        "kod_kullaniliyor": "Dieser Code wird bereits von einem anderen Partner oder einem Rabattcode verwendet.",
+        "oran_gecersiz": "Der Satz muss zwischen 0 und 90 liegen.",
+        "durum_gecersiz": "In diesem Status ist dieser Vorgang nicht möglich.",
+        "karar_gecersiz": "Ungültige Entscheidung.",
+        "dekont_yok": "Kein Beleg vorhanden.",
+        "talep_yok": "Anfrage nicht gefunden.",
+        "ortak_yok": "Partner nicht gefunden.",
+        "komisyon_yok": "Provisionsbuchung nicht gefunden.",
+        "durum_odendi": "Diese Anfrage wurde bereits ausgezahlt.",
+        "durum_reddedildi": "Dieser Eintrag wurde abgelehnt.",
+        "durum_onaylandi": "Dieser Eintrag ist bereits freigegeben."
+      },
+      "csv": "CSV herunterladen"
+    }
+  }
+}

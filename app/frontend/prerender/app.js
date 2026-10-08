@@ -29,6 +29,7 @@ import KaynakDetay from '../src/pages/kaynaklar/KaynakDetay';
 import ModullerListesi from '../src/pages/moduller/ModullerListesi';
 import ModulDetay from '../src/pages/moduller/ModulDetay';
 import PaketDetay from '../src/pages/moduller/PaketDetay';
+import Ortaklik from '../src/pages/Ortaklik';
 import YasalSayfa from '../src/pages/yasal/YasalSayfa';
 import SeoAraclariDizini from '../src/pages/seoAraclari/SeoAraclariDizini';
 import SeoAracSayfasi from '../src/pages/seoAraclari/SeoAracSayfasi';
@@ -134,6 +135,7 @@ function renderApp(url) {
             h(Route, { path: '/moduller/paket/:slug', element: h(PaketDetay, null) }),
             h(Route, { path: '/seo-araclari', element: h(SeoAraclariDizini, null) }),
             h(Route, { path: '/seo-araclari/:slug', element: h(SeoAracSayfasi, null) }),
+            h(Route, { path: '/ortaklik', element: h(Ortaklik, null) }),
             h(Route, { path: '/gizlilik', element: h(YasalSayfa, { sayfa: 'gizlilik' }) }),
             h(Route, { path: '/kullanim-kosullari', element: h(YasalSayfa, { sayfa: 'kullanimKosullari' }) }),
             h(Route, { path: '/cerez-politikasi', element: h(YasalSayfa, { sayfa: 'cerezPolitikasi' }) }),
@@ -155,6 +157,7 @@ function renderApp(url) {
             h(Route, { path: 'moduller/paket/:slug', element: h(PaketDetay, null) }),
             h(Route, { path: 'seo-araclari', element: h(SeoAraclariDizini, null) }),
             h(Route, { path: 'seo-araclari/:slug', element: h(SeoAracSayfasi, null) }),
+            h(Route, { path: 'ortaklik', element: h(Ortaklik, null) }),
             h(Route, { path: 'gizlilik', element: h(YasalSayfa, { sayfa: 'gizlilik' }) }),
             h(Route, { path: 'kullanim-kosullari', element: h(YasalSayfa, { sayfa: 'kullanimKosullari' }) }),
             h(Route, { path: 'cerez-politikasi', element: h(YasalSayfa, { sayfa: 'cerezPolitikasi' }) }),
@@ -873,6 +876,33 @@ function getHead(url, panelSettings = {}, kaynakVerisi = null, yasalVerisi = nul
           type: 'script',
           props: { type: 'application/json', id: 'yasal-verisi', children: guvenliJson(yasalVerisi ?? {}) },
         },
+      ],
+    });
+  }
+
+  // Faz 5K — ortaklık programı: başlık/açıklama ek pakette (ana pakete girmesin), panel değeri yine kazanır.
+  if (pageKey === 'ortaklik') {
+    const t = i18n.getFixedT(lang);
+    const keys = PAGE_SEO_KEYS.ortaklik;
+    const title = resolvePanelValue(panelSettings, keys.title, lang, t('ortaklik.seo.baslik'));
+    const description = resolvePanelValue(panelSettings, keys.description, lang, t('ortaklik.seo.aciklama'));
+    return buildHead({
+      title,
+      description,
+      canonicalPath: localizedPath(lang, pageKey),
+      ogType: 'website',
+      lang,
+      extra: [
+        ...hreflangElements(pageKey),
+        jsonLd({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: title,
+          description,
+          url: absoluteUrl(localizedPath(lang, pageKey)),
+          inLanguage: getLanguage(lang).htmlLang,
+          isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: `${SITE_URL}/` },
+        }),
       ],
     });
   }

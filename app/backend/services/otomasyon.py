@@ -445,6 +445,26 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             onceki["aday.asama"] = veri.get("onceki_asama")
             if veri.get("asama") and not taze:  # Faz 7O: olay anındaki aşama (bkz. proje.asama_degisti)
                 b["aday"]["asama"] = veri.get("asama")
+    elif on == "ortaklik":
+        # Faz 5K — ortaklık: ortak (+ komisyon kaydı / ödeme talebi). IBAN bağlamda YOK.
+        from models.ortaklik import OrtakKomisyonlari, OrtakOdemeTalepleri, Ortaklar
+
+        o = await _kayit(db, Ortaklar, veri.get("ortak_id"))
+        if o is None:
+            return None
+        b["ortak"] = {"id": o.id, "ad": o.ad, "email": o.eposta, "kod": o.kod, "durum": o.durum,
+                      "oran": o.oran, "web": o.web}
+        if veri.get("komisyon_id"):
+            k = await _kayit(db, OrtakKomisyonlari, veri.get("komisyon_id"))
+            if k is None:
+                return None
+            b["komisyon"] = {"id": k.id, "tur": k.tur, "tutar": k.tutar, "para_birimi": k.para_birimi, "durum": k.durum,
+                             "fatura_no": k.fatura_no}
+        if veri.get("talep_id"):
+            t_ = await _kayit(db, OrtakOdemeTalepleri, veri.get("talep_id"))
+            if t_ is None:
+                return None
+            b["odeme"] = {"id": t_.id, "tutar": t_.tutar, "para_birimi": t_.para_birimi, "durum": t_.durum}
     elif on == "teklif":
         from models.teklifler import Teklifler
 

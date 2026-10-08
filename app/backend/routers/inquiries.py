@@ -44,6 +44,8 @@ class InquiriesData(BaseModel):
     source: str = None
     # Panelde uretilen uzman promptlari (JSON metni).
     brief: str = None
+    # Faz 5K: formdaki "indirim / referans kodu" (kayda değil CRM adayına ve ortak atfına işlenir).
+    referans_kodu: Optional[str] = None
 
 
 class InquiriesUpdateData(BaseModel):
@@ -236,11 +238,20 @@ async def create_inquiries(
     
     service = InquiriesService(db)
     try:
-        result = await service.create(data.model_dump())
+        ham = data.model_dump()
+        referans_kodu = ham.pop("referans_kodu", None)
+        result = await service.create(ham)
         if not result:
             raise HTTPException(status_code=400, detail="Failed to create inquiries")
         
         logger.info(f"Inquiries created successfully with id: {result.id}")
+        if referans_kodu:
+            # Faz 5K: kod adaya + ortak atfına (hata yutulur; talep zaten kaydedildi).
+            from services import ortaklik
+
+            await ortaklik.formdan_isle(db, tablo="inquiries", kayit_id=result.id, eposta=data.email,
+                                        ham_kod=str(referans_kodu)[:64])
+            await db.refresh(result)
 
         # Yöneticiye haber ver. Bildirim gönderimi ziyaretçinin gördüğü
         # yanıtı etkilememeli: dispatch kendi hatalarını yutuyor, yine de
@@ -303,7 +314,9 @@ async def create_inquiriess_batch(
     
     try:
         for item_data in request.items:
-            result = await service.create(item_data.model_dump())
+            veri = item_data.model_dump()
+            veri.pop("referans_kodu", None)
+            result = await service.create(veri)
             if result:
                 results.append(result)
         

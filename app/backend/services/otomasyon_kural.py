@@ -170,6 +170,14 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("ad"), Alan("eposta"), Alan("telefon"), Alan("no"), Alan("vade_tarihi", "tarih"),
         Alan("gecikme_gun", "sayi"), Alan("tutar", "sayi"), Alan("para_birimi"),
     ),
+    # Faz 5K — ortaklık programı (yalnız ajans): ortak, komisyon defteri kaydı, ödeme talebi. IBAN YOK.
+    "ortak": (
+        Alan("id", "sayi"), Alan("ad"), Alan("email"), Alan("kod"), Alan("durum"), Alan("oran", "sayi"), Alan("web"),
+    ),
+    "komisyon": (
+        Alan("id", "sayi"), Alan("tur"), Alan("tutar", "sayi"), Alan("para_birimi"), Alan("durum"), Alan("fatura_no"),
+    ),
+    "odeme": (Alan("id", "sayi"), Alan("tutar", "sayi"), Alan("para_birimi"), Alan("durum")),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -241,6 +249,10 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     # değişikliği değil, "şu kadar gündür bir şey olmadı" türevi). Eşik başına bir kez.
     OtoOlay("teklif.yanitsiz", ("teklif", "hesap"), musteri=False, yalniz_otomasyon=True),
     OtoOlay("aday.hareketsiz", ("aday",), musteri=False, yalniz_otomasyon=True),
+    # Faz 5K — ortaklık programı (yalnız ajans; webhook kataloğunda da var). Kişi: ortağın kendisi.
+    OtoOlay("ortaklik.basvuru", ("ortak",), musteri=False),
+    OtoOlay("ortaklik.komisyon", ("ortak", "komisyon"), musteri=False),
+    OtoOlay("ortaklik.odeme_talebi", ("ortak", "odeme"), musteri=False),
 )
 OLAY_SOZLUGU: Dict[str, OtoOlay] = {o.anahtar: o for o in OLAYLAR}
 #: `fatura.gecikti` hangi gecikme günlerinde üretiliyor (her biri fatura başına bir kez).
@@ -359,6 +371,11 @@ ORNEK: Dict[str, Dict[str, Any]] = {
               "yuzde": 115, "para_birimi": "TRY"},
     "alacak": {"id": 12, "ad": "Ada Kafe Ltd.", "eposta": "muhasebe@adakafe.com", "telefon": "+90 555 000 00 00", "no": "F-2026-014",
                "vade_tarihi": "2026-09-05", "gecikme_gun": 30, "tutar": 12500.0, "para_birimi": "TRY"},
+    "ortak": {"id": 5, "ad": "Can Yıldız", "email": "can@ornek.com", "kod": "CANYILDIZ2048", "durum": "onaylandi",
+              "oran": 10, "web": "https://ornek.com"},
+    "komisyon": {"id": 17, "tur": "komisyon", "tutar": 1500, "para_birimi": "TRY", "durum": "beklemede",
+                 "fatura_no": "TKF-20261008-A1B2C"},
+    "odeme": {"id": 3, "tutar": 2250, "para_birimi": "TRY", "durum": "bekliyor"},
     "hesap": {"email": "musteri@ornek.com", "ad": "Örnek A.Ş."},
 }
 
@@ -394,6 +411,8 @@ def ornek_baglam(tur: str, ajans: bool, ozel: Optional[Dict[str, List[Dict[str, 
         baglam["fatura"].update({"vade_tarihi": "2026-10-08", "gecikme_gun": 0, "vadeye_kalan_gun": 7})
     if tur == "fatura.odendi":
         baglam["fatura"].update({"durum": "paid", "acik": False})
+    if tur == "ortaklik.basvuru":
+        baglam["ortak"].update({"durum": "beklemede", "kod": None})
     return baglam
 
 
@@ -417,6 +436,8 @@ def kisi_sec(tur: str, baglam: Dict[str, Any]) -> Dict[str, Any]:
         if not e.get("eposta") and e.get("veli_eposta"):
             return {"ad": e.get("veli_ad"), "email": e.get("veli_eposta")}
         return {"ad": e.get("ad"), "email": e.get("eposta")}
+    if on == "ortaklik" and baglam.get("ortak"):
+        return {"ad": baglam["ortak"].get("ad"), "email": baglam["ortak"].get("email")}
     if on == "kart" and baglam.get("mesaj"):
         return {"ad": baglam["mesaj"].get("ad"), "email": baglam["mesaj"].get("eposta")}
     if on == "menu" and baglam.get("siparis"):

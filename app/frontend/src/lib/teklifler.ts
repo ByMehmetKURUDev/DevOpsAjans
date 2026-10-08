@@ -31,6 +31,8 @@ export interface Teklif {
   fatura_id?: number | null;
   sozlesme_id?: number | null;
   proje_id?: number | null;
+  /** Faz 5K: uygulanan indirim kodu (satırı kalemlerde `indirim_kodu` işaretli). */
+  indirim_kodu?: string | null;
   tarih: string;
   // yönetici
   hesap_email?: string | null;
@@ -71,6 +73,8 @@ export interface TeklifGirdisi {
   pesinat_yuzde?: number | string | null;
   otomatik_proje?: boolean;
   proje_sablon_id?: number | null;
+  /** Faz 5K: "" kodu kaldırır. */
+  indirim_kodu?: string;
 }
 
 export interface FiyatTalebi {

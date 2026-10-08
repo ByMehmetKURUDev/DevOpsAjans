@@ -305,6 +305,10 @@
       "rozet": "मार्केटिंग अनुमति",
       "kaynakModulVitrini": "मॉड्यूल शोकेस ({{anahtar}})",
       "kaynakSeoAraci": "मुफ़्त SEO टूल ({{arac}})"
+    },
+    "kod": {
+      "referans": "रेफ़रल कोड: {{kod}}",
+      "indirim": "डिस्काउंट कोड: {{kod}}"
     }
   }
 }

@@ -436,7 +436,8 @@
     "tabEgitim": "课程",
     "tabIk": "人力资源",
     "tabHukuk": "律所",
-    "tabOnMuhasebe": "简易记账"
+    "tabOnMuhasebe": "简易记账",
+    "tabOrtaklik": "推广合作"
   },
   "admin": {
     "loadError": "管理数据加载失败",
@@ -559,7 +560,8 @@
     "kullanimKosullari": "使用条款",
     "cerezPolitikasi": "Cookie 政策",
     "moduller": "模块",
-    "seoAraclari": "免费 SEO 工具"
+    "seoAraclari": "免费 SEO 工具",
+    "ortaklik": "推广合作计划"
   },
   "settingsForm": {
     "brandTitle": "品牌",

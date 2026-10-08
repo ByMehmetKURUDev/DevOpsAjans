@@ -14,6 +14,7 @@ import {
   Phone,
   Save,
   Settings2,
+  TicketPercent,
   Trash2,
   UserCheck,
   Users,
@@ -258,6 +259,15 @@ export default function AdayCekmecesi({ adayId, meta, onKapat, onDegisti, onSekm
                 <X className="h-4 w-4" />
               </button>
             </header>
+
+            {/* Faz 5K: sitedeki formda girilen ortaklık (referans) / indirim kodu. */}
+            {(a.referans_kodu || a.indirim_kodu) && (
+              <p className="flex flex-wrap items-center gap-2 rounded-xl border border-purple-400/25 bg-purple-500/10 px-3 py-2 text-xs" data-testid="crm-kodlar">
+                <TicketPercent className="h-4 w-4 flex-none text-purple-300" aria-hidden="true" />
+                {a.referans_kodu && <span data-crm-referans={a.referans_kodu}>{t('crm.kod.referans', { kod: a.referans_kodu })}</span>}
+                {a.indirim_kodu && <span data-crm-indirim={a.indirim_kodu}>{t('crm.kod.indirim', { kod: a.indirim_kodu })}</span>}
+              </p>
+            )}
 
             {/* Faz 4G: pazarlama (ticari elektronik ileti) izni — yalnız kişinin kendisi verir; panelden geri alınabilir. */}
             <div

@@ -45,6 +45,8 @@ crm_form           crm_form_gonderimleri (Faz 7K): gömülebilir  işaret; yoksa
                    CRM'de: öğe ADAYA bağlı, yeni kayıt yok)      yeni
 teklif_karari      teklifler (Faz 7K): müşterinin kabul/ret     BİLGİ (yanıt beklemez): işaret yoksa yeni,
                    kararı (notuyla)                             işaretlenince (okundu) kapandi
+ortak_basvurusu    ortaklar (Faz 5K): herkese açık /ortaklik    beklemede → yeni; onay / ret → kapandi
+                   sayfasından gelen ortaklık başvurusu         (kendi durum alanı; işaret yok)
 =================  ==========================================  ==========================================
 
 Faz 7K — çift sayım yok: CRM formu gönderimi `inquiries`'e düşmüyor (iletişim formu öğesi olmaz); öğe
@@ -94,6 +96,8 @@ KAYNAKLAR: Tuple[str, ...] = (
     "izin_talebi",
     # Faz 7K — gömülebilir CRM formu gönderimi (adaya bağlı) ve teklif kararı (bilgi).
     "crm_form", "teklif_karari",
+    # Faz 5K — herkese açık /ortaklik sayfasından gelen ortaklık başvurusu.
+    "ortak_basvurusu",
 )
 DURUMLAR: Tuple[str, ...] = ("yeni", "yanit_bekliyor", "okundu", "kapandi")
 BEKLEYEN = frozenset({"yeni", "yanit_bekliyor"})
@@ -150,6 +154,7 @@ KAYNAK_TANIMI = {
     "izin_talebi": "a leave request sent by one of the agency's own employees from their personal staff page",
     "crm_form": "a lead form (embedded on a website) filled in by a prospective client",
     "teklif_karari": "a client's decision (accepted or declined) on a price quote the agency sent, with their note",
+    "ortak_basvurusu": "an application to the agency's affiliate (referral) program sent from the public partner page",
 }
 
 
@@ -1033,6 +1038,44 @@ async def _teklif_karari(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[
     return sonuc
 
 
+async def _ortak_basvurusu(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
+    """Faz 5K — ortaklık başvuruları. Durum kaydın kendi alanından: beklemede → yeni; onay / ret (ve sonrası) →
+    kapandi. Eylemler ortaklık yönetim uçları (onayla / reddet)."""
+    from models.ortaklik import AJANS
+    from models.ortaklik import Ortaklar as O
+
+    s = select(O).where(O.hesap == AJANS)  # yalnız ajansın kendi programı
+    if sz.kimlik is not None:
+        s = s.where(O.id == sz.kimlik)
+    if sz.durum in ("bekleyen", "yeni"):
+        s = s.where(O.durum == "beklemede")
+    elif sz.durum in ("okundu", "yanit_bekliyor"):
+        return []
+    desen = _desen(sz.q)
+    if desen:
+        s = s.where(_benzer((O.ad, O.eposta, O.web, O.tanitim), desen))
+    s = s.where(*_tarih_kosullari(O.basvuru_at, sz))
+    satirlar = (await db.execute(s.order_by(O.basvuru_at.desc(), O.id.desc()).limit(KAYNAK_SINIRI))).scalars().all()
+    sonuc = []
+    for o in satirlar:
+        durum = "yeni" if o.durum == "beklemede" else "kapandi"
+        yol = f"/api/v1/ortaklik-yonetim/ortaklar/{o.id}/karar"
+        e: List[Dict[str, Any]] = []
+        if o.durum == "beklemede":
+            e.append(_istek("onayla", "POST", yol, {"karar": "onay"}))
+            e.append(_istek("reddet", "POST", yol, {"karar": "ret"}))
+        sonuc.append(_oge(
+            "ortak_basvurusu", o.id, kisi_ad=o.ad, kisi_eposta=o.eposta, baslik=o.web or o.ad,
+            ozet=ozet_metni(o.tanitim or ""), zaman=o.basvuru_at, durum=durum, hesap_email=None,
+            ac="/admin?sekme=ortaklik&alt=basvurular", eylemler=e,
+            yanit=_eposta_yaniti("ortak_basvurusu", o.id, eposta_duzelt(o.eposta)),
+            ek={"durum_ham": o.durum},
+            ayrinti={"web": o.web, "tanitim": o.tanitim, "durum_ham": o.durum, "dil": o.dil,
+                     "pazarlama_izni": o.pazarlama_izni_at is not None},
+        ))
+    return sonuc
+
+
 YUKLEYICILER = {
     "iletisim": _iletisim,
     "fiyat_teklifi": _fiyat_teklifi,
@@ -1048,6 +1091,7 @@ YUKLEYICILER = {
     "izin_talebi": _izin_talebi,
     "crm_form": _crm_form,
     "teklif_karari": _teklif_karari,
+    "ortak_basvurusu": _ortak_basvurusu,
 }
 
 

@@ -108,7 +108,10 @@
       "egitim": "课程学员",
       "izin": "请假记录",
       "butce": "预算超支",
-      "alacak": "逾期应收款"
+      "alacak": "逾期应收款",
+      "ortak": "推广者",
+      "komisyon": "佣金",
+      "odeme": "提现申请"
     },
     "alan": {
       "id": "编号",
@@ -196,7 +199,10 @@
       "ay": "月份",
       "gerceklesen": "实际",
       "asim": "超支金额",
-      "yuzde": "执行百分比"
+      "yuzde": "执行百分比",
+      "oran": "比例（%）",
+      "web": "网站 / 社交媒体",
+      "fatura_no": "发票号"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -235,7 +241,10 @@
       "ik_izin_talebi": "新请假申请",
       "ik_izin_karari": "请假申请已审批",
       "muhasebe_butce_asildi": "超出预算",
-      "muhasebe_alacak_gecikti": "应收款逾期"
+      "muhasebe_alacak_gecikti": "应收款逾期",
+      "ortaklik_basvuru": "新的推广合作申请",
+      "ortaklik_komisyon": "推广佣金已入账",
+      "ortaklik_odeme_talebi": "推广者提现申请"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -274,7 +283,10 @@
       "ik_izin_talebi": "员工提交了请假申请，或在面板中创建了待审批申请（病假仅含日期）。",
       "ik_izin_karari": "待审批的请假申请被批准或拒绝（含直接以已批准添加的请假）。",
       "muhasebe_butce_asildi": "简易记账中某支出类别本月的实际支出超过了预算（每个类别每月一次）。",
-      "muhasebe_alacak_gecikti": "简易记账中某往来单位的应收款已逾期 1、30、60 或 90 天（每个未结项目、每个阈值各一次）。“事件中的人”为该往来单位。"
+      "muhasebe_alacak_gecikti": "简易记账中某往来单位的应收款已逾期 1、30、60 或 90 天（每个未结项目、每个阈值各一次）。“事件中的人”为该往来单位。",
+      "ortaklik_basvuru": "从 /ortaklik 页面收到一份申请（待审核）。",
+      "ortaklik_komisyon": "推荐客户的发票已付款（佣金），或已退款 / 付款被撤销（冲销）。",
+      "ortaklik_odeme_talebi": "推广者申请支付其已确认的余额。"
     },
     "eylem": {
       "eposta": "发送邮件",
@@ -681,14 +693,16 @@
           "gelen_kutusu": "收件箱中待回复",
           "stok_kritik": "客户低库存商品（收银）",
           "ik_izin": "待审批请假申请（代理机构员工）",
-          "muhasebe": "简易记账：预算超支和逾期应收款"
+          "muhasebe": "简易记账：预算超支和逾期应收款",
+          "ortaklik": "推广计划：待处理的申请和提现请求"
         },
         "ek": {
           "toplam": "未付总额：{{tutar}}",
           "sla": "{{sayi}} 个请求违反 SLA",
           "crm": "{{adim}} 个下一步已到期，{{hareketsiz}} 个 7 天以上无动态",
           "geciken": "{{sayi}} 个已过截止日期",
-          "muhasebe": "{{butce}} 项预算超支，{{alacak}} 笔应收款逾期"
+          "muhasebe": "{{butce}} 项预算超支，{{alacak}} 笔应收款逾期",
+          "ortaklik": "{{basvuru}} 份申请，{{talep}} 个提现请求"
         },
         "tur": {
           "alan": "域名",
@@ -721,7 +735,11 @@
           "izin_bekliyor": "已等待审批 {{sayi}} 天",
           "izin_bekliyor_bugun": "今天收到",
           "butce_asimi": "超出预算",
-          "cari_gecikme": "逾期 {{sayi}} 天"
+          "cari_gecikme": "逾期 {{sayi}} 天",
+          "basvuru_bekliyor": "申请已等待 {{sayi}} 天",
+          "basvuru_bekliyor_bugun": "申请今天到达",
+          "odeme_bekliyor": "提现请求已等待 {{sayi}} 天",
+          "odeme_bekliyor_bugun": "提现请求今天到达"
         }
       }
     }

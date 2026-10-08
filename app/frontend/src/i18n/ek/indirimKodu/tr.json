@@ -1,0 +1,109 @@
+{
+  "indirimKodu": {
+    "alan": {
+      "etiket": "İndirim / referans kodu",
+      "istege": "isteğe bağlı",
+      "yerTutucu": "ör. YAZ2026",
+      "denetleniyor": "Denetleniyor…",
+      "indirim": "İndirim kodu geçerli: {{deger}}",
+      "referans": "Referans kodu geçerli",
+      "gecersiz": "Bu kodu bulamadık; formu yine de gönderebilirsiniz.",
+      "cokHizli": "Çok fazla deneme; kod gönderimde yine iletilir.",
+      "referansEtiket": "Referans kodu",
+      "satinAlNotu": "İndirim kodları doğrudan satın almada uygulanmaz; indirimli fiyat için “Teklif Al”ı kullanın.",
+      "satinAlIndirim": "Bu bir indirim kodu: doğrudan satın almada uygulanmaz. İndirimli fiyat için “Teklif Al” ile devam edin."
+    },
+    "belge": {
+      "baslik": "İndirim kodu",
+      "yerTutucu": "Kod",
+      "uygula": "Önizle",
+      "kaldir": "Kaldır",
+      "onizleme": "İndirim: −{{tutar}} · yeni toplam {{toplam}}",
+      "ipucu": "Kod KDV hariç tutara uygulanır; \"İndirim (KOD)\" satırını kayıtta sunucu ekler. Boş bırakmak kodu kaldırır."
+    },
+    "yonetim": {
+      "aciklama": "Ajansın kendi satışları için kodlar: teklif ve faturada \"İndirim (KOD)\" satırı olarak görünür, PDF'e yansır. Sitedeki formlarda girilen kod CRM adayına yazılır.",
+      "yeni": "Yeni kod",
+      "vazgec": "Vazgeç",
+      "kod": "Kod",
+      "turEtiket": "Tür",
+      "tur": {
+        "yuzde": "Yüzde",
+        "sabit": "Sabit tutar"
+      },
+      "deger": "Değer",
+      "paraBirimi": "Para birimi",
+      "paraIpucu": "Sabit tutarda ve en az tutarda gerekli.",
+      "paraHepsi": "Hepsi",
+      "baslangic": "Başlangıç",
+      "bitis": "Bitiş",
+      "toplamSinir": "Toplam kullanım sınırı",
+      "kisiBasiSinir": "Kişi başı sınır",
+      "sinirsiz": "sınırsız",
+      "enAz": "En az tutar (KDV hariç)",
+      "kapsam": "Uygulandığı yer",
+      "kapsamlar": {
+        "teklif": "Teklif",
+        "fatura": "Fatura",
+        "paket": "Hizmet paketi"
+      },
+      "paketNotu": "Hizmet paketi: kod \"Teklif al\" formundan teklife taşınır. Lemon Squeezy / Shopier ödeme sayfasına indirim henüz aktarılmıyor.",
+      "ortak": "Bağlı ortak",
+      "ortakYok": "Ortak yok",
+      "aciklamaAlani": "Açıklama (yalnız sizde)",
+      "aktif": "Etkin",
+      "kaydet": "Kaydet",
+      "kaydedildi": "Kod kaydedildi.",
+      "silOnay": "{{kod}} silinsin mi?",
+      "silindi": "Kod silindi.",
+      "kullanim": "{{sayi}} kullanım",
+      "durum": {
+        "gecerli": "Geçerli",
+        "pasif": "Pasif",
+        "kod_baslamadi": "Başlamadı",
+        "kod_suresi_doldu": "Süresi doldu"
+      },
+      "duzenle": "Düzenle",
+      "sil": "Sil",
+      "yok": "Henüz indirim kodu yok.",
+      "paketler": "Geçerli paketler (boş = hepsi)",
+      "paketIpucu": "Seçilirse kod yalnız bu paketlerin “Teklif al” talebinden açılan teklif ve faturalarda geçerli; elle açılan belgede uygulanmaz.",
+      "ozelPaket": {
+        "KREDI": "Kullandıkça Öde kredi paketi",
+        "AI_PM": "AI / PM paketi"
+      }
+    },
+    "hata": {
+      "genel": "İşlem yapılamadı.",
+      "kod_yok": "Bu indirim kodu bulunamadı.",
+      "kod_pasif": "Bu indirim kodu pasif.",
+      "kod_baslamadi": "Bu indirim kodu henüz başlamadı.",
+      "kod_suresi_doldu": "Bu indirim kodunun süresi doldu.",
+      "kod_kapsam_disi": "Bu kod bu belge türünde kullanılamaz.",
+      "kod_para_birimi": "Bu kod yalnız {{para_birimi}} belgelerde geçerli.",
+      "kod_en_az_tutar": "Bu kod için ara toplam (KDV hariç) en az {{en_az}} {{para_birimi}} olmalı.",
+      "kod_tukendi": "Bu kodun kullanım sınırı doldu.",
+      "kod_kisi_siniri": "Bu alıcı kodu kullanım sınırına ulaştı.",
+      "kendi_referansi": "Ortağa bağlı kod ortağın kendisine uygulanamaz.",
+      "kod_gecersiz": "Kod biçimi geçersiz (3–32 karakter: harf, rakam, - ya da _).",
+      "kod_kullaniliyor": "Bu kod başka bir indirim kodunda ya da ortakta kullanılıyor.",
+      "deger_gecersiz": "Değer geçersiz (yüzde 0–100, tutar sıfırdan büyük).",
+      "para_birimi_gerekli": "Sabit tutarda ve en az tutarda para birimi seçin.",
+      "para_birimi_gecersiz": "Para birimi geçersiz.",
+      "tarih_gecersiz": "Tarihler geçersiz (bitiş başlangıçtan önce olamaz).",
+      "kapsam_gerekli": "En az bir uygulama yeri seçin.",
+      "sinir_gecersiz": "Sınır 1 ya da daha büyük bir tam sayı olmalı.",
+      "en_az_gecersiz": "En az tutar geçersiz.",
+      "kullanilmis_kod_silinemez": "Kullanılmış kod silinemez; pasifleştirin.",
+      "kullanilmis_kod_adi": "Kullanılmış kodun adı değiştirilemez; yeni kod açın.",
+      "kalem_gerekli": "İndirim kodu yalnız kalemli faturaya uygulanır.",
+      "iade_faturasina_kod": "İade faturasına indirim kodu uygulanmaz.",
+      "tur_gecersiz": "Tür geçersiz.",
+      "ortak_yok": "Ortak bulunamadı.",
+      "belge_turu_gecersiz": "Belge türü geçersiz.",
+      "indirim_satiri_gecersiz": "İndirim satırı geçersiz.",
+      "kod_paket_disi": "Bu kod bu pakette geçerli değil.",
+      "paket_gecersiz": "Paket kimliği geçersiz."
+    }
+  }
+}

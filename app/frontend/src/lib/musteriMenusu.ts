@@ -60,7 +60,8 @@ export const MUSTERI_GRUPLARI: readonly GrupTanimi<MusteriGrubu>[] = [
       'api',
     ],
   },
-  { anahtar: 'hesap', sekmeler: ['invoices', 'krediler', 'profile'] },
+  // Faz 5K: "Ortaklık" yalnız onaylı ortakta görünür (kişiye ait; modül değil).
+  { anahtar: 'hesap', sekmeler: ['invoices', 'krediler', 'ortaklik', 'profile'] },
 ];
 
 export function grupluMenuMu(gorunurSekmeSayisi: number): boolean {

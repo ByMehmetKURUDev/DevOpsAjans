@@ -222,6 +222,12 @@ ICERIKSIZ_TABLOLAR = frozenset({
     "hukuk_ayarlari", "hukuk_tatilleri", "hukuk_muvekkilleri", "hukuk_dosyalari", "hukuk_olaylari",
     "hukuk_zaman_kayitlari", "hukuk_masraflari", "hukuk_ekleri", "hukuk_mesajlari",
 })
+#: Faz 5K — tabloya özel maskelenen alanlar: değişiklik kaydedilir (kim, ne zaman, hangi alan) ama değer "***".
+#: Ortağın IBAN'ı yalnız ortağın kendisinin girdiği ödeme bilgisi; denetim kaydında tam değeri durmamalı.
+TABLO_HASSAS_ALANLAR: Dict[str, frozenset] = {
+    "ortaklar": frozenset({"iban", "iban_ad"}),
+    "ortak_odeme_talepleri": frozenset({"iban", "iban_ad"}),
+}
 #: İstek yolunda imzalı portal jetonu (`<id>-<sürüm>-<32 hex>`).
 _JETON_DESENI = re.compile(r"\d{1,12}-\d{1,6}-[0-9a-f]{32}")
 
@@ -513,7 +519,7 @@ def _nesne_satiri(obj: Any, tur: str, baglam: DenetimBaglami) -> Optional[Dict[s
         if istek_yolu:
             istek_yolu = _JETON_DESENI.sub("***", istek_yolu)
     else:
-        maskeli = _maskele(fark)
+        maskeli = _maskele(fark, TABLO_HASSAS_ALANLAR.get(tablo, ()))
         ozet = _ozet_uret(tur, _etiket(sozluk), fark)
     return {
         "aktor_eposta": aktor_eposta,

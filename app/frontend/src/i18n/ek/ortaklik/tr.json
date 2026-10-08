@@ -1,0 +1,302 @@
+{
+  "ortaklik": {
+    "seo": {
+      "baslik": "Ortaklık Programı: Tavsiye Edin, Komisyon Kazanın | By Mehmet KURU Dev",
+      "aciklama": "Web geliştirme ve dijital pazarlama hizmetlerimizi tavsiye edin; size özel bağlantıyla gelen müşterinin ödediği işlerden komisyon kazanın. Başvuru ücretsiz."
+    },
+    "sayfa": {
+      "etiket": "Ortaklık programı",
+      "baslik": "Tavsiye edin,",
+      "vurgu": "komisyon kazanın",
+      "aciklama": "Çevrenizde web sitesi, e-ticaret ya da dijital pazarlama ihtiyacı olan biri mi var? Size özel bağlantınızla gelen müşteri teklifimizi kabul edip faturasını ödediğinde, KDV hariç tutar üzerinden komisyonunuz hesabınıza yazılır.",
+      "basvur": "Hemen başvur",
+      "nasil": "Nasıl çalışır?",
+      "kapali": "Program şu an yeni başvuru almıyor. Lütfen daha sonra yeniden deneyin.",
+      "girisMetni": "Zaten ortak mısınız?",
+      "girisBaglanti": "Panelinize gidin"
+    },
+    "ozellik": {
+      "oranBaslik": "%{{oran}} komisyon",
+      "oranMetin": "Bağlantınızla gelen müşterinin ilk satışının KDV hariç tutarı üzerinden. Size özel oran da tanımlanabilir.",
+      "cerezBaslik": "{{gun}} gün takip",
+      "cerezMetin": "Bağlantınızla gelen ziyaretçinin kodu, çerezlere izin verdiyse cihazında {{gun}} gün saklanır; formdaki kod alanına elle de yazılabilir.",
+      "odemeBaslik": "Şeffaf ödeme",
+      "odemeMetin": "Panelinizde tıklama, aday, satış ve bakiyenizi görürsünüz. Bakiyeniz {{en_az}} olunca ödeme istersiniz; IBAN'ınıza gönderilir.",
+      "tekrarMetin": "Abonelik faturalarında ilk satıştan sonraki {{ay}} ay boyunca %{{oran}}."
+    },
+    "adim": {
+      "baslik": "Nasıl çalışır?",
+      "b1": "Başvurun",
+      "m1": "Kısa formu doldurun; başvurunuzu inceleyip e-postayla dönüyoruz.",
+      "b2": "Bağlantınızı paylaşın",
+      "m2": "Onaydan sonra panelinizde size özel kodunuz ve paylaşım bağlantınız hazır.",
+      "b3": "Müşteri iş verir",
+      "m3": "Bağlantınızla gelen kişi teklifimizi kabul edip faturasını öder.",
+      "b4": "Komisyonunuz yazılır",
+      "m4": "İade süresi ({{gun}} gün) dolunca komisyon onaylanır; dilediğinizde ödeme istersiniz."
+    },
+    "kosul": {
+      "baslik": "Program koşulları",
+      "varsayilan": [
+        "Komisyon, ortaklık bağlantınız ya da kodunuzla gelen ve daha önce başka bir ortak tarafından yönlendirilmemiş müşterinin ilk satışında (teklifimizi kabul ederek ya da sitemizden satın alarak ödediği fatura; aynı teklifin peşinat ve kalan faturaları dahil) KDV hariç tutar üzerinden hesaplanır.",
+        "Kendinize, şirketinize ya da ekibinde bulunduğunuz bir hesaba yaptığınız alımlar komisyon kazandırmaz.",
+        "Komisyon, iade süresi ({{gun}} gün) boyunca beklemede kalır; fatura iade edilir ya da ödeme geri alınırsa ters kayıtla düşülür.",
+        "Ödemeler elle, bildirdiğiniz IBAN'a yapılır; vergi ve yasal yükümlülükleriniz size aittir.",
+        "Yanıltıcı reklam, istenmeyen ileti (spam), marka adımızla anahtar kelime reklamı ve sahte başvuru yasaktır; bu durumda ortaklık askıya alınabilir ve ilgili komisyonlar iptal edilir.",
+        "Program koşulları değiştirilebilir; değişiklik bu sayfada yayımlandığı andan itibaren geçerlidir."
+      ],
+      "bilgi": "Komisyon ödemeleri için vergi yükümlülükleri ortağa aittir. Bu metin bilgilendirme amaçlıdır, hukuki ya da mali danışmanlık değildir.",
+      "tekrar": "Aynı müşterinin ilk satıştan sonraki {{ay}} ay içinde ödediği tekrar eden (abonelik) faturalarından %{{oran}} komisyon yazılır."
+    },
+    "sss": {
+      "baslik": "Sık sorulan sorular",
+      "liste": [
+        {
+          "s": "Ortak olmak ücretli mi?",
+          "c": "Hayır. Başvuru ve katılım ücretsizdir."
+        },
+        {
+          "s": "Komisyonumu ne zaman alırım?",
+          "c": "Fatura ödendikten sonra iade süresi ({{gun}} gün) dolunca komisyon onaylanır. Onaylı bakiyeniz en az ödeme tutarına ulaşınca panelinizden ödeme istersiniz; ödeme IBAN'ınıza elle yapılır ve dekont panelinize eklenir."
+        },
+        {
+          "s": "Ziyaretçinin kodunu nasıl takip ediyorsunuz?",
+          "c": "Bağlantınızdaki kod, ziyaretçi çerez bandında izin verdiyse cihazında {{cerez}} gün saklanır. İzin vermediyse kod yalnız o ziyarette geçerlidir; ziyaretçi formdaki \"indirim / referans kodu\" alanına kodunuzu elle de yazabilir. Ziyaretçinin IP adresini saklamayız."
+        },
+        {
+          "s": "Aynı müşteriyi iki ortak getirirse?",
+          "c": "Varsayılan olarak müşteriyi ilk getiren ortak geçerlidir."
+        }
+      ]
+    },
+    "form": {
+      "baslik": "Ortaklık başvurusu",
+      "aciklama": "Kısa bir form; başvurunuzu inceleyip e-postayla dönüyoruz.",
+      "ad": "Ad soyad",
+      "eposta": "E-posta",
+      "epostaIpucu": "Onaydan sonra panelinize bu adresle giriş yapacaksınız.",
+      "web": "Web sitesi ya da sosyal medya",
+      "webYerTutucu": "ornek.com ya da @kullaniciadi",
+      "tanitim": "Bizi nasıl tanıtacaksınız?",
+      "tanitimYerTutucu": "Blog, YouTube kanalı, müşterileriniz, topluluk…",
+      "kosullar": "Program koşullarını okudum ve kabul ediyorum.",
+      "pazarlama": "Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum.",
+      "gonder": "Başvuruyu gönder",
+      "gonderiliyor": "Gönderiliyor…",
+      "basarili": "Başvurunuz alındı",
+      "basariliMetin": "İnceleyip {{eposta}} adresine dönüyoruz. Onaydan sonra bu adresle giriş yaparak (hesabınız yoksa aynı adresle kayıt olarak) panelinizi görebilirsiniz.",
+      "aydinlatma": "Bilgileriniz yalnızca başvurunuzu değerlendirmek ve ortaklık ilişkisini yürütmek için işlenir.",
+      "hata": {
+        "genel": "Başvuru gönderilemedi. Lütfen tekrar deneyin.",
+        "cok_hizli": "Çok fazla deneme; lütfen biraz sonra tekrar deneyin.",
+        "ad_gerekli": "Adınızı yazın.",
+        "eposta_gecersiz": "Geçerli bir e-posta adresi yazın.",
+        "web_gecersiz": "Web adresi geçersiz.",
+        "tanitim_gerekli": "Bizi nasıl tanıtacağınızı kısaca yazın.",
+        "kosullar_gerekli": "Devam etmek için program koşullarını kabul edin.",
+        "program_kapali": "Program şu an yeni başvuru almıyor."
+      }
+    },
+    "panel": {
+      "baslik": "Ortaklık",
+      "aciklama": "Bağlantınızı paylaşın; gelen müşterinin ödediği faturalardan komisyon kazanın.",
+      "yukleniyor": "Yükleniyor…",
+      "yenile": "Yenile",
+      "askida": "Ortaklığınız askıya alındı: yeni komisyon yazılmıyor. Ayrıntı için bizimle iletişime geçin.",
+      "kod": "Referans kodunuz",
+      "baglanti": "Paylaşım bağlantınız",
+      "kopyala": "Kopyala",
+      "kopyalandi": "Kopyalandı",
+      "oran": "Komisyon oranınız: %{{oran}}",
+      "nasil": "Bağlantınızla gelen müşteri teklifimizi kabul edip ya da sitemizden satın alıp ilk faturasını ödediğinde, KDV hariç tutar üzerinden komisyonunuz yazılır.",
+      "kart": {
+        "tiklama": "Tıklama (30 gün)",
+        "tiklamaAlt": "toplam {{sayi}}",
+        "aday": "Aday",
+        "adayAlt": "bağlantınızla gelen kişi",
+        "satis": "Satış",
+        "satisAlt": "ödenen fatura",
+        "kazanc": "Kazanç",
+        "bakiye": "Çekilebilir bakiye",
+        "bekleyen": "İade süresinde",
+        "talepte": "Ödeme talebinde",
+        "odenen": "Ödenen"
+      },
+      "kazancYok": "Henüz komisyon yok.",
+      "komisyonlar": "Komisyonlar",
+      "komisyonYok": "Henüz komisyon kaydı yok.",
+      "sutun": {
+        "tarih": "Tarih",
+        "fatura": "Fatura",
+        "musteri": "Müşteri",
+        "tutar": "Tutar",
+        "durum": "Durum"
+      },
+      "tur": {
+        "komisyon": "Komisyon",
+        "ters": "Ters kayıt (iade)"
+      },
+      "bekleme": "{{tarih}} tarihinde onaylanır",
+      "durum": {
+        "beklemede": "Beklemede",
+        "onaylandi": "Onaylandı",
+        "odeme_talebinde": "Ödeme talebinde",
+        "odendi": "Ödendi",
+        "iptal": "İptal"
+      },
+      "talepDurum": {
+        "bekliyor": "Bekliyor",
+        "odendi": "Ödendi",
+        "reddedildi": "Geri çevrildi"
+      },
+      "odeme": {
+        "baslik": "Bakiye ve ödeme",
+        "iban": "IBAN",
+        "ibanAd": "Hesap sahibi",
+        "ibanIpucu": "Kart numarası değil, IBAN girin. Bilgi yalnız komisyon ödemesi için kullanılır.",
+        "kaydet": "Kaydet",
+        "kaydedildi": "Ödeme bilgisi kaydedildi.",
+        "kayitli": "Kayıtlı hesap: {{iban}} ({{ad}})",
+        "iste": "Ödeme iste ({{tutar}})",
+        "enAz": "En az ödeme tutarı: {{tutar}}",
+        "istendi": "Ödeme talebiniz alındı.",
+        "talepler": "Ödeme talepleri",
+        "talepYok": "Henüz ödeme talebi yok.",
+        "dekont": "Dekont"
+      },
+      "hata": {
+        "genel": "İşlem yapılamadı.",
+        "iban_gerekli": "Önce ödeme bilgisini (IBAN) kaydedin.",
+        "iban_gecersiz": "IBAN geçersiz; ülke kodunu ve kontrol rakamlarını denetleyin.",
+        "kart_numarasi_degil": "Bu bir kart numarası gibi görünüyor; lütfen IBAN girin.",
+        "iban_ad_gerekli": "Hesap sahibinin adını yazın.",
+        "en_az_tutar": "Çekilebilir bakiyeniz ({{bakiye}}) en az ödeme tutarının ({{en_az}}) altında.",
+        "bekleyen_talep_var": "Bu para biriminde bekleyen bir ödeme talebiniz zaten var.",
+        "ortak_degil": "Ortaklık kaydı bulunamadı.",
+        "durum_askida": "Ortaklığınız askıda.",
+        "para_birimi_gecersiz": "Para birimi geçersiz."
+      },
+      "tekrar": "Abonelik faturaları: ilk satıştan sonraki {{ay}} ay boyunca %{{oran}}.",
+      "kural": {
+        "ilk": "İlk satış",
+        "tekrar": "Abonelik"
+      }
+    },
+    "yonetim": {
+      "baslik": "Ortaklık programı",
+      "aciklama": "Ortaklar, başvurular, komisyon defteri, ödeme talepleri ve indirim kodları. Para aktarımı yok: ödemeyi bankanızdan yapıp burada \"ödendi\" olarak işaretleyin.",
+      "alt": {
+        "ortaklar": "Ortaklar",
+        "basvurular": "Başvurular",
+        "komisyonlar": "Komisyonlar",
+        "talepler": "Ödeme talepleri",
+        "kodlar": "İndirim kodları",
+        "ayarlar": "Ayarlar"
+      },
+      "yenile": "Yenile",
+      "kaydet": "Kaydet",
+      "vazgec": "Vazgeç",
+      "kaydedildi": "Kaydedildi.",
+      "durum": {
+        "beklemede": "Beklemede",
+        "onaylandi": "Onaylı",
+        "reddedildi": "Reddedildi",
+        "askida": "Askıda"
+      },
+      "ortak": {
+        "yok": "Henüz onaylı ortak yok.",
+        "ad": "Ortak",
+        "kod": "Kod",
+        "oran": "Oran (%)",
+        "varsayilan": "varsayılan",
+        "tiklama": "Tıklama",
+        "aday": "Aday",
+        "bakiye": "Onaylı / toplam kazanç",
+        "duzenle": "Düzenle",
+        "oranIpucu": "Boş bırakılırsa program varsayılanı.",
+        "kodIpucu": "Değiştirirseniz eski bağlantı çalışmaz.",
+        "askiyaAl": "Askıya al",
+        "yenidenAc": "Yeniden aç",
+        "supheliTemizle": "İşareti kaldır",
+        "notlar": "Not (yalnız sizde)"
+      },
+      "basvuru": {
+        "yok": "Bu listede başvuru yok.",
+        "onayla": "Onayla",
+        "reddet": "Reddet",
+        "neden": "Ret nedeni (başvurana gider, isteğe bağlı)",
+        "oran": "Oran (%) — boş = varsayılan",
+        "kod": "Kod — boş = otomatik",
+        "onaylandi": "Ortak onaylandı; e-posta gönderildi.",
+        "reddedildi": "Başvuru reddedildi.",
+        "pazarlama": "pazarlama izni verdi",
+        "kosul": "Koşulları kabul: {{tarih}}",
+        "tanitim": "Nasıl tanıtacak"
+      },
+      "komisyon": {
+        "yok": "Kayıt yok.",
+        "filtre": {
+          "hepsi": "Hepsi",
+          "supheli": "Şüpheli"
+        },
+        "onayla": "Erken onayla",
+        "iptal": "İptal et",
+        "iptalOnay": "Bu komisyon kaydı iptal edilsin mi?",
+        "matrah": "KDV hariç {{tutar}} × %{{oran}}"
+      },
+      "supheli": {
+        "kendi_referansi": "Kendi kendine referans denemesi",
+        "ayni_alan_adi": "Ortak ile müşteri aynı kurumsal alan adında",
+        "odendikten_sonra_iade": "Ödenmiş komisyonun faturası iade edildi"
+      },
+      "talep": {
+        "yok": "Ödeme talebi yok.",
+        "odendi": "Ödendi işaretle",
+        "dekont": "Dekont (PDF ya da görsel, isteğe bağlı)",
+        "not": "Not (ortağa gider)",
+        "gonder": "Ödendi olarak kaydet",
+        "reddet": "Geri çevir",
+        "neden": "Neden (ortağa gider)",
+        "odendiOldu": "Ödendi işaretlendi; ortağa e-posta gitti.",
+        "reddedildi": "Talep geri çevrildi; tutar bakiyeye döndü.",
+        "iban": "IBAN",
+        "kopyala": "Kopyala",
+        "dekontAc": "Dekont"
+      },
+      "ayar": {
+        "acik": "Yeni başvuru kabul et",
+        "oran": "İlk satış komisyonu (%)",
+        "bekleme": "İade süresi (gün)",
+        "beklemeIpucu": "Komisyon bu kadar gün beklemede kalır, sonra onaylanır.",
+        "enAz": "En az ödeme tutarı (para birimi başına)",
+        "atif": "Aynı müşteriyi iki ortak getirirse",
+        "atif_ilk": "İlk referans geçerli",
+        "atif_son": "Son referans geçerli",
+        "tumFaturalar": "İlk satışta koşul arama: referans müşterinin ödenen ilk faturası komisyonlu olsun (kapalıyken yalnız kabul edilmiş teklife bağlı, ortağın indirim kodunu taşıyan ya da sitedeki “Teklif al” / “Satın al” akışından gelen faturalar).",
+        "kosullar": "Program koşulları metni",
+        "kosullarIpucu": "Boş bırakılan dilde sayfanın varsayılan metni gösterilir. Paragrafları boş satırla ayırın.",
+        "bilgi": "Bilgilendirme amaçlıdır, hukuki danışmanlık değildir. Varsayılan koşul metni bir taslaktır; yayımlamadan önce avukatınıza onaylatın. Komisyon ödemelerinin vergi ve muhasebe kaydı size aittir.",
+        "dil": "Dil",
+        "tekrarOran": "Abonelik komisyonu (%)",
+        "tekrarAy": "Abonelik komisyonu süresi (ay)",
+        "tekrarIpucu": "İlk satıştan sonraki bu kadar ay içinde ödenen tekrarlayan (abonelik) faturalarına yazılır; 0 = kapalı."
+      },
+      "hata": {
+        "genel": "İşlem yapılamadı.",
+        "kod_gecersiz": "Kod biçimi geçersiz (3–32 karakter: harf, rakam, - ya da _).",
+        "kod_kullaniliyor": "Bu kod başka bir ortakta ya da bir indirim kodunda kullanılıyor.",
+        "oran_gecersiz": "Oran 0 ile 90 arasında olmalı.",
+        "durum_gecersiz": "Bu durumda bu işlem yapılamaz.",
+        "karar_gecersiz": "Geçersiz karar.",
+        "dekont_yok": "Dekont yok.",
+        "talep_yok": "Talep bulunamadı.",
+        "ortak_yok": "Ortak bulunamadı.",
+        "komisyon_yok": "Komisyon kaydı bulunamadı.",
+        "durum_odendi": "Bu talep zaten ödendi.",
+        "durum_reddedildi": "Bu kayıt reddedilmiş.",
+        "durum_onaylandi": "Bu kayıt zaten onaylı."
+      },
+      "csv": "CSV indir"
+    }
+  }
+}

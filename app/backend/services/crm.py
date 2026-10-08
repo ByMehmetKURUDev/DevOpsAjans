@@ -485,6 +485,8 @@ def aday_sozlugu(a: CrmAdaylari, ayrintili: bool = False) -> Dict[str, Any]:
         "sonraki_adim_tarihi": iso(tarih), "gecikti": bool(tarih and tarih < bugun()),
         "bugun": bool(tarih and tarih == bugun()), "musteri_email": a.musteri_email, "puan": a.puan or 0,
         "created_at": iso(a.created_at), "updated_at": iso(a.updated_at), "asama_degisme_at": iso(a.asama_degisme_at),
+        # Faz 5K: sitedeki formdan gelen ortaklık (referans) ve indirim kodu — boşsa None.
+        "referans_kodu": a.referans_kodu, "indirim_kodu": a.indirim_kodu,
     }
     if ayrintili:
         d.update({

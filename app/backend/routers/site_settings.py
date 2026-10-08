@@ -103,6 +103,8 @@ GIZLI_ANAHTARLAR = {
     "zaman_saatlik_ucret",
     "zaman_para_birimi",
     "proje_sablonlari_tohum",
+    # Faz 5K: ortaklık programı ayarları (oran, en az ödeme…) — herkese açık kısmı /api/v1/ortaklik/program.
+    "ortaklik_ayarlari",
 }
 _GIZLI_DESEN = re.compile(r"(token|secret|password|sifre|parola|api_?key|apikey|webhook|jeton|private|smtp_)", re.I)
 

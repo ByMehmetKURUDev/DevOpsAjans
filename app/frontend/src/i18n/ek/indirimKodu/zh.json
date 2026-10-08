@@ -1,0 +1,109 @@
+{
+  "indirimKodu": {
+    "alan": {
+      "etiket": "优惠码 / 推荐码",
+      "istege": "可选",
+      "yerTutucu": "例如 SUMMER2026",
+      "denetleniyor": "正在检查……",
+      "indirim": "优惠码有效：{{deger}}",
+      "referans": "推荐码有效",
+      "gecersiz": "未找到该代码；您仍可提交表单。",
+      "cokHizli": "尝试次数过多；提交时代码仍会一并发送。",
+      "referansEtiket": "推荐码",
+      "satinAlNotu": "优惠码不适用于直接购买；如需优惠价，请使用“获取报价”。",
+      "satinAlIndirim": "这是优惠码：直接购买时不适用。如需优惠价，请通过“获取报价”继续。"
+    },
+    "belge": {
+      "baslik": "优惠码",
+      "yerTutucu": "代码",
+      "uygula": "预览",
+      "kaldir": "移除",
+      "onizleme": "优惠：−{{tutar}} · 新总额 {{toplam}}",
+      "ipucu": "优惠码作用于不含增值税金额；保存时由服务器添加“折扣（代码）”行。留空即移除优惠码。"
+    },
+    "yonetim": {
+      "aciklama": "用于本机构自身销售的优惠码：在报价和发票中显示为“折扣（代码）”行，并体现在 PDF 中。网站表单中填写的代码会记录到 CRM 潜在客户。",
+      "yeni": "新建优惠码",
+      "vazgec": "取消",
+      "kod": "代码",
+      "turEtiket": "类型",
+      "tur": {
+        "yuzde": "百分比",
+        "sabit": "固定金额"
+      },
+      "deger": "数值",
+      "paraBirimi": "币种",
+      "paraIpucu": "固定金额和最低金额时必填。",
+      "paraHepsi": "全部",
+      "baslangic": "开始",
+      "bitis": "结束",
+      "toplamSinir": "总使用次数上限",
+      "kisiBasiSinir": "每人上限",
+      "sinirsiz": "不限",
+      "enAz": "最低金额（不含税）",
+      "kapsam": "适用范围",
+      "kapsamlar": {
+        "teklif": "报价",
+        "fatura": "发票",
+        "paket": "服务套餐"
+      },
+      "paketNotu": "服务套餐：代码会从“获取报价”表单带入报价。折扣暂不会传递到 Lemon Squeezy / Shopier 结账页面。",
+      "ortak": "关联推广伙伴",
+      "ortakYok": "无推广伙伴",
+      "aciklamaAlani": "说明（仅您可见）",
+      "aktif": "启用",
+      "kaydet": "保存",
+      "kaydedildi": "优惠码已保存。",
+      "silOnay": "确定删除 {{kod}} 吗？",
+      "silindi": "优惠码已删除。",
+      "kullanim": "已使用 {{sayi}} 次",
+      "durum": {
+        "gecerli": "有效",
+        "pasif": "停用",
+        "kod_baslamadi": "未开始",
+        "kod_suresi_doldu": "已过期"
+      },
+      "duzenle": "编辑",
+      "sil": "删除",
+      "yok": "暂无优惠码。",
+      "paketler": "适用套餐（留空 = 全部）",
+      "paketIpucu": "选中后，该优惠码仅适用于由这些套餐的“获取报价”请求生成的报价和发票；手动创建的单据不适用。",
+      "ozelPaket": {
+        "KREDI": "按量付费点数包",
+        "AI_PM": "AI / PM 套餐"
+      }
+    },
+    "hata": {
+      "genel": "操作未能完成。",
+      "kod_yok": "未找到该优惠码。",
+      "kod_pasif": "该优惠码已停用。",
+      "kod_baslamadi": "该优惠码尚未生效。",
+      "kod_suresi_doldu": "该优惠码已过期。",
+      "kod_kapsam_disi": "该代码不适用于此类单据。",
+      "kod_para_birimi": "该代码仅适用于 {{para_birimi}} 单据。",
+      "kod_en_az_tutar": "使用该代码时，小计（不含税）至少为 {{en_az}} {{para_birimi}}。",
+      "kod_tukendi": "该代码已达到使用上限。",
+      "kod_kisi_siniri": "该收件人已达到此代码的使用上限。",
+      "kendi_referansi": "关联推广伙伴的代码不能用于推广伙伴本人。",
+      "kod_gecersiz": "代码格式无效（3–32 个字符：字母、数字、- 或 _）。",
+      "kod_kullaniliyor": "该代码已被其他优惠码或推广伙伴使用。",
+      "deger_gecersiz": "数值无效（百分比 0–100，金额须大于零）。",
+      "para_birimi_gerekli": "固定金额或最低金额请选择币种。",
+      "para_birimi_gecersiz": "币种无效。",
+      "tarih_gecersiz": "日期无效（结束日期不能早于开始日期）。",
+      "kapsam_gerekli": "请至少选择一个适用范围。",
+      "sinir_gecersiz": "上限必须是不小于 1 的整数。",
+      "en_az_gecersiz": "最低金额无效。",
+      "kullanilmis_kod_silinemez": "已使用的代码不能删除，请将其停用。",
+      "kullanilmis_kod_adi": "已使用的代码不能改名，请新建代码。",
+      "kalem_gerekli": "优惠码仅适用于含明细项目的发票。",
+      "iade_faturasina_kod": "退款发票不适用优惠码。",
+      "tur_gecersiz": "类型无效。",
+      "ortak_yok": "未找到推广伙伴。",
+      "belge_turu_gecersiz": "单据类型无效。",
+      "indirim_satiri_gecersiz": "折扣行无效。",
+      "kod_paket_disi": "此优惠码不适用于该套餐。",
+      "paket_gecersiz": "套餐标识无效。"
+    }
+  }
+}

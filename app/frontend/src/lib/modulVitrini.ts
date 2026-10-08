@@ -13,6 +13,7 @@
  * Teklif talebi: `POST /api/v1/modul-vitrini/talep` (girişsiz; `inquiries` + CRM adayı).
  */
 import { getAPIBaseURL } from '@/lib/config';
+import { referansOku } from '@/lib/referans';
 
 import VERI from '../../prerender/modul-vitrini-veri.json';
 import { govdeyiTuket } from '@/lib/yanit';
@@ -135,11 +136,13 @@ export class TalepHatasi extends Error {
 
 export async function talepGonder(govde: TalepGovdesi): Promise<void> {
   let yanit: Response;
+  // Faz 5K: ortaklık bağlantısından gelen kod gizli alan olarak (rıza yoksa yalnız bu oturumdaki).
+  const referans_kodu = referansOku();
   try {
     yanit = await fetch(`${getAPIBaseURL()}/api/v1/modul-vitrini/talep`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify(govde),
+      body: JSON.stringify(referans_kodu ? { ...govde, referans_kodu } : govde),
     });
   } catch {
     throw new TalepHatasi('ag');

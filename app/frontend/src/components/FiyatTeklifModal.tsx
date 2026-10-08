@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { Suspense, useState, type FormEvent } from 'react';
 import { CheckCircle2, Loader2, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -6,6 +6,11 @@ import { toast } from 'sonner';
 import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 import { Button } from '@/components/ui/button';
 import { fiyatlandirmaApi, type FiyatTeklifIstegi } from '@/api/fiyatlandirma';
+import { ekliLazy } from '@/i18n/ekliLazy';
+import { secimPaketi } from '@/lib/indirimKodu';
+
+// Faz 5K: isteğe bağlı "indirim / referans kodu" — metni ek pakette, alan pencere açılınca yüklenir.
+const IndirimKoduAlani = ekliLazy('indirimKodu', () => import('@/components/IndirimKoduAlani'));
 
 /**
  * "Teklif Al" onay penceresi — Fiyatlandırma v5.
@@ -42,6 +47,7 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim,
   const { t } = useTranslation();
   const [ad, setAd] = useState('');
   const [eposta, setEposta] = useState('');
+  const [referansKodu, setReferansKodu] = useState('');
   const [gonderiliyor, setGonderiliyor] = useState(false);
   const [bitti, setBitti] = useState(false);
 
@@ -61,6 +67,7 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim,
           ...secim,
           musteri_eposta: eposta.trim(),
           musteri_adi: ad.trim(),
+          ...(referansKodu.trim() ? { referans_kodu: referansKodu.trim() } : {}),
         });
         // Ödeme sayfası aynı sitede; tam sayfa geçişi ödeme sağlayıcısına
         // yönlendirmeyi de temiz tutuyor.
@@ -71,6 +78,7 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim,
         ...secim,
         musteri_eposta: eposta.trim(),
         musteri_adi: ad.trim(),
+        ...(referansKodu.trim() ? { referans_kodu: referansKodu.trim() } : {}),
       });
       setBitti(true);
       toast.success(t('fiyatTeklif.alindi', 'Teklifiniz oluşturuldu, fatura e-postanıza gönderilecek.'));
@@ -99,6 +107,7 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim,
       setBitti(false);
       setAd('');
       setEposta('');
+      setReferansKodu('');
     }, 200);
   };
 
@@ -173,6 +182,11 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim,
               autoComplete="email"
               className="w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-primary focus:outline-none"
             />
+            <Suspense fallback={null}>
+              {/* Satın Al: indirim ödeme sağlayıcısına aktarılmaz — alan yalnız referans (atıf), kodlu alım Teklif Al'dan. */}
+              <IndirimKoduAlani deger={referansKodu} onDegis={setReferansKodu} id="fiyat-referans-kodu" satinAl={satinAl}
+                paket={secimPaketi(secim)} />
+            </Suspense>
 
             <Button type="submit" disabled={gonderiliyor} className="w-full gap-2">
               {gonderiliyor ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : null}

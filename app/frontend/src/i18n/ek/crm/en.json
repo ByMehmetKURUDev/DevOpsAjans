@@ -305,6 +305,10 @@
       "rozet": "marketing permission",
       "kaynakModulVitrini": "module showcase ({{anahtar}})",
       "kaynakSeoAraci": "free SEO tool ({{arac}})"
+    },
+    "kod": {
+      "referans": "Referral code: {{kod}}",
+      "indirim": "Discount code: {{kod}}"
     }
   }
 }

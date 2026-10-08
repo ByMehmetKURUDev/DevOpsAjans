@@ -68,6 +68,13 @@ class Gorev:
 # ---------------------------------------------------------------------------
 # Görevler
 # ---------------------------------------------------------------------------
+async def _ortaklik_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    """Faz 5K — iade süresi dolan (beklemedeki) komisyonlar onaylanır (panel açılışında da)."""
+    from services.ortaklik import zamanli_gorev
+
+    return await zamanli_gorev(db, zorla)
+
+
 async def _uptime(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     from services.site_izleme import uptime_calistir
 
@@ -371,6 +378,7 @@ GOREVLER: List[Gorev] = [
     Gorev("egitim_bakimi", timedelta(0), _egitim_bakimi),
     Gorev("hukuk_bakimi", timedelta(0), _hukuk_bakimi),
     Gorev("muhasebe_bakimi", timedelta(minutes=30), _muhasebe_bakimi),
+    Gorev("ortaklik_bakimi", timedelta(hours=6), _ortaklik_bakimi),
     Gorev("haftalik_ozet", timedelta(minutes=30), _haftalik_ozet, plan="haftalik_pazartesi"),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),
