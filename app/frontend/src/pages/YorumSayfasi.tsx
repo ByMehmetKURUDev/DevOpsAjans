@@ -5,6 +5,7 @@ import { ExternalLink, Loader2, MessageSquareText, Send, Star } from 'lucide-rea
 
 import {
   AcikHata,
+  BAL_KUPU,
   apiAdresi,
   cevirmen,
   isaretGonder,
@@ -251,7 +252,8 @@ function GeriBildirimFormu({ sayfa, m }: { sayfa: AcikYorum; m: Cevirmen }) {
             onChange={(e) => setV({ ...v, eposta: e.target.value })} name="eposta" dir="ltr" />
         </label>
       </div>
-      <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+      {/* Bal küpü — sayfanın dışına itilmiyor (sağdan sola düzende yatay kaydırma açıyordu). */}
+      <div aria-hidden="true" style={BAL_KUPU}>
         <label>
           {m('form.tuzak')}
           <input tabIndex={-1} autoComplete="off" name="web_sitesi" value={v.web_sitesi} onChange={(e) => setV({ ...v, web_sitesi: e.target.value })} />

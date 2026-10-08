@@ -40,7 +40,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
-import { apiAdresi, temaStili, type AcikKart, type Cevirmen } from '@/lib/kartvizitAcik';
+import { BAL_KUPU, apiAdresi, temaStili, type AcikKart, type Cevirmen } from '@/lib/kartvizitAcik';
 
 import './kartvizit.css';
 
@@ -555,8 +555,9 @@ function IletisimFormu({
         <textarea className={alan} maxLength={2000} placeholder={m('form.mesaj')} value={v.mesaj}
           onChange={(e) => setV({ ...v, mesaj: e.target.value })} name="mesaj" />
       </label>
-      {/* Bal küpü: insan görmez, bot doldurur (sunucu sessizce yok sayar). */}
-      <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+      {/* Bal küpü: insan görmez, bot doldurur (sunucu sessizce yok sayar). Sayfanın dışına itilmiyor:
+          sağdan sola (ar) düzende negatif konum yatay kaydırma açıyordu. */}
+      <div aria-hidden="true" style={BAL_KUPU}>
         <label>
           {m('form.tuzak')}
           <input tabIndex={-1} autoComplete="off" name="web_sitesi" value={v.web_sitesi} onChange={(e) => setV({ ...v, web_sitesi: e.target.value })} />

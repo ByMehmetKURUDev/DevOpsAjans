@@ -264,8 +264,9 @@ export default function Ortaklik() {
                       placeholder={t('ortaklik.form.tanitimYerTutucu')}
                     />
                   </label>
-                  {/* Bal küpü: insan görmüyor (ekran okuyucudan da gizli), bot dolduruyor. */}
-                  <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+                  {/* Bal küpü: insan görmüyor (ekran okuyucudan da gizli), bot dolduruyor. Sayfanın dışına
+                      itilmiyor: sağdan sola (ar) düzende negatif konum yatay kaydırma açıp ekranı boş bırakıyordu. */}
+                  <div className="sr-only" aria-hidden="true">
                     <label>
                       web_sitesi
                       <input tabIndex={-1} autoComplete="off" name="web_sitesi" value={form.web_sitesi} onChange={alan('web_sitesi')} />

@@ -1049,8 +1049,9 @@ function SoruAlani({ t, s, deger, onDegis }: { t: TFunction; s: Soru; deger: str
 function IzinVeBalKupu({ t, metin, izin, setIzin, balKupu, setBalKupu, kvkk }: { t: TFunction; metin: string; izin: boolean; setIzin: (v: boolean) => void; balKupu: string; setBalKupu: (v: string) => void; kvkk: string }) {
   return (
     <>
-      {/* Bal küpü: insan görmez, bot doldurur (sunucu sessizce yok sayar). */}
-      <div className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+      {/* Bal küpü: insan görmez, bot doldurur (sunucu sessizce yok sayar). Sayfanın dışına itilmiyor:
+          sağdan sola (ar) düzende negatif konum yatay kaydırma açıyordu. */}
+      <div className="sr-only" aria-hidden="true">
         <label>
           Web
           <input tabIndex={-1} autoComplete="off" value={balKupu} onChange={(x) => setBalKupu(x.target.value)} name="web_adresi" />

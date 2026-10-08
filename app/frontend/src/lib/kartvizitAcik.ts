@@ -290,3 +290,21 @@ export function cevirmen(sozluk: Sozluk | null): Cevirmen {
     return metin;
   };
 }
+
+/**
+ * Bal küpü kapsayıcısı (kartvizit ve yorum formları). Görünmez ama sayfanın dışına itilmez:
+ * `left: -10000px` sağdan sola (ar) düzende yatay kaydırma açıp ekranı boş bırakıyordu.
+ * Sayfa Tailwind'in `sr-only` sınıfına güvenmiyor (kartvizit kendi CSS'iyle çiziliyor).
+ */
+export const BAL_KUPU = {
+  position: 'absolute',
+  width: 1,
+  height: 1,
+  padding: 0,
+  margin: -1,
+  overflow: 'hidden',
+  clip: 'rect(0, 0, 0, 0)',
+  clipPath: 'inset(50%)',
+  whiteSpace: 'nowrap',
+  border: 0,
+} as const;
