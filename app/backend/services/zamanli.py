@@ -317,6 +317,14 @@ async def _hukuk_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_bakim(db)
 
 
+async def _muhasebe_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Faz 6M: ön muhasebe — vadesi gelen tekrarlayan kayıtlar (dönem başına bir kez), açık otomatik aktarmalar (ödenen
+    # fatura / POS gün sonu / hukuk masrafı / saha işi; tekil + ters kayıt) ve bütçe aşımı (kategori × ay başına bir olay).
+    from services.muhasebe_kayit import zamanli_bakim
+
+    return await zamanli_bakim(db)
+
+
 #: Kayıt listesi — SIRA ÖNEMLİ: uptime en önce (en zamana duyarlı),
 #: ağır/yavaş olabilecek bitiş taraması sonra.
 GOREVLER: List[Gorev] = [
@@ -362,6 +370,7 @@ GOREVLER: List[Gorev] = [
     Gorev("etkinlik_bakimi", timedelta(0), _etkinlik_bakimi),
     Gorev("egitim_bakimi", timedelta(0), _egitim_bakimi),
     Gorev("hukuk_bakimi", timedelta(0), _hukuk_bakimi),
+    Gorev("muhasebe_bakimi", timedelta(minutes=30), _muhasebe_bakimi),
     Gorev("haftalik_ozet", timedelta(minutes=30), _haftalik_ozet, plan="haftalik_pazartesi"),
     # Tur başına en çok bir site analizi (yavaş, dış ağ): en sonda.
     Gorev("aylik_site_analizi", timedelta(hours=1), _aylik_site_analizi),

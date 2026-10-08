@@ -171,6 +171,12 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     # (onay / ret; panelden doğrudan onaylı eklenen kayıt da). Ad/e-posta/açıklama YOK (otomasyon kişiyi kayıttan okur).
     OlayTuru("ik.izin_talebi"),
     OlayTuru("ik.izin_karari"),
+    # Faz 6M — ön muhasebe (`services/muhasebe_kayit.py`, olay_yayinla): kategori bütçesi o ay aşıldı ((kategori, ay,
+    # para birimi) başına BİR kez). Veride kategori, ay, bütçe, gerçekleşen, aşım, yüzde; kişisel veri yok.
+    OlayTuru("muhasebe.butce_asildi"),
+    # Faz 6M — vadesi geçen cari alacak (açık kalem başına 1 / 30 / 60 / 90. günde BİR kez; FIFO yaşlandırma). Veride
+    # cari adı, eşik günü, açık tutar, vade; e-posta / telefon YOK (otomasyon kayıttan okur).
+    OlayTuru("muhasebe.alacak_gecikti"),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.

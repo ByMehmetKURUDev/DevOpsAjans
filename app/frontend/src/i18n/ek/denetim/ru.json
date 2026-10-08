@@ -135,7 +135,14 @@
       "hukuk_zaman_kayitlari": "Учёт времени по делам",
       "hukuk_masraflari": "Расходы по делам",
       "hukuk_ekleri": "Вложения к делам",
-      "hukuk_mesajlari": "Сообщения клиентов"
+      "hukuk_mesajlari": "Сообщения клиентов",
+      "muhasebe_ayarlari": "Настройки бухгалтерии",
+      "muhasebe_hesaplari": "Кассовые и банковские счета",
+      "muhasebe_kategorileri": "Категории доходов и расходов",
+      "muhasebe_cariler": "Счета контрагентов",
+      "muhasebe_hareketleri": "Бухгалтерские операции",
+      "muhasebe_tekrarlar": "Регулярные записи",
+      "muhasebe_butceler": "Бюджеты"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

@@ -109,7 +109,12 @@
       "ik_personel": "Personel",
       "ik_izinler": "İzin kaydı",
       "ik_vardiyalar": "Vardiya",
-      "ik_dosyalar": "Personel belgesi"
+      "ik_dosyalar": "Personel belgesi",
+      "muhasebe_hareketleri": "Muhasebe hareketi",
+      "muhasebe_ekleri": "Muhasebe belge eki",
+      "muhasebe_tekrarlar": "Tekrarlayan muhasebe kaydı",
+      "muhasebe_cariler": "Cari hesap",
+      "muhasebe_hesaplari": "Kasa/banka hesabı"
     }
   }
 }

@@ -241,7 +241,7 @@ export interface OzetSatiri {
 }
 
 export interface OzetBolumu {
-  anahtar: 'faturalar' | 'destek' | 'crm' | 'teklifler' | 'icerik' | 'belgeler' | 'yenilemeler' | 'siteler';
+  anahtar: 'faturalar' | 'destek' | 'crm' | 'teklifler' | 'icerik' | 'belgeler' | 'yenilemeler' | 'siteler' | 'muhasebe';
   sekme: string;
   sayi: number;
   ek: {
@@ -251,6 +251,9 @@ export interface OzetBolumu {
     hareketsiz?: number;
     geciken?: number;
     hata?: boolean;
+    // Faz 6M — ön muhasebe: bütçe aşımı ve vadesi geçmiş alacağı olan cari sayısı.
+    butce?: number;
+    alacak?: number;
   };
   ornekler: OzetSatiri[];
 }

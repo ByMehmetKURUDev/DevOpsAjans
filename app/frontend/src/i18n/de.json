@@ -435,7 +435,8 @@
     "tabStokPos": "Lager & Kasse",
     "tabEgitim": "Kurse",
     "tabIk": "Personal",
-    "tabHukuk": "Kanzlei"
+    "tabHukuk": "Kanzlei",
+    "tabOnMuhasebe": "Buchhaltung"
   },
   "admin": {
     "loadError": "Verwaltungsdaten konnten nicht geladen werden",

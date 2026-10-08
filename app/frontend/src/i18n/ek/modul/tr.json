@@ -209,6 +209,10 @@
         "ad": "Hukuk bürosu",
         "aciklama": "Avukatlar ve hukuk büroları için: müvekkil ve dosya takibi, karşı taraf ve çıkar çatışması uyarısı, duruşma ve kesin süre takvimi, süre hesaplayıcı, hatırlatmalar, saat ve masraf kaydı (PDF döküm), belge ekleri ve müvekkile özel bilgilendirme bağlantısı. UYAP'tan otomatik veri çekmez."
       },
+      "on_muhasebe": {
+        "ad": "Ön muhasebe",
+        "aciklama": "Kasa, banka, kredi kartı ve POS / sanal POS hesapları, gelir-gider (KDV, kategori, belge eki), tekrarlayan giderler, cari hesap ve ekstre (PDF/CSV), alacak yaşlandırma, aylık bütçe ve aşım uyarısı, nakit akışı ve KDV özeti, banka ekstresi CSV içe aktarma; ödemeler, POS gün sonu, hukuk masrafı ve saha işlerinden otomatik ya da onaylı aktarım. e-Fatura/e-Arşiv ve banka bağlantısı yoktur."
+      },
       "marka_temasi": {
         "ad": "Marka teması",
         "aciklama": "Müşteri sayfalarınızda kendi logonuz, renkleriniz ve yazı tipiniz: kartvizit, QR menü, randevu, etkinlik, eğitim ve daha fazlası tek ayarla."
@@ -280,7 +284,8 @@
       "belge_siniri": "Hesap başına en çok kendi belgesi",
       "personel_siniri": "En çok aktif personel",
       "dosya_siniri": "En çok açık dosya (açık + beklemede)",
-      "rozet_gizle": "Sayfalardaki \"mehmetkuru.dev ile hazırlandı\" rozetini gizle"
+      "rozet_gizle": "Sayfalardaki \"mehmetkuru.dev ile hazırlandı\" rozetini gizle",
+      "hesap_siniri": "En çok kasa/banka/kart hesabı"
     },
     "musteri": {
       "baslik": "Modüllerim",

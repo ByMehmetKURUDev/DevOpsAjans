@@ -85,7 +85,8 @@
       "belge_onaylandi": "Kunde hat ein geteiltes Dokument gelesen und bestätigt",
       "ik_izin_talebi": "Personal: neuer Urlaubsantrag",
       "hukuk_hatirlatma": "Kanzlei: Erinnerung an Verhandlung und Frist",
-      "hukuk_portal_mesaj": "Kanzlei: Nachricht aus dem Mandantenportal"
+      "hukuk_portal_mesaj": "Kanzlei: Nachricht aus dem Mandantenportal",
+      "muhasebe_butce": "Kategorien mit überschrittenem Budget in der Buchhaltung"
     },
     "kanal": {
       "inapp": "Panel",

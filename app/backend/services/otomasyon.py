@@ -615,6 +615,33 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
             miktar = round(await toplam_stok(db, u.id) / 1000, 3)
         b["stok"] = {"urun_id": u.id, "ad": u.ad, "barkod": u.barkod, "sku": u.sku, "kategori": u.kategori, "birim": u.birim,
                      "miktar": miktar, "esik": round(u.kritik_esik / 1000, 3) if u.kritik_esik is not None else None}
+    elif tur == "muhasebe.alacak_gecikti":
+        # Faz 6M — vadesi geçen alacak: iz satırı (eşik, o anki açık tutar) + cari kartı (güncel ad/e-posta/telefon).
+        from models.muhasebe import MuhasebeCariler, MuhasebeGecikmeIzleri, MuhasebeHareketleri
+
+        iz = await _kayit(db, MuhasebeGecikmeIzleri, veri.get("gecikme_id"))
+        if iz is None or (not ajans and eposta_duzelt(iz.hesap_email) != eposta_duzelt(olay_hesap)):
+            return None
+        c = await _kayit(db, MuhasebeCariler, iz.cari_id)
+        if c is None or c.kapsam != iz.kapsam:
+            return None
+        h = await _kayit(db, MuhasebeHareketleri, iz.hareket_id) if iz.hareket_id else None
+        b["alacak"] = {"id": c.id, "ad": c.ad, "eposta": c.eposta, "telefon": c.telefon,
+                       "no": (h.belge_no if h is not None and h.kapsam == iz.kapsam else None),
+                       "vade_tarihi": iz.vade.isoformat(), "gecikme_gun": iz.esik, "tutar": round(int(iz.tutar) / 100, 2),
+                       "para_birimi": iz.para_birimi}
+    elif on == "muhasebe":
+        # Faz 6M — bütçe aşımı: iz satırından (olay verisindeki tutarlar o anın değerleri; kategori adı güncel).
+        from models.muhasebe import MuhasebeButceAsimlari, MuhasebeKategorileri
+
+        iz = await _kayit(db, MuhasebeButceAsimlari, veri.get("asim_id"))
+        if iz is None or (not ajans and eposta_duzelt(iz.hesap_email) != eposta_duzelt(olay_hesap)):
+            return None
+        kat = await _kayit(db, MuhasebeKategorileri, iz.kategori_id)
+        butce, ger = int(iz.butce or 0), int(iz.gerceklesen or 0)
+        b["butce"] = {"kategori": kat.ad if kat else veri.get("kategori"), "ay": iz.ay, "butce": round(butce / 100, 2),
+                      "gerceklesen": round(ger / 100, 2), "asim": round((ger - butce) / 100, 2),
+                      "yuzde": int(round(ger * 100 / butce)) if butce else None, "para_birimi": iz.para_birimi}
     elif on == "ik":
         # Faz 6I — izin talebi / kararı: olay verisinde izin ve personel kimliği (kişi alanları kayıttan).
         from models.ik import IkIzinler, IkPersonel

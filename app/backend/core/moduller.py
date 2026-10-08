@@ -688,6 +688,27 @@ MODULLER: Tuple[Modul, ...] = (
             AyarAlani("dosya_siniri", "int", 200, en_az=0, en_cok=100000),
         ),
     ),
+    # Faz 6M — ön muhasebe (her sektörden KOBİ ve ajansın kendisi): kasa / banka (IBAN yalnız metin, biçim denetimi) /
+    # kredi kartı (yalnız ad + son 4 hane; hesap ve kart numarası SAKLANMAZ) hesapları, açılış bakiyesi, virman;
+    # gelir-gider (KDV oranı + tutarı, kategori, cari, belge eki, etiket), tekrarlayan kayıt (aylık kira vb.),
+    # cari hesap (müşteri/tedarikçi; mevcut CRM / saha / POS kaydına bağlanır), borç-alacak, ekstre PDF/CSV,
+    # yaşlandırma; kategori başına aylık bütçe + aşım olayı; raporlar (aylık, kategori, nakit akışı + 3 ay tahmin,
+    # bilgilendirme amaçlı KDV özeti); banka ekstresi CSV içe aktarma (sütun eşleme). İsteğe bağlı otomatik aktarma
+    # (varsayılan KAPALI, kaynak başına): ajansta ödenen faturalar; müşteride POS gün sonu, hukuk masrafları, saha
+    # servisi tamamlanan iş tutarı (tekil + ters kayıt). e-Fatura/e-Arşiv ve banka entegrasyonu YOK. Varsayılan
+    # KAPALI, pakete bağlı değil, sektör paketinde YOK (ayrı satılan modül; önerilen aylık 15 $ — 10 hesaba kadar).
+    # Ekip izni `muhasebe` (üyenin varsayılanında yok). `hesap_siniri`: arşivde olmayan kasa/banka/kart hesabı.
+    Modul(
+        anahtar="on_muhasebe",
+        ad_varsayilan={"tr": "Ön muhasebe", "en": "Bookkeeping"},
+        ikon="Calculator",
+        kategori="finans",
+        musteri_sekmesi="onMuhasebe",
+        yonetici_sekmesi="onMuhasebe",
+        gerekli_rol="her_ikisi",
+        varsayilan_acik=False,
+        ayarlar=(AyarAlani("hesap_siniri", "int", 10, en_az=0, en_cok=500),),
+    ),
     Modul(
         anahtar="islem",
         ad_varsayilan={"tr": "Onay bekleyenler", "en": "Awaiting approval"},

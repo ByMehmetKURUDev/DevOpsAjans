@@ -65,6 +65,7 @@ import {
   GraduationCap,
   UsersRound,
   Scale,
+  Calculator,
   Inbox,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -200,6 +201,8 @@ const Egitim = ekliLazy('egitim', () => import('@/components/Egitim'));
 const Ik = ekliLazy('ik', () => import('@/components/Ik'));
 // Faz 6H — hukuk bürosu: yönetici YALNIZ meta veri görür (hesap başına sayılar, depolama); dosya içeriği yok.
 const Hukuk = ekliLazy('hukuk', () => import('@/components/Hukuk'));
+// Faz 6M — ön muhasebe: ajansın kendi defteri (tam yönetim) + müşteri hesabı seçerek salt okunur destek.
+const OnMuhasebe = ekliLazy('onMuhasebe', () => import('@/components/OnMuhasebe'));
 // Faz 3C — CRM ve aday hunisi (kanban, liste, özet, gömülebilir formlar); ek paket `crm`.
 const CrmPaneli = ekliLazy('crm', () => import('@/components/admin/crm/CrmPaneli'));
 // Faz 3T — Teklifler, Sözleşmeler (ayrı sekmeler) ve Faturalar sekmesindeki araçlar
@@ -376,6 +379,7 @@ type Tab =
   | 'egitim'
   | 'ik'
   | 'hukuk'
+  | 'onMuhasebe'
   | 'baglantilar'
   | 'crm'
   | 'zaman'
@@ -1103,6 +1107,7 @@ export default function AdminPanel() {
     { key: 'egitim', label: t('ui.tabEgitim'), icon: GraduationCap },
     { key: 'ik', label: t('ui.tabIk'), icon: UsersRound },
     { key: 'hukuk', label: t('ui.tabHukuk'), icon: Scale },
+    { key: 'onMuhasebe', label: t('ui.tabOnMuhasebe'), icon: Calculator },
     { key: 'islemler', label: t('ui.tabIslemler'), icon: Link2 },
     { key: 'siteAnalizleri', label: t('ui.tabSiteAnalizleri'), icon: Gauge },
     { key: 'fiyatlandirmaV5', label: t('yonetimMenusu.tabFiyat'), icon: DollarSign },
@@ -1343,6 +1348,18 @@ export default function AdminPanel() {
           }
         >
           <Hukuk mod="yonetici" />
+        </Suspense>
+      )}
+
+      {tab === 'onMuhasebe' && (
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center py-20 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </div>
+          }
+        >
+          <OnMuhasebe mod="yonetici" />
         </Suspense>
       )}
 

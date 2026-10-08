@@ -32,7 +32,8 @@
       "icerik": "For preparing and planning social media and blog content.",
       "sektorel": "Modules built around the workflow of a specific industry.",
       "hizmet": "For your website and for working with our team: monitoring, renewals, files, API and expert assistants.",
-      "analiz": "A regular report on your website and the work done."
+      "analiz": "A regular report on your website and the work done.",
+      "finans": "Your business's money: cash, bank, income and expenses, contacts and budget."
     },
     "detay": {
       "geri": "All modules",
@@ -626,6 +627,31 @@
           {
             "s": "Can the agency see our files?",
             "c": "No. For support the agency sees only counts (matters, clients, upcoming deadlines, storage); matter content, notes, documents and client details are not shown."
+          }
+        ]
+      },
+      "on_muhasebe": {
+        "ozet": "Cash, bank and card accounts, income and expenses, contact statements, monthly budgets, cash flow and a VAT summary in one panel.",
+        "kimIcin": "Shops, cafés and restaurants, retailers, freelancers and small agencies that want tidy records for their accountant.",
+        "ozellikler": [
+          "Cash, bank (only the last 4 IBAN digits shown), credit card (last 4 digits) and POS / virtual POS accounts, transfers",
+          "Income and expenses: VAT rate and amount, category, tags, attachments; recurring expenses",
+          "Contact cards, statements for any date range (PDF/CSV) and 0–30 / 31–60 / 61–90 / 90+ day ageing",
+          "Monthly budget per category with overrun alerts and an automation/webhook event",
+          "Automatic or approval-based import from payments, POS end of day, legal expenses and field service jobs (never counted twice); bank statement CSV import"
+        ],
+        "sss": [
+          {
+            "s": "Does it issue e-invoices or connect to my bank?",
+            "c": "No. There is no e-invoice/e-archive or bank connection; you enter transactions manually, from a CSV statement or by automatic import from other modules."
+          },
+          {
+            "s": "Does the VAT report replace a tax return?",
+            "c": "No. The VAT summary is for information only; share your records with your accountant for the return."
+          },
+          {
+            "s": "Does it store my card or account number?",
+            "c": "No. Only the last 4 digits are kept for cards and only the last 4 IBAN digits are shown; account/card numbers, CVV and passwords are never asked for."
           }
         ]
       },

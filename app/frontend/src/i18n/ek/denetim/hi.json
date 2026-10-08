@@ -135,7 +135,14 @@
       "hukuk_zaman_kayitlari": "मामला समय प्रविष्टियाँ",
       "hukuk_masraflari": "मामला खर्च",
       "hukuk_ekleri": "मामला संलग्नक",
-      "hukuk_mesajlari": "मुवक्किल संदेश"
+      "hukuk_mesajlari": "मुवक्किल संदेश",
+      "muhasebe_ayarlari": "बहीखाता सेटिंग्स",
+      "muhasebe_hesaplari": "नकद और बैंक खाते",
+      "muhasebe_kategorileri": "आय और व्यय श्रेणियाँ",
+      "muhasebe_cariler": "पक्षकार खाते",
+      "muhasebe_hareketleri": "बहीखाता लेनदेन",
+      "muhasebe_tekrarlar": "आवर्ती प्रविष्टियाँ",
+      "muhasebe_butceler": "बजट"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

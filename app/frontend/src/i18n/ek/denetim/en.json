@@ -135,7 +135,14 @@
       "hukuk_zaman_kayitlari": "Matter time entries",
       "hukuk_masraflari": "Matter expenses",
       "hukuk_ekleri": "Matter attachments",
-      "hukuk_mesajlari": "Client messages"
+      "hukuk_mesajlari": "Client messages",
+      "muhasebe_ayarlari": "Bookkeeping settings",
+      "muhasebe_hesaplari": "Cash and bank accounts",
+      "muhasebe_kategorileri": "Income and expense categories",
+      "muhasebe_cariler": "Contact accounts",
+      "muhasebe_hareketleri": "Bookkeeping transactions",
+      "muhasebe_tekrarlar": "Recurring entries",
+      "muhasebe_butceler": "Budgets"
     },
     "hareket": {
       "baslik": "Account activity",

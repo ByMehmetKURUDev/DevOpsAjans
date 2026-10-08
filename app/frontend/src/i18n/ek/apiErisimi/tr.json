@@ -74,7 +74,9 @@
       "egitim_tamamlandi": "Kurs tamamlandı, sertifika verildi",
       "egitim_devamsizlik": "Öğrenci devamsızlık eşiğine ulaştı",
       "ik_izin_talebi": "Yeni izin talebi (personel)",
-      "ik_izin_karari": "İzin talebine karar verildi (onay / ret)"
+      "ik_izin_karari": "İzin talebine karar verildi (onay / ret)",
+      "muhasebe_butce_asildi": "Ön muhasebede kategori bütçesi aşıldı",
+      "muhasebe_alacak_gecikti": "Ön muhasebede cari alacağın vadesi geçti (1 / 30 / 60 / 90 gün)"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

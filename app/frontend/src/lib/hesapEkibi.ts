@@ -54,6 +54,9 @@ export const IZINLER = [
   'belgeler',
   // Faz 6H — hukuk bürosu (üyenin varsayılanında yok; gizli dosya yalnız sahip + sorumlu avukat).
   'hukuk',
+  // Faz 6M — ön muhasebe (hesaplar, gelir-gider, cari, bütçe; üyenin varsayılanında yok) ve yalnız rapor (ör. mali müşavir).
+  'muhasebe',
+  'muhasebe_okur',
 ] as const;
 export type Izin = (typeof IZINLER)[number];
 export type UyeRolu = 'yonetici' | 'uye' | 'fatura';
@@ -224,4 +227,5 @@ export const SEKME_IZINLERI: Record<string, Izin[]> = {
   egitim: ['egitim', 'egitim_egitmen'],
   ik: ['ik'],
   hukuk: ['hukuk'],
+  onMuhasebe: ['muhasebe', 'muhasebe_okur'],
 };

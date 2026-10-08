@@ -435,7 +435,8 @@
     "tabStokPos": "Stock & POS",
     "tabEgitim": "Courses",
     "tabIk": "HR",
-    "tabHukuk": "Law office"
+    "tabHukuk": "Law office",
+    "tabOnMuhasebe": "Bookkeeping"
   },
   "admin": {
     "loadError": "Admin data could not be loaded",

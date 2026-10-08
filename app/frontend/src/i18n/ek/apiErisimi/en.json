@@ -74,7 +74,9 @@
       "egitim_tamamlandi": "Course completed, certificate issued",
       "egitim_devamsizlik": "Student reached the absence threshold",
       "ik_izin_talebi": "New leave request (staff)",
-      "ik_izin_karari": "Leave request decided (approved / declined)"
+      "ik_izin_karari": "Leave request decided (approved / declined)",
+      "muhasebe_butce_asildi": "Category budget exceeded in bookkeeping",
+      "muhasebe_alacak_gecikti": "A contact receivable in bookkeeping is past due (1 / 30 / 60 / 90 days)"
     },
     "anahtar": {
       "yeni": "New key",

@@ -159,6 +159,17 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("durum"), Alan("kaynak"), Alan("karar_notu"), Alan("personel_ad"), Alan("personel_eposta"), Alan("departman"),
         Alan("gorev"),
     ),
+    # Faz 6M — bütçe aşımı (kategori, ay "YYYY-AA", tutarlar ondalık; kişisel veri yok).
+    "butce": (
+        Alan("kategori"), Alan("ay"), Alan("butce", "sayi"), Alan("gerceklesen", "sayi"), Alan("asim", "sayi"),
+        Alan("yuzde", "sayi"), Alan("para_birimi"),
+    ),
+    # Faz 6M — vadesi geçen cari alacak: cari kartı (id, ad, e-posta, telefon — kayıttan), açık kalemin belge no'su,
+    # vadesi, eşik günü, açık tutar (ondalık).
+    "alacak": (
+        Alan("id", "sayi"), Alan("ad"), Alan("eposta"), Alan("telefon"), Alan("no"), Alan("vade_tarihi", "tarih"),
+        Alan("gecikme_gun", "sayi"), Alan("tutar", "sayi"), Alan("para_birimi"),
+    ),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -222,6 +233,10 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     # Faz 6I — insan kaynakları: yeni izin talebi, izin kararı (onay / ret).
     OtoOlay("ik.izin_talebi", ("izin", "hesap")),
     OtoOlay("ik.izin_karari", ("izin", "hesap")),
+    # Faz 6M — ön muhasebe: kategori bütçesi aşıldı (kategori × ay × para birimi başına bir kez).
+    OtoOlay("muhasebe.butce_asildi", ("butce", "hesap")),
+    # Faz 6M — vadesi geçen cari alacak (1 / 30 / 60 / 90. gün; kalem × eşik başına bir kez). "Olaydaki kişi" cari.
+    OtoOlay("muhasebe.alacak_gecikti", ("alacak", "hesap")),
     # Faz 7O — zamanlı üretilen hatırlatma olayları (yalnız ajans; webhook kataloğunda yok: durum
     # değişikliği değil, "şu kadar gündür bir şey olmadı" türevi). Eşik başına bir kez.
     OtoOlay("teklif.yanitsiz", ("teklif", "hesap"), musteri=False, yalniz_otomasyon=True),
@@ -340,6 +355,10 @@ ORNEK: Dict[str, Dict[str, Any]] = {
               "kalem_sayisi": 3, "odeme_turu": "nakit", "konum": "Merkez"},
     "stok": {"urun_id": 77, "ad": "Filtre kahve 250 g", "barkod": "8690000000012", "sku": "FK-250", "kategori": "Kahve",
              "birim": "adet", "miktar": 2, "esik": 5},
+    "butce": {"kategori": "Reklam ve pazarlama", "ay": "2026-10", "butce": 5000, "gerceklesen": 5750.5, "asim": 750.5,
+              "yuzde": 115, "para_birimi": "TRY"},
+    "alacak": {"id": 12, "ad": "Ada Kafe Ltd.", "eposta": "muhasebe@adakafe.com", "telefon": "+90 555 000 00 00", "no": "F-2026-014",
+               "vade_tarihi": "2026-09-05", "gecikme_gun": 30, "tutar": 12500.0, "para_birimi": "TRY"},
     "hesap": {"email": "musteri@ornek.com", "ad": "Örnek A.Ş."},
 }
 
@@ -402,6 +421,8 @@ def kisi_sec(tur: str, baglam: Dict[str, Any]) -> Dict[str, Any]:
         return {"ad": baglam["mesaj"].get("ad"), "email": baglam["mesaj"].get("eposta")}
     if on == "menu" and baglam.get("siparis"):
         return {"ad": baglam["siparis"].get("musteri_ad"), "email": None}
+    if tur == "muhasebe.alacak_gecikti" and baglam.get("alacak"):
+        return {"ad": baglam["alacak"].get("ad"), "email": baglam["alacak"].get("eposta")}
     if on == "teklif" and baglam.get("teklif") and baglam["teklif"].get("aday_eposta"):
         return {"ad": baglam["teklif"].get("aday_ad"), "email": baglam["teklif"].get("aday_eposta")}
     h = baglam.get("hesap") or {}

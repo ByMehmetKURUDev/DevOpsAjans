@@ -106,6 +106,11 @@ IZINLER: Tuple[str, ...] = (
     # Faz 6H — hukuk bürosu (müvekkil, dosya, takvim, masraf, portal). Avukat–müvekkil sırrı: üyenin
     # varsayılanında YOK (ayrıca verilir); `gizli` dosyayı izin de yetmez (yalnız sahip + sorumlu avukat).
     "hukuk",
+    # Faz 6M — ön muhasebe (hesaplar, gelir-gider, cari, bütçe, raporlar, otomatik aktarma ayarı). Finansal veri:
+    # üye ve fatura rolünün varsayılanında YOK (ayrıca verilir). `muhasebe_okur`: YALNIZ raporlar (özet, bütçe
+    # durumu, yaşlandırma, aylık / kategori / nakit akışı / KDV ve CSV'leri) — örn. mali müşavir; yazamaz.
+    "muhasebe",
+    "muhasebe_okur",
 )
 ROLLER: Tuple[str, ...] = ("yonetici", "uye", "fatura")
 DURUMLAR: Tuple[str, ...] = ("davet", "aktif", "pasif")
@@ -156,6 +161,11 @@ ESKI_VARSAYILANLAR: Dict[str, Tuple[frozenset, ...]] = {
                    "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
                    "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris",
                    "stok", "kasa", "egitim", "egitim_egitmen", "belgeler"}),
+        # Faz 6I/6H–6M arası varsayılan (canlıdaki: ik ve hukuk var; muhasebe yok).
+        frozenset({"projeler", "gorevler", "destek", "dosyalar", "faturalar", "siteler", "raporlar", "krediler",
+                   "abonelikler", "mesajlar", "asistanlar", "qr", "kartvizit", "menu", "api", "randevu", "otomasyon",
+                   "asistan", "icerik", "pazarlama", "saha_yonetim", "saha_teknisyen", "etkinlik", "etkinlik_giris",
+                   "stok", "kasa", "egitim", "egitim_egitmen", "belgeler", "ik", "hukuk"}),
     ),
     "uye": (
         frozenset({"projeler", "gorevler", "destek", "dosyalar", "siteler", "raporlar"}),
@@ -258,6 +268,8 @@ OLAY_IZNI: Dict[str, str] = {
     # Faz 6H — müvekkil portalından mesaj (içeriksiz bildirim; `hukuk` izinli üyelere de). Süre/duruşma
     # hatırlatması (`hukuk_hatirlatma`) BİLEREK yok: yalnız sorumlu avukata (ya da hesap sahibine) gider.
     "hukuk_portal_mesaj": "hukuk",
+    # Faz 6M — ön muhasebe: kategori bütçesi aşıldı (hesaba; `muhasebe` izinli üyelere de — okur değil).
+    "muhasebe_butce": "muhasebe",
 }
 
 DAVET_OLAYI = "hesap_davet"

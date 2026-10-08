@@ -135,7 +135,14 @@
       "hukuk_zaman_kayitlari": "Dosya saat kayıtları",
       "hukuk_masraflari": "Dosya masrafları",
       "hukuk_ekleri": "Dosya ekleri",
-      "hukuk_mesajlari": "Müvekkil mesajları"
+      "hukuk_mesajlari": "Müvekkil mesajları",
+      "muhasebe_ayarlari": "Ön muhasebe ayarları",
+      "muhasebe_hesaplari": "Kasa ve banka hesapları",
+      "muhasebe_kategorileri": "Gelir-gider kategorileri",
+      "muhasebe_cariler": "Cari hesaplar",
+      "muhasebe_hareketleri": "Muhasebe hareketleri",
+      "muhasebe_tekrarlar": "Tekrarlayan kayıtlar",
+      "muhasebe_butceler": "Bütçeler"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

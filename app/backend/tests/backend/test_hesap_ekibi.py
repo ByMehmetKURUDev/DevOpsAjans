@@ -398,7 +398,7 @@ async def ekip(db_oturumu):
     from models.ik import IkDosyalar, IkIzinler, IkPersonel, IkTatiller, IkVardiyalar, IkVardiyaSablonlari
 
     await db.execute(_update(HesapUyeleri).where(HesapUyeleri.hesap_email == s, HesapUyeleri.uye_email == k["apici"])
-                     .values(izinler=json.dumps(["projeler", "api", "otomasyon", "ik"])))
+                     .values(izinler=json.dumps(["projeler", "api", "otomasyon", "ik", "muhasebe"])))
     await db.commit()
     _he.onbellegi_temizle()
     ikp = await _ekle(db, IkPersonel(hesap_email=s, ad="Sahibin personeli", eposta="personel@ornek.com",
@@ -412,6 +412,18 @@ async def ekip(db_oturumu):
     ikd = await _ekle(db, IkDosyalar(hesap_email=s, personel_id=ikp.id, ad="sozlesme.txt", tur="text/plain", boyut=5,
                                      depo="veritabani", depolama_anahtari=f"ik/test/{uuid.uuid4().hex}"))
     k.update(IKP=ikp.id, IKI=iki.id, IKS=iks.id, IKV=ikv.id, IKT=ikt.id, IKD=ikd.id)
+    # Faz 6M: `muhasebe` (ön muhasebe) üye/fatura rolünün varsayılanında yok — API üyesine (apici) yukarıda ayrıca
+    # verildi. Sahibin muhasebe kayıtları: hesap, kategori, cari, hareket, tekrar.
+    from models.muhasebe import MuhasebeCariler, MuhasebeHareketleri, MuhasebeHesaplari, MuhasebeKategorileri, MuhasebeTekrarlar
+
+    mhh = await _ekle(db, MuhasebeHesaplari(kapsam=s, hesap_email=s, tur="kasa", ad="Sahibin kasası", para_birimi="TRY", acilis_bakiyesi=0))
+    mhk = await _ekle(db, MuhasebeKategorileri(kapsam=s, hesap_email=s, tur="gider", ad="Sahibin kategorisi"))
+    mhc = await _ekle(db, MuhasebeCariler(kapsam=s, hesap_email=s, tur="musteri", ad="Sahibin carisi", para_birimi="TRY", acilis_bakiyesi=0))
+    mhx = await _ekle(db, MuhasebeHareketleri(kapsam=s, hesap_email=s, tur="gelir", tarih=_date6i(2030, 1, 7), tutar=10000,
+                                              para_birimi="TRY", kdv_tutari=0, hesap_id=mhh.id, cari_id=mhc.id, kaynak="manuel"))
+    mht = await _ekle(db, MuhasebeTekrarlar(kapsam=s, hesap_email=s, tur="gider", aciklama="Kira", tutar=1000, para_birimi="TRY",
+                                            hesap_id=mhh.id, periyot="aylik", baslangic=_date6i(2030, 1, 1), sonraki=_date6i(2030, 1, 1)))
+    k.update(MHH=mhh.id, MHK=mhk.id, MHC=mhc.id, MHX=mhx.id, MHT=mht.id)
     return k
 
 
@@ -435,6 +447,10 @@ BELGE_OKU = ("belgeler", "dosyalar")
 IK = "/api/v1/ik"
 #: Faz 6H: hukuk bürosu (yalnız `hukuk`).
 HUK = ("hukuk",)
+#: Faz 6M: ön muhasebe (yalnız `muhasebe`); rapor uçları `muhasebe_okur` ile de (MUH_R).
+MH = "/api/v1/muhasebe"
+MUH = ("muhasebe",)
+MUH_R = ("muhasebe", "muhasebe_okur")
 MUSTERI_UCLARI = [
     ("GET", "/api/v1/entities/projects", ("projeler",), None, 200),
     ("GET", "/api/v1/entities/projects/all", ("projeler",), None, 200),
@@ -1094,6 +1110,64 @@ IK_UCLARI = [
     ("GET", f"{IK}/vardiyalar.pdf?hafta=2030-01-07", ("ik",), None, 200),
 ]
 
+#: Faz 6M — ön muhasebe uçları (`muhasebe`: tek izin). İK gibi TEK testte (aşağıda).
+MUHASEBE_UCLARI = [
+    ("GET", f"{MH}/meta", MUH_R, None, 200),
+    ("GET", f"{MH}/ozet", MUH_R, None, 200),
+    ("GET", f"{MH}/ayarlar", MUH, None, 200),
+    ("PUT", f"{MH}/ayarlar", MUH, {"firma_adi": "Ekip Muhasebe"}, 200),
+    ("POST", f"{MH}/esitle", MUH, {}, 200),
+    ("GET", f"{MH}/hesaplar", MUH, None, 200),
+    ("POST", f"{MH}/hesaplar", MUH, {"tur": "kasa", "ad": "Ekip kasası"}, "gecti"),
+    ("PUT", f"{MH}/hesaplar/{{MHH}}", MUH, {"notlar": "Ekipten"}, 200),
+    ("DELETE", f"{MH}/hesaplar/999999", MUH, None, "gecti"),
+    ("POST", f"{MH}/virman", MUH, {"kaynak_hesap_id": 999999, "hedef_hesap_id": 999998, "tutar": "1"}, "gecti"),
+    ("GET", f"{MH}/kategoriler", MUH, None, 200),
+    ("POST", f"{MH}/kategoriler", MUH, {"tur": "gider", "ad": "Ekip kategorisi"}, "gecti"),
+    ("PUT", f"{MH}/kategoriler/{{MHK}}", MUH, {"renk": "#123456"}, 200),
+    ("DELETE", f"{MH}/kategoriler/999999", MUH, None, "gecti"),
+    ("POST", f"{MH}/kategoriler/varsayilanlar", MUH, {}, 200),
+    ("GET", f"{MH}/hareketler", MUH, None, 200),
+    ("POST", f"{MH}/hareketler", MUH, {"tur": "gelir", "tutar": "5", "hesap_id": 999999}, "gecti"),
+    ("GET", f"{MH}/hareketler.csv", MUH, None, 200),
+    ("GET", f"{MH}/hareketler.pdf", MUH, None, 200),
+    ("GET", f"{MH}/hareketler/{{MHX}}", MUH, None, 200),
+    ("PUT", f"{MH}/hareketler/{{MHX}}", MUH, {"aciklama": "Ekipten"}, 200),
+    ("DELETE", f"{MH}/hareketler/999999", MUH, None, "gecti"),
+    ("POST", f"{MH}/hareketler/{{MHX}}/ekler", MUH, GOVDE_DOSYA, "gecti"),
+    ("GET", f"{MH}/ekler/999999", MUH, None, "gecti"),
+    ("DELETE", f"{MH}/ekler/999999", MUH, None, "gecti"),
+    ("POST", f"{MH}/ice-aktar/onizle", MUH, {"csv": "Tarih;Tutar\n01.10.2026;5\n"}, 200),
+    ("POST", f"{MH}/ice-aktar", MUH, {"csv": "Tarih;Tutar\n01.10.2026;5\n", "hesap_id": 999999, "esleme": {"tarih": 0, "tutar": 1}}, "gecti"),
+    ("GET", f"{MH}/tekrarlar", MUH, None, 200),
+    ("POST", f"{MH}/tekrarlar", MUH, {"tur": "gider", "aciklama": "X", "tutar": "1", "hesap_id": 999999}, "gecti"),
+    ("PUT", f"{MH}/tekrarlar/{{MHT}}", MUH, {"aciklama": "Ekipten"}, 200),
+    ("DELETE", f"{MH}/tekrarlar/999999", MUH, None, "gecti"),
+    ("GET", f"{MH}/cariler", MUH, None, 200),
+    ("POST", f"{MH}/cariler", MUH, {"ad": "Ekip carisi"}, 200),
+    ("GET", f"{MH}/cariler/baglanti-adaylari", MUH, None, 200),
+    ("GET", f"{MH}/cariler/{{MHC}}", MUH, None, 200),
+    ("PUT", f"{MH}/cariler/{{MHC}}", MUH, {"notlar": "Ekipten"}, 200),
+    ("DELETE", f"{MH}/cariler/999999", MUH, None, "gecti"),
+    ("GET", f"{MH}/cariler/{{MHC}}/ekstre", MUH, None, 200),
+    ("GET", f"{MH}/cariler/{{MHC}}/ekstre.pdf", MUH, None, 200),
+    ("GET", f"{MH}/cariler/{{MHC}}/ekstre.csv", MUH, None, 200),
+    ("GET", f"{MH}/yaslandirma", MUH_R, None, 200),
+    ("GET", f"{MH}/butceler", MUH_R, None, 200),
+    ("PUT", f"{MH}/butceler", MUH, {"kategori_id": 999999, "tutar": "5"}, "gecti"),
+    ("GET", f"{MH}/raporlar/aylik", MUH_R, None, 200),
+    ("GET", f"{MH}/raporlar/kategori", MUH_R, None, 200),
+    ("GET", f"{MH}/raporlar/kar-zarar", MUH_R, None, 200),
+    ("GET", f"{MH}/raporlar/nakit-akisi", MUH_R, None, 200),
+    ("GET", f"{MH}/raporlar/kdv", MUH_R, None, 200),
+    ("GET", f"{MH}/raporlar.csv?tur=aylik", MUH_R, None, 200),
+    ("GET", f"{MH}/oneriler", MUH, None, 200),
+    ("POST", f"{MH}/oneriler/999999/onayla", MUH, {}, "gecti"),
+    ("POST", f"{MH}/oneriler/999999/yoksay", MUH, {}, "gecti"),
+    ("POST", f"{MH}/oneriler/999999/geri-al", MUH, {}, "gecti"),
+    ("POST", f"{MH}/oneriler/toplu", MUH, {"islem": "yoksay", "idler": [999999]}, 200),
+]
+
 
 def _kod(yanit) -> str:
     try:
@@ -1147,6 +1221,8 @@ def _izinli_uye(k, izinler):
         return k["apici"]
     if izinler == HUK:  # Faz 6H: üye/fatura rolünün varsayılanında yok (sahaci'ye ayrıca verildi)
         return k["sahaci"]
+    if izinler in (MUH, MUH_R):  # Faz 6M: üye/fatura rolünün varsayılanında yok (apici'ye ayrıca verildi)
+        return k["apici"]
     for rol, kisi in (("uye", k["uye"]), ("fatura", k["fatura"])):
         if any(i in ROL_VARSAYILAN[rol] for i in izinler):
             return kisi
@@ -1179,15 +1255,19 @@ async def test_musteri_ucu_izin_matrisi(istemci, ekip, metot, yol, izinler, govd
     assert y.status_code == 403 and _kod(y) == "hesap_uyesi_degil", ("yabancı", yol, y.status_code, y.text[:300])
 
 
-async def test_ik_uclari_izin_matrisi(istemci, ekip):
-    """Faz 6I — İK müşteri uçlarının hepsi tek `ekip` kurulumuyla: sahip geçer, `ik` izinli üye geçer, izinsiz üye
-    403 `hesap_izni_yok`, üye olmayan 403 `hesap_uyesi_degil` (`test_musteri_ucu_izin_matrisi` ile aynı denetimler)."""
+async def test_ik_ve_muhasebe_uclari_izin_matrisi(istemci, ekip):
+    """Faz 6I — İK ve Faz 6M — ön muhasebe müşteri uçlarının hepsi TEK `ekip` kurulumuyla (yeni bir `ekip` paylaşılan
+    test veritabanını büyütür: belge talebi / proje listesi sınırlarına dayanan testler bozulur): sahip geçer, izinli
+    üye geçer, izinsiz üye 403 `hesap_izni_yok`, üye olmayan 403 `hesap_uyesi_degil` (`test_musteri_ucu_izin_matrisi`
+    ile aynı denetimler)."""
     from routers import ik as ik_router
+    from routers import muhasebe as mh_router
 
     k = ekip
     s = k["sahip"]
-    for metot, yol, izinler, govde, beklenen in IK_UCLARI:
+    for metot, yol, izinler, govde, beklenen in IK_UCLARI + MUHASEBE_UCLARI:
         ik_router.hiz_sinirlarini_temizle()
+        mh_router.hiz_sinirlarini_temizle()
         yol = yol.format(**k)
         y = await _cagir(istemci, metot, yol, govde, _b(s))
         assert _beklenen(y, beklenen), (yol, y.status_code, y.text[:300])

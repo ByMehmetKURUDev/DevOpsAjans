@@ -32,7 +32,8 @@
       "icerik": "Zum Vorbereiten und Planen von Social-Media- und Blog-Inhalten.",
       "sektorel": "Module, die auf die Abläufe einer bestimmten Branche zugeschnitten sind.",
       "hizmet": "Für Ihre Website und die Zusammenarbeit mit unserem Team: Überwachung, Verlängerungen, Dateien, API und Experten-Assistenten.",
-      "analiz": "Ein regelmäßiger Bericht über Ihre Website und die erledigte Arbeit."
+      "analiz": "Ein regelmäßiger Bericht über Ihre Website und die erledigte Arbeit.",
+      "finans": "Das Geld Ihres Unternehmens: Kasse, Bank, Einnahmen und Ausgaben, Kontakte und Budget."
     },
     "detay": {
       "geri": "Alle Module",
@@ -626,6 +627,31 @@
           {
             "s": "Kann die Agentur unsere Akten sehen?",
             "c": "Nein. Für den Support sieht die Agentur nur Zahlen (Akten, Mandanten, anstehende Fristen, Speicher); Akteninhalte, Notizen, Dokumente und Mandantendaten werden nicht angezeigt."
+          }
+        ]
+      },
+      "on_muhasebe": {
+        "ozet": "Kassen-, Bank- und Kartenkonten, Einnahmen und Ausgaben, Kontaktauszüge, Monatsbudgets, Cashflow und MwSt.-Übersicht in einem Panel.",
+        "kimIcin": "Läden, Cafés und Restaurants, Händler, Selbstständige und kleine Agenturen, die ihrem Steuerbüro saubere Unterlagen geben wollen.",
+        "ozellikler": [
+          "Kassen-, Bank- (von der IBAN nur die letzten 4 Stellen sichtbar), Kreditkarten- (letzte 4 Ziffern) und POS-/virtuelle POS-Konten, Umbuchungen",
+          "Einnahmen und Ausgaben: MwSt.-Satz und -Betrag, Kategorie, Schlagwörter, Belege; wiederkehrende Ausgaben",
+          "Kontaktkarten, Auszüge für beliebige Zeiträume (PDF/CSV) und Altersstruktur 0–30 / 31–60 / 61–90 / 90+ Tage",
+          "Monatsbudget pro Kategorie mit Überschreitungswarnung und Automations-/Webhook-Ereignis",
+          "Automatische oder freigabepflichtige Übernahme aus Zahlungen, POS-Tagesabschluss, Kanzleiauslagen und Außendienst (nie doppelt gezählt); CSV-Import von Kontoauszügen"
+        ],
+        "sss": [
+          {
+            "s": "Stellt es E-Rechnungen aus oder verbindet es sich mit meiner Bank?",
+            "c": "Nein. Es gibt keine E-Rechnung/E-Archiv und keine Bankanbindung; Sie erfassen Buchungen manuell, per CSV-Auszug oder durch automatische Übernahme aus anderen Modulen."
+          },
+          {
+            "s": "Ersetzt der MwSt.-Bericht die Steuererklärung?",
+            "c": "Nein. Die MwSt.-Übersicht dient nur der Information; geben Sie Ihre Unterlagen für die Erklärung an Ihr Steuerbüro."
+          },
+          {
+            "s": "Speichert es meine Karten- oder Kontonummer?",
+            "c": "Nein. Bei Karten werden nur die letzten 4 Ziffern gespeichert, von der IBAN werden nur die letzten 4 Stellen angezeigt; Konto-/Kartennummern, CVV und Passwörter werden nie abgefragt."
           }
         ]
       },

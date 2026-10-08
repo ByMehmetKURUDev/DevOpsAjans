@@ -21,7 +21,7 @@ CRM bölümündeki adayların talepleri hariç — çift sayım yok, bkz. `_gele
 gündür yanıtsız teklifler, müşteri onayı bekleyen içerikler, bekleyen belge talepleri, 14 gün içinde
 yenilenecek alan adı / SSL (elle yenilenen) / hosting, şu an erişilemeyen siteler, müşterilerin POS'unda
 kritik stok seviyesindeki ürünler (Faz 6P), ajansın kendi personelinin bekleyen izin talepleri (Faz 6I; gelen
-kutusu bölümünde sayılmaz).
+kutusu bölümünde sayılmaz), ajansın kendi ön muhasebesinde bu ay aşılan bütçeler ve vadesi geçen cari alacaklar (Faz 6M).
 
 Dil: diğer yönetici bildirimleri gibi Türkçe; başlık/gövde panelden `notify_tpl_haftalik_ozet_*`
 ile değiştirilebilir (`render`). Önizleme (`ozet_hazirla`) yapılandırılmış veri döner; panel kendi
@@ -414,8 +414,21 @@ async def _ik_izin(db: AsyncSession, an: datetime) -> Dict[str, Any]:
     return _bolum("ik_izin", "ik", len(ornekler), ornekler)
 
 
+async def _muhasebe(db: AsyncSession, an: datetime) -> Dict[str, Any]:
+    """Faz 6M — ajansın KENDİ ön muhasebesi: bu ay aşılan kategori bütçeleri ve vadesi geçen cari alacaklar (müşterilerin
+    defterleri kendi panellerinde). Bütçe aşımları önce, sonra en uzun geciken alacak."""
+    from services.muhasebe_kayit import haftalik_ozet_satirlari
+
+    asimlar, alacaklar = await haftalik_ozet_satirlari(db, _bugun(an))
+    satirlar = [_satir(a["kategori"], tur="butce_asimi", tutar=round((a["gerceklesen"] - a["butce"]) / 100, 2),
+                       para_birimi=a["para_birimi"]) for a in asimlar]
+    satirlar += [_satir(x["cari"], tur="cari_gecikme", gun=x["gun"], tutar=round(x["tutar"] / 100, 2), para_birimi=x["para_birimi"])
+                 for x in alacaklar]
+    return _bolum("muhasebe", "onMuhasebe", len(satirlar), satirlar, butce=len(asimlar), alacak=len(alacaklar))
+
+
 BOLUMLER = (_faturalar, _destek, _gelen_kutusu, _crm, _teklifler, _icerik, _belgeler, _yenilemeler, _siteler, _stok_kritik,
-            _ik_izin)
+            _ik_izin, _muhasebe)
 
 
 async def ozet_hazirla(db: AsyncSession, an: Optional[datetime] = None) -> Dict[str, Any]:
@@ -454,6 +467,7 @@ BASLIKLAR = {
     "siteler": "Şu an erişilemeyen siteler",
     "stok_kritik": "Müşterilerde kritik stok seviyesindeki ürünler (POS)",
     "ik_izin": "Bekleyen izin talepleri (ajans personeli)",
+    "muhasebe": "Ön muhasebe: bütçe aşımı ve vadesi geçen cari alacaklar",
 }
 YENILEME_ADLARI = {"alan": "Alan adı", "ssl": "SSL", "hosting": "Hosting"}
 
@@ -474,6 +488,8 @@ def _bolum_ek_metni(b: Dict[str, Any]) -> str:
         return f"{ek.get('sonraki_adim', 0)} sonraki adımı gelmiş, {ek.get('hareketsiz', 0)} {HAREKETSIZ_GUN}+ gündür hareketsiz"
     if b["anahtar"] == "belgeler" and ek.get("geciken"):
         return f"{ek['geciken']} talebin son tarihi geçti"
+    if b["anahtar"] == "muhasebe":
+        return f"{ek.get('butce', 0)} bütçe aşımı, {ek.get('alacak', 0)} carinin vadesi geçmiş alacağı"
     if b["anahtar"] == "stok_kritik" and ek.get("hesap"):
         return f"{ek['hesap']} hesapta"
     if b["anahtar"] == "gelen_kutusu" and ek.get("kaynaklar"):
@@ -498,6 +514,8 @@ def _satir_metni(s: Dict[str, Any]) -> str:
         "yanit_bekliyor": f"{gun} gündür yanıt bekliyor" if gun else "bugün geldi",
         "kritik_stok": f"{gun} gündür kritik seviyede" if gun else "bugün kritik seviyeye indi",
         "izin_bekliyor": f"{gun} gündür karar bekliyor" if gun else "bugün geldi",
+        "butce_asimi": "bu ay bütçe aşıldı",
+        "cari_gecikme": f"vadesi {gun} gün geçti",
     }.get(tur or "")
     if tur in YENILEME_ADLARI:
         durum = f"{YENILEME_ADLARI[tur]}: " + (f"{gun} gün kaldı" if (gun or 0) >= 0 else f"süresi {-(gun or 0)} gün önce doldu")

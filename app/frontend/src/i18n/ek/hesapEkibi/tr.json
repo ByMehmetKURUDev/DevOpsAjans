@@ -48,7 +48,9 @@
       "egitim_egitmen": "Eğitim: eğitmen (yalnız kendi kursları)",
       "belgeler": "Belgeler, wiki ve strateji araçları",
       "ik": "İnsan kaynakları (personel, izin, vardiya)",
-      "hukuk": "Hukuk bürosu (müvekkil, dosya, takvim; gizli dosya yalnız sahip ve sorumlu avukat)"
+      "hukuk": "Hukuk bürosu (müvekkil, dosya, takvim; gizli dosya yalnız sahip ve sorumlu avukat)",
+      "muhasebe": "Ön muhasebe (kasa, banka, gelir-gider, cari, bütçe)",
+      "muhasebe_okur": "Ön muhasebe — yalnız rapor (özet, bütçe, raporlar; ör. mali müşavir)"
     },
     "durum": {
       "davet": "Davet bekliyor",

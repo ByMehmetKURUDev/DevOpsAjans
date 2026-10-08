@@ -106,7 +106,9 @@
       "satis": "Kassenverkauf",
       "stok": "Lagerartikel",
       "egitim": "Kursteilnehmende",
-      "izin": "Urlaubseintrag"
+      "izin": "Urlaubseintrag",
+      "butce": "Budgetüberschreitung",
+      "alacak": "Überfällige Forderung"
     },
     "alan": {
       "id": "ID",
@@ -190,7 +192,11 @@
       "personel_ad": "Name der Person",
       "personel_eposta": "E-Mail der Person",
       "departman": "Abteilung",
-      "gorev": "Position"
+      "gorev": "Position",
+      "ay": "Monat",
+      "gerceklesen": "Ist",
+      "asim": "Überschreitungsbetrag",
+      "yuzde": "Ausschöpfung in Prozent"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -227,7 +233,9 @@
       "egitim_tamamlandi": "Kurs abgeschlossen (Zertifikat)",
       "egitim_devamsizlik": "Fehlzeitenschwelle erreicht",
       "ik_izin_talebi": "Neuer Urlaubsantrag",
-      "ik_izin_karari": "Über Urlaubsantrag entschieden"
+      "ik_izin_karari": "Über Urlaubsantrag entschieden",
+      "muhasebe_butce_asildi": "Budget überschritten",
+      "muhasebe_alacak_gecikti": "Forderung überfällig"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -264,7 +272,9 @@
       "egitim_tamamlandi": "Ein Zertifikat wurde ausgestellt (automatisch bei erfüllten Bedingungen oder manuell).",
       "egitim_devamsizlik": "Die Person hat die festgelegte Zahl an Stunden verpasst (einmal pro Person).",
       "ik_izin_talebi": "Eine Person hat Urlaub beantragt oder im Panel wurde ein offener Antrag angelegt (Krankmeldung: nur Zeitraum).",
-      "ik_izin_karari": "Ein offener Urlaubsantrag wurde genehmigt oder abgelehnt (auch direkt genehmigt eingetragener Urlaub)."
+      "ik_izin_karari": "Ein offener Urlaubsantrag wurde genehmigt oder abgelehnt (auch direkt genehmigt eingetragener Urlaub).",
+      "muhasebe_butce_asildi": "In der Buchhaltung haben die Ist-Ausgaben einer Kategorie in diesem Monat das Budget überschritten (einmal pro Kategorie und Monat).",
+      "muhasebe_alacak_gecikti": "Eine Forderung an einen Kontakt ist in der Buchhaltung 1, 30, 60 oder 90 Tage überfällig (einmal je offenem Posten und Schwelle). Die „Person im Ereignis“ ist der Kontakt."
     },
     "eylem": {
       "eposta": "E-Mail senden",
@@ -670,13 +680,15 @@
           "siteler": "Derzeit nicht erreichbare Websites",
           "gelen_kutusu": "Im Posteingang wartet auf Antwort",
           "stok_kritik": "Kundenprodukte mit kritischem Bestand (Kasse)",
-          "ik_izin": "Offene Urlaubsanträge (Agenturpersonal)"
+          "ik_izin": "Offene Urlaubsanträge (Agenturpersonal)",
+          "muhasebe": "Buchhaltung: Budgetüberschreitungen und überfällige Forderungen"
         },
         "ek": {
           "toplam": "Offen insgesamt: {{tutar}}",
           "sla": "SLA bei {{sayi}} Anfrage(n) überschritten",
           "crm": "{{adim}} mit fälligem nächsten Schritt, {{hareketsiz}} seit 7+ Tagen inaktiv",
-          "geciken": "{{sayi}} über der Frist"
+          "geciken": "{{sayi}} über der Frist",
+          "muhasebe": "{{butce}} Budgetüberschreitungen, {{alacak}} überfällige Forderungen"
         },
         "tur": {
           "alan": "Domain",
@@ -707,7 +719,9 @@
           "kritik_stok": "seit {{sayi}} Tagen kritisch",
           "kritik_stok_bugun": "heute kritisch geworden",
           "izin_bekliyor": "wartet seit {{sayi}} Tagen auf Entscheidung",
-          "izin_bekliyor_bugun": "heute eingegangen"
+          "izin_bekliyor_bugun": "heute eingegangen",
+          "butce_asimi": "Budget überschritten",
+          "cari_gecikme": "{{sayi}} Tage überfällig"
         }
       }
     }

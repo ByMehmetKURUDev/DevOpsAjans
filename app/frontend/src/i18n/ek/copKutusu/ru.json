@@ -109,7 +109,12 @@
       "ik_personel": "Сотрудник",
       "ik_izinler": "Запись об отпуске",
       "ik_vardiyalar": "Смена",
-      "ik_dosyalar": "Документ сотрудника"
+      "ik_dosyalar": "Документ сотрудника",
+      "muhasebe_hareketleri": "Бухгалтерская операция",
+      "muhasebe_ekleri": "Документ к операции",
+      "muhasebe_tekrarlar": "Регулярная запись",
+      "muhasebe_cariler": "Счёт контрагента",
+      "muhasebe_hesaplari": "Кассовый/банковский счёт"
     }
   }
 }

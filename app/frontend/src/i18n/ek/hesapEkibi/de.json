@@ -48,7 +48,9 @@
       "egitim_egitmen": "Kurse: Lehrkraft (nur eigene Kurse)",
       "belgeler": "Dokumente, Wiki und Strategie-Tools",
       "ik": "Personalwesen (Personal, Urlaub, Schichten)",
-      "hukuk": "Kanzlei (Mandanten, Akten, Kalender; vertrauliche Akten nur für Inhaber und zuständige Anwältin bzw. zuständigen Anwalt)"
+      "hukuk": "Kanzlei (Mandanten, Akten, Kalender; vertrauliche Akten nur für Inhaber und zuständige Anwältin bzw. zuständigen Anwalt)",
+      "muhasebe": "Buchhaltung (Kasse, Bank, Einnahmen/Ausgaben, Kontakte, Budget)",
+      "muhasebe_okur": "Buchhaltung — nur Berichte (Übersicht, Budget, Berichte; z. B. Steuerberatung)"
     },
     "durum": {
       "davet": "Einladung ausstehend",

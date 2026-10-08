@@ -109,7 +109,12 @@
       "ik_personel": "员工",
       "ik_izinler": "请假记录",
       "ik_vardiyalar": "班次",
-      "ik_dosyalar": "员工文件"
+      "ik_dosyalar": "员工文件",
+      "muhasebe_hareketleri": "记账记录",
+      "muhasebe_ekleri": "记账附件",
+      "muhasebe_tekrarlar": "周期性记账记录",
+      "muhasebe_cariler": "往来账户",
+      "muhasebe_hesaplari": "现金/银行账户"
     }
   }
 }

@@ -325,7 +325,7 @@ def test_modul_kaydi_ve_eski_yonetici_varsayilani():
     assert all("insan_kaynaklari" not in p.moduller for p in sektor_paketleri.SEKTOR_PAKETLERI)
     # Canlıdaki (ik'sız; 6I ile birlikte yayına çıkan 6H `hukuk` da yok) yönetici varsayılanı olduğu gibi kayıtlı
     # üye yeni izni de alır.
-    eski = sorted(set(he.IZINLER) - {"ik", "hukuk"})
+    eski = sorted(set(he.IZINLER) - {"ik", "hukuk", "muhasebe", "muhasebe_okur"})  # Faz 6M: muhasebe, muhasebe_okur da o gün yoktu
     assert "ik" in he.izinleri_coz(_json.dumps(eski), "yonetici")
 
 

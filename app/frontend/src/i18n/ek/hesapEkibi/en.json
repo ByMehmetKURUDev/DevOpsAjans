@@ -48,7 +48,9 @@
       "egitim_egitmen": "Courses: instructor (own courses only)",
       "belgeler": "Documents, wiki and strategy tools",
       "ik": "HR (staff, leave, shifts)",
-      "hukuk": "Law office (clients, matters, calendar; confidential matters only for the owner and the responsible lawyer)"
+      "hukuk": "Law office (clients, matters, calendar; confidential matters only for the owner and the responsible lawyer)",
+      "muhasebe": "Bookkeeping (cash, bank, income & expenses, contacts, budget)",
+      "muhasebe_okur": "Bookkeeping — reports only (summary, budget, reports; e.g. your accountant)"
     },
     "durum": {
       "davet": "Invitation pending",

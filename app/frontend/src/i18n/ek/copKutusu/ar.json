@@ -109,7 +109,12 @@
       "ik_personel": "موظف",
       "ik_izinler": "سجل إجازة",
       "ik_vardiyalar": "مناوبة",
-      "ik_dosyalar": "مستند موظف"
+      "ik_dosyalar": "مستند موظف",
+      "muhasebe_hareketleri": "حركة محاسبية",
+      "muhasebe_ekleri": "مرفق محاسبي",
+      "muhasebe_tekrarlar": "قيد محاسبي متكرر",
+      "muhasebe_cariler": "حساب جهة متعاملة",
+      "muhasebe_hesaplari": "حساب صندوق/بنك"
     }
   }
 }

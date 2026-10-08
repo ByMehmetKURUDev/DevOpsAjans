@@ -197,7 +197,8 @@
         "haftalik_ozet": "Haftalık özet (yöneticiye, Pazartesi 08:00)",
         "saklama_temizligi": "Eski ziyaret ve tıklama kayıtlarının saklama temizliği (13 ay)",
         "egitim_bakimi": "Eğitim bakımı",
-        "hukuk_bakimi": "Hukuk bakımı"
+        "hukuk_bakimi": "Hukuk bakımı",
+        "muhasebe_bakimi": "Ön muhasebe bakımı"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir",
@@ -239,7 +240,8 @@
         "aylik_site_analizi": "Her ay müşteri siteleri için otomatik site analizi çalıştırır (turda en çok bir site).",
         "saklama_temizligi": "QR tarama, dijital kartvizit, yorum sayfası, QR menü ve randevu sayfası ziyaret kayıtlarını ve e-posta kampanyası tıklamalarını 13 ay saklar; daha eskilerini silmeden önce günlük toplamlara indirger, böylece paneldeki toplamlar değişmez. Süresi dolmuş istek sınırı sayaçlarını da siler. Günde bir çalışır.",
         "egitim_bakimi": "Eğitim bakımı (ders hatırlatmaları, devamsızlık uyarıları, otomatik sertifika, saklama süresi dolan öğrenci verisinin anonimleştirilmesi)",
-        "hukuk_bakimi": "Hukuk bakımı (duruşma ve süre hatırlatmaları: 7/3/1 gün önce ve aynı gün sabah, her biri bir kez; 30 günü dolan silinen müvekkil ve dosyaların kalıcı silinmesi)"
+        "hukuk_bakimi": "Hukuk bakımı (duruşma ve süre hatırlatmaları: 7/3/1 gün önce ve aynı gün sabah, her biri bir kez; 30 günü dolan silinen müvekkil ve dosyaların kalıcı silinmesi)",
+        "muhasebe_bakimi": "Ön muhasebe bakımı (vadesi gelen tekrarlayan kayıtlar, otomatik aktarımlar ve onay bekleyen öneriler, bütçe aşımı ve geciken alacak olayları)"
       }
     },
     "musteri": {

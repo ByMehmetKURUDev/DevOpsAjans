@@ -109,7 +109,12 @@
       "ik_personel": "कर्मचारी",
       "ik_izinler": "अवकाश रिकॉर्ड",
       "ik_vardiyalar": "शिफ्ट",
-      "ik_dosyalar": "कर्मचारी दस्तावेज़"
+      "ik_dosyalar": "कर्मचारी दस्तावेज़",
+      "muhasebe_hareketleri": "बहीखाता लेनदेन",
+      "muhasebe_ekleri": "बहीखाता संलग्नक",
+      "muhasebe_tekrarlar": "आवर्ती बहीखाता प्रविष्टि",
+      "muhasebe_cariler": "पक्षकार खाता",
+      "muhasebe_hesaplari": "नकद/बैंक खाता"
     }
   }
 }

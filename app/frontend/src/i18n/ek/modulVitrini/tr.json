@@ -32,7 +32,8 @@
       "icerik": "Sosyal medya ve blog içeriğini hazırlamak ve planlamak için.",
       "sektorel": "Belirli bir sektörün iş akışına göre kurulmuş modüller.",
       "hizmet": "Siteniz ve ekibimizle çalışmanız için: izleme, yenileme, dosyalar, API ve uzman asistanlar.",
-      "analiz": "Sitenizin ve yapılan işin düzenli raporu."
+      "analiz": "Sitenizin ve yapılan işin düzenli raporu.",
+      "finans": "İşletmenizin parası: kasa, banka, gelir-gider, cari hesap ve bütçe."
     },
     "detay": {
       "geri": "Tüm modüller",
@@ -626,6 +627,31 @@
           {
             "s": "Ajans dosyalarımızı görebilir mi?",
             "c": "Hayır. Ajans destek için yalnız sayıları (dosya, müvekkil, yaklaşan süre, depolama) görür; dosya içeriği, notlar, belgeler ve müvekkil bilgileri gösterilmez."
+          }
+        ]
+      },
+      "on_muhasebe": {
+        "ozet": "Kasa, banka ve kart hesapları, gelir-gider, cari hesap ve ekstre, aylık bütçe, nakit akışı ve KDV özeti tek panelde.",
+        "kimIcin": "Muhasebecisine düzenli kayıt götürmek isteyen esnaf, kafe-restoran, mağaza, serbest çalışan ve küçük ajanslar.",
+        "ozellikler": [
+          "Kasa, banka (IBAN'ın yalnız son 4 hanesi gösterilir), kredi kartı (son 4 hane) ve POS / sanal POS hesapları, virman",
+          "Gelir-gider: KDV oranı ve tutarı, kategori, etiket, belge eki; tekrarlayan giderler",
+          "Cari kart, tarih aralıklı ekstre (PDF/CSV) ve 0–30 / 31–60 / 61–90 / 90+ gün yaşlandırma",
+          "Kategori başına aylık bütçe, aşım uyarısı ve otomasyon/webhook olayı",
+          "Ödemeler, POS gün sonu, hukuk masrafı ve saha işinden otomatik ya da onaylı aktarım (iki kez sayılmaz); banka ekstresi CSV içe aktarma"
+        ],
+        "sss": [
+          {
+            "s": "e-Fatura kesiyor ya da bankama bağlanıyor mu?",
+            "c": "Hayır. e-Fatura/e-Arşiv ve banka bağlantısı yoktur; hareketleri elle, CSV ekstreyle ya da diğer modüllerden otomatik aktarımla girersiniz."
+          },
+          {
+            "s": "KDV raporu beyanname yerine geçer mi?",
+            "c": "Hayır. KDV özeti bilgilendirme amaçlıdır; beyanname için kayıtlarınızı mali müşavirinizle paylaşın."
+          },
+          {
+            "s": "Kart ya da hesap numaramı saklıyor mu?",
+            "c": "Hayır. Kartta yalnız son 4 hane tutulur, IBAN'ın da yalnız son 4 hanesi gösterilir; hesap/kart numarası, CVV ve şifre istenmez."
           }
         ]
       },

@@ -74,7 +74,9 @@
       "egitim_tamamlandi": "课程完成，已颁发证书",
       "egitim_devamsizlik": "学员缺勤达到阈值",
       "ik_izin_talebi": "新请假申请（员工）",
-      "ik_izin_karari": "请假申请已审批（批准 / 拒绝）"
+      "ik_izin_karari": "请假申请已审批（批准 / 拒绝）",
+      "muhasebe_butce_asildi": "简易记账中类别预算超支",
+      "muhasebe_alacak_gecikti": "简易记账中往来单位应收款已逾期（1 / 30 / 60 / 90 天）"
     },
     "anahtar": {
       "yeni": "新建密钥",

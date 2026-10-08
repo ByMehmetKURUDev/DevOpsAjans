@@ -197,7 +197,8 @@
         "haftalik_ozet": "Weekly summary (to admins, Monday 08:00)",
         "saklama_temizligi": "Retention cleanup of old visit and click records (13 months)",
         "egitim_bakimi": "Courses maintenance",
-        "hukuk_bakimi": "Law office maintenance"
+        "hukuk_bakimi": "Law office maintenance",
+        "muhasebe_bakimi": "Bookkeeping maintenance"
       },
       "gunluk": "daily",
       "haftalik": "weekly",
@@ -239,7 +240,8 @@
         "aylik_site_analizi": "Runs an automatic site analysis for client sites every month (at most one site per run).",
         "saklama_temizligi": "Keeps QR scan, digital business card, review page, QR menu and booking page visit records and email campaign clicks for 13 months; before deleting older ones it rolls them up into daily totals, so the totals in the panel stay the same. It also deletes expired request-limit counters. Runs once a day.",
         "egitim_bakimi": "Courses maintenance (class reminders, absence warnings, automatic certificates, anonymising student data past its retention period)",
-        "hukuk_bakimi": "Law office maintenance (hearing and deadline reminders: 7/3/1 days before and on the morning of the day, each sent once; permanent removal of clients and matters deleted more than 30 days ago)"
+        "hukuk_bakimi": "Law office maintenance (hearing and deadline reminders: 7/3/1 days before and on the morning of the day, each sent once; permanent removal of clients and matters deleted more than 30 days ago)",
+        "muhasebe_bakimi": "Bookkeeping maintenance (due recurring entries, automatic imports and suggestions awaiting approval, budget overrun and overdue receivable events)"
       }
     },
     "musteri": {

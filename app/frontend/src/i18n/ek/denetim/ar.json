@@ -135,7 +135,14 @@
       "hukuk_zaman_kayitlari": "قيود الوقت للقضايا",
       "hukuk_masraflari": "مصروفات القضايا",
       "hukuk_ekleri": "مرفقات القضايا",
-      "hukuk_mesajlari": "رسائل الموكلين"
+      "hukuk_mesajlari": "رسائل الموكلين",
+      "muhasebe_ayarlari": "إعدادات المحاسبة",
+      "muhasebe_hesaplari": "حسابات الصندوق والبنك",
+      "muhasebe_kategorileri": "فئات الإيرادات والمصروفات",
+      "muhasebe_cariler": "حسابات الجهات المتعاملة",
+      "muhasebe_hareketleri": "الحركات المحاسبية",
+      "muhasebe_tekrarlar": "القيود المتكررة",
+      "muhasebe_butceler": "الميزانيات"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

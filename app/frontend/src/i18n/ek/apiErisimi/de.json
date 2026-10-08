@@ -74,7 +74,9 @@
       "egitim_tamamlandi": "Kurs abgeschlossen, Zertifikat ausgestellt",
       "egitim_devamsizlik": "Fehlzeitenschwelle erreicht",
       "ik_izin_talebi": "Neuer Urlaubsantrag (Personal)",
-      "ik_izin_karari": "Über Urlaubsantrag entschieden (genehmigt / abgelehnt)"
+      "ik_izin_karari": "Über Urlaubsantrag entschieden (genehmigt / abgelehnt)",
+      "muhasebe_butce_asildi": "Kategoriebudget in der Buchhaltung überschritten",
+      "muhasebe_alacak_gecikti": "Eine Kontaktforderung in der Buchhaltung ist überfällig (1 / 30 / 60 / 90 Tage)"
     },
     "anahtar": {
       "yeni": "Neuer Schlüssel",

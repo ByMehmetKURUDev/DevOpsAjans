@@ -133,6 +133,10 @@ HARIC_TABLOLAR = frozenset({
     # kendi satırında) ve personel belge ekleri (dosya içeriği kişisel). Personel kartı, ayarlar, tatil günleri
     # ve vardiya şablonları kaydediliyor.
     "ik_izinler", "ik_vardiyalar", "ik_dosyalar",
+    # Faz 6M: ön muhasebe — bütçe aşım ve alacak gecikme izleri (sistem; olay bir kez), belge ekleri (dosya içeriği)
+    # ve öneriler (eşitlemenin ürettiği onay kuyruğu; onay → hareket satırı denetimde). Hesap, kategori, cari, hareket
+    # (otomatik yansıma, onaylanan öneri ve ters kayıt dahil), tekrar, bütçe ve ayarlar kaydediliyor.
+    "muhasebe_butce_asimlari", "muhasebe_ekleri", "muhasebe_gecikme_izleri", "muhasebe_oneriler",
     # Faz 6H: hukuk — hatırlatma kilidi (olay × eşik; teknik iz). Diğer hukuk tabloları KAYDEDİLİYOR ama
     # değerleri maskeli (`ICERIKSIZ_TABLOLAR`).
     "hukuk_hatirlatmalari",
@@ -207,6 +211,8 @@ TABLO_GURULTU_ALANLARI: Dict[str, frozenset] = {
     "belgeler": frozenset({"arama_metni"}),
     # Faz 6I: personelin portalı son açtığı an (her ziyarette yazılıyor).
     "ik_personel": frozenset({"portal_son_at"}),
+    # Faz 6M: her eşitlemede yazılan özet/zaman ve CSV içe aktarmada hatırlanan sütun eşlemesi.
+    "muhasebe_ayarlari": frozenset({"son_esitleme", "son_esitleme_at", "csv_esleme"}),
 }
 
 #: Faz 6H — avukat–müvekkil sırrı: bu tablolarda denetim satırı yazılıyor (kim, ne zaman, hangi kayıt, hangi

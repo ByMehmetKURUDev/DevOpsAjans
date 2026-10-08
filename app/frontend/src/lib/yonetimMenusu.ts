@@ -47,7 +47,7 @@ export const GRUPLAR: readonly GrupTanimi[] = [
   },
   {
     anahtar: 'finans',
-    sekmeler: ['invoices', 'odeme', 'abonelik', 'krediler', 'fiyatlandirmaV5'],
+    sekmeler: ['invoices', 'odeme', 'abonelik', 'krediler', 'fiyatlandirmaV5', 'onMuhasebe'],
   },
   {
     anahtar: 'destek',

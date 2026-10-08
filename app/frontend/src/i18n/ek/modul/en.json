@@ -209,6 +209,10 @@
         "ad": "Law office",
         "aciklama": "For lawyers and law offices: client and matter tracking, opposing parties with conflict-of-interest warnings, hearing and deadline calendar, deadline calculator, reminders, time and expense records (PDF statement), document attachments and a private status link for clients. Does not pull data from UYAP automatically."
       },
+      "on_muhasebe": {
+        "ad": "Bookkeeping",
+        "aciklama": "Cash, bank, credit card and POS / virtual POS accounts, income and expenses (VAT, category, attachments), recurring expenses, contact accounts and statements (PDF/CSV), receivables ageing, monthly budget with overrun alerts, cash flow and VAT summary, bank statement CSV import; automatic or approval-based import from payments, POS end of day, legal expenses and field service jobs. No e-invoice/e-archive or bank connection."
+      },
       "marka_temasi": {
         "ad": "Brand theme",
         "aciklama": "Your own logo, colours and typeface on your customer pages: business card, QR menu, booking, events, courses and more — one setting."
@@ -280,7 +284,8 @@
       "belge_siniri": "Maximum own documents per account",
       "personel_siniri": "Maximum active staff",
       "dosya_siniri": "Maximum open matters (open + on hold)",
-      "rozet_gizle": "Hide the “Made with mehmetkuru.dev” badge on pages"
+      "rozet_gizle": "Hide the “Made with mehmetkuru.dev” badge on pages",
+      "hesap_siniri": "Maximum cash/bank/card accounts"
     },
     "musteri": {
       "baslik": "My modules",

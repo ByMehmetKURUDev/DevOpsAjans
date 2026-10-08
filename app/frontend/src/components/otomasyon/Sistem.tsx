@@ -311,6 +311,8 @@ function BolumEki({ bolum }: { bolum: OzetBolumu }) {
     metin = t('otomasyon.sistem.ozet.ek.crm', { adim: ek.sonraki_adim ?? 0, hareketsiz: ek.hareketsiz ?? 0 });
   } else if (bolum.anahtar === 'belgeler' && ek.geciken) {
     metin = t('otomasyon.sistem.ozet.ek.geciken', { sayi: ek.geciken });
+  } else if (bolum.anahtar === 'muhasebe') {
+    metin = t('otomasyon.sistem.ozet.ek.muhasebe', { butce: ek.butce ?? 0, alacak: ek.alacak ?? 0 });
   }
   return metin ? <p className="mt-0.5 text-xs text-muted-foreground">{metin}</p> : null;
 }

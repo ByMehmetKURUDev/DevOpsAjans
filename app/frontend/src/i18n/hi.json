@@ -435,7 +435,8 @@
     "tabStokPos": "स्टॉक और POS",
     "tabEgitim": "पाठ्यक्रम",
     "tabIk": "मानव संसाधन",
-    "tabHukuk": "विधि कार्यालय"
+    "tabHukuk": "विधि कार्यालय",
+    "tabOnMuhasebe": "बहीखाता"
   },
   "admin": {
     "loadError": "प्रबंधन डेटा लोड नहीं हो सका",

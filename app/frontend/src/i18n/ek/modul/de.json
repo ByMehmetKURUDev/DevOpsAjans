@@ -209,6 +209,10 @@
         "ad": "Anwaltskanzlei",
         "aciklama": "Für Anwältinnen, Anwälte und Kanzleien: Mandanten- und Aktenverwaltung, Gegenparteien mit Hinweis auf Interessenkonflikte, Kalender für Verhandlungen und Fristen, Fristenrechner, Erinnerungen, Zeit- und Auslagenerfassung (PDF-Aufstellung), Dokumentanhänge und ein privater Statuslink für Mandanten. Ruft keine Daten automatisch aus UYAP ab."
       },
+      "on_muhasebe": {
+        "ad": "Buchhaltung",
+        "aciklama": "Kassen-, Bank-, Kreditkarten- und POS-/virtuelle POS-Konten, Einnahmen und Ausgaben (MwSt., Kategorie, Belege), wiederkehrende Ausgaben, Kontaktkonten und Kontoauszüge (PDF/CSV), Fälligkeitsanalyse der Forderungen, Monatsbudget mit Überschreitungswarnung, Liquiditätsverlauf und MwSt.-Übersicht, CSV-Import von Kontoauszügen; automatische oder freigabepflichtige Übernahme aus Zahlungen, POS-Tagesabschluss, Kanzleiauslagen und Außendienst. Keine E-Rechnung/E-Archiv- oder Bankanbindung."
+      },
       "marka_temasi": {
         "ad": "Markendesign",
         "aciklama": "Ihr eigenes Logo, Ihre Farben und Ihre Schrift auf Ihren Kundenseiten: Visitenkarte, QR-Speisekarte, Terminbuchung, Veranstaltungen, Kurse und mehr – mit einer Einstellung."
@@ -280,7 +284,8 @@
       "belge_siniri": "Höchstzahl eigener Dokumente pro Konto",
       "personel_siniri": "Höchstzahl aktives Personal",
       "dosya_siniri": "Max. offene Akten (offen + ruhend)",
-      "rozet_gizle": "Abzeichen „Erstellt mit mehmetkuru.dev“ auf Seiten ausblenden"
+      "rozet_gizle": "Abzeichen „Erstellt mit mehmetkuru.dev“ auf Seiten ausblenden",
+      "hesap_siniri": "Max. Kassen-/Bank-/Kartenkonten"
     },
     "musteri": {
       "baslik": "Meine Module",

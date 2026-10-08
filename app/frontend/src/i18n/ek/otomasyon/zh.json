@@ -106,7 +106,9 @@
       "satis": "收银销售",
       "stok": "库存商品",
       "egitim": "课程学员",
-      "izin": "请假记录"
+      "izin": "请假记录",
+      "butce": "预算超支",
+      "alacak": "逾期应收款"
     },
     "alan": {
       "id": "编号",
@@ -190,7 +192,11 @@
       "personel_ad": "员工姓名",
       "personel_eposta": "员工邮箱",
       "departman": "部门",
-      "gorev": "职位"
+      "gorev": "职位",
+      "ay": "月份",
+      "gerceklesen": "实际",
+      "asim": "超支金额",
+      "yuzde": "执行百分比"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -227,7 +233,9 @@
       "egitim_tamamlandi": "完成课程（证书）",
       "egitim_devamsizlik": "缺勤达到阈值",
       "ik_izin_talebi": "新请假申请",
-      "ik_izin_karari": "请假申请已审批"
+      "ik_izin_karari": "请假申请已审批",
+      "muhasebe_butce_asildi": "超出预算",
+      "muhasebe_alacak_gecikti": "应收款逾期"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -264,7 +272,9 @@
       "egitim_tamamlandi": "已向学员颁发证书（满足条件自动颁发或手动颁发）。",
       "egitim_devamsizlik": "学员缺勤达到设定的节数（每名学员一次）。",
       "ik_izin_talebi": "员工提交了请假申请，或在面板中创建了待审批申请（病假仅含日期）。",
-      "ik_izin_karari": "待审批的请假申请被批准或拒绝（含直接以已批准添加的请假）。"
+      "ik_izin_karari": "待审批的请假申请被批准或拒绝（含直接以已批准添加的请假）。",
+      "muhasebe_butce_asildi": "简易记账中某支出类别本月的实际支出超过了预算（每个类别每月一次）。",
+      "muhasebe_alacak_gecikti": "简易记账中某往来单位的应收款已逾期 1、30、60 或 90 天（每个未结项目、每个阈值各一次）。“事件中的人”为该往来单位。"
     },
     "eylem": {
       "eposta": "发送邮件",
@@ -670,13 +680,15 @@
           "siteler": "当前无法访问的网站",
           "gelen_kutusu": "收件箱中待回复",
           "stok_kritik": "客户低库存商品（收银）",
-          "ik_izin": "待审批请假申请（代理机构员工）"
+          "ik_izin": "待审批请假申请（代理机构员工）",
+          "muhasebe": "简易记账：预算超支和逾期应收款"
         },
         "ek": {
           "toplam": "未付总额：{{tutar}}",
           "sla": "{{sayi}} 个请求违反 SLA",
           "crm": "{{adim}} 个下一步已到期，{{hareketsiz}} 个 7 天以上无动态",
-          "geciken": "{{sayi}} 个已过截止日期"
+          "geciken": "{{sayi}} 个已过截止日期",
+          "muhasebe": "{{butce}} 项预算超支，{{alacak}} 笔应收款逾期"
         },
         "tur": {
           "alan": "域名",
@@ -707,7 +719,9 @@
           "kritik_stok": "已低库存 {{sayi}} 天",
           "kritik_stok_bugun": "今天降至低库存",
           "izin_bekliyor": "已等待审批 {{sayi}} 天",
-          "izin_bekliyor_bugun": "今天收到"
+          "izin_bekliyor_bugun": "今天收到",
+          "butce_asimi": "超出预算",
+          "cari_gecikme": "逾期 {{sayi}} 天"
         }
       }
     }

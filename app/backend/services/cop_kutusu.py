@@ -195,6 +195,13 @@ IZINLI_TABLOLAR: Dict[str, Dict[str, Any]] = {
     "ik_izinler": {"sahip": "hesap_email", "sira": 20, "ebeveyn": "ik_personel"},
     "ik_vardiyalar": {"sahip": "hesap_email", "sira": 20, "ebeveyn": "ik_personel"},
     "ik_dosyalar": {"sahip": "hesap_email", "sira": 20},
+    # Faz 6M: ön muhasebe — hareket (belge ekleriyle birlikte silinir, birlikte geri gelir), tekrarlayan kayıt, cari kart
+    # ve boş hesap (kullanımdaki hesap/cari silinmez, arşive alınır). Ajansın kendi defterinde sahip boş (yalnız yönetici).
+    "muhasebe_hareketleri": {"sahip": "hesap_email", "sira": 10},
+    "muhasebe_ekleri": {"sahip": "hesap_email", "sira": 20, "ebeveyn": "muhasebe_hareketleri"},
+    "muhasebe_tekrarlar": {"sahip": "hesap_email", "sira": 10},
+    "muhasebe_cariler": {"sahip": "hesap_email", "sira": 10},
+    "muhasebe_hesaplari": {"sahip": "hesap_email", "sira": 10},
     # Faz 4W: otomasyon kuralı (müşteride hesabın) ve özel alan tanımı (ajans; değerler kalıyor).
     "otomasyon_kurallari": {"sahip": "hesap_email", "sira": 10},
     "ozel_alanlar": {"sira": 10},
@@ -677,9 +684,9 @@ async def _icerigi_sil(db: AsyncSession, kayit: CopKutusu) -> None:
     """Çöpteki dosyanın bekletilen içeriğini siler (geri alınmamışsa).
 
     Faz 4K: kartvizit görselleri de aynı alanları taşıyor (`depo`, `depolama_anahtari`).
-    Faz 6I: personel belge ekleri (`ik_dosyalar`) da.
+    Faz 6I: personel belge ekleri (`ik_dosyalar`) da. Faz 6M: muhasebe hareketinin belge ekleri (`muhasebe_ekleri`).
     """
-    if kayit.tablo not in ("files", "kartvizit_gorselleri", "ik_dosyalar") or kayit.geri_alindi:
+    if kayit.tablo not in ("files", "kartvizit_gorselleri", "ik_dosyalar", "muhasebe_ekleri") or kayit.geri_alindi:
         return
     veri = veri_coz(kayit)
     anahtar = veri.get("depolama_anahtari")

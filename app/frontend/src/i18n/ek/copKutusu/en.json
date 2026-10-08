@@ -109,7 +109,12 @@
       "ik_personel": "Staff member",
       "ik_izinler": "Leave record",
       "ik_vardiyalar": "Shift",
-      "ik_dosyalar": "Staff document"
+      "ik_dosyalar": "Staff document",
+      "muhasebe_hareketleri": "Bookkeeping transaction",
+      "muhasebe_ekleri": "Bookkeeping attachment",
+      "muhasebe_tekrarlar": "Recurring bookkeeping entry",
+      "muhasebe_cariler": "Contact account",
+      "muhasebe_hesaplari": "Cash/bank account"
     }
   }
 }

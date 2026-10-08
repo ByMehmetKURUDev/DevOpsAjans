@@ -109,7 +109,12 @@
       "ik_personel": "Mitarbeitende",
       "ik_izinler": "Urlaubseintrag",
       "ik_vardiyalar": "Schicht",
-      "ik_dosyalar": "Personaldokument"
+      "ik_dosyalar": "Personaldokument",
+      "muhasebe_hareketleri": "Buchung",
+      "muhasebe_ekleri": "Buchungsbeleg",
+      "muhasebe_tekrarlar": "Wiederkehrende Buchung",
+      "muhasebe_cariler": "Kontaktkonto",
+      "muhasebe_hesaplari": "Kassen-/Bankkonto"
     }
   }
 }

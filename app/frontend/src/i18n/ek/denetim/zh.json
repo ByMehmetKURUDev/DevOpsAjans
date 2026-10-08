@@ -135,7 +135,14 @@
       "hukuk_zaman_kayitlari": "案件工时",
       "hukuk_masraflari": "案件费用",
       "hukuk_ekleri": "案件附件",
-      "hukuk_mesajlari": "客户留言"
+      "hukuk_mesajlari": "客户留言",
+      "muhasebe_ayarlari": "记账设置",
+      "muhasebe_hesaplari": "现金和银行账户",
+      "muhasebe_kategorileri": "收支类别",
+      "muhasebe_cariler": "往来账户",
+      "muhasebe_hareketleri": "记账记录",
+      "muhasebe_tekrarlar": "周期性记录",
+      "muhasebe_butceler": "预算"
     },
     "hareket": {
       "baslik": "账户动态",

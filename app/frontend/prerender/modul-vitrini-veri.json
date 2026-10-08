@@ -12,7 +12,8 @@
     "icerik",
     "sektorel",
     "hizmet",
-    "analiz"
+    "analiz",
+    "finans"
   ],
   "moduller": [
     {
@@ -430,6 +431,16 @@
         "dosyalar",
         "zaman_takibi"
       ],
+      "sektor_paketleri": []
+    },
+    {
+      "anahtar": "on_muhasebe",
+      "slug": "on-muhasebe",
+      "ikon": "Calculator",
+      "kategori": "finans",
+      "durum": "yayinda",
+      "paket": null,
+      "ilgili": [],
       "sektor_paketleri": []
     }
   ],
