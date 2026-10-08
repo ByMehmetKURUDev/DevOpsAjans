@@ -95,7 +95,12 @@
       "toplanti_hatirlatma": "Besprechungen: Erinnerung (24 Std. / 1 Std. vorher)",
       "toplanti_notlari": "Besprechungen: Notizen geteilt",
       "toplanti_talebi": "Besprechungen: neue Kundenanfrage",
-      "okr_hatirlatma": "OKR: wöchentliche Check-in-Erinnerung (seit 7 Tagen nicht aktualisierte Schlüsselergebnisse)"
+      "okr_hatirlatma": "OKR: wöchentliche Check-in-Erinnerung (seit 7 Tagen nicht aktualisierte Schlüsselergebnisse)",
+      "bakiye_talebi": "Guthaben: Aufladungsmeldung eines Kunden",
+      "bakiye_yukleme": "Guthaben: Aufladung freigegeben / abgelehnt",
+      "bakiye_harcama": "Guthaben: Rechnung aus Guthaben bezahlt",
+      "bakiye_dusuk": "Guthaben: Warnung bei niedrigem Guthaben",
+      "bakiye_iade": "Guthaben: Guthabenerstattung"
     },
     "kanal": {
       "inapp": "Panel",

@@ -145,7 +145,12 @@
       "muhasebe_butceler": "Budgets",
       "okr_donemler": "OKR-Perioden",
       "okr_hedefler": "OKR-Ziele",
-      "okr_anahtar_sonuclar": "Schlüsselergebnisse (OKR)"
+      "okr_anahtar_sonuclar": "Schlüsselergebnisse (OKR)",
+      "cuzdan_hesaplari": "Kundenguthaben",
+      "cuzdan_hareketleri": "Guthaben-Kontobuch",
+      "cuzdan_yukleme_talepleri": "Aufladungsmeldungen",
+      "cuzdan_ayarlari": "Guthabeneinstellungen",
+      "cuzdan_otomatik_izleri": "Automatische Zahlungsversuche aus Guthaben"
     },
     "hareket": {
       "baslik": "Kontoaktivität",

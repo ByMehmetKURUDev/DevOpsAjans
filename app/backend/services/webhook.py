@@ -191,6 +191,10 @@ OLAY_TURLERI: Tuple[OlayTuru, ...] = (
     # kez) ve hedefin ilerlemesi 1'e ULAŞTI (geçişte bir kez). Veride kimlikler, başlıklar, ilerleme; kişisel veri yok.
     OlayTuru("okr.kr_riskte"),
     OlayTuru("okr.hedef_tamamlandi"),
+    # Faz 5C — cüzdan (`services/cuzdan.py`, olay_yayinla): bakiyeye yükleme yapıldı (talep onayı / elle) ve bakiyeden
+    # fatura ödendi. Veride hareket kimliği, tutar, para birimi, sonraki bakiye (+ fatura kimliği/no); kişisel veri yok.
+    OlayTuru("bakiye.yuklendi"),
+    OlayTuru("bakiye.harcandi"),
 )
 OLAY_SOZLUGU: Dict[str, OlayTuru] = {o.anahtar: o for o in OLAY_TURLERI}
 #: Abone olunmaz; "Test olayı gönder" ile seçilen uç noktasına gider.

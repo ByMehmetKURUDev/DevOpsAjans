@@ -21,7 +21,8 @@
       "crm_form": "Форма CRM",
       "teklif_karari": "Решение по предложению",
       "ortak_basvurusu": "Заявка на партнёрство",
-      "toplanti_talebi": "Запрос встречи"
+      "toplanti_talebi": "Запрос встречи",
+      "bakiye_yukleme": "Пополнение баланса"
     },
     "durumSuzgeci": {
       "etiket": "Фильтр по статусу",
@@ -65,7 +66,8 @@
       "paket_uygula": "Применить этот пакет к клиенту",
       "onayla": "Одобрить",
       "reddet": "Отклонить",
-      "toplanti_planla": "Запланировать встречу"
+      "toplanti_planla": "Запланировать встречу",
+      "bakiye_reddet": "Отклонить (с причиной)"
     },
     "eylemTamam": "Готово.",
     "eylemHata": "Не удалось выполнить действие.",
@@ -113,7 +115,13 @@
       "tanitim": "Как будет продвигать",
       "pazarlama": "Согласие на рассылку",
       "araliklar": "Удобное время (по Стамбулу)",
-      "talepDurumu": "Статус запроса"
+      "talepDurumu": "Статус запроса",
+      "yuklemeTutari": "Заявленная сумма",
+      "referans": "Код платежа",
+      "odemeYontemi": "Способ оплаты",
+      "odemeTarihi": "Дата оплаты",
+      "dekont": "Квитанция",
+      "retNedeni": "Причина отказа"
     },
     "karar": {
       "bekliyor": "Ожидает решения",
@@ -202,6 +210,18 @@
       "bekliyor": "Ожидает",
       "planlandi": "Запланирована",
       "kapandi": "Закрыт"
+    },
+    "bakiyeTalepDurum": {
+      "beklemede": "Ожидает подтверждения",
+      "onaylandi": "Подтверждено",
+      "reddedildi": "Отклонено",
+      "iptal": "Отозвано клиентом"
+    },
+    "bakiyeYontem": {
+      "havale": "Банковский перевод",
+      "eft": "EFT",
+      "nakit": "Наличные",
+      "diger": "Другое"
     }
   }
 }

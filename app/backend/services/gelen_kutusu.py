@@ -50,6 +50,10 @@ ortak_basvurusu    ortaklar (Faz 5K): herkese açık /ortaklik    beklemede → 
 toplanti_talebi    toplanti_talepleri (Faz 6T): müşterinin      bekliyor → yeni; planlandı / kapatıldı →
                    panelden "Toplantı iste" talebi (konu +      kapandi (kendi durum alanı; işaret yok).
                    en çok 3 zaman aralığı + not)                "Toplantı planla" ön doldurulmuş form açar
+bakiye_yukleme     cuzdan_yukleme_talepleri (Faz 5C):           beklemede → yeni; onay / ret / müşteri iptali
+                   müşterinin "Bakiye yükle" bildirimi          → kapandi (kendi durum alanı; işaret yok).
+                   (havale/EFT/nakit tutarı + dekont)           "Onayla" mevcut ucu çağırır; "Reddet" neden
+                                                                ister → Ödemeler › Müşteri bakiyeleri
 =================  ==========================================  ==========================================
 
 Faz 7K — çift sayım yok: CRM formu gönderimi `inquiries`'e düşmüyor (iletişim formu öğesi olmaz); öğe
@@ -103,6 +107,8 @@ KAYNAKLAR: Tuple[str, ...] = (
     "ortak_basvurusu",
     # Faz 6T — müşterinin panelden gönderdiği toplantı talebi.
     "toplanti_talebi",
+    # Faz 5C — müşterinin "Bakiye yükle" bildirimi (onay bekleyen avans yüklemesi).
+    "bakiye_yukleme",
 )
 DURUMLAR: Tuple[str, ...] = ("yeni", "yanit_bekliyor", "okundu", "kapandi")
 BEKLEYEN = frozenset({"yeni", "yanit_bekliyor"})
@@ -162,6 +168,8 @@ KAYNAK_TANIMI = {
     "ortak_basvurusu": "an application to the agency's affiliate (referral) program sent from the public partner page",
     "toplanti_talebi": "an existing client asked for a meeting from the client panel (topic, up to three preferred time "
                        "ranges and a note); the agency will schedule it",
+    "bakiye_yukleme": "an existing client reported a bank transfer / cash advance payment to top up their prepaid balance "
+                      "with the agency (amount, date, optional receipt); the agency approves or declines it",
 }
 
 
@@ -1126,6 +1134,48 @@ async def _toplanti_talebi(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dic
     return sonuc
 
 
+async def _bakiye_yukleme(db: AsyncSession, sz: Suzgec, bg: Baglam) -> List[Dict[str, Any]]:
+    """Faz 5C — müşterinin bakiye yükleme bildirimi. Durum kendi alanından: beklemede → yeni; onay / ret / iptal →
+    kapandi. "Onayla" cüzdan ucunu çağırır (bildirilen tutarla); "Reddet" neden istediği için cüzdan ekranını açar."""
+    from models.cuzdan import CuzdanYuklemeTalepleri as T
+    from services.cuzdan import para_metni, tl
+
+    s = select(T)
+    if sz.kimlik is not None:
+        s = s.where(T.id == sz.kimlik)
+    if sz.durum in ("bekleyen", "yeni"):
+        s = s.where(T.durum == "beklemede")
+    elif sz.durum in ("okundu", "yanit_bekliyor"):
+        return []
+    desen = _desen(sz.q)
+    if desen:
+        s = s.where(_benzer((T.hesap_email, T.kisi_email, T.notu, T.referans), desen))
+    s = s.where(*_tarih_kosullari(T.created_at, sz))
+    satirlar = (await db.execute(s.order_by(T.created_at.desc(), T.id.desc()).limit(KAYNAK_SINIRI))).scalars().all()
+    adlar = await _hesap_adlari(db, bg, (t.hesap_email for t in satirlar))
+    sonuc = []
+    for t in satirlar:
+        durum = "yeni" if t.durum == "beklemede" else "kapandi"
+        e: List[Dict[str, Any]] = []
+        if t.durum == "beklemede":
+            e.append(_istek("onayla", "POST", f"/api/v1/cuzdan-yonetim/talepler/{t.id}/onayla"))
+            e.append(_arayuz("bakiye_reddet"))
+        tutar = tl(t.tutar)
+        sonuc.append(_oge(
+            "bakiye_yukleme", t.id, kisi_ad=adlar.get(eposta_duzelt(t.hesap_email)), kisi_eposta=t.kisi_email or t.hesap_email,
+            baslik=para_metni(t.tutar, t.para_birimi), ozet=ozet_metni(t.notu or ""), zaman=t.created_at, durum=durum,
+            hesap_email=t.hesap_email, ac=f"/admin?sekme=odeme&bolum=bakiyeler&talep={t.id}", eylemler=e,
+            yanit=_eposta_yaniti("bakiye_yukleme", t.id, eposta_duzelt(t.kisi_email or t.hesap_email)),
+            ek={"durum_ham": t.durum, "tutar": tutar, "para_birimi": t.para_birimi, "dekont_var": bool(t.dekont_dosya_id),
+                "referans": t.referans},
+            ayrinti={"tutar": tutar, "para_birimi": t.para_birimi, "yontem": t.yontem, "referans": t.referans,
+                     "odeme_tarihi": t.odeme_tarihi.isoformat() if t.odeme_tarihi else None, "not": t.notu,
+                     "dekont_var": bool(t.dekont_dosya_id), "durum_ham": t.durum, "ret_nedeni": t.ret_nedeni,
+                     "hesap": t.hesap_email},
+        ))
+    return sonuc
+
+
 YUKLEYICILER = {
     "iletisim": _iletisim,
     "fiyat_teklifi": _fiyat_teklifi,
@@ -1143,6 +1193,7 @@ YUKLEYICILER = {
     "teklif_karari": _teklif_karari,
     "ortak_basvurusu": _ortak_basvurusu,
     "toplanti_talebi": _toplanti_talebi,
+    "bakiye_yukleme": _bakiye_yukleme,
 }
 
 
@@ -1542,6 +1593,9 @@ def _veri_satirlari(oge: Dict[str, Any]) -> List[Tuple[str, Any]]:
         s += [("note", a.get("not")),
               ("preferred_time_ranges_utc", "; ".join(f"{x.get('bas')} – {x.get('bit')}" for x in a.get("araliklar") or []
                                                       if isinstance(x, dict)))]
+    elif k == "bakiye_yukleme":
+        s += [("reported_amount", f"{a.get('tutar')} {a.get('para_birimi')}" if a.get("tutar") else None),
+              ("method", a.get("yontem")), ("payment_date", a.get("odeme_tarihi")), ("note", a.get("not"))]
     elif k == "teklif_karari":
         s += [("quote_no", a.get("no")), ("decision", "accepted" if a.get("karar") == "kabul" else "declined"),
               ("client_note", a.get("karar_notu")),

@@ -145,7 +145,12 @@
       "muhasebe_butceler": "Bütçeler",
       "okr_donemler": "OKR dönemleri",
       "okr_hedefler": "OKR hedefleri",
-      "okr_anahtar_sonuclar": "Anahtar sonuçlar (OKR)"
+      "okr_anahtar_sonuclar": "Anahtar sonuçlar (OKR)",
+      "cuzdan_hesaplari": "Müşteri bakiyeleri",
+      "cuzdan_hareketleri": "Bakiye defteri",
+      "cuzdan_yukleme_talepleri": "Bakiye yükleme bildirimleri",
+      "cuzdan_ayarlari": "Bakiye ayarları",
+      "cuzdan_otomatik_izleri": "Bakiyeden otomatik ödeme denemeleri"
     },
     "hareket": {
       "baslik": "Hesap hareketleri",

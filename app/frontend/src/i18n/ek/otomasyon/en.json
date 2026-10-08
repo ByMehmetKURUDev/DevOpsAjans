@@ -113,7 +113,8 @@
       "komisyon": "Commission",
       "odeme": "Payout request",
       "toplanti": "Meeting",
-      "okr": "OKR objective"
+      "okr": "OKR objective",
+      "bakiye": "Balance transaction"
     },
     "alan": {
       "id": "ID",
@@ -214,7 +215,10 @@
       "sahip": "Owner",
       "hedef_ilerleme": "Objective progress (%)",
       "kr": "Key result",
-      "guven": "Confidence"
+      "guven": "Confidence",
+      "hareket_id": "Transaction no.",
+      "bakiye": "Balance after",
+      "otomatik": "Automatic payment"
     },
     "olay": {
       "aday_olusturuldu": "New CRM lead",
@@ -261,7 +265,9 @@
       "toplanti_yapildi": "Meeting held",
       "toplanti_iptal": "Meeting cancelled",
       "okr_kr_riskte": "Key result off track",
-      "okr_hedef_tamamlandi": "Objective completed"
+      "okr_hedef_tamamlandi": "Objective completed",
+      "bakiye_yuklendi": "Balance topped up",
+      "bakiye_harcandi": "Invoice paid from balance"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead from a form, contact, site analysis or added manually.",
@@ -308,7 +314,9 @@
       "toplanti_yapildi": "The meeting was marked as held (e.g. send a thank-you email or create a minutes task).",
       "toplanti_iptal": "The meeting was cancelled with a reason; attendees received a cancellation (ICS).",
       "okr_kr_riskte": "A key result's confidence changed to “off track” in a check-in (once per change). The “person in the event” is the KR owner.",
-      "okr_hedef_tamamlandi": "An objective's progress reached 100% (once each time it is reached). The “person in the event” is the objective owner."
+      "okr_hedef_tamamlandi": "An objective's progress reached 100% (once each time it is reached). The “person in the event” is the objective owner.",
+      "bakiye_yuklendi": "A top-up was recorded on the client's balance (a top-up notice was approved or an admin recorded it manually). The “person in the event” is the client account.",
+      "bakiye_harcandi": "An invoice was paid from the client's balance (partly or in full, including automatic payment). Invoice fields are available too."
     },
     "eylem": {
       "eposta": "Send email",

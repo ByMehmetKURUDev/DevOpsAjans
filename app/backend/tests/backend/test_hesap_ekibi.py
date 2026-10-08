@@ -648,6 +648,13 @@ MUSTERI_UCLARI = [
     ("GET", "/api/v1/faturalarim/{F}/pdf", ("faturalar",), None, 200),
     ("POST", "/api/v1/faturalarim/{F}/odeme-baglantisi", ("faturalar",), None, 200),
     ("GET", "/api/v1/faturalarim/{F}/odemeler/999999/dekont", ("faturalar",), None, "gecti"),
+    # Faz 5C — cüzdan (müşteri avansı): `faturalar` izni (fatura rolü yeter).
+    ("GET", "/api/v1/cuzdanim", ("faturalar",), None, 200),
+    ("GET", "/api/v1/cuzdanim/hareketler", ("faturalar",), None, 200),
+    ("GET", "/api/v1/cuzdanim/ekstre", ("faturalar",), None, 200),
+    ("PUT", "/api/v1/cuzdanim/ayarlar", ("faturalar",), {"otomatik_kismi": False}, 200),
+    ("POST", "/api/v1/cuzdanim/faturalar/{F}/ode", ("faturalar",), {}, "gecti"),
+    ("POST", "/api/v1/cuzdanim/yukleme-talepleri/999999/iptal", ("faturalar",), {}, "gecti"),
     ("GET", "/api/v1/tekliflerim", ("faturalar",), None, 200),
     ("GET", "/api/v1/tekliflerim/999999", ("faturalar",), None, "gecti"),
     ("POST", "/api/v1/tekliflerim/999999/karar", ("faturalar",), {"sonuc": "kabul", "ad_soyad": "Ekip Üyesi"}, "gecti"),

@@ -339,6 +339,14 @@ async def _muhasebe_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_bakim(db)
 
 
+async def _cuzdan_otomatik_odeme(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    """Faz 5C — "yeni faturalarımı bakiyemden otomatik öde" açık hesapların denenmemiş açık faturaları (fatura başına
+    bir kez; "vadesinde" seçeneğinde vadesi gelenler). Kesilen fatura çoğunlukla anında denenir; bu iş yedek."""
+    from services.cuzdan import otomatik_odemeler
+
+    return await otomatik_odemeler(db)
+
+
 async def _okr_bakimi(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     # Faz 6O: OKR — açık dönemlerin otomatik KR kaynaklarını yenile (KR başına saatte bir) ve 7 gündür check-in almamış
     # etkin elle KR'lerin sahibine haftalık hatırlatma (KR başına 7 günde en çok bir).
@@ -378,6 +386,7 @@ GOREVLER: List[Gorev] = [
     # süresi dolan teklifler ve sözleşme bitişi (30/7 gün).
     Gorev("tekrarlayan_faturalar", timedelta(hours=6), _tekrarlayan_faturalar),
     Gorev("fatura_hatirlatmalari", timedelta(hours=6), _fatura_hatirlatmalari),
+    Gorev("cuzdan_otomatik_odeme", timedelta(minutes=30), _cuzdan_otomatik_odeme),
     Gorev("teklif_ve_sozlesme", timedelta(hours=6), _teklif_ve_sozlesme),
     # Faz 4A: webhook yeniden denemeleri her turda (ucuz sorgu; tur başına süre bütçeli), temizlik günde bir.
     Gorev("webhook_teslimatlari", timedelta(0), _webhook_teslimatlari),

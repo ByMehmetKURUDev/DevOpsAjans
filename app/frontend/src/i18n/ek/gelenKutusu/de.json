@@ -21,7 +21,8 @@
       "crm_form": "CRM-Formular",
       "teklif_karari": "Angebotsentscheidung",
       "ortak_basvurusu": "Partnerbewerbung",
-      "toplanti_talebi": "Besprechungsanfrage"
+      "toplanti_talebi": "Besprechungsanfrage",
+      "bakiye_yukleme": "Guthabenaufladung"
     },
     "durumSuzgeci": {
       "etiket": "Nach Status filtern",
@@ -65,7 +66,8 @@
       "paket_uygula": "Dieses Paket für diesen Kunden anwenden",
       "onayla": "Genehmigen",
       "reddet": "Ablehnen",
-      "toplanti_planla": "Besprechung planen"
+      "toplanti_planla": "Besprechung planen",
+      "bakiye_reddet": "Ablehnen (mit Grund)"
     },
     "eylemTamam": "Erledigt.",
     "eylemHata": "Die Aktion konnte nicht ausgeführt werden.",
@@ -113,7 +115,13 @@
       "tanitim": "Wie beworben wird",
       "pazarlama": "Marketing-Einwilligung",
       "araliklar": "Bevorzugte Zeiten (Istanbuler Zeit)",
-      "talepDurumu": "Anfragestatus"
+      "talepDurumu": "Anfragestatus",
+      "yuklemeTutari": "Gemeldeter Betrag",
+      "referans": "Referenzcode",
+      "odemeYontemi": "Zahlungsweg",
+      "odemeTarihi": "Zahlungsdatum",
+      "dekont": "Beleg",
+      "retNedeni": "Ablehnungsgrund"
     },
     "karar": {
       "bekliyor": "Entscheidung ausstehend",
@@ -202,6 +210,18 @@
       "bekliyor": "Wartet",
       "planlandi": "Geplant",
       "kapandi": "Geschlossen"
+    },
+    "bakiyeTalepDurum": {
+      "beklemede": "Wartet auf Freigabe",
+      "onaylandi": "Freigegeben",
+      "reddedildi": "Abgelehnt",
+      "iptal": "Vom Kunden zurückgezogen"
+    },
+    "bakiyeYontem": {
+      "havale": "Überweisung",
+      "eft": "EFT",
+      "nakit": "Bar",
+      "diger": "Sonstiges"
     }
   }
 }

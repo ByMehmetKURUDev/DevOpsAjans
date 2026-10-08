@@ -189,6 +189,12 @@ NESNELER: Dict[str, Tuple[Alan, ...]] = {
         Alan("id", "sayi"), Alan("baslik"), Alan("baslangic", "tarih"), Alan("sure_dk", "sayi"), Alan("durum"),
         Alan("yer_turu"), Alan("baglanti"), Alan("adres"), Alan("katilimci_sayisi", "sayi"), Alan("iptal_nedeni"),
     ),
+    # Faz 5C — cüzdan hareketi (tutar ve sonraki bakiye ondalık; kaynak: talep | elle | cevrimici; otomatik: bakiyeden
+    # otomatik ödeme mi).
+    "bakiye": (
+        Alan("hareket_id", "sayi"), Alan("tur"), Alan("tutar", "sayi"), Alan("para_birimi"), Alan("bakiye", "sayi"),
+        Alan("kaynak"), Alan("otomatik", "evet_hayir"),
+    ),
     "hesap": (Alan("email"), Alan("ad")),
     "kisi": (Alan("ad"), Alan("email")),
     "olay": (Alan("tur"), Alan("zaman", "tarih")),
@@ -272,6 +278,9 @@ OLAYLAR: Tuple[OtoOlay, ...] = (
     OtoOlay("toplanti.planlandi", ("toplanti", "proje", "aday", "hesap"), musteri=False, proje_var=True),
     OtoOlay("toplanti.yapildi", ("toplanti", "proje", "aday", "hesap"), musteri=False, proje_var=True),
     OtoOlay("toplanti.iptal", ("toplanti", "proje", "aday", "hesap"), musteri=False, proje_var=True),
+    # Faz 5C — cüzdan: bakiyeye yükleme yapıldı; bakiyeden fatura ödendi (webhook kataloğunda da var). Kişi: müşteri hesabı.
+    OtoOlay("bakiye.yuklendi", ("bakiye", "hesap")),
+    OtoOlay("bakiye.harcandi", ("bakiye", "fatura", "hesap")),
 )
 OLAY_SOZLUGU: Dict[str, OtoOlay] = {o.anahtar: o for o in OLAYLAR}
 #: `fatura.gecikti` hangi gecikme günlerinde üretiliyor (her biri fatura başına bir kez).
@@ -400,6 +409,8 @@ ORNEK: Dict[str, Dict[str, Any]] = {
     "toplanti": {"id": 14, "baslik": "Haftalık durum toplantısı", "baslangic": "2026-10-12T07:00:00Z", "sure_dk": 45,
                  "durum": "planlandi", "yer_turu": "cevrimici", "baglanti": "https://meet.jit.si/mk-ornek", "adres": None,
                  "katilimci_sayisi": 3, "iptal_nedeni": None},
+    "bakiye": {"hareket_id": 31, "tur": "yukleme", "tutar": 5000.0, "para_birimi": "TRY", "bakiye": 7250.0,
+               "kaynak": "talep", "otomatik": False},
     "hesap": {"email": "musteri@ornek.com", "ad": "Örnek A.Ş."},
 }
 
@@ -437,6 +448,9 @@ def ornek_baglam(tur: str, ajans: bool, ozel: Optional[Dict[str, List[Dict[str, 
         baglam["fatura"].update({"durum": "paid", "acik": False})
     if tur == "ortaklik.basvuru":
         baglam["ortak"].update({"durum": "beklemede", "kod": None})
+    if tur == "bakiye.harcandi":
+        baglam["bakiye"].update({"tur": "harcama", "tutar": 1500.0, "bakiye": 5750.0, "kaynak": None})
+        baglam["fatura"].update({"durum": "paid", "acik": False})
     if tur == "toplanti.yapildi":
         baglam["toplanti"].update({"durum": "yapildi"})
     if tur == "toplanti.iptal":

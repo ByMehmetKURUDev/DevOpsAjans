@@ -95,7 +95,12 @@
       "toplanti_hatirlatma": "Toplantı: hatırlatma (24 sa / 1 sa önce)",
       "toplanti_notlari": "Toplantı: notlar paylaşıldı",
       "toplanti_talebi": "Toplantı: müşteriden yeni talep",
-      "okr_hatirlatma": "OKR: haftalık check-in hatırlatması (7 gündür güncellenmeyen anahtar sonuçlar)"
+      "okr_hatirlatma": "OKR: haftalık check-in hatırlatması (7 gündür güncellenmeyen anahtar sonuçlar)",
+      "bakiye_talebi": "Bakiye: müşteriden yükleme bildirimi",
+      "bakiye_yukleme": "Bakiye: yükleme onaylandı / reddedildi",
+      "bakiye_harcama": "Bakiye: bakiyeden fatura ödemesi",
+      "bakiye_dusuk": "Bakiye: düşük bakiye uyarısı",
+      "bakiye_iade": "Bakiye: bakiye iadesi"
     },
     "kanal": {
       "inapp": "Panel",

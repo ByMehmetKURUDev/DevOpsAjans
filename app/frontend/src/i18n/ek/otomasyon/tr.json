@@ -113,7 +113,8 @@
       "komisyon": "Komisyon",
       "odeme": "Ödeme talebi",
       "toplanti": "Toplantı",
-      "okr": "OKR hedefi"
+      "okr": "OKR hedefi",
+      "bakiye": "Bakiye hareketi"
     },
     "alan": {
       "id": "Kimlik",
@@ -214,7 +215,10 @@
       "sahip": "Sahibi",
       "hedef_ilerleme": "Hedef ilerlemesi (%)",
       "kr": "Anahtar sonuç",
-      "guven": "Güven"
+      "guven": "Güven",
+      "hareket_id": "Hareket no",
+      "bakiye": "Sonraki bakiye",
+      "otomatik": "Otomatik ödeme mi"
     },
     "olay": {
       "aday_olusturuldu": "Yeni CRM adayı",
@@ -261,7 +265,9 @@
       "toplanti_yapildi": "Toplantı yapıldı",
       "toplanti_iptal": "Toplantı iptal edildi",
       "okr_kr_riskte": "Anahtar sonuç tehlikede",
-      "okr_hedef_tamamlandi": "Hedef tamamlandı"
+      "okr_hedef_tamamlandi": "Hedef tamamlandı",
+      "bakiye_yuklendi": "Bakiyeye yükleme yapıldı",
+      "bakiye_harcandi": "Bakiyeden fatura ödendi"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Form, iletişim, site analizi ya da elle eklenen aday.",
@@ -308,7 +314,9 @@
       "toplanti_yapildi": "Toplantı “yapıldı” olarak işaretlendi (ör. teşekkür e-postası, tutanak görevi).",
       "toplanti_iptal": "Toplantı gerekçesiyle iptal edildi; katılımcılara iptal daveti (ICS) gitti.",
       "okr_kr_riskte": "Bir anahtar sonucun güveni check-in'de “tehlikede”ye geçti (her geçişte bir kez). “Olaydaki kişi” KR'nin sahibidir.",
-      "okr_hedef_tamamlandi": "Bir hedefin ilerlemesi %100'e ulaştı (her ulaşmada bir kez). “Olaydaki kişi” hedefin sahibidir."
+      "okr_hedef_tamamlandi": "Bir hedefin ilerlemesi %100'e ulaştı (her ulaşmada bir kez). “Olaydaki kişi” hedefin sahibidir.",
+      "bakiye_yuklendi": "Müşterinin bakiyesine yükleme yazıldı (yükleme bildirimi onaylandı ya da yönetici elle kaydetti). “Olaydaki kişi” müşteri hesabıdır.",
+      "bakiye_harcandi": "Bir fatura müşterinin bakiyesinden (kısmen ya da tamamen; otomatik ödeme dahil) ödendi. Faturanın alanları da kullanılabilir."
     },
     "eylem": {
       "eposta": "E-posta gönder",

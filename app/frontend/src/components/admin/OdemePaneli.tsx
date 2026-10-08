@@ -1,16 +1,19 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import {
   AlertCircle,
   ArrowLeftRight,
   Banknote,
   Clock,
   KeyRound,
+  Loader2,
   Percent,
   RefreshCw,
   Trash2,
+  Wallet,
   Webhook,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -35,6 +38,70 @@ import {
  * Veriyi kendisi çekiyor: AdminPanel'in açılışta attığı toplu isteğe
  * eklenmedi, çünkü bu sekmeye girilmeden bilgiye gerek yok.
  */
+
+/** Faz 5C — "Müşteri bakiyeleri" alt bölümü (ayrı parça; `cuzdan` ek paketi bu panelle birlikte yükleniyor). */
+const MusteriBakiyeleri = lazy(() => import('@/components/admin/cuzdan/MusteriBakiyeleri'));
+type Bolum = 'tahsilatlar' | 'bakiyeler';
+
+function istenenBolum(arama: string): Bolum {
+  try {
+    return new URLSearchParams(arama).get('bolum') === 'bakiyeler' ? 'bakiyeler' : 'tahsilatlar';
+  } catch {
+    return 'tahsilatlar';
+  }
+}
+
+/**
+ * Ödemeler sekmesi: alt gezinme (yeni üst sekme yok) — "Tahsilatlar" (eski ekran) ve Faz 5C "Müşteri bakiyeleri".
+ * `?sekme=odeme&bolum=bakiyeler(&talep=<id>)` bağlantısı (gelen kutusu, bildirim) doğrudan bakiyeleri açar.
+ */
+export default function OdemePaneli() {
+  const { t } = useTranslation();
+  const { search } = useLocation();
+  const navigate = useNavigate();
+  const [bolum, setBolum] = useState<Bolum>(() => istenenBolum(search));
+  useEffect(() => {
+    setBolum(istenenBolum(search));
+  }, [search]);
+  const sec = (b: Bolum) => {
+    setBolum(b);
+    navigate(`/admin?sekme=odeme${b === 'bakiyeler' ? '&bolum=bakiyeler' : ''}`, { replace: true });
+  };
+  return (
+    <div className="min-w-0">
+      <nav className="mb-6 flex flex-wrap gap-2" aria-label={t('odeme.baslik')} data-testid="odeme-alt-gezinme">
+        {(['tahsilatlar', 'bakiyeler'] as const).map((b) => (
+          <button
+            key={b}
+            type="button"
+            data-odeme-bolum={b}
+            aria-pressed={bolum === b}
+            onClick={() => sec(b)}
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm transition ${
+              bolum === b ? 'border-purple-400/60 bg-purple-500/15 text-foreground' : 'border-white/10 text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {b === 'tahsilatlar' ? <Banknote className="h-4 w-4" aria-hidden="true" /> : <Wallet className="h-4 w-4" aria-hidden="true" />}
+            {t(`cuzdan.yonetim.${b}`)}
+          </button>
+        ))}
+      </nav>
+      {bolum === 'bakiyeler' ? (
+        <Suspense
+          fallback={
+            <div className="flex justify-center py-16 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
+            </div>
+          }
+        >
+          <MusteriBakiyeleri />
+        </Suspense>
+      ) : (
+        <Tahsilatlar />
+      )}
+    </div>
+  );
+}
 
 const DURUM_RENGI: Record<OdemeDurumu, string> = {
   odendi: 'bg-emerald-500/15 text-emerald-300',
@@ -69,7 +136,7 @@ function Ozet({
   );
 }
 
-export default function OdemePaneli() {
+function Tahsilatlar() {
   const { t } = useTranslation();
   const [satirlar, setSatirlar] = useState<Odeme[]>([]);
   const [ozet, setOzet] = useState<OdemeOzeti | null>(null);

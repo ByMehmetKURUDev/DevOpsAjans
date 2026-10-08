@@ -401,9 +401,15 @@ async def kayit_sil(
 
     # Faz 3T: durum tek yerden yeniden hesaplanıyor (kısmi ödendi / ödenmedi),
     # bekleyen bağlantı kalana uyuyor, silme denetim kaydına düşüyor.
-    from services.faturalar import odeme_sil
+    from services.faturalar import FaturaHatasi, odeme_sil
 
-    await odeme_sil(db, kayit)
+    kullanici, _ = _yonetici_mi(request)
+    try:
+        # Faz 5C: bakiyeden yapılmış ödeme silinirse tutar müşterinin bakiyesine ters kayıtla döner.
+        await odeme_sil(db, kayit, silen=(getattr(kullanici, "email", None) or "").strip().lower() or None)
+    except FaturaHatasi as h:
+        await db.rollback()
+        raise HTTPException(status_code=h.durum, detail=h.detay())
     await db.commit()
     return {"silindi": payment_id}
 

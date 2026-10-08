@@ -29,6 +29,8 @@ export const KAYNAKLAR = [
   'ortak_basvurusu',
   // Faz 6T: müşterinin panelden gönderdiği toplantı talebi ("Toplantı planla" ön doldurulmuş form açar).
   'toplanti_talebi',
+  // Faz 5C: müşterinin "Bakiye yükle" bildirimi ("Onayla" cüzdan ucunu çağırır; "Reddet" Ödemeler › Müşteri bakiyeleri'ni açar).
+  'bakiye_yukleme',
 ] as const;
 export type Kaynak = (typeof KAYNAKLAR)[number];
 

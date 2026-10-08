@@ -61,6 +61,8 @@ YONTEMLER: Dict[str, str] = {
     "lemonsqueezy": "lemonsqueezy",
     "diger": "diger",
 }
+#: Faz 5C — müşteri avansından (cüzdan) ödeme; yalnız `services/cuzdan.py` yazar.
+BAKIYE_YONTEMI = "bakiye"
 #: Kapalı (bakiye/yaşlandırma/hatırlatma dışı) durumlar.
 KAPALI_DURUMLAR = ("paid", "cancelled", "iade", "draft", "taslak")
 VADE_ESIKLERI = (1, 7, 14)
@@ -281,13 +283,23 @@ async def odeme_ekle(
     dekont_dosya_id: Optional[int] = None,
     ekleyen: Optional[str] = None,
     geri_odeme: bool = False,
+    cuzdan: bool = False,
 ) -> Tuple[Payments, Optional[Dict[str, Any]]]:
-    """Elle ödeme (ya da geri ödeme) kaydı. Commit ETMEZ; (satır, kredi özeti) döner."""
+    """Elle ödeme (ya da geri ödeme) kaydı. Commit ETMEZ; (satır, kredi özeti) döner.
+
+    Faz 5C: `yontem="bakiye"` YALNIZ cüzdan servisinden (`cuzdan=True`; bakiye düşüşü/ters kaydı orada) — elle ödeme
+    formundan "bakiye" seçilip cüzdana dokunmadan fatura kapatılamaz."""
     from services import denetim, kredi
 
     if fatura.tur == "iade":
         raise FaturaHatasi(409, "iade_faturasina_odeme")
-    saglayici = YONTEMLER.get((yontem or "").strip().lower())
+    yontem_k = (yontem or "").strip().lower()
+    if yontem_k == BAKIYE_YONTEMI:
+        if not cuzdan:
+            raise FaturaHatasi(400, "yontem_gecersiz")
+        saglayici: Optional[str] = BAKIYE_YONTEMI
+    else:
+        saglayici = YONTEMLER.get(yontem_k)
     if saglayici is None:
         raise FaturaHatasi(400, "yontem_gecersiz")
     try:
@@ -349,10 +361,20 @@ async def odeme_ekle(
     return satir, kredi_ozeti
 
 
-async def odeme_sil(db: AsyncSession, satir: Payments) -> Optional[Invoices]:
-    """Ödeme satırını siler, faturanın durumunu yeniden hesaplar (commit ETMEZ)."""
+async def odeme_sil(db: AsyncSession, satir: Payments, silen: Optional[str] = None) -> Optional[Invoices]:
+    """Ödeme satırını siler, faturanın durumunu yeniden hesaplar (commit ETMEZ).
+
+    Faz 5C: bakiyeden yapılmış ödeme silinirse tutar müşterinin bakiyesine ters kayıtla geri yazılır (bakiyeye iade
+    satırı silinirse bakiyeden geri alınır; yetmezse 409 `bakiye_yetersiz` — silme olmaz)."""
     from services import denetim
 
+    if (satir.saglayici or "") == BAKIYE_YONTEMI:
+        from services import cuzdan
+
+        try:
+            await cuzdan.odeme_silindi(db, satir, silen)
+        except cuzdan.CuzdanHatasi as h:
+            raise FaturaHatasi(h.durum, h.kod, **h.ek)
     fatura = None
     if satir.invoice_id:
         fatura = (await db.execute(select(Invoices).where(Invoices.id == satir.invoice_id))).scalar_one_or_none()
@@ -452,6 +474,14 @@ async def iade_faturasi_kes(
     await db.flush()
     durum, yeni_b = await durumu_guncelle(db, fatura)
     await bekleyen_baglantiyi_esitle(db, fatura, yeni_b)
+    # Faz 5C: fazla ödemenin bakiyeden ödenmiş kısmı müşterinin bakiyesine geri (payments "iade" + ters kayıt).
+    from services import cuzdan
+
+    try:
+        if await cuzdan.iade_faturasi_kesildi(db, fatura, yeni_b, ekleyen):
+            durum, yeni_b = await durumu_guncelle(db, fatura)
+    except cuzdan.CuzdanHatasi as h:
+        raise FaturaHatasi(h.durum, h.kod, **h.ek)
     await denetim.denetim_yaz(
         db, islem="odeme", tablo="invoices", kayit_id=fatura.id,
         ozet=f"{fatura.invoice_no}: iade faturası {iade.invoice_no} ({miktar} {fatura.currency or 'TRY'})",
@@ -465,7 +495,7 @@ async def iade_faturasi_kes(
 # ---------------------------------------------------------------------------
 YONTEM_ETIKETI = {
     "havale": "Havale/EFT", "eft": "Havale/EFT", "elden": "Nakit", "shopier": "Shopier",
-    "lemonsqueezy": "Lemon Squeezy", "diger": "Diğer", "iyzico": "iyzico", "paytr": "PayTR",
+    "lemonsqueezy": "Lemon Squeezy", "diger": "Diğer", "iyzico": "iyzico", "paytr": "PayTR", "bakiye": "Bakiye",
 }
 
 
@@ -1036,8 +1066,15 @@ async def tekrarlayan_faturalari_uret(
         await db.commit()
     for f in kesilen:
         await fatura_bildir(db, f)
-    return {"abonelik": len(abonelikler), "kesilen": len(kesilen), "hata": hatalar,
-            "faturalar": [f.invoice_no for f in kesilen][:20]}
+    sonuc = {"abonelik": len(abonelikler), "kesilen": len(kesilen), "hata": hatalar,
+             "faturalar": [f.invoice_no for f in kesilen][:20]}
+    # Faz 5C: "yeni faturalarımı bakiyemden otomatik öde" açık hesapta kesilir kesilmez (vadesinde seçeneğinde
+    # zamanlı iş vadede dener). Kimlikle yeniden okunur (bir denemenin geri alınması diğer nesneleri bayatlatmasın).
+    from services.cuzdan import otomatik_odeme_dene_id
+
+    for fid in [f.id for f in kesilen]:
+        await otomatik_odeme_dene_id(db, fid)
+    return sonuc
 
 
 # ---------------------------------------------------------------------------

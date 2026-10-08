@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AlertCircle, CheckCircle2, Copy, CreditCard, Home, Loader2, ShieldCheck } from 'lucide-react';
@@ -8,6 +8,18 @@ import {
   shopierBaglantisiIste,
   type AcikOdeme,
 } from '@/lib/odemeler';
+import { ekliLazy } from '@/i18n/ekliLazy';
+
+// Faz 5C — oturum açık müşteri, faturası kendi hesabınınsa bakiyesinden ödeyebilir (yalnız oturum varken yüklenir).
+const OdemeSayfasiBakiye = ekliLazy('cuzdan', () => import('@/components/cuzdan/OdemeSayfasiBakiye'));
+
+function oturumVar(): boolean {
+  try {
+    return !!localStorage.getItem('token');
+  } catch {
+    return false;
+  }
+}
 
 /**
  * Müşterinin gördüğü ödeme sayfası: `/ode/<jeton>`
@@ -50,6 +62,7 @@ export default function OdemeSayfasi() {
   const [gidiyor, setGidiyor] = useState(false);
   const [bekleniyor, setBekleniyor] = useState(false);
   const [kartHatasi, setKartHatasi] = useState<string | null>(null);
+  const [bakiyeIleOdendi, setBakiyeIleOdendi] = useState(false);
 
   const kartaGit = useCallback(async () => {
     if (!jeton) return;
@@ -176,7 +189,7 @@ export default function OdemeSayfasi() {
     );
   }
 
-  const durum = kayit.durum || 'bekliyor';
+  const durum = bakiyeIleOdendi ? 'odendi' : kayit.durum || 'bekliyor';
   const odendi = durum === 'odendi';
   const kapali = durum === 'iptal';
   const sonTarih = tarihBicimle(kayit.son_tarih);
@@ -221,6 +234,21 @@ export default function OdemeSayfasi() {
               </div>
             ) : null}
           </dl>
+
+          {!odendi && !kapali && jeton && oturumVar() ? (
+            <Suspense fallback={null}>
+              <OdemeSayfasiBakiye
+                jeton={jeton}
+                onOdendi={(tam) => {
+                  if (tam) {
+                    setBakiyeIleOdendi(true);
+                    return;
+                  }
+                  void acikOdemeGetir(jeton).then(setKayit).catch(() => undefined);
+                }}
+              />
+            </Suspense>
+          ) : null}
 
           {odendi ? (
             <div className="mt-7 flex items-start gap-3 rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-4">

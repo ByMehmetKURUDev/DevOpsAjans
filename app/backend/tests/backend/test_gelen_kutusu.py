@@ -328,7 +328,7 @@ async def test_suzgecler_ve_sayfa(istemci, db_oturumu, yonetici_basligi):
     for p in ({"durum": "uydurma"}, {"kaynak": "yok"}, {"bas": "2026-13-40"}, {"bas": "2026-02-02", "bit": "2026-01-01"}):
         assert (await istemci.get(Y, params=p, headers=yb)).status_code == 400, p
     # Meta
-    assert set(g1["meta"]) >= {"ai_hazir", "eposta_hazir", "kaynaklar"} and len(g1["meta"]["kaynaklar"]) == 16  # Faz 6K + 5B + 6I: egitim, belge_paylasim, izin_talebi; 7K: crm_form, teklif_karari; 5K: ortak_basvurusu; 6T: toplanti_talebi
+    assert set(g1["meta"]) >= {"ai_hazir", "eposta_hazir", "kaynaklar"} and len(g1["meta"]["kaynaklar"]) == 17  # Faz 6K + 5B + 6I: egitim, belge_paylasim, izin_talebi; 7K: crm_form, teklif_karari; 5K: ortak_basvurusu; 6T: toplanti_talebi; 5C: bakiye_yukleme
 
 
 async def test_sayac_kaynak_basina(istemci, db_oturumu, yonetici_basligi):

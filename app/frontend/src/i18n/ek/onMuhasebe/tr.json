@@ -98,7 +98,9 @@
       "fatura": "Ödenen fatura",
       "pos": "POS gün sonu",
       "hukuk": "Hukuk masrafı",
-      "saha": "Saha servisi"
+      "saha": "Saha servisi",
+      "avans": "Müşteri avansı (bakiye)",
+      "avans_duzeltme": "Bakiye düzeltmesi"
     },
     "kategori": {
       "satis": "Satış gelirleri",

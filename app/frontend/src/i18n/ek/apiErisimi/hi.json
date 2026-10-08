@@ -84,7 +84,9 @@
       "toplanti_yapildi": "बैठक संपन्न के रूप में चिह्नित",
       "toplanti_iptal": "बैठक रद्द हुई",
       "okr_kr_riskte": "OKR: मुख्य परिणाम का भरोसा “पीछे” पर बदला",
-      "okr_hedef_tamamlandi": "OKR: लक्ष्य की प्रगति 100% पहुँची"
+      "okr_hedef_tamamlandi": "OKR: लक्ष्य की प्रगति 100% पहुँची",
+      "bakiye_yuklendi": "बैलेंस: ग्राहक का बैलेंस टॉप-अप हुआ",
+      "bakiye_harcandi": "बैलेंस: चालान बैलेंस से चुकाया गया"
     },
     "anahtar": {
       "yeni": "नई कुंजी",

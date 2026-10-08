@@ -98,7 +98,9 @@
       "fatura": "Paid invoice",
       "pos": "POS end of day",
       "hukuk": "Legal expense",
-      "saha": "Field service"
+      "saha": "Field service",
+      "avans": "Client advance (balance)",
+      "avans_duzeltme": "Balance adjustment"
     },
     "kategori": {
       "satis": "Sales revenue",

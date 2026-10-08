@@ -241,6 +241,11 @@ OLAY_IZNI: Dict[str, str] = {
     # BİLEREK yok: bağlantı bir yetki belgesi, yalnız adı geçen alıcıya.
     "fatura_gecikti": "faturalar",
     "sozlesme_bitis": "faturalar",
+    # Faz 5C — cüzdan (müşteri avansı) `faturalar` iznine bağlı.
+    "bakiye_yukleme": "faturalar",
+    "bakiye_harcama": "faturalar",
+    "bakiye_dusuk": "faturalar",
+    "bakiye_iade": "faturalar",
     # Faz 4K — kartın "iletişim bırak" mesajı ve yorum sayfasının özel geri bildirimi.
     "kartvizit_mesaj": "kartvizit",
     "yorum_geri_bildirim": "kartvizit",

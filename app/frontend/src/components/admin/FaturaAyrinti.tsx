@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState, type FormEvent } from 'react';
 import { ChevronDown, ChevronUp, FileDown, Loader2, Paperclip, Pencil, Trash2, Undo2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { BelgeHatasi, bosKalem, bugunIso, paraBicimle, pdfDili, pdfIndir, tarihBicimle, type Kalem } from '@/lib/belge';
 import { adresiIndir } from '@/lib/dosyalar';
+import { ekliLazy } from '@/i18n/ekliLazy';
 import {
   ODEME_YONTEMLERI,
   dekontAdresi,
@@ -35,6 +36,8 @@ import {
  * bileşen yeniden kurulsa da ayrıntı açık kalsın.
  */
 const ACIK_FATURALAR = new Set<number>();
+/** Faz 5C — müşterinin bakiyesi + "Bakiyeden uygula" (ayrı parça; metinler `cuzdan` ek paketinde). */
+const FaturayaBakiyeUygula = ekliLazy('cuzdan', () => import('@/components/admin/cuzdan/FaturayaBakiyeUygula'));
 
 export default function FaturaAyrinti({ faturaId, onDegisti }: { faturaId: number; onDegisti?: () => void }) {
   const { t, i18n } = useTranslation();
@@ -227,6 +230,15 @@ export default function FaturaAyrinti({ faturaId, onDegisti }: { faturaId: numbe
                   </ul>
                 )}
               </section>
+
+              {veri.tur !== 'iade' && b && b.kalan > 0 && (
+                <Suspense fallback={null}>
+                  <FaturayaBakiyeUygula faturaId={faturaId} durum={veri.status} onUygulandi={() => {
+                    void yukle();
+                    onDegisti?.();
+                  }} />
+                </Suspense>
+              )}
 
               {veri.tur !== 'iade' && b && (b.kalan > 0 || b.fazla > 0) && (
                 <form onSubmit={odemeKaydet} className="grid gap-2 rounded-lg border border-white/10 p-3 sm:grid-cols-2 lg:grid-cols-3" data-testid="odeme-form">

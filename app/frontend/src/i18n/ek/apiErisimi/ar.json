@@ -84,7 +84,9 @@
       "toplanti_yapildi": "تم وضع علامة «عُقد» على الاجتماع",
       "toplanti_iptal": "أُلغي الاجتماع",
       "okr_kr_riskte": "OKR: تغيّرت ثقة نتيجة رئيسية إلى «متأخر»",
-      "okr_hedef_tamamlandi": "OKR: بلغ تقدّم الهدف 100%"
+      "okr_hedef_tamamlandi": "OKR: بلغ تقدّم الهدف 100%",
+      "bakiye_yuklendi": "الرصيد: تم شحن رصيد عميل",
+      "bakiye_harcandi": "الرصيد: دُفعت فاتورة من الرصيد"
     },
     "anahtar": {
       "yeni": "مفتاح جديد",

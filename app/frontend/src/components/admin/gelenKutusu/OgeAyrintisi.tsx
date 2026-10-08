@@ -72,6 +72,7 @@ const EYLEM_IKONU: Record<string, LucideIcon> = {
   goreve_donustur: ListTodo,
   paket_uygula: Blocks,
   toplanti_planla: CalendarClock,
+  bakiye_reddet: XCircle,
 };
 
 function metinAl(deger: unknown): string {
@@ -208,6 +209,11 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
     if (e.anahtar === 'toplanti_planla') {
       // Faz 6T: müşterinin toplantı talebi → Toplantılar, talepten ön doldurulmuş form açık.
       navigate(`/admin?sekme=toplantilar&talep=${oge.kimlik}`);
+      return;
+    }
+    if (e.anahtar === 'bakiye_reddet') {
+      // Faz 5C: ret nedeni zorunlu → Ödemeler › Müşteri bakiyeleri, talep vurgulu ve ret formu açık.
+      navigate(`/admin?sekme=odeme&bolum=bakiyeler&talep=${oge.kimlik}`);
       return;
     }
     if (e.anahtar === 'paket_uygula') {
@@ -380,6 +386,25 @@ export default function OgeAyrintisi({ kaynak, kimlik, aiHazir, epostaHazir, onD
         ekle('talepDurumu', a.durum_ham ? t(`gelenKutusu.toplantiTalebiDurum.${metinAl(a.durum_ham)}`) : '');
         break;
       }
+      case 'bakiye_yukleme':
+        if (a.tutar != null && Number.isFinite(Number(a.tutar))) {
+          const pb = metinAl(a.para_birimi) || 'TRY';
+          let m = `${metinAl(a.tutar)} ${pb}`;
+          try {
+            m = new Intl.NumberFormat(dil, { style: 'currency', currency: pb }).format(Number(a.tutar));
+          } catch {
+            /* tanınmayan para birimi: ham değer */
+          }
+          ekle('yuklemeTutari', m);
+        }
+        ekle('odemeYontemi', a.yontem ? t(`gelenKutusu.bakiyeYontem.${metinAl(a.yontem)}`, { defaultValue: metinAl(a.yontem) }) : '');
+        ekle('odemeTarihi', a.odeme_tarihi);
+        ekle('referans', a.referans);
+        ekle('dekont', a.dekont_var ? '✓' : '');
+        ekle('mesaj', a.not, true);
+        ekle('talepDurumu', a.durum_ham ? t(`gelenKutusu.bakiyeTalepDurum.${metinAl(a.durum_ham)}`, { defaultValue: metinAl(a.durum_ham) }) : '');
+        ekle('retNedeni', a.ret_nedeni, true);
+        break;
       case 'teklif_karari':
         ekle('teklif', [a.no, a.baslik].map(metinAl).filter(Boolean).join(' — '));
         ekle('karar', a.karar ? t(`gelenKutusu.karar.${metinAl(a.karar) === 'ret' ? 'red' : metinAl(a.karar)}`) : '');

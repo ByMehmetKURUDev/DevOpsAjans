@@ -22,7 +22,7 @@ harekete çevrilir — benzersizlik aynı, iki kez sayılmaz. Ödeme kaydı olma
 her zaman öneridir. Onaylanmış kayıt da kaynağı değişince/silinince ters çevrilir; yeni sürümü yine öneri olur.
 
 Kaynaklar: ajans → `odeme` (müşterilerden gelen ödemeler — Lemon Squeezy / Shopier / havale / elden ödeme kayıtları;
-ödemesi kaydedilmemiş "ödendi" faturalar `fatura`); müşteri → `odeme` (ajansa ödediği faturalar: GİDER, kategori
+ödemesi kaydedilmemiş "ödendi" faturalar `fatura`; Faz 5C müşteri avansı `avans` / `avans_duzeltme`); müşteri → `odeme` (ajansa ödediği faturalar: GİDER, kategori
 "yazılım ve abonelikler"), `pos` (kapanmış kasa oturumu: nakit / kart / havale ayrı hesaba), `hukuk` (masraflar;
 müvekkil avansından karşılananlar işletme gideri sayılmaz, alınmaz), `saha` (tamamlanan iş emrinin tutarı: işçilik +
 malzeme + KDV; hedef hesap yoksa saha müşterisinin carisine vadeli alacak).
@@ -724,6 +724,85 @@ async def _etkin_yansimalar(db: AsyncSession, kapsam: str, kaynaklar: Sequence[s
     return {(h.kaynak, h.kaynak_ref): h for h in satirlar}
 
 
+async def _musteri_carisi(db: AsyncSession, kapsam: str, eposta: str, pb: str, ad: Optional[str],
+                         olustur: bool = True) -> Optional[MuhasebeCariler]:
+    """Faz 5C — müşteri hesabına bağlı (`musteri_hesabi`) ve AYNI para birimindeki cari; yoksa (olustur) açılır.
+    Avans (bakiye) hareketleri vadeli/cari kaydı olduğundan carisiz yazılamaz."""
+    e = (eposta or "").strip().lower()
+    if not e:
+        return None
+    c = (await db.execute(select(MuhasebeCariler).where(
+        MuhasebeCariler.kapsam == kapsam, MuhasebeCariler.bagli_tur == "musteri_hesabi", MuhasebeCariler.bagli_id == e,
+        MuhasebeCariler.para_birimi == pb).order_by(MuhasebeCariler.id))).scalars().first()
+    if c is not None or not olustur:
+        return c
+    c = MuhasebeCariler(kapsam=kapsam, hesap_email=None, tur="musteri", ad=(ad or e)[:160], eposta=e[:254], para_birimi=pb,
+                        acilis_bakiyesi=0, bagli_tur="musteri_hesabi", bagli_id=e, created_at=s.simdi())
+    db.add(c)
+    await db.flush()
+    return c
+
+
+async def _avans_beklenenleri(db: AsyncSession, kapsam: str, ayar: Dict[str, Any], hesaplar: Dict[int, MuhasebeHesaplari],
+                              izlenen: Dict[str, Set[str]], atlanan: Dict[str, int]) -> Dict[Tuple[str, str], Beklenen]:
+    """Faz 5C — müşteri avansı (cüzdan defteri, yalnız ajans). ÇİFT SAYIM YOK:
+
+    * yükleme → TAHSİLAT (banka/kasaya giriş, müşteri carisi ALACAKLI = yükümlülük) — gelir DEĞİL;
+    * müşteriye iade → ÖDEME (hesaptan çıkış, cari kapanır) — gider DEĞİL;
+    * bakiyeden fatura ödemesi burada YOK: `payments` (saglayici "bakiye") satırından `odeme` kaynağıyla hesapsız (vadeli)
+      GELİR — nakit hareketi yok, gelir faturada bir kez tanınır, avans carisi kapanır;
+    * düzeltme → her zaman ÖNERİ (artı: verilen indirim / gider, eksi: gelir; vadeli, cari);
+    * ters çevrilen satır beklenmez → defterdeki yansıması ters kayıtla düşer."""
+    from models.cuzdan import CuzdanHareketleri as CH
+    from services.hesap_ekibi import hesap_adlari
+
+    bas = _baslangic(ayar)
+    izl = {int(x) for k in ("avans", "avans_duzeltme") for x in izlenen.get(k, set()) if str(x).isdigit()}
+    satirlar = (await db.execute(select(CH).where(CH.tur.in_(("yukleme", "iade", "duzeltme")),
+                                                  or_(CH.tarih >= bas, CH.id.in_(list(izl) or [0]))))).scalars().all()
+    if not satirlar:
+        return {}
+    terslenen = set((await db.execute(select(CH.bagli_id).where(
+        CH.tur == "ters_kayit", CH.bagli_id.in_([h.id for h in satirlar]), CH.tekil.like("ters:%")))).scalars().all())
+    adlar = await hesap_adlari(db, {h.hesap_email for h in satirlar})
+    banka = ayar.get("banka_hesap_id")
+    nakit = ayar.get("nakit_hesap_id") or banka
+    sonuc: Dict[Tuple[str, str], Beklenen] = {}
+    for h in satirlar:
+        if h.id in terslenen or (h.tarih < bas and h.id not in izl):
+            continue
+        pb = (h.para_birimi or "TRY").upper()
+        tutar = abs(int(h.tutar))
+        if tutar <= 0:
+            continue
+        ad = adlar.get(h.hesap_email) or h.hesap_email
+        belge = f"BKY-{h.id}"
+        if h.tur == "duzeltme":
+            c = await _musteri_carisi(db, kapsam, h.hesap_email, pb, ad, olustur=False)
+            artis = int(h.tutar) > 0
+            b = Beklenen(ref=str(h.id), tur="gider" if artis else "gelir", tarih=h.tarih, tutar=tutar, para_birimi=pb,
+                         cari_id=c.id if c else None, vade=h.tarih, kategori="diger_gider" if artis else "diger_gelir",
+                         aciklama=f"Müşteri bakiyesi düzeltmesi — {ad}: {h.gerekce or ''}"[:300], belge_no=belge)
+            if c is None:
+                b.bagli = ("musteri_hesabi", h.hesap_email, ad)
+            sonuc[("avans_duzeltme", str(h.id))] = b
+            continue
+        hedef = hesaplar.get(nakit if (h.yontem or "") == "nakit" else banka)
+        if hedef is None:
+            atlanan["hesap_yok"] = atlanan.get("hesap_yok", 0) + 1
+            continue
+        if hedef.para_birimi != pb:
+            atlanan["para_birimi"] = atlanan.get("para_birimi", 0) + 1
+            continue
+        c = await _musteri_carisi(db, kapsam, h.hesap_email, pb, ad)
+        yukleme = h.tur == "yukleme"
+        sonuc[("avans", str(h.id))] = Beklenen(
+            ref=str(h.id), tur="tahsilat" if yukleme else "odeme", tarih=h.tarih, tutar=tutar, para_birimi=pb, hesap_id=hedef.id,
+            cari_id=c.id if c else None,
+            aciklama=("Müşteri avansı (bakiye yükleme)" if yukleme else "Müşteri avansı iadesi") + f" — {ad}", belge_no=belge)
+    return sonuc
+
+
 async def _odeme_beklenenleri(db: AsyncSession, kapsam: str, ayar: Dict[str, Any], hesaplar: Dict[int, MuhasebeHesaplari],
                               izlenen: Dict[str, Set[str]], atlanan: Dict[str, int],
                               musteri: Optional[str] = None) -> Dict[Tuple[str, str], Beklenen]:
@@ -795,6 +874,12 @@ async def _odeme_beklenenleri(db: AsyncSession, kapsam: str, ayar: Dict[str, Any
             return cevrimici
         return banka
 
+    bakiye_adlari: Dict[str, str] = {}
+    if not musteri and any((p.saglayici or "") == "bakiye" for p in odemeler):
+        from services.hesap_ekibi import hesap_adlari
+
+        bakiye_adlari = await hesap_adlari(db, {(p.client_email or "").strip().lower() for p in odemeler
+                                                if (p.saglayici or "") == "bakiye"})
     for p in odemeler:
         if p.durum not in ("odendi", "iade"):
             continue
@@ -819,6 +904,20 @@ async def _odeme_beklenenleri(db: AsyncSession, kapsam: str, ayar: Dict[str, Any
             b = Beklenen(ref=str(p.id), tur="gelir" if iade else "gider", tarih=gun, tutar=tutar, para_birimi=pb, kdv_tutari=kdv,
                          kdv_orani=oran, kategori="diger_gelir" if iade else "yazilim",
                          aciklama="Ajans faturası iadesi" if iade else "Ajans faturası ödemesi", belge_no=belge)
+        elif (p.saglayici or "") == "bakiye":
+            # Faz 5C: avanstan mahsup — nakit hareketi YOK (para yüklemede tahsilat olarak girdi); hesapsız (vadeli) gelir,
+            # müşteri carisinde avans alacağını kapatır. İade (bakiyeye geri) → aynı şekilde vadeli gider.
+            e = (p.client_email or "").strip().lower()
+            ad = bakiye_adlari.get(e) or (f.client_name if f else None) or e
+            c = await _musteri_carisi(db, kapsam, e, pb, ad, olustur=not _oneri_mi("odeme", ayar))
+            b = Beklenen(ref=str(p.id), tur="gider" if iade else "gelir", tarih=gun, tutar=tutar, para_birimi=pb, kdv_tutari=kdv,
+                         kdv_orani=oran, cari_id=c.id if c else None, vade=gun, kategori="diger_gider" if iade else "hizmet",
+                         aciklama=("Fatura iadesi (müşteri bakiyesine)" if iade else "Fatura ödemesi (müşteri avansından)") + f" — {ad}",
+                         belge_no=belge)
+            if c is None:
+                b.bagli = ("musteri_hesabi", e, ad)
+            sonuc[("odeme", str(p.id))] = b
+            continue
         else:
             c = cariler.get((p.client_email or "").strip().lower())
             b = Beklenen(ref=str(p.id), tur="gider" if iade else "gelir", tarih=gun, tutar=tutar, para_birimi=pb, kdv_tutari=kdv,
@@ -1042,7 +1141,9 @@ async def ters_kayit(db: AsyncSession, h: H, bugun: date) -> Optional[H]:
 
 
 def _oneri_mi(kk: str, ayar: Dict[str, Any]) -> bool:
-    return kk in s.HEP_ONERI_KAYNAKLARI or bool(ayar.get("onay"))
+    if kk in s.HEP_ONERI_KAYNAKLARI:
+        return True
+    return kk not in s.HIC_ONERI_KAYNAKLARI and bool(ayar.get("onay"))
 
 
 async def _oneri_yaz(db: AsyncSession, kapsam: str, hesap: Optional[str], kk: str, ref: str, b: Beklenen) -> int:
@@ -1082,7 +1183,8 @@ async def _oneri_temizle(db: AsyncSession, kapsam: str, kaynaklar: Sequence[str]
     return n
 
 
-KAYNAK_LISTESI: Dict[str, Tuple[str, ...]] = {"odeme": ("odeme", "fatura"), "pos": ("pos",), "hukuk": ("hukuk",), "saha": ("saha",)}
+KAYNAK_LISTESI: Dict[str, Tuple[str, ...]] = {"odeme": ("odeme", "fatura", "avans", "avans_duzeltme"), "pos": ("pos",),
+                                               "hukuk": ("hukuk",), "saha": ("saha",)}
 
 
 async def yansit(db: AsyncSession, kapsam: str, hesap: Optional[str], ayar_satiri_: Optional[MuhasebeAyarlari] = None) -> Dict[str, Any]:
@@ -1117,6 +1219,8 @@ async def yansit(db: AsyncSession, kapsam: str, hesap: Optional[str], ayar_satir
         try:
             if kaynak == "odeme":
                 beklenen = await _odeme_beklenenleri(db, kapsam, ayar, hesaplar, izlenen, atlanan, musteri=hesap)
+                if not hesap:
+                    beklenen.update(await _avans_beklenenleri(db, kapsam, ayar, hesaplar, izlenen, atlanan))
             elif kaynak == "pos":
                 beklenen = await _pos_beklenenleri(db, hesap or "", ayar, hesaplar, izlenen.get("pos", set()), atlanan, korunan)
             elif kaynak == "hukuk":
@@ -1219,6 +1323,10 @@ async def oneri_onayla(db: AsyncSession, kapsam: str, hesap: Optional[str], o: M
             b.cari_id = None
     if b.hesap_id is None and b.cari_id is None and b.bagli and b.bagli[0] == "saha_musteri":
         c = await _saha_carisi(db, kapsam, hesap, None, b.bagli[1], b.para_birimi, olustur=True, ad=b.bagli[2])
+        b.cari_id = c.id if c is not None else None
+    elif b.hesap_id is None and b.cari_id is None and b.bagli and b.bagli[0] == "musteri_hesabi":
+        # Faz 5C: avans (bakiye) önerisi — müşteri carisi onayda açılır.
+        c = await _musteri_carisi(db, kapsam, b.bagli[1], b.para_birimi, b.bagli[2])
         b.cari_id = c.id if c is not None else None
     if b.hesap_id is None and b.cari_id is None:
         raise s.MuhasebeHatasi("hesap_gerekli", "hesap_id")

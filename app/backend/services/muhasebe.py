@@ -53,7 +53,9 @@ KDV_ORANLARI: Tuple[int, ...] = (0, 1, 10, 20)
 PERIYOTLAR: Tuple[str, ...] = ("haftalik", "aylik", "uc_aylik", "yillik")
 #: Elle düzenlenebilen kayıt kaynakları; geri kalanı otomatik yansıma (düzenlenmez/silinmez).
 ELLE_KAYNAKLAR: Tuple[str, ...] = ("manuel", "tekrar", "csv")
-OTOMATIK_KAYNAKLAR: Tuple[str, ...] = ("odeme", "fatura", "pos", "hukuk", "saha")
+#: Faz 5C — `avans` (müşteri bakiyesi yükleme/iade: tahsilat/ödeme, gelir DEĞİL) ve `avans_duzeltme` (bakiye
+#: düzeltmesi; yoruma açık → her zaman öneri) ajansın `odeme` aktarımının parçası.
+OTOMATIK_KAYNAKLAR: Tuple[str, ...] = ("odeme", "fatura", "pos", "hukuk", "saha", "avans", "avans_duzeltme")
 KAYNAKLAR: Tuple[str, ...] = ELLE_KAYNAKLAR + OTOMATIK_KAYNAKLAR
 #: Otomatik aktarma ayarı kaynakları: ajansta müşterilerden gelen ödemeler (Lemon Squeezy / Shopier / havale / elden —
 #: ödeme kayıtları); müşteride ajansa ödediği faturalar (gider) ve kendi modülleri.
@@ -64,7 +66,10 @@ MUSTERI_AKTARIMLARI: Tuple[str, ...] = ("odeme", "pos", "hukuk", "saha")
 #: otomatik. Hukuk masrafı (avanstan mı, kişisel mi?) ve saha işi (tahsil edildi mi, tutar kesin mi?) yoruma açık:
 #: öneri. Ödeme kaydı OLMADAN "ödendi" işaretlenen fatura (`fatura` alt kaynağı) ayardan bağımsız HER ZAMAN öneri.
 AKTARIM_ONAY_VARSAYILAN: Dict[str, bool] = {"odeme": False, "pos": False, "hukuk": True, "saha": True}
-HEP_ONERI_KAYNAKLARI: Tuple[str, ...] = ("fatura",)
+HEP_ONERI_KAYNAKLARI: Tuple[str, ...] = ("fatura", "avans_duzeltme")
+#: Ayardaki "onay" açık olsa da doğrudan yazılan: müşteri avansı yüklemesi/iadesi (yöneticinin cüzdanda zaten
+#: onayladığı kesin para hareketi; tahsilat/ödeme türü öneri olarak onaylanamaz).
+HIC_ONERI_KAYNAKLARI: Tuple[str, ...] = ("avans",)
 ONERI_DURUMLARI: Tuple[str, ...] = ("bekliyor", "yoksayildi")
 #: Çevrim içi ödeme sağlayıcıları (para önce sağlayıcı bakiyesine düşer → varsa POS/sanal POS hesabına).
 CEVRIMICI_SAGLAYICILAR: Tuple[str, ...] = ("lemonsqueezy", "shopier", "stripe", "iyzico", "paytr", "paypal")

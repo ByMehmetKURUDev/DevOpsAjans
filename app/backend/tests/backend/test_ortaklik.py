@@ -539,6 +539,7 @@ async def test_odeme_talebi_iban_en_az_tutar_odendi_ret(istemci, yonetici_baslig
     from models.notifications import Notifications
 
     n = (await db_oturumu.execute(select(Notifications).where(Notifications.event_type == "ortaklik_durum",
+                                                              Notifications.ref_type == "ortaklik_talep",  # ortak kimliğiyle çakışmasın
                                                               Notifications.ref_id == talep["id"]))).scalars().all()
     assert n and n[0].recipient_email.lower() == o["eposta"]
     await _ayar(istemci, yonetici_basligi, odeme_en_az={"TRY": 500})

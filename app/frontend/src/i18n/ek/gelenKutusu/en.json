@@ -21,7 +21,8 @@
       "crm_form": "CRM form",
       "teklif_karari": "Quote decision",
       "ortak_basvurusu": "Affiliate application",
-      "toplanti_talebi": "Meeting request"
+      "toplanti_talebi": "Meeting request",
+      "bakiye_yukleme": "Balance top-up"
     },
     "durumSuzgeci": {
       "etiket": "Filter by status",
@@ -65,7 +66,8 @@
       "paket_uygula": "Apply this pack to this client",
       "onayla": "Approve",
       "reddet": "Decline",
-      "toplanti_planla": "Schedule meeting"
+      "toplanti_planla": "Schedule meeting",
+      "bakiye_reddet": "Decline (add a reason)"
     },
     "eylemTamam": "Done.",
     "eylemHata": "The action could not be completed.",
@@ -113,7 +115,13 @@
       "tanitim": "How they will promote",
       "pazarlama": "Marketing consent",
       "araliklar": "Preferred times (Istanbul time)",
-      "talepDurumu": "Request status"
+      "talepDurumu": "Request status",
+      "yuklemeTutari": "Reported amount",
+      "referans": "Reference code",
+      "odemeYontemi": "Payment method",
+      "odemeTarihi": "Payment date",
+      "dekont": "Receipt",
+      "retNedeni": "Reason for declining"
     },
     "karar": {
       "bekliyor": "Awaiting decision",
@@ -202,6 +210,18 @@
       "bekliyor": "Waiting",
       "planlandi": "Scheduled",
       "kapandi": "Closed"
+    },
+    "bakiyeTalepDurum": {
+      "beklemede": "Awaiting approval",
+      "onaylandi": "Approved",
+      "reddedildi": "Declined",
+      "iptal": "Withdrawn by the client"
+    },
+    "bakiyeYontem": {
+      "havale": "Bank transfer",
+      "eft": "EFT",
+      "nakit": "Cash",
+      "diger": "Other"
     }
   }
 }

@@ -201,7 +201,8 @@
         "muhasebe_bakimi": "记账维护",
         "ortaklik_bakimi": "推广计划维护",
         "toplanti_hatirlatmalari": "会议提醒",
-        "okr_bakimi": "OKR 维护"
+        "okr_bakimi": "OKR 维护",
+        "cuzdan_otomatik_odeme": "余额自动支付"
       },
       "gunluk": "每天",
       "haftalik": "每周",
@@ -247,7 +248,8 @@
         "muhasebe_bakimi": "简易记账维护（到期的周期性记录、自动导入与待审批建议、超预算及应收款逾期事件）",
         "ortaklik_bakimi": "推广计划维护（退款期结束的佣金自动确认；每 6 小时一次，打开推广者面板时也会执行）",
         "toplanti_hatirlatmalari": "会议提醒（提前 24 小时和 1 小时发给已邀请的参会者，每种仅一次；每轮运行以及打开“会议”标签页时）",
-        "okr_bakimi": "OKR 维护（每小时刷新进行中周期的自动关键结果；每周提醒 7 天未签到的关键结果负责人，每个 KR 每 7 天最多一次）"
+        "okr_bakimi": "OKR 维护（每小时刷新进行中周期的自动关键结果；每周提醒 7 天未签到的关键结果负责人，每个 KR 每 7 天最多一次）",
+        "cuzdan_otomatik_odeme": "余额自动支付（选择“用余额自动支付新发票”的客户中尚未尝试的未结发票——每张发票一次；选择“到期日”时为已到期的发票。新发票通常会立即尝试；此任务作为兜底）"
       }
     },
     "musteri": {

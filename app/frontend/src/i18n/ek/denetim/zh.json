@@ -145,7 +145,12 @@
       "muhasebe_butceler": "预算",
       "okr_donemler": "OKR 周期",
       "okr_hedefler": "OKR 目标",
-      "okr_anahtar_sonuclar": "关键结果（OKR）"
+      "okr_anahtar_sonuclar": "关键结果（OKR）",
+      "cuzdan_hesaplari": "客户余额",
+      "cuzdan_hareketleri": "余额账簿",
+      "cuzdan_yukleme_talepleri": "余额充值通知",
+      "cuzdan_ayarlari": "余额设置",
+      "cuzdan_otomatik_izleri": "余额自动支付尝试"
     },
     "hareket": {
       "baslik": "账户动态",

@@ -98,7 +98,9 @@
       "fatura": "已付发票",
       "pos": "POS 日结",
       "hukuk": "法律费用",
-      "saha": "现场服务"
+      "saha": "现场服务",
+      "avans": "客户预付款（余额）",
+      "avans_duzeltme": "余额调整"
     },
     "kategori": {
       "satis": "销售收入",

@@ -44,6 +44,27 @@ async def _odendiyse_kredi_yukle(db: AsyncSession, fatura) -> None:
         logger.exception("Elle ödendi işaretlenen faturanın kredisi yüklenemedi: fatura=%s", getattr(fatura, "id", None))
 
 
+async def _bakiyeden_otomatik(db: AsyncSession, fatura) -> None:
+    """Faz 5C: müşteri "yeni faturalarımı bakiyemden otomatik öde" dediyse kesilen (taslak olmayan) fatura hemen
+    denenir (fatura başına bir kez; "vadesinde" seçeneğinde zamanlı iş vadede dener). Fatura kaydı bu yüzden düşmez;
+    deneme geri alınsa da nesne yeniden okunur."""
+    if fatura is None:
+        return
+    fid = getattr(fatura, "id", None)
+    try:
+        from services.cuzdan import otomatik_odeme_dene_id
+
+        sonuc = await otomatik_odeme_dene_id(db, fid)
+        if sonuc is not None:
+            await db.refresh(fatura)
+    except Exception:  # noqa: BLE001
+        logger.exception("Bakiyeden otomatik ödeme denenemedi: fatura=%s", fid)
+        try:
+            await db.refresh(fatura)
+        except Exception:  # noqa: BLE001
+            pass
+
+
 def _musteriden_gizli(request: Request) -> Optional[tuple]:
     """Faz 3Z: yönetici değilse taslak faturalar listelenmez/gösterilmez."""
     from dependencies.kayit_sahipligi import _yonetici_mi
@@ -421,7 +442,8 @@ async def create_invoices(
         if not result:
             raise HTTPException(status_code=400, detail="Failed to create invoices")
         await _kullanim_yaz(db, uygulama, result)
-        
+        await _bakiyeden_otomatik(db, result)
+
         logger.info(f"Invoices created successfully with id: {result.id}")
         return result
     except HTTPException:
@@ -526,7 +548,8 @@ async def update_invoices(
             raise HTTPException(status_code=404, detail="Invoices not found")
         await _kullanim_yaz(db, uygulama, result)
         await _odendiyse_kredi_yukle(db, result)
-        
+        await _bakiyeden_otomatik(db, result)
+
         logger.info(f"Invoices {id} updated successfully")
         return result
     except HTTPException:

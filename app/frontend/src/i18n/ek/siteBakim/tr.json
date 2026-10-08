@@ -201,7 +201,8 @@
         "muhasebe_bakimi": "Ön muhasebe bakımı",
         "ortaklik_bakimi": "Ortaklık bakımı",
         "toplanti_hatirlatmalari": "Toplantı hatırlatmaları",
-        "okr_bakimi": "OKR bakımı"
+        "okr_bakimi": "OKR bakımı",
+        "cuzdan_otomatik_odeme": "Bakiyeden otomatik ödeme"
       },
       "gunluk": "günde bir",
       "haftalik": "haftada bir",
@@ -247,7 +248,8 @@
         "muhasebe_bakimi": "Ön muhasebe bakımı (vadesi gelen tekrarlayan kayıtlar, otomatik aktarımlar ve onay bekleyen öneriler, bütçe aşımı ve geciken alacak olayları)",
         "ortaklik_bakimi": "Ortaklık bakımı (iade süresi dolan komisyonların onaylanması; 6 saatte bir, ortak paneli açılınca da)",
         "toplanti_hatirlatmalari": "Toplantı hatırlatmaları (davet edilmiş katılımcılara 24 saat ve 1 saat önce, her biri bir kez; her turda ve Toplantılar sekmesi açılınca)",
-        "okr_bakimi": "OKR bakımı (açık dönemlerin otomatik anahtar sonuçlarını saatte bir yeniler; 7 gündür check-in almamış anahtar sonuçların sahibine haftalık hatırlatma, her KR için 7 günde en çok bir kez)"
+        "okr_bakimi": "OKR bakımı (açık dönemlerin otomatik anahtar sonuçlarını saatte bir yeniler; 7 gündür check-in almamış anahtar sonuçların sahibine haftalık hatırlatma, her KR için 7 günde en çok bir kez)",
+        "cuzdan_otomatik_odeme": "Bakiyeden otomatik ödeme (\"yeni faturalarımı bakiyemden otomatik öde\" diyen müşterilerin denenmemiş açık faturaları — fatura başına bir kez; \"vadesinde\" seçeneğinde vadesi gelenler. Kesilen fatura çoğunlukla anında denenir; bu iş yedek)"
       }
     },
     "musteri": {

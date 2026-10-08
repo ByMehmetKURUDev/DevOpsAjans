@@ -160,7 +160,8 @@ const Hedefler = ekliLazy('hedefler', () => import('@/components/Hedefler'));
 // Faz 6O — ajansın bu hesapla PAYLAŞTIĞI hedefler (genel görünüm kartı; modül kapalı olsa da; yoksa hiç çizilmez).
 const PaylasilanHedefler = ekliLazy('hedefKarti', () => import('@/components/PaylasilanHedefler'));
 // Faz 3T — Faturalar sekmesi: teklifler, sözleşmeler (basit e-imza) ve faturalar (bakiye, ödemeler, PDF).
-const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme'], () => import('@/components/Faturalarim'));
+// Faz 5C: "Bakiyem" (müşteri avansı) Faturalar sekmesinde — `cuzdan` ek paketi.
+const Faturalarim = ekliLazy(['fatura', 'teklif', 'sozlesme', 'cuzdan'], () => import('@/components/Faturalarim'));
 // Faz 3Z — proje kartında harcanan süre (modül + proje ayarı açıksa) ve ajans
 // personelinin kendi zaman kayıtları (yalnız personele; ek paket `zamanTakibi`).
 const HarcananSureKarti = ekliLazy('zamanTakibi', () => import('@/components/HarcananSureKarti'));

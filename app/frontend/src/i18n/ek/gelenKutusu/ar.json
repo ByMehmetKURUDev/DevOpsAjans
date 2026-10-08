@@ -21,7 +21,8 @@
       "crm_form": "نموذج CRM",
       "teklif_karari": "قرار عرض السعر",
       "ortak_basvurusu": "طلب شراكة",
-      "toplanti_talebi": "طلب اجتماع"
+      "toplanti_talebi": "طلب اجتماع",
+      "bakiye_yukleme": "شحن الرصيد"
     },
     "durumSuzgeci": {
       "etiket": "التصفية حسب الحالة",
@@ -65,7 +66,8 @@
       "paket_uygula": "طبّق هذه الباقة على هذا العميل",
       "onayla": "موافقة",
       "reddet": "رفض",
-      "toplanti_planla": "جدولة اجتماع"
+      "toplanti_planla": "جدولة اجتماع",
+      "bakiye_reddet": "رفض (مع ذكر السبب)"
     },
     "eylemTamam": "تمّ.",
     "eylemHata": "تعذّر تنفيذ الإجراء.",
@@ -113,7 +115,13 @@
       "tanitim": "طريقة الترويج",
       "pazarlama": "موافقة التسويق",
       "araliklar": "الأوقات المفضلة (بتوقيت إسطنبول)",
-      "talepDurumu": "حالة الطلب"
+      "talepDurumu": "حالة الطلب",
+      "yuklemeTutari": "المبلغ المُبلَّغ عنه",
+      "referans": "رمز المرجع",
+      "odemeYontemi": "طريقة الدفع",
+      "odemeTarihi": "تاريخ الدفع",
+      "dekont": "الإيصال",
+      "retNedeni": "سبب الرفض"
     },
     "karar": {
       "bekliyor": "بانتظار القرار",
@@ -202,6 +210,18 @@
       "bekliyor": "قيد الانتظار",
       "planlandi": "تمت الجدولة",
       "kapandi": "مغلق"
+    },
+    "bakiyeTalepDurum": {
+      "beklemede": "بانتظار الموافقة",
+      "onaylandi": "تمت الموافقة",
+      "reddedildi": "مرفوض",
+      "iptal": "سحبه العميل"
+    },
+    "bakiyeYontem": {
+      "havale": "حوالة بنكية",
+      "eft": "EFT",
+      "nakit": "نقداً",
+      "diger": "أخرى"
     }
   }
 }

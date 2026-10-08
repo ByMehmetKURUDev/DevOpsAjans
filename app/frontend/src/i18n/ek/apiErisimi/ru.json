@@ -84,7 +84,9 @@
       "toplanti_yapildi": "Встреча отмечена как проведённая",
       "toplanti_iptal": "Встреча отменена",
       "okr_kr_riskte": "OKR: уверенность ключевого результата сменилась на «отстаёт»",
-      "okr_hedef_tamamlandi": "OKR: прогресс цели достиг 100%"
+      "okr_hedef_tamamlandi": "OKR: прогресс цели достиг 100%",
+      "bakiye_yuklendi": "Баланс: баланс клиента пополнен",
+      "bakiye_harcandi": "Баланс: счёт оплачен с баланса"
     },
     "anahtar": {
       "yeni": "Новый ключ",

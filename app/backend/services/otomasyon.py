@@ -706,6 +706,26 @@ async def baglam_kur(db: AsyncSession, tur: str, veri: Dict[str, Any], olay_hesa
                     "kr": kr.baslik if kr is not None else None,
                     "ilerleme": round(_okk.kr_ilerlemesi(kr) * 100, 1) if kr is not None else None,
                     "guven": kr.guven if kr is not None else None}
+    elif on == "bakiye":
+        # Faz 5C — cüzdan hareketi (müşteri kuralı yalnız kendi hesabının hareketini görür) + harcamada fatura.
+        from models.cuzdan import CuzdanHareketleri
+
+        h = await _kayit(db, CuzdanHareketleri, veri.get("hareket_id"))
+        if h is None or (not ajans and eposta_duzelt(h.hesap_email) != eposta_duzelt(olay_hesap)):
+            return None
+        b["bakiye"] = {"hareket_id": h.id, "tur": h.tur, "tutar": round(abs(int(h.tutar)) / 100, 2), "para_birimi": h.para_birimi,
+                       "bakiye": round(int(h.sonra) / 100, 2), "kaynak": veri.get("kaynak"), "otomatik": bool(veri.get("otomatik"))}
+        if h.fatura_id:
+            from models.invoices import Invoices
+            from services.faturalar import IPTAL_DURUMLARI, KAPALI_DURUMLAR, tarih_coz, tr_bugun
+
+            f = await _kayit(db, Invoices, h.fatura_id)
+            if f is not None:
+                vade = tarih_coz(f.due_date) if f.due_date else None
+                b["fatura"] = {"id": f.id, "no": f.invoice_no, "tutar": _sayi(f.amount), "para_birimi": f.currency or "TRY",
+                               "durum": f.status, "vade_tarihi": (str(f.due_date)[:10] if f.due_date else None),
+                               "gecikme_gun": None, "acik": (f.status or "") not in KAPALI_DURUMLAR + IPTAL_DURUMLARI,
+                               "vadeye_kalan_gun": (vade - tr_bugun()).days if vade else None}
     elif on == "ik":
         # Faz 6I — izin talebi / kararı: olay verisinde izin ve personel kimliği (kişi alanları kayıttan).
         from models.ik import IkIzinler, IkPersonel

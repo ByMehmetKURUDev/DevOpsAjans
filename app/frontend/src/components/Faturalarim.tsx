@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import {
   CheckCircle2,
   ChevronDown,
@@ -10,6 +10,7 @@ import {
   Loader2,
   Paperclip,
   Receipt,
+  Wallet,
   XCircle,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -33,8 +34,12 @@ import {
   type FaturaAyrintisi,
   type FaturaSatiri,
 } from '@/lib/faturaIslemleri';
+import { cuzdanim, faturamiBakiyedenOde, istekAnahtari, type MusteriCuzdani } from '@/lib/cuzdan';
 import { sozlesmeDurumRengi, sozlesmelerim, sozlesmemImza, sozlesmemPdf, type Sozlesme } from '@/lib/sozlesmeler';
 import { teklifDurumRengi, teklifimKarar, teklifimPdf, tekliflerim, type Teklif } from '@/lib/teklifler';
+
+/** Faz 5C — "Bakiyem" (ayrı parça; metinler `cuzdan` ek paketinde, Faturalar sekmesiyle birlikte yükleniyor). */
+const Bakiyem = lazy(() => import('@/components/cuzdan/Bakiyem'));
 
 /**
  * Müşteri paneli › Faturalar sekmesi (Faz 3T): teklifler (karar), sözleşmeler
@@ -49,6 +54,7 @@ export default function Faturalarim() {
   const [sozlesmeler, setSozlesmeler] = useState<Sozlesme[]>([]);
   const [faturalar, setFaturalar] = useState<FaturaSatiri[]>([]);
   const [ozet, setOzet] = useState<{ para_birimi: string; kalan: number; adet: number }[]>([]);
+  const [cuzdan, setCuzdan] = useState<MusteriCuzdani | null>(null);
   const [yukleniyor, setYukleniyor] = useState(true);
   const [hataVar, setHataVar] = useState(false);
 
@@ -63,7 +69,8 @@ export default function Faturalarim() {
   const yukle = useCallback(async () => {
     setYukleniyor(true);
     setHataVar(false);
-    const [tk, sz, ft] = await Promise.allSettled([tekliflerim(), sozlesmelerim(), faturalarim()]);
+    const [tk, sz, ft, cz] = await Promise.allSettled([tekliflerim(), sozlesmelerim(), faturalarim(), cuzdanim()]);
+    setCuzdan(cz.status === 'fulfilled' ? cz.value : null);
     setTeklifler(tk.status === 'fulfilled' ? tk.value : []);
     setSozlesmeler(sz.status === 'fulfilled' ? sz.value : []);
     if (ft.status === 'fulfilled') {
@@ -85,8 +92,26 @@ export default function Faturalarim() {
     );
   }
 
+  /** Faz 5C — faturanın para birimindeki bakiye (dönüşüm yok). */
+  const bakiyeOf = (pb: string) => cuzdan?.bakiyeler.find((b) => b.para_birimi === (pb || 'TRY'))?.bakiye ?? 0;
+  /** Bakiyeden ödemeden sonra yalnız veriyi yenile (sekme iskeleti yerinde kalsın). */
+  const sessizYukle = async () => {
+    const [ft, cz] = await Promise.allSettled([faturalarim(), cuzdanim()]);
+    if (ft.status === 'fulfilled') {
+      setFaturalar(ft.value.faturalar);
+      setOzet(ft.value.ozet);
+    }
+    if (cz.status === 'fulfilled') setCuzdan(cz.value);
+  };
+
   return (
     <div className="space-y-8" data-testid="faturalarim">
+      {cuzdan && (
+        <Suspense fallback={null}>
+          <Bakiyem ozet={cuzdan} onDegisti={() => void sessizYukle()} />
+        </Suspense>
+      )}
+
       {teklifler.length > 0 && (
         <section data-testid="tekliflerim">
           <h3 className="mb-3 flex items-center gap-2 text-lg font-semibold">
@@ -128,7 +153,9 @@ export default function Faturalarim() {
           <div className="cam-kart rounded-2xl border border-white/10 bg-white/[0.03] p-10 text-center text-muted-foreground">{t('fatura.musteri.bos')}</div>
         ) : (
           <div className="grid gap-3">
-            {faturalar.map((f) => <FaturaKarti key={f.id} fatura={f} hataGoster={hataGoster} />)}
+            {faturalar.map((f) => (
+              <FaturaKarti key={f.id} fatura={f} hataGoster={hataGoster} bakiye={bakiyeOf(f.currency)} onOdendi={() => void sessizYukle()} />
+            ))}
           </div>
         )}
       </section>
@@ -309,7 +336,12 @@ function SozlesmeKarti({ sozlesme, onDegisti, hataGoster }: { sozlesme: Sozlesme
   );
 }
 
-function FaturaKarti({ fatura, hataGoster }: { fatura: FaturaSatiri; hataGoster: (h: unknown, p?: string) => void }) {
+function FaturaKarti({ fatura, hataGoster, bakiye = 0, onOdendi }: {
+  fatura: FaturaSatiri;
+  hataGoster: (h: unknown, p?: string) => void;
+  bakiye?: number;
+  onOdendi?: () => void;
+}) {
   const { t, i18n } = useTranslation();
   const dil = i18n.language;
   const [acik, setAcik] = useState(false);
@@ -317,6 +349,25 @@ function FaturaKarti({ fatura, hataGoster }: { fatura: FaturaSatiri; hataGoster:
   const [mesgul, setMesgul] = useState(false);
   const kalan = fatura.bakiye?.kalan ?? 0;
   const odenebilir = fatura.tur !== 'iade' && kalan > 0 && !['paid', 'cancelled', 'iade'].includes(fatura.status || '');
+  // Faz 5C — "Bakiyeden öde": faturanın para birimindeki bakiyeden tamamı ya da girilen kısım (istek anahtarı tekrarı önler).
+  const [bakiyeAcik, setBakiyeAcik] = useState(false);
+  const [bakiyeTutar, setBakiyeTutar] = useState('');
+  const anahtar = useRef(istekAnahtari());
+  const bakiyedenOdenebilir = odenebilir && bakiye > 0;
+  const bakiyedenOde = async () => {
+    setMesgul(true);
+    try {
+      const s = await faturamiBakiyedenOde(fatura.id, bakiyeTutar, anahtar.current);
+      anahtar.current = istekAnahtari();
+      toast.success(s.tekrar ? t('cuzdan.ode.tekrar') : t('cuzdan.ode.basarili'));
+      setBakiyeAcik(false);
+      onOdendi?.();
+    } catch (h) {
+      hataGoster(h, 'cuzdan');
+    } finally {
+      setMesgul(false);
+    }
+  };
 
   const ac = async () => {
     const yeni = !acik;
@@ -369,6 +420,16 @@ function FaturaKarti({ fatura, hataGoster }: { fatura: FaturaSatiri; hataGoster:
             <CreditCard className="h-4 w-4" aria-hidden="true" />{t('fatura.musteri.ode')}
           </Button>
         )}
+        {bakiyedenOdenebilir && (
+          <Button size="sm" variant="outline" className="gap-1 !bg-transparent" disabled={mesgul} data-testid="faturam-bakiyeden-ode"
+            aria-expanded={bakiyeAcik}
+            onClick={() => {
+              setBakiyeTutar(Math.min(bakiye, kalan).toFixed(2));
+              setBakiyeAcik(!bakiyeAcik);
+            }}>
+            <Wallet className="h-4 w-4" aria-hidden="true" />{t('cuzdan.ode.dugme')}
+          </Button>
+        )}
         <Button size="sm" variant="outline" className="gap-1 !bg-transparent" data-testid="faturam-pdf"
           onClick={() => void pdfIndir(faturamPdf(fatura.id, pdfDili(dil)), `fatura-${fatura.invoice_no}.pdf`).catch((h) => hataGoster(h))}>
           <FileDown className="h-4 w-4" aria-hidden="true" />PDF
@@ -378,6 +439,26 @@ function FaturaKarti({ fatura, hataGoster }: { fatura: FaturaSatiri; hataGoster:
           {t('fatura.musteri.ayrinti')}
         </Button>
       </div>
+      {bakiyeAcik && bakiyedenOdenebilir && (
+        <form className="mt-3 flex flex-wrap items-end gap-3 rounded-xl border border-purple-400/30 bg-purple-500/[0.05] p-3" data-testid="bakiyeden-ode-formu"
+          onSubmit={(e) => {
+            e.preventDefault();
+            void bakiyedenOde();
+          }}>
+          <div className="min-w-0 text-xs text-muted-foreground">
+            <p>{t('cuzdan.ode.kullanilabilir', { tutar: paraBicimle(bakiye, fatura.currency, dil) })}</p>
+            <p>{t('cuzdan.ode.kalan', { tutar: paraBicimle(kalan, fatura.currency, dil) })}</p>
+          </div>
+          <label className="grid gap-1 text-xs">{t('cuzdan.ode.tutar')}
+            <Input type="number" min={0.01} step="0.01" max={Math.min(bakiye, kalan)} required value={bakiyeTutar}
+              onChange={(e) => setBakiyeTutar(e.target.value)} className="w-36" data-testid="bakiyeden-ode-tutar" />
+          </label>
+          <Button type="submit" size="sm" disabled={mesgul || !bakiyeTutar} className="gap-1" data-testid="bakiyeden-ode-onayla">
+            {mesgul && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}{t('cuzdan.ode.onayla')}
+          </Button>
+          <Button type="button" size="sm" variant="ghost" onClick={() => setBakiyeAcik(false)}>{t('cuzdan.vazgec')}</Button>
+        </form>
+      )}
       {acik && ayrinti && (
         <div className="mt-4 space-y-4">
           {ayrinti.kalemler.length > 0 && <KalemTablosu kalemler={ayrinti.kalemler} ozet={ayrinti.ozet} paraBirimi={ayrinti.currency} />}

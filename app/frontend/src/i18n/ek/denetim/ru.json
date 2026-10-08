@@ -145,7 +145,12 @@
       "muhasebe_butceler": "Бюджеты",
       "okr_donemler": "Периоды OKR",
       "okr_hedefler": "Цели OKR",
-      "okr_anahtar_sonuclar": "Ключевые результаты (OKR)"
+      "okr_anahtar_sonuclar": "Ключевые результаты (OKR)",
+      "cuzdan_hesaplari": "Балансы клиентов",
+      "cuzdan_hareketleri": "Журнал баланса",
+      "cuzdan_yukleme_talepleri": "Уведомления о пополнении",
+      "cuzdan_ayarlari": "Настройки баланса",
+      "cuzdan_otomatik_izleri": "Попытки автоплатежа с баланса"
     },
     "hareket": {
       "baslik": "Действия в аккаунте",

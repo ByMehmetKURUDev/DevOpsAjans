@@ -195,6 +195,8 @@ GELEN_KAYNAK_ADLARI = {
     "kartvizit": "Kartvizit mesajı", "randevu": "Randevu", "geri_bildirim": "Hata bildirimi",
     "icerik_revizyon": "İçerik revizyonu", "belge": "Yüklenen belge", "egitim": "Kurs başvurusu",
     "belge_paylasim": "Paylaşılan belge", "crm_form": "CRM formu", "toplanti_talebi": "Toplantı talebi",
+    # Faz 5C — onay bekleyen bakiye yüklemeleri (gelen kutusu kaynağı; ayrı bölüm açılmadı).
+    "bakiye_yukleme": "Onay bekleyen bakiye yüklemesi",
 }
 
 

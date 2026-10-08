@@ -113,7 +113,8 @@
       "komisyon": "佣金",
       "odeme": "提现申请",
       "toplanti": "会议",
-      "okr": "OKR 目标"
+      "okr": "OKR 目标",
+      "bakiye": "余额交易"
     },
     "alan": {
       "id": "编号",
@@ -214,7 +215,10 @@
       "sahip": "负责人",
       "hedef_ilerleme": "目标进度（%）",
       "kr": "关键结果",
-      "guven": "信心"
+      "guven": "信心",
+      "hareket_id": "交易编号",
+      "bakiye": "交易后余额",
+      "otomatik": "是否自动支付"
     },
     "olay": {
       "aday_olusturuldu": "新的 CRM 潜在客户",
@@ -261,7 +265,9 @@
       "toplanti_yapildi": "会议已举行",
       "toplanti_iptal": "会议已取消",
       "okr_kr_riskte": "关键结果落后",
-      "okr_hedef_tamamlandi": "目标已完成"
+      "okr_hedef_tamamlandi": "目标已完成",
+      "bakiye_yuklendi": "余额已充值",
+      "bakiye_harcandi": "已用余额支付发票"
     },
     "olayAciklama": {
       "aday_olusturuldu": "来自表单、联系、网站分析或手动添加的潜在客户。",
@@ -308,7 +314,9 @@
       "toplanti_yapildi": "会议被标记为已举行（例如发送感谢邮件、创建纪要任务）。",
       "toplanti_iptal": "会议已说明原因取消；参会者已收到取消通知（ICS）。",
       "okr_kr_riskte": "某个关键结果在签到中将信心改为“落后”（每次变更一次）。“事件中的人”是 KR 负责人。",
-      "okr_hedef_tamamlandi": "某个目标的进度达到 100%（每次达到时一次）。“事件中的人”是目标负责人。"
+      "okr_hedef_tamamlandi": "某个目标的进度达到 100%（每次达到时一次）。“事件中的人”是目标负责人。",
+      "bakiye_yuklendi": "客户余额已记入一笔充值（充值通知已批准或由管理员手动记录）。“事件中的人员”为客户账户。",
+      "bakiye_harcandi": "一张发票已用客户余额支付（部分或全部，包括自动支付）。也可使用发票字段。"
     },
     "eylem": {
       "eposta": "发送邮件",

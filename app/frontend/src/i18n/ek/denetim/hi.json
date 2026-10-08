@@ -145,7 +145,12 @@
       "muhasebe_butceler": "बजट",
       "okr_donemler": "OKR अवधियाँ",
       "okr_hedefler": "OKR लक्ष्य",
-      "okr_anahtar_sonuclar": "मुख्य परिणाम (OKR)"
+      "okr_anahtar_sonuclar": "मुख्य परिणाम (OKR)",
+      "cuzdan_hesaplari": "ग्राहक बैलेंस",
+      "cuzdan_hareketleri": "बैलेंस बही",
+      "cuzdan_yukleme_talepleri": "बैलेंस टॉप-अप सूचनाएँ",
+      "cuzdan_ayarlari": "बैलेंस सेटिंग्स",
+      "cuzdan_otomatik_izleri": "बैलेंस से स्वचालित भुगतान प्रयास"
     },
     "hareket": {
       "baslik": "खाता गतिविधि",

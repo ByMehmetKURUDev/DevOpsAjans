@@ -21,7 +21,8 @@
       "crm_form": "CRM formu",
       "teklif_karari": "Teklif kararı",
       "ortak_basvurusu": "Ortaklık başvurusu",
-      "toplanti_talebi": "Toplantı talebi"
+      "toplanti_talebi": "Toplantı talebi",
+      "bakiye_yukleme": "Bakiye yükleme"
     },
     "durumSuzgeci": {
       "etiket": "Duruma göre süz",
@@ -65,7 +66,8 @@
       "paket_uygula": "Bu paketi bu müşteriye uygula",
       "onayla": "Onayla",
       "reddet": "Reddet",
-      "toplanti_planla": "Toplantı planla"
+      "toplanti_planla": "Toplantı planla",
+      "bakiye_reddet": "Reddet (neden yaz)"
     },
     "eylemTamam": "İşlem yapıldı.",
     "eylemHata": "İşlem yapılamadı.",
@@ -113,7 +115,13 @@
       "tanitim": "Nasıl tanıtacak",
       "pazarlama": "Pazarlama izni",
       "araliklar": "Tercih edilen zamanlar (İstanbul saati)",
-      "talepDurumu": "Talep durumu"
+      "talepDurumu": "Talep durumu",
+      "yuklemeTutari": "Bildirilen tutar",
+      "referans": "Açıklama kodu",
+      "odemeYontemi": "Ödeme yolu",
+      "odemeTarihi": "Ödeme tarihi",
+      "dekont": "Dekont",
+      "retNedeni": "Ret nedeni"
     },
     "karar": {
       "bekliyor": "Karar bekleniyor",
@@ -202,6 +210,18 @@
       "bekliyor": "Bekliyor",
       "planlandi": "Planlandı",
       "kapandi": "Kapatıldı"
+    },
+    "bakiyeTalepDurum": {
+      "beklemede": "Onay bekliyor",
+      "onaylandi": "Onaylandı",
+      "reddedildi": "Reddedildi",
+      "iptal": "Müşteri vazgeçti"
+    },
+    "bakiyeYontem": {
+      "havale": "Havale",
+      "eft": "EFT",
+      "nakit": "Nakit",
+      "diger": "Diğer"
     }
   }
 }

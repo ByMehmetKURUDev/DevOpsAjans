@@ -84,7 +84,9 @@
       "toplanti_yapildi": "Toplantı yapıldı olarak işaretlendi",
       "toplanti_iptal": "Toplantı iptal edildi",
       "okr_kr_riskte": "OKR: anahtar sonucun güveni “tehlikede”ye geçti",
-      "okr_hedef_tamamlandi": "OKR: hedefin ilerlemesi %100'e ulaştı"
+      "okr_hedef_tamamlandi": "OKR: hedefin ilerlemesi %100'e ulaştı",
+      "bakiye_yuklendi": "Bakiye: müşterinin bakiyesine yükleme yapıldı",
+      "bakiye_harcandi": "Bakiye: fatura bakiyeden ödendi"
     },
     "anahtar": {
       "yeni": "Yeni anahtar",

@@ -21,7 +21,8 @@
       "crm_form": "CRM फ़ॉर्म",
       "teklif_karari": "कोटेशन पर निर्णय",
       "ortak_basvurusu": "एफ़िलिएट आवेदन",
-      "toplanti_talebi": "बैठक अनुरोध"
+      "toplanti_talebi": "बैठक अनुरोध",
+      "bakiye_yukleme": "बैलेंस टॉप-अप"
     },
     "durumSuzgeci": {
       "etiket": "स्थिति के अनुसार फ़िल्टर करें",
@@ -65,7 +66,8 @@
       "paket_uygula": "यह पैकेज इस क्लाइंट पर लागू करें",
       "onayla": "स्वीकृत करें",
       "reddet": "अस्वीकार करें",
-      "toplanti_planla": "बैठक निर्धारित करें"
+      "toplanti_planla": "बैठक निर्धारित करें",
+      "bakiye_reddet": "अस्वीकार करें (कारण लिखें)"
     },
     "eylemTamam": "हो गया।",
     "eylemHata": "कार्रवाई पूरी नहीं हो सकी।",
@@ -113,7 +115,13 @@
       "tanitim": "कैसे प्रचार करेंगे",
       "pazarlama": "मार्केटिंग अनुमति",
       "araliklar": "पसंदीदा समय (इस्तांबुल समय)",
-      "talepDurumu": "अनुरोध की स्थिति"
+      "talepDurumu": "अनुरोध की स्थिति",
+      "yuklemeTutari": "सूचित राशि",
+      "referans": "संदर्भ कोड",
+      "odemeYontemi": "भुगतान का तरीका",
+      "odemeTarihi": "भुगतान की तारीख",
+      "dekont": "रसीद",
+      "retNedeni": "अस्वीकृति का कारण"
     },
     "karar": {
       "bekliyor": "निर्णय बाकी",
@@ -202,6 +210,18 @@
       "bekliyor": "प्रतीक्षा में",
       "planlandi": "निर्धारित",
       "kapandi": "बंद"
+    },
+    "bakiyeTalepDurum": {
+      "beklemede": "स्वीकृति की प्रतीक्षा",
+      "onaylandi": "स्वीकृत",
+      "reddedildi": "अस्वीकृत",
+      "iptal": "ग्राहक ने वापस लिया"
+    },
+    "bakiyeYontem": {
+      "havale": "बैंक ट्रांसफ़र",
+      "eft": "EFT",
+      "nakit": "नकद",
+      "diger": "अन्य"
     }
   }
 }

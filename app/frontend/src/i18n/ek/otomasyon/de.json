@@ -113,7 +113,8 @@
       "komisyon": "Provision",
       "odeme": "Auszahlungsanfrage",
       "toplanti": "Besprechung",
-      "okr": "OKR-Ziel"
+      "okr": "OKR-Ziel",
+      "bakiye": "Guthabenbuchung"
     },
     "alan": {
       "id": "ID",
@@ -214,7 +215,10 @@
       "sahip": "Verantwortlich",
       "hedef_ilerleme": "Zielfortschritt (%)",
       "kr": "Schlüsselergebnis",
-      "guven": "Zuversicht"
+      "guven": "Zuversicht",
+      "hareket_id": "Buchungsnr.",
+      "bakiye": "Guthaben danach",
+      "otomatik": "Automatische Zahlung"
     },
     "olay": {
       "aday_olusturuldu": "Neuer CRM-Lead",
@@ -261,7 +265,9 @@
       "toplanti_yapildi": "Besprechung hat stattgefunden",
       "toplanti_iptal": "Besprechung abgesagt",
       "okr_kr_riskte": "Schlüsselergebnis kritisch",
-      "okr_hedef_tamamlandi": "Ziel erreicht"
+      "okr_hedef_tamamlandi": "Ziel erreicht",
+      "bakiye_yuklendi": "Guthaben aufgeladen",
+      "bakiye_harcandi": "Rechnung aus Guthaben bezahlt"
     },
     "olayAciklama": {
       "aday_olusturuldu": "Lead aus Formular, Kontakt, Website-Analyse oder manuell angelegt.",
@@ -308,7 +314,9 @@
       "toplanti_yapildi": "Die Besprechung wurde als stattgefunden markiert (z. B. Dankes-E-Mail, Protokollaufgabe).",
       "toplanti_iptal": "Die Besprechung wurde mit Begründung abgesagt; die Teilnehmenden erhielten eine Absage (ICS).",
       "okr_kr_riskte": "Die Zuversicht eines Schlüsselergebnisses wurde in einem Check-in auf „kritisch“ gesetzt (einmal pro Wechsel). Die „Person im Ereignis“ ist die KR-Verantwortliche.",
-      "okr_hedef_tamamlandi": "Der Fortschritt eines Ziels hat 100 % erreicht (einmal pro Erreichen). Die „Person im Ereignis“ ist die Zielverantwortliche."
+      "okr_hedef_tamamlandi": "Der Fortschritt eines Ziels hat 100 % erreicht (einmal pro Erreichen). Die „Person im Ereignis“ ist die Zielverantwortliche.",
+      "bakiye_yuklendi": "Eine Aufladung wurde auf das Kundenguthaben gebucht (Aufladungsmeldung freigegeben oder manuell erfasst). Die „Person im Ereignis“ ist das Kundenkonto.",
+      "bakiye_harcandi": "Eine Rechnung wurde aus dem Kundenguthaben bezahlt (teilweise oder vollständig, auch automatisch). Rechnungsfelder sind ebenfalls verfügbar."
     },
     "eylem": {
       "eposta": "E-Mail senden",

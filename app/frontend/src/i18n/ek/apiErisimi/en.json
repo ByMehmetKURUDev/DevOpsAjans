@@ -84,7 +84,9 @@
       "toplanti_yapildi": "Meeting marked as held",
       "toplanti_iptal": "Meeting cancelled",
       "okr_kr_riskte": "OKR: a key result's confidence changed to “off track”",
-      "okr_hedef_tamamlandi": "OKR: an objective's progress reached 100%"
+      "okr_hedef_tamamlandi": "OKR: an objective's progress reached 100%",
+      "bakiye_yuklendi": "Balance: a client's balance was topped up",
+      "bakiye_harcandi": "Balance: an invoice was paid from the balance"
     },
     "anahtar": {
       "yeni": "New key",

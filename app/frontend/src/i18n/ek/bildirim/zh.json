@@ -95,7 +95,12 @@
       "toplanti_hatirlatma": "会议：提醒（提前 24 小时 / 1 小时）",
       "toplanti_notlari": "会议：已分享纪要",
       "toplanti_talebi": "会议：客户的新请求",
-      "okr_hatirlatma": "OKR：每周签到提醒（7 天未更新的关键结果）"
+      "okr_hatirlatma": "OKR：每周签到提醒（7 天未更新的关键结果）",
+      "bakiye_talebi": "余额：客户的充值通知",
+      "bakiye_yukleme": "余额：充值已批准 / 已拒绝",
+      "bakiye_harcama": "余额：用余额支付发票",
+      "bakiye_dusuk": "余额：低余额提醒",
+      "bakiye_iade": "余额：余额退款"
     },
     "kanal": {
       "inapp": "面板",

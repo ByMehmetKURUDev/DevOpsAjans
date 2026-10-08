@@ -127,7 +127,8 @@ const MarketplacePanel = ekliLazy('marketplaceCeviri', () => import('@/component
 const IcerikStudyosu = ekliLazy(['icerikStudyosu', 'icerikOnay'], () => import('@/components/IcerikStudyosu'));
 // Tahsilat ekranı ayrı parçada: panele girenlerin çoğu bu sekmeyi
 // açmıyor, kodu ilk yüklemede inmesin.
-const OdemePaneli = lazy(() => import('@/components/admin/OdemePaneli'));
+// Faz 5C: Ödemeler › "Müşteri bakiyeleri" alt gezinmesi `cuzdan` ek paketini kullanıyor.
+const OdemePaneli = ekliLazy('cuzdan', () => import('@/components/admin/OdemePaneli'));
 const EkipPaneli = lazy(() => import('@/components/admin/EkipPaneli'));
 const MusteriRaporlari = lazy(() => import('@/components/admin/MusteriRaporlari'));
 const HizmetAbonelikleri = lazy(() => import('@/components/admin/HizmetAbonelikleri'));

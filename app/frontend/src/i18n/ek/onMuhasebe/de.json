@@ -98,7 +98,9 @@
       "fatura": "Bezahlte Rechnung",
       "pos": "POS-Tagesabschluss",
       "hukuk": "Kanzleiauslage",
-      "saha": "Außendienst"
+      "saha": "Außendienst",
+      "avans": "Kundenvorauszahlung (Guthaben)",
+      "avans_duzeltme": "Guthabenkorrektur"
     },
     "kategori": {
       "satis": "Umsatzerlöse",

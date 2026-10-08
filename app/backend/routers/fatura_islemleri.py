@@ -310,13 +310,18 @@ async def tekrarlayan_calistir(request: Request, abonelik_id: Optional[int] = Qu
 
 @yonetici_router.delete("/odemeler/{payment_id}")
 async def odeme_sil(payment_id: int, request: Request, db: AsyncSession = _Depends(get_db)):
-    _yonetici_iste(request)
+    yonetici = _yonetici_iste(request)
     satir = (await db.execute(select(Payments).where(Payments.id == payment_id))).scalar_one_or_none()
     if satir is None:
         raise HTTPException(status_code=404, detail={"kod": "odeme_yok"})
     if satir.durum == "bekliyor":
         raise HTTPException(status_code=409, detail={"kod": "bekleyen_baglanti"})
-    fatura = await servis.odeme_sil(db, satir)
+    try:
+        # Faz 5C: bakiyeden ödemeyse tutar bakiyeye ters kayıtla döner (servis içinde).
+        fatura = await servis.odeme_sil(db, satir, silen=yonetici)
+    except FaturaHatasi as h:
+        await db.rollback()
+        raise _hata(h)
     await db.commit()
     if fatura is None:
         return {"silindi": payment_id}

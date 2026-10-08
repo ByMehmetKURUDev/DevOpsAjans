@@ -141,6 +141,13 @@ OLAYLAR: Dict[str, Dict[str, Any]] = {
     "toplanti_hatirlatma": {"roller": ("admin", "client"), "tetikleniyor": True},
     "toplanti_notlari": {"roller": ("client",), "tetikleniyor": True},
     "toplanti_talebi": {"roller": ("admin",), "tetikleniyor": True},
+    # Faz 5C — cüzdan: müşterinin yükleme bildirimi (yöneticilere); yükleme onaylandı / reddedildi / elle yüklendi,
+    # bakiyeden ödeme (otomatik ödeme ve "yetersiz bakiye" dahil), düşük bakiye (eşik altına inişte bir kez), iade.
+    "bakiye_talebi": {"roller": ("admin",), "tetikleniyor": True},
+    "bakiye_yukleme": {"roller": ("client",), "tetikleniyor": True},
+    "bakiye_harcama": {"roller": ("client",), "tetikleniyor": True},
+    "bakiye_dusuk": {"roller": ("client",), "tetikleniyor": True},
+    "bakiye_iade": {"roller": ("client",), "tetikleniyor": True},
     # Faz 4W — otomasyon kuralının "panel bildirimi" eylemi (yöneticilere / müşteri hesabına).
     "otomasyon_bildirimi": {"roller": ("admin", "client"), "tetikleniyor": True},
     # Faz 5A — AI asistan ziyaretçiyi insana devretti (müşterinin asistanında hesap sahibine,

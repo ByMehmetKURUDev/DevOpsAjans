@@ -145,7 +145,12 @@
       "muhasebe_butceler": "الميزانيات",
       "okr_donemler": "فترات OKR",
       "okr_hedefler": "أهداف OKR",
-      "okr_anahtar_sonuclar": "النتائج الرئيسية (OKR)"
+      "okr_anahtar_sonuclar": "النتائج الرئيسية (OKR)",
+      "cuzdan_hesaplari": "أرصدة العملاء",
+      "cuzdan_hareketleri": "دفتر الرصيد",
+      "cuzdan_yukleme_talepleri": "إشعارات شحن الرصيد",
+      "cuzdan_ayarlari": "إعدادات الرصيد",
+      "cuzdan_otomatik_izleri": "محاولات الدفع التلقائي من الرصيد"
     },
     "hareket": {
       "baslik": "نشاط الحساب",

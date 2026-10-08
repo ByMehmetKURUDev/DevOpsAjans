@@ -145,7 +145,12 @@
       "muhasebe_butceler": "Budgets",
       "okr_donemler": "OKR periods",
       "okr_hedefler": "OKR objectives",
-      "okr_anahtar_sonuclar": "Key results (OKR)"
+      "okr_anahtar_sonuclar": "Key results (OKR)",
+      "cuzdan_hesaplari": "Client balances",
+      "cuzdan_hareketleri": "Balance ledger",
+      "cuzdan_yukleme_talepleri": "Balance top-up notices",
+      "cuzdan_ayarlari": "Balance settings",
+      "cuzdan_otomatik_izleri": "Automatic balance payment attempts"
     },
     "hareket": {
       "baslik": "Account activity",

@@ -15,6 +15,7 @@ import {
   MessagesSquare,
   PenTool,
   Plane,
+  Wallet,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -38,6 +39,7 @@ export const KAYNAK_IKONU: Record<Kaynak, LucideIcon> = {
   teklif_karari: FileSignature,
   ortak_basvurusu: HandCoins,
   toplanti_talebi: CalendarClock,
+  bakiye_yukleme: Wallet,
 };
 
 export const DURUM_RENGI: Record<Durum, string> = {
