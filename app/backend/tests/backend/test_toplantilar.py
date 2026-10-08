@@ -788,7 +788,7 @@ def test_on_yuz_kayitlari_rota_noindex_basliklar_ve_menuler():
     blok = basliklar[basliklar.index("/toplanti-yanit/*"):].split("\n\n", 1)[0]
     assert "Referrer-Policy: no-referrer" in blok and "X-Robots-Tag: noindex" in blok
     menu = (on / "src" / "lib" / "yonetimMenusu.ts").read_text(encoding="utf-8")
-    assert "sekmeler: ['projects', 'zaman', 'projeSablonlari', 'dosyalar', 'toplantilar']" in menu
+    assert "sekmeler: ['projects', 'zaman', 'projeSablonlari', 'dosyalar', 'toplantilar', 'hedefler']" in menu
     musteri = (on / "src" / "lib" / "musteriMenusu.ts").read_text(encoding="utf-8")
     assert "sekmeler: ['projects', 'dosyalar', 'raporlar', 'toplantilar']" in musteri
     assert "meet.jit.si" not in (on / "functions" / "_ortak" / "csp.js").read_text(encoding="utf-8")
