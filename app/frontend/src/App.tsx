@@ -55,6 +55,10 @@ const KaynakDetay = ekliLazy('kaynaklar', () => import('./pages/kaynaklar/Kaynak
 const ModullerListesi = ekliLazy(['modul', 'modulVitrini'], () => import('./pages/moduller/ModullerListesi'));
 const ModulDetay = ekliLazy(['modul', 'modulVitrini', 'aydinlatma'], () => import('./pages/moduller/ModulDetay'));
 const PaketDetay = ekliLazy(['modul', 'modulVitrini', 'aydinlatma'], () => import('./pages/moduller/PaketDetay'));
+// Faz 4S: ücretsiz SEO araçları (dizin + 10 araç) — 7 dil, prerender. Sayfa metinleri `seoAraclari`;
+// sonuç görünümü, e-posta formu ve metinleri (`seoAracSonuc`, `aydinlatma`) ilk sonuçta iner.
+const SeoAraclariDizini = ekliLazy('seoAraclari', () => import('./pages/seoAraclari/SeoAraclariDizini'));
+const SeoAracSayfasi = ekliLazy('seoAraclari', () => import('./pages/seoAraclari/SeoAracSayfasi'));
 // Faz 3Y: yasal sayfalar (Gizlilik/KVKK, Kullanım Koşulları, Çerez Politikası) — tek bileşen,
 // metinleri ek pakette (7 dil), prerender + SEO. Veri sorumlusu bilgileri site ayarlarından.
 const YasalSayfa = ekliLazy('yasal', () => import('./pages/yasal/YasalSayfa'));
@@ -125,6 +129,8 @@ const AppRoutes = () => (
         <Route path="/moduller" element={<ModullerListesi />} />
         <Route path="/moduller/:slug" element={<ModulDetay />} />
         <Route path="/moduller/paket/:slug" element={<PaketDetay />} />
+        <Route path="/seo-araclari" element={<SeoAraclariDizini />} />
+        <Route path="/seo-araclari/:slug" element={<SeoAracSayfasi />} />
         <Route path="/gizlilik" element={<YasalSayfa sayfa="gizlilik" />} />
         <Route path="/kullanim-kosullari" element={<YasalSayfa sayfa="kullanimKosullari" />} />
         <Route path="/cerez-politikasi" element={<YasalSayfa sayfa="cerezPolitikasi" />} />
@@ -169,6 +175,8 @@ const AppRoutes = () => (
         <Route path="moduller" element={<ModullerListesi />} />
         <Route path="moduller/:slug" element={<ModulDetay />} />
         <Route path="moduller/paket/:slug" element={<PaketDetay />} />
+        <Route path="seo-araclari" element={<SeoAraclariDizini />} />
+        <Route path="seo-araclari/:slug" element={<SeoAracSayfasi />} />
         <Route path="gizlilik" element={<YasalSayfa sayfa="gizlilik" />} />
         <Route path="kullanim-kosullari" element={<YasalSayfa sayfa="kullanimKosullari" />} />
         <Route path="cerez-politikasi" element={<YasalSayfa sayfa="cerezPolitikasi" />} />

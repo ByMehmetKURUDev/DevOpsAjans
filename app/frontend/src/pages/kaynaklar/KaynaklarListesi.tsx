@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { RotateCcw, Search, X } from 'lucide-react';
+import { ArrowRight, RotateCcw, Search, Wrench, X } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -13,7 +13,7 @@ import {
 } from '@/lib/kaynaklar';
 import { KAYNAKLAR_SEO } from '../../../prerender/kaynaklar-seo.js';
 import { kaynakYolu } from '../../../prerender/kaynaklar-veri.js';
-import { PAGE_SEO_KEYS } from '../../../prerender/site.js';
+import { PAGE_SEO_KEYS, localizedPath } from '../../../prerender/site.js';
 import { KaynakCagrisi, KaynakKarti, paneldenSeo, useIcerikDili, useSayfaBasi } from './ortak';
 
 /**
@@ -205,7 +205,26 @@ export default function KaynaklarListesi() {
           </>
         )}
 
-        <div className="mt-16">
+        {/* Faz 4S: ücretsiz SEO araçları (üst menüde yok; buradan ve alt bilgiden bağlantı). */}
+        <Link
+          to={localizedPath(dil, 'seoAraclari')}
+          className="cam-kart group mt-16 flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors hover:border-purple-500/40 sm:flex-row sm:items-center"
+          data-seo-araclari-baglanti
+        >
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-purple-500/15 text-purple-300">
+            <Wrench className="h-6 w-6" aria-hidden="true" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-lg font-bold">{t('kaynaklar.seoAraclari.baslik')}</span>
+            <span className="mt-1 block text-sm text-muted-foreground">{t('kaynaklar.seoAraclari.metin')}</span>
+          </span>
+          <span className="inline-flex items-center gap-1 text-sm font-semibold text-purple-300">
+            {t('kaynaklar.seoAraclari.dugme')}
+            <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+          </span>
+        </Link>
+
+        <div className="mt-8">
           <KaynakCagrisi dil={dil} />
         </div>
       </div>

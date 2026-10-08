@@ -1,5 +1,6 @@
 import { getAPIBaseURL } from '@/lib/config';
 import { client } from '@/lib/sdkClient';
+import type { AracYonetimOzeti } from '@/lib/seoAraclari';
 
 /**
  * Ücretsiz Site Analiz Raporu — tipler ve uç çağrıları.
@@ -89,6 +90,8 @@ export interface TamRapor {
   pazarlama_metin_surumu?: string | null;
   inquiry_id?: number | null;
   kaynak?: string | null;
+  /** Faz 4S — analiz bir ücretsiz SEO aracının "Sitenin tam analizini al" düğmesinden geldiyse aracın kısa adı. */
+  arac?: string | null;
   gonderildi_at?: string | null;
 }
 
@@ -104,6 +107,7 @@ export interface AnalizSatiri {
   ad?: string | null;
   inquiry_id?: number | null;
   kaynak?: string | null;
+  arac?: string | null;
 }
 
 export interface YonetimListesi {
@@ -184,8 +188,12 @@ async function oturumluIstek<T>(method: string, url: string, data?: Record<strin
 // ---------------------------------------------------------------------------
 // Herkese açık
 // ---------------------------------------------------------------------------
-export function analizBaslat(url: string): Promise<AnalizOzeti> {
-  return acikIstek<AnalizOzeti>('', { method: 'POST', govde: { url } });
+/**
+ * Analizi başlatır. `arac` (Faz 4S): ziyaretçi bir ücretsiz SEO aracının "Sitenin tam analizini al"
+ * düğmesiyle geldiyse aracın kısa adı — yönetici özeti geçişi araca bağlıyor (bilinmeyen değer yok sayılır).
+ */
+export function analizBaslat(url: string, arac?: string | null): Promise<AnalizOzeti> {
+  return acikIstek<AnalizOzeti>('', { method: 'POST', govde: arac ? { url, arac } : { url } });
 }
 
 export function tamRaporIste(
@@ -223,6 +231,11 @@ export async function yonetimListesi(p: {
     sayfa: govde?.sayfa ?? 1,
     adet: govde?.adet ?? 20,
   };
+}
+
+/** Faz 4S — Satış › Site analizleri › "Ücretsiz SEO araçları" özeti (son `gun` gün). */
+export function seoAracOzeti(gun = 30): Promise<AracYonetimOzeti> {
+  return oturumluIstek<AracYonetimOzeti>('GET', `/api/v1/seo-araclari/yonetim/ozet?gun=${gun}`);
 }
 
 export function yonetimRaporu(id: number): Promise<TamRapor> {

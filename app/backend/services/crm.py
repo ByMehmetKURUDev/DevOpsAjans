@@ -31,7 +31,7 @@ Aday işinin kendisi (`kayittan_aday_sync`) Core SQL ile bir `Connection`
 Puanlama (0–100) — kurallar sabit ve testli (`puan_hesapla`)
 ------------------------------------------------------------
 * kaynak (en çok 30): fiyat teklifi 30, keşif 25, form/iletişim/modül vitrini 20,
-  e-posta/site analizi/kaynaklar 15, elle 10, bekleme listesi 5
+  e-posta/site analizi/kaynaklar/ücretsiz SEO aracı 15, elle 10, bekleme listesi 5
 * bütçe (15): tahmini değer ya da belirtilmiş bütçe varsa
 * kapsam (10): ilk mesaj ≥ 300 karakter 10, ≥ 100 karakter 5
 * e-posta alan adı (20): kurumsal 20, ücretsiz sağlayıcı (gmail…) 5, yok 0
@@ -73,6 +73,8 @@ KAYNAKLAR: Tuple[str, ...] = (
     "iletisim", "bekleme", "site_analizi", "kesif", "fiyat_teklifi", "kaynaklar", "form", "manuel", "eposta",
     # Faz 4V: herkese açık modül vitrininden "Bu modülü/paketi iste" talebi.
     "modul_vitrini",
+    # Faz 4S: ücretsiz SEO aracı › "Sonucu e-postayla gönder" (yalnız CRM; `inquiries`'e yazılmaz).
+    "seo_araci",
 )
 AKTIVITE_TURLERI: Tuple[str, ...] = ("not", "arama", "eposta", "toplanti", "asama", "sistem")
 #: Panelden elle eklenebilen aktiviteler (etkileşim sayılanlar da bunlar).
@@ -140,6 +142,8 @@ KAYNAK_PUANI: Dict[str, int] = {
     "site_analizi": 15, "kaynaklar": 15, "manuel": 10, "bekleme": 5,
     # Belirli bir modül/paket için açık teklif isteği: iletişim formu kadar.
     "modul_vitrini": 20,
+    # Ücretsiz SEO aracının sonucunu e-postayla isteyen: site analizi kadar.
+    "seo_araci": 15,
 }
 PUAN_EN_COK: Dict[str, int] = {"kaynak": 30, "butce": 15, "kapsam": 10, "alan_adi": 20, "etkilesim": 25}
 KAPSAM_ESIKLERI: Tuple[Tuple[int, int], ...] = ((300, 10), (100, 5))
@@ -296,6 +300,8 @@ def kaynak_esle(tablo: Optional[str], ham: Optional[str]) -> str:
         return "kaynaklar"
     if s.startswith("modul_vitrini"):
         return "modul_vitrini"
+    if s.startswith("seo_araci"):
+        return "seo_araci"
     if s.startswith("eposta") or s.startswith("e-posta") or s == "email":
         return "eposta"
     # iletisim-formu, contact, marketplace: …, modul: …, boş
@@ -971,6 +977,7 @@ KAYNAK_ADI_TR = {
     "iletisim": "iletişim formu", "bekleme": "bekleme listesi", "site_analizi": "site analizi",
     "kesif": "keşif sihirbazı", "fiyat_teklifi": "fiyat teklifi", "kaynaklar": "Kaynaklar sayfası",
     "form": "gömülü form", "manuel": "elle", "eposta": "e-posta", "modul_vitrini": "modül vitrini",
+    "seo_araci": "ücretsiz SEO aracı",
 }
 
 

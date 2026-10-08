@@ -57,4 +57,8 @@ class Site_analyses(Base):
     inquiry_id = Column(Integer, nullable=True)
     #: acik (herkese açık form) | musteri | yonetici
     kaynak = Column(String, nullable=False, default="acik")
+    #: Faz 4S — analiz bir ücretsiz SEO aracının "Sitenin tam analizini al" düğmesinden
+    #: geldiyse aracın kısa adı (ör. "meta-etiketleri"). Yönetici özeti (Satış › Site
+    #: analizleri › Ücretsiz SEO araçları) araçlardan gelen geçişleri buradan sayıyor.
+    arac = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=_simdi, index=True)

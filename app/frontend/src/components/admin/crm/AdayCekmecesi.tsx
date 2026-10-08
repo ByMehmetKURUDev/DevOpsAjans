@@ -173,6 +173,8 @@ export default function AdayCekmecesi({ adayId, meta, onKapat, onDegisti, onSekm
     if (tur === 'site_analizi') return t('crm.pazarlama.kaynakSiteAnalizi');
     // Faz 4V: `modul_vitrini:<modul|paket>:<anahtar>` → "modül vitrini (anahtar)".
     if (tur === 'modul_vitrini') return t('crm.pazarlama.kaynakModulVitrini', { anahtar: k.split(':')[2] ?? '' });
+    // Faz 4S: `seo_araci:<arac>` → "ücretsiz SEO aracı (arac)".
+    if (tur === 'seo_araci') return t('crm.pazarlama.kaynakSeoAraci', { arac: no ?? '' });
     return k;
   };
 

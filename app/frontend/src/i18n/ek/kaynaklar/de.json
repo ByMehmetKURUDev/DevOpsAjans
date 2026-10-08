@@ -49,6 +49,11 @@
       "dugme": "Einrichtung anfragen",
       "konu": "Einrichtungsanfrage: {{baslik}}",
       "konuGenel": "Einrichtung von KI-Tools"
+    },
+    "seoAraclari": {
+      "baslik": "Kostenlose SEO-Tools",
+      "metin": "Schnelle Prüfungen ohne Anmeldung für Meta-Tags, Open Graph, Schema, robots.txt, Sitemaps, Weiterleitungen, Sicherheits-Header, SSL, Überschriftenstruktur und Keyword-Dichte.",
+      "dugme": "Tools öffnen"
     }
   }
 }

@@ -1,0 +1,555 @@
+{
+  "seoAracSonuc": {
+    "baslik": "结果",
+    "kontrolEdilen": "检查的网址",
+    "sonAdres": "最终网址",
+    "durum": "HTTP 状态",
+    "ozet": "{{hata}} 个错误 · {{uyari}} 个警告 · {{bilgi}} 条提示 · {{iyi}} 项通过",
+    "nedenOnemli": "为什么重要？",
+    "nasilDuzeltilir": "如何修复？",
+    "ayrintilar": "详细信息",
+    "kontroller": "检查项",
+    "yeniKontrol": "检查其他网址",
+    "seviye": {
+      "hata": "错误",
+      "uyari": "警告",
+      "bilgi": "提示",
+      "iyi": "通过"
+    },
+    "kontrol": {
+      "title": {
+        "ad": "页面标题（title）",
+        "neden": "标题是搜索结果中可点击的那一行；它最先向 Google 和用户说明页面主题，并直接影响点击率。",
+        "duzelt": "为每个页面写一个唯一的 <title>，宽度约 30–60 个字符，主要关键词靠前，品牌名放在末尾。"
+      },
+      "aciklama": {
+        "ad": "元描述（description）",
+        "neden": "描述常显示在搜索结果标题下方，告诉用户为什么要打开页面，能提高点击。",
+        "duzelt": "添加一条针对本页、宽度约 70–160 个字符并带行动号召的 meta description；不要在多个页面重复使用同一描述。"
+      },
+      "canonical": {
+        "ad": "规范网址（canonical）",
+        "neden": "如果同一内容可通过多个网址打开，canonical 指明哪个是主页面，排名信号会集中到一个网址。",
+        "duzelt": "在 <head> 中添加且只添加一个绝对网址（以 https:// 开头）的 <link rel=canonical>，指向页面自身的干净网址。"
+      },
+      "robots_meta": {
+        "ad": "索引许可（robots）",
+        "neden": "带 noindex 的页面不会出现在 Google；nofollow 会阻止页面链接传递权重。误留的 noindex 可能让流量归零。",
+        "duzelt": "在希望出现在搜索中的页面上，删除 robots meta 标签和 X-Robots-Tag 响应头中的 noindex / nofollow。"
+      },
+      "viewport": {
+        "ad": "移动端视口（viewport）",
+        "neden": "Google 以移动版评估网站。没有 viewport，页面在手机上像缩小的桌面页；禁止缩放会损害无障碍体验。",
+        "duzelt": "使用 <meta name=viewport content=\"width=device-width, initial-scale=1\">，并删除 user-scalable=no 和 maximum-scale=1。"
+      },
+      "lang": {
+        "ad": "页面语言（lang）",
+        "neden": "html lang 属性告诉浏览器、读屏软件和搜索引擎页面使用的语言；语言错误会导致发音和定位错误。",
+        "duzelt": "添加有效的语言代码，例如 <html lang=\"zh-CN\">；地区版本使用 zh-TW、en-GB 等格式。"
+      },
+      "hreflang": {
+        "ad": "语言版本（hreflang）",
+        "neden": "在多语言网站上，hreflang 让每位用户看到自己语言的页面，并防止语言版本被视为重复内容。",
+        "duzelt": "每个语言版本都要列出包括自身在内的所有版本以及 x-default，使用有效代码（zh、en、de-AT…）；各版本上的列表保持一致。"
+      },
+      "og_etiketleri": {
+        "ad": "Open Graph 标签",
+        "neden": "分享链接时，标题、描述和网址都从这些标签读取；缺失时平台可能随意抓取页面文字。",
+        "duzelt": "在 <head> 中添加 og:title、og:description、og:url 和 og:type，内容按希望分享时显示的样子来写。"
+      },
+      "twitter_karti": {
+        "ad": "Twitter / X 卡片",
+        "neden": "twitter:card 决定链接在 X 上以小图卡片还是大图卡片显示。",
+        "duzelt": "添加 <meta name=twitter:card content=summary_large_image>；标题、描述和图片使用 Open Graph 标签即可。"
+      },
+      "og_gorsel": {
+        "ad": "分享图片（og:image）",
+        "neden": "带图片的帖子点击率高得多。图片无法加载、过小或过大时，平台会显示无图卡片。",
+        "duzelt": "将绝对 https 网址、1200×630 像素、小于 5 MB 的 JPG/PNG/WebP 图片设为 og:image，并确保网址可公开访问。"
+      },
+      "jsonld_sozdizimi": {
+        "ad": "JSON-LD 语法",
+        "neden": "一个逗号错误就会让整个块无法读取，搜索引擎无法使用其中的任何信息。",
+        "duzelt": "修复提示的行和列（多余逗号、缺少引号、未转义字符），并使用 https://schema.org 作为 @context。"
+      },
+      "jsonld_turler": {
+        "ad": "结构化数据类型",
+        "neden": "结构化数据以机器可理解的方式说明页面内容（企业、商品、文章、常见问题…），为富媒体结果和 AI 回答打开大门。",
+        "duzelt": "以 JSON-LD 添加与内容相符的 schema.org 类型：首页用 Organization/LocalBusiness 和 WebSite，文章用 Article，商品页用 Product。"
+      },
+      "jsonld_alanlar": {
+        "ad": "必填与推荐字段",
+        "neden": "缺少必填字段的项目没有资格获得富媒体结果；推荐字段决定结果呈现得多丰富。",
+        "duzelt": "用页面上实际可见的信息填写列出的缺失字段；不要把页面上没有的信息写进结构化数据。"
+      },
+      "robots_dosyasi": {
+        "ad": "robots.txt 文件",
+        "neden": "爬虫访问任何网站都会先读取 robots.txt。若该文件返回 5xx 错误，Google 可能会暂停抓取整个网站一段时间。",
+        "duzelt": "在根目录发布以纯文本（text/plain）返回 200、小于 500 KiB 的 robots.txt；不要返回 HTML 页面。"
+      },
+      "robots_yol": {
+        "ad": "路径可抓取性",
+        "neden": "被屏蔽页面的内容无法读取；误屏蔽重要页面或 CSS/JS 文件会降低排名。",
+        "duzelt": "删除屏蔽目标路径的 Disallow 规则，或用更长（更具体）的 Allow 规则放行。"
+      },
+      "robots_sitemap": {
+        "ad": "站点地图声明",
+        "neden": "robots.txt 中的 Sitemap 行能让所有搜索引擎找到您的站点地图，无需逐一提交。",
+        "duzelt": "在 robots.txt 末尾添加使用绝对网址的 Sitemap: https://yourdomain.com/sitemap.xml 行。"
+      },
+      "robots_sozdizimi": {
+        "ad": "语法",
+        "neden": "无法识别的指令以及写在 User-agent 之前的规则会被忽略，文件不会按您预想的方式生效。",
+        "duzelt": "每组都以 User-agent 行开头，只使用 User-agent、Allow、Disallow 和 Sitemap。Google 会忽略 Crawl-delay。"
+      },
+      "sitemap_erisim": {
+        "ad": "站点地图访问",
+        "neden": "站点地图告诉搜索引擎有哪些页面以及何时更新，让新页面更快被发现。",
+        "duzelt": "在 /sitemap.xml 以 200 状态发布 XML 站点地图，在 robots.txt 中声明，并提交到 Search Console。"
+      },
+      "sitemap_bicim": {
+        "ad": "格式与大小",
+        "neden": "格式错误或超出限制的站点地图只会被部分读取，甚至完全无法读取。",
+        "duzelt": "根元素应为 urlset 或 sitemapindex，命名空间为 http://www.sitemaps.org/schemas/sitemap/0.9；每个文件不超过 50,000 个网址和 50 MB。"
+      },
+      "sitemap_adresler": {
+        "ad": "网址",
+        "neden": "无效、重复或属于其他域名的网址会被搜索引擎忽略，并降低对站点地图的信任。",
+        "duzelt": "每个同域名、绝对、规范且返回 200 的网址只列出一次。"
+      },
+      "sitemap_lastmod": {
+        "ad": "最后修改日期（lastmod）",
+        "neden": "准确的 lastmod 让 Google 优先抓取有变化的页面；错误或未来的日期会让这一信号被完全忽略。",
+        "duzelt": "使用 W3C 格式（2026-10-01 或 2026-10-01T10:00:00+03:00），只在内容真正变化时更新 lastmod。"
+      },
+      "sitemap_orneklem": {
+        "ad": "抽样状态码",
+        "neden": "站点地图中返回 404、5xx 或重定向的网址会浪费抓取预算，并说明站点地图已过时。",
+        "duzelt": "修复或移除出错的网址；把被重定向的网址替换为返回 200 的最终网址。"
+      },
+      "zincir": {
+        "ad": "重定向链",
+        "neden": "每一步重定向都会拖慢加载并浪费抓取预算；陷入循环的网址永远打不开。",
+        "duzelt": "把每个旧网址一步（301）直接重定向到最终网址；去掉中间步骤和循环。"
+      },
+      "son_durum": {
+        "ad": "最终状态码",
+        "neden": "重定向链末端不返回 200 的页面无法被收录，访客也会看到错误页面。",
+        "duzelt": "确认页面确实存在；若已迁移，用 301 指向新网址；若已删除，返回 410 或重定向到最相关的页面。"
+      },
+      "https_yonlendirme": {
+        "ad": "http → https",
+        "neden": "如果未加密的 http 版本仍然可访问，用户可能进入不安全页面，同一页面也会以两个网址被收录。",
+        "duzelt": "在服务器或 CDN 设置中，用永久重定向（301/308）一步把所有 http 请求转到 https。"
+      },
+      "www_tutarlilik": {
+        "ad": "www 一致性",
+        "neden": "如果带 www 和不带 www 的网址都能单独打开，网站就像自己的副本，链接权重会被分散。",
+        "duzelt": "选定一个主网址（例如 https://yourdomain.com），把其余三个变体（http、www）用 301 重定向过去。"
+      },
+      "hsts": {
+        "ad": "HSTS（Strict-Transport-Security）",
+        "neden": "HSTS 告诉浏览器只能通过 https 访问网站，防止首次未加密请求被劫持。",
+        "duzelt": "在 https 响应中添加 Strict-Transport-Security: max-age=31536000; includeSubDomains（先用较短时长测试）。"
+      },
+      "csp": {
+        "ad": "内容安全策略（CSP）",
+        "neden": "CSP 限制可以从哪些来源加载脚本，是防御 XSS 最有效的手段。unsafe-inline 和 unsafe-eval 会削弱这一保护。",
+        "duzelt": "编写 Content-Security-Policy，列出您的域名和实际使用的服务；内联脚本用 nonce 或哈希放行。先用 Report-Only 试运行。"
+      },
+      "frame": {
+        "ad": "防框架嵌入",
+        "neden": "没有该保护，网站可能被其他页面以隐形框架嵌入，诱导用户在不知情的情况下点击（点击劫持）。",
+        "duzelt": "在 CSP 中加入 frame-ancestors 'self'，或发送 X-Frame-Options: SAMEORIGIN。"
+      },
+      "nosniff": {
+        "ad": "防 MIME 嗅探",
+        "neden": "没有 nosniff，浏览器可能猜测文件类型，把看似无害的文件当作脚本执行。",
+        "duzelt": "为所有响应添加 X-Content-Type-Options: nosniff，并以正确的 Content-Type 提供文件。"
+      },
+      "referrer": {
+        "ad": "Referrer-Policy",
+        "neden": "该响应头决定点击链接时向对方网站发送哪些地址信息；宽松的取值可能泄露网址中的个人数据。",
+        "duzelt": "使用 Referrer-Policy: strict-origin-when-cross-origin（或更严格的 no-referrer / same-origin）。"
+      },
+      "permissions": {
+        "ad": "Permissions-Policy",
+        "neden": "它限制哪些页面可以使用摄像头、麦克风、定位等浏览器功能，防止嵌入的第三方内容滥用。",
+        "duzelt": "关闭不使用的功能，例如 Permissions-Policy: camera=(), microphone=(), geolocation=()。"
+      },
+      "sunucu_bilgisi": {
+        "ad": "服务器版本泄露",
+        "neden": "Server 和 X-Powered-By 响应头中的版本号会让攻击者更容易针对已知漏洞下手。",
+        "duzelt": "在服务器设置中隐藏版本信息（例如 nginx 的 server_tokens off），并删除 X-Powered-By 响应头。"
+      },
+      "sertifika_gecerlilik": {
+        "ad": "证书有效性",
+        "neden": "证书无效、过期或与域名不匹配时，浏览器会显示整页警告，大多数访客会离开。",
+        "duzelt": "安装由可信机构签发、覆盖该域名（及 www）的证书；Let's Encrypt 这类免费且自动续期的方案就足够。"
+      },
+      "sertifika_suresi": {
+        "ad": "到期日期",
+        "neden": "证书到期的那一刻网站就会显得不可信；忘记续期会让流量骤降。",
+        "duzelt": "开启自动续期，并设置在到期前至少 30 天发出提醒的监控。"
+      },
+      "tls_surumu": {
+        "ad": "TLS 版本",
+        "neden": "TLS 1.0 和 1.1 不安全，已被浏览器禁用；TLS 1.3 更快也更安全。",
+        "duzelt": "在服务器上保持 TLS 1.2 和 1.3 开启，关闭 1.0 和 1.1。"
+      },
+      "ssl_zincir": {
+        "ad": "证书链",
+        "neden": "缺少中间证书时，部分浏览器——尤其是移动设备和爬虫——不会信任该网站。",
+        "duzelt": "在服务器上安装签发者提供的完整证书链（fullchain），而不只是网站证书。"
+      },
+      "h1": {
+        "ad": "主标题（H1）",
+        "neden": "H1 是页面上最有分量的标题，向访客和搜索引擎说明页面的主题。",
+        "duzelt": "每个页面使用一个非空、清楚说明主题的 H1；不要把 logo 或装饰性文字设为 H1。"
+      },
+      "baslik_hiyerarsi": {
+        "ad": "标题层级",
+        "neden": "有序的标题（H2 → H3）把内容分成章节；读屏软件和搜索引擎据此理解页面结构。",
+        "duzelt": "不要跳级（H2 之后用 H3 而不是 H4），不要留空标题；按语义而不是视觉大小使用标题。"
+      },
+      "icerik_uzunlugu": {
+        "ad": "内容长度",
+        "neden": "文字过少的页面不足以阐述主题，会被视为单薄内容，难以获得排名。",
+        "duzelt": "添加符合页面目的、能回答访客问题的原创文字；主要页面超过 300 词是不错的起点。"
+      },
+      "anahtar_yogunlugu": {
+        "ad": "关键词密度",
+        "neden": "某个词过度重复会让文字显得不自然，并可能被视为垃圾内容。",
+        "duzelt": "在标题和首段使用主要关键词，之后用同义词和相关表达自然地书写。"
+      },
+      "hedef_kelime": {
+        "ad": "目标关键词",
+        "neden": "正文应清楚表明页面回答的是哪种搜索；如果该短语从未出现或被过度重复，页面在这类搜索中会显得薄弱或不自然。",
+        "duzelt": "在开头段落和合适的小标题中自然地使用该短语；在正文其余部分用同义词和相关表达扩展主题。"
+      },
+      "hedef_konum": {
+        "ad": "关键词位置",
+        "neden": "标题（title）、H1、元描述和网址是搜索引擎与用户最先看到页面主题的地方。",
+        "duzelt": "把目标短语放在 title 靠前的位置、H1 中，并自然地写进元描述；新页面选择简短易读的网址（如 /seo-agency）。如果修改已有网址，请添加 301 重定向。"
+      }
+    },
+    "bulgu": {
+      "title_yok": "页面没有 <title> 标签。",
+      "title_kisa": "标题过短：约 {{deger}} 个字符宽度（建议 30–60）。",
+      "title_uzun": "标题过长：约 {{deger}} 个字符宽度，可能在搜索结果中被截断（建议 30–60）。",
+      "title_iyi": "标题长度合适（{{deger}} 个字符宽度）。",
+      "title_coklu": "页面有 {{deger}} 个 <title> 标签，应只有一个。",
+      "aciklama_yok": "没有元描述（description）。",
+      "aciklama_kisa": "描述过短：约 {{deger}} 个字符宽度（建议 70–160）。",
+      "aciklama_uzun": "描述过长：约 {{deger}} 个字符宽度，可能被截断（建议 70–160）。",
+      "aciklama_iyi": "描述长度合适（{{deger}} 个字符宽度）。",
+      "aciklama_coklu": "页面有 {{deger}} 条 meta description，应只有一条。",
+      "canonical_yok": "没有 canonical 标签。",
+      "canonical_coklu": "页面有 {{deger}} 个 canonical 标签，Google 可能全部忽略。",
+      "canonical_goreli": "canonical 使用了相对网址（{{deger}}），建议使用绝对网址。",
+      "canonical_baska": "canonical 指向另一个网址：{{deger}}",
+      "canonical_iyi": "canonical 指向页面自身。",
+      "robots_noindex": "页面禁止被索引（noindex，来源：{{deger}}）。",
+      "robots_nofollow": "页面链接为 nofollow，不传递权重。",
+      "robots_iyi": "允许索引和跟踪链接。",
+      "viewport_yok": "没有移动端 viewport 标签。",
+      "viewport_genislik": "viewport 未包含 width=device-width。",
+      "viewport_yakinlastirma": "viewport 禁止缩放（user-scalable=no 或 maximum-scale 过低）。",
+      "viewport_iyi": "viewport 适配移动端。",
+      "lang_yok": "html 标签没有 lang 属性。",
+      "lang_gecersiz": "lang 值不是有效的语言代码：{{deger}}",
+      "lang_iyi": "已设置页面语言：{{deger}}",
+      "hreflang_yok": "没有 hreflang 链接（单语言网站不需要）。",
+      "hreflang_gecersiz": "无效的 hreflang 代码：{{deger}}",
+      "hreflang_tekrar": "同一语言被列出多次：{{deger}}",
+      "hreflang_kendisi_yok": "hreflang 列表中不包含页面自身。",
+      "hreflang_xdefault_yok": "未设置 x-default hreflang。",
+      "hreflang_iyi": "{{deger}} 个 hreflang 链接一致。",
+      "og_baslik_yok": "没有 og:title。",
+      "og_aciklama_yok": "没有 og:description。",
+      "og_url_yok": "没有 og:url。",
+      "og_type_yok": "没有 og:type。",
+      "og_tamam": "基本 Open Graph 标签齐全。",
+      "twitter_kart_yok": "没有 twitter:card；X 可能显示小卡片。",
+      "twitter_kart_gecersiz": "无法识别的 twitter:card 值：{{deger}}",
+      "twitter_kart_iyi": "Twitter / X 卡片：{{deger}}",
+      "og_gorsel_yok": "没有分享图片（og:image）。",
+      "og_gorsel_goreli": "og:image 是相对网址，应为绝对 https 网址。",
+      "gorsel_erisilemedi": "分享图片无法加载（{{deger}}）。",
+      "gorsel_tur_yanlis": "og:image 返回的不是图片（类型：{{deger}}）。",
+      "gorsel_kucuk": "图片太小：{{deger}}（至少 200×200）。",
+      "gorsel_onerilen_alti": "图片小于推荐尺寸：{{deger}}（推荐 1200×630）。",
+      "gorsel_oran": "图片比例不适合分享卡片：{{deger}}（推荐 1.91:1）。",
+      "gorsel_boyut_bilinmiyor": "无法读取图片的像素尺寸。",
+      "gorsel_buyuk": "图片过大：{{deger}} KB（最大 5 MB）。",
+      "gorsel_agir": "图片较大：{{deger}} KB，分享卡片可能加载缓慢。",
+      "gorsel_http": "图片位于未加密的 http 网址上，请使用 https。",
+      "gorsel_iyi": "分享图片合适：{{deger}}",
+      "jsonld_sozdizimi": "第 {{blok}} 块：语法错误（第 {{satir}} 行，第 {{sutun}} 列）：{{mesaj}}",
+      "jsonld_sozdizimi_iyi": "{{deger}} 个 JSON-LD 块语法有效。",
+      "jsonld_context": "{{deger}} 个块中 @context 缺失或不是 schema.org。",
+      "jsonld_yok": "页面没有 JSON-LD 结构化数据。",
+      "jsonld_tur_yok": "JSON-LD 块中没有带 @type 的项目。",
+      "jsonld_turler_var": "发现的类型：{{deger}}",
+      "mikroveri_var": "还存在微数据 / RDFa：{{deger}}",
+      "jsonld_alan_eksik": "{{tur}}：缺少必填字段 — {{alanlar}}",
+      "jsonld_onerilen_eksik": "{{tur}}：缺少推荐字段 — {{alanlar}}",
+      "jsonld_alanlar_iyi": "基本必填字段齐全。",
+      "robots_erisilemedi": "无法读取 robots.txt（{{deger}}）；这种情况下 Google 可能停止抓取。",
+      "robots_yok": "没有 robots.txt（{{deger}}）；所有内容都视为可抓取。",
+      "robots_html": "robots.txt 地址返回的是 HTML 页面，不是有效的 robots.txt。",
+      "robots_buyuk": "robots.txt 过大（{{deger}} KB）；Google 只读取前 500 KiB。",
+      "robots_var": "已找到 robots.txt（{{deger}} 字节）。",
+      "yol_bilinmiyor": "无法读取 robots.txt，因此 {{yol}} 对 {{ajan}} 的状态未知。",
+      "yol_izinli": "{{ajan}} 可以抓取 {{yol}}。",
+      "yol_engelli": "{{yol}} 对 {{ajan}} 被屏蔽（第 {{satir}} 行：{{kural}}）。",
+      "tum_site_engelli": "整个网站对 {{deger}} 被屏蔽（Disallow: /）。",
+      "sitemap_satiri_goreli": "{{deger}} 条 Sitemap 行使用相对网址，必须是绝对网址。",
+      "sitemap_satiri_var": "找到 {{deger}} 条 Sitemap 行。",
+      "sitemap_satiri_yok": "robots.txt 中没有 Sitemap 行。",
+      "kural_ajansiz": "写在 User-agent 之前的规则被忽略（第 {{deger}} 行）。",
+      "bilinmeyen_yonerge": "无法识别的行：{{deger}}",
+      "crawl_delay": "使用了 Crawl-delay；Google 会忽略它。",
+      "sozdizimi_iyi": "没有语法问题。",
+      "sitemap_bulunamadi": "未找到站点地图（{{deger}}）。",
+      "sitemap_erisildi": "已读取站点地图：{{deger}}",
+      "sitemap_kesildi": "站点地图过大，只检查了前 {{deger}} KB。",
+      "dtd_reddedildi": "站点地图包含 DOCTYPE/ENTITY 声明，出于安全原因未处理。",
+      "sitemap_kok_hatali": "根元素不是 urlset 或 sitemapindex（{{deger}}）。",
+      "sitemap_xml_hatasi": "无法读取 XML：{{deger}}",
+      "sitemap_ad_alani": "命名空间不符合预期：{{deger}}",
+      "sitemap_cok_buyuk": "共 {{deger}} 个网址；每个文件最多 50,000 个。",
+      "sitemap_bos": "站点地图中没有任何网址。",
+      "sitemap_dizini": "站点地图索引：列出了 {{deger}} 个子站点地图。",
+      "sitemap_bicim_iyi": "格式有效；列出了 {{deger}} 个网址。",
+      "alt_sitemap_hatali": "无法读取第一个子站点地图：{{deger}}",
+      "alan_hatali": "{{deger}} 个条目的 changefreq 或 priority 值无效。",
+      "adres_hatali": "{{deger}} 个无效网址（必须是绝对 http/https 网址）。",
+      "adres_baska_site": "{{deger}} 个网址属于其他域名。",
+      "adres_tekrar": "{{deger}} 个网址被列出多次。",
+      "adresler_iyi": "全部 {{deger}} 个网址有效且属于同一网站。",
+      "lastmod_yok": "所有网址都没有 lastmod。",
+      "lastmod_eksik": "{{deger}} 个网址没有 lastmod。",
+      "lastmod_hatali": "{{deger}} 个网址的 lastmod 格式错误。",
+      "lastmod_gelecek": "{{deger}} 个网址的 lastmod 是未来日期。",
+      "lastmod_iyi": "lastmod 日期有效。",
+      "orneklem_hatali": "抽样的 {{toplam}} 个网址中有 {{hatali}} 个返回错误（4xx/5xx）。",
+      "orneklem_yonlendirme": "抽样的 {{toplam}} 个网址中有 {{hatali}} 个发生重定向。",
+      "orneklem_iyi": "抽样的 {{deger}} 个网址全部正常响应。",
+      "dongu": "重定向循环：网址重定向回自身。",
+      "cok_yonlendirme": "重定向超过 {{deger}} 次，无法跟踪整条链。",
+      "zincir_uzun": "重定向链过长：{{deger}} 步。",
+      "zincir_iyi": "证书链可到达可信根证书。",
+      "gecici_yonlendirme": "链中有临时重定向（{{deger}}）；永久迁移请使用 301。",
+      "son_durum_iyi": "最终网址返回 {{deger}}。",
+      "son_durum_hatali": "最终网址返回错误：{{deger}}",
+      "https_gecici": "http → https 重定向是临时的（{{deger}}），应为 301 或 308。",
+      "https_yonlendirme_iyi": "http 网址会重定向到 https。",
+      "https_yonlendirme_yok": "http 网址没有重定向到 https。",
+      "https_yok": "网站无法通过 https 打开。",
+      "www_tutarsiz": "带/不带 www 及 http/https 的网址最终到达 {{deger}} 个不同网址。",
+      "www_iyi": "所有变体都到达同一网址。",
+      "www_erisilemedi": "{{deger}} 无法打开（没有 DNS 记录或无法连接）。",
+      "https_degil": "页面未通过 https 提供，无法应用 HSTS。",
+      "hsts_yok": "没有 Strict-Transport-Security 响应头。",
+      "hsts_kisa": "HSTS 时长过短：{{deger}} 天（建议至少 180 天）。",
+      "hsts_iyi": "已启用 HSTS（{{deger}} 天）。",
+      "hsts_alt_alan_yok": "HSTS 未覆盖子域名（没有 includeSubDomains）。",
+      "csp_unsafe_inline": "CSP 允许内联脚本（'unsafe-inline'）。",
+      "csp_unsafe_eval": "CSP 允许 eval（'unsafe-eval'）。",
+      "csp_iyi": "已设置 Content-Security-Policy。",
+      "csp_rapor": "CSP 仅处于报告模式（Report-Only），不会阻止任何内容。",
+      "csp_yok": "没有 Content-Security-Policy 响应头。",
+      "frame_iyi": "已启用防框架嵌入（{{deger}}）。",
+      "frame_yok": "没有防框架嵌入（X-Frame-Options / frame-ancestors）。",
+      "nosniff_iyi": "已设置 X-Content-Type-Options: nosniff。",
+      "nosniff_yok": "没有 X-Content-Type-Options: nosniff。",
+      "referrer_yok": "没有 Referrer-Policy 响应头。",
+      "referrer_zayif": "Referrer-Policy 较弱：{{deger}}",
+      "referrer_iyi": "Referrer-Policy：{{deger}}",
+      "permissions_iyi": "已设置 Permissions-Policy。",
+      "permissions_yok": "没有 Permissions-Policy 响应头。",
+      "sunucu_surumu": "暴露了服务器版本信息：{{deger}}",
+      "ssl_yok": "无法建立 https 连接，无法读取证书。",
+      "ssl_dogrulandi": "证书可信，且与域名匹配。",
+      "ssl_gecersiz": "证书验证失败：{{deger}}",
+      "ssl_kendinden_imzali": "证书为自签名，浏览器不会信任。",
+      "ssl_ad_uyusmuyor": "证书不覆盖此域名。",
+      "zincir_eksik": "中间证书链不完整，或无法到达可信根证书。",
+      "ssl_suresi_gecmis": "证书已于 {{deger}} 天前过期。",
+      "ssl_bitiyor": "证书将在 {{deger}} 天内到期！",
+      "ssl_yakinda": "证书将在 {{deger}} 天后到期。",
+      "ssl_gecerli": "证书还有 {{deger}} 天有效。",
+      "tls_iyi": "连接使用 {{deger}}。",
+      "tls_12": "连接使用 {{deger}}；也可以启用 TLS 1.3。",
+      "tls_eski": "过时的 TLS 版本：{{deger}}",
+      "h1_yok": "页面没有 H1。",
+      "h1_fazla": "页面有 {{deger}} 个 H1。",
+      "h1_bos": "H1 为空。",
+      "h1_iyi": "H1：{{deger}}",
+      "ilk_baslik_h1_degil": "第一个标题不是 H1（{{deger}}）。",
+      "seviye_atlama": "跳过的标题层级：{{deger}}",
+      "bos_baslik": "有 {{deger}} 个空标题。",
+      "uzun_baslik": "有 {{deger}} 个标题超过 70 个字符。",
+      "baslik_yok": "页面完全没有标题（H1–H6）。",
+      "hiyerarsi_iyi": "{{deger}} 个标题层级有序。",
+      "icerik_az": "可见文字较少：{{deger}} 个词。",
+      "kelime_iyi": "可见文字：{{deger}} 个词。",
+      "anahtar_asiri": "“{{kelime}}”占正文的 {{yuzde}}%，重复过多。",
+      "yogunluk_iyi": "词语分布自然；最常见的词是“{{deger}}”。",
+      "hedef_yok": "可见文本中没有出现“{{deger}}”。",
+      "hedef_iyi": "“{{kelime}}”出现 {{sayi}} 次（密度 {{yuzde}}%）。",
+      "hedef_asiri": "“{{kelime}}”出现 {{sayi}} 次（密度 {{yuzde}}%），重复过多。",
+      "hedef_title_yok": "页面标题（title）中没有“{{deger}}”。",
+      "hedef_h1_yok": "H1 中没有“{{deger}}”。",
+      "hedef_aciklama_yok": "元描述中没有“{{deger}}”。",
+      "hedef_url_yok": "网址中没有“{{deger}}”。",
+      "hedef_konum_iyi": "“{{deger}}”出现在标题、H1、元描述和网址中。"
+    },
+    "veri": {
+      "meta": {
+        "serp": "搜索结果预览",
+        "etiketler": "找到的标签",
+        "karakter": "{{sayi}} 个字符",
+        "yok": "—",
+        "hreflang": "hreflang 链接",
+        "baslik": "标题",
+        "aciklama": "描述",
+        "canonical": "Canonical",
+        "robots": "Robots",
+        "viewport": "Viewport",
+        "lang": "语言"
+      },
+      "og": {
+        "onizleme": "分享卡片预览",
+        "gorselYok": "没有图片",
+        "gorselGizli": "图片未使用 https 或无法加载，因此不显示。",
+        "ogEtiketleri": "Open Graph 标签",
+        "twitterEtiketleri": "Twitter / X 标签",
+        "gorsel": "图片",
+        "boyut": "尺寸",
+        "dosya": "文件",
+        "tur": "类型",
+        "kb": "{{sayi}} KB"
+      },
+      "schema": {
+        "bloklar": "JSON-LD 块",
+        "blok": "第 {{sayi}} 块",
+        "gecerli": "有效",
+        "hatali": "语法错误（第 {{satir}} 行，第 {{sutun}} 列）",
+        "ogeler": "找到的项目",
+        "eksikZorunlu": "缺少必填",
+        "eksikOnerilen": "缺少推荐",
+        "icIce": "嵌套",
+        "kuralYok": "未定义基本规则",
+        "kod": "显示代码",
+        "alanlar": "字段",
+        "tamam": "无缺失"
+      },
+      "robots": {
+        "karar": "结果",
+        "izinli": "可抓取",
+        "engelli": "已屏蔽",
+        "belirsiz": "未知",
+        "kural": "匹配的规则",
+        "kuralYok": "没有匹配的规则——默认允许",
+        "grup": "适用的组",
+        "gruplar": "分组",
+        "sitemapler": "Sitemap 行",
+        "icerik": "robots.txt 内容",
+        "satir": "第 {{sayi}} 行",
+        "kuralSayisi": "{{sayi}} 条规则",
+        "yol": "路径",
+        "ajan": "用户代理"
+      },
+      "sitemap": {
+        "adres": "站点地图",
+        "kaynak": "发现方式",
+        "kaynaklar": {
+          "girilen": "您输入的网址",
+          "robots": "robots.txt",
+          "varsayilan": "默认网址"
+        },
+        "tur": "类型",
+        "turler": {
+          "urlset": "网址列表（urlset）",
+          "sitemapindex": "站点地图索引（sitemapindex）"
+        },
+        "adresSayisi": "网址数量",
+        "lastmodOrani": "lastmod 覆盖率",
+        "boyut": "大小",
+        "ornekler": "抽样（状态码）",
+        "hataliAdresler": "无效网址",
+        "baskaSite": "其他域名的网址",
+        "altlar": "子站点地图",
+        "incelenenAlt": "已检查的子站点地图",
+        "reddedildi": "已拒绝"
+      },
+      "yonlendirme": {
+        "zincirler": "重定向链",
+        "etiket": {
+          "girilen": "您输入的网址",
+          "http": "http://",
+          "https": "https://",
+          "http_www": "http://www.",
+          "https_www": "https://www."
+        },
+        "adim": "{{sayi}} 次重定向",
+        "erisilemedi": "未能打开（{{kod}}）"
+      },
+      "guvenlik": {
+        "puan": "安全评分",
+        "not": "等级",
+        "baslik": "响应头",
+        "deger": "值",
+        "durum": "状态",
+        "eksik": "缺失"
+      },
+      "ssl": {
+        "sertifika": "证书",
+        "konu": "主体（CN）",
+        "yayinci": "签发者",
+        "baslangic": "生效日期",
+        "bitis": "到期日期",
+        "kalan": "剩余天数",
+        "san": "覆盖的域名",
+        "seri": "序列号",
+        "imza": "签名",
+        "anahtar": "密钥",
+        "tls": "TLS 版本",
+        "sifre": "加密套件",
+        "zincir": "证书链",
+        "aia": "中间证书地址（AIA）",
+        "dogrulandi": "已验证",
+        "dogrulanmadi": "未验证"
+      },
+      "basliklar": {
+        "agac": "标题树",
+        "bos": "（空）",
+        "seviyeler": "各层级标题数"
+      },
+      "kelime": {
+        "kelimeler": "词语统计",
+        "toplam": "总词数",
+        "anlamli": "实义词",
+        "benzersiz": "不重复",
+        "enSik": "最常见的词",
+        "ikililer": "最常见的词组",
+        "kelime": "词",
+        "adet": "次数",
+        "yuzde": "密度",
+        "dil": "页面语言",
+        "durakNotu": "会去除停用词（土耳其语、英语和德语列表：ve、the、und…）；土耳其语页面使用 I→ı、İ→i 的大小写规则。中文文本按连续字符串计数。",
+        "ucluler": "最常见的三词短语",
+        "hedef": "目标关键词",
+        "hedefOzet": "{{sayi}} 次 · 密度 {{yuzde}}%",
+        "konumTitle": "标题（title）",
+        "konumH1": "H1",
+        "konumAciklama": "元描述",
+        "konumUrl": "网址",
+        "var": "有",
+        "yok": "无"
+      }
+    }
+  }
+}

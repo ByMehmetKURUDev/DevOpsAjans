@@ -1,0 +1,555 @@
+{
+  "seoAracSonuc": {
+    "baslik": "नतीजा",
+    "kontrolEdilen": "जाँचा गया URL",
+    "sonAdres": "अंतिम URL",
+    "durum": "HTTP स्टेटस",
+    "ozet": "{{hata}} त्रुटियाँ · {{uyari}} चेतावनियाँ · {{bilgi}} सूचनाएँ · {{iyi}} सफल",
+    "nedenOnemli": "यह क्यों ज़रूरी है?",
+    "nasilDuzeltilir": "इसे कैसे ठीक करें?",
+    "ayrintilar": "विवरण",
+    "kontroller": "जाँचें",
+    "yeniKontrol": "दूसरा URL आज़माएँ",
+    "seviye": {
+      "hata": "त्रुटि",
+      "uyari": "चेतावनी",
+      "bilgi": "सूचना",
+      "iyi": "सफल"
+    },
+    "kontrol": {
+      "title": {
+        "ad": "पेज शीर्षक (title)",
+        "neden": "शीर्षक सर्च नतीजे की क्लिक होने वाली पंक्ति है; यही सबसे पहले Google और उपयोगकर्ता को पेज का विषय बताता है और क्लिक-दर पर सीधा असर डालता है।",
+        "duzelt": "हर पेज को लगभग 30–60 अक्षर-चौड़ाई का एक अनूठा <title> दें, मुख्य कीवर्ड शुरुआत के पास रखें और ब्रांड नाम अंत में।"
+      },
+      "aciklama": {
+        "ad": "मेटा विवरण (description)",
+        "neden": "विवरण अक्सर सर्च नतीजे में शीर्षक के नीचे दिखता है; यह बताता है कि पेज क्यों खोलें और क्लिक बढ़ाता है।",
+        "duzelt": "हर पेज के लिए लगभग 70–160 अक्षर-चौड़ाई का, कार्रवाई के लिए प्रेरित करने वाला एक अलग meta description जोड़ें; कई पेजों पर एक ही विवरण न दोहराएँ।"
+      },
+      "canonical": {
+        "ad": "Canonical URL",
+        "neden": "अगर वही सामग्री कई URL पर खुलती है, तो canonical मुख्य पेज बताता है और रैंकिंग संकेत एक URL पर जुड़ते हैं।",
+        "duzelt": "<head> में सिर्फ़ एक पूर्ण (https:// से शुरू होने वाला) <link rel=canonical> जोड़ें जो पेज के अपने साफ़ URL की ओर इशारा करे।"
+      },
+      "robots_meta": {
+        "ad": "इंडेक्सिंग अनुमति (robots)",
+        "neden": "noindex वाला पेज Google में नहीं दिखता; nofollow पेज के लिंक को मूल्य देने से रोकता है। ग़लती से छूटा noindex ट्रैफ़िक ख़त्म कर सकता है।",
+        "duzelt": "जिन पेजों को सर्च में दिखाना है, उनके robots मेटा टैग और X-Robots-Tag हेडर से noindex / nofollow हटाएँ।"
+      },
+      "viewport": {
+        "ad": "मोबाइल viewport",
+        "neden": "Google आपकी साइट का मोबाइल संस्करण आँकता है। viewport के बिना पेज फ़ोन पर छोटा किया डेस्कटॉप पेज लगता है; ज़ूम बंद करना सुलभता बिगाड़ता है।",
+        "duzelt": "<meta name=viewport content=\"width=device-width, initial-scale=1\"> इस्तेमाल करें और user-scalable=no व maximum-scale=1 हटाएँ।"
+      },
+      "lang": {
+        "ad": "पेज भाषा (lang)",
+        "neden": "html lang विशेषता ब्राउज़र, स्क्रीन रीडर और सर्च इंजनों को पेज की भाषा बताती है; ग़लत भाषा से ग़लत उच्चारण और ग़लत लक्ष्यीकरण होता है।",
+        "duzelt": "<html lang=\"hi\"> जैसा मान्य भाषा कोड जोड़ें; क्षेत्रीय संस्करणों के लिए hi-IN, en-GB जैसा प्रारूप।"
+      },
+      "hreflang": {
+        "ad": "भाषा विकल्प (hreflang)",
+        "neden": "बहुभाषी साइटों पर hreflang हर उपयोगकर्ता को उसकी भाषा का पेज दिखाता है और भाषा संस्करणों को डुप्लिकेट माने जाने से बचाता है।",
+        "duzelt": "हर भाषा संस्करण ख़ुद समेत सभी संस्करणों और एक x-default को मान्य कोड (hi, en, de-AT…) से सूचीबद्ध करे; सूची हर संस्करण पर एक जैसी हो।"
+      },
+      "og_etiketleri": {
+        "ad": "Open Graph टैग",
+        "neden": "लिंक शेयर होने पर शीर्षक, विवरण और URL इन्हीं टैग से पढ़े जाते हैं; ये न हों तो प्लेटफ़ॉर्म पेज से कोई भी पाठ उठा सकता है।",
+        "duzelt": "<head> में og:title, og:description, og:url और og:type जोड़ें, ठीक वैसे लिखे जैसे शेयर में दिखाने हैं।"
+      },
+      "twitter_karti": {
+        "ad": "Twitter / X कार्ड",
+        "neden": "twitter:card तय करता है कि लिंक X पर छोटे या बड़े इमेज कार्ड के साथ दिखे।",
+        "duzelt": "<meta name=twitter:card content=summary_large_image> जोड़ें; शीर्षक, विवरण और इमेज के लिए Open Graph टैग काफ़ी हैं।"
+      },
+      "og_gorsel": {
+        "ad": "शेयर इमेज (og:image)",
+        "neden": "इमेज वाली पोस्ट पर कहीं ज़्यादा क्लिक आते हैं। इमेज न खुले, बहुत छोटी या भारी हो तो प्लेटफ़ॉर्म कार्ड बिना इमेज दिखाता है।",
+        "duzelt": "og:image के रूप में पूर्ण https URL वाली, 1200×630 पिक्सेल और 5 MB से छोटी JPG/PNG/WebP इमेज दें और पक्का करें कि URL सार्वजनिक है।"
+      },
+      "jsonld_sozdizimi": {
+        "ad": "JSON-LD सिंटैक्स",
+        "neden": "एक कॉमा की ग़लती पूरे ब्लॉक को अपठनीय बना देती है; सर्च इंजन उसकी कोई जानकारी इस्तेमाल नहीं कर पाता।",
+        "duzelt": "बताई गई पंक्ति और स्तंभ ठीक करें (अंत का कॉमा, छूटा उद्धरण, बिना एस्केप का अक्षर) और @context के रूप में https://schema.org इस्तेमाल करें।"
+      },
+      "jsonld_turler": {
+        "ad": "स्ट्रक्चर्ड डेटा प्रकार",
+        "neden": "स्ट्रक्चर्ड डेटा मशीनों को बताता है कि पेज किस बारे में है (कारोबार, उत्पाद, लेख, FAQ…) और रिच नतीजों व AI जवाबों का रास्ता खोलता है।",
+        "duzelt": "सामग्री के अनुरूप schema.org प्रकार JSON-LD में जोड़ें: होम पेज पर Organization/LocalBusiness और WebSite, लेखों में Article, उत्पाद पेजों पर Product।"
+      },
+      "jsonld_alanlar": {
+        "ad": "अनिवार्य और सुझाए गए फ़ील्ड",
+        "neden": "अनिवार्य फ़ील्ड के बिना आइटम रिच नतीजे के योग्य नहीं होता; सुझाए गए फ़ील्ड तय करते हैं कि नतीजा कितना समृद्ध दिखेगा।",
+        "duzelt": "सूचीबद्ध छूटे फ़ील्ड पेज पर सचमुच दिखने वाली जानकारी से भरें; जो जानकारी पेज पर नहीं है उसे स्ट्रक्चर्ड डेटा में न लिखें।"
+      },
+      "robots_dosyasi": {
+        "ad": "robots.txt फ़ाइल",
+        "neden": "क्रॉलर हर साइट पर सबसे पहले robots.txt पढ़ते हैं। अगर फ़ाइल 5xx त्रुटि दे तो Google कुछ समय के लिए साइट क्रॉल करना बंद कर सकता है।",
+        "duzelt": "रूट में ऐसी robots.txt रखें जो सादे पाठ (text/plain) के रूप में 200 लौटाए और 500 KiB से छोटी हो; वह HTML पेज न लौटाए।"
+      },
+      "robots_yol": {
+        "ad": "पाथ की क्रॉल-योग्यता",
+        "neden": "रोके गए पेज की सामग्री पढ़ी नहीं जा सकती; ग़लती से ज़रूरी पेज या CSS/JS फ़ाइलें रोकना रैंकिंग घटाता है।",
+        "duzelt": "जिस पाथ को क्रॉल कराना है उसे रोकने वाला Disallow नियम हटाएँ या उसे लंबे (ज़्यादा विशिष्ट) Allow नियम से खोलें।"
+      },
+      "robots_sitemap": {
+        "ad": "साइटमैप घोषणा",
+        "neden": "robots.txt की Sitemap पंक्ति हर सर्च इंजन को अलग से जमा किए बिना आपका साइटमैप ढूँढने देती है।",
+        "duzelt": "robots.txt के अंत में पूर्ण URL के साथ Sitemap: https://yourdomain.com/sitemap.xml पंक्ति जोड़ें।"
+      },
+      "robots_sozdizimi": {
+        "ad": "सिंटैक्स",
+        "neden": "अनजाने निर्देश और User-agent से पहले लिखे नियम अनदेखे होते हैं; फ़ाइल वैसे काम नहीं करती जैसा आप सोचते हैं।",
+        "duzelt": "हर समूह User-agent पंक्ति से शुरू करें; सिर्फ़ User-agent, Allow, Disallow और Sitemap इस्तेमाल करें। Google Crawl-delay को नहीं मानता।"
+      },
+      "sitemap_erisim": {
+        "ad": "साइटमैप तक पहुँच",
+        "neden": "साइटमैप सर्च इंजनों को बताता है कि कौन-से पेज हैं और कब बदले; नए पेज जल्दी खोजे जाते हैं।",
+        "duzelt": "XML साइटमैप /sitemap.xml पर 200 के साथ प्रकाशित करें, robots.txt में घोषित करें और Search Console में जमा करें।"
+      },
+      "sitemap_bicim": {
+        "ad": "प्रारूप और आकार",
+        "neden": "ग़लत प्रारूप या सीमा से बड़ा साइटमैप आंशिक रूप से या बिल्कुल नहीं पढ़ा जाता।",
+        "duzelt": "मूल तत्व urlset या sitemapindex हो, नेमस्पेस http://www.sitemaps.org/schemas/sitemap/0.9 हो; हर फ़ाइल में 50,000 URL और 50 MB से ज़्यादा न हों।"
+      },
+      "sitemap_adresler": {
+        "ad": "URL",
+        "neden": "ग़लत, दोहराए गए या दूसरे डोमेन के URL सर्च इंजन अनदेखा करते हैं और साइटमैप पर भरोसा घटता है।",
+        "duzelt": "उसी डोमेन का हर पूर्ण, canonical और 200 लौटाने वाला URL सिर्फ़ एक बार सूचीबद्ध करें।"
+      },
+      "sitemap_lastmod": {
+        "ad": "अंतिम बदलाव तिथि (lastmod)",
+        "neden": "सही lastmod से Google बदले पेज पहले क्रॉल करता है; ग़लत या भविष्य की तारीख़ों से यह संकेत पूरी तरह अनदेखा हो जाता है।",
+        "duzelt": "W3C प्रारूप (2026-10-01 या 2026-10-01T10:00:00+03:00) इस्तेमाल करें और lastmod तभी बदलें जब सामग्री सचमुच बदले।"
+      },
+      "sitemap_orneklem": {
+        "ad": "नमूने के स्टेटस कोड",
+        "neden": "साइटमैप में 404, 5xx या रीडायरेक्ट लौटाने वाले URL क्रॉल बजट बर्बाद करते हैं और दिखाते हैं कि साइटमैप पुराना है।",
+        "duzelt": "त्रुटि वाले URL ठीक करें या हटाएँ; रीडायरेक्ट होने वाले URL की जगह 200 लौटाने वाला अंतिम URL लिखें।"
+      },
+      "zincir": {
+        "ad": "रीडायरेक्ट शृंखला",
+        "neden": "हर रीडायरेक्ट चरण लोडिंग धीमी करता है और क्रॉल बजट खाता है; लूप में फँसा URL कभी नहीं खुलता।",
+        "duzelt": "हर पुराने URL को एक ही चरण (301) में सीधे अंतिम URL पर भेजें; बीच के चरण और लूप हटाएँ।"
+      },
+      "son_durum": {
+        "ad": "अंतिम स्टेटस कोड",
+        "neden": "शृंखला के अंत में 200 न लौटाने वाला पेज इंडेक्स नहीं हो सकता और आगंतुक त्रुटि पेज देखता है।",
+        "duzelt": "पक्का करें कि पेज मौजूद है; स्थानांतरित हुआ हो तो 301 से नए URL पर भेजें, हटाया गया हो तो 410 या सबसे क़रीबी पेज पर रीडायरेक्ट करें।"
+      },
+      "https_yonlendirme": {
+        "ad": "http → https",
+        "neden": "अगर बिना एन्क्रिप्शन वाला http संस्करण खुला रहे तो उपयोगकर्ता असुरक्षित पेज पर पहुँच सकता है और एक ही पेज दो URL पर इंडेक्स होता है।",
+        "duzelt": "सर्वर या CDN सेटिंग में सभी http अनुरोधों को एक ही चरण में स्थायी (301/308) रीडायरेक्ट से https पर भेजें।"
+      },
+      "www_tutarlilik": {
+        "ad": "www की एकरूपता",
+        "neden": "अगर www और बिना www वाले दोनों URL अलग-अलग खुलते हैं तो साइट अपनी ही प्रति जैसी लगती है और लिंक मूल्य बँट जाता है।",
+        "duzelt": "एक को मुख्य चुनें (जैसे https://yourdomain.com) और बाक़ी तीन रूपों (http, www) को 301 से उस पर भेजें।"
+      },
+      "hsts": {
+        "ad": "HSTS (Strict-Transport-Security)",
+        "neden": "HSTS ब्राउज़र से कहता है कि साइट से सिर्फ़ https पर जुड़े; यह पहले बिना एन्क्रिप्शन वाले अनुरोध को हाईजैक होने से बचाता है।",
+        "duzelt": "https जवाबों में Strict-Transport-Security: max-age=31536000; includeSubDomains जोड़ें (पहले छोटी अवधि से आज़माएँ)।"
+      },
+      "csp": {
+        "ad": "कंटेंट सिक्योरिटी पॉलिसी (CSP)",
+        "neden": "CSP सीमित करती है कि स्क्रिप्ट कहाँ से लोड हो सकती हैं; XSS के ख़िलाफ़ यह सबसे मज़बूत बचाव है। unsafe-inline और unsafe-eval इसे कमज़ोर करते हैं।",
+        "duzelt": "अपने डोमेन और सचमुच इस्तेमाल होने वाली सेवाओं वाली Content-Security-Policy लिखें; इनलाइन स्क्रिप्ट को nonce या हैश से अनुमति दें। पहले Report-Only से आज़माएँ।"
+      },
+      "frame": {
+        "ad": "फ़्रेम में एम्बेड से सुरक्षा",
+        "neden": "सुरक्षा न हो तो आपकी साइट किसी दूसरे पेज में अदृश्य फ़्रेम में डालकर उपयोगकर्ता से अनजाने में क्लिक कराए जा सकते हैं (क्लिकजैकिंग)।",
+        "duzelt": "CSP में frame-ancestors 'self' जोड़ें या X-Frame-Options: SAMEORIGIN भेजें।"
+      },
+      "nosniff": {
+        "ad": "MIME स्निफ़िंग सुरक्षा",
+        "neden": "nosniff के बिना ब्राउज़र फ़ाइल का प्रकार अनुमान लगाकर हानिरहित दिखने वाली फ़ाइल को स्क्रिप्ट की तरह चला सकता है।",
+        "duzelt": "हर जवाब में X-Content-Type-Options: nosniff जोड़ें और फ़ाइलें सही Content-Type के साथ दें।"
+      },
+      "referrer": {
+        "ad": "Referrer-Policy",
+        "neden": "यह हेडर तय करता है कि लिंक पर क्लिक होने पर दूसरी साइट को कौन-सी पता-जानकारी जाए; कमज़ोर मान URL में मौजूद निजी डेटा लीक कर सकते हैं।",
+        "duzelt": "Referrer-Policy: strict-origin-when-cross-origin (या ज़्यादा सख़्त no-referrer / same-origin) इस्तेमाल करें।"
+      },
+      "permissions": {
+        "ad": "Permissions-Policy",
+        "neden": "यह सीमित करती है कि कौन-से पेज कैमरा, माइक्रोफ़ोन, लोकेशन जैसी ब्राउज़र सुविधाएँ इस्तेमाल करें, और एम्बेडेड तृतीय-पक्ष सामग्री के दुरुपयोग को रोकती है।",
+        "duzelt": "जिन सुविधाओं का इस्तेमाल नहीं करते उन्हें बंद करें, जैसे Permissions-Policy: camera=(), microphone=(), geolocation=()।"
+      },
+      "sunucu_bilgisi": {
+        "ad": "सर्वर संस्करण का खुलासा",
+        "neden": "Server और X-Powered-By हेडर में संस्करण संख्या हमलावर के लिए ज्ञात कमज़ोरियों को निशाना बनाना आसान करती है।",
+        "duzelt": "सर्वर सेटिंग में संस्करण जानकारी छिपाएँ (जैसे nginx server_tokens off) और X-Powered-By हेडर हटाएँ।"
+      },
+      "sertifika_gecerlilik": {
+        "ad": "सर्टिफ़िकेट की वैधता",
+        "neden": "अमान्य, समाप्त या डोमेन से मेल न खाने वाले सर्टिफ़िकेट पर ब्राउज़र पूरे पेज की चेतावनी दिखाता है और ज़्यादातर आगंतुक चले जाते हैं।",
+        "duzelt": "भरोसेमंद संस्था का ऐसा सर्टिफ़िकेट लगाएँ जो डोमेन (और www) को शामिल करे; Let's Encrypt जैसा मुफ़्त, स्वतः नवीनीकृत समाधान काफ़ी है।"
+      },
+      "sertifika_suresi": {
+        "ad": "समाप्ति तिथि",
+        "neden": "सर्टिफ़िकेट समाप्त होते ही साइट असुरक्षित दिखती है; भूला हुआ नवीनीकरण ट्रैफ़िक तुरंत गिरा देता है।",
+        "duzelt": "स्वचालित नवीनीकरण चालू करें और ऐसी निगरानी लगाएँ जो समाप्ति से कम से कम 30 दिन पहले चेताए।"
+      },
+      "tls_surumu": {
+        "ad": "TLS संस्करण",
+        "neden": "TLS 1.0 और 1.1 असुरक्षित हैं और ब्राउज़रों में बंद हैं; TLS 1.3 तेज़ और ज़्यादा सुरक्षित है।",
+        "duzelt": "सर्वर पर TLS 1.2 और 1.3 चालू रखें और 1.0 व 1.1 बंद।"
+      },
+      "ssl_zincir": {
+        "ad": "सर्टिफ़िकेट शृंखला",
+        "neden": "इंटरमीडिएट सर्टिफ़िकेट न हो तो कुछ ब्राउज़र, ख़ासकर मोबाइल डिवाइस और बॉट, साइट पर भरोसा नहीं करते।",
+        "duzelt": "सर्वर पर सिर्फ़ साइट सर्टिफ़िकेट नहीं, जारीकर्ता की दी पूरी शृंखला (fullchain) लगाएँ।"
+      },
+      "h1": {
+        "ad": "मुख्य शीर्षक (H1)",
+        "neden": "H1 पेज का सबसे मज़बूत शीर्षक है जो आगंतुकों और सर्च इंजनों को मुख्य विषय बताता है।",
+        "duzelt": "हर पेज पर विषय साफ़ बताने वाला एक, ख़ाली न हो ऐसा H1 रखें; लोगो या सजावटी पाठ को H1 न बनाएँ।"
+      },
+      "baslik_hiyerarsi": {
+        "ad": "हेडिंग पदानुक्रम",
+        "neden": "क्रमवार हेडिंग (H2 → H3) सामग्री को खंडों में बाँटती हैं; स्क्रीन रीडर और सर्च इंजन इन्हीं से पेज की संरचना समझते हैं।",
+        "duzelt": "स्तर न छोड़ें (H2 के बाद H3, H4 नहीं), ख़ाली हेडिंग न रखें और हेडिंग अर्थ के लिए इस्तेमाल करें, दिखने के आकार के लिए नहीं।"
+      },
+      "icerik_uzunlugu": {
+        "ad": "सामग्री की लंबाई",
+        "neden": "बहुत कम पाठ वाले पेज विषय पर्याप्त नहीं समझाते, पतली सामग्री माने जाते हैं और मुश्किल से रैंक होते हैं।",
+        "duzelt": "पेज के उद्देश्य के अनुरूप, आगंतुकों के सवालों के जवाब देने वाला मौलिक पाठ जोड़ें; मुख्य पेजों के लिए 300 शब्दों से ज़्यादा अच्छी शुरुआत है।"
+      },
+      "anahtar_yogunlugu": {
+        "ad": "कीवर्ड घनत्व",
+        "neden": "किसी शब्द का बहुत ज़्यादा दोहराव पाठ को अस्वाभाविक बनाता है और स्पैम माना जा सकता है।",
+        "duzelt": "मुख्य कीवर्ड शीर्षक और पहले अनुच्छेद में रखें, फिर पर्यायवाची और संबंधित शब्दों के साथ स्वाभाविक रूप से लिखें।"
+      },
+      "hedef_kelime": {
+        "ad": "लक्षित कीवर्ड",
+        "neden": "पाठ से साफ़ दिखना चाहिए कि पेज किस खोज का जवाब देता है; अगर वाक्यांश कभी नहीं आता या बहुत ज़्यादा दोहराया जाता है, तो पेज उस खोज के लिए कमज़ोर या अस्वाभाविक लगता है।",
+        "duzelt": "वाक्यांश को शुरुआती अनुच्छेद और किसी उपयुक्त उप-शीर्षक में स्वाभाविक रूप से इस्तेमाल करें; बाक़ी पाठ में समानार्थी और संबंधित शब्दों से विषय को आगे बढ़ाएँ।"
+      },
+      "hedef_konum": {
+        "ad": "कीवर्ड की जगह",
+        "neden": "title, H1, मेटा विवरण और URL वे जगहें हैं जहाँ सर्च इंजन और उपयोगकर्ता सबसे पहले पेज का विषय देखते हैं।",
+        "duzelt": "लक्षित वाक्यांश को title की शुरुआत के पास, H1 में और स्वाभाविक रूप से मेटा विवरण में रखें; नए पेजों के लिए छोटा, पढ़ने योग्य URL चुनें (जैसे /seo-agency)। मौजूदा URL बदलें तो 301 रीडायरेक्ट जोड़ें।"
+      }
+    },
+    "bulgu": {
+      "title_yok": "पेज में <title> टैग नहीं है।",
+      "title_kisa": "शीर्षक छोटा है: लगभग {{deger}} अक्षर-चौड़ाई (सुझाव 30–60)।",
+      "title_uzun": "शीर्षक लंबा है: लगभग {{deger}} अक्षर-चौड़ाई; सर्च नतीजे में कट सकता है (सुझाव 30–60)।",
+      "title_iyi": "शीर्षक की लंबाई ठीक है ({{deger}} अक्षर-चौड़ाई)।",
+      "title_coklu": "पेज में {{deger}} <title> टैग हैं; सिर्फ़ एक होना चाहिए।",
+      "aciklama_yok": "मेटा विवरण (description) नहीं है।",
+      "aciklama_kisa": "विवरण छोटा है: लगभग {{deger}} अक्षर-चौड़ाई (सुझाव 70–160)।",
+      "aciklama_uzun": "विवरण लंबा है: लगभग {{deger}} अक्षर-चौड़ाई; कट सकता है (सुझाव 70–160)।",
+      "aciklama_iyi": "विवरण की लंबाई ठीक है ({{deger}} अक्षर-चौड़ाई)।",
+      "aciklama_coklu": "पेज में {{deger}} meta description हैं; सिर्फ़ एक होना चाहिए।",
+      "canonical_yok": "canonical टैग नहीं है।",
+      "canonical_coklu": "पेज में {{deger}} canonical टैग हैं; Google सभी को अनदेखा कर सकता है।",
+      "canonical_goreli": "canonical सापेक्ष URL इस्तेमाल करता है ({{deger}}); पूर्ण URL बेहतर है।",
+      "canonical_baska": "canonical दूसरे URL की ओर इशारा करता है: {{deger}}",
+      "canonical_iyi": "canonical पेज की ख़ुद की ओर इशारा करता है।",
+      "robots_noindex": "पेज इंडेक्सिंग रोकता है (noindex, स्रोत: {{deger}})।",
+      "robots_nofollow": "पेज के लिंक nofollow हैं और मूल्य नहीं देते।",
+      "robots_iyi": "इंडेक्सिंग और लिंक फ़ॉलो करने की अनुमति है।",
+      "viewport_yok": "मोबाइल viewport टैग नहीं है।",
+      "viewport_genislik": "viewport में width=device-width नहीं है।",
+      "viewport_yakinlastirma": "viewport ज़ूम बंद करता है (user-scalable=no या कम maximum-scale)।",
+      "viewport_iyi": "viewport मोबाइल-अनुकूल है।",
+      "lang_yok": "html टैग में lang विशेषता नहीं है।",
+      "lang_gecersiz": "lang का मान मान्य भाषा कोड नहीं है: {{deger}}",
+      "lang_iyi": "पेज भाषा तय है: {{deger}}",
+      "hreflang_yok": "hreflang लिंक नहीं हैं (एक-भाषी साइट में ज़रूरी नहीं)।",
+      "hreflang_gecersiz": "अमान्य hreflang कोड: {{deger}}",
+      "hreflang_tekrar": "एक ही भाषा कई बार सूचीबद्ध है: {{deger}}",
+      "hreflang_kendisi_yok": "hreflang सूची में पेज ख़ुद शामिल नहीं है।",
+      "hreflang_xdefault_yok": "x-default hreflang तय नहीं है।",
+      "hreflang_iyi": "{{deger}} hreflang लिंक एकरूप हैं।",
+      "og_baslik_yok": "og:title नहीं है।",
+      "og_aciklama_yok": "og:description नहीं है।",
+      "og_url_yok": "og:url नहीं है।",
+      "og_type_yok": "og:type नहीं है।",
+      "og_tamam": "बुनियादी Open Graph टैग पूरे हैं।",
+      "twitter_kart_yok": "twitter:card नहीं है; X छोटा कार्ड दिखा सकता है।",
+      "twitter_kart_gecersiz": "अनजाना twitter:card मान: {{deger}}",
+      "twitter_kart_iyi": "Twitter / X कार्ड: {{deger}}",
+      "og_gorsel_yok": "शेयर इमेज (og:image) नहीं है।",
+      "og_gorsel_goreli": "og:image सापेक्ष URL है; यह पूर्ण https URL होना चाहिए।",
+      "gorsel_erisilemedi": "शेयर इमेज नहीं खुली ({{deger}})।",
+      "gorsel_tur_yanlis": "og:image इमेज नहीं लौटाती (प्रकार: {{deger}})।",
+      "gorsel_kucuk": "इमेज बहुत छोटी है: {{deger}} (कम से कम 200×200)।",
+      "gorsel_onerilen_alti": "इमेज सुझाए आकार से छोटी है: {{deger}} (सुझाव 1200×630)।",
+      "gorsel_oran": "इमेज का अनुपात शेयर कार्ड से मेल नहीं खाता: {{deger}} (सुझाव 1.91:1)।",
+      "gorsel_boyut_bilinmiyor": "इमेज का पिक्सेल आकार नहीं पढ़ा जा सका।",
+      "gorsel_buyuk": "इमेज बहुत भारी है: {{deger}} KB (अधिकतम 5 MB)।",
+      "gorsel_agir": "इमेज भारी है: {{deger}} KB; शेयर धीरे लोड हो सकता है।",
+      "gorsel_http": "इमेज बिना एन्क्रिप्शन वाले http URL पर है; https इस्तेमाल करें।",
+      "gorsel_iyi": "शेयर इमेज ठीक है: {{deger}}",
+      "jsonld_sozdizimi": "ब्लॉक {{blok}}: सिंटैक्स त्रुटि (पंक्ति {{satir}}, स्तंभ {{sutun}}): {{mesaj}}",
+      "jsonld_sozdizimi_iyi": "{{deger}} JSON-LD ब्लॉक का सिंटैक्स मान्य है।",
+      "jsonld_context": "{{deger}} ब्लॉक में @context नहीं है या schema.org नहीं है।",
+      "jsonld_yok": "पेज में JSON-LD स्ट्रक्चर्ड डेटा नहीं है।",
+      "jsonld_tur_yok": "JSON-LD ब्लॉक में @type वाला कोई आइटम नहीं है।",
+      "jsonld_turler_var": "मिले प्रकार: {{deger}}",
+      "mikroveri_var": "माइक्रोडेटा / RDFa भी है: {{deger}}",
+      "jsonld_alan_eksik": "{{tur}}: अनिवार्य फ़ील्ड नहीं है — {{alanlar}}",
+      "jsonld_onerilen_eksik": "{{tur}}: सुझाया गया फ़ील्ड नहीं है — {{alanlar}}",
+      "jsonld_alanlar_iyi": "बुनियादी अनिवार्य फ़ील्ड पूरे हैं।",
+      "robots_erisilemedi": "robots.txt नहीं पढ़ी जा सकी ({{deger}}); ऐसे में Google क्रॉलिंग रोक सकता है।",
+      "robots_yok": "robots.txt नहीं है ({{deger}}); सब कुछ क्रॉल-योग्य माना जाता है।",
+      "robots_html": "robots.txt पता HTML पेज लौटाता है; यह मान्य robots.txt नहीं है।",
+      "robots_buyuk": "robots.txt बहुत बड़ी है ({{deger}} KB); Google सिर्फ़ पहले 500 KiB पढ़ता है।",
+      "robots_var": "robots.txt मिली ({{deger}} बाइट)।",
+      "yol_bilinmiyor": "robots.txt नहीं पढ़ी जा सकी, इसलिए {{ajan}} के लिए {{yol}} की स्थिति अज्ञात है।",
+      "yol_izinli": "{{ajan}} {{yol}} को क्रॉल कर सकता है।",
+      "yol_engelli": "{{yol}} {{ajan}} के लिए बंद है (पंक्ति {{satir}}: {{kural}})।",
+      "tum_site_engelli": "पूरी साइट {{deger}} के लिए बंद है (Disallow: /)।",
+      "sitemap_satiri_goreli": "{{deger}} Sitemap पंक्तियाँ सापेक्ष URL इस्तेमाल करती हैं; पूर्ण होना चाहिए।",
+      "sitemap_satiri_var": "{{deger}} Sitemap पंक्तियाँ मिलीं।",
+      "sitemap_satiri_yok": "robots.txt में Sitemap पंक्ति नहीं है।",
+      "kural_ajansiz": "User-agent से पहले लिखे नियम अनदेखे हो रहे हैं (पंक्ति {{deger}})।",
+      "bilinmeyen_yonerge": "अनजानी पंक्तियाँ: {{deger}}",
+      "crawl_delay": "Crawl-delay इस्तेमाल हुआ है; Google इसे नहीं मानता।",
+      "sozdizimi_iyi": "कोई सिंटैक्स समस्या नहीं।",
+      "sitemap_bulunamadi": "साइटमैप नहीं मिला ({{deger}})।",
+      "sitemap_erisildi": "साइटमैप पढ़ा गया: {{deger}}",
+      "sitemap_kesildi": "साइटमैप बहुत बड़ा है; पहले {{deger}} KB जाँचे गए।",
+      "dtd_reddedildi": "साइटमैप में DOCTYPE/ENTITY घोषणा है; सुरक्षा कारणों से इसे संसाधित नहीं किया गया।",
+      "sitemap_kok_hatali": "मूल तत्व urlset या sitemapindex नहीं है ({{deger}})।",
+      "sitemap_xml_hatasi": "XML नहीं पढ़ा जा सका: {{deger}}",
+      "sitemap_ad_alani": "अनपेक्षित नेमस्पेस: {{deger}}",
+      "sitemap_cok_buyuk": "{{deger}} URL हैं; हर फ़ाइल में अधिकतम 50,000 हो सकते हैं।",
+      "sitemap_bos": "साइटमैप में कोई URL नहीं है।",
+      "sitemap_dizini": "साइटमैप इंडेक्स: {{deger}} उप-साइटमैप सूचीबद्ध हैं।",
+      "sitemap_bicim_iyi": "प्रारूप मान्य है; {{deger}} URL सूचीबद्ध हैं।",
+      "alt_sitemap_hatali": "पहला उप-साइटमैप नहीं पढ़ा जा सका: {{deger}}",
+      "alan_hatali": "{{deger}} प्रविष्टियों में changefreq या priority का मान अमान्य है।",
+      "adres_hatali": "{{deger}} अमान्य URL (पूर्ण http/https होने चाहिए)।",
+      "adres_baska_site": "{{deger}} URL दूसरे डोमेन के हैं।",
+      "adres_tekrar": "{{deger}} URL एक से ज़्यादा बार सूचीबद्ध हैं।",
+      "adresler_iyi": "सभी {{deger}} URL मान्य हैं और एक ही साइट के हैं।",
+      "lastmod_yok": "किसी URL में lastmod नहीं है।",
+      "lastmod_eksik": "{{deger}} URL में lastmod नहीं है।",
+      "lastmod_hatali": "{{deger}} URL में lastmod का प्रारूप ग़लत है।",
+      "lastmod_gelecek": "{{deger}} URL में lastmod भविष्य की तारीख़ है।",
+      "lastmod_iyi": "lastmod तारीख़ें मान्य हैं।",
+      "orneklem_hatali": "नमूने के {{toplam}} में से {{hatali}} URL त्रुटि लौटाते हैं (4xx/5xx)।",
+      "orneklem_yonlendirme": "नमूने के {{toplam}} में से {{hatali}} URL रीडायरेक्ट होते हैं।",
+      "orneklem_iyi": "नमूने के सभी {{deger}} URL बिना समस्या के जवाब देते हैं।",
+      "dongu": "रीडायरेक्ट लूप: URL घूमकर अपने पर ही लौटता है।",
+      "cok_yonlendirme": "{{deger}} से ज़्यादा रीडायरेक्ट; शृंखला का पीछा नहीं हो सका।",
+      "zincir_uzun": "लंबी शृंखला: {{deger}} रीडायरेक्ट चरण।",
+      "zincir_iyi": "सर्टिफ़िकेट शृंखला भरोसेमंद रूट तक पहुँचती है।",
+      "gecici_yonlendirme": "शृंखला में अस्थायी रीडायरेक्ट ({{deger}}) है; स्थायी स्थानांतरण में 301 इस्तेमाल करें।",
+      "son_durum_iyi": "अंतिम URL {{deger}} लौटाता है।",
+      "son_durum_hatali": "अंतिम URL त्रुटि लौटाता है: {{deger}}",
+      "https_gecici": "http → https रीडायरेक्ट अस्थायी है ({{deger}}); 301 या 308 होना चाहिए।",
+      "https_yonlendirme_iyi": "http URL https पर रीडायरेक्ट होता है।",
+      "https_yonlendirme_yok": "http URL https पर रीडायरेक्ट नहीं होता।",
+      "https_yok": "साइट https पर नहीं खुलती।",
+      "www_tutarsiz": "www / बिना www और http / https वाले URL {{deger}} अलग-अलग पतों पर पहुँचते हैं।",
+      "www_iyi": "सभी रूप एक ही URL पर पहुँचते हैं।",
+      "www_erisilemedi": "{{deger}} नहीं खुलता (DNS रिकॉर्ड नहीं है या कनेक्शन नहीं बना)।",
+      "https_degil": "पेज https पर नहीं दिया जाता; HSTS लागू नहीं हो सकता।",
+      "hsts_yok": "Strict-Transport-Security हेडर नहीं है।",
+      "hsts_kisa": "HSTS अवधि कम है: {{deger}} दिन (कम से कम 180 सुझाए जाते हैं)।",
+      "hsts_iyi": "HSTS चालू है ({{deger}} दिन)।",
+      "hsts_alt_alan_yok": "HSTS सबडोमेन को शामिल नहीं करता (includeSubDomains नहीं है)।",
+      "csp_unsafe_inline": "CSP इनलाइन स्क्रिप्ट की अनुमति देती है ('unsafe-inline')।",
+      "csp_unsafe_eval": "CSP eval की अनुमति देती है ('unsafe-eval')।",
+      "csp_iyi": "Content-Security-Policy मौजूद है।",
+      "csp_rapor": "CSP सिर्फ़ रिपोर्ट मोड (Report-Only) में है; कुछ नहीं रोकती।",
+      "csp_yok": "Content-Security-Policy हेडर नहीं है।",
+      "frame_iyi": "फ़्रेम एम्बेड सुरक्षा मौजूद है ({{deger}})।",
+      "frame_yok": "फ़्रेम एम्बेड सुरक्षा नहीं है (X-Frame-Options / frame-ancestors)।",
+      "nosniff_iyi": "X-Content-Type-Options: nosniff मौजूद है।",
+      "nosniff_yok": "X-Content-Type-Options: nosniff नहीं है।",
+      "referrer_yok": "Referrer-Policy हेडर नहीं है।",
+      "referrer_zayif": "कमज़ोर Referrer-Policy: {{deger}}",
+      "referrer_iyi": "Referrer-Policy: {{deger}}",
+      "permissions_iyi": "Permissions-Policy मौजूद है।",
+      "permissions_yok": "Permissions-Policy हेडर नहीं है।",
+      "sunucu_surumu": "सर्वर संस्करण की जानकारी दिख रही है: {{deger}}",
+      "ssl_yok": "https कनेक्शन नहीं बन सका; सर्टिफ़िकेट नहीं पढ़ा जा सका।",
+      "ssl_dogrulandi": "सर्टिफ़िकेट भरोसेमंद है और डोमेन से मेल खाता है।",
+      "ssl_gecersiz": "सर्टिफ़िकेट सत्यापित नहीं हो सका: {{deger}}",
+      "ssl_kendinden_imzali": "सर्टिफ़िकेट स्व-हस्ताक्षरित है; ब्राउज़र इस पर भरोसा नहीं करते।",
+      "ssl_ad_uyusmuyor": "सर्टिफ़िकेट इस डोमेन को शामिल नहीं करता।",
+      "zincir_eksik": "इंटरमीडिएट शृंखला अधूरी है या भरोसेमंद रूट तक नहीं पहुँचती।",
+      "ssl_suresi_gecmis": "सर्टिफ़िकेट {{deger}} दिन पहले समाप्त हो गया।",
+      "ssl_bitiyor": "सर्टिफ़िकेट {{deger}} दिन के भीतर समाप्त हो रहा है!",
+      "ssl_yakinda": "सर्टिफ़िकेट {{deger}} दिन बाद समाप्त होगा।",
+      "ssl_gecerli": "सर्टिफ़िकेट {{deger}} दिन और वैध है।",
+      "tls_iyi": "कनेक्शन {{deger}} इस्तेमाल करता है।",
+      "tls_12": "कनेक्शन {{deger}} इस्तेमाल करता है; TLS 1.3 भी चालू किया जा सकता है।",
+      "tls_eski": "पुराना TLS संस्करण: {{deger}}",
+      "h1_yok": "पेज में H1 नहीं है।",
+      "h1_fazla": "पेज में {{deger}} H1 हैं।",
+      "h1_bos": "H1 ख़ाली है।",
+      "h1_iyi": "H1: {{deger}}",
+      "ilk_baslik_h1_degil": "पहली हेडिंग H1 नहीं है ({{deger}})।",
+      "seviye_atlama": "छूटा हेडिंग स्तर: {{deger}}",
+      "bos_baslik": "{{deger}} ख़ाली हेडिंग हैं।",
+      "uzun_baslik": "{{deger}} हेडिंग 70 अक्षरों से लंबी हैं।",
+      "baslik_yok": "पेज में कोई हेडिंग (H1–H6) नहीं है।",
+      "hiyerarsi_iyi": "{{deger}} हेडिंग सही क्रम में हैं।",
+      "icerik_az": "दिखने वाला पाठ कम है: {{deger}} शब्द।",
+      "kelime_iyi": "दिखने वाला पाठ: {{deger}} शब्द।",
+      "anahtar_asiri": "“{{kelime}}” पाठ का {{yuzde}}% है; बहुत ज़्यादा दोहराव।",
+      "yogunluk_iyi": "शब्दों का वितरण स्वाभाविक है; सबसे आम शब्द “{{deger}}” है।",
+      "hedef_yok": "“{{deger}}” दिखने वाले पाठ में कहीं नहीं है।",
+      "hedef_iyi": "“{{kelime}}” {{sayi}} बार आता है (घनत्व {{yuzde}}%)।",
+      "hedef_asiri": "“{{kelime}}” {{sayi}} बार आता है (घनत्व {{yuzde}}%); बहुत ज़्यादा दोहराव।",
+      "hedef_title_yok": "“{{deger}}” पेज के title में नहीं है।",
+      "hedef_h1_yok": "“{{deger}}” H1 में नहीं है।",
+      "hedef_aciklama_yok": "“{{deger}}” मेटा विवरण में नहीं है।",
+      "hedef_url_yok": "“{{deger}}” URL में नहीं है।",
+      "hedef_konum_iyi": "“{{deger}}” title, H1, मेटा विवरण और URL में है।"
+    },
+    "veri": {
+      "meta": {
+        "serp": "सर्च नतीजा प्रीव्यू",
+        "etiketler": "मिले टैग",
+        "karakter": "{{sayi}} अक्षर",
+        "yok": "—",
+        "hreflang": "hreflang लिंक",
+        "baslik": "शीर्षक",
+        "aciklama": "विवरण",
+        "canonical": "Canonical",
+        "robots": "Robots",
+        "viewport": "Viewport",
+        "lang": "भाषा"
+      },
+      "og": {
+        "onizleme": "शेयर कार्ड प्रीव्यू",
+        "gorselYok": "इमेज नहीं",
+        "gorselGizli": "इमेज सुरक्षित (https) नहीं है या खुली नहीं, इसलिए नहीं दिखाई गई।",
+        "ogEtiketleri": "Open Graph टैग",
+        "twitterEtiketleri": "Twitter / X टैग",
+        "gorsel": "इमेज",
+        "boyut": "आकार",
+        "dosya": "फ़ाइल",
+        "tur": "प्रकार",
+        "kb": "{{sayi}} KB"
+      },
+      "schema": {
+        "bloklar": "JSON-LD ब्लॉक",
+        "blok": "ब्लॉक {{sayi}}",
+        "gecerli": "मान्य",
+        "hatali": "सिंटैक्स त्रुटि (पंक्ति {{satir}}, स्तंभ {{sutun}})",
+        "ogeler": "मिले आइटम",
+        "eksikZorunlu": "छूटे अनिवार्य",
+        "eksikOnerilen": "छूटे सुझाए गए",
+        "icIce": "नेस्टेड",
+        "kuralYok": "कोई बुनियादी नियम तय नहीं",
+        "kod": "कोड दिखाएँ",
+        "alanlar": "फ़ील्ड",
+        "tamam": "कुछ नहीं छूटा"
+      },
+      "robots": {
+        "karar": "नतीजा",
+        "izinli": "क्रॉल-योग्य",
+        "engelli": "बंद",
+        "belirsiz": "अज्ञात",
+        "kural": "मिलने वाला नियम",
+        "kuralYok": "कोई नियम नहीं मिला — डिफ़ॉल्ट: अनुमति",
+        "grup": "लागू समूह",
+        "gruplar": "समूह",
+        "sitemapler": "Sitemap पंक्तियाँ",
+        "icerik": "robots.txt की सामग्री",
+        "satir": "पंक्ति {{sayi}}",
+        "kuralSayisi": "{{sayi}} नियम",
+        "yol": "पाथ",
+        "ajan": "यूज़र-एजेंट"
+      },
+      "sitemap": {
+        "adres": "साइटमैप",
+        "kaynak": "कहाँ से मिला",
+        "kaynaklar": {
+          "girilen": "आपका दिया URL",
+          "robots": "robots.txt",
+          "varsayilan": "डिफ़ॉल्ट URL"
+        },
+        "tur": "प्रकार",
+        "turler": {
+          "urlset": "URL सूची (urlset)",
+          "sitemapindex": "साइटमैप इंडेक्स (sitemapindex)"
+        },
+        "adresSayisi": "URL संख्या",
+        "lastmodOrani": "lastmod अनुपात",
+        "boyut": "आकार",
+        "ornekler": "नमूना (स्टेटस कोड)",
+        "hataliAdresler": "अमान्य URL",
+        "baskaSite": "दूसरे डोमेन के URL",
+        "altlar": "उप-साइटमैप",
+        "incelenenAlt": "जाँचा गया उप-साइटमैप",
+        "reddedildi": "अस्वीकृत"
+      },
+      "yonlendirme": {
+        "zincirler": "रीडायरेक्ट शृंखलाएँ",
+        "etiket": {
+          "girilen": "आपका दिया URL",
+          "http": "http://",
+          "https": "https://",
+          "http_www": "http://www.",
+          "https_www": "https://www."
+        },
+        "adim": "{{sayi}} रीडायरेक्ट",
+        "erisilemedi": "नहीं खुला ({{kod}})"
+      },
+      "guvenlik": {
+        "puan": "सुरक्षा अंक",
+        "not": "ग्रेड",
+        "baslik": "हेडर",
+        "deger": "मान",
+        "durum": "स्थिति",
+        "eksik": "नहीं है"
+      },
+      "ssl": {
+        "sertifika": "सर्टिफ़िकेट",
+        "konu": "विषय (CN)",
+        "yayinci": "जारीकर्ता",
+        "baslangic": "वैधता आरंभ",
+        "bitis": "समाप्ति",
+        "kalan": "बचे दिन",
+        "san": "शामिल डोमेन",
+        "seri": "सीरियल नं.",
+        "imza": "हस्ताक्षर",
+        "anahtar": "कुंजी",
+        "tls": "TLS संस्करण",
+        "sifre": "सिफ़र सूट",
+        "zincir": "शृंखला",
+        "aia": "इंटरमीडिएट सर्टिफ़िकेट पता (AIA)",
+        "dogrulandi": "सत्यापित",
+        "dogrulanmadi": "सत्यापित नहीं"
+      },
+      "basliklar": {
+        "agac": "हेडिंग ट्री",
+        "bos": "(ख़ाली)",
+        "seviyeler": "हर स्तर पर हेडिंग"
+      },
+      "kelime": {
+        "kelimeler": "शब्द आँकड़े",
+        "toplam": "कुल शब्द",
+        "anlamli": "सार्थक शब्द",
+        "benzersiz": "अनूठे",
+        "enSik": "सबसे आम शब्द",
+        "ikililer": "सबसे आम शब्द-जोड़े",
+        "kelime": "शब्द",
+        "adet": "संख्या",
+        "yuzde": "घनत्व",
+        "dil": "पेज भाषा",
+        "durakNotu": "स्टॉप-वर्ड (तुर्की, अंग्रेज़ी और जर्मन सूचियाँ: ve, the, und…) हटाए जाते हैं; तुर्की पेजों पर I→ı और İ→i नियम लागू होता है।",
+        "ucluler": "सबसे आम तीन-शब्द वाक्यांश",
+        "hedef": "लक्षित कीवर्ड",
+        "hedefOzet": "{{sayi}} बार · घनत्व {{yuzde}}%",
+        "konumTitle": "title",
+        "konumH1": "H1",
+        "konumAciklama": "मेटा विवरण",
+        "konumUrl": "URL",
+        "var": "है",
+        "yok": "नहीं"
+      }
+    }
+  }
+}

@@ -119,10 +119,11 @@
         "yonetici": "Admin"
       },
       "pazarlamaSor": "Im Formular für den vollständigen Bericht nach Marketing-Einwilligung fragen",
-      "pazarlamaSorIpucu": "Wenn aktiv, zeigt das Formular ein nicht angekreuztes Kästchen „Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden“. Die Berichtsanfrage hängt nicht davon ab; wird es angekreuzt, werden Einwilligung, Zeitpunkt und Textversion gespeichert.",
+      "pazarlamaSorIpucu": "Wenn aktiv, zeigt das Formular ein nicht angekreuztes Kästchen „Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden“. Die Berichtsanfrage hängt nicht davon ab; wird es angekreuzt, werden Einwilligung, Zeitpunkt und Textversion gespeichert. Dieselbe Einstellung gilt auch für das Formular „Ergebnis per E-Mail senden“ der kostenlosen SEO-Tools.",
       "pazarlamaKaydedildi": "Einstellung zur Marketing-Einwilligung gespeichert.",
       "pazarlamaVar": "Marketing-Einwilligung liegt vor ({{tarih}}, Text v{{surum}})",
-      "pazarlamaYok": "Keine Marketing-Einwilligung"
+      "pazarlamaYok": "Keine Marketing-Einwilligung",
+      "aracKaynak": "Kostenloses SEO-Tool: {{arac}}"
     },
     "musteri": {
       "baslik": "Meine Website analysieren",
@@ -447,6 +448,10 @@
         "neden": "KI-Systeme erkennen aus strukturierten Daten zuverlässiger, wer Sie sind und was Sie anbieten.",
         "oneri": "schema.org-JSON-LD wie Organization, LocalBusiness, Service und FAQPage ergänzen."
       }
+    },
+    "araclar": {
+      "metin": "Sie möchten nur einen Punkt prüfen?",
+      "dugme": "Kostenlose SEO-Tools"
     }
   }
 }

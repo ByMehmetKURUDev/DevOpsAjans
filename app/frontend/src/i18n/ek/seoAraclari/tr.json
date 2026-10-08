@@ -1,0 +1,381 @@
+{
+  "seoAraclari": {
+    "seo": {
+      "baslik": "Ücretsiz SEO Araçları: Meta, Schema, SSL | Mehmet KURU",
+      "aciklama": "Kayıt istemeyen ücretsiz SEO araçları: meta etiketi, Open Graph, Schema, robots.txt, site haritası, yönlendirme, güvenlik, SSL, başlıklar ve kelime yoğunluğu.",
+      "anaSayfa": "Ana Sayfa",
+      "araclar": "SEO Araçları"
+    },
+    "dizin": {
+      "etiket": "Ücretsiz araçlar",
+      "baslik1": "Ücretsiz",
+      "baslikVurgu": "SEO araçları",
+      "giris": "Sitenizin teknik SEO'sunu tek adresle saniyeler içinde kontrol edin. Kayıt yok, e-posta yok; her sonuçta sorunun neden önemli olduğunu ve nasıl düzeltileceğini görürsünüz.",
+      "araciAc": "Aracı aç",
+      "nedenBaslik": "Neden bu araçlar?",
+      "neden": [
+        "Tamamen ücretsiz ve kendi sunucumuzda çalışır; ücretli bir dış servise bağlı değildir.",
+        "Kayıt ya da e-posta istemez. Sonuç yalnız size gösterilir, herkese açık listelenmez.",
+        "Sorguladığınız adres saklanmaz; yalnız araç başına günlük kullanım sayısı tutulur."
+      ],
+      "sssBaslik": "Sık sorulan sorular",
+      "sss": [
+        {
+          "s": "SEO araçları gerçekten ücretsiz mi?",
+          "c": "Evet. Araçların hepsi ücretsizdir ve kullanmak için hesap açmanız ya da e-posta vermeniz gerekmez. Kötüye kullanımı önlemek için araç başına dakikalık ve günlük bir kullanım sınırı vardır."
+        },
+        {
+          "s": "Sorguladığım site adresi kaydediliyor mu?",
+          "c": "Hayır. Adres yalnız kontrolü yapmak için kullanılır; veritabanına ya da günlüklere yazılmaz. Yalnız hangi aracın günde kaç kez kullanıldığı sayılır."
+        },
+        {
+          "s": "Daha kapsamlı bir analiz istersem ne yapmalıyım?",
+          "c": "Her sonucun altındaki “Sitenin tam analizini al” düğmesi sizi adres dolu olarak ücretsiz Site Analiz Raporu'na götürür; sitenizin hız, SEO, içerik, teknik, güvenlik ve yapay zekâ görünürlüğü 0–100 puanla ölçülür."
+        },
+        {
+          "s": "Sonucu e-postayla alabilir miyim?",
+          "c": "Evet, isteğe bağlı. Sonucun altındaki formla özetini ve düzeltilmesi önerilenleri e-postanıza gönderebilirsiniz; bunun için yalnız e-posta adresiniz gerekir. Kampanya e-postaları ayrıca ve isteğe bağlı olarak sorulur."
+        }
+      ]
+    },
+    "arac": {
+      "meta": {
+        "ad": "Meta etiketi kontrolü",
+        "kisa": "Başlık ve açıklama uzunluğu, canonical, robots, viewport, lang ve hreflang.",
+        "giris": "Sayfanızın arama motorlarına kendini nasıl tanıttığını kontrol eder: başlık ve açıklamanın arama sonucunda kesilip kesilmeyeceğini, canonical adresi, dizine ekleme izinlerini, mobil görünüm ayarını ve dil etiketlerini.",
+        "seoBaslik": "Meta Etiketi Kontrolü (Title, Description)",
+        "seoAciklama": "Ücretsiz meta etiketi kontrolü: title ve description uzunluğu, canonical, robots meta, viewport, lang ve hreflang etiketlerini saniyeler içinde denetleyin.",
+        "neler": [
+          "Title ve meta description uzunluğu (piksel genişliğine göre)",
+          "Canonical etiketi: var mı, tek mi, kendini mi gösteriyor",
+          "Robots meta ve X-Robots-Tag: noindex / nofollow",
+          "Mobil viewport ve yakınlaştırma ayarı",
+          "html lang özniteliği ve hreflang bağlantıları"
+        ],
+        "sss": [
+          {
+            "s": "Title ve description ne kadar uzun olmalı?",
+            "c": "Google karakter değil piksel genişliğine göre keser. Başlık için yaklaşık 30–60, açıklama için 70–160 karakter genişliği güvenli aralıktır; araç Çince gibi geniş karakterleri iki sayar."
+          },
+          {
+            "s": "Canonical etiketi neden önemli?",
+            "c": "Aynı içerik birden çok adreste açılıyorsa canonical, Google'a hangisinin asıl sayfa olduğunu söyler; sıralama sinyalleri tek adreste toplanır ve kopya içerik sorunu önlenir."
+          }
+        ]
+      },
+      "og": {
+        "ad": "Open Graph ve Twitter kartı önizleme",
+        "kisa": "Sosyal medyada paylaşım kartı nasıl görünür; görselin boyutu ve erişimi.",
+        "giris": "Bağlantınız WhatsApp, LinkedIn, Facebook ya da X'te paylaşıldığında nasıl göründüğünü önizler. Open Graph ve Twitter kartı etiketlerini, paylaşım görselinin açılıp açılmadığını, boyutunu ve dosya ağırlığını kontrol eder.",
+        "seoBaslik": "Open Graph ve Twitter Kartı Önizleme",
+        "seoAciklama": "Ücretsiz Open Graph ve Twitter kartı önizleme: og:title, og:description ve og:image etiketlerini, görselin boyutunu ve erişimini kontrol edin.",
+        "neler": [
+          "og:title, og:description, og:url ve og:type",
+          "twitter:card türü",
+          "og:image: açılıyor mu, gerçekten görsel mi",
+          "Görsel boyutu (1200×630 önerilir) ve dosya ağırlığı",
+          "Paylaşım kartı önizlemesi"
+        ],
+        "sss": [
+          {
+            "s": "Paylaşım görseli hangi boyutta olmalı?",
+            "c": "En güvenli boyut 1200×630 piksel (yaklaşık 1,91:1). 200×200'den küçük görseller birçok platformda hiç gösterilmez; dosyanın 5 MB'ın altında ve https adresinde olması gerekir."
+          },
+          {
+            "s": "Etiketleri değiştirdim ama paylaşım eski görünüyor, neden?",
+            "c": "Sosyal ağlar önizlemeyi önbelleğe alır. Facebook Sharing Debugger ya da LinkedIn Post Inspector ile adresi yeniden taratarak önbelleği yenileyebilirsiniz."
+          }
+        ]
+      },
+      "schema": {
+        "ad": "Schema (JSON-LD) okuyucu",
+        "kisa": "Yapısal veri türleri, eksik zorunlu alanlar ve söz dizimi hataları.",
+        "giris": "Sayfadaki JSON-LD yapısal veri bloklarını okur: hangi schema.org türlerinin bulunduğunu, temel kurallara göre eksik zorunlu ve önerilen alanları ve JSON söz dizimi hatalarını satır-sütun bilgisiyle gösterir.",
+        "seoBaslik": "Schema (JSON-LD) Okuyucu ve Doğrulayıcı",
+        "seoAciklama": "Ücretsiz Schema okuyucu: sayfadaki JSON-LD bloklarını, schema.org türlerini, eksik zorunlu alanları ve söz dizimi hatalarını satır ve sütun bilgisiyle görün.",
+        "neler": [
+          "JSON-LD bloklarının söz dizimi (satır ve sütunla)",
+          "Bulunan türler: Organization, Product, Article, FAQPage…",
+          "Temel kurallara göre eksik zorunlu ve önerilen alanlar",
+          "@graph ve iç içe öğeler",
+          "Mikroveri ve RDFa varlığı"
+        ],
+        "sss": [
+          {
+            "s": "Yapısal veri sıralamayı doğrudan yükseltir mi?",
+            "c": "Doğrudan bir sıralama sinyali değildir; ancak yıldız, SSS, ürün fiyatı gibi zengin sonuçlara uygunluk sağlar ve yapay zekâ aramalarının sayfanızı doğru anlamasına yardım eder."
+          },
+          {
+            "s": "Bu araç Google'ın zengin sonuç testinin yerine geçer mi?",
+            "c": "Hayır; temel kuralları hızlıca denetleyen bir ön kontroldür. Yayından önce Google Zengin Sonuç Testi ile de doğrulamanızı öneririz."
+          }
+        ]
+      },
+      "robots": {
+        "ad": "robots.txt test aracı",
+        "kisa": "Bir yol seçtiğiniz tarayıcıya açık mı, kapalı mı; site haritası satırları.",
+        "giris": "Sitenizin robots.txt dosyasını okur ve verdiğiniz adresin seçtiğiniz tarayıcı (Googlebot, Bingbot, GPTBot…) için taranabilir olup olmadığını Google'ın eşleştirme kuralıyla söyler; eşleşen kuralı satır numarasıyla gösterir.",
+        "seoBaslik": "robots.txt Test Aracı (Yol ve Bot Kontrolü)",
+        "seoAciklama": "Ücretsiz robots.txt test aracı: bir yolun Googlebot, Bingbot ya da GPTBot için engelli olup olmadığını, eşleşen kuralı ve site haritası satırlarını görün.",
+        "neler": [
+          "Seçilen yol ve kullanıcı ajanı için izin / engel kararı",
+          "Eşleşen kural ve satır numarası (en uzun kural kazanır)",
+          "Sitenin tamamı engelli mi",
+          "Sitemap satırları",
+          "Söz dizimi uyarıları ve dosya boyutu"
+        ],
+        "sss": [
+          {
+            "s": "robots.txt ile engellenen sayfa dizinden çıkar mı?",
+            "c": "Hayır. robots.txt yalnız taramayı engeller; sayfa başka yerden bağlantı alıyorsa dizinde kalabilir. Dizinden çıkarmak için sayfanın taranabilir olması ve noindex taşıması gerekir."
+          },
+          {
+            "s": "Yapay zekâ tarayıcılarını engellemeli miyim?",
+            "c": "İşinize bağlı. GPTBot, ClaudeBot veya PerplexityBot'u engellemek içeriğinizin yapay zekâ yanıtlarında görünmesini azaltır; görünürlük istiyorsanız açık bırakın."
+          }
+        ]
+      },
+      "sitemap": {
+        "ad": "XML site haritası doğrulayıcı",
+        "kisa": "Adres sayısı, hatalı adresler, lastmod biçimi ve örneklemle 4xx/5xx.",
+        "giris": "XML site haritanızı bulur (robots.txt ya da /sitemap.xml) ve doğrular: biçim, adres sayısı, hatalı ya da başka siteye ait adresler, lastmod tarih biçimi; ayrıca rastgele olmayan bir örneklemi açıp 4xx/5xx ve yönlendirme döndüren adresleri yakalar.",
+        "seoBaslik": "XML Site Haritası Doğrulayıcı",
+        "seoAciklama": "Ücretsiz XML site haritası doğrulayıcı: adres sayısını, hatalı adresleri, lastmod biçimini kontrol edin; örneklemde 404 ve 500 döndüren sayfaları yakalayın.",
+        "neler": [
+          "Site haritasını robots.txt'ten ya da varsayılan adresten bulma",
+          "XML biçimi, ad alanı ve 50.000 adres sınırı",
+          "Hatalı, tekrar eden ve başka siteye ait adresler",
+          "lastmod biçimi (W3C) ve gelecek tarihler",
+          "Örneklemde 4xx/5xx ve yönlendirmeler; .gz ve site haritası dizini desteği"
+        ],
+        "sss": [
+          {
+            "s": "Site haritasında hangi sayfalar olmalı?",
+            "c": "Yalnız dizine girmesini istediğiniz, 200 döndüren, canonical adresler. Yönlendirilen, 404 veren ya da noindex taşıyan sayfalar site haritasında olmamalıdır."
+          },
+          {
+            "s": "lastmod alanı zorunlu mu?",
+            "c": "Zorunlu değil, ama doğru tutulursa Google değişen sayfaları daha hızlı fark eder. Tarih W3C biçiminde (ör. 2026-10-01 ya da 2026-10-01T10:00:00+03:00) olmalı ve gerçek değişiklik tarihini göstermelidir."
+          }
+        ]
+      },
+      "yonlendirme": {
+        "ad": "Yönlendirme zinciri ve durum kodu",
+        "kisa": "http→https, www tutarlılığı, zincir uzunluğu ve döngü.",
+        "giris": "Adresin hangi adımlardan geçerek nereye vardığını gösterir: her adımın durum kodu, http'den https'e kalıcı yönlendirme, www ve www'siz adreslerin aynı yere çıkıp çıkmadığı, gereksiz uzun zincirler ve yönlendirme döngüleri.",
+        "seoBaslik": "Yönlendirme Zinciri ve Durum Kodu Kontrolü",
+        "seoAciklama": "Ücretsiz yönlendirme kontrolü: 301/302 zincirini, http'den https'e geçişi, www tutarlılığını, döngüleri ve son durum kodunu adım adım görün.",
+        "neler": [
+          "Her adımın HTTP durum kodu (301, 302, 307, 308, 200, 404…)",
+          "http → https kalıcı yönlendirme",
+          "www ve www'siz adreslerin tek adrese çıkması",
+          "Zincir uzunluğu ve geçici yönlendirmeler",
+          "Yönlendirme döngüsü"
+        ],
+        "sss": [
+          {
+            "s": "301 ile 302 arasındaki fark nedir?",
+            "c": "301 (ve 308) kalıcıdır: arama motoru yeni adresi esas alır ve sıralama sinyallerini aktarır. 302 (ve 307) geçicidir; site taşıma ya da https geçişinde kalıcı yönlendirme kullanılmalıdır."
+          },
+          {
+            "s": "Kaç yönlendirme fazladır?",
+            "c": "İdeali tek adımdır. Her ek adım sayfanın açılışını yavaşlatır ve tarama bütçesi harcar; Google 10 adımdan sonra izlemeyi bırakır, ama iki adımı geçen zincirler bile düzeltilmelidir."
+          }
+        ]
+      },
+      "guvenlik": {
+        "ad": "HTTP güvenlik başlıkları",
+        "kisa": "HSTS, CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy — puanlı.",
+        "giris": "Sunucunun döndürdüğü güvenlik başlıklarını inceler ve 100 üzerinden puanlar: HSTS, İçerik Güvenliği Politikası (CSP), çerçeveye gömme koruması, MIME türü koklama koruması, Referrer-Policy ve Permissions-Policy. Her eksik için ne yapılacağını açıklar.",
+        "seoBaslik": "HTTP Güvenlik Başlıkları Testi (HSTS, CSP)",
+        "seoAciklama": "Ücretsiz güvenlik başlıkları testi: HSTS, CSP, X-Content-Type-Options, Referrer-Policy ve Permissions-Policy başlıklarını 100 üzerinden puanlayın.",
+        "neler": [
+          "Strict-Transport-Security (HSTS) ve süresi",
+          "Content-Security-Policy: unsafe-inline / unsafe-eval",
+          "X-Frame-Options ya da frame-ancestors",
+          "X-Content-Type-Options: nosniff",
+          "Referrer-Policy ve Permissions-Policy; sunucu sürüm bilgisi"
+        ],
+        "sss": [
+          {
+            "s": "Güvenlik başlıkları SEO'yu etkiler mi?",
+            "c": "Doğrudan bir sıralama sinyali değildir; ama HTTPS ve kullanıcı güvenliği Google'ın sayfa deneyimi değerlendirmesinin parçasıdır ve ele geçirilmiş bir site arama sonuçlarında uyarıyla gösterilebilir."
+          },
+          {
+            "s": "CSP eklemek sitemi bozar mı?",
+            "c": "Yanlış yazılırsa betikleri engelleyebilir. Önce Content-Security-Policy-Report-Only ile yalnız raporlayan modda deneyip ihlalleri temizledikten sonra zorunlu moda geçin."
+          }
+        ]
+      },
+      "ssl": {
+        "ad": "SSL sertifikası kontrolü",
+        "kisa": "Bitiş tarihi, kalan gün, yayıncı, zincir ve TLS sürümü.",
+        "giris": "Alan adınızın SSL/TLS sertifikasını kontrol eder: geçerli ve güvenilir mi, ad eşleşiyor mu, ne zaman bitiyor, kim yayınlamış, zincir tam mı ve bağlantı hangi TLS sürümüyle kuruluyor.",
+        "seoBaslik": "SSL Sertifikası Kontrolü: Bitiş ve Zincir",
+        "seoAciklama": "Ücretsiz SSL sertifikası kontrolü: bitiş tarihini, kalan günü, yayıncıyı, sertifika zincirini, kapsanan alan adlarını ve TLS sürümünü saniyeler içinde görün.",
+        "neler": [
+          "Sertifika güvenilir mi, alan adıyla eşleşiyor mu",
+          "Bitiş tarihi ve kalan gün",
+          "Yayıncı, kapsanan alan adları (SAN), anahtar türü",
+          "Ara sertifika zinciri",
+          "TLS sürümü ve şifre takımı"
+        ],
+        "sss": [
+          {
+            "s": "SSL sertifikasının süresi dolarsa ne olur?",
+            "c": "Tarayıcılar ziyaretçiye tam sayfa güvenlik uyarısı gösterir, çoğu kişi siteden çıkar ve trafik ile satışlar hemen düşer. Otomatik yenilemenin çalıştığını düzenli kontrol edin."
+          },
+          {
+            "s": "Ücretsiz sertifika yeterli mi?",
+            "c": "Çoğu site için evet. Let's Encrypt gibi ücretsiz sertifikalar aynı şifrelemeyi sağlar; önemli olan otomatik yenilemenin ve ara sertifika zincirinin doğru kurulmasıdır."
+          }
+        ]
+      },
+      "basliklar": {
+        "ad": "Başlık yapısı (H1–H6)",
+        "kisa": "H1–H6 ağacı, eksik ya da birden çok H1 ve atlanan başlık seviyeleri.",
+        "giris": "Sayfanın başlık hiyerarşisini H1'den H6'ya ağaç olarak çıkarır; eksik, boş ya da birden çok H1'i, atlanan seviyeleri ve çok uzun başlıkları gösterir. Betik, stil ve şablon içindeki etiketler sayılmaz.",
+        "seoBaslik": "Başlık Yapısı Kontrolü: H1–H6 Ağacı",
+        "seoAciklama": "Ücretsiz başlık yapısı aracı: H1–H6 ağacını çıkarın; eksik ya da çift H1'i, atlanan seviyeleri ve boş başlıkları saniyeler içinde görün.",
+        "neler": [
+          "H1 var mı, tek mi, boş mu",
+          "H1–H6 ağacı ve atlanan seviyeler (ör. H2→H4)",
+          "Boş ve 70 karakterden uzun başlıklar",
+          "İlk başlığın H1 olup olmadığı",
+          "Seviye başına başlık sayısı"
+        ],
+        "sss": [
+          {
+            "s": "Bir sayfada birden çok H1 olabilir mi?",
+            "c": "Teknik olarak olabilir, ama sayfanın ana konusunu tek ve net bir H1 ile vermek hem kullanıcılar hem arama motorları için en anlaşılır yapıdır."
+          },
+          {
+            "s": "Başlık seviyesi atlamak sorun mu?",
+            "c": "Arama motorları bunu cezalandırmaz, ama H2'den H4'e atlamak yapıyı ekran okuyucu kullananlar için zorlaştırır. Seviyeyi anlam sırasına göre seçin, görünüş için CSS kullanın."
+          }
+        ]
+      },
+      "kelime": {
+        "ad": "Kelime ve anahtar kelime yoğunluğu",
+        "kisa": "En sık kelimeler, ikili ve üçlü ifadeler ve hedef anahtar kelimenin yoğunluğu (Türkçe uyumlu).",
+        "giris": "Sayfanın görünür metnini sayar; durak kelimeleri ayıklayarak en sık kelimeleri, ikili ve üçlü ifadeleri yoğunluklarıyla listeler. Hedef anahtar kelimenizi yazarsanız kaç kez geçtiğini ve başlıkta, H1'de, meta açıklamada ve adreste olup olmadığını da gösterir. Türkçede I/ı ve İ/i dönüşümü doğru yapılır.",
+        "seoBaslik": "Anahtar Kelime Yoğunluğu Aracı (Türkçe Uyumlu)",
+        "seoAciklama": "Ücretsiz anahtar kelime yoğunluğu aracı: en sık kelime ve ifadeleri, hedef kelimenizin yoğunluğunu ve başlık, H1, açıklama ve URL'de geçip geçmediğini görün.",
+        "neler": [
+          "Görünür kelime sayısı, anlamlı ve benzersiz kelimeler",
+          "En sık 20 kelime ve yoğunluk yüzdesi",
+          "En sık ikili ve üçlü ifadeler",
+          "Hedef anahtar kelimenin sayısı ve yoğunluğu",
+          "Hedef kelime başlıkta, H1'de, meta açıklamada ve adreste var mı",
+          "Türkçe I/ı ve İ/i dönüşümü; Türkçe, İngilizce ve Almanca durak kelimeler"
+        ],
+        "sss": [
+          {
+            "s": "İdeal anahtar kelime yoğunluğu nedir?",
+            "c": "Sabit bir oran yoktur; Google belirli bir yüzde aramaz. Bir ifadenin metnin %3'ünden, tek bir kelimenin %5'inden fazlasını kaplaması genellikle yapay görünür. Konuyu eş anlamlılar ve ilgili ifadelerle doğal biçimde anlatmak daha iyidir."
+          },
+          {
+            "s": "Türkçe metinlerde neden ayrıca dikkat gerekiyor?",
+            "c": "Birçok araç büyük “I” harfini “i”ye, “İ”yi noktalı birleşik bir karaktere çevirir; böylece “IŞIK” ile “ışık” ya da “İSTANBUL” ile “istanbul” ayrı kelime sayılır. Bu araç Türkçe sayfalarda I→ı, İ→i dönüşümünü doğru yapar ve “ve, bir, için” gibi durak kelimeleri ayıklar."
+          },
+          {
+            "s": "Hedef anahtar kelime nerede geçmeli?",
+            "c": "Sayfa başlığında (title), H1'de ve ilk paragrafta doğal biçimde geçmesi konuyu netleştirir; meta açıklamada ve adreste geçmesi tıklamayı kolaylaştırır. Zorlamayın: okunabilirlik her zaman önce gelir."
+          }
+        ]
+      }
+    },
+    "form": {
+      "adres": "Site adresi",
+      "adresOrnek": "ornek.com ya da https://ornek.com/sayfa",
+      "adresRobots": "Test edilecek adres (yol dahil)",
+      "adresRobotsOrnek": "ornek.com/blog/yazi",
+      "adresSitemap": "Site ya da site haritası adresi",
+      "adresSitemapOrnek": "ornek.com ya da ornek.com/sitemap.xml",
+      "adresSsl": "Alan adı",
+      "adresSslOrnek": "ornek.com",
+      "ajan": "Kullanıcı ajanı (tarayıcı)",
+      "ajanOzel": "Diğer…",
+      "ajanOzelYerTutucu": "Ör. Baiduspider",
+      "calistir": "Kontrol et",
+      "calisiyor": "Kontrol ediliyor…",
+      "bekleyin": "Site kontrol ediliyor; bu birkaç saniye sürebilir.",
+      "gizlilik": "Kayıt ya da e-posta gerekmez. Sorguladığınız adres saklanmaz.",
+      "kelime": "Hedef anahtar kelime (isteğe bağlı)",
+      "kelimeOrnek": "ör. seo ajansı",
+      "kelimeIpucu": "Yazarsanız metinde kaç kez geçtiği ve başlıkta, H1'de, meta açıklamada ve adreste olup olmadığı da kontrol edilir."
+    },
+    "hata": {
+      "adres_gecersiz": "Geçerli bir site adresi yazın (ör. ornek.com).",
+      "adres_yasak": "Bu adres kontrol edilemez. Herkese açık bir web sitesi adresi yazın.",
+      "cozumlenemedi": "Bu alan adı bulunamadı. Yazımı kontrol edin.",
+      "ulasilamadi": "Siteye ulaşılamadı. Sitenin açık olduğundan emin olup yeniden deneyin.",
+      "cok_yonlendirme": "Site çok fazla yönlendirme yapıyor; kontrol tamamlanamadı.",
+      "zaman_asimi": "Site zamanında yanıt vermedi. Biraz sonra yeniden deneyin.",
+      "ajan_gecersiz": "Kullanıcı ajanı yalnız harf, rakam, nokta, tire ve * içerebilir.",
+      "sinir_dakika": "Kısa sürede çok fazla kontrol yaptınız. Bir dakika bekleyip yeniden deneyin.",
+      "sinir_gun": "Bu araç için bugünkü kullanım sınırına ulaştınız. Yarın yeniden deneyebilirsiniz.",
+      "eposta_gecersiz": "Geçerli bir e-posta adresi yazın.",
+      "arac_yok": "Böyle bir araç yok.",
+      "beklenmedik": "Beklenmedik bir hata oluştu. Lütfen yeniden deneyin.",
+      "ag": "Sunucuya ulaşılamadı. İnternet bağlantınızı kontrol edip yeniden deneyin.",
+      "genel": "Bir şeyler ters gitti. Lütfen yeniden deneyin.",
+      "kelime_gecersiz": "Anahtar kelime en çok 6 sözcük ve 60 karakter olabilir; harf, rakam, boşluk ve kısa çizgi kullanın.",
+      "sinir_eposta": "Kısa sürede çok fazla e-posta istendi. Lütfen daha sonra yeniden deneyin.",
+      "sonuc_suresi_doldu": "Bu sonucun süresi doldu. Aracı yeniden çalıştırıp sonra gönderin.",
+      "eposta_kapali": "E-posta gönderimi şu anda kullanılamıyor.",
+      "eposta_gonderilemedi": "E-posta gönderilemedi. Birkaç dakika sonra yeniden deneyin."
+    },
+    "sayfa": {
+      "kirinti": "Sayfa konumu",
+      "geri": "Tüm SEO araçları",
+      "nelerBaslik": "Neleri kontrol eder?",
+      "sssBaslik": "Sık sorulan sorular",
+      "digerAraclar": "Diğer ücretsiz araçlar",
+      "siteAnaliziBaslik": "Sitenin tamamını puanlayalım",
+      "siteAnaliziMetin": "Tek sayfa yerine bütün siteyi hız, SEO, içerik, teknik, güvenlik ve yapay zekâ görünürlüğü açısından 100 üzerinden puanlayan ücretsiz Site Analiz Raporu.",
+      "siteAnaliziDugme": "Ücretsiz site analizi",
+      "bulunamadi": "Araç bulunamadı",
+      "bulunamadiAciklama": "Aradığınız araç kaldırılmış ya da adı değişmiş olabilir."
+    },
+    "tamAnaliz": {
+      "baslik": "Sitenin tamamına bakalım",
+      "metin": "Ücretsiz Site Analiz Raporu {{alan}} için hız, SEO, içerik, teknik, güvenlik ve yapay zekâ görünürlüğünü 0–100 puanla ölçer. Adres hazır; tek tıkla başlar.",
+      "dugme": "Sitenin tam analizini al"
+    },
+    "yonetim": {
+      "baslik": "Ücretsiz SEO araçları",
+      "aciklama": "Son {{gun}} günde araç başına günlük kullanım, sonucu e-postayla isteyenler (CRM adayı) ve “tam analiz” geçişleri. Sorgulanan adresler saklanmaz; yalnız sayılar.",
+      "arac": "Araç",
+      "gunluk": "Günlük kullanım",
+      "kullanim": "Kullanım",
+      "hata": "Hatalı",
+      "eposta": "E-posta",
+      "aday": "Yeni aday",
+      "donusum": "Dönüşüm",
+      "donusumIpucu": "E-postayla gönderilen / kullanım",
+      "tamAnaliz": "Tam analiz",
+      "toplam": "Toplam",
+      "toplamKullanim": "Toplam kullanım",
+      "toplamEposta": "E-postayla gönderilen",
+      "toplamAday": "Yeni CRM adayı",
+      "toplamTamAnaliz": "Tam analize geçen",
+      "tamAnalizAlt": "{{sayi}} kişi e-posta bıraktı",
+      "gunIpucu": "{{gun}}: {{sayi}}",
+      "sayfayiAc": "Araçlar sayfası",
+      "hataYukle": "Araç özeti yüklenemedi."
+    },
+    "eposta": {
+      "baslik": "Sonucu e-postayla gönder",
+      "aciklama": "İsteğe bağlı: bu sonucun özetini ve düzeltilmesi önerilenleri e-postanıza gönderelim.",
+      "ad": "Adınız (isteğe bağlı)",
+      "eposta": "E-posta adresiniz",
+      "istegeBagli": "isteğe bağlı",
+      "gonder": "Sonucu gönder",
+      "gonderiliyor": "Gönderiliyor…",
+      "basarili": "Sonuç e-postanıza gönderildi.",
+      "basariliMetin": "Birkaç dakika içinde gelmezse istenmeyen e-posta klasörüne bakın.",
+      "pazarlama": "Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum."
+    }
+  }
+}

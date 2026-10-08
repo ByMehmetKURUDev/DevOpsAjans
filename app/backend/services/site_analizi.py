@@ -374,50 +374,75 @@ class Yanit:
     zincir: List[Dict[str, Any]] = field(default_factory=list)
     hata: Optional[str] = None
     konum: Optional[str] = None       # yönlendirme izlenmediyse Location
+    #: Faz 4S — `ham_oku=True` ile istendiyse gövdenin ham baytları (görsel, .gz site haritası).
+    ham: bytes = b""
+    #: Faz 4S — gövde `govde_tavani`nda kesildi (dosyanın tamamı okunmadı).
+    kesildi: bool = False
 
 
 _METIN_TURLERI = ("text/", "xml", "json", "javascript")
 
 
 class Gezgin:
-    """Tek analiz boyunca kullanılan, her adımı denetleyen istek yapıcı."""
+    """Tek analiz boyunca kullanılan, her adımı denetleyen istek yapıcı.
+
+    Faz 4S (ücretsiz SEO araçları) aynı istemciyi kullanıyor; eklenenler
+    geriye uyumlu, varsayılanlar eski davranış:
+
+    * `gunlukle=False` — başarısız istekte adres günlüğe YAZILMAZ (araçlarda
+      sorgulanan adres hiçbir yerde kalıcı tutulmuyor; yalnız hata türü).
+    * `govde_tavani` — gövde okuma tavanı (varsayılan GOVDE_TAVANI).
+    * `getir(..., ham_oku=True)` — içerik türüne bakmadan ham bayt (görsel boyutu,
+      sıkıştırılmış site haritası); `Yanit.ham`, `Yanit.kesildi`.
+    * `getir(..., dongu_algila=True)` — aynı adrese ikinci kez yönlendirilince
+      durur, `hata="dongu"` (varsayılan: 5 adımda `cok_yonlendirme`).
+    """
 
     def __init__(
         self,
         istemci: httpx.AsyncClient,
         eszamanlilik: int = ESZAMANLILIK,
         zaman_asimi: float = ISTEK_ZAMAN_ASIMI,
+        gunlukle: bool = True,
+        govde_tavani: int = GOVDE_TAVANI,
     ):
         self.istemci = istemci
         self.onbellek: Dict[str, bool] = {}
         self.kilit = asyncio.Semaphore(eszamanlilik)
         self.zaman_asimi = zaman_asimi
+        self.gunlukle = gunlukle
+        self.govde_tavani = govde_tavani
 
-    async def _oku(self, yanit: httpx.Response) -> str:
+    async def _oku(self, yanit: httpx.Response, ham_oku: bool = False) -> Tuple[str, bytes, bool]:
+        """(metin, ham, kesildi). Metin olmayan türde metin boş; `ham_oku` ise baytlar yine okunur."""
         tur = (yanit.headers.get("content-type") or "").lower()
-        if tur and not any(p in tur for p in _METIN_TURLERI):
-            return ""
+        metin_mi = not tur or any(p in tur for p in _METIN_TURLERI)
+        if not metin_mi and not ham_oku:
+            return "", b"", False
         parcalar: List[bytes] = []
         boyut = 0
+        kesildi = False
         async for parca in yanit.aiter_bytes():
             parcalar.append(parca)
             boyut += len(parca)
-            if boyut >= GOVDE_TAVANI:
+            if boyut > self.govde_tavani:
+                kesildi = True
                 break
-        ham = b"".join(parcalar)[:GOVDE_TAVANI]
-        return ham.decode(yanit.encoding or "utf-8", errors="replace")
+        ham = b"".join(parcalar)[: self.govde_tavani]
+        metin = ham.decode(yanit.encoding or "utf-8", errors="replace") if metin_mi else ""
+        return metin, (ham if ham_oku else b""), kesildi
 
-    async def _tek_adim(self, yontem: str, url: str, govde_oku: bool, izle: bool):
+    async def _tek_adim(self, yontem: str, url: str, govde_oku: bool, izle: bool, ham_oku: bool = False):
         istek = self.istemci.build_request(yontem, url)
         yanit = await self.istemci.send(istek, stream=True)
         try:
             konum = yanit.headers.get("location")
             yonlendirme = yanit.status_code in (301, 302, 303, 307, 308) and bool(konum)
-            govde = ""
+            govde, ham, kesildi = "", b"", False
             if govde_oku and yontem != "HEAD" and not (izle and yonlendirme):
-                govde = await self._oku(yanit)
+                govde, ham, kesildi = await self._oku(yanit, ham_oku)
             basliklar = {k.lower(): v for k, v in yanit.headers.items()}
-            return yanit.status_code, basliklar, govde, (konum if yonlendirme else None)
+            return yanit.status_code, basliklar, govde, (konum if yonlendirme else None), ham, kesildi
         finally:
             await yanit.aclose()
 
@@ -427,11 +452,19 @@ class Gezgin:
         yontem: str = "GET",
         govde_oku: bool = True,
         izle: bool = True,
+        ham_oku: bool = False,
+        dongu_algila: bool = False,
     ) -> Yanit:
         basla = time.perf_counter()
         zincir: List[Dict[str, Any]] = []
         simdiki = url
+        gorulen = set()
         for _adim in range(EN_COK_YONLENDIRME + 1):
+            if dongu_algila:
+                if simdiki in gorulen:
+                    return Yanit(url=simdiki, zincir=zincir, hata="dongu",
+                                 sure_ms=int((time.perf_counter() - basla) * 1000))
+                gorulen.add(simdiki)
             try:
                 await adres_dogrula(simdiki, self.onbellek)
             except AnalizHatasi as exc:
@@ -439,12 +472,15 @@ class Gezgin:
                              sure_ms=int((time.perf_counter() - basla) * 1000))
             try:
                 async with self.kilit:
-                    durum, basliklar, govde, konum = await asyncio.wait_for(
-                        self._tek_adim(yontem, simdiki, govde_oku, izle),
+                    durum, basliklar, govde, konum, ham, kesildi = await asyncio.wait_for(
+                        self._tek_adim(yontem, simdiki, govde_oku, izle, ham_oku),
                         self.zaman_asimi + 1,
                     )
             except (httpx.HTTPError, asyncio.TimeoutError, OSError, ssl.SSLError) as exc:
-                logger.info("Analiz isteği başarısız: %s (%s)", simdiki, type(exc).__name__)
+                if self.gunlukle:
+                    logger.info("Analiz isteği başarısız: %s (%s)", simdiki, type(exc).__name__)
+                else:
+                    logger.info("Araç isteği başarısız (%s)", type(exc).__name__)
                 return Yanit(url=simdiki, zincir=zincir, hata="ulasilamadi",
                              sure_ms=int((time.perf_counter() - basla) * 1000))
             zincir.append({"url": simdiki, "durum": durum})
@@ -454,8 +490,11 @@ class Gezgin:
             return Yanit(
                 url=simdiki, durum=durum, basliklar=basliklar, govde=govde,
                 sure_ms=int((time.perf_counter() - basla) * 1000),
-                zincir=zincir, konum=konum,
+                zincir=zincir, konum=konum, ham=ham, kesildi=kesildi,
             )
+        if dongu_algila and simdiki in gorulen:
+            return Yanit(url=simdiki, zincir=zincir, hata="dongu",
+                         sure_ms=int((time.perf_counter() - basla) * 1000))
         return Yanit(url=simdiki, zincir=zincir, hata="cok_yonlendirme",
                      sure_ms=int((time.perf_counter() - basla) * 1000))
 
@@ -566,6 +605,165 @@ async def _ssl_bitis(host: str) -> Tuple[Optional[datetime], Optional[str]]:
         )
     except Exception:
         return None, "olculemedi"
+
+
+# --------------------------------------------------------------------------
+# Faz 4S — sertifika ayrıntısı (ücretsiz SSL aracı)
+# --------------------------------------------------------------------------
+def _ad_ozeti(ad: Any) -> Dict[str, str]:
+    """`cryptography` Name → {"cn","o"} (yalnız okunur metin)."""
+    sonuc: Dict[str, str] = {}
+    try:
+        from cryptography.x509.oid import NameOID
+
+        for anahtar, oid in (("cn", NameOID.COMMON_NAME), ("o", NameOID.ORGANIZATION_NAME)):
+            degerler = ad.get_attributes_for_oid(oid)
+            if degerler:
+                sonuc[anahtar] = str(degerler[0].value)[:200]
+    except Exception:  # noqa: BLE001
+        pass
+    return sonuc
+
+
+def sertifika_coz(der: bytes) -> Dict[str, Any]:
+    """DER sertifikadan gösterilecek alanlar (konu, yayıncı, tarihler, SAN, anahtar, AIA)."""
+    from cryptography import x509
+    from cryptography.hazmat.primitives.asymmetric import ec, rsa
+
+    s = x509.load_der_x509_certificate(der)
+    try:
+        bas, son = s.not_valid_before_utc, s.not_valid_after_utc
+    except AttributeError:  # pragma: no cover - eski cryptography
+        bas = s.not_valid_before.replace(tzinfo=timezone.utc)
+        son = s.not_valid_after.replace(tzinfo=timezone.utc)
+    san: List[str] = []
+    try:
+        uzanti = s.extensions.get_extension_for_class(x509.SubjectAlternativeName)
+        san = [str(a) for a in uzanti.value.get_values_for_type(x509.DNSName)][:50]
+    except Exception:  # noqa: BLE001
+        pass
+    aia: Optional[str] = None
+    try:
+        from cryptography.x509.oid import AuthorityInformationAccessOID
+
+        uzanti = s.extensions.get_extension_for_class(x509.AuthorityInformationAccess)
+        for erisim in uzanti.value:
+            if erisim.access_method == AuthorityInformationAccessOID.CA_ISSUERS:
+                aia = str(erisim.access_location.value)[:300]
+                break
+    except Exception:  # noqa: BLE001
+        pass
+    anahtar = s.public_key()
+    if isinstance(anahtar, rsa.RSAPublicKey):
+        anahtar_turu = f"RSA {anahtar.key_size}"
+    elif isinstance(anahtar, ec.EllipticCurvePublicKey):
+        anahtar_turu = f"EC {anahtar.curve.name}"
+    else:
+        anahtar_turu = type(anahtar).__name__.replace("PublicKey", "")
+    try:
+        imza = s.signature_hash_algorithm.name if s.signature_hash_algorithm else "-"
+    except Exception:  # noqa: BLE001
+        imza = "-"
+    return {
+        "konu": _ad_ozeti(s.subject),
+        "yayinci": _ad_ozeti(s.issuer),
+        "baslangic": bas.isoformat(),
+        "bitis": son.isoformat(),
+        "san": san,
+        "seri": format(s.serial_number, "X")[:64],
+        "imza": imza,
+        "anahtar": anahtar_turu,
+        "aia": aia,
+        "kendinden_imzali": s.subject == s.issuer,
+    }
+
+
+def _ssl_bilgisi_esz(host: str, ip: str, port: int = 443) -> Dict[str, Any]:
+    """Sertifika + bağlantı ayrıntısı (eşzamanlı; iş parçacığında çalışır).
+
+    Önce doğrulamalı bağlanılıyor: başarılıysa zincir güvenilir köke ulaşıyor ve
+    ad eşleşiyor. Doğrulama düşerse hata nedeni (OpenSSL doğrulama kodu) alınıp
+    sertifikayı yine gösterebilmek için doğrulamasız ikinci bir bağlantı açılıyor
+    (yalnız sertifikayı okumak için — başka veri gönderilmiyor).
+    """
+    sonuc: Dict[str, Any] = {"dogrulandi": False, "hata": None, "hata_kodu": None}
+
+    def _baglan(dogrula: bool):
+        baglam = ssl.create_default_context()
+        if not dogrula:
+            baglam.check_hostname = False
+            baglam.verify_mode = ssl.CERT_NONE
+        soket = socket.create_connection((ip, port), timeout=SSL_ZAMAN_ASIMI)
+        try:
+            return baglam.wrap_socket(soket, server_hostname=host)
+        except Exception:
+            soket.close()
+            raise
+
+    tls = None
+    try:
+        tls = _baglan(True)
+        sonuc["dogrulandi"] = True
+    except ssl.SSLCertVerificationError as exc:
+        sonuc["hata"] = (getattr(exc, "verify_message", "") or str(exc))[:200]
+        sonuc["hata_kodu"] = getattr(exc, "verify_code", None)
+    except (OSError, ssl.SSLError, ValueError) as exc:
+        sonuc["hata"] = "baglanti"
+        sonuc["baglanti_hatasi"] = type(exc).__name__
+        return sonuc
+    try:
+        if tls is None:
+            tls = _baglan(False)
+        sonuc["tls_surumu"] = tls.version()
+        sifre = tls.cipher()
+        sonuc["sifre"] = sifre[0] if sifre else None
+        der = tls.getpeercert(binary_form=True)
+        zincir_der: List[bytes] = []
+        # Python 3.13+: doğrulanmış zincirin tamamı; daha eskisinde yalnız yaprak + AIA.
+        for ad in ("get_verified_chain", "get_unverified_chain"):
+            fonk = getattr(tls, ad, None) or getattr(getattr(tls, "_sslobj", None), ad, None)
+            if fonk is None:
+                continue
+            try:
+                parcalar = fonk() or []
+                zincir_der = [p if isinstance(p, bytes) else p.public_bytes(ssl._ssl.ENCODING_DER) for p in parcalar]  # type: ignore[attr-defined]
+            except Exception:  # noqa: BLE001
+                zincir_der = []
+            if zincir_der:
+                break
+    except (OSError, ssl.SSLError, ValueError) as exc:
+        sonuc["hata"] = sonuc["hata"] or "baglanti"
+        sonuc["baglanti_hatasi"] = type(exc).__name__
+        return sonuc
+    finally:
+        if tls is not None:
+            try:
+                tls.close()
+            except OSError:
+                pass
+    if der:
+        try:
+            sonuc["sertifika"] = sertifika_coz(der)
+        except Exception:  # noqa: BLE001
+            sonuc["sertifika"] = None
+    zincir: List[Dict[str, Any]] = []
+    for parca in zincir_der[:6]:
+        try:
+            c = sertifika_coz(parca)
+            zincir.append({"konu": c["konu"], "yayinci": c["yayinci"], "bitis": c["bitis"]})
+        except Exception:  # noqa: BLE001
+            continue
+    sonuc["zincir"] = zincir
+    return sonuc
+
+
+async def ssl_bilgisi(host: str) -> Dict[str, Any]:
+    """Sertifika ayrıntısı. Adres SSRF denetiminden geçmezse AnalizHatasi."""
+    ipler = await _guvenli_ipler(host, 443)
+    try:
+        return await asyncio.wait_for(asyncio.to_thread(_ssl_bilgisi_esz, host, ipler[0]), SSL_ZAMAN_ASIMI * 2 + 2)
+    except asyncio.TimeoutError:
+        return {"dogrulandi": False, "hata": "baglanti", "baglanti_hatasi": "TimeoutError"}
 
 
 # --------------------------------------------------------------------------

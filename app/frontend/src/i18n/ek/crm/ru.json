@@ -118,7 +118,8 @@
       "form": "Встроенная форма",
       "manuel": "Добавлен вручную",
       "eposta": "Эл. почта",
-      "modul_vitrini": "Витрина модулей"
+      "modul_vitrini": "Витрина модулей",
+      "seo_araci": "Бесплатный SEO-инструмент"
     },
     "aktivite": {
       "not": "Заметка",
@@ -302,7 +303,8 @@
       "kaynakForm": "форма #{{no}}",
       "kaynakSiteAnalizi": "анализ сайта",
       "rozet": "разрешение на маркетинг",
-      "kaynakModulVitrini": "витрина модулей ({{anahtar}})"
+      "kaynakModulVitrini": "витрина модулей ({{anahtar}})",
+      "kaynakSeoAraci": "бесплатный SEO-инструмент ({{arac}})"
     }
   }
 }

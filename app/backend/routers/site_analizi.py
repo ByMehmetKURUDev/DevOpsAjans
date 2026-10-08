@@ -86,6 +86,9 @@ _HATA_KODLARI = {
 # --------------------------------------------------------------------------
 class AnalizGirdisi(BaseModel):
     url: str
+    #: Faz 4S — ücretsiz SEO aracının "Sitenin tam analizini al" düğmesi: aracın kısa adı
+    #: (ör. "meta-etiketleri"). Bilinmeyen değer yok sayılır; yalnız herkese açık uçta.
+    arac: Optional[str] = None
 
 
 class TamRaporGirdisi(BaseModel):
@@ -247,6 +250,7 @@ def _tam_rapor(kayit: Site_analyses, *, yonetici: bool = False, sahip: bool = Fa
                 "pazarlama_metin_surumu": kayit.pazarlama_metin_surumu,
                 "inquiry_id": kayit.inquiry_id,
                 "kaynak": kayit.kaynak,
+                "arac": kayit.arac,
                 "gonderildi_at": _iso(kayit.gonderildi_at),
             }
         )
@@ -270,6 +274,7 @@ def _liste_satiri(kayit: Site_analyses, *, yonetici: bool = False) -> Dict[str, 
                 "ad": kayit.ad,
                 "inquiry_id": kayit.inquiry_id,
                 "kaynak": kayit.kaynak,
+                "arac": kayit.arac,
             }
         )
     return satir
@@ -312,9 +317,12 @@ async def analiz_baslat(
     ) >= IP_SAATLIK_SINIR:
         raise _hata(429, "sinir_ip")
 
+    from services.seo_araclari import ARACLAR
+
     kayit = Site_analyses(
         alan_adi=alan, url=url, ip_ozeti=ip_ozeti, durum="calisiyor",
         kaynak="acik", kvkk_onay=False, created_at=simdi,
+        arac=govde.arac if govde.arac in ARACLAR else None,
     )
     db.add(kayit)
     await db.commit()
@@ -391,6 +399,7 @@ async def tam_rapor_iste(
                 f"Genel puan: {kayit.puan if kayit.puan is not None else '—'}/100\n"
                 f"Bölümler: {bolum_satiri}\n"
                 f"Analiz no: {kayit.id}"
+                + (f"\nKaynak: ücretsiz SEO aracı ({kayit.arac})" if kayit.arac else "")
             ),
             status="new",
             source="site_analizi",

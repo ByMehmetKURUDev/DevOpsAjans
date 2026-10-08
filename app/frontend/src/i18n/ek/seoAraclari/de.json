@@ -1,0 +1,381 @@
+{
+  "seoAraclari": {
+    "seo": {
+      "baslik": "Kostenlose SEO-Tools: Meta, Schema, SSL | Mehmet KURU",
+      "aciklama": "Kostenlose SEO-Tools ohne Anmeldung: Meta-Tags, Open Graph, Schema, robots.txt, Sitemap, Weiterleitungen, Sicherheit, SSL, Überschriften und Keyword-Dichte.",
+      "anaSayfa": "Startseite",
+      "araclar": "SEO-Tools"
+    },
+    "dizin": {
+      "etiket": "Kostenlose Tools",
+      "baslik1": "Kostenlose",
+      "baslikVurgu": "SEO-Tools",
+      "giris": "Prüfen Sie das technische SEO Ihrer Website mit einer einzigen URL in Sekunden. Keine Anmeldung, keine E-Mail; jedes Ergebnis erklärt, warum das Problem wichtig ist und wie Sie es beheben.",
+      "araciAc": "Tool öffnen",
+      "nedenBaslik": "Warum diese Tools?",
+      "neden": [
+        "Völlig kostenlos und auf unserem eigenen Server; kein kostenpflichtiger Drittanbieterdienst.",
+        "Keine Anmeldung und keine E-Mail nötig. Ergebnisse sehen nur Sie, sie werden nirgends öffentlich gelistet.",
+        "Die geprüfte Adresse wird nicht gespeichert; wir zählen nur die tägliche Nutzung pro Tool."
+      ],
+      "sssBaslik": "Häufige Fragen",
+      "sss": [
+        {
+          "s": "Sind die SEO-Tools wirklich kostenlos?",
+          "c": "Ja. Alle Tools sind kostenlos, und Sie brauchen weder ein Konto noch eine E-Mail-Adresse. Zum Schutz vor Missbrauch gibt es pro Tool ein Limit pro Minute und pro Tag."
+        },
+        {
+          "s": "Wird die geprüfte Adresse gespeichert?",
+          "c": "Nein. Die Adresse wird nur für die Prüfung verwendet und weder in einer Datenbank noch in Protokollen gespeichert. Wir zählen nur, wie oft jedes Tool pro Tag genutzt wird."
+        },
+        {
+          "s": "Was, wenn ich eine gründlichere Analyse möchte?",
+          "c": "Die Schaltfläche „Vollständige Analyse der Website“ unter jedem Ergebnis führt Sie mit bereits eingetragener Adresse zum kostenlosen Website-Analysebericht; er bewertet Geschwindigkeit, SEO, Inhalte, Technik, Sicherheit und KI-Sichtbarkeit Ihrer Website mit 0–100 Punkten."
+        },
+        {
+          "s": "Kann ich das Ergebnis per E-Mail erhalten?",
+          "c": "Ja, optional. Mit dem Formular unter dem Ergebnis senden Sie sich die Zusammenfassung und die empfohlenen Korrekturen zu; dafür ist nur Ihre E-Mail-Adresse nötig. Werbe-E-Mails werden separat und freiwillig abgefragt."
+        }
+      ]
+    },
+    "arac": {
+      "meta": {
+        "ad": "Meta-Tag-Prüfung",
+        "kisa": "Länge von Titel und Beschreibung, Canonical, Robots, Viewport, lang und hreflang.",
+        "giris": "Prüft, wie sich Ihre Seite Suchmaschinen vorstellt: ob Titel und Beschreibung in den Suchergebnissen abgeschnitten werden, die Canonical-URL, die Indexierungsfreigabe, den mobilen Viewport und die Sprach-Tags.",
+        "seoBaslik": "Meta-Tag-Prüfung (Title, Description)",
+        "seoAciklama": "Kostenlose Meta-Tag-Prüfung: Länge von Title und Description, Canonical, Robots-Meta, Viewport, lang und hreflang in Sekunden testen.",
+        "neler": [
+          "Länge von Title und Meta-Description (nach Pixelbreite)",
+          "Canonical-Tag: vorhanden, eindeutig, selbstreferenzierend",
+          "Robots-Meta und X-Robots-Tag: noindex / nofollow",
+          "Mobiler Viewport und Zoom-Einstellung",
+          "html-lang-Attribut und hreflang-Links"
+        ],
+        "sss": [
+          {
+            "s": "Wie lang sollten Title und Description sein?",
+            "c": "Google kürzt nach Pixelbreite, nicht nach Zeichen. Etwa 30–60 Zeichenbreiten für den Titel und 70–160 für die Beschreibung sind sicher; breite Zeichen wie Chinesisch zählt das Tool doppelt."
+          },
+          {
+            "s": "Warum ist das Canonical-Tag wichtig?",
+            "c": "Ist derselbe Inhalt unter mehreren URLs erreichbar, sagt das Canonical Google, welche die Hauptseite ist. So bündeln sich Ranking-Signale auf einer URL und Duplicate Content wird vermieden."
+          }
+        ]
+      },
+      "og": {
+        "ad": "Open-Graph- und Twitter-Card-Vorschau",
+        "kisa": "So sieht Ihre Teilen-Karte in sozialen Netzwerken aus; Bildgröße und Erreichbarkeit.",
+        "giris": "Zeigt, wie Ihr Link beim Teilen auf WhatsApp, LinkedIn, Facebook oder X aussieht. Prüft Open-Graph- und Twitter-Card-Tags sowie, ob das Teilen-Bild lädt, seine Abmessungen und seine Dateigröße.",
+        "seoBaslik": "Open-Graph- und Twitter-Card-Vorschau",
+        "seoAciklama": "Kostenlose Open-Graph- und Twitter-Card-Vorschau: og:title, og:description und og:image, Bildgröße und Erreichbarkeit prüfen und die Karte sehen.",
+        "neler": [
+          "og:title, og:description, og:url und og:type",
+          "twitter:card-Typ",
+          "og:image: lädt es, ist es wirklich ein Bild",
+          "Bildgröße (1200×630 empfohlen) und Dateigröße",
+          "Vorschau der Teilen-Karte"
+        ],
+        "sss": [
+          {
+            "s": "Welche Größe sollte das Teilen-Bild haben?",
+            "c": "Am sichersten sind 1200×630 Pixel (etwa 1,91:1). Bilder unter 200×200 werden auf vielen Plattformen gar nicht angezeigt; die Datei sollte unter 5 MB liegen und per https ausgeliefert werden."
+          },
+          {
+            "s": "Ich habe die Tags geändert, aber die Vorschau ist alt. Warum?",
+            "c": "Soziale Netzwerke speichern Vorschauen zwischen. Lassen Sie die URL mit dem Facebook Sharing Debugger oder dem LinkedIn Post Inspector neu abrufen, um den Cache zu erneuern."
+          }
+        ]
+      },
+      "schema": {
+        "ad": "Schema-Leser (JSON-LD)",
+        "kisa": "Typen strukturierter Daten, fehlende Pflichtfelder und Syntaxfehler.",
+        "giris": "Liest die JSON-LD-Blöcke einer Seite: welche schema.org-Typen vorhanden sind, nach Grundregeln fehlende Pflicht- und empfohlene Felder sowie JSON-Syntaxfehler mit Zeile und Spalte.",
+        "seoBaslik": "Schema-Leser und -Validator (JSON-LD)",
+        "seoAciklama": "Kostenloser Schema-Leser: JSON-LD-Blöcke, schema.org-Typen, fehlende Pflichtfelder und Syntaxfehler mit Zeilen- und Spaltenangabe ansehen.",
+        "neler": [
+          "Syntax der JSON-LD-Blöcke (mit Zeile und Spalte)",
+          "Gefundene Typen: Organization, Product, Article, FAQPage…",
+          "Fehlende Pflicht- und empfohlene Felder nach Grundregeln",
+          "@graph und verschachtelte Elemente",
+          "Vorhandensein von Microdata und RDFa"
+        ],
+        "sss": [
+          {
+            "s": "Verbessern strukturierte Daten direkt das Ranking?",
+            "c": "Sie sind kein direktes Rankingsignal, machen Seiten aber für Rich Results wie Sterne, FAQ und Produktpreise berechtigt und helfen KI-Suchen, Ihre Seite richtig zu verstehen."
+          },
+          {
+            "s": "Ersetzt das Tool den Rich-Results-Test von Google?",
+            "c": "Nein; es ist eine schnelle Vorprüfung der Grundregeln. Prüfen Sie vor der Veröffentlichung zusätzlich mit dem Rich-Results-Test von Google."
+          }
+        ]
+      },
+      "robots": {
+        "ad": "robots.txt-Tester",
+        "kisa": "Ist ein Pfad für den gewählten Crawler offen oder gesperrt; Sitemap-Zeilen.",
+        "giris": "Liest die robots.txt Ihrer Website und sagt Ihnen nach den Abgleichregeln von Google, ob die eingegebene URL vom gewählten Crawler (Googlebot, Bingbot, GPTBot…) gecrawlt werden darf, und zeigt die passende Regel mit Zeilennummer.",
+        "seoBaslik": "robots.txt-Tester (Pfad und Bot prüfen)",
+        "seoAciklama": "Kostenloser robots.txt-Tester: sehen, ob ein Pfad für Googlebot, Bingbot oder GPTBot gesperrt ist, mit passender Regel und Sitemap-Zeilen.",
+        "neler": [
+          "Erlauben / Sperren für den gewählten Pfad und User-Agent",
+          "Passende Regel und Zeilennummer (längste Regel gewinnt)",
+          "Ist die ganze Website gesperrt",
+          "Sitemap-Zeilen",
+          "Syntaxhinweise und Dateigröße"
+        ],
+        "sss": [
+          {
+            "s": "Fällt eine per robots.txt gesperrte Seite aus dem Index?",
+            "c": "Nein. robots.txt sperrt nur das Crawlen; eine von anderswo verlinkte Seite kann im Index bleiben. Zum Entfernen muss die Seite crawlbar sein und noindex tragen."
+          },
+          {
+            "s": "Sollte ich KI-Crawler sperren?",
+            "c": "Das hängt von Ihrem Geschäft ab. Wer GPTBot, ClaudeBot oder PerplexityBot sperrt, erscheint seltener in KI-Antworten; lassen Sie sie offen, wenn Sie diese Sichtbarkeit wollen."
+          }
+        ]
+      },
+      "sitemap": {
+        "ad": "XML-Sitemap-Validator",
+        "kisa": "Anzahl der URLs, fehlerhafte URLs, lastmod-Format und 4xx/5xx in einer Stichprobe.",
+        "giris": "Findet Ihre XML-Sitemap (über robots.txt oder /sitemap.xml) und prüft Format, Anzahl der URLs, fehlerhafte oder fremde URLs und das lastmod-Datumsformat; außerdem ruft es eine Stichprobe auf, um URLs mit 4xx/5xx oder Weiterleitungen zu finden.",
+        "seoBaslik": "XML-Sitemap-Validator",
+        "seoAciklama": "Kostenloser XML-Sitemap-Validator: URL-Anzahl, fehlerhafte URLs und lastmod-Format prüfen und Seiten mit 404 oder 500 in einer Stichprobe finden.",
+        "neler": [
+          "Sitemap über robots.txt oder die Standard-URL finden",
+          "XML-Format, Namespace und 50.000-URL-Grenze",
+          "Fehlerhafte, doppelte und fremde URLs",
+          "lastmod-Format (W3C) und Daten in der Zukunft",
+          "4xx/5xx und Weiterleitungen in einer Stichprobe; .gz und Sitemap-Index"
+        ],
+        "sss": [
+          {
+            "s": "Welche Seiten gehören in die Sitemap?",
+            "c": "Nur kanonische URLs, die 200 liefern und indexiert werden sollen. Weitergeleitete Seiten, 404-Seiten und Seiten mit noindex gehören nicht hinein."
+          },
+          {
+            "s": "Ist lastmod Pflicht?",
+            "c": "Nein, aber wenn es stimmt, bemerkt Google geänderte Seiten schneller. Verwenden Sie das W3C-Format (z. B. 2026-10-01 oder 2026-10-01T10:00:00+03:00) und das echte Änderungsdatum."
+          }
+        ]
+      },
+      "yonlendirme": {
+        "ad": "Weiterleitungskette und Statuscode",
+        "kisa": "http→https, www-Konsistenz, Kettenlänge und Schleifen.",
+        "giris": "Zeigt, über welche Schritte eine URL wohin führt: den Statuscode jedes Schritts, eine dauerhafte Weiterleitung von http auf https, ob www und ohne www am selben Ziel ankommen, unnötig lange Ketten und Weiterleitungsschleifen.",
+        "seoBaslik": "Weiterleitungskette und Statuscode prüfen",
+        "seoAciklama": "Kostenlose Weiterleitungsprüfung: 301/302-Kette Schritt für Schritt, Wechsel von http auf https, www-Konsistenz, Schleifen und finaler Statuscode.",
+        "neler": [
+          "HTTP-Statuscode jedes Schritts (301, 302, 307, 308, 200, 404…)",
+          "Dauerhafte Weiterleitung http → https",
+          "www und ohne www führen zu einer URL",
+          "Kettenlänge und temporäre Weiterleitungen",
+          "Weiterleitungsschleifen"
+        ],
+        "sss": [
+          {
+            "s": "Was ist der Unterschied zwischen 301 und 302?",
+            "c": "301 (und 308) ist dauerhaft: Suchmaschinen übernehmen die neue URL und übertragen Rankingsignale. 302 (und 307) ist temporär; bei Umzügen und der Umstellung auf https dauerhaft weiterleiten."
+          },
+          {
+            "s": "Wie viele Weiterleitungen sind zu viele?",
+            "c": "Ideal ist ein Schritt. Jeder weitere Schritt verlangsamt die Seite und kostet Crawl-Budget; Google folgt höchstens 10 Sprüngen, aber schon Ketten mit mehr als zwei Schritten sollten behoben werden."
+          }
+        ]
+      },
+      "guvenlik": {
+        "ad": "HTTP-Sicherheits-Header",
+        "kisa": "HSTS, CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy — mit Punktzahl.",
+        "giris": "Prüft die Sicherheits-Header Ihres Servers und bewertet sie mit bis zu 100 Punkten: HSTS, Content Security Policy (CSP), Schutz vor Einbettung in Frames, MIME-Sniffing-Schutz, Referrer-Policy und Permissions-Policy. Für jeden fehlenden Header steht, was zu tun ist.",
+        "seoBaslik": "HTTP-Sicherheits-Header-Test (HSTS, CSP)",
+        "seoAciklama": "Kostenloser Sicherheits-Header-Test: HSTS, CSP, X-Content-Type-Options, Referrer-Policy und Permissions-Policy mit bis zu 100 Punkten bewerten.",
+        "neler": [
+          "Strict-Transport-Security (HSTS) und Dauer",
+          "Content-Security-Policy: unsafe-inline / unsafe-eval",
+          "X-Frame-Options oder frame-ancestors",
+          "X-Content-Type-Options: nosniff",
+          "Referrer-Policy und Permissions-Policy; Server-Versionsangabe"
+        ],
+        "sss": [
+          {
+            "s": "Beeinflussen Sicherheits-Header das SEO?",
+            "c": "Sie sind kein direktes Rankingsignal, doch HTTPS und Nutzersicherheit gehören zur Page Experience von Google, und eine kompromittierte Website kann in den Ergebnissen mit Warnung erscheinen."
+          },
+          {
+            "s": "Macht eine CSP meine Website kaputt?",
+            "c": "Eine falsche Richtlinie kann Skripte blockieren. Testen Sie sie zuerst mit Content-Security-Policy-Report-Only, beheben Sie die Verstöße und schalten Sie dann in den erzwingenden Modus."
+          }
+        ]
+      },
+      "ssl": {
+        "ad": "SSL-Zertifikatsprüfung",
+        "kisa": "Ablaufdatum, verbleibende Tage, Aussteller, Kette und TLS-Version.",
+        "giris": "Prüft das SSL/TLS-Zertifikat Ihrer Domain: Ist es gültig und vertrauenswürdig, passt der Name, wann läuft es ab, wer hat es ausgestellt, ist die Kette vollständig und mit welcher TLS-Version wird verbunden.",
+        "seoBaslik": "SSL-Zertifikat prüfen: Ablauf und Kette",
+        "seoAciklama": "Kostenlose SSL-Zertifikatsprüfung: Ablaufdatum, verbleibende Tage, Aussteller, Zertifikatskette, abgedeckte Domains und TLS-Version in Sekunden.",
+        "neler": [
+          "Ist das Zertifikat vertrauenswürdig und passt es zur Domain",
+          "Ablaufdatum und verbleibende Tage",
+          "Aussteller, abgedeckte Domains (SAN), Schlüsseltyp",
+          "Zwischenzertifikatskette",
+          "TLS-Version und Cipher-Suite"
+        ],
+        "sss": [
+          {
+            "s": "Was passiert, wenn das SSL-Zertifikat abläuft?",
+            "c": "Browser zeigen eine ganzseitige Sicherheitswarnung, die meisten Besucher springen ab, und Traffic sowie Umsatz brechen sofort ein. Prüfen Sie regelmäßig, ob die automatische Verlängerung funktioniert."
+          },
+          {
+            "s": "Reicht ein kostenloses Zertifikat?",
+            "c": "Für die meisten Websites ja. Kostenlose Zertifikate wie Let's Encrypt bieten dieselbe Verschlüsselung; entscheidend sind die automatische Verlängerung und eine korrekt eingerichtete Zwischenkette."
+          }
+        ]
+      },
+      "basliklar": {
+        "ad": "Überschriftenstruktur (H1–H6)",
+        "kisa": "H1–H6-Baum, fehlende oder doppelte H1 und übersprungene Ebenen.",
+        "giris": "Zeigt die Überschriftenhierarchie der Seite von H1 bis H6 als Baum und meldet eine fehlende, leere oder doppelte H1, übersprungene Ebenen und sehr lange Überschriften. Tags in Skripten, Styles und Templates werden ignoriert.",
+        "seoBaslik": "Überschriften-Checker: H1–H6-Baum",
+        "seoAciklama": "Kostenloser Überschriften-Checker: H1–H6-Baum anzeigen und fehlende oder doppelte H1, übersprungene Ebenen und leere Überschriften in Sekunden finden.",
+        "neler": [
+          "Gibt es eine H1, nur eine, ist sie leer?",
+          "H1–H6-Baum und übersprungene Ebenen (z. B. H2→H4)",
+          "Leere Überschriften und Überschriften über 70 Zeichen",
+          "Ob die erste Überschrift die H1 ist",
+          "Anzahl der Überschriften je Ebene"
+        ],
+        "sss": [
+          {
+            "s": "Darf eine Seite mehrere H1 haben?",
+            "c": "Technisch ja, aber das Hauptthema mit einer klaren H1 zu nennen, ist für Besucher und Suchmaschinen die verständlichste Struktur."
+          },
+          {
+            "s": "Ist es ein Problem, eine Ebene zu überspringen?",
+            "c": "Suchmaschinen bestrafen das nicht, aber ein Sprung von H2 zu H4 erschwert Screenreader-Nutzern die Orientierung. Wählen Sie die Ebene nach Bedeutung und die Größe per CSS."
+          }
+        ]
+      },
+      "kelime": {
+        "ad": "Wort- und Keyword-Dichte",
+        "kisa": "Häufigste Wörter, Zwei- und Dreiwortphrasen und die Dichte Ihres Ziel-Keywords (mit Türkisch-Unterstützung).",
+        "giris": "Zählt den sichtbaren Text der Seite, entfernt Stoppwörter und listet die häufigsten Wörter sowie Zwei- und Dreiwortphrasen mit ihrer Dichte. Mit einem Ziel-Keyword sehen Sie außerdem, wie oft es vorkommt und ob es im Title, in der H1, in der Meta-Beschreibung und in der URL steht. Türkisches I/ı und İ/i wird korrekt behandelt.",
+        "seoBaslik": "Keyword-Dichte-Checker (mit Türkisch-Unterstützung)",
+        "seoAciklama": "Kostenloses Keyword-Dichte-Tool: häufigste Wörter und Phrasen, Dichte Ihres Ziel-Keywords und ob es in Title, H1, Beschreibung und URL vorkommt.",
+        "neler": [
+          "Sichtbare Wortzahl, bedeutungstragende und eindeutige Wörter",
+          "Die 20 häufigsten Wörter mit Dichte in Prozent",
+          "Häufigste Zwei- und Dreiwortphrasen",
+          "Anzahl und Dichte Ihres Ziel-Keywords",
+          "Steht das Ziel-Keyword in Title, H1, Meta-Beschreibung und URL?",
+          "Türkisches I/ı und İ/i; türkische, englische und deutsche Stoppwörter"
+        ],
+        "sss": [
+          {
+            "s": "Was ist die ideale Keyword-Dichte?",
+            "c": "Es gibt keinen festen Wert; Google sucht nicht nach einem bestimmten Prozentsatz. Macht eine Phrase mehr als 3 % des Textes oder ein einzelnes Wort mehr als 5 % aus, wirkt das meist unnatürlich. Besser ist es, das Thema mit Synonymen und verwandten Begriffen natürlich zu behandeln."
+          },
+          {
+            "s": "Warum brauchen türkische Texte besondere Sorgfalt?",
+            "c": "Viele Tools machen aus einem großen „I“ ein „i“ und aus „İ“ ein kombiniertes Zeichen mit Punkt; dadurch zählen „IŞIK“ und „ışık“ oder „İSTANBUL“ und „istanbul“ als verschiedene Wörter. Dieses Tool wendet auf türkischen Seiten I→ı und İ→i korrekt an und entfernt Stoppwörter wie „ve, bir, için“."
+          },
+          {
+            "s": "Wo sollte das Ziel-Keyword vorkommen?",
+            "c": "Natürlich eingesetzt im Seitentitel, in der H1 und im ersten Absatz macht es das Thema klar; in der Meta-Beschreibung und der URL fördert es Klicks. Erzwingen Sie es nicht: Lesbarkeit geht immer vor."
+          }
+        ]
+      }
+    },
+    "form": {
+      "adres": "Website-URL",
+      "adresOrnek": "beispiel.de oder https://beispiel.de/seite",
+      "adresRobots": "Zu prüfende URL (mit Pfad)",
+      "adresRobotsOrnek": "beispiel.de/blog/artikel",
+      "adresSitemap": "Website- oder Sitemap-URL",
+      "adresSitemapOrnek": "beispiel.de oder beispiel.de/sitemap.xml",
+      "adresSsl": "Domainname",
+      "adresSslOrnek": "beispiel.de",
+      "ajan": "User-Agent (Crawler)",
+      "ajanOzel": "Andere…",
+      "ajanOzelYerTutucu": "z. B. Baiduspider",
+      "calistir": "Prüfen",
+      "calisiyor": "Wird geprüft…",
+      "bekleyin": "Die Website wird geprüft; das kann einige Sekunden dauern.",
+      "gizlilik": "Keine Anmeldung oder E-Mail nötig. Die geprüfte Adresse wird nicht gespeichert.",
+      "kelime": "Ziel-Keyword (optional)",
+      "kelimeOrnek": "z. B. seo agentur",
+      "kelimeIpucu": "Wenn Sie eines eingeben, prüfen wir auch, wie oft es vorkommt und ob es in Title, H1, Meta-Beschreibung und URL steht."
+    },
+    "hata": {
+      "adres_gecersiz": "Geben Sie eine gültige Website-Adresse ein (z. B. beispiel.de).",
+      "adres_yasak": "Diese Adresse kann nicht geprüft werden. Geben Sie die Adresse einer öffentlichen Website ein.",
+      "cozumlenemedi": "Diese Domain wurde nicht gefunden. Prüfen Sie die Schreibweise.",
+      "ulasilamadi": "Die Website war nicht erreichbar. Stellen Sie sicher, dass sie online ist, und versuchen Sie es erneut.",
+      "cok_yonlendirme": "Die Website leitet zu oft weiter; die Prüfung konnte nicht abgeschlossen werden.",
+      "zaman_asimi": "Die Website hat nicht rechtzeitig geantwortet. Versuchen Sie es etwas später erneut.",
+      "ajan_gecersiz": "Der User-Agent darf nur Buchstaben, Ziffern, Punkte, Bindestriche und * enthalten.",
+      "sinir_dakika": "Sie haben in kurzer Zeit zu viele Prüfungen gestartet. Warten Sie eine Minute und versuchen Sie es erneut.",
+      "sinir_gun": "Sie haben das heutige Limit für dieses Tool erreicht. Versuchen Sie es morgen wieder.",
+      "eposta_gecersiz": "Geben Sie eine gültige E-Mail-Adresse ein.",
+      "arac_yok": "Dieses Tool gibt es nicht.",
+      "beklenmedik": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      "ag": "Der Server ist nicht erreichbar. Prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+      "genel": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+      "kelime_gecersiz": "Das Keyword darf höchstens 6 Wörter und 60 Zeichen haben; verwenden Sie Buchstaben, Ziffern, Leerzeichen und Bindestriche.",
+      "sinir_eposta": "In kurzer Zeit wurden zu viele E-Mails angefordert. Bitte versuchen Sie es später erneut.",
+      "sonuc_suresi_doldu": "Dieses Ergebnis ist abgelaufen. Führen Sie das Tool erneut aus und senden Sie es dann.",
+      "eposta_kapali": "Der E-Mail-Versand ist derzeit nicht verfügbar.",
+      "eposta_gonderilemedi": "Die E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es in einigen Minuten erneut."
+    },
+    "sayfa": {
+      "kirinti": "Brotkrümelnavigation",
+      "geri": "Alle SEO-Tools",
+      "nelerBaslik": "Was wird geprüft?",
+      "sssBaslik": "Häufige Fragen",
+      "digerAraclar": "Weitere kostenlose Tools",
+      "siteAnaliziBaslik": "Bewerten wir Ihre ganze Website",
+      "siteAnaliziMetin": "Der kostenlose Website-Analysebericht bewertet die gesamte Website statt einer einzelnen Seite mit bis zu 100 Punkten für Geschwindigkeit, SEO, Inhalte, Technik, Sicherheit und KI-Sichtbarkeit.",
+      "siteAnaliziDugme": "Kostenlose Website-Analyse",
+      "bulunamadi": "Tool nicht gefunden",
+      "bulunamadiAciklama": "Das gesuchte Tool wurde möglicherweise entfernt oder umbenannt."
+    },
+    "tamAnaliz": {
+      "baslik": "Schauen wir uns die ganze Website an",
+      "metin": "Der kostenlose Website-Analysebericht bewertet Geschwindigkeit, SEO, Inhalte, Technik, Sicherheit und KI-Sichtbarkeit von {{alan}} mit 0–100 Punkten. Die Adresse ist eingetragen; ein Klick genügt.",
+      "dugme": "Vollständige Analyse der Website"
+    },
+    "yonetim": {
+      "baslik": "Kostenlose SEO-Tools",
+      "aciklama": "Tägliche Nutzung je Tool in den letzten {{gun}} Tagen, Besucher, die das Ergebnis per E-Mail angefordert haben (CRM-Leads), und Übergänge zur vollständigen Analyse. Geprüfte Adressen werden nicht gespeichert; nur Zahlen.",
+      "arac": "Tool",
+      "gunluk": "Tägliche Nutzung",
+      "kullanim": "Ausführungen",
+      "hata": "Fehlgeschlagen",
+      "eposta": "E-Mails",
+      "aday": "Neue Leads",
+      "donusum": "Konversion",
+      "donusumIpucu": "Per E-Mail gesendet / Ausführungen",
+      "tamAnaliz": "Vollanalyse",
+      "toplam": "Gesamt",
+      "toplamKullanim": "Ausführungen gesamt",
+      "toplamEposta": "Per E-Mail gesendet",
+      "toplamAday": "Neue CRM-Leads",
+      "toplamTamAnaliz": "Zur Vollanalyse gewechselt",
+      "tamAnalizAlt": "{{sayi}} haben eine E-Mail hinterlassen",
+      "gunIpucu": "{{gun}}: {{sayi}}",
+      "sayfayiAc": "Tool-Seite",
+      "hataYukle": "Die Tool-Übersicht konnte nicht geladen werden."
+    },
+    "eposta": {
+      "baslik": "Ergebnis per E-Mail senden",
+      "aciklama": "Optional: Wir senden Ihnen eine Zusammenfassung dieses Ergebnisses und die empfohlenen Korrekturen per E-Mail.",
+      "ad": "Ihr Name (optional)",
+      "eposta": "Ihre E-Mail-Adresse",
+      "istegeBagli": "optional",
+      "gonder": "Ergebnis senden",
+      "gonderiliyor": "Wird gesendet…",
+      "basarili": "Das Ergebnis wurde an Ihre E-Mail-Adresse gesendet.",
+      "basariliMetin": "Falls es nicht in wenigen Minuten ankommt, sehen Sie im Spam-Ordner nach.",
+      "pazarlama": "Ich möchte per E-Mail über Aktionen und Neuigkeiten informiert werden."
+    }
+  }
+}

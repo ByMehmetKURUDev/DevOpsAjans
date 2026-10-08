@@ -49,6 +49,11 @@
       "dugme": "Kurulum için yazın",
       "konu": "Kurulum talebi: {{baslik}}",
       "konuGenel": "Yapay zekâ araçları kurulumu"
+    },
+    "seoAraclari": {
+      "baslik": "Ücretsiz SEO araçları",
+      "metin": "Meta etiketleri, Open Graph, Schema, robots.txt, site haritası, yönlendirme, güvenlik başlıkları, SSL, başlık yapısı ve kelime yoğunluğu için kayıt istemeyen hızlı kontroller.",
+      "dugme": "Araçları aç"
     }
   }
 }

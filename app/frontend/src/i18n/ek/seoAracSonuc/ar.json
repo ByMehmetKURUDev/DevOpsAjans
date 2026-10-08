@@ -1,0 +1,555 @@
+{
+  "seoAracSonuc": {
+    "baslik": "النتيجة",
+    "kontrolEdilen": "العنوان المفحوص",
+    "sonAdres": "العنوان النهائي",
+    "durum": "حالة HTTP",
+    "ozet": "{{hata}} أخطاء · {{uyari}} تحذيرات · {{bilgi}} ملاحظات · {{iyi}} ناجحة",
+    "nedenOnemli": "لماذا هذا مهم؟",
+    "nasilDuzeltilir": "كيف يُصلَح؟",
+    "ayrintilar": "التفاصيل",
+    "kontroller": "الفحوصات",
+    "yeniKontrol": "جرّب عنوانًا آخر",
+    "seviye": {
+      "hata": "خطأ",
+      "uyari": "تحذير",
+      "bilgi": "ملاحظة",
+      "iyi": "ناجح"
+    },
+    "kontrol": {
+      "title": {
+        "ad": "عنوان الصفحة (title)",
+        "neden": "العنوان هو السطر القابل للنقر في نتائج البحث؛ وهو أول ما يخبر Google والمستخدم بموضوع الصفحة ويؤثر مباشرة في نسبة النقر.",
+        "duzelt": "امنح كل صفحة <title> فريدًا بعرض نحو 30–60 حرفًا، مع الكلمة المفتاحية الرئيسية قرب البداية واسم العلامة في النهاية."
+      },
+      "aciklama": {
+        "ad": "الوصف التعريفي (description)",
+        "neden": "يظهر الوصف غالبًا تحت العنوان في نتائج البحث؛ يشرح للمستخدم لماذا يفتح الصفحة ويزيد النقرات.",
+        "duzelt": "أضف وصفًا تعريفيًا واحدًا خاصًا بالصفحة بعرض نحو 70–160 حرفًا مع دعوة لاتخاذ إجراء؛ ولا تكرر الوصف نفسه في صفحات كثيرة."
+      },
+      "canonical": {
+        "ad": "العنوان القانوني (canonical)",
+        "neden": "إذا أمكن فتح المحتوى نفسه من عدة عناوين، يحدد canonical الصفحة الأساسية فتتجمع إشارات الترتيب في عنوان واحد.",
+        "duzelt": "أضف في <head> وسم <link rel=canonical> واحدًا فقط بعنوان مطلق (يبدأ بـ https://) يشير إلى عنوان الصفحة النظيف نفسه."
+      },
+      "robots_meta": {
+        "ad": "إذن الفهرسة (robots)",
+        "neden": "الصفحة التي تحمل noindex لا تظهر في Google؛ وnofollow يمنع روابط الصفحة من نقل القيمة. وقد يُصفّر noindex المنسي الزيارات.",
+        "duzelt": "احذف noindex / nofollow من وسم robots meta ومن ترويسة X-Robots-Tag في الصفحات التي تريد ظهورها في البحث."
+      },
+      "viewport": {
+        "ad": "عرض الجوال (viewport)",
+        "neden": "يقيّم Google النسخة المخصصة للجوال من موقعك. دون viewport تبدو الصفحة على الهاتف كصفحة سطح مكتب مصغّرة؛ وتعطيل التكبير يضر بسهولة الوصول.",
+        "duzelt": "استخدم <meta name=viewport content=\"width=device-width, initial-scale=1\"> واحذف user-scalable=no وmaximum-scale=1."
+      },
+      "lang": {
+        "ad": "لغة الصفحة (lang)",
+        "neden": "تخبر خاصية html lang المتصفحات وقارئات الشاشة ومحركات البحث بلغة الصفحة؛ واللغة الخاطئة تؤدي إلى نطق واستهداف خاطئين.",
+        "duzelt": "أضف رمز لغة صالحًا مثل <html lang=\"ar\">؛ وللنسخ الإقليمية استخدم صيغة ar-SA أو en-GB."
+      },
+      "hreflang": {
+        "ad": "بدائل اللغة (hreflang)",
+        "neden": "في المواقع متعددة اللغات يضمن hreflang أن يرى كل مستخدم الصفحة بلغته ويمنع اعتبار النسخ اللغوية محتوى مكررًا.",
+        "duzelt": "يجب أن تُدرج كل نسخة لغوية جميع النسخ بما فيها نفسها مع x-default برموز صالحة (ar وen وde-AT…)؛ وأن تكون القائمة متطابقة في كل نسخة."
+      },
+      "og_etiketleri": {
+        "ad": "وسوم Open Graph",
+        "neden": "عند مشاركة الرابط يُقرأ العنوان والوصف والعنوان الإلكتروني من هذه الوسوم؛ وإن غابت قد تختار المنصة نصًا عشوائيًا من الصفحة.",
+        "duzelt": "أضف og:title وog:description وog:url وog:type إلى <head> بالصيغة التي تريد ظهورها عند المشاركة."
+      },
+      "twitter_karti": {
+        "ad": "بطاقة تويتر / X",
+        "neden": "يحدد twitter:card هل يظهر الرابط في X ببطاقة صورة صغيرة أم كبيرة.",
+        "duzelt": "أضف <meta name=twitter:card content=summary_large_image>؛ وتكفي وسوم Open Graph للعنوان والوصف والصورة."
+      },
+      "og_gorsel": {
+        "ad": "صورة المشاركة (og:image)",
+        "neden": "المنشورات المصوّرة تحصد نقرات أكثر بكثير. إذا لم تُحمَّل الصورة أو كانت صغيرة جدًا أو ثقيلة، تعرض المنصة البطاقة دون صورة.",
+        "duzelt": "حدّد في og:image صورة JPG/PNG/WebP بعنوان https مطلق ومقاس 1200×630 بكسل وحجم أقل من 5 ميغابايت، وتأكد أن العنوان متاح للعامة."
+      },
+      "jsonld_sozdizimi": {
+        "ad": "صياغة JSON-LD",
+        "neden": "خطأ فاصلة واحد يجعل الكتلة كلها غير قابلة للقراءة؛ فلا يستطيع محرك البحث استخدام أي معلومة منها.",
+        "duzelt": "أصلح السطر والعمود المشار إليهما (فاصلة زائدة، علامة اقتباس ناقصة، حرف غير مهرّب) واستخدم https://schema.org قيمةً لـ @context."
+      },
+      "jsonld_turler": {
+        "ad": "أنواع البيانات المنظمة",
+        "neden": "تخبر البيانات المنظمة الآلات بموضوع الصفحة (نشاط تجاري، منتج، مقال، أسئلة شائعة…) وتفتح الباب للنتائج المنسقة وإجابات الذكاء الاصطناعي.",
+        "duzelt": "أضف نوع schema.org المناسب للمحتوى بصيغة JSON-LD: ‏Organization/LocalBusiness وWebSite في الرئيسية، وArticle في المقالات، وProduct في صفحات المنتجات."
+      },
+      "jsonld_alanlar": {
+        "ad": "الحقول الإلزامية والموصى بها",
+        "neden": "العنصر الذي ينقصه حقل إلزامي لا يكون مؤهلًا للنتائج المنسقة؛ والحقول الموصى بها تحدد مدى غنى النتيجة.",
+        "duzelt": "املأ الحقول الناقصة المذكورة بمعلومات ظاهرة فعلًا في الصفحة؛ ولا تكتب في البيانات المنظمة ما ليس موجودًا في الصفحة."
+      },
+      "robots_dosyasi": {
+        "ad": "ملف robots.txt",
+        "neden": "تبدأ الزواحف أي موقع بقراءة robots.txt. وإذا أعاد الملف خطأ 5xx فقد يتوقف Google عن زحف الموقع لفترة.",
+        "duzelt": "انشر في الجذر ملف robots.txt يعيد 200 كنص عادي (text/plain) وحجمه أقل من 500 كيلوبايت؛ ولا يعيد صفحة HTML."
+      },
+      "robots_yol": {
+        "ad": "قابلية زحف المسار",
+        "neden": "لا يمكن قراءة محتوى الصفحة المحظورة؛ وحظر صفحات مهمة أو ملفات CSS/JS عن طريق الخطأ يخفض الترتيب.",
+        "duzelt": "احذف قاعدة Disallow التي تحظر المسار المطلوب أو افتحه بقاعدة Allow أطول (أكثر تحديدًا)."
+      },
+      "robots_sitemap": {
+        "ad": "التصريح بخريطة الموقع",
+        "neden": "سطر Sitemap في robots.txt يتيح لكل محركات البحث العثور على خريطة موقعك دون إرسالها لكل محرك.",
+        "duzelt": "أضف في نهاية robots.txt سطر Sitemap: https://yourdomain.com/sitemap.xml بعنوان مطلق."
+      },
+      "robots_sozdizimi": {
+        "ad": "الصياغة",
+        "neden": "تُتجاهل التوجيهات غير المعروفة والقواعد المكتوبة قبل User-agent؛ فلا يعمل الملف كما تظن.",
+        "duzelt": "ابدأ كل مجموعة بسطر User-agent واستخدم User-agent وAllow وDisallow وSitemap فقط. يتجاهل Google التوجيه Crawl-delay."
+      },
+      "sitemap_erisim": {
+        "ad": "الوصول إلى خريطة الموقع",
+        "neden": "تخبر خريطة الموقع محركات البحث بالصفحات الموجودة ومتى تغيّرت، فتُكتشف الصفحات الجديدة أسرع.",
+        "duzelt": "انشر خريطة XML على /sitemap.xml بحالة 200، وصرّح بها في robots.txt، وأرسلها في Search Console."
+      },
+      "sitemap_bicim": {
+        "ad": "الصيغة والحجم",
+        "neden": "الخريطة ذات الصيغة الخاطئة أو التي تتجاوز الحدود تُقرأ جزئيًا أو لا تُقرأ إطلاقًا.",
+        "duzelt": "يجب أن يكون العنصر الجذر urlset أو sitemapindex بمساحة الاسم http://www.sitemaps.org/schemas/sitemap/0.9؛ وألا يتجاوز الملف 50,000 عنوان و50 ميغابايت."
+      },
+      "sitemap_adresler": {
+        "ad": "العناوين",
+        "neden": "تتجاهل محركات البحث العناوين الخاطئة أو المكررة أو التابعة لنطاق آخر، فتقل الثقة بالخريطة.",
+        "duzelt": "أدرج مرة واحدة فقط كل عنوان مطلق وقانوني من النطاق نفسه يعيد 200."
+      },
+      "sitemap_lastmod": {
+        "ad": "تاريخ آخر تعديل (lastmod)",
+        "neden": "يتيح lastmod الدقيق لـ Google زحف الصفحات المتغيرة أولًا؛ والتواريخ الخاطئة أو المستقبلية تجعله يتجاهل هذه الإشارة كليًا.",
+        "duzelt": "استخدم صيغة W3C ‏(2026-10-01 أو 2026-10-01T10:00:00+03:00) وحدّث lastmod فقط عند تغيّر المحتوى فعلًا."
+      },
+      "sitemap_orneklem": {
+        "ad": "رموز الحالة في العينة",
+        "neden": "العناوين في الخريطة التي تعيد 404 أو 5xx أو إعادة توجيه تهدر ميزانية الزحف وتدل على أن الخريطة قديمة.",
+        "duzelt": "أصلح العناوين الخاطئة أو احذفها، واستبدل العناوين المعاد توجيهها بالعنوان النهائي الذي يعيد 200."
+      },
+      "zincir": {
+        "ad": "سلسلة إعادة التوجيه",
+        "neden": "كل خطوة إعادة توجيه تبطئ التحميل وتستهلك ميزانية الزحف؛ والعنوان العالق في حلقة لا يُفتح أبدًا.",
+        "duzelt": "وجّه كل عنوان قديم بخطوة واحدة (301) مباشرة إلى العنوان النهائي، واحذف الخطوات الوسيطة والحلقات."
+      },
+      "son_durum": {
+        "ad": "رمز الحالة النهائي",
+        "neden": "الصفحة التي لا تعيد 200 في نهاية السلسلة لا يمكن فهرستها، ويرى الزائر صفحة خطأ.",
+        "duzelt": "تأكد من وجود الصفحة؛ إن نُقلت فوجّهها بـ 301 إلى العنوان الجديد، وإن حُذفت فاستخدم 410 أو وجّهها إلى أقرب صفحة."
+      },
+      "https_yonlendirme": {
+        "ad": "http → https",
+        "neden": "إذا بقيت نسخة http غير المشفرة متاحة فقد يصل المستخدم إلى صفحة غير آمنة وتُفهرس الصفحة نفسها بعنوانين.",
+        "duzelt": "في إعدادات الخادم أو شبكة CDN، وجّه كل طلبات http إلى https بخطوة واحدة عبر إعادة توجيه دائمة (301/308)."
+      },
+      "www_tutarlilik": {
+        "ad": "اتساق www",
+        "neden": "إذا فُتح العنوان مع www وبدونه كلٌّ على حدة، يبدو الموقع كنسخة من نفسه وتتوزع قيمة الروابط.",
+        "duzelt": "اختر عنوانًا أساسيًا (مثل https://yourdomain.com) ووجّه إليه الأشكال الثلاثة الأخرى (http وwww) بـ 301."
+      },
+      "hsts": {
+        "ad": "HSTS (Strict-Transport-Security)",
+        "neden": "يطلب HSTS من المتصفح الاتصال بالموقع عبر https فقط، ويمنع اختطاف الطلب الأول غير المشفر.",
+        "duzelt": "أضف إلى ردود https الترويسة Strict-Transport-Security: max-age=31536000; includeSubDomains (جرّب مدة قصيرة أولًا)."
+      },
+      "csp": {
+        "ad": "سياسة أمان المحتوى (CSP)",
+        "neden": "تقيّد CSP المصادر التي يمكن تحميل السكربتات منها، وهي أقوى دفاع ضد XSS. ويُضعف unsafe-inline وunsafe-eval هذه الحماية.",
+        "duzelt": "اكتب Content-Security-Policy تتضمن نطاقك والخدمات التي تستخدمها فعلًا، واسمح بالسكربتات المضمّنة عبر nonce أو بصمة hash. جرّبها أولًا بوضع Report-Only."
+      },
+      "frame": {
+        "ad": "الحماية من التضمين في إطار",
+        "neden": "دون حماية يمكن تضمين موقعك في صفحة أخرى بإطار غير مرئي وخداع المستخدم للنقر دون علمه (clickjacking).",
+        "duzelt": "أضف frame-ancestors 'self' إلى CSP أو أرسل X-Frame-Options: SAMEORIGIN."
+      },
+      "nosniff": {
+        "ad": "الحماية من تخمين نوع MIME",
+        "neden": "دون nosniff قد يخمّن المتصفح نوع الملف وينفّذ ملفًا يبدو بريئًا كسكربت.",
+        "duzelt": "أضف X-Content-Type-Options: nosniff إلى كل الردود وقدّم الملفات بنوع Content-Type الصحيح."
+      },
+      "referrer": {
+        "ad": "Referrer-Policy",
+        "neden": "تحدد هذه الترويسة معلومات العنوان التي تُرسل إلى الموقع الآخر عند النقر على رابط؛ والقيم الضعيفة قد تسرّب بيانات شخصية من العناوين.",
+        "duzelt": "استخدم Referrer-Policy: strict-origin-when-cross-origin (أو الأشد no-referrer / same-origin)."
+      },
+      "permissions": {
+        "ad": "Permissions-Policy",
+        "neden": "تقيّد الصفحات التي يمكنها استخدام ميزات المتصفح مثل الكاميرا والميكروفون والموقع، وتمنع إساءة استخدامها من محتوى طرف ثالث مضمّن.",
+        "duzelt": "عطّل الميزات التي لا تستخدمها، مثل Permissions-Policy: camera=(), microphone=(), geolocation=()."
+      },
+      "sunucu_bilgisi": {
+        "ad": "كشف إصدار الخادم",
+        "neden": "أرقام الإصدارات في ترويستي Server وX-Powered-By تسهّل على المهاجم استهداف ثغرات معروفة.",
+        "duzelt": "أخفِ معلومات الإصدار في إعدادات الخادم (مثل server_tokens off في nginx) واحذف ترويسة X-Powered-By."
+      },
+      "sertifika_gecerlilik": {
+        "ad": "صلاحية الشهادة",
+        "neden": "مع شهادة غير صالحة أو منتهية أو غير مطابقة للنطاق يعرض المتصفح تحذيرًا يملأ الصفحة ويغادر معظم الزوار.",
+        "duzelt": "ثبّت شهادة من جهة موثوقة تشمل النطاق (وwww)؛ ويكفي حل مجاني يتجدد تلقائيًا مثل Let's Encrypt."
+      },
+      "sertifika_suresi": {
+        "ad": "تاريخ الانتهاء",
+        "neden": "لحظة انتهاء الشهادة يبدو الموقع غير موثوق؛ ونسيان التجديد يُسقط الزيارات فورًا.",
+        "duzelt": "فعّل التجديد التلقائي وأعدّ مراقبة تنبّهك قبل الانتهاء بـ 30 يومًا على الأقل."
+      },
+      "tls_surumu": {
+        "ad": "إصدار TLS",
+        "neden": "الإصداران TLS 1.0 و1.1 غير آمنين وقد عطّلتهما المتصفحات؛ وTLS 1.3 أسرع وأكثر أمانًا.",
+        "duzelt": "أبقِ TLS 1.2 و1.3 مفعّلين على الخادم و1.0 و1.1 معطّلين."
+      },
+      "ssl_zincir": {
+        "ad": "سلسلة الشهادات",
+        "neden": "إذا نقصت شهادة وسيطة فلن تثق بعض المتصفحات بالموقع، خصوصًا الأجهزة المحمولة والزواحف.",
+        "duzelt": "ثبّت على الخادم السلسلة الكاملة (fullchain) التي تقدمها الجهة المصدرة، لا شهادة الموقع وحدها."
+      },
+      "h1": {
+        "ad": "العنوان الرئيسي (H1)",
+        "neden": "عنوان H1 هو أقوى عنوان في الصفحة ويخبر الزوار ومحركات البحث بموضوعها الرئيسي.",
+        "duzelt": "استخدم في كل صفحة H1 واحدًا غير فارغ يذكر الموضوع بوضوح؛ ولا تجعل الشعار أو نصًا زخرفيًا H1."
+      },
+      "baslik_hiyerarsi": {
+        "ad": "تسلسل العناوين",
+        "neden": "العناوين المتسلسلة (H2 → H3) تقسّم المحتوى إلى أقسام؛ ومنها تفهم قارئات الشاشة ومحركات البحث بنية الصفحة.",
+        "duzelt": "لا تتخطَّ المستويات (بعد H2 يأتي H3 لا H4)، ولا تترك عناوين فارغة، واستخدم العناوين للمعنى لا للحجم البصري."
+      },
+      "icerik_uzunlugu": {
+        "ad": "طول المحتوى",
+        "neden": "الصفحات قليلة النص لا تغطي الموضوع بما يكفي، وتُعدّ محتوى ضعيفًا ويصعب ترتيبها.",
+        "duzelt": "أضف نصًا أصليًا يناسب هدف الصفحة ويجيب عن أسئلة الزوار؛ وأكثر من 300 كلمة بداية جيدة للصفحات الرئيسية."
+      },
+      "anahtar_yogunlugu": {
+        "ad": "كثافة الكلمات المفتاحية",
+        "neden": "تكرار كلمة واحدة بإفراط يجعل النص غير طبيعي وقد يُعدّ رسائل مزعجة (spam).",
+        "duzelt": "استخدم الكلمة الرئيسية في العنوان والفقرة الأولى، ثم اكتب بشكل طبيعي مع المرادفات والعبارات ذات الصلة."
+      },
+      "hedef_kelime": {
+        "ad": "الكلمة المفتاحية المستهدفة",
+        "neden": "يجب أن يوضّح النص أي بحث تجيب عنه الصفحة؛ فإذا لم تظهر العبارة إطلاقًا أو تكررت بإفراط بدت الصفحة ضعيفة أو غير طبيعية لهذا البحث.",
+        "duzelt": "استخدم العبارة بشكل طبيعي في الفقرة الافتتاحية وفي عنوان فرعي مناسب، ووسّع الموضوع في بقية النص بالمرادفات والعبارات ذات الصلة."
+      },
+      "hedef_konum": {
+        "ad": "موضع الكلمة المفتاحية",
+        "neden": "العنوان (title) وH1 ووصف الميتا والرابط هي الأماكن التي ترى فيها محركات البحث والمستخدمون موضوع الصفحة أولًا.",
+        "duzelt": "ضع العبارة المستهدفة قرب بداية العنوان وفي H1 وبشكل طبيعي في وصف الميتا؛ واختر للصفحات الجديدة رابطًا قصيرًا ومقروءًا (مثل /seo-agency). وإذا غيّرت رابطًا قائمًا فأضف إعادة توجيه 301."
+      }
+    },
+    "bulgu": {
+      "title_yok": "لا يوجد وسم <title> في الصفحة.",
+      "title_kisa": "العنوان قصير: بعرض نحو {{deger}} حرفًا (يُنصح بـ 30–60).",
+      "title_uzun": "العنوان طويل: بعرض نحو {{deger}} حرفًا؛ وقد يُقتطع في النتائج (يُنصح بـ 30–60).",
+      "title_iyi": "طول العنوان مناسب (بعرض {{deger}} حرفًا).",
+      "title_coklu": "في الصفحة {{deger}} من وسوم <title>؛ يجب أن يكون واحدًا فقط.",
+      "aciklama_yok": "لا يوجد وصف تعريفي (description).",
+      "aciklama_kisa": "الوصف قصير: بعرض نحو {{deger}} حرفًا (يُنصح بـ 70–160).",
+      "aciklama_uzun": "الوصف طويل: بعرض نحو {{deger}} حرفًا؛ وقد يُقتطع (يُنصح بـ 70–160).",
+      "aciklama_iyi": "طول الوصف مناسب (بعرض {{deger}} حرفًا).",
+      "aciklama_coklu": "في الصفحة {{deger}} من أوصاف meta description؛ يجب أن يكون واحدًا فقط.",
+      "canonical_yok": "لا يوجد وسم canonical.",
+      "canonical_coklu": "في الصفحة {{deger}} من وسوم canonical؛ وقد يتجاهلها Google جميعًا.",
+      "canonical_goreli": "يستخدم canonical عنوانًا نسبيًا ({{deger}})؛ يُنصح بعنوان مطلق.",
+      "canonical_baska": "يشير canonical إلى عنوان آخر: {{deger}}",
+      "canonical_iyi": "يشير canonical إلى الصفحة نفسها.",
+      "robots_noindex": "تمنع الصفحة الفهرسة (noindex، المصدر: {{deger}}).",
+      "robots_nofollow": "روابط الصفحة nofollow ولا تنقل القيمة.",
+      "robots_iyi": "الفهرسة وتتبع الروابط مسموحان.",
+      "viewport_yok": "لا يوجد وسم viewport للجوال.",
+      "viewport_genislik": "لا يتضمن viewport القيمة width=device-width.",
+      "viewport_yakinlastirma": "يعطّل viewport التكبير (user-scalable=no أو maximum-scale منخفض).",
+      "viewport_iyi": "viewport مناسب للجوال.",
+      "lang_yok": "لا تحتوي وسم html على خاصية lang.",
+      "lang_gecersiz": "قيمة lang ليست رمز لغة صالحًا: {{deger}}",
+      "lang_iyi": "لغة الصفحة محددة: {{deger}}",
+      "hreflang_yok": "لا توجد روابط hreflang (غير لازمة في موقع أحادي اللغة).",
+      "hreflang_gecersiz": "رمز hreflang غير صالح: {{deger}}",
+      "hreflang_tekrar": "اللغة نفسها مُدرجة أكثر من مرة: {{deger}}",
+      "hreflang_kendisi_yok": "قائمة hreflang لا تتضمن الصفحة نفسها.",
+      "hreflang_xdefault_yok": "لم يُحدَّد hreflang بقيمة x-default.",
+      "hreflang_iyi": "‏{{deger}} من روابط hreflang متسقة.",
+      "og_baslik_yok": "لا يوجد og:title.",
+      "og_aciklama_yok": "لا يوجد og:description.",
+      "og_url_yok": "لا يوجد og:url.",
+      "og_type_yok": "لا يوجد og:type.",
+      "og_tamam": "وسوم Open Graph الأساسية مكتملة.",
+      "twitter_kart_yok": "لا يوجد twitter:card؛ وقد يعرض X بطاقة صغيرة.",
+      "twitter_kart_gecersiz": "قيمة twitter:card غير معروفة: {{deger}}",
+      "twitter_kart_iyi": "بطاقة تويتر / X: {{deger}}",
+      "og_gorsel_yok": "لا توجد صورة مشاركة (og:image).",
+      "og_gorsel_goreli": "og:image عنوان نسبي؛ يجب أن يكون عنوان https مطلقًا.",
+      "gorsel_erisilemedi": "تعذّر تحميل صورة المشاركة ({{deger}}).",
+      "gorsel_tur_yanlis": "لا يعيد og:image صورة (النوع: {{deger}}).",
+      "gorsel_kucuk": "الصورة صغيرة جدًا: {{deger}} (الحد الأدنى 200×200).",
+      "gorsel_onerilen_alti": "الصورة أصغر من المقاس الموصى به: {{deger}} (يُنصح بـ 1200×630).",
+      "gorsel_oran": "نسبة أبعاد الصورة لا تناسب بطاقة المشاركة: {{deger}} (يُنصح بـ 1.91:1).",
+      "gorsel_boyut_bilinmiyor": "تعذّرت قراءة أبعاد الصورة بالبكسل.",
+      "gorsel_buyuk": "الصورة ثقيلة جدًا: {{deger}} كيلوبايت (الحد الأقصى 5 ميغابايت).",
+      "gorsel_agir": "الصورة ثقيلة: {{deger}} كيلوبايت؛ وقد تُحمَّل المشاركة ببطء.",
+      "gorsel_http": "الصورة على عنوان http غير مشفر؛ استخدم https.",
+      "gorsel_iyi": "صورة المشاركة مناسبة: {{deger}}",
+      "jsonld_sozdizimi": "الكتلة {{blok}}: خطأ في الصياغة (السطر {{satir}}، العمود {{sutun}}): {{mesaj}}",
+      "jsonld_sozdizimi_iyi": "صياغة {{deger}} من كتل JSON-LD صحيحة.",
+      "jsonld_context": "في {{deger}} من الكتل يغيب @context أو ليس schema.org.",
+      "jsonld_yok": "لا توجد بيانات منظمة JSON-LD في الصفحة.",
+      "jsonld_tur_yok": "لا تحتوي كتل JSON-LD على عنصر له @type.",
+      "jsonld_turler_var": "الأنواع الموجودة: {{deger}}",
+      "mikroveri_var": "توجد أيضًا بيانات دقيقة / RDFa: {{deger}}",
+      "jsonld_alan_eksik": "{{tur}}: حقل إلزامي ناقص — {{alanlar}}",
+      "jsonld_onerilen_eksik": "{{tur}}: حقل موصى به ناقص — {{alanlar}}",
+      "jsonld_alanlar_iyi": "الحقول الإلزامية الأساسية مكتملة.",
+      "robots_erisilemedi": "تعذّرت قراءة robots.txt ‏({{deger}})؛ وقد يوقف Google الزحف في هذه الحالة.",
+      "robots_yok": "لا يوجد robots.txt ‏({{deger}})؛ ويُعدّ كل شيء قابلًا للزحف.",
+      "robots_html": "عنوان robots.txt يعيد صفحة HTML؛ وهذا ليس ملف robots.txt صالحًا.",
+      "robots_buyuk": "ملف robots.txt كبير جدًا ({{deger}} كيلوبايت)؛ يقرأ Google أول 500 كيلوبايت فقط.",
+      "robots_var": "عُثر على robots.txt ‏({{deger}} بايت).",
+      "yol_bilinmiyor": "تعذّرت قراءة robots.txt، لذا حالة {{yol}} بالنسبة إلى {{ajan}} غير معروفة.",
+      "yol_izinli": "يمكن لـ {{ajan}} زحف {{yol}}.",
+      "yol_engelli": "‏{{yol}} محظور على {{ajan}} (السطر {{satir}}: {{kural}}).",
+      "tum_site_engelli": "الموقع كله محظور على {{deger}} ‏(Disallow: /).",
+      "sitemap_satiri_goreli": "‏{{deger}} من أسطر Sitemap تستخدم عنوانًا نسبيًا؛ ويجب أن يكون مطلقًا.",
+      "sitemap_satiri_var": "عُثر على {{deger}} من أسطر Sitemap.",
+      "sitemap_satiri_yok": "لا يوجد سطر Sitemap في robots.txt.",
+      "kural_ajansiz": "القواعد المكتوبة قبل User-agent تُتجاهل (السطر {{deger}}).",
+      "bilinmeyen_yonerge": "أسطر غير معروفة: {{deger}}",
+      "crawl_delay": "يُستخدم Crawl-delay؛ ويتجاهله Google.",
+      "sozdizimi_iyi": "لا توجد مشكلات في الصياغة.",
+      "sitemap_bulunamadi": "لم يُعثر على خريطة موقع ({{deger}}).",
+      "sitemap_erisildi": "قُرئت خريطة الموقع: {{deger}}",
+      "sitemap_kesildi": "خريطة الموقع كبيرة جدًا؛ فُحص أول {{deger}} كيلوبايت.",
+      "dtd_reddedildi": "تحتوي خريطة الموقع على تعريف DOCTYPE/ENTITY؛ ولم تُعالج لأسباب أمنية.",
+      "sitemap_kok_hatali": "العنصر الجذر ليس urlset أو sitemapindex ‏({{deger}}).",
+      "sitemap_xml_hatasi": "تعذّرت قراءة XML: {{deger}}",
+      "sitemap_ad_alani": "مساحة اسم غير متوقعة: {{deger}}",
+      "sitemap_cok_buyuk": "‏{{deger}} عنوانًا؛ والحد الأقصى في الملف الواحد 50,000.",
+      "sitemap_bos": "لا تحتوي خريطة الموقع على أي عنوان.",
+      "sitemap_dizini": "فهرس خرائط: مُدرج فيه {{deger}} من الخرائط الفرعية.",
+      "sitemap_bicim_iyi": "الصيغة صحيحة؛ مُدرج {{deger}} عنوانًا.",
+      "alt_sitemap_hatali": "تعذّرت قراءة أول خريطة فرعية: {{deger}}",
+      "alan_hatali": "في {{deger}} من الإدخالات قيمة changefreq أو priority غير صالحة.",
+      "adres_hatali": "‏{{deger}} عنوانًا غير صالح (يجب أن تكون http/https مطلقة).",
+      "adres_baska_site": "‏{{deger}} عنوانًا تابعًا لنطاق آخر.",
+      "adres_tekrar": "‏{{deger}} عنوانًا مُدرجًا أكثر من مرة.",
+      "adresler_iyi": "جميع العناوين ({{deger}}) صالحة وتابعة للموقع نفسه.",
+      "lastmod_yok": "لا يحتوي أي عنوان على lastmod.",
+      "lastmod_eksik": "‏{{deger}} عنوانًا دون lastmod.",
+      "lastmod_hatali": "صيغة lastmod خاطئة في {{deger}} عنوانًا.",
+      "lastmod_gelecek": "تاريخ lastmod مستقبلي في {{deger}} عنوانًا.",
+      "lastmod_iyi": "تواريخ lastmod صالحة.",
+      "orneklem_hatali": "في العينة {{hatali}} من أصل {{toplam}} عنوانًا تعيد خطأ (4xx/5xx).",
+      "orneklem_yonlendirme": "في العينة {{hatali}} من أصل {{toplam}} عنوانًا تُعاد توجيهها.",
+      "orneklem_iyi": "كل عناوين العينة ({{deger}}) تستجيب دون مشكلات.",
+      "dongu": "حلقة إعادة توجيه: العنوان يعود إلى نفسه.",
+      "cok_yonlendirme": "أكثر من {{deger}} عمليات إعادة توجيه؛ تعذّر تتبّع السلسلة.",
+      "zincir_uzun": "سلسلة طويلة: {{deger}} خطوات إعادة توجيه.",
+      "zincir_iyi": "سلسلة الشهادات تصل إلى جذر موثوق.",
+      "gecici_yonlendirme": "في السلسلة إعادة توجيه مؤقتة ({{deger}})؛ استخدم 301 للنقل الدائم.",
+      "son_durum_iyi": "العنوان النهائي يعيد {{deger}}.",
+      "son_durum_hatali": "العنوان النهائي يعيد خطأ: {{deger}}",
+      "https_gecici": "إعادة التوجيه http → https مؤقتة ({{deger}})؛ يجب أن تكون 301 أو 308.",
+      "https_yonlendirme_iyi": "عنوان http يُعاد توجيهه إلى https.",
+      "https_yonlendirme_yok": "عنوان http لا يُعاد توجيهه إلى https.",
+      "https_yok": "لا يُفتح الموقع عبر https.",
+      "www_tutarsiz": "العناوين مع www وبدونه وhttp وhttps تنتهي إلى {{deger}} عناوين مختلفة.",
+      "www_iyi": "جميع الأشكال تنتهي إلى العنوان نفسه.",
+      "www_erisilemedi": "‏{{deger}} لا يُفتح (لا يوجد سجل DNS أو تعذّر الاتصال).",
+      "https_degil": "الصفحة لا تُقدَّم عبر https؛ ولا يمكن تطبيق HSTS.",
+      "hsts_yok": "لا توجد ترويسة Strict-Transport-Security.",
+      "hsts_kisa": "مدة HSTS قصيرة: {{deger}} يومًا (يُنصح بـ 180 على الأقل).",
+      "hsts_iyi": "HSTS مفعّل ({{deger}} يومًا).",
+      "hsts_alt_alan_yok": "لا يشمل HSTS النطاقات الفرعية (لا يوجد includeSubDomains).",
+      "csp_unsafe_inline": "تسمح CSP بالسكربتات المضمّنة ('unsafe-inline').",
+      "csp_unsafe_eval": "تسمح CSP بـ eval ‏('unsafe-eval').",
+      "csp_iyi": "ترويسة Content-Security-Policy موجودة.",
+      "csp_rapor": "CSP في وضع الإبلاغ فقط (Report-Only) ولا تحظر شيئًا.",
+      "csp_yok": "لا توجد ترويسة Content-Security-Policy.",
+      "frame_iyi": "الحماية من التضمين في إطار موجودة ({{deger}}).",
+      "frame_yok": "لا توجد حماية من التضمين في إطار (X-Frame-Options / frame-ancestors).",
+      "nosniff_iyi": "X-Content-Type-Options: nosniff موجودة.",
+      "nosniff_yok": "لا توجد X-Content-Type-Options: nosniff.",
+      "referrer_yok": "لا توجد ترويسة Referrer-Policy.",
+      "referrer_zayif": "Referrer-Policy ضعيفة: {{deger}}",
+      "referrer_iyi": "Referrer-Policy: {{deger}}",
+      "permissions_iyi": "Permissions-Policy موجودة.",
+      "permissions_yok": "لا توجد ترويسة Permissions-Policy.",
+      "sunucu_surumu": "معلومات إصدار الخادم مكشوفة: {{deger}}",
+      "ssl_yok": "تعذّر إنشاء اتصال https؛ ولم تُقرأ الشهادة.",
+      "ssl_dogrulandi": "الشهادة موثوقة ومطابقة للنطاق.",
+      "ssl_gecersiz": "تعذّر التحقق من الشهادة: {{deger}}",
+      "ssl_kendinden_imzali": "الشهادة موقّعة ذاتيًا؛ ولا تثق بها المتصفحات.",
+      "ssl_ad_uyusmuyor": "الشهادة لا تشمل هذا النطاق.",
+      "zincir_eksik": "السلسلة الوسيطة ناقصة أو لا تصل إلى جذر موثوق.",
+      "ssl_suresi_gecmis": "انتهت صلاحية الشهادة قبل {{deger}} يومًا.",
+      "ssl_bitiyor": "تنتهي الشهادة خلال {{deger}} يومًا!",
+      "ssl_yakinda": "تنتهي الشهادة بعد {{deger}} يومًا.",
+      "ssl_gecerli": "الشهادة صالحة {{deger}} يومًا أخرى.",
+      "tls_iyi": "يستخدم الاتصال {{deger}}.",
+      "tls_12": "يستخدم الاتصال {{deger}}؛ ويمكن تفعيل TLS 1.3 أيضًا.",
+      "tls_eski": "إصدار TLS قديم: {{deger}}",
+      "h1_yok": "لا يوجد H1 في الصفحة.",
+      "h1_fazla": "في الصفحة {{deger}} من عناوين H1.",
+      "h1_bos": "عنوان H1 فارغ.",
+      "h1_iyi": "H1: {{deger}}",
+      "ilk_baslik_h1_degil": "العنوان الأول ليس H1 ‏({{deger}}).",
+      "seviye_atlama": "مستوى عنوان متخطّى: {{deger}}",
+      "bos_baslik": "توجد {{deger}} عناوين فارغة.",
+      "uzun_baslik": "‏{{deger}} عناوين أطول من 70 حرفًا.",
+      "baslik_yok": "لا توجد أي عناوين (H1–H6) في الصفحة.",
+      "hiyerarsi_iyi": "‏{{deger}} عنوانًا مرتبة بشكل سليم.",
+      "icerik_az": "النص الظاهر قليل: {{deger}} كلمة.",
+      "kelime_iyi": "النص الظاهر: {{deger}} كلمة.",
+      "anahtar_asiri": "«{{kelime}}» تشكّل {{yuzde}}% من النص؛ تكرار مفرط.",
+      "yogunluk_iyi": "توزيع الكلمات طبيعي؛ الكلمة الأكثر تكرارًا «{{deger}}».",
+      "hedef_yok": "لا تظهر «{{deger}}» في النص الظاهر.",
+      "hedef_iyi": "تظهر «{{kelime}}» {{sayi}} مرة (الكثافة {{yuzde}}%).",
+      "hedef_asiri": "تظهر «{{kelime}}» {{sayi}} مرة (الكثافة {{yuzde}}%)؛ تكرار مفرط.",
+      "hedef_title_yok": "«{{deger}}» غير موجودة في عنوان الصفحة (title).",
+      "hedef_h1_yok": "«{{deger}}» غير موجودة في H1.",
+      "hedef_aciklama_yok": "«{{deger}}» غير موجودة في وصف الميتا.",
+      "hedef_url_yok": "«{{deger}}» غير موجودة في الرابط.",
+      "hedef_konum_iyi": "تظهر «{{deger}}» في العنوان وH1 ووصف الميتا والرابط."
+    },
+    "veri": {
+      "meta": {
+        "serp": "معاينة نتيجة البحث",
+        "etiketler": "الوسوم الموجودة",
+        "karakter": "{{sayi}} حرفًا",
+        "yok": "—",
+        "hreflang": "روابط hreflang",
+        "baslik": "العنوان",
+        "aciklama": "الوصف",
+        "canonical": "Canonical",
+        "robots": "Robots",
+        "viewport": "Viewport",
+        "lang": "اللغة"
+      },
+      "og": {
+        "onizleme": "معاينة بطاقة المشاركة",
+        "gorselYok": "لا توجد صورة",
+        "gorselGizli": "لا تُعرض الصورة لأنها ليست آمنة (https) أو تعذّر تحميلها.",
+        "ogEtiketleri": "وسوم Open Graph",
+        "twitterEtiketleri": "وسوم تويتر / X",
+        "gorsel": "الصورة",
+        "boyut": "الأبعاد",
+        "dosya": "الملف",
+        "tur": "النوع",
+        "kb": "{{sayi}} كيلوبايت"
+      },
+      "schema": {
+        "bloklar": "كتل JSON-LD",
+        "blok": "الكتلة {{sayi}}",
+        "gecerli": "صالحة",
+        "hatali": "خطأ في الصياغة (السطر {{satir}}، العمود {{sutun}})",
+        "ogeler": "العناصر الموجودة",
+        "eksikZorunlu": "إلزامي ناقص",
+        "eksikOnerilen": "موصى به ناقص",
+        "icIce": "متداخل",
+        "kuralYok": "لا توجد قاعدة أساسية معرّفة",
+        "kod": "اعرض الشيفرة",
+        "alanlar": "الحقول",
+        "tamam": "لا شيء ناقص"
+      },
+      "robots": {
+        "karar": "النتيجة",
+        "izinli": "قابل للزحف",
+        "engelli": "محظور",
+        "belirsiz": "غير معروف",
+        "kural": "القاعدة المطابقة",
+        "kuralYok": "لا توجد قاعدة مطابقة — الافتراضي: مسموح",
+        "grup": "المجموعة المطبّقة",
+        "gruplar": "المجموعات",
+        "sitemapler": "أسطر Sitemap",
+        "icerik": "محتوى robots.txt",
+        "satir": "السطر {{sayi}}",
+        "kuralSayisi": "{{sayi}} قواعد",
+        "yol": "المسار",
+        "ajan": "وكيل المستخدم"
+      },
+      "sitemap": {
+        "adres": "خريطة الموقع",
+        "kaynak": "مصدر العثور",
+        "kaynaklar": {
+          "girilen": "العنوان الذي أدخلته",
+          "robots": "robots.txt",
+          "varsayilan": "العنوان الافتراضي"
+        },
+        "tur": "النوع",
+        "turler": {
+          "urlset": "قائمة عناوين (urlset)",
+          "sitemapindex": "فهرس خرائط (sitemapindex)"
+        },
+        "adresSayisi": "عدد العناوين",
+        "lastmodOrani": "نسبة lastmod",
+        "boyut": "الحجم",
+        "ornekler": "العينة (رموز الحالة)",
+        "hataliAdresler": "عناوين غير صالحة",
+        "baskaSite": "عناوين لنطاق آخر",
+        "altlar": "الخرائط الفرعية",
+        "incelenenAlt": "الخريطة الفرعية المفحوصة",
+        "reddedildi": "مرفوض"
+      },
+      "yonlendirme": {
+        "zincirler": "سلاسل إعادة التوجيه",
+        "etiket": {
+          "girilen": "العنوان الذي أدخلته",
+          "http": "http://",
+          "https": "https://",
+          "http_www": "http://www.",
+          "https_www": "https://www."
+        },
+        "adim": "{{sayi}} إعادة توجيه",
+        "erisilemedi": "لم يُفتح ({{kod}})"
+      },
+      "guvenlik": {
+        "puan": "درجة الأمان",
+        "not": "التقدير",
+        "baslik": "الترويسة",
+        "deger": "القيمة",
+        "durum": "الحالة",
+        "eksik": "ناقصة"
+      },
+      "ssl": {
+        "sertifika": "الشهادة",
+        "konu": "الموضوع (CN)",
+        "yayinci": "الجهة المصدرة",
+        "baslangic": "صالحة من",
+        "bitis": "تنتهي في",
+        "kalan": "الأيام المتبقية",
+        "san": "النطاقات المشمولة",
+        "seri": "الرقم التسلسلي",
+        "imza": "التوقيع",
+        "anahtar": "المفتاح",
+        "tls": "إصدار TLS",
+        "sifre": "مجموعة التشفير",
+        "zincir": "السلسلة",
+        "aia": "عنوان الشهادة الوسيطة (AIA)",
+        "dogrulandi": "متحقَّق منها",
+        "dogrulanmadi": "غير متحقَّق منها"
+      },
+      "basliklar": {
+        "agac": "شجرة العناوين",
+        "bos": "(فارغ)",
+        "seviyeler": "العناوين في كل مستوى"
+      },
+      "kelime": {
+        "kelimeler": "إحصاءات الكلمات",
+        "toplam": "إجمالي الكلمات",
+        "anlamli": "كلمات ذات معنى",
+        "benzersiz": "فريدة",
+        "enSik": "الكلمات الأكثر تكرارًا",
+        "ikililer": "الأزواج الأكثر تكرارًا",
+        "kelime": "الكلمة",
+        "adet": "العدد",
+        "yuzde": "الكثافة",
+        "dil": "لغة الصفحة",
+        "durakNotu": "تُحذف كلمات التوقف (القوائم التركية والإنجليزية والألمانية: ve وthe وund…)؛ وفي الصفحات التركية تُطبَّق قاعدة I→ı وİ→i.",
+        "ucluler": "العبارات الثلاثية الأكثر تكرارًا",
+        "hedef": "الكلمة المفتاحية المستهدفة",
+        "hedefOzet": "{{sayi}} مرة · الكثافة {{yuzde}}%",
+        "konumTitle": "العنوان (title)",
+        "konumH1": "H1",
+        "konumAciklama": "وصف الميتا",
+        "konumUrl": "الرابط",
+        "var": "موجودة",
+        "yok": "غير موجودة"
+      }
+    }
+  }
+}

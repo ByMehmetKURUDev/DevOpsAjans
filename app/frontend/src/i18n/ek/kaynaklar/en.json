@@ -49,6 +49,11 @@
       "dugme": "Ask about setup",
       "konu": "Setup request: {{baslik}}",
       "konuGenel": "AI tools setup"
+    },
+    "seoAraclari": {
+      "baslik": "Free SEO tools",
+      "metin": "Quick checks with no sign-up for meta tags, Open Graph, Schema, robots.txt, sitemaps, redirects, security headers, SSL, heading structure and keyword density.",
+      "dugme": "Open the tools"
     }
   }
 }

@@ -118,7 +118,8 @@
       "form": "Gömülü form",
       "manuel": "Elle eklendi",
       "eposta": "E-posta",
-      "modul_vitrini": "Modül vitrini"
+      "modul_vitrini": "Modül vitrini",
+      "seo_araci": "Ücretsiz SEO aracı"
     },
     "aktivite": {
       "not": "Not",
@@ -302,7 +303,8 @@
       "kaynakForm": "form #{{no}}",
       "kaynakSiteAnalizi": "site analizi",
       "rozet": "pazarlama izni",
-      "kaynakModulVitrini": "modül vitrini ({{anahtar}})"
+      "kaynakModulVitrini": "modül vitrini ({{anahtar}})",
+      "kaynakSeoAraci": "ücretsiz SEO aracı ({{arac}})"
     }
   }
 }

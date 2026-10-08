@@ -118,7 +118,8 @@
       "form": "嵌入式表单",
       "manuel": "手动添加",
       "eposta": "邮件",
-      "modul_vitrini": "模块展示页"
+      "modul_vitrini": "模块展示页",
+      "seo_araci": "免费 SEO 工具"
     },
     "aktivite": {
       "not": "备注",
@@ -302,7 +303,8 @@
       "kaynakForm": "表单 #{{no}}",
       "kaynakSiteAnalizi": "网站分析",
       "rozet": "营销许可",
-      "kaynakModulVitrini": "模块展示页（{{anahtar}}）"
+      "kaynakModulVitrini": "模块展示页（{{anahtar}}）",
+      "kaynakSeoAraci": "免费 SEO 工具（{{arac}}）"
     }
   }
 }

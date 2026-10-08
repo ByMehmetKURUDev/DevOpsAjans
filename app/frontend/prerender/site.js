@@ -57,6 +57,11 @@ export function getLanguage(code) {
  * (`/moduller/<slug>`, `/moduller/paket/<slug>`) modül kaydından türeyen
  * veriden üretiliyor (prerender/moduller-veri.js). Başlık/açıklama metinleri
  * ek pakette (`src/i18n/ek/modulVitrini`) — üst menüde YOK, alt bilgide var.
+ *
+ * `seoAraclari` (Faz 4S): ücretsiz SEO araçları dizini. Araç sayfaları
+ * (`/seo-araclari/<slug>`) sabit listeden üretiliyor (prerender/seo-araclari-veri.js);
+ * metinleri ek pakette (`src/i18n/ek/seoAraclari`). Üst menüde YOK; alt bilgi,
+ * Kaynaklar ve Site analizi sayfalarından bağlantı var.
  */
 export const PAGE_KEYS = [
   'home',
@@ -68,6 +73,7 @@ export const PAGE_KEYS = [
   'siteAnalysis',
   'kaynaklar',
   'moduller',
+  'seoAraclari',
   'gizlilik',
   'kullanimKosullari',
   'cerezPolitikasi',
@@ -87,6 +93,7 @@ export const PAGE_PATHS = {
   siteAnalysis: '/site-analizi',
   kaynaklar: '/kaynaklar',
   moduller: '/moduller',
+  seoAraclari: '/seo-araclari',
   gizlilik: '/gizlilik',
   kullanimKosullari: '/kullanim-kosullari',
   cerezPolitikasi: '/cerez-politikasi',
@@ -102,6 +109,7 @@ export const PAGE_PRIORITY = {
   siteAnalysis: 0.7,
   kaynaklar: 0.75,
   moduller: 0.8,
+  seoAraclari: 0.75,
   gizlilik: 0.3,
   kullanimKosullari: 0.3,
   cerezPolitikasi: 0.3,
@@ -395,6 +403,7 @@ export const PAGE_SEO_KEYS = {
   siteAnalysis: { title: 'seo_title_site_analysis', description: 'seo_desc_site_analysis' },
   kaynaklar: { title: 'seo_title_kaynaklar', description: 'seo_desc_kaynaklar' },
   moduller: { title: 'seo_title_moduller', description: 'seo_desc_moduller' },
+  seoAraclari: { title: 'seo_title_seo_araclari', description: 'seo_desc_seo_araclari' },
   gizlilik: { title: 'seo_title_gizlilik', description: 'seo_desc_gizlilik' },
   kullanimKosullari: { title: 'seo_title_kullanim_kosullari', description: 'seo_desc_kullanim_kosullari' },
   cerezPolitikasi: { title: 'seo_title_cerez_politikasi', description: 'seo_desc_cerez_politikasi' },

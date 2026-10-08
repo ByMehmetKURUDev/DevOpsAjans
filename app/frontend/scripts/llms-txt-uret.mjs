@@ -20,6 +20,7 @@ import { kaynakVerisiniYukle } from '../prerender/kaynaklar-yukle.js';
 import { kaynakYolu, listeVerisi } from '../prerender/kaynaklar-veri.js';
 import { vitrinYapisiniOku } from '../prerender/moduller-yukle.js';
 import { modulYolu, paketYolu } from '../prerender/moduller-veri.js';
+import { SEO_ARACLARI, seoAracYolu } from '../prerender/seo-araclari-veri.js';
 
 const kok = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const icerikDizini = path.join(kok, 'seo', 'content');
@@ -53,6 +54,7 @@ const SAYFALAR = [
   ['Blog', '/blog', 'SEO, Google Ads, ölçümleme ve web geliştirme rehberleri.'],
   ['Kaynaklar', '/kaynaklar', 'Kullandığımız ve önerdiğimiz yapay zekâ araçları, Claude becerileri ve açık kaynak projeler (7 dilde).'],
   ['Modüller', '/moduller', 'Müşteri portalı modülleri ve sektöre göre hazır paketler; her modülün tanıtımı ve teklif formu (7 dilde).'],
+  ['Ücretsiz SEO araçları', '/seo-araclari', 'Kayıt istemeyen ücretsiz SEO kontrol araçları: meta etiketi, Open Graph, Schema, robots.txt, site haritası, yönlendirme, güvenlik başlıkları, SSL, başlık yapısı ve kelime yoğunluğu (7 dilde).'],
   ['İletişim', '/contact', 'İletişim bilgileri ve teklif formu.'],
   ['Gizlilik Politikası ve KVKK Aydınlatma Metni', '/gizlilik', 'Hangi kişisel verilerin, hangi amaç ve hukuki sebeple işlendiği; aktarım, saklama ve KVKK hakları.'],
   ['Kullanım Koşulları', '/kullanim-kosullari', 'Site, müşteri paneli ve hizmetlerin kullanım koşulları.'],
@@ -124,6 +126,16 @@ if (vitrin.moduller.length > 0) {
   satirlar.push('');
 }
 
+// Faz 4S: ücretsiz SEO araçları — adlar ve kısa açıklamalar ek paketten (Türkçe).
+const aracMetni = ekPaket('seoAraclari');
+satirlar.push('## Ücretsiz SEO araçları');
+satirlar.push('');
+for (const a of SEO_ARACLARI) {
+  const m = aracMetni.arac?.[a.anahtar] ?? {};
+  satirlar.push(`- [${m.ad ?? a.slug}](${adres(seoAracYolu('tr', a.slug))}): ${m.kisa ?? ''}`);
+}
+satirlar.push('');
+
 for (const [kategori, liste] of [...gruplar].sort((a, b) => a[0].localeCompare(b[0], 'tr'))) {
   satirlar.push(`## Blog — ${kategori}`);
   satirlar.push('');
@@ -140,6 +152,6 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), cikti);
 
 const yaziSayisi = [...gruplar.values()].reduce((t, l) => t + l.length, 0);
 console.log(
-  `✓ llms.txt üretildi: ${SAYFALAR.length} sayfa, ${kaynaklar.kaynaklar.length} kaynak, ${modulSayisi} modül, ${yaziSayisi} blog yazısı, ` +
+  `✓ llms.txt üretildi: ${SAYFALAR.length} sayfa, ${kaynaklar.kaynaklar.length} kaynak, ${modulSayisi} modül, ${SEO_ARACLARI.length} SEO aracı, ${yaziSayisi} blog yazısı, ` +
     `${(Buffer.byteLength(cikti) / 1024).toFixed(1)} kB`,
 );

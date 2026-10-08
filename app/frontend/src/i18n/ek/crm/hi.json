@@ -118,7 +118,8 @@
       "form": "एम्बेड किया गया फ़ॉर्म",
       "manuel": "मैन्युअल रूप से जोड़ी गई",
       "eposta": "ईमेल",
-      "modul_vitrini": "मॉड्यूल शोकेस"
+      "modul_vitrini": "मॉड्यूल शोकेस",
+      "seo_araci": "मुफ़्त SEO टूल"
     },
     "aktivite": {
       "not": "नोट",
@@ -302,7 +303,8 @@
       "kaynakForm": "फ़ॉर्म #{{no}}",
       "kaynakSiteAnalizi": "वेबसाइट विश्लेषण",
       "rozet": "मार्केटिंग अनुमति",
-      "kaynakModulVitrini": "मॉड्यूल शोकेस ({{anahtar}})"
+      "kaynakModulVitrini": "मॉड्यूल शोकेस ({{anahtar}})",
+      "kaynakSeoAraci": "मुफ़्त SEO टूल ({{arac}})"
     }
   }
 }

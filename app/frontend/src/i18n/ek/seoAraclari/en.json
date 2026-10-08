@@ -1,0 +1,381 @@
+{
+  "seoAraclari": {
+    "seo": {
+      "baslik": "Free SEO Tools: Meta, Schema, SSL | Mehmet KURU",
+      "aciklama": "Free SEO tools with no sign-up: meta tags, Open Graph, Schema, robots.txt, sitemaps, redirects, security headers, SSL, headings and keyword density.",
+      "anaSayfa": "Home",
+      "araclar": "SEO Tools"
+    },
+    "dizin": {
+      "etiket": "Free tools",
+      "baslik1": "Free",
+      "baslikVurgu": "SEO tools",
+      "giris": "Check your site's technical SEO from a single URL in seconds. No sign-up, no email; every result explains why the issue matters and how to fix it.",
+      "araciAc": "Open tool",
+      "nedenBaslik": "Why these tools?",
+      "neden": [
+        "Completely free and run on our own server; no paid third-party service involved.",
+        "No sign-up or email required. Results are shown only to you and never listed publicly.",
+        "The address you check is not stored; we only count daily usage per tool."
+      ],
+      "sssBaslik": "Frequently asked questions",
+      "sss": [
+        {
+          "s": "Are the SEO tools really free?",
+          "c": "Yes. All tools are free and you don't need an account or an email address to use them. To prevent abuse there is a per-minute and daily usage limit for each tool."
+        },
+        {
+          "s": "Is the address I check stored?",
+          "c": "No. The address is used only to run the check; it is not written to a database or to logs. We only count how many times each tool is used per day."
+        },
+        {
+          "s": "What if I want a more thorough analysis?",
+          "c": "The “Get a full analysis of the site” button below every result takes you to the free Site Analysis Report with the address already filled in; it scores your site's speed, SEO, content, technical setup, security and AI visibility from 0 to 100."
+        },
+        {
+          "s": "Can I get the result by email?",
+          "c": "Yes, optionally. Use the form below the result to send its summary and the recommended fixes to your inbox; only your email address is needed. Campaign emails are asked about separately and are optional."
+        }
+      ]
+    },
+    "arac": {
+      "meta": {
+        "ad": "Meta tag checker",
+        "kisa": "Title and description length, canonical, robots, viewport, lang and hreflang.",
+        "giris": "Checks how your page introduces itself to search engines: whether the title and description will be cut off in results, the canonical URL, indexing permissions, the mobile viewport and language tags.",
+        "seoBaslik": "Meta Tag Checker (Title, Description)",
+        "seoAciklama": "Free meta tag checker: test title and description length, canonical, robots meta, viewport, lang and hreflang tags in seconds.",
+        "neler": [
+          "Title and meta description length (by pixel width)",
+          "Canonical tag: present, unique, self-referencing",
+          "Robots meta and X-Robots-Tag: noindex / nofollow",
+          "Mobile viewport and zoom settings",
+          "html lang attribute and hreflang links"
+        ],
+        "sss": [
+          {
+            "s": "How long should the title and description be?",
+            "c": "Google truncates by pixel width, not characters. Roughly 30–60 character widths for the title and 70–160 for the description are safe; the tool counts wide characters such as Chinese as two."
+          },
+          {
+            "s": "Why does the canonical tag matter?",
+            "c": "If the same content is reachable at several URLs, the canonical tells Google which one is the main page, so ranking signals are consolidated on one URL and duplicate-content issues are avoided."
+          }
+        ]
+      },
+      "og": {
+        "ad": "Open Graph and Twitter card preview",
+        "kisa": "How your share card looks on social media; image size and availability.",
+        "giris": "Previews how your link looks when it is shared on WhatsApp, LinkedIn, Facebook or X. Checks the Open Graph and Twitter card tags and whether the share image loads, its dimensions and its file size.",
+        "seoBaslik": "Open Graph and Twitter Card Preview",
+        "seoAciklama": "Free Open Graph and Twitter card preview: check og:title, og:description and og:image, the image size and availability, and see the share card.",
+        "neler": [
+          "og:title, og:description, og:url and og:type",
+          "twitter:card type",
+          "og:image: does it load, is it really an image",
+          "Image dimensions (1200×630 recommended) and file size",
+          "Share card preview"
+        ],
+        "sss": [
+          {
+            "s": "What size should the share image be?",
+            "c": "The safest size is 1200×630 pixels (about 1.91:1). Images smaller than 200×200 are not shown at all on many platforms; the file should be under 5 MB and served over https."
+          },
+          {
+            "s": "I changed the tags but the share still looks old. Why?",
+            "c": "Social networks cache previews. Re-scrape the URL with Facebook's Sharing Debugger or LinkedIn's Post Inspector to refresh the cache."
+          }
+        ]
+      },
+      "schema": {
+        "ad": "Schema (JSON-LD) reader",
+        "kisa": "Structured data types, missing required fields and syntax errors.",
+        "giris": "Reads the JSON-LD structured data blocks on a page: which schema.org types are present, missing required and recommended fields according to basic rules, and JSON syntax errors with line and column.",
+        "seoBaslik": "Schema (JSON-LD) Reader and Validator",
+        "seoAciklama": "Free Schema reader: see the JSON-LD blocks on a page, the schema.org types, missing required fields and syntax errors with line and column numbers.",
+        "neler": [
+          "Syntax of JSON-LD blocks (with line and column)",
+          "Types found: Organization, Product, Article, FAQPage…",
+          "Missing required and recommended fields by basic rules",
+          "@graph and nested items",
+          "Presence of microdata and RDFa"
+        ],
+        "sss": [
+          {
+            "s": "Does structured data improve rankings directly?",
+            "c": "It is not a direct ranking signal, but it makes pages eligible for rich results such as stars, FAQs and product prices, and helps AI search understand your page correctly."
+          },
+          {
+            "s": "Does this replace Google's Rich Results Test?",
+            "c": "No; it is a quick pre-check of the basic rules. We recommend validating with Google's Rich Results Test before publishing as well."
+          }
+        ]
+      },
+      "robots": {
+        "ad": "robots.txt tester",
+        "kisa": "Is a path open or blocked for the crawler you choose; sitemap lines.",
+        "giris": "Reads your site's robots.txt and tells you, using Google's matching rules, whether the URL you enter can be crawled by the crawler you choose (Googlebot, Bingbot, GPTBot…), showing the matching rule with its line number.",
+        "seoBaslik": "robots.txt Tester (Path and Bot Check)",
+        "seoAciklama": "Free robots.txt tester: see whether a path is blocked for Googlebot, Bingbot or GPTBot, the matching rule and the sitemap lines.",
+        "neler": [
+          "Allow / block decision for the chosen path and user agent",
+          "Matching rule and line number (longest rule wins)",
+          "Is the whole site blocked",
+          "Sitemap lines",
+          "Syntax warnings and file size"
+        ],
+        "sss": [
+          {
+            "s": "Does a page blocked by robots.txt drop out of the index?",
+            "c": "No. robots.txt only blocks crawling; a page linked from elsewhere can stay indexed. To remove it from the index, the page must be crawlable and carry noindex."
+          },
+          {
+            "s": "Should I block AI crawlers?",
+            "c": "It depends on your business. Blocking GPTBot, ClaudeBot or PerplexityBot reduces how often your content appears in AI answers; leave them open if you want that visibility."
+          }
+        ]
+      },
+      "sitemap": {
+        "ad": "XML sitemap validator",
+        "kisa": "URL count, invalid URLs, lastmod format and 4xx/5xx in a sample.",
+        "giris": "Finds your XML sitemap (via robots.txt or /sitemap.xml) and validates it: format, number of URLs, invalid or off-site URLs and the lastmod date format; it also opens a sample of URLs to catch those returning 4xx/5xx or redirects.",
+        "seoBaslik": "XML Sitemap Validator",
+        "seoAciklama": "Free XML sitemap validator: check the URL count, invalid URLs and lastmod format, and catch pages returning 404 or 500 in a sample.",
+        "neler": [
+          "Finding the sitemap via robots.txt or the default URL",
+          "XML format, namespace and the 50,000 URL limit",
+          "Invalid, duplicate and off-site URLs",
+          "lastmod format (W3C) and future dates",
+          "4xx/5xx and redirects in a sample; .gz and sitemap index support"
+        ],
+        "sss": [
+          {
+            "s": "Which pages belong in a sitemap?",
+            "c": "Only canonical URLs that return 200 and that you want indexed. Redirected pages, 404s and pages carrying noindex should not be in the sitemap."
+          },
+          {
+            "s": "Is the lastmod field required?",
+            "c": "It is optional, but when it is accurate Google notices changed pages sooner. Use W3C format (e.g. 2026-10-01 or 2026-10-01T10:00:00+03:00) and the real modification date."
+          }
+        ]
+      },
+      "yonlendirme": {
+        "ad": "Redirect chain and status code",
+        "kisa": "http→https, www consistency, chain length and loops.",
+        "giris": "Shows the steps a URL goes through and where it ends up: the status code of every step, a permanent http-to-https redirect, whether www and non-www end up at the same place, unnecessarily long chains and redirect loops.",
+        "seoBaslik": "Redirect Chain and Status Code Checker",
+        "seoAciklama": "Free redirect checker: see the 301/302 chain step by step, the http to https switch, www consistency, loops and the final status code.",
+        "neler": [
+          "HTTP status code of each step (301, 302, 307, 308, 200, 404…)",
+          "http → https permanent redirect",
+          "www and non-www resolving to one URL",
+          "Chain length and temporary redirects",
+          "Redirect loops"
+        ],
+        "sss": [
+          {
+            "s": "What is the difference between 301 and 302?",
+            "c": "301 (and 308) is permanent: search engines adopt the new URL and pass ranking signals. 302 (and 307) is temporary; use a permanent redirect for site moves and https migrations."
+          },
+          {
+            "s": "How many redirects are too many?",
+            "c": "One step is ideal. Every extra step slows the page down and wastes crawl budget; Google stops following after 10 hops, but even chains longer than two steps should be fixed."
+          }
+        ]
+      },
+      "guvenlik": {
+        "ad": "HTTP security headers",
+        "kisa": "HSTS, CSP, X-Content-Type-Options, Referrer-Policy, Permissions-Policy — scored.",
+        "giris": "Inspects the security headers your server returns and scores them out of 100: HSTS, Content Security Policy (CSP), framing protection, MIME sniffing protection, Referrer-Policy and Permissions-Policy. Explains what to do for each missing one.",
+        "seoBaslik": "HTTP Security Headers Test (HSTS, CSP)",
+        "seoAciklama": "Free security headers test: score your HSTS, CSP, X-Content-Type-Options, Referrer-Policy and Permissions-Policy headers out of 100.",
+        "neler": [
+          "Strict-Transport-Security (HSTS) and its duration",
+          "Content-Security-Policy: unsafe-inline / unsafe-eval",
+          "X-Frame-Options or frame-ancestors",
+          "X-Content-Type-Options: nosniff",
+          "Referrer-Policy and Permissions-Policy; server version disclosure"
+        ],
+        "sss": [
+          {
+            "s": "Do security headers affect SEO?",
+            "c": "They are not a direct ranking signal, but HTTPS and user safety are part of Google's page experience, and a compromised site can be shown with a warning in search results."
+          },
+          {
+            "s": "Will adding a CSP break my site?",
+            "c": "A wrong policy can block scripts. Try it first in report-only mode with Content-Security-Policy-Report-Only, fix the violations, then switch to enforcing mode."
+          }
+        ]
+      },
+      "ssl": {
+        "ad": "SSL certificate checker",
+        "kisa": "Expiry date, days left, issuer, chain and TLS version.",
+        "giris": "Checks your domain's SSL/TLS certificate: is it valid and trusted, does the name match, when does it expire, who issued it, is the chain complete and which TLS version the connection uses.",
+        "seoBaslik": "SSL Certificate Checker: Expiry and Chain",
+        "seoAciklama": "Free SSL certificate checker: see the expiry date, days left, issuer, certificate chain, covered domain names and the TLS version in seconds.",
+        "neler": [
+          "Is the certificate trusted and does it match the domain",
+          "Expiry date and days left",
+          "Issuer, covered domain names (SAN), key type",
+          "Intermediate certificate chain",
+          "TLS version and cipher suite"
+        ],
+        "sss": [
+          {
+            "s": "What happens when an SSL certificate expires?",
+            "c": "Browsers show visitors a full-page security warning, most people leave and traffic and sales drop immediately. Check regularly that automatic renewal works."
+          },
+          {
+            "s": "Is a free certificate good enough?",
+            "c": "For most sites, yes. Free certificates such as Let's Encrypt provide the same encryption; what matters is that automatic renewal and the intermediate chain are set up correctly."
+          }
+        ]
+      },
+      "basliklar": {
+        "ad": "Heading structure (H1–H6)",
+        "kisa": "H1–H6 tree, a missing or duplicate H1 and skipped heading levels.",
+        "giris": "Extracts the page's heading hierarchy from H1 to H6 as a tree and shows a missing, empty or duplicate H1, skipped levels and overly long headings. Tags inside scripts, styles and templates are ignored.",
+        "seoBaslik": "Heading Structure Checker: H1–H6 Tree",
+        "seoAciklama": "Free heading structure checker: extract the H1–H6 tree and spot a missing or duplicate H1, skipped levels and empty headings in seconds.",
+        "neler": [
+          "Is there an H1, only one, and is it empty?",
+          "H1–H6 tree and skipped levels (e.g. H2→H4)",
+          "Empty headings and headings over 70 characters",
+          "Whether the first heading is the H1",
+          "Number of headings per level"
+        ],
+        "sss": [
+          {
+            "s": "Can a page have more than one H1?",
+            "c": "Technically yes, but stating the page's main topic with one clear H1 is the most understandable structure for both visitors and search engines."
+          },
+          {
+            "s": "Is skipping a heading level a problem?",
+            "c": "Search engines don't penalise it, but jumping from H2 to H4 makes the structure harder to follow for screen reader users. Choose levels by meaning and use CSS for the visual size."
+          }
+        ]
+      },
+      "kelime": {
+        "ad": "Word and keyword density",
+        "kisa": "Most frequent words, two- and three-word phrases and your target keyword's density (Turkish-aware).",
+        "giris": "Counts the page's visible text, removes stop words and lists the most frequent words and two- and three-word phrases with their density. Enter a target keyword to also see how often it appears and whether it is in the title, the H1, the meta description and the URL. Turkish I/ı and İ/i casing is handled correctly.",
+        "seoBaslik": "Keyword Density Checker (Turkish-Aware)",
+        "seoAciklama": "Free keyword density tool: see the most frequent words and phrases, your target keyword's density and whether it appears in the title, H1, description and URL.",
+        "neler": [
+          "Visible word count, meaningful and unique words",
+          "Top 20 words with density percentage",
+          "Most frequent two- and three-word phrases",
+          "Count and density of your target keyword",
+          "Is the target keyword in the title, H1, meta description and URL?",
+          "Turkish I/ı and İ/i casing; Turkish, English and German stop words"
+        ],
+        "sss": [
+          {
+            "s": "What is the ideal keyword density?",
+            "c": "There is no fixed ratio; Google doesn't look for a specific percentage. A phrase taking up more than 3% of the text, or a single word more than 5%, usually reads as unnatural. Covering the topic naturally with synonyms and related phrases works better."
+          },
+          {
+            "s": "Why do Turkish texts need special care?",
+            "c": "Many tools lowercase a capital “I” to “i” and turn “İ” into a dotted combined character, so “IŞIK” and “ışık” or “İSTANBUL” and “istanbul” are counted as different words. This tool applies I→ı and İ→i correctly on Turkish pages and removes stop words such as “ve, bir, için”."
+          },
+          {
+            "s": "Where should the target keyword appear?",
+            "c": "Using it naturally in the page title, the H1 and the first paragraph makes the topic clear; having it in the meta description and the URL helps clicks. Don't force it: readability always comes first."
+          }
+        ]
+      }
+    },
+    "form": {
+      "adres": "Website URL",
+      "adresOrnek": "example.com or https://example.com/page",
+      "adresRobots": "URL to test (including path)",
+      "adresRobotsOrnek": "example.com/blog/post",
+      "adresSitemap": "Site or sitemap URL",
+      "adresSitemapOrnek": "example.com or example.com/sitemap.xml",
+      "adresSsl": "Domain name",
+      "adresSslOrnek": "example.com",
+      "ajan": "User agent (crawler)",
+      "ajanOzel": "Other…",
+      "ajanOzelYerTutucu": "e.g. Baiduspider",
+      "calistir": "Check",
+      "calisiyor": "Checking…",
+      "bekleyin": "Checking the site; this can take a few seconds.",
+      "gizlilik": "No sign-up or email needed. The address you check is not stored.",
+      "kelime": "Target keyword (optional)",
+      "kelimeOrnek": "e.g. seo agency",
+      "kelimeIpucu": "If you enter one, we also check how often it appears and whether it is in the title, H1, meta description and URL."
+    },
+    "hata": {
+      "adres_gecersiz": "Enter a valid website address (e.g. example.com).",
+      "adres_yasak": "This address can't be checked. Enter the address of a public website.",
+      "cozumlenemedi": "This domain could not be found. Check the spelling.",
+      "ulasilamadi": "The site could not be reached. Make sure it is online and try again.",
+      "cok_yonlendirme": "The site redirects too many times; the check could not finish.",
+      "zaman_asimi": "The site did not respond in time. Try again a little later.",
+      "ajan_gecersiz": "The user agent may only contain letters, digits, dots, hyphens and *.",
+      "sinir_dakika": "You ran too many checks in a short time. Wait a minute and try again.",
+      "sinir_gun": "You have reached today's limit for this tool. You can try again tomorrow.",
+      "eposta_gecersiz": "Enter a valid email address.",
+      "arac_yok": "There is no such tool.",
+      "beklenmedik": "An unexpected error occurred. Please try again.",
+      "ag": "Could not reach the server. Check your internet connection and try again.",
+      "genel": "Something went wrong. Please try again.",
+      "kelime_gecersiz": "The keyword can have at most 6 words and 60 characters; use letters, digits, spaces and hyphens.",
+      "sinir_eposta": "Too many emails were requested in a short time. Please try again later.",
+      "sonuc_suresi_doldu": "This result has expired. Run the tool again, then send it.",
+      "eposta_kapali": "Sending email is not available right now.",
+      "eposta_gonderilemedi": "The email couldn't be sent. Please try again in a few minutes."
+    },
+    "sayfa": {
+      "kirinti": "Breadcrumb",
+      "geri": "All SEO tools",
+      "nelerBaslik": "What does it check?",
+      "sssBaslik": "Frequently asked questions",
+      "digerAraclar": "Other free tools",
+      "siteAnaliziBaslik": "Let's score your whole site",
+      "siteAnaliziMetin": "The free Website Analysis Report scores your entire site, not just one page, out of 100 for speed, SEO, content, technical setup, security and AI visibility.",
+      "siteAnaliziDugme": "Free website analysis",
+      "bulunamadi": "Tool not found",
+      "bulunamadiAciklama": "The tool you are looking for may have been removed or renamed."
+    },
+    "tamAnaliz": {
+      "baslik": "Let's look at the whole site",
+      "metin": "The free Site Analysis Report scores speed, SEO, content, technical health, security and AI visibility for {{alan}} from 0 to 100. The address is filled in; it starts with one click.",
+      "dugme": "Get a full analysis of the site"
+    },
+    "yonetim": {
+      "baslik": "Free SEO tools",
+      "aciklama": "Daily usage per tool over the last {{gun}} days, visitors who asked for the result by email (CRM leads) and hand-offs to the full analysis. Checked addresses are not stored; numbers only.",
+      "arac": "Tool",
+      "gunluk": "Daily usage",
+      "kullanim": "Runs",
+      "hata": "Failed",
+      "eposta": "Emails",
+      "aday": "New leads",
+      "donusum": "Conversion",
+      "donusumIpucu": "Results emailed / runs",
+      "tamAnaliz": "Full analysis",
+      "toplam": "Total",
+      "toplamKullanim": "Total runs",
+      "toplamEposta": "Results emailed",
+      "toplamAday": "New CRM leads",
+      "toplamTamAnaliz": "Went to full analysis",
+      "tamAnalizAlt": "{{sayi}} left an email",
+      "gunIpucu": "{{gun}}: {{sayi}}",
+      "sayfayiAc": "Tools page",
+      "hataYukle": "Couldn't load the tools summary."
+    },
+    "eposta": {
+      "baslik": "Email me the result",
+      "aciklama": "Optional: we'll send a summary of this result and the recommended fixes to your inbox.",
+      "ad": "Your name (optional)",
+      "eposta": "Your email address",
+      "istegeBagli": "optional",
+      "gonder": "Send the result",
+      "gonderiliyor": "Sending…",
+      "basarili": "The result has been sent to your email.",
+      "basariliMetin": "If it doesn't arrive within a few minutes, check your spam folder.",
+      "pazarlama": "I would like to hear about campaigns and announcements by email."
+    }
+  }
+}

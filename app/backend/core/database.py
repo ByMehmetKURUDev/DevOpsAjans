@@ -501,6 +501,8 @@ class DatabaseManager:
         {"tablo": "site_analyses", "sutun": "pazarlama_izni", "tur_pg": "BOOLEAN", "tur_sqlite": "BOOLEAN"},
         {"tablo": "site_analyses", "sutun": "pazarlama_izni_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
         {"tablo": "site_analyses", "sutun": "pazarlama_metin_surumu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        # Faz 4S — analiz bir ücretsiz SEO aracının "Sitenin tam analizini al" düğmesinden geldiyse aracın kısa adı.
+        {"tablo": "site_analyses", "sutun": "arac", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
         # Faz 3T — kısmi ödeme: tahsilat `payments` tablosunda kalıyor (ikinci
         # bir ödeme tablosu açılmadı); elle girilen ödemenin tarihi, notu,
         # dekontu (dosya deposu → `files.id`) ve ekleyen yönetici.

@@ -119,10 +119,11 @@
         "yonetici": "Admin"
       },
       "pazarlamaSor": "Ask for marketing permission on the full report form",
-      "pazarlamaSorIpucu": "When on, the form shows an unticked “I would like to hear about campaigns and announcements by email” box. The report request does not depend on it; if ticked, the permission, its time and the text version are recorded.",
+      "pazarlamaSorIpucu": "When on, the form shows an unticked “I would like to hear about campaigns and announcements by email” box. The report request does not depend on it; if ticked, the permission, its time and the text version are recorded. The same setting also applies to the free SEO tools' “Email me the result” form.",
       "pazarlamaKaydedildi": "Marketing permission setting saved.",
       "pazarlamaVar": "Marketing permission given ({{tarih}}, text v{{surum}})",
-      "pazarlamaYok": "No marketing permission"
+      "pazarlamaYok": "No marketing permission",
+      "aracKaynak": "Free SEO tool: {{arac}}"
     },
     "musteri": {
       "baslik": "Analyse my site",
@@ -447,6 +448,10 @@
         "neden": "AI systems infer who you are and what you offer more reliably from structured data.",
         "oneri": "Add schema.org JSON-LD such as Organization, LocalBusiness, Service and FAQPage."
       }
+    },
+    "araclar": {
+      "metin": "Want to check just one thing?",
+      "dugme": "Free SEO tools"
     }
   }
 }

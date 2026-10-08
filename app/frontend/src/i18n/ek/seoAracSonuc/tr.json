@@ -1,0 +1,555 @@
+{
+  "seoAracSonuc": {
+    "baslik": "Sonuç",
+    "kontrolEdilen": "Kontrol edilen adres",
+    "sonAdres": "Varılan adres",
+    "durum": "HTTP durumu",
+    "ozet": "{{hata}} hata · {{uyari}} uyarı · {{bilgi}} bilgi · {{iyi}} başarılı",
+    "nedenOnemli": "Neden önemli?",
+    "nasilDuzeltilir": "Nasıl düzeltilir?",
+    "ayrintilar": "Ayrıntılar",
+    "kontroller": "Kontroller",
+    "yeniKontrol": "Başka bir adres dene",
+    "seviye": {
+      "hata": "Hata",
+      "uyari": "Uyarı",
+      "bilgi": "Bilgi",
+      "iyi": "Başarılı"
+    },
+    "kontrol": {
+      "title": {
+        "ad": "Sayfa başlığı (title)",
+        "neden": "Başlık, arama sonucunda tıklanan satırdır; sayfanın konusunu hem Google'a hem kullanıcıya ilk o anlatır ve tıklanma oranını doğrudan etkiler.",
+        "duzelt": "Her sayfaya benzersiz, 30–60 karakter genişliğinde, ana anahtar kelimeyi başa yakın taşıyan tek bir <title> yazın; marka adını sona ekleyin."
+      },
+      "aciklama": {
+        "ad": "Meta açıklama (description)",
+        "neden": "Açıklama çoğu zaman arama sonucunda başlığın altında görünür; sayfayı neden açması gerektiğini kullanıcıya anlatır ve tıklanmayı artırır.",
+        "duzelt": "Sayfaya özgü, 70–160 karakter genişliğinde, eyleme çağıran tek bir meta description ekleyin; aynı açıklamayı birçok sayfada kullanmayın."
+      },
+      "canonical": {
+        "ad": "Canonical adres",
+        "neden": "Aynı içerik birden çok adreste açılabiliyorsa canonical, asıl sayfanın hangisi olduğunu söyler; sıralama sinyalleri tek adreste toplanır.",
+        "duzelt": "<head> içine bir tane, mutlak (https://… ile başlayan) ve sayfanın kendi temiz adresini gösteren <link rel=canonical> ekleyin."
+      },
+      "robots_meta": {
+        "ad": "Dizine ekleme izni (robots)",
+        "neden": "noindex taşıyan sayfa Google'da görünmez; nofollow ise sayfadaki bağlantıların değer aktarmasını engeller. Yanlışlıkla bırakılan bir noindex trafiği sıfırlayabilir.",
+        "duzelt": "Görünmesini istediğiniz sayfalardan robots meta etiketindeki ve X-Robots-Tag başlığındaki noindex / nofollow değerlerini kaldırın."
+      },
+      "viewport": {
+        "ad": "Mobil görünüm (viewport)",
+        "neden": "Google siteyi mobil sürümüyle değerlendirir. Viewport yoksa sayfa telefonda küçültülmüş masaüstü gibi görünür; yakınlaştırmayı kapatmak erişilebilirliği bozar.",
+        "duzelt": "<meta name=viewport content=\"width=device-width, initial-scale=1\"> kullanın; user-scalable=no ve maximum-scale=1 değerlerini kaldırın."
+      },
+      "lang": {
+        "ad": "Sayfa dili (lang)",
+        "neden": "html lang özniteliği sayfanın dilini tarayıcıya, ekran okuyuculara ve arama motorlarına bildirir; yanlış dil yanlış telaffuz ve yanlış hedeflemeye yol açar.",
+        "duzelt": "<html lang=\"tr\"> gibi geçerli bir dil kodu ekleyin; bölgesel sürüm için tr-TR, en-GB biçimini kullanın."
+      },
+      "hreflang": {
+        "ad": "Dil alternatifleri (hreflang)",
+        "neden": "Çok dilli sitelerde hreflang, her kullanıcıya kendi dilindeki sayfanın gösterilmesini sağlar ve dil sürümlerinin kopya sayılmasını önler.",
+        "duzelt": "Her dil sürümü, kendisi dahil bütün sürümleri ve bir x-default'u geçerli dil kodlarıyla (tr, en, de-AT…) listelesin; liste her sürümde aynı olsun."
+      },
+      "og_etiketleri": {
+        "ad": "Open Graph etiketleri",
+        "neden": "Bağlantı paylaşıldığında başlık, açıklama ve adres bu etiketlerden okunur; eksikse platform sayfadan rastgele metin seçebilir.",
+        "duzelt": "<head> içine og:title, og:description, og:url ve og:type etiketlerini ekleyin; metinleri paylaşımda görünmesini istediğiniz biçimde yazın."
+      },
+      "twitter_karti": {
+        "ad": "Twitter / X kartı",
+        "neden": "twitter:card, bağlantının X'te küçük ya da büyük görselli kartla gösterilmesini belirler.",
+        "duzelt": "<meta name=twitter:card content=summary_large_image> ekleyin; başlık, açıklama ve görsel için Open Graph etiketleri yeterlidir."
+      },
+      "og_gorsel": {
+        "ad": "Paylaşım görseli (og:image)",
+        "neden": "Görselli paylaşımlar çok daha fazla tıklanır. Görsel açılmazsa, çok küçükse ya da ağırsa platform kartı görselsiz gösterir.",
+        "duzelt": "Mutlak https adresli, 1200×630 piksel, 5 MB'tan küçük bir JPG/PNG/WebP görseli og:image olarak verin ve adresin herkese açık olduğundan emin olun."
+      },
+      "jsonld_sozdizimi": {
+        "ad": "JSON-LD söz dizimi",
+        "neden": "Tek bir virgül hatası bütün bloğun okunmamasına yol açar; arama motoru o bloktaki hiçbir bilgiyi kullanamaz.",
+        "duzelt": "Hatanın gösterildiği satır ve sütunu düzeltin (sondaki virgül, eksik tırnak, kaçırılmamış karakter); @context olarak https://schema.org kullanın."
+      },
+      "jsonld_turler": {
+        "ad": "Yapısal veri türleri",
+        "neden": "Yapısal veri, sayfanın neyi anlattığını (işletme, ürün, makale, SSS…) makinelerin anlayacağı biçimde söyler; zengin sonuçlara ve yapay zekâ yanıtlarına kapı açar.",
+        "duzelt": "Sayfanın içeriğine uygun schema.org türünü JSON-LD olarak ekleyin: ana sayfada Organization/LocalBusiness ve WebSite, yazılarda Article, ürünlerde Product."
+      },
+      "jsonld_alanlar": {
+        "ad": "Zorunlu ve önerilen alanlar",
+        "neden": "Zorunlu alanı eksik öğe zengin sonuç için uygun sayılmaz; önerilen alanlar sonucun ne kadar zengin görüneceğini belirler.",
+        "duzelt": "Listelenen eksik alanları sayfada gerçekten görünen bilgilerle doldurun; sayfada olmayan bilgiyi yapısal veriye yazmayın."
+      },
+      "robots_dosyasi": {
+        "ad": "robots.txt dosyası",
+        "neden": "Tarayıcılar her siteye önce robots.txt'ye bakarak başlar. Dosya 5xx hata verirse Google siteyi bir süre hiç taramayabilir.",
+        "duzelt": "Kök dizinde düz metin (text/plain) olarak 200 dönen, 500 KiB'tan küçük bir robots.txt yayınlayın; HTML sayfası döndürmesin."
+      },
+      "robots_yol": {
+        "ad": "Yolun taranabilirliği",
+        "neden": "Engellenen sayfanın içeriği okunamaz; önemli sayfaları ya da CSS/JS dosyalarını yanlışlıkla engellemek sıralamayı düşürür.",
+        "duzelt": "Taranmasını istediğiniz yolu engelleyen Disallow kuralını kaldırın ya da daha uzun (daha özel) bir Allow kuralıyla açın."
+      },
+      "robots_sitemap": {
+        "ad": "Site haritası bildirimi",
+        "neden": "robots.txt'deki Sitemap satırı, bütün arama motorlarının site haritanızı ayrıca bildirmeden bulmasını sağlar.",
+        "duzelt": "robots.txt'nin sonuna mutlak adresle Sitemap: https://alanadiniz.com/sitemap.xml satırını ekleyin."
+      },
+      "robots_sozdizimi": {
+        "ad": "Söz dizimi",
+        "neden": "Tanınmayan yönergeler ve User-agent'tan önce yazılan kurallar yok sayılır; dosya düşündüğünüz gibi çalışmaz.",
+        "duzelt": "Her grubu User-agent satırıyla başlatın; yalnız User-agent, Allow, Disallow ve Sitemap kullanın. Google Crawl-delay'i dikkate almaz."
+      },
+      "sitemap_erisim": {
+        "ad": "Site haritasına erişim",
+        "neden": "Site haritası, arama motorlarına hangi sayfaların var olduğunu ve ne zaman değiştiğini söyler; yeni sayfaların daha hızlı keşfedilmesini sağlar.",
+        "duzelt": "XML site haritasını /sitemap.xml adresinde 200 ile yayınlayın, robots.txt'de bildirin ve Search Console'a gönderin."
+      },
+      "sitemap_bicim": {
+        "ad": "Biçim ve boyut",
+        "neden": "Biçimi bozuk ya da sınırları aşan site haritası kısmen veya tamamen okunmaz.",
+        "duzelt": "Kök öğe urlset ya da sitemapindex olsun, ad alanı http://www.sitemaps.org/schemas/sitemap/0.9 olsun; dosya başına 50.000 adresi ve 50 MB'ı aşmayın."
+      },
+      "sitemap_adresler": {
+        "ad": "Adresler",
+        "neden": "Hatalı, tekrar eden ya da başka alan adına ait adresler arama motorunca yok sayılır ve site haritasına olan güveni azaltır.",
+        "duzelt": "Yalnız aynı alan adındaki, mutlak, canonical ve 200 dönen adresleri bir kez listeleyin."
+      },
+      "sitemap_lastmod": {
+        "ad": "Son değişiklik tarihi (lastmod)",
+        "neden": "Doğru lastmod, Google'ın değişen sayfaları önce taramasını sağlar; yanlış ya da gelecek tarihler bu sinyalin tamamen yok sayılmasına yol açar.",
+        "duzelt": "lastmod'u W3C biçiminde (2026-10-01 ya da 2026-10-01T10:00:00+03:00) ve yalnız içerik gerçekten değiştiğinde güncelleyin."
+      },
+      "sitemap_orneklem": {
+        "ad": "Örneklemdeki durum kodları",
+        "neden": "Site haritasında 404, 5xx ya da yönlendirme döndüren adresler tarama bütçesini boşa harcar ve haritanın güncel olmadığını gösterir.",
+        "duzelt": "Hata veren adresleri düzeltin ya da haritadan çıkarın; yönlendirilen adreslerin yerine son (200 dönen) adresi yazın."
+      },
+      "zincir": {
+        "ad": "Yönlendirme zinciri",
+        "neden": "Her yönlendirme adımı açılışı yavaşlatır ve tarama bütçesi harcar; döngüde kalan adres hiç açılmaz.",
+        "duzelt": "Her eski adresi tek adımda (301) doğrudan son adrese yönlendirin; ara adımları ve döngüleri kaldırın."
+      },
+      "son_durum": {
+        "ad": "Son durum kodu",
+        "neden": "Zincirin sonunda 200 dönmeyen sayfa dizine giremez; ziyaretçi de hata sayfası görür.",
+        "duzelt": "Sayfanın gerçekten var olduğundan emin olun; taşındıysa yeni adrese 301 ile yönlendirin, kaldırıldıysa 410 ya da en yakın sayfaya yönlendirme kullanın."
+      },
+      "https_yonlendirme": {
+        "ad": "http → https",
+        "neden": "Şifresiz http sürümü açık kalırsa kullanıcı güvensiz sayfaya düşebilir ve aynı sayfa iki adreste dizine girer.",
+        "duzelt": "Sunucu ya da CDN ayarında bütün http isteklerini tek adımda, kalıcı (301/308) yönlendirmeyle https'e gönderin."
+      },
+      "www_tutarlilik": {
+        "ad": "www tutarlılığı",
+        "neden": "www ve www'siz adreslerin ikisi de ayrı ayrı açılıyorsa site kendisinin kopyası gibi görünür ve bağlantı değeri bölünür.",
+        "duzelt": "Birini asıl seçin (ör. https://alanadiniz.com) ve diğer üç varyantı (http, www) ona 301 ile yönlendirin."
+      },
+      "hsts": {
+        "ad": "HSTS (Strict-Transport-Security)",
+        "neden": "HSTS, tarayıcıya siteye yalnız https ile bağlanmasını söyler; ilk istekteki şifresiz bağlantının ele geçirilmesini önler.",
+        "duzelt": "https yanıtlarına Strict-Transport-Security: max-age=31536000; includeSubDomains başlığını ekleyin (önce kısa süreyle deneyin)."
+      },
+      "csp": {
+        "ad": "İçerik Güvenliği Politikası (CSP)",
+        "neden": "CSP, sayfada hangi kaynaklardan betik yüklenebileceğini sınırlar; XSS saldırılarına karşı en güçlü savunmadır. unsafe-inline ve unsafe-eval bu korumayı zayıflatır.",
+        "duzelt": "Kendi alan adınızı ve gerçekten kullandığınız servisleri listeleyen bir Content-Security-Policy yazın; satır içi betikleri nonce ya da hash ile izinlendirin. Önce Report-Only ile deneyin."
+      },
+      "frame": {
+        "ad": "Çerçeveye gömme koruması",
+        "neden": "Koruma yoksa siteniz başka bir sayfaya görünmez çerçeveyle gömülüp kullanıcı farkında olmadan tıklatılabilir (clickjacking).",
+        "duzelt": "CSP'ye frame-ancestors 'self' ekleyin ya da X-Frame-Options: SAMEORIGIN başlığını gönderin."
+      },
+      "nosniff": {
+        "ad": "MIME koklama koruması",
+        "neden": "nosniff olmadan tarayıcı dosya türünü tahmin edip zararsız görünen bir dosyayı betik olarak çalıştırabilir.",
+        "duzelt": "Bütün yanıtlara X-Content-Type-Options: nosniff başlığını ekleyin ve dosyaları doğru Content-Type ile sunun."
+      },
+      "referrer": {
+        "ad": "Referrer-Policy",
+        "neden": "Bu başlık, bağlantıya tıklandığında karşı siteye hangi adres bilgisinin gönderileceğini belirler; zayıf değerler sayfa adresindeki kişisel verileri sızdırabilir.",
+        "duzelt": "Referrer-Policy: strict-origin-when-cross-origin (ya da daha sıkı no-referrer / same-origin) kullanın."
+      },
+      "permissions": {
+        "ad": "Permissions-Policy",
+        "neden": "Kamera, mikrofon, konum gibi tarayıcı özelliklerini hangi sayfaların kullanabileceğini sınırlar; gömülü üçüncü taraf içeriğin kötüye kullanmasını önler.",
+        "duzelt": "Kullanmadığınız özellikleri kapatın, ör. Permissions-Policy: camera=(), microphone=(), geolocation=()."
+      },
+      "sunucu_bilgisi": {
+        "ad": "Sunucu sürüm bilgisi",
+        "neden": "Server ve X-Powered-By başlıklarındaki sürüm numarası, saldırganın bilinen açıkları hedeflemesini kolaylaştırır.",
+        "duzelt": "Sunucu ayarında sürüm bilgisini gizleyin (ör. nginx server_tokens off) ve X-Powered-By başlığını kaldırın."
+      },
+      "sertifika_gecerlilik": {
+        "ad": "Sertifika geçerliliği",
+        "neden": "Geçersiz, süresi dolmuş ya da alan adıyla eşleşmeyen sertifikada tarayıcı tam sayfa uyarı gösterir; ziyaretçilerin çoğu siteden çıkar.",
+        "duzelt": "Alan adını (ve www'yi) kapsayan, güvenilir bir otoriteden alınmış sertifika kurun; Let's Encrypt gibi ücretsiz ve otomatik yenilenen bir çözüm yeterlidir."
+      },
+      "sertifika_suresi": {
+        "ad": "Bitiş tarihi",
+        "neden": "Sertifikanın süresi dolduğu an site güvenilmez görünür; yenileme unutulduğunda trafik bir anda düşer.",
+        "duzelt": "Otomatik yenilemeyi açın ve bitişten en az 30 gün önce uyarı alacak bir izleme kurun."
+      },
+      "tls_surumu": {
+        "ad": "TLS sürümü",
+        "neden": "TLS 1.0 ve 1.1 güvensizdir ve tarayıcılarca kapatılmıştır; TLS 1.3 daha hızlı ve daha güvenlidir.",
+        "duzelt": "Sunucuda TLS 1.2 ve 1.3'ü açık, 1.0 ve 1.1'i kapalı tutun."
+      },
+      "ssl_zincir": {
+        "ad": "Sertifika zinciri",
+        "neden": "Ara sertifika eksikse bazı tarayıcılar ve özellikle mobil cihazlar ile botlar siteye güvenmez.",
+        "duzelt": "Sunucuya yalnız site sertifikasını değil, yayıncının verdiği tam zinciri (fullchain) yükleyin."
+      },
+      "h1": {
+        "ad": "Ana başlık (H1)",
+        "neden": "H1, sayfanın ana konusunu ziyaretçiye ve arama motoruna söyleyen en güçlü sayfa içi başlıktır.",
+        "duzelt": "Her sayfada konuyu net anlatan, boş olmayan tek bir H1 kullanın; logo ya da süs metnini H1 yapmayın."
+      },
+      "baslik_hiyerarsi": {
+        "ad": "Başlık hiyerarşisi",
+        "neden": "Sıralı başlıklar (H2 → H3) içeriği bölümlere ayırır; ekran okuyucular ve arama motorları sayfanın yapısını bunlardan çıkarır.",
+        "duzelt": "Seviye atlamadan ilerleyin (H2'den sonra H4 değil H3), boş başlık bırakmayın; başlıkları görsel boyut için değil anlam için kullanın."
+      },
+      "icerik_uzunlugu": {
+        "ad": "İçerik uzunluğu",
+        "neden": "Çok az metin içeren sayfalar konuyu yeterince anlatmaz ve ince içerik olarak değerlendirilip zor sıralanır.",
+        "duzelt": "Sayfanın amacına uygun, ziyaretçinin sorularını yanıtlayan özgün metin ekleyin; ana sayfalar için 300 kelimenin üstü iyi bir başlangıçtır."
+      },
+      "anahtar_yogunlugu": {
+        "ad": "Anahtar kelime yoğunluğu",
+        "neden": "Bir kelimenin aşırı tekrarı metni doğal olmaktan çıkarır ve spam olarak algılanabilir.",
+        "duzelt": "Ana kelimeyi başlıkta ve ilk paragrafta kullanın, sonra eş anlamlılar ve ilgili ifadelerle doğal biçimde yazın."
+      },
+      "hedef_kelime": {
+        "ad": "Hedef anahtar kelime",
+        "neden": "Sayfanın hangi aramaya yanıt verdiği metinde açıkça görünmelidir; ifade hiç geçmiyorsa ya da aşırı tekrarlanıyorsa sayfa o arama için zayıf ya da yapay görünür.",
+        "duzelt": "İfadeyi giriş paragrafında ve uygun bir ara başlıkta doğal biçimde kullanın; metnin geri kalanında eş anlamlılar ve ilgili ifadelerle konuyu genişletin."
+      },
+      "hedef_konum": {
+        "ad": "Anahtar kelimenin yeri",
+        "neden": "Sayfa başlığı (title), H1, meta açıklama ve adres; arama motorunun ve kullanıcının sayfanın konusunu ilk gördüğü yerlerdir.",
+        "duzelt": "Hedef ifadeyi title'ın başına yakın, H1'de ve meta açıklamada doğal biçimde kullanın; yeni sayfalarda kısa ve okunur bir adres (ör. /seo-ajansi) seçin. Var olan adresi değiştirirseniz 301 yönlendirmesi ekleyin."
+      }
+    },
+    "bulgu": {
+      "title_yok": "Sayfada <title> etiketi yok.",
+      "title_kisa": "Başlık kısa: yaklaşık {{deger}} karakter genişliğinde (önerilen 30–60).",
+      "title_uzun": "Başlık uzun: yaklaşık {{deger}} karakter genişliğinde; arama sonucunda kesilebilir (önerilen 30–60).",
+      "title_iyi": "Başlık uzunluğu uygun ({{deger}} karakter genişliği).",
+      "title_coklu": "Sayfada {{deger}} adet <title> var; yalnız biri olmalı.",
+      "aciklama_yok": "Meta açıklama (description) yok.",
+      "aciklama_kisa": "Açıklama kısa: yaklaşık {{deger}} karakter genişliğinde (önerilen 70–160).",
+      "aciklama_uzun": "Açıklama uzun: yaklaşık {{deger}} karakter genişliğinde; kesilebilir (önerilen 70–160).",
+      "aciklama_iyi": "Açıklama uzunluğu uygun ({{deger}} karakter genişliği).",
+      "aciklama_coklu": "Sayfada {{deger}} adet meta description var; yalnız biri olmalı.",
+      "canonical_yok": "Canonical etiketi yok.",
+      "canonical_coklu": "Sayfada {{deger}} canonical etiketi var; Google hepsini yok sayabilir.",
+      "canonical_goreli": "Canonical göreli adres kullanıyor ({{deger}}); mutlak adres önerilir.",
+      "canonical_baska": "Canonical başka bir adresi gösteriyor: {{deger}}",
+      "canonical_iyi": "Canonical sayfanın kendi adresini gösteriyor.",
+      "robots_noindex": "Sayfa dizine eklenmeyi engelliyor (noindex, kaynak: {{deger}}).",
+      "robots_nofollow": "Sayfadaki bağlantılar nofollow; değer aktarmıyor.",
+      "robots_iyi": "Dizine ekleme ve bağlantı takibi açık.",
+      "viewport_yok": "Mobil viewport etiketi yok.",
+      "viewport_genislik": "Viewport width=device-width içermiyor.",
+      "viewport_yakinlastirma": "Viewport yakınlaştırmayı kapatıyor (user-scalable=no ya da maximum-scale düşük).",
+      "viewport_iyi": "Viewport mobil uyumlu.",
+      "lang_yok": "html etiketinde lang özniteliği yok.",
+      "lang_gecersiz": "lang değeri geçerli bir dil kodu değil: {{deger}}",
+      "lang_iyi": "Sayfa dili tanımlı: {{deger}}",
+      "hreflang_yok": "hreflang bağlantısı yok (tek dilli sitede gerekmez).",
+      "hreflang_gecersiz": "Geçersiz hreflang kodu: {{deger}}",
+      "hreflang_tekrar": "Aynı dil birden çok kez listelenmiş: {{deger}}",
+      "hreflang_kendisi_yok": "hreflang listesi sayfanın kendisini içermiyor.",
+      "hreflang_xdefault_yok": "x-default hreflang tanımlı değil.",
+      "hreflang_iyi": "{{deger}} hreflang bağlantısı tutarlı.",
+      "og_baslik_yok": "og:title yok.",
+      "og_aciklama_yok": "og:description yok.",
+      "og_url_yok": "og:url yok.",
+      "og_type_yok": "og:type yok.",
+      "og_tamam": "Temel Open Graph etiketleri tam.",
+      "twitter_kart_yok": "twitter:card yok; X küçük kartla gösterebilir.",
+      "twitter_kart_gecersiz": "twitter:card değeri tanınmıyor: {{deger}}",
+      "twitter_kart_iyi": "Twitter / X kartı: {{deger}}",
+      "og_gorsel_yok": "Paylaşım görseli (og:image) yok.",
+      "og_gorsel_goreli": "og:image göreli adres; mutlak https adresi olmalı.",
+      "gorsel_erisilemedi": "Paylaşım görseli açılamadı ({{deger}}).",
+      "gorsel_tur_yanlis": "og:image bir görsel döndürmüyor (tür: {{deger}}).",
+      "gorsel_kucuk": "Görsel çok küçük: {{deger}} (en az 200×200 olmalı).",
+      "gorsel_onerilen_alti": "Görsel önerilen boyutun altında: {{deger}} (önerilen 1200×630).",
+      "gorsel_oran": "Görsel oranı paylaşım kartına uymuyor: {{deger}} (önerilen 1,91:1).",
+      "gorsel_boyut_bilinmiyor": "Görselin piksel boyutu okunamadı.",
+      "gorsel_buyuk": "Görsel çok ağır: {{deger}} KB (en çok 5 MB).",
+      "gorsel_agir": "Görsel ağır: {{deger}} KB; paylaşım yavaş yüklenebilir.",
+      "gorsel_http": "Görsel şifresiz http adresinde; https kullanın.",
+      "gorsel_iyi": "Paylaşım görseli uygun: {{deger}}",
+      "jsonld_sozdizimi": "Blok {{blok}}: söz dizimi hatası (satır {{satir}}, sütun {{sutun}}): {{mesaj}}",
+      "jsonld_sozdizimi_iyi": "{{deger}} JSON-LD bloğunun söz dizimi geçerli.",
+      "jsonld_context": "{{deger}} blokta @context schema.org değil ya da eksik.",
+      "jsonld_yok": "Sayfada JSON-LD yapısal veri yok.",
+      "jsonld_tur_yok": "JSON-LD bloklarında @type tanımlı öğe yok.",
+      "jsonld_turler_var": "Bulunan türler: {{deger}}",
+      "mikroveri_var": "Mikroveri / RDFa da var: {{deger}}",
+      "jsonld_alan_eksik": "{{tur}}: zorunlu alan eksik — {{alanlar}}",
+      "jsonld_onerilen_eksik": "{{tur}}: önerilen alan eksik — {{alanlar}}",
+      "jsonld_alanlar_iyi": "Temel zorunlu alanlar tam.",
+      "robots_erisilemedi": "robots.txt okunamadı ({{deger}}); Google bu durumda taramayı durdurabilir.",
+      "robots_yok": "robots.txt yok ({{deger}}); her şey taranabilir sayılır.",
+      "robots_html": "robots.txt adresi HTML sayfası döndürüyor; geçerli bir robots.txt değil.",
+      "robots_buyuk": "robots.txt çok büyük ({{deger}} KB); Google yalnız ilk 500 KiB'ı okur.",
+      "robots_var": "robots.txt bulundu ({{deger}} bayt).",
+      "yol_bilinmiyor": "robots.txt okunamadığı için {{yol}} yolunun {{ajan}} için durumu belirsiz.",
+      "yol_izinli": "{{yol}} yolu {{ajan}} için taranabilir.",
+      "yol_engelli": "{{yol}} yolu {{ajan}} için engelli (satır {{satir}}: {{kural}}).",
+      "tum_site_engelli": "Sitenin tamamı {{deger}} için engelli (Disallow: /).",
+      "sitemap_satiri_goreli": "{{deger}} Sitemap satırı göreli adres kullanıyor; mutlak olmalı.",
+      "sitemap_satiri_var": "{{deger}} Sitemap satırı var.",
+      "sitemap_satiri_yok": "robots.txt'de Sitemap satırı yok.",
+      "kural_ajansiz": "User-agent'tan önce yazılmış kurallar yok sayılıyor (satır {{deger}}).",
+      "bilinmeyen_yonerge": "Tanınmayan satırlar: {{deger}}",
+      "crawl_delay": "Crawl-delay kullanılıyor; Google bunu dikkate almaz.",
+      "sozdizimi_iyi": "Söz dizimi sorunu yok.",
+      "sitemap_bulunamadi": "Site haritası bulunamadı ({{deger}}).",
+      "sitemap_erisildi": "Site haritası okundu: {{deger}}",
+      "sitemap_kesildi": "Site haritası çok büyük; ilk {{deger}} KB incelendi.",
+      "dtd_reddedildi": "Site haritası DOCTYPE/ENTITY tanımı içeriyor; güvenlik nedeniyle işlenmedi.",
+      "sitemap_kok_hatali": "Kök öğe urlset ya da sitemapindex değil ({{deger}}).",
+      "sitemap_xml_hatasi": "XML okunamadı: {{deger}}",
+      "sitemap_ad_alani": "Ad alanı beklenen değil: {{deger}}",
+      "sitemap_cok_buyuk": "{{deger}} adres var; dosya başına en çok 50.000 olmalı.",
+      "sitemap_bos": "Site haritasında hiç adres yok.",
+      "sitemap_dizini": "Site haritası dizini: {{deger}} alt harita listeleniyor.",
+      "sitemap_bicim_iyi": "Biçim geçerli; {{deger}} adres listeleniyor.",
+      "alt_sitemap_hatali": "İlk alt site haritası okunamadı: {{deger}}",
+      "alan_hatali": "{{deger}} girdide changefreq ya da priority değeri geçersiz.",
+      "adres_hatali": "{{deger}} geçersiz adres (mutlak http/https olmalı).",
+      "adres_baska_site": "{{deger}} adres başka bir alan adına ait.",
+      "adres_tekrar": "{{deger}} adres birden çok kez listelenmiş.",
+      "adresler_iyi": "{{deger}} adresin hepsi geçerli ve aynı sitede.",
+      "lastmod_yok": "Hiçbir adreste lastmod yok.",
+      "lastmod_eksik": "{{deger}} adreste lastmod yok.",
+      "lastmod_hatali": "{{deger}} adreste lastmod biçimi hatalı.",
+      "lastmod_gelecek": "{{deger}} adreste lastmod gelecekte bir tarih.",
+      "lastmod_iyi": "lastmod tarihleri geçerli.",
+      "orneklem_hatali": "Örneklemde {{toplam}} adresten {{hatali}} tanesi hata döndürüyor (4xx/5xx).",
+      "orneklem_yonlendirme": "Örneklemde {{toplam}} adresten {{hatali}} tanesi yönlendiriliyor.",
+      "orneklem_iyi": "Örneklemdeki {{deger}} adresin hepsi sorunsuz yanıt veriyor.",
+      "dongu": "Yönlendirme döngüsü: adres kendisine geri dönüyor.",
+      "cok_yonlendirme": "{{deger}} adımdan fazla yönlendirme; zincir izlenemedi.",
+      "zincir_uzun": "Zincir uzun: {{deger}} yönlendirme adımı.",
+      "zincir_iyi": "Sertifika zinciri güvenilir köke ulaşıyor.",
+      "gecici_yonlendirme": "Zincirde geçici yönlendirme ({{deger}}) var; kalıcı taşımada 301 kullanın.",
+      "son_durum_iyi": "Son adres {{deger}} döndürüyor.",
+      "son_durum_hatali": "Son adres hata döndürüyor: {{deger}}",
+      "https_gecici": "http → https yönlendirmesi geçici ({{deger}}); 301 ya da 308 olmalı.",
+      "https_yonlendirme_iyi": "http adresi https'e yönlendiriliyor.",
+      "https_yonlendirme_yok": "http adresi https'e yönlendirilmiyor.",
+      "https_yok": "Site https ile açılmıyor.",
+      "www_tutarsiz": "www / www'siz ve http / https adresleri {{deger}} farklı adrese çıkıyor.",
+      "www_iyi": "Bütün varyantlar aynı adrese çıkıyor.",
+      "www_erisilemedi": "{{deger}} açılmıyor (DNS kaydı yok ya da bağlantı kurulamadı).",
+      "https_degil": "Sayfa https ile sunulmuyor; HSTS uygulanamaz.",
+      "hsts_yok": "Strict-Transport-Security başlığı yok.",
+      "hsts_kisa": "HSTS süresi kısa: {{deger}} gün (en az 180 önerilir).",
+      "hsts_iyi": "HSTS açık ({{deger}} gün).",
+      "hsts_alt_alan_yok": "HSTS alt alan adlarını kapsamıyor (includeSubDomains yok).",
+      "csp_unsafe_inline": "CSP satır içi betiğe izin veriyor ('unsafe-inline').",
+      "csp_unsafe_eval": "CSP eval'e izin veriyor ('unsafe-eval').",
+      "csp_iyi": "Content-Security-Policy var.",
+      "csp_rapor": "CSP yalnız raporlama modunda (Report-Only); engellemiyor.",
+      "csp_yok": "Content-Security-Policy başlığı yok.",
+      "frame_iyi": "Çerçeveye gömme koruması var ({{deger}}).",
+      "frame_yok": "Çerçeveye gömme koruması yok (X-Frame-Options / frame-ancestors).",
+      "nosniff_iyi": "X-Content-Type-Options: nosniff var.",
+      "nosniff_yok": "X-Content-Type-Options: nosniff yok.",
+      "referrer_yok": "Referrer-Policy başlığı yok.",
+      "referrer_zayif": "Referrer-Policy zayıf: {{deger}}",
+      "referrer_iyi": "Referrer-Policy: {{deger}}",
+      "permissions_iyi": "Permissions-Policy var.",
+      "permissions_yok": "Permissions-Policy başlığı yok.",
+      "sunucu_surumu": "Sunucu sürüm bilgisi görünüyor: {{deger}}",
+      "ssl_yok": "https bağlantısı kurulamadı; sertifika okunamadı.",
+      "ssl_dogrulandi": "Sertifika güvenilir ve alan adıyla eşleşiyor.",
+      "ssl_gecersiz": "Sertifika doğrulanamadı: {{deger}}",
+      "ssl_kendinden_imzali": "Sertifika kendinden imzalı; tarayıcılar güvenmez.",
+      "ssl_ad_uyusmuyor": "Sertifika bu alan adını kapsamıyor.",
+      "zincir_eksik": "Ara sertifika zinciri eksik ya da güvenilir köke ulaşmıyor.",
+      "ssl_suresi_gecmis": "Sertifikanın süresi {{deger}} gün önce doldu.",
+      "ssl_bitiyor": "Sertifika {{deger}} gün içinde bitiyor!",
+      "ssl_yakinda": "Sertifika {{deger}} gün sonra bitiyor.",
+      "ssl_gecerli": "Sertifika {{deger}} gün daha geçerli.",
+      "tls_iyi": "Bağlantı {{deger}} ile kuruluyor.",
+      "tls_12": "Bağlantı {{deger}} ile kuruluyor; TLS 1.3 de açılabilir.",
+      "tls_eski": "Eski TLS sürümü: {{deger}}",
+      "h1_yok": "Sayfada H1 yok.",
+      "h1_fazla": "Sayfada {{deger}} adet H1 var.",
+      "h1_bos": "H1 boş.",
+      "h1_iyi": "H1: {{deger}}",
+      "ilk_baslik_h1_degil": "İlk başlık H1 değil ({{deger}}).",
+      "seviye_atlama": "Atlanan başlık seviyesi: {{deger}}",
+      "bos_baslik": "{{deger}} boş başlık var.",
+      "uzun_baslik": "{{deger}} başlık 70 karakterden uzun.",
+      "baslik_yok": "Sayfada hiç başlık (H1–H6) yok.",
+      "hiyerarsi_iyi": "{{deger}} başlık düzgün sıralı.",
+      "icerik_az": "Görünür metin az: {{deger}} kelime.",
+      "kelime_iyi": "Görünür metin: {{deger}} kelime.",
+      "anahtar_asiri": "“{{kelime}}” metnin %{{yuzde}}'i; aşırı tekrar.",
+      "yogunluk_iyi": "Kelime dağılımı doğal; en sık kelime “{{deger}}”.",
+      "hedef_yok": "“{{deger}}” görünür metinde hiç geçmiyor.",
+      "hedef_iyi": "“{{kelime}}” metinde {{sayi}} kez geçiyor (yoğunluk %{{yuzde}}).",
+      "hedef_asiri": "“{{kelime}}” {{sayi}} kez geçiyor (yoğunluk %{{yuzde}}); aşırı tekrar.",
+      "hedef_title_yok": "“{{deger}}” sayfa başlığında (title) yok.",
+      "hedef_h1_yok": "“{{deger}}” H1'de yok.",
+      "hedef_aciklama_yok": "“{{deger}}” meta açıklamada yok.",
+      "hedef_url_yok": "“{{deger}}” adreste (URL) yok.",
+      "hedef_konum_iyi": "“{{deger}}” başlıkta, H1'de, meta açıklamada ve adreste geçiyor."
+    },
+    "veri": {
+      "meta": {
+        "serp": "Arama sonucu önizlemesi",
+        "etiketler": "Bulunan etiketler",
+        "karakter": "{{sayi}} karakter",
+        "yok": "—",
+        "hreflang": "hreflang bağlantıları",
+        "baslik": "Başlık",
+        "aciklama": "Açıklama",
+        "canonical": "Canonical",
+        "robots": "Robots",
+        "viewport": "Viewport",
+        "lang": "Dil"
+      },
+      "og": {
+        "onizleme": "Paylaşım kartı önizlemesi",
+        "gorselYok": "Görsel yok",
+        "gorselGizli": "Görsel güvenli (https) olmadığı ya da açılamadığı için gösterilmiyor.",
+        "ogEtiketleri": "Open Graph etiketleri",
+        "twitterEtiketleri": "Twitter / X etiketleri",
+        "gorsel": "Görsel",
+        "boyut": "Boyut",
+        "dosya": "Dosya",
+        "tur": "Tür",
+        "kb": "{{sayi}} KB"
+      },
+      "schema": {
+        "bloklar": "JSON-LD blokları",
+        "blok": "Blok {{sayi}}",
+        "gecerli": "Geçerli",
+        "hatali": "Söz dizimi hatası (satır {{satir}}, sütun {{sutun}})",
+        "ogeler": "Bulunan öğeler",
+        "eksikZorunlu": "Eksik zorunlu",
+        "eksikOnerilen": "Eksik önerilen",
+        "icIce": "iç içe",
+        "kuralYok": "temel kural tanımlı değil",
+        "kod": "Kodu göster",
+        "alanlar": "Alanlar",
+        "tamam": "Eksik yok"
+      },
+      "robots": {
+        "karar": "Sonuç",
+        "izinli": "Taranabilir",
+        "engelli": "Engelli",
+        "belirsiz": "Belirsiz",
+        "kural": "Eşleşen kural",
+        "kuralYok": "Eşleşen kural yok — varsayılan: izinli",
+        "grup": "Uygulanan grup",
+        "gruplar": "Gruplar",
+        "sitemapler": "Sitemap satırları",
+        "icerik": "robots.txt içeriği",
+        "satir": "satır {{sayi}}",
+        "kuralSayisi": "{{sayi}} kural",
+        "yol": "Yol",
+        "ajan": "Kullanıcı ajanı"
+      },
+      "sitemap": {
+        "adres": "Site haritası",
+        "kaynak": "Nereden bulundu",
+        "kaynaklar": {
+          "girilen": "Girdiğiniz adres",
+          "robots": "robots.txt",
+          "varsayilan": "Varsayılan adres"
+        },
+        "tur": "Tür",
+        "turler": {
+          "urlset": "Adres listesi (urlset)",
+          "sitemapindex": "Site haritası dizini (sitemapindex)"
+        },
+        "adresSayisi": "Adres sayısı",
+        "lastmodOrani": "lastmod oranı",
+        "boyut": "Boyut",
+        "ornekler": "Örneklem (durum kodları)",
+        "hataliAdresler": "Hatalı adresler",
+        "baskaSite": "Başka siteye ait adresler",
+        "altlar": "Alt site haritaları",
+        "incelenenAlt": "İncelenen alt harita",
+        "reddedildi": "reddedildi"
+      },
+      "yonlendirme": {
+        "zincirler": "Yönlendirme zincirleri",
+        "etiket": {
+          "girilen": "Girdiğiniz adres",
+          "http": "http://",
+          "https": "https://",
+          "http_www": "http://www.",
+          "https_www": "https://www."
+        },
+        "adim": "{{sayi}} yönlendirme",
+        "erisilemedi": "Açılmadı ({{kod}})"
+      },
+      "guvenlik": {
+        "puan": "Güvenlik puanı",
+        "not": "Not",
+        "baslik": "Başlık",
+        "deger": "Değer",
+        "durum": "Durum",
+        "eksik": "eksik"
+      },
+      "ssl": {
+        "sertifika": "Sertifika",
+        "konu": "Konu (CN)",
+        "yayinci": "Yayıncı",
+        "baslangic": "Geçerlilik başlangıcı",
+        "bitis": "Bitiş",
+        "kalan": "Kalan gün",
+        "san": "Kapsanan alan adları",
+        "seri": "Seri no",
+        "imza": "İmza",
+        "anahtar": "Anahtar",
+        "tls": "TLS sürümü",
+        "sifre": "Şifre takımı",
+        "zincir": "Zincir",
+        "aia": "Ara sertifika adresi (AIA)",
+        "dogrulandi": "Doğrulandı",
+        "dogrulanmadi": "Doğrulanmadı"
+      },
+      "basliklar": {
+        "agac": "Başlık ağacı",
+        "bos": "(boş)",
+        "seviyeler": "Seviye başına başlık"
+      },
+      "kelime": {
+        "kelimeler": "Kelime istatistikleri",
+        "toplam": "Toplam kelime",
+        "anlamli": "Anlamlı kelime",
+        "benzersiz": "Benzersiz",
+        "enSik": "En sık kelimeler",
+        "ikililer": "En sık ikili kelimeler",
+        "kelime": "Kelime",
+        "adet": "Adet",
+        "yuzde": "Yoğunluk",
+        "dil": "Sayfa dili",
+        "durakNotu": "Durak kelimeler (Türkçe, İngilizce, Almanca listeler: ve, bir, için…) ayıklanır; Türkçe sayfalarda I→ı, İ→i dönüşümü uygulanır.",
+        "ucluler": "En sık üçlü ifadeler",
+        "hedef": "Hedef anahtar kelime",
+        "hedefOzet": "{{sayi}} kez · yoğunluk %{{yuzde}}",
+        "konumTitle": "Başlık (title)",
+        "konumH1": "H1",
+        "konumAciklama": "Meta açıklama",
+        "konumUrl": "Adres (URL)",
+        "var": "Var",
+        "yok": "Yok"
+      }
+    }
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "seoAraclari": {
+    "seo": {
+      "baslik": "免费 SEO 工具：元标签、Schema、SSL | Mehmet KURU",
+      "aciklama": "无需注册的免费 SEO 工具：元标签、Open Graph、Schema、robots.txt、站点地图、重定向、安全响应头、SSL、标题结构与关键词密度。",
+      "anaSayfa": "首页",
+      "araclar": "SEO 工具"
+    },
+    "dizin": {
+      "etiket": "免费工具",
+      "baslik1": "免费",
+      "baslikVurgu": "SEO 工具",
+      "giris": "只需一个网址，几秒内检查网站的技术 SEO。无需注册，无需邮箱；每项结果都会说明问题为何重要以及如何修复。",
+      "araciAc": "打开工具",
+      "nedenBaslik": "为什么选择这些工具？",
+      "neden": [
+        "完全免费，运行在我们自己的服务器上，不依赖任何付费第三方服务。",
+        "无需注册或邮箱。结果只显示给您，绝不会公开列出。",
+        "您检查的网址不会被保存；我们只统计每个工具每天的使用次数。"
+      ],
+      "sssBaslik": "常见问题",
+      "sss": [
+        {
+          "s": "这些 SEO 工具真的免费吗？",
+          "c": "是的。所有工具都免费，使用时不需要账户，也不需要邮箱。为防止滥用，每个工具都有每分钟和每天的使用上限。"
+        },
+        {
+          "s": "我检查的网址会被保存吗？",
+          "c": "不会。网址只用于执行检查，不会写入数据库或日志。我们只统计每个工具每天被使用的次数。"
+        },
+        {
+          "s": "如果想要更全面的分析怎么办？",
+          "c": "每个结果下方的“获取网站完整分析”按钮会带着已填好的网址打开免费的网站分析报告，以 0–100 分评估网站的速度、SEO、内容、技术架构、安全性与 AI 可见度。"
+        },
+        {
+          "s": "可以通过邮件接收结果吗？",
+          "c": "可以，完全自愿。使用结果下方的表单即可把摘要和建议修复项发送到您的邮箱，只需填写邮箱地址。营销邮件会另行询问，且可不同意。"
+        }
+      ]
+    },
+    "arac": {
+      "meta": {
+        "ad": "元标签检查",
+        "kisa": "标题与描述长度、canonical、robots、viewport、lang 和 hreflang。",
+        "giris": "检查页面如何向搜索引擎介绍自己：标题和描述在搜索结果中是否会被截断、规范网址、索引许可、移动端 viewport 以及语言标签。",
+        "seoBaslik": "元标签检查（title、description）",
+        "seoAciklama": "免费元标签检查：几秒内检测 title 和 description 长度、canonical、robots、viewport、lang 与 hreflang 标签。",
+        "neler": [
+          "title 与 meta description 长度（按像素宽度）",
+          "canonical 标签：是否存在、是否唯一、是否指向自身",
+          "robots meta 与 X-Robots-Tag：noindex / nofollow",
+          "移动端 viewport 与缩放设置",
+          "html lang 属性与 hreflang 链接"
+        ],
+        "sss": [
+          {
+            "s": "title 和 description 应该多长？",
+            "c": "Google 按像素宽度而不是字符数截断。标题约 30–60、描述约 70–160 个字符宽度较为稳妥；本工具把中文等宽字符计为两个。"
+          },
+          {
+            "s": "canonical 标签为什么重要？",
+            "c": "如果同一内容能通过多个网址打开，canonical 会告诉 Google 哪个是主页面，使排名信号集中在一个网址上，避免重复内容问题。"
+          }
+        ]
+      },
+      "og": {
+        "ad": "Open Graph 与 Twitter 卡片预览",
+        "kisa": "社交媒体分享卡片的样子；图片尺寸与可访问性。",
+        "giris": "预览链接在 WhatsApp、LinkedIn、Facebook 或 X 上分享时的样子。检查 Open Graph 与 Twitter 卡片标签，以及分享图片能否加载、尺寸和文件大小。",
+        "seoBaslik": "Open Graph 与 Twitter 卡片预览",
+        "seoAciklama": "免费 Open Graph 与 Twitter 卡片预览：检查 og:title、og:description、og:image，以及图片尺寸和可访问性，并查看分享卡片。",
+        "neler": [
+          "og:title、og:description、og:url 与 og:type",
+          "twitter:card 类型",
+          "og:image：能否加载，是否真的是图片",
+          "图片尺寸（推荐 1200×630）与文件大小",
+          "分享卡片预览"
+        ],
+        "sss": [
+          {
+            "s": "分享图片应该多大？",
+            "c": "最稳妥的是 1200×630 像素（约 1.91:1）。小于 200×200 的图片在很多平台上根本不显示；文件应小于 5 MB 并通过 https 提供。"
+          },
+          {
+            "s": "我改了标签，但分享仍显示旧内容，为什么？",
+            "c": "社交平台会缓存预览。用 Facebook 分享调试器或 LinkedIn Post Inspector 重新抓取网址即可刷新缓存。"
+          }
+        ]
+      },
+      "schema": {
+        "ad": "Schema（JSON-LD）读取器",
+        "kisa": "结构化数据类型、缺失的必填字段与语法错误。",
+        "giris": "读取页面上的 JSON-LD 结构化数据块：存在哪些 schema.org 类型，按基本规则缺少哪些必填和推荐字段，以及带行号和列号的 JSON 语法错误。",
+        "seoBaslik": "Schema（JSON-LD）读取与验证工具",
+        "seoAciklama": "免费 Schema 读取器：查看页面上的 JSON-LD 块、schema.org 类型、缺失的必填字段，以及带行列号的语法错误。",
+        "neler": [
+          "JSON-LD 块语法（含行号与列号）",
+          "发现的类型：Organization、Product、Article、FAQPage…",
+          "按基本规则缺失的必填与推荐字段",
+          "@graph 与嵌套项目",
+          "是否存在微数据和 RDFa"
+        ],
+        "sss": [
+          {
+            "s": "结构化数据会直接提升排名吗？",
+            "c": "它不是直接的排名信号，但能让页面有资格获得星级、常见问题、商品价格等富媒体结果，并帮助 AI 搜索正确理解页面。"
+          },
+          {
+            "s": "这个工具能替代 Google 富媒体结果测试吗？",
+            "c": "不能；它是对基本规则的快速预检。发布前也建议用 Google 富媒体结果测试再验证一次。"
+          }
+        ]
+      },
+      "robots": {
+        "ad": "robots.txt 测试工具",
+        "kisa": "某个路径对所选爬虫是开放还是屏蔽；站点地图行。",
+        "giris": "读取网站的 robots.txt，按 Google 的匹配规则告诉您所选爬虫（Googlebot、Bingbot、GPTBot…）能否抓取您输入的网址，并显示匹配的规则及其行号。",
+        "seoBaslik": "robots.txt 测试工具（路径与爬虫检查）",
+        "seoAciklama": "免费 robots.txt 测试：查看某个路径是否对 Googlebot、Bingbot 或 GPTBot 屏蔽、匹配的规则以及站点地图行。",
+        "neler": [
+          "所选路径与用户代理的允许 / 屏蔽结果",
+          "匹配的规则与行号（最长规则优先）",
+          "整个网站是否被屏蔽",
+          "Sitemap 行",
+          "语法提示与文件大小"
+        ],
+        "sss": [
+          {
+            "s": "被 robots.txt 屏蔽的页面会从索引中消失吗？",
+            "c": "不会。robots.txt 只阻止抓取；被其他地方链接的页面仍可能留在索引中。要移除，页面必须可被抓取并带有 noindex。"
+          },
+          {
+            "s": "应该屏蔽 AI 爬虫吗？",
+            "c": "取决于您的业务。屏蔽 GPTBot、ClaudeBot 或 PerplexityBot 会减少内容出现在 AI 回答中的机会；如需这种曝光，请保持开放。"
+          }
+        ]
+      },
+      "sitemap": {
+        "ad": "XML 站点地图验证器",
+        "kisa": "网址数量、无效网址、lastmod 格式及抽样中的 4xx/5xx。",
+        "giris": "找到您的 XML 站点地图（通过 robots.txt 或 /sitemap.xml）并验证：格式、网址数量、无效或其他网站的网址、lastmod 日期格式；还会打开一批抽样网址，找出返回 4xx/5xx 或重定向的地址。",
+        "seoBaslik": "XML 站点地图验证器",
+        "seoAciklama": "免费 XML 站点地图验证：检查网址数量、无效网址与 lastmod 格式，并在抽样中找出返回 404 和 500 的页面。",
+        "neler": [
+          "通过 robots.txt 或默认网址找到站点地图",
+          "XML 格式、命名空间与 50,000 个网址上限",
+          "无效、重复和其他域名的网址",
+          "lastmod 格式（W3C）与未来日期",
+          "抽样中的 4xx/5xx 与重定向；支持 .gz 和站点地图索引"
+        ],
+        "sss": [
+          {
+            "s": "站点地图里应该放哪些页面？",
+            "c": "只放希望被收录、返回 200 的规范网址。重定向页面、404 页面和带 noindex 的页面不应出现在站点地图中。"
+          },
+          {
+            "s": "lastmod 字段是必需的吗？",
+            "c": "不是必需的，但如果准确，Google 能更快发现变化的页面。请使用 W3C 格式（如 2026-10-01 或 2026-10-01T10:00:00+03:00）并填写真实修改日期。"
+          }
+        ]
+      },
+      "yonlendirme": {
+        "ad": "重定向链与状态码",
+        "kisa": "http→https、www 一致性、链长度与循环。",
+        "giris": "显示网址经过哪些步骤、最终到达哪里：每一步的状态码、从 http 到 https 的永久重定向、带 www 与不带 www 的网址是否到达同一处、过长的重定向链以及重定向循环。",
+        "seoBaslik": "重定向链与 HTTP 状态码检查",
+        "seoAciklama": "免费重定向检查：逐步查看 301/302 链、http 到 https 的跳转、www 一致性、循环以及最终状态码。",
+        "neler": [
+          "每一步的 HTTP 状态码（301、302、307、308、200、404…）",
+          "http → https 永久重定向",
+          "带 www 与不带 www 是否统一到一个网址",
+          "链长度与临时重定向",
+          "重定向循环"
+        ],
+        "sss": [
+          {
+            "s": "301 和 302 有什么区别？",
+            "c": "301（以及 308）是永久的：搜索引擎会采用新网址并传递排名信号。302（以及 307）是临时的；网站迁移和切换到 https 时应使用永久重定向。"
+          },
+          {
+            "s": "多少次重定向算太多？",
+            "c": "理想情况是一步。每多一步都会拖慢页面并浪费抓取预算；Google 最多跟随 10 次跳转，但超过两步的链就应该修复。"
+          }
+        ]
+      },
+      "guvenlik": {
+        "ad": "HTTP 安全响应头",
+        "kisa": "HSTS、CSP、X-Content-Type-Options、Referrer-Policy、Permissions-Policy——带评分。",
+        "giris": "检查服务器返回的安全响应头并按 100 分制评分：HSTS、内容安全策略（CSP）、防框架嵌入、防 MIME 嗅探、Referrer-Policy 与 Permissions-Policy。对每个缺失项说明该怎么做。",
+        "seoBaslik": "HTTP 安全响应头测试（HSTS、CSP）",
+        "seoAciklama": "免费安全响应头测试：按 100 分制为 HSTS、CSP、X-Content-Type-Options、Referrer-Policy 和 Permissions-Policy 评分。",
+        "neler": [
+          "Strict-Transport-Security（HSTS）及其时长",
+          "Content-Security-Policy：unsafe-inline / unsafe-eval",
+          "X-Frame-Options 或 frame-ancestors",
+          "X-Content-Type-Options：nosniff",
+          "Referrer-Policy 与 Permissions-Policy；服务器版本泄露"
+        ],
+        "sss": [
+          {
+            "s": "安全响应头会影响 SEO 吗？",
+            "c": "它们不是直接的排名信号，但 HTTPS 和用户安全属于 Google 页面体验的一部分，被入侵的网站可能在搜索结果中显示警告。"
+          },
+          {
+            "s": "添加 CSP 会让网站出问题吗？",
+            "c": "策略写错可能阻止脚本。先用 Content-Security-Policy-Report-Only 只报告模式试运行，修复违规后再切换到强制模式。"
+          }
+        ]
+      },
+      "ssl": {
+        "ad": "SSL 证书检查",
+        "kisa": "到期日期、剩余天数、签发者、证书链与 TLS 版本。",
+        "giris": "检查域名的 SSL/TLS 证书：是否有效可信、名称是否匹配、何时到期、由谁签发、证书链是否完整，以及连接使用哪个 TLS 版本。",
+        "seoBaslik": "SSL 证书检查：到期与证书链",
+        "seoAciklama": "免费 SSL 证书检查：几秒内查看到期日期、剩余天数、签发者、证书链、覆盖的域名和 TLS 版本。",
+        "neler": [
+          "证书是否可信、是否与域名匹配",
+          "到期日期与剩余天数",
+          "签发者、覆盖的域名（SAN）、密钥类型",
+          "中间证书链",
+          "TLS 版本与加密套件"
+        ],
+        "sss": [
+          {
+            "s": "SSL 证书过期会怎样？",
+            "c": "浏览器会向访客显示整页安全警告，大多数人会离开，流量和销售立即下降。请定期确认自动续期正常工作。"
+          },
+          {
+            "s": "免费证书够用吗？",
+            "c": "对大多数网站来说够用。Let's Encrypt 等免费证书提供同样的加密；关键是正确配置自动续期和中间证书链。"
+          }
+        ]
+      },
+      "basliklar": {
+        "ad": "标题结构（H1–H6）",
+        "kisa": "H1–H6 标题树、缺少或重复的 H1 以及被跳过的标题层级。",
+        "giris": "把页面从 H1 到 H6 的标题层级提取为树状结构，并指出缺少、为空或重复的 H1、被跳过的层级以及过长的标题。脚本、样式和模板中的标签不计入。",
+        "seoBaslik": "标题结构检查：H1–H6 标题树",
+        "seoAciklama": "免费标题结构检查工具：提取 H1–H6 标题树，几秒内发现缺少或重复的 H1、被跳过的层级和空标题。",
+        "neler": [
+          "是否有 H1、是否唯一、是否为空",
+          "H1–H6 标题树与被跳过的层级（如 H2→H4）",
+          "空标题和超过 70 个字符的标题",
+          "第一个标题是否为 H1",
+          "各层级的标题数量"
+        ],
+        "sss": [
+          {
+            "s": "一个页面可以有多个 H1 吗？",
+            "c": "技术上可以，但用一个清晰的 H1 说明页面主题，对访客和搜索引擎都是最易理解的结构。"
+          },
+          {
+            "s": "跳过标题层级有问题吗？",
+            "c": "搜索引擎不会因此惩罚页面，但从 H2 直接跳到 H4 会让读屏软件用户更难理解结构。请按含义选择层级，用 CSS 控制视觉大小。"
+          }
+        ]
+      },
+      "kelime": {
+        "ad": "词频与关键词密度",
+        "kisa": "最常见的词、二词与三词短语，以及目标关键词的密度（支持土耳其语）。",
+        "giris": "统计页面的可见文本，去除停用词后列出最常见的词以及二词、三词短语及其密度。填写目标关键词后，还会显示它出现的次数，以及是否出现在标题（title）、H1、元描述和网址中。土耳其语的 I/ı 与 İ/i 大小写会被正确处理。中文文本按连续字符串计数。",
+        "seoBaslik": "关键词密度检查工具（支持土耳其语）",
+        "seoAciklama": "免费关键词密度工具：查看最常见的词和短语、目标关键词的密度，以及它是否出现在标题、H1、描述和网址中。",
+        "neler": [
+          "可见词数、实义词与不重复词",
+          "出现最多的 20 个词及其密度百分比",
+          "最常见的二词与三词短语",
+          "目标关键词的次数与密度",
+          "目标关键词是否出现在标题、H1、元描述和网址中",
+          "土耳其语 I/ı、İ/i 规则；土耳其语、英语和德语停用词"
+        ],
+        "sss": [
+          {
+            "s": "理想的关键词密度是多少？",
+            "c": "没有固定比例，Google 也不会寻找某个特定百分比。一个短语占正文 3% 以上、单个词占 5% 以上，通常会显得不自然。用同义词和相关表达自然地展开主题效果更好。"
+          },
+          {
+            "s": "为什么土耳其语文本需要特别处理？",
+            "c": "许多工具会把大写的“I”转成“i”，把“İ”转成带点的组合字符，结果“IŞIK”和“ışık”、“İSTANBUL”和“istanbul”被算作不同的词。本工具在土耳其语页面上正确执行 I→ı、İ→i 的转换，并去除“ve、bir、için”等停用词。"
+          },
+          {
+            "s": "目标关键词应该出现在哪里？",
+            "c": "在页面标题（title）、H1 和第一段中自然出现能让主题更清晰；出现在元描述和网址中有助于提高点击。不要堆砌：可读性始终优先。"
+          }
+        ]
+      }
+    },
+    "form": {
+      "adres": "网站网址",
+      "adresOrnek": "example.com 或 https://example.com/page",
+      "adresRobots": "要测试的网址（含路径）",
+      "adresRobotsOrnek": "example.com/blog/post",
+      "adresSitemap": "网站或站点地图网址",
+      "adresSitemapOrnek": "example.com 或 example.com/sitemap.xml",
+      "adresSsl": "域名",
+      "adresSslOrnek": "example.com",
+      "ajan": "用户代理（爬虫）",
+      "ajanOzel": "其他…",
+      "ajanOzelYerTutucu": "例如 Baiduspider",
+      "calistir": "检查",
+      "calisiyor": "正在检查…",
+      "bekleyin": "正在检查网站，可能需要几秒钟。",
+      "gizlilik": "无需注册或邮箱。您检查的网址不会被保存。",
+      "kelime": "目标关键词（可选）",
+      "kelimeOrnek": "例如：seo 代理",
+      "kelimeIpucu": "填写后还会检查它出现的次数，以及是否出现在标题、H1、元描述和网址中。"
+    },
+    "hata": {
+      "adres_gecersiz": "请输入有效的网站地址（例如 example.com）。",
+      "adres_yasak": "无法检查此地址。请输入公开网站的地址。",
+      "cozumlenemedi": "找不到该域名，请检查拼写。",
+      "ulasilamadi": "无法访问该网站。请确认网站在线后重试。",
+      "cok_yonlendirme": "网站重定向次数过多，检查无法完成。",
+      "zaman_asimi": "网站未及时响应，请稍后再试。",
+      "ajan_gecersiz": "用户代理只能包含字母、数字、点、连字符和 *。",
+      "sinir_dakika": "短时间内检查次数过多。请等一分钟后再试。",
+      "sinir_gun": "您已达到此工具今天的使用上限，请明天再试。",
+      "eposta_gecersiz": "请输入有效的电子邮件地址。",
+      "arac_yok": "没有这个工具。",
+      "beklenmedik": "发生意外错误，请重试。",
+      "ag": "无法连接服务器。请检查网络连接后重试。",
+      "genel": "出了点问题，请重试。",
+      "kelime_gecersiz": "关键词最多 6 个词、60 个字符；请使用字母、数字、空格和连字符。",
+      "sinir_eposta": "短时间内请求的邮件过多，请稍后再试。",
+      "sonuc_suresi_doldu": "此结果已过期。请重新运行工具后再发送。",
+      "eposta_kapali": "邮件发送暂不可用。",
+      "eposta_gonderilemedi": "邮件发送失败，请几分钟后重试。"
+    },
+    "sayfa": {
+      "kirinti": "面包屑导航",
+      "geri": "全部 SEO 工具",
+      "nelerBaslik": "检查哪些内容？",
+      "sssBaslik": "常见问题",
+      "digerAraclar": "其他免费工具",
+      "siteAnaliziBaslik": "为整个网站打分",
+      "siteAnaliziMetin": "免费网站分析报告不只检查单个页面，而是从速度、SEO、内容、技术架构、安全性与 AI 可见度等方面为整个网站按 100 分制评分。",
+      "siteAnaliziDugme": "免费网站分析",
+      "bulunamadi": "未找到工具",
+      "bulunamadiAciklama": "您要找的工具可能已被删除或改名。"
+    },
+    "tamAnaliz": {
+      "baslik": "看看整个网站",
+      "metin": "免费的网站分析报告以 0–100 分评估 {{alan}} 的速度、SEO、内容、技术状况、安全性与 AI 可见度。网址已填好，一键即可开始。",
+      "dugme": "获取网站完整分析"
+    },
+    "yonetim": {
+      "baslik": "免费 SEO 工具",
+      "aciklama": "最近 {{gun}} 天各工具的每日使用量、通过邮件索取结果的访客（CRM 线索）以及转入完整分析的次数。不保存被检查的网址，只统计数字。",
+      "arac": "工具",
+      "gunluk": "每日使用",
+      "kullanim": "运行次数",
+      "hata": "失败",
+      "eposta": "邮件",
+      "aday": "新线索",
+      "donusum": "转化率",
+      "donusumIpucu": "邮件发送数 / 运行次数",
+      "tamAnaliz": "完整分析",
+      "toplam": "合计",
+      "toplamKullanim": "总运行次数",
+      "toplamEposta": "邮件发送的结果",
+      "toplamAday": "新的 CRM 线索",
+      "toplamTamAnaliz": "转入完整分析",
+      "tamAnalizAlt": "{{sayi}} 人留下了邮箱",
+      "gunIpucu": "{{gun}}：{{sayi}}",
+      "sayfayiAc": "工具页面",
+      "hataYukle": "无法加载工具摘要。"
+    },
+    "eposta": {
+      "baslik": "通过邮件发送结果",
+      "aciklama": "可选：我们会把本次结果的摘要和建议修复项发送到您的邮箱。",
+      "ad": "您的姓名（可选）",
+      "eposta": "您的邮箱地址",
+      "istegeBagli": "可选",
+      "gonder": "发送结果",
+      "gonderiliyor": "正在发送…",
+      "basarili": "结果已发送到您的邮箱。",
+      "basariliMetin": "如果几分钟内没有收到，请检查垃圾邮件文件夹。",
+      "pazarlama": "我希望通过电子邮件接收优惠活动和公告。"
+    }
+  }
+}

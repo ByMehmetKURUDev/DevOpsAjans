@@ -118,7 +118,8 @@
       "form": "نموذج مضمّن",
       "manuel": "أُضيف يدويًا",
       "eposta": "بريد إلكتروني",
-      "modul_vitrini": "معرض الوحدات"
+      "modul_vitrini": "معرض الوحدات",
+      "seo_araci": "أداة SEO مجانية"
     },
     "aktivite": {
       "not": "ملاحظة",
@@ -302,7 +303,8 @@
       "kaynakForm": "النموذج #{{no}}",
       "kaynakSiteAnalizi": "تحليل الموقع",
       "rozet": "إذن تسويقي",
-      "kaynakModulVitrini": "معرض الوحدات ({{anahtar}})"
+      "kaynakModulVitrini": "معرض الوحدات ({{anahtar}})",
+      "kaynakSeoAraci": "أداة SEO مجانية ({{arac}})"
     }
   }
 }

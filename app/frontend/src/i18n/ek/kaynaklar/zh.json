@@ -49,6 +49,11 @@
       "dugme": "咨询部署",
       "konu": "部署需求：{{baslik}}",
       "konuGenel": "AI 工具部署"
+    },
+    "seoAraclari": {
+      "baslik": "免费 SEO 工具",
+      "metin": "无需注册即可快速检查元标签、Open Graph、Schema、robots.txt、站点地图、重定向、安全响应头、SSL、标题结构和关键词密度。",
+      "dugme": "打开工具"
     }
   }
 }

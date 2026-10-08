@@ -14,6 +14,7 @@ import { kaynakVeriEklentisi, kaynakVerisiniYukle } from './prerender/kaynaklar-
 import { kaynakDetayYollari } from './prerender/kaynaklar-veri.js';
 import { vitrinFiyatEklentisi, vitrinFiyatlariniYukle, vitrinYapisiniOku } from './prerender/moduller-yukle.js';
 import { modulDetayYollari } from './prerender/moduller-veri.js';
+import { seoAracDetayYollari } from './prerender/seo-araclari-veri.js';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
@@ -109,7 +110,13 @@ export default defineConfig(async ({ command }) => {
   const vitrinFiyatlari = command === 'build' ? (await vitrinFiyatlariniYukle()).fiyatlar : {};
   const prerenderRoutes =
     command === 'build'
-      ? [...getAllPrerenderRoutes(), ...kaynakDetayYollari(kaynakVerisi), ...modulDetayYollari(vitrinYapisiniOku())]
+      ? [
+          ...getAllPrerenderRoutes(),
+          ...kaynakDetayYollari(kaynakVerisi),
+          ...modulDetayYollari(vitrinYapisiniOku()),
+          // Faz 4S: ücretsiz SEO araç sayfaları (7 dil × 10 araç); dizin PAGE_KEYS'ten.
+          ...seoAracDetayYollari(),
+        ]
       : [];
   // Sitemap eklentisi yolları üretilen HTML'lerden eğik çizgisiz topluyor;
   // priority anahtarları da o biçimde olmalı. Türkçe sayfalar tam ağırlıkta,

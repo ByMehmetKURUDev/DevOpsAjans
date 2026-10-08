@@ -30,6 +30,8 @@ import ModullerListesi from '../src/pages/moduller/ModullerListesi';
 import ModulDetay from '../src/pages/moduller/ModulDetay';
 import PaketDetay from '../src/pages/moduller/PaketDetay';
 import YasalSayfa from '../src/pages/yasal/YasalSayfa';
+import SeoAraclariDizini from '../src/pages/seoAraclari/SeoAraclariDizini';
+import SeoAracSayfasi from '../src/pages/seoAraclari/SeoAracSayfasi';
 import { gomuluVeriyiAyarla } from '../src/lib/kaynaklar';
 import { yasalVeriyiAyarla } from '../src/lib/yasal';
 import { gomuluFiyatlariAyarla } from '../src/lib/modulVitrini';
@@ -55,6 +57,7 @@ import {
 } from './moduller-veri.js';
 import { loadPanelSettings, resolvePanelValue } from './settings.js';
 import { yasalSeo } from './yasal-seo.js';
+import { SEO_ARACLARI, SEO_ARAC_DILLERI, seoAracBul, seoAracYolu, seoAracYolunuCoz, seoAraclariYolu } from './seo-araclari-veri.js';
 import { yasalAyarlariniYukle } from './yasal-yukle.js';
 import {
   BLOG_INDEX_ROUTE,
@@ -129,6 +132,8 @@ function renderApp(url) {
             h(Route, { path: '/moduller', element: h(ModullerListesi, null) }),
             h(Route, { path: '/moduller/:slug', element: h(ModulDetay, null) }),
             h(Route, { path: '/moduller/paket/:slug', element: h(PaketDetay, null) }),
+            h(Route, { path: '/seo-araclari', element: h(SeoAraclariDizini, null) }),
+            h(Route, { path: '/seo-araclari/:slug', element: h(SeoAracSayfasi, null) }),
             h(Route, { path: '/gizlilik', element: h(YasalSayfa, { sayfa: 'gizlilik' }) }),
             h(Route, { path: '/kullanim-kosullari', element: h(YasalSayfa, { sayfa: 'kullanimKosullari' }) }),
             h(Route, { path: '/cerez-politikasi', element: h(YasalSayfa, { sayfa: 'cerezPolitikasi' }) }),
@@ -148,6 +153,8 @@ function renderApp(url) {
             h(Route, { path: 'moduller', element: h(ModullerListesi, null) }),
             h(Route, { path: 'moduller/:slug', element: h(ModulDetay, null) }),
             h(Route, { path: 'moduller/paket/:slug', element: h(PaketDetay, null) }),
+            h(Route, { path: 'seo-araclari', element: h(SeoAraclariDizini, null) }),
+            h(Route, { path: 'seo-araclari/:slug', element: h(SeoAracSayfasi, null) }),
             h(Route, { path: 'gizlilik', element: h(YasalSayfa, { sayfa: 'gizlilik' }) }),
             h(Route, { path: 'kullanim-kosullari', element: h(YasalSayfa, { sayfa: 'kullanimKosullari' }) }),
             h(Route, { path: 'cerez-politikasi', element: h(YasalSayfa, { sayfa: 'cerezPolitikasi' }) }),
@@ -532,6 +539,119 @@ function modulHead({ dil, tur, slug }, panelSettings) {
 }
 
 /**
+ * Ücretsiz SEO araçları (Faz 4S) — dizin ve araç sayfalarının <head>'i.
+ *
+ * Dizin: CollectionPage + ItemList (araçlar) + BreadcrumbList + FAQPage (sayfada görünen SSS).
+ * Araç: WebApplication (ücretsiz: Offer price 0) + BreadcrumbList + FAQPage (sayfada görünen SSS).
+ * Metinler ek paketten (`seoAraclari`) o sayfanın dilinde; panelde dizin için SEO metni
+ * girilmişse o kazanır (PAGE_SEO_KEYS.seoAraclari).
+ */
+function seoAracHead({ dil, slug }, panelSettings) {
+  const t = i18n.getFixedT(dil);
+  const htmlLang = getLanguage(dil).htmlLang;
+  const ldBetigi = (data) => ({
+    type: 'script',
+    props: { type: 'application/ld+json', children: guvenliJson({ '@context': 'https://schema.org', ...data }) },
+  });
+  const hreflang = (yolu) => [
+    ...SEO_ARAC_DILLERI.map((d) => ({
+      type: 'link',
+      props: { rel: 'alternate', hreflang: getLanguage(d).htmlLang, href: absoluteUrl(yolu(d)) },
+    })),
+    { type: 'link', props: { rel: 'alternate', hreflang: 'x-default', href: absoluteUrl(yolu(DEFAULT_LANGUAGE)) } },
+  ];
+  const sssLd = (sorular) =>
+    Array.isArray(sorular) && sorular.length
+      ? [ldBetigi({ '@type': 'FAQPage', mainEntity: sorular.map((x) => ({ '@type': 'Question', name: x.s, acceptedAnswer: { '@type': 'Answer', text: x.c } })) })]
+      : [];
+  const anaSayfa = { '@type': 'ListItem', position: 1, name: t('seoAraclari.seo.anaSayfa'), item: absoluteUrl(localizedPath(dil, 'home')) };
+  const dizinOgesi = { '@type': 'ListItem', position: 2, name: t('seoAraclari.seo.araclar'), item: absoluteUrl(seoAraclariYolu(dil)) };
+
+  if (!slug) {
+    const title = resolvePanelValue(panelSettings, PAGE_SEO_KEYS.seoAraclari.title, dil, t('seoAraclari.seo.baslik'));
+    const description = resolvePanelValue(panelSettings, PAGE_SEO_KEYS.seoAraclari.description, dil, t('seoAraclari.seo.aciklama'));
+    return buildHead({
+      title,
+      description,
+      canonicalPath: seoAraclariYolu(dil),
+      ogType: 'website',
+      lang: dil,
+      extra: [
+        ...hreflang((d) => seoAraclariYolu(d)),
+        ldBetigi({
+          '@type': 'CollectionPage',
+          name: title,
+          description,
+          url: absoluteUrl(seoAraclariYolu(dil)),
+          inLanguage: htmlLang,
+          isPartOf: { '@type': 'WebSite', name: SITE_NAME, url: `${SITE_URL}/` },
+          publisher: YAYINCI,
+          mainEntity: {
+            '@type': 'ItemList',
+            numberOfItems: SEO_ARACLARI.length,
+            itemListElement: SEO_ARACLARI.map((a, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              url: absoluteUrl(seoAracYolu(dil, a.slug)),
+              name: t(`seoAraclari.arac.${a.anahtar}.ad`),
+            })),
+          },
+        }),
+        ldBetigi({ '@type': 'BreadcrumbList', itemListElement: [anaSayfa, dizinOgesi] }),
+        ...sssLd(t('seoAraclari.dizin.sss', { returnObjects: true })),
+      ],
+    });
+  }
+
+  const a = seoAracBul(slug);
+  if (!a) {
+    return buildHead({
+      title: t('seoAraclari.seo.baslik'),
+      description: t('seoAraclari.seo.aciklama'),
+      canonicalPath: seoAraclariYolu(dil),
+      ogType: 'website',
+      lang: dil,
+      noindex: true,
+    });
+  }
+  const k = `seoAraclari.arac.${a.anahtar}`;
+  const ad = t(`${k}.ad`);
+  const adres = absoluteUrl(seoAracYolu(dil, a.slug));
+  const aciklama = t(`${k}.seoAciklama`);
+  return buildHead({
+    title: `${t(`${k}.seoBaslik`)} | Mehmet KURU`,
+    description: aciklama,
+    canonicalPath: seoAracYolu(dil, a.slug),
+    ogType: 'website',
+    lang: dil,
+    extra: [
+      ...hreflang((d) => seoAracYolu(d, a.slug)),
+      ldBetigi({
+        '@type': 'WebApplication',
+        name: ad,
+        description: aciklama,
+        url: adres,
+        applicationCategory: 'DeveloperApplication',
+        applicationSubCategory: 'SEO',
+        operatingSystem: 'Any',
+        browserRequirements: 'Requires JavaScript',
+        isAccessibleForFree: true,
+        inLanguage: htmlLang,
+        featureList: t(`${k}.neler`, { returnObjects: true }),
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        provider: { '@type': 'ProfessionalService', name: SITE_NAME, url: `${SITE_URL}/`, image: SITE_OG_IMAGE },
+        isPartOf: { '@type': 'CollectionPage', name: t('seoAraclari.seo.araclar'), url: absoluteUrl(seoAraclariYolu(dil)) },
+      }),
+      ldBetigi({
+        '@type': 'BreadcrumbList',
+        itemListElement: [anaSayfa, dizinOgesi, { '@type': 'ListItem', position: 3, name: ad, item: adres }],
+      }),
+      ...sssLd(t(`${k}.sss`, { returnObjects: true })),
+    ],
+  });
+}
+
+/**
  * hreflang bağlantıları.
  *
  * Yalnızca gerçekten var olan çeviriler için üretiliyor. Önceki hâlinde
@@ -605,6 +725,9 @@ function getHead(url, panelSettings = {}, kaynakVerisi = null, yasalVerisi = nul
   if (kaynakVerisi) return kaynakHead(kaynakVerisi, panelSettings);
   // Modül vitrini (Faz 4V) — metinleri ek pakette; PAGE_SEO'da yok.
   if (modulEslesmesi) return modulHead(modulEslesmesi, panelSettings);
+  // Ücretsiz SEO araçları (Faz 4S) — metinleri ek pakette; PAGE_SEO'da yok.
+  const seoArac = seoAracYolunuCoz(url);
+  if (seoArac) return seoAracHead(seoArac, panelSettings);
 
   const slug = getBlogSlug(url);
 
@@ -818,10 +941,12 @@ export async function prerender({ url }) {
     Boolean(modulEslesmesi) &&
     ((modulEslesmesi.tur === 'modul' && !modulBul(VITRIN_YAPISI, modulEslesmesi.slug)) ||
       (modulEslesmesi.tur === 'paket' && !paketBul(VITRIN_YAPISI, modulEslesmesi.slug)));
+  const seoArac = seoAracYolunuCoz(url);
   const is404 =
     (Boolean(slug) && !getBlogPost(slug)) ||
     Boolean(kaynakVerisi && 'detay' in kaynakVerisi && !kaynakVerisi.detay) ||
-    modulYok;
+    modulYok ||
+    Boolean(seoArac?.slug && !seoAracBul(seoArac.slug));
 
   return {
     html,

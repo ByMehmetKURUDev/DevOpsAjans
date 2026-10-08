@@ -119,10 +119,11 @@
         "yonetici": "Yönetici"
       },
       "pazarlamaSor": "Tam rapor formunda pazarlama izni sor",
-      "pazarlamaSorIpucu": "Açıkken formda varsayılan olarak işaretsiz “Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum” kutusu çıkar. Rapor isteği bu kutudan bağımsızdır; işaretlenirse izin, zamanı ve metin sürümü kaydedilir.",
+      "pazarlamaSorIpucu": "Açıkken formda varsayılan olarak işaretsiz “Kampanya ve duyurulardan e-posta ile haberdar olmak istiyorum” kutusu çıkar. Rapor isteği bu kutudan bağımsızdır; işaretlenirse izin, zamanı ve metin sürümü kaydedilir. Aynı ayar ücretsiz SEO araçlarının “Sonucu e-postayla gönder” formu için de geçerlidir.",
       "pazarlamaKaydedildi": "Pazarlama izni ayarı kaydedildi.",
       "pazarlamaVar": "Pazarlama izni var ({{tarih}}, metin s.{{surum}})",
-      "pazarlamaYok": "Pazarlama izni yok"
+      "pazarlamaYok": "Pazarlama izni yok",
+      "aracKaynak": "Ücretsiz SEO aracı: {{arac}}"
     },
     "musteri": {
       "baslik": "Sitemi analiz et",
@@ -447,6 +448,10 @@
         "neden": "Yapay zekâ sistemleri kim olduğunuzu ve ne sunduğunuzu yapılandırılmış veriden daha güvenilir çıkarır.",
         "oneri": "Organization, LocalBusiness, Service ve FAQPage gibi schema.org JSON-LD işaretlemeleri ekleyin."
       }
+    },
+    "araclar": {
+      "metin": "Tek bir konuya mı bakmak istiyorsunuz?",
+      "dugme": "Ücretsiz SEO araçları"
     }
   }
 }

@@ -118,7 +118,8 @@
       "form": "Eingebettetes Formular",
       "manuel": "Manuell angelegt",
       "eposta": "E-Mail",
-      "modul_vitrini": "Modul-Übersicht"
+      "modul_vitrini": "Modul-Übersicht",
+      "seo_araci": "Kostenloses SEO-Tool"
     },
     "aktivite": {
       "not": "Notiz",
@@ -302,7 +303,8 @@
       "kaynakForm": "Formular #{{no}}",
       "kaynakSiteAnalizi": "Website-Analyse",
       "rozet": "Marketing-Einwilligung",
-      "kaynakModulVitrini": "Modul-Übersicht ({{anahtar}})"
+      "kaynakModulVitrini": "Modul-Übersicht ({{anahtar}})",
+      "kaynakSeoAraci": "kostenloses SEO-Tool ({{arac}})"
     }
   }
 }

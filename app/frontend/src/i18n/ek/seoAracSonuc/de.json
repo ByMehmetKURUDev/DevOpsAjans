@@ -1,0 +1,555 @@
+{
+  "seoAracSonuc": {
+    "baslik": "Ergebnis",
+    "kontrolEdilen": "Geprüfte URL",
+    "sonAdres": "Ziel-URL",
+    "durum": "HTTP-Status",
+    "ozet": "{{hata}} Fehler · {{uyari}} Warnungen · {{bilgi}} Hinweise · {{iyi}} bestanden",
+    "nedenOnemli": "Warum ist das wichtig?",
+    "nasilDuzeltilir": "Wie wird es behoben?",
+    "ayrintilar": "Details",
+    "kontroller": "Prüfungen",
+    "yeniKontrol": "Andere URL prüfen",
+    "seviye": {
+      "hata": "Fehler",
+      "uyari": "Warnung",
+      "bilgi": "Hinweis",
+      "iyi": "Bestanden"
+    },
+    "kontrol": {
+      "title": {
+        "ad": "Seitentitel (title)",
+        "neden": "Der Titel ist die anklickbare Zeile im Suchergebnis; er sagt Google und Nutzern zuerst, worum es geht, und beeinflusst die Klickrate direkt.",
+        "duzelt": "Geben Sie jeder Seite einen eindeutigen <title> mit etwa 30–60 Zeichenbreiten und dem Haupt-Keyword weit vorn; den Markennamen ans Ende."
+      },
+      "aciklama": {
+        "ad": "Meta-Beschreibung",
+        "neden": "Die Beschreibung erscheint oft unter dem Titel im Suchergebnis; sie erklärt, warum sich der Klick lohnt, und steigert die Klicks.",
+        "duzelt": "Fügen Sie eine seitenspezifische Meta-Description mit etwa 70–160 Zeichenbreiten und Handlungsaufforderung hinzu; verwenden Sie dieselbe Beschreibung nicht auf vielen Seiten."
+      },
+      "canonical": {
+        "ad": "Canonical-URL",
+        "neden": "Ist derselbe Inhalt unter mehreren URLs erreichbar, legt das Canonical die Hauptseite fest; Rankingsignale bündeln sich auf einer URL.",
+        "duzelt": "Fügen Sie im <head> genau ein absolutes <link rel=canonical> (beginnend mit https://) ein, das auf die eigene saubere URL zeigt."
+      },
+      "robots_meta": {
+        "ad": "Indexierungsfreigabe (robots)",
+        "neden": "Eine Seite mit noindex erscheint nicht bei Google; nofollow verhindert, dass Links Wert weitergeben. Ein vergessenes noindex kann den Traffic auslöschen.",
+        "duzelt": "Entfernen Sie noindex / nofollow aus dem Robots-Meta-Tag und dem X-Robots-Tag-Header der Seiten, die in der Suche erscheinen sollen."
+      },
+      "viewport": {
+        "ad": "Mobiler Viewport",
+        "neden": "Google bewertet die mobile Version Ihrer Website. Ohne Viewport wirkt die Seite auf dem Handy wie eine verkleinerte Desktopseite; deaktivierter Zoom schadet der Barrierefreiheit.",
+        "duzelt": "Verwenden Sie <meta name=viewport content=\"width=device-width, initial-scale=1\"> und entfernen Sie user-scalable=no und maximum-scale=1."
+      },
+      "lang": {
+        "ad": "Seitensprache (lang)",
+        "neden": "Das html-lang-Attribut teilt Browsern, Screenreadern und Suchmaschinen die Sprache mit; eine falsche Sprache führt zu falscher Aussprache und falscher Ausrichtung.",
+        "duzelt": "Fügen Sie einen gültigen Sprachcode wie <html lang=\"de\"> ein; für regionale Versionen de-AT, de-CH usw."
+      },
+      "hreflang": {
+        "ad": "Sprachalternativen (hreflang)",
+        "neden": "Auf mehrsprachigen Websites sorgt hreflang dafür, dass jeder Nutzer die Seite in seiner Sprache sieht, und verhindert, dass Sprachversionen als Duplikate gelten.",
+        "duzelt": "Jede Sprachversion listet alle Versionen inklusive sich selbst und ein x-default mit gültigen Codes (de, en, de-AT…); die Liste ist auf jeder Version identisch."
+      },
+      "og_etiketleri": {
+        "ad": "Open-Graph-Tags",
+        "neden": "Beim Teilen werden Titel, Beschreibung und URL aus diesen Tags gelesen; fehlen sie, wählt die Plattform womöglich beliebigen Text der Seite.",
+        "duzelt": "Fügen Sie og:title, og:description, og:url und og:type in den <head> ein, so formuliert, wie sie beim Teilen erscheinen sollen."
+      },
+      "twitter_karti": {
+        "ad": "Twitter-/X-Card",
+        "neden": "twitter:card bestimmt, ob der Link auf X mit kleiner oder großer Bildkarte erscheint.",
+        "duzelt": "Fügen Sie <meta name=twitter:card content=summary_large_image> ein; für Titel, Beschreibung und Bild genügen die Open-Graph-Tags."
+      },
+      "og_gorsel": {
+        "ad": "Teilen-Bild (og:image)",
+        "neden": "Beiträge mit Bild werden deutlich öfter angeklickt. Lädt das Bild nicht, ist es zu klein oder zu schwer, zeigt die Plattform die Karte ohne Bild.",
+        "duzelt": "Geben Sie als og:image ein JPG/PNG/WebP mit absoluter https-URL, 1200×630 Pixeln und unter 5 MB an und stellen Sie sicher, dass die URL öffentlich ist."
+      },
+      "jsonld_sozdizimi": {
+        "ad": "JSON-LD-Syntax",
+        "neden": "Schon ein Kommafehler macht den ganzen Block unlesbar; Suchmaschinen können keine Information daraus nutzen.",
+        "duzelt": "Beheben Sie die angezeigte Zeile und Spalte (Komma am Ende, fehlendes Anführungszeichen, nicht maskiertes Zeichen) und verwenden Sie https://schema.org als @context."
+      },
+      "jsonld_turler": {
+        "ad": "Typen strukturierter Daten",
+        "neden": "Strukturierte Daten sagen Maschinen, worum es auf der Seite geht (Unternehmen, Produkt, Artikel, FAQ…), und öffnen die Tür zu Rich Results und KI-Antworten.",
+        "duzelt": "Fügen Sie den passenden schema.org-Typ als JSON-LD hinzu: Organization/LocalBusiness und WebSite auf der Startseite, Article bei Beiträgen, Product bei Produkten."
+      },
+      "jsonld_alanlar": {
+        "ad": "Pflicht- und empfohlene Felder",
+        "neden": "Einem Element mit fehlendem Pflichtfeld werden keine Rich Results zugestanden; empfohlene Felder bestimmen, wie reichhaltig das Ergebnis aussieht.",
+        "duzelt": "Füllen Sie die fehlenden Felder mit Informationen, die tatsächlich auf der Seite sichtbar sind; schreiben Sie nichts in strukturierte Daten, was nicht auf der Seite steht."
+      },
+      "robots_dosyasi": {
+        "ad": "robots.txt-Datei",
+        "neden": "Crawler lesen auf jeder Website zuerst die robots.txt. Liefert die Datei einen 5xx-Fehler, crawlt Google die Website eventuell eine Zeit lang gar nicht.",
+        "duzelt": "Veröffentlichen Sie im Stammverzeichnis eine robots.txt, die mit 200 als Klartext (text/plain) antwortet und kleiner als 500 KiB ist; keine HTML-Seite."
+      },
+      "robots_yol": {
+        "ad": "Crawlbarkeit des Pfads",
+        "neden": "Der Inhalt einer gesperrten Seite kann nicht gelesen werden; versehentlich gesperrte wichtige Seiten oder CSS/JS-Dateien senken das Ranking.",
+        "duzelt": "Entfernen Sie die Disallow-Regel, die den gewünschten Pfad sperrt, oder öffnen Sie ihn mit einer längeren (spezifischeren) Allow-Regel."
+      },
+      "robots_sitemap": {
+        "ad": "Sitemap-Angabe",
+        "neden": "Eine Sitemap-Zeile in der robots.txt lässt alle Suchmaschinen Ihre Sitemap finden, ohne sie einzeln einzureichen.",
+        "duzelt": "Fügen Sie am Ende der robots.txt eine Zeile Sitemap: https://ihredomain.de/sitemap.xml mit absoluter URL hinzu."
+      },
+      "robots_sozdizimi": {
+        "ad": "Syntax",
+        "neden": "Unbekannte Direktiven und Regeln vor einem User-agent werden ignoriert; die Datei wirkt nicht wie gedacht.",
+        "duzelt": "Beginnen Sie jede Gruppe mit einer User-agent-Zeile und verwenden Sie nur User-agent, Allow, Disallow und Sitemap. Google ignoriert Crawl-delay."
+      },
+      "sitemap_erisim": {
+        "ad": "Sitemap-Zugriff",
+        "neden": "Eine Sitemap teilt Suchmaschinen mit, welche Seiten es gibt und wann sie sich geändert haben; neue Seiten werden schneller entdeckt.",
+        "duzelt": "Veröffentlichen Sie die XML-Sitemap unter /sitemap.xml mit Status 200, nennen Sie sie in der robots.txt und reichen Sie sie in der Search Console ein."
+      },
+      "sitemap_bicim": {
+        "ad": "Format und Größe",
+        "neden": "Eine fehlerhafte oder zu große Sitemap wird nur teilweise oder gar nicht gelesen.",
+        "duzelt": "Das Wurzelelement muss urlset oder sitemapindex mit dem Namespace http://www.sitemaps.org/schemas/sitemap/0.9 sein; maximal 50.000 URLs und 50 MB pro Datei."
+      },
+      "sitemap_adresler": {
+        "ad": "URLs",
+        "neden": "Fehlerhafte, doppelte oder fremde URLs werden von Suchmaschinen ignoriert und mindern das Vertrauen in die Sitemap.",
+        "duzelt": "Listen Sie jede absolute, kanonische URL derselben Domain, die 200 liefert, genau einmal auf."
+      },
+      "sitemap_lastmod": {
+        "ad": "Änderungsdatum (lastmod)",
+        "neden": "Ein korrektes lastmod lässt Google geänderte Seiten zuerst crawlen; falsche oder zukünftige Daten führen dazu, dass das Signal komplett ignoriert wird.",
+        "duzelt": "Verwenden Sie das W3C-Format (2026-10-01 oder 2026-10-01T10:00:00+03:00) und aktualisieren Sie lastmod nur bei echten Inhaltsänderungen."
+      },
+      "sitemap_orneklem": {
+        "ad": "Statuscodes der Stichprobe",
+        "neden": "URLs mit 404, 5xx oder Weiterleitung verschwenden Crawl-Budget und zeigen, dass die Sitemap veraltet ist.",
+        "duzelt": "Beheben oder entfernen Sie fehlerhafte URLs; ersetzen Sie weitergeleitete URLs durch die finale URL mit Status 200."
+      },
+      "zincir": {
+        "ad": "Weiterleitungskette",
+        "neden": "Jeder Weiterleitungsschritt verlangsamt das Laden und kostet Crawl-Budget; eine URL in einer Schleife öffnet sich nie.",
+        "duzelt": "Leiten Sie jede alte URL in einem Schritt (301) direkt zur finalen URL weiter; entfernen Sie Zwischenschritte und Schleifen."
+      },
+      "son_durum": {
+        "ad": "Finaler Statuscode",
+        "neden": "Eine Seite, die am Ende der Kette nicht 200 liefert, kann nicht indexiert werden, und Besucher sehen eine Fehlerseite.",
+        "duzelt": "Stellen Sie sicher, dass die Seite existiert; wurde sie verschoben, per 301 weiterleiten, wurde sie entfernt, 410 oder Weiterleitung auf die nächstpassende Seite."
+      },
+      "https_yonlendirme": {
+        "ad": "http → https",
+        "neden": "Bleibt die unverschlüsselte http-Version offen, landen Nutzer womöglich auf einer unsicheren Seite und dieselbe Seite wird unter zwei URLs indexiert.",
+        "duzelt": "Leiten Sie in den Server- oder CDN-Einstellungen alle http-Anfragen in einem Schritt dauerhaft (301/308) auf https um."
+      },
+      "www_tutarlilik": {
+        "ad": "www-Konsistenz",
+        "neden": "Öffnen sich sowohl die www- als auch die Nicht-www-URL separat, wirkt die Website wie eine Kopie ihrer selbst und der Linkwert wird geteilt.",
+        "duzelt": "Wählen Sie eine Hauptvariante (z. B. https://ihredomain.de) und leiten Sie die übrigen drei (http, www) per 301 darauf um."
+      },
+      "hsts": {
+        "ad": "HSTS (Strict-Transport-Security)",
+        "neden": "HSTS weist den Browser an, die Website nur per https aufzurufen, und verhindert, dass die erste unverschlüsselte Anfrage abgefangen wird.",
+        "duzelt": "Ergänzen Sie https-Antworten um Strict-Transport-Security: max-age=31536000; includeSubDomains (zuerst mit kurzer Dauer testen)."
+      },
+      "csp": {
+        "ad": "Content Security Policy (CSP)",
+        "neden": "CSP begrenzt, woher Skripte geladen werden dürfen, und ist der stärkste Schutz gegen XSS. unsafe-inline und unsafe-eval schwächen diesen Schutz.",
+        "duzelt": "Schreiben Sie eine Content-Security-Policy mit Ihrer Domain und den tatsächlich genutzten Diensten; erlauben Sie Inline-Skripte per Nonce oder Hash. Zuerst mit Report-Only testen."
+      },
+      "frame": {
+        "ad": "Schutz vor Einbettung",
+        "neden": "Ohne Schutz kann Ihre Website unsichtbar in eine andere Seite eingebettet und Nutzer zu Klicks verleitet werden (Clickjacking).",
+        "duzelt": "Fügen Sie frame-ancestors 'self' zur CSP hinzu oder senden Sie X-Frame-Options: SAMEORIGIN."
+      },
+      "nosniff": {
+        "ad": "MIME-Sniffing-Schutz",
+        "neden": "Ohne nosniff rät der Browser den Dateityp und führt eine harmlos wirkende Datei womöglich als Skript aus.",
+        "duzelt": "Ergänzen Sie jede Antwort um X-Content-Type-Options: nosniff und liefern Sie Dateien mit korrektem Content-Type aus."
+      },
+      "referrer": {
+        "ad": "Referrer-Policy",
+        "neden": "Dieser Header legt fest, welche Adressinformation beim Klick an die andere Website geht; schwache Werte können personenbezogene Daten aus URLs preisgeben.",
+        "duzelt": "Verwenden Sie Referrer-Policy: strict-origin-when-cross-origin (oder das strengere no-referrer / same-origin)."
+      },
+      "permissions": {
+        "ad": "Permissions-Policy",
+        "neden": "Sie beschränkt, welche Seiten Browserfunktionen wie Kamera, Mikrofon und Standort nutzen dürfen, und verhindert Missbrauch durch eingebettete Drittinhalte.",
+        "duzelt": "Schalten Sie ungenutzte Funktionen ab, z. B. Permissions-Policy: camera=(), microphone=(), geolocation=()."
+      },
+      "sunucu_bilgisi": {
+        "ad": "Server-Versionsangabe",
+        "neden": "Versionsnummern in den Headern Server und X-Powered-By erleichtern Angreifern, bekannte Schwachstellen gezielt auszunutzen.",
+        "duzelt": "Blenden Sie die Version in den Servereinstellungen aus (z. B. nginx server_tokens off) und entfernen Sie den Header X-Powered-By."
+      },
+      "sertifika_gecerlilik": {
+        "ad": "Zertifikatsgültigkeit",
+        "neden": "Bei ungültigem, abgelaufenem oder nicht passendem Zertifikat zeigt der Browser eine ganzseitige Warnung, und die meisten Besucher gehen.",
+        "duzelt": "Installieren Sie ein Zertifikat einer vertrauenswürdigen Stelle, das die Domain (und www) abdeckt; eine kostenlose, automatisch verlängerte Lösung wie Let's Encrypt genügt."
+      },
+      "sertifika_suresi": {
+        "ad": "Ablaufdatum",
+        "neden": "Sobald das Zertifikat abläuft, wirkt die Website unsicher; eine vergessene Verlängerung lässt den Traffic sofort einbrechen.",
+        "duzelt": "Aktivieren Sie die automatische Verlängerung und richten Sie eine Überwachung ein, die mindestens 30 Tage vor Ablauf warnt."
+      },
+      "tls_surumu": {
+        "ad": "TLS-Version",
+        "neden": "TLS 1.0 und 1.1 sind unsicher und von Browsern deaktiviert; TLS 1.3 ist schneller und sicherer.",
+        "duzelt": "Lassen Sie TLS 1.2 und 1.3 auf dem Server aktiv und 1.0 und 1.1 deaktiviert."
+      },
+      "ssl_zincir": {
+        "ad": "Zertifikatskette",
+        "neden": "Fehlt ein Zwischenzertifikat, vertrauen manche Browser – besonders Mobilgeräte und Bots – der Website nicht.",
+        "duzelt": "Installieren Sie auf dem Server die vollständige Kette (fullchain) des Ausstellers, nicht nur das Website-Zertifikat."
+      },
+      "h1": {
+        "ad": "Hauptüberschrift (H1)",
+        "neden": "Die H1 ist die stärkste Überschrift auf der Seite und nennt Besuchern und Suchmaschinen das Hauptthema.",
+        "duzelt": "Verwenden Sie pro Seite genau eine nicht leere H1, die das Thema klar benennt; machen Sie kein Logo und keinen Ziertext zur H1."
+      },
+      "baslik_hiyerarsi": {
+        "ad": "Überschriftenhierarchie",
+        "neden": "Geordnete Überschriften (H2 → H3) gliedern den Inhalt; Screenreader und Suchmaschinen lesen daraus die Struktur der Seite.",
+        "duzelt": "Überspringen Sie keine Ebenen (nach H2 folgt H3, nicht H4), lassen Sie keine Überschrift leer und nutzen Sie Überschriften für Bedeutung, nicht für die optische Größe."
+      },
+      "icerik_uzunlugu": {
+        "ad": "Textumfang",
+        "neden": "Seiten mit sehr wenig Text behandeln das Thema nicht ausreichend, gelten als Thin Content und ranken schlecht.",
+        "duzelt": "Ergänzen Sie eigenen Text, der zum Zweck der Seite passt und die Fragen der Besucher beantwortet; über 300 Wörter sind für Hauptseiten ein guter Anfang."
+      },
+      "anahtar_yogunlugu": {
+        "ad": "Keyword-Dichte",
+        "neden": "Übermäßige Wiederholung eines Wortes wirkt unnatürlich und kann als Spam gewertet werden.",
+        "duzelt": "Verwenden Sie das Haupt-Keyword in der Überschrift und im ersten Absatz und schreiben Sie danach natürlich mit Synonymen und verwandten Begriffen."
+      },
+      "hedef_kelime": {
+        "ad": "Ziel-Keyword",
+        "neden": "Der Text sollte klar zeigen, welche Suche die Seite beantwortet; kommt die Phrase nie vor oder wird sie übermäßig wiederholt, wirkt die Seite für diese Suche schwach oder unnatürlich.",
+        "duzelt": "Verwenden Sie die Phrase natürlich im Einleitungsabsatz und in einer passenden Zwischenüberschrift; erweitern Sie das Thema im übrigen Text mit Synonymen und verwandten Begriffen."
+      },
+      "hedef_konum": {
+        "ad": "Position des Keywords",
+        "neden": "Title, H1, Meta-Beschreibung und URL sind die Stellen, an denen Suchmaschinen und Nutzer zuerst sehen, worum es auf der Seite geht.",
+        "duzelt": "Setzen Sie die Zielphrase nahe am Anfang des Titles, in die H1 und natürlich in die Meta-Beschreibung; wählen Sie für neue Seiten eine kurze, lesbare URL (z. B. /seo-agentur). Wenn Sie eine bestehende URL ändern, richten Sie eine 301-Weiterleitung ein."
+      }
+    },
+    "bulgu": {
+      "title_yok": "Die Seite hat kein <title>-Tag.",
+      "title_kisa": "Titel zu kurz: etwa {{deger}} Zeichenbreiten (empfohlen 30–60).",
+      "title_uzun": "Titel zu lang: etwa {{deger}} Zeichenbreiten; er kann im Suchergebnis abgeschnitten werden (empfohlen 30–60).",
+      "title_iyi": "Titellänge passt ({{deger}} Zeichenbreiten).",
+      "title_coklu": "Die Seite hat {{deger}} <title>-Tags; es sollte nur eines geben.",
+      "aciklama_yok": "Keine Meta-Description.",
+      "aciklama_kisa": "Beschreibung zu kurz: etwa {{deger}} Zeichenbreiten (empfohlen 70–160).",
+      "aciklama_uzun": "Beschreibung zu lang: etwa {{deger}} Zeichenbreiten; sie kann abgeschnitten werden (empfohlen 70–160).",
+      "aciklama_iyi": "Beschreibungslänge passt ({{deger}} Zeichenbreiten).",
+      "aciklama_coklu": "Die Seite hat {{deger}} Meta-Descriptions; es sollte nur eine geben.",
+      "canonical_yok": "Kein Canonical-Tag.",
+      "canonical_coklu": "Die Seite hat {{deger}} Canonical-Tags; Google ignoriert womöglich alle.",
+      "canonical_goreli": "Das Canonical verwendet eine relative URL ({{deger}}); eine absolute URL wird empfohlen.",
+      "canonical_baska": "Das Canonical zeigt auf eine andere URL: {{deger}}",
+      "canonical_iyi": "Das Canonical zeigt auf die Seite selbst.",
+      "robots_noindex": "Die Seite verhindert die Indexierung (noindex, Quelle: {{deger}}).",
+      "robots_nofollow": "Links auf der Seite sind nofollow und geben keinen Wert weiter.",
+      "robots_iyi": "Indexierung und Linkverfolgung sind erlaubt.",
+      "viewport_yok": "Kein mobiles Viewport-Tag.",
+      "viewport_genislik": "Der Viewport enthält kein width=device-width.",
+      "viewport_yakinlastirma": "Der Viewport deaktiviert das Zoomen (user-scalable=no oder niedriges maximum-scale).",
+      "viewport_iyi": "Der Viewport ist mobilfreundlich.",
+      "lang_yok": "Das html-Tag hat kein lang-Attribut.",
+      "lang_gecersiz": "Der lang-Wert ist kein gültiger Sprachcode: {{deger}}",
+      "lang_iyi": "Seitensprache ist gesetzt: {{deger}}",
+      "hreflang_yok": "Keine hreflang-Links (bei einsprachigen Websites nicht nötig).",
+      "hreflang_gecersiz": "Ungültiger hreflang-Code: {{deger}}",
+      "hreflang_tekrar": "Dieselbe Sprache ist mehrfach aufgeführt: {{deger}}",
+      "hreflang_kendisi_yok": "Die hreflang-Liste enthält die Seite selbst nicht.",
+      "hreflang_xdefault_yok": "Kein x-default-hreflang.",
+      "hreflang_iyi": "{{deger}} hreflang-Links sind konsistent.",
+      "og_baslik_yok": "Kein og:title.",
+      "og_aciklama_yok": "Kein og:description.",
+      "og_url_yok": "Kein og:url.",
+      "og_type_yok": "Kein og:type.",
+      "og_tamam": "Die grundlegenden Open-Graph-Tags sind vollständig.",
+      "twitter_kart_yok": "Kein twitter:card; X zeigt eventuell eine kleine Karte.",
+      "twitter_kart_gecersiz": "Unbekannter twitter:card-Wert: {{deger}}",
+      "twitter_kart_iyi": "Twitter-/X-Card: {{deger}}",
+      "og_gorsel_yok": "Kein Teilen-Bild (og:image).",
+      "og_gorsel_goreli": "og:image ist eine relative URL; es muss eine absolute https-URL sein.",
+      "gorsel_erisilemedi": "Das Teilen-Bild konnte nicht geladen werden ({{deger}}).",
+      "gorsel_tur_yanlis": "og:image liefert kein Bild (Typ: {{deger}}).",
+      "gorsel_kucuk": "Das Bild ist zu klein: {{deger}} (mindestens 200×200).",
+      "gorsel_onerilen_alti": "Das Bild ist kleiner als empfohlen: {{deger}} (empfohlen 1200×630).",
+      "gorsel_oran": "Das Seitenverhältnis passt nicht zur Teilen-Karte: {{deger}} (empfohlen 1,91:1).",
+      "gorsel_boyut_bilinmiyor": "Die Pixelgröße des Bildes konnte nicht gelesen werden.",
+      "gorsel_buyuk": "Das Bild ist zu schwer: {{deger}} KB (höchstens 5 MB).",
+      "gorsel_agir": "Das Bild ist schwer: {{deger}} KB; die Vorschau lädt eventuell langsam.",
+      "gorsel_http": "Das Bild liegt unter einer unverschlüsselten http-URL; verwenden Sie https.",
+      "gorsel_iyi": "Das Teilen-Bild passt: {{deger}}",
+      "jsonld_sozdizimi": "Block {{blok}}: Syntaxfehler (Zeile {{satir}}, Spalte {{sutun}}): {{mesaj}}",
+      "jsonld_sozdizimi_iyi": "Die Syntax von {{deger}} JSON-LD-Blöcken ist gültig.",
+      "jsonld_context": "In {{deger}} Blöcken fehlt @context oder ist nicht schema.org.",
+      "jsonld_yok": "Die Seite hat keine strukturierten JSON-LD-Daten.",
+      "jsonld_tur_yok": "Die JSON-LD-Blöcke enthalten kein Element mit @type.",
+      "jsonld_turler_var": "Gefundene Typen: {{deger}}",
+      "mikroveri_var": "Auch Microdata / RDFa vorhanden: {{deger}}",
+      "jsonld_alan_eksik": "{{tur}}: Pflichtfeld fehlt — {{alanlar}}",
+      "jsonld_onerilen_eksik": "{{tur}}: empfohlenes Feld fehlt — {{alanlar}}",
+      "jsonld_alanlar_iyi": "Die grundlegenden Pflichtfelder sind vollständig.",
+      "robots_erisilemedi": "robots.txt konnte nicht gelesen werden ({{deger}}); Google stoppt in diesem Fall womöglich das Crawlen.",
+      "robots_yok": "Keine robots.txt ({{deger}}); alles gilt als crawlbar.",
+      "robots_html": "Die robots.txt-URL liefert eine HTML-Seite; das ist keine gültige robots.txt.",
+      "robots_buyuk": "robots.txt ist sehr groß ({{deger}} KB); Google liest nur die ersten 500 KiB.",
+      "robots_var": "robots.txt gefunden ({{deger}} Byte).",
+      "yol_bilinmiyor": "robots.txt war nicht lesbar, daher ist der Status von {{yol}} für {{ajan}} unklar.",
+      "yol_izinli": "{{yol}} darf von {{ajan}} gecrawlt werden.",
+      "yol_engelli": "{{yol}} ist für {{ajan}} gesperrt (Zeile {{satir}}: {{kural}}).",
+      "tum_site_engelli": "Die gesamte Website ist für {{deger}} gesperrt (Disallow: /).",
+      "sitemap_satiri_goreli": "{{deger}} Sitemap-Zeilen verwenden eine relative URL; sie muss absolut sein.",
+      "sitemap_satiri_var": "{{deger}} Sitemap-Zeilen gefunden.",
+      "sitemap_satiri_yok": "Keine Sitemap-Zeile in der robots.txt.",
+      "kural_ajansiz": "Regeln vor einem User-agent werden ignoriert (Zeile {{deger}}).",
+      "bilinmeyen_yonerge": "Unbekannte Zeilen: {{deger}}",
+      "crawl_delay": "Crawl-delay wird verwendet; Google ignoriert es.",
+      "sozdizimi_iyi": "Keine Syntaxprobleme.",
+      "sitemap_bulunamadi": "Keine Sitemap gefunden ({{deger}}).",
+      "sitemap_erisildi": "Sitemap gelesen: {{deger}}",
+      "sitemap_kesildi": "Die Sitemap ist sehr groß; die ersten {{deger}} KB wurden geprüft.",
+      "dtd_reddedildi": "Die Sitemap enthält eine DOCTYPE/ENTITY-Deklaration; sie wurde aus Sicherheitsgründen nicht verarbeitet.",
+      "sitemap_kok_hatali": "Das Wurzelelement ist nicht urlset oder sitemapindex ({{deger}}).",
+      "sitemap_xml_hatasi": "Das XML konnte nicht gelesen werden: {{deger}}",
+      "sitemap_ad_alani": "Unerwarteter Namespace: {{deger}}",
+      "sitemap_cok_buyuk": "{{deger}} URLs; pro Datei sind höchstens 50.000 erlaubt.",
+      "sitemap_bos": "Die Sitemap enthält keine URLs.",
+      "sitemap_dizini": "Sitemap-Index: {{deger}} Unter-Sitemaps aufgeführt.",
+      "sitemap_bicim_iyi": "Gültiges Format; {{deger}} URLs aufgeführt.",
+      "alt_sitemap_hatali": "Die erste Unter-Sitemap konnte nicht gelesen werden: {{deger}}",
+      "alan_hatali": "{{deger}} Einträge haben einen ungültigen changefreq- oder priority-Wert.",
+      "adres_hatali": "{{deger}} ungültige URLs (müssen absolute http/https-URLs sein).",
+      "adres_baska_site": "{{deger}} URLs gehören zu einer anderen Domain.",
+      "adres_tekrar": "{{deger}} URLs sind mehrfach aufgeführt.",
+      "adresler_iyi": "Alle {{deger}} URLs sind gültig und auf derselben Website.",
+      "lastmod_yok": "Keine URL hat ein lastmod.",
+      "lastmod_eksik": "{{deger}} URLs haben kein lastmod.",
+      "lastmod_hatali": "{{deger}} URLs haben ein ungültiges lastmod-Format.",
+      "lastmod_gelecek": "{{deger}} URLs haben ein lastmod in der Zukunft.",
+      "lastmod_iyi": "lastmod-Daten sind gültig.",
+      "orneklem_hatali": "In der Stichprobe liefern {{hatali}} von {{toplam}} URLs einen Fehler (4xx/5xx).",
+      "orneklem_yonlendirme": "In der Stichprobe leiten {{hatali}} von {{toplam}} URLs weiter.",
+      "orneklem_iyi": "Alle {{deger}} URLs der Stichprobe antworten problemlos.",
+      "dongu": "Weiterleitungsschleife: die URL leitet auf sich selbst zurück.",
+      "cok_yonlendirme": "Mehr als {{deger}} Weiterleitungen; die Kette konnte nicht verfolgt werden.",
+      "zincir_uzun": "Lange Kette: {{deger}} Weiterleitungsschritte.",
+      "zincir_iyi": "Die Zertifikatskette erreicht ein vertrauenswürdiges Stammzertifikat.",
+      "gecici_yonlendirme": "Die Kette enthält eine temporäre Weiterleitung ({{deger}}); für dauerhafte Umzüge 301 verwenden.",
+      "son_durum_iyi": "Die Ziel-URL liefert {{deger}}.",
+      "son_durum_hatali": "Die Ziel-URL liefert einen Fehler: {{deger}}",
+      "https_gecici": "Die Weiterleitung http → https ist temporär ({{deger}}); sie sollte 301 oder 308 sein.",
+      "https_yonlendirme_iyi": "Die http-URL leitet auf https weiter.",
+      "https_yonlendirme_yok": "Die http-URL leitet nicht auf https weiter.",
+      "https_yok": "Die Website öffnet sich nicht per https.",
+      "www_tutarsiz": "www / ohne www und http / https führen zu {{deger}} verschiedenen URLs.",
+      "www_iyi": "Alle Varianten führen zur selben URL.",
+      "www_erisilemedi": "{{deger}} öffnet sich nicht (kein DNS-Eintrag oder keine Verbindung).",
+      "https_degil": "Die Seite wird nicht per https ausgeliefert; HSTS greift nicht.",
+      "hsts_yok": "Kein Strict-Transport-Security-Header.",
+      "hsts_kisa": "HSTS-Dauer zu kurz: {{deger}} Tage (mindestens 180 empfohlen).",
+      "hsts_iyi": "HSTS ist aktiv ({{deger}} Tage).",
+      "hsts_alt_alan_yok": "HSTS umfasst keine Subdomains (kein includeSubDomains).",
+      "csp_unsafe_inline": "Die CSP erlaubt Inline-Skripte ('unsafe-inline').",
+      "csp_unsafe_eval": "Die CSP erlaubt eval ('unsafe-eval').",
+      "csp_iyi": "Content-Security-Policy ist vorhanden.",
+      "csp_rapor": "Die CSP läuft nur im Berichtsmodus (Report-Only) und blockiert nichts.",
+      "csp_yok": "Kein Content-Security-Policy-Header.",
+      "frame_iyi": "Schutz vor Einbettung vorhanden ({{deger}}).",
+      "frame_yok": "Kein Schutz vor Einbettung (X-Frame-Options / frame-ancestors).",
+      "nosniff_iyi": "X-Content-Type-Options: nosniff ist vorhanden.",
+      "nosniff_yok": "Kein X-Content-Type-Options: nosniff.",
+      "referrer_yok": "Kein Referrer-Policy-Header.",
+      "referrer_zayif": "Schwache Referrer-Policy: {{deger}}",
+      "referrer_iyi": "Referrer-Policy: {{deger}}",
+      "permissions_iyi": "Permissions-Policy ist vorhanden.",
+      "permissions_yok": "Kein Permissions-Policy-Header.",
+      "sunucu_surumu": "Server-Versionsangabe ist sichtbar: {{deger}}",
+      "ssl_yok": "Es konnte keine https-Verbindung aufgebaut werden; das Zertifikat war nicht lesbar.",
+      "ssl_dogrulandi": "Das Zertifikat ist vertrauenswürdig und passt zur Domain.",
+      "ssl_gecersiz": "Das Zertifikat konnte nicht verifiziert werden: {{deger}}",
+      "ssl_kendinden_imzali": "Das Zertifikat ist selbstsigniert; Browser vertrauen ihm nicht.",
+      "ssl_ad_uyusmuyor": "Das Zertifikat deckt diese Domain nicht ab.",
+      "zincir_eksik": "Die Zwischenkette ist unvollständig oder erreicht kein vertrauenswürdiges Stammzertifikat.",
+      "ssl_suresi_gecmis": "Das Zertifikat ist vor {{deger}} Tagen abgelaufen.",
+      "ssl_bitiyor": "Das Zertifikat läuft in {{deger}} Tagen ab!",
+      "ssl_yakinda": "Das Zertifikat läuft in {{deger}} Tagen ab.",
+      "ssl_gecerli": "Das Zertifikat ist noch {{deger}} Tage gültig.",
+      "tls_iyi": "Die Verbindung nutzt {{deger}}.",
+      "tls_12": "Die Verbindung nutzt {{deger}}; TLS 1.3 kann zusätzlich aktiviert werden.",
+      "tls_eski": "Veraltete TLS-Version: {{deger}}",
+      "h1_yok": "Die Seite hat keine H1.",
+      "h1_fazla": "Die Seite hat {{deger}} H1-Überschriften.",
+      "h1_bos": "Die H1 ist leer.",
+      "h1_iyi": "H1: {{deger}}",
+      "ilk_baslik_h1_degil": "Die erste Überschrift ist keine H1 ({{deger}}).",
+      "seviye_atlama": "Übersprungene Überschriftenebene: {{deger}}",
+      "bos_baslik": "{{deger}} leere Überschriften.",
+      "uzun_baslik": "{{deger}} Überschriften sind länger als 70 Zeichen.",
+      "baslik_yok": "Die Seite hat überhaupt keine Überschriften (H1–H6).",
+      "hiyerarsi_iyi": "{{deger}} Überschriften sind sauber geordnet.",
+      "icerik_az": "Wenig sichtbarer Text: {{deger}} Wörter.",
+      "kelime_iyi": "Sichtbarer Text: {{deger}} Wörter.",
+      "anahtar_asiri": "„{{kelime}}“ macht {{yuzde}} % des Textes aus; übermäßige Wiederholung.",
+      "yogunluk_iyi": "Die Wortverteilung ist natürlich; häufigstes Wort: „{{deger}}“.",
+      "hedef_yok": "„{{deger}}“ kommt im sichtbaren Text nicht vor.",
+      "hedef_iyi": "„{{kelime}}“ kommt {{sayi}}-mal vor (Dichte {{yuzde}} %).",
+      "hedef_asiri": "„{{kelime}}“ kommt {{sayi}}-mal vor (Dichte {{yuzde}} %); zu häufig.",
+      "hedef_title_yok": "„{{deger}}“ steht nicht im Seitentitel.",
+      "hedef_h1_yok": "„{{deger}}“ steht nicht in der H1.",
+      "hedef_aciklama_yok": "„{{deger}}“ steht nicht in der Meta-Beschreibung.",
+      "hedef_url_yok": "„{{deger}}“ steht nicht in der URL.",
+      "hedef_konum_iyi": "„{{deger}}“ steht im Title, in der H1, in der Meta-Beschreibung und in der URL."
+    },
+    "veri": {
+      "meta": {
+        "serp": "Vorschau im Suchergebnis",
+        "etiketler": "Gefundene Tags",
+        "karakter": "{{sayi}} Zeichen",
+        "yok": "—",
+        "hreflang": "hreflang-Links",
+        "baslik": "Titel",
+        "aciklama": "Beschreibung",
+        "canonical": "Canonical",
+        "robots": "Robots",
+        "viewport": "Viewport",
+        "lang": "Sprache"
+      },
+      "og": {
+        "onizleme": "Vorschau der Teilen-Karte",
+        "gorselYok": "Kein Bild",
+        "gorselGizli": "Das Bild wird nicht angezeigt, weil es nicht sicher (https) ist oder nicht geladen werden konnte.",
+        "ogEtiketleri": "Open-Graph-Tags",
+        "twitterEtiketleri": "Twitter-/X-Tags",
+        "gorsel": "Bild",
+        "boyut": "Abmessungen",
+        "dosya": "Datei",
+        "tur": "Typ",
+        "kb": "{{sayi}} KB"
+      },
+      "schema": {
+        "bloklar": "JSON-LD-Blöcke",
+        "blok": "Block {{sayi}}",
+        "gecerli": "Gültig",
+        "hatali": "Syntaxfehler (Zeile {{satir}}, Spalte {{sutun}})",
+        "ogeler": "Gefundene Elemente",
+        "eksikZorunlu": "Fehlende Pflichtfelder",
+        "eksikOnerilen": "Fehlende empfohlene Felder",
+        "icIce": "verschachtelt",
+        "kuralYok": "keine Grundregel definiert",
+        "kod": "Code anzeigen",
+        "alanlar": "Felder",
+        "tamam": "Nichts fehlt"
+      },
+      "robots": {
+        "karar": "Ergebnis",
+        "izinli": "Crawlbar",
+        "engelli": "Gesperrt",
+        "belirsiz": "Unklar",
+        "kural": "Passende Regel",
+        "kuralYok": "Keine passende Regel — Standard: erlaubt",
+        "grup": "Angewandte Gruppe",
+        "gruplar": "Gruppen",
+        "sitemapler": "Sitemap-Zeilen",
+        "icerik": "Inhalt der robots.txt",
+        "satir": "Zeile {{sayi}}",
+        "kuralSayisi": "{{sayi}} Regeln",
+        "yol": "Pfad",
+        "ajan": "User-Agent"
+      },
+      "sitemap": {
+        "adres": "Sitemap",
+        "kaynak": "Gefunden über",
+        "kaynaklar": {
+          "girilen": "Ihre eingegebene URL",
+          "robots": "robots.txt",
+          "varsayilan": "Standard-URL"
+        },
+        "tur": "Typ",
+        "turler": {
+          "urlset": "URL-Liste (urlset)",
+          "sitemapindex": "Sitemap-Index (sitemapindex)"
+        },
+        "adresSayisi": "Anzahl URLs",
+        "lastmodOrani": "lastmod-Anteil",
+        "boyut": "Größe",
+        "ornekler": "Stichprobe (Statuscodes)",
+        "hataliAdresler": "Ungültige URLs",
+        "baskaSite": "URLs anderer Domains",
+        "altlar": "Unter-Sitemaps",
+        "incelenenAlt": "Geprüfte Unter-Sitemap",
+        "reddedildi": "abgelehnt"
+      },
+      "yonlendirme": {
+        "zincirler": "Weiterleitungsketten",
+        "etiket": {
+          "girilen": "Ihre eingegebene URL",
+          "http": "http://",
+          "https": "https://",
+          "http_www": "http://www.",
+          "https_www": "https://www."
+        },
+        "adim": "{{sayi}} Weiterleitungen",
+        "erisilemedi": "Nicht geöffnet ({{kod}})"
+      },
+      "guvenlik": {
+        "puan": "Sicherheitspunktzahl",
+        "not": "Note",
+        "baslik": "Header",
+        "deger": "Wert",
+        "durum": "Status",
+        "eksik": "fehlt"
+      },
+      "ssl": {
+        "sertifika": "Zertifikat",
+        "konu": "Inhaber (CN)",
+        "yayinci": "Aussteller",
+        "baslangic": "Gültig ab",
+        "bitis": "Läuft ab",
+        "kalan": "Verbleibende Tage",
+        "san": "Abgedeckte Domains",
+        "seri": "Seriennr.",
+        "imza": "Signatur",
+        "anahtar": "Schlüssel",
+        "tls": "TLS-Version",
+        "sifre": "Cipher-Suite",
+        "zincir": "Kette",
+        "aia": "URL des Zwischenzertifikats (AIA)",
+        "dogrulandi": "Verifiziert",
+        "dogrulanmadi": "Nicht verifiziert"
+      },
+      "basliklar": {
+        "agac": "Überschriftenbaum",
+        "bos": "(leer)",
+        "seviyeler": "Überschriften je Ebene"
+      },
+      "kelime": {
+        "kelimeler": "Wortstatistik",
+        "toplam": "Wörter gesamt",
+        "anlamli": "Bedeutungstragende Wörter",
+        "benzersiz": "Eindeutig",
+        "enSik": "Häufigste Wörter",
+        "ikililer": "Häufigste Wortpaare",
+        "kelime": "Wort",
+        "adet": "Anzahl",
+        "yuzde": "Dichte",
+        "dil": "Seitensprache",
+        "durakNotu": "Stoppwörter (türkische, englische und deutsche Listen: und, der, für…) werden entfernt; auf türkischen Seiten gilt I→ı und İ→i.",
+        "ucluler": "Häufigste Dreiwortphrasen",
+        "hedef": "Ziel-Keyword",
+        "hedefOzet": "{{sayi}}-mal · Dichte {{yuzde}} %",
+        "konumTitle": "Title",
+        "konumH1": "H1",
+        "konumAciklama": "Meta-Beschreibung",
+        "konumUrl": "URL",
+        "var": "Ja",
+        "yok": "Nein"
+      }
+    }
+  }
+}

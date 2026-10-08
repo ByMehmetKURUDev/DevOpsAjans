@@ -1,6 +1,6 @@
-import { useState, type FormEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, Loader2, Mail, Search } from 'lucide-react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ArrowRight, CheckCircle2, Loader2, Mail, Search, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from '@/components/ui/button';
@@ -28,6 +28,12 @@ import { DEFAULT_LANGUAGE, LANGUAGE_CODES, localizedPath } from '../../prerender
  *
  * Analiz ~30 saniye sürebiliyor (PageSpeed ölçümü dahil); bekleme
  * sırasında bölüm iskeletleri gösteriliyor ki sayfa donmuş görünmesin.
+ *
+ * Faz 4S: ücretsiz SEO araçlarının "Sitenin tam analizini al" düğmesi buraya
+ * adresle geliyor. Uygulama içi geçişte (router state `{url, arac, otomatik}`)
+ * analiz kendiliğinden başlar; `?url=` (ör. sonuç e-postasındaki bağlantı)
+ * yalnız alanı doldurur — dışarıdan verilen bir bağlantı kendi başına analiz
+ * başlatmasın. `arac` analize yazılır (yönetici özetinde araçtan gelen geçiş).
  */
 
 const GIRDI =
@@ -37,7 +43,16 @@ export default function SiteAnalizi() {
   const { t, i18n } = useTranslation();
   const dil = LANGUAGE_CODES.includes(i18n.language) ? i18n.language : DEFAULT_LANGUAGE;
 
-  const [adres, setAdres] = useState('');
+  const konum = useLocation();
+  const gelen = (() => {
+    const durum = konum.state as { url?: unknown; arac?: unknown; otomatik?: unknown } | null;
+    const sorgu = new URLSearchParams(konum.search);
+    const url = typeof durum?.url === 'string' ? durum.url : sorgu.get('url') || '';
+    const arac = typeof durum?.arac === 'string' ? durum.arac : sorgu.get('arac') || '';
+    return { url: url.slice(0, 2000), arac: /^[a-z0-9-]{1,40}$/.test(arac) ? arac : '', otomatik: durum?.otomatik === true };
+  })();
+  const [adres, setAdres] = useState(gelen.url);
+  const [aracKaynagi, setAracKaynagi] = useState(gelen.arac);
   const [calisiyor, setCalisiyor] = useState(false);
   const [ozet, setOzet] = useState<AnalizOzeti | null>(null);
   const [hataKodu, setHataKodu] = useState<string | null>(null);
@@ -51,10 +66,9 @@ export default function SiteAnalizi() {
 
   const hataMetni = (kod: string) => t(`siteAnalizi.hata.${kod}`, { defaultValue: t('siteAnalizi.hata.genel') });
 
-  const analizEt = async (olay: FormEvent) => {
-    olay.preventDefault();
+  const baslat = async (hedef: string) => {
     if (calisiyor) return;
-    if (!adres.trim()) {
+    if (!hedef.trim()) {
       setHataKodu('adres_gecersiz');
       return;
     }
@@ -64,13 +78,28 @@ export default function SiteAnalizi() {
     setGonderildi(false);
     setFormHatasi(null);
     try {
-      setOzet(await analizBaslat(adres.trim()));
+      setOzet(await analizBaslat(hedef.trim(), aracKaynagi || null));
     } catch (hata) {
       setHataKodu(hata instanceof SiteAnaliziHatasi ? hata.kod : 'genel');
     } finally {
       setCalisiyor(false);
     }
   };
+
+  const analizEt = (olay: FormEvent) => {
+    olay.preventDefault();
+    void baslat(adres);
+  };
+
+  // SEO aracından uygulama içi geçiş: bir kez, kendiliğinden başlat.
+  const otomatikBasladi = useRef(false);
+  useEffect(() => {
+    if (otomatikBasladi.current || !gelen.otomatik || !gelen.url) return;
+    otomatikBasladi.current = true;
+    void baslat(gelen.url);
+    // Yalnız ilk açılışta; sonraki çizimler yeniden başlatmasın.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const tamRaporGonder = async (olay: FormEvent) => {
     olay.preventDefault();
@@ -96,6 +125,7 @@ export default function SiteAnalizi() {
     setPazarlama(false);
     setOzet(null);
     setAdres('');
+    setAracKaynagi('');
     setGonderildi(false);
     setHataKodu(null);
   };
@@ -147,6 +177,14 @@ export default function SiteAnalizi() {
             </Button>
           </div>
           <p className="mt-3 text-xs text-muted-foreground">{t('siteAnalizi.neOlcuyor')}</p>
+          {/* Faz 4S: tek konuya bakan ücretsiz SEO araçları (meta, schema, robots.txt, SSL…). */}
+          <p className="mt-2 text-xs text-muted-foreground" data-seo-araclari-baglanti>
+            {t('siteAnalizi.araclar.metin')}{' '}
+            <Link to={localizedPath(dil, 'seoAraclari')} className="inline-flex items-center gap-1 font-semibold text-purple-300 hover:underline">
+              <Wrench className="h-3 w-3" aria-hidden="true" />
+              {t('siteAnalizi.araclar.dugme')}
+            </Link>
+          </p>
           {hataKodu && (
             <p role="alert" className="mt-3 rounded-lg border border-red-400/30 bg-red-500/10 px-3 py-2 text-sm text-red-200">
               {hataMetni(hataKodu)}

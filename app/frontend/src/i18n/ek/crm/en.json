@@ -118,7 +118,8 @@
       "form": "Embedded form",
       "manuel": "Added manually",
       "eposta": "Email",
-      "modul_vitrini": "Module showcase"
+      "modul_vitrini": "Module showcase",
+      "seo_araci": "Free SEO tool"
     },
     "aktivite": {
       "not": "Note",
@@ -302,7 +303,8 @@
       "kaynakForm": "form #{{no}}",
       "kaynakSiteAnalizi": "site analysis",
       "rozet": "marketing permission",
-      "kaynakModulVitrini": "module showcase ({{anahtar}})"
+      "kaynakModulVitrini": "module showcase ({{anahtar}})",
+      "kaynakSeoAraci": "free SEO tool ({{arac}})"
     }
   }
 }

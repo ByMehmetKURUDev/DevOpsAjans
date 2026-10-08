@@ -51,6 +51,8 @@ function isBlogPostPath(path: string): boolean {
 const KAYNAK_YOLU = /^(?:\/([a-z]{2}))?\/kaynaklar(?:\/([^/]+))?$/;
 /** Faz 4V — modül vitrini (liste, modül, paket): başlığını sayfa kendisi yazıyor. Eşleşmede [, dil?, alt yol?]. */
 const MODUL_YOLU = /^(?:\/([a-z]{2}))?\/moduller((?:\/paket)?\/[^/]+)?$/;
+/** Faz 4S — ücretsiz SEO araçları (dizin + araç): başlığını sayfa kendisi yazıyor. Eşleşmede [, dil?, slug?]. */
+const SEO_ARAC_YOLU = /^(?:\/([a-z]{2}))?\/seo-araclari(?:\/([^/]+))?$/;
 
 /**
  * Yola karşılık gelen başlık/açıklama.
@@ -237,6 +239,9 @@ export default function Layout() {
     // Modül / sektör paketi ayrıntısı: aynı sayfanın o dildeki adresi.
     const modul = normalizeRoutePath(location.pathname).match(MODUL_YOLU);
     if (modul?.[2]) navigate(`${localizedPath(code, 'moduller')}${modul[2]}`);
+    // SEO aracı: aynı aracın o dildeki adresi.
+    const seoArac = normalizeRoutePath(location.pathname).match(SEO_ARAC_YOLU);
+    if (seoArac?.[2]) navigate(`${localizedPath(code, 'seoAraclari')}/${seoArac[2]}`);
   };
 
   const currentLang = getLanguageMeta(i18n.language);
@@ -255,7 +260,7 @@ export default function Layout() {
     const currentPath = normalizeRoutePath(location.pathname);
 
     // Tekil blog yazısı, Kaynaklar ve yasal sayfalar (Faz 3Y) başlığını kendisi yönetiyor.
-    if (isBlogPostPath(currentPath) || KAYNAK_YOLU.test(currentPath) || MODUL_YOLU.test(currentPath)) return;
+    if (isBlogPostPath(currentPath) || KAYNAK_YOLU.test(currentPath) || MODUL_YOLU.test(currentPath) || SEO_ARAC_YOLU.test(currentPath)) return;
     if (YASAL_SAYFALAR.includes(resolveRoute(currentPath).pageKey ?? '')) return;
 
     const routeMeta = getRouteMeta(currentPath, settings);
@@ -641,6 +646,16 @@ export default function Layout() {
                   data-alt-moduller
                 >
                   {t('footer.moduller')}
+                </Link>
+              </li>
+              {/* Faz 4S: ücretsiz SEO araçları — üst menüde yok, yalnız alt bilgide. */}
+              <li>
+                <Link
+                  to={localizedPath(activeLang, 'seoAraclari')}
+                  className="inline-block py-2 hover:text-foreground transition-colors"
+                  data-alt-seo-araclari
+                >
+                  {t('footer.seoAraclari')}
                 </Link>
               </li>
             </ul>

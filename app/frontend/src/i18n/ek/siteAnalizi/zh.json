@@ -119,10 +119,11 @@
         "yonetici": "管理员"
       },
       "pazarlamaSor": "在完整报告表单中询问营销许可",
-      "pazarlamaSorIpucu": "开启后，表单中会出现默认未勾选的“我希望通过电子邮件接收优惠活动和公告”复选框。报告请求不依赖于它；勾选后会记录许可、时间和文本版本。",
+      "pazarlamaSorIpucu": "开启后，表单中会出现默认未勾选的“我希望通过电子邮件接收优惠活动和公告”复选框。报告请求不依赖于它；勾选后会记录许可、时间和文本版本。同一设置也适用于免费 SEO 工具的“通过邮件发送结果”表单。",
       "pazarlamaKaydedildi": "营销许可设置已保存。",
       "pazarlamaVar": "已获营销许可（{{tarih}}，文本第 {{surum}} 版）",
-      "pazarlamaYok": "未获营销许可"
+      "pazarlamaYok": "未获营销许可",
+      "aracKaynak": "免费 SEO 工具：{{arac}}"
     },
     "musteri": {
       "baslik": "分析我的网站",
@@ -447,6 +448,10 @@
         "neden": "AI 系统能从结构化数据中更可靠地识别您是谁以及提供什么。",
         "oneri": "添加 Organization、LocalBusiness、Service、FAQPage 等 schema.org JSON-LD。"
       }
+    },
+    "araclar": {
+      "metin": "只想检查某一项？",
+      "dugme": "免费 SEO 工具"
     }
   }
 }
