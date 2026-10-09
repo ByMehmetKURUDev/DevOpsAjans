@@ -777,6 +777,44 @@
           "kr_guncellenmedi": "seit {{sayi}} Tagen kein Check-in"
         }
       }
+    },
+    "akis": {
+      "gorunum": "Ansicht",
+      "liste": "Liste",
+      "akis": "Ablauf",
+      "ust": "Automatisierung · Ablaufansicht",
+      "slogan1": "Lassen Sie die Arbeit",
+      "slogan2": "fließen.",
+      "aciklama": "Ihre Regeln erscheinen als verbundene Karten. Ein Klick auf eine Karte öffnet die Regel im Editor.",
+      "kurallar": "Regeln",
+      "adimSayisi": "{{sayi}} Schritte",
+      "adim": "Schritt {{sira}}/{{toplam}}",
+      "tetikleyici": "Auslöser",
+      "kosul": "Bedingung",
+      "pazarlamaNotu": "Geht nur an Empfänger mit Marketing-Einwilligung",
+      "bekleSonraDenetim": "Bedingungen werden nach der Wartezeit erneut geprüft",
+      "gunSonra": "in {{sayi}} Tagen",
+      "duzenleIpucu": "Zum Bearbeiten klicken",
+      "istatistik": "Ausführungsübersicht",
+      "calisma": "Ausführungen der letzten {{gun}} Tage",
+      "tumKurallar": "Alle Regeln: {{sayi}}",
+      "basari": "Erfolgsquote",
+      "basariYok": "Noch keine abgeschlossenen Ausführungen",
+      "basariAlt": "{{basarili}} erfolgreich · {{basarisiz}} fehlgeschlagen oder übersprungen (nicht erfüllte Bedingungen zählen nicht)",
+      "son": "Letzte Ausführungen",
+      "sonYok": "Diese Regel lief in den letzten {{gun}} Tagen nicht.",
+      "omur": "Insgesamt {{sayi}}-mal ausgeführt",
+      "etkinKural": "{{etkin}} / {{toplam}} Regeln aktiv",
+      "serit": {
+        "kodsuz": "No-Code-Editor",
+        "kodsuzAlt": "Regeln per Formular anlegen",
+        "deneme": "Erst testen",
+        "denemeAlt": "Ein Probelauf sendet nichts",
+        "sablon": "Fertige Vorlagen",
+        "sablonAlt": "Mit einem Klick starten",
+        "bekle": "Warten und erneut prüfen",
+        "bekleAlt": "Zeitgesteuerte Schritte"
+      }
     }
   }
 }

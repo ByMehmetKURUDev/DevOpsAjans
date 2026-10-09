@@ -18,6 +18,7 @@ yalnız etkin hesabın kuralları; yalnız kendi hesabının (müşteriye görü
   POST   "/test"                       {kural, baglam? | calisma_id?} — kaydedilmemiş kuralın kuru çalıştırması
   GET    "/gunluk"                     ?kural_id=&durum=&once=&limit= — çalıştırmalar (30 gün)
   GET    "/gunluk/{id}"                tek çalıştırma
+  GET    "/akis-ozeti?kural_id="        Faz 11C akış görünümü: son 30 gün sayılar, günlük seri, başarı, son 3 çalışma
 
 Yalnız yönetici (Faz 7O — Otomasyon › Sistem; `services/haftalik_ozet.py`):
   GET    "/haftalik-ozet"              durum: açık mı (bildirim matrisi), son gönderim, bu hafta, sonraki, e-posta kanalı
@@ -39,6 +40,7 @@ from fastapi.responses import Response
 from fastapi.routing import APIRoute
 from models.otomasyon import OtomasyonCalismalari, OtomasyonKurallari
 from services import otomasyon as s
+from services import otomasyon_akis
 from services import otomasyon_kural as kural
 from services import ozel_alanlar as oz
 from services.api_erisimi import Sahip
@@ -328,6 +330,13 @@ def _uclari_kur(r: APIRouter, sahip_bul: Callable[[Request], Sahip]) -> None:
         sahip = sahip_bul(request)
         items, sonraki = await s.gunluk(db, sahip, kural_id=kural_id, durum=durum, once=once, limit=limit)
         return {"items": items, "sonraki": sonraki}
+
+    @r.get("/akis-ozeti")
+    async def akis_ozeti(request: Request, kural_id: Optional[int] = Query(None), db: AsyncSession = Depends(get_db)):
+        """Faz 11C — akış görünümünün sağ sütunu: son 30 gün çalışma sayıları, günlük seri, başarı, son 3."""
+        sahip = sahip_bul(request)
+        k = await _kural(db, sahip, kural_id) if kural_id else None
+        return await otomasyon_akis.akis_ozeti(db, sahip, k)
 
     @r.get("/gunluk/{calisma_id}")
     async def gunluk_tek(calisma_id: int, request: Request, db: AsyncSession = Depends(get_db)):

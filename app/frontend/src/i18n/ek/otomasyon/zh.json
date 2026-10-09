@@ -777,6 +777,44 @@
           "kr_guncellenmedi": "{{sayi}} 天未签到"
         }
       }
+    },
+    "akis": {
+      "gorunum": "视图",
+      "liste": "列表",
+      "akis": "流程",
+      "ust": "自动化 · 流程视图",
+      "slogan1": "让工作",
+      "slogan2": "自动流转。",
+      "aciklama": "规则以相互连接的卡片显示。点击卡片即可在编辑器中打开该规则。",
+      "kurallar": "规则",
+      "adimSayisi": "{{sayi}} 个步骤",
+      "adim": "第 {{sira}}/{{toplam}} 步",
+      "tetikleyici": "触发器",
+      "kosul": "条件",
+      "pazarlamaNotu": "仅发送给同意接收营销信息的收件人",
+      "bekleSonraDenetim": "等待结束后会重新检查条件",
+      "gunSonra": "{{sayi}} 天后",
+      "duzenleIpucu": "点击编辑",
+      "istatistik": "运行摘要",
+      "calisma": "最近 {{gun}} 天运行次数",
+      "tumKurallar": "全部规则：{{sayi}}",
+      "basari": "成功率",
+      "basariYok": "暂无已完成的运行",
+      "basariAlt": "成功 {{basarili}} · 失败或跳过 {{basarisiz}}（条件不满足的不计入）",
+      "son": "最近运行",
+      "sonYok": "此规则最近 {{gun}} 天未运行。",
+      "omur": "累计运行 {{sayi}} 次",
+      "etkinKural": "已启用 {{etkin}} / {{toplam}} 条规则",
+      "serit": {
+        "kodsuz": "无代码构建",
+        "kodsuzAlt": "用表单创建规则",
+        "deneme": "先试运行",
+        "denemeAlt": "试运行不会发送任何内容",
+        "sablon": "现成模板",
+        "sablonAlt": "一键开始",
+        "bekle": "等待并复查",
+        "bekleAlt": "定时步骤"
+      }
     }
   }
 }

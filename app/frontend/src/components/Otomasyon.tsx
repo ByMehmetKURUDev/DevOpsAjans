@@ -42,6 +42,8 @@ export default function Otomasyon({ mod }: { mod: OtoMod }) {
   const [meta, setMeta] = useState<OtoMeta | null>(null);
   const [hata, setHata] = useState<string | null>(null);
   const [duzenlenen, setDuzenlenen] = useState<Kural | 'yeni' | null>(null);
+  // Faz 11C: akış görünümünden gelen düğümün düzenleyici adımı.
+  const [duzenleAdimi, setDuzenleAdimi] = useState<'tetik' | 'kosullar' | 'eylemler' | undefined>(undefined);
   const [gunlukKurali, setGunlukKurali] = useState<number | null>(null);
   const [yenile, setYenile] = useState(0);
 
@@ -95,6 +97,7 @@ export default function Otomasyon({ mod }: { mod: OtoMod }) {
             meta={meta}
             mod={mod}
             kural={duzenlenen === 'yeni' ? null : duzenlenen}
+            baslangic={duzenleAdimi}
             onKapat={() => setDuzenlenen(null)}
             onKaydedildi={() => {
               setDuzenlenen(null);
@@ -137,13 +140,17 @@ export default function Otomasyon({ mod }: { mod: OtoMod }) {
               key={yenile}
               api={api}
               meta={meta}
-              onDuzenle={(k) => setDuzenlenen(k)}
+              onDuzenle={(k, adim) => {
+                setDuzenleAdimi(adim);
+                setDuzenlenen(k);
+              }}
               onYeni={() => setDuzenlenen('yeni')}
               onGunluk={(id) => {
                 setGunlukKurali(id);
                 setSekme('gunluk');
               }}
               onDegisti={metaYukle}
+              onSablonlar={() => setSekme('sablonlar')}
             />
           )}
           {sekme === 'sablonlar' && (

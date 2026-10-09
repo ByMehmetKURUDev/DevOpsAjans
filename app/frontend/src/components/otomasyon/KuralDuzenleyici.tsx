@@ -29,6 +29,8 @@ interface Props {
   kural: Kural | null;
   onKapat: () => void;
   onKaydedildi: () => void;
+  /** Faz 11C: akış görünümünde tıklanan düğümün adımıyla aç (tetikleyici / koşullar / eylemler). */
+  baslangic?: 'tetik' | 'kosullar' | 'eylemler';
 }
 
 interface Taslak {
@@ -52,10 +54,10 @@ const METIN_ALANLARI = new Set(['konu', 'govde', 'baslik', 'aciklama', 'metin'])
  * sıralı eylemler (en çok 5) → ad + kuru çalıştırma + kaydet. Doğrulamanın asıl
  * sahibi sunucu; burada yalnız rahat bir form.
  */
-export default function KuralDuzenleyici({ api, meta, mod, kural, onKapat, onKaydedildi }: Props) {
+export default function KuralDuzenleyici({ api, meta, mod, kural, onKapat, onKaydedildi, baslangic }: Props) {
   const { t } = useTranslation();
   const ajans = mod === 'yonetici';
-  const [adim, setAdim] = useState<Adim>(kural ? 'eylemler' : 'tetik');
+  const [adim, setAdim] = useState<Adim>(kural ? (baslangic ?? 'eylemler') : 'tetik');
   const [taslak, setTaslak] = useState<Taslak>(() => ({
     ad: kural?.ad ?? '',
     aciklama: kural?.aciklama ?? '',

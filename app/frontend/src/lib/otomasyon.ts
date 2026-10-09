@@ -162,6 +162,30 @@ export interface KuruSonuc {
   bilinmeyen_degiskenler: string[];
 }
 
+/** Faz 11C — akış görünümünün sağ sütunu (son 30 gün; sunucu `services/otomasyon_akis.py`). */
+export interface AkisSayilari {
+  toplam: number;
+  seri: number[];
+  durumlar: Record<string, number>;
+  basari: { basarili: number; basarisiz: number; oran: number | null };
+}
+
+export interface AkisOzeti {
+  pencere_gun: number;
+  seri_baslangic: string;
+  kural_sayisi: number;
+  etkin_kural: number;
+  tumu: AkisSayilari;
+  kural:
+    | (AkisSayilari & {
+        id: number;
+        toplam_omur: number;
+        son_calisma_at: string | null;
+        son: { id: number; durum: Calisma['durum']; neden: string | null; olay_hesap: string | null; zaman: string | null; bitis: string | null; eylem_sayisi: number }[];
+      })
+    | null;
+}
+
 export class OtoHatasi extends Error {
   constructor(
     public durum: number,
@@ -215,6 +239,8 @@ export function otomasyonApi(mod: OtoMod) {
       istek<KuruSonuc>('POST', `${taban}/kurallar/${id}/test`, govde),
     taslakTest: (kural: Partial<KuralGirdisi>, govde: { baglam?: Record<string, unknown>; calisma_id?: number } = {}) =>
       istek<KuruSonuc>('POST', `${taban}/test`, { kural, ...govde }),
+    akisOzeti: (kuralId?: number | null) =>
+      istek<AkisOzeti>('GET', `${taban}/akis-ozeti${kuralId ? `?kural_id=${kuralId}` : ''}`),
     gunluk: (p: { kural_id?: number | null; durum?: string | null; once?: number | null } = {}) => {
       const q = new URLSearchParams({ limit: '30' });
       if (p.kural_id) q.set('kural_id', String(p.kural_id));

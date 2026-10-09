@@ -1,27 +1,53 @@
-import { useCallback, useEffect, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import { FlaskConical, History, Loader2, Pencil, Plus, Trash2, Zap } from 'lucide-react';
+import { FlaskConical, History, List, Loader2, Pencil, Plus, Trash2, Workflow, Zap } from 'lucide-react';
 
 import KuruSonucGorunumu from '@/components/otomasyon/KuruSonuc';
 import { anahtarAdi, hataMetni, tarihYaz, type Kural, type KuruSonuc, type OtoMeta, type OtomasyonApi } from '@/lib/otomasyon';
 import { ANA_DUGME, DurumRozeti, IKINCIL_DUGME, KART } from './ortak';
 
+// Faz 11C: akış görünümü yalnız seçilince iner.
+const AkisGorunumu = lazy(() => import('./AkisGorunumu'));
+
+type Gorunum = 'liste' | 'akis';
+const GORUNUM_ANAHTARI = 'mk_oto_gorunum';
+
+function gorunumOku(): Gorunum {
+  try {
+    return window.localStorage.getItem(GORUNUM_ANAHTARI) === 'akis' ? 'akis' : 'liste';
+  } catch {
+    return 'liste';
+  }
+}
+
 interface Props {
   api: OtomasyonApi;
   meta: OtoMeta | null;
-  onDuzenle: (k: Kural) => void;
+  onDuzenle: (k: Kural, adim?: 'tetik' | 'kosullar' | 'eylemler') => void;
   onYeni: () => void;
   onGunluk: (kuralId: number) => void;
   onDegisti: () => void;
+  /** Faz 11C: akış görünümündeki "Hazır şablonlar" bağlantısı. */
+  onSablonlar?: () => void;
 }
 
 /** Kural listesi: aç/kapa, düzenle, kuru çalıştır ("Test et"), günlük, sil. */
-export default function Kurallar({ api, meta, onDuzenle, onYeni, onGunluk, onDegisti }: Props) {
+export default function Kurallar({ api, meta, onDuzenle, onYeni, onGunluk, onDegisti, onSablonlar }: Props) {
   const { t, i18n } = useTranslation();
   const [liste, setListe] = useState<Kural[] | null>(null);
   const [mesgul, setMesgul] = useState<number | null>(null);
   const [test, setTest] = useState<{ id: number; sonuc: KuruSonuc } | null>(null);
+  const [gorunum, setGorunum] = useState<Gorunum>(gorunumOku);
+
+  const gorunumSec = (g: Gorunum) => {
+    setGorunum(g);
+    try {
+      window.localStorage.setItem(GORUNUM_ANAHTARI, g);
+    } catch {
+      /* depo kapalı: yalnız hatırlanmaz */
+    }
+  };
 
   const yukle = useCallback(async () => {
     try {
@@ -83,6 +109,28 @@ export default function Kurallar({ api, meta, onDuzenle, onYeni, onGunluk, onDeg
         <p className="text-sm text-muted-foreground">
           {sinir ? t('otomasyon.kural.sayac', { sayi: sinir.kural_sayisi, sinir: sinir.kural }) : ' '}
         </p>
+        <div className="ms-auto inline-flex rounded-lg border border-white/10 bg-white/[0.03] p-0.5" role="group" aria-label={t('otomasyon.akis.gorunum')}>
+          {(
+            [
+              ['liste', List, t('otomasyon.akis.liste')],
+              ['akis', Workflow, t('otomasyon.akis.akis')],
+            ] as const
+          ).map(([g, Ikon, ad]) => (
+            <button
+              key={g}
+              type="button"
+              aria-pressed={gorunum === g}
+              onClick={() => gorunumSec(g)}
+              data-testid={`oto-gorunum-${g}`}
+              className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 ${
+                gorunum === g ? 'bg-purple-600 text-white' : 'text-muted-foreground hover:text-white'
+              }`}
+            >
+              <Ikon className="h-3.5 w-3.5" aria-hidden="true" />
+              {ad}
+            </button>
+          ))}
+        </div>
         <button type="button" className={ANA_DUGME} onClick={onYeni} disabled={!meta || dolu} data-testid="oto-yeni-kural">
           <Plus className="h-4 w-4" aria-hidden="true" />
           {t('otomasyon.kural.yeni')}
@@ -98,6 +146,25 @@ export default function Kurallar({ api, meta, onDuzenle, onYeni, onGunluk, onDeg
           <Zap className="mx-auto mb-2 h-6 w-6 text-purple-300" aria-hidden="true" />
           {t('otomasyon.kural.bos')}
         </div>
+      ) : gorunum === 'akis' ? (
+        <Suspense
+          fallback={
+            <div className="flex justify-center py-10 text-muted-foreground">
+              <Loader2 className="h-5 w-5 animate-spin" aria-label={t('otomasyon.yukleniyor')} />
+            </div>
+          }
+        >
+          <AkisGorunumu
+            api={api}
+            meta={meta}
+            liste={liste}
+            yeniKapali={!meta || dolu}
+            onDuzenle={onDuzenle}
+            onYeni={onYeni}
+            onGunluk={onGunluk}
+            onSablonlar={onSablonlar}
+          />
+        </Suspense>
       ) : (
         <ul className="space-y-3">
           {liste.map((k) => (

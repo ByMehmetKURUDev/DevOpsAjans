@@ -777,6 +777,44 @@
           "kr_guncellenmedi": "{{sayi}} gündür check-in yok"
         }
       }
+    },
+    "akis": {
+      "gorunum": "Görünüm",
+      "liste": "Liste",
+      "akis": "Akış",
+      "ust": "Otomasyon · Akış görünümü",
+      "slogan1": "İşi akışa",
+      "slogan2": "bırakın.",
+      "aciklama": "Kurallarınız birbirine bağlı kartlar olarak görünür. Bir karta tıklayınca kural düzenleyicide açılır.",
+      "kurallar": "Kurallar",
+      "adimSayisi": "{{sayi}} adım",
+      "adim": "Adım {{sira}}/{{toplam}}",
+      "tetikleyici": "Tetikleyici",
+      "kosul": "Koşul",
+      "pazarlamaNotu": "Yalnız pazarlama izni veren alıcıya gider",
+      "bekleSonraDenetim": "Bekledikten sonra koşullar yeniden denetlenir",
+      "gunSonra": "{{sayi}} gün sonra",
+      "duzenleIpucu": "Düzenlemek için tıklayın",
+      "istatistik": "Çalışma özeti",
+      "calisma": "Son {{gun}} gün çalışan",
+      "tumKurallar": "Tüm kurallar: {{sayi}}",
+      "basari": "Başarı oranı",
+      "basariYok": "Henüz biten çalışma yok",
+      "basariAlt": "{{basarili}} başarılı · {{basarisiz}} hata ya da atlandı (koşulu tutmayanlar sayılmaz)",
+      "son": "Son çalışmalar",
+      "sonYok": "Bu kural son {{gun}} günde çalışmadı.",
+      "omur": "Toplam {{sayi}} kez çalıştı",
+      "etkinKural": "{{etkin}} / {{toplam}} kural etkin",
+      "serit": {
+        "kodsuz": "Kodsuz kurucu",
+        "kodsuzAlt": "Kuralı formla kurun",
+        "deneme": "Önce deneyin",
+        "denemeAlt": "Kuru çalıştırma hiçbir şey göndermez",
+        "sablon": "Hazır şablonlar",
+        "sablonAlt": "Tek tıkla başlayın",
+        "bekle": "Bekle ve yeniden denetle",
+        "bekleAlt": "Zamanlı adımlar"
+      }
     }
   }
 }

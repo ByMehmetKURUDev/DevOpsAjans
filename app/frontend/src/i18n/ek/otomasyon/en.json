@@ -777,6 +777,44 @@
           "kr_guncellenmedi": "no check-in for {{sayi}} days"
         }
       }
+    },
+    "akis": {
+      "gorunum": "View",
+      "liste": "List",
+      "akis": "Flow",
+      "ust": "Automation · Flow view",
+      "slogan1": "Let the work",
+      "slogan2": "flow.",
+      "aciklama": "Your rules appear as connected cards. Click a card to open the rule in the editor.",
+      "kurallar": "Rules",
+      "adimSayisi": "{{sayi}} steps",
+      "adim": "Step {{sira}}/{{toplam}}",
+      "tetikleyici": "Trigger",
+      "kosul": "Condition",
+      "pazarlamaNotu": "Sent only to recipients with marketing consent",
+      "bekleSonraDenetim": "Conditions are re-checked after the wait",
+      "gunSonra": "in {{sayi}} days",
+      "duzenleIpucu": "Click to edit",
+      "istatistik": "Run summary",
+      "calisma": "Runs in the last {{gun}} days",
+      "tumKurallar": "All rules: {{sayi}}",
+      "basari": "Success rate",
+      "basariYok": "No finished runs yet",
+      "basariAlt": "{{basarili}} succeeded · {{basarisiz}} failed or skipped (unmet conditions not counted)",
+      "son": "Recent runs",
+      "sonYok": "This rule hasn't run in the last {{gun}} days.",
+      "omur": "Ran {{sayi}} times in total",
+      "etkinKural": "{{etkin}} / {{toplam}} rules active",
+      "serit": {
+        "kodsuz": "No-code builder",
+        "kodsuzAlt": "Build rules with a form",
+        "deneme": "Try first",
+        "denemeAlt": "A dry run sends nothing",
+        "sablon": "Ready-made templates",
+        "sablonAlt": "Start in one click",
+        "bekle": "Wait and re-check",
+        "bekleAlt": "Scheduled steps"
+      }
     }
   }
 }
