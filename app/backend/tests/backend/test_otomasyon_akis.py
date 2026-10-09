@@ -27,12 +27,20 @@ def _b(eposta: str) -> dict:
 
 
 @pytest.fixture(autouse=True)
-async def _temiz(db_oturumu):
+async def _temiz(monkeypatch, db_oturumu):
     from models.otomasyon import OtomasyonCalismalari, OtomasyonKurallari
     from routers import otomasyon as r
     from services import otomasyon
 
     r.hiz_sinirlarini_temizle()
+    otomasyon.onbellegi_temizle()
+    # Elle eklenen "bekliyor" çalışmaları arka plan pompası işlemesin (sonraki test dosyalarına taşar).
+    monkeypatch.setattr(otomasyon, "ANLIK_ISLEME", False)
+    monkeypatch.setattr(otomasyon, "POMPA_GECIKMESI_SN", 0)
+    # Önceki test dosyalarının bıraktığı kurallar/çalışmalar sayıları bozmasın.
+    for model in (OtomasyonCalismalari, OtomasyonKurallari):
+        await db_oturumu.execute(delete(model))
+    await db_oturumu.commit()
     otomasyon.onbellegi_temizle()
     yield
     for model in (OtomasyonCalismalari, OtomasyonKurallari):
