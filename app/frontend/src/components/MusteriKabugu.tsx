@@ -24,6 +24,8 @@ import { GENEL_BAKIS, MUSTERI_GRUPLARI, type MusteriGrubu } from '@/lib/musteriM
 import { SUPPORTED_LANGUAGES, changeAppLanguage } from '@/i18n';
 import { UygulamaYukleDugmesi } from '@/lib/uygulamaKabugu';
 import './musteriKabugu.css';
+// Faz 11G-1: panelin bütün bölümleri Genel bakışın cam kart dilinde (yalnız panel içerik alanı).
+import '@/components/panel/panelBolumleri.css';
 
 /**
  * Faz 11B — müşteri paneli kabuğu (Panel v2): önizleme 5'teki üst çubuk — logo, menü (gruplar yatay; en başta

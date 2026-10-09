@@ -1,0 +1,116 @@
+/*
+ * Faz 11G-1 — "Görünüm birliği": panelin bütün bölümleri Genel bakışın cam kart dilinde.
+ *
+ * Kullanıcı isteği (9 Ekim 2026): "Genel bakış ekranıyla aynı olsun." Bölüm bileşenlerine tek tek dokunmadan,
+ * yalnız panel içerik alanında (yönetici `.pk-icerik`, müşteri `.mpk-icerik`) ortak sınıflar yeniden çiziliyor:
+ * kartlar (`.cam-kart` ve aynı kalıptaki `rounded-2xl border-white/10` kutular), kart içi alt kutular, tablolar,
+ * kart içindeki büyük rakamlar (JetBrains Mono), bölüm başlıkları. Renkler kabuğun değişkenlerinden: yönetici
+ * lacivert/camgöbeği (Nebula) ya da mor (Klasik), müşteri mor/pembe — Genel bakış kartlarıyla birebir aynı ton.
+ *
+ * Bu dosya yalnız panel kabuğu parçalarıyla iner (YonetimKabugu / MusteriKabugu tembel); herkese açık sayfalara
+ * girmez. Nebula'nın kesik köşeli holografik kart kuralı (`:root[data-gorunum='nebula'] .cam-kart`, özgüllük
+ * 0,3,0) panel içinde bu kurallarla (0,4,0) eziliyor; panel dışındaki site görünümü değişmiyor.
+ * Pencereler (`bg-background`, `role=dialog`) opak kalır; taşma (`overflow`) ve konum değiştirilmez —
+ * açılır menüler kırpılmasın.
+ */
+
+.pk-icerik {
+  --pb-kart1: var(--pk-kart1);
+  --pb-kart2: var(--pk-kart2);
+  --pb-cizgi: var(--pk-cizgi);
+  --pb-isik: var(--pk-cyan);
+  --pb-soluk: var(--pk-soluk);
+  --pb-mono: var(--pk-mono);
+  --pb-a1: 0.62;
+  --pb-a2: 0.76;
+}
+.mpk-icerik {
+  --pb-kart1: var(--mpk-kart1, 80 40 160);
+  --pb-kart2: var(--mpk-kart2, 22 12 52);
+  --pb-cizgi: var(--mpk-cizgi, 200 150 255);
+  --pb-isik: var(--mpk-mor, 168 85 247);
+  --pb-soluk: 203 182 245;
+  --pb-mono: var(--mpk-mono, 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace);
+  --pb-a1: 0.42;
+  --pb-a2: 0.82;
+}
+
+/* ---------- Kartlar ---------- */
+:root :is(.pk-icerik, .mpk-icerik)
+  :is(.cam-kart, .rounded-xl.glass, .rounded-2xl.glass, .rounded-3xl.glass, .rounded-2xl.border-white\/10, .rounded-3xl.border-white\/10):not(.bg-background):not([role='dialog']):not([data-pb-haric]) {
+  border: 1px solid rgb(var(--pb-cizgi) / 0.18);
+  border-radius: 18px;
+  background:
+    radial-gradient(380px 200px at 100% 0%, rgb(var(--pb-isik) / 0.1), transparent 70%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.06), transparent 38%),
+    linear-gradient(160deg, rgb(var(--pb-kart1) / var(--pb-a1)), rgb(var(--pb-kart2) / var(--pb-a2)));
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    0 20px 40px -22px rgb(0 0 0 / 0.85);
+}
+[dir='rtl'] :is(.pk-icerik, .mpk-icerik)
+  :is(.cam-kart, .rounded-xl.glass, .rounded-2xl.glass, .rounded-3xl.glass, .rounded-2xl.border-white\/10, .rounded-3xl.border-white\/10):not(.bg-background):not([role='dialog']):not([data-pb-haric]) {
+  background:
+    radial-gradient(380px 200px at 0% 0%, rgb(var(--pb-isik) / 0.1), transparent 70%),
+    linear-gradient(225deg, rgb(255 255 255 / 0.06), transparent 38%),
+    linear-gradient(200deg, rgb(var(--pb-kart1) / var(--pb-a1)), rgb(var(--pb-kart2) / var(--pb-a2)));
+}
+@media (hover: hover) {
+  :root :is(.pk-icerik, .mpk-icerik) :is(.cam-kart, .rounded-xl.glass, .rounded-2xl.glass, .rounded-2xl.border-white\/10):not(.bg-background):not([role='dialog']):not([data-pb-haric]):hover {
+    border-color: rgb(var(--pb-cizgi) / 0.3);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 0 0 1px rgb(var(--pb-isik) / 0.06),
+      0 20px 40px -22px rgb(0 0 0 / 0.85),
+      0 0 30px -14px rgb(var(--pb-isik) / 0.5);
+  }
+}
+/* Liste satırı kartları (rounded-xl): biraz daha küçük yarıçap. */
+:root :is(.pk-icerik, .mpk-icerik) .rounded-xl.glass:not(.bg-background):not([role='dialog']):not([data-pb-haric]) {
+  border-radius: 14px;
+}
+/* Seçili / öne çıkan kart: vurgu kenarı. */
+:root :is(.pk-icerik, .mpk-icerik) .cam-kart:is(.cam-secili, .cam-one) {
+  border-color: rgb(var(--pb-isik) / 0.55);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 20px 40px -22px rgb(0 0 0 / 0.85),
+    0 0 34px -12px rgb(var(--pb-isik) / 0.65);
+}
+
+/* ---------- Kart içi alt kutular ve çizgiler ---------- */
+:root :is(.pk-icerik, .mpk-icerik) :is(.rounded-xl, .rounded-lg):is(.border-white\/10, .border-white\/5):not(input):not(select):not(textarea):not(button) {
+  border-color: rgb(var(--pb-cizgi) / 0.13);
+}
+:root :is(.pk-icerik, .mpk-icerik) :is(.cam-kart, .glass) :is(.border-t, .border-b):is(.border-white\/10, .border-white\/5) {
+  border-color: rgb(var(--pb-cizgi) / 0.1);
+}
+
+/* ---------- Tablolar ---------- */
+:is(.pk-icerik, .mpk-icerik) table thead th {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--pb-soluk));
+}
+:is(.pk-icerik, .mpk-icerik) table thead tr {
+  border-color: rgb(var(--pb-cizgi) / 0.14);
+}
+:is(.pk-icerik, .mpk-icerik) table tbody tr {
+  border-color: rgb(var(--pb-cizgi) / 0.08);
+}
+@media (hover: hover) {
+  :is(.pk-icerik, .mpk-icerik) table tbody tr:hover {
+    background: rgb(var(--pb-isik) / 0.05);
+  }
+}
+
+/* ---------- Rakamlar: kart içindeki büyük değerler Genel bakıştaki gibi mono ---------- */
+:root :is(.pk-icerik, .mpk-icerik) :is(.cam-kart, .glass) :is(p, span, div):is(.text-xl, .text-2xl, .text-3xl):is(.font-bold, .font-semibold, .font-extrabold) {
+  font-family: var(--pb-mono);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}

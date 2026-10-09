@@ -15,6 +15,8 @@ import { GENEL_BAKIS, GRUPLAR, kenarDarOku, kenarDarYaz, type GrupAnahtari } fro
 import { SUPPORTED_LANGUAGES, changeAppLanguage } from '@/i18n';
 import { UygulamaYukleDugmesi } from '@/lib/uygulamaKabugu';
 import './yonetimKabugu.css';
+// Faz 11G-1: panelin bütün bölümleri Genel bakışın cam kart dilinde (yalnız panel içerik alanı).
+import '@/components/panel/panelBolumleri.css';
 
 /**
  * Faz 11A — yönetici paneli kabuğu (komuta merkezi): sol kenar çubuğu + üst çubuk + içerik,
