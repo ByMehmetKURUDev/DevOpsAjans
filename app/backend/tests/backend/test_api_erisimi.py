@@ -983,6 +983,11 @@ async def test_mcp_tools_call_ve_hatalar(istemci, yonetici_basligi, db_oturumu):
     assert y.status_code == 401 and _kod(y) == "anahtar_gerekli"
 
 
+def _alan(nesne, eski, yeni):
+    """SDK 1.x camelCase, 2.x snake_case alan adı kullanıyor: hangisi varsa onu döndür."""
+    return getattr(nesne, yeni) if hasattr(nesne, yeni) else getattr(nesne, eski)
+
+
 async def test_mcp_sdk_istemcisiyle_uyumlu(istemci, yonetici_basligi, uygulama, db_oturumu):
     """Resmî `mcp` SDK'sının istemcisi (Streamable HTTP) sunucumuzla konuşabiliyor."""
     from mcp import ClientSession
@@ -993,13 +998,17 @@ async def test_mcp_sdk_istemcisiyle_uyumlu(istemci, yonetici_basligi, uygulama, 
     ham, _ = await _anahtar(istemci, _b(e), M, kapsamlar=["projeler:oku", "gorevler:oku", "gorevler:yaz"])
     async with httpx.AsyncClient(transport=httpx.ASGITransport(app=uygulama), base_url="http://test",
                                  headers={"Authorization": f"Bearer {ham}"}, timeout=30) as hc:
-        async with streamable_http_client("http://test/api/public/v1/mcp", http_client=hc) as (oku, yaz, _):
+        # SDK 1.x üçlü (oku, yaz, oturum_kimligi), 2.x ikili (oku, yaz) döndürüyor: ikisiyle de çalış.
+        async with streamable_http_client("http://test/api/public/v1/mcp", http_client=hc) as akis:
+            oku, yaz = akis[0], akis[1]
             async with ClientSession(oku, yaz) as oturum:
                 bilgi = await oturum.initialize()
-                assert bilgi.serverInfo.name == "mehmetkuru-dev"
+                assert _alan(bilgi, "serverInfo", "server_info").name == "mehmetkuru-dev"
                 araclar = await oturum.list_tools()
                 assert {"projeleri_listele", "gorev_olustur", "gorev_guncelle"} <= {a.name for a in araclar.tools}
                 sonuc = await oturum.call_tool("projeleri_listele", {})
-                assert not sonuc.isError and sonuc.structuredContent["veri"][0]["id"] == p.id
+                assert not _alan(sonuc, "isError", "is_error")
+                assert _alan(sonuc, "structuredContent", "structured_content")["veri"][0]["id"] == p.id
                 sonuc = await oturum.call_tool("gorev_olustur", {"proje_id": p.id, "baslik": "Claude'dan görev"})
-                assert not sonuc.isError and sonuc.structuredContent["baslik"] == "Claude'dan görev"
+                assert not _alan(sonuc, "isError", "is_error")
+                assert _alan(sonuc, "structuredContent", "structured_content")["baslik"] == "Claude'dan görev"
