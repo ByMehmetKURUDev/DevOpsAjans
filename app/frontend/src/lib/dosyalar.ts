@@ -29,6 +29,11 @@ export interface Dosya {
   belge_talebi_id: number | null;
   created_at: string | null;
   gorunurluk: Gorunurluk | null;
+  /** Faz 11D: müşteri tarafı bu sürümü ilk ne zaman açtı (imzalı bağlantı istedi); hiç açmadıysa null. */
+  musteri_acti_at?: string | null;
+  musteri_acma_sayisi?: number;
+  /** Faz 11D: yalnız yöneticinin müşteri listesinde — geçerli paylaşım bağlantısı sayısı. */
+  aktif_paylasim?: number;
 }
 
 export interface Klasor {
@@ -218,6 +223,9 @@ export function yoneticiYukle(
   f.append('dosya', dosya, dosya.name);
   return formGonder<Dosya>('/api/v1/dosyalar/yukle', f);
 }
+
+/** Faz 11D: aynı klasör + addaki bütün sürümler (yeniden eskiye). */
+export const dosyaSurumleri = (id: number) => istek<Dosya[]>('GET', `/api/v1/dosyalar/${id}/surumler`);
 
 export const dosyaSil = (id: number) => istek<{ silindi: number }>('DELETE', `/api/v1/dosyalar/${id}`);
 

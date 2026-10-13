@@ -378,6 +378,10 @@ def dosya_sozlugu(d: Any, gorunurluk: Optional[str] = None) -> Dict[str, Any]:
         "belge_talebi_id": d.belge_talebi_id,
         "created_at": (utc(d.created_at).isoformat() if d.created_at else None),  # type: ignore[union-attr]
         "gorunurluk": gorunurluk,
+        "musteri_acti_at": (
+            utc(d.musteri_acti_at).isoformat() if getattr(d, "musteri_acti_at", None) else None  # type: ignore[union-attr]
+        ),
+        "musteri_acma_sayisi": int(getattr(d, "musteri_acma_sayisi", 0) or 0),
     }
 
 

@@ -556,6 +556,9 @@ class DatabaseManager:
         {"tablo": "invoices", "sutun": "indirim_kodu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
         {"tablo": "crm_adaylar", "sutun": "referans_kodu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
         {"tablo": "crm_adaylar", "sutun": "indirim_kodu", "tur_pg": "VARCHAR", "tur_sqlite": "TEXT"},
+        # Faz 11D — dosya ağacı: müşteri dosyayı açtı mı (ilk açılış + sayaç).
+        {"tablo": "files", "sutun": "musteri_acti_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
+        {"tablo": "files", "sutun": "musteri_acma_sayisi", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER", "dolgu": "0"},
     )
 
     async def _eksik_sutunlari_tamamla(self):

@@ -55,6 +55,10 @@ class Dosyalar(Base):
     guncel = Column(Boolean, nullable=False, default=True, index=True)
     belge_talebi_id = Column(Integer, index=True, nullable=True)
     created_at = Column(DateTime(timezone=True), default=_simdi, index=True)
+    #: Faz 11D: müşteri tarafı (hesap sahibi ya da ekibi) bu sürümü ilk ne zaman açtı ve kaç kez
+    #: (imzalı indirme bağlantısı istedi). Yeni sürüm yeni satır olduğu için sayaç sürüm başına.
+    musteri_acti_at = Column(DateTime(timezone=True), nullable=True)
+    musteri_acma_sayisi = Column(Integer, nullable=True, default=0)
 
 
 class DosyaKlasorleri(Base):

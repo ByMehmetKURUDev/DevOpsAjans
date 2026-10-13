@@ -1,0 +1,653 @@
+/*
+ * Faz 11D — Yönetici › Dosyalar › Ağaç görünümü (Panel v2, önizleme 4: turkuaz zihin haritası).
+ *
+ * Yalnız `DosyaAgaci` parçasıyla iner (DosyaYonetimi onu tembel yüklüyor). Sınıflar `dag-` önekli.
+ * Yerleşim JS'te kapsayıcı genişliğinden seçiliyor (iki yanlı / tek yanlı / dikey; DOM farklı), panelin
+ * yanda mı altta mı durduğu kapsayıcı sorgusuyla. Yön: mantıksal özellikler — Arapçada ayna.
+ * "Hareketi azalt": vurgulu dal akışı yok.
+ */
+
+.dag-kap {
+  container-type: inline-size;
+  container-name: dag;
+}
+
+.dag {
+  --dag-m: 45 212 191;
+  --dag-c: 34 211 238;
+  --dag-a: 251 191 36;
+  --dag-metin: 226 248 246;
+  --dag-soluk: 143 186 192;
+  --dag-zemin: 6 22 30;
+  --dag-mono: var(--pk-mono, 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace);
+  position: relative;
+  padding: 16px;
+  border-radius: 22px;
+  border: 1px solid rgb(var(--dag-m) / 0.2);
+  background:
+    radial-gradient(760px 520px at 28% 40%, rgb(var(--dag-m) / 0.13), transparent 62%),
+    radial-gradient(620px 420px at 92% 0%, rgb(var(--dag-c) / 0.1), transparent 60%),
+    linear-gradient(180deg, #061520, #03090f);
+  color: rgb(var(--dag-metin));
+  overflow: hidden;
+}
+@container dag (min-width: 640px) {
+  .dag {
+    padding: 22px;
+  }
+}
+
+.dag-mono {
+  font-family: var(--dag-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Üst şerit ---------- */
+.dag-ust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 18px;
+  margin-bottom: 16px;
+}
+.dag-ust-etiket {
+  margin: 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--dag-m));
+}
+.dag-lejant {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+  color: rgb(var(--dag-soluk));
+}
+.dag-lejant li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- Gövde: tuval + panel ---------- */
+.dag-govde {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+@container dag (min-width: 1000px) {
+  .dag-govde {
+    grid-template-columns: minmax(0, 1fr) 290px;
+    align-items: start;
+  }
+}
+.dag-tuval-kap {
+  min-width: 0;
+  overflow-x: auto;
+  padding: 6px 2px 10px;
+}
+.dag-hic {
+  margin: 24px 0;
+  font-size: 13px;
+  color: rgb(var(--dag-soluk));
+}
+
+.dag-tuval {
+  position: relative;
+}
+.dag-dallar {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+}
+.dag-kok-kol,
+.dag-yan {
+  position: relative;
+  z-index: 1;
+}
+
+/* Tek yanlı yatay ağaç: kök | klasörler | dosyalar */
+.dag-tuval-tek {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 54px;
+  min-width: 640px;
+}
+/* İki yanlı zihin haritası: dosyalar | klasörler | kök | klasörler | dosyalar */
+.dag-tuval-iki {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 54px;
+}
+.dag-yan {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+.dag-grup {
+  display: flex;
+  align-items: center;
+  gap: 42px;
+  min-width: 0;
+}
+.dag-grup-sol {
+  flex-direction: row-reverse;
+}
+
+/* Dikey ağaç (dar alan) */
+.dag-tuval-dikey {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.dag-tuval-dikey .dag-kok-kol {
+  align-self: flex-start;
+}
+.dag-tuval-dikey .dag-yan {
+  margin-inline-start: 34px;
+  gap: 16px;
+}
+.dag-tuval-dikey .dag-grup {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+.dag-tuval-dikey .dag-klasor {
+  width: auto;
+  max-width: 320px;
+}
+.dag-tuval-dikey .dag-dosyalar {
+  margin-inline-start: 34px;
+  max-width: none;
+}
+
+/* ---------- Dallar ---------- */
+.dag-dal,
+.dag-dal-isik {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dag-dal {
+  stroke: rgb(var(--dag-m) / 0.55);
+  stroke-width: 1.4;
+}
+.dag-dal-isik {
+  stroke: rgb(var(--dag-m) / 0.12);
+  stroke-width: 7;
+}
+.dag-dal-kalin .dag-dal {
+  stroke: rgb(var(--dag-m) / 0.75);
+  stroke-width: 2;
+}
+.dag-dal-kalin .dag-dal-isik {
+  stroke: rgb(var(--dag-m) / 0.16);
+  stroke-width: 10;
+}
+.dag-dal-vurgu .dag-dal {
+  stroke: rgb(var(--dag-c));
+  stroke-width: 2.2;
+  stroke-dasharray: 6 8;
+  animation: dag-akis 1.4s linear infinite;
+}
+.dag-dal-vurgu .dag-dal-isik {
+  stroke: rgb(var(--dag-c) / 0.3);
+  stroke-width: 11;
+}
+@keyframes dag-akis {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+/* ---------- Kök ---------- */
+.dag-kok {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 196px;
+  padding: 16px 14px 14px;
+  border-radius: 18px;
+  border: 1px solid rgb(var(--dag-m) / 0.5);
+  background:
+    radial-gradient(160px 90px at 50% 0%, rgb(var(--dag-m) / 0.22), transparent 70%),
+    linear-gradient(160deg, rgb(12 44 54 / 0.95), rgb(var(--dag-zemin) / 0.96));
+  box-shadow:
+    0 0 0 1px rgb(var(--dag-m) / 0.08),
+    0 0 34px -10px rgb(var(--dag-m) / 0.8);
+  text-align: center;
+}
+.dag-kok-ikon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 4px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgb(var(--dag-m)), rgb(var(--dag-c)));
+  color: #032026;
+  box-shadow: 0 0 22px -4px rgb(var(--dag-m) / 0.9);
+}
+.dag-kok-ad {
+  max-width: 100%;
+  font-size: 13.5px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.dag-kok-eposta {
+  max-width: 100%;
+  font-size: 11px;
+  color: rgb(var(--dag-soluk));
+  overflow-wrap: anywhere;
+}
+.dag-kok-alt {
+  margin-top: 4px;
+  font-size: 11.5px;
+  color: rgb(var(--dag-m));
+}
+.dag-kok-boyut {
+  font-size: 11px;
+  color: rgb(var(--dag-soluk));
+}
+
+/* ---------- Klasör ---------- */
+.dag-klasor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  width: 182px;
+  padding: 9px 10px;
+  border-radius: 14px;
+  border: 1px solid rgb(var(--dag-m) / 0.32);
+  background: linear-gradient(160deg, rgb(10 36 46 / 0.95), rgb(var(--dag-zemin) / 0.95));
+  box-shadow: 0 8px 24px -16px rgb(0 0 0 / 0.8);
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.dag-klasor[data-gorunurluk='ekip'] {
+  border-style: dashed;
+  border-color: rgb(var(--dag-a) / 0.42);
+}
+.dag-klasor[data-vurgu='true'] {
+  border-color: rgb(var(--dag-c) / 0.8);
+  box-shadow: 0 0 24px -8px rgb(var(--dag-c) / 0.8);
+}
+.dag-klasor-ikon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  background: rgb(var(--dag-m) / 0.16);
+  color: rgb(var(--dag-m));
+}
+.dag-klasor[data-gorunurluk='ekip'] .dag-klasor-ikon {
+  background: rgb(var(--dag-a) / 0.14);
+  color: rgb(var(--dag-a));
+}
+.dag-klasor-yazi {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.dag-klasor-ad {
+  overflow: hidden;
+  font-size: 12.5px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dag-klasor-alt {
+  font-size: 10.5px;
+  color: rgb(var(--dag-soluk));
+}
+.dag-yetki {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+}
+.dag-yetki-musteri {
+  background: rgb(var(--dag-m) / 0.14);
+  color: rgb(var(--dag-m));
+}
+.dag-yetki-ekip {
+  background: rgb(var(--dag-a) / 0.14);
+  color: rgb(var(--dag-a));
+}
+
+/* ---------- Dosyalar ---------- */
+.dag-dosyalar {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 290px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dag-dosyalar > li {
+  display: flex;
+  min-width: 0;
+}
+.dag-dosya {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(var(--dag-m) / 0.2);
+  background: rgb(8 28 36 / 0.88);
+  color: rgb(var(--dag-metin));
+  font-size: 12.5px;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s,
+    box-shadow 0.15s;
+}
+.dag-dosya:hover {
+  border-color: rgb(var(--dag-m) / 0.5);
+}
+.dag-dosya:focus-visible,
+.dag-daha:focus-visible,
+.dag-dugme:focus-visible {
+  outline: 2px solid rgb(var(--dag-c));
+  outline-offset: 2px;
+}
+.dag-dosya[aria-pressed='true'] {
+  border-color: rgb(var(--dag-c));
+  background: rgb(var(--dag-c) / 0.13);
+  box-shadow: 0 0 22px -6px rgb(var(--dag-c) / 0.85);
+}
+.dag-dosya-ikon {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  color: rgb(var(--dag-m));
+}
+.dag-dosya-ad {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dag-rozet {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.08);
+  color: rgb(var(--dag-metin) / 0.85);
+  font-size: 10.5px;
+  line-height: 16px;
+}
+.dag-rozet-paylasim {
+  background: rgb(var(--dag-c) / 0.14);
+  color: rgb(var(--dag-c));
+}
+.dag-okundu {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  border: 1.5px solid rgb(var(--dag-soluk) / 0.7);
+}
+.dag-okundu-evet {
+  border-color: rgb(var(--dag-m));
+  background: rgb(var(--dag-m));
+  box-shadow: 0 0 8px rgb(var(--dag-m) / 0.9);
+}
+.dag-bos {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px dashed rgb(var(--dag-soluk) / 0.3);
+  color: rgb(var(--dag-soluk));
+  font-size: 11.5px;
+}
+.dag-daha {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px dashed rgb(var(--dag-m) / 0.45);
+  background: transparent;
+  color: rgb(var(--dag-m));
+  font-size: 11px;
+  cursor: pointer;
+}
+.dag-daha:hover {
+  background: rgb(var(--dag-m) / 0.1);
+}
+
+/* ---------- Panel ---------- */
+.dag-panel {
+  min-width: 0;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgb(var(--dag-m) / 0.18);
+  background: linear-gradient(170deg, rgb(10 34 44 / 0.82), rgb(var(--dag-zemin) / 0.9));
+}
+.dag-ozet-izgara {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.dag-ozet-izgara > div {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgb(var(--dag-m) / 0.14);
+  background: rgb(255 255 255 / 0.02);
+}
+.dag-ozet-izgara dt,
+.dag-bilgi dt {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--dag-soluk));
+}
+.dag-ozet-izgara dd {
+  margin: 4px 0 0;
+  font-size: 19px;
+  font-weight: 600;
+  color: rgb(var(--dag-metin));
+}
+.dag-cubuk {
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.06);
+  overflow: hidden;
+}
+.dag-cubuk > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgb(var(--dag-m)), rgb(var(--dag-c)));
+  box-shadow: 0 0 12px rgb(var(--dag-m) / 0.8);
+}
+[dir='rtl'] .dag-cubuk > span {
+  background: linear-gradient(270deg, rgb(var(--dag-m)), rgb(var(--dag-c)));
+}
+.dag-ipucu {
+  margin: 12px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgb(var(--dag-soluk));
+}
+
+.dag-detay {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dag-detay-bas {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.dag-detay-ikon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgb(var(--dag-m) / 0.16);
+  color: rgb(var(--dag-m));
+  box-shadow: 0 0 18px -6px rgb(var(--dag-m) / 0.8);
+}
+.dag-detay-ad {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.dag-detay-alt {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  color: rgb(var(--dag-soluk));
+  overflow-wrap: anywhere;
+}
+.dag-durum {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(var(--dag-soluk) / 0.25);
+  background: rgb(255 255 255 / 0.03);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.dag-durum-evet {
+  border-color: rgb(var(--dag-m) / 0.4);
+  background: rgb(var(--dag-m) / 0.1);
+  color: rgb(var(--dag-m));
+}
+.dag-durum-hayir {
+  color: rgb(var(--dag-soluk));
+}
+.dag-durum-ekip {
+  border-color: rgb(var(--dag-a) / 0.35);
+  background: rgb(var(--dag-a) / 0.08);
+  color: rgb(var(--dag-a));
+}
+.dag-bilgi {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+  margin: 0;
+}
+.dag-bilgi dd {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+.dag-surumler {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: -4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.dag-surumler li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: rgb(var(--dag-soluk));
+}
+.dag-surumler li[data-guncel='true'] {
+  background: rgb(var(--dag-m) / 0.08);
+  color: rgb(var(--dag-metin));
+}
+.dag-surum-tarih {
+  flex: 1;
+  min-width: 0;
+}
+.dag-dugmeler {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 4px;
+}
+.dag-dugme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgb(var(--dag-m) / 0.32);
+  background: transparent;
+  color: rgb(var(--dag-metin));
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.dag-dugme:hover {
+  background: rgb(var(--dag-m) / 0.1);
+}
+.dag-dugme-ana {
+  flex: 1;
+  border-color: transparent;
+  background: linear-gradient(135deg, rgb(var(--dag-m)), rgb(var(--dag-c)));
+  color: #032026;
+}
+.dag-dugme-ana:hover {
+  filter: brightness(1.08);
+  background: linear-gradient(135deg, rgb(var(--dag-m)), rgb(var(--dag-c)));
+}
+.dag-dugme-sil {
+  width: 36px;
+  padding: 0;
+  border-color: rgb(248 113 113 / 0.35);
+  color: rgb(252 165 165);
+}
+.dag-dugme-sil:hover {
+  background: rgb(248 113 113 / 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dag-dal-vurgu .dag-dal {
+    animation: none;
+    stroke-dasharray: none;
+  }
+  .dag-klasor,
+  .dag-dosya {
+    transition: none;
+  }
+}

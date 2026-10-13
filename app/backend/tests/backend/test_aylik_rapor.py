@@ -290,18 +290,34 @@ def _duz(d, on=""):
             yield f"{on}{k}", v
 
 
+# i18next çoğul ekleri (CLDR): her dil kendi biçimlerini taşır (ru: one/few/many/other, ar: zero…other,
+# zh: yalnız other). Anahtar eşitliği çoğul tabanı üzerinden; her tabanda `_other` her dilde zorunlu.
+_COGUL_EKLERI = ("_zero", "_one", "_two", "_few", "_many", "_other")
+
+
+def _cogul_tabani(k: str) -> str:
+    for e in _COGUL_EKLERI:
+        if k.endswith(e):
+            return k[: -len(e)] + "_*"
+    return k
+
+
 @pytest.mark.parametrize("paket", ["dosyalar", "yardim", "aylikRapor"])
 def test_ek_paket_yedi_dilde_ayni_anahtarlar_ve_gercek_ceviri(paket):
     paketler = {
         dil: dict(_duz(json.loads((EK / paket / f"{dil}.json").read_text(encoding="utf-8"))[paket])) for dil in DILLER
     }
-    anahtarlar = set(paketler["tr"])
+    anahtarlar = {_cogul_tabani(k) for k in paketler["tr"]}
     assert len(anahtarlar) > 20
     for dil, p in paketler.items():
-        assert set(p) == anahtarlar, (dil, sorted(set(p) ^ anahtarlar)[:5])
+        tabanlar = {_cogul_tabani(k) for k in p}
+        assert tabanlar == anahtarlar, (dil, sorted(tabanlar ^ anahtarlar)[:5])
+        for taban in (x for x in tabanlar if x.endswith("_*")):
+            assert f"{taban[:-2]}_other" in p, (dil, taban)
         assert all(isinstance(v, str) and v.strip() for v in p.values()), dil
+    ortak = set(paketler["tr"])
     for dil in ("en", "de", "ru", "zh", "hi", "ar"):
-        ayni = [k for k in anahtarlar if paketler[dil][k] == paketler["tr"][k] and len(paketler["tr"][k]) > 12]
+        ayni = [k for k in ortak & set(paketler[dil]) if paketler[dil][k] == paketler["tr"][k] and len(paketler["tr"][k]) > 12]
         assert not ayni, (dil, ayni[:5])
 
 

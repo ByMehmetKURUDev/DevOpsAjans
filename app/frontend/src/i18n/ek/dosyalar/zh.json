@@ -132,6 +132,38 @@
       "yonetici_gerekli": "此操作需要管理员权限。",
       "modul_kapali": "您的账户未开通“文件”模块。",
       "genel": "操作未能完成，请重试。"
+    },
+    "agac": {
+      "gorunum": "文件视图",
+      "liste": "列表",
+      "agac": "树状图",
+      "ust": "客户文件地图",
+      "lejant": "图例",
+      "dosyaSayisi_other": "个文件",
+      "bosKlasor": "此文件夹为空",
+      "paylasimda_other": "{{count}} 个有效分享链接",
+      "paylasimdaKisa": "已分享",
+      "paylasimKisa": "分享",
+      "paylasimYok": "无有效链接",
+      "musteriActi": "客户已打开",
+      "musteriAcmadi": "客户未打开",
+      "musteriGoremez": "仅团队可见 — 客户看不到此文件。",
+      "henuzAcmadi": "客户尚未打开此版本。",
+      "actiTarih_other": "客户已打开 · 首次 {{tarih}} · 共 {{count}} 次",
+      "daralt": "收起",
+      "dahaFazla": "还有 {{sayi}} 个文件",
+      "kokOzet": "{{klasor}} 个文件夹 · {{dosya}} 个文件",
+      "ozet": "概览",
+      "toplamDosya": "文件",
+      "toplamBoyut": "总大小",
+      "secIpucu": "在地图上选择一个文件，查看详情、版本历史和分享。",
+      "yukleyen": "上传者",
+      "tarih": "日期",
+      "surumler": "版本",
+      "yukleniyor": "加载中",
+      "yukleyenAjans": "代理机构",
+      "yukleyenMusteri": "客户",
+      "paylasDugme": "分享"
     }
   }
 }

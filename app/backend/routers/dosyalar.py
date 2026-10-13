@@ -28,7 +28,7 @@ from pydantic import BaseModel
 from services import dosya_deposu
 from services import dosyalar as servis
 from services.dosyalar import DosyaHatasi
-from sqlalchemy import select
+from sqlalchemy import func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = logging.getLogger(__name__)
@@ -190,8 +190,24 @@ async def yonetici_listesi(
                 yetki[(k.client_email, k.ad)] = k.gorunurluk
         dosyalar = [servis.dosya_sozlugu(d, yetki.get((d.client_email, d.klasor), "ekip")) for d in satirlar]
         return {"dosyalar": dosyalar, "klasorler": []}
+    # Faz 11D: ağaç görünümündeki "paylaşımda" rozeti — dosya başına geçerli paylaşım bağlantısı sayısı.
+    gecerli: Dict[int, int] = {}
+    if satirlar:
+        for p in (
+            await db.execute(
+                select(PaylasimBaglantilari).where(
+                    PaylasimBaglantilari.dosya_id.in_([d.id for d in satirlar]),
+                    PaylasimBaglantilari.iptal.is_(False),
+                )
+            )
+        ).scalars().all():
+            if servis.paylasim_durumu(p) == "gecerli":
+                gecerli[p.dosya_id] = gecerli.get(p.dosya_id, 0) + 1
     return {
-        "dosyalar": [servis.dosya_sozlugu(d, klasorler.get(d.klasor, "ekip")) for d in satirlar],
+        "dosyalar": [
+            {**servis.dosya_sozlugu(d, klasorler.get(d.klasor, "ekip")), "aktif_paylasim": gecerli.get(d.id, 0)}
+            for d in satirlar
+        ],
         "klasorler": [{"ad": ad, "gorunurluk": g} for ad, g in sorted(klasorler.items())],
     }
 
@@ -505,7 +521,25 @@ async def musteri_yukle(
 @musteri_router.post("/{dosya_id}/indirme-baglantisi")
 async def musteri_indirme(dosya_id: int, request: Request, db: AsyncSession = _Depends(get_db)):
     eposta = _musteri(request)
-    return _indirme_yaniti(await _musteri_dosyasi(db, eposta, dosya_id))
+    d = await _musteri_dosyasi(db, eposta, dosya_id)
+    yanit = _indirme_yaniti(d)
+    # Faz 11D: "müşteri açtı" — yönetici ağaç görünümünde gösteriliyor. Kayıt başarısız olursa indirme yine çalışsın.
+    # Tek UPDATE (oku-yaz değil): aynı anda gelen açılışlar sayaçta kaybolmasın.
+    try:
+        await db.execute(
+            update(Dosyalar)
+            .where(Dosyalar.id == d.id)
+            .values(
+                musteri_acti_at=func.coalesce(Dosyalar.musteri_acti_at, servis.simdi()),
+                musteri_acma_sayisi=func.coalesce(Dosyalar.musteri_acma_sayisi, 0) + 1,
+            )
+            .execution_options(synchronize_session=False)
+        )
+        await db.commit()
+    except Exception:  # noqa: BLE001
+        await db.rollback()
+        logger.exception("Dosya açılışı kaydedilemedi")
+    return yanit
 
 
 @musteri_router.get("/talepler")

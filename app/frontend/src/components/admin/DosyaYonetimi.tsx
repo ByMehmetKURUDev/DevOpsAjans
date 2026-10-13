@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
 import {
   Copy,
   Database,
@@ -7,7 +7,9 @@ import {
   EyeOff,
   FileText,
   FolderOpen,
+  GitFork,
   Link2,
+  List,
   Loader2,
   RefreshCw,
   Share2,
@@ -57,6 +59,19 @@ import {
  */
 
 const KART = 'cam-kart rounded-2xl border border-white/10 bg-white/[0.03] p-6';
+
+/** Faz 11D: Liste | Ağaç görünümü — ağaç parçası (ve CSS'i) yalnız seçilince iner. */
+const DosyaAgaci = lazy(() => import('./DosyaAgaci'));
+const GORUNUM_ANAHTARI = 'mk_dosya_gorunum';
+type DosyaGorunumu = 'liste' | 'agac';
+
+function gorunumOku(): DosyaGorunumu {
+  try {
+    return window.localStorage.getItem(GORUNUM_ANAHTARI) === 'agac' ? 'agac' : 'liste';
+  } catch {
+    return 'liste';
+  }
+}
 const SECIM = 'h-10 w-full rounded-md border border-white/10 bg-white/5 px-3 text-sm text-foreground';
 const EPOSTA = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -85,6 +100,15 @@ export default function DosyaYonetimi() {
   const [paylasilan, setPaylasilan] = useState<Dosya | null>(null);
 
   const [talepForm, setTalepForm] = useState({ baslik: '', aciklama: '', son_tarih: '', turler: 'pdf,jpg,png' });
+  const [gorunum, setGorunum] = useState<DosyaGorunumu>(gorunumOku);
+  const gorunumSec = (g: DosyaGorunumu) => {
+    setGorunum(g);
+    try {
+      window.localStorage.setItem(GORUNUM_ANAHTARI, g);
+    } catch {
+      /* depo kapalı: yalnız hatırlanmaz */
+    }
+  };
 
   const hata = useCallback(
     (h: unknown) => {
@@ -321,10 +345,34 @@ export default function DosyaYonetimi() {
               <h3 className="break-all font-semibold" data-testid="dosya-secili">
                 {secili}
               </h3>
-              <Button size="sm" variant="ghost" className="gap-2" onClick={() => void yukle(secili)}>
-                <RefreshCw className={`h-4 w-4 ${yukleniyor ? 'animate-spin' : ''}`} aria-hidden="true" />
-                {t('dosyalar.yenile')}
-              </Button>
+              <div className="ms-auto flex flex-wrap items-center gap-2">
+                <div className="inline-flex rounded-lg border border-white/10 bg-white/[0.03] p-0.5" role="group" aria-label={t('dosyalar.agac.gorunum')}>
+                  {(
+                    [
+                      ['liste', List, t('dosyalar.agac.liste')],
+                      ['agac', GitFork, t('dosyalar.agac.agac')],
+                    ] as const
+                  ).map(([g, Ikon, ad]) => (
+                    <button
+                      key={g}
+                      type="button"
+                      aria-pressed={gorunum === g}
+                      onClick={() => gorunumSec(g)}
+                      data-testid={`dosya-gorunum-${g}`}
+                      className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 ${
+                        gorunum === g ? 'bg-teal-500/90 text-slate-950' : 'text-muted-foreground hover:text-white'
+                      }`}
+                    >
+                      <Ikon className={`h-3.5 w-3.5 ${g === 'agac' ? 'rotate-90 rtl:-rotate-90' : ''}`} aria-hidden="true" />
+                      {ad}
+                    </button>
+                  ))}
+                </div>
+                <Button size="sm" variant="ghost" className="gap-2" onClick={() => void yukle(secili)}>
+                  <RefreshCw className={`h-4 w-4 ${yukleniyor ? 'animate-spin' : ''}`} aria-hidden="true" />
+                  {t('dosyalar.yenile')}
+                </Button>
+              </div>
             </div>
 
             <form onSubmit={gonder} className="grid gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4 md:grid-cols-[1fr_160px_170px_auto]">
@@ -375,6 +423,26 @@ export default function DosyaYonetimi() {
               </div>
             ) : klasorGrubu.length === 0 ? (
               <p className="mt-5 text-sm text-muted-foreground">{t('dosyalar.bos')}</p>
+            ) : gorunum === 'agac' ? (
+              <div className="mt-5">
+                <Suspense
+                  fallback={
+                    <div className="flex justify-center py-8">
+                      <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                    </div>
+                  }
+                >
+                  <DosyaAgaci
+                    musteri={secili}
+                    musteriAd={musteriler.find((m) => m.eposta === secili)?.ad ?? null}
+                    dosyalar={dosyalar}
+                    klasorler={klasorler}
+                    onIndir={(d) => void indir(d)}
+                    onPaylas={setPaylasilan}
+                    onSil={(d) => void sil(d)}
+                  />
+                </Suspense>
+              </div>
             ) : (
               <div className="mt-5 space-y-4">
                 {klasorGrubu.map(([ad, liste]) => (
@@ -525,7 +593,17 @@ export default function DosyaYonetimi() {
         </>
       )}
 
-      {paylasilan && <PaylasimPenceresi dosya={paylasilan} kapat={() => setPaylasilan(null)} hata={hata} />}
+      {paylasilan && (
+        <PaylasimPenceresi
+          dosya={paylasilan}
+          kapat={() => {
+            setPaylasilan(null);
+            // Ağaçtaki "paylaşımda" rozeti güncel kalsın.
+            if (secili) void yukle(secili);
+          }}
+          hata={hata}
+        />
+      )}
     </div>
   );
 }

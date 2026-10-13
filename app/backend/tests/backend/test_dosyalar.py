@@ -416,3 +416,63 @@ async def test_belge_hatirlatmalari_bir_kez(istemci, yonetici_basligi, db_oturum
     yonetici = [n.ref_id for n in await _bildirimler(db_oturumu, "yonetici@test.dev", "belge_gecikti")]
     assert yonetici.count(gecmis["id"]) == 1
     assert uzak["id"] not in hatir + gecikti
+
+
+# ---------------------------------------------------------------------------
+# Faz 11D — ağaç görünümü: müşteri açtı mı, geçerli paylaşım sayısı
+# ---------------------------------------------------------------------------
+async def test_musteri_acti_ve_aktif_paylasim(istemci, yonetici_basligi, musteri_basligi):
+    eposta = _eposta("agac")
+    await _modul_ac(istemci, yonetici_basligi, eposta)
+    d = (await _yonetici_yukle(istemci, yonetici_basligi, eposta, ad="sozlesme.pdf")).json()
+    assert d["musteri_acti_at"] is None and d["musteri_acma_sayisi"] == 0
+
+    def satir(liste, kimlik):
+        return next(x for x in liste["dosyalar"] if x["id"] == kimlik)
+
+    liste = (await istemci.get(DOSYA, params={"client_email": eposta}, headers=yonetici_basligi)).json()
+    assert satir(liste, d["id"])["aktif_paylasim"] == 0 and satir(liste, d["id"])["musteri_acti_at"] is None
+
+    # Yöneticinin kendi indirmesi "müşteri açtı" sayılmıyor.
+    await istemci.post(f"{DOSYA}/{d['id']}/indirme-baglantisi", headers=yonetici_basligi)
+    liste = (await istemci.get(DOSYA, params={"client_email": eposta}, headers=yonetici_basligi)).json()
+    assert satir(liste, d["id"])["musteri_acma_sayisi"] == 0
+
+    # Müşteri iki kez açıyor: ilk açılış tarihi sabit, sayaç 2.
+    for _ in range(2):
+        y = await istemci.post(f"{MUSTERI}/{d['id']}/indirme-baglantisi", headers=musteri_basligi(eposta))
+        assert y.status_code == 200 and y.json()["adres"].startswith(f"/api/v1/dosya-indir/{d['id']}?")
+    liste = (await istemci.get(DOSYA, params={"client_email": eposta}, headers=yonetici_basligi)).json()
+    s = satir(liste, d["id"])
+    assert s["musteri_acti_at"] and s["musteri_acma_sayisi"] == 2
+    ilk = s["musteri_acti_at"]
+    # Aynı anda gelen açılışlar kaybolmuyor (tek UPDATE); ilk açılış tarihi değişmiyor.
+    import anyio
+
+    async def _ac():
+        await istemci.post(f"{MUSTERI}/{d['id']}/indirme-baglantisi", headers=musteri_basligi(eposta))
+
+    async with anyio.create_task_group() as tg:
+        for _ in range(3):
+            tg.start_soon(_ac)
+    liste = (await istemci.get(DOSYA, params={"client_email": eposta}, headers=yonetici_basligi)).json()
+    s = satir(liste, d["id"])
+    assert s["musteri_acma_sayisi"] == 5 and s["musteri_acti_at"] == ilk
+
+    # Geçerli paylaşım sayısı; iptal edilince düşüyor.
+    p1 = (await istemci.post(f"{DOSYA}/{d['id']}/paylasim", json={"gun": 3}, headers=yonetici_basligi)).json()
+    await istemci.post(f"{DOSYA}/{d['id']}/paylasim", json={"gun": 1}, headers=yonetici_basligi)
+    liste = (await istemci.get(DOSYA, params={"client_email": eposta}, headers=yonetici_basligi)).json()
+    assert satir(liste, d["id"])["aktif_paylasim"] == 2
+    assert (await istemci.post(f"{DOSYA}/paylasim/{p1['id']}/iptal", json={}, headers=yonetici_basligi)).status_code == 200
+    liste = (await istemci.get(DOSYA, params={"client_email": eposta}, headers=yonetici_basligi)).json()
+    assert satir(liste, d["id"])["aktif_paylasim"] == 1
+
+    # Yeni sürüm yeni satır: müşteri bu sürümü henüz açmadı.
+    y2 = (await _yonetici_yukle(istemci, yonetici_basligi, eposta, ad="sozlesme.pdf", veri=PDF + b"v2")).json()
+    liste = (await istemci.get(DOSYA, params={"client_email": eposta}, headers=yonetici_basligi)).json()
+    s2 = satir(liste, y2["id"])
+    assert s2["surum"] == 2 and s2["musteri_acti_at"] is None and s2["musteri_acma_sayisi"] == 0 and s2["aktif_paylasim"] == 0
+    # Sürüm geçmişinde eski sürümün açılışı duruyor.
+    gecmis = (await istemci.get(f"{DOSYA}/{y2['id']}/surumler", headers=yonetici_basligi)).json()
+    assert [(g["surum"], g["musteri_acma_sayisi"]) for g in gecmis] == [(2, 0), (1, 5)]
