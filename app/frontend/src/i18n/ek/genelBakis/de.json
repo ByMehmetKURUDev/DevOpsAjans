@@ -97,7 +97,9 @@
       "aktif": "{{sayi}} aktiv",
       "isler": "{{sayi}} Arbeitsaufträge",
       "panoyaGit": "Zum Außendienst",
-      "teknisyenYok": "Kein Techniker zugewiesen"
+      "teknisyenYok": "Kein Techniker zugewiesen",
+      "haritaEtiket": "Karte der heutigen Arbeitsaufträge",
+      "haritada": "Auf der Karte {{sayi}}/{{toplam}}"
     },
     "son": {
       "baslik": "Neueste Arbeiten",
@@ -113,7 +115,9 @@
         "destek": "Support",
         "is_emri": "Arbeitsauftrag",
         "teklif": "Angebot"
-      }
+      },
+      "dahaFazla": "Mehr anzeigen",
+      "dahaAz": "Weniger anzeigen"
     },
     "durum": {
       "proje": {

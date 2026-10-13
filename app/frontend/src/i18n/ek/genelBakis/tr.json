@@ -97,7 +97,9 @@
       "aktif": "{{sayi}} aktif",
       "isler": "{{sayi}} iş emri",
       "panoyaGit": "Saha servisine git",
-      "teknisyenYok": "Atanmış teknisyen yok"
+      "teknisyenYok": "Atanmış teknisyen yok",
+      "haritaEtiket": "Bugünkü iş emirlerinin haritası",
+      "haritada": "Haritada {{sayi}}/{{toplam}}"
     },
     "son": {
       "baslik": "Son işler",
@@ -113,7 +115,9 @@
         "destek": "Destek",
         "is_emri": "İş emri",
         "teklif": "Teklif"
-      }
+      },
+      "dahaFazla": "Daha fazla göster",
+      "dahaAz": "Daha az göster"
     },
     "durum": {
       "proje": {

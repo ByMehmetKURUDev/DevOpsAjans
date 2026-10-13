@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import { Suspense, useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -35,7 +35,11 @@ import {
   type YonetimOzeti,
 } from '@/lib/yonetimOzeti';
 import { AlanGrafik, HALKA_RENKLERI, Halka, Kivilcim } from '@/components/panel/grafikler';
+import { ekliLazy } from '@/i18n/ekliLazy';
 import './genelBakis.css';
+
+// Faz 11F: saha kartındaki küçük harita — ayrı parça (harita kodu + çevirisi), yalnız işaretli adres varsa.
+const SahaMiniHarita = ekliLazy('harita', () => import('./SahaMiniHarita'));
 
 /**
  * Faz 11A — yönetici "Genel bakış" (komuta ekranı).
@@ -288,6 +292,9 @@ function KpiKart({
   cubuk?: number | null;
   kimlik: string;
 }) {
+  // Telefonda kısa değer uzunsa (ör. Arapça "88.5 ألف TRY") yazı küçülür; kesilmesin (Faz 11F).
+  const kisa = kisaDeger ?? deger ?? '';
+  const uzunluk = kisa.length > 11 ? 'cok' : kisa.length > 8 ? 'uzun' : undefined;
   return (
     <Kart sinif="gb-kpi" isik={renk} data-kpi={kimlik}>
       <h3 className="gb-etiket">
@@ -295,7 +302,7 @@ function KpiKart({
         <span className="gb-kisa">{kisaEtiket}</span>
       </h3>
       <div className="gb-kpi-satir">
-        <span className="gb-kpi-deger gb-mono">
+        <span className="gb-kpi-deger gb-mono" data-uzunluk={uzunluk}>
           {deger === null ? (
             '—'
           ) : (
@@ -620,6 +627,16 @@ function SahaKart({ saha, dil, t, onSekmeGit }: { saha: Saha; dil: string; t: TF
         </span>
       }
     >
+      {saha.noktalar && saha.noktalar.length > 0 && (
+        <div className="gb-saha-harita-kap" data-saha-harita="">
+          <Suspense fallback={<div className="gb-saha-harita gb-saha-harita-bekle" aria-hidden="true" />}>
+            <SahaMiniHarita noktalar={saha.noktalar} renkler={SAHA_RENGI} acilRengi={RENK.kirmizi} etiket={t('genelBakis.saha.haritaEtiket')} />
+          </Suspense>
+          <span className="gb-saha-harita-not">
+            {t('genelBakis.saha.haritada', { sayi: sayiYaz(saha.noktalar.length, dil), toplam: sayiYaz(saha.is_sayisi, dil) })}
+          </span>
+        </div>
+      )}
       <ul className="gb-ekip">
         {saha.teknisyenler.map((tk) => {
           const renk = SAHA_RENGI[tk.durum] || RENK.cyan;
@@ -683,8 +700,12 @@ function durumBilgisi(is: SonIs, t: TFunction): { metin: string; renk: string } 
   return { metin: d ? t(`genelBakis.durum.${is.tur}.${d}`, { defaultValue: d }) : '—', renk: renkler[is.tur]?.[d] || RENK.cyan };
 }
 
+/** Telefonda (dar kap) ilk bu kadar satır; gerisi "Daha fazla göster" ile (Faz 11F). */
+const SON_IS_DAR = 5;
+
 function SonIslerKart({ isler, dil, t, onSekmeGit, onTalepAc }: { isler: SonIs[] | null; dil: string; t: TFunction; onSekmeGit: (s: string) => void; onTalepAc: (id: number) => void }) {
   const ac = (is: SonIs) => (is.tur === 'destek' ? onTalepAc(is.id) : onSekmeGit(is.bolum));
+  const [tumu, setTumu] = useState(false);
   return (
     <Kart
       sinif="gb-son"
@@ -699,41 +720,50 @@ function SonIslerKart({ isler, dil, t, onSekmeGit, onTalepAc }: { isler: SonIs[]
       {!isler || isler.length === 0 ? (
         <VeriYok t={t} />
       ) : (
-        <table className="gb-tablo" data-son-isler="">
-          <thead>
-            <tr>
-              <th scope="col">{t('genelBakis.son.kod')}</th>
-              <th scope="col">{t('genelBakis.son.musteri')}</th>
-              <th scope="col">{t('genelBakis.son.hizmet')}</th>
-              <th scope="col">{t('genelBakis.son.durum')}</th>
-              <th scope="col">{t('genelBakis.son.sorumlu')}</th>
-              <th scope="col" className="gb-sag">
-                {t('genelBakis.son.tutar')}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {isler.map((is) => {
-              const d = durumBilgisi(is, t);
-              return (
-                <tr key={`${is.tur}-${is.id}`} style={{ '--gb-renk': d.renk } as CSSProperties} data-son-is={is.tur}>
-                  <td className="gb-kod">
-                    <button type="button" className="gb-satir-dugme gb-mono" onClick={() => ac(is)} title={t(`genelBakis.son.tur.${is.tur}`)}>
-                      {is.kod}
-                    </button>
-                  </td>
-                  <td className="gb-musteri">{is.musteri || '—'}</td>
-                  <td className="gb-hizmet">{is.hizmet || '—'}</td>
-                  <td>
-                    <span className="gb-durum">{d.metin}</span>
-                  </td>
-                  <td className="gb-sorumlu">{is.sorumlu || '—'}</td>
-                  <td className="gb-sag gb-mono gb-tutar">{is.tutar !== null && is.para_birimi ? paraYaz(is.tutar, is.para_birimi, dil) : '—'}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <>
+          <table className="gb-tablo" data-son-isler="" data-tumu={tumu ? '' : undefined}>
+            <thead>
+              <tr>
+                <th scope="col">{t('genelBakis.son.kod')}</th>
+                <th scope="col">{t('genelBakis.son.musteri')}</th>
+                <th scope="col">{t('genelBakis.son.hizmet')}</th>
+                <th scope="col">{t('genelBakis.son.durum')}</th>
+                <th scope="col">{t('genelBakis.son.sorumlu')}</th>
+                <th scope="col" className="gb-sag">
+                  {t('genelBakis.son.tutar')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {isler.map((is) => {
+                const d = durumBilgisi(is, t);
+                return (
+                  <tr key={`${is.tur}-${is.id}`} style={{ '--gb-renk': d.renk } as CSSProperties} data-son-is={is.tur}>
+                    <td className="gb-kod">
+                      <button type="button" className="gb-satir-dugme gb-mono" onClick={() => ac(is)} title={t(`genelBakis.son.tur.${is.tur}`)}>
+                        {is.kod}
+                      </button>
+                    </td>
+                    <td className="gb-musteri">{is.musteri || '—'}</td>
+                    <td className="gb-hizmet">{is.hizmet || '—'}</td>
+                    <td>
+                      <span className="gb-durum">{d.metin}</span>
+                    </td>
+                    <td className="gb-sorumlu">{is.sorumlu || '—'}</td>
+                    <td className="gb-sag gb-mono gb-tutar" data-bos={is.tutar !== null && is.para_birimi ? undefined : ''}>
+                      {is.tutar !== null && is.para_birimi ? paraYaz(is.tutar, is.para_birimi, dil) : '—'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          {isler.length > SON_IS_DAR && (
+            <button type="button" className="gb-bag gb-ortala gb-son-daha" aria-expanded={tumu} onClick={() => setTumu((x) => !x)} data-son-daha="">
+              {tumu ? t('genelBakis.son.dahaAz') : t('genelBakis.son.dahaFazla')}
+            </button>
+          )}
+        </>
       )}
     </Kart>
   );

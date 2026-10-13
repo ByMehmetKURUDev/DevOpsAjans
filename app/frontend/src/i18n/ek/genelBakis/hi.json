@@ -97,7 +97,9 @@
       "aktif": "{{sayi}} सक्रिय",
       "isler": "{{sayi}} वर्क ऑर्डर",
       "panoyaGit": "फ़ील्ड सर्विस पर जाएँ",
-      "teknisyenYok": "कोई तकनीशियन नियुक्त नहीं"
+      "teknisyenYok": "कोई तकनीशियन नियुक्त नहीं",
+      "haritaEtiket": "आज के कार्य आदेशों का मानचित्र",
+      "haritada": "मानचित्र पर {{sayi}}/{{toplam}}"
     },
     "son": {
       "baslik": "हाल के काम",
@@ -113,7 +115,9 @@
         "destek": "सपोर्ट",
         "is_emri": "वर्क ऑर्डर",
         "teklif": "प्रस्ताव"
-      }
+      },
+      "dahaFazla": "और दिखाएँ",
+      "dahaAz": "कम दिखाएँ"
     },
     "durum": {
       "proje": {

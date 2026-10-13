@@ -14,6 +14,7 @@ import YonetimMenusu, {
 import { GENEL_BAKIS, GRUPLAR, kenarDarOku, kenarDarYaz, type GrupAnahtari } from '@/lib/yonetimMenusu';
 import { SUPPORTED_LANGUAGES, changeAppLanguage } from '@/i18n';
 import { UygulamaYukleDugmesi } from '@/lib/uygulamaKabugu';
+import { useYuzenGizle } from '@/hooks/useYuzenGizle';
 import './yonetimKabugu.css';
 // Faz 11G-1: panelin bütün bölümleri Genel bakışın cam kart dilinde (yalnız panel içerik alanı).
 import '@/components/panel/panelBolumleri.css';
@@ -100,6 +101,8 @@ export default function YonetimKabugu<K extends string>({
   const [acilir, setAcilir] = useState<'hizli' | 'hesap' | null>(null);
   const zilRef = useRef<HTMLDivElement>(null);
   const ustRef = useRef<HTMLElement>(null);
+  // Faz 11F: telefonda yüzen düğmeler aşağı kaydırırken çekilir.
+  useYuzenGizle();
 
   // Açılan bölümün grubu akordeonda açık olsun (`?sekme=`, arama, hızlı işlem…).
   useEffect(() => {
@@ -218,13 +221,17 @@ export default function YonetimKabugu<K extends string>({
     setGeciciAcik(false);
   };
 
+  // Sayfa CSS'i yumuşak kaydırıyor (scroll-behavior: smooth); burada anında başa dönülmeli — yoksa odak
+  // (telefonda boşken gizli arama satırı) ve açılan bildirim listesi kaydırma bitmeden ekran dışında kalıyor.
+  const basaDon = () => window.scrollTo({ top: 0, behavior: 'instant' });
+
   const aramayaGit = () => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-    menu.aramaRef.current?.focus();
+    basaDon();
+    menu.aramaRef.current?.focus({ preventScroll: true });
   };
 
   const bildirimleriAc = () => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    basaDon();
     zilRef.current?.querySelector('button')?.click();
   };
 
@@ -247,7 +254,8 @@ export default function YonetimKabugu<K extends string>({
           )}
         </div>
 
-        <div className="pk-arama" role="search">
+        {/* Faz 11F: telefonda arama satırı boşken gizli (erişilebilir kalır); alt çubuktaki "Ara" ya da "/" odaklayınca açılır. */}
+        <div className="pk-arama" id="pk-arama" role="search" data-bos={menu.aranan ? undefined : ''}>
           <Search className="pk-arama-ikon" aria-hidden="true" />
           <input
             ref={menu.aramaRef}
@@ -415,7 +423,7 @@ export default function YonetimKabugu<K extends string>({
           </span>
           <span>{k('sekmeGelen')}</span>
         </button>
-        <button type="button" className="pk-alt-oge" onClick={aramayaGit}>
+        <button type="button" className="pk-alt-oge" onClick={aramayaGit} aria-controls="pk-arama" data-alt-ara="">
           <Search aria-hidden="true" />
           <span>{k('sekmeAra')}</span>
         </button>

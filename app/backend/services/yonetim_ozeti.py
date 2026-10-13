@@ -743,6 +743,8 @@ async def kategori_hesapla(db: AsyncSession, an: datetime) -> Dict[str, Any]:
 # Saha, son işler, bildirimler
 # ---------------------------------------------------------------------------
 DURUM_ADIMI = {"yeni": 0, "planlandi": 15, "yolda": 40, "iste": 70, "tamamlandi": 100}
+#: Genel bakış saha haritasındaki en fazla işaret (Faz 11F).
+SAHA_NOKTA_SINIRI = 60
 
 
 def is_emri_ilerlemesi(ie: Any) -> int:
@@ -766,6 +768,7 @@ async def saha_hesapla(db: AsyncSession, an: datetime) -> Optional[Dict[str, Any
         SahaAyarlari,
         SahaIsAtamalari,
         SahaIsEmirleri,
+        SahaLokasyonlari,
         SahaMusterileri,
         SahaTeknisyenleri,
     )
@@ -804,6 +807,19 @@ async def saha_hesapla(db: AsyncSession, an: datetime) -> Optional[Dict[str, Any
             await db.execute(select(SahaAyarlari).where(SahaAyarlari.hesap_email.in_(list({ie.hesap_email for ie in isler}))))
         ).scalars().all()
     }
+    # Faz 11F: haritadaki işaretler — yalnız adresin işaretlenmiş yeri (lokasyon); teknisyenin giriş/çıkış
+    # konumu ajans özetine taşınmıyor.
+    l_idler = list({ie.lokasyon_id for ie in isler if ie.lokasyon_id})
+    konumlar = {
+        lid: (en, bo) for lid, en, bo in (
+            await db.execute(
+                select(SahaLokasyonlari.id, SahaLokasyonlari.enlem, SahaLokasyonlari.boylam).where(
+                    SahaLokasyonlari.id.in_(l_idler), SahaLokasyonlari.enlem.isnot(None), SahaLokasyonlari.boylam.isnot(None)
+                )
+            )
+        ).all()
+    } if l_idler else {}
+    noktalar = []
     is_listesi = []
     teknisyen_durumu: Dict[int, Dict[str, Any]] = {}
     for ie in isler:
@@ -822,6 +838,17 @@ async def saha_hesapla(db: AsyncSession, an: datetime) -> Optional[Dict[str, Any
             "firma": firmalar.get(ie.hesap_email) or ie.hesap_email,
             "teknisyenler": adlar,
         })
+        konum = konumlar.get(ie.lokasyon_id) if ie.lokasyon_id else None
+        if konum and len(noktalar) < SAHA_NOKTA_SINIRI:
+            noktalar.append({
+                "id": ie.id,
+                "no": ie.no,
+                "baslik": ie.baslik,
+                "durum": ie.durum,
+                "acil": ie.oncelik == "acil",
+                "enlem": round(float(konum[0]), 6),
+                "boylam": round(float(konum[1]), 6),
+            })
         for t in atamalar.get(ie.id, []):
             if t not in teknisyenler:
                 continue
@@ -843,6 +870,7 @@ async def saha_hesapla(db: AsyncSession, an: datetime) -> Optional[Dict[str, Any
         "is_sayisi": len(is_listesi),
         "teknisyenler": tek_listesi[:6],
         "aktif": sum(1 for x in tek_listesi if x["durum"] in ("yolda", "iste")),
+        "noktalar": noktalar,
         "bolum": "sahaServisi",
     }
 

@@ -2224,7 +2224,7 @@ export default function AdminPanel() {
                   return (
                     <div key={c.email} className="p-5 rounded-xl glass">
                       <div className="flex flex-wrap items-center justify-between gap-3">
-                        <div>
+                        <div className="min-w-0">
                           <h3 className="font-semibold">
                             {c.name || t('admin.unnamedClient')}
                           </h3>
@@ -2235,7 +2235,7 @@ export default function AdminPanel() {
                             {c.email}
                           </a>
                         </div>
-                        <div className="flex gap-6 text-xs">
+                        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs">
                           <div>
                             <p className="text-muted-foreground uppercase tracking-widest">
                               {t('admin.projectCount')}
@@ -2324,8 +2324,8 @@ export default function AdminPanel() {
                     className="p-4 rounded-xl glass flex flex-wrap items-center gap-4"
                   >
                     <div className="flex-1 min-w-[200px]">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-semibold">{inv.invoice_no}</span>
+                      <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <span className="whitespace-nowrap font-semibold">{inv.invoice_no}</span>
                         <span
                           className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full ${
                             inv.status === 'paid'
@@ -2342,7 +2342,7 @@ export default function AdminPanel() {
                         {inv.client_email} • {inv.description}
                       </p>
                     </div>
-                    <p className="text-lg font-bold gradient-text">
+                    <p className="whitespace-nowrap text-lg font-bold gradient-text">
                       {inv.amount} {inv.currency || 'USD'}
                     </p>
                     {!['paid', 'cancelled', 'iade', 'draft'].includes(inv.status || '') ? (
@@ -2439,10 +2439,10 @@ export default function AdminPanel() {
                     data-talep-id={tk.id}
                     data-acik={acikTalep === Number(tk.id) ? 'evet' : undefined}
                   >
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-semibold">{tk.subject}</h3>
+                    <div className="mb-3 flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
+                      <div className="min-w-0 flex-1 basis-full sm:basis-0">
+                        <div className="mb-1 flex flex-wrap items-center gap-2">
+                          <h3 className="font-semibold [overflow-wrap:anywhere]">{tk.subject}</h3>
                           <span
                             className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full ${
                               tk.status === 'answered'
@@ -2479,66 +2479,68 @@ export default function AdminPanel() {
                               </span>
                             ))}
                         </div>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-xs text-muted-foreground [overflow-wrap:anywhere]">
                           {tk.client_name} • {tk.client_email}
                         </p>
                       </div>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() =>
-                          setAcikTalep(acikTalep === Number(tk.id) ? null : Number(tk.id))
-                        }
-                        className="gap-1 text-purple-300"
-                      >
-                        <MessageSquare className="h-4 w-4" />
-                        {acikTalep === Number(tk.id) ? t('talep.kapat') : t('talep.ac')}
-                      </Button>
-                      <select
-                        value={tk.atanan || ''}
-                        onChange={(e) => void atamaDegistir(Number(tk.id), e.target.value)}
-                        aria-label={t('destek.atananSec')}
-                        className="rounded-md border border-white/10 bg-black/40 px-2.5 py-1.5 text-xs text-white"
-                      >
-                        <option value="">{t('destek.atanmamis')}</option>
-                        {ekip.map((k) => (
-                          <option key={k.id} value={k.email}>
-                            {k.ad}
-                          </option>
-                        ))}
-                      </select>
-                      {silinecekTalep === Number(tk.id) ? (
-                        <span className="flex items-center gap-2">
-                          <span className="text-xs text-orange-300">{t('destek.talepSilOnay')}</span>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="text-xs text-destructive hover:text-destructive"
-                            onClick={() => void talepSil(tk.id)}
-                          >
-                            {t('odeme.silEvet')}
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="text-xs"
-                            onClick={() => setSilinecekTalep(null)}
-                          >
-                            {t('odeme.silVazgec')}
-                          </Button>
-                        </span>
-                      ) : (
+                      <div className="flex flex-wrap items-center gap-2">
                         <Button
                           size="sm"
                           variant="ghost"
-                          aria-label={t('destek.talepSil')}
-                          title={t('destek.talepSil')}
-                          className="text-destructive hover:text-destructive"
-                          onClick={() => setSilinecekTalep(Number(tk.id))}
+                          onClick={() =>
+                            setAcikTalep(acikTalep === Number(tk.id) ? null : Number(tk.id))
+                          }
+                          className="gap-1 text-purple-300"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <MessageSquare className="h-4 w-4" />
+                          {acikTalep === Number(tk.id) ? t('talep.kapat') : t('talep.ac')}
                         </Button>
-                      )}
+                        <select
+                          value={tk.atanan || ''}
+                          onChange={(e) => void atamaDegistir(Number(tk.id), e.target.value)}
+                          aria-label={t('destek.atananSec')}
+                          className="rounded-md border border-white/10 bg-black/40 px-2.5 py-1.5 text-xs text-white"
+                        >
+                          <option value="">{t('destek.atanmamis')}</option>
+                          {ekip.map((k) => (
+                            <option key={k.id} value={k.email}>
+                              {k.ad}
+                            </option>
+                          ))}
+                        </select>
+                        {silinecekTalep === Number(tk.id) ? (
+                          <span className="flex items-center gap-2">
+                            <span className="text-xs text-orange-300">{t('destek.talepSilOnay')}</span>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-xs text-destructive hover:text-destructive"
+                              onClick={() => void talepSil(tk.id)}
+                            >
+                              {t('odeme.silEvet')}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-xs"
+                              onClick={() => setSilinecekTalep(null)}
+                            >
+                              {t('odeme.silVazgec')}
+                            </Button>
+                          </span>
+                        ) : (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            aria-label={t('destek.talepSil')}
+                            title={t('destek.talepSil')}
+                            className="text-destructive hover:text-destructive"
+                            onClick={() => setSilinecekTalep(Number(tk.id))}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        )}
+                      </div>
                     </div>
                     {acikTalep !== Number(tk.id) ? (
                       <p className="text-sm text-muted-foreground whitespace-pre-wrap line-clamp-2">

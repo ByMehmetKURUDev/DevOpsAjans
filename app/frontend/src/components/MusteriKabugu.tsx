@@ -23,6 +23,7 @@ import { useGrupluMenu, type MenuOgesi } from '@/components/GrupluMenu';
 import { GENEL_BAKIS, MUSTERI_GRUPLARI, type MusteriGrubu } from '@/lib/musteriMenusu';
 import { SUPPORTED_LANGUAGES, changeAppLanguage } from '@/i18n';
 import { UygulamaYukleDugmesi } from '@/lib/uygulamaKabugu';
+import { useYuzenGizle } from '@/hooks/useYuzenGizle';
 import './musteriKabugu.css';
 // Faz 11G-1: panelin bütün bölümleri Genel bakışın cam kart dilinde (yalnız panel içerik alanı).
 import '@/components/panel/panelBolumleri.css';
@@ -295,6 +296,8 @@ export default function MusteriKabugu<K extends string>({
   const k = (ad: string) => t(`panelKabugu.kabuk.${ad}`);
   const [hesapAcik, setHesapAcik] = useState(false);
   const hesapRef = useRef<HTMLDivElement>(null);
+  // Faz 11F: telefonda yüzen düğmeler (AI asistan, Hata bildir) aşağı kaydırırken çekilir.
+  useYuzenGizle();
 
   // Panel tam ekran: site düzeninin üst menüsü/alt bilgisi CSS ile gizlenir (musteriKabugu.css; 11A ile aynı kural).
   useEffect(() => {

@@ -15,6 +15,10 @@ import './osmHarita.css';
  * Etkileşim: sürükleyerek kaydırma, +/− düğmeleri, çift tıklama, Ctrl/⌘ + tekerlek (ya da dokunmatik
  * yakınlaştırma), klavye (oklar, +/−). Sayfa kaydırması haritaya takılmıyor (düz tekerlek sayfayı kaydırır).
  * İşaretler düğme (klavyeyle seçilebilir); çizgiler SVG. `onTikla` verilirse boş yere tıklamak koordinat döndürür.
+ *
+ * Faz 11F — `jest="sayfa"` (kaydırılan sayfanın içindeki harita): dokunmatikte tek parmak SAYFAYI kaydırır,
+ * harita iki parmakla kaydırılır/yakınlaştırılır; tek parmakla haritada sürüklenince kısa bir ipucu çıkar.
+ * Fare ve kalem her iki kipte de tek tuşla sürükler. Tam ekran katmanlarda (Komuta, konum seçici) "serbest".
  */
 
 export interface HaritaIsareti {
@@ -51,6 +55,10 @@ interface Props {
   className?: string;
   etiket?: string;
   testid?: string;
+  /** "sayfa": dokunmatikte tek parmak sayfayı kaydırır, harita iki parmakla (Faz 11F). */
+  jest?: 'serbest' | 'sayfa';
+  /** +/−/sığdır düğmeleri (küçük önizleme haritasında kapalı). */
+  kontroller?: boolean;
 }
 
 const KARO = 256;
@@ -89,9 +97,13 @@ export default function OsmHarita({
   className = '',
   etiket,
   testid,
+  jest = 'serbest',
+  kontroller = true,
 }: Props) {
   const { t } = useTranslation();
   const kapRef = useRef<HTMLDivElement>(null);
+  const sayfa = jest === 'sayfa';
+  const [ipucu, setIpucu] = useState(false);
   const [boyut, setBoyut] = useState({ w: 0, h: 0 });
   const [gorus, setGorus] = useState<{ enlem: number; boylam: number; z: number }>({
     enlem: varsayilanMerkez[0],
@@ -202,6 +214,40 @@ export default function OsmHarita({
     });
   };
 
+  // Sayfa kipi (dokunmatik): iki parmak hareketinde tarayıcının sayfa kaydırmasını durdur (haritaya kalsın);
+  // tek parmakla haritanın üstünde kayan kullanıcıya kısa ipucu. touchmove pasif olmamalı (preventDefault).
+  useEffect(() => {
+    const kap = kapRef.current;
+    if (!sayfa || !kap) return;
+    let bas: { x: number; y: number } | null = null;
+    let zamanlayici = 0;
+    const basla = (e: TouchEvent) => {
+      bas = e.touches.length === 1 ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
+    };
+    const tasi = (e: TouchEvent) => {
+      if (e.touches.length >= 2) {
+        if (e.cancelable) e.preventDefault();
+        bas = null;
+        setIpucu(false);
+        return;
+      }
+      const d = e.touches[0];
+      if (bas && d && Math.abs(d.clientX - bas.x) + Math.abs(d.clientY - bas.y) > 14) {
+        bas = null;
+        setIpucu(true);
+        window.clearTimeout(zamanlayici);
+        zamanlayici = window.setTimeout(() => setIpucu(false), 1600);
+      }
+    };
+    kap.addEventListener('touchstart', basla, { passive: true });
+    kap.addEventListener('touchmove', tasi, { passive: false });
+    return () => {
+      kap.removeEventListener('touchstart', basla);
+      kap.removeEventListener('touchmove', tasi);
+      window.clearTimeout(zamanlayici);
+    };
+  }, [sayfa]);
+
   // Sürükleme ve iki parmakla yakınlaştırma
   const isaretciler = useRef(new Map<number, { x: number; y: number }>());
   const surukleme = useRef<{ x: number; y: number; hareket: number } | null>(null);
@@ -218,14 +264,22 @@ export default function OsmHarita({
     }
   };
   const hareket = (e: PointerEvent<HTMLDivElement>) => {
-    if (!isaretciler.current.has(e.pointerId)) return;
+    const onceki = isaretciler.current.get(e.pointerId);
+    if (!onceki) return;
     isaretciler.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (isaretciler.current.size === 2 && tutam.current) {
-      const [a, b] = [...isaretciler.current.values()];
-      const d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (d / tutam.current > 1.5 || d / tutam.current < 0.66) {
-        yakinlas(d > tutam.current ? 1 : -1);
-        tutam.current = d;
+    if (isaretciler.current.size === 2) {
+      // İki parmak: ağırlık merkezi kadar kaydır (her parmak yarı katkı), uzaklık oranıyla yakınlaştır.
+      if (surukleme.current) surukleme.current.hareket += 99;
+      const dx = (e.clientX - onceki.x) / 2;
+      const dy = (e.clientY - onceki.y) / 2;
+      if (dx || dy) kaydir(-dx, -dy);
+      if (tutam.current) {
+        const [a, b] = [...isaretciler.current.values()];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d / tutam.current > 1.5 || d / tutam.current < 0.66) {
+          yakinlas(d > tutam.current ? 1 : -1);
+          tutam.current = d;
+        }
       }
       return;
     }
@@ -236,14 +290,16 @@ export default function OsmHarita({
     s.hareket += Math.abs(dx) + Math.abs(dy);
     s.x = e.clientX;
     s.y = e.clientY;
+    // Sayfa kipinde tek parmak sayfayı kaydırır (tarayıcı); harita yerinde kalır.
+    if (sayfa && e.pointerType === 'touch') return;
     if (dx || dy) kaydir(-dx, -dy);
   };
-  const yukari = (e: PointerEvent<HTMLDivElement>) => {
+  const yukari = (e: PointerEvent<HTMLDivElement>, iptal = false) => {
     const s = surukleme.current;
     isaretciler.current.delete(e.pointerId);
     if (isaretciler.current.size < 2) tutam.current = null;
     if (isaretciler.current.size === 0) surukleme.current = null;
-    if (s && s.hareket < 5 && onTikla && kapRef.current && !(e.target as HTMLElement).closest('[data-harita-dugme]')) {
+    if (!iptal && s && s.hareket < 5 && onTikla && kapRef.current && !(e.target as HTMLElement).closest('[data-harita-dugme]')) {
       const r = kapRef.current.getBoundingClientRect();
       const p = geriIzdusum(solUst.x + (e.clientX - r.left), solUst.y + (e.clientY - r.top), gorus.z);
       onTikla(Number(p.enlem.toFixed(6)), Number(p.boylam.toFixed(6)));
@@ -279,15 +335,15 @@ export default function OsmHarita({
   return (
     <div
       ref={kapRef}
-      className={`osm ${karanlik ? 'osm-karanlik' : ''} ${onTikla ? 'osm-secici' : ''} ${className}`}
+      className={`osm ${karanlik ? 'osm-karanlik' : ''} ${onTikla ? 'osm-secici' : ''} ${sayfa ? 'osm-sayfa' : ''} ${className}`}
       role="application"
       aria-label={etiket || t('harita.etiket')}
       aria-roledescription={t('harita.rol')}
       tabIndex={0}
       onPointerDown={asagi}
       onPointerMove={hareket}
-      onPointerUp={yukari}
-      onPointerCancel={yukari}
+      onPointerUp={(e) => yukari(e)}
+      onPointerCancel={(e) => yukari(e, true)}
       onWheel={tekerlek}
       onDoubleClick={(e) => {
         if ((e.target as HTMLElement).closest('[data-harita-dugme]')) return;
@@ -357,17 +413,25 @@ export default function OsmHarita({
         );
       })}
 
-      <div className="osm-kontroller" data-harita-dugme="">
-        <button type="button" onClick={() => yakinlas(1)} aria-label={t('harita.yakinlas')} title={t('harita.yakinlas')}>
-          <Plus className="h-4 w-4" aria-hidden="true" />
-        </button>
-        <button type="button" onClick={() => yakinlas(-1)} aria-label={t('harita.uzaklas')} title={t('harita.uzaklas')}>
-          <Minus className="h-4 w-4" aria-hidden="true" />
-        </button>
-        <button type="button" onClick={sigdir} aria-label={t('harita.sigdir')} title={t('harita.sigdir')}>
-          <Scan className="h-4 w-4" aria-hidden="true" />
-        </button>
-      </div>
+      {kontroller && (
+        <div className="osm-kontroller" data-harita-dugme="">
+          <button type="button" onClick={() => yakinlas(1)} aria-label={t('harita.yakinlas')} title={t('harita.yakinlas')}>
+            <Plus className="h-4 w-4" aria-hidden="true" />
+          </button>
+          <button type="button" onClick={() => yakinlas(-1)} aria-label={t('harita.uzaklas')} title={t('harita.uzaklas')}>
+            <Minus className="h-4 w-4" aria-hidden="true" />
+          </button>
+          <button type="button" onClick={sigdir} aria-label={t('harita.sigdir')} title={t('harita.sigdir')}>
+            <Scan className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+      )}
+
+      {sayfa && (
+        <p className="osm-ipucu" data-gorunur={ipucu ? '' : undefined} aria-hidden="true" data-testid={testid ? `${testid}-ipucu` : undefined}>
+          {t('harita.ikiParmak')}
+        </p>
+      )}
 
       <p className="osm-atif" data-harita-dugme="">
         ©{' '}

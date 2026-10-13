@@ -112,11 +112,24 @@ export interface SahaTeknisyeni {
   ilerleme: number;
 }
 
+/** Faz 11F: haritadaki işaret — yalnız adresin işaretlenmiş yeri. */
+export interface SahaNoktasi {
+  id: number;
+  no: string;
+  baslik: string;
+  durum: string;
+  acil: boolean;
+  enlem: number;
+  boylam: number;
+}
+
 export interface Saha {
   isler: SahaIsi[];
   is_sayisi: number;
   teknisyenler: SahaTeknisyeni[];
   aktif: number;
+  /** Eski önbellekteki (11F öncesi) yanıtta yok. */
+  noktalar?: SahaNoktasi[];
   bolum: string;
 }
 

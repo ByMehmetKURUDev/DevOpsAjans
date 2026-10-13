@@ -97,7 +97,9 @@
       "aktif": "{{sayi}} 人在岗",
       "isler": "{{sayi}} 个派工",
       "panoyaGit": "前往外勤服务",
-      "teknisyenYok": "未分配技术员"
+      "teknisyenYok": "未分配技术员",
+      "haritaEtiket": "今日工单地图",
+      "haritada": "地图上 {{sayi}}/{{toplam}}"
     },
     "son": {
       "baslik": "最近工作",
@@ -113,7 +115,9 @@
         "destek": "支持",
         "is_emri": "派工单",
         "teklif": "报价"
-      }
+      },
+      "dahaFazla": "显示更多",
+      "dahaAz": "收起"
     },
     "durum": {
       "proje": {

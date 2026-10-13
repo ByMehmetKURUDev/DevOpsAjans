@@ -339,7 +339,11 @@ function IlerlemeKart({ v, dil, t, span }: { v: ProjeIlerleme; dil: string; t: T
               : t('musteriOzeti.ilerleme.halkaEtiketiKisa', { ad: h.ad, deger });
           return (
             <li key={h.id} className="mgb-halka-oge" role="img" aria-label={etiket} data-halka={h.yuzde ?? ''}>
-              <IlerlemeHalkasi oran={h.yuzde === null ? null : h.yuzde / 100} renk1={r1} renk2={r2} ust={deger} alt={h.ad} boyut={100} />
+              <IlerlemeHalkasi oran={h.yuzde === null ? null : h.yuzde / 100} renk1={r1} renk2={r2} ust={deger} boyut={100} />
+              {/* Faz 11F: ad halkanın içinde kısaltılmıyor — altında, en fazla iki satır. */}
+              <span className="mgb-halka-ad" aria-hidden="true">
+                {h.ad}
+              </span>
             </li>
           );
         })}

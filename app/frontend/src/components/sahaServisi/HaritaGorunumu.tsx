@@ -94,9 +94,10 @@ export default function HaritaGorunumu({
             secili={secili}
             onSec={(id) => setSecili(Number(id))}
             sigdirAnahtari={`${veri.gun}-${teknisyen ?? 'hepsi'}-${pinler.length}`}
-            className="h-[440px] border border-white/10 lg:h-[560px]"
+            className="h-[380px] border border-white/10 sm:h-[440px] lg:h-[560px]"
             etiket={t('sahaServisi.harita.haritaEtiket')}
             testid="saha-harita-osm"
+            jest="sayfa"
           />
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
             {(['planlandi', 'yolda', 'iste', 'tamamlandi', 'ertelendi'] as const).map((d) => (

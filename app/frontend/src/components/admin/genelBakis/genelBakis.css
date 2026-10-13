@@ -844,6 +844,36 @@
 .gb-saha-ozet {
   margin-top: 8px;
 }
+/* Faz 11F: saha kartındaki küçük harita (bugünkü işler, işaretli adresler). */
+.gb-saha-harita-kap {
+  position: relative;
+  margin: 2px 0 14px;
+}
+.gb .gb-saha-harita {
+  height: 200px;
+  border: 1px solid rgb(var(--pk-cizgi) / 0.14);
+  border-radius: 14px;
+}
+.gb-saha-harita-bekle {
+  background: rgb(255 255 255 / 0.03);
+}
+.gb-saha-harita-not {
+  position: absolute;
+  top: 8px;
+  inset-inline-start: 8px;
+  z-index: 5;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--pk-cizgi) / 0.2);
+  background: rgb(5 14 26 / 0.86);
+  font-size: 11px;
+  font-weight: 700;
+  color: #d6f2ff;
+  pointer-events: none;
+}
+.gb-son-daha {
+  display: none;
+}
 
 /* ---------- Son işler ---------- */
 .gb-tablo {
@@ -904,6 +934,19 @@
 .gb-tutar {
   font-size: 12.5px;
   white-space: nowrap;
+}
+/* Faz 11F: geniş/orta yerleşimde dar kartta tablo kartın dışına taşmasın — kod tek satır, müşteri ve
+   hizmet gerekirse sarılır (telefonda satır kartı düzeni aşağıda; orada tek satır + üç nokta). */
+@container gb (min-width: 680px) {
+  .gb-tablo .gb-kod {
+    white-space: nowrap;
+  }
+  .gb-tablo .gb-musteri,
+  .gb-tablo .gb-hizmet {
+    max-width: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
 }
 
 /* ---------- Bildirimler ---------- */
@@ -1060,10 +1103,17 @@ a.gb-bildirim-satir:hover b {
     border-radius: 16px;
   }
   .gb-kpi .gb-etiket {
-    font-size: 9.5px;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
   }
   .gb-kpi-deger {
     font-size: 21px;
+  }
+  .gb-kpi-deger[data-uzunluk='uzun'] {
+    font-size: 17px;
+  }
+  .gb-kpi-deger[data-uzunluk='cok'] {
+    font-size: 14.5px;
   }
   .gb-kpi-alt {
     display: none;
@@ -1083,6 +1133,8 @@ a.gb-bildirim-satir:hover b {
     margin: 12px -14px 0;
     padding: 10px 14px 8px;
     scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 14px;
   }
   .gb-hat-sira::-webkit-scrollbar {
     display: none;
@@ -1090,6 +1142,7 @@ a.gb-bildirim-satir:hover b {
   .gb-hat-oge,
   .gb-hat-oge:last-child {
     flex: none;
+    scroll-snap-align: start;
   }
   .gb-dugum {
     width: 78px;
@@ -1103,8 +1156,8 @@ a.gb-bildirim-satir:hover b {
   }
   .gb-dugum-ad {
     margin-top: 4px;
-    font-size: 9.5px;
-    letter-spacing: 0.05em;
+    font-size: 10px;
+    letter-spacing: 0.04em;
   }
   .gb-dugum-sayi {
     font-size: 19px;
@@ -1174,6 +1227,21 @@ a.gb-bildirim-satir:hover b {
   .gb-tablo .gb-tutar {
     grid-area: tutar;
     justify-self: end;
+  }
+  /* Faz 11F: tutarı olmayan satırda "—" gösterme; ilk 5 satır, gerisi düğmeyle. */
+  .gb-tablo .gb-tutar[data-bos] {
+    visibility: hidden;
+  }
+  .gb .gb-tablo:not([data-tumu]) tbody tr:nth-child(n + 6) {
+    display: none;
+  }
+  .gb-son-daha {
+    display: flex;
+    min-height: 36px;
+    align-items: center;
+  }
+  .gb .gb-saha-harita {
+    height: 172px;
   }
   .gb-kategori-ust {
     flex-wrap: wrap;

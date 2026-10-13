@@ -21,6 +21,30 @@
 .osm.osm-secici {
   cursor: crosshair;
 }
+/* Faz 11F: sayfa içindeki harita — tek parmak sayfayı kaydırır (tarayıcı), iki parmak haritayı. */
+.osm.osm-sayfa {
+  touch-action: pan-x pan-y;
+}
+.osm-ipucu {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 24px;
+  background: rgb(3 8 18 / 0.62);
+  color: #e6f6ff;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.osm-ipucu[data-gorunur] {
+  opacity: 1;
+}
 .osm:focus-visible {
   box-shadow: 0 0 0 2px rgb(34 211 238 / 0.9);
 }
@@ -225,6 +249,9 @@
   text-decoration: underline;
 }
 @media (prefers-reduced-motion: reduce) {
+  .osm-ipucu {
+    transition: none;
+  }
   .osm-isaret-nabiz .osm-isaret-nokta::after {
     animation: none;
     opacity: 0;

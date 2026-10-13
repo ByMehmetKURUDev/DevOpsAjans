@@ -114,3 +114,35 @@
   font-weight: 500;
   letter-spacing: -0.01em;
 }
+
+/* ---------- Faz 11F: telefon cilası ---------- */
+/*
+ * Izgara öğeleri içeriğinin en geniş satırına göre genişleyip sayfayı telefonda yana taşırıyordu (uzun e-posta,
+ * sarılmayan düğme sırası → mobil tarayıcı sayfayı uzaklaştırıyordu). Öğelerin en küçük genişliği sıfır: içerik
+ * kartın içinde sarılır. `:where` ile özgüllük sıfır — bileşendeki `min-w-*` sınıfları geçerli kalır.
+ */
+:where(.pk-icerik, .mpk-icerik) :where(.grid) > * {
+  min-width: 0;
+}
+:where(.pk-icerik, .mpk-icerik) :where(a[href^='mailto:']) {
+  overflow-wrap: anywhere;
+}
+
+/* Yüzen düğmeler (AI asistan, Hata bildir, Yukarı çık): telefonda aşağı kaydırırken çekilir (useYuzenGizle). */
+@media (max-width: 767px) {
+  html[data-panel-kabugu] :is([data-site-duzeni] > button[aria-controls='asistan-paneli'], [data-testid='hata-bildir'], [data-site-duzeni] > button.bottom-24) {
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
+  }
+  html[data-panel-kabugu][data-yuzen-gizli] :is([data-site-duzeni] > button[aria-controls='asistan-paneli'][aria-expanded='false'], [data-testid='hata-bildir'], [data-site-duzeni] > button.bottom-24) {
+    transform: translateY(calc(100% + 140px));
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  html[data-panel-kabugu] :is([data-site-duzeni] > button[aria-controls='asistan-paneli'], [data-testid='hata-bildir'], [data-site-duzeni] > button.bottom-24) {
+    transition: none;
+  }
+}

@@ -97,7 +97,9 @@
       "aktif": "{{sayi}} نشط",
       "isler": "{{sayi}} أوامر عمل",
       "panoyaGit": "إلى الخدمة الميدانية",
-      "teknisyenYok": "لم يُعيَّن فنّي"
+      "teknisyenYok": "لم يُعيَّن فنّي",
+      "haritaEtiket": "خريطة أوامر العمل لليوم",
+      "haritada": "على الخريطة {{sayi}}/{{toplam}}"
     },
     "son": {
       "baslik": "أحدث الأعمال",
@@ -113,7 +115,9 @@
         "destek": "دعم",
         "is_emri": "أمر عمل",
         "teklif": "عرض سعر"
-      }
+      },
+      "dahaFazla": "عرض المزيد",
+      "dahaAz": "عرض أقل"
     },
     "durum": {
       "proje": {

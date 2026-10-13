@@ -409,11 +409,43 @@ async def test_saha_bugunku_etkin_isler_ve_teknisyenler(ayri_db):
         SahaIsAtamalari(is_emri_id=plan_bugun.id, teknisyen_id=ali.id, hesap_email=firma),
     )
     s = (await _ozet(db))["saha"]
+    assert s["noktalar"] == []  # işaretlenmiş adres yok
     assert [x["no"] for x in s["isler"]] == ["İE-215", "İE-218", "İE-220"]  # işte > yolda > planlı; yarın ve biten yok
     assert s["isler"][0]["ilerleme"] == 74 and s["isler"][1]["ilerleme"] == 40 and s["isler"][2]["ilerleme"] == 15
     assert s["isler"][0]["musteri"] == "Atlas Klima" and s["isler"][0]["firma"] == "Serin Klima Servis"
     assert [(t["ad"], t["durum"], t["is_no"]) for t in s["teknisyenler"]] == [("Zeynep S.", "iste", "İE-215"), ("Ali Y.", "yolda", "İE-218")]
     assert s["aktif"] == 2 and s["is_sayisi"] == 3 and s["bolum"] == "sahaServisi"
+
+
+async def test_saha_haritasi_yalniz_isaretli_adresler(ayri_db):
+    """Faz 11F: Genel bakış saha haritası — işaretlenmiş lokasyonu olan bugünkü etkin işler; teknisyen konumu yok."""
+    from models.saha_servisi import SahaIsEmirleri, SahaLokasyonlari, SahaMusterileri
+
+    db = ayri_db
+    firma = "klima@firma.dev"
+    m = await _ekle(db, SahaMusterileri(hesap_email=firma, ad="Atlas Klima"))
+    isaretli, isaretsiz = await _ekle(
+        db,
+        SahaLokasyonlari(hesap_email=firma, musteri_id=m.id, ad="Merkez", enlem=41.0123456789, boylam=28.98765432),
+        SahaLokasyonlari(hesap_email=firma, musteri_id=m.id, ad="Depo"),
+    )
+    ie = lambda no, durum, plan, **k: SahaIsEmirleri(  # noqa: E731
+        hesap_email=firma, no=no, uid=uuid.uuid4().hex, baslik=f"İş {no}", musteri_id=m.id, durum=durum, plan_bas=plan, **k
+    )
+    await _ekle(
+        db,
+        ie("İE-1", "iste", u(2030, 1, 15, 6), lokasyon_id=isaretli.id, oncelik="acil",
+           basla_enlem=40.5, basla_boylam=29.5),
+        ie("İE-2", "planlandi", u(2030, 1, 15, 13), lokasyon_id=isaretsiz.id),
+        ie("İE-3", "planlandi", u(2030, 1, 15, 14)),
+        ie("İE-4", "planlandi", u(2030, 1, 16, 9), lokasyon_id=isaretli.id),  # yarın: haritada yok
+        ie("İE-5", "tamamlandi", u(2030, 1, 15, 5), lokasyon_id=isaretli.id),  # bitti: haritada yok
+    )
+    s = (await _ozet(db))["saha"]
+    assert s["noktalar"] == [
+        {"id": s["isler"][0]["id"], "no": "İE-1", "baslik": "İş İE-1", "durum": "iste", "acil": True,
+         "enlem": 41.012346, "boylam": 28.987654},
+    ]
 
 
 async def test_son_isler_karisik_ve_en_yeni_once(ayri_db):

@@ -97,7 +97,9 @@
       "aktif": "{{sayi}} active",
       "isler": "{{sayi}} work orders",
       "panoyaGit": "Go to field service",
-      "teknisyenYok": "No technician assigned"
+      "teknisyenYok": "No technician assigned",
+      "haritaEtiket": "Map of today's work orders",
+      "haritada": "On map {{sayi}}/{{toplam}}"
     },
     "son": {
       "baslik": "Recent work",
@@ -113,7 +115,9 @@
         "destek": "Support",
         "is_emri": "Work order",
         "teklif": "Proposal"
-      }
+      },
+      "dahaFazla": "Show more",
+      "dahaAz": "Show less"
     },
     "durum": {
       "proje": {

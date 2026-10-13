@@ -288,7 +288,7 @@ export default function Baglantilar() {
                 <p className="mt-2">
                   {t('baglantilar.google.eksik')}:{' '}
                   {google.kurulum.eksik.map((ad) => (
-                    <code key={ad} className="mr-2 rounded bg-black/30 px-1.5 py-0.5 text-xs" data-eksik={ad}>
+                    <code key={ad} className="mr-2 break-all rounded bg-black/30 px-1.5 py-0.5 text-xs" data-eksik={ad}>
                       {ad}
                     </code>
                   ))}
@@ -298,7 +298,7 @@ export default function Baglantilar() {
                 <p className="mt-2">
                   {t('baglantilar.google.gecersiz')}:{' '}
                   {google.kurulum.gecersiz.map((ad) => (
-                    <code key={ad} className="mr-2 rounded bg-black/30 px-1.5 py-0.5 text-xs">
+                    <code key={ad} className="mr-2 break-all rounded bg-black/30 px-1.5 py-0.5 text-xs">
                       {ad}
                     </code>
                   ))}
