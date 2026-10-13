@@ -45,10 +45,8 @@ export const RAPOR_GRUBU = 'csp';
 
 const SATIR_ICI_OZETLER = [
   "'sha256-oqFr/On43q4LbOnWpE/eciGi1ITFYFkDfTBZuPtANFA='",
-  // Faz 11G-2: görünüm betiği "komuta"yı da tanıyor (yeni özet). Eski özet bir yayın daha duruyor:
-  // önbellekte eski HTML'i olan ziyaretçinin görünüm betiği engellenmesin. Parti 12'de silinecek.
+  // Görünüm betiği (Faz 11G-2'den beri "komuta"yı da tanıyor). 11G-2 öncesi özet Parti 12'de kaldırıldı.
   "'sha256-HaxL7HhM2ojKmkp0q9aMfM9+Q3IH8w/ucHCAa8zOw9o='",
-  "'sha256-nPWiU7VTlliSCxnwIxvozdJFCy+9lhweBIEUkIHYEo8='",
   "'sha256-PCjmZn0yQDGBUSNPN2ty+MWlzJdvWnTmUGsuUU8TjWY='",
   "'unsafe-hashes'",
   "'sha256-F1noxsLOnJhyRSgc0zu5JgzoLjG2BBMaXaSG24k2mRM='",
