@@ -195,7 +195,7 @@ const AiAsistan = ekliLazy(['aiAsistan', 'asistanSayfa'], () => import('@/compon
 // Faz 5M — e-posta pazarlama: bülten, kampanya, damla dizileri (müşteri paneliyle aynı bileşen, yönetici modu).
 const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/EpostaPazarlama'));
 // Faz 6S — saha servisi: müşteri hesabı seçerek salt okunur destek görünümü (müşteri paneliyle aynı bileşen).
-const SahaServisi = ekliLazy('sahaServisi', () => import('@/components/SahaServisi'));
+const SahaServisi = ekliLazy(['sahaServisi', 'harita'], () => import('@/components/SahaServisi'));
 // Faz 6E — etkinlik ve bilet (müşteri paneliyle aynı bileşen, yönetici modu).
 const Etkinlik = ekliLazy('etkinlik', () => import('@/components/Etkinlik'));
 // Faz 6P — stok ve POS: müşteri hesabı seçerek salt okunur destek görünümü (müşteri paneliyle aynı bileşen).

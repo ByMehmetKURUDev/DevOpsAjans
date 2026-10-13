@@ -118,7 +118,8 @@
       "cakisma": "Dieser Techniker hat zur gleichen Zeit einen anderen Auftrag",
       "cakismaUyari": "Konflikt: Der Techniker hat zur gleichen Zeit einen anderen Auftrag ({{no}}).",
       "atandi": "{{no}} zugewiesen.",
-      "kuyrugaAlindi": "{{no}} zurück in die Warteschlange gelegt."
+      "kuyrugaAlindi": "{{no}} zurück in die Warteschlange gelegt.",
+      "harita": "Karte"
     },
     "isler": {
       "yeni": "Neuer Arbeitsauftrag",
@@ -459,6 +460,75 @@
       "bilgi": "Lagerartikel werden beim Auftragsabschluss abgebucht; freie Positionen und Katalogmaterial bleiben möglich.",
       "dusuldu": "vom Bestand abgebucht",
       "bitinceDusulur": "wird bei Abschluss abgebucht"
+    },
+    "harita": {
+      "sayi": {
+        "toplam": "Heute",
+        "tamamlanan": "Erledigt",
+        "yolda": "Unterwegs",
+        "iste": "Vor Ort",
+        "bekleyen": "Wartend",
+        "geciken": "Verspätet"
+      },
+      "haritaEtiket": "Karte der heutigen Aufträge",
+      "siraCizgisi": "Besuchsreihenfolge des Technikers",
+      "konumsuzIpucu": "Bei {{sayi}} Aufträgen ist die Adresse nicht auf der Karte markiert. Unter Kunden › Kundenkarte › Adressen › „Auf Karte markieren“ ergänzen.",
+      "konumsuzKisa": "{{sayi}} Aufträge nicht auf der Karte (Adresse nicht markiert)",
+      "listeBaslik": "Heutige Aufträge",
+      "teknisyenSuzgeci": "Nach Techniker filtern",
+      "hepsi": "Alle",
+      "isYok": "Keine Aufträge an diesem Tag.",
+      "gecikti": "Verspätet",
+      "konumYok": "Kein Standort",
+      "isiAc": "Auftrag {{no}} öffnen"
+    },
+    "komuta": {
+      "ac": "Leitstand",
+      "canli": "Live",
+      "baslik": "Leitstand",
+      "ucB": "3D",
+      "tamEkran": "Vollbild",
+      "tamEkrandanCik": "Vollbild beenden",
+      "yukleniyor": "Wird geladen…",
+      "ozet": "Übersicht",
+      "acil": "Dringend",
+      "geciken": "Verspäteter Auftrag",
+      "planaKalan": "Noch {{dk}} Min. bis Plan",
+      "gecikme": "{{dk}} Min. verspätet",
+      "atanmamis": "Nicht zugewiesen",
+      "ayrinti": "Details öffnen",
+      "acilYok": "Keine dringenden oder verspäteten Aufträge.",
+      "turler": "Auftragsarten",
+      "harita": "Einsatzkarte",
+      "haritaNot": "Punkte sind Auftragsadressen; Techniker werden nicht live verfolgt.",
+      "ekip": "Außendienstteam",
+      "teknisyenDurum": {
+        "iste": "Vor Ort",
+        "yolda": "Unterwegs",
+        "bekliyor": "Aufträge offen",
+        "bitti": "Tag beendet",
+        "bos": "Frei"
+      },
+      "siradaki": "Als Nächstes",
+      "ara": "{{ad}} anrufen",
+      "yolTarifi": "Route (Google Maps)",
+      "akis": "Live-Verlauf",
+      "akisYok": "Heute noch keine Statusänderungen.",
+      "istedir": "Vor Ort · {{dk}} Min.",
+      "yoldadir": "Unterwegs · {{dk}} Min.",
+      "yeniIs": "Neuer Auftrag"
+    },
+    "konumSecici": {
+      "baslik": "Auf Karte markieren",
+      "haritaEtiket": "Karte zur Auswahl des Adressstandorts",
+      "ipucu": "Klicken Sie auf die Stelle der Adresse oder fügen Sie Koordinaten ein. Die Adresse wird an keinen Kartendienst gesendet.",
+      "koordinat": "Koordinaten (Breite, Länge)",
+      "secilmedi": "Noch kein Punkt gewählt",
+      "kaldir": "Standort entfernen",
+      "isaretli": "Auf Karte markiert",
+      "isaretle": "Auf Karte markieren",
+      "kaydedildi": "Standort der Adresse gespeichert.",
+      "kaldirildi": "Standort der Adresse entfernt."
     }
   }
 }

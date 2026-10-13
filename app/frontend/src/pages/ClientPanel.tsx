@@ -143,7 +143,7 @@ const IcerikStudyosu = ekliLazy(['icerikStudyosu', 'icerikOnay'], () => import('
 const IcerikOnaylari = ekliLazy('icerikOnay', () => import('@/components/IcerikOnaylari'));
 const EpostaPazarlama = ekliLazy('epostaPazarlama', () => import('@/components/EpostaPazarlama'));
 // Faz 6S — saha servisi: sevk panosu, iş emirleri, teknisyen ekranı (yönetici paneliyle aynı bileşen).
-const SahaServisi = ekliLazy('sahaServisi', () => import('@/components/SahaServisi'));
+const SahaServisi = ekliLazy(['sahaServisi', 'harita'], () => import('@/components/SahaServisi'));
 // Faz 6E — etkinlik ve bilet (yönetici paneliyle aynı bileşen, müşteri modu; `etkinlik_giris` izinli üyeye yalnız okutma).
 const Etkinlik = ekliLazy('etkinlik', () => import('@/components/Etkinlik'));
 // Faz 6P — stok ve POS (yönetici paneliyle aynı bileşen, müşteri modu; `kasa` izinli üyeye yalnız satış ekranı).

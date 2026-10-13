@@ -118,7 +118,8 @@
       "cakisma": "This technician has another job at the same time",
       "cakismaUyari": "Conflict: the technician has another job at the same time ({{no}}).",
       "atandi": "{{no}} assigned.",
-      "kuyrugaAlindi": "{{no}} moved back to the queue."
+      "kuyrugaAlindi": "{{no}} moved back to the queue.",
+      "harita": "Map"
     },
     "isler": {
       "yeni": "New work order",
@@ -459,6 +460,75 @@
       "bilgi": "Stock products are deducted when the job is completed; free-text and catalogue materials can still be added.",
       "dusuldu": "deducted from stock",
       "bitinceDusulur": "deducted when job is done"
+    },
+    "harita": {
+      "sayi": {
+        "toplam": "Today",
+        "tamamlanan": "Completed",
+        "yolda": "En route",
+        "iste": "On site",
+        "bekleyen": "Waiting",
+        "geciken": "Late"
+      },
+      "haritaEtiket": "Map of today's jobs",
+      "siraCizgisi": "Technician's visit order",
+      "konumsuzIpucu": "{{sayi}} job addresses aren't marked on the map. Add them via Customers › customer card › Addresses › \"Mark on map\".",
+      "konumsuzKisa": "{{sayi}} jobs not on the map (address not marked)",
+      "listeBaslik": "Today's jobs",
+      "teknisyenSuzgeci": "Filter by technician",
+      "hepsi": "All",
+      "isYok": "No jobs on this day.",
+      "gecikti": "Late",
+      "konumYok": "No location",
+      "isiAc": "Open job {{no}}"
+    },
+    "komuta": {
+      "ac": "Command screen",
+      "canli": "Live",
+      "baslik": "Command screen",
+      "ucB": "3D",
+      "tamEkran": "Full screen",
+      "tamEkrandanCik": "Exit full screen",
+      "yukleniyor": "Loading…",
+      "ozet": "Summary",
+      "acil": "Urgent",
+      "geciken": "Late job",
+      "planaKalan": "{{dk}} min to plan",
+      "gecikme": "{{dk}} min late",
+      "atanmamis": "Unassigned",
+      "ayrinti": "Open details",
+      "acilYok": "No urgent or late jobs.",
+      "turler": "Job types",
+      "harita": "Field map",
+      "haritaNot": "Pins are job addresses; technicians are not tracked live.",
+      "ekip": "Field team",
+      "teknisyenDurum": {
+        "iste": "On site",
+        "yolda": "En route",
+        "bekliyor": "Jobs queued",
+        "bitti": "Day done",
+        "bos": "Free"
+      },
+      "siradaki": "Next",
+      "ara": "Call {{ad}}",
+      "yolTarifi": "Directions (Google Maps)",
+      "akis": "Live feed",
+      "akisYok": "No status changes yet today.",
+      "istedir": "On site · {{dk}} min",
+      "yoldadir": "En route · {{dk}} min",
+      "yeniIs": "New work order"
+    },
+    "konumSecici": {
+      "baslik": "Mark on map",
+      "haritaEtiket": "Map for picking the address location",
+      "ipucu": "Click where the address is on the map, or paste coordinates. The address is not sent to any map service.",
+      "koordinat": "Coordinates (latitude, longitude)",
+      "secilmedi": "No point selected yet",
+      "kaldir": "Remove location",
+      "isaretli": "Marked on map",
+      "isaretle": "Mark on map",
+      "kaydedildi": "Address location saved.",
+      "kaldirildi": "Address location removed."
     }
   }
 }

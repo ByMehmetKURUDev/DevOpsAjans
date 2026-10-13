@@ -1,13 +1,15 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, History, Loader2, MapPin, Plus, Search, Trash2, Wrench } from 'lucide-react';
+import { ArrowLeft, History, Loader2, MapPin, MapPinned, Plus, Search, Trash2, Wrench } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
-import { DILLER, hataMetni, tarihSaat, type Cihaz, type IsOzeti, type Musteri, type SahaApi } from '@/lib/sahaServisi';
+import { DILLER, hataMetni, tarihSaat, type Cihaz, type IsOzeti, type Lokasyon, type Musteri, type SahaApi } from '@/lib/sahaServisi';
 import { Alan, Bos, DurumRozeti, GIRDI, KART, Rozet, SECIM, Yukleniyor } from './ortak';
 
 const IsFormu = lazy(() => import('./IsFormu'));
+/** Faz 11E: adresin haritadaki yeri (harita parçası yalnız açılınca iner). */
+const KonumSecici = lazy(() => import('./KonumSecici'));
 
 const BOS_MUSTERI = { ad: '', tur: 'bireysel', firma: '', eposta: '', telefon: '', dil: 'tr', adres: '', ilce: '', il: '' };
 const BOS_CIHAZ = { tur: '', marka: '', model: '', seri_no: '', kurulum_tarihi: '', garanti_bitis: '', son_bakim: '', bakim_periyot_ay: '', lokasyon_id: '' };
@@ -168,6 +170,7 @@ function MusteriAyrinti({ api, id, onGeri, onAc, saltOkunur }: { api: SahaApi; i
   const [cihaz, setCihaz] = useState(BOS_CIHAZ);
   const [cihazAcik, setCihazAcik] = useState(false);
   const [lokAcik, setLokAcik] = useState(false);
+  const [konumLok, setKonumLok] = useState<Lokasyon | null>(null);
   const [gecmis, setGecmis] = useState<{ id: number; isler: IsOzeti[] } | null>(null);
   const [yeniIs, setYeniIs] = useState<{ cihaz?: number } | null>(null);
 
@@ -289,6 +292,21 @@ function MusteriAyrinti({ api, id, onGeri, onAc, saltOkunur }: { api: SahaApi; i
                   {t('sahaServisi.ayrinti.haritadaAc')}
                 </a>
               )}
+              {!saltOkunur ? (
+                <button
+                  type="button"
+                  onClick={() => setKonumLok(l)}
+                  className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] ${
+                    l.enlem != null ? 'border-cyan-400/40 bg-cyan-500/10 text-cyan-100' : 'border-white/15 text-muted-foreground hover:text-white'
+                  }`}
+                  data-testid={`saha-lokasyon-konum-${l.id}`}
+                >
+                  <MapPinned className="h-3 w-3" aria-hidden="true" />
+                  {l.enlem != null ? t('sahaServisi.konumSecici.isaretli') : t('sahaServisi.konumSecici.isaretle')}
+                </button>
+              ) : (
+                l.enlem != null && <Rozet renk="border-cyan-400/40 bg-cyan-500/10 text-cyan-100">{t('sahaServisi.konumSecici.isaretli')}</Rozet>
+              )}
             </li>
           ))}
         </ul>
@@ -315,6 +333,25 @@ function MusteriAyrinti({ api, id, onGeri, onAc, saltOkunur }: { api: SahaApi; i
           </div>
         )}
       </section>
+
+      {konumLok && (
+        <Suspense fallback={null}>
+          <KonumSecici
+            lokasyon={konumLok}
+            onKapat={() => setKonumLok(null)}
+            onKaydet={async (enlem, boylam) => {
+              try {
+                await api.lokasyonGuncelle(konumLok.id, { enlem, boylam });
+                toast.success(enlem == null ? t('sahaServisi.konumSecici.kaldirildi') : t('sahaServisi.konumSecici.kaydedildi'));
+                await yukle();
+              } catch (e) {
+                toast.error(hataMetni(t, e));
+                throw e;
+              }
+            }}
+          />
+        </Suspense>
+      )}
 
       <section className={`${KART} p-4`} data-testid="saha-cihazlar">
         <div className="mb-2 flex items-center justify-between">

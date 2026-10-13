@@ -118,7 +118,8 @@
       "cakisma": "Bu teknisyenin aynı saatte başka işi var",
       "cakismaUyari": "Çakışma: teknisyenin aynı saatte başka işi var ({{no}}).",
       "atandi": "{{no}} atandı.",
-      "kuyrugaAlindi": "{{no}} kuyruğa alındı."
+      "kuyrugaAlindi": "{{no}} kuyruğa alındı.",
+      "harita": "Harita"
     },
     "isler": {
       "yeni": "Yeni iş emri",
@@ -459,6 +460,75 @@
       "bilgi": "Stok ürünü iş tamamlanınca stoktan düşülür; serbest kalem ve katalog malzemesi yine eklenebilir.",
       "dusuldu": "stoktan düşüldü",
       "bitinceDusulur": "iş bitince stoktan düşülür"
+    },
+    "harita": {
+      "sayi": {
+        "toplam": "Bugün",
+        "tamamlanan": "Tamamlanan",
+        "yolda": "Yolda",
+        "iste": "İşte",
+        "bekleyen": "Bekleyen",
+        "geciken": "Geciken"
+      },
+      "haritaEtiket": "Günün işleri haritası",
+      "siraCizgisi": "Teknisyenin ziyaret sırası",
+      "konumsuzIpucu": "{{sayi}} işin adresi haritada işaretli değil. Müşteriler › müşteri kartı › Adresler'den \"Haritada işaretle\" ile ekleyin.",
+      "konumsuzKisa": "{{sayi}} iş haritada değil (adres işaretli değil)",
+      "listeBaslik": "Günün işleri",
+      "teknisyenSuzgeci": "Teknisyene göre süz",
+      "hepsi": "Hepsi",
+      "isYok": "Bu gün iş yok.",
+      "gecikti": "Gecikti",
+      "konumYok": "Konum yok",
+      "isiAc": "{{no}} işini aç"
+    },
+    "komuta": {
+      "ac": "Komuta ekranı",
+      "canli": "Canlı",
+      "baslik": "Komuta ekranı",
+      "ucB": "3B",
+      "tamEkran": "Tam ekran",
+      "tamEkrandanCik": "Tam ekrandan çık",
+      "yukleniyor": "Yükleniyor…",
+      "ozet": "Özet",
+      "acil": "Acil",
+      "geciken": "Geciken iş",
+      "planaKalan": "Plana {{dk}} dk",
+      "gecikme": "{{dk}} dk gecikti",
+      "atanmamis": "Atanmamış",
+      "ayrinti": "Ayrıntıyı aç",
+      "acilYok": "Acil ya da geciken iş yok.",
+      "turler": "İş türleri",
+      "harita": "Saha haritası",
+      "haritaNot": "Noktalar işlerin adresleri; teknisyenin canlı konumu izlenmez.",
+      "ekip": "Saha ekibi",
+      "teknisyenDurum": {
+        "iste": "İşte",
+        "yolda": "Yolda",
+        "bekliyor": "Sırada iş var",
+        "bitti": "Günü bitti",
+        "bos": "Boşta"
+      },
+      "siradaki": "Sıradaki",
+      "ara": "{{ad}} kişisini ara",
+      "yolTarifi": "Yol tarifi (Google Haritalar)",
+      "akis": "Canlı akış",
+      "akisYok": "Bugün henüz durum değişikliği yok.",
+      "istedir": "İşte · {{dk}} dk",
+      "yoldadir": "Yolda · {{dk}} dk",
+      "yeniIs": "Yeni iş emri"
+    },
+    "konumSecici": {
+      "baslik": "Haritada işaretle",
+      "haritaEtiket": "Adresin yerini seçme haritası",
+      "ipucu": "Haritada adresin olduğu yere tıklayın ya da koordinatı yapıştırın. Adres hiçbir harita servisine gönderilmez.",
+      "koordinat": "Koordinat (enlem, boylam)",
+      "secilmedi": "Henüz nokta seçilmedi",
+      "kaldir": "Konumu kaldır",
+      "isaretli": "Haritada işaretli",
+      "isaretle": "Haritada işaretle",
+      "kaydedildi": "Adresin haritadaki yeri kaydedildi.",
+      "kaldirildi": "Adresin haritadaki yeri kaldırıldı."
     }
   }
 }

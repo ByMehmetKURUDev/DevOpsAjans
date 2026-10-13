@@ -72,6 +72,9 @@ export interface Lokasyon {
   notlar: string;
   tam_adres: string;
   harita: string | null;
+  /** Faz 11E: haritada işaretlenen yer (yoksa null). */
+  enlem?: number | null;
+  boylam?: number | null;
 }
 
 export interface Cihaz {
@@ -161,6 +164,11 @@ export interface IsOzeti {
   randevu_id: number | null;
   created_at: string | null;
   cakisan?: number[];
+  /** Faz 11E: adresin haritadaki yeri; Komuta özetinde (yalnız yönetim) işaretsiz adreste işin bitir/başla konumu. */
+  nokta?: { enlem: number; boylam: number; kaynak: 'lokasyon' | 'is' } | null;
+  /** Yalnız Komuta özetinde. */
+  gecikti?: boolean;
+  yolda_at?: string | null;
 }
 
 export interface Fotograf {
@@ -239,6 +247,34 @@ export interface Pano {
   teknisyenler: Teknisyen[];
   isler: IsOzeti[];
   kuyruk: IsOzeti[];
+}
+
+/** Faz 11E — sevk haritası ve Komuta ekranı için günün özeti (GET /komuta). */
+export type TeknisyenDurumu = 'iste' | 'yolda' | 'bekliyor' | 'bitti' | 'bos';
+
+export interface KomutaTeknisyeni {
+  id: number;
+  ad: string;
+  renk: string;
+  telefon: string | null;
+  durum: TeknisyenDurumu;
+  aktif_is: number | null;
+  siradaki_is: number | null;
+  toplam: number;
+  tamamlanan: number;
+}
+
+export interface Komuta {
+  gun: string;
+  bas: string;
+  bit: string;
+  simdi: string;
+  isler: IsOzeti[];
+  teknisyenler: KomutaTeknisyeni[];
+  sayilar: { toplam: number; tamamlanan: number; yolda: number; iste: number; bekleyen: number; geciken: number; acil: number; konumsuz: number };
+  acil: number | null;
+  akis: { zaman: string; is_id: number; no: string; baslik: string; eski: Durum | null; yeni: Durum; kisi: string | null }[];
+  turler: Partial<Record<IsTuru, number>>;
 }
 
 export interface RaporOzeti {
@@ -475,6 +511,7 @@ export function sahaApi(mod: SahaMod, hesap?: string) {
     },
     musteriBaglantisi: (id: number) => istek<{ adres: string }>('POST', u(`/is-emirleri/${id}/musteri-baglantisi`)),
     pano: (gun: string, gorunum: 'gun' | 'hafta') => istek<Pano>('GET', u('/pano', { gun, gorunum })),
+    komuta: (gun: string) => istek<Komuta>('GET', u('/komuta', { gun })),
     islerim: (gun?: string) =>
       istek<{ kayitli: boolean; teknisyen?: Teknisyen; gun?: string; bugun: IsOzeti[]; diger: IsOzeti[] }>('GET', u('/islerim', { gun })),
     raporlar: (bas: string, bit: string) => istek<Rapor>('GET', u('/raporlar', { bas, bit })),

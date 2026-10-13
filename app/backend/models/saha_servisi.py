@@ -149,6 +149,9 @@ class SahaLokasyonlari(Base):
     posta_kodu = Column(String(16), nullable=True)
     #: Kapı kodu, kat, otopark… (teknisyen görür).
     notlar = Column(Text, nullable=True)
+    #: Faz 11E: haritadaki yeri (yönetici haritada işaretler; adres çözümleme servisi yok). İkisi birlikte ya da hiç.
+    enlem = Column(Float, nullable=True)
+    boylam = Column(Float, nullable=True)
     created_at = Column(DateTime(timezone=True), default=_simdi, nullable=False)
     updated_at = Column(DateTime(timezone=True), default=_simdi, onupdate=_simdi, nullable=True)
 

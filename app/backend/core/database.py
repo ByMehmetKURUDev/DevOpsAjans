@@ -559,6 +559,9 @@ class DatabaseManager:
         # Faz 11D — dosya ağacı: müşteri dosyayı açtı mı (ilk açılış + sayaç).
         {"tablo": "files", "sutun": "musteri_acti_at", "tur_pg": "TIMESTAMPTZ", "tur_sqlite": "TIMESTAMP"},
         {"tablo": "files", "sutun": "musteri_acma_sayisi", "tur_pg": "INTEGER", "tur_sqlite": "INTEGER", "dolgu": "0"},
+        # Faz 11E — saha haritası: adresin haritadaki yeri.
+        {"tablo": "saha_lokasyonlari", "sutun": "enlem", "tur_pg": "DOUBLE PRECISION", "tur_sqlite": "REAL"},
+        {"tablo": "saha_lokasyonlari", "sutun": "boylam", "tur_pg": "DOUBLE PRECISION", "tur_sqlite": "REAL"},
     )
 
     async def _eksik_sutunlari_tamamla(self):

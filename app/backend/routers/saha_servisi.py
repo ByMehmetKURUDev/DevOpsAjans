@@ -216,6 +216,7 @@ def _lokasyon_sozlugu(l: SahaLokasyonlari) -> Dict[str, Any]:
         "id": l.id, "musteri_id": l.musteri_id, "ad": l.ad, "adres": l.adres or "", "ilce": l.ilce or "", "il": l.il or "",
         "posta_kodu": l.posta_kodu or "", "notlar": l.notlar or "", "tam_adres": tam,
         "harita": s.harita_baglantisi(tam) if tam else None,
+        "enlem": l.enlem, "boylam": l.boylam,
     }
 
 
@@ -276,6 +277,10 @@ async def _isleri_sozlukle(db: AsyncSession, isler: List[SahaIsEmirleri]) -> Lis
                              for tid in atamalar.get(ie.id, []) if tid in teknisyenler],
             "basla_at": s.iso(ie.basla_at), "bitir_at": s.iso(ie.bitir_at), "memnuniyet_puan": ie.memnuniyet_puan,
             "imzali": bool(ie.imza_anahtari), "randevu_id": ie.randevu_id, "created_at": s.iso(ie.created_at),
+            # Faz 11E: adresin haritadaki yeri (işaretlendiyse). Teknisyenin başla/bitir konumu burada YOK
+            # (o, yalnız yönetime iş ayrıntısındaki `konum`da).
+            "nokta": {"enlem": l.enlem, "boylam": l.boylam, "kaynak": "lokasyon"}
+            if l is not None and l.enlem is not None and l.boylam is not None else None,
         })
     return sonuc
 
@@ -623,6 +628,13 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
             "isler": [{**d, "cakisan": sorted(set(cakisan.get(d["id"], [])))} for d in await _isleri_sozlukle(db, isler)],
             "kuyruk": await _isleri_sozlukle(db, kuyruk),
         }
+
+    @router.get("/komuta")
+    async def komuta(request: Request, gun: Optional[str] = Query(None), db: AsyncSession = Depends(get_db)):
+        """Faz 11E — sevk panosu harita görünümü ve Komuta ekranı (TV) için günün tek özeti."""
+        k = kapsam_al(request)
+        _yonetim_iste(k)
+        return await _komuta_verisi(db, k, _tarih_param(gun, "gun", s.tr_bugun()))
 
     @router.get("/raporlar")
     async def raporlar(request: Request, bas: Optional[str] = Query(None), bit: Optional[str] = Query(None),
@@ -1403,6 +1415,96 @@ def _uclari_kur(router: APIRouter, kapsam_al: Callable[[Request], Kapsam], yazma
 # ---------------------------------------------------------------------------
 # Router dışı yardımcılar (uçların kullandığı)
 # ---------------------------------------------------------------------------
+async def _komuta_verisi(db: AsyncSession, k: Kapsam, g: date) -> Dict[str, Any]:
+    """Günün işleri (konumlarıyla), teknisyen durumları, sayılar, en acil iş, canlı akış, tür dağılımı.
+
+    Konum: adresin işaretli yeri; işaretli değilse (yalnız yönetim görür) işin bitir/başla anında rızayla
+    alınmış tek seferlik konumu (`kaynak: "is"`). Teknisyen canlı izlenmiyor: teknisyen kartında konum yok.
+    """
+    bas = _gun_basi(g)
+    bit = bas + timedelta(days=1)
+    simdi = s.simdi()
+    teknik = (await db.execute(select(SahaTeknisyenleri).where(SahaTeknisyenleri.hesap_email == k.hesap, SahaTeknisyenleri.aktif.is_(True))
+                               .order_by(SahaTeknisyenleri.sira, SahaTeknisyenleri.id))).scalars().all()
+    # Alt sınır: çok günlük işler için birkaç gün geri; yolda/işte kalanlar tarihten bağımsız.
+    adaylar = (await db.execute(select(SahaIsEmirleri).where(
+        SahaIsEmirleri.hesap_email == k.hesap, SahaIsEmirleri.plan_bas.isnot(None), SahaIsEmirleri.plan_bas < bit,
+        SahaIsEmirleri.durum != "iptal",
+        or_(SahaIsEmirleri.plan_bas >= bas - timedelta(days=7), SahaIsEmirleri.durum.in_(("yolda", "iste"))))
+        .order_by(SahaIsEmirleri.plan_bas, SahaIsEmirleri.id).limit(500))).scalars().all()
+    # Güne değen işler + önceki günlerden sarkan açık işler (yolda/işte kalan).
+    isler = [x for x in adaylar if (sk.plan_bitisi(x) or bas) > bas or x.durum in ("yolda", "iste")]
+    sozluk = {d["id"]: d for d in await _isleri_sozlukle(db, isler)}
+    for ie in isler:
+        d = sozluk[ie.id]
+        if d["nokta"] is None and k.yonetim:
+            if ie.bitir_enlem is not None and ie.bitir_boylam is not None:
+                d["nokta"] = {"enlem": ie.bitir_enlem, "boylam": ie.bitir_boylam, "kaynak": "is"}
+            elif ie.basla_enlem is not None and ie.basla_boylam is not None:
+                d["nokta"] = {"enlem": ie.basla_enlem, "boylam": ie.basla_boylam, "kaynak": "is"}
+        d["gecikti"] = bool(ie.durum in ("yeni", "planlandi", "ertelendi") and s.utc(ie.plan_bas) < simdi)
+        d["yolda_at"] = s.iso(ie.yolda_at)
+    liste = [sozluk[x.id] for x in isler]
+
+    # Teknisyen durumları
+    kartlar = []
+    for t in teknik:
+        onun = [d for d in liste if any(y["id"] == t.id for y in d["teknisyenler"])]
+        iste = next((d for d in onun if d["durum"] == "iste"), None)
+        yolda = next((d for d in onun if d["durum"] == "yolda"), None)
+        acik = [d for d in onun if d["durum"] in ("yeni", "planlandi", "ertelendi")]
+        tamam = sum(1 for d in onun if d["durum"] == "tamamlandi")
+        if iste:
+            durum, aktif = "iste", iste
+        elif yolda:
+            durum, aktif = "yolda", yolda
+        elif acik:
+            durum, aktif = "bekliyor", None
+        elif onun:
+            durum, aktif = "bitti", None
+        else:
+            durum, aktif = "bos", None
+        siradaki = next((d for d in acik if not aktif or d["id"] != aktif["id"]), None)
+        kartlar.append({
+            "id": t.id, "ad": t.ad, "renk": t.renk, "telefon": t.telefon, "durum": durum,
+            "aktif_is": aktif["id"] if aktif else None, "siradaki_is": siradaki["id"] if siradaki else None,
+            "toplam": len(onun), "tamamlanan": tamam,
+        })
+
+    sayilar = {
+        "toplam": len(liste),
+        "tamamlanan": sum(1 for d in liste if d["durum"] == "tamamlandi"),
+        "yolda": sum(1 for d in liste if d["durum"] == "yolda"),
+        "iste": sum(1 for d in liste if d["durum"] == "iste"),
+        "bekleyen": sum(1 for d in liste if d["durum"] in ("yeni", "planlandi", "ertelendi")),
+        "geciken": sum(1 for d in liste if d["gecikti"]),
+        "acil": sum(1 for d in liste if d["oncelik"] == "acil" and d["durum"] not in s.KAPALI_DURUMLAR),
+        "konumsuz": sum(1 for d in liste if d["nokta"] is None),
+    }
+    # En acil: açık acil işlerden planı en erken olan; yoksa en çok gecikmiş açık iş.
+    acik_isler = [d for d in liste if d["durum"] not in s.KAPALI_DURUMLAR]
+    acil = next((d for d in acik_isler if d["oncelik"] == "acil"), None) or next((d for d in acik_isler if d["gecikti"]), None)
+
+    # Canlı akış: günün durum geçişleri (en yeni önce).
+    gecmis = (await db.execute(
+        select(SahaDurumGecmisi, SahaIsEmirleri.no, SahaIsEmirleri.baslik)
+        .join(SahaIsEmirleri, SahaIsEmirleri.id == SahaDurumGecmisi.is_emri_id)
+        .where(SahaIsEmirleri.hesap_email == k.hesap, SahaDurumGecmisi.zaman >= bas, SahaDurumGecmisi.zaman < bit)
+        .order_by(SahaDurumGecmisi.zaman.desc(), SahaDurumGecmisi.id.desc()).limit(20))).all()
+    adlar = {t.eposta: t.ad for t in teknik}
+    akis = [{"zaman": s.iso(gk.zaman), "is_id": gk.is_emri_id, "no": no, "baslik": baslik, "eski": gk.eski, "yeni": gk.yeni,
+             "kisi": adlar.get(gk.kisi or "") or None} for gk, no, baslik in gecmis]
+
+    turler: Dict[str, int] = {}
+    for d in liste:
+        turler[d["tur"]] = turler.get(d["tur"], 0) + 1
+    return {
+        "gun": g.isoformat(), "bas": s.iso(bas), "bit": s.iso(bit), "simdi": s.iso(simdi),
+        "isler": liste, "teknisyenler": kartlar, "sayilar": sayilar,
+        "acil": acil["id"] if acil else None, "akis": akis, "turler": turler,
+    }
+
+
 def _gun_basi(g: date) -> datetime:
     from zoneinfo import ZoneInfo
 
@@ -1473,6 +1575,21 @@ def _lokasyon_alanlari(l: SahaLokasyonlari, g: Dict[str, Any], yeni: bool) -> No
             setattr(l, alan, s.bos_ya_da(g.get(alan), alan, sinir))
     if "notlar" in g:
         l.notlar = s.bos_ya_da(g.get("notlar"), "notlar", 1000, cok_satir=True)
+    if "enlem" in g or "boylam" in g:
+        l.enlem, l.boylam = _koordinat(g.get("enlem"), g.get("boylam"))
+
+
+def _koordinat(enlem: Any, boylam: Any) -> "tuple[Optional[float], Optional[float]]":
+    """Faz 11E: ikisi birlikte boş ya da ikisi birlikte geçerli (WGS84); 6 basamağa (~10 cm) yuvarlanır."""
+    if enlem in (None, "") and boylam in (None, ""):
+        return None, None
+    try:
+        e, b = float(enlem), float(boylam)
+    except (TypeError, ValueError):
+        raise s.SahaHatasi("konum_gecersiz", "enlem")
+    if e != e or b != b or not (-85.06 <= e <= 85.06) or not (-180.0 <= b <= 180.0):
+        raise s.SahaHatasi("konum_gecersiz", "enlem")
+    return round(e, 6), round(b, 6)
 
 
 def _lokasyon_yap(hesap: str, musteri_id: int, g: Dict[str, Any]) -> SahaLokasyonlari:

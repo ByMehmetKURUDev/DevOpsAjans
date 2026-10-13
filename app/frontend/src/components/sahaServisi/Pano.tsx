@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type DragEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AlertTriangle, CalendarDays, ChevronLeft, ChevronRight, Inbox, Loader2, RefreshCw } from 'lucide-react';
+import { AlertTriangle, CalendarDays, ChevronLeft, ChevronRight, Inbox, Loader2, Monitor, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
@@ -44,6 +44,10 @@ function seritle(isler: IsOzeti[], gunBas: string, gunBit: string) {
   return yerlesik.map((k) => ({ ...k, seritSayisi }));
 }
 
+/** Faz 11E: harita görünümü ve Komuta ekranı yalnız açılınca iner (harita bileşeni + CSS ayrı parça). */
+const HaritaGorunumu = lazy(() => import('./HaritaGorunumu'));
+const KomutaEkrani = lazy(() => import('./KomutaEkrani'));
+
 /** Yarım saatlik dilim genişliği (px) ve satır yüksekliği. */
 const DILIM = 48;
 const SATIR = 76;
@@ -58,14 +62,16 @@ interface Tasinan {
  * Faz 6S — sevk panosu (dispatch): gün görünümünde teknisyen satırları × saat (zaman çizelgesi),
  * hafta görünümünde teknisyen × gün; üstte atanmamış işler kuyruğu. Sürükle-bırak (HTML5, ek paket
  * yok) ile atama / saat değiştirme; kuyruğa bırakmak atamayı kaldırır. Aynı teknisyende örtüşen işler
- * kırmızı çerçeve + uyarı (engellemez). Harita yok: adres için iş ayrıntısında "Haritada aç".
+ * kırmızı çerçeve + uyarı (engellemez). Faz 11E: üçüncü görünüm "Harita" (OpenStreetMap, günün işleri ve
+ * teknisyen başına ziyaret sırası) ve "Komuta ekranı" (TV / duvar modu, tam ekran katman).
  */
 export default function Pano({ api, onAc, saltOkunur }: { api: SahaApi; onAc: (id: number) => void; saltOkunur: boolean }) {
   const { t, i18n } = useTranslation();
   const dil = i18n.language || 'tr';
   const rtl = typeof document !== 'undefined' && document.documentElement.dir === 'rtl';
   const [gun, setGun] = useState(bugunIso);
-  const [gorunum, setGorunum] = useState<'gun' | 'hafta'>('gun');
+  const [gorunum, setGorunum] = useState<'gun' | 'hafta' | 'harita'>('gun');
+  const [komuta, setKomuta] = useState(false);
   const [veri, setVeri] = useState<PanoVerisi | null>(null);
   const [hata, setHata] = useState<string | null>(null);
   const [mesgul, setMesgul] = useState(false);
@@ -74,6 +80,7 @@ export default function Pano({ api, onAc, saltOkunur }: { api: SahaApi; onAc: (i
 
   const yukle = useCallback(async () => {
     setHata(null);
+    if (gorunum === 'harita') return; // harita görünümü kendi verisini (GET /komuta) yüklüyor
     try {
       setVeri(await api.pano(gun, gorunum));
     } catch (e) {
@@ -201,10 +208,10 @@ export default function Pano({ api, onAc, saltOkunur }: { api: SahaApi; onAc: (i
           <ChevronRight className="h-5 w-5 rtl:rotate-180" aria-hidden="true" />
         </Button>
         <p className="min-w-0 flex-1 truncate text-base font-semibold" data-testid="saha-pano-gun">
-          {gorunum === 'hafta' && veri ? `${gunYaz(veri.gun, dil)} – ${gunYaz(gunEkle(veri.gun, 6), dil)}` : gunYaz(gun, dil, true)}
+          {gorunum === 'hafta' && veri && veri.gorunum === 'hafta' ? `${gunYaz(veri.gun, dil)} – ${gunYaz(gunEkle(veri.gun, 6), dil)}` : gunYaz(gun, dil, true)}
         </p>
         <div className="flex rounded-lg border border-white/10 p-0.5" role="group" aria-label={t('sahaServisi.pano.gorunum')}>
-          {(['gun', 'hafta'] as const).map((g) => (
+          {(['gun', 'hafta', 'harita'] as const).map((g) => (
             <button
               key={g}
               type="button"
@@ -220,13 +227,26 @@ export default function Pano({ api, onAc, saltOkunur }: { api: SahaApi; onAc: (i
         <Button size="icon" variant="ghost" onClick={() => void yukle()} aria-label={t('sahaServisi.yenile')}>
           {mesgul ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <RefreshCw className="h-4 w-4" aria-hidden="true" />}
         </Button>
+        <Button size="sm" variant="outline" className="gap-1.5 !bg-transparent border-cyan-400/40 text-cyan-100" onClick={() => setKomuta(true)} data-testid="saha-pano-komuta">
+          <Monitor className="h-4 w-4" aria-hidden="true" />
+          <span className="hidden sm:inline">{t('sahaServisi.komuta.ac')}</span>
+        </Button>
       </div>
+      {komuta && (
+        <Suspense fallback={null}>
+          <KomutaEkrani api={api} onKapat={() => setKomuta(false)} onAc={onAc} />
+        </Suspense>
+      )}
       {hata && (
         <p className="text-sm text-red-300" role="alert">
           {hata}
         </p>
       )}
-      {!veri ? (
+      {gorunum === 'harita' ? (
+        <Suspense fallback={<Yukleniyor />}>
+          <HaritaGorunumu api={api} gun={gun} onAc={onAc} onKomuta={() => setKomuta(true)} />
+        </Suspense>
+      ) : !veri ? (
         <Yukleniyor />
       ) : (
         <>

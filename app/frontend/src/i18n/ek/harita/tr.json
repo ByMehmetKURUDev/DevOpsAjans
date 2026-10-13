@@ -1,0 +1,10 @@
+{
+  "harita": {
+    "etiket": "Harita",
+    "rol": "etkileşimli harita",
+    "yakinlas": "Yakınlaştır",
+    "uzaklas": "Uzaklaştır",
+    "sigdir": "Hepsini göster",
+    "katkida": "katkıda bulunanlar"
+  }
+}

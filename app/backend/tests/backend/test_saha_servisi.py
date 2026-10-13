@@ -978,3 +978,84 @@ async def test_zamanli_gorev_kayitli():
     from services import zamanli
 
     assert "saha_servisi" in zamanli.GOREV_ADLARI
+
+
+# ---------------------------------------------------------------------------
+# Faz 11E — adresin haritadaki yeri, sevk haritası ve Komuta ekranı özeti
+# ---------------------------------------------------------------------------
+async def test_lokasyon_koordinati_dogrulama(istemci, firma):
+    f = firma
+    yol = f"{M}/lokasyonlar/{f['l']['id']}"
+    for govde in ({"enlem": 41.0}, {"enlem": 95, "boylam": 29}, {"enlem": 41, "boylam": 200}, {"enlem": "x", "boylam": "y"}):
+        y = await istemci.put(yol, json=govde, headers=f["b"])
+        assert y.status_code == 400 and _kod(y) == "konum_gecersiz", (govde, y.text)
+    d = await _ok(await istemci.put(yol, json={"enlem": 40.98765432, "boylam": "29.0361234"}, headers=f["b"]))
+    assert d["enlem"] == 40.987654 and d["boylam"] == 29.036123
+    d = await _ok(await istemci.put(yol, json={"enlem": None, "boylam": None}, headers=f["b"]))
+    assert d["enlem"] is None and d["boylam"] is None
+    # Yeni adres koordinatla
+    m = await _ok(await istemci.post(f"{M}/musteriler/{f['m']['id']}/lokasyonlar",
+                                     json={"ad": "Depo", "adres": "Sanayi Cad. 4", "enlem": 41.07, "boylam": 28.99}, headers=f["b"]))
+    assert m["enlem"] == 41.07 and m["boylam"] == 28.99
+
+
+async def test_komuta_ozeti(istemci, firma, db_oturumu, monkeypatch, yonetici_basligi):
+    from zoneinfo import ZoneInfo
+
+    from models.saha_servisi import SahaIsEmirleri
+    from services import saha_servisi as s
+
+    f = firma
+    tz = ZoneInfo("Europe/Istanbul")
+    bugun = datetime.now(tz).date()
+
+    def saat(sa, dk=0, gun=0):
+        g = bugun + timedelta(days=gun)
+        return datetime(g.year, g.month, g.day, sa, dk, tzinfo=tz).astimezone(UTC)
+
+    # Adres işaretli → işler haritada; ikinci adres işaretsiz.
+    await _ok(await istemci.put(f"{M}/lokasyonlar/{f['l']['id']}", json={"enlem": 40.9632, "boylam": 29.0635}, headers=f["b"]))
+    l2 = await _ok(await istemci.post(f"{M}/musteriler/{f['m']['id']}/lokasyonlar", json={"ad": "Ofis", "adres": "Levent"}, headers=f["b"]))
+
+    gec = await _planli_is(istemci, f, "ta", bas=saat(9), baslik="Gecikmiş bakım", tur="bakim")
+    calisan = await _planli_is(istemci, f, "ta", bas=saat(11), baslik="Kombi arızası")
+    acil = await _planli_is(istemci, f, "tb", bas=saat(15), baslik="Su kaçağı", oncelik="acil", lokasyon_id=l2["id"])
+    biten = await _planli_is(istemci, f, "tb", bas=saat(8), baslik="Kurulum", tur="kurulum", lokasyon_id=l2["id"])
+    yarin = await _planli_is(istemci, f, "ta", bas=saat(10, gun=1), baslik="Yarının işi")
+    await _ok(await _durum(istemci, f, calisan["id"], "yolda"))
+    await _ok(await _durum(istemci, f, calisan["id"], "iste"))
+    await _tamamla(istemci, f, biten)
+    # İşaretsiz adresteki biten iş: rızayla alınmış bitir konumu (yalnız yönetim görür).
+    ie = (await db_oturumu.execute(select(SahaIsEmirleri).where(SahaIsEmirleri.id == biten["id"]))).scalars().first()
+    ie.bitir_enlem, ie.bitir_boylam = 41.08, 29.01
+    await db_oturumu.commit()
+
+    # Saat sabit: bugün 12:00 (İstanbul).
+    monkeypatch.setattr(s, "simdi", lambda: saat(12))
+    d = await _ok(await istemci.get(f"{M}/komuta?gun={bugun.isoformat()}", headers=f["b"]))
+    isler = {x["id"]: x for x in d["isler"]}
+    assert set(isler) == {gec["id"], calisan["id"], acil["id"], biten["id"]} and yarin["id"] not in isler
+    assert isler[gec["id"]]["gecikti"] is True and isler[acil["id"]]["gecikti"] is False
+    assert isler[gec["id"]]["nokta"] == {"enlem": 40.9632, "boylam": 29.0635, "kaynak": "lokasyon"}
+    assert isler[biten["id"]]["nokta"] == {"enlem": 41.08, "boylam": 29.01, "kaynak": "is"}
+    assert isler[acil["id"]]["nokta"] is None
+    assert d["sayilar"] == {"toplam": 4, "tamamlanan": 1, "yolda": 0, "iste": 1, "bekleyen": 2, "geciken": 1, "acil": 1, "konumsuz": 1}
+    assert d["acil"] == acil["id"]
+    kart = {t["id"]: t for t in d["teknisyenler"]}
+    ta, tb = kart[f["ta"]["id"]], kart[f["tb"]["id"]]
+    assert ta["durum"] == "iste" and ta["aktif_is"] == calisan["id"] and ta["siradaki_is"] == gec["id"] and (ta["toplam"], ta["tamamlanan"]) == (2, 0)
+    assert tb["durum"] == "bekliyor" and tb["aktif_is"] is None and tb["siradaki_is"] == acil["id"] and (tb["toplam"], tb["tamamlanan"]) == (2, 1)
+    assert d["turler"] == {"bakim": 1, "ariza": 2, "kurulum": 1}
+    yeni = [(a["no"], a["yeni"]) for a in d["akis"]]
+    assert (calisan["no"], "iste") in yeni and (calisan["no"], "yolda") in yeni and (biten["no"], "tamamlandi") in yeni
+    assert d["akis"][0]["zaman"] >= d["akis"][-1]["zaman"]
+    # Pano/iş listesi de adres konumunu taşıyor; teknisyen başla/bitir konumu orada yok.
+    pano = await _ok(await istemci.get(f"{M}/pano?gun={bugun.isoformat()}", headers=f["b"]))
+    pk = {x["id"]: x["nokta"] for x in pano["isler"]}
+    assert pk[gec["id"]]["kaynak"] == "lokasyon" and pk[biten["id"]] is None
+    # Teknisyen: yönetim ucu kapalı.
+    y = await istemci.get(f"{M}/komuta", headers=_b(f["tek_a"], f["sahip"]))
+    assert y.status_code == 403 and _kod(y) == "hesap_izni_yok"
+    # Ajans yöneticisi (destek görünümü) okuyabilir.
+    d2 = await _ok(await istemci.get(f"{Y}/komuta?hesap={f['sahip']}&gun={bugun.isoformat()}", headers=yonetici_basligi))
+    assert d2["sayilar"]["toplam"] == 4

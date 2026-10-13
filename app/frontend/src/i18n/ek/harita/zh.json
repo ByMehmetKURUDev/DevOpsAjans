@@ -1,0 +1,10 @@
+{
+  "harita": {
+    "etiket": "地图",
+    "rol": "交互式地图",
+    "yakinlas": "放大",
+    "uzaklas": "缩小",
+    "sigdir": "显示全部",
+    "katkida": "贡献者"
+  }
+}

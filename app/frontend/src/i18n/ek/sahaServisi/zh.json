@@ -118,7 +118,8 @@
       "cakisma": "该技术人员同一时间另有工作",
       "cakismaUyari": "冲突：该技术人员同一时间另有工作（{{no}}）。",
       "atandi": "{{no}} 已分配。",
-      "kuyrugaAlindi": "{{no}} 已退回队列。"
+      "kuyrugaAlindi": "{{no}} 已退回队列。",
+      "harita": "地图"
     },
     "isler": {
       "yeni": "新建工单",
@@ -459,6 +460,75 @@
       "bilgi": "库存商品在工单完成时扣减；仍可添加自由填写项和目录材料。",
       "dusuldu": "已从库存扣减",
       "bitinceDusulur": "完成后扣减库存"
+    },
+    "harita": {
+      "sayi": {
+        "toplam": "今日",
+        "tamamlanan": "已完成",
+        "yolda": "途中",
+        "iste": "现场",
+        "bekleyen": "等待中",
+        "geciken": "已延误"
+      },
+      "haritaEtiket": "今日工单地图",
+      "siraCizgisi": "技术员的到访顺序",
+      "konumsuzIpucu": "{{sayi}} 个工单的地址未在地图上标记。请在 客户 › 客户卡片 › 地址 › “在地图上标记” 中添加。",
+      "konumsuzKisa": "{{sayi}} 个工单不在地图上（地址未标记）",
+      "listeBaslik": "今日工单",
+      "teknisyenSuzgeci": "按技术员筛选",
+      "hepsi": "全部",
+      "isYok": "当天没有工单。",
+      "gecikti": "已延误",
+      "konumYok": "无位置",
+      "isiAc": "打开工单 {{no}}"
+    },
+    "komuta": {
+      "ac": "指挥屏",
+      "canli": "实时",
+      "baslik": "指挥屏",
+      "ucB": "3D",
+      "tamEkran": "全屏",
+      "tamEkrandanCik": "退出全屏",
+      "yukleniyor": "加载中…",
+      "ozet": "概览",
+      "acil": "紧急",
+      "geciken": "延误工单",
+      "planaKalan": "距计划 {{dk}} 分钟",
+      "gecikme": "已延误 {{dk}} 分钟",
+      "atanmamis": "未分配",
+      "ayrinti": "打开详情",
+      "acilYok": "没有紧急或延误的工单。",
+      "turler": "工单类型",
+      "harita": "现场地图",
+      "haritaNot": "标记点是工单地址；不实时追踪技术员位置。",
+      "ekip": "外勤团队",
+      "teknisyenDurum": {
+        "iste": "现场",
+        "yolda": "途中",
+        "bekliyor": "有待办工单",
+        "bitti": "今日完成",
+        "bos": "空闲"
+      },
+      "siradaki": "下一个",
+      "ara": "呼叫 {{ad}}",
+      "yolTarifi": "路线（Google 地图）",
+      "akis": "实时动态",
+      "akisYok": "今天还没有状态变化。",
+      "istedir": "现场 · {{dk}} 分钟",
+      "yoldadir": "途中 · {{dk}} 分钟",
+      "yeniIs": "新工单"
+    },
+    "konumSecici": {
+      "baslik": "在地图上标记",
+      "haritaEtiket": "选择地址位置的地图",
+      "ipucu": "在地图上点击地址所在位置，或粘贴坐标。地址不会发送给任何地图服务。",
+      "koordinat": "坐标（纬度，经度）",
+      "secilmedi": "尚未选择位置",
+      "kaldir": "移除位置",
+      "isaretli": "已在地图上标记",
+      "isaretle": "在地图上标记",
+      "kaydedildi": "地址位置已保存。",
+      "kaldirildi": "地址位置已移除。"
     }
   }
 }

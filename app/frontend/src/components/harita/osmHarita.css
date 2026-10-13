@@ -1,0 +1,235 @@
+/*
+ * Faz 11E — hafif OSM haritası. Karolar standart (açık) OSM; koyu panel için CSS süzgeciyle tersine
+ * çevrilip laciverte boyanıyor (karo içeriği değişmiyor, yalnız görüntü). Atıf her zaman görünür.
+ */
+.osm {
+  --osm-zemin: #06101c;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--osm-zemin);
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+  isolation: isolate;
+}
+.osm:active {
+  cursor: grabbing;
+}
+.osm.osm-secici {
+  cursor: crosshair;
+}
+.osm:focus-visible {
+  box-shadow: 0 0 0 2px rgb(34 211 238 / 0.9);
+}
+.osm-karolar {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.osm-karo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 256px;
+  height: 256px;
+  max-width: none;
+  pointer-events: none;
+}
+.osm-karanlik .osm-karo {
+  filter: invert(1) hue-rotate(185deg) brightness(0.92) contrast(0.88) saturate(0.55);
+}
+.osm-ton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.osm-karanlik .osm-ton {
+  background:
+    radial-gradient(120% 90% at 50% 50%, transparent 55%, rgb(3 8 18 / 0.55)),
+    linear-gradient(180deg, rgb(10 30 60 / 0.28), rgb(10 30 60 / 0.28));
+  mix-blend-mode: multiply;
+}
+.osm-cizgiler {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: visible;
+  pointer-events: none;
+}
+.osm-cizgi,
+.osm-cizgi-isik {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.osm-cizgi {
+  stroke-width: 2.2;
+  stroke-dasharray: 7 7;
+  opacity: 0.95;
+}
+.osm-cizgi-isik {
+  stroke-width: 9;
+  opacity: 0.18;
+}
+
+/* İşaretler: düğme 22 px, merkezi konum noktasında (negatif kenar boşluğu). */
+.osm-isaret {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.osm-isaret-nokta {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid rgb(255 255 255 / 0.92);
+  background: var(--osm-renk);
+  color: #04121a;
+  font: 700 10px/1 var(--pk-mono, ui-monospace, monospace);
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--osm-renk) 28%, transparent),
+    0 0 16px color-mix(in srgb, var(--osm-renk) 80%, transparent),
+    0 4px 10px rgb(0 0 0 / 0.5);
+  transition: transform 0.15s;
+}
+.osm-isaret:hover .osm-isaret-nokta,
+.osm-isaret:focus-visible .osm-isaret-nokta {
+  transform: scale(1.18);
+}
+.osm-isaret:focus-visible {
+  outline: none;
+}
+.osm-isaret:focus-visible .osm-isaret-nokta {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.osm-isaret-secili {
+  z-index: 4;
+}
+.osm-isaret-secili .osm-isaret-nokta {
+  transform: scale(1.3);
+  border-color: #fff;
+}
+.osm-isaret-uyari .osm-isaret-nokta {
+  box-shadow:
+    0 0 0 3px rgb(239 68 68 / 0.9),
+    0 0 18px rgb(239 68 68 / 0.8),
+    0 4px 10px rgb(0 0 0 / 0.5);
+}
+.osm-isaret-nabiz .osm-isaret-nokta::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid var(--osm-renk);
+  animation: osm-nabiz 1.6s ease-out infinite;
+}
+@keyframes osm-nabiz {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.osm-isaret-etiket {
+  position: absolute;
+  left: 27px;
+  top: -19px;
+  max-width: 240px;
+  padding: 5px 9px;
+  border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--osm-renk) 60%, transparent);
+  background: rgb(5 14 26 / 0.94);
+  color: #e6f6ff;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.5);
+  pointer-events: none;
+}
+[dir='rtl'] .osm-isaret-etiket {
+  left: auto;
+  right: 27px;
+}
+
+.osm-kontroller {
+  position: absolute;
+  z-index: 5;
+  top: 10px;
+  inset-inline-end: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgb(148 210 255 / 0.25);
+  background: rgb(5 14 26 / 0.88);
+  backdrop-filter: blur(6px);
+}
+.osm-kontroller button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: #d6f2ff;
+  cursor: pointer;
+}
+.osm-kontroller button + button {
+  border-top: 1px solid rgb(148 210 255 / 0.15);
+}
+.osm-kontroller button:hover {
+  background: rgb(34 211 238 / 0.14);
+}
+.osm-kontroller button:focus-visible {
+  outline: 2px solid rgb(34 211 238);
+  outline-offset: -2px;
+}
+.osm-atif {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 2px 7px;
+  border-top-left-radius: 8px;
+  background: rgb(5 14 26 / 0.82);
+  color: #b9d6e6;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+.osm-atif a {
+  color: #8fe3ff;
+  text-decoration: underline;
+}
+@media (prefers-reduced-motion: reduce) {
+  .osm-isaret-nabiz .osm-isaret-nokta::after {
+    animation: none;
+    opacity: 0;
+  }
+  .osm-isaret-nokta {
+    transition: none;
+  }
+}

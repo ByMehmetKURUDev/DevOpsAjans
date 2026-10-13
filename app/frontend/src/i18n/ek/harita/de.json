@@ -1,0 +1,10 @@
+{
+  "harita": {
+    "etiket": "Karte",
+    "rol": "interaktive Karte",
+    "yakinlas": "Vergrößern",
+    "uzaklas": "Verkleinern",
+    "sigdir": "Alles anzeigen",
+    "katkida": "-Mitwirkende"
+  }
+}

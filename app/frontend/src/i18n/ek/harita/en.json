@@ -1,0 +1,10 @@
+{
+  "harita": {
+    "etiket": "Map",
+    "rol": "interactive map",
+    "yakinlas": "Zoom in",
+    "uzaklas": "Zoom out",
+    "sigdir": "Show all",
+    "katkida": "contributors"
+  }
+}
