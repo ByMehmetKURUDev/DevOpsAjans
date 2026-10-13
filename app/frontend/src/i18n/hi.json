@@ -625,7 +625,8 @@
     "fGorunum": "साइट का रूप",
     "gorunumKlasik": "क्लासिक",
     "gorunumModern": "मॉडर्न",
-    "gorunumNebula": "नेबुला (UI/UX)"
+    "gorunumNebula": "नेबुला (UI/UX)",
+    "gorunumKomuta": "कमांड (ओवरव्यू)"
   },
   "tools": {
     "sectionTag": "उपयोग किए गए उपकरण",

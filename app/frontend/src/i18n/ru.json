@@ -625,7 +625,8 @@
     "fGorunum": "Внешний вид сайта",
     "gorunumKlasik": "Классический",
     "gorunumModern": "Современный",
-    "gorunumNebula": "Небула (UI/UX)"
+    "gorunumNebula": "Небула (UI/UX)",
+    "gorunumKomuta": "Командный (Обзор)"
   },
   "tools": {
     "sectionTag": "Используемые инструменты",

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { GORUNUMLER, type Gorunum } from '@/lib/gorunum';
 
 /**
- * Site Ayarları › Görünüm (Faz 8N): Klasik / Modern / Nebula (UI/UX).
+ * Site Ayarları › Görünüm (Faz 8N; 11G-2 Komuta): Klasik / Modern / Nebula (UI/UX) / Komuta.
  *
  * Her seçeneğin küçük önizlemesi yalnız CSS (satır içi stil; görsel dosya ve
  * yeni Tailwind sınıfı yok — ana stil dosyası büyümesin). Seçim taslağa yazılır,
@@ -118,10 +118,50 @@ function NebulaOnizleme() {
   );
 }
 
+/** Komuta (Faz 11G-2): panelin Genel bakışı — lacivert uzay, yuvarlak cam kartlar, camgöbeği ışıma, mono rakam. */
+function KomutaOnizleme() {
+  const kart = (isik: string): CSSProperties => ({
+    top: 26,
+    height: 40,
+    borderRadius: 9,
+    border: '1px solid rgba(130,180,255,0.22)',
+    background: `radial-gradient(circle at 100% 0%, rgba(${isik},0.32), transparent 55%), linear-gradient(160deg, rgba(28,38,78,0.9), rgba(10,14,34,0.95))`,
+    boxShadow: `0 0 12px -4px rgba(${isik},0.7)`,
+  });
+  const rakam: CSSProperties = { left: 7, top: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 11, lineHeight: 1, color: '#fff' };
+  return (
+    <>
+      <Kutu
+        style={{
+          inset: 0,
+          background: [
+            'radial-gradient(1px 1px at 30% 20%, #fff, transparent)',
+            'radial-gradient(1px 1px at 78% 14%, rgba(255,255,255,0.8), transparent)',
+            'radial-gradient(1px 1px at 52% 90%, rgba(255,255,255,0.7), transparent)',
+            'radial-gradient(circle at 10% 10%, rgba(56,209,255,0.4), transparent 50%)',
+            'radial-gradient(circle at 95% 95%, rgba(46,245,150,0.25), transparent 50%)',
+            '#050a1a',
+          ].join(','),
+        }}
+      />
+      <Kutu style={{ left: 10, top: 11, width: '40%', height: 5, borderRadius: 3, background: 'linear-gradient(90deg,#38d1ff,#2ef596)', boxShadow: '0 0 8px rgba(56,209,255,0.8)' }} />
+      <Kutu style={{ ...kart('56,209,255'), left: 10, width: 'calc(50% - 15px)' }}>
+        <Kutu style={rakam}>128</Kutu>
+        <Kutu style={{ left: 7, right: 7, bottom: 7, height: 2, borderRadius: 2, background: 'linear-gradient(90deg,transparent,#38d1ff)' }} />
+      </Kutu>
+      <Kutu style={{ ...kart('46,245,150'), right: 10, width: 'calc(50% - 15px)' }}>
+        <Kutu style={rakam}>%92</Kutu>
+        <Kutu style={{ left: 7, right: 7, bottom: 7, height: 2, borderRadius: 2, background: 'linear-gradient(90deg,transparent,#2ef596)' }} />
+      </Kutu>
+    </>
+  );
+}
+
 const ONIZLEMELER: Record<Gorunum, () => JSX.Element> = {
   klasik: KlasikOnizleme,
   modern: ModernOnizleme,
   nebula: NebulaOnizleme,
+  komuta: KomutaOnizleme,
 };
 
 export default function GorunumSecici({
@@ -138,7 +178,7 @@ export default function GorunumSecici({
   const { t } = useTranslation();
   return (
     <div className="space-y-3" data-testid="gorunum-secici">
-      <div className="grid gap-3 sm:grid-cols-3" role="group" aria-label={etiket}>
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4" role="group" aria-label={etiket}>
         {GORUNUMLER.map((g) => {
           const Onizleme = ONIZLEMELER[g];
           const secili = deger === g;

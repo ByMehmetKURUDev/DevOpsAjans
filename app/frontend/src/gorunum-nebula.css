@@ -893,3 +893,183 @@
 :root[data-gorunum='nebula'] .hero-surface > .absolute.bottom-0 .border-r {
   border-color: rgb(var(--n-m) / 0.2);
 }
+
+/* =====================================================================================================
+ * Faz 11G-2 — "Komuta" görünümü (Site Ayarları › Görünüm › Komuta; deneme `?gorunum=komuta`).
+ *
+ * Kullanıcı isteği (9 Ekim 2026): "Genel bakış ekranıyla aynı olsun, tüm site görünümünü güncelle."
+ * Komuta, Nebula'nın VARYANTI: `<html data-gorunum="nebula" data-varyant="komuta">` (src/lib/gorunum.ts,
+ * index.html satır içi betik, prerender/settings.js). Nebula'nın bütün kuralları geçerli; buradaki
+ * farklar yönetici panelinin "Genel bakış" ekranının dilini siteye taşıyor:
+ *   - palet: mor eksen → camgöbeği/mavi; zemin derin lacivert (panel kabuğunun Nebula tonu);
+ *   - kartlar: kesik köşe yerine 18 px yuvarlak lacivert cam kart, ince mavi kenar, köşe ışıması
+ *     (components/admin/genelBakis `.gb-kart` ile aynı katmanlar); kenar kalınlığı ve dolgu aynı →
+ *     bölüm yükseklikleri Nebula/Modern'le aynı (Index.tsx BOLUM_YUKSEKLIKLERI);
+ *   - ikon çipleri, fiyat kutusu, sekme çipleri, rozetler: yuvarlak;
+ *   - fiyat ve kart içi büyük rakamlar JetBrains Mono (sitede zaten yüklü).
+ * Özgüllük: `:root[data-gorunum='nebula'][data-varyant='komuta'] .x` (0,4,0) > Nebula (0,3,0).
+ * Animasyon yok (yalnız Nebula'nın masaüstü sürüklenmesi; o da "hareketi azalt"ta kapalı).
+ * ===================================================================================================== */
+:root[data-gorunum='nebula'][data-varyant='komuta'] {
+  --n-m: 56 209 255; /* camgöbeği #38d1ff — Nebula'daki mor eksenin yerine */
+  --n-mt: 159 230 255; /* koyu zeminde okunur açık camgöbeği #9fe6ff */
+  --n-zemin: 4 8 22;
+  --n-panel: 10 16 38;
+  --kb-kart1: 28 38 78;
+  --kb-kart2: 10 14 34;
+  --kb-cizgi: 130 180 255;
+  --background: 226 70% 5%;
+  --card: 226 52% 9%;
+  --popover: 226 56% 8%;
+  --border: 220 42% 20%;
+  --input: 220 42% 18%;
+  /* `pink-*` yan paleti mavi eksen. */
+  --yan-50: 236 248 255;
+  --yan-100: 214 240 255;
+  --yan-200: 178 228 255;
+  --yan-300: 134 214 255;
+  --yan-400: 86 200 255;
+  --yan-500: 56 180 245;
+  --yan-600: 37 150 225;
+  --yan-700: 30 118 190;
+  --yan-800: 28 92 150;
+  --yan-900: 24 70 115;
+  --yan-950: 12 40 70;
+  --degrade-metin: linear-gradient(100deg, #38d1ff 0%, #eaf6ff 48%, #2ef596 100%);
+}
+
+/* ---------- Zemin: lacivert uzay, camgöbeği / mavi / yeşil ışımalar ---------- */
+:root[data-gorunum='nebula'][data-varyant='komuta'] .noise-bg {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='380' height='380' stroke-linecap='round'%3E%3Cpath d='M119 192h0M195 67h0M101 363h0M25 46h0M73 129h0M262 110h0M208 331h0M18 238h0M252 235h0M202 256h0M296 101h0M209 48h0M251 122h0M13 361h0M139 269h0M211 245h0M197 374h0M61 342h0' stroke='%23fff' stroke-width='0.8' opacity='0.4'/%3E%3Cpath d='M362 102h0M78 299h0M236 376h0M302 230h0M149 288h0M185 221h0M72 84h0M310 52h0' stroke='%23dff6ff' stroke-width='1.3' opacity='0.8'/%3E%3C/svg%3E"),
+    var(--n-yildiz2),
+    radial-gradient(56% 46% at 4% 2%, rgb(56 209 255 / 0.2), transparent 72%),
+    radial-gradient(42% 38% at 98% 14%, rgb(59 130 246 / 0.16), transparent 70%),
+    radial-gradient(56% 46% at 92% 98%, rgb(46 245 150 / 0.12), transparent 72%),
+    radial-gradient(42% 36% at 10% 96%, rgb(59 130 246 / 0.12), transparent 70%),
+    radial-gradient(120% 90% at 50% 36%, rgb(12 20 48), rgb(var(--n-zemin)) 72%);
+  background-size: 380px 380px, 720px 720px, auto, auto, auto, auto, auto;
+  background-position: 0 0, 137px 211px, 0 0, 0 0, 0 0, 0 0, 0 0;
+  background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+}
+
+/* ---------- Kart: Genel bakış cam kartı ---------- */
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-xl.glass,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-2xl.glass,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-3xl.glass,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-2xl.border-white\/10,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-3xl.border-white\/10,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart.cam-glifli,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart[data-olcek] {
+  border-color: rgb(var(--kb-cizgi) / 0.18);
+  border-radius: 18px;
+  background:
+    radial-gradient(420px 220px at 100% 0%, rgb(var(--cv) / 0.12), transparent 70%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.06), transparent 38%),
+    linear-gradient(160deg, rgb(var(--kb-kart1) / 0.72), rgb(var(--kb-kart2) / 0.88));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    0 20px 40px -22px rgb(0 0 0 / 0.85);
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-xl.glass {
+  border-radius: 14px;
+}
+[dir='rtl']:root[data-gorunum='nebula'][data-varyant='komuta'] :is(.cam-kart, .rounded-2xl.glass, .rounded-3xl.glass, .rounded-2xl.border-white\/10, .rounded-3xl.border-white\/10) {
+  background:
+    radial-gradient(420px 220px at 0% 0%, rgb(var(--cv) / 0.12), transparent 70%),
+    linear-gradient(225deg, rgb(255 255 255 / 0.06), transparent 38%),
+    linear-gradient(200deg, rgb(var(--kb-kart1) / 0.72), rgb(var(--kb-kart2) / 0.88));
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart.cam-one,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart.cam-secili {
+  border-color: rgb(var(--cv) / 0.55);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 20px 40px -22px rgb(0 0 0 / 0.85),
+    0 0 36px -12px rgb(var(--cv) / 0.7);
+}
+@media (hover: hover) {
+  :root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart:hover,
+  :root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-2xl.glass:hover,
+  :root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-3xl.glass:hover,
+  :root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-2xl.border-white\/10:hover {
+    border-color: rgb(var(--kb-cizgi) / 0.32);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 20px 40px -22px rgb(0 0 0 / 0.85),
+      0 0 32px -12px rgb(var(--cv) / 0.6);
+  }
+}
+/* Kart içi alt kutular ve çizgiler. */
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-xl.border-white\/10,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-lg.border-white\/10,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-xl.border-white\/5,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-lg.border-white\/5 {
+  border-color: rgb(var(--kb-cizgi) / 0.14);
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart .border-t.border-white\/10,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart .border-b.border-white\/10,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .glass .border-t.border-white\/10,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .glass .border-b.border-white\/10 {
+  border-color: rgb(var(--kb-cizgi) / 0.12);
+}
+
+/* ---------- İkon çipleri ve fiyat kutusu: yuvarlak ---------- */
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-ikon,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-xl.bg-gradient-to-br,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-lg.bg-gradient-to-br,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-xl.bg-primary\/15,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .rounded-lg.bg-primary\/15 {
+  border-radius: 12px;
+  background:
+    radial-gradient(closest-side, rgb(var(--cv) / 0.2), rgb(var(--cv) / 0)) center / 80% 80% no-repeat,
+    linear-gradient(160deg, rgb(var(--cv) / 0.16), rgb(var(--n-panel) / 0.9));
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--cv) / 0.5),
+    0 0 18px -6px rgb(var(--cv) / 0.7);
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-fiyat {
+  border-radius: 12px;
+  border-color: rgb(var(--cv) / 0.4);
+  background: linear-gradient(160deg, rgb(var(--cv) / 0.1), rgb(var(--n-zemin) / 0.6));
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-fiyat .gradient-text,
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-kart :is(p, span, div):is(.text-3xl, .text-4xl, .text-5xl):is(.font-bold, .font-extrabold, .font-black) {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Sekme çipleri ve rozetler: yuvarlak ---------- */
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-sekmeler > button {
+  border-radius: 10px;
+  background: rgb(var(--sv) / 0.08);
+  box-shadow: inset 0 0 0 1px rgb(var(--sv) / var(--sa));
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-sekmeler > button.text-foreground {
+  box-shadow:
+    inset 0 0 0 1px rgb(var(--sv) / var(--sa)),
+    0 0 22px -8px rgb(var(--n-y) / 0.9);
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] .cam-alt-sekmeler > button {
+  border-radius: 999px;
+}
+
+/* ---------- Üst menü ve alt bilgi: lacivert cam ---------- */
+:root[data-gorunum='nebula'][data-varyant='komuta'] header.fixed.top-0.glass {
+  background: rgb(6 10 26 / 0.78);
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] header .rounded-2xl.glass,
+:root[data-gorunum='nebula'][data-varyant='komuta'] header .rounded-xl.glass {
+  border-radius: 14px;
+  background: rgb(8 14 34);
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] [data-site-duzeni] footer {
+  background-color: rgb(4 8 22 / 0.72);
+}
+:root[data-gorunum='nebula'][data-varyant='komuta'] [data-site-duzeni] input:not([type='checkbox'], [type='radio'], [type='range']),
+:root[data-gorunum='nebula'][data-varyant='komuta'] [data-site-duzeni] textarea,
+:root[data-gorunum='nebula'][data-varyant='komuta'] [data-site-duzeni] select {
+  background-color: rgb(4 8 22 / 0.72);
+}

@@ -625,7 +625,8 @@
     "fGorunum": "مظهر الموقع",
     "gorunumKlasik": "كلاسيكي",
     "gorunumModern": "حديث",
-    "gorunumNebula": "نيبولا (UI/UX)"
+    "gorunumNebula": "نيبولا (UI/UX)",
+    "gorunumKomuta": "القيادة (نظرة عامة)"
   },
   "tools": {
     "sectionTag": "الأدوات المستخدمة",

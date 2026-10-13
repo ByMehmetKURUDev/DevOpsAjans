@@ -625,7 +625,8 @@
     "fGorunum": "网站外观",
     "gorunumKlasik": "经典",
     "gorunumModern": "现代",
-    "gorunumNebula": "星云 Nebula (UI/UX)"
+    "gorunumNebula": "星云 Nebula (UI/UX)",
+    "gorunumKomuta": "指挥中心（概览）"
   },
   "tools": {
     "sectionTag": "使用的工具",

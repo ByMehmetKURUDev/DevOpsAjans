@@ -68,7 +68,8 @@ export const DEFAULT_SETTINGS: SettingsMap = {
   seo_meta_title: 'Mehmet KURU Dev',
   seo_meta_description: 'Web, e-ticaret, SaaS ve mobil uygulama geliştirme ajansı.',
   admin_emails: 'by@mehmetkuru.dev',
-  // Site görünümü: 'klasik' (eski), 'modern' (neon kart) ya da 'nebula' (Faz 8N, uzay/holografik).
+  // Site görünümü: 'klasik' (eski), 'modern' (neon kart), 'nebula' (Faz 8N, uzay/holografik) ya da
+  // 'komuta' (Faz 11G-2, panelin Genel bakış dili; Nebula'nın varyantı).
   site_gorunum: 'klasik',
 };
 
@@ -160,6 +161,7 @@ export const SETTING_GROUPS: {
           { value: 'klasik', label: 'settingsForm.gorunumKlasik' },
           { value: 'modern', label: 'settingsForm.gorunumModern' },
           { value: 'nebula', label: 'settingsForm.gorunumNebula' },
+          { value: 'komuta', label: 'settingsForm.gorunumKomuta' },
         ],
       },
     ],

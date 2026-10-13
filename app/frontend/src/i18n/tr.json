@@ -625,7 +625,8 @@
     "fGorunum": "Site görünümü",
     "gorunumKlasik": "Klasik",
     "gorunumModern": "Modern",
-    "gorunumNebula": "Nebula (UI/UX)"
+    "gorunumNebula": "Nebula (UI/UX)",
+    "gorunumKomuta": "Komuta (Genel bakış)"
   },
   "tools": {
     "sectionTag": "Kullanılan Araçlar",

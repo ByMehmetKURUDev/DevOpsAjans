@@ -625,7 +625,8 @@
     "fGorunum": "Website-Erscheinungsbild",
     "gorunumKlasik": "Klassisch",
     "gorunumModern": "Modern",
-    "gorunumNebula": "Nebula (UI/UX)"
+    "gorunumNebula": "Nebula (UI/UX)",
+    "gorunumKomuta": "Kommando (Übersicht)"
   },
   "tools": {
     "sectionTag": "Eingesetzte Werkzeuge",

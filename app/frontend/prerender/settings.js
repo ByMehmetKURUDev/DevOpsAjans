@@ -90,13 +90,13 @@ export function resolvePanelValue(settings, key, lang, fallback) {
 }
 
 /**
- * Derlemede geçerli site görünümü (`site_gorunum`): 'modern', 'nebula' ya da 'klasik'.
+ * Derlemede geçerli site görünümü (`site_gorunum`): 'modern', 'nebula', 'komuta' ya da 'klasik'.
  *
  * Tanınmayan/boş değer klasik sayılır — src/lib/gorunum.ts ile aynı kural.
  */
 export function siteGorunumu(settings = {}) {
   const deger = String(settings?.site_gorunum ?? '').trim();
-  return deger === 'modern' || deger === 'nebula' ? deger : 'klasik';
+  return deger === 'modern' || deger === 'nebula' || deger === 'komuta' ? deger : 'klasik';
 }
 
 /**
@@ -113,12 +113,15 @@ export function siteGorunumu(settings = {}) {
  * css-gomule onu da işleyip kritik kurallarını gömer, kalanını arkadan yükletir.
  */
 export function htmlGorunumYaz(html, gorunum, { nebulaStili } = {}) {
-  if (gorunum !== 'modern' && gorunum !== 'nebula') return html;
+  if (gorunum !== 'modern' && gorunum !== 'nebula' && gorunum !== 'komuta') return html;
+  // Faz 11G-2 — Komuta, Nebula'nın varyantı: aynı stil dosyası, ek `data-varyant="komuta"`.
+  const komuta = gorunum === 'komuta';
+  const oznitelik = komuta ? 'nebula' : gorunum;
   let sonuc = html.replace(/<html\b([^>]*)>/i, (_tam, oznitelikler) => {
-    const temiz = oznitelikler.replace(/\s+data-gorunum=("[^"]*"|'[^']*'|\S+)/gi, '');
-    return `<html${temiz} data-gorunum="${gorunum}">`;
+    const temiz = oznitelikler.replace(/\s+data-(?:gorunum|varyant)=("[^"]*"|'[^']*'|\S+)/gi, '');
+    return `<html${temiz} data-gorunum="${oznitelik}"${komuta ? ' data-varyant="komuta"' : ''}>`;
   });
-  if (gorunum === 'nebula' && nebulaStili && !sonuc.includes(`href="${nebulaStili}"`)) {
+  if (oznitelik === 'nebula' && nebulaStili && !sonuc.includes(`href="${nebulaStili}"`)) {
     sonuc = sonuc.replace(/<\/head>/i, `  <link rel="stylesheet" href="${nebulaStili}">\n  </head>`);
   }
   return sonuc;

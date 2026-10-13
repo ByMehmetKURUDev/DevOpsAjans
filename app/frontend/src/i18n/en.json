@@ -625,7 +625,8 @@
     "fGorunum": "Site appearance",
     "gorunumKlasik": "Classic",
     "gorunumModern": "Modern",
-    "gorunumNebula": "Nebula (UI/UX)"
+    "gorunumNebula": "Nebula (UI/UX)",
+    "gorunumKomuta": "Command (Overview)"
   },
   "tools": {
     "sectionTag": "Tools We Use",

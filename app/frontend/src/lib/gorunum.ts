@@ -1,6 +1,13 @@
 /**
- * Site görünümü: "klasik" (eski), "modern" (neon kart görünümü) ya da
- * "nebula" (Faz 8N — uzay arka planı, holografik paneller).
+ * Site görünümü: "klasik" (eski), "modern" (neon kart görünümü), "nebula"
+ * (Faz 8N — uzay arka planı, holografik paneller) ya da "komuta" (Faz 11G-2 —
+ * panelin Genel bakış ekranıyla aynı dil: lacivert cam kartlar, camgöbeği ışıma).
+ *
+ * "komuta" Nebula'nın bir VARYANTI: `<html data-gorunum="nebula" data-varyant="komuta">`.
+ * Böylece Nebula'nın bütün kuralları (zemin, düğmeler, menü, sekmeler, panel
+ * kabuğunun lacivert tonu) aynen geçerli; Komuta'nın farkları aynı stil dosyasının
+ * sonunda `[data-varyant='komuta']` altında (kart biçimi, palet). Ayrı dosya,
+ * ayrı yükleyici, ayrı satır içi betik dalı yok.
  *
  * Herkes için geçerli seçim admin panelindeki Site Ayarları → Görünüm
  * alanından gelir (`site_gorunum`). Varsayılan klasik; ayar yoksa site
@@ -9,6 +16,7 @@
  * Yöneticinin denemesi için adres çubuğu anahtarı:
  *   ?gorunum=modern  yalnız bu tarayıcıda Modern görünüm
  *   ?gorunum=nebula  yalnız bu tarayıcıda Nebula görünüm
+ *   ?gorunum=komuta  yalnız bu tarayıcıda Komuta görünüm
  *   ?gorunum=klasik  yalnız bu tarayıcıda eski görünüm
  *   ?gorunum=site    tarayıcı seçimini sil, sitenin ayarına uy
  *
@@ -19,15 +27,15 @@
  */
 import nebulaStilAdresi from '../gorunum-nebula.css?url';
 
-export type Gorunum = 'klasik' | 'modern' | 'nebula';
+export type Gorunum = 'klasik' | 'modern' | 'nebula' | 'komuta';
 
 /** Geçerli görünümler (panel seçenekleri ve doğrulama için tek liste). */
-export const GORUNUMLER: readonly Gorunum[] = ['klasik', 'modern', 'nebula'];
+export const GORUNUMLER: readonly Gorunum[] = ['klasik', 'modern', 'nebula', 'komuta'];
 
 const ANAHTAR = 'gorunum-onizleme';
 
 function gecerli(v: unknown): v is Gorunum {
-  return v === 'klasik' || v === 'modern' || v === 'nebula';
+  return v === 'klasik' || v === 'modern' || v === 'nebula' || v === 'komuta';
 }
 
 /** Adres çubuğundaki `?gorunum=` değerini tarayıcı seçimi olarak kaydeder. */
@@ -90,11 +98,25 @@ function nebulaStiliniYukle(): void {
  */
 export function gorunumUygula(siteAyari?: string): void {
   if (typeof document === 'undefined') return;
+  const h = document.documentElement;
   const ayar = siteAyari ?? onbellektekiSiteAyari();
-  const yazili = document.documentElement.getAttribute('data-gorunum');
+  const yazili = h.getAttribute('data-varyant') === 'komuta' ? 'komuta' : h.getAttribute('data-gorunum');
   const secim = tarayiciSecimi() ?? (gecerli(ayar) ? ayar : gecerli(yazili) ? yazili : 'klasik');
-  if (secim === 'nebula') nebulaStiliniYukle();
-  if (document.documentElement.getAttribute('data-gorunum') !== secim) {
-    document.documentElement.setAttribute('data-gorunum', secim);
+  if (secim === 'nebula' || secim === 'komuta') nebulaStiliniYukle();
+  const oznitelik = secim === 'komuta' ? 'nebula' : secim;
+  if (h.getAttribute('data-gorunum') !== oznitelik) h.setAttribute('data-gorunum', oznitelik);
+  if (secim === 'komuta') {
+    if (h.getAttribute('data-varyant') !== 'komuta') h.setAttribute('data-varyant', 'komuta');
+  } else if (h.hasAttribute('data-varyant')) {
+    h.removeAttribute('data-varyant');
   }
+}
+
+/** Etkin görünüm (Komuta, Nebula özniteliğinin varyantı olarak okunur). */
+export function etkinGorunum(): Gorunum {
+  if (typeof document === 'undefined') return 'klasik';
+  const h = document.documentElement;
+  if (h.getAttribute('data-varyant') === 'komuta') return 'komuta';
+  const g = h.getAttribute('data-gorunum');
+  return gecerli(g) ? g : 'klasik';
 }
