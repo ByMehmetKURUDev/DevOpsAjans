@@ -77,7 +77,7 @@ export default function AsistanSohbeti() {
 
     asistanaSor({ gecmis: yeniGecmis, paketler, dil: i18n.language }, kontrol.signal)
       .then((cevap) =>
-        setMesajlar((m) => [...m, { rol: 'asistan', metin: cevap }].slice(-EN_FAZLA)),
+        setMesajlar((m) => [...m, { rol: 'asistan', metin: cevap } as Mesaj].slice(-EN_FAZLA)),
       )
       .catch((e) => {
         if ((e as Error)?.name === 'AbortError') return;

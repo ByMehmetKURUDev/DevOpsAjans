@@ -49,7 +49,7 @@ interface Dugum {
   satirlar: string[];
   not?: string;
   renk: string;
-  Ikon: ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' }>;
+  Ikon: ComponentType<{ className?: string; 'aria-hidden'?: boolean | 'true' | 'false' }>;
 }
 
 const RENK: Record<string, string> = {
