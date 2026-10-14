@@ -52,7 +52,7 @@ def test_rotalar_lazy_prerender_disi_ve_site_haritasinda_yok():
     assert re.search(r"const EgitimSayfasi = lazy\(\(\) => import\('\./pages/EgitimSayfasi'\)\)", app)
     # Özel rotalar genel `/egitim/:slug`ten önce (yoksa "ogrenci" slug sanılır).
     assert app.index('path="/egitim/ogrenci/:jeton"') < app.index('path="/egitim/:slug"')
-    kontrol = (ON_YUZ / "scripts" / "check-routes.mjs").read_text(encoding="utf-8")
+    kontrol = (ON_YUZ / "scripts" / "spa-yollari.mjs").read_text(encoding="utf-8")
     for yol in ("'/egitim/:slug'", "'/egitim/ogrenci/:jeton'", "'/egitim/yoklama/:jeton'", "'/egitim/sertifika/:kod'",
                 "'/egitim/okut/:kid/:oid'", "'/egitim/kurum/:slug'"):
         assert yol in kontrol, yol

@@ -37,7 +37,8 @@ def test_rotalar_prerender_disi_ve_site_haritasinda_yok():
     app = (ON_YUZ / "src" / "App.tsx").read_text(encoding="utf-8")
     for yol in ('path="/kart/:slug"', 'path="/yorum/:slug"', 'path="/:lang/kart/:slug"', 'path="/:lang/yorum/:slug"'):
         assert yol in app, yol
-    kontrol = (ON_YUZ / "scripts" / "check-routes.mjs").read_text(encoding="utf-8")
+    # Parti 14: istemci rotaları listesi check-routes.mjs'ten spa-yollari.mjs'e taşındı (tek kaynak).
+    kontrol = (ON_YUZ / "scripts" / "spa-yollari.mjs").read_text(encoding="utf-8")
     for yol in ("'/kart/:slug'", "'/yorum/:slug'", "'/:lang/kart/:slug'", "'/:lang/yorum/:slug'"):
         assert yol in kontrol, yol
     site = (ON_YUZ / "prerender" / "site.js").read_text(encoding="utf-8")

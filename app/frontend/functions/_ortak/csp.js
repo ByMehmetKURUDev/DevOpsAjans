@@ -47,10 +47,8 @@ const SATIR_ICI_OZETLER = [
   "'sha256-oqFr/On43q4LbOnWpE/eciGi1ITFYFkDfTBZuPtANFA='",
   // Görünüm betiği (Faz 11G-2'den beri "komuta"yı da tanıyor). 11G-2 öncesi özet Parti 12'de kaldırıldı.
   "'sha256-HaxL7HhM2ojKmkp0q9aMfM9+Q3IH8w/ucHCAa8zOw9o='",
-  // GA yükleyicisi (Parti 13: özel yollarda ölçüm yok). Önceki özet (PCjmZn0…) önbellekteki
-  // eski sayfalar için bir yayın daha kalıyor; sonraki partide kaldırılacak.
+  // GA yükleyicisi (Parti 13: özel yollarda ölçüm yok). Önceki özet (PCjmZn0…) Parti 14'te kaldırıldı.
   "'sha256-2wxv8KOIIIxzILXfvaJPNMTgqp0NULBNTA+UjzmPhUk='",
-  "'sha256-PCjmZn0yQDGBUSNPN2ty+MWlzJdvWnTmUGsuUU8TjWY='",
   "'unsafe-hashes'",
   "'sha256-F1noxsLOnJhyRSgc0zu5JgzoLjG2BBMaXaSG24k2mRM='",
   "'sha256-9gOBGqEQINNDuds+tkXbNzih6klbz+KeCyxEj4KRLeM='",

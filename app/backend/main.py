@@ -194,6 +194,10 @@ def include_routers_from_package(app: FastAPI, package_name: str = "routers") ->
 
 # Setup logging before router discovery
 setup_logging()
+# Parti 14: erişim kaydında OAuth `code`/`state` gibi sorgu değerleri maskelensin.
+from core.log_maskeleme import erisim_kaydini_maskele  # noqa: E402
+
+erisim_kaydini_maskele()
 include_routers_from_package(app, "routers")
 
 

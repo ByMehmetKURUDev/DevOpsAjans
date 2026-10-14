@@ -1,7 +1,13 @@
-# Cloudflare Pages — SPA yedeği.
+# Cloudflare Pages — yönlendirmeler.
 #
-# Dosyası olmayan yollar (/admin, /client) uygulamaya düşsün diye.
-# Cloudflare önce gerçek dosyaya baktığı için prerender edilen 99 statik
-# sayfa bu kuraldan etkilenmiyor; /api/* ise Pages Function tarafından
-# daha önce karşılanıyor.
-/*    /index.html   200
+# Parti 14: her yolu yakalayan `/*  /index.html  200` SPA kuralı KALDIRILDI
+# (var olmayan adresler 200 dönüyordu: soft-404). Yalnız istemcide çizilen
+# rotaların (/admin, /client, jetonlu bağlantılar…) yeniden yazma kuralları
+# derlemede `scripts/spa-ve-404.mjs` tarafından `dist/_redirects` sonuna
+# ekleniyor; liste `scripts/spa-yollari.mjs`'te (tek kaynak). Diğer her şey
+# `dist/404.html` ile gerçek 404 alıyor.
+#
+# Cloudflare önce gerçek dosyaya bakıyor; prerender edilen sayfalar bu
+# kurallardan etkilenmiyor. `/api/*` ve diğer Pages Function yolları
+# (kart, menu, randevu, etkinlik, egitim, asistan, hukuk, q) Function'da
+# karşılanıyor; kural yalnız Function devre dışıyken yedek.

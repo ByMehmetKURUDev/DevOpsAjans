@@ -74,7 +74,7 @@ def test_etkinlik_rotalari_lazy_prerender_disi_ve_site_haritasinda_yok():
                          ("/etkinlikler/:slug", "liste")):
         assert re.search(r'<Route path="%s" element=\{<EtkinlikSayfasi gorunum="%s" />\} />' % (re.escape(yol), gorunum), app), yol
     assert re.search(r"const EtkinlikSayfasi = lazy\(\(\) => import\('\./pages/EtkinlikSayfasi'\)\)", app)
-    kontrol = (ON_YUZ / "scripts" / "check-routes.mjs").read_text(encoding="utf-8")
+    kontrol = (ON_YUZ / "scripts" / "spa-yollari.mjs").read_text(encoding="utf-8")
     for yol in ("'/etkinlik/:slug'", "'/etkinlik/:slug/bilet/:jeton'", "'/etkinlik/giris/:jeton'", "'/etkinlik/okut/:eid'",
                 "'/etkinlikler/:slug'"):
         assert yol in kontrol, yol

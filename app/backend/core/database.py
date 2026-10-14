@@ -959,6 +959,13 @@ class DatabaseManager:
 db_manager = DatabaseManager()
 
 
+def _istemci_hatasi_mi(hata: BaseException) -> bool:
+    """Uçtan bilinçli dönen 4xx (`HTTPException`) mı? Bunlar günlüğe hata olarak yazılmıyor."""
+    from starlette.exceptions import HTTPException as _HTTPHatasi
+
+    return isinstance(hata, _HTTPHatasi) and 400 <= int(getattr(hata, "status_code", 500)) < 500
+
+
 async def get_db() -> AsyncSession:
     """FastAPI dependency for database session with lazy initialization support"""
     start_time = time.time()
@@ -983,6 +990,10 @@ async def get_db() -> AsyncSession:
             try:
                 yield session
             except Exception as e:
+                if _istemci_hatasi_mi(e):
+                    # Parti 14: uçların bilinçli 4xx yanıtları (401 oturum_gerekli, 403, 404…) hata değil;
+                    # her biri için iki tam traceback yazmak gerçek hataları gömüyordu.
+                    raise
                 logger.error(f"Database session error: {e}", exc_info=True)
                 # Don't manually rollback here - AsyncSession.__aexit__ will automatically rollback on exception
                 # Manual rollback would cause "cannot switch to state 15" error due to double rollback
@@ -991,5 +1002,6 @@ async def get_db() -> AsyncSession:
                 logger.debug(f"[DB_OP] Database session cleanup after {time.time() - start_time:.4f}s")
                 # Session is automatically closed by the async context manager when exiting 'async with'
     except Exception as e:
-        logger.error(f"Failed to create database session: {e}", exc_info=True)
+        if not _istemci_hatasi_mi(e):
+            logger.error(f"Failed to create database session: {e}", exc_info=True)
         raise

@@ -780,7 +780,7 @@ def test_on_yuz_kayitlari_rota_noindex_basliklar_ve_menuler():
     on = Path(__file__).resolve().parents[3] / "frontend"
     app = (on / "src" / "App.tsx").read_text(encoding="utf-8")
     assert '<Route path="/toplanti-yanit/:jeton" element={<ToplantiYanitSayfasi />} />' in app
-    assert "'/toplanti-yanit/:jeton'" in (on / "scripts" / "check-routes.mjs").read_text(encoding="utf-8")
+    assert "'/toplanti-yanit/:jeton'" in (on / "scripts" / "spa-yollari.mjs").read_text(encoding="utf-8")
     site = (on / "prerender" / "site.js").read_text(encoding="utf-8")
     noindex = site[site.index("export const NOINDEX_ROUTES"):]
     assert "'/toplanti-yanit'" in noindex[: noindex.index("];")]

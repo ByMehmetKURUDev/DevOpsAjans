@@ -791,7 +791,7 @@ def test_portal_rotasi_lazy_prerender_disi_noindex():
     app = (ON_YUZ / "src" / "App.tsx").read_text(encoding="utf-8")
     assert '<Route path="/hukuk/muvekkil/:jeton" element={<HukukPortal />} />' in app
     assert re.search(r"const HukukPortal = lazy\(\(\) => import\('\./pages/HukukPortal'\)\)", app)
-    assert "'/hukuk/muvekkil/:jeton'" in (ON_YUZ / "scripts" / "check-routes.mjs").read_text(encoding="utf-8")
+    assert "'/hukuk/muvekkil/:jeton'" in (ON_YUZ / "scripts" / "spa-yollari.mjs").read_text(encoding="utf-8")
     site = (ON_YUZ / "prerender" / "site.js").read_text(encoding="utf-8")
     noindex = site[site.index("export const NOINDEX_ROUTES"):]
     assert "'/hukuk'" in noindex[: noindex.index("];")]

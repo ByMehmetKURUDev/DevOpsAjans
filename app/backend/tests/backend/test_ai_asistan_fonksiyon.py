@@ -57,7 +57,7 @@ def test_asistan_rotasi_lazy_prerender_disi_ve_noindex():
     app = (ON_YUZ / "src" / "App.tsx").read_text(encoding="utf-8")
     assert re.search(r'<Route path="/asistan/:anahtar" element=\{<AsistanSayfasi />\} />', app)
     assert re.search(r"const AsistanSayfasi = lazy\(\(\) => import\('\./pages/AsistanSayfasi'\)\)", app)
-    kontrol = (ON_YUZ / "scripts" / "check-routes.mjs").read_text(encoding="utf-8")
+    kontrol = (ON_YUZ / "scripts" / "spa-yollari.mjs").read_text(encoding="utf-8")
     assert "'/asistan/:anahtar'" in kontrol
     site = (ON_YUZ / "prerender" / "site.js").read_text(encoding="utf-8")
     noindex = site[site.index("export const NOINDEX_ROUTES"):]

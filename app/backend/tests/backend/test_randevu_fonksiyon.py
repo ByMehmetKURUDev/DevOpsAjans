@@ -60,7 +60,7 @@ def test_randevu_rotalari_lazy_prerender_disi_ve_site_haritasinda_yok():
     assert re.search(r"const RandevuSayfasi = ekliLazy\(", app)
     # Yönetim rotası, `:slug/:tur` kalıbından önce tanımlı (yoksa "yonet" bir sayfa adı sanılır).
     assert app.index('"/randevu/yonet/:jeton"') < app.index('"/randevu/:slug/:tur"')
-    kontrol = (ON_YUZ / "scripts" / "check-routes.mjs").read_text(encoding="utf-8")
+    kontrol = (ON_YUZ / "scripts" / "spa-yollari.mjs").read_text(encoding="utf-8")
     for yol in ("'/randevu/:slug'", "'/randevu/:slug/:tur'", "'/randevu/yonet/:jeton'"):
         assert yol in kontrol, yol
     site = (ON_YUZ / "prerender" / "site.js").read_text(encoding="utf-8")

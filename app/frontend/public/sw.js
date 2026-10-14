@@ -32,7 +32,7 @@
  * buydu. Önbelleğe alınan bir varlığın davranışı değiştiğinde bu sayı
  * artırılmalı.
  */
-const SURUM = 'mk-v5';
+const SURUM = 'mk-v6';
 const KABUK = `${SURUM}-kabuk`;
 const VARLIK = `${SURUM}-varlik`;
 const PANEL = `${SURUM}-panel`;
@@ -135,8 +135,12 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((yanit) => {
-          const kopya = yanit.clone();
-          caches.open(KABUK).then((cache) => cache.put(request, kopya));
+          // Parti 14: yalnız başarılı sayfa önbelleğe girer. Artık gerçek 404 dönen
+          // adreslerin "bulunamadı" sayfası çevrimdışı kopya olarak saklanmasın.
+          if (yanit.ok) {
+            const kopya = yanit.clone();
+            caches.open(KABUK).then((cache) => cache.put(request, kopya));
+          }
           return yanit;
         })
         .catch(() =>
