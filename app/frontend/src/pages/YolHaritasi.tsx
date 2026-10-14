@@ -8,6 +8,7 @@ import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 import { Button } from '@/components/ui/button';
 import { ekliLazy } from '@/i18n/ekliLazy';
 import { getAPIBaseURL } from '@/lib/config';
+import { donusum } from '@/lib/olcum';
 import { client } from '@/lib/sdkClient';
 import { VITRIN } from '@/lib/modulVitrini';
 import { modulYolu } from '../../prerender/moduller-veri.js';
@@ -112,6 +113,7 @@ export default function YolHaritasi() {
         },
       });
       setBitti(true);
+      donusum('lead', { kaynak: 'bekleme_listesi' });
       toast.success(t('yolHaritasi.alindi'));
     } catch (hata) {
       const h = hata as { message?: string };

@@ -14,6 +14,14 @@ PUT    /api/v1/baglantilar/google/secim          {ga4_mulk, sc_site, yt_kanal}
 POST   /api/v1/baglantilar/google/esitle         elle eşitleme (10 dk'da bir)
 DELETE /api/v1/baglantilar/google                Google'da iptal + kaydı sil
 
+Parti 13 — Meta (Facebook sayfası + Instagram), aynı düzen:
+POST   /api/v1/baglantilar/meta/baslat           → {adres} Facebook onay adresi
+GET    /api/v1/baglantilar/meta/geri-donus       Facebook yönlendirmesi — GİRİŞSİZ, state zorunlu
+GET    /api/v1/baglantilar/meta/kaynaklar        sayfalar + bağlı Instagram hesapları
+PUT    /api/v1/baglantilar/meta/secim            {fb_sayfa, ig_hesap}
+POST   /api/v1/baglantilar/meta/esitle           elle eşitleme (10 dk'da bir)
+DELETE /api/v1/baglantilar/meta                  Facebook'ta izni geri al + kaydı sil
+
 Yetki: oturumsuz 401, yönetici olmayan 403.
 """
 
@@ -28,6 +36,7 @@ from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from services import baglantilar as servis
 from services import google_esitleme as esitleme
+from services import meta_baglanti as meta
 from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = logging.getLogger(__name__)
@@ -129,6 +138,77 @@ async def kaldir(request: Request, db: AsyncSession = _Depends(get_db)):
     _yonetici_iste(request)
     try:
         return await servis.baglantiyi_kaldir(db)
+    except servis.BaglantiHatasi as h:
+        raise _hata(h)
+
+
+class MetaSecimGirdisi(BaseModel):
+    fb_sayfa: Optional[str] = None
+    ig_hesap: Optional[str] = None
+
+
+@yonetici_router.post("/meta/baslat")
+async def meta_baslat(request: Request, db: AsyncSession = _Depends(get_db)):
+    eposta = _yonetici_iste(request)
+    try:
+        return {"adres": await meta.baslat(db, eposta)}
+    except servis.BaglantiHatasi as h:
+        raise _hata(h)
+
+
+@acik_router.get("/meta/geri-donus")
+async def meta_geri_donus(
+    db: AsyncSession = _Depends(get_db),
+    code: Optional[str] = Query(default=None, max_length=4096),
+    state: Optional[str] = Query(default=None, max_length=512),
+    error: Optional[str] = Query(default=None, max_length=200),
+):
+    """Facebook'un yönlendirdiği adres. Hata ayrıntısı URL'de taşınmaz: kısa kod."""
+    try:
+        sonuc = await meta.geri_donus(db, code, state, error)
+    except Exception:  # noqa: BLE001 - kullanıcı ham hata görmesin
+        logger.exception("Meta geri dönüşü işlenemedi")
+        sonuc = "meta_hatasi"
+    yanit = RedirectResponse(meta.panel_adresi(sonuc), status_code=status.HTTP_302_FOUND)
+    yanit.headers["Cache-Control"] = "no-store"
+    yanit.headers["Referrer-Policy"] = "no-referrer"
+    return yanit
+
+
+@yonetici_router.get("/meta/kaynaklar")
+async def meta_kaynaklar(request: Request, db: AsyncSession = _Depends(get_db)):
+    _yonetici_iste(request)
+    try:
+        return await meta.kaynaklari_getir(db)
+    except servis.BaglantiHatasi as h:
+        raise _hata(h)
+
+
+@yonetici_router.put("/meta/secim")
+async def meta_secim(girdi: MetaSecimGirdisi, request: Request, db: AsyncSession = _Depends(get_db)):
+    _yonetici_iste(request)
+    try:
+        secimler = await meta.secimi_kaydet(db, girdi.model_dump(exclude_unset=True))
+    except servis.BaglantiHatasi as h:
+        raise _hata(h)
+    return {"secimler": secimler}
+
+
+@yonetici_router.post("/meta/esitle")
+async def meta_esitle(request: Request, db: AsyncSession = _Depends(get_db)):
+    _yonetici_iste(request)
+    try:
+        sonuc = await meta.elle_esitle(db)
+    except servis.BaglantiHatasi as h:
+        raise _hata(h)
+    return {**sonuc, "durum": await servis.durum_listesi(db)}
+
+
+@yonetici_router.delete("/meta")
+async def meta_kaldir(request: Request, db: AsyncSession = _Depends(get_db)):
+    _yonetici_iste(request)
+    try:
+        return await meta.baglantiyi_kaldir(db)
     except servis.BaglantiHatasi as h:
         raise _hata(h)
 

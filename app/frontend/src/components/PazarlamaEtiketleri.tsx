@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
+import { donusum, iletisimYontemi, ozelYolMu } from '@/lib/olcum';
 import { RIZA_OLAYI, rizayiOku } from '@/lib/riza';
 import { useSiteSettings } from '@/lib/siteSettings';
 
@@ -22,13 +24,19 @@ import { useSiteSettings } from '@/lib/siteSettings';
  *
  * Doğrulama etiketleri (Google/Bing) rızadan bağımsız: ziyaretçi verisi
  * işlemiyorlar, yalnızca site sahipliğini kanıtlıyorlar.
+ *
+ * Parti 13: özel yollarda (paneller, jetonlu bağlantılar — `lib/olcum.ts`)
+ * Pixel/Ads hiç kurulmuyor; kurulduysa o sayfalarda PageView gitmiyor
+ * (Pixel'in kendi geçmiş izlemesi kapalı, PageView'ı yalnız açık sayfalarda
+ * biz gönderiyoruz). Telefon / e-posta / WhatsApp bağlantısına tıklama
+ * "Contact" dönüşümü olarak kaydediliyor.
  */
 
 declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
-    fbq?: ((...args: unknown[]) => void) & { callMethod?: unknown; queue?: unknown[] };
+    fbq?: ((...args: unknown[]) => void) & { callMethod?: unknown; queue?: unknown[]; disablePushState?: boolean };
     _fbq?: unknown;
   }
 }
@@ -85,6 +93,9 @@ function metaEkle(ad: string, deger: string) {
 export default function PazarlamaEtiketleri() {
   const { settings } = useSiteSettings();
   const [riza, setRiza] = useState(() => rizayiOku());
+  const { pathname } = useLocation();
+  const ozel = ozelYolMu(pathname);
+  const pixelKuruldu = useRef(false);
 
   useEffect(() => {
     const tazele = () => setRiza(rizayiOku());
@@ -105,9 +116,30 @@ export default function PazarlamaEtiketleri() {
     metaEkle('msvalidate.01', bingDogrulama);
   }, [googleDogrulama, bingDogrulama]);
 
+  // İletişim tıklamaları → "Contact" dönüşümü (yalnız açık sayfalarda; donusum() ayrıca denetliyor).
+  useEffect(() => {
+    const tikla = (olay: MouseEvent) => {
+      const hedef = olay.target instanceof Element ? olay.target.closest('a[href]') : null;
+      const yontem = iletisimYontemi(hedef?.getAttribute('href'));
+      if (yontem) donusum('contact', { yontem });
+    };
+    document.addEventListener('click', tikla, { capture: true });
+    return () => document.removeEventListener('click', tikla, { capture: true });
+  }, []);
+
+  // Pixel kurulduktan sonra açık sayfalar arası geçişte PageView (özel sayfada değil).
+  const ilkSayfa = useRef(true);
+  useEffect(() => {
+    if (ilkSayfa.current) {
+      ilkSayfa.current = false;
+      return;
+    }
+    if (pixelKuruldu.current && !ozel) window.fbq?.('track', 'PageView');
+  }, [pathname, ozel]);
+
   // Google Ads
   useEffect(() => {
-    if (!adsId || !izleyebilir) return;
+    if (!adsId || !izleyebilir || ozel) return;
     return bostaCalistir(() => {
       gtagHazirla();
       betikEkle(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(adsId)}`, 'mk-ads');
@@ -118,7 +150,7 @@ export default function PazarlamaEtiketleri() {
 
   // Meta (Facebook) Pixel
   useEffect(() => {
-    if (!pixelId || !izleyebilir) return;
+    if (!pixelId || !izleyebilir || ozel || pixelKuruldu.current) return;
     return bostaCalistir(() => {
       if (!window.fbq) {
         const n = function (...args: unknown[]) {
@@ -131,11 +163,14 @@ export default function PazarlamaEtiketleri() {
         window.fbq = n;
         window._fbq = n;
       }
+      // SPA geçişlerinde Pixel kendi PageView'ını göndermesin: özel sayfaları biz eliyoruz.
+      if (window.fbq) window.fbq.disablePushState = true;
       betikEkle('https://connect.facebook.net/en_US/fbevents.js', 'mk-pixel');
       window.fbq?.('init', pixelId);
-      window.fbq?.('track', 'PageView');
+      if (!ozelYolMu(window.location.pathname)) window.fbq?.('track', 'PageView');
+      pixelKuruldu.current = true;
     });
-  }, [pixelId, izleyebilir]);
+  }, [pixelId, izleyebilir, ozel]);
 
   return null;
 }

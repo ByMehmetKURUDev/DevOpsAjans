@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { fiyatlandirmaApi, type FiyatTeklifIstegi } from '@/api/fiyatlandirma';
 import { ekliLazy } from '@/i18n/ekliLazy';
 import { secimPaketi } from '@/lib/indirimKodu';
+import { donusum } from '@/lib/olcum';
 
 // Faz 5K: isteğe bağlı "indirim / referans kodu" — metni ek pakette, alan pencere açılınca yüklenir.
 const IndirimKoduAlani = ekliLazy('indirimKodu', () => import('@/components/IndirimKoduAlani'));
@@ -81,6 +82,7 @@ export default function FiyatTeklifModal({ acik, kapat, konu, fiyatMetni, secim,
         ...(referansKodu.trim() ? { referans_kodu: referansKodu.trim() } : {}),
       });
       setBitti(true);
+      donusum('lead', { kaynak: 'fiyat_teklifi' });
       toast.success(t('fiyatTeklif.alindi', 'Teklifiniz oluşturuldu, fatura e-postanıza gönderilecek.'));
     } catch (hata) {
       const h = hata as { status?: number; message?: string };

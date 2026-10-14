@@ -1,7 +1,7 @@
 {
   "baglantilar": {
     "baslik": "Bağlantılar",
-    "aciklama": "Ajansın kendi Google hesaplarını bağlayın; Anlık Analitik panosu örnek sayılar yerine gerçek veriyi gösterir. Bağlantı yalnız okuma izni ister; istediğiniz an kaldırabilirsiniz.",
+    "aciklama": "Ajansın kendi Google ve Meta hesaplarını bağlayın; Anlık Analitik panosu örnek sayılar yerine gerçek veriyi gösterir. Bağlantı yalnız okuma izni ister; istediğiniz an kaldırabilirsiniz.",
     "testModu": "Test modu: Google'a gerçek istek gitmiyor, sahte veri kullanılıyor.",
     "sonuc": {
       "baglandi": "Google hesabı bağlandı. Şimdi aşağıdan mülk, site ve kanalı seçip kaydedin.",
@@ -10,7 +10,13 @@
       "kurulmadi": "Google bağlantısı sunucuda kurulmamış (ortam değişkenleri eksik).",
       "kod_hatasi": "Google onay kodu doğrulanamadı. Yeniden deneyin; sürerse yönlendirme adresini ve istemci bilgilerini kontrol edin.",
       "yenileme_yok": "Google kalıcı erişim izni vermedi. myaccount.google.com/permissions adresinden uygulamanın erişimini kaldırıp yeniden bağlanın.",
-      "google_hatasi": "Google bağlantısı tamamlanamadı. Lütfen yeniden deneyin."
+      "google_hatasi": "Google bağlantısı tamamlanamadı. Lütfen yeniden deneyin.",
+      "meta_baglandi": "Meta bağlandı. Şimdi aşağıdan Facebook sayfasını ve Instagram hesabını seçip kaydedin.",
+      "meta_reddedildi": "Facebook onay ekranında izin verilmedi; bağlantı kurulmadı.",
+      "meta_durum_gecersiz": "Bağlantı isteğinin süresi doldu ya da daha önce kullanıldı. Lütfen yeniden deneyin.",
+      "meta_kurulmadi": "Meta bağlantısı sunucuda kurulmamış (ortam değişkenleri eksik).",
+      "meta_kod_hatasi": "Facebook onay kodu doğrulanamadı. Yeniden deneyin; sürerse yönlendirme adresini ve uygulama bilgilerini kontrol edin.",
+      "meta_hatasi": "Meta bağlantısı tamamlanamadı. Lütfen yeniden deneyin."
     },
     "google": {
       "ad": "Google",
@@ -61,7 +67,9 @@
       "ga4": "Analytics",
       "sc": "Search Console",
       "yt": "YouTube",
-      "genel": "Genel"
+      "genel": "Genel",
+      "fb": "Facebook",
+      "ig": "Instagram"
     },
     "yakinda": {
       "rozet": "Yakında",
@@ -95,7 +103,8 @@
       "gecersiz_istek": "Google isteği reddetti.",
       "jeton_alinamadi": "Google erişim jetonu alınamadı (istemci bilgilerini kontrol edin).",
       "sifre_cozulemedi": "Saklanan izin okunamadı (şifreleme anahtarı değişmiş olabilir); yeniden bağlanın.",
-      "invalid_grant": "Google izni geçersiz oldu; yeniden bağlanın."
+      "invalid_grant": "Google izni geçersiz oldu; yeniden bağlanın.",
+      "meta_hatasi": "Meta isteği başarısız oldu. Biraz sonra yeniden deneyin."
     },
     "pano": {
       "ornekBaslik": "Örnek veri",
@@ -108,7 +117,8 @@
         "google_analytics": "Google Analytics",
         "search_console": "Search Console",
         "youtube": "YouTube",
-        "elle": "Elle girildi"
+        "elle": "Elle girildi",
+        "meta": "Meta"
       },
       "donem": "son 28 gün, önceki 28 güne göre",
       "sonGuncelleme": "güncelleme",
@@ -144,11 +154,30 @@
       "followers": "Takipçi",
       "engagement": "Etkileşim oranı",
       "reach": "Erişim",
-      "new_leads": "Yeni potansiyel müşteri"
+      "new_leads": "Yeni potansiyel müşteri",
+      "interactions": "Etkileşim",
+      "new_followers": "Yeni takipçi"
     },
     "birim": {
       "sn": "sn",
       "dk": "dk"
+    },
+    "meta": {
+      "ad": "Meta",
+      "altBaslik": "Facebook sayfası · Instagram",
+      "rehber": "Adım adım anlatım: depo kökündeki META-BAGLANTI-KURULUM.md dosyası.",
+      "yonlendirme": "Meta uygulamasında (Facebook Login › Ayarlar) eklenecek geçerli OAuth yönlendirme adresi:",
+      "baglanAciklama": "Facebook onay ekranına gideceksiniz. Yalnız okuma izinleri istenir: sayfa ve Instagram istatistikleri. İzin ekranında sayfanızı ve Instagram hesabınızı seçin.",
+      "baglan": "Meta ile bağlan",
+      "yenidenAciklama": "Meta izni artık geçerli değil (parola değişikliği, iznin kaldırılması ya da süre dolumu). Sosyal medya verileri güncellenmiyor; yeniden bağlanın.",
+      "hesap": "Bağlı Facebook kullanıcısı",
+      "fb": "Facebook sayfası",
+      "ig": "Instagram hesabı",
+      "igYok": "Bu hesapta sayfaya bağlı bir Instagram profesyonel hesabı yok.",
+      "kaynaklarYukleniyor": "Sayfalar ve Instagram hesapları yükleniyor…",
+      "kaldirOnay": "Meta bağlantısı kaldırılsın mı? Facebook'taki uygulama izni de geri alınır; şimdiye kadar çekilen veriler panoda kalır.",
+      "kaldirildi": "Bağlantı kaldırıldı ve Facebook'taki izin geri alındı.",
+      "iptalEdilemedi": "Bağlantı kaldırıldı ama Facebook'taki izin geri alınamadı. Facebook › Ayarlar › İş entegrasyonları bölümünden elle kaldırın."
     }
   }
 }

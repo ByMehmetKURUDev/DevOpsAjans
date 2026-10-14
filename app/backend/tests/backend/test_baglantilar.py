@@ -179,7 +179,9 @@ async def test_ortam_degiskeni_eksikken_kurulmadi(istemci, yonetici_basligi, mon
     assert g["saglayici"] == "google" and g["durum"] == "kurulmadi"
     assert g["kurulum"] == {"kurulu": False, "eksik": ["GOOGLE_OAUTH_CLIENT_SECRET", "BAGLANTI_SIFRE_ANAHTARI"], "gecersiz": []}
     assert ISTEMCI not in y.text  # değerler asla dönmüyor
-    assert [s["durum"] for s in y.json()["saglayicilar"][1:]] == ["yakinda", "yakinda"]
+    # Parti 13: Meta artık gerçek kart (META_* yoksa kurulmadı); İşletme Profili hâlâ yakında.
+    assert [(s["saglayici"], s["durum"]) for s in y.json()["saglayicilar"][1:]] == [
+        ("meta", "kurulmadi"), ("google_business", "yakinda")]
     assert y.json()["yonlendirme_adresi"] == "https://mehmetkuru.dev/api/v1/baglantilar/google/geri-donus"
     y = await istemci.post(f"{TABAN}/google/baslat", headers=yonetici_basligi)
     assert y.status_code == 503 and y.json()["detail"]["kod"] == "kurulmadi"

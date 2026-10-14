@@ -156,3 +156,11 @@ def _dis_ag_kapali(monkeypatch):
 
     monkeypatch.setattr(baglantilar, "_ag_istegi", _google_yok)
     baglantilar.bellegi_temizle()
+
+    # Parti 13: Meta'ya giden TEK ağ çağrısı (test_meta_baglanti.py kendi sahtesini koyuyor).
+    from services import meta_baglanti
+
+    async def _meta_yok(*a, **k):
+        raise httpx.ConnectError("test ortamında dış ağ yok")
+
+    monkeypatch.setattr(meta_baglanti, "_ag_istegi", _meta_yok)

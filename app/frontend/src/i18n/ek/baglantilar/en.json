@@ -1,7 +1,7 @@
 {
   "baglantilar": {
     "baslik": "Connections",
-    "aciklama": "Connect the agency's own Google accounts so the Live Analytics dashboard shows real data instead of sample numbers. The connection only asks for read access, and you can remove it at any time.",
+    "aciklama": "Connect the agency's own Google and Meta accounts; the Live Analytics dashboard then shows real data instead of sample numbers. The connection only asks for read access; you can remove it at any time.",
     "testModu": "Test mode: no real requests go to Google; sample data is used.",
     "sonuc": {
       "baglandi": "Google account connected. Now choose the property, site and channel below and save.",
@@ -10,7 +10,13 @@
       "kurulmadi": "The Google connection is not set up on the server (environment variables missing).",
       "kod_hatasi": "Google's authorization code could not be verified. Try again; if it persists, check the redirect URI and client details.",
       "yenileme_yok": "Google did not grant offline access. Remove the app's access at myaccount.google.com/permissions and connect again.",
-      "google_hatasi": "The Google connection could not be completed. Please try again."
+      "google_hatasi": "The Google connection could not be completed. Please try again.",
+      "meta_baglandi": "Meta connected. Now choose your Facebook Page and Instagram account below and save.",
+      "meta_reddedildi": "Permission was not granted on the Facebook consent screen; no connection was made.",
+      "meta_durum_gecersiz": "The connection request expired or was already used. Please try again.",
+      "meta_kurulmadi": "The Meta connection is not set up on the server (environment variables missing).",
+      "meta_kod_hatasi": "The Facebook authorization code could not be verified. Try again; if it persists, check the redirect URI and app details.",
+      "meta_hatasi": "The Meta connection could not be completed. Please try again."
     },
     "google": {
       "ad": "Google",
@@ -61,7 +67,9 @@
       "ga4": "Analytics",
       "sc": "Search Console",
       "yt": "YouTube",
-      "genel": "General"
+      "genel": "General",
+      "fb": "Facebook",
+      "ig": "Instagram"
     },
     "yakinda": {
       "rozet": "Coming soon",
@@ -95,7 +103,8 @@
       "gecersiz_istek": "Google rejected the request.",
       "jeton_alinamadi": "Could not obtain a Google access token (check the client details).",
       "sifre_cozulemedi": "The stored permission could not be read (the encryption key may have changed); please reconnect.",
-      "invalid_grant": "The Google permission became invalid; please reconnect."
+      "invalid_grant": "The Google permission became invalid; please reconnect.",
+      "meta_hatasi": "The Meta request failed. Try again in a moment."
     },
     "pano": {
       "ornekBaslik": "Sample data",
@@ -108,7 +117,8 @@
         "google_analytics": "Google Analytics",
         "search_console": "Search Console",
         "youtube": "YouTube",
-        "elle": "Entered manually"
+        "elle": "Entered manually",
+        "meta": "Meta"
       },
       "donem": "last 28 days vs the previous 28 days",
       "sonGuncelleme": "updated",
@@ -144,11 +154,30 @@
       "followers": "Followers",
       "engagement": "Engagement rate",
       "reach": "Reach",
-      "new_leads": "New leads"
+      "new_leads": "New leads",
+      "interactions": "Interactions",
+      "new_followers": "New followers"
     },
     "birim": {
       "sn": "s",
       "dk": "min"
+    },
+    "meta": {
+      "ad": "Meta",
+      "altBaslik": "Facebook Page · Instagram",
+      "rehber": "Step-by-step guide: META-BAGLANTI-KURULUM.md in the repository root.",
+      "yonlendirme": "Valid OAuth redirect URI to add in the Meta app (Facebook Login › Settings):",
+      "baglanAciklama": "You will be taken to the Facebook consent screen. Only read permissions are requested: Page and Instagram statistics. Select your Page and Instagram account on the consent screen.",
+      "baglan": "Connect with Meta",
+      "yenidenAciklama": "The Meta permission is no longer valid (password change, permission removed or expiry). Social media data is not updating; reconnect.",
+      "hesap": "Connected Facebook user",
+      "fb": "Facebook Page",
+      "ig": "Instagram account",
+      "igYok": "No Instagram professional account is linked to a Page on this account.",
+      "kaynaklarYukleniyor": "Loading Pages and Instagram accounts…",
+      "kaldirOnay": "Remove the Meta connection? The app permission on Facebook is revoked too; data fetched so far stays on the dashboard.",
+      "kaldirildi": "Connection removed and the Facebook permission revoked.",
+      "iptalEdilemedi": "The connection was removed but the Facebook permission could not be revoked. Remove it manually under Facebook › Settings › Business integrations."
     }
   }
 }

@@ -33,13 +33,42 @@ export interface GoogleBaglantisi {
   baglanti_tarihi: string | null;
 }
 
+/** Parti 13 — Meta (Facebook sayfası + Instagram). */
+export type MetaKaynak = 'fb' | 'ig';
+
+export interface MetaSecimler {
+  fb_sayfa: string | null;
+  ig_hesap: string | null;
+}
+
+export interface MetaBaglantisi {
+  saglayici: 'meta';
+  durum: GoogleDurumu;
+  kurulum: { kurulu: boolean; eksik: string[]; gecersiz: string[] };
+  harici_ad: string | null;
+  kapsamlar: Record<MetaKaynak, boolean>;
+  secimler: MetaSecimler;
+  son_esitleme: string | null;
+  son_hata: Record<string, string>;
+  elle_bekleme_sn: number;
+  baglanti_tarihi: string | null;
+  kullanici_jetonu_bitis: string | null;
+  yonlendirme_adresi: string;
+}
+
+export interface MetaKaynaklari {
+  fb: KaynakSecenegi[];
+  ig: KaynakSecenegi[];
+  hatalar: Partial<Record<MetaKaynak, string>>;
+}
+
 export interface YakindaSaglayici {
   saglayici: string;
   durum: 'yakinda';
 }
 
 export interface BaglantiDurumListesi {
-  saglayicilar: (GoogleBaglantisi | YakindaSaglayici)[];
+  saglayicilar: (GoogleBaglantisi | MetaBaglantisi | YakindaSaglayici)[];
   yonlendirme_adresi: string;
   test_modu: boolean;
 }
@@ -152,4 +181,20 @@ export const googleKaldir = () => istek<{ silindi: boolean; iptal_edildi: boolea
 export function googleBul(liste: BaglantiDurumListesi | null): GoogleBaglantisi | null {
   const g = liste?.saglayicilar.find((s) => s.saglayici === 'google');
   return g && g.durum !== 'yakinda' ? (g as GoogleBaglantisi) : null;
+}
+
+export const metaBaslat = () => istek<{ adres: string }>('POST', `${K}/meta/baslat`);
+export const metaKaynaklari = () => istek<MetaKaynaklari>('GET', `${K}/meta/kaynaklar`);
+export const metaSecimKaydet = (secimler: Partial<MetaSecimler>) =>
+  istek<{ secimler: MetaSecimler }>('PUT', `${K}/meta/secim`, secimler as Record<string, unknown>);
+export const metaEsitle = () =>
+  istek<{ yazilan: number; kaynaklar: string[]; hatalar: Record<string, string>; durum: BaglantiDurumListesi }>(
+    'POST',
+    `${K}/meta/esitle`
+  );
+export const metaKaldir = () => istek<{ silindi: boolean; iptal_edildi: boolean }>('DELETE', `${K}/meta`);
+
+export function metaBul(liste: BaglantiDurumListesi | null): MetaBaglantisi | null {
+  const m = liste?.saglayicilar.find((s) => s.saglayici === 'meta');
+  return m && m.durum !== 'yakinda' ? (m as MetaBaglantisi) : null;
 }

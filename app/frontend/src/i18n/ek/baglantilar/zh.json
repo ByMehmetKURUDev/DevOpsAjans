@@ -1,7 +1,7 @@
 {
   "baglantilar": {
     "baslik": "连接",
-    "aciklama": "连接代理机构自己的 Google 账号，实时分析面板将显示真实数据而不是示例数字。连接只请求只读权限，可随时移除。",
+    "aciklama": "连接代理机构自己的 Google 和 Meta 账号后，“实时分析”面板将显示真实数据而不是示例数字。连接只请求读取权限，可随时移除。",
     "testModu": "测试模式：不会向 Google 发送真实请求，使用的是模拟数据。",
     "sonuc": {
       "baglandi": "Google 账号已连接。请在下方选择媒体资源、网站和频道并保存。",
@@ -10,7 +10,13 @@
       "kurulmadi": "服务器上尚未配置 Google 连接（缺少环境变量）。",
       "kod_hatasi": "无法验证 Google 授权码。请重试；如仍失败，请检查重定向 URI 和客户端信息。",
       "yenileme_yok": "Google 未授予离线访问权限。请在 myaccount.google.com/permissions 移除该应用的访问权限后重新连接。",
-      "google_hatasi": "无法完成 Google 连接，请重试。"
+      "google_hatasi": "无法完成 Google 连接，请重试。",
+      "meta_baglandi": "Meta 已连接。请在下方选择 Facebook 主页和 Instagram 账号并保存。",
+      "meta_reddedildi": "未在 Facebook 授权页面授予权限，未建立连接。",
+      "meta_durum_gecersiz": "连接请求已过期或已被使用。请重试。",
+      "meta_kurulmadi": "服务器上尚未配置 Meta 连接（缺少环境变量）。",
+      "meta_kod_hatasi": "无法验证 Facebook 授权码。请重试；如仍失败，请检查重定向 URI 和应用信息。",
+      "meta_hatasi": "无法完成 Meta 连接。请重试。"
     },
     "google": {
       "ad": "Google",
@@ -61,7 +67,9 @@
       "ga4": "Analytics",
       "sc": "Search Console",
       "yt": "YouTube",
-      "genel": "常规"
+      "genel": "常规",
+      "fb": "Facebook",
+      "ig": "Instagram"
     },
     "yakinda": {
       "rozet": "即将推出",
@@ -95,7 +103,8 @@
       "gecersiz_istek": "Google 拒绝了该请求。",
       "jeton_alinamadi": "无法获取 Google 访问令牌（请检查客户端信息）。",
       "sifre_cozulemedi": "无法读取已保存的授权（加密密钥可能已更改），请重新连接。",
-      "invalid_grant": "Google 授权已失效，请重新连接。"
+      "invalid_grant": "Google 授权已失效，请重新连接。",
+      "meta_hatasi": "Meta 请求失败。请稍后重试。"
     },
     "pano": {
       "ornekBaslik": "示例数据",
@@ -108,7 +117,8 @@
         "google_analytics": "Google Analytics",
         "search_console": "Search Console",
         "youtube": "YouTube",
-        "elle": "手动输入"
+        "elle": "手动输入",
+        "meta": "Meta"
       },
       "donem": "最近 28 天，与之前 28 天相比",
       "sonGuncelleme": "更新于",
@@ -144,11 +154,30 @@
       "followers": "粉丝",
       "engagement": "互动率",
       "reach": "覆盖人数",
-      "new_leads": "新潜在客户"
+      "new_leads": "新潜在客户",
+      "interactions": "互动",
+      "new_followers": "新粉丝"
     },
     "birim": {
       "sn": "秒",
       "dk": "分钟"
+    },
+    "meta": {
+      "ad": "Meta",
+      "altBaslik": "Facebook 主页 · Instagram",
+      "rehber": "分步说明：代码库根目录下的 META-BAGLANTI-KURULUM.md 文件。",
+      "yonlendirme": "需在 Meta 应用（Facebook 登录 › 设置）中添加的有效 OAuth 重定向 URI：",
+      "baglanAciklama": "您将被带到 Facebook 授权页面。只请求读取权限：主页和 Instagram 统计数据。请在授权页面中选择您的主页和 Instagram 账号。",
+      "baglan": "连接 Meta",
+      "yenidenAciklama": "Meta 授权已失效（更改密码、撤销权限或过期）。社交媒体数据不再更新，请重新连接。",
+      "hesap": "已连接的 Facebook 用户",
+      "fb": "Facebook 主页",
+      "ig": "Instagram 账号",
+      "igYok": "此账号下没有与主页关联的 Instagram 专业账号。",
+      "kaynaklarYukleniyor": "正在加载主页和 Instagram 账号…",
+      "kaldirOnay": "确定移除 Meta 连接吗？Facebook 上的应用权限也将被撤销；已获取的数据仍保留在面板中。",
+      "kaldirildi": "连接已移除，Facebook 权限已撤销。",
+      "iptalEdilemedi": "连接已移除，但未能撤销 Facebook 权限。请在 Facebook › 设置 › 商务集成 中手动移除。"
     }
   }
 }

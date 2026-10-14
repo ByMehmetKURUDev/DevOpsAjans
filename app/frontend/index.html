@@ -180,9 +180,41 @@
             return false;
           }
         }
+        /*
+         * Parti 13: paneller, jetonlu bağlantılar ve müşterilerin beyaz etiketli
+         * sayfaları ölçülmüyor (ajansın istatistiği kendi oturumlarıyla bozulmasın,
+         * adresteki jeton Google'a gitmesin). Desen src/lib/olcum.ts ile AYNI
+         * (olcum.test.ts denetliyor). GA sonradan yüklendiyse özel sayfada
+         * `ga-disable-<kimlik>` bayrağı ölçümü durduruyor.
+         */
+        var OZEL = /^\/(admin|client|auth|personel|ode|rapor|rapor-aylik|islem|icerik-onay|paylas|hesap-davet|teklif|sozlesme|servis|toplanti-yanit|durum|form|kart|yorum|randevu|menu|q)(\/|$)/;
+        function ozelMi(yol) {
+          yol = (yol || location.pathname).replace(/^\/(tr|en|de|ru|zh|hi|ar)(?=\/|$)/, '') || '/';
+          return OZEL.test(yol);
+        }
+        var sonYol = location.pathname;
+        function yolDegisti() {
+          if (location.pathname === sonYol) return;
+          var oncekiOzel = ozelMi(sonYol);
+          sonYol = location.pathname;
+          window['ga-disable-' + GA_ID] = ozelMi();
+          // Özel sayfada tüketilen "ilk etkileşim" dinleyicilerinin yerine: açık sayfaya geçiş.
+          if (oncekiOzel && !ozelMi()) loadGa();
+        }
+        ['pushState', 'replaceState'].forEach(function (ad) {
+          var asil = history[ad];
+          history[ad] = function () {
+            var sonuc = asil.apply(this, arguments);
+            yolDegisti();
+            return sonuc;
+          };
+        });
+        window.addEventListener('popstate', yolDegisti);
+        window['ga-disable-' + GA_ID] = ozelMi();
         function loadGa() {
           if (loaded) return;
           if (!rizaVarMi()) return;
+          if (ozelMi()) return;
           loaded = true;
           cleanup();
           var s = document.createElement('script');

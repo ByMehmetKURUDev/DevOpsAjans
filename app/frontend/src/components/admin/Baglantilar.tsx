@@ -6,7 +6,6 @@ import {
   CheckCircle2,
   Clock,
   Copy,
-  Facebook,
   Link2,
   Loader2,
   LogIn,
@@ -16,6 +15,7 @@ import {
   Unplug,
 } from 'lucide-react';
 
+import MetaKarti from '@/components/admin/MetaKarti';
 import { Button } from '@/components/ui/button';
 import {
   durumGetir,
@@ -26,6 +26,7 @@ import {
   googleKaynaklari,
   googleSecimKaydet,
   hataMetni,
+  metaBul,
   type BaglantiDurumListesi,
   type GoogleKaynaklari,
   type KaynakKisa,
@@ -39,7 +40,7 @@ import { tarihBicimle } from '@/lib/siteBakim';
  * Google kartı: kurulum durumu (eksik ortam değişkeninin yalnız ADI), "Google
  * ile bağlan", bağlı hesap, üç seçim (GA4 mülkü / Search Console sitesi /
  * YouTube kanalı), "Şimdi eşitle", son eşitleme ve hata, "Bağlantıyı kaldır".
- * Google Business Profile ve Meta için "yakında" kartları.
+ * Parti 13: Meta kartı (`MetaKarti.tsx`); Google Business Profile için "yakında" kartı.
  *
  * Google'dan dönüşte adres `?sekme=baglantilar&sonuc=<kod>`: sonuç bir kez
  * gösterilir ve adresten silinir (yenileyince tekrar çıkmasın).
@@ -47,7 +48,7 @@ import { tarihBicimle } from '@/lib/siteBakim';
 
 const SECIM_ALANI: Record<KaynakKisa, keyof Secimler> = { ga4: 'ga4_mulk', sc: 'sc_site', yt: 'yt_kanal' };
 const KAYNAKLAR: KaynakKisa[] = ['ga4', 'sc', 'yt'];
-const BASARILI_SONUC = 'baglandi';
+const BASARILI_SONUCLAR = new Set(['baglandi', 'meta_baglandi']);
 
 function sonucuOku(): string | null {
   try {
@@ -84,6 +85,7 @@ export default function Baglantilar() {
   const [islem, setIslem] = useState<'' | 'baglan' | 'kaydet' | 'esitle' | 'kaldir'>('');
 
   const google = googleBul(durum);
+  const meta = metaBul(durum);
 
   const yukle = useCallback(async () => {
     try {
@@ -235,13 +237,17 @@ export default function Baglantilar() {
           data-testid="baglanti-sonuc"
           data-sonuc={sonuc}
           className={`flex items-start gap-2 rounded-xl border p-4 text-sm ${
-            sonuc === BASARILI_SONUC
+            BASARILI_SONUCLAR.has(sonuc)
               ? 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200'
               : 'border-amber-500/30 bg-amber-500/10 text-amber-100'
           }`}
         >
-          {sonuc === BASARILI_SONUC ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" /> : <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />}
-          <span>{t(`baglantilar.sonuc.${sonuc}`, { defaultValue: t('baglantilar.sonuc.google_hatasi') })}</span>
+          {BASARILI_SONUCLAR.has(sonuc) ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" /> : <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />}
+          <span>
+            {t(`baglantilar.sonuc.${sonuc}`, {
+              defaultValue: t(sonuc.startsWith('meta_') ? 'baglantilar.sonuc.meta_hatasi' : 'baglantilar.sonuc.google_hatasi'),
+            })}
+          </span>
         </div>
       )}
 
@@ -463,11 +469,10 @@ export default function Baglantilar() {
         </section>
       )}
 
+      {meta && <MetaKarti meta={meta} yenile={yukle} setDurum={setDurum} />}
+
       <div className="grid gap-4 md:grid-cols-2">
-        {[
-          { anahtar: 'google_business', ikon: Store },
-          { anahtar: 'meta', ikon: Facebook },
-        ].map(({ anahtar, ikon: Ikon }) => (
+        {[{ anahtar: 'google_business', ikon: Store }].map(({ anahtar, ikon: Ikon }) => (
           <section
             key={anahtar}
             className="cam-kart rounded-2xl border border-white/10 bg-white/[0.03] p-6 opacity-80"

@@ -1,7 +1,7 @@
 {
   "baglantilar": {
     "baslik": "Verbindungen",
-    "aciklama": "Verbinden Sie die eigenen Google-Konten der Agentur, damit das Live-Analytics-Dashboard echte Daten statt Beispielzahlen zeigt. Die Verbindung verlangt nur Lesezugriff und lässt sich jederzeit entfernen.",
+    "aciklama": "Verbinden Sie die eigenen Google- und Meta-Konten der Agentur; das Live-Analytics-Dashboard zeigt dann echte Daten statt Beispielzahlen. Die Verbindung fordert nur Lesezugriff an und kann jederzeit entfernt werden.",
     "testModu": "Testmodus: Es gehen keine echten Anfragen an Google; es werden Beispieldaten verwendet.",
     "sonuc": {
       "baglandi": "Google-Konto verbunden. Wählen Sie jetzt unten Property, Website und Kanal aus und speichern Sie.",
@@ -10,7 +10,13 @@
       "kurulmadi": "Die Google-Verbindung ist auf dem Server nicht eingerichtet (Umgebungsvariablen fehlen).",
       "kod_hatasi": "Der Autorisierungscode von Google konnte nicht bestätigt werden. Erneut versuchen; falls es weiter auftritt, Weiterleitungs-URI und Client-Daten prüfen.",
       "yenileme_yok": "Google hat keinen dauerhaften Zugriff gewährt. Entfernen Sie den Zugriff der App unter myaccount.google.com/permissions und verbinden Sie erneut.",
-      "google_hatasi": "Die Google-Verbindung konnte nicht abgeschlossen werden. Bitte erneut versuchen."
+      "google_hatasi": "Die Google-Verbindung konnte nicht abgeschlossen werden. Bitte erneut versuchen.",
+      "meta_baglandi": "Meta verbunden. Wählen Sie jetzt unten Ihre Facebook-Seite und Ihr Instagram-Konto aus und speichern Sie.",
+      "meta_reddedildi": "Auf dem Facebook-Zustimmungsbildschirm wurde keine Berechtigung erteilt; keine Verbindung hergestellt.",
+      "meta_durum_gecersiz": "Die Verbindungsanfrage ist abgelaufen oder wurde bereits verwendet. Bitte erneut versuchen.",
+      "meta_kurulmadi": "Die Meta-Verbindung ist auf dem Server nicht eingerichtet (Umgebungsvariablen fehlen).",
+      "meta_kod_hatasi": "Der Facebook-Autorisierungscode konnte nicht überprüft werden. Erneut versuchen; falls es weiter auftritt, Weiterleitungs-URI und App-Daten prüfen.",
+      "meta_hatasi": "Die Meta-Verbindung konnte nicht abgeschlossen werden. Bitte erneut versuchen."
     },
     "google": {
       "ad": "Google",
@@ -61,7 +67,9 @@
       "ga4": "Analytics",
       "sc": "Search Console",
       "yt": "YouTube",
-      "genel": "Allgemein"
+      "genel": "Allgemein",
+      "fb": "Facebook",
+      "ig": "Instagram"
     },
     "yakinda": {
       "rozet": "Demnächst",
@@ -95,7 +103,8 @@
       "gecersiz_istek": "Google hat die Anfrage abgelehnt.",
       "jeton_alinamadi": "Es konnte kein Google-Zugriffstoken abgerufen werden (Client-Daten prüfen).",
       "sifre_cozulemedi": "Die gespeicherte Berechtigung ist nicht lesbar (der Verschlüsselungsschlüssel hat sich evtl. geändert); bitte neu verbinden.",
-      "invalid_grant": "Die Google-Berechtigung ist ungültig geworden; bitte neu verbinden."
+      "invalid_grant": "Die Google-Berechtigung ist ungültig geworden; bitte neu verbinden.",
+      "meta_hatasi": "Die Meta-Anfrage ist fehlgeschlagen. Versuchen Sie es gleich noch einmal."
     },
     "pano": {
       "ornekBaslik": "Beispieldaten",
@@ -108,7 +117,8 @@
         "google_analytics": "Google Analytics",
         "search_console": "Search Console",
         "youtube": "YouTube",
-        "elle": "Manuell eingegeben"
+        "elle": "Manuell eingegeben",
+        "meta": "Meta"
       },
       "donem": "letzte 28 Tage im Vergleich zu den 28 Tagen davor",
       "sonGuncelleme": "Stand",
@@ -144,11 +154,30 @@
       "followers": "Follower",
       "engagement": "Interaktionsrate",
       "reach": "Reichweite",
-      "new_leads": "Neue Leads"
+      "new_leads": "Neue Leads",
+      "interactions": "Interaktionen",
+      "new_followers": "Neue Follower"
     },
     "birim": {
       "sn": "Sek.",
       "dk": "Min."
+    },
+    "meta": {
+      "ad": "Meta",
+      "altBaslik": "Facebook-Seite · Instagram",
+      "rehber": "Schritt-für-Schritt-Anleitung: META-BAGLANTI-KURULUM.md im Stammverzeichnis des Repositorys.",
+      "yonlendirme": "Gültige OAuth-Weiterleitungs-URI für die Meta-App (Facebook Login › Einstellungen):",
+      "baglanAciklama": "Sie werden zum Facebook-Zustimmungsbildschirm geleitet. Es werden nur Leseberechtigungen angefordert: Seiten- und Instagram-Statistiken. Wählen Sie dort Ihre Seite und Ihr Instagram-Konto aus.",
+      "baglan": "Mit Meta verbinden",
+      "yenidenAciklama": "Die Meta-Berechtigung ist nicht mehr gültig (Passwortänderung, entzogene Berechtigung oder Ablauf). Social-Media-Daten werden nicht aktualisiert; verbinden Sie erneut.",
+      "hesap": "Verbundener Facebook-Nutzer",
+      "fb": "Facebook-Seite",
+      "ig": "Instagram-Konto",
+      "igYok": "In diesem Konto ist kein Instagram-Professional-Konto mit einer Seite verknüpft.",
+      "kaynaklarYukleniyor": "Seiten und Instagram-Konten werden geladen…",
+      "kaldirOnay": "Meta-Verbindung entfernen? Die App-Berechtigung bei Facebook wird ebenfalls widerrufen; bisher abgerufene Daten bleiben im Dashboard.",
+      "kaldirildi": "Verbindung entfernt und Facebook-Berechtigung widerrufen.",
+      "iptalEdilemedi": "Die Verbindung wurde entfernt, aber die Facebook-Berechtigung konnte nicht widerrufen werden. Entfernen Sie sie manuell unter Facebook › Einstellungen › Business-Integrationen."
     }
   }
 }

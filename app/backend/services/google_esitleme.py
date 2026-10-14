@@ -79,6 +79,10 @@ ETIKETLER = {
     "views": "Görüntülenme",
     "watch_time": "İzlenme Süresi",
     "subscribers_gained": "Yeni Abone",
+    # Parti 13 — Meta (Facebook + Instagram)
+    "followers": "Takipçi",
+    "interactions": "Etkileşim",
+    "new_followers": "Yeni Takipçi",
 }
 
 

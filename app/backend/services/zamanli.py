@@ -214,6 +214,14 @@ async def _google_esitleme(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     return await zamanli_esitleme(db)
 
 
+async def _meta_esitleme(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
+    # Parti 13: Facebook sayfası + Instagram → analytics_snapshots (`social`). Bağlantı
+    # başına ~10 Graph isteği; Meta'nın saatlik sınırının çok altında.
+    from services.meta_baglanti import zamanli_esitleme
+
+    return await zamanli_esitleme(db)
+
+
 async def _crm_bildirimleri(db: AsyncSession, zorla: bool) -> Dict[str, Any]:
     # Faz 3C: kendi bildirimi olmayan kaynaktan (fiyat teklifi) açılan yeni adaylar.
     from services.crm import bekleyen_bildirimleri_gonder
@@ -379,6 +387,8 @@ GOREVLER: List[Gorev] = [
     Gorev("seo_taramasi", timedelta(minutes=55), _seo_taramasi),
     # Faz 3B: Google bağlantısı (ajans) — GA4 / Search Console / YouTube eşitlemesi.
     Gorev("google_esitleme", timedelta(hours=6), _google_esitleme),
+    # Parti 13: Meta bağlantısı (ajans) — Facebook sayfası + Instagram eşitlemesi.
+    Gorev("meta_esitleme", timedelta(hours=6), _meta_esitleme),
     # Faz 3C: CRM — yeni aday bildirimi her turda (ucuz sorgu), hatırlatma günde bir.
     Gorev("crm_bildirimleri", timedelta(0), _crm_bildirimleri),
     Gorev("crm_hatirlatma", timedelta(hours=20), _crm_hatirlatma),

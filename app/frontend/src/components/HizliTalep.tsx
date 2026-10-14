@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import AydinlatmaSatiri from '@/components/AydinlatmaSatiri';
 import { Button } from '@/components/ui/button';
 import { ekYukle } from '@/i18n';
+import { donusum } from '@/lib/olcum';
 import { client } from '@/lib/sdkClient';
 
 /**
@@ -96,6 +97,7 @@ export default function HizliTalep({
         },
       });
       setBitti(true);
+      donusum('lead', { kaynak: 'hizli_talep' });
       toast.success(t('hizliTalep.alindi', 'Talebiniz alındı.'));
     } catch (hata) {
       const h = hata as { status?: number; response?: { status?: number; data?: { detail?: unknown } }; data?: { detail?: unknown } };

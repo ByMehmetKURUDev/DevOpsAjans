@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { donusum } from '@/lib/olcum';
 import { client } from '@/lib/sdkClient';
 import { useTranslation } from 'react-i18next';
 import SocialLinks from '@/components/SocialLinks';
@@ -120,6 +121,7 @@ export default function Contact() {
       });
       setGonderilenEposta(form.email.trim());
       setSuccess(true);
+      donusum('lead', { kaynak: 'iletisim' });
       setForm({ name: '', email: '', phone: '', subject: '', message: '' });
       setReferansKodu('');
       toast.success(t('contact.success'));

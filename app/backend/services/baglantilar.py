@@ -54,8 +54,17 @@ logger = logging.getLogger(__name__)
 
 GOOGLE = "google"
 AJANS = "__ajans__"
-#: Panelde "yakında" gösterilen sağlayıcılar (henüz ucu yok).
-YAKINDA = ("google_business", "meta")
+#: Panelde "yakında" gösterilen sağlayıcılar (henüz ucu yok). Meta Parti 13'te geldi (`meta_baglanti.py`).
+YAKINDA = ("google_business",)
+#: Kopma bildiriminde görünen ad ve açıklama (sağlayıcı başına).
+KOPMA_METNI = {
+    "google": ("Google", "Google bağlantısı yenilenmeli",
+               "Google (Analytics, Search Console, YouTube) bağlantısının izni artık geçerli değil; "
+               "panodaki veriler güncellenmiyor. Yönetim paneli › Bağlantılar'dan yeniden bağlayın."),
+    "meta": ("Meta", "Meta bağlantısı yenilenmeli",
+             "Meta (Facebook sayfası, Instagram) bağlantısının izni artık geçerli değil; "
+             "sosyal medya verileri güncellenmiyor. Yönetim paneli › Bağlantılar'dan yeniden bağlayın."),
+}
 
 ORTAM_DEGISKENLERI = ("GOOGLE_OAUTH_CLIENT_ID", "GOOGLE_OAUTH_CLIENT_SECRET", "BAGLANTI_SIFRE_ANAHTARI")
 
@@ -489,13 +498,13 @@ async def yeniden_baglan_isaretle(db: AsyncSession, b: Baglanti, kod: str = "inv
     try:
         from services.notify import admin_recipients, dispatch, render
 
+        ad, varsayilan_baslik, varsayilan_govde = KOPMA_METNI.get(b.saglayici, KOPMA_METNI[GOOGLE])
         baslik, govde = await render(
             db,
             "baglanti_koptu",
-            "Google bağlantısı yenilenmeli",
-            "Google (Analytics, Search Console, YouTube) bağlantısının izni artık geçerli değil; "
-            "panodaki veriler güncellenmiyor. Yönetim paneli › Bağlantılar'dan yeniden bağlayın.",
-            {"saglayici": "Google", "hesap": b.harici_email or ""},
+            varsayilan_baslik,
+            varsayilan_govde,
+            {"saglayici": ad, "hesap": b.harici_email or ""},
         )
         await dispatch(
             db,
@@ -624,7 +633,8 @@ async def _durumu_tuket(db: AsyncSession, durum: str) -> Optional[BaglantiDurumu
 async def geri_donus(db: AsyncSession, code: Optional[str], durum: Optional[str], hata: Optional[str]) -> str:
     """Google yönlendirmesi. Dönen değer kısa sonuç kodu (`SONUC_KODLARI`)."""
     kayit = await _durumu_tuket(db, durum or "")
-    if kayit is None:
+    # Başka sağlayıcının (Meta) state'i Google geri dönüşünde geçmez.
+    if kayit is None or kayit.saglayici != GOOGLE:
         return "durum_gecersiz"
     if hata:
         return "reddedildi" if hata == "access_denied" else "google_hatasi"
@@ -844,8 +854,11 @@ async def durum_listesi(db: AsyncSession, hesap_email: Optional[str] = None) -> 
         "elle_bekleme_sn": elle_bekleme_sn(b),
         "baglanti_tarihi": _iso(b.created_at) if b is not None else None,
     }
+    from services import meta_baglanti
+
+    meta = await meta_baglanti.durum(db, hesap_email)
     return {
-        "saglayicilar": [google] + [{"saglayici": s, "durum": "yakinda"} for s in YAKINDA],
+        "saglayicilar": [google, meta] + [{"saglayici": s, "durum": "yakinda"} for s in YAKINDA],
         "yonlendirme_adresi": yonlendirme_adresi(),
         "test_modu": sahte_google_acik_mi(),
     }
