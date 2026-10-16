@@ -128,6 +128,16 @@ export function akisUret(yazilar, publicDizini = path.join(kok, 'public')) {
     .join('\n');
 }
 
+/**
+ * `robots.txt`'e akışı ikinci site haritası olarak ekler (Google RSS'i site haritası
+ * olarak kabul ediyor; yeni yazı daha çabuk keşfediliyor). Satır zaten varsa dokunmaz.
+ */
+export function robotsaAkisEkle(metin) {
+  const satir = `Sitemap: ${SITE_URL}${AKIS_YOLU}`;
+  if (metin.split(/\r?\n/).some((s) => s.trim() === satir)) return metin;
+  return `${metin.replace(/\s*$/, '')}\n${satir}\n`;
+}
+
 function calistir() {
   const dist = path.join(kok, 'dist');
   if (!fs.existsSync(dist)) throw new Error('rss-uret: dist/ yok — önce vite build.');
@@ -135,7 +145,9 @@ function calistir() {
   const hedef = path.join(dist, ...AKIS_YOLU.split('/').filter(Boolean));
   fs.mkdirSync(path.dirname(hedef), { recursive: true });
   fs.writeFileSync(hedef, akisUret(yazilar));
-  console.log(`✓ RSS: ${yazilar.length} yazı → dist${AKIS_YOLU}`);
+  const robots = path.join(dist, 'robots.txt');
+  if (fs.existsSync(robots)) fs.writeFileSync(robots, robotsaAkisEkle(fs.readFileSync(robots, 'utf8')));
+  console.log(`✓ RSS: ${yazilar.length} yazı → dist${AKIS_YOLU} (robots.txt'te Sitemap satırı)`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

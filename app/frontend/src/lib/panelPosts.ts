@@ -52,15 +52,25 @@ export function usePanelPosts() {
   return { panelPosts: posts, panelLoading: loading };
 }
 
-/** Tek bir panel yazısını slug ile getirir. */
-export async function fetchPanelPost(slug: string): Promise<PanelPost | null> {
+/**
+ * Tek bir panel yazısını slug ile sorgular. `hata: true` = arka uca ulaşılamadı;
+ * yazının olmadığı KESİN değil (bulunamadı sayfası `noindex` basmasın diye ayrı).
+ */
+export async function panelYazisiniSorgula(
+  slug: string,
+): Promise<{ yazi: PanelPost | null; hata: boolean }> {
   try {
     const res = (await client.entities.blog_posts.query({
       query: { slug, published: true },
       limit: 1,
     })) as { data?: { items?: PanelPost[] } };
-    return res?.data?.items?.[0] ?? null;
+    return { yazi: res?.data?.items?.[0] ?? null, hata: false };
   } catch {
-    return null;
+    return { yazi: null, hata: true };
   }
+}
+
+/** Tek bir panel yazısını slug ile getirir (bulunamazsa ya da hata olursa null). */
+export async function fetchPanelPost(slug: string): Promise<PanelPost | null> {
+  return (await panelYazisiniSorgula(slug)).yazi;
 }

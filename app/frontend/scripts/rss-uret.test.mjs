@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-import { akisUret, rfc822, xmlKacis, yazilariOku } from './rss-uret.mjs';
+import { akisUret, rfc822, robotsaAkisEkle, xmlKacis, yazilariOku } from './rss-uret.mjs';
 
 test('rfc822: tarih İstanbul saatiyle, geçersiz tarih null', () => {
   assert.equal(rfc822('2026-03-04'), 'Wed, 04 Mar 2026 09:00:00 +0300');
@@ -46,4 +46,11 @@ test('akisUret: geçerli RSS iskeleti, kalıcı bağlantı ve JPG kapak', () => 
   assert.match(xml, /<enclosure url="https:\/\/mehmetkuru.dev\/blog-covers\/seo-nedir.jpg" length="1234" type="image\/jpeg" \/>/);
   assert.equal((xml.match(/<enclosure /g) || []).length, 1);
   assert.match(xml, /<lastBuildDate>Wed, 04 Mar 2026 09:00:00 \+0300<\/lastBuildDate>/);
+});
+
+test('robotsaAkisEkle: Sitemap satırı bir kez eklenir', () => {
+  const eski = 'User-agent: *\nAllow: /\n\nSitemap: https://mehmetkuru.dev/sitemap.xml';
+  const yeni = robotsaAkisEkle(eski);
+  assert.equal(yeni, `${eski}\nSitemap: https://mehmetkuru.dev/rss.xml\n`);
+  assert.equal(robotsaAkisEkle(yeni), yeni);
 });

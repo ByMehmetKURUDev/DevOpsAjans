@@ -8,7 +8,7 @@ import ShareButtons from '@/components/ShareButtons';
 import TableOfContents from '@/components/blog/TableOfContents';
 import { getBlogPost, getPostSeoMeta } from '@/lib/blog';
 import { getAdjacentEntries, getRelatedEntries } from '@/lib/blogIndex';
-import { fetchPanelPost, type PanelPost } from '@/lib/panelPosts';
+import { panelYazisiniSorgula, type PanelPost } from '@/lib/panelPosts';
 import { absoluteUrl } from '../../../prerender/site.js';
 
 function getSlugFromPathname(pathname: string) {
@@ -58,6 +58,8 @@ const BlogPostPage = () => {
    */
   const [panelPost, setPanelPost] = useState<PanelPost | null>(null);
   const [panelChecked, setPanelChecked] = useState(false);
+  // Arka uca ulaşılamadıysa yazının yokluğu kesin değil — `noindex` basılmaz.
+  const [panelHata, setPanelHata] = useState(false);
 
   useEffect(() => {
     if (post || !slug || slug === '*') {
@@ -67,9 +69,11 @@ const BlogPostPage = () => {
 
     let cancelled = false;
     setPanelChecked(false);
-    void fetchPanelPost(slug).then((found) => {
+    setPanelHata(false);
+    void panelYazisiniSorgula(slug).then(({ yazi, hata }) => {
       if (cancelled) return;
-      setPanelPost(found);
+      setPanelPost(yazi);
+      setPanelHata(hata);
       setPanelChecked(true);
     });
 
@@ -176,6 +180,28 @@ const BlogPostPage = () => {
       });
     };
   }, [post, location.pathname]);
+
+  /**
+   * Yazı ne markdown'da ne panelde var: adres `/blog/:slug` kuralıyla (panel
+   * yazıları için gerekli) kabuktan 200 ile geliyor ve kabuk ana sayfanın
+   * başlığını taşıyor. Arama motoru bunu "yumuşak 404" sayıp ana sayfayla
+   * karıştırmasın: başlık düzeltiliyor, sayfa `noindex` oluyor. (Google
+   * sayfayı çizerek okuyor; JS'siz paylaşım botları için ayrıca bir şey yok.)
+   */
+  const bulunamadi = !post && panelChecked && !panelPost && !panelHata && slug !== '*';
+  useEffect(() => {
+    if (!bulunamadi) return;
+    const robots = ensureMetaTag('name', 'robots');
+    const oncekiRobots = robots.getAttribute('content');
+    robots.setAttribute('content', 'noindex, follow');
+    const oncekiBaslik = document.title;
+    document.title = 'Yazı bulunamadı | By Mehmet KURU Dev';
+    return () => {
+      if (oncekiRobots === null) robots.remove();
+      else robots.setAttribute('content', oncekiRobots);
+      document.title = oncekiBaslik;
+    };
+  }, [bulunamadi]);
 
   if (slug === '*') {
     return <Navigate to="/blog/" replace />;
