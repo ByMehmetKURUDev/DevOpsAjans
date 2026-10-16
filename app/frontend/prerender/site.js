@@ -27,11 +27,14 @@ export const X_KULLANICI_ADI = '@ByMehmetKURUDev';
  * `sameAs`. Google ve yapay zekâ aramaları markayı bu hesaplarla eşleştiriyor.
  * Alt bilgideki simgeler ayrı: onlar panelden (Site Ayarları › Sosyal Medya) geliyor.
  * Hesap açıldıkça (LinkedIn şirket sayfası, TikTok, Google İşletme Profili) buraya eklenir.
+ * Kişisel LinkedIn profili (linkedin.com/in/bymehmetkurudev) bilerek yok: sameAs kuruluşun kendi hesapları.
  */
 export const SOSYAL_PROFILLER = [
   'https://www.facebook.com/bymehmetkurudev',
   'https://www.instagram.com/bymehmetkurudev',
   'https://x.com/ByMehmetKURUDev',
+  'https://www.youtube.com/@ByMehmetKURUDev',
+  'https://github.com/ByMehmetKURUDev',
 ];
 
 /**
