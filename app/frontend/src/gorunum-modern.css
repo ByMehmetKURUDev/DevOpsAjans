@@ -463,84 +463,12 @@
   }
 }
 
-/* ---------- Hero: büyük "mehmetkuru.dev" markası ---------- */
-:root[data-gorunum='modern'] .hero-marka {
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  align-items: baseline;
-  max-width: 60rem;
-}
-:root[data-gorunum='modern'] .hero-marka > * {
-  grid-column: 1 / -1;
-}
-:root[data-gorunum='modern'] .hero-marka > :first-child {
-  grid-row: 1;
-  justify-self: start;
-}
-:root[data-gorunum='modern'] .hero-marka > h1 {
-  grid-row: 3;
-  max-width: 21ch;
-  font-size: clamp(26px, 3.3vw, 46px);
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
-}
-/* Başlık boyutu, hero yüksekliği Klasik ile aynı kalacak biçimde ölçüldü
-   (Modern ilk çizimden sonra açılıyor; yükseklik değişirse sayfa kayar). */
-@media (max-width: 639px) {
-  :root[data-gorunum='modern'] .hero-marka > h1 {
-    font-size: 28px;
-    line-height: 1.18;
-    margin-bottom: 1.75rem;
-  }
-}
-:root[data-gorunum='modern'] .hero-marka > h1 .gradient-text {
-  color: #f4f0f8;
-  text-shadow: none;
-}
-:root[data-gorunum='modern'] .hero-marka > p {
-  grid-row: 4;
-}
-:root[data-gorunum='modern'] .hero-marka > div:last-child {
-  grid-row: 5;
-}
-:root[data-gorunum='modern'] .hero-marka::before,
-:root[data-gorunum='modern'] .hero-marka::after {
-  grid-row: 2;
-  font-size: clamp(40px, 10.2vw, 104px);
-  font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 1.05;
-  margin-bottom: 1rem;
-  direction: ltr;
-}
-:root[data-gorunum='modern'] .hero-marka::before {
-  content: 'mehmetkuru';
-  grid-column: 1;
-  color: #f7f3fb;
-}
-/* ".dev" + neon halka nokta (arka plan olarak çizilir, ek öğe yok). */
-:root[data-gorunum='modern'] .hero-marka::after {
-  content: '.dev';
-  grid-column: 2;
-  padding-inline-end: 0.5em;
-  color: rgb(var(--m-y));
-  text-shadow: 0 0 28px rgb(var(--m-y) / 0.55);
-  background: radial-gradient(
-      circle at calc(100% - 0.17em) 58%,
-      rgb(var(--m-y) / 0) 0.1em,
-      rgb(var(--m-y)) 0.11em,
-      rgb(var(--m-y)) 0.16em,
-      rgb(var(--m-y) / 0.35) 0.18em,
-      rgb(var(--m-y) / 0) 0.3em
-    )
-    no-repeat;
-}
-[dir='rtl'][data-gorunum='modern'] .hero-marka::before {
-  grid-column: 2;
-}
-[dir='rtl'][data-gorunum='modern'] .hero-marka::after {
-  grid-column: 1;
-}
+/* ---------- Hero (yazılar Klasik düzende) ---------- */
+/*
+ * Hero yazıları Klasik'teki gibi (16 Eki 2026, kullanıcı isteği): büyük "mehmetkuru.dev" yazısı
+ * (::before/::after) ve küçültülmüş başlık kaldırıldı. Başlık, alt başlık ve düğmeler Klasik
+ * düzeninde ve boyutunda; görünüme özgü olan yalnız arka plan, ışımalar ve istatistik şeridi.
+ */
 /* İstatistik şeridi */
 :root[data-gorunum='modern'] .hero-surface > .absolute.bottom-0 {
   border-top-color: rgb(var(--m-y) / 0.3);

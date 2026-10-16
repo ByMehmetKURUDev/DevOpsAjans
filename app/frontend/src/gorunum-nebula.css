@@ -774,7 +774,7 @@
   }
 }
 
-/* ---------- Hero: uzay penceresi, devre ızgarası, büyük "mehmetkuru.dev" ---------- */
+/* ---------- Hero: uzay penceresi ve devre ızgarası (yazılar Klasik düzende) ---------- */
 :root[data-gorunum='nebula'] .hero-surface {
   background-color: transparent;
   background-image:
@@ -803,85 +803,11 @@
     rgb(var(--n-y) / 0) 100%
   );
 }
-:root[data-gorunum='nebula'] .hero-marka {
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  align-items: baseline;
-  max-width: 60rem;
-}
-:root[data-gorunum='nebula'] .hero-marka > * {
-  grid-column: 1 / -1;
-}
-:root[data-gorunum='nebula'] .hero-marka > :first-child {
-  grid-row: 1;
-  justify-self: start;
-}
-:root[data-gorunum='nebula'] .hero-marka > h1 {
-  grid-row: 3;
-  max-width: 21ch;
-  font-size: clamp(26px, 3.3vw, 46px);
-  line-height: 1.15;
-  margin-bottom: 1.25rem;
-  text-shadow: none;
-}
-/* Başlık boyutu Modern'le aynı: hero yüksekliği Klasik'le aynı kalsın (kayma yok). */
-@media (max-width: 639px) {
-  :root[data-gorunum='nebula'] .hero-marka > h1 {
-    font-size: 28px;
-    line-height: 1.18;
-    margin-bottom: 1.75rem;
-  }
-}
-:root[data-gorunum='nebula'] .hero-marka > h1 .gradient-text {
-  background: none;
-  color: #f4f0fb;
-}
-:root[data-gorunum='nebula'] .hero-marka > p {
-  grid-row: 4;
-}
-:root[data-gorunum='nebula'] .hero-marka > div:last-child {
-  grid-row: 5;
-}
-:root[data-gorunum='nebula'] .hero-marka::before,
-:root[data-gorunum='nebula'] .hero-marka::after {
-  grid-row: 2;
-  font-size: clamp(40px, 10.2vw, 104px);
-  font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 1.05;
-  margin-bottom: 1rem;
-  direction: ltr;
-}
-:root[data-gorunum='nebula'] .hero-marka::before {
-  content: 'mehmetkuru';
-  grid-column: 1;
-  color: #f7f3ff;
-  /* Işıma kısa tutuldu: geniş gölge yazının görünür alanını büyütüp LCP öğesini H1'den buna kaydırıyordu. */
-  text-shadow: 0 0 16px rgb(var(--n-m) / 0.6);
-}
-/* ".dev" + neon halka nokta (arka plan olarak çizilir, ek öğe yok). */
-:root[data-gorunum='nebula'] .hero-marka::after {
-  content: '.dev';
-  grid-column: 2;
-  padding-inline-end: 0.5em;
-  color: rgb(var(--n-y));
-  text-shadow: 0 0 28px rgb(var(--n-y) / 0.6);
-  background: radial-gradient(
-      circle at calc(100% - 0.17em) 58%,
-      rgb(var(--n-y) / 0) 0.1em,
-      rgb(var(--n-y)) 0.11em,
-      rgb(var(--n-y)) 0.16em,
-      rgb(var(--n-y) / 0.4) 0.18em,
-      rgb(var(--n-y) / 0) 0.32em
-    )
-    no-repeat;
-}
-[dir='rtl'][data-gorunum='nebula'] .hero-marka::before {
-  grid-column: 2;
-}
-[dir='rtl'][data-gorunum='nebula'] .hero-marka::after {
-  grid-column: 1;
-}
+/*
+ * Hero yazıları Klasik'teki gibi (16 Eki 2026, kullanıcı isteği): büyük "mehmetkuru.dev" yazısı
+ * (::before/::after) ve küçültülmüş başlık kaldırıldı. Başlık, alt başlık ve düğmeler Klasik
+ * düzeninde ve boyutunda; görünüme özgü olan yalnız arka plan, ışımalar ve istatistik şeridi.
+ */
 /* İstatistik şeridi: holografik alt bant. */
 :root[data-gorunum='nebula'] .hero-surface > .absolute.bottom-0 {
   border-top-color: rgb(var(--n-m) / 0.4);
