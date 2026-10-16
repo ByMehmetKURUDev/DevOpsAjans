@@ -17,6 +17,46 @@ export const SITE_NAME = 'By Mehmet KURU Dev';
 export const SITE_OG_IMAGE = `${SITE_URL}/assets/og-cover.webp`;
 
 /**
+ * Sitenin X (Twitter) hesabı — `twitter:site` ve `twitter:creator` etiketleri.
+ * Kullanıcı adı değişirse yalnız burası ve `SOSYAL_PROFILLER` güncellenir.
+ */
+export const X_KULLANICI_ADI = '@ByMehmetKURUDev';
+
+/**
+ * Markanın sosyal profilleri — ana sayfa `ProfessionalService` JSON-LD'sindeki
+ * `sameAs`. Google ve yapay zekâ aramaları markayı bu hesaplarla eşleştiriyor.
+ * Alt bilgideki simgeler ayrı: onlar panelden (Site Ayarları › Sosyal Medya) geliyor.
+ * Hesap açıldıkça (LinkedIn şirket sayfası, TikTok, Google İşletme Profili) buraya eklenir.
+ */
+export const SOSYAL_PROFILLER = [
+  'https://www.facebook.com/bymehmetkurudev',
+  'https://www.instagram.com/bymehmetkurudev',
+  'https://x.com/ByMehmetKURUDev',
+];
+
+/**
+ * Paylaşım etiketlerinde (og:image, twitter:image) kullanılacak görsel adresi.
+ *
+ * Sitenin kapakları WebP. LinkedIn WebP önizlemesini güvenilir göstermiyor
+ * (paylaşımda görsel çıkmıyor), bazı mesajlaşma uygulamaları da öyle. Bu yüzden
+ * kendi kapaklarımızın (`/blog-covers/*.webp`, `/assets/og-cover.webp`) JPG eşi
+ * veriliyor; JPG'leri derlemede `scripts/og-jpg-uret.mjs` üretiyor. Sayfa içinde
+ * WebP kalıyor. Dış ya da panelden yüklenen görsellere dokunulmuyor.
+ */
+export function paylasimGorseli(adres) {
+  if (typeof adres !== 'string') return adres;
+  const bizim =
+    adres === SITE_OG_IMAGE || (adres.startsWith(`${SITE_URL}/blog-covers/`) && !adres.includes('?'));
+  return bizim && adres.endsWith('.webp') ? `${adres.slice(0, -'.webp'.length)}.jpg` : adres;
+}
+
+/** `paylasimGorseli` JPG'ye çevirdiyse boyut biliniyor: kapakların hepsi 1200×630. */
+export function paylasimGorseliBoyutluMu(adres) {
+  return typeof adres === 'string' && adres.startsWith(`${SITE_URL}/`) && adres.endsWith('.jpg') &&
+    (adres === paylasimGorseli(SITE_OG_IMAGE) || adres.startsWith(`${SITE_URL}/blog-covers/`));
+}
+
+/**
  * İçerik dilleri.
  *
  * Türkçe ön eksiz kökte durur (`/hizmetler` değil `/services` — route adları
@@ -504,6 +544,7 @@ export const ORGANIZATION_JSONLD = {
     name: 'Mehmet KURU',
     jobTitle: 'Full-stack Developer & Digital Marketing Specialist',
   },
+  sameAs: SOSYAL_PROFILLER,
 };
 
 /** Bir sayfanın belirli dildeki yolu. Türkçe ön eksiz. */

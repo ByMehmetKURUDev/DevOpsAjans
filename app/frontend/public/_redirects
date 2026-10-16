@@ -11,3 +11,9 @@
 # kurallardan etkilenmiyor. `/api/*` ve diğer Pages Function yolları
 # (kart, menu, randevu, etkinlik, egitim, asistan, hukuk, q) Function'da
 # karşılanıyor; kural yalnız Function devre dışıyken yedek.
+
+# Blog RSS akışı kökte: `dist/rss.xml` (scripts/rss-uret.mjs). `/blog/rss.xml` dosya olarak
+# konamıyor — aşağıdaki otomatik bloktaki `/blog/:slug  /  200` kuralı gerçek dosyadan önce
+# uygulanıyor. Bu satırlar bloktan önce olduğu için önce eşleşir.
+/blog/rss.xml  /rss.xml  301
+/feed  /rss.xml  301

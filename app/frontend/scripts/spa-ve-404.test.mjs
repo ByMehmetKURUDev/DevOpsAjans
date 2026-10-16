@@ -3,7 +3,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { BLOK_BASI, BLOK_SONU, kaynakYollari, sayfa404, spaKurallari, yonlendirmeleriYaz } from './spa-ve-404.mjs';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+
+import { BLOK_BASI, BLOK_SONU, blogYonlendirmeleri, kaynakYollari, sayfa404, spaKurallari, yonlendirmeleriYaz } from './spa-ve-404.mjs';
 import { INTENTIONALLY_NOT_PRERENDERED } from './spa-yollari.mjs';
 
 test('dil ağacının göreli rotası /:lang önekiyle yazılır', () => {
@@ -61,4 +65,21 @@ test('404.html: kök boş, ana sayfa SEO etiketleri yok, noindex var, satır iç
   }
   assert.ok(s.includes('<script>console.log("kabuk")</script>'), 'CSP özeti için satır içi betik birebir kalmalı');
   assert.ok(s.includes('/assets/index-abc.js'));
+});
+
+test('prerender edilmiş blog yazısının eğik çizgisiz adresi kendi sayfasına 301 ile gider', () => {
+  const dist = fs.mkdtempSync(path.join(os.tmpdir(), 'dist-'));
+  for (const ad of ['seo-nedir', 'ga4-nedir']) {
+    fs.mkdirSync(path.join(dist, 'blog', ad), { recursive: true });
+    fs.writeFileSync(path.join(dist, 'blog', ad, 'index.html'), '<html></html>');
+  }
+  fs.mkdirSync(path.join(dist, 'blog', 'bos-klasor'));
+  assert.deepEqual(blogYonlendirmeleri(dist), [
+    '/blog/ga4-nedir  /blog/ga4-nedir/  301',
+    '/blog/seo-nedir  /blog/seo-nedir/  301',
+  ]);
+  // Statik kurallar `/blog/:slug` yeniden yazmasından ÖNCE yazılmalı (ilk eşleşen kazanır).
+  const metin = yonlendirmeleriYaz('', [...blogYonlendirmeleri(dist), ...spaKurallari()]);
+  assert.ok(metin.indexOf('/blog/seo-nedir  /blog/seo-nedir/  301') < metin.indexOf('/blog/:slug  /  200'));
+  assert.deepEqual(blogYonlendirmeleri(path.join(dist, 'yok')), []);
 });

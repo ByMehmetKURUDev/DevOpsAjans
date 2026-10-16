@@ -58,6 +58,27 @@ export function spaKurallari(rotalar = [...INTENTIONALLY_NOT_PRERENDERED, ...SON
   return satirlar;
 }
 
+/**
+ * Prerender edilmiş blog yazılarının eğik çizgisiz adresi → eğik çizgili adres (301).
+ *
+ * `/blog/:slug  /  200` kuralı (panelden sonradan eklenen yazılar için) gerçek
+ * dosyadan ÖNCE uygulanıyor: `/blog/seo-nedir` (sonda `/` yok) ana sayfa kabuğunu
+ * — ana sayfanın başlığı ve canonical'ıyla — 200 döndürüyordu. Bağlantı eğik
+ * çizgisiz paylaşılınca önizlemede ana sayfa çıkıyordu. Bu statik kurallar
+ * otomatik blokta `/blog/:slug`'dan önce geliyor; `dist/blog/<slug>/index.html`
+ * olan her yazı kendi sayfasına yönleniyor. Statik kural sınırı 2.000.
+ */
+export function blogYonlendirmeleri(dist) {
+  const blog = path.join(dist, 'blog');
+  if (!fs.existsSync(blog)) return [];
+  return fs
+    .readdirSync(blog, { withFileTypes: true })
+    .filter((g) => g.isDirectory() && /^[a-z0-9][a-z0-9-]*$/.test(g.name))
+    .filter((g) => fs.existsSync(path.join(blog, g.name, 'index.html')))
+    .map((g) => `/blog/${g.name}  /blog/${g.name}/  301`)
+    .sort();
+}
+
 /** Her yolu yakalayan SPA kuralı mı? (`/*  /index.html  200`, boşluk farkıyla) */
 function hepsiniYakalarMi(satir) {
   const p = satir.trim().split(/\s+/);
@@ -107,10 +128,13 @@ function calistir() {
   if (!fs.existsSync(index)) throw new Error('spa-ve-404: dist/index.html yok — önce vite build.');
 
   const kurallar = spaKurallari();
+  const blogKurallari = blogYonlendirmeleri(dist);
   const eski = fs.existsSync(yonlendirme) ? fs.readFileSync(yonlendirme, 'utf8') : '';
-  fs.writeFileSync(yonlendirme, yonlendirmeleriYaz(eski, kurallar));
+  fs.writeFileSync(yonlendirme, yonlendirmeleriYaz(eski, [...blogKurallari, ...kurallar]));
   fs.writeFileSync(path.join(dist, '404.html'), sayfa404(fs.readFileSync(index, 'utf8')));
-  console.log(`✓ _redirects: ${kurallar.length} istemci rotası kuralı · 404.html üretildi (soft-404 kapalı).`);
+  console.log(
+    `✓ _redirects: ${kurallar.length} istemci rotası kuralı + ${blogKurallari.length} blog eğik çizgi yönlendirmesi · 404.html üretildi (soft-404 kapalı).`,
+  );
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

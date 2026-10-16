@@ -13,6 +13,7 @@ import { gorunumOzniteligi } from './prerender/gorunum-plugin.js';
 import { kaynakVeriEklentisi, kaynakVerisiniYukle } from './prerender/kaynaklar-yukle.js';
 import { kaynakDetayYollari } from './prerender/kaynaklar-veri.js';
 import { vitrinFiyatEklentisi, vitrinFiyatlariniYukle, vitrinYapisiniOku } from './prerender/moduller-yukle.js';
+import { paylasimJpgEklentisi } from './prerender/paylasim-jpg.js';
 import { modulDetayYollari } from './prerender/moduller-veri.js';
 import { seoAracDetayYollari } from './prerender/seo-araclari-veri.js';
 import {
@@ -22,6 +23,7 @@ import {
   PAGE_SEO,
   SITE_NAME,
   SITE_URL,
+  X_KULLANICI_ADI,
   getLocalizedRoutes,
 } from './prerender/site.js';
 
@@ -44,6 +46,8 @@ process.env.VITE_APP_TITLE ??= process.env.OVERVIEW_TITLE ?? SITE_NAME;
 process.env.VITE_APP_DESCRIPTION ??=
   process.env.OVERVIEW_DESCRIPTION ?? PAGE_SEO[DEFAULT_LANGUAGE].home.description;
 process.env.VITE_SITE_URL ??= SITE_URL;
+// Blog yazısı istemcide çizilirken `twitter:site` / `twitter:creator` de yazılsın (src/lib/blog.ts).
+process.env.VITE_TWITTER_SITE ??= X_KULLANICI_ADI;
 process.env.VITE_APP_TITLE = escapeHtmlAttr(process.env.VITE_APP_TITLE);
 process.env.VITE_APP_DESCRIPTION = escapeHtmlAttr(process.env.VITE_APP_DESCRIPTION);
 process.env.VITE_APP_LOGO_URL ??= process.env.OVERVIEW_LOGO_URL ?? `${SITE_URL}/logo192.png`;
@@ -141,6 +145,7 @@ export default defineConfig(async ({ command }) => {
       // Yalnız prerender betiğine `virtual:kaynaklar-veri` (istemci paketine girmez).
       kaynakVeriEklentisi(kaynakVerisi),
       vitrinFiyatEklentisi(vitrinFiyatlari),
+      paylasimJpgEklentisi(),
       // Site ayarı Modern/Nebula ise prerender HTML'ine <html data-gorunum="…"> (Nebula'da stil bağlantısı da).
       gorunumOzniteligi(),
       ...(process.env.STATS === '1' ? [bundleStats()] : []),

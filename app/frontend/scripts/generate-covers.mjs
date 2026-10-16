@@ -10,7 +10,7 @@
  * DEĞİLDİR; tipografik kapaklardır. Yazının içeriğine dair yanlış bir şey
  * iddia etmezler.
  *
- * Çıktı: public/blog-covers/<slug>.webp
+ * Çıktı: public/blog-covers/<slug>.webp (sayfa içi) + <slug>.jpg (paylaşım etiketleri)
  * Çalıştırma: npm run covers
  */
 import fs from 'node:fs';
@@ -180,6 +180,11 @@ async function main() {
     const target = path.join(outDir, `${post.slug}.webp`);
 
     await sharp(Buffer.from(svg)).webp({ quality: 82 }).toFile(target);
+    // Paylaşım etiketleri (og:image) JPG eşini kullanıyor: LinkedIn WebP önizlemesini göstermiyor.
+    await sharp(Buffer.from(svg))
+      .flatten({ background: '#05010a' })
+      .jpeg({ quality: 82, mozjpeg: true, progressive: true })
+      .toFile(target.replace(/\.webp$/, '.jpg'));
     written += 1;
 
     // Frontmatter'a og_image / og_image_alt yaz.

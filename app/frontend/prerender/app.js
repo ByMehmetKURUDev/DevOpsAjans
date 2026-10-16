@@ -45,6 +45,7 @@ import { KAYNAK_DILLERI, detayVerisi, kaynakYolu, kaynakYolunuCoz, listeVerisi }
 // (vite.config `vitrinFiyatEklentisi`; okunamazsa boş → fiyatsız sayfa, JSON-LD'de offers yok).
 import VITRIN_YAPISI from './modul-vitrini-veri.json';
 import VITRIN_FIYATLARI from 'virtual:modul-vitrini-fiyat';
+import PAYLASIM_JPG from 'virtual:paylasim-jpg';
 import {
   MODUL_DILLERI,
   modulBul,
@@ -69,11 +70,14 @@ import {
   SITE_NAME,
   SITE_OG_IMAGE,
   SITE_URL,
+  X_KULLANICI_ADI,
   YASAL_SAYFALAR,
   absoluteUrl,
   canonicalPathFor,
   getLanguage,
   localizedPath,
+  paylasimGorseli,
+  paylasimGorseliBoyutluMu,
   resolveRoute,
 } from './site.js';
 
@@ -173,6 +177,15 @@ function getBlogSlug(url) {
   if (!path.startsWith('/blog')) return null;
   const slug = path.slice('/blog'.length).replace(/^\/+/, '');
   return slug || null;
+}
+
+/** Derlemede `public/` altında JPG eşi bulunan paylaşım görselleri (prerender/paylasim-jpg.js). */
+const PAYLASIM_JPG_KUMESI = new Set(PAYLASIM_JPG);
+
+/** Kendi alan adımızdaki JPG paylaşım görselinin dosyası derlemede var mıydı? */
+function siteDosyasiVarMi(adres) {
+  if (typeof adres !== 'string' || !adres.startsWith(`${SITE_URL}/`)) return false;
+  return PAYLASIM_JPG_KUMESI.has(adres.slice(SITE_URL.length).split(/[?#]/)[0]);
 }
 
 function meta(attribute, key, value) {
@@ -699,7 +712,12 @@ function buildHead({
   noindex = false,
 }) {
   const canonical = absoluteUrl(canonicalPath);
-  const ogImage = image || SITE_OG_IMAGE;
+  // Kendi WebP kapaklarımızın JPG eşi (LinkedIn WebP önizlemesini göstermiyor) — site.js.
+  // JPG'si derlemede yoksa (yeni kapak, `npm run covers` çalıştırılmamış) WebP'de kalır.
+  const istenen = image || SITE_OG_IMAGE;
+  const jpg = paylasimGorseli(istenen);
+  const ogImage = jpg !== istenen && siteDosyasiVarMi(jpg) ? jpg : istenen;
+  const boyutlu = ogImage !== istenen && paylasimGorseliBoyutluMu(ogImage);
   const language = getLanguage(lang);
 
   const elements = [
@@ -713,7 +731,12 @@ function buildHead({
     meta('property', 'og:site_name', SITE_NAME),
     meta('property', 'og:locale', language.locale),
     meta('property', 'og:image', ogImage),
+    boyutlu ? meta('property', 'og:image:type', 'image/jpeg') : null,
+    boyutlu ? meta('property', 'og:image:width', '1200') : null,
+    boyutlu ? meta('property', 'og:image:height', '630') : null,
     meta('name', 'twitter:card', 'summary_large_image'),
+    meta('name', 'twitter:site', X_KULLANICI_ADI),
+    meta('name', 'twitter:creator', X_KULLANICI_ADI),
     meta('name', 'twitter:title', title),
     meta('name', 'twitter:description', description),
     meta('name', 'twitter:image', ogImage),
