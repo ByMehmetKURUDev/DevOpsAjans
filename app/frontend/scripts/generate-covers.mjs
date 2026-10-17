@@ -207,7 +207,10 @@ async function main() {
     const svg = buildSvg(post);
     const target = path.join(outDir, `${post.slug}.webp`);
 
-    await sharp(Buffer.from(svg)).webp({ quality: 82 }).toFile(target);
+    // Kapak, yazı sayfasında en büyük öğe (LCP). Logo ince ayrıntı taşıdığı için
+    // kalite 82'de dosyalar büyüyordu; 75 + effort 6 + smartSubsample ile eski
+    // (logosuz) kapaklardan küçük kalıyor, logo keskinliği gözle aynı (Parti 17).
+    await sharp(Buffer.from(svg)).webp({ quality: 75, effort: 6, smartSubsample: true }).toFile(target);
     // Paylaşım etiketleri (og:image) JPG eşini kullanıyor: LinkedIn WebP önizlemesini göstermiyor.
     await sharp(Buffer.from(svg))
       .flatten({ background: '#05010a' })
