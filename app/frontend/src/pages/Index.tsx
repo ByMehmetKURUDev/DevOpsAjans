@@ -28,6 +28,7 @@ import SikSorulanlar from '@/components/SikSorulanlar';
 import YatirimHesaplayici from '@/components/YatirimHesaplayici';
 import ProcessFlow from '@/components/ProcessFlow';
 import Testimonials from '@/components/Testimonials';
+import SocialLinks from '@/components/SocialLinks';
 import { DEFAULT_SETTINGS, useSiteSettings } from '@/lib/siteSettings';
 import { visibleSectionKeys } from '@/lib/pageSections';
 
@@ -167,7 +168,7 @@ export default function Index() {
         <div className="hero-glow hero-glow-a" aria-hidden="true" />
         <div className="hero-glow hero-glow-b" aria-hidden="true" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-60 md:pt-36 md:pb-44">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 pb-[19.5rem] md:pt-36 md:pb-44">
           <div className="hero-marka max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-6">
               <span className="relative flex h-2 w-2">
@@ -204,6 +205,19 @@ export default function Index() {
                   {t('hero.ctaSecondary')}
                 </Button>
               </Link>
+            </div>
+
+            {/*
+              Sosyal hesaplar, butonların altında: her simge profiline gider
+              (yeni sekme). Adresler panelden (Site Ayarları › Sosyal Medya),
+              alt bilgiyle aynı bileşen. İlk ziyarette ayarlar sonradan
+              geldiği için satırın yeri baştan ayrılıyor: içerik dikey ortalı,
+              sonradan beliren satır başlığı yukarı itmesin (CLS). Mobilde
+              istatistik şeridine çarpmasın diye hero alt boşluğu 4.5rem arttı
+              (pb-60 → pb-[19.5rem]).
+            */}
+            <div className="mt-8 min-h-[2.5rem]">
+              <SocialLinks />
             </div>
           </div>
         </div>
