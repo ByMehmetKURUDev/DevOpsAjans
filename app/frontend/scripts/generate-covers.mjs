@@ -10,6 +10,9 @@
  * DEĞİLDİR; tipografik kapaklardır. Yazının içeriğine dair yanlış bir şey
  * iddia etmezler.
  *
+ * Alt künye (Parti 17): eskiden düz "mehmetkuru.dev" yazısıydı; artık sitenin
+ * üst barındaki marka logosu (`</>` işareti + "By MehmetKURU Dev®" + slogan).
+ *
  * Çıktı: public/blog-covers/<slug>.webp (sayfa içi) + <slug>.jpg (paylaşım etiketleri)
  * Çalıştırma: npm run covers
  */
@@ -25,6 +28,32 @@ const outDir = path.join(root, 'public', 'blog-covers');
 
 const W = 1200;
 const H = 630;
+
+/*
+ * Marka logosu (Parti 17).
+ *
+ * PNG, sitedeki `MarkaLogosu` bileşeninin birebir kopyası: aynı yazı tipleri
+ * (Plus Jakarta Sans 800, JetBrains Mono) ve renkler, 8 kat büyük çizilip
+ * 2 kata indirildi (152 px yükseklik → kapakta 76 px, keskin kalıyor).
+ * Yazı olarak değil görsel olarak gömülüyor: sharp/librsvg yazı tipi aramadığı
+ * için her makinede aynı çıkıyor.
+ */
+const LOGO_YOLU = path.join(root, 'scripts', 'varliklar', 'marka-logosu-blog.png');
+const LOGO_YUKSEKLIK = 76;
+let logoOnbellek = null;
+
+/** PNG'yi base64 olarak okur; genişliği IHDR başlığından (bayt 16-23) alır. */
+function logoOku() {
+  if (logoOnbellek) return logoOnbellek;
+  const veri = fs.readFileSync(LOGO_YOLU);
+  const genislik = veri.readUInt32BE(16);
+  const yukseklik = veri.readUInt32BE(20);
+  logoOnbellek = {
+    b64: veri.toString('base64'),
+    w: Math.round((genislik * LOGO_YUKSEKLIK) / yukseklik),
+  };
+  return logoOnbellek;
+}
 
 /** Kategori başına renk ve desen. Sitenin mor paletiyle aynı ailede. */
 const CATEGORIES = {
@@ -107,8 +136,9 @@ function motifMarkup(motif, from, to) {
   }
 }
 
-function buildSvg({ title, category }) {
+export function buildSvg({ title, category }) {
   const palette = CATEGORIES[category] ?? FALLBACK;
+  const logo = logoOku();
   // Metin alanı x=72..820 arası; desen x=880'de başlıyor. Satır uzunluğu
   // ve punto bu sınıra göre seçiliyor, aksi hâlde uzun başlıklar desenin
   // üzerine biniyordu.
@@ -144,9 +174,7 @@ function buildSvg({ title, category }) {
     )
     .join('\n  ')}
 
-  <line x1="72" y1="520" x2="360" y2="520" stroke="#ffffff" stroke-opacity="0.18" stroke-width="2"/>
-  <text x="72" y="562" font-family="DejaVu Sans, sans-serif" font-size="26" font-weight="600"
-        fill="#b9a9d6">mehmetkuru.dev</text>
+  <image x="72" y="497" width="${logo.w}" height="${LOGO_YUKSEKLIK}" href="data:image/png;base64,${logo.b64}"/>
 </svg>`;
 }
 
@@ -220,7 +248,10 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+// Yalnız doğrudan çalıştırılınca üret (test dosyası buildSvg'yi içe aktarıyor).
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
