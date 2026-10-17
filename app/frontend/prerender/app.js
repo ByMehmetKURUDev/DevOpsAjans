@@ -64,6 +64,7 @@ import { yasalAyarlariniYukle } from './yasal-yukle.js';
 import {
   BLOG_INDEX_ROUTE,
   DEFAULT_LANGUAGE,
+  META_UYGULAMA_KIMLIGI,
   ORGANIZATION_JSONLD,
   PAGE_SEO,
   PAGE_SEO_KEYS,
@@ -730,6 +731,7 @@ function buildHead({
     meta('property', 'og:type', ogType),
     meta('property', 'og:site_name', SITE_NAME),
     meta('property', 'og:locale', language.locale),
+    meta('property', 'fb:app_id', META_UYGULAMA_KIMLIGI),
     meta('property', 'og:image', ogImage),
     boyutlu ? meta('property', 'og:image:type', 'image/jpeg') : null,
     boyutlu ? meta('property', 'og:image:width', '1200') : null,

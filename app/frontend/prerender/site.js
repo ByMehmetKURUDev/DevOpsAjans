@@ -23,6 +23,14 @@ export const SITE_OG_IMAGE = `${SITE_URL}/assets/og-cover.webp`;
 export const X_KULLANICI_ADI = '@ByMehmetKURUDev';
 
 /**
+ * Markanın Meta uygulaması ("mehmetkuru.dev Panel") — `fb:app_id` etiketi.
+ * Facebook'un paylaşım hata ayıklayıcısı bu etiket yoksa "eksik özellik" uyarısı veriyor;
+ * etiket alan adının paylaşım istatistiklerini de uygulamaya bağlıyor. Kimlik herkese açık
+ * (giriş bağlantılarında da görünüyor), gizli anahtar değil. Uygulama değişirse yalnız burası.
+ */
+export const META_UYGULAMA_KIMLIGI = '1643342847379169';
+
+/**
  * Markanın sosyal profilleri — ana sayfa `ProfessionalService` JSON-LD'sindeki
  * `sameAs`. Google ve yapay zekâ aramaları markayı bu hesaplarla eşleştiriyor.
  * Alt bilgideki simgeler ayrı: onlar panelden (Site Ayarları › Sosyal Medya) geliyor.

@@ -5,7 +5,14 @@ import os from 'node:os';
 import path from 'node:path';
 
 import { paylasimJpgListesi } from '../prerender/paylasim-jpg.js';
-import { SITE_OG_IMAGE, paylasimGorseli, paylasimGorseliBoyutluMu } from '../prerender/site.js';
+import { META_UYGULAMA_KIMLIGI, SITE_OG_IMAGE, paylasimGorseli, paylasimGorseliBoyutluMu } from '../prerender/site.js';
+
+test('fb:app_id: Meta uygulama kimliği yalnız rakam ve her sayfanın başlığına yazılıyor', () => {
+  assert.match(META_UYGULAMA_KIMLIGI, /^\d{10,20}$/);
+  const kaynak = fs.readFileSync(new URL('../prerender/app.js', import.meta.url), 'utf8');
+  // Tek başlık üreticisi buildHead; etiket orada, og:* etiketlerinin yanında.
+  assert.match(kaynak, /meta\('property', 'fb:app_id', META_UYGULAMA_KIMLIGI\)/);
+});
 
 test('paylasimGorseli: yalnız kendi WebP kapaklarımız JPG eşine çevriliyor', () => {
   assert.equal(paylasimGorseli(SITE_OG_IMAGE), 'https://mehmetkuru.dev/assets/og-cover.jpg');

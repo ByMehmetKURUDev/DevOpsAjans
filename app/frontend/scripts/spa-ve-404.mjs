@@ -113,7 +113,7 @@ export function sayfa404(indexHtml) {
   bas = bas
     .replace(/<title>[\s\S]*?<\/title>/, '<title>Sayfa bulunamadı | By Mehmet KURU Dev</title>')
     .replace(/\s*<link\s+rel="(?:canonical|alternate)"[^>]*>/g, '')
-    .replace(/\s*<meta\s+(?:name|property)="(?:description|robots|og:[^"]*|twitter:[^"]*)"[^>]*>/g, '')
+    .replace(/\s*<meta\s+(?:name|property)="(?:description|robots|og:[^"]*|twitter:[^"]*|fb:[^"]*)"[^>]*>/g, '')
     .replace(/\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '');
   bas = bas.replace(/(<meta charset="[^"]*"\s*\/?>)/i, '$1\n    <meta name="robots" content="noindex">');
   if (!bas.includes('name="robots"')) bas += '    <meta name="robots" content="noindex">\n  ';

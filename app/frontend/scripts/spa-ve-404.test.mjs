@@ -47,6 +47,7 @@ test('404.html: kök boş, ana sayfa SEO etiketleri yok, noindex var, satır iç
     <meta name="description" content="Ana sayfa açıklaması">
     <meta name="robots" content="index,follow">
     <meta property="og:title" content="Ana sayfa">
+    <meta property="fb:app_id" content="1643342847379169">
     <link rel="canonical" href="https://mehmetkuru.dev/">
     <link rel="alternate" hreflang="en" href="https://mehmetkuru.dev/en/">
     <script>console.log("kabuk")</script>
@@ -60,7 +61,7 @@ test('404.html: kök boş, ana sayfa SEO etiketleri yok, noindex var, satır iç
   assert.ok(s.includes('<title>Sayfa bulunamadı | By Mehmet KURU Dev</title>'));
   assert.ok(s.includes('<meta name="robots" content="noindex">'));
   assert.equal((s.match(/name="robots"/g) || []).length, 1);
-  for (const yok of ['rel="canonical"', 'hreflang', 'og:title', 'application/ld+json', 'name="description"']) {
+  for (const yok of ['rel="canonical"', 'hreflang', 'og:title', 'fb:app_id', 'application/ld+json', 'name="description"']) {
     assert.ok(!s.includes(yok), yok);
   }
   assert.ok(s.includes('<script>console.log("kabuk")</script>'), 'CSP özeti için satır içi betik birebir kalmalı');
