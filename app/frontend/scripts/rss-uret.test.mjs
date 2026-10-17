@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-import { akisUret, rfc822, robotsaAkisEkle, xmlKacis, yazilariOku } from './rss-uret.mjs';
+import { AKISLAR, akisUret, rfc822, robotsaAkisEkle, xmlKacis, yazilariOku } from './rss-uret.mjs';
 
 test('rfc822: tarih İstanbul saatiyle, geçersiz tarih null', () => {
   assert.equal(rfc822('2026-03-04'), 'Wed, 04 Mar 2026 09:00:00 +0300');
@@ -53,4 +53,20 @@ test('robotsaAkisEkle: Sitemap satırı bir kez eklenir', () => {
   const yeni = robotsaAkisEkle(eski);
   assert.equal(yeni, `${eski}\nSitemap: https://mehmetkuru.dev/rss.xml\n`);
   assert.equal(robotsaAkisEkle(yeni), yeni);
+});
+
+test('akisUret (google): 4:3 kapak, kendi self bağlantısı ve başlık eki', () => {
+  const publicDizini = fs.mkdtempSync(path.join(os.tmpdir(), 'rss-g-'));
+  fs.mkdirSync(path.join(publicDizini, 'blog-covers', 'sosyal'), { recursive: true });
+  fs.writeFileSync(path.join(publicDizini, 'blog-covers', 'seo-nedir.jpg'), Buffer.alloc(10));
+  fs.writeFileSync(path.join(publicDizini, 'blog-covers', 'sosyal', 'seo-nedir-4x3.jpg'), Buffer.alloc(4321));
+  const xml = akisUret(
+    [{ slug: 'seo-nedir', baslik: 'SEO', aciklama: 'A', kategori: 'SEO', tarih: '2026-03-04' }],
+    publicDizini,
+    AKISLAR.google,
+  );
+  assert.match(xml, /<atom:link href="https:\/\/mehmetkuru.dev\/rss-google.xml" rel="self"/);
+  assert.match(xml, /<title>By Mehmet KURU Dev — Blog \(Google İşletme\)<\/title>/);
+  assert.match(xml, /<enclosure url="https:\/\/mehmetkuru.dev\/blog-covers\/sosyal\/seo-nedir-4x3.jpg" length="4321" type="image\/jpeg" \/>/);
+  assert.doesNotMatch(xml, /blog-covers\/seo-nedir.jpg/);
 });

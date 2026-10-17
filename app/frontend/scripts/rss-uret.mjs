@@ -16,6 +16,10 @@
  *
  * Görsel: kapağın JPG eşi varsa (`public/blog-covers/<slug>.jpg`) `enclosure`
  * olarak ekleniyor; paylaşım araçları görseli buradan alıyor.
+ *
+ * İkinci akış (Parti 19): `/rss-google.xml`. Aynı yazılar, görsel olarak 4:3
+ * kapak (`public/blog-covers/sosyal/<slug>-4x3.jpg`). Google İşletme Profili
+ * gönderi görselini 4:3 kırpıyor; Metricool'daki Google listesi bu akışı izliyor.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,6 +32,17 @@ const kok = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const icerikDizini = path.join(kok, 'seo', 'content');
 
 export const AKIS_YOLU = '/rss.xml';
+export const GOOGLE_AKIS_YOLU = '/rss-google.xml';
+
+/** Akış türleri: yol, başlık eki ve kapak dosyası (public/ altına göre). */
+export const AKISLAR = {
+  site: { yol: AKIS_YOLU, ek: '', kapak: (slug) => ['blog-covers', `${slug}.jpg`] },
+  google: {
+    yol: GOOGLE_AKIS_YOLU,
+    ek: ' (Google İşletme)',
+    kapak: (slug) => ['blog-covers', 'sosyal', `${slug}-4x3.jpg`],
+  },
+};
 const AKIS_BASLIGI = `${SITE_NAME} — Blog`;
 const AKIS_ACIKLAMASI =
   'SEO, Google Ads ve GA4 ölçümleme, veri yönetimi ve web geliştirme üzerine uygulamaya dönük rehberler.';
@@ -77,18 +92,19 @@ export function yazilariOku(dizin = icerikDizini) {
 }
 
 /** Kapak JPG'si `public/` altında varsa enclosure bilgisi. */
-function kapak(slug, publicDizini) {
-  const dosya = path.join(publicDizini, 'blog-covers', `${slug}.jpg`);
+function kapak(slug, publicDizini, tur = AKISLAR.site) {
+  const parcalar = tur.kapak(slug);
+  const dosya = path.join(publicDizini, ...parcalar);
   if (!fs.existsSync(dosya)) return null;
-  return { url: `${SITE_URL}/blog-covers/${slug}.jpg`, boyut: fs.statSync(dosya).size };
+  return { url: `${SITE_URL}/${parcalar.join('/')}`, boyut: fs.statSync(dosya).size };
 }
 
-export function akisUret(yazilar, publicDizini = path.join(kok, 'public')) {
+export function akisUret(yazilar, publicDizini = path.join(kok, 'public'), tur = AKISLAR.site) {
   const blogAdresi = `${SITE_URL}${canonicalUrlPathFor('/blog')}`;
   const sonTarih = yazilar.length ? rfc822(yazilar[0].tarih) : null;
   const ogeler = yazilar.map((y) => {
     const adres = `${SITE_URL}${canonicalUrlPathFor(`/blog/${y.slug}`)}`;
-    const gorsel = kapak(y.slug, publicDizini);
+    const gorsel = kapak(y.slug, publicDizini, tur);
     return [
       '    <item>',
       `      <title>${xmlKacis(y.baslik)}</title>`,
@@ -108,12 +124,12 @@ export function akisUret(yazilar, publicDizini = path.join(kok, 'public')) {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
     '  <channel>',
-    `    <title>${xmlKacis(AKIS_BASLIGI)}</title>`,
+    `    <title>${xmlKacis(AKIS_BASLIGI + tur.ek)}</title>`,
     `    <link>${blogAdresi}</link>`,
     `    <description>${xmlKacis(AKIS_ACIKLAMASI)}</description>`,
     '    <language>tr-TR</language>',
     sonTarih ? `    <lastBuildDate>${sonTarih}</lastBuildDate>` : null,
-    `    <atom:link href="${SITE_URL}${AKIS_YOLU}" rel="self" type="application/rss+xml" />`,
+    `    <atom:link href="${SITE_URL}${tur.yol}" rel="self" type="application/rss+xml" />`,
     '    <image>',
     `      <url>${SITE_URL}/logo192.png</url>`,
     `      <title>${xmlKacis(AKIS_BASLIGI)}</title>`,
@@ -142,12 +158,14 @@ function calistir() {
   const dist = path.join(kok, 'dist');
   if (!fs.existsSync(dist)) throw new Error('rss-uret: dist/ yok — önce vite build.');
   const yazilar = yazilariOku();
-  const hedef = path.join(dist, ...AKIS_YOLU.split('/').filter(Boolean));
-  fs.mkdirSync(path.dirname(hedef), { recursive: true });
-  fs.writeFileSync(hedef, akisUret(yazilar));
+  for (const tur of Object.values(AKISLAR)) {
+    const hedef = path.join(dist, ...tur.yol.split('/').filter(Boolean));
+    fs.mkdirSync(path.dirname(hedef), { recursive: true });
+    fs.writeFileSync(hedef, akisUret(yazilar, path.join(kok, 'public'), tur));
+  }
   const robots = path.join(dist, 'robots.txt');
   if (fs.existsSync(robots)) fs.writeFileSync(robots, robotsaAkisEkle(fs.readFileSync(robots, 'utf8')));
-  console.log(`✓ RSS: ${yazilar.length} yazı → dist${AKIS_YOLU} (robots.txt'te Sitemap satırı)`);
+  console.log(`✓ RSS: ${yazilar.length} yazı → dist${AKIS_YOLU} + dist${GOOGLE_AKIS_YOLU} (robots.txt'te Sitemap satırı)`);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

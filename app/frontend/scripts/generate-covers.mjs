@@ -14,6 +14,7 @@
  * üst barındaki marka logosu (`</>` işareti + "By MehmetKURU Dev®" + slogan).
  *
  * Çıktı: public/blog-covers/<slug>.webp (sayfa içi) + <slug>.jpg (paylaşım etiketleri)
+ *        + public/blog-covers/sosyal/<slug>-4x3.jpg (Google İşletme Profili, Parti 19)
  * Çalıştırma: npm run covers
  */
 import fs from 'node:fs';
@@ -178,6 +179,66 @@ export function buildSvg({ title, category }) {
 </svg>`;
 }
 
+/*
+ * Sosyal ölçü (Parti 19): Google İşletme Profili gönderi görselini ortadan
+ * 4:3 kırpıyor; 1200x630 kapakta kategori, başlığın başı ve logo kesiliyordu.
+ * Aynı kapak 1200x900 çiziliyor, yazı ve logo ortadaki 900x900 güvenli alanda
+ * (x 150–1050). Desen dekor: kırpılırsa bir şey kaybolmuyor. Bu dosyalar
+ * sayfalarda kullanılmıyor, yalnız `/rss-google.xml` akışının görseli.
+ */
+export const SOSYAL_OLCULER = {
+  '4x3': {
+    W: 1200, H: 900, x: 150, kategoriY: 200, satirKarakter: 17, maxSatir: 4,
+    punto: [62, 54], baslikMerkezY: 430, motif: { cx: 1040, cy: 470, olcek: 0.95 },
+    logoY: 730, logoH: 84,
+  },
+};
+
+export function buildSosyalSvg({ title, category }, ad = '4x3') {
+  const o = SOSYAL_OLCULER[ad];
+  const p = CATEGORIES[category] ?? FALLBACK;
+  const logo = logoOku();
+  const lines = wrap(title, o.satirKarakter, o.maxSatir);
+  const punto = lines.length > 3 ? o.punto[1] : o.punto[0];
+  const aralik = punto + 16;
+  const y0 = o.baslikMerkezY - ((lines.length - 1) * aralik) / 2;
+  const logoW = Math.round((logo.w * o.logoH) / LOGO_YUKSEKLIK);
+  // motifMarkup 1200x630 kapakta ~(1010,400) merkezli çiziliyor; yeni merkeze taşınıyor.
+  const m = o.motif;
+  const motif = `<g transform="translate(${m.cx} ${m.cy}) scale(${m.olcek}) translate(-1010 -400)">${motifMarkup(p.motif, p.from, p.to)}</g>`;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${o.W}" height="${o.H}" viewBox="0 0 ${o.W} ${o.H}">
+  <defs>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="${p.from}"/>
+      <stop offset="100%" stop-color="${p.to}"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.18" cy="0.1" r="0.9">
+      <stop offset="0%" stop-color="${p.from}" stop-opacity="0.34"/>
+      <stop offset="100%" stop-color="#05010a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="${o.W}" height="${o.H}" fill="#05010a"/>
+  <rect width="${o.W}" height="${o.H}" fill="url(#glow)"/>
+  <rect x="0" y="0" width="10" height="${o.H}" fill="url(#accent)"/>
+
+  ${motif}
+
+  <text x="${o.x}" y="${o.kategoriY}" font-family="DejaVu Sans, sans-serif" font-size="${Math.round(o.punto[0] * 0.4)}" font-weight="700"
+        letter-spacing="6" fill="${p.from}">${escapeXml((category ?? 'BLOG').toUpperCase())}</text>
+
+  ${lines
+    .map(
+      (line, i) =>
+        `<text x="${o.x}" y="${y0 + i * aralik}" font-family="DejaVu Sans, sans-serif" font-size="${punto}" font-weight="700" fill="#ffffff">${escapeXml(line)}</text>`,
+    )
+    .join('\n  ')}
+
+  <image x="${o.x}" y="${o.logoY}" width="${logoW}" height="${o.logoH}" href="data:image/png;base64,${logo.b64}"/>
+</svg>`;
+}
+
 function readPosts() {
   return fs
     .readdirSync(contentDir)
@@ -199,6 +260,7 @@ function readPosts() {
 
 async function main() {
   fs.mkdirSync(outDir, { recursive: true });
+  fs.mkdirSync(path.join(outDir, 'sosyal'), { recursive: true });
   const posts = readPosts();
   let written = 0;
   let stamped = 0;
@@ -216,6 +278,11 @@ async function main() {
       .flatten({ background: '#05010a' })
       .jpeg({ quality: 82, mozjpeg: true, progressive: true })
       .toFile(target.replace(/\.webp$/, '.jpg'));
+    // Google İşletme Profili için 4:3 eşi (Parti 19).
+    await sharp(Buffer.from(buildSosyalSvg(post, '4x3')))
+      .flatten({ background: '#05010a' })
+      .jpeg({ quality: 82, mozjpeg: true, progressive: true })
+      .toFile(path.join(outDir, 'sosyal', `${post.slug}-4x3.jpg`));
     written += 1;
 
     // Frontmatter'a og_image / og_image_alt yaz.
