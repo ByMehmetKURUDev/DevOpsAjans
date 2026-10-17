@@ -333,7 +333,7 @@ def belge_pdf(v: Dict[str, Any], dil: str = "tr") -> bytes:
     for ad, deger in bilgiler:
         if deger:
             sag.append(Paragraph(f"<font color='#5B5368'>{_metin(ad)}:</font> <b>{_metin(deger)}</b>", st["sag"]))
-    ust = Table([[[pb.MarkaKunyesi("By Mehmet KURU Dev", "Full-stack & AI Systems")], sag]],
+    ust = Table([[[pb.MarkaKunyesi("By Mehmet KURU Dev", "AI Dev Systems Platform")], sag]],
                 colWidths=[genislik * 0.55, genislik * 0.45])
     ust.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0),
                              ("RIGHTPADDING", (0, 0), (-1, -1), 0)]))

@@ -7,7 +7,7 @@ import { useSiteSettings } from '@/lib/siteSettings';
  *
  * Tasarım, kullanıcının verdiği prototipten birebir alındı: yuvarlatılmış
  * kare içinde `</>` işareti, sağ üst köşede canlılık noktası, yanında iki
- * satırlık künye ("By Mehmet KURU Dev" / "Full-stack & AI Systems").
+ * satırlık künye ("By Mehmet KURU Dev" / "AI Dev Systems Platform").
  *
  * Renkler temadan geliyor: vurgu `--primary`, kutunun degrade zemini
  * `--primary` ve `--marka-ikinci`. Böylece logo mor dalda mor-pembe, yeşil
@@ -118,7 +118,14 @@ export default function MarkaLogosu({
               ®
             </span>
           </span>
-          <span className="mt-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+          {/*
+            Slogan, harf aralığı açılarak üstteki adın genişliğine yayılıyor
+            (® hariç). Yazı boyu 10 px sabit; ad mobilde 16, `sm` üstünde
+            18 px olduğu için aralık da iki kademeli. Değerler canlı yazı
+            tipleriyle ölçüldü: "AI DEV SYSTEMS PLATFORM" → mobil 162 px
+            (ad 168), masaüstü 183 px (ad 189).
+          */}
+          <span className="mt-1 whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.106em] text-muted-foreground sm:tracking-[0.194em]">
             {t('ui.brandTagline')}
           </span>
         </span>

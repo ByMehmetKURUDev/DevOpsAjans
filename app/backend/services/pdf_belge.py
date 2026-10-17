@@ -351,7 +351,7 @@ class MarkaKunyesi(Flowable):
 def _ust_bilgi(ajans: Dict[str, Any], st: Dict[str, ParagraphStyle], dil: str) -> List[Any]:
     e = ETIKET[dil]
     unvan = (ajans.get("unvan") or "").strip()
-    parcalar: List[Any] = [MarkaKunyesi("By Mehmet KURU Dev", "Full-stack & AI Systems"), Spacer(1, 2 * mm)]
+    parcalar: List[Any] = [MarkaKunyesi("By Mehmet KURU Dev", "AI Dev Systems Platform"), Spacer(1, 2 * mm)]
     satirlar = []
     if unvan and unvan.lower() != "by mehmet kuru dev":
         satirlar.append(f"<b>{_metin(unvan)}</b>")
